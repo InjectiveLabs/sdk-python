@@ -1,0 +1,376 @@
+// Code generated with goa v3.3.1, DO NOT EDIT.
+//
+// InjectiveSpotMarketsRPC protocol buffer definition
+//
+// Command:
+// $ goa gen github.com/InjectiveLabs/injective-exchange/api/design -o ../
+
+syntax = "proto3";
+
+package injective_spot_markets_rpc;
+
+option go_package = "/injective_spot_markets_rpcpb";
+
+// InjectiveSpotMarketsRPC defines gRPC API of Spot Markets provider.
+service InjectiveSpotMarketsRPC {
+	// Get a list of Spot Markets
+	rpc MarketList (MarketListRequest) returns (MarketListResponse);
+	// Get details of a single spot market
+	rpc MarketDetails (MarketDetailsRequest) returns (MarketDetailsResponse);
+	// Stream live updates of selected spot markets
+	rpc StreamMarketDetails (StreamMarketDetailsRequest) returns (stream StreamMarketDetailsResponse);
+	// Orderbook of a Spot Market
+	rpc MarketOrderbook (MarketOrderbookRequest) returns (MarketOrderbookResponse);
+	// Stream live updates of selected spot market orderbook
+	rpc StreamMarketOrderbook (StreamMarketOrderbookRequest) returns (stream StreamMarketOrderbookResponse);
+	// Orders of a Spot Market
+	rpc MarketOrders (MarketOrdersRequest) returns (MarketOrdersResponse);
+	// Stream updates to individual orders of a Spot Market
+	rpc StreamMarketOrders (StreamMarketOrdersRequest) returns (stream StreamMarketOrdersResponse);
+	// Trades of a Spot Market
+	rpc MarketTrades (MarketTradesRequest) returns (MarketTradesResponse);
+	// Stream newly executed trades from Spot Market
+	rpc StreamMarketTrades (StreamMarketTradesRequest) returns (stream StreamMarketTradesResponse);
+	// List all subaccounts IDs of an account address
+	rpc SubaccountsList (SubaccountsListRequest) returns (SubaccountsListResponse);
+	// List orders posted from this subaccount
+	rpc SubaccountOrdersList (SubaccountOrdersListRequest) returns (SubaccountOrdersListResponse);
+	// List trades executed by this subaccount
+	rpc SubaccountTradesList (SubaccountTradesListRequest) returns (SubaccountTradesListResponse);
+	// List all subaccount balances
+	rpc SubaccountBalancesList (SubaccountBalancesListRequest) returns (SubaccountBalancesListResponse);
+	// Gets a balance for specific coin denom
+	rpc SubaccountBalanceEndpoint (SubaccountBalanceRequest) returns (SubaccountBalanceResponse);
+	// Get subaccount's deposits and withdrawals history
+	rpc SubaccountHistory (SubaccountHistoryRequest) returns (SubaccountHistoryResponse);
+}
+
+message MarketListRequest {
+	// Filter by market status
+	string market_status = 1;
+	// Filter by the Coin denomination of the base currency
+	string base_denom = 2;
+	// Filter by the Coin denomination of the quote currency
+	string quote_denom = 3;
+}
+
+message MarketListResponse {
+	// Spot Markets list
+	repeated SpotMarketInfo markets = 1;
+}
+
+message SpotMarketInfo {
+	// SpotMarket ID is keccak265(baseDenom || quoteDenom)
+	string market_id = 1;
+	// The status of the market
+	string market_status = 2;
+	// A name of the pair in format AAA/BBB, where AAA is base asset, BBB is quote
+// asset.
+	string ticker = 3;
+	// Coin denom used for the base asset.
+	string base_denom = 4;
+	// Coin denom used for the quote asset.
+	string quote_denom = 5;
+	// Defines the fee percentage makers pay when trading (in quote asset)
+	string maker_fee_rate = 6;
+	// Defines the fee percentage takers pay when trading (in quote asset)
+	string taker_fee_rate = 7;
+	// Percentage of the transaction fee shared with the service provider
+	string service_provider_fee = 8;
+	// Defines the maximum amount of decimal places that each order's price cannot
+// exceed
+	uint32 max_price_scale_decimals = 9;
+	// Defines the maximum amount of decimal places that each order's quantity
+// cannot exceed
+	uint32 max_quantity_scale_decimals = 10;
+}
+
+message MarketDetailsRequest {
+	// MarketId of the market we want to fetch
+	string market_id = 1;
+}
+
+message MarketDetailsResponse {
+	// Info about particular spot market
+	SpotMarketInfo market = 1;
+}
+
+message StreamMarketDetailsRequest {
+	// List of market IDs for updates streaming, empty means 'ALL' spot markets
+	repeated string market_ids = 1;
+}
+
+message StreamMarketDetailsResponse {
+	// Info about particular spot market
+	SpotMarketInfo market = 1;
+	// Update type
+	string operation_type = 2;
+	// Operation timestamp
+	string timestamp = 3;
+}
+
+message MarketOrderbookRequest {
+	// MarketId of the market's orderbook we want to fetch
+	string market_id = 1;
+}
+
+message MarketOrderbookResponse {
+	// Orderbook of a particular spot market
+	SpotMarketOrderbook orderbook = 1;
+}
+
+message SpotMarketOrderbook {
+	// Array of price levels for buys
+	repeated PriceLevel buys = 1;
+	// Array of price levels for sells
+	repeated PriceLevel sells = 2;
+}
+
+message PriceLevel {
+	// Price number of the price level.
+	string price = 1;
+	// Quantity of the price level.
+	string quantity = 2;
+	// Price level last updated timestamp in UNIX millis.
+	string timestamp = 3;
+}
+
+message StreamMarketOrderbookRequest {
+	// Market ID for orderbook updates streaming
+	string market_id = 1;
+}
+
+message StreamMarketOrderbookResponse {
+	// Orderbook of a Spot Market
+	SpotMarketOrderbook orderbook = 1;
+	// Order update type
+	string operation_type = 2;
+	// Operation timestamp
+	string timestamp = 3;
+}
+
+message MarketOrdersRequest {
+	// MarketId of the market's orderbook we want to fetch
+	string market_id = 1;
+	// Look for specific order type
+	string order_type = 2;
+	// Look for specific trade direction of an order
+	string direction = 3;
+	// Look for specific subaccountId of an order
+	string subaccount_id = 4;
+}
+
+message MarketOrdersResponse {
+	// List of spot market orders
+	repeated SpotMarketOrder orders = 1;
+}
+
+message SpotMarketOrder {
+	// Hash of the order
+	string order_hash = 1;
+	// The type of the order
+	string order_type = 2;
+	// SpotMarket ID is keccak265(baseDenom || quoteDenom)
+	string market_id = 3;
+	// The subaccountId that this order belongs to
+	string subaccount_id = 4;
+	// Price of the order
+	string price = 5;
+	// Quantity of the order
+	string quantity = 6;
+	// The amount of the quantity remaining unfilled
+	string unfilled_quantity = 7;
+	// Trigger price is the trigger price used by stop/take orders
+	string trigger_price = 8;
+	// Fee recipient address
+	string fee_recipient = 9;
+}
+
+message StreamMarketOrdersRequest {
+	// MarketId of the market's orderbook we want to fetch
+	string market_id = 1;
+	// Look for specific order type
+	string order_type = 2;
+	// Look for specific trade direction of an order
+	string direction = 3;
+	// Look for specific subaccountId of an order
+	string subaccount_id = 4;
+}
+
+message StreamMarketOrdersResponse {
+	// Updated market order
+	SpotMarketOrder order = 1;
+	// Order update type
+	string operation_type = 2;
+	// Operation timestamp
+	string timestamp = 3;
+}
+
+message MarketTradesRequest {
+	// MarketId of the market's orderbook we want to fetch
+	string market_id = 1;
+	// Filter by execution type of the trade
+	string execution_type = 2;
+	// Filter by direction the trade
+	string direction = 3;
+	// SubaccountId of the trader we want to get the trades from
+	string subaccount_id = 4;
+}
+
+message MarketTradesResponse {
+	// Trades of a Spot Market
+	repeated SpotMarketTrade trades = 1;
+}
+
+message SpotMarketTrade {
+	// Maker order hash.
+	string order_hash = 1;
+	// The subaccountId that executed the trade
+	string subaccount_id = 2;
+	// The ID of the market that this trade is in
+	string market_id = 3;
+	// The execution type of the trade
+	string trade_execution_type = 4;
+	// The direction the trade
+	string trade_direction = 5;
+	// Price level at which trade has been executed
+	PriceLevel price = 6;
+	// The fee associated with the trade (base asset denom)
+	string fee = 7;
+	// Timestamp of trade execution
+	string executed_at = 8;
+}
+
+message StreamMarketTradesRequest {
+	// MarketId of the market's orderbook we want to fetch
+	string market_id = 1;
+	// Filter by execution type of the trade
+	string execution_type = 2;
+	// Filter by direction the trade
+	string direction = 3;
+	// SubaccountId of the trader we want to get the trades from
+	string subaccount_id = 4;
+}
+
+message StreamMarketTradesResponse {
+	// New spot market trade
+	SpotMarketTrade trade = 1;
+	// Executed trades update type
+	string operation_type = 2;
+	// Operation timestamp
+	string timestamp = 3;
+}
+
+message SubaccountsListRequest {
+	// Account address, the subaccounts owner
+	string account_address = 1;
+}
+
+message SubaccountsListResponse {
+	repeated string subaccounts = 1;
+}
+
+message SubaccountOrdersListRequest {
+	// subaccount ID to filter orders for specific subaccount
+	string subaccount_id = 1;
+	// Market ID to filter orders for specific market
+	string market_id = 2;
+}
+
+message SubaccountOrdersListResponse {
+	// List of spot orders
+	repeated SpotMarketOrder orders = 1;
+}
+
+message SubaccountTradesListRequest {
+	// SubaccountId of the trader we want to get the trades from
+	string subaccount_id = 1;
+	// Filter trades by market ID
+	string market_id = 2;
+	// Filter by execution type of trades
+	string execution_type = 3;
+	// Filter by direction trades
+	string direction = 4;
+}
+
+message SubaccountTradesListResponse {
+	// List of spot market trades
+	repeated SpotMarketTrade trades = 1;
+}
+
+message SubaccountBalancesListRequest {
+	// SubaccountId of the trader we want to get the trades from
+	string subaccount_id = 1;
+	// Filter balances by denom
+	string denom = 2;
+}
+
+message SubaccountBalancesListResponse {
+	// List of subaccount balances
+	repeated SubaccountBalance balances = 1;
+}
+
+message SubaccountBalance {
+	// Related subaccount ID
+	string subaccount_id = 1;
+	// Account address, owner of this subaccount
+	string account_address = 2;
+	// Coin denom on the chain.
+	string denom = 3;
+	SubaccountDeposit deposit = 4;
+}
+
+message SubaccountDeposit {
+	string total_balance = 1;
+	string available_balance = 2;
+}
+
+message SubaccountBalanceRequest {
+	// SubaccountId of the trader we want to get the trades from
+	string subaccount_id = 1;
+	// Specify denom to get balance
+	string denom = 2;
+}
+
+message SubaccountBalanceResponse {
+	// Subaccount balance
+	SubaccountBalance balance = 1;
+}
+
+message SubaccountHistoryRequest {
+	// SubaccountId of the trader we want to get the history from
+	string subaccount_id = 1;
+	// Filter history by denom
+	string denom = 2;
+	// Filter history by transfer type
+	repeated string transfer_types = 3;
+}
+
+message SubaccountHistoryResponse {
+	// List of subaccount transfers
+	repeated SubaccountBalanceTransfer transfers = 1;
+}
+
+message SubaccountBalanceTransfer {
+	// Type of the subaccount balance transfer
+	string transfer_type = 1;
+	// Subaccount ID of the sending side
+	string src_subaccount_id = 2;
+	// Account address of the sending side
+	string src_account_address = 3;
+	// Subaccount ID of the receiving side
+	string dst_subaccount_id = 4;
+	// Account address of the receiving side
+	string dst_account_address = 5;
+	// Coin amount of the transfer
+	CosmosCoin amount = 6;
+	// Timestamp of the transfer
+	string executed_at = 7;
+}
+
+message CosmosCoin {
+	// Coin denominator
+	string denom = 1;
+	// Coin amount (big int)
+	string amount = 2;
+}
