@@ -3,14 +3,15 @@ all:
 gen: gen-client
 
 gen-client: copy-proto
-	python -m grpc_tools.protoc -I./grpc_client/pb/ \
-		--python_out=./grpc_client/src/ \
-		--grpc_python_out=./grpc_client/src/ \
-		./grpc_client/pb/injective_exchange_rpc.proto ./grpc_client/pb/injective_spot_markets_rpc.proto		
+	python -m grpc_tools.protoc -I./exchange_api/pb/ \
+		--python_out=./exchange_api/src/ \
+		--grpc_python_out=./exchange_api/src/ \
+		./exchange_api/pb/injective_exchange_rpc.proto ./exchange_api/pb/injective_spot_exchange_rpc.proto ./exchange_api/pb/injective_derivative_exchange_rpc.proto	
 
 copy-proto:
-	mkdir -p grpc_client/pb/
-	cp ../injective-exchange/api/gen/grpc/injective_exchange_rpc/pb/injective_exchange_rpc.proto grpc_client/pb/
-	cp ../injective-exchange/api/gen/grpc/injective_spot_markets_rpc/pb/injective_spot_markets_rpc.proto grpc_client/pb/
+	mkdir -p exchange_api/pb/
+	cp ../injective-exchange/api/gen/grpc/injective_exchange_rpc/pb/injective_exchange_rpc.proto exchange_api/pb/
+	cp ../injective-exchange/api/gen/grpc/injective_spot_exchange_rpc/pb/injective_spot_exchange_rpc.proto exchange_api/pb/
+	cp ../injective-exchange/api/gen/grpc/injective_derivative_exchange_rpc/pb/injective_derivative_exchange_rpc.proto exchange_api/pb/
 
 .PHONY: gen gen-client copy-proto

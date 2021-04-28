@@ -11,9 +11,9 @@ from shutil import rmtree
 
 from setuptools import find_packages, setup, Command
 
-NAME = 'injective.exchange_api'
-DESCRIPTION = 'Injective Exchange API for Python, GRPC stubs and client.'
-URL = 'https://github.com/me/myproject'
+NAME = 'injective.sdk'
+DESCRIPTION = 'Injective Python SDK, with Exchange API client'
+URL = 'https://github.com/InjectiveLabs/sdk-python'
 EMAIL = 'max@injectiveprotocol.com'
 AUTHOR = 'Injective Labs'
 REQUIRES_PYTHON = '>=3.6.0'
@@ -97,7 +97,7 @@ setup(
     author_email=EMAIL,
     python_requires=REQUIRES_PYTHON,
     url=URL,
-    py_modules=['grpc_client'],
+    py_modules=['exchange_api'],
 
     # entry_points={
     #     'console_scripts': ['mycli=mymodule:cli'],
