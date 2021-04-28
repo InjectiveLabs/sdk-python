@@ -61,21 +61,21 @@ class InjectiveExchangeRPCServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetTx(self, request, context):
-        """Get transaction details by hash.
+        """GetTx gets transaction details by hash.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def PrepareTx(self, request, context):
-        """Generates a Web3-signable body for a Cosmos transaction
+        """PrepareTx generates a Web3-signable body for a Cosmos transaction
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def BroadcastTx(self, request, context):
-        """Broadcast signed Web3 transaction
+        """BroadcastTx broadcasts a signed Web3 transaction
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')

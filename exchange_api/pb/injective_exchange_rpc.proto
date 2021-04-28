@@ -17,11 +17,11 @@ service InjectiveExchangeRPC {
 	rpc Ping (PingRequest) returns (PingResponse);
 	// Returns injective-exchange version.
 	rpc Version (VersionRequest) returns (VersionResponse);
-	// Get transaction details by hash.
+	// GetTx gets transaction details by hash.
 	rpc GetTx (GetTxRequest) returns (GetTxResponse);
-	// Generates a Web3-signable body for a Cosmos transaction
+	// PrepareTx generates a Web3-signable body for a Cosmos transaction
 	rpc PrepareTx (PrepareTxRequest) returns (PrepareTxResponse);
-	// Broadcast signed Web3 transaction
+	// BroadcastTx broadcasts a signed Web3 transaction
 	rpc BroadcastTx (BroadcastTxRequest) returns (BroadcastTxResponse);
 }
 

@@ -19,27 +19,28 @@ import grpc
 
 import injective_exchange_rpc_pb2
 import injective_exchange_rpc_pb2_grpc
-import injective_spot_markets_rpc_pb2
-import injective_spot_markets_rpc_pb2_grpc
-
+import injective_spot_exchange_rpc_pb2
+import injective_spot_exchange_rpc_pb2_grpc
+import injective_derivative_exchange_rpc_pb2
+import injective_derivative_exchange_rpc_pb2_grpc
 
 async def main() -> None:
     async with grpc.aio.insecure_channel('localhost:9910') as channel:
         exchange_rpc = injective_exchange_rpc_pb2_grpc.InjectiveExchangeRPCStub(channel)
-        spot_markets_rpc = injective_spot_markets_rpc_pb2_grpc.InjectiveSpotMarketsRPCStub(channel)
+        spot_exchange_rpc = injective_spot_exchange_rpc_pb2_grpc.InjectiveSpotExchangeRPCStub(channel)
 
         resp = await exchange_rpc.Version(injective_exchange_rpc_pb2.VersionRequest())
         print("-- Connected to Injective Exchange (version: %s, built %s)" % (resp.version, resp.meta_data["BuildDate"]))
 
-        resp = await spot_markets_rpc.MarketList(injective_spot_markets_rpc_pb2.MarketListRequest())
+        resp = await spot_exchange_rpc.Markets(injective_spot_exchange_rpc_pb2.MarketsRequest())
         print("\n-- Available markets:")
         for m in resp.markets:
             print(m.ticker, "=", m.market_id)
 
         selected_market = resp.markets[0]
         print("\n-- Watching for order updates on market %s" % selected_market.ticker)
-        stream_req = injective_spot_markets_rpc_pb2.StreamMarketOrdersRequest(market_id=selected_market.market_id)
-        orders_stream = spot_markets_rpc.StreamMarketOrders(stream_req)
+        stream_req = injective_spot_exchange_rpc_pb2.StreamOrdersRequest(market_id=selected_market.market_id)
+        orders_stream = spot_exchange_rpc.StreamOrders(stream_req)
         async for order in orders_stream:
             print("\n-- Order Update:", order)
 
