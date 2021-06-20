@@ -6,6 +6,12 @@ name = "pypi"
 [packages]
 grpcio = "*"
 asyncio = "*"
+aiohttp = "*"
+pysha3 = "*"
+ecdsa = ">=0.14.0"
+bech32 = ">=1.1.0"
+mnemonic = ">=0.19"
+hdwallets = ">=0.1.0"
 
 [dev-packages]
 grpcio-tools = "*"

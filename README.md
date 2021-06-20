@@ -4,11 +4,19 @@ WIP
 
 ### Usage
 
-```
+Requires Python 3.9+
+
+```bash
 $ pipenv shell
 $ pipenv install
 
-$ python exchange_api/src/main.py
+# connecting to Injective Exchange API
+# and listening for new orders
+$ python exchange_api/example.py
+
+# sending a msg with bank transfer
+# signs and posts a Tx to the Injective Chain
+$ python chainclient/example.py
 ```
 
 ### Development

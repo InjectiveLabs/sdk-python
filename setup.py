@@ -9,19 +9,24 @@ import os
 import sys
 from shutil import rmtree
 
-from setuptools import find_packages, setup, Command
+from setuptools import setup, Command
 
 NAME = 'injective.sdk'
 DESCRIPTION = 'Injective Python SDK, with Exchange API client'
 URL = 'https://github.com/InjectiveLabs/sdk-python'
 EMAIL = 'max@injectiveprotocol.com'
 AUTHOR = 'Injective Labs'
-REQUIRES_PYTHON = '>=3.6.0'
-VERSION = '0.1.0'
+REQUIRES_PYTHON = '>=3.9.0'
+VERSION = '0.2.0'
 
 REQUIRED = [
     'grpcio',
     'asyncio',
+    'aiohttp',
+    'ecdsa',
+    'bech32',
+    'mnemonic',
+    'hdwallets',
 ]
 
 # The rest you shouldn't have to touch too much :)
@@ -97,7 +102,7 @@ setup(
     author_email=EMAIL,
     python_requires=REQUIRES_PYTHON,
     url=URL,
-    py_modules=['exchange_api'],
+    py_modules=['exchange_api', 'chainclient'],
 
     # entry_points={
     #     'console_scripts': ['mycli=mymodule:cli'],
@@ -111,7 +116,7 @@ setup(
         'License :: OSI Approved :: Apache 2.0 License',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy'
     ],
