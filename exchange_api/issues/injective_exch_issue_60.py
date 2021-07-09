@@ -46,25 +46,39 @@ async def main() -> None:
         for m in resp.markets:
             print(m.ticker, "=", m.market_id)
 
-        selected_market = resp.markets[0]
+        selected_market = resp.markets[1]
 
         mkt_id = "0x17d9b5fb67666df72a5a858eb9b81104b99da760e3036a8243e05532d50e1c7c"
         acct_id = "0xbdaedec95d563fb05240d6e01821008454c24c36000000000000000000000000"
         
-        print("\n-- Watching for order updates on market %s" % selected_market.ticker)
         #success ->stream_req = spot_exchange_rpc_pb.StreamOrdersRequest(market_id=selected_market.market_id)
         #success -> stream_req = spot_exchange_rpc_pb.StreamOrdersRequest(market_id=selected_market.market_id, order_type='buy')
         
         # this fails 
-        stream_req = spot_exchange_rpc_pb.StreamOrdersRequest(market_id=selected_market.market_id, subaccount_id=acct_id)
-        orders_stream = spot_exchange_rpc.StreamOrders(stream_req)
-        async for order in orders_stream:
-            print("\n-- Order Update:", order)
+        print("\n-- Watching for order updates on market %s" % selected_market.ticker)
+        order_stream_req = spot_exchange_rpc_pb.StreamOrdersRequest(market_id=selected_market.market_id, subaccount_id=acct_id)
+        orders_stream = spot_exchange_rpc.StreamOrders(order_stream_req)
+        
+        print("\n-- Watching for trade updates on market %s" % selected_market.ticker)
+        trade_stream_req = spot_exchange_rpc_pb.StreamTradesRequest(market_id=selected_market.market_id,subaccount_id=acct_id, execution_side='maker')
+        trades_stream = spot_exchange_rpc.StreamTrades(trade_stream_req)
+
+        async for t in trades_stream:
+            print(t)
+        await print_stream(list(orders_stream))
+
+
+async def print_stream(objects_stream):
+    for trade in objects_stream:
+        await asyncio.sleep(1)
+        print("\n-- Trade Update:", trade)
 
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
-    asyncio.get_event_loop().run_until_complete(main())
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main())
+    loop.close()
 
 
 
