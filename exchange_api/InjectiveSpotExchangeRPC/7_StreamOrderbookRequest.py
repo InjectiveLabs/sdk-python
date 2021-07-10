@@ -54,7 +54,7 @@ async def main() -> None:
         print("\n-- Watching for order updates on market %s" % selected_market.ticker)
         stream_req = spot_exchange_rpc_pb.StreamOrderbookRequest(market_id=mkt_id) #Request
         
-        orders_stream = spot_exchange_rpc.StreamOrderbookRequest(stream_req)
+        orders_stream = spot_exchange_rpc.StreamOrderbook(stream_req)
         async for order in orders_stream:
             print("\n\033[1;34;40m API Response  \n")
             print("\033[0;37;40m\n-- Order Update:", order)

@@ -52,12 +52,9 @@ async def main() -> None:
         acct_id = "0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000"
         
         print("\n-- Watching for order updates on market %s" % selected_market.ticker)
-        stream_req = spot_exchange_rpc_pb.OrdersRequest(market_id=mkt_id) #Request
-        
-        orders_stream = spot_exchange_rpc.StreamOrders(stream_req)
-        async for order in orders_stream:
-            print("\n\033[1;34;40m API Response  \n")
-            print("\033[0;37;40m\n-- Order Update:", order)
+        mresp = await spot_exchange_rpc.Orders(spot_exchange_rpc_pb.OrdersRequest(market_id=mkt_id)) #Request
+        print("\n\033[1;34;40m API Response  \n")
+        print("\033[0;37;40m\n-- Order Update:", mresp)
 
 
 if __name__ == '__main__':

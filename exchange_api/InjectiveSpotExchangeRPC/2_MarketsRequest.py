@@ -46,19 +46,11 @@ async def main() -> None:
         for m in resp.markets:
             print(m.ticker, "=", m.market_id)
 
-        selected_market = resp.markets[0]
-
-        mkt_id = "0x17d9b5fb67666df72a5a858eb9b81104b99da760e3036a8243e05532d50e1c7c" #INJ/USDT Spot
-        acct_id = "0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000"
-        mkt_status = "active"
+        status_active = "active"
         
-        print("\n-- Watching for order updates on market %s" % selected_market.ticker)
-        stream_req = spot_exchange_rpc_pb.MarketsRequest(market_status=mkt_id) #Request
-        
-        orders_stream = spot_exchange_rpc.StreamOrders(stream_req)
-        async for order in orders_stream:
-            print("\n\033[1;34;40m API Response  \n")
-            print("\033[0;37;40m\n-- Order Update:", order)
+        mresp = await spot_exchange_rpc.Markets(spot_exchange_rpc_pb.MarketsRequest(market_status=status_active))
+        print("\n\033[1;34;40m API Response  \n")
+        print("\033[0;37;40m\n-- Order Update:", mresp)
 
 
 if __name__ == '__main__':
