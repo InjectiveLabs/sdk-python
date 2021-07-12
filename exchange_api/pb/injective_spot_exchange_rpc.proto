@@ -161,12 +161,10 @@ message StreamOrderbookResponse {
 message OrdersRequest {
 	// MarketId of the market's orderbook we want to fetch
 	string market_id = 1;
-	// Look for specific order type
-	string order_type = 2;
-	// Look for specific trade direction of an order
-	string direction = 3;
+	// Look for specific order side
+	string order_side = 2;
 	// Look for specific subaccountId of an order
-	string subaccount_id = 4;
+	string subaccount_id = 3;
 }
 
 message OrdersResponse {
@@ -178,7 +176,7 @@ message SpotLimitOrder {
 	// Hash of the order
 	string order_hash = 1;
 	// The type of the order
-	string order_type = 2;
+	string order_side = 2;
 	// SpotMarket ID is keccak265(baseDenom || quoteDenom)
 	string market_id = 3;
 	// The subaccountId that this order belongs to
@@ -204,12 +202,10 @@ message SpotLimitOrder {
 message StreamOrdersRequest {
 	// MarketId of the market's orderbook we want to fetch
 	string market_id = 1;
-	// Look for specific order type
-	string order_type = 2;
-	// Look for specific trade direction of an order
-	string direction = 3;
+	// Look for specific order side
+	string order_side = 2;
 	// Look for specific subaccountId of an order
-	string subaccount_id = 4;
+	string subaccount_id = 3;
 }
 
 message StreamOrdersResponse {

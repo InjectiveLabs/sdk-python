@@ -23,7 +23,7 @@ $ python chainclient/example.py
 
 To copy proto schemas and regenerate GRPC clients:
 
-```
+```bash
 $ pipenv shell
 $ pipenv install --dev
 
