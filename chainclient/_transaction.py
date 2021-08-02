@@ -29,7 +29,7 @@ class Transaction:
         gas: int,
         fee_denom: str = "inj",
         memo: str = "",
-        chain_id: str = "injective-888",
+        chain_id: str = "injective-1",
         hrp: str = DEFAULT_BECH32_HRP,
         sync_mode: SyncMode = "block",
     ) -> None:
@@ -65,8 +65,8 @@ class Transaction:
             "type": "exchange/MsgDeposit",
             "value": {
                 "sender": privkey_to_address(self._privkey, hrp=self._hrp),
-                "subaccount": subaccount,
-                "amount": [{"denom": denom, "amount": str(amount)}],
+                "subaccount_id": subaccount,
+                "amount": {"denom": denom, "amount": str(amount)},
             },
         }
         self._msgs.append(msg)

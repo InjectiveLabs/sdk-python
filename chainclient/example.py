@@ -47,8 +47,8 @@ async def main() -> None:
         privkey=sender_pk,
         account_num=acc_num,
         sequence=acc_seq,
-        gas=100000,
-        fee=100000 * MIN_GAS_PRICE,
+        gas=200000,
+        fee=200000 * MIN_GAS_PRICE,
         sync_mode="block"
     )
     tx.add_cosmos_bank_msg_send(
@@ -56,6 +56,11 @@ async def main() -> None:
         amount=100000000000000000,  # 0.1 INJ
         denom="inj",
     )
+    # tx.add_exchange_msg_deposit(
+    #     subaccount="0xbdaedec95d563fb05240d6e01821008454c24c36000000000000000000000000",
+    #     amount=100000000000000000,  # 0.1 INJ
+    #     denom="inj",
+    # )
 
     tx_json = tx.get_signed()
 
