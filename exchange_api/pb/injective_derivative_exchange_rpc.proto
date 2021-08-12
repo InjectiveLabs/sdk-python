@@ -232,7 +232,7 @@ message DerivativeLimitOrder {
 	string order_hash = 1;
 	// The type of the order
 	string order_side = 2;
-	// DerivativeMarket ID
+	// Derivative Market ID
 	string market_id = 3;
 	// The subaccountId that this order belongs to
 	string subaccount_id = 4;
@@ -289,8 +289,6 @@ message DerivativePosition {
 	string liquidation_price = 8;
 	// MarkPrice of the position
 	string mark_price = 9;
-	// Unrealized PNL of the Position
-	string unrealized_pnl = 10;
 	// Aggregate Quantity of the Reduce Only orders associated with the position
 	string aggregate_reduce_only_quantity = 11;
 }
