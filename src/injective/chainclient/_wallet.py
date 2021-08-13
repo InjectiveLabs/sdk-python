@@ -1,5 +1,3 @@
-import hashlib
-
 import bech32
 import ecdsa
 import hdwallets
@@ -7,7 +5,7 @@ import mnemonic
 import sha3
 
 from hdwallets import BIP32DerivationError as BIP32DerivationError
-from _typings import Wallet
+from ._typings import Wallet
 
 
 DEFAULT_DERIVATION_PATH = "m/44'/60'/0'/0/0"

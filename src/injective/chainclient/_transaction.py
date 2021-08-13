@@ -1,13 +1,12 @@
 import base64
-import hashlib
 import json
 from typing import Any, Dict, List
 
 import ecdsa
 import sha3
 
-from _wallet import DEFAULT_BECH32_HRP, privkey_to_address, privkey_to_pubkey
-from _typings import SyncMode
+from ._wallet import DEFAULT_BECH32_HRP, privkey_to_address, privkey_to_pubkey
+from ._typings import SyncMode
 
 
 class Transaction:
@@ -47,7 +46,9 @@ class Transaction:
 
     # Cosmos SDK • Bank Module
 
-    def add_cosmos_bank_msg_send(self, recipient: str, amount: int, denom: str = "inj") -> None:
+    def add_cosmos_bank_msg_send(
+        self, recipient: str, amount: int, denom: str = "inj"
+    ) -> None:
         msg = {
             "type": "cosmos-sdk/MsgSend",
             "value": {
@@ -60,7 +61,9 @@ class Transaction:
 
     # Injective • Exchange Module
 
-    def add_exchange_msg_deposit(self, subaccount: str, amount: int, denom: str = "inj") -> None:
+    def add_exchange_msg_deposit(
+        self, subaccount: str, amount: int, denom: str = "inj"
+    ) -> None:
         msg = {
             "type": "exchange/MsgDeposit",
             "value": {
@@ -85,7 +88,10 @@ class Transaction:
                 "signatures": [
                     {
                         "signature": self._sign(),
-                        "pub_key": {"type": "injective/PubKeyEthSecp256k1", "value": base64_pubkey},
+                        "pub_key": {
+                            "type": "injective/PubKeyEthSecp256k1",
+                            "value": base64_pubkey,
+                        },
                         "account_number": str(self._account_num),
                         "sequence": str(self._sequence),
                     }
@@ -96,14 +102,20 @@ class Transaction:
         return json.dumps(signed_tx, separators=(",", ":"))
 
     def _sign(self) -> str:
-        message_str = json.dumps(self._get_sign_message(), separators=(",", ":"), sort_keys=True)
+        message_str = json.dumps(
+            self._get_sign_message(), separators=(",", ":"), sort_keys=True
+        )
         message_bytes = message_str.encode("utf-8")
 
         privkey = ecdsa.SigningKey.from_string(self._privkey, curve=ecdsa.SECP256k1)
         signature_compact_keccak = privkey.sign_deterministic(
-            message_bytes, hashfunc=sha3.keccak_256, sigencode=ecdsa.util.sigencode_string_canonize
+            message_bytes,
+            hashfunc=sha3.keccak_256,
+            sigencode=ecdsa.util.sigencode_string_canonize,
         )
-        signature_base64_str = base64.b64encode(signature_compact_keccak).decode("utf-8")
+        signature_base64_str = base64.b64encode(signature_compact_keccak).decode(
+            "utf-8"
+        )
         return signature_base64_str
 
     def _get_sign_message(self) -> Dict[str, Any]:
