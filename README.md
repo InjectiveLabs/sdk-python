@@ -12,11 +12,11 @@ $ pipenv install
 
 # connecting to Injective Exchange API
 # and listening for new orders
-$ python exchange_api/example.py
+$ python src/exchange_api/examples/example.py
 
 # sending a msg with bank transfer
 # signs and posts a Tx to the Injective Chain
-$ python chainclient/example.py
+$ python src/chainclient/examples/example.py
 ```
 
 ### Development
