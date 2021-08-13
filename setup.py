@@ -17,7 +17,7 @@ URL = "https://github.com/InjectiveLabs/sdk-python"
 EMAIL = "max@injectiveprotocol.com"
 AUTHOR = "Injective Labs"
 REQUIRES_PYTHON = ">=3.9.0"
-VERSION = "0.2.0"
+VERSION = "0.2.2"
 
 REQUIRED = [
     "grpcio",
