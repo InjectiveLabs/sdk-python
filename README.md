@@ -2,6 +2,11 @@
 
 WIP
 
+### Quick Start
+
+pip install injective-py
+
+
 ### Usage
 
 Requires Python 3.9+
@@ -31,6 +36,11 @@ $ make copy-proto
 $ make gen
 ```
 
+### Quick Start
+```python
+import injective.chain_client
+import injective.exchange_api
+```
 ## License
 
-Apache 2.0
+Apache Software license 2.0
