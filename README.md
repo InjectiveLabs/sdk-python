@@ -1,7 +1,5 @@
 ## Injective Python SDK
 
-WIP
-
 Note: Apple `M1` processor is not supported
 
 ### Dependences
@@ -26,17 +24,18 @@ import injective.exchange_api
 ### Usage
 Requires Python 3.9+
 
+[link to examples](https://github.com/InjectiveLabs/sdk-python/tree/master/examples)
 ```bash
 $ pipenv shell
 $ pipenv install
 
 # connecting to Injective Exchange API
 # and listening for new orders
-$ python src/exchange_api/examples/example.py
+$ python examples/exchange_api_example/examples/example.py
 
 # sending a msg with bank transfer
 # signs and posts a Tx to the Injective Chain
-$ python src/chainclient/examples/example.py
+$ python examples/chain_client_example/examples/example.py
 ```
 Upgrade `pip` to the latest version, if you see these warnings:
 ```
