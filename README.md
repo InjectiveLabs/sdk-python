@@ -1,7 +1,5 @@
 ## Injective Python SDK
 
-WIP
-
 Note: Apple `M1` processor is not supported
 
 ### Dependences
