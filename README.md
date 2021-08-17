@@ -18,6 +18,10 @@ sudo dnf install python3-devel
 ```bash
 pip install injective-py
 ```
+```python
+import injective.chain_client
+import injective.exchange_api
+```
 
 ### Usage
 Requires Python 3.9+
@@ -52,11 +56,6 @@ $ make copy-proto
 $ make gen
 ```
 
-### Quick Start
-```python
-import injective.chain_client
-import injective.exchange_api
-```
 ## License
 
 Apache Software License 2.0
