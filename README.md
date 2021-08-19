@@ -24,7 +24,7 @@ import injective.exchange_api
 ### Usage
 Requires Python 3.9+
 
-[link to examples](https://github.com/InjectiveLabs/sdk-python/tree/master/examples)
+[examples](https://github.com/InjectiveLabs/sdk-python/tree/master/examples): https://github.com/InjectiveLabs/sdk-python/tree/master/examples
 ```bash
 $ pipenv shell
 $ pipenv install
