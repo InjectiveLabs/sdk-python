@@ -17,32 +17,17 @@ import asyncio
 import logging
 import grpc
 
-
-from injective.exchange_api import injective_accounts_rpc_pb2 as accounts_rpc_pb
-from injective.exchange_api import injective_accounts_rpc_pb2_grpc as accounts_rpc_grpc
-from injective.exchange_api import injective_derivative_exchange_rpc_pb2 as derivative_exchange_rpc_pb
-from injective.exchange_api import injective_derivative_exchange_rpc_pb2_grpc as derivative_exchange_rpc_grpc
-from injective.exchange_api import injective_exchange_rpc_pb2 as exchange_rpc_pb
-from injective.exchange_api import injective_exchange_rpc_pb2_grpc as exchange_rpc_grpc
-from injective.exchange_api import injective_insurance_rpc_pb2 as insurance_rpc_pb
-from injective.exchange_api import injective_insurance_rpc_pb2_grpc as insurance_rpc_grpc
-from injective.exchange_api import injective_oracle_rpc_pb2 as oracle_rpc_pb
-from injective.exchange_api import injective_oracle_rpc_pb2_grpc as oracle_rpc_grpc
-from injective.exchange_api import injective_spot_exchange_rpc_pb2 as spot_exchange_rpc_pb
-from injective.exchange_api import injective_spot_exchange_rpc_pb2_grpc as spot_exchange_rpc_grpc
-
+import injective.exchange_api.injective_accounts_rpc_pb2 as accounts_rpc_pb
+import injective.exchange_api.injective_accounts_rpc_pb2_grpc as accounts_rpc_grpc
 
 async def main() -> None:
-    async with grpc.aio.insecure_channel('localhost:9910') as channel:
-        accounts_rpc = accounts_rpc_grpc.InjectiveAccountsRPCStub(channel)
+    async with grpc.aio.insecure_channel('testnet-sentry0.injective.network:9910') as channel:
         accounts_exchange_rpc = accounts_rpc_grpc.InjectiveAccountsRPCStub(channel)
 
-        account_addr = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku"
+        addr = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku"
         
-        acc = await accounts_exchange_rpc.SubaccountsList(accounts_rpc_pb.SubaccountsListRequest(account_address=account_addr))
-        print("\n\033[1;34;40m API Response  \n")
-        print("\033[0;37;40m\n-- Order Update:", acc)
-
+        subacc_list = await accounts_exchange_rpc.SubaccountsList(accounts_rpc_pb.SubaccountsListRequest(account_address=addr))
+        print("\n-- Subaccount List Update:\n", subacc_list)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)

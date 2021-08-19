@@ -17,23 +17,23 @@ import asyncio
 import logging
 import grpc
 
-import injective.exchange_api.injective_accounts_rpc_pb2 as accounts_rpc_pb
-import injective.exchange_api.injective_accounts_rpc_pb2_grpc as accounts_rpc_grpc
+import injective.exchange_api.injective_derivative_exchange_rpc_pb2 as derivative_exchange_rpc_pb
+import injective.exchange_api.injective_derivative_exchange_rpc_pb2_grpc as derivative_exchange_rpc_grpc
 
 async def main() -> None:
     async with grpc.aio.insecure_channel('testnet-sentry0.injective.network:9910') as channel:
-        accounts_exchange_rpc = accounts_rpc_grpc.InjectiveAccountsRPCStub(channel)
+        derivative_exchange_rpc = derivative_exchange_rpc_grpc.InjectiveDerivativeExchangeRPCStub(channel)
 
-        subacc_id = "0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000"
-        dnm= "peggy0x69efCB62D98f4a6ff5a0b0CFaa4AAbB122e85e08"
-        
-        subacc_history = await accounts_exchange_rpc.SubaccountHistory(accounts_rpc_pb.SubaccountHistoryRequest(subaccount_id=subacc_id, denom=dnm))
-        print("\n-- Subaccount History Update:\n", subacc_history)
-
+        mkt_id = "0xd0f46edfba58827fe692aab7c8d46395d1696239fdf6aeddfa668b73ca82ea30"
+     
+        ordresp = await derivative_exchange_rpc.Orders(derivative_exchange_rpc_pb.OrdersRequest(market_id=mkt_id))
+        print("\n-- Orders Update:\n", ordresp)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     asyncio.get_event_loop().run_until_complete(main())
+
+
 
 
 

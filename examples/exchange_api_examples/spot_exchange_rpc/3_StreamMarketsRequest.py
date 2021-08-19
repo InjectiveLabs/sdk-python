@@ -17,40 +17,17 @@ import asyncio
 import logging
 import grpc
 
-
-from injective.exchange_api import injective_accounts_rpc_pb2 as accounts_rpc_pb
-from injective.exchange_api import injective_accounts_rpc_pb2_grpc as accounts_rpc_grpc
-from injective.exchange_api import injective_derivative_exchange_rpc_pb2 as derivative_exchange_rpc_pb
-from injective.exchange_api import injective_derivative_exchange_rpc_pb2_grpc as derivative_exchange_rpc_grpc
-from injective.exchange_api import injective_exchange_rpc_pb2 as exchange_rpc_pb
-from injective.exchange_api import injective_exchange_rpc_pb2_grpc as exchange_rpc_grpc
-from injective.exchange_api import injective_insurance_rpc_pb2 as insurance_rpc_pb
-from injective.exchange_api import injective_insurance_rpc_pb2_grpc as insurance_rpc_grpc
-from injective.exchange_api import injective_oracle_rpc_pb2 as oracle_rpc_pb
-from injective.exchange_api import injective_oracle_rpc_pb2_grpc as oracle_rpc_grpc
-from injective.exchange_api import injective_spot_exchange_rpc_pb2 as spot_exchange_rpc_pb
-from injective.exchange_api import injective_spot_exchange_rpc_pb2_grpc as spot_exchange_rpc_grpc
-
+import injective.exchange_api.injective_spot_exchange_rpc_pb2 as spot_exchange_rpc_pb
+import injective.exchange_api.injective_spot_exchange_rpc_pb2_grpc as spot_exchange_rpc_grpc
 
 async def main() -> None:
-    async with grpc.aio.insecure_channel('localhost:9910') as channel:
-        exchange_rpc = exchange_rpc_grpc.InjectiveExchangeRPCStub(channel)
+    async with grpc.aio.insecure_channel('testnet-sentry0.injective.network:9910') as channel:
         spot_exchange_rpc = spot_exchange_rpc_grpc.InjectiveSpotExchangeRPCStub(channel)
-        
-        resp = await exchange_rpc.Version(exchange_rpc_pb.VersionRequest())
-        print("-- Connected to Injective Exchange (version: %s, built %s)" % (resp.version, resp.meta_data["BuildDate"]))
-
-        resp = await spot_exchange_rpc.Markets(spot_exchange_rpc_pb.MarketsRequest())
-        print("\n-- Available markets:")
-        for m in resp.markets:
-            print(m.ticker, "=", m.market_id)
        
-        stream_req = spot_exchange_rpc_pb.StreamMarketsRequest() #Request
-        markets_stream = spot_exchange_rpc.StreamMarkets(stream_req)
-        async for market in markets_stream:
-            print("\n\033[1;34;40m API Response  \n")
-            print("\033[0;37;40m\n-- Order Update:", market)
-
+        stream_req = spot_exchange_rpc_pb.StreamMarketsRequest()
+        stream_resp = spot_exchange_rpc.StreamMarkets(stream_req)
+        async for market in stream_resp:
+            print("\n-- Market Update:\n", market)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)

@@ -17,33 +17,18 @@ import asyncio
 import logging
 import grpc
 
-
-from injective.exchange_api import injective_accounts_rpc_pb2 as accounts_rpc_pb
-from injective.exchange_api import injective_accounts_rpc_pb2_grpc as accounts_rpc_grpc
-from injective.exchange_api import injective_derivative_exchange_rpc_pb2 as derivative_exchange_rpc_pb
-from injective.exchange_api import injective_derivative_exchange_rpc_pb2_grpc as derivative_exchange_rpc_grpc
-from injective.exchange_api import injective_exchange_rpc_pb2 as exchange_rpc_pb
-from injective.exchange_api import injective_exchange_rpc_pb2_grpc as exchange_rpc_grpc
-from injective.exchange_api import injective_insurance_rpc_pb2 as insurance_rpc_pb
-from injective.exchange_api import injective_insurance_rpc_pb2_grpc as insurance_rpc_grpc
-from injective.exchange_api import injective_oracle_rpc_pb2 as oracle_rpc_pb
-from injective.exchange_api import injective_oracle_rpc_pb2_grpc as oracle_rpc_grpc
-from injective.exchange_api import injective_spot_exchange_rpc_pb2 as spot_exchange_rpc_pb
-from injective.exchange_api import injective_spot_exchange_rpc_pb2_grpc as spot_exchange_rpc_grpc
-
+import injective.exchange_api.injective_accounts_rpc_pb2 as accounts_rpc_pb
+import injective.exchange_api.injective_accounts_rpc_pb2_grpc as accounts_rpc_grpc
 
 async def main() -> None:
-    async with grpc.aio.insecure_channel('localhost:9910') as channel:
-        accounts_rpc = accounts_rpc_grpc.InjectiveAccountsRPCStub(channel)
+    async with grpc.aio.insecure_channel('testnet-sentry0.injective.network:9910') as channel:
         accounts_exchange_rpc = accounts_rpc_grpc.InjectiveAccountsRPCStub(channel)
 
-        acct_id = "0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000"
+        subacc_id = "0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000"
         dnm ="inj"
         
-        acc = await accounts_exchange_rpc.SubaccountBalanceEndpoint(accounts_rpc_pb.SubaccountBalanceRequest(subaccount_id=acct_id, denom=dnm))
-        print("\n\033[1;34;40m API Response  \n")
-        print("\033[0;37;40m\n-- Order Update:", acc)
-
+        subacc_balance = await accounts_exchange_rpc.SubaccountBalanceEndpoint(accounts_rpc_pb.SubaccountBalanceRequest(subaccount_id=subacc_id, denom=dnm))
+        print("\n-- Subaccount Balance Update:\n", subacc_balance)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)

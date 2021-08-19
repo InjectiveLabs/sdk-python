@@ -17,23 +17,25 @@ import asyncio
 import logging
 import grpc
 
-import injective.exchange_api.injective_accounts_rpc_pb2 as accounts_rpc_pb
-import injective.exchange_api.injective_accounts_rpc_pb2_grpc as accounts_rpc_grpc
+import injective.exchange_api.injective_oracle_rpc_pb2 as oracle_rpc_pb
+import injective.exchange_api.injective_oracle_rpc_pb2_grpc as oracle_rpc_grpc
 
 async def main() -> None:
     async with grpc.aio.insecure_channel('testnet-sentry0.injective.network:9910') as channel:
-        accounts_exchange_rpc = accounts_rpc_grpc.InjectiveAccountsRPCStub(channel)
+        oracle_exchange_rpc = oracle_rpc_grpc.InjectiveOracleRPCStub(channel)
 
-        subacc_id = "0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000"
-        dnm= "peggy0x69efCB62D98f4a6ff5a0b0CFaa4AAbB122e85e08"
+        base_s = "BTC"
+        quote_s = "USD"
+        oracle_t = "coinbase"
+        oracle_scale_f = 6
         
-        subacc_history = await accounts_exchange_rpc.SubaccountHistory(accounts_rpc_pb.SubaccountHistoryRequest(subaccount_id=subacc_id, denom=dnm))
-        print("\n-- Subaccount History Update:\n", subacc_history)
-
+        oracle_price = await oracle_exchange_rpc.Price(oracle_rpc_pb.PriceRequest(base_symbol = base_s, quote_symbol = quote_s, oracle_type = oracle_t, oracle_scale_factor = oracle_scale_f))
+        print("\n-- Oracle Price Update:\n", oracle_price)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     asyncio.get_event_loop().run_until_complete(main())
+
 
 
 
