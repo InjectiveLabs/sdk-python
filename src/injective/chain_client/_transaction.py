@@ -74,6 +74,84 @@ class Transaction:
         }
         self._msgs.append(msg)
 
+    def add_exchange_msg_cancel_spot_order(self, subaccount: str, market_id: int, order_hash: str) -> None:
+        msg = {
+            "type": "exchange/MsgCancelSpotOrder",
+            "value": {
+                "sender": privkey_to_address(self._privkey, hrp=self._hrp),
+                "subaccount_id": subaccount,
+                "market_id": market_id,
+                "order_hash": order_hash,
+            },
+        }
+        self._msgs.append(msg)
+
+    def add_exchange_msg_batch_cancel_spot_order(self, subaccount_id_list, market_id_list, order_hash_list) -> None:
+        msg = {
+            #INFO: ATTENTION, Order`s`
+            "type": "exchange/MsgBatchCancelSpotOrders",
+            "value": {
+                "sender": privkey_to_address(self._privkey, hrp=self._hrp),
+                "data": []
+            },
+        }
+
+        for i in range(len(subaccount_id_list)):
+            msg["value"]["data"].append(
+                {
+                    "subaccount_id": subaccount_id_list[i],
+                    "market_id": market_id_list[i],
+                    "order_hash": order_hash_list[i],
+                }
+            )
+
+        self._msgs.append(msg)
+
+    def add_exchange_msg_create_spot_limit_order(self, subaccount_id: str,  market_id: str, fee_recipient: str, price, quantity, order_type, trigger_price) -> None:
+        msg = {
+            "type": "exchange/MsgCreateSpotLimitOrder",
+            "value": {
+                "sender": privkey_to_address(self._privkey, hrp=self._hrp),
+                "order": {
+                    'market_id': market_id,
+                    'order_info': {
+                        'subaccount_id': subaccount_id,
+                        'fee_recipient': fee_recipient,
+                        'price': price,
+                        'quantity': quantity,
+                    },
+                    'order_type': order_type,
+                    "trigger_price": trigger_price,
+                },
+            }
+        }
+        self._msgs.append(msg)
+
+    def add_exchange_msg_batch_create_spot_limit_orders(self, subaccount_id_list,  market_id_list, fee_recipient_list, price_list, quantity_list, order_type_list, trigger_price_list) -> None:
+        msg = {
+            "type": "exchange/MsgBatchCreateSpotLimitOrders",
+            "value": {
+                "sender": privkey_to_address(self._privkey, hrp=self._hrp),
+                "orders": []
+            }
+        }
+
+        for i in range(len(subaccount_id_list)):
+            msg["value"]["orders"].append({
+                'market_id': market_id_list[i],
+                'order_info': {
+                    'subaccount_id': subaccount_id_list[i],
+                    'fee_recipient': fee_recipient_list[i],
+                    'price': price_list[i],
+                    'quantity': quantity_list[i],
+                },
+                'order_type': order_type_list[i],
+                "trigger_price": trigger_price_list[i],
+            }
+            )
+        self._msgs.append(msg)
+
+
     def get_signed(self) -> str:
         pubkey = privkey_to_pubkey(self._privkey)
         base64_pubkey = base64.b64encode(pubkey).decode("utf-8")
