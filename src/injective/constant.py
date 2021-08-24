@@ -9,6 +9,12 @@ DECIMALS_DICT = {
     "MATIC": 18,  # uint8
     "ZRX": 18,  # uint8
     "USDC": 6,  # uint8 from https://etherscan.io/token/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48#readProxyContract
+    "WBTC": 8, 
+    "WETH": 18, 
+    "SUSHI": 18, 
+    "GRT": 18,
+    "SNX": 18,
+    "QNT": 18
 }
 
 
