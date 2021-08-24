@@ -1,8 +1,9 @@
 # This is a basic workflow that is manually triggered
 
 name: Publish injective-py to TestPyPI and PyPI
-on: push
-
+on:
+  release:
+    types: [created]
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build-n-publish:
