@@ -6,7 +6,7 @@ Note: Apple `M1` processor is not supported
 
 **Ubuntu**
 ```bash
-sudo apt install python3.9-dev
+sudo apt install python3.X-dev
 ```
 **Fedora**
 ```bash
