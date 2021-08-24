@@ -30,8 +30,8 @@ $ pipenv shell
 $ pipenv install
 
 # connecting to Injective Exchange API
-# and listening for new orders
-$ python examples/exchange_api_example/examples/example.py
+# and listening for new orders from one specific spot market
+$ python examples/exchange_api_example/examples/spot_exchange_rpc/8_StreamOrdersRequest.py
 
 # sending a msg with bank transfer
 # signs and posts a Tx to the Injective Chain
