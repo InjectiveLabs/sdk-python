@@ -22,7 +22,7 @@ import injective.exchange_api
 ```
 
 ### Usage
-Requires Python 3.9+
+Requires Python 3.7+
 
 [examples](https://github.com/InjectiveLabs/sdk-python/tree/master/examples): https://github.com/InjectiveLabs/sdk-python/tree/master/examples
 ```bash
