@@ -1,8 +1,9 @@
 import sys
 
-from typing import Literal, TypedDict
-# for python3.7, you need to change this to the followings
-# from typing_extensions import Literal, TypedDict
+if sys.version_info < (3, 8):
+    from typing_extensions import Literal, TypedDict
+else:
+    from typing import Literal, TypedDict
 
 # Valid transaction broadcast modes for the `POST /txs` endpoint of the
 # Cosmos REST API.
