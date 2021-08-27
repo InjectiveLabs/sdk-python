@@ -1,22 +1,10 @@
-# 1. pip install pytest
-# 2. mkdir tests
-# 3. move this file into tests
-# 4 inside tests folder run `pytest`
-"""
-In the tests:
-    all the function needs to ends with `assert XXXX`
-"""
 import pytest
-import asyncio
 import aiohttp
-import logging
-import json
-import base64
-import hashlib
 import json
 import ecdsa
 import sha3
 import grpc
+import base64
 
 from typing import Any, Dict, List
 from injective.chain_client._wallet import (
