@@ -74,7 +74,7 @@ class Transaction:
         }
         self._msgs.append(msg)
 
-    def add_exchange_msg_cancel_spot_order(self, subaccount: str, market_id: int, order_hash: str) -> None:
+    def add_exchange_msg_cancel_spot_order(self, subaccount: str, market_id: str, order_hash: str) -> None:
         msg = {
             "type": "exchange/MsgCancelSpotOrder",
             "value": {
