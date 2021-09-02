@@ -1,8 +1,6 @@
 from decimal import Decimal
 from math import floor
 
-import asyncio
-import logging
 import grpc
 
 import injective.exchange_api.injective_spot_exchange_rpc_pb2 as spot_exchange_rpc_pb
