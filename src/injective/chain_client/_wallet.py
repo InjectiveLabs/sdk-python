@@ -32,6 +32,11 @@ def generate_wallet(
         "address": address,
     }
 
+def privkey_hex_to_bytes(privkey: hex) -> bytes:
+
+    pk_bytes = bytes.fromhex(privkey)
+    return pk_bytes
+
 
 def seed_to_privkey(seed: str, path: str = DEFAULT_DERIVATION_PATH) -> bytes:
     """Get a private key from a mnemonic seed and a derivation path.
