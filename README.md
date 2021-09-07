@@ -29,11 +29,11 @@ $ pipenv install
 
 # connecting to Injective Exchange API
 # and listening for new orders from one specific spot market
-$ python examples/exchange_api_example/examples/spot_exchange_rpc/8_StreamOrdersRequest.py
+$ python examples/exchange_api_examples/spot_exchange_rpc/8_StreamOrdersRequest.py
 
 # sending a msg with bank transfer
 # signs and posts a Tx to the Injective Chain
-$ python examples/exchange_api_examples/spot_exchange_rpc/8_StreamOrdersRequest.py
+$ python examples/chain_client_examples/1_CosmosBankMsgSend.py
 ```
 Upgrade `pip` to the latest version, if you see these warnings:
 ```
