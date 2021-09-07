@@ -27,7 +27,7 @@ REQUIRED = [
     "bech32",
     "mnemonic",
     "hdwallets",
-    "pysha3"
+    "pysha3",
     "protobuf",
 ]
 
