@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+grpcio = "*"
+asyncio = "*"
+aiohttp = "*"
+ecdsa = "*"
+bech32 = "*"
+mnemonic = "*"
+hdwallets = "*"
+pysha = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.7"
