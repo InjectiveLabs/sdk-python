@@ -17,7 +17,7 @@ URL = "https://github.com/InjectiveLabs/sdk-python"
 EMAIL = "max@injectiveprotocol.com"
 AUTHOR = "Injective Labs"
 REQUIRES_PYTHON = ">=3.7.0"
-VERSION = "0.3.2"
+VERSION = "0.4.1"
 
 REQUIRED = [
     "grpcio",
@@ -27,7 +27,8 @@ REQUIRED = [
     "bech32",
     "mnemonic",
     "hdwallets",
-    "pysha3",
+    "pysha3"
+    "protobuf",
 ]
 
 # The rest you shouldn't have to touch too much :)
@@ -114,7 +115,7 @@ setup(
         "License :: OSI Approved :: Apache Software License",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: Implementation :: CPython",
         "Programming Language :: Python :: Implementation :: PyPy",
     ],

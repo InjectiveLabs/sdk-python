@@ -1,7 +1,5 @@
 ## Injective Python SDK
 
-Note: Apple `M1` processor is not supported
-
 ### Dependences
 
 **Ubuntu**
@@ -24,7 +22,7 @@ import injective.exchange_api
 ### Usage
 Requires Python 3.7+
 
-[examples](https://github.com/InjectiveLabs/sdk-python/tree/master/examples): https://github.com/InjectiveLabs/sdk-python/tree/master/examples
+[Examples](https://github.com/InjectiveLabs/sdk-python/tree/master/examples)
 ```bash
 $ pipenv shell
 $ pipenv install
@@ -35,7 +33,7 @@ $ python examples/exchange_api_example/examples/spot_exchange_rpc/8_StreamOrders
 
 # sending a msg with bank transfer
 # signs and posts a Tx to the Injective Chain
-$ python examples/chain_client_example/examples/example.py
+$ python examples/exchange_api_examples/spot_exchange_rpc/8_StreamOrdersRequest.py
 ```
 Upgrade `pip` to the latest version, if you see these warnings:
 ```
