@@ -26,7 +26,7 @@ async def main() -> None:
 
         base_s = "BTC"
         quote_s = "USD"
-        oracle_t = "band"
+        oracle_t = "coinbase"
         
         stream_req = oracle_rpc_pb.StreamPricesRequest(base_symbol = base_s, quote_symbol = quote_s, oracle_type = oracle_t)
         stream_resp = oracle_exchange_rpc.StreamPrices(stream_req)
