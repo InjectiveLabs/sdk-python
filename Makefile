@@ -16,6 +16,17 @@ gen-client: copy-proto
 	rm -rf proto
 	touch src/proto/__init__.py
 
+# gen-client: copy-proto
+# 	@for dir in $(PROTO_DIRS); do \
+# 		mkdir -p ./src/$${dir}; \
+# 		python -m grpc_tools.protoc \
+# 		-I proto \
+# 		--python_betterproto_out=./src/$${dir} \
+# 		$$(find $${dir} -type file -name '*.proto'); \
+# 	done; \
+# 	rm -rf proto
+# 	touch src/proto/__init__.py
+
 copy-proto:
 	rm -rf src/proto
 	mkdir -p proto/exchange
