@@ -96,7 +96,10 @@ class UploadCommand(Command):
 # Where the magic happens:
 setup(
     name=NAME,
+    packages=find_packages(),
+    include_package_data=True,
     version=about["__version__"],
+    license="Apache Software License 2.0",
     description=DESCRIPTION,
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -104,11 +107,7 @@ setup(
     author_email=EMAIL,
     python_requires=REQUIRES_PYTHON,
     url=URL,
-    package_dir={"": "pyinjective"},
-    packages=find_packages(where="src"),
     install_requires=REQUIRED,
-    include_package_data=True,
-    license="Apache Software License 2.0",
     classifiers=[
         # Trove classifiers
         # Full list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
