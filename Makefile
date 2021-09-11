@@ -6,18 +6,18 @@ gen: gen-client
 
 gen-client: copy-proto
 	@for dir in $(PROTO_DIRS); do \
-		mkdir -p ./src/$${dir}; \
+		mkdir -p ./pyinjective/$${dir}; \
 		python3 -m grpc_tools.protoc \
 		-I proto \
-		--python_out=./src/proto \
-		--grpc_python_out=./src/proto \
+		--python_out=./pyinjective/proto \
+		--grpc_python_out=./pyinjective/proto \
 		$$(find $${dir} -type file -name '*.proto'); \
 	done; \
 	rm -rf proto
-	touch src/proto/__init__.py
+	touch pyinjective/proto/__init__.py
 
 copy-proto:
-	rm -rf src/proto
+	rm -rf pyinjective/proto
 	mkdir -p proto/exchange
 	cp -r ../injective-core/proto/injective proto/
 	cp -r ../injective-core/third_party/proto/ proto/

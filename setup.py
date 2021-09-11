@@ -104,7 +104,7 @@ setup(
     author_email=EMAIL,
     python_requires=REQUIRES_PYTHON,
     url=URL,
-    package_dir={"": "src"},
+    package_dir={"": "pyinjective"},
     packages=find_packages(where="src"),
     install_requires=REQUIRED,
     include_package_data=True,
