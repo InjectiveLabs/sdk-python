@@ -1,17 +1,15 @@
-import sys
-sys.path.insert(0, '/Users/nam/Desktop/injective/sdk-python/src/proto')
-sys.path.insert(0, '/Users/nam/Desktop/injective/sdk-python/src/proto/injective')
-from crypto.v1beta1.ethsecp256k1.keys_pb2 import PubKey as PubKeyProto
-
+import sha3
 import hashlib
-
+import bech32
 from typing import Tuple
 from bech32 import bech32_encode, bech32_decode, convertbits
 from bip32 import BIP32
 from ecdsa import SigningKey, VerifyingKey, SECP256k1, BadSignatureError
 from ecdsa.util import sigencode_string_canonize
 from mnemonic import Mnemonic
-from exceptions import ConvertError, DecodeError
+
+from .exceptions import ConvertError, DecodeError
+from .proto.injective.crypto.v1beta1.ethsecp256k1.keys_pb2 import PubKey as PubKeyProto
 
 BECH32_PUBKEY_ACC_PREFIX = "injpub"
 BECH32_PUBKEY_VAL_PREFIX = "injvaloperpub"
@@ -21,8 +19,7 @@ BECH32_ADDR_ACC_PREFIX = "inj"
 BECH32_ADDR_VAL_PREFIX = "injvaloper"
 BECH32_ADDR_CONS_PREFIX = "injvalcons"
 
-DEFAULT_DERIVATION_PATH = "m/44'/494'/0'/0/0"
-
+DEFAULT_DERIVATION_PATH = "m/44'/60'/0'/0/0"
 
 class PrivateKey:
     """
@@ -172,8 +169,16 @@ class PublicKey:
 
     def to_address(self) -> "Address":
         """Return address instance from this public key"""
-        hash = hashlib.new("sha256", self.verify_key.to_string("compressed")).digest()
-        return Address(hashlib.new("ripemd160", hash).digest())
+        # pubkey = self.verify_key.to_string("compressed")
+        # s = hashlib.new("sha256", pubkey).digest()
+        # r = hashlib.new("ripemd160", s).digest()
+        # return Address(r)
+
+        pubkey = self.verify_key.to_string("uncompressed")
+        k = sha3.keccak_256()
+        k.update(pubkey[1:])
+        addr = k.digest()[12:]
+        return Address(addr)
 
     def verify(self, msg: bytes, sig: bytes) -> bool:
         """

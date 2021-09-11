@@ -1,18 +1,14 @@
-import sys
-sys.path.insert(0, '/Users/nam/Desktop/injective/sdk-python/src')
-sys.path.insert(0, '/Users/nam/Desktop/injective/sdk-python/src/proto')
-
 from typing import List, Tuple
 
 from google.protobuf import any_pb2, message
-from proto.cosmos.base.v1beta1.coin_pb2 import Coin
-from proto.cosmos.tx.v1beta1 import tx_pb2 as cosmos_tx_type
-from proto.cosmos.tx.signing.v1beta1 import signing_pb2 as tx_sign
+from .proto.cosmos.base.v1beta1.coin_pb2 import Coin
+from .proto.cosmos.tx.v1beta1 import tx_pb2 as cosmos_tx_type
+from .proto.cosmos.tx.signing.v1beta1 import signing_pb2 as tx_sign
 
-from client import Client
-from constant import MAX_MEMO_CHARACTERS
-from exceptions import EmptyMsgError, NotFoundError, UndefinedError, ValueTooLargeError
-from wallet import PublicKey
+from .client import Client
+from .constant import MAX_MEMO_CHARACTERS
+from .exceptions import EmptyMsgError, NotFoundError, UndefinedError, ValueTooLargeError
+from .wallet import PublicKey
 
 class Transaction:
     def __init__(
@@ -25,7 +21,7 @@ class Transaction:
         gas: int = 200000,
         memo: str = "",
     ):
-        self.msgs = self.__convet_msgs(msgs) if msgs is not None else []
+        self.msgs = msgs
         self.account_num = account_num
         self.sequence = sequence
         self.chain_id = chain_id
