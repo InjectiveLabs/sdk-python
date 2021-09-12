@@ -1,6 +1,9 @@
+import sys
 import sha3
 import hashlib
 import bech32
+import aiohttp
+import json
 from typing import Tuple
 from bech32 import bech32_encode, bech32_decode, convertbits
 from bip32 import BIP32
@@ -95,7 +98,8 @@ class PrivateKey:
 
         :return: a signature of this private key over the given message
         """
-        return self.signing_key.sign_deterministic(msg, hashfunc=hashlib.sha256, sigencode=sigencode_string_canonize)
+        # return self.signing_key.sign_deterministic(msg, hashfunc=hashlib.sha256, sigencode=sigencode_string_canonize)
+        return self.signing_key.sign_deterministic(msg, hashfunc=sha3.keccak_256, sigencode=sigencode_string_canonize)
 
 
 class PublicKey:
@@ -250,3 +254,22 @@ class Address:
     def to_hex(self) -> str:
         """Return a hex representation of address"""
         return self.addr.hex()
+
+    def get_subaccount_id(self, index: int) -> str:
+        """Return a hex representation of address"""
+        id = index.to_bytes(12, byteorder='big').hex()
+        return '0x' + self.addr.hex() + id
+
+    async def get_num_seq(self, lcd_endpoint: str) -> (int, int):
+        async with aiohttp.ClientSession() as session:
+            async with session.request(
+                'GET', 'http://' + lcd_endpoint + '/cosmos/auth/v1beta1/accounts/' + self.to_acc_bech32(),
+                headers={'Accept-Encoding': 'application/json'},
+            ) as response:
+                if response.status != 200:
+                    print(await response.text())
+                    raise ValueError("HTTP response status", response.status)
+
+                resp = json.loads(await response.text())
+                acc = resp['account']['base_account']
+                return int(acc['account_number']), int(acc['sequence'])
