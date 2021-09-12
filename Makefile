@@ -14,7 +14,7 @@ gen-client: copy-proto
 		$$(find $${dir} -type file -name '*.proto'); \
 	done; \
 	rm -rf proto
-	touch pyinjective/proto/__init__.py
+	echo "import os\nimport sys\n\nsys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))" > pyinjective/proto/__init__.py
 
 copy-proto:
 	rm -rf pyinjective/proto
