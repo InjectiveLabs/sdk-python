@@ -20,14 +20,16 @@ class Transaction:
         fee: List[Coin] = None,
         gas: int = 200000,
         memo: str = "",
+        timeout_height: int = 0
     ):
-        self.msgs = msgs
+        self.msgs = self.__convet_msgs(msgs) if msgs is not None else []
         self.account_num = account_num
         self.sequence = sequence
         self.chain_id = chain_id
         self.fee = cosmos_tx_type.Fee(amount=fee, gas_limit=gas)
         self.gas = gas
         self.memo = memo
+        self.timeout_height = timeout_height
 
     @staticmethod
     def __convert_msgs(msgs: List[message.Message]) -> List[any_pb2.Any]:
@@ -78,10 +80,15 @@ class Transaction:
         self.memo = memo
         return self
 
+    def with_timeout_height(self, timeout_height: int) -> "Transaction":
+        self.timeout_height = timeout_height
+        return self
+
     def __generate_info(self, public_key: PublicKey = None) -> Tuple[str, str]:
         body = cosmos_tx_type.TxBody(
             messages=self.msgs,
             memo=self.memo,
+            timeout_height=self.timeout_height
         )
 
         body_bytes = body.SerializeToString()
