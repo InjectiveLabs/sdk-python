@@ -17,29 +17,25 @@ import asyncio
 import logging
 import grpc
 
-import injective.exchange_api.injective_oracle_rpc_pb2 as oracle_rpc_pb
-import injective.exchange_api.injective_oracle_rpc_pb2_grpc as oracle_rpc_grpc
+import pyinjective.proto.exchange.injective_oracle_rpc_pb2 as oracle_rpc_pb
+import pyinjective.proto.exchange.injective_oracle_rpc_pb2_grpc as oracle_rpc_grpc
+
+from pyinjective.constant import Network
+
+network = Network.testnet()
 
 async def main() -> None:
-    async with grpc.aio.insecure_channel('testnet-sentry0.injective.network:9910') as channel:
+    async with grpc.aio.insecure_channel(network.grpc_exchange_endpoint) as channel:
         oracle_exchange_rpc = oracle_rpc_grpc.InjectiveOracleRPCStub(channel)
 
         base_s = "BTC"
         quote_s = "USD"
         oracle_t = "coinbase"
         oracle_scale_f = 6
-        
+
         oracle_price = await oracle_exchange_rpc.Price(oracle_rpc_pb.PriceRequest(base_symbol = base_s, quote_symbol = quote_s, oracle_type = oracle_t, oracle_scale_factor = oracle_scale_f))
         print("\n-- Oracle Price Update:\n", oracle_price)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     asyncio.get_event_loop().run_until_complete(main())
-
-
-
-
-
-
-
-

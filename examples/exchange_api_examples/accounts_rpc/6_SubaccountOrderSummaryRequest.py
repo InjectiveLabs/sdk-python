@@ -17,26 +17,23 @@ import asyncio
 import logging
 import grpc
 
-import injective.exchange_api.injective_accounts_rpc_pb2 as accounts_rpc_pb
-import injective.exchange_api.injective_accounts_rpc_pb2_grpc as accounts_rpc_grpc
+import pyinjective.proto.exchange.injective_accounts_rpc_pb2 as accounts_rpc_pb
+import pyinjective.proto.exchange.injective_accounts_rpc_pb2_grpc as accounts_rpc_grpc
+
+from pyinjective.constant import Network
+
+network = Network.testnet()
 
 async def main() -> None:
-    async with grpc.aio.insecure_channel('testnet-sentry0.injective.network:9910') as channel:
+    async with grpc.aio.insecure_channel(network.grpc_exchange_endpoint) as channel:
         accounts_exchange_rpc = accounts_rpc_grpc.InjectiveAccountsRPCStub(channel)
 
         subacc_id = "0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000"
         direction = "buy"
-        
+
         subacc_orders = await accounts_exchange_rpc.SubaccountOrderSummary(accounts_rpc_pb.SubaccountOrderSummaryRequest(subaccount_id=subacc_id, order_direction=direction))
         print("\n-- Subaccount Total Orders Update:\n", subacc_orders)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     asyncio.get_event_loop().run_until_complete(main())
-
-
-
-
-
-
-

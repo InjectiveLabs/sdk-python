@@ -7,11 +7,13 @@ class Network:
         self,
         lcd_endpoint: str = None,
         grpc_endpoint: str = None,
+        grpc_exchange_endpoint: str = None,
         chain_id: str = None,
         fee_denom: str = None
     ):
         self.lcd_endpoint = lcd_endpoint
         self.grpc_endpoint = grpc_endpoint
+        self.grpc_exchange_endpoint = grpc_exchange_endpoint
         self.chain_id = chain_id
         self.fee_denom = fee_denom
 
@@ -20,6 +22,7 @@ class Network:
         return cls(
             lcd_endpoint='localhost:10337',
             grpc_endpoint='localhost:9900',
+            grpc_exchange_endpoint='localhost:9110',
             chain_id='injective-1',
             fee_denom='inj'
         )
@@ -29,6 +32,7 @@ class Network:
         return cls(
             lcd_endpoint='staking-lcd-testnet.injective.network',
             grpc_endpoint='testnet-sentry0.injective.network:9900',
+            grpc_exchange_endpoint='testnet-sentry0.injective.network:9910',
             chain_id='injective-888',
             fee_denom='inj'
         )
@@ -38,6 +42,7 @@ class Network:
         return cls(
             lcd_endpoint='staking-lcd.injective.network',
             grpc_endpoint='sentry0.injective.network:9900',
+            grpc_exchange_endpoint='sentry0.injective.network:9910',
             chain_id='injective-1',
             fee_denom='inj'
         )

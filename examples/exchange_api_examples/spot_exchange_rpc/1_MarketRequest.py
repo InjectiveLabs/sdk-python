@@ -1,6 +1,3 @@
-import sys
-sys.path.insert(0, '/Users/nam/Desktop/injective/sdk-python/src/proto')
-
 # Copyright 2021 Injective Labs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,11 +17,15 @@ import asyncio
 import logging
 import grpc
 
-import exchange.injective_spot_exchange_rpc_pb2 as spot_exchange_rpc_pb
-import exchange.injective_spot_exchange_rpc_pb2_grpc as spot_exchange_rpc_grpc
+import pyinjective.proto.exchange.injective_spot_exchange_rpc_pb2 as spot_exchange_rpc_pb
+import pyinjective.proto.exchange.injective_spot_exchange_rpc_pb2_grpc as spot_exchange_rpc_grpc
+
+from pyinjective.constant import Network
+
+network = Network.testnet()
 
 async def main() -> None:
-    async with grpc.aio.insecure_channel('testnet-sentry0.injective.network:9910') as channel:
+    async with grpc.aio.insecure_channel(network.grpc_exchange_endpoint) as channel:
         spot_exchange_rpc = spot_exchange_rpc_grpc.InjectiveSpotExchangeRPCStub(channel)
 
         mkt_id = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
