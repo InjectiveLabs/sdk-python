@@ -1,6 +1,3 @@
-# import sys
-# sys.path.insert(0, '/Users/nam/desktop/injective/sdk-python/')
-
 import asyncio
 import logging
 
@@ -14,21 +11,21 @@ import pyinjective.proto.cosmos.base.v1beta1.coin_pb2 as cosmos_base_coin_pb
 
 async def main() -> None:
     # select network: localhost, testnet, mainnet
-    network = Network.local()
+    network = Network.testnet()
 
     # initialize grpc client
     client = Client(network.grpc_endpoint, insecure=True)
 
     # load account
-    priv_key = PrivateKey.from_mnemonic("copper push brief egg scan entry inform record adjust fossil boss egg comic alien upon aspect dry avoid interest fury window hint race symptom")
+    priv_key = PrivateKey.from_hex("f9db9bf330e23cb7839039e944adef6e9df447b90b503d5b4464c90bea9022f3")
     pub_key =  priv_key.to_public_key()
     address = pub_key.to_address()
 
     # prepare tx msg
     msg = cosmos_bank_tx_pb.MsgSend(
         from_address=address.to_acc_bech32(),
-        to_address='inj1jcltmuhplrdcwp7stlr4hlhlhgd4htqhe4c0cs',
-        amount=[cosmos_base_coin_pb.Coin(denom=network.fee_denom,amount=str(700))]
+        to_address='inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku',
+        amount=[cosmos_base_coin_pb.Coin(denom=network.fee_denom,amount=str(1000000000000000000))] #1 INJ
     )
     acc_num, acc_seq = await address.get_num_seq(network.lcd_endpoint)
     gas_price = 500000000
