@@ -28,26 +28,46 @@ This also makes sense since it refers to the minimum INJ quantity tick size each
 
 """
 
-def price_to_backend(price, denom, precision=18) -> str:
+def spot_price_to_backend(price, denom, precision=18) -> str:
     scale_tick_size = int(denom.base - denom.quote)
     price_tick_size = denom.min_price_tick_size
     scale_price = Decimal(18 + denom.quote - denom.base)
     exchange_price = floor_to(price, price_tick_size) *pow(10, scale_price)
     return str(int(exchange_price))
 
-def quantity_to_backend(quantity, denom, precision=18) -> str:
+def spot_quantity_to_backend(quantity, denom, precision=18) -> str:
     scale_tick_size = float(0 - denom.base)
     quantity_tick_size = float(denom.min_quantity_tick_size) *pow(10, scale_tick_size)
     scale_quantity = Decimal(18 + denom.base)
     exchange_quantity = floor_to(quantity, quantity_tick_size) *pow(10, scale_quantity)
     return str(int(exchange_quantity))
 
+def derivative_price_to_backend(price, denom, precision=18) -> str:
+    scale = int(0 - denom.quote)
+    price_tick_size = float(denom.min_price_tick_size) * pow(10, scale)
+    exchange_price = floor_to(price, price_tick_size) * pow(10, 18 + denom.quote)
+    return str(int(exchange_price))
+
+def derivative_quantity_to_backend(quantity, denom, precision=18) -> str:
+    scale_tick_size = float(0 - denom.base)
+    quantity_tick_size = float(denom.min_quantity_tick_size) *pow(10, scale_tick_size)
+    scale_quantity = Decimal(denom.base)
+    exchange_quantity = floor_to(quantity, quantity_tick_size) *pow(10, scale_quantity)
+    return str(int(exchange_quantity))
+
+def derivative_margin_to_backend(price, quantity, leverage, denom, precision=18) -> str:
+    scale = int(0 - denom.quote)
+    price_tick_size = float(denom.min_price_tick_size) * pow(10, scale)
+    margin = (price * quantity) / leverage
+    exchange_margin = floor_to(margin, price_tick_size) * pow(10, 18 + denom.quote)
+    return str(int(exchange_margin))
+
 def floor_to(value: float, target: float) -> str:
     value = Decimal(str(value))
     target = Decimal(str(target))
     result = Decimal(int(floor(value / target)) * target)
     return result
-
+#
 # async def derivative_price_to_backend(endpoint, market, price, quote_decimals, precision=18) -> str:
 #
 #     """
@@ -103,33 +123,6 @@ def floor_to(value: float, target: float) -> str:
 #     return price_string
 #
 #
-# async def spot_quantity_to_backend(endpoint, market, quantity, base_decimals, precision=18) -> str:
-#
-#     """
-#     Args:
-#         endpoint ([string]): the endpoint for the gRPC request
-#         market ([string]): the market_id of the pair
-#         quantity ([float]):  normal quantity, you can read it in exchange front-end
-#         base_decimals ([int]): decimals of base asset
-#         precision (int, optional): [description]. Defaults to 18.
-#
-#     Returns:
-#         str:  actual quantity of base asset[data type: string] For 1 INJ, the quantity you end up getting is 1e18 inj
-#     """
-#
-#     async with grpc.aio.insecure_channel(endpoint) as channel:
-#         spot_exchange_rpc = spot_exchange_rpc_grpc.InjectiveSpotExchangeRPCStub(channel)
-#         mresp = await spot_exchange_rpc.Market(spot_exchange_rpc_pb.MarketRequest(market_id=market))
-#
-#     scale_tick_size = float(0 - base_decimals)
-#     quantity_tick_size = float(mresp.market.min_quantity_tick_size) *pow(10, scale_tick_size)
-#     scale_quantity = Decimal(base_decimals)
-#     exchange_quantity = floor_to(quantity, quantity_tick_size) *pow(10, scale_quantity)
-#     quantity_string = ("{:."+str(precision)+"f}").format(exchange_quantity)
-#     print("quantity string:{}".format(quantity_string))
-#     return quantity_string
-#
-#
 # async def derivative_quantity_to_backend(endpoint, market, quantity, quote_decimals, precision=18) -> str:
 #
 #     """
@@ -153,7 +146,7 @@ def floor_to(value: float, target: float) -> str:
 #     quantity_string = ("{:."+str(precision)+"f}").format(exchange_quantity)
 #     print("quantity string :{}".format(quantity_string))
 #     return quantity_string
-#
+
 # def spot_price_from_backend(price_string, base_decimals, quote_decimals) -> float:
 #
 #     """

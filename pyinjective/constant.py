@@ -7,8 +7,8 @@ class Denom:
         self,
         base: int = 0,
         quote: int = 0,
-        min_price_tick_size: float = 0.001,
-        min_quantity_tick_size: float = 0.001
+        min_price_tick_size: float = 0,
+        min_quantity_tick_size: float = 0
     ):
         self.base = base
         self.quote = quote
@@ -17,10 +17,31 @@ class Denom:
 
     @classmethod
     def pair(cls, ticker):
+        # spot markets
         if ticker == 'WBTC/USDC':
-            return cls(base=8,quote=6)
+            return cls(
+                base=8,
+                quote=6,
+                min_price_tick_size=0.001,
+                min_quantity_tick_size=0.001
+            )
 
-        return cls(base=18,quote=6)
+        # derivative markets
+        if ticker == 'BTC/USDT':
+            return cls(
+                base=18,
+                quote=6,
+                min_price_tick_size=1000,
+                min_quantity_tick_size=0.01
+            )
+
+        # default market
+        return cls(
+            base=18,
+            quote=6,
+            min_price_tick_size=0.001,
+            min_quantity_tick_size=0.001
+        )
 
 
 class Network:
