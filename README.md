@@ -66,6 +66,11 @@ pip uninstall injective-py
 pip install injective-py
 ```
 
+1. Fetch latest denom config
+```
+python pyinjective/fetch_metadata.py
+```
+
 1. Run an example
 ```
 python examples/chain_client_examples/1_CosmosBankMsgSend.py

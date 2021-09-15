@@ -8,26 +8,29 @@ MAX_MEMO_CHARACTERS = 256
 config = ConfigParser()
 config.read(os.path.join(os.path.dirname(__file__), 'denoms.ini'))
 
-class Denom:
+class Denoms:
     def __init__(
         self,
+        description: str,
         base: int,
         quote: int,
         min_price_tick_size: float,
         min_quantity_tick_size: float
     ):
+        self.description = description
         self.base = base
         self.quote = quote
         self.min_price_tick_size = min_price_tick_size
         self.min_quantity_tick_size = min_quantity_tick_size
 
     @classmethod
-    def pair(cls, ticker):
+    def load_market(cls, market_id):
         return cls(
-            base=int(config._sections[ticker]['base']),
-            quote=int(config._sections[ticker]['quote']),
-            min_price_tick_size=str(config._sections[ticker]['min_price_tick_size']),
-            min_quantity_tick_size=str(config._sections[ticker]['min_quantity_tick_size']),
+            description=config._sections[market_id]['description'],
+            base=int(config._sections[market_id]['base']),
+            quote=int(config._sections[market_id]['quote']),
+            min_price_tick_size=str(config._sections[market_id]['min_price_tick_size']),
+            min_quantity_tick_size=str(config._sections[market_id]['min_quantity_tick_size']),
         )
 
 class Network:
