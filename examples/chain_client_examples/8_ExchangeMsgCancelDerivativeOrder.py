@@ -1,16 +1,11 @@
 import asyncio
 import logging
-from decimal import *
 
+from pyinjective.composer import Composer as ProtoMsgComposer
 from pyinjective.client import Client
 from pyinjective.transaction import Transaction
-from pyinjective.constant import Network, Denom
+from pyinjective.constant import Network
 from pyinjective.wallet import PrivateKey, PublicKey, Address
-from pyinjective.utils import *
-
-import pyinjective.proto.injective.exchange.v1beta1.tx_pb2 as injective_exchange_tx_pb
-import pyinjective.proto.injective.exchange.v1beta1.exchange_pb2 as injective_exchange_pb
-import pyinjective.proto.cosmos.base.v1beta1.coin_pb2 as cosmos_base_coin_pb
 
 async def main() -> None:
     # select network: localhost, testnet, mainnet
@@ -31,17 +26,21 @@ async def main() -> None:
     order_hash = "0x5f4672dcca9b96ba2bb72e2ab484f71adf9814e74d12e615f489d0a616cddb8c"
 
     # prepare tx msg
-    msg = injective_exchange_tx_pb.MsgCancelDerivativeOrder(
-        sender = address.to_acc_bech32(),
-        market_id = market_id,
-        subaccount_id = subaccount_id,
-        order_hash = order_hash
-            )
+    # prepare tx msg
+    msg = ProtoMsgComposer.MsgCancelDerivativeOrder(
+        sender=address.to_acc_bech32(),
+        market_id=market_id,
+        subaccount_id=subaccount_id,
+        order_hash=order_hash
+    )
 
     acc_num, acc_seq = await address.get_num_seq(network.lcd_endpoint)
     gas_price = 500000000
     gas_limit = 200000
-    fee = [cosmos_base_coin_pb.Coin(denom=network.fee_denom,amount=str(gas_price * gas_limit))]
+    fee = [ProtoMsgComposer.Coin(
+        amount=str(gas_price * gas_limit),
+        denom=network.fee_denom,
+    )]
 
     # build tx
     tx = (

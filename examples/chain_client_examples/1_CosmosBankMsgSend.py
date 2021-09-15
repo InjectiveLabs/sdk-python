@@ -1,13 +1,14 @@
+# import sys
+# sys.path.insert(0, '/Users/nam/desktop/injective/sdk-python/')
+
 import asyncio
 import logging
 
+from pyinjective.composer import Composer as ProtoMsgComposer
 from pyinjective.client import Client
 from pyinjective.transaction import Transaction
 from pyinjective.constant import Network
 from pyinjective.wallet import PrivateKey, PublicKey, Address
-
-import pyinjective.proto.cosmos.bank.v1beta1.tx_pb2 as cosmos_bank_tx_pb
-import pyinjective.proto.cosmos.base.v1beta1.coin_pb2 as cosmos_base_coin_pb
 
 async def main() -> None:
     # select network: localhost, testnet, mainnet
@@ -22,15 +23,19 @@ async def main() -> None:
     address = pub_key.to_address()
 
     # prepare tx msg
-    msg = cosmos_bank_tx_pb.MsgSend(
+    msg = ProtoMsgComposer.MsgSend(
         from_address=address.to_acc_bech32(),
         to_address='inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku',
-        amount=[cosmos_base_coin_pb.Coin(denom=network.fee_denom,amount=str(1000000000000000000))] #1 INJ
+        amount=1000000000000000000,
+        denom='inj'
     )
     acc_num, acc_seq = await address.get_num_seq(network.lcd_endpoint)
     gas_price = 500000000
     gas_limit = 200000
-    fee = [cosmos_base_coin_pb.Coin(denom=network.fee_denom,amount=str(gas_price * gas_limit))]
+    fee = [ProtoMsgComposer.Coin(
+        amount=str(gas_price * gas_limit),
+        denom=network.fee_denom,
+    )]
 
     # build tx
     tx = (
