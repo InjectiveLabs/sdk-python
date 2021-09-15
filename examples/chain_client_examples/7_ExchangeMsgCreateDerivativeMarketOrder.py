@@ -1,6 +1,3 @@
-import sys
-sys.path.insert(0, '/Users/nam/desktop/injective/sdk-python/')
-
 import asyncio
 import logging
 from decimal import *

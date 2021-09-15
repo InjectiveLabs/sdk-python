@@ -1,14 +1,20 @@
+import os
+from configparser import ConfigParser
+
 MAX_CLIENT_ID_LENGTH = 128
 MAX_DATA_SIZE = 256
 MAX_MEMO_CHARACTERS = 256
 
+config = ConfigParser()
+config.read(os.path.join(os.path.dirname(__file__), 'denoms.ini'))
+
 class Denom:
     def __init__(
         self,
-        base: int = 0,
-        quote: int = 0,
-        min_price_tick_size: float = 0,
-        min_quantity_tick_size: float = 0
+        base: int,
+        quote: int,
+        min_price_tick_size: float,
+        min_quantity_tick_size: float
     ):
         self.base = base
         self.quote = quote
@@ -17,32 +23,12 @@ class Denom:
 
     @classmethod
     def pair(cls, ticker):
-        # spot markets
-        if ticker == 'WBTC/USDC':
-            return cls(
-                base=8,
-                quote=6,
-                min_price_tick_size=0.001,
-                min_quantity_tick_size=0.001
-            )
-
-        # derivative markets
-        if ticker == 'BTC/USDT':
-            return cls(
-                base=18,
-                quote=6,
-                min_price_tick_size=1000,
-                min_quantity_tick_size=0.01
-            )
-
-        # default market
         return cls(
-            base=18,
-            quote=6,
-            min_price_tick_size=0.001,
-            min_quantity_tick_size=0.001
+            base=int(config._sections[ticker]['base']),
+            quote=int(config._sections[ticker]['quote']),
+            min_price_tick_size=str(config._sections[ticker]['min_price_tick_size']),
+            min_quantity_tick_size=str(config._sections[ticker]['min_quantity_tick_size']),
         )
-
 
 class Network:
     def __init__(
