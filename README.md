@@ -42,15 +42,33 @@ WARNING: Additional context:   user = True   home = None   root = None   prefix 
 ```
 
 ### Development
+1. Generate proto binding & build
 
-To copy proto schemas and regenerate GRPC clients:
+```
+make gen
+python -m build
+```
 
-```bash
-$ pipenv shell
-$ pipenv install --dev
+1. Enable dev env
+```
+pipenv shell
+pipenv install --dev
+```
 
-$ make copy-proto
-$ make gen
+1. Install pkg
+```
+# from local build
+pip uninstall injective-py
+pip install injective-py --no-index --find-links /path/to/injective/sdk-python/dist
+
+# from pypi
+pip uninstall injective-py
+pip install injective-py
+```
+
+1. Run an example
+```
+python examples/chain_client_examples/1_CosmosBankMsgSend.py
 ```
 
 ## License
