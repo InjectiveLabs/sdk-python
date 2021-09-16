@@ -39,8 +39,7 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
-        isBuy: bool,
-        trigger_price: float
+        isBuy: bool
     ):
         # load denom metadata
         denom =  Denoms.load_market(market_id)
@@ -49,7 +48,7 @@ class Composer:
         # prepare values
         quantity = spot_quantity_to_backend(quantity, denom)
         price = spot_price_to_backend(price, denom)
-        trigger_price = spot_price_to_backend(trigger_price, denom)
+        trigger_price = spot_price_to_backend(0, denom)
         order_type = injective_exchange_pb.OrderType.BUY if isBuy else injective_exchange_pb.OrderType.SELL
 
         # compose proto msg
@@ -76,8 +75,7 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
-        isBuy: bool,
-        trigger_price: float
+        isBuy: bool
     ):
         # load denom metadata
         denom =  Denoms.load_market(market_id)
@@ -86,7 +84,7 @@ class Composer:
         # prepare values
         quantity = spot_quantity_to_backend(quantity, denom)
         price = spot_price_to_backend(price, denom)
-        trigger_price = spot_price_to_backend(trigger_price, denom)
+        trigger_price = spot_price_to_backend(0, denom)
         order_type = injective_exchange_pb.OrderType.BUY if isBuy else injective_exchange_pb.OrderType.SELL
 
         # compose proto msg
@@ -128,8 +126,7 @@ class Composer:
         price: float,
         quantity: float,
         leverage: float,
-        isBuy: bool,
-        trigger_price: float
+        isBuy: bool
     ):
         # load denom metadata
         denom =  Denoms.load_market(market_id)
@@ -138,7 +135,7 @@ class Composer:
         # prepare values
         margin = derivative_margin_to_backend(price, quantity, leverage, denom)
         price = derivative_price_to_backend(price, denom)
-        trigger_price = derivative_price_to_backend(trigger_price, denom)
+        trigger_price = derivative_price_to_backend(0, denom)
         quantity = derivative_quantity_to_backend(quantity, denom)
         order_type = injective_exchange_pb.OrderType.BUY if isBuy else injective_exchange_pb.OrderType.SELL
 
@@ -168,8 +165,7 @@ class Composer:
         price: float,
         quantity: float,
         leverage: float,
-        isBuy: bool,
-        trigger_price: float
+        isBuy: bool
     ):
         # load denom metadata
         denom =  Denoms.load_market(market_id)
@@ -178,7 +174,7 @@ class Composer:
         # prepare values
         margin = derivative_margin_to_backend(price, quantity, leverage, denom)
         price = derivative_price_to_backend(price, denom)
-        trigger_price = derivative_price_to_backend(trigger_price, denom)
+        trigger_price = derivative_price_to_backend(0, denom)
         quantity = derivative_quantity_to_backend(quantity, denom)
         order_type = injective_exchange_pb.OrderType.BUY if isBuy else injective_exchange_pb.OrderType.SELL
 

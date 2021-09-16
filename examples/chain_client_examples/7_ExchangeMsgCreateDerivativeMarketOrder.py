@@ -33,8 +33,7 @@ async def main() -> None:
         price=60000,
         quantity=30,
         leverage=3,
-        isBuy=True,
-        trigger_price=0
+        isBuy=True
     )
 
     acc_num, acc_seq = await address.get_num_seq(network.lcd_endpoint)
