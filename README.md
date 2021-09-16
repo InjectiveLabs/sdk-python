@@ -11,12 +11,18 @@ sudo apt install python3.X-dev
 sudo dnf install python3-devel
 ```
 ### Quick Start
+Installation
 ```bash
 pip install injective-py
 ```
+Example usage
 ```python
-import injective.chain_client
-import injective.exchange_api
+from pyinjective.composer import Composer as ProtoMsgComposer
+from pyinjective.client import Client
+from pyinjective.transaction import Transaction
+from pyinjective.constant import Network
+from pyinjective.wallet import PrivateKey, PublicKey, Address
+
 ```
 
 ### Usage
