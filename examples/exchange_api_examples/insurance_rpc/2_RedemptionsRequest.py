@@ -17,13 +17,17 @@ import asyncio
 import logging
 import grpc
 
-import injective.exchange_api.injective_insurance_rpc_pb2 as insurance_rpc_pb
-import injective.exchange_api.injective_insurance_rpc_pb2_grpc as insurance_rpc_grpc
+import pyinjective.proto.exchange.injective_insurance_rpc_pb2 as insurance_rpc_pb
+import pyinjective.proto.exchange.injective_insurance_rpc_pb2_grpc as insurance_rpc_grpc
+
+from pyinjective.constant import Network
+
+network = Network.testnet()
 
 async def main() -> None:
-    async with grpc.aio.insecure_channel('testnet-sentry0.injective.network:9910') as channel:
+    async with grpc.aio.insecure_channel(network.grpc_exchange_endpoint) as channel:
         insurance_exchange_rpc = insurance_rpc_grpc.InjectiveInsuranceRPCStub(channel)
-        
+
         redemptions = await insurance_exchange_rpc.Redemptions(insurance_rpc_pb.RedemptionsRequest())
         print("\n-- Redemptions Update:\n", redemptions)
 
