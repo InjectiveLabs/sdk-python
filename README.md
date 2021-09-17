@@ -49,19 +49,18 @@ WARNING: Additional context:   user = True   home = None   root = None   prefix 
 
 ### Development
 1. Generate proto binding & build
-
 ```
 make gen
 python -m build
 ```
 
-1. Enable dev env
+2. Enable dev env
 ```
 pipenv shell
 pipenv install --dev
 ```
 
-1. Install pkg
+3. Install pkg
 ```
 # from local build
 pip uninstall injective-py
@@ -72,14 +71,9 @@ pip uninstall injective-py
 pip install injective-py
 ```
 
-1. Fetch latest denom config
+4. Fetch latest denom config
 ```
 python pyinjective/fetch_metadata.py
-```
-
-1. Run an example
-```
-python examples/chain_client_examples/1_CosmosBankMsgSend.py
 ```
 
 ## License
