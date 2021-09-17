@@ -11,12 +11,18 @@ sudo apt install python3.X-dev
 sudo dnf install python3-devel
 ```
 ### Quick Start
+Installation
 ```bash
 pip install injective-py
 ```
+Example usage
 ```python
-import injective.chain_client
-import injective.exchange_api
+from pyinjective.composer import Composer as ProtoMsgComposer
+from pyinjective.client import Client
+from pyinjective.transaction import Transaction
+from pyinjective.constant import Network
+from pyinjective.wallet import PrivateKey, PublicKey, Address
+
 ```
 
 ### Usage
@@ -42,15 +48,38 @@ WARNING: Additional context:   user = True   home = None   root = None   prefix 
 ```
 
 ### Development
+1. Generate proto binding & build
 
-To copy proto schemas and regenerate GRPC clients:
+```
+make gen
+python -m build
+```
 
-```bash
-$ pipenv shell
-$ pipenv install --dev
+1. Enable dev env
+```
+pipenv shell
+pipenv install --dev
+```
 
-$ make copy-proto
-$ make gen
+1. Install pkg
+```
+# from local build
+pip uninstall injective-py
+pip install injective-py --no-index --find-links /path/to/injective/sdk-python/dist
+
+# from pypi
+pip uninstall injective-py
+pip install injective-py
+```
+
+1. Fetch latest denom config
+```
+python pyinjective/fetch_metadata.py
+```
+
+1. Run an example
+```
+python examples/chain_client_examples/1_CosmosBankMsgSend.py
 ```
 
 ## License
