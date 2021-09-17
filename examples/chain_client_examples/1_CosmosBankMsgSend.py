@@ -1,6 +1,3 @@
-# import sys
-# sys.path.insert(0, '/Users/nam/desktop/injective/sdk-python/')
-
 import asyncio
 import logging
 
@@ -11,7 +8,7 @@ from pyinjective.constant import Network
 from pyinjective.wallet import PrivateKey, PublicKey, Address
 
 async def main() -> None:
-    # select network: localhost, testnet, mainnet
+    # select network: local, testnet, mainnet
     network = Network.testnet()
 
     # initialize grpc client
