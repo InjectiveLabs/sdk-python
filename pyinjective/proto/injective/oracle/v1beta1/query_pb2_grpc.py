@@ -30,6 +30,11 @@ class QueryStub(object):
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryBandPriceStatesRequest.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryBandPriceStatesResponse.FromString,
                 )
+        self.BandIBCPriceStates = channel.unary_unary(
+                '/injective.oracle.v1beta1.Query/BandIBCPriceStates',
+                request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryBandIBCPriceStatesRequest.SerializeToString,
+                response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryBandIBCPriceStatesResponse.FromString,
+                )
         self.PriceFeedPriceStates = channel.unary_unary(
                 '/injective.oracle.v1beta1.Query/PriceFeedPriceStates',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPriceFeedPriceStatesRequest.SerializeToString,
@@ -67,6 +72,13 @@ class QueryServicer(object):
 
     def BandPriceStates(self, request, context):
         """Retrieves the state for all band price feeds
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def BandIBCPriceStates(self, request, context):
+        """Retrieves the state for all band ibc price feeds
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -110,6 +122,11 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.BandPriceStates,
                     request_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryBandPriceStatesRequest.FromString,
                     response_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryBandPriceStatesResponse.SerializeToString,
+            ),
+            'BandIBCPriceStates': grpc.unary_unary_rpc_method_handler(
+                    servicer.BandIBCPriceStates,
+                    request_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryBandIBCPriceStatesRequest.FromString,
+                    response_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryBandIBCPriceStatesResponse.SerializeToString,
             ),
             'PriceFeedPriceStates': grpc.unary_unary_rpc_method_handler(
                     servicer.PriceFeedPriceStates,
@@ -185,6 +202,23 @@ class Query(object):
         return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/BandPriceStates',
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryBandPriceStatesRequest.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryBandPriceStatesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def BandIBCPriceStates(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/BandIBCPriceStates',
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryBandIBCPriceStatesRequest.SerializeToString,
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryBandIBCPriceStatesResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

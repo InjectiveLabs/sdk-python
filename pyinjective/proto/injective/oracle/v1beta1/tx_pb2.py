@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'ZLgithub.com/InjectiveLabs/injective-core/injective-chain/modules/oracle/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n!injective/oracle/v1beta1/tx.proto\x12\x18injective.oracle.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a%injective/oracle/v1beta1/oracle.proto\"\x8e\x01\n\x16MsgRelayPriceFeedPrice\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x0c\n\x04\x62\x61se\x18\x02 \x03(\t\x12\r\n\x05quote\x18\x03 \x03(\t\x12=\n\x05price\x18\x04 \x03(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\" \n\x1eMsgRelayPriceFeedPriceResponse\"o\n\x11MsgRelayBandRates\x12\x0f\n\x07relayer\x18\x01 \x01(\t\x12\x0f\n\x07symbols\x18\x02 \x03(\t\x12\r\n\x05rates\x18\x03 \x03(\x04\x12\x15\n\rresolve_times\x18\x04 \x03(\x04\x12\x12\n\nrequestIDs\x18\x05 \x03(\x04\"\x1b\n\x19MsgRelayBandRatesResponse\"Z\n\x18MsgRelayCoinbaseMessages\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08messages\x18\x02 \x03(\x0c\x12\x12\n\nsignatures\x18\x03 \x03(\x0c:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\"\n MsgRelayCoinbaseMessagesResponse2\x87\x03\n\x03Msg\x12\x81\x01\n\x13RelayPriceFeedPrice\x12\x30.injective.oracle.v1beta1.MsgRelayPriceFeedPrice\x1a\x38.injective.oracle.v1beta1.MsgRelayPriceFeedPriceResponse\x12r\n\x0eRelayBandRates\x12+.injective.oracle.v1beta1.MsgRelayBandRates\x1a\x33.injective.oracle.v1beta1.MsgRelayBandRatesResponse\x12\x87\x01\n\x15RelayCoinbaseMessages\x12\x32.injective.oracle.v1beta1.MsgRelayCoinbaseMessages\x1a:.injective.oracle.v1beta1.MsgRelayCoinbaseMessagesResponseBNZLgithub.com/InjectiveLabs/injective-core/injective-chain/modules/oracle/typesb\x06proto3'
+  serialized_pb=b'\n!injective/oracle/v1beta1/tx.proto\x12\x18injective.oracle.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a%injective/oracle/v1beta1/oracle.proto\"\x8e\x01\n\x16MsgRelayPriceFeedPrice\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x0c\n\x04\x62\x61se\x18\x02 \x03(\t\x12\r\n\x05quote\x18\x03 \x03(\t\x12=\n\x05price\x18\x04 \x03(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\" \n\x1eMsgRelayPriceFeedPriceResponse\"o\n\x11MsgRelayBandRates\x12\x0f\n\x07relayer\x18\x01 \x01(\t\x12\x0f\n\x07symbols\x18\x02 \x03(\t\x12\r\n\x05rates\x18\x03 \x03(\x04\x12\x15\n\rresolve_times\x18\x04 \x03(\x04\x12\x12\n\nrequestIDs\x18\x05 \x03(\x04\"\x1b\n\x19MsgRelayBandRatesResponse\"Z\n\x18MsgRelayCoinbaseMessages\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08messages\x18\x02 \x03(\x0c\x12\x12\n\nsignatures\x18\x03 \x03(\x0c:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\"\n MsgRelayCoinbaseMessagesResponse\"F\n\x16MsgRequestBandIBCRates\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x12\n\nrequest_id\x18\x02 \x01(\x04:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\" \n\x1eMsgRequestBandIBCRatesResponse2\x8b\x04\n\x03Msg\x12\x81\x01\n\x13RelayPriceFeedPrice\x12\x30.injective.oracle.v1beta1.MsgRelayPriceFeedPrice\x1a\x38.injective.oracle.v1beta1.MsgRelayPriceFeedPriceResponse\x12r\n\x0eRelayBandRates\x12+.injective.oracle.v1beta1.MsgRelayBandRates\x1a\x33.injective.oracle.v1beta1.MsgRelayBandRatesResponse\x12\x81\x01\n\x13RequestBandIBCRates\x12\x30.injective.oracle.v1beta1.MsgRequestBandIBCRates\x1a\x38.injective.oracle.v1beta1.MsgRequestBandIBCRatesResponse\x12\x87\x01\n\x15RelayCoinbaseMessages\x12\x32.injective.oracle.v1beta1.MsgRelayCoinbaseMessages\x1a:.injective.oracle.v1beta1.MsgRelayCoinbaseMessagesResponseBNZLgithub.com/InjectiveLabs/injective-core/injective-chain/modules/oracle/typesb\x06proto3'
   ,
   dependencies=[gogoproto_dot_gogo__pb2.DESCRIPTOR,cosmos_dot_base_dot_v1beta1_dot_coin__pb2.DESCRIPTOR,injective_dot_oracle_dot_v1beta1_dot_oracle__pb2.DESCRIPTOR,])
 
@@ -262,12 +262,78 @@ _MSGRELAYCOINBASEMESSAGESRESPONSE = _descriptor.Descriptor(
   serialized_end=603,
 )
 
+
+_MSGREQUESTBANDIBCRATES = _descriptor.Descriptor(
+  name='MsgRequestBandIBCRates',
+  full_name='injective.oracle.v1beta1.MsgRequestBandIBCRates',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='sender', full_name='injective.oracle.v1beta1.MsgRequestBandIBCRates.sender', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='request_id', full_name='injective.oracle.v1beta1.MsgRequestBandIBCRates.request_id', index=1,
+      number=2, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=b'\350\240\037\000\210\240\037\000',
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=605,
+  serialized_end=675,
+)
+
+
+_MSGREQUESTBANDIBCRATESRESPONSE = _descriptor.Descriptor(
+  name='MsgRequestBandIBCRatesResponse',
+  full_name='injective.oracle.v1beta1.MsgRequestBandIBCRatesResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=677,
+  serialized_end=709,
+)
+
 DESCRIPTOR.message_types_by_name['MsgRelayPriceFeedPrice'] = _MSGRELAYPRICEFEEDPRICE
 DESCRIPTOR.message_types_by_name['MsgRelayPriceFeedPriceResponse'] = _MSGRELAYPRICEFEEDPRICERESPONSE
 DESCRIPTOR.message_types_by_name['MsgRelayBandRates'] = _MSGRELAYBANDRATES
 DESCRIPTOR.message_types_by_name['MsgRelayBandRatesResponse'] = _MSGRELAYBANDRATESRESPONSE
 DESCRIPTOR.message_types_by_name['MsgRelayCoinbaseMessages'] = _MSGRELAYCOINBASEMESSAGES
 DESCRIPTOR.message_types_by_name['MsgRelayCoinbaseMessagesResponse'] = _MSGRELAYCOINBASEMESSAGESRESPONSE
+DESCRIPTOR.message_types_by_name['MsgRequestBandIBCRates'] = _MSGREQUESTBANDIBCRATES
+DESCRIPTOR.message_types_by_name['MsgRequestBandIBCRatesResponse'] = _MSGREQUESTBANDIBCRATESRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 MsgRelayPriceFeedPrice = _reflection.GeneratedProtocolMessageType('MsgRelayPriceFeedPrice', (_message.Message,), {
@@ -312,11 +378,26 @@ MsgRelayCoinbaseMessagesResponse = _reflection.GeneratedProtocolMessageType('Msg
   })
 _sym_db.RegisterMessage(MsgRelayCoinbaseMessagesResponse)
 
+MsgRequestBandIBCRates = _reflection.GeneratedProtocolMessageType('MsgRequestBandIBCRates', (_message.Message,), {
+  'DESCRIPTOR' : _MSGREQUESTBANDIBCRATES,
+  '__module__' : 'injective.oracle.v1beta1.tx_pb2'
+  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.MsgRequestBandIBCRates)
+  })
+_sym_db.RegisterMessage(MsgRequestBandIBCRates)
+
+MsgRequestBandIBCRatesResponse = _reflection.GeneratedProtocolMessageType('MsgRequestBandIBCRatesResponse', (_message.Message,), {
+  'DESCRIPTOR' : _MSGREQUESTBANDIBCRATESRESPONSE,
+  '__module__' : 'injective.oracle.v1beta1.tx_pb2'
+  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.MsgRequestBandIBCRatesResponse)
+  })
+_sym_db.RegisterMessage(MsgRequestBandIBCRatesResponse)
+
 
 DESCRIPTOR._options = None
 _MSGRELAYPRICEFEEDPRICE.fields_by_name['price']._options = None
 _MSGRELAYPRICEFEEDPRICE._options = None
 _MSGRELAYCOINBASEMESSAGES._options = None
+_MSGREQUESTBANDIBCRATES._options = None
 
 _MSG = _descriptor.ServiceDescriptor(
   name='Msg',
@@ -325,8 +406,8 @@ _MSG = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=606,
-  serialized_end=997,
+  serialized_start=712,
+  serialized_end=1235,
   methods=[
   _descriptor.MethodDescriptor(
     name='RelayPriceFeedPrice',
@@ -349,9 +430,19 @@ _MSG = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
+    name='RequestBandIBCRates',
+    full_name='injective.oracle.v1beta1.Msg.RequestBandIBCRates',
+    index=2,
+    containing_service=None,
+    input_type=_MSGREQUESTBANDIBCRATES,
+    output_type=_MSGREQUESTBANDIBCRATESRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
     name='RelayCoinbaseMessages',
     full_name='injective.oracle.v1beta1.Msg.RelayCoinbaseMessages',
-    index=2,
+    index=3,
     containing_service=None,
     input_type=_MSGRELAYCOINBASEMESSAGES,
     output_type=_MSGRELAYCOINBASEMESSAGESRESPONSE,
