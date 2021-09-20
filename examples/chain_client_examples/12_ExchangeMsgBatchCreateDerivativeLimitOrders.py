@@ -15,7 +15,7 @@ async def main() -> None:
     client = Client(network.grpc_endpoint, insecure=True)
 
     # load account
-    priv_key = PrivateKey.from_hex("5d386fbdbf11f1141010f81a46b40f94887367562bd33b452bbaa6ce1cd1381e")
+    priv_key = PrivateKey.from_hex("f9db9bf330e23cb7839039e944adef6e9df447b90b503d5b4464c90bea9022f3")
     pub_key =  priv_key.to_public_key()
     address = pub_key.to_address()
     subaccount_id = address.get_subaccount_id(index=0)
@@ -23,27 +23,18 @@ async def main() -> None:
     # prepare trade info
     market_id = "0xd0f46edfba58827fe692aab7c8d46395d1696239fdf6aeddfa668b73ca82ea30"
     fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
-
-    orders = [
-        ProtoMsgComposer.DerivativeOrder(
-            market_id=market_id,
-            subaccount_id=subaccount_id,
-            fee_recipient=fee_recipient,
-            price=41027,
-            quantity=0.01,
-            leverage=0.7,
-            isBuy=True
-        ),
-        ProtoMsgComposer.DerivativeOrder(
-            market_id=market_id,
-            subaccount_id=subaccount_id,
-            fee_recipient=fee_recipient,
-            price=62140,
-            quantity=0.01,
-            leverage=1.4,
-            isBuy=False
-        ),
-    ]
+    orders = []
+    for order in range(10):
+        orders.append(
+            ProtoMsgComposer.DerivativeOrder(
+                market_id=market_id,
+                subaccount_id=subaccount_id,
+                fee_recipient=fee_recipient,
+                price=30000,
+                quantity=0.01,
+                leverage=2,
+                isBuy=True
+            ))
 
     # prepare tx msg
     msg = ProtoMsgComposer.MsgBatchCreateDerivativeLimitOrders(
@@ -53,7 +44,7 @@ async def main() -> None:
 
     acc_num, acc_seq = await address.get_num_seq(network.lcd_endpoint)
     gas_price = 500000000
-    gas_limit = 200000
+    gas_limit = 2000000
     fee = [ProtoMsgComposer.Coin(
         amount=str(gas_price * gas_limit),
         denom=network.fee_denom,

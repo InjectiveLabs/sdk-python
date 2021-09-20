@@ -1,5 +1,9 @@
 import asyncio
 import logging
+import grpc
+
+import pyinjective.proto.exchange.injective_derivative_exchange_rpc_pb2 as derivative_exchange_rpc_pb
+import pyinjective.proto.exchange.injective_derivative_exchange_rpc_pb2_grpc as derivative_exchange_rpc_grpc
 
 from pyinjective.composer import Composer as ProtoMsgComposer
 from pyinjective.client import Client
@@ -21,19 +25,19 @@ async def main() -> None:
     subaccount_id = address.get_subaccount_id(index=0)
 
     # prepare trade info
-    market_id = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
-    orders = [
-        ProtoMsgComposer.OrderData(
-            market_id=market_id,
-            subaccount_id=subaccount_id,
-            order_hash="0x098f2c92336bb1ec3591435df1e135052760310bc08fc16e3b9bc409885b863b"
-        ),
-        ProtoMsgComposer.OrderData(
-            market_id=market_id,
-            subaccount_id=subaccount_id,
-            order_hash="0x8d4e780927f91011bf77dea8b625948a14c1ae55d8c5d3f5af3dadbd6bec591d"
+    market_id = "0xd0f46edfba58827fe692aab7c8d46395d1696239fdf6aeddfa668b73ca82ea30"
+    orders = []
+    async with grpc.aio.insecure_channel(network.grpc_exchange_endpoint) as channel:
+        derivative_exchange_rpc = derivative_exchange_rpc_grpc.InjectiveDerivativeExchangeRPCStub(channel)
+        ordresp = await derivative_exchange_rpc.Orders(derivative_exchange_rpc_pb.OrdersRequest(market_id=market_id, subaccount_id = subaccount_id))
+    for order in ordresp.orders:
+        orders.append(
+            ProtoMsgComposer.OrderData(
+                market_id=market_id,
+                subaccount_id=subaccount_id,
+                order_hash=order.order_hash
+            )
         )
-    ]
 
     # prepare tx msg
     msg = ProtoMsgComposer.MsgBatchCancelDerivativeOrders(
