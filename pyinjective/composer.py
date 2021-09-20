@@ -16,6 +16,80 @@ class Composer:
         )
 
     @staticmethod
+    def OrderData(market_id: str, subaccount_id: str, order_hash: str):
+        return injective_exchange_tx_pb.OrderData(
+            market_id=market_id,
+            subaccount_id=subaccount_id,
+            order_hash=order_hash
+        )
+
+    @staticmethod
+    def SpotOrder(
+        market_id: str,
+        subaccount_id: str,
+        fee_recipient: str,
+        price: float,
+        quantity: float,
+        isBuy: bool
+    ):
+        # load denom metadata
+        denom =  Denoms.load_market(market_id)
+        print('loaded market metadata for', denom.description)
+
+        # prepare values
+        quantity = spot_quantity_to_backend(quantity, denom)
+        price = spot_price_to_backend(price, denom)
+        trigger_price = spot_price_to_backend(0, denom)
+        order_type = injective_exchange_pb.OrderType.BUY if isBuy else injective_exchange_pb.OrderType.SELL
+
+        return injective_exchange_pb.SpotOrder(
+            market_id=market_id,
+            order_info=injective_exchange_pb.OrderInfo(
+                subaccount_id=subaccount_id,
+                fee_recipient=fee_recipient,
+                price=price,
+                quantity=quantity
+            ),
+            order_type=order_type,
+            trigger_price=trigger_price
+        )
+
+    @staticmethod
+    def DerivativeOrder(
+        market_id: str,
+        subaccount_id: str,
+        fee_recipient: str,
+        price: float,
+        quantity: float,
+        leverage: float,
+        isBuy: bool
+    ):
+        # load denom metadata
+        denom =  Denoms.load_market(market_id)
+        print('loaded market metadata for', denom.description)
+
+        # prepare values
+        margin = derivative_margin_to_backend(price, quantity, leverage, denom)
+        price = derivative_price_to_backend(price, denom)
+        trigger_price = derivative_price_to_backend(0, denom)
+        quantity = derivative_quantity_to_backend(quantity, denom)
+        order_type = injective_exchange_pb.OrderType.BUY if isBuy else injective_exchange_pb.OrderType.SELL
+
+        return injective_exchange_pb.DerivativeOrder(
+            market_id=market_id,
+            order_info=injective_exchange_pb.OrderInfo(
+                subaccount_id=subaccount_id,
+                fee_recipient=fee_recipient,
+                price=price,
+                quantity=quantity
+            ),
+            margin=margin,
+            order_type=order_type,
+            trigger_price=trigger_price
+        )
+
+
+    @staticmethod
     def MsgSend(from_address: str, to_address: str, amount: int, denom: str):
         return cosmos_bank_tx_pb.MsgSend(
             from_address=from_address,
@@ -41,29 +115,15 @@ class Composer:
         quantity: float,
         isBuy: bool
     ):
-        # load denom metadata
-        denom =  Denoms.load_market(market_id)
-        print('loaded market metadata for', denom.description)
-
-        # prepare values
-        quantity = spot_quantity_to_backend(quantity, denom)
-        price = spot_price_to_backend(price, denom)
-        trigger_price = spot_price_to_backend(0, denom)
-        order_type = injective_exchange_pb.OrderType.BUY if isBuy else injective_exchange_pb.OrderType.SELL
-
-        # compose proto msg
         return injective_exchange_tx_pb.MsgCreateSpotLimitOrder(
             sender=sender,
-            order=injective_exchange_pb.SpotOrder(
+            order=Composer.SpotOrder(
                 market_id=market_id,
-                order_info=injective_exchange_pb.OrderInfo(
-                    subaccount_id=subaccount_id,
-                    fee_recipient=fee_recipient,
-                    price=price,
-                    quantity=quantity
-                ),
-                order_type=order_type,
-                trigger_price=trigger_price
+                subaccount_id=subaccount_id,
+                fee_recipient=fee_recipient,
+                price=price,
+                quantity=quantity,
+                isBuy=isBuy
             )
         )
 
@@ -77,29 +137,15 @@ class Composer:
         quantity: float,
         isBuy: bool
     ):
-        # load denom metadata
-        denom =  Denoms.load_market(market_id)
-        print('loaded market metadata for', denom.description)
-
-        # prepare values
-        quantity = spot_quantity_to_backend(quantity, denom)
-        price = spot_price_to_backend(price, denom)
-        trigger_price = spot_price_to_backend(0, denom)
-        order_type = injective_exchange_pb.OrderType.BUY if isBuy else injective_exchange_pb.OrderType.SELL
-
-        # compose proto msg
         return injective_exchange_tx_pb.MsgCreateSpotMarketOrder(
             sender=sender,
-            order=injective_exchange_pb.SpotOrder(
+            order=Composer.SpotOrder(
                 market_id=market_id,
-                order_info=injective_exchange_pb.OrderInfo(
-                    subaccount_id=subaccount_id,
-                    fee_recipient=fee_recipient,
-                    price=price,
-                    quantity=quantity
-                ),
-                order_type=order_type,
-                trigger_price=trigger_price
+                subaccount_id=subaccount_id,
+                fee_recipient=fee_recipient,
+                price=price,
+                quantity=quantity,
+                isBuy=isBuy
             )
         )
 
@@ -118,6 +164,26 @@ class Composer:
         )
 
     @staticmethod
+    def MsgBatchCreateSpotLimitOrders(
+        sender: str,
+        orders: list
+    ):
+        return injective_exchange_tx_pb.MsgBatchCreateSpotLimitOrders(
+            sender=sender,
+            orders=orders
+        )
+
+    @staticmethod
+    def MsgBatchCancelSpotOrders(
+        sender: str,
+        data: list
+    ):
+        return injective_exchange_tx_pb.MsgBatchCancelSpotOrders(
+            sender=sender,
+            data=data
+        )
+
+    @staticmethod
     def MsgCreateDerivativeLimitOrder(
         market_id: str,
         sender: str,
@@ -128,31 +194,16 @@ class Composer:
         leverage: float,
         isBuy: bool
     ):
-        # load denom metadata
-        denom =  Denoms.load_market(market_id)
-        print('loaded market metadata for', denom.description)
-
-        # prepare values
-        margin = derivative_margin_to_backend(price, quantity, leverage, denom)
-        price = derivative_price_to_backend(price, denom)
-        trigger_price = derivative_price_to_backend(0, denom)
-        quantity = derivative_quantity_to_backend(quantity, denom)
-        order_type = injective_exchange_pb.OrderType.BUY if isBuy else injective_exchange_pb.OrderType.SELL
-
-        # compose proto msg
         return injective_exchange_tx_pb.MsgCreateDerivativeLimitOrder(
             sender=sender,
-            order=injective_exchange_pb.DerivativeOrder(
+            order=Composer.DerivativeOrder(
                 market_id=market_id,
-                order_info=injective_exchange_pb.OrderInfo(
-                    subaccount_id=subaccount_id,
-                    fee_recipient=fee_recipient,
-                    price=price,
-                    quantity=quantity,
-                ),
-                order_type=order_type,
-                margin=margin,
-                trigger_price=trigger_price
+                subaccount_id=subaccount_id,
+                fee_recipient=fee_recipient,
+                price=price,
+                quantity=quantity,
+                leverage=leverage,
+                isBuy=isBuy
             )
         )
 
@@ -167,31 +218,16 @@ class Composer:
         leverage: float,
         isBuy: bool
     ):
-        # load denom metadata
-        denom =  Denoms.load_market(market_id)
-        print('loaded market metadata for', denom.description)
-
-        # prepare values
-        margin = derivative_margin_to_backend(price, quantity, leverage, denom)
-        price = derivative_price_to_backend(price, denom)
-        trigger_price = derivative_price_to_backend(0, denom)
-        quantity = derivative_quantity_to_backend(quantity, denom)
-        order_type = injective_exchange_pb.OrderType.BUY if isBuy else injective_exchange_pb.OrderType.SELL
-
-        # compose proto msg
         return injective_exchange_tx_pb.MsgCreateDerivativeMarketOrder(
             sender=sender,
-            order=injective_exchange_pb.DerivativeOrder(
+            order=Composer.DerivativeOrder(
                 market_id=market_id,
-                order_info=injective_exchange_pb.OrderInfo(
-                    subaccount_id=subaccount_id,
-                    fee_recipient=fee_recipient,
-                    price=price,
-                    quantity=quantity,
-                ),
-                order_type=order_type,
-                margin=margin,
-                trigger_price=trigger_price
+                subaccount_id=subaccount_id,
+                fee_recipient=fee_recipient,
+                price=price,
+                quantity=quantity,
+                leverage=leverage,
+                isBuy=isBuy
             )
         )
 
@@ -207,4 +243,24 @@ class Composer:
             market_id=market_id,
             subaccount_id=subaccount_id,
             order_hash=order_hash
+        )
+
+    @staticmethod
+    def MsgBatchCreateDerivativeLimitOrders(
+        sender: str,
+        orders: list
+    ):
+        return injective_exchange_tx_pb.MsgBatchCreateDerivativeLimitOrders(
+            sender=sender,
+            orders=orders
+        )
+
+    @staticmethod
+    def MsgBatchCancelDerivativeOrders(
+        sender: str,
+        data: list
+    ):
+        return injective_exchange_tx_pb.MsgBatchCancelDerivativeOrders(
+            sender=sender,
+            data=data
         )
