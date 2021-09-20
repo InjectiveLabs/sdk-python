@@ -26,8 +26,8 @@ async def main() -> None:
 
     # prepare tx msg
     msg = ProtoMsgComposer.MsgCreateSpotMarketOrder(
-        market_id=market_id,
         sender=address.to_acc_bech32(),
+        market_id=market_id,
         subaccount_id=subaccount_id,
         fee_recipient=fee_recipient,
         price=7.523,

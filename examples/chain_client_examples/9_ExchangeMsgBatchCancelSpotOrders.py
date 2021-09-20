@@ -22,17 +22,23 @@ async def main() -> None:
 
     # prepare trade info
     market_id = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
-    fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
+    orders = [
+        ProtoMsgComposer.OrderData(
+            market_id=market_id,
+            subaccount_id=subaccount_id,
+            order_hash="0x098f2c92336bb1ec3591435df1e135052760310bc08fc16e3b9bc409885b863b"
+        ),
+        ProtoMsgComposer.OrderData(
+            market_id=market_id,
+            subaccount_id=subaccount_id,
+            order_hash="0x8d4e780927f91011bf77dea8b625948a14c1ae55d8c5d3f5af3dadbd6bec591d"
+        )
+    ]
 
     # prepare tx msg
-    msg = ProtoMsgComposer.MsgCreateSpotLimitOrder(
+    msg = ProtoMsgComposer.MsgBatchCancelSpotOrders(
         sender=address.to_acc_bech32(),
-        market_id=market_id,
-        subaccount_id=subaccount_id,
-        fee_recipient=fee_recipient,
-        price=7.523,
-        quantity=0.01,
-        isBuy=True
+        data=orders
     )
 
     acc_num, acc_seq = await address.get_num_seq(network.lcd_endpoint)

@@ -22,7 +22,6 @@ async def main() -> None:
 
     # prepare trade info
     market_id = "0xd0f46edfba58827fe692aab7c8d46395d1696239fdf6aeddfa668b73ca82ea30"
-    subaccount_id = "0xbdaedec95d563fb05240d6e01821008454c24c36000000000000000000000000"
     order_hash = "0x5f4672dcca9b96ba2bb72e2ab484f71adf9814e74d12e615f489d0a616cddb8c"
 
     # prepare tx msg

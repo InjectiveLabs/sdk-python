@@ -15,7 +15,7 @@ async def main() -> None:
     client = Client(network.grpc_endpoint, insecure=True)
 
     # load account
-    priv_key = PrivateKey.from_hex("f9db9bf330e23cb7839039e944adef6e9df447b90b503d5b4464c90bea9022f3")
+    priv_key = PrivateKey.from_hex("5d386fbdbf11f1141010f81a46b40f94887367562bd33b452bbaa6ce1cd1381e")
     pub_key =  priv_key.to_public_key()
     address = pub_key.to_address()
     subaccount_id = address.get_subaccount_id(index=0)
@@ -24,15 +24,29 @@ async def main() -> None:
     market_id = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
     fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
 
+    orders = [
+        ProtoMsgComposer.SpotOrder(
+            market_id=market_id,
+            subaccount_id=subaccount_id,
+            fee_recipient=fee_recipient,
+            price=7.523,
+            quantity=0.01,
+            isBuy=True
+        ),
+        ProtoMsgComposer.SpotOrder(
+            market_id=market_id,
+            subaccount_id=subaccount_id,
+            fee_recipient=fee_recipient,
+            price=27.92,
+            quantity=0.01,
+            isBuy=False
+        ),
+    ]
+
     # prepare tx msg
-    msg = ProtoMsgComposer.MsgCreateSpotLimitOrder(
+    msg = ProtoMsgComposer.MsgBatchCreateSpotLimitOrders(
         sender=address.to_acc_bech32(),
-        market_id=market_id,
-        subaccount_id=subaccount_id,
-        fee_recipient=fee_recipient,
-        price=7.523,
-        quantity=0.01,
-        isBuy=True
+        orders=orders
     )
 
     acc_num, acc_seq = await address.get_num_seq(network.lcd_endpoint)
