@@ -9,10 +9,8 @@ import pyinjective.proto.exchange.injective_derivative_exchange_rpc_pb2_grpc as 
 
 from pyinjective.constant import Network
 
-network = Network.testnet()
-
 metadata_template = """[{}]
-description = '{} {}'
+description = '{} {} {}'
 base = {}
 quote = {}
 min_price_tick_size = {}
@@ -20,10 +18,13 @@ min_quantity_tick_size = {}
 
 """
 
-denom_output = ''
+testnet_denom_output = ''
+mainnet_denom_output = ''
 
-async def main() -> None:
-    global denom_output
+async def fetch_denom(network) -> str:
+    denom_output = ''
+
+    # fetch meta data for spot markets
     async with grpc.aio.insecure_channel(network.grpc_exchange_endpoint) as channel:
         spot_exchange_rpc = spot_exchange_rpc_grpc.InjectiveSpotExchangeRPCStub(channel)
         status = "active"
@@ -31,7 +32,7 @@ async def main() -> None:
         for market in mresp.markets:
             config = metadata_template.format(
                 market.market_id,
-                'Spot', market.ticker,
+                network.string().capitalize(), 'Spot', market.ticker,
                 market.base_token_meta.decimals,
                 market.quote_token_meta.decimals,
                 market.min_price_tick_size,
@@ -39,7 +40,7 @@ async def main() -> None:
             )
             denom_output += config
 
-
+    # fetch meta data for derivative markets
     async with grpc.aio.insecure_channel(network.grpc_exchange_endpoint) as channel:
         derivative_exchange_rpc = derivative_exchange_rpc_grpc.InjectiveDerivativeExchangeRPCStub(channel)
         status = "active"
@@ -47,7 +48,7 @@ async def main() -> None:
         for market in mresp.markets:
             config = metadata_template.format(
                 market.market_id,
-                'Derivative', market.ticker,
+                network.string().capitalize(), 'Derivative', market.ticker,
                 18,
                 market.quote_token_meta.decimals,
                 market.min_price_tick_size,
@@ -55,8 +56,18 @@ async def main() -> None:
             )
             denom_output += config
 
-    with open("./pyinjective/denoms.ini", "w") as text_file:
-        text_file.write(denom_output)
+    return denom_output
+
+async def main() -> None:
+    testnet = Network.testnet()
+    data = await fetch_denom(testnet)
+    with open("./pyinjective/testnet_denoms.ini", "w") as text_file:
+        text_file.write(data)
+
+    mainnet = Network.mainnet()
+    data = await fetch_denom(mainnet)
+    with open("./pyinjective/mainnet_denoms.ini", "w") as text_file:
+        text_file.write(data)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)

@@ -8,23 +8,24 @@ from .constant import Denoms
 from .utils import *
 
 class Composer:
-    @staticmethod
-    def Coin(amount: int, denom: str):
+    def __init__(self, network: str):
+        self.network =  network
+
+    def Coin(self, amount: int, denom: str):
         return cosmos_base_coin_pb.Coin(
             amount=amount,
             denom=denom
         )
 
-    @staticmethod
-    def OrderData(market_id: str, subaccount_id: str, order_hash: str):
+    def OrderData(self, market_id: str, subaccount_id: str, order_hash: str):
         return injective_exchange_tx_pb.OrderData(
             market_id=market_id,
             subaccount_id=subaccount_id,
             order_hash=order_hash
         )
 
-    @staticmethod
     def SpotOrder(
+        self,
         market_id: str,
         subaccount_id: str,
         fee_recipient: str,
@@ -33,7 +34,7 @@ class Composer:
         isBuy: bool
     ):
         # load denom metadata
-        denom =  Denoms.load_market(market_id)
+        denom =  Denoms.load_market(self.network, market_id)
         print('loaded market metadata for', denom.description)
 
         # prepare values
@@ -54,8 +55,8 @@ class Composer:
             trigger_price=trigger_price
         )
 
-    @staticmethod
     def DerivativeOrder(
+        self,
         market_id: str,
         subaccount_id: str,
         fee_recipient: str,
@@ -65,7 +66,7 @@ class Composer:
         isBuy: bool
     ):
         # load denom metadata
-        denom =  Denoms.load_market(market_id)
+        denom =  Denoms.load_market(self.network, market_id)
         print('loaded market metadata for', denom.description)
 
         # prepare values
@@ -89,24 +90,22 @@ class Composer:
         )
 
 
-    @staticmethod
-    def MsgSend(from_address: str, to_address: str, amount: int, denom: str):
+    def MsgSend(self, from_address: str, to_address: str, amount: int, denom: str):
         return cosmos_bank_tx_pb.MsgSend(
             from_address=from_address,
             to_address=to_address,
-            amount=[Composer.Coin(amount=str(amount),denom=denom)]
+            amount=[self.Coin(amount=str(amount),denom=denom)]
         )
 
-    @staticmethod
-    def MsgDeposit(sender: str, subaccount_id: str, amount: int, denom: str):
+    def MsgDeposit(self, sender: str, subaccount_id: str, amount: int, denom: str):
         return injective_exchange_tx_pb.MsgDeposit(
             sender=sender,
             subaccount_id=subaccount_id,
-            amount=Composer.Coin(amount=str(amount),denom=denom)
+            amount=self.Coin(amount=str(amount),denom=denom)
         )
 
-    @staticmethod
     def MsgCreateSpotLimitOrder(
+        self,
         market_id: str,
         sender: str,
         subaccount_id: str,
@@ -117,7 +116,7 @@ class Composer:
     ):
         return injective_exchange_tx_pb.MsgCreateSpotLimitOrder(
             sender=sender,
-            order=Composer.SpotOrder(
+            order=self.SpotOrder(
                 market_id=market_id,
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,
@@ -127,8 +126,8 @@ class Composer:
             )
         )
 
-    @staticmethod
     def MsgCreateSpotMarketOrder(
+        self,
         market_id: str,
         sender: str,
         subaccount_id: str,
@@ -139,7 +138,7 @@ class Composer:
     ):
         return injective_exchange_tx_pb.MsgCreateSpotMarketOrder(
             sender=sender,
-            order=Composer.SpotOrder(
+            order=self.SpotOrder(
                 market_id=market_id,
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,
@@ -149,8 +148,8 @@ class Composer:
             )
         )
 
-    @staticmethod
     def MsgCancelSpotOrder(
+        self,
         market_id: str,
         sender: str,
         subaccount_id: str,
@@ -163,8 +162,8 @@ class Composer:
             order_hash=order_hash
         )
 
-    @staticmethod
     def MsgBatchCreateSpotLimitOrders(
+        self,
         sender: str,
         orders: list
     ):
@@ -173,8 +172,8 @@ class Composer:
             orders=orders
         )
 
-    @staticmethod
     def MsgBatchCancelSpotOrders(
+        self,
         sender: str,
         data: list
     ):
@@ -183,8 +182,8 @@ class Composer:
             data=data
         )
 
-    @staticmethod
     def MsgCreateDerivativeLimitOrder(
+        self,
         market_id: str,
         sender: str,
         subaccount_id: str,
@@ -196,7 +195,7 @@ class Composer:
     ):
         return injective_exchange_tx_pb.MsgCreateDerivativeLimitOrder(
             sender=sender,
-            order=Composer.DerivativeOrder(
+            order=self.DerivativeOrder(
                 market_id=market_id,
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,
@@ -207,8 +206,8 @@ class Composer:
             )
         )
 
-    @staticmethod
     def MsgCreateDerivativeMarketOrder(
+        self,
         market_id: str,
         sender: str,
         subaccount_id: str,
@@ -220,7 +219,7 @@ class Composer:
     ):
         return injective_exchange_tx_pb.MsgCreateDerivativeMarketOrder(
             sender=sender,
-            order=Composer.DerivativeOrder(
+            order=self.DerivativeOrder(
                 market_id=market_id,
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,
@@ -231,8 +230,8 @@ class Composer:
             )
         )
 
-    @staticmethod
     def MsgCancelDerivativeOrder(
+        self,
         market_id: str,
         sender: str,
         subaccount_id: str,
@@ -245,8 +244,8 @@ class Composer:
             order_hash=order_hash
         )
 
-    @staticmethod
     def MsgBatchCreateDerivativeLimitOrders(
+        self,
         sender: str,
         orders: list
     ):
@@ -255,8 +254,8 @@ class Composer:
             orders=orders
         )
 
-    @staticmethod
     def MsgBatchCancelDerivativeOrders(
+        self,
         sender: str,
         data: list
     ):

@@ -1,2 +1,2 @@
 recursive-include pyinjective/proto *.py
-include pyinjective/denoms.ini
+recursive-include pyinjective *.ini
