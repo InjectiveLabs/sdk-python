@@ -13,6 +13,7 @@ async def main() -> None:
 
     # initialize grpc client
     client = Client(network.grpc_endpoint, insecure=True)
+    composer = ProtoMsgComposer(network=network.string())
 
     # load account
     priv_key = PrivateKey.from_hex("f9db9bf330e23cb7839039e944adef6e9df447b90b503d5b4464c90bea9022f3")
@@ -25,7 +26,7 @@ async def main() -> None:
     order_hash = "0x098f2c92336bb1ec3591435df1e135052760310bc08fc16e3b9bc409885b863b"
 
     # prepare tx msg
-    msg = ProtoMsgComposer.MsgCancelSpotOrder(
+    msg = composer.MsgCancelSpotOrder(
         sender=address.to_acc_bech32(),
         market_id=market_id,
         subaccount_id=subaccount_id,
@@ -35,7 +36,7 @@ async def main() -> None:
     acc_num, acc_seq = await address.get_num_seq(network.lcd_endpoint)
     gas_price = 500000000
     gas_limit = 200000
-    fee = [ProtoMsgComposer.Coin(
+    fee = [composer.Coin(
         amount=str(gas_price * gas_limit),
         denom=network.fee_denom,
     )]

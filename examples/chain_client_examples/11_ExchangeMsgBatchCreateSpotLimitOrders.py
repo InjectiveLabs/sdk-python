@@ -10,6 +10,7 @@ from pyinjective.wallet import PrivateKey, PublicKey, Address
 async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
+    composer = ProtoMsgComposer(network=network.string())
 
     # initialize grpc client
     client = Client(network.grpc_endpoint, insecure=True)
@@ -25,7 +26,7 @@ async def main() -> None:
     fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
 
     orders = [
-        ProtoMsgComposer.SpotOrder(
+        composer.SpotOrder(
             market_id=market_id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -33,7 +34,7 @@ async def main() -> None:
             quantity=0.01,
             isBuy=True
         ),
-        ProtoMsgComposer.SpotOrder(
+        composer.SpotOrder(
             market_id=market_id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -44,7 +45,7 @@ async def main() -> None:
     ]
 
     # prepare tx msg
-    msg = ProtoMsgComposer.MsgBatchCreateSpotLimitOrders(
+    msg = composer.MsgBatchCreateSpotLimitOrders(
         sender=address.to_acc_bech32(),
         orders=orders
     )
@@ -52,7 +53,7 @@ async def main() -> None:
     acc_num, acc_seq = await address.get_num_seq(network.lcd_endpoint)
     gas_price = 500000000
     gas_limit = 200000
-    fee = [ProtoMsgComposer.Coin(
+    fee = [composer.Coin(
         amount=str(gas_price * gas_limit),
         denom=network.fee_denom,
     )]

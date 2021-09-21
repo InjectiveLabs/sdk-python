@@ -10,6 +10,7 @@ from pyinjective.wallet import PrivateKey, PublicKey, Address
 async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
+    composer = ProtoMsgComposer(network=network.string())
 
     # initialize grpc client
     client = Client(network.grpc_endpoint, insecure=True)
@@ -23,12 +24,12 @@ async def main() -> None:
     # prepare trade info
     market_id = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
     orders = [
-        ProtoMsgComposer.OrderData(
+        composer.OrderData(
             market_id=market_id,
             subaccount_id=subaccount_id,
             order_hash="0x098f2c92336bb1ec3591435df1e135052760310bc08fc16e3b9bc409885b863b"
         ),
-        ProtoMsgComposer.OrderData(
+        composer.OrderData(
             market_id=market_id,
             subaccount_id=subaccount_id,
             order_hash="0x8d4e780927f91011bf77dea8b625948a14c1ae55d8c5d3f5af3dadbd6bec591d"
@@ -36,7 +37,7 @@ async def main() -> None:
     ]
 
     # prepare tx msg
-    msg = ProtoMsgComposer.MsgBatchCancelDerivativeOrders(
+    msg = composer.MsgBatchCancelDerivativeOrders(
         sender=address.to_acc_bech32(),
         data=orders
     )
@@ -44,7 +45,7 @@ async def main() -> None:
     acc_num, acc_seq = await address.get_num_seq(network.lcd_endpoint)
     gas_price = 500000000
     gas_limit = 200000
-    fee = [ProtoMsgComposer.Coin(
+    fee = [composer.Coin(
         amount=str(gas_price * gas_limit),
         denom=network.fee_denom,
     )]
