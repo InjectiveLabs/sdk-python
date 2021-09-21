@@ -89,7 +89,6 @@ class Composer:
             trigger_price=trigger_price
         )
 
-
     def MsgSend(self, from_address: str, to_address: str, amount: int, denom: str):
         return cosmos_bank_tx_pb.MsgSend(
             from_address=from_address,
@@ -262,4 +261,61 @@ class Composer:
         return injective_exchange_tx_pb.MsgBatchCancelDerivativeOrders(
             sender=sender,
             data=data
+        )
+
+    def MsgLiquidatePosition(
+        self,
+        sender: str,
+        subaccount_id: str,
+        market_id: str
+    ):
+        return injective_exchange_tx_pb.MsgLiquidatePosition(
+            sender=sender,
+            subaccount_id=subaccount_id,
+            market_id=market_id
+        )
+
+    def MsgIncreasePositionMargin (
+        self,
+        sender: str,
+        source_subaccount_id: str,
+        destination_subaccount_id: str,
+        market_id: str,
+        amount: str
+    ):
+        return injective_exchange_tx_pb.MsgIncreasePositionMargin(
+            sender=sender,
+            source_subaccount_id=source_subaccount_id,
+            destination_subaccount_id=destination_subaccount_id,
+            market_id=market_id,
+            amount=amount
+        )
+
+    def MsgSubaccountTransfer (
+        self,
+        sender: str,
+        source_subaccount_id: str,
+        destination_subaccount_id: str,
+        amount: int,
+        denom: str
+    ):
+
+        return injective_exchange_tx_pb.MsgSubaccountTransfer(
+            sender=sender,
+            source_subaccount_id=source_subaccount_id,
+            destination_subaccount_id=destination_subaccount_id,
+            amount=self.Coin(amount=str(amount),denom=denom)
+        )
+
+    def MsgWithdraw(
+        self,
+        sender: str,
+        subaccount_id: str,
+        amount: int,
+        denom: str
+    ):
+        return injective_exchange_tx_pb.MsgWithdraw(
+            sender=sender,
+            subaccount_id=subaccount_id,
+            amount=self.Coin(amount=str(amount),denom=denom)
         )
