@@ -264,3 +264,59 @@ class Composer:
             sender=sender,
             data=data
         )
+    @staticmethod
+    def MsgLiquidatePosition(
+        sender: str,
+        subaccount_id: str,
+        market_id: str
+    ):
+        return injective_exchange_tx_pb.MsgLiquidatePosition(
+            sender=sender,
+            subaccount_id=subaccount_id,
+            market_id=market_id
+        )
+
+    @staticmethod
+    def MsgIncreasePositionMargin (
+        sender: str,
+        source_subaccount_id: str,
+        destination_subaccount_id: str,
+        market_id: str,
+        amount: str
+    ):
+        return injective_exchange_tx_pb.MsgIncreasePositionMargin(
+            sender=sender,
+            source_subaccount_id=source_subaccount_id,
+            destination_subaccount_id=destination_subaccount_id,
+            market_id=market_id,
+            amount=amount
+        )
+
+    @staticmethod
+    def MsgSubaccountTransfer (
+        sender: str,
+        source_subaccount_id: str,
+        destination_subaccount_id: str,
+        amount: int,
+        denom: str
+    ):
+
+        return injective_exchange_tx_pb.MsgSubaccountTransfer(
+            sender=sender,
+            source_subaccount_id=source_subaccount_id,
+            destination_subaccount_id=destination_subaccount_id,
+            amount=Composer.Coin(amount=str(amount),denom=denom)
+        )
+
+    @staticmethod
+    def MsgWithdraw(
+        sender: str,
+        subaccount_id: str,
+        amount: int,
+        denom: str
+    ):
+        return injective_exchange_tx_pb.MsgWithdraw(
+            sender=sender,
+            subaccount_id=subaccount_id,
+            amount=Composer.Coin(amount=str(amount),denom=denom)
+        )
