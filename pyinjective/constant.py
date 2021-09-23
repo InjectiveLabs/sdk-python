@@ -11,7 +11,7 @@ testnet_config.read(os.path.join(os.path.dirname(__file__), 'testnet_denoms.ini'
 mainnet_config = ConfigParser()
 mainnet_config.read(os.path.join(os.path.dirname(__file__), 'mainnet_denoms.ini'))
 
-class Denoms:
+class Denom:
     def __init__(
         self,
         description: str,
@@ -41,6 +41,15 @@ class Denoms:
             min_price_tick_size=str(config._sections[market_id]['min_price_tick_size']),
             min_quantity_tick_size=str(config._sections[market_id]['min_quantity_tick_size']),
         )
+
+    @classmethod
+    def load_peggy_denom(cls, network, symbol):
+        config = None
+        if network == 'testnet':
+            config = testnet_config
+        if network == 'mainnet':
+            config =mainnet_config
+        return config._sections[symbol]['peggy_denom'], int(config._sections[symbol]['decimals'])
 
 class Network:
     def __init__(

@@ -4,7 +4,7 @@ from .proto.cosmos.base.v1beta1 import coin_pb2 as cosmos_base_coin_pb
 from .proto.injective.exchange.v1beta1 import tx_pb2 as injective_exchange_tx_pb
 from .proto.injective.exchange.v1beta1 import exchange_pb2 as injective_exchange_pb
 
-from .constant import Denoms
+from .constant import Denom
 from .utils import *
 
 class Composer:
@@ -34,8 +34,8 @@ class Composer:
         isBuy: bool
     ):
         # load denom metadata
-        denom =  Denoms.load_market(self.network, market_id)
-        print('loaded market metadata for', denom.description)
+        denom =  Denom.load_market(self.network, market_id)
+        print('Loaded market metadata for', denom.description)
 
         # prepare values
         quantity = spot_quantity_to_backend(quantity, denom)
@@ -66,8 +66,8 @@ class Composer:
         isBuy: bool
     ):
         # load denom metadata
-        denom =  Denoms.load_market(self.network, market_id)
-        print('loaded market metadata for', denom.description)
+        denom =  Denom.load_market(self.network, market_id)
+        print('Loaded market metadata for', denom.description)
 
         # prepare values
         margin = derivative_margin_to_backend(price, quantity, leverage, denom)
@@ -90,17 +90,25 @@ class Composer:
         )
 
     def MsgSend(self, from_address: str, to_address: str, amount: int, denom: str):
+        peggy_denom, decimals = Denom.load_peggy_denom(self.network, denom)
+        be_amount = amount_to_backend(amount, decimals)
+        print("Loaded send symbol {} ({}) with decimals = {}".format(denom, peggy_denom, decimals))
+
         return cosmos_bank_tx_pb.MsgSend(
             from_address=from_address,
             to_address=to_address,
-            amount=[self.Coin(amount=str(amount),denom=denom)]
+            amount=[self.Coin(amount=be_amount,denom=peggy_denom)]
         )
 
     def MsgDeposit(self, sender: str, subaccount_id: str, amount: int, denom: str):
+        peggy_denom, decimals = Denom.load_peggy_denom(self.network, denom)
+        be_amount = amount_to_backend(amount, decimals)
+        print("Loaded deposit symbol {} ({}) with decimals = {}".format(denom, peggy_denom, decimals))
+
         return injective_exchange_tx_pb.MsgDeposit(
             sender=sender,
             subaccount_id=subaccount_id,
-            amount=self.Coin(amount=str(amount),denom=denom)
+            amount=self.Coin(amount=be_amount,denom=peggy_denom)
         )
 
     def MsgCreateSpotLimitOrder(
@@ -283,12 +291,14 @@ class Composer:
         market_id: str,
         amount: str
     ):
+        denom =  Denom.load_market(self.network, market_id)
+        additional_margin = derivative_additional_margin_to_backend(amount, denom)
         return injective_exchange_tx_pb.MsgIncreasePositionMargin(
             sender=sender,
             source_subaccount_id=source_subaccount_id,
             destination_subaccount_id=destination_subaccount_id,
             market_id=market_id,
-            amount=amount
+            amount=additional_margin
         )
 
     def MsgSubaccountTransfer (
@@ -311,11 +321,15 @@ class Composer:
         self,
         sender: str,
         subaccount_id: str,
-        amount: int,
+        amount: float,
         denom: str
     ):
+        peggy_denom, decimals = Denom.load_peggy_denom(self.network, denom)
+        be_amount = amount_to_backend(amount, decimals)
+        print("Loaded withdrawal symbol {} ({}) with decimals = {}".format(denom, peggy_denom, decimals))
+
         return injective_exchange_tx_pb.MsgWithdraw(
             sender=sender,
             subaccount_id=subaccount_id,
-            amount=self.Coin(amount=str(amount),denom=denom)
+            amount=self.Coin(amount=be_amount,denom=peggy_denom)
         )

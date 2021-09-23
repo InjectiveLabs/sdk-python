@@ -18,6 +18,12 @@ min_quantity_tick_size = {}
 
 """
 
+symbol_template = """[{}]
+peggy_denom = {}
+decimals = {}
+
+"""
+
 testnet_denom_output = ''
 mainnet_denom_output = ''
 
@@ -26,10 +32,19 @@ async def fetch_denom(network) -> str:
 
     # fetch meta data for spot markets
     async with grpc.aio.insecure_channel(network.grpc_exchange_endpoint) as channel:
+        symbols = {}
         spot_exchange_rpc = spot_exchange_rpc_grpc.InjectiveSpotExchangeRPCStub(channel)
         status = "active"
         mresp = await spot_exchange_rpc.Markets(spot_exchange_rpc_pb.MarketsRequest(market_status=status))
         for market in mresp.markets:
+            # append symbols to dict
+            if market.base_token_meta.SerializeToString() != b'':
+                symbols[market.base_token_meta.symbol] = (market.base_denom, market.base_token_meta.decimals)
+
+            if market.quote_token_meta.SerializeToString() != b'':
+                symbols[market.quote_token_meta.symbol] = (market.base_denom, market.quote_token_meta.decimals)
+
+            # format into ini entry
             config = metadata_template.format(
                 market.market_id,
                 network.string().capitalize(), 'Spot', market.ticker,
@@ -46,6 +61,11 @@ async def fetch_denom(network) -> str:
         status = "active"
         mresp = await derivative_exchange_rpc.Markets(derivative_exchange_rpc_pb.MarketsRequest(market_status=status))
         for market in mresp.markets:
+            # append symbols to dict
+            if market.quote_token_meta.SerializeToString() != b'':
+                symbols[market.quote_token_meta.symbol] = (market.quote_denom, market.quote_token_meta.decimals)
+
+            # format into ini entry
             config = metadata_template.format(
                 market.market_id,
                 network.string().capitalize(), 'Derivative', market.ticker,
@@ -55,6 +75,12 @@ async def fetch_denom(network) -> str:
                 market.min_quantity_tick_size
             )
             denom_output += config
+
+    # format into ini entry
+    for key in symbols:
+        peggy_id, decimals = symbols[key]
+        symbol = symbol_template.format(key, peggy_id, decimals)
+        denom_output += symbol
 
     return denom_output
 
