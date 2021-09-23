@@ -16,16 +16,16 @@ async def main() -> None:
     client = Client(network.grpc_endpoint, insecure=True)
 
     # load account
-    priv_key = PrivateKey.from_hex("f9db9bf330e23cb7839039e944adef6e9df447b90b503d5b4464c90bea9022f3")
+    priv_key = PrivateKey.from_hex("5d386fbdbf11f1141010f81a46b40f94887367562bd33b452bbaa6ce1cd1381e")
     pub_key =  priv_key.to_public_key()
     address = pub_key.to_address()
 
     # prepare tx msg
     msg = composer.MsgSend(
         from_address=address.to_acc_bech32(),
-        to_address='inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku',
-        amount=1000000000000000000,
-        denom='inj'
+        to_address='inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r',
+        amount=1,
+        denom='USDT'
     )
     acc_num, acc_seq = await address.get_num_seq(network.lcd_endpoint)
     gas_price = 500000000
