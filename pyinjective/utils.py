@@ -1,4 +1,5 @@
 from decimal import Decimal
+import decimal
 from math import floor
 
 """
@@ -36,9 +37,9 @@ def spot_quantity_to_backend(quantity, denom) -> str:
     return str(int(exchange_quantity))
 
 def derivative_price_to_backend(price, denom) -> str:
-    scale = int(0 - denom.quote)
-    price_tick_size = float(denom.min_price_tick_size) * pow(10, scale)
-    exchange_price = floor_to(price, price_tick_size) * pow(10, 18 + denom.quote)
+    scale = Decimal(0 - denom.quote)
+    price_tick_size = Decimal(denom.min_price_tick_size) * pow(10, scale)
+    exchange_price = floor_to(price, float(price_tick_size)) * pow(10, 18 + denom.quote)
     return str(int(exchange_price))
 
 def derivative_quantity_to_backend(quantity, denom) -> str:
@@ -49,10 +50,10 @@ def derivative_quantity_to_backend(quantity, denom) -> str:
     return str(int(exchange_quantity))
 
 def derivative_margin_to_backend(price, quantity, leverage, denom) -> str:
-    scale = int(0 - denom.quote)
-    price_tick_size = float(denom.min_price_tick_size) * pow(10, scale)
+    scale = Decimal(0 - denom.quote)
+    price_tick_size = Decimal(denom.min_price_tick_size) * pow(10, scale)
     margin = (price * quantity) / leverage
-    exchange_margin = floor_to(margin, price_tick_size) * pow(10, 18 + denom.quote)
+    exchange_margin = floor_to(margin, float(price_tick_size)) * pow(10, 18 + denom.quote)
     return str(int(exchange_margin))
 
 def derivative_additional_margin_to_backend(amount, denom) -> str:
