@@ -26,7 +26,7 @@ async def main() -> None:
     fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
 
     # prepare tx msg
-    msg = composer.MsgCreateDerivativeLimitOrder(
+    msg = composer.MsgCreateDerivativeMarketOrder(
         sender=address.to_acc_bech32(),
         market_id=market_id,
         subaccount_id=subaccount_id,
