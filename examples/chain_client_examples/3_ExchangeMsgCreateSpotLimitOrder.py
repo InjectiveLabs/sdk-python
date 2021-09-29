@@ -1,7 +1,7 @@
 import asyncio
 import logging
 
-from pyinjective.composer import Composer as ProtoMsgComposer
+from pyinjective.composer import Composer as ProtoMsgComposer, Parser as ProtoMsgParser
 from pyinjective.client import Client
 from pyinjective.transaction import Transaction
 from pyinjective.constant import Network
@@ -66,7 +66,9 @@ async def main() -> None:
     res = client.send_tx_block_mode(tx_raw_bytes)
 
     # print tx response
+    resMsg = ProtoMsgParser.MsgCreateSpotLimitOrderResponse(res.data)
     print(res)
+    print(resMsg)
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)

@@ -1,7 +1,7 @@
 import asyncio
 import logging
 
-from pyinjective.composer import Composer as ProtoMsgComposer
+from pyinjective.composer import Composer as ProtoMsgComposer, Parser as ProtoMsgParser
 from pyinjective.client import Client
 from pyinjective.transaction import Transaction
 from pyinjective.constant import Network
@@ -16,7 +16,7 @@ async def main() -> None:
     client = Client(network.grpc_endpoint, insecure=True)
 
     # load account
-    priv_key = PrivateKey.from_hex("f9db9bf330e23cb7839039e944adef6e9df447b90b503d5b4464c90bea9022f3")
+    priv_key = PrivateKey.from_hex("B8F67FF46B32AB18446A6130AD19589FAAD1C727B940E412D854DB0FB5533DD8")
     pub_key =  priv_key.to_public_key()
     address = pub_key.to_address()
     subaccount_id = address.get_subaccount_id(index=0)
@@ -33,6 +33,11 @@ async def main() -> None:
             market_id=market_id,
             subaccount_id=subaccount_id,
             order_hash="0x8d4e780927f91011bf77dea8b625948a14c1ae55d8c5d3f5af3dadbd6bec591d"
+        ),
+        composer.OrderData(
+            market_id=market_id,
+            subaccount_id=subaccount_id,
+            order_hash="0x8d4e111127f91011bf77dea8b625948a14c1ae55d8c5d3f5af3dadbd6bec591d"
         )
     ]
 
@@ -72,7 +77,9 @@ async def main() -> None:
     res = client.send_tx_block_mode(tx_raw_bytes)
 
     # print tx response
+    resMsg = ProtoMsgParser.MsgBatchCancelSpotOrdersResponse(res.data)
     print(res)
+    print(resMsg)
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)

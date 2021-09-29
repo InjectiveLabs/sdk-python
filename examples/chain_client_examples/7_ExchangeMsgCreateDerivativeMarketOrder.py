@@ -1,7 +1,7 @@
 import asyncio
 import logging
 
-from pyinjective.composer import Composer as ProtoMsgComposer
+from pyinjective.composer import Composer as ProtoMsgComposer, Parser as ProtoMsgParser
 from pyinjective.client import Client
 from pyinjective.transaction import Transaction
 from pyinjective.constant import Network
@@ -26,12 +26,12 @@ async def main() -> None:
     fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
 
     # prepare tx msg
-    msg = composer.MsgCreateDerivativeMarketOrder(
+    msg = composer.MsgCreateDerivativeLimitOrder(
         sender=address.to_acc_bech32(),
         market_id=market_id,
         subaccount_id=subaccount_id,
         fee_recipient=fee_recipient,
-        price=60000,
+        price=41173.755,
         quantity=30,
         leverage=3,
         isBuy=True
@@ -67,7 +67,9 @@ async def main() -> None:
     res = client.send_tx_block_mode(tx_raw_bytes)
 
     # print tx response
+    resMsg = ProtoMsgParser.MsgCreateDerivativeMarketOrderResponse(res.data)
     print(res)
+    print(resMsg)
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
