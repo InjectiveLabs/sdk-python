@@ -39,9 +39,11 @@ async def fetch_denom(network) -> str:
         for market in mresp.markets:
             # devnet has different market format
             if network.env == 'devnet':
-                base, quote = market.ticker.split("/")
-                symbols[base] = (market.base_denom, 18)
-                symbols[quote] = (market.quote_denom, 6)
+                base_symbol, quote_symbol = market.ticker.split("/")
+                market.base_token_meta.decimals = 18
+                market.quote_token_meta.decimals = 6
+                market.quote_token_meta.symbol = base_symbol
+                market.base_token_meta.symbol = quote_symbol
 
             # append symbols to dict
             if market.base_token_meta.SerializeToString() != b'':
@@ -67,6 +69,12 @@ async def fetch_denom(network) -> str:
         status = 'active'
         mresp = await derivative_exchange_rpc.Markets(derivative_exchange_rpc_pb.MarketsRequest(market_status=status))
         for market in mresp.markets:
+            # devnet has different market format
+            if network.env == 'devnet':
+                base_symbol, quote_symbol = market.ticker.split("/")
+                market.quote_token_meta.decimals = 6
+                market.quote_token_meta.symbol = base_symbol
+
             # append symbols to dict
             if market.quote_token_meta.SerializeToString() != b'':
                 symbols[market.quote_token_meta.symbol] = (market.quote_denom, market.quote_token_meta.decimals)
@@ -95,16 +103,16 @@ async def main() -> None:
     data = await fetch_denom(devnet)
     with open("./pyinjective/denoms_devnet.ini", "w") as text_file:
         text_file.write(data)
-
-    testnet = Network.testnet()
-    data = await fetch_denom(testnet)
-    with open("./pyinjective/denoms_testnet.ini", "w") as text_file:
-        text_file.write(data)
-
-    mainnet = Network.mainnet()
-    data = await fetch_denom(mainnet)
-    with open("./pyinjective/denoms_mainnet.ini", "w") as text_file:
-        text_file.write(data)
+    #
+    # testnet = Network.testnet()
+    # data = await fetch_denom(testnet)
+    # with open("./pyinjective/denoms_testnet.ini", "w") as text_file:
+    #     text_file.write(data)
+    #
+    # mainnet = Network.mainnet()
+    # data = await fetch_denom(mainnet)
+    # with open("./pyinjective/denoms_mainnet.ini", "w") as text_file:
+    #     text_file.write(data)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
