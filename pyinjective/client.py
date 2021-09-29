@@ -68,6 +68,11 @@ class Client:
             raise NotFoundError("Request Id is not found")
         return request_ids
 
+    def simulate_tx(self, tx_byte: bytes) -> abci_type.SimulationResponse:
+        return self.stubTx.Simulate(
+            tx_service.SimulateRequest(tx_bytes=tx_byte)
+        ).result
+
     def send_tx_sync_mode(self, tx_byte: bytes) -> abci_type.TxResponse:
         return self.stubTx.BroadcastTx(
             tx_service.BroadcastTxRequest(tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_SYNC)
