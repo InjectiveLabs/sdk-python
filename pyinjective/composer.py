@@ -333,3 +333,61 @@ class Composer:
             subaccount_id=subaccount_id,
             amount=self.Coin(amount=be_amount,denom=peggy_denom)
         )
+
+class Parser:
+    # data field format: [request-msg-header][raw-byte-msg-response]
+    # you need to figure out this magic prefix number to trim request-msg-header off the data
+    # then parse the rest into corresponding response type
+
+    # Spot
+    @staticmethod
+    def MsgCreateSpotLimitOrderResponse(hex_data_string):
+        data_bytes = bytes.fromhex(hex_data_string)
+        prefix = 57
+        print(data_bytes)
+        print(data_bytes[prefix:])
+        return injective_exchange_tx_pb.MsgCreateSpotLimitOrderResponse.FromString(data_bytes[prefix:])
+
+    @staticmethod
+    def MsgCreateSpotMarketOrderResponse(hex_data_string):
+        data_bytes = bytes.fromhex(hex_data_string)
+        prefix = 58
+        return injective_exchange_tx_pb.MsgCreateSpotMarketOrderResponse.FromString(data_bytes[prefix:])
+
+    @staticmethod
+    def MsgBatchCreateSpotLimitOrdersResponse(hex_data_string):
+        data_bytes = bytes.fromhex(hex_data_string)
+        prefix = 65
+        print(data_bytes[prefix:])
+        return injective_exchange_tx_pb.MsgBatchCreateSpotLimitOrdersResponse.FromString(data_bytes[prefix:])
+
+    @staticmethod
+    def MsgBatchCancelSpotOrdersResponse(hex_data_string):
+        data_bytes = bytes.fromhex(hex_data_string)
+        prefix = 58
+        return injective_exchange_tx_pb.MsgBatchCancelSpotOrdersResponse.FromString(data_bytes[prefix:])
+
+    # derivative
+    @staticmethod
+    def MsgCreateDerivativeLimitOrderResponse(hex_data_string):
+        data_bytes = bytes.fromhex(hex_data_string)
+        prefix = 64
+        return injective_exchange_tx_pb.MsgCreateDerivativeLimitOrderResponse.FromString(data_bytes[prefix:])
+
+    @staticmethod
+    def MsgCreateDerivativeMarketOrderResponse(hex_data_string):
+        data_bytes = bytes.fromhex(hex_data_string)
+        prefix = 64
+        return injective_exchange_tx_pb.MsgCreateDerivativeMarketOrderResponse.FromString(data_bytes[prefix:])
+
+    @staticmethod
+    def MsgBatchCreateDerivativeLimitOrdersResponse(hex_data_string):
+        data_bytes = bytes.fromhex(hex_data_string)
+        prefix = 71
+        return injective_exchange_tx_pb.MsgBatchCreateDerivativeLimitOrdersResponse.FromString(data_bytes[prefix:])
+
+    @staticmethod
+    def MsgBatchCancelDerivativeOrdersResponse(hex_data_string):
+        data_bytes = bytes.fromhex(hex_data_string)
+        prefix = 64
+        return injective_exchange_tx_pb.MsgBatchCancelDerivativeOrdersResponse.FromString(data_bytes[prefix:])

@@ -5,11 +5,14 @@ MAX_CLIENT_ID_LENGTH = 128
 MAX_DATA_SIZE = 256
 MAX_MEMO_CHARACTERS = 256
 
+devnet_config = ConfigParser()
+devnet_config.read(os.path.join(os.path.dirname(__file__), 'denoms_devnet.ini'))
+
 testnet_config = ConfigParser()
-testnet_config.read(os.path.join(os.path.dirname(__file__), 'testnet_denoms.ini'))
+testnet_config.read(os.path.join(os.path.dirname(__file__), 'denoms_testnet.ini'))
 
 mainnet_config = ConfigParser()
-mainnet_config.read(os.path.join(os.path.dirname(__file__), 'mainnet_denoms.ini'))
+mainnet_config.read(os.path.join(os.path.dirname(__file__), 'denoms_mainnet.ini'))
 
 class Denom:
     def __init__(
@@ -29,6 +32,8 @@ class Denom:
     @classmethod
     def load_market(cls, network, market_id):
         config = None
+        if network == 'devnet':
+            config = devnet_config
         if network == 'testnet':
             config = testnet_config
         if network == 'mainnet':
@@ -45,10 +50,12 @@ class Denom:
     @classmethod
     def load_peggy_denom(cls, network, symbol):
         config = None
+        if network == 'devnet':
+            config = devnet_config
         if network == 'testnet':
             config = testnet_config
         if network == 'mainnet':
-            config =mainnet_config
+            config = mainnet_config
         return config._sections[symbol]['peggy_denom'], int(config._sections[symbol]['decimals'])
 
 class Network:
@@ -69,14 +76,14 @@ class Network:
         self.env = env
 
     @classmethod
-    def local(cls):
+    def devnet(cls):
         return cls(
-            lcd_endpoint='localhost:10337',
-            grpc_endpoint='localhost:9900',
-            grpc_exchange_endpoint='localhost:9110',
+            lcd_endpoint='devnet.lcd.injective.dev',
+            grpc_endpoint='devnet.injective.dev:9900',
+            grpc_exchange_endpoint='devnet.injective.dev:9910',
             chain_id='injective-1',
             fee_denom='inj',
-            env = 'local'
+            env = 'devnet'
         )
 
     @classmethod
