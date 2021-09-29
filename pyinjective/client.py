@@ -69,9 +69,12 @@ class Client:
         return request_ids
 
     def simulate_tx(self, tx_byte: bytes) -> abci_type.SimulationResponse:
-        return self.stubTx.Simulate(
-            tx_service.SimulateRequest(tx_bytes=tx_byte)
-        ).result
+        try:
+            return (self.stubTx.Simulate(
+                tx_service.SimulateRequest(tx_bytes=tx_byte)
+            ).result, True)
+        except grpc.RpcError as err:
+            return (err, False)
 
     def send_tx_sync_mode(self, tx_byte: bytes) -> abci_type.TxResponse:
         return self.stubTx.BroadcastTx(

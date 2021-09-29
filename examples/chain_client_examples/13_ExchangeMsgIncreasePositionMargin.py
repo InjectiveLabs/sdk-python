@@ -59,6 +59,12 @@ async def main() -> None:
     sig = priv_key.sign(sign_doc.SerializeToString())
     tx_raw_bytes = tx.get_tx_data(sig, pub_key)
 
+    # simulate tx
+    (simRes, success) = client.simulate_tx(tx_raw_bytes)
+    if not success:
+        print(simRes)
+        return
+        
     # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
     res = client.send_tx_block_mode(tx_raw_bytes)
 
