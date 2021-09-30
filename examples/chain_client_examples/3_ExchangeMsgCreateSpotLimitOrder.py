@@ -61,19 +61,22 @@ async def main() -> None:
     sign_doc = tx.get_sign_doc(pub_key)
     sig = priv_key.sign(sign_doc.SerializeToString())
     tx_raw_bytes = tx.get_tx_data(sig, pub_key)
-    
+
     # simulate tx
     (simRes, success) = client.simulate_tx(tx_raw_bytes)
     if not success:
         print(simRes)
         return
+    simResMsg = ProtoMsgParser.MsgCreateSpotLimitOrderResponse(simRes.data, simulation=True)
+    print("simulation msg response")
+    print(simResMsg)
 
     # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
     res = client.send_tx_block_mode(tx_raw_bytes)
-
-    # print tx response
     resMsg = ProtoMsgParser.MsgCreateSpotLimitOrderResponse(res.data)
+    print("tx response")
     print(res)
+    print("tx msg response")
     print(resMsg)
 
 if __name__ == "__main__":

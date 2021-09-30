@@ -65,11 +65,10 @@ async def main() -> None:
     if not success:
         print(simRes)
         return
-        
+
     # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
     res = client.send_tx_block_mode(tx_raw_bytes)
-
-    # print tx response
+    print("tx response")
     print(res)
 
 if __name__ == "__main__":

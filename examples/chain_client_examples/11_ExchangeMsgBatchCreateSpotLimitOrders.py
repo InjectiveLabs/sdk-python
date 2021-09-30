@@ -81,13 +81,16 @@ async def main() -> None:
     if not success:
         print(simRes)
         return
-        
+    simResMsg = ProtoMsgParser.MsgBatchCreateSpotLimitOrdersResponse(simRes.data, simulation=True)
+    print("simulation msg response")
+    print(simResMsg)
+
     # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
     res = client.send_tx_block_mode(tx_raw_bytes)
-
-    # print tx response
     resMsg = ProtoMsgParser.MsgBatchCreateSpotLimitOrdersResponse(res.data)
+    print("tx response")
     print(res)
+    print("tx msg response")
     print(resMsg)
 
 if __name__ == "__main__":

@@ -9,7 +9,7 @@ from pyinjective.wallet import PrivateKey, PublicKey, Address
 
 async def main() -> None:
     # select network: local, testnet, mainnet
-    network = Network.testnet()
+    network = Network.devnet()
     composer = ProtoMsgComposer(network=network.string())
 
     # initialize grpc client
@@ -67,13 +67,16 @@ async def main() -> None:
     if not success:
         print(simRes)
         return
-        
+    simResMsg = ProtoMsgParser.MsgCreateSpotMarketOrderResponse(simRes.data, simulation=True)
+    print("simulation msg response")
+    print(simResMsg)
+
     # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
     res = client.send_tx_block_mode(tx_raw_bytes)
-
-    # print tx response
     resMsg = ProtoMsgParser.MsgCreateSpotMarketOrderResponse(res.data)
+    print("tx response")
     print(res)
+    print("tx msg response")
     print(resMsg)
 
 if __name__ == "__main__":
