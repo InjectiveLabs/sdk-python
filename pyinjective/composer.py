@@ -7,6 +7,14 @@ from .proto.injective.exchange.v1beta1 import exchange_pb2 as injective_exchange
 from .constant import Denom
 from .utils import *
 
+def splitData(data, seps):
+    output = [data]
+    for sep in seps:
+        data, output = output, []
+        for seq in data:
+            output += seq.split(sep)
+    return output
+
 class Composer:
     def __init__(self, network: str):
         self.network =  network
@@ -334,65 +342,29 @@ class Composer:
             amount=self.Coin(amount=be_amount,denom=peggy_denom)
         )
 
-class Parser:
     # data field format: [request-msg-header][raw-byte-msg-response]
     # you need to figure out this magic prefix number to trim request-msg-header off the data
-    # then parse the rest into corresponding response type
-
-    # Spot
+    # this method handles only exchange responses
     @staticmethod
-    def MsgCreateSpotLimitOrderResponse(data, simulation=False):
+    def MsgResponses(data, simulation=False):
         if not simulation:
             data = bytes.fromhex(data)
-        prefix = 57
-        return injective_exchange_tx_pb.MsgCreateSpotLimitOrderResponse.FromString(data[prefix:])
+        prefixMap = {
+            b'\n{\n3/injective.exchange.v1beta1.MsgCreateSpotLimitOrder\x12D': injective_exchange_tx_pb.MsgCreateSpotLimitOrderResponse,
+            b'\n|\n4/injective.exchange.v1beta1.MsgCreateSpotMarketOrder\x12D': injective_exchange_tx_pb.MsgCreateSpotMarketOrderResponse,
+            b'\n\x81\x01\n9/injective.exchange.v1beta1.MsgCreateDerivativeLimitOrder\x12D': injective_exchange_tx_pb.MsgCreateDerivativeLimitOrderResponse,
+            b'\n\x82\x01\n:/injective.exchange.v1beta1.MsgCreateDerivativeMarketOrder\x12D': injective_exchange_tx_pb.MsgCreateDerivativeMarketOrderResponse,
+            b'\n=\n4/injective.exchange.v1beta1.MsgBatchCancelSpotOrders\x12\x05': injective_exchange_tx_pb.MsgBatchCancelSpotOrdersResponse,
+            b'\nB\n:/injective.exchange.v1beta1.MsgBatchCancelDerivativeOrders\x12\x04': injective_exchange_tx_pb.MsgBatchCancelDerivativeOrdersResponse,
+            b'\n\xc6\x01\n9/injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrders\x12\x88\x01': injective_exchange_tx_pb.MsgBatchCreateSpotLimitOrdersResponse,
+            b'\n\xcc\x01\n?/injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrders\x12\x88\x01': injective_exchange_tx_pb.MsgBatchCreateDerivativeLimitOrdersResponse
+        }
+        responses = splitData(data, prefixMap.keys())[1:]
+        headers = splitData(data, responses)[:-1]
 
-    @staticmethod
-    def MsgCreateSpotMarketOrderResponse(data, simulation=False):
-        if not simulation:
-            data = bytes.fromhex(data)
-        prefix = 58
-        return injective_exchange_tx_pb.MsgCreateSpotMarketOrderResponse.FromString(data[prefix:])
+        msgs = []
+        for i in range(len(headers)):
+            protoResponse = prefixMap[headers[i]].FromString(responses[i])
+            msgs.append(protoResponse)
 
-    @staticmethod
-    def MsgBatchCreateSpotLimitOrdersResponse(data, simulation=False):
-        if not simulation:
-            data = bytes.fromhex(data)
-        prefix = 65
-        return injective_exchange_tx_pb.MsgBatchCreateSpotLimitOrdersResponse.FromString(data[prefix:])
-
-    @staticmethod
-    def MsgBatchCancelSpotOrdersResponse(data, simulation=False):
-        if not simulation:
-            data = bytes.fromhex(data)
-        prefix = 58
-        return injective_exchange_tx_pb.MsgBatchCancelSpotOrdersResponse.FromString(data[prefix:])
-
-    # derivative
-    @staticmethod
-    def MsgCreateDerivativeLimitOrderResponse(data, simulation=False):
-        if not simulation:
-            data = bytes.fromhex(data)
-        prefix = 64
-        return injective_exchange_tx_pb.MsgCreateDerivativeLimitOrderResponse.FromString(data[prefix:])
-
-    @staticmethod
-    def MsgCreateDerivativeMarketOrderResponse(data, simulation=False):
-        if not simulation:
-            data = bytes.fromhex(data)
-        prefix = 64
-        return injective_exchange_tx_pb.MsgCreateDerivativeMarketOrderResponse.FromString(data[prefix:])
-
-    @staticmethod
-    def MsgBatchCreateDerivativeLimitOrdersResponse(data, simulation=False):
-        if not simulation:
-            data = bytes.fromhex(data)
-        prefix = 71
-        return injective_exchange_tx_pb.MsgBatchCreateDerivativeLimitOrdersResponse.FromString(data[prefix:])
-
-    @staticmethod
-    def MsgBatchCancelDerivativeOrdersResponse(data, simulation=False):
-        if not simulation:
-            data = bytes.fromhex(data)
-        prefix = 64
-        return injective_exchange_tx_pb.MsgBatchCancelDerivativeOrdersResponse.FromString(data[prefix:])
+        return msgs
