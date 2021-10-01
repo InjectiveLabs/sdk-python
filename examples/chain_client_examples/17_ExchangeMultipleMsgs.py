@@ -1,3 +1,6 @@
+import sys
+sys.path.insert(0, '/Users/nam/Desktop/injective/sdk-python')
+
 import asyncio
 import logging
 
@@ -16,30 +19,57 @@ async def main() -> None:
     client = Client(network.grpc_endpoint, insecure=True)
 
     # load account
-    priv_key = PrivateKey.from_hex("B8F67FF46B32AB18446A6130AD19589FAAD1C727B940E412D854DB0FB5533DD8")
+    priv_key = PrivateKey.from_hex("f9db9bf330e23cb7839039e944adef6e9df447b90b503d5b4464c90bea9022f3")
     pub_key =  priv_key.to_public_key()
     address = pub_key.to_address()
     subaccount_id = address.get_subaccount_id(index=0)
 
     # prepare trade info
-    market_id = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
-    orders = [
-        composer.OrderData(
-            market_id=market_id,
-            subaccount_id=subaccount_id,
-            order_hash="0x098f2c92336bb1ec3591435df1e135052760310bc08fc16e3b9bc409885b863b"
-        ),
-        composer.OrderData(
-            market_id=market_id,
-            subaccount_id=subaccount_id,
-            order_hash="0x8d4e780927f91011bf77dea8b625948a14c1ae55d8c5d3f5af3dadbd6bec591d"
-        )
-    ]
+    market_id1 = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
+    market_id2 = "0xd0f46edfba58827fe692aab7c8d46395d1696239fdf6aeddfa668b73ca82ea30"
+    fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
 
     # prepare tx msg
-    msg = composer.MsgBatchCancelDerivativeOrders(
+    msg1 = composer.MsgCreateSpotLimitOrder(
         sender=address.to_acc_bech32(),
-        data=orders
+        market_id=market_id1,
+        subaccount_id=subaccount_id,
+        fee_recipient=fee_recipient,
+        price=7.523,
+        quantity=0.01,
+        isBuy=True
+    )
+
+    msg2 = composer.MsgBatchCancelSpotOrders(
+        sender=address.to_acc_bech32(),
+        data=[
+            composer.OrderData(
+                market_id=market_id2,
+                subaccount_id=subaccount_id,
+                order_hash="0x098f2c92336bb1ec3591435df1e135052760310bc08fc16e3b9bc409885b863b"
+            ),
+            composer.OrderData(
+                market_id=market_id2,
+                subaccount_id=subaccount_id,
+                order_hash="0x8d4e780927f91011bf77dea8b625948a14c1ae55d8c5d3f5af3dadbd6bec591d"
+            ),
+            composer.OrderData(
+                market_id=market_id2,
+                subaccount_id=subaccount_id,
+                order_hash="0x8d4e111127f91011bf77dea8b625948a14c1ae55d8c5d3f5af3dadbd6bec591d"
+            )
+        ]
+    )
+
+    msg3 = composer.MsgCreateDerivativeLimitOrder(
+        sender=address.to_acc_bech32(),
+        market_id=market_id2,
+        subaccount_id=subaccount_id,
+        fee_recipient=fee_recipient,
+        price=44054.48,
+        quantity=0.01,
+        leverage=0.7,
+        isBuy=True
     )
 
     acc_num, acc_seq = await address.get_num_seq(network.lcd_endpoint)
@@ -53,7 +83,7 @@ async def main() -> None:
     # build tx
     tx = (
         Transaction()
-        .with_messages(msg)
+        .with_messages(msg1,msg2,msg3)
         .with_sequence(acc_seq)
         .with_account_num(acc_num)
         .with_chain_id(network.chain_id)

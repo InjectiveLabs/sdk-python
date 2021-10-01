@@ -1,7 +1,7 @@
 import asyncio
 import logging
 
-from pyinjective.composer import Composer as ProtoMsgComposer, Parser as ProtoMsgParser
+from pyinjective.composer import Composer as ProtoMsgComposer
 from pyinjective.client import Client
 from pyinjective.transaction import Transaction
 from pyinjective.constant import Network
@@ -26,12 +26,12 @@ async def main() -> None:
     fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
 
     # prepare tx msg
-    msg = composer.MsgCreateDerivativeLimitOrder(
+    msg = composer.MsgCreateDerivativeMarketOrder(
         sender=address.to_acc_bech32(),
         market_id=market_id,
         subaccount_id=subaccount_id,
         fee_recipient=fee_recipient,
-        price=41173.755,
+        price=46000,
         quantity=30,
         leverage=3,
         isBuy=True
@@ -68,13 +68,13 @@ async def main() -> None:
     if not success:
         print(simRes)
         return
-    simResMsg = ProtoMsgParser.MsgCreateDerivativeMarketOrderResponse(simRes.data, simulation=True)
+    simResMsg = ProtoMsgComposer.MsgResponses(simRes.data, simulation=True)
     print("simulation msg response")
     print(simResMsg)
 
     # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
     res = client.send_tx_block_mode(tx_raw_bytes)
-    resMsg = ProtoMsgParser.MsgCreateDerivativeMarketOrderResponse(res.data)
+    resMsg = ProtoMsgComposer.MsgResponses(res.data)
     print("tx response")
     print(res)
     print("tx msg response")

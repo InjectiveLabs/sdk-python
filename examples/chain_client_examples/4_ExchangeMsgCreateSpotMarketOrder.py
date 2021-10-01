@@ -1,7 +1,7 @@
 import asyncio
 import logging
 
-from pyinjective.composer import Composer as ProtoMsgComposer, Parser as ProtoMsgParser
+from pyinjective.composer import Composer as ProtoMsgComposer
 from pyinjective.client import Client
 from pyinjective.transaction import Transaction
 from pyinjective.constant import Network
@@ -9,7 +9,7 @@ from pyinjective.wallet import PrivateKey, PublicKey, Address
 
 async def main() -> None:
     # select network: local, testnet, mainnet
-    network = Network.devnet()
+    network = Network.testnet()
     composer = ProtoMsgComposer(network=network.string())
 
     # initialize grpc client
@@ -67,13 +67,13 @@ async def main() -> None:
     if not success:
         print(simRes)
         return
-    simResMsg = ProtoMsgParser.MsgCreateSpotMarketOrderResponse(simRes.data, simulation=True)
+    simResMsg = ProtoMsgComposer.MsgResponses(simRes.data, simulation=True)
     print("simulation msg response")
     print(simResMsg)
 
     # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
     res = client.send_tx_block_mode(tx_raw_bytes)
-    resMsg = ProtoMsgParser.MsgCreateSpotMarketOrderResponse(res.data)
+    resMsg = ProtoMsgComposer.MsgResponses(res.data)
     print("tx response")
     print(res)
     print("tx msg response")
