@@ -203,6 +203,8 @@ class PublicKey:
 class Address:
     def __init__(self, addr: bytes) -> None:
         self.addr = addr
+        self.number = 0
+        self.sequence = 0
 
     def __eq__(self, o: "Address") -> bool:
         return self.addr == o.addr
@@ -260,7 +262,7 @@ class Address:
         id = index.to_bytes(12, byteorder='big').hex()
         return '0x' + self.addr.hex() + id
 
-    async def get_num_seq(self, lcd_endpoint: str) -> (int, int):
+    async def init_num_seq(self, lcd_endpoint: str) -> (int, int):
         async with aiohttp.ClientSession() as session:
             async with session.request(
                 'GET', 'http://' + lcd_endpoint + '/cosmos/auth/v1beta1/accounts/' + self.to_acc_bech32(),
@@ -272,4 +274,14 @@ class Address:
 
                 resp = json.loads(await response.text())
                 acc = resp['account']['base_account']
-                return int(acc['account_number']), int(acc['sequence'])
+                self.number = int(acc['account_number'])
+                self.sequence = int(acc['sequence'])
+                return self
+
+    def get_sequence(self):
+        current_seq = self.sequence
+        self.sequence += 1
+        return current_seq
+        
+    def get_number(self):
+        return self.number

@@ -89,7 +89,7 @@ class Network:
     @classmethod
     def testnet(cls):
         return cls(
-            lcd_endpoint='staking-lcd-testnet.injective.network',
+            lcd_endpoint='testnet.lcd.injective.dev',
             grpc_endpoint='testnet-sentry0.injective.network:9900',
             grpc_exchange_endpoint='testnet-sentry0.injective.network:9910',
             chain_id='injective-888',
@@ -100,7 +100,7 @@ class Network:
     @classmethod
     def mainnet(cls):
         return cls(
-            lcd_endpoint='staking-lcd.injective.network',
+            lcd_endpoint='lcd.injective.network',
             grpc_endpoint='sentry0.injective.network:9900',
             grpc_exchange_endpoint='sentry0.injective.network:9910',
             chain_id='injective-1',
