@@ -18,7 +18,7 @@ async def main() -> None:
     # load account
     priv_key = PrivateKey.from_hex("B8F67FF46B32AB18446A6130AD19589FAAD1C727B940E412D854DB0FB5533DD8")
     pub_key =  priv_key.to_public_key()
-    address = pub_key.to_address()
+    address = await pub_key.to_address().init_num_seq(network.lcd_endpoint)
     subaccount_id = address.get_subaccount_id(index=0)
 
     # prepare trade info
@@ -42,7 +42,6 @@ async def main() -> None:
         data=orders
     )
 
-    acc_num, acc_seq = await address.get_num_seq(network.lcd_endpoint)
     gas_price = 500000000
     gas_limit = 200000
     fee = [composer.Coin(
@@ -54,8 +53,8 @@ async def main() -> None:
     tx = (
         Transaction()
         .with_messages(msg)
-        .with_sequence(acc_seq)
-        .with_account_num(acc_num)
+        .with_sequence(address.get_sequence())
+        .with_account_num(address.get_number())
         .with_chain_id(network.chain_id)
         .with_gas(gas_limit)
         .with_fee(fee)
