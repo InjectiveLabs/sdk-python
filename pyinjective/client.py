@@ -19,27 +19,45 @@ from .proto.cosmos.tx.v1beta1 import (
     service_pb2_grpc as tx_service_grpc,
     service_pb2 as tx_service,
 )
+from .proto.exchange import (
+    injective_accounts_rpc_pb2 as exchange_accounts_rpc_pb,
+    injective_accounts_rpc_pb2_grpc as exchange_accounts_rpc_grpc
+)
 
+from .constant import Network
 
 class Client:
     def __init__(
         self,
-        grpc_endpoint: str,
+        network: Network,
         insecure: bool = False,
         credentials: grpc.ChannelCredentials = None,
     ):
-        channel = (
-            grpc.insecure_channel(grpc_endpoint)
+        # chain stubs
+        chain_channel = (
+            grpc.insecure_channel(network.grpc_endpoint)
             if insecure
             else grpc.secure_channel(
                 grpc_endpoint,
                 credentials or grpc.ssl_channel_credentials(),
             )
         )
-        self.stubCosmosTendermint = tendermint_query_grpc.ServiceStub(channel)
-        self.stubAuth = auth_query_grpc.QueryStub(channel)
-        self.stubTx = tx_service_grpc.ServiceStub(channel)
+        self.stubCosmosTendermint = tendermint_query_grpc.ServiceStub(chain_channel)
+        self.stubAuth = auth_query_grpc.QueryStub(chain_channel)
+        self.stubTx = tx_service_grpc.ServiceStub(chain_channel)
 
+        # exchange stubs
+        exchange_channel = (
+            grpc.insecure_channel(network.grpc_exchange_endpoint)
+            if insecure
+            else grpc.secure_channel(
+                grpc_endpoint,
+                credentials or grpc.ssl_channel_credentials(),
+            )
+        )
+        self.stubExchangeAccount = exchange_accounts_rpc_grpc.InjectiveAccountsRPCStub(exchange_channel)
+
+    # default client methods
     def get_latest_block(self) -> tendermint_query.GetLatestBlockResponse:
         return self.stubCosmosTendermint.GetLatestBlock(tendermint_query.GetLatestBlockRequest())
 
@@ -94,3 +112,12 @@ class Client:
     def get_chain_id(self) -> str:
         latest_block = self.get_latest_block()
         return latest_block.block.header.chain_id
+
+    # injective exchange client methods
+    def stream_exchange_subaccount_balance(self, subaccount_id):
+        req = exchange_accounts_rpc_pb.StreamSubaccountBalanceRequest(subaccount_id=subaccount_id)
+        return self.stubExchangeAccount.StreamSubaccountBalance(req)
+
+    def get_exchange_subaccount_balance(self, subaccount_id, denom):
+        req = exchange_accounts_rpc_pb.SubaccountBalanceRequest(subaccount_id=subaccount_id, denom=denom)
+        return self.stubExchangeAccount.SubaccountBalanceEndpoint(req)
