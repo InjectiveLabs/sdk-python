@@ -13,7 +13,7 @@ async def main() -> None:
     composer = ProtoMsgComposer(network=network.string())
 
     # initialize grpc client
-    client = Client(network.grpc_endpoint, insecure=True)
+    client = Client(network, insecure=True)
 
     # load account
     priv_key = PrivateKey.from_hex("B8F67FF46B32AB18446A6130AD19589FAAD1C727B940E412D854DB0FB5533DD8")

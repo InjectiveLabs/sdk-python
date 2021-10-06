@@ -10,10 +10,10 @@ from pyinjective.wallet import PrivateKey, PublicKey, Address
 async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
+    composer = ProtoMsgComposer(network=network.string())
 
     # initialize grpc client
-    client = Client(network.grpc_endpoint, insecure=True)
-    composer = ProtoMsgComposer(network=network.string())
+    client = Client(network, insecure=True)
 
     # load account
     priv_key = PrivateKey.from_hex("f9db9bf330e23cb7839039e944adef6e9df447b90b503d5b4464c90bea9022f3")
