@@ -16,23 +16,23 @@ async def main() -> None:
     client = Client(network, insecure=True)
 
     # load account
-    priv_key = PrivateKey.from_hex("B8F67FF46B32AB18446A6130AD19589FAAD1C727B940E412D854DB0FB5533DD8")
+    priv_key = PrivateKey.from_hex("5d386fbdbf11f1141010f81a46b40f94887367562bd33b452bbaa6ce1cd1381e")
     pub_key =  priv_key.to_public_key()
     address = await pub_key.to_address().init_num_seq(network.lcd_endpoint)
     subaccount_id = address.get_subaccount_id(index=0)
 
     # prepare trade info
-    market_id = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
+    market_id = "0xd0f46edfba58827fe692aab7c8d46395d1696239fdf6aeddfa668b73ca82ea30"
     orders = [
         composer.OrderData(
             market_id=market_id,
             subaccount_id=subaccount_id,
-            order_hash="0x098f2c92336bb1ec3591435df1e135052760310bc08fc16e3b9bc409885b863b"
+            order_hash="0xfcbedb1f8135204e7d8b8e6e683042e61834435fb7841b9ef243ef7196ec6938"
         ),
         composer.OrderData(
             market_id=market_id,
             subaccount_id=subaccount_id,
-            order_hash="0x8d4e780927f91011bf77dea8b625948a14c1ae55d8c5d3f5af3dadbd6bec591d"
+            order_hash="0x0d19f6a10ad017abeac1b14070fec5d044128e40902085654f4da4055a8f6510"
         )
     ]
 
@@ -77,7 +77,7 @@ async def main() -> None:
     print(simResMsg)
 
     # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
-    res = client.send_tx_block_mode(tx_raw_bytes)
+    res = client.send_tx_async_mode(tx_raw_bytes)
     resMsg = ProtoMsgComposer.MsgResponses(res.data)
     print("tx response")
     print(res)

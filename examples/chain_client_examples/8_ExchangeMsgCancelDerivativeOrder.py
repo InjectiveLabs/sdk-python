@@ -16,16 +16,15 @@ async def main() -> None:
     client = Client(network, insecure=True)
 
     # load account
-    priv_key = PrivateKey.from_hex("f9db9bf330e23cb7839039e944adef6e9df447b90b503d5b4464c90bea9022f3")
+    priv_key = PrivateKey.from_hex("5d386fbdbf11f1141010f81a46b40f94887367562bd33b452bbaa6ce1cd1381e")
     pub_key =  priv_key.to_public_key()
     address = await pub_key.to_address().init_num_seq(network.lcd_endpoint)
     subaccount_id = address.get_subaccount_id(index=0)
 
     # prepare trade info
     market_id = "0xd0f46edfba58827fe692aab7c8d46395d1696239fdf6aeddfa668b73ca82ea30"
-    order_hash = "0x5f4672dcca9b96ba2bb72e2ab484f71adf9814e74d12e615f489d0a616cddb8c"
+    order_hash = "0x0531e3c17cbdc5c535a0a0cfa20d354187ee1256236c3a7d47db227b107aa6dd"
 
-    # prepare tx msg
     # prepare tx msg
     msg = composer.MsgCancelDerivativeOrder(
         sender=address.to_acc_bech32(),
@@ -66,7 +65,7 @@ async def main() -> None:
         return
 
     # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
-    res = client.send_tx_block_mode(tx_raw_bytes)
+    res = client.send_tx_async_mode(tx_raw_bytes)
     print("tx response")
     print(res)
 

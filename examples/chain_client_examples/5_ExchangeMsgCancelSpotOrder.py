@@ -23,7 +23,7 @@ async def main() -> None:
 
     # prepare trade info
     market_id = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
-    order_hash = "0x098f2c92336bb1ec3591435df1e135052760310bc08fc16e3b9bc409885b863b"
+    order_hash = "0xa48fbcd30fe2d589ea0887066f449e81c04ff5e2d234df908a03a8b31a1af93d"
 
     # prepare tx msg
     msg = composer.MsgCancelSpotOrder(
@@ -65,7 +65,7 @@ async def main() -> None:
         return
 
     # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
-    res = client.send_tx_block_mode(tx_raw_bytes)
+    res = client.send_tx_async_mode(tx_raw_bytes)
     print("tx response")
     print(res)
 
