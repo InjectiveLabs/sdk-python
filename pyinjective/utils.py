@@ -44,9 +44,9 @@ def derivative_price_to_backend(price, denom) -> str:
 
 def derivative_quantity_to_backend(quantity, denom) -> str:
     scale_tick_size = float(0 - denom.base)
-    quantity_tick_size = float(denom.min_quantity_tick_size) *pow(10, scale_tick_size)
-    scale_quantity = Decimal(denom.base)
-    exchange_quantity = floor_to(quantity, quantity_tick_size) *pow(10, scale_quantity)
+    quantity_tick_size = float(denom.min_quantity_tick_size) * pow(10, scale_tick_size)
+    scale_quantity = Decimal(18 + denom.base)
+    exchange_quantity = floor_to(quantity, quantity_tick_size) * pow(10, scale_quantity)
     return str(int(exchange_quantity))
 
 def derivative_margin_to_backend(price, quantity, leverage, denom) -> str:

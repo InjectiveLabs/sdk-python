@@ -7,6 +7,7 @@ import pyinjective.proto.exchange.injective_spot_exchange_rpc_pb2_grpc as spot_e
 import pyinjective.proto.exchange.injective_derivative_exchange_rpc_pb2 as derivative_exchange_rpc_pb
 import pyinjective.proto.exchange.injective_derivative_exchange_rpc_pb2_grpc as derivative_exchange_rpc_grpc
 
+from decimal import *
 from pyinjective.constant import Network
 
 metadata_template = """[{}]
@@ -14,7 +15,9 @@ description = '{} {} {}'
 base = {}
 quote = {}
 min_price_tick_size = {}
+min_display_price_tick_size = {}
 min_quantity_tick_size = {}
+min_display_quantity_tick_size = {}
 
 """
 
@@ -37,14 +40,6 @@ async def fetch_denom(network) -> str:
         status = 'active'
         mresp = await spot_exchange_rpc.Markets(spot_exchange_rpc_pb.MarketsRequest(market_status=status))
         for market in mresp.markets:
-            # devnet has different market format
-            if network.env == 'devnet':
-                base_symbol, quote_symbol = market.ticker.split("/")
-                market.base_token_meta.decimals = 18
-                market.quote_token_meta.decimals = 6
-                market.quote_token_meta.symbol = base_symbol
-                market.base_token_meta.symbol = quote_symbol
-
             # append symbols to dict
             if market.base_token_meta.SerializeToString() != b'':
                 symbols[market.base_token_meta.symbol] = (market.base_denom, market.base_token_meta.decimals)
@@ -53,13 +48,17 @@ async def fetch_denom(network) -> str:
                 symbols[market.quote_token_meta.symbol] = (market.base_denom, market.quote_token_meta.decimals)
 
             # format into ini entry
+            min_display_price_tick_size = float(market.min_price_tick_size) / pow(10, market.quote_token_meta.decimals -  market.base_token_meta.decimals)
+            min_display_quantity_tick_size = float(market.min_quantity_tick_size) / pow(10, market.base_token_meta.decimals)
             config = metadata_template.format(
                 market.market_id,
                 network.string().capitalize(), 'Spot', market.ticker,
                 market.base_token_meta.decimals,
                 market.quote_token_meta.decimals,
                 market.min_price_tick_size,
-                market.min_quantity_tick_size
+                min_display_price_tick_size,
+                market.min_quantity_tick_size,
+                min_display_quantity_tick_size
             )
             denom_output += config
 
@@ -69,23 +68,20 @@ async def fetch_denom(network) -> str:
         status = 'active'
         mresp = await derivative_exchange_rpc.Markets(derivative_exchange_rpc_pb.MarketsRequest(market_status=status))
         for market in mresp.markets:
-            # devnet has different market format
-            if network.env == 'devnet':
-                base_symbol, quote_symbol = market.ticker.split("/")
-                market.quote_token_meta.decimals = 6
-                market.quote_token_meta.symbol = base_symbol
-
             # append symbols to dict
             if market.quote_token_meta.SerializeToString() != b'':
                 symbols[market.quote_token_meta.symbol] = (market.quote_denom, market.quote_token_meta.decimals)
 
             # format into ini entry
+            min_display_price_tick_size = float(market.min_price_tick_size) / pow(10, market.quote_token_meta.decimals)
             config = metadata_template.format(
                 market.market_id,
                 network.string().capitalize(), 'Derivative', market.ticker,
-                18,
+                0,
                 market.quote_token_meta.decimals,
                 market.min_price_tick_size,
+                min_display_price_tick_size,
+                market.min_quantity_tick_size,
                 market.min_quantity_tick_size
             )
             denom_output += config
@@ -103,16 +99,16 @@ async def main() -> None:
     data = await fetch_denom(devnet)
     with open("./pyinjective/denoms_devnet.ini", "w") as text_file:
         text_file.write(data)
-    #
-    # testnet = Network.testnet()
-    # data = await fetch_denom(testnet)
-    # with open("./pyinjective/denoms_testnet.ini", "w") as text_file:
-    #     text_file.write(data)
-    #
-    # mainnet = Network.mainnet()
-    # data = await fetch_denom(mainnet)
-    # with open("./pyinjective/denoms_mainnet.ini", "w") as text_file:
-    #     text_file.write(data)
+
+    testnet = Network.testnet()
+    data = await fetch_denom(testnet)
+    with open("./pyinjective/denoms_testnet.ini", "w") as text_file:
+        text_file.write(data)
+
+    mainnet = Network.mainnet()
+    data = await fetch_denom(mainnet)
+    with open("./pyinjective/denoms_mainnet.ini", "w") as text_file:
+        text_file.write(data)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)

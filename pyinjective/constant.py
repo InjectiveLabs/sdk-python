@@ -81,7 +81,7 @@ class Network:
             lcd_endpoint='devnet.lcd.injective.dev',
             grpc_endpoint='devnet.injective.dev:9900',
             grpc_exchange_endpoint='devnet.injective.dev:9910',
-            chain_id='injective-1',
+            chain_id='injective-777',
             fee_denom='inj',
             env = 'devnet'
         )
