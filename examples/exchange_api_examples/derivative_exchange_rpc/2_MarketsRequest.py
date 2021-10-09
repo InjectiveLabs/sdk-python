@@ -17,21 +17,20 @@ import asyncio
 import logging
 import grpc
 
-import pyinjective.proto.exchange.injective_derivative_exchange_rpc_pb2 as derivative_exchange_rpc_pb
-import pyinjective.proto.exchange.injective_derivative_exchange_rpc_pb2_grpc as derivative_exchange_rpc_grpc
-
+from pyinjective.client import Client
 from pyinjective.constant import Network
 
-network = Network.testnet()
-
 async def main() -> None:
-    async with grpc.aio.insecure_channel(network.grpc_exchange_endpoint) as channel:
-        derivative_exchange_rpc = derivative_exchange_rpc_grpc.InjectiveDerivativeExchangeRPCStub(channel)
-
-        status = "active"
-
-        mresp = await derivative_exchange_rpc.Markets(derivative_exchange_rpc_pb.MarketsRequest(market_status=status))
-        print("\n-- Markets Update:\n", mresp)
+    network = Network.testnet()
+    client = Client(network, insecure=True)
+    market_status = "active" #active, paused, suspended, demolished or expired
+    quote_denom = "peggy0x69efCB62D98f4a6ff5a0b0CFaa4AAbB122e85e08"
+    market = client.get_derivative_markets(
+        market_status=market_status,
+        quote_denom=quote_denom
+        )
+    
+    print(market)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)

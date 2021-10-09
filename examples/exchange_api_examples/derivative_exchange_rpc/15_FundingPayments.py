@@ -23,13 +23,13 @@ from pyinjective.constant import Network
 async def main() -> None:
     network = Network.testnet()
     client = Client(network, insecure=True)
-    market_id = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
-    orderbook = client.stream_spot_orderbook(
-        market_id=market_id)
-
-    for orders in orderbook:
-        print(orders)
-
+    market_id = "0xd0f46edfba58827fe692aab7c8d46395d1696239fdf6aeddfa668b73ca82ea30"
+    subaccount_id = "0xc6fe5d33615a1c52c08018c47e8bc53646a0e101000000000000000000000000"
+    funding = client.get_funding_payments(
+        market_id=market_id,
+        subaccount_id=subaccount_id
+        )
+    print(funding)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)

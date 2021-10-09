@@ -17,19 +17,19 @@ import asyncio
 import logging
 import grpc
 
-import pyinjective.proto.exchange.injective_insurance_rpc_pb2 as insurance_rpc_pb
-import pyinjective.proto.exchange.injective_insurance_rpc_pb2_grpc as insurance_rpc_grpc
-
+from pyinjective.client import Client
 from pyinjective.constant import Network
 
-network = Network.testnet()
-
 async def main() -> None:
-    async with grpc.aio.insecure_channel(network.grpc_exchange_endpoint) as channel:
-        insurance_exchange_rpc = insurance_rpc_grpc.InjectiveInsuranceRPCStub(channel)
+    network = Network.testnet()
+    client = Client(network, insecure=True)
+    redeemer = "inj1gxqdj76ul07w4ujsl8403nhhzyvug2h66qk057"
+    redemption_denom = "share2"
+    status = "disbursed" # pending or disbursed
 
-        redemptions = await insurance_exchange_rpc.Redemptions(insurance_rpc_pb.RedemptionsRequest())
-        print("\n-- Redemptions Update:\n", redemptions)
+    insurance_redemptions = client.get_redemptions(redeemer=redeemer, redemption_denom=redemption_denom, status=status)
+    
+    print(insurance_redemptions)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)

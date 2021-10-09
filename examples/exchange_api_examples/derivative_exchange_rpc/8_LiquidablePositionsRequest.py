@@ -17,19 +17,17 @@ import asyncio
 import logging
 import grpc
 
-import pyinjective.proto.exchange.injective_derivative_exchange_rpc_pb2 as derivative_exchange_rpc_pb
-import pyinjective.proto.exchange.injective_derivative_exchange_rpc_pb2_grpc as derivative_exchange_rpc_grpc
-
+from pyinjective.client import Client
 from pyinjective.constant import Network
 
-network = Network.testnet()
-
 async def main() -> None:
-    async with grpc.aio.insecure_channel(network.grpc_exchange_endpoint) as channel:
-        derivative_exchange_rpc = derivative_exchange_rpc_grpc.InjectiveDerivativeExchangeRPCStub(channel)
-
-        lresp = await derivative_exchange_rpc.LiquidablePositions(derivative_exchange_rpc_pb.LiquidablePositionsRequest())
-        print("\n-- Liquidable Positions Update:\n", lresp)
+    network = Network.testnet()
+    client = Client(network, insecure=True)
+    market_id = "0xd0f46edfba58827fe692aab7c8d46395d1696239fdf6aeddfa668b73ca82ea30"
+    liquidable_positions = client.get_derivative_liquidable_positions(
+        market_id=market_id
+        )
+    print(liquidable_positions)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)

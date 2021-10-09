@@ -17,25 +17,22 @@ import asyncio
 import logging
 import grpc
 
-import pyinjective.proto.exchange.injective_oracle_rpc_pb2 as oracle_rpc_pb
-import pyinjective.proto.exchange.injective_oracle_rpc_pb2_grpc as oracle_rpc_grpc
-
+from pyinjective.client import Client
 from pyinjective.constant import Network
 
-network = Network.testnet()
-
 async def main() -> None:
-    async with grpc.aio.insecure_channel(network.grpc_exchange_endpoint) as channel:
-        oracle_exchange_rpc = oracle_rpc_grpc.InjectiveOracleRPCStub(channel)
-
-        base_s = "BTC"
-        quote_s = "USD"
-        oracle_t = "coinbase"
-
-        stream_req = oracle_rpc_pb.StreamPricesRequest(base_symbol = base_s, quote_symbol = quote_s, oracle_type = oracle_t)
-        stream_resp = oracle_exchange_rpc.StreamPrices(stream_req)
-        async for oracle in stream_resp:
-            print("\n-- Oracle Prices Update:\n", oracle)
+    network = Network.testnet()
+    client = Client(network, insecure=True)
+    base_denom = 'BTC'
+    quote_denom = 'USD'
+    oracle_type = 'coinbase'
+    oracle_prices = client.stream_oracle_prices(
+         base_denom=base_denom,
+         quote_denom=quote_denom,
+         oracle_type=oracle_type
+        )
+    for oracle in oracle_prices:
+        print(oracle)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)

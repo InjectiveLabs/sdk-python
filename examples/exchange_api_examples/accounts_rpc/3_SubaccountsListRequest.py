@@ -17,21 +17,16 @@ import asyncio
 import logging
 import grpc
 
-import pyinjective.proto.exchange.injective_accounts_rpc_pb2 as accounts_rpc_pb
-import pyinjective.proto.exchange.injective_accounts_rpc_pb2_grpc as accounts_rpc_grpc
-
+from pyinjective.client import Client
 from pyinjective.constant import Network
 
-network = Network.testnet()
-
 async def main() -> None:
-    async with grpc.aio.insecure_channel(network.grpc_exchange_endpoint) as channel:
-        accounts_exchange_rpc = accounts_rpc_grpc.InjectiveAccountsRPCStub(channel)
-
-        addr = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku"
-
-        subacc_list = await accounts_exchange_rpc.SubaccountsList(accounts_rpc_pb.SubaccountsListRequest(account_address=addr))
-        print("\n-- Subaccount List Update:\n", subacc_list)
+    network = Network.testnet()
+    client = Client(network, insecure=True)
+    account_address = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku"
+    subacc_list = client.get_subaccount_list(
+        account_address)
+    print(subacc_list)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
