@@ -17,24 +17,14 @@ import asyncio
 import logging
 import grpc
 
-import pyinjective.proto.exchange.injective_oracle_rpc_pb2 as oracle_rpc_pb
-import pyinjective.proto.exchange.injective_oracle_rpc_pb2_grpc as oracle_rpc_grpc
-
+from pyinjective.client import Client
 from pyinjective.constant import Network
 
-network = Network.testnet()
-
 async def main() -> None:
-    async with grpc.aio.insecure_channel(network.grpc_exchange_endpoint) as channel:
-        oracle_exchange_rpc = oracle_rpc_grpc.InjectiveOracleRPCStub(channel)
-
-        base_s = "BTC"
-        quote_s = "USD"
-        oracle_t = "coinbase"
-        oracle_scale_f = 6
-
-        oracle_list = await oracle_exchange_rpc.OracleList(oracle_rpc_pb.OracleListRequest())
-        print("\n-- Oracle List Update:\n", oracle_list)
+    network = Network.testnet()
+    client = Client(network, insecure=True)
+    oracle_list = client.get_oracle_list()
+    print(oracle_list)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)

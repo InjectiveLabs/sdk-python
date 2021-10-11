@@ -17,23 +17,23 @@ import asyncio
 import logging
 import grpc
 
-import pyinjective.proto.exchange.injective_spot_exchange_rpc_pb2 as spot_exchange_rpc_pb
-import pyinjective.proto.exchange.injective_spot_exchange_rpc_pb2_grpc as spot_exchange_rpc_grpc
-
+from pyinjective.client import Client
 from pyinjective.constant import Network
 
-network = Network.testnet()
-
 async def main() -> None:
-    async with grpc.aio.insecure_channel(network.grpc_exchange_endpoint) as channel:
-        spot_exchange_rpc = spot_exchange_rpc_grpc.InjectiveSpotExchangeRPCStub(channel)
-
-        mkt_id = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
-        subacc_id = "0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000"
-
-        traderesp = await spot_exchange_rpc.SubaccountTradesList(spot_exchange_rpc_pb.SubaccountTradesListRequest(subaccount_id=subacc_id, market_id=mkt_id))
-        print("\n-- Subaccount Trades Update:\n", traderesp)
-
+    network = Network.testnet()
+    client = Client(network, insecure=True)
+    subaccount_id = "0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000"
+    market_id = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
+    execution_type = "market" # market, limitFill, limitMatchRestingOrder or limitMatchNewOrder
+    direction = "buy" # buy or sell
+    trades = client.get_spot_subaccount_trades(
+        subaccount_id=subaccount_id,
+        market_id=market_id,
+        execution_type=execution_type,
+        direction=direction
+    )
+    print(trades)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)

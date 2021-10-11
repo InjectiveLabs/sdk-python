@@ -17,23 +17,24 @@ import asyncio
 import logging
 import grpc
 
-import pyinjective.proto.exchange.injective_spot_exchange_rpc_pb2 as spot_exchange_rpc_pb
-import pyinjective.proto.exchange.injective_spot_exchange_rpc_pb2_grpc as spot_exchange_rpc_grpc
-
+from pyinjective.client import Client
 from pyinjective.constant import Network
 
-network = Network.testnet()
-
 async def main() -> None:
-    async with grpc.aio.insecure_channel(network.grpc_exchange_endpoint) as channel:
-        spot_exchange_rpc = spot_exchange_rpc_grpc.InjectiveSpotExchangeRPCStub(channel)
-
-        mkt_id = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
-
-        stream_req = spot_exchange_rpc_pb.StreamTradesRequest(market_id=mkt_id)
-        stream_resp = spot_exchange_rpc.StreamTrades(stream_req)
-        async for trade in stream_resp:
-            print("\n-- Trades Update:\n", trade)
+    network = Network.testnet()
+    client = Client(network, insecure=True)
+    market_id = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
+    execution_side = "maker" # maker or taker
+    direction = "sell" # sell or buy
+    subaccount_id = "0xc6fe5d33615a1c52c08018c47e8bc53646a0e101000000000000000000000000"
+    trades = client.stream_spot_trades(
+        market_id=market_id,
+        execution_side=execution_side,
+        direction=direction,
+        subaccount_id=subaccount_id
+    )
+    for trade in trades:
+        print(trade)
 
 
 if __name__ == '__main__':

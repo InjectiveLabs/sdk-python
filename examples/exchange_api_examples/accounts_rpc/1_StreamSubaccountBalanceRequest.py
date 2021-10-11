@@ -23,10 +23,11 @@ from pyinjective.constant import Network
 async def main() -> None:
     network = Network.testnet()
     client = Client(network, insecure=True)
-    stream = client.stream_exchange_subaccount_balance('0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000')
-    for subaccount in stream:
+    subaccount_id = "0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000"
+    subaccount = client.stream_subaccount_balance(subaccount_id)
+    for balance in subaccount:
         print("Subaccount balance Update:\n")
-        print(subaccount.balance)
+        print(balance)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)

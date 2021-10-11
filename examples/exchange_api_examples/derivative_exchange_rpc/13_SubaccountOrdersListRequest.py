@@ -17,21 +17,19 @@ import asyncio
 import logging
 import grpc
 
-import pyinjective.proto.exchange.injective_derivative_exchange_rpc_pb2 as derivative_exchange_rpc_pb
-import pyinjective.proto.exchange.injective_derivative_exchange_rpc_pb2_grpc as derivative_exchange_rpc_grpc
-
+from pyinjective.client import Client
 from pyinjective.constant import Network
 
-network = Network.testnet()
-
 async def main() -> None:
-    async with grpc.aio.insecure_channel(network.grpc_exchange_endpoint) as channel:
-        derivative_exchange_rpc = derivative_exchange_rpc_grpc.InjectiveDerivativeExchangeRPCStub(channel)
-
-        subacc_id = "0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000"
-
-        subacc_ord = await derivative_exchange_rpc.SubaccountOrdersList(derivative_exchange_rpc_pb.SubaccountOrdersListRequest(subaccount_id=subacc_id))
-        print("\n-- Subaccount Orders List Update:\n", subacc_ord)
+    network = Network.testnet()
+    client = Client(network, insecure=True)
+    subaccount_id = "0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000"
+    market_id = "0x897519d4cf8c460481638b3ff64871668d0a7f6afea10c1b0a952c0b5927f48f"
+    orders = client.get_derivative_subaccount_orders(
+        subaccount_id=subaccount_id,
+        market_id=market_id
+    )
+    print(orders)
 
 
 if __name__ == '__main__':

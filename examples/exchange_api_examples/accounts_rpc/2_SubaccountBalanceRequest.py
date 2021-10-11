@@ -23,9 +23,11 @@ from pyinjective.constant import Network
 async def main() -> None:
     network = Network.testnet()
     client = Client(network, insecure=True)
-    balance = client.get_exchange_subaccount_balance(
-        '0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000',
-        'inj'
+    subaccount_id = "0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000"
+    denom = "inj"
+    balance = client.get_subaccount_balance(
+        subaccount_id=subaccount_id,
+        denom=denom
     )
     print(balance)
 
