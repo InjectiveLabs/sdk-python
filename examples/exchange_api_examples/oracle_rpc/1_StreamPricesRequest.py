@@ -23,14 +23,14 @@ from pyinjective.constant import Network
 async def main() -> None:
     network = Network.testnet()
     client = Client(network, insecure=True)
-    base_denom = 'BTC'
-    quote_denom = 'USD'
+    base_symbol = 'BTC'
+    quote_symbol = 'USD'
     oracle_type = 'coinbase'
     oracle_prices = client.stream_oracle_prices(
-         base_denom=base_denom,
-         quote_denom=quote_denom,
-         oracle_type=oracle_type
-        )
+        base_symbol=base_symbol,
+        quote_symbol=quote_symbol,
+        oracle_type=oracle_type
+    )
     for oracle in oracle_prices:
         print(oracle)
 

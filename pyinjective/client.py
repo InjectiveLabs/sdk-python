@@ -66,53 +66,10 @@ class Client:
             )
         )
         self.stubExchangeAccount = exchange_accounts_rpc_grpc.InjectiveAccountsRPCStub(exchange_channel)
-
-        oracle_channel = (
-            grpc.insecure_channel(network.grpc_exchange_endpoint)
-            if insecure
-            else grpc.secure_channel(
-                grpc_endpoint,
-                credentials or grpc.ssl_channel_credentials(),
-            )
-        )
-        self.stubOracle = oracle_rpc_grpc.InjectiveOracleRPCStub(oracle_channel)
-
-
-        insurance_channel = (
-            grpc.insecure_channel(network.grpc_exchange_endpoint)
-            if insecure
-            else grpc.secure_channel(
-                grpc_endpoint,
-                credentials or grpc.ssl_channel_credentials(),
-            )
-        )
-
-        self.stubInsurance = insurance_rpc_grpc.InjectiveInsuranceRPCStub(insurance_channel)
-
-
-        spot_exchange_channel = (
-            grpc.insecure_channel(network.grpc_exchange_endpoint)
-            if insecure
-            else grpc.secure_channel(
-                grpc_endpoint,
-                credentials or grpc.ssl_channel_credentials(),
-            )
-        )
-
-        self.stubSpotExchange = spot_exchange_rpc_grpc.InjectiveSpotExchangeRPCStub(spot_exchange_channel)
-
-
-
-        derivative_exchange_channel = (
-            grpc.insecure_channel(network.grpc_exchange_endpoint)
-            if insecure
-            else grpc.secure_channel(
-                grpc_endpoint,
-                credentials or grpc.ssl_channel_credentials(),
-            )
-        )
-
-        self.stubDerivativeExchange = derivative_exchange_rpc_grpc.InjectiveDerivativeExchangeRPCStub(derivative_exchange_channel)
+        self.stubOracle = oracle_rpc_grpc.InjectiveOracleRPCStub(exchange_channel)
+        self.stubInsurance = insurance_rpc_grpc.InjectiveInsuranceRPCStub(exchange_channel)
+        self.stubSpotExchange = spot_exchange_rpc_grpc.InjectiveSpotExchangeRPCStub(exchange_channel)
+        self.stubDerivativeExchange = derivative_exchange_rpc_grpc.InjectiveDerivativeExchangeRPCStub(exchange_channel)
 
     # default client methods
     def get_latest_block(self) -> tendermint_query.GetLatestBlockResponse:
@@ -189,7 +146,7 @@ class Client:
         req = exchange_accounts_rpc_pb.SubaccountBalancesListRequest(subaccount_id=subaccount_id)
         return self.stubExchangeAccount.SubaccountBalancesList(req)
 
-    def get_subaccount_history(self, subaccount_id, denom: str = '', transfer_types: list = []):
+    def get_subaccount_history(self, subaccount_id: str, denom: str = '', transfer_types: list = []):
         req = exchange_accounts_rpc_pb.SubaccountHistoryRequest(subaccount_id=subaccount_id, denom=denom, transfer_types=transfer_types)
         return self.stubExchangeAccount.SubaccountHistory(req)
 
@@ -262,7 +219,7 @@ class Client:
         req = spot_exchange_rpc_pb.SubaccountOrdersListRequest(subaccount_id=subaccount_id, market_id=market_id)
         return self.stubSpotExchange.SubaccountOrdersList(req)
 
-    def get_spot_subaccount_trades(self, subaccount_id: str, market_id: str = '', execution_type: str = '', direction: str = ''): 
+    def get_spot_subaccount_trades(self, subaccount_id: str, market_id: str = '', execution_type: str = '', direction: str = ''):
         req = spot_exchange_rpc_pb.SubaccountTradesListRequest(subaccount_id=subaccount_id, market_id=market_id, execution_type=execution_type, direction=direction)
         return self.stubSpotExchange.SubaccountTradesList(req)
 
