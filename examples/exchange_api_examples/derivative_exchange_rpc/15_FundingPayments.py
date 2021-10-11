@@ -28,7 +28,7 @@ async def main() -> None:
     funding = client.get_funding_payments(
         market_id=market_id,
         subaccount_id=subaccount_id
-        )
+    )
     print(funding)
 
 if __name__ == '__main__':

@@ -13,8 +13,6 @@
 # limitations under the License.
 """Injective Exchange API client for Python. Example only."""
 
-
-
 import asyncio
 import logging
 import grpc
@@ -26,10 +24,7 @@ async def main() -> None:
     network = Network.testnet()
     client = Client(network, insecure=True)
     market_id = "0xd0f46edfba58827fe692aab7c8d46395d1696239fdf6aeddfa668b73ca82ea30"
-    market = client.get_derivative_market(
-        market_id=market_id
-        )
-    
+    market = client.get_derivative_market(market_id=market_id)
     print(market)
 
 

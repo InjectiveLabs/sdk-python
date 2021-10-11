@@ -26,9 +26,11 @@ async def main() -> None:
     redeemer = "inj1gxqdj76ul07w4ujsl8403nhhzyvug2h66qk057"
     redemption_denom = "share2"
     status = "disbursed" # pending or disbursed
-
-    insurance_redemptions = client.get_redemptions(redeemer=redeemer, redemption_denom=redemption_denom, status=status)
-    
+    insurance_redemptions = client.get_redemptions(
+        redeemer=redeemer,
+        redemption_denom=redemption_denom,
+        status=status
+    )
     print(insurance_redemptions)
 
 if __name__ == '__main__':

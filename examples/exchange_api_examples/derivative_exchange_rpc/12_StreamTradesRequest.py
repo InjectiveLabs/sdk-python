@@ -28,7 +28,7 @@ async def main() -> None:
     trades = client.stream_derivative_trades(
         market_id=market_id,
         subaccount_id=subaccount_id
-        )
+    )
     for trade in trades:
         print(trade)
 

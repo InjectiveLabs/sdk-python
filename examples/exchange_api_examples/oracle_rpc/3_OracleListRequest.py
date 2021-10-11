@@ -24,7 +24,6 @@ async def main() -> None:
     network = Network.testnet()
     client = Client(network, insecure=True)
     oracle_list = client.get_oracle_list()
-
     print(oracle_list)
 
 if __name__ == '__main__':

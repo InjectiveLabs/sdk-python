@@ -28,8 +28,7 @@ async def main() -> None:
     orders = client.get_spot_subaccount_orders(
         subaccount_id=subaccount_id,
         market_id=market_id
-        )
-    
+    )
     print(orders)
 
 if __name__ == '__main__':

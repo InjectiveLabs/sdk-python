@@ -28,8 +28,7 @@ async def main() -> None:
     orders = client.get_derivative_subaccount_orders(
         subaccount_id=subaccount_id,
         market_id=market_id
-        )
-
+    )
     print(orders)
 
 

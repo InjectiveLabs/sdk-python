@@ -24,10 +24,9 @@ async def main() -> None:
     network = Network.testnet()
     client = Client(network, insecure=True)
     subaccount = "0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000"
-    subacc_balances_list = client.get_subaccount_balances_list(
-        subaccount)
+    subacc_balances_list = client.get_subaccount_balances_list(subaccount)
     print(subacc_balances_list)
-    
+
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     asyncio.get_event_loop().run_until_complete(main())

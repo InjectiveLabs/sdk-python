@@ -28,7 +28,7 @@ async def main() -> None:
     positions = client.stream_derivative_positions(
         market_id=market_id,
         subaccount_id=subaccount_id
-        )
+    )
     for position in positions:
         print(position)
 

@@ -30,8 +30,7 @@ async def main() -> None:
         market_status=market_status,
         base_denom=base_denom,
         quote_denom=quote_denom
-        )
-
+    )
     print(market)
 
 

@@ -24,13 +24,13 @@ async def main() -> None:
     network = Network.testnet()
     client = Client(network, insecure=True)
     market_id = "0xd0f46edfba58827fe692aab7c8d46395d1696239fdf6aeddfa668b73ca82ea30"
-    order_side = "buy" #buy or sell
+    order_side = "buy" # buy or sell
     subaccount_id= "0xc6fe5d33615a1c52c08018c47e8bc53646a0e101000000000000000000000000"
     orders = client.get_derivative_orders(
         market_id=market_id,
         order_side=order_side,
         subaccount_id=subaccount_id
-        )
+    )
     print(orders)
 
 if __name__ == '__main__':

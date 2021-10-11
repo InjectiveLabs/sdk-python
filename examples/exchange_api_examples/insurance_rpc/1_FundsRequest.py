@@ -13,7 +13,6 @@
 # limitations under the License.
 """Injective Exchange API client for Python. Example only."""
 
-
 import asyncio
 import logging
 import grpc
@@ -25,7 +24,6 @@ async def main() -> None:
     network = Network.testnet()
     client = Client(network, insecure=True)
     insurance_funds = client.get_insurance_funds()
-    
     print(insurance_funds)
 
 if __name__ == '__main__':

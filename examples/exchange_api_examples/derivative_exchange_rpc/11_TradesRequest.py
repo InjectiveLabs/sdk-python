@@ -28,7 +28,7 @@ async def main() -> None:
     trades = client.get_derivative_trades(
         market_id=market_id,
         subaccount_id=subaccount_id
-        )
+    )
     print(trades)
 
 if __name__ == '__main__':

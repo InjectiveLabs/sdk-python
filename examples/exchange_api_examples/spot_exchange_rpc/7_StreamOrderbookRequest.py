@@ -24,12 +24,9 @@ async def main() -> None:
     network = Network.testnet()
     client = Client(network, insecure=True)
     market_id = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
-    orderbook = client.stream_spot_orderbook(
-        market_id=market_id)
-
+    orderbook = client.stream_spot_orderbook(market_id=market_id)
     for orders in orderbook:
         print(orders)
-
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)

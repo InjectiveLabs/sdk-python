@@ -24,7 +24,6 @@ async def main() -> None:
     network = Network.testnet()
     client = Client(network, insecure=True)
     markets = client.stream_derivative_markets()
-
     for market in markets:
         print(market)
 
