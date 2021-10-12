@@ -31,42 +31,47 @@ async def main() -> None:
         subaccount_id="0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000"
     )
 
-    gas_price = 500000000
-    gas_limit = 200000
-    fee = [composer.Coin(
-        amount=str(gas_price * gas_limit),
-        denom=network.fee_denom,
-    )]
-
-    # build tx
+    # build sim tx
     tx = (
         Transaction()
         .with_messages(msg)
         .with_sequence(address.get_sequence())
         .with_account_num(address.get_number())
         .with_chain_id(network.chain_id)
-        .with_gas(gas_limit)
-        .with_fee(fee)
-        .with_memo("")
-        .with_timeout_height(0)
     )
-
-    # build signed tx
-    sign_doc = tx.get_sign_doc(pub_key)
-    sig = priv_key.sign(sign_doc.SerializeToString())
-    tx_raw_bytes = tx.get_tx_data(sig, pub_key)
+    sim_sign_doc = tx.get_sign_doc(pub_key)
+    sim_sig = priv_key.sign(sim_sign_doc.SerializeToString())
+    sim_tx_raw_bytes = tx.get_tx_data(sim_sig, pub_key)
 
     # simulate tx
-    (simRes, success) = client.simulate_tx(tx_raw_bytes)
+    (simRes, success) = client.simulate_tx(sim_tx_raw_bytes)
     if not success:
         print(simRes)
         return
 
-    # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
-    res = client.send_tx_async_mode(tx_raw_bytes)
+    simResMsg = ProtoMsgComposer.MsgResponses(simRes.result.data, simulation=True)
+    print("simulation msg response")
+    print(simResMsg)
 
-    # print tx response
+    # build tx
+    gas_price = 500000000
+    gas_limit = simRes.gas_info.gas_used + 15000 # add 15k for gas, fee computation
+    fee = [composer.Coin(
+        amount=str(gas_price * gas_limit),
+        denom=network.fee_denom,
+    )]
+    tx = tx.with_gas(gas_limit).with_fee(fee).with_memo("").with_timeout_height(0)
+    sign_doc = tx.get_sign_doc(pub_key)
+    sig = priv_key.sign(sign_doc.SerializeToString())
+    tx_raw_bytes = tx.get_tx_data(sig, pub_key)
+
+    # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
+    res = client.send_tx_block_mode(tx_raw_bytes)
+    resMsg = ProtoMsgComposer.MsgResponses(res.data)
+    print("tx response")
     print(res)
+    print("tx msg response")
+    print(resMsg)
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)

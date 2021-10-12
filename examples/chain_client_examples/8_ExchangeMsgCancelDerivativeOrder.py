@@ -23,7 +23,7 @@ async def main() -> None:
 
     # prepare trade info
     market_id = "0xd0f46edfba58827fe692aab7c8d46395d1696239fdf6aeddfa668b73ca82ea30"
-    order_hash = "0x0531e3c17cbdc5c535a0a0cfa20d354187ee1256236c3a7d47db227b107aa6dd"
+    order_hash = "0x7d0b95cfc0fb5901ba4d686060074107eaff6bbcc9eba25823d16fa21508bfeb"
 
     # prepare tx msg
     msg = composer.MsgCancelDerivativeOrder(
@@ -33,39 +33,39 @@ async def main() -> None:
         order_hash=order_hash
     )
 
-    gas_price = 500000000
-    gas_limit = 200000
-    fee = [composer.Coin(
-        amount=str(gas_price * gas_limit),
-        denom=network.fee_denom,
-    )]
-
-    # build tx
+    # build sim tx
     tx = (
         Transaction()
         .with_messages(msg)
         .with_sequence(address.get_sequence())
         .with_account_num(address.get_number())
         .with_chain_id(network.chain_id)
-        .with_gas(gas_limit)
-        .with_fee(fee)
-        .with_memo("")
-        .with_timeout_height(0)
     )
-
-    # build signed tx
-    sign_doc = tx.get_sign_doc(pub_key)
-    sig = priv_key.sign(sign_doc.SerializeToString())
-    tx_raw_bytes = tx.get_tx_data(sig, pub_key)
+    sim_sign_doc = tx.get_sign_doc(pub_key)
+    sim_sig = priv_key.sign(sim_sign_doc.SerializeToString())
+    sim_tx_raw_bytes = tx.get_tx_data(sim_sig, pub_key)
 
     # simulate tx
-    (simRes, success) = client.simulate_tx(tx_raw_bytes)
+    (simRes, success) = client.simulate_tx(sim_tx_raw_bytes)
     if not success:
         print(simRes)
         return
 
+    # build tx
+    gas_price = 500000000
+    gas_limit = simRes.gas_info.gas_used + 15000 # add 15k for gas, fee computation
+    fee = [composer.Coin(
+        amount=str(gas_price * gas_limit),
+        denom=network.fee_denom,
+    )]
+    tx = tx.with_gas(gas_limit).with_fee(fee).with_memo("").with_timeout_height(0)
+    sign_doc = tx.get_sign_doc(pub_key)
+    sig = priv_key.sign(sign_doc.SerializeToString())
+    tx_raw_bytes = tx.get_tx_data(sig, pub_key)
+
     # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
-    res = client.send_tx_sync_mode(tx_raw_bytes)
+    res = client.send_tx_block_mode(tx_raw_bytes)
+    resMsg = ProtoMsgComposer.MsgResponses(res.data)
     print("tx response")
     print(res)
 
