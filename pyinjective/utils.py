@@ -23,42 +23,36 @@ This also makes sense since it refers to the minimum INJ quantity tick size each
 """
 
 def spot_price_to_backend(price, denom) -> str:
-    scale_tick_size = int(denom.base - denom.quote)
     price_tick_size = denom.min_price_tick_size
     scale_price = Decimal(18 + denom.quote - denom.base)
-    exchange_price = floor_to(price, price_tick_size) *pow(10, scale_price)
+    exchange_price = floor_to(price, price_tick_size) * pow(10, scale_price)
     return str(int(exchange_price))
 
 def spot_quantity_to_backend(quantity, denom) -> str:
-    scale_tick_size = float(0 - denom.base)
-    quantity_tick_size = float(denom.min_quantity_tick_size) *pow(10, scale_tick_size)
+    quantity_tick_size = float(denom.min_quantity_tick_size) / pow(10, denom.base)
     scale_quantity = Decimal(18 + denom.base)
-    exchange_quantity = floor_to(quantity, quantity_tick_size) *pow(10, scale_quantity)
+    exchange_quantity = floor_to(quantity, quantity_tick_size) * pow(10, scale_quantity)
     return str(int(exchange_quantity))
 
 def derivative_price_to_backend(price, denom) -> str:
-    scale = Decimal(0 - denom.quote)
-    price_tick_size = Decimal(denom.min_price_tick_size) * pow(10, scale)
+    price_tick_size = Decimal(denom.min_price_tick_size) / pow(10, denom.quote)
     exchange_price = floor_to(price, float(price_tick_size)) * pow(10, 18 + denom.quote)
     return str(int(exchange_price))
 
 def derivative_quantity_to_backend(quantity, denom) -> str:
-    scale_tick_size = float(0 - denom.base)
-    quantity_tick_size = float(denom.min_quantity_tick_size) * pow(10, scale_tick_size)
+    quantity_tick_size = float(denom.min_quantity_tick_size) / pow(10, denom.base)
     scale_quantity = Decimal(18 + denom.base)
     exchange_quantity = floor_to(quantity, quantity_tick_size) * pow(10, scale_quantity)
     return str(int(exchange_quantity))
 
 def derivative_margin_to_backend(price, quantity, leverage, denom) -> str:
-    scale = Decimal(0 - denom.quote)
-    price_tick_size = Decimal(denom.min_price_tick_size) * pow(10, scale)
+    price_tick_size = Decimal(denom.min_price_tick_size) / pow(10, denom.quote)
     margin = (price * quantity) / leverage
     exchange_margin = floor_to(margin, float(price_tick_size)) * pow(10, 18 + denom.quote)
     return str(int(exchange_margin))
 
 def derivative_additional_margin_to_backend(amount, denom) -> str:
-    scale = int(0 - denom.quote)
-    price_tick_size = float(denom.min_price_tick_size) * pow(10, scale)
+    price_tick_size = float(denom.min_price_tick_size) / pow(10, denom.quote)
     additional_margin = floor_to(amount, price_tick_size) * pow(10, 18 + denom.quote)
     return str(int(additional_margin))
 

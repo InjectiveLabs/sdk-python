@@ -18,7 +18,7 @@ class Transaction:
         sequence: int = None,
         chain_id: str = None,
         fee: List[Coin] = None,
-        gas: int = 200000,
+        gas: int = 0,
         memo: str = "",
         timeout_height: int = 0
     ):

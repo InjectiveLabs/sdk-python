@@ -104,7 +104,7 @@ class Client:
         try:
             return (self.stubTx.Simulate(
                 tx_service.SimulateRequest(tx_bytes=tx_byte)
-            ).result, True)
+            ), True)
         except grpc.RpcError as err:
             return (err, False)
 
