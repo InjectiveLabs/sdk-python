@@ -98,11 +98,13 @@ class Network:
         )
 
     @classmethod
-    def mainnet(cls):
+    def mainnet(cls, location='tokyo'):
+        s = 'sentry1' if location == 'tokyo' else 'sentry0'
+
         return cls(
             lcd_endpoint='lcd.injective.network',
-            grpc_endpoint='sentry0.injective.network:9900',
-            grpc_exchange_endpoint='sentry0.injective.network:9910',
+            grpc_endpoint=f"{s}.injective.network:9900",
+            grpc_exchange_endpoint=f"{s}.injective.network:9910",
             chain_id='injective-1',
             fee_denom='inj',
             env = 'mainnet'
