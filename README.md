@@ -78,14 +78,24 @@ python pyinjective/fetch_metadata.py
 
 ### Changelogs
 
+**0.4.8**
+
+* add tokyo as optional API node option for mainnet
+* improve conversion utils, include gas estimation in simulation response
+* update exchange client
+* add display fields, update ini files, fix derv quantity conversion
+* minor format fixes
+
+**0.4.5**
+* Wrap exchange grpc client into Client class.
+* Add Single-threaded pending sequence management.
+
 **0.4.4**
 * Allow to parse one or multiple exchange responses in simulation/tx response data.
 * Add simulation before broadcasting tx for gas estimation and error preview.
 * Add devnet to network options.
 
-**0.4.5**
-* Wrap exchange grpc client into Client class.
-* Add Single-threaded pending sequence management.
+
 
 
 ## License
