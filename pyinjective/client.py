@@ -48,7 +48,7 @@ class Client:
             grpc.insecure_channel(network.grpc_endpoint)
             if insecure
             else grpc.secure_channel(
-                grpc_endpoint,
+                network.grpc_endpoint,
                 credentials or grpc.ssl_channel_credentials(),
             )
         )
@@ -61,7 +61,7 @@ class Client:
             grpc.insecure_channel(network.grpc_exchange_endpoint)
             if insecure
             else grpc.secure_channel(
-                grpc_endpoint,
+                network.grpc_endpoint,
                 credentials or grpc.ssl_channel_credentials(),
             )
         )
