@@ -90,10 +90,25 @@ class QueryStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryPositionsRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryPositionsResponse.FromString,
                 )
-        self.LiquidityMiningPoints = channel.unary_unary(
-                '/injective.exchange.v1beta1.Query/LiquidityMiningPoints',
-                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryLiquidityMiningPointsRequest.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryLiquidityMiningPointsResponse.FromString,
+        self.TradeRewardPoints = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/TradeRewardPoints',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTradeRewardPointsRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTradeRewardPointsResponse.FromString,
+                )
+        self.TradeRewardCampaign = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/TradeRewardCampaign',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTradeRewardCampaignRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTradeRewardCampaignResponse.FromString,
+                )
+        self.FeeDiscountAccountInfo = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/FeeDiscountAccountInfo',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountAccountInfoRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountAccountInfoResponse.FromString,
+                )
+        self.FeeDiscountSchedule = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/FeeDiscountSchedule',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountScheduleRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountScheduleResponse.FromString,
                 )
 
 
@@ -172,14 +187,14 @@ class QueryServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def DerivativeMarkets(self, request, context):
-        """Retrieves a list of spot markets.
+        """Retrieves a list of derivative markets.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def DerivativeMarket(self, request, context):
-        """Retrieves a spot market by ticker
+        """Retrieves a derivative market by ticker
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -206,8 +221,29 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def LiquidityMiningPoints(self, request, context):
+    def TradeRewardPoints(self, request, context):
         """Retrieves the account and total liquidity mining points
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def TradeRewardCampaign(self, request, context):
+        """Retrieves the trade reward campaign
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def FeeDiscountAccountInfo(self, request, context):
+        """Retrieves the account's fee discount info
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def FeeDiscountSchedule(self, request, context):
+        """Retrieves the fee discount schedule
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -291,10 +327,25 @@ def add_QueryServicer_to_server(servicer, server):
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryPositionsRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryPositionsResponse.SerializeToString,
             ),
-            'LiquidityMiningPoints': grpc.unary_unary_rpc_method_handler(
-                    servicer.LiquidityMiningPoints,
-                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryLiquidityMiningPointsRequest.FromString,
-                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryLiquidityMiningPointsResponse.SerializeToString,
+            'TradeRewardPoints': grpc.unary_unary_rpc_method_handler(
+                    servicer.TradeRewardPoints,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTradeRewardPointsRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTradeRewardPointsResponse.SerializeToString,
+            ),
+            'TradeRewardCampaign': grpc.unary_unary_rpc_method_handler(
+                    servicer.TradeRewardCampaign,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTradeRewardCampaignRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTradeRewardCampaignResponse.SerializeToString,
+            ),
+            'FeeDiscountAccountInfo': grpc.unary_unary_rpc_method_handler(
+                    servicer.FeeDiscountAccountInfo,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountAccountInfoRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountAccountInfoResponse.SerializeToString,
+            ),
+            'FeeDiscountSchedule': grpc.unary_unary_rpc_method_handler(
+                    servicer.FeeDiscountSchedule,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountScheduleRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountScheduleResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -563,7 +614,7 @@ class Query(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def LiquidityMiningPoints(request,
+    def TradeRewardPoints(request,
             target,
             options=(),
             channel_credentials=None,
@@ -573,8 +624,59 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/LiquidityMiningPoints',
-            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryLiquidityMiningPointsRequest.SerializeToString,
-            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryLiquidityMiningPointsResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/TradeRewardPoints',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTradeRewardPointsRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTradeRewardPointsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def TradeRewardCampaign(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/TradeRewardCampaign',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTradeRewardCampaignRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTradeRewardCampaignResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def FeeDiscountAccountInfo(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/FeeDiscountAccountInfo',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountAccountInfoRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountAccountInfoResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def FeeDiscountSchedule(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/FeeDiscountSchedule',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountScheduleRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountScheduleResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

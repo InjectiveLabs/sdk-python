@@ -15,16 +15,6 @@ class InjectiveExchangeRPCStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.Ping = channel.unary_unary(
-                '/injective_exchange_rpc.InjectiveExchangeRPC/Ping',
-                request_serializer=exchange_dot_injective__exchange__rpc__pb2.PingRequest.SerializeToString,
-                response_deserializer=exchange_dot_injective__exchange__rpc__pb2.PingResponse.FromString,
-                )
-        self.Version = channel.unary_unary(
-                '/injective_exchange_rpc.InjectiveExchangeRPC/Version',
-                request_serializer=exchange_dot_injective__exchange__rpc__pb2.VersionRequest.SerializeToString,
-                response_deserializer=exchange_dot_injective__exchange__rpc__pb2.VersionResponse.FromString,
-                )
         self.GetTx = channel.unary_unary(
                 '/injective_exchange_rpc.InjectiveExchangeRPC/GetTx',
                 request_serializer=exchange_dot_injective__exchange__rpc__pb2.GetTxRequest.SerializeToString,
@@ -45,20 +35,6 @@ class InjectiveExchangeRPCStub(object):
 class InjectiveExchangeRPCServicer(object):
     """InjectiveExchangeRPC defines gRPC API of an Injective Exchange service.
     """
-
-    def Ping(self, request, context):
-        """Endpoint for checking server health.
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def Version(self, request, context):
-        """Returns injective-exchange version.
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
 
     def GetTx(self, request, context):
         """GetTx gets transaction details by hash.
@@ -84,16 +60,6 @@ class InjectiveExchangeRPCServicer(object):
 
 def add_InjectiveExchangeRPCServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'Ping': grpc.unary_unary_rpc_method_handler(
-                    servicer.Ping,
-                    request_deserializer=exchange_dot_injective__exchange__rpc__pb2.PingRequest.FromString,
-                    response_serializer=exchange_dot_injective__exchange__rpc__pb2.PingResponse.SerializeToString,
-            ),
-            'Version': grpc.unary_unary_rpc_method_handler(
-                    servicer.Version,
-                    request_deserializer=exchange_dot_injective__exchange__rpc__pb2.VersionRequest.FromString,
-                    response_serializer=exchange_dot_injective__exchange__rpc__pb2.VersionResponse.SerializeToString,
-            ),
             'GetTx': grpc.unary_unary_rpc_method_handler(
                     servicer.GetTx,
                     request_deserializer=exchange_dot_injective__exchange__rpc__pb2.GetTxRequest.FromString,
@@ -119,40 +85,6 @@ def add_InjectiveExchangeRPCServicer_to_server(servicer, server):
 class InjectiveExchangeRPC(object):
     """InjectiveExchangeRPC defines gRPC API of an Injective Exchange service.
     """
-
-    @staticmethod
-    def Ping(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_exchange_rpc.InjectiveExchangeRPC/Ping',
-            exchange_dot_injective__exchange__rpc__pb2.PingRequest.SerializeToString,
-            exchange_dot_injective__exchange__rpc__pb2.PingResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def Version(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_exchange_rpc.InjectiveExchangeRPC/Version',
-            exchange_dot_injective__exchange__rpc__pb2.VersionRequest.SerializeToString,
-            exchange_dot_injective__exchange__rpc__pb2.VersionResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def GetTx(request,

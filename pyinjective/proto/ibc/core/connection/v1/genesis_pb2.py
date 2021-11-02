@@ -19,9 +19,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='ibc/core/connection/v1/genesis.proto',
   package='ibc.core.connection.v1',
   syntax='proto3',
-  serialized_options=b'Z;github.com/cosmos/cosmos-sdk/x/ibc/core/03-connection/types',
+  serialized_options=b'Z<github.com/cosmos/ibc-go/v2/modules/core/03-connection/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n$ibc/core/connection/v1/genesis.proto\x12\x16ibc.core.connection.v1\x1a\x14gogoproto/gogo.proto\x1a\'ibc/core/connection/v1/connection.proto\"\xc9\x01\n\x0cGenesisState\x12G\n\x0b\x63onnections\x18\x01 \x03(\x0b\x32,.ibc.core.connection.v1.IdentifiedConnectionB\x04\xc8\xde\x1f\x00\x12p\n\x17\x63lient_connection_paths\x18\x02 \x03(\x0b\x32\'.ibc.core.connection.v1.ConnectionPathsB&\xc8\xde\x1f\x00\xf2\xde\x1f\x1eyaml:\"client_connection_paths\"B=Z;github.com/cosmos/cosmos-sdk/x/ibc/core/03-connection/typesb\x06proto3'
+  serialized_pb=b'\n$ibc/core/connection/v1/genesis.proto\x12\x16ibc.core.connection.v1\x1a\x14gogoproto/gogo.proto\x1a\'ibc/core/connection/v1/connection.proto\"\xc6\x02\n\x0cGenesisState\x12G\n\x0b\x63onnections\x18\x01 \x03(\x0b\x32,.ibc.core.connection.v1.IdentifiedConnectionB\x04\xc8\xde\x1f\x00\x12p\n\x17\x63lient_connection_paths\x18\x02 \x03(\x0b\x32\'.ibc.core.connection.v1.ConnectionPathsB&\xc8\xde\x1f\x00\xf2\xde\x1f\x1eyaml:\"client_connection_paths\"\x12\x45\n\x18next_connection_sequence\x18\x03 \x01(\x04\x42#\xf2\xde\x1f\x1fyaml:\"next_connection_sequence\"\x12\x34\n\x06params\x18\x04 \x01(\x0b\x32\x1e.ibc.core.connection.v1.ParamsB\x04\xc8\xde\x1f\x00\x42>Z<github.com/cosmos/ibc-go/v2/modules/core/03-connection/typesb\x06proto3'
   ,
   dependencies=[gogoproto_dot_gogo__pb2.DESCRIPTOR,ibc_dot_core_dot_connection_dot_v1_dot_connection__pb2.DESCRIPTOR,])
 
@@ -50,6 +50,20 @@ _GENESISSTATE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=b'\310\336\037\000\362\336\037\036yaml:\"client_connection_paths\"', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='next_connection_sequence', full_name='ibc.core.connection.v1.GenesisState.next_connection_sequence', index=2,
+      number=3, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\362\336\037\037yaml:\"next_connection_sequence\"', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='params', full_name='ibc.core.connection.v1.GenesisState.params', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -63,11 +77,12 @@ _GENESISSTATE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=128,
-  serialized_end=329,
+  serialized_end=454,
 )
 
 _GENESISSTATE.fields_by_name['connections'].message_type = ibc_dot_core_dot_connection_dot_v1_dot_connection__pb2._IDENTIFIEDCONNECTION
 _GENESISSTATE.fields_by_name['client_connection_paths'].message_type = ibc_dot_core_dot_connection_dot_v1_dot_connection__pb2._CONNECTIONPATHS
+_GENESISSTATE.fields_by_name['params'].message_type = ibc_dot_core_dot_connection_dot_v1_dot_connection__pb2._PARAMS
 DESCRIPTOR.message_types_by_name['GenesisState'] = _GENESISSTATE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -82,4 +97,6 @@ _sym_db.RegisterMessage(GenesisState)
 DESCRIPTOR._options = None
 _GENESISSTATE.fields_by_name['connections']._options = None
 _GENESISSTATE.fields_by_name['client_connection_paths']._options = None
+_GENESISSTATE.fields_by_name['next_connection_sequence']._options = None
+_GENESISSTATE.fields_by_name['params']._options = None
 # @@protoc_insertion_point(module_scope)
