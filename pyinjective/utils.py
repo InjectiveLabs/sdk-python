@@ -70,7 +70,7 @@ def amount_to_backend(amount, decimals) -> int:
 def floor_to(value: float, target: float) -> int:
     value = Decimal(str(value))
     target = Decimal(str(target))
-    result = int(int(floor(value / target)) * target)
+    result = int(floor(value / target)) * target
     return result
 
 

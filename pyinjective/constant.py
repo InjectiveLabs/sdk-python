@@ -88,11 +88,13 @@ class Network:
         )
 
     @classmethod
-    def testnet(cls):
+    def testnet(cls, sentry='primary'):
+        s = 'sentry0' if sentry == 'primary' else 'sentry1'
+
         return cls(
             lcd_endpoint='https://testnet.lcd.injective.dev',
-            grpc_endpoint='localhost:9900',
-            grpc_exchange_endpoint='localhost:9910',
+            grpc_endpoint=f"{s}.injective.dev:9900",
+            grpc_exchange_endpoint=f"{s}.injective.dev:9910",
             chain_id='injective-888',
             fee_denom='inj',
             env='testnet'
