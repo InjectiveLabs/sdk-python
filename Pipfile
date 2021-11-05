@@ -13,6 +13,8 @@ mnemonic = "*"
 hdwallets = "*"
 pysha = "*"
 protobuf = "*"
+grpcio-tools = "*"
+bip32 = "*"
 
 [dev-packages]
 

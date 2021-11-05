@@ -15,12 +15,12 @@
 
 import asyncio
 import logging
-import grpc
 
 from pyinjective.client import Client
 from pyinjective.constant import Network
 
 network = Network.testnet()
+
 
 async def main() -> None:
     network = Network.testnet()

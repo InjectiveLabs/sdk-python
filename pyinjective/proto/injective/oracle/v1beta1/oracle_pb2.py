@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'ZLgithub.com/InjectiveLabs/injective-core/injective-chain/modules/oracle/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n%injective/oracle/v1beta1/oracle.proto\x12\x18injective.oracle.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\"\x0e\n\x06Params:\x04\xe8\xa0\x1f\x01\"\xc9\x01\n\x0e\x42\x61ndPriceState\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12<\n\x04rate\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x14\n\x0cresolve_time\x18\x03 \x01(\x04\x12\x12\n\nrequest_ID\x18\x04 \x01(\x04\x12?\n\x0bprice_state\x18\x05 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceStateB\x04\xc8\xde\x1f\x00\"\x9d\x01\n\x11SetBandPriceEvent\x12\x0f\n\x07relayer\x18\x01 \x01(\t\x12\x0e\n\x06symbol\x18\x02 \x01(\t\x12=\n\x05price\x18\x03 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x14\n\x0cresolve_time\x18\x04 \x01(\x04\x12\x12\n\nrequest_id\x18\x05 \x01(\x04\"\xb3\x01\n\x14SetBandIBCPriceEvent\x12\x0f\n\x07relayer\x18\x01 \x01(\t\x12\x0e\n\x06symbol\x18\x02 \x01(\t\x12=\n\x05price\x18\x03 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x14\n\x0cresolve_time\x18\x04 \x01(\x04\x12\x12\n\nrequest_id\x18\x05 \x01(\x04\x12\x11\n\tclient_id\x18\x06 \x01(\x03\"?\n\x16\x45ventBandIBCAckSuccess\x12\x12\n\nack_result\x18\x01 \x01(\t\x12\x11\n\tclient_id\x18\x02 \x01(\x03\"<\n\x14\x45ventBandIBCAckError\x12\x11\n\tack_error\x18\x01 \x01(\t\x12\x11\n\tclient_id\x18\x02 \x01(\x03\"0\n\x1b\x45ventBandIBCResponseTimeout\x12\x11\n\tclient_id\x18\x01 \x01(\x03\"{\n\x10GetReferenceData\x12\x19\n\x11\x62\x61se_quote_symbol\x18\x01 \x01(\t\x12\x17\n\x0f\x62\x61se_quote_rate\x18\x02 \x01(\t\x12\x18\n\x10last_update_base\x18\x03 \x01(\t\x12\x19\n\x11last_update_quote\x18\x04 \x01(\t\"b\n GrantBandOraclePrivilegeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x10\n\x08relayers\x18\x03 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"c\n!RevokeBandOraclePrivilegeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x10\n\x08relayers\x18\x03 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x80\x01\n!GrantPriceFeederPrivilegeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0c\n\x04\x62\x61se\x18\x03 \x01(\t\x12\r\n\x05quote\x18\x04 \x01(\t\x12\x10\n\x08relayers\x18\x05 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x81\x01\n\"RevokePriceFeederPrivilegeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0c\n\x04\x62\x61se\x18\x03 \x01(\t\x12\r\n\x05quote\x18\x04 \x01(\t\x12\x10\n\x08relayers\x18\x05 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"z\n\x0ePriceFeedState\x12\x0c\n\x04\x62\x61se\x18\x01 \x01(\t\x12\r\n\x05quote\x18\x02 \x01(\t\x12\x39\n\x0bprice_state\x18\x03 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceState\x12\x10\n\x08relayers\x18\x04 \x03(\t\",\n\rPriceFeedInfo\x12\x0c\n\x04\x62\x61se\x18\x01 \x01(\t\x12\r\n\x05quote\x18\x02 \x01(\t\"O\n\x0ePriceFeedPrice\x12=\n\x05price\x18\x01 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"\x85\x01\n\x16SetPriceFeedPriceEvent\x12\x0f\n\x07relayer\x18\x01 \x01(\t\x12\x0c\n\x04\x62\x61se\x18\x02 \x01(\t\x12\r\n\x05quote\x18\x03 \x01(\t\x12=\n\x05price\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"\x92\x01\n\x12\x43oinbasePriceState\x12\x0c\n\x04kind\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x04\x12\x0b\n\x03key\x18\x03 \x01(\t\x12\r\n\x05value\x18\x04 \x01(\x04\x12?\n\x0bprice_state\x18\x05 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceStateB\x04\xc8\xde\x1f\x00\"y\n\x15SetCoinbasePriceEvent\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12=\n\x05price\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x11\n\ttimestamp\x18\x03 \x01(\x04\"\xa8\x01\n\nPriceState\x12=\n\x05price\x18\x01 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12H\n\x10\x63umulative_price\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x11\n\ttimestamp\x18\x03 \x01(\x03\"\x96\x01\n\"AuthorizeBandOracleRequestProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x42\n\x07request\x18\x03 \x01(\x0b\x32+.injective.oracle.v1beta1.BandOracleRequestB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\xb6\x01\n\x1fUpdateBandOracleRequestProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x19\n\x11\x64\x65lete_request_id\x18\x03 \x01(\x04\x12J\n\x15update_oracle_request\x18\x04 \x01(\x0b\x32+.injective.oracle.v1beta1.BandOracleRequest:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x8d\x01\n\x15\x45nableBandIBCProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x46\n\x0f\x62\x61nd_ibc_params\x18\x03 \x01(\x0b\x32\'.injective.oracle.v1beta1.BandIBCParamsB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x88\x02\n\x11\x42\x61ndOracleRequest\x12\x12\n\nrequest_id\x18\x01 \x01(\x04\x12\x18\n\x10oracle_script_id\x18\x02 \x01(\x03\x12\x15\n\x07symbols\x18\x03 \x03(\tB\x04\xc8\xde\x1f\x00\x12\x11\n\task_count\x18\x04 \x01(\x04\x12\x11\n\tmin_count\x18\x05 \x01(\x04\x12^\n\tfee_limit\x18\x06 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins\x12\x13\n\x0bprepare_gas\x18\x07 \x01(\x04\x12\x13\n\x0b\x65xecute_gas\x18\x08 \x01(\x04\"\x8d\x01\n\rBandIBCParams\x12\x18\n\x10\x62\x61nd_ibc_enabled\x18\x01 \x01(\x08\x12\x1c\n\x14ibc_request_interval\x18\x02 \x01(\x03\x12\x1a\n\x12ibc_source_channel\x18\x03 \x01(\t\x12\x13\n\x0bibc_version\x18\x04 \x01(\t\x12\x13\n\x0bibc_port_id\x18\x05 \x01(\t*\x91\x01\n\nOracleType\x12\x0f\n\x0bUnspecified\x10\x00\x12\x08\n\x04\x42\x61nd\x10\x01\x12\r\n\tPriceFeed\x10\x02\x12\x0c\n\x08\x43oinbase\x10\x03\x12\r\n\tChainlink\x10\x04\x12\t\n\x05Razor\x10\x05\x12\x07\n\x03\x44ia\x10\x06\x12\x08\n\x04\x41PI3\x10\x07\x12\x07\n\x03Uma\x10\x08\x12\x08\n\x04Pyth\x10\t\x12\x0b\n\x07\x42\x61ndIBC\x10\nBNZLgithub.com/InjectiveLabs/injective-core/injective-chain/modules/oracle/typesb\x06proto3'
+  serialized_pb=b'\n%injective/oracle/v1beta1/oracle.proto\x12\x18injective.oracle.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\"\x0e\n\x06Params:\x04\xe8\xa0\x1f\x01\"\xba\x01\n\x13\x43hainlinkPriceState\x12\x0f\n\x07\x66\x65\x65\x64_id\x18\x01 \x01(\t\x12>\n\x06\x61nswer\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x11\n\ttimestamp\x18\x03 \x01(\x04\x12?\n\x0bprice_state\x18\x04 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceStateB\x04\xc8\xde\x1f\x00\"\xc9\x01\n\x0e\x42\x61ndPriceState\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12<\n\x04rate\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x14\n\x0cresolve_time\x18\x03 \x01(\x04\x12\x12\n\nrequest_ID\x18\x04 \x01(\x04\x12?\n\x0bprice_state\x18\x05 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceStateB\x04\xc8\xde\x1f\x00\"\x9d\x01\n\x11SetBandPriceEvent\x12\x0f\n\x07relayer\x18\x01 \x01(\t\x12\x0e\n\x06symbol\x18\x02 \x01(\t\x12=\n\x05price\x18\x03 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x14\n\x0cresolve_time\x18\x04 \x01(\x04\x12\x12\n\nrequest_id\x18\x05 \x01(\x04\"\xb5\x01\n\x14SetBandIBCPriceEvent\x12\x0f\n\x07relayer\x18\x01 \x01(\t\x12\x0f\n\x07symbols\x18\x02 \x03(\t\x12>\n\x06prices\x18\x03 \x03(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x14\n\x0cresolve_time\x18\x04 \x01(\x04\x12\x12\n\nrequest_id\x18\x05 \x01(\x04\x12\x11\n\tclient_id\x18\x06 \x01(\x03\"?\n\x16\x45ventBandIBCAckSuccess\x12\x12\n\nack_result\x18\x01 \x01(\t\x12\x11\n\tclient_id\x18\x02 \x01(\x03\"<\n\x14\x45ventBandIBCAckError\x12\x11\n\tack_error\x18\x01 \x01(\t\x12\x11\n\tclient_id\x18\x02 \x01(\x03\"0\n\x1b\x45ventBandIBCResponseTimeout\x12\x11\n\tclient_id\x18\x01 \x01(\x03\"{\n\x10GetReferenceData\x12\x19\n\x11\x62\x61se_quote_symbol\x18\x01 \x01(\t\x12\x17\n\x0f\x62\x61se_quote_rate\x18\x02 \x01(\t\x12\x18\n\x10last_update_base\x18\x03 \x01(\t\x12\x19\n\x11last_update_quote\x18\x04 \x01(\t\"b\n GrantBandOraclePrivilegeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x10\n\x08relayers\x18\x03 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"c\n!RevokeBandOraclePrivilegeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x10\n\x08relayers\x18\x03 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x80\x01\n!GrantPriceFeederPrivilegeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0c\n\x04\x62\x61se\x18\x03 \x01(\t\x12\r\n\x05quote\x18\x04 \x01(\t\x12\x10\n\x08relayers\x18\x05 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x81\x01\n\"RevokePriceFeederPrivilegeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0c\n\x04\x62\x61se\x18\x03 \x01(\t\x12\r\n\x05quote\x18\x04 \x01(\t\x12\x10\n\x08relayers\x18\x05 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"z\n\x0ePriceFeedState\x12\x0c\n\x04\x62\x61se\x18\x01 \x01(\t\x12\r\n\x05quote\x18\x02 \x01(\t\x12\x39\n\x0bprice_state\x18\x03 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceState\x12\x10\n\x08relayers\x18\x04 \x03(\t\",\n\rPriceFeedInfo\x12\x0c\n\x04\x62\x61se\x18\x01 \x01(\t\x12\r\n\x05quote\x18\x02 \x01(\t\"O\n\x0ePriceFeedPrice\x12=\n\x05price\x18\x01 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"\x85\x01\n\x16SetPriceFeedPriceEvent\x12\x0f\n\x07relayer\x18\x01 \x01(\t\x12\x0c\n\x04\x62\x61se\x18\x02 \x01(\t\x12\r\n\x05quote\x18\x03 \x01(\t\x12=\n\x05price\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"\x92\x01\n\x12\x43oinbasePriceState\x12\x0c\n\x04kind\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x04\x12\x0b\n\x03key\x18\x03 \x01(\t\x12\r\n\x05value\x18\x04 \x01(\x04\x12?\n\x0bprice_state\x18\x05 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceStateB\x04\xc8\xde\x1f\x00\"y\n\x15SetCoinbasePriceEvent\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12=\n\x05price\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x11\n\ttimestamp\x18\x03 \x01(\x04\"\xa8\x01\n\nPriceState\x12=\n\x05price\x18\x01 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12H\n\x10\x63umulative_price\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x11\n\ttimestamp\x18\x03 \x01(\x03\"\x96\x01\n\"AuthorizeBandOracleRequestProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x42\n\x07request\x18\x03 \x01(\x0b\x32+.injective.oracle.v1beta1.BandOracleRequestB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\xb6\x01\n\x1fUpdateBandOracleRequestProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x19\n\x11\x64\x65lete_request_id\x18\x03 \x01(\x04\x12J\n\x15update_oracle_request\x18\x04 \x01(\x0b\x32+.injective.oracle.v1beta1.BandOracleRequest:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x8d\x01\n\x15\x45nableBandIBCProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x46\n\x0f\x62\x61nd_ibc_params\x18\x03 \x01(\x0b\x32\'.injective.oracle.v1beta1.BandIBCParamsB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x88\x02\n\x11\x42\x61ndOracleRequest\x12\x12\n\nrequest_id\x18\x01 \x01(\x04\x12\x18\n\x10oracle_script_id\x18\x02 \x01(\x03\x12\x15\n\x07symbols\x18\x03 \x03(\tB\x04\xc8\xde\x1f\x00\x12\x11\n\task_count\x18\x04 \x01(\x04\x12\x11\n\tmin_count\x18\x05 \x01(\x04\x12^\n\tfee_limit\x18\x06 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins\x12\x13\n\x0bprepare_gas\x18\x07 \x01(\x04\x12\x13\n\x0b\x65xecute_gas\x18\x08 \x01(\x04\"\x8d\x01\n\rBandIBCParams\x12\x18\n\x10\x62\x61nd_ibc_enabled\x18\x01 \x01(\x08\x12\x1c\n\x14ibc_request_interval\x18\x02 \x01(\x03\x12\x1a\n\x12ibc_source_channel\x18\x03 \x01(\t\x12\x13\n\x0bibc_version\x18\x04 \x01(\t\x12\x13\n\x0bibc_port_id\x18\x05 \x01(\t*\x91\x01\n\nOracleType\x12\x0f\n\x0bUnspecified\x10\x00\x12\x08\n\x04\x42\x61nd\x10\x01\x12\r\n\tPriceFeed\x10\x02\x12\x0c\n\x08\x43oinbase\x10\x03\x12\r\n\tChainlink\x10\x04\x12\t\n\x05Razor\x10\x05\x12\x07\n\x03\x44ia\x10\x06\x12\x08\n\x04\x41PI3\x10\x07\x12\x07\n\x03Uma\x10\x08\x12\x08\n\x04Pyth\x10\t\x12\x0b\n\x07\x42\x61ndIBC\x10\nBNZLgithub.com/InjectiveLabs/injective-core/injective-chain/modules/oracle/typesb\x06proto3'
   ,
   dependencies=[gogoproto_dot_gogo__pb2.DESCRIPTOR,cosmos_dot_base_dot_v1beta1_dot_coin__pb2.DESCRIPTOR,])
 
@@ -91,8 +91,8 @@ _ORACLETYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=3173,
-  serialized_end=3318,
+  serialized_start=3364,
+  serialized_end=3509,
 )
 _sym_db.RegisterEnumDescriptor(_ORACLETYPE)
 
@@ -133,6 +133,59 @@ _PARAMS = _descriptor.Descriptor(
   ],
   serialized_start=121,
   serialized_end=135,
+)
+
+
+_CHAINLINKPRICESTATE = _descriptor.Descriptor(
+  name='ChainlinkPriceState',
+  full_name='injective.oracle.v1beta1.ChainlinkPriceState',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='feed_id', full_name='injective.oracle.v1beta1.ChainlinkPriceState.feed_id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='answer', full_name='injective.oracle.v1beta1.ChainlinkPriceState.answer', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='timestamp', full_name='injective.oracle.v1beta1.ChainlinkPriceState.timestamp', index=2,
+      number=3, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='price_state', full_name='injective.oracle.v1beta1.ChainlinkPriceState.price_state', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=138,
+  serialized_end=324,
 )
 
 
@@ -191,8 +244,8 @@ _BANDPRICESTATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=138,
-  serialized_end=339,
+  serialized_start=327,
+  serialized_end=528,
 )
 
 
@@ -251,8 +304,8 @@ _SETBANDPRICEEVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=342,
-  serialized_end=499,
+  serialized_start=531,
+  serialized_end=688,
 )
 
 
@@ -272,16 +325,16 @@ _SETBANDIBCPRICEEVENT = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='symbol', full_name='injective.oracle.v1beta1.SetBandIBCPriceEvent.symbol', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
+      name='symbols', full_name='injective.oracle.v1beta1.SetBandIBCPriceEvent.symbols', index=1,
+      number=2, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='price', full_name='injective.oracle.v1beta1.SetBandIBCPriceEvent.price', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
+      name='prices', full_name='injective.oracle.v1beta1.SetBandIBCPriceEvent.prices', index=2,
+      number=3, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -318,8 +371,8 @@ _SETBANDIBCPRICEEVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=502,
-  serialized_end=681,
+  serialized_start=691,
+  serialized_end=872,
 )
 
 
@@ -357,8 +410,8 @@ _EVENTBANDIBCACKSUCCESS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=683,
-  serialized_end=746,
+  serialized_start=874,
+  serialized_end=937,
 )
 
 
@@ -396,8 +449,8 @@ _EVENTBANDIBCACKERROR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=748,
-  serialized_end=808,
+  serialized_start=939,
+  serialized_end=999,
 )
 
 
@@ -428,8 +481,8 @@ _EVENTBANDIBCRESPONSETIMEOUT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=810,
-  serialized_end=858,
+  serialized_start=1001,
+  serialized_end=1049,
 )
 
 
@@ -481,8 +534,8 @@ _GETREFERENCEDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=860,
-  serialized_end=983,
+  serialized_start=1051,
+  serialized_end=1174,
 )
 
 
@@ -527,8 +580,8 @@ _GRANTBANDORACLEPRIVILEGEPROPOSAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=985,
-  serialized_end=1083,
+  serialized_start=1176,
+  serialized_end=1274,
 )
 
 
@@ -573,8 +626,8 @@ _REVOKEBANDORACLEPRIVILEGEPROPOSAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1085,
-  serialized_end=1184,
+  serialized_start=1276,
+  serialized_end=1375,
 )
 
 
@@ -633,8 +686,8 @@ _GRANTPRICEFEEDERPRIVILEGEPROPOSAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1187,
-  serialized_end=1315,
+  serialized_start=1378,
+  serialized_end=1506,
 )
 
 
@@ -693,8 +746,8 @@ _REVOKEPRICEFEEDERPRIVILEGEPROPOSAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1318,
-  serialized_end=1447,
+  serialized_start=1509,
+  serialized_end=1638,
 )
 
 
@@ -746,8 +799,8 @@ _PRICEFEEDSTATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1449,
-  serialized_end=1571,
+  serialized_start=1640,
+  serialized_end=1762,
 )
 
 
@@ -785,8 +838,8 @@ _PRICEFEEDINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1573,
-  serialized_end=1617,
+  serialized_start=1764,
+  serialized_end=1808,
 )
 
 
@@ -817,8 +870,8 @@ _PRICEFEEDPRICE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1619,
-  serialized_end=1698,
+  serialized_start=1810,
+  serialized_end=1889,
 )
 
 
@@ -870,8 +923,8 @@ _SETPRICEFEEDPRICEEVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1701,
-  serialized_end=1834,
+  serialized_start=1892,
+  serialized_end=2025,
 )
 
 
@@ -930,8 +983,8 @@ _COINBASEPRICESTATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1837,
-  serialized_end=1983,
+  serialized_start=2028,
+  serialized_end=2174,
 )
 
 
@@ -976,8 +1029,8 @@ _SETCOINBASEPRICEEVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1985,
-  serialized_end=2106,
+  serialized_start=2176,
+  serialized_end=2297,
 )
 
 
@@ -1022,8 +1075,8 @@ _PRICESTATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2109,
-  serialized_end=2277,
+  serialized_start=2300,
+  serialized_end=2468,
 )
 
 
@@ -1068,8 +1121,8 @@ _AUTHORIZEBANDORACLEREQUESTPROPOSAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2280,
-  serialized_end=2430,
+  serialized_start=2471,
+  serialized_end=2621,
 )
 
 
@@ -1121,8 +1174,8 @@ _UPDATEBANDORACLEREQUESTPROPOSAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2433,
-  serialized_end=2615,
+  serialized_start=2624,
+  serialized_end=2806,
 )
 
 
@@ -1167,8 +1220,8 @@ _ENABLEBANDIBCPROPOSAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2618,
-  serialized_end=2759,
+  serialized_start=2809,
+  serialized_end=2950,
 )
 
 
@@ -1248,8 +1301,8 @@ _BANDORACLEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2762,
-  serialized_end=3026,
+  serialized_start=2953,
+  serialized_end=3217,
 )
 
 
@@ -1308,10 +1361,11 @@ _BANDIBCPARAMS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3029,
-  serialized_end=3170,
+  serialized_start=3220,
+  serialized_end=3361,
 )
 
+_CHAINLINKPRICESTATE.fields_by_name['price_state'].message_type = _PRICESTATE
 _BANDPRICESTATE.fields_by_name['price_state'].message_type = _PRICESTATE
 _PRICEFEEDSTATE.fields_by_name['price_state'].message_type = _PRICESTATE
 _COINBASEPRICESTATE.fields_by_name['price_state'].message_type = _PRICESTATE
@@ -1320,6 +1374,7 @@ _UPDATEBANDORACLEREQUESTPROPOSAL.fields_by_name['update_oracle_request'].message
 _ENABLEBANDIBCPROPOSAL.fields_by_name['band_ibc_params'].message_type = _BANDIBCPARAMS
 _BANDORACLEREQUEST.fields_by_name['fee_limit'].message_type = cosmos_dot_base_dot_v1beta1_dot_coin__pb2._COIN
 DESCRIPTOR.message_types_by_name['Params'] = _PARAMS
+DESCRIPTOR.message_types_by_name['ChainlinkPriceState'] = _CHAINLINKPRICESTATE
 DESCRIPTOR.message_types_by_name['BandPriceState'] = _BANDPRICESTATE
 DESCRIPTOR.message_types_by_name['SetBandPriceEvent'] = _SETBANDPRICEEVENT
 DESCRIPTOR.message_types_by_name['SetBandIBCPriceEvent'] = _SETBANDIBCPRICEEVENT
@@ -1352,6 +1407,13 @@ Params = _reflection.GeneratedProtocolMessageType('Params', (_message.Message,),
   # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.Params)
   })
 _sym_db.RegisterMessage(Params)
+
+ChainlinkPriceState = _reflection.GeneratedProtocolMessageType('ChainlinkPriceState', (_message.Message,), {
+  'DESCRIPTOR' : _CHAINLINKPRICESTATE,
+  '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
+  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.ChainlinkPriceState)
+  })
+_sym_db.RegisterMessage(ChainlinkPriceState)
 
 BandPriceState = _reflection.GeneratedProtocolMessageType('BandPriceState', (_message.Message,), {
   'DESCRIPTOR' : _BANDPRICESTATE,
@@ -1517,10 +1579,12 @@ _sym_db.RegisterMessage(BandIBCParams)
 
 DESCRIPTOR._options = None
 _PARAMS._options = None
+_CHAINLINKPRICESTATE.fields_by_name['answer']._options = None
+_CHAINLINKPRICESTATE.fields_by_name['price_state']._options = None
 _BANDPRICESTATE.fields_by_name['rate']._options = None
 _BANDPRICESTATE.fields_by_name['price_state']._options = None
 _SETBANDPRICEEVENT.fields_by_name['price']._options = None
-_SETBANDIBCPRICEEVENT.fields_by_name['price']._options = None
+_SETBANDIBCPRICEEVENT.fields_by_name['prices']._options = None
 _GRANTBANDORACLEPRIVILEGEPROPOSAL._options = None
 _REVOKEBANDORACLEPRIVILEGEPROPOSAL._options = None
 _GRANTPRICEFEEDERPRIVILEGEPROPOSAL._options = None

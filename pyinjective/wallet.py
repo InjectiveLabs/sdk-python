@@ -112,7 +112,7 @@ class PublicKey:
     """
 
     def __init__(self, _error_do_not_use_init_directly=None) -> None:
-        """Unsupported, please do not contruct it directly."""
+        """Unsupported, please do not construct it directly."""
         if not _error_do_not_use_init_directly:
             raise TypeError("Please use PublicKey's factory methods to construct me")
         self.verify_key: VerifyingKey = None
@@ -265,7 +265,7 @@ class Address:
     async def init_num_seq(self, lcd_endpoint: str) -> (int, int):
         async with aiohttp.ClientSession() as session:
             async with session.request(
-                'GET', 'http://' + lcd_endpoint + '/cosmos/auth/v1beta1/accounts/' + self.to_acc_bech32(),
+                'GET', lcd_endpoint + '/cosmos/auth/v1beta1/accounts/' + self.to_acc_bech32(),
                 headers={'Accept-Encoding': 'application/json'},
             ) as response:
                 if response.status != 200:

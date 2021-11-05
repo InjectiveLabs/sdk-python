@@ -50,20 +50,30 @@ class QueryStub(object):
                 request_serializer=ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryPacketCommitmentsRequest.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryPacketCommitmentsResponse.FromString,
                 )
+        self.PacketReceipt = channel.unary_unary(
+                '/ibc.core.channel.v1.Query/PacketReceipt',
+                request_serializer=ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryPacketReceiptRequest.SerializeToString,
+                response_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryPacketReceiptResponse.FromString,
+                )
         self.PacketAcknowledgement = channel.unary_unary(
                 '/ibc.core.channel.v1.Query/PacketAcknowledgement',
                 request_serializer=ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryPacketAcknowledgementRequest.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryPacketAcknowledgementResponse.FromString,
+                )
+        self.PacketAcknowledgements = channel.unary_unary(
+                '/ibc.core.channel.v1.Query/PacketAcknowledgements',
+                request_serializer=ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryPacketAcknowledgementsRequest.SerializeToString,
+                response_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryPacketAcknowledgementsResponse.FromString,
                 )
         self.UnreceivedPackets = channel.unary_unary(
                 '/ibc.core.channel.v1.Query/UnreceivedPackets',
                 request_serializer=ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryUnreceivedPacketsRequest.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryUnreceivedPacketsResponse.FromString,
                 )
-        self.UnrelayedAcks = channel.unary_unary(
-                '/ibc.core.channel.v1.Query/UnrelayedAcks',
-                request_serializer=ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryUnrelayedAcksRequest.SerializeToString,
-                response_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryUnrelayedAcksResponse.FromString,
+        self.UnreceivedAcks = channel.unary_unary(
+                '/ibc.core.channel.v1.Query/UnreceivedAcks',
+                request_serializer=ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryUnreceivedAcksRequest.SerializeToString,
+                response_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryUnreceivedAcksResponse.FromString,
                 )
         self.NextSequenceReceive = channel.unary_unary(
                 '/ibc.core.channel.v1.Query/NextSequenceReceive',
@@ -122,8 +132,16 @@ class QueryServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def PacketCommitments(self, request, context):
-        """PacketCommitments returns the all the packet commitments hashes associated
+        """PacketCommitments returns all the packet commitments hashes associated
         with a channel.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def PacketReceipt(self, request, context):
+        """PacketReceipt queries if a given packet sequence has been received on the
+        queried chain
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -136,16 +154,24 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def PacketAcknowledgements(self, request, context):
+        """PacketAcknowledgements returns all the packet acknowledgements associated
+        with a channel.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def UnreceivedPackets(self, request, context):
-        """UnreceivedPackets returns all the unrelayed IBC packets associated with a
+        """UnreceivedPackets returns all the unreceived IBC packets associated with a
         channel and sequences.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def UnrelayedAcks(self, request, context):
-        """UnrelayedAcks returns all the unrelayed IBC acknowledgements associated
+    def UnreceivedAcks(self, request, context):
+        """UnreceivedAcks returns all the unreceived IBC acknowledgements associated
         with a channel and sequences.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -197,20 +223,30 @@ def add_QueryServicer_to_server(servicer, server):
                     request_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryPacketCommitmentsRequest.FromString,
                     response_serializer=ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryPacketCommitmentsResponse.SerializeToString,
             ),
+            'PacketReceipt': grpc.unary_unary_rpc_method_handler(
+                    servicer.PacketReceipt,
+                    request_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryPacketReceiptRequest.FromString,
+                    response_serializer=ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryPacketReceiptResponse.SerializeToString,
+            ),
             'PacketAcknowledgement': grpc.unary_unary_rpc_method_handler(
                     servicer.PacketAcknowledgement,
                     request_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryPacketAcknowledgementRequest.FromString,
                     response_serializer=ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryPacketAcknowledgementResponse.SerializeToString,
+            ),
+            'PacketAcknowledgements': grpc.unary_unary_rpc_method_handler(
+                    servicer.PacketAcknowledgements,
+                    request_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryPacketAcknowledgementsRequest.FromString,
+                    response_serializer=ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryPacketAcknowledgementsResponse.SerializeToString,
             ),
             'UnreceivedPackets': grpc.unary_unary_rpc_method_handler(
                     servicer.UnreceivedPackets,
                     request_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryUnreceivedPacketsRequest.FromString,
                     response_serializer=ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryUnreceivedPacketsResponse.SerializeToString,
             ),
-            'UnrelayedAcks': grpc.unary_unary_rpc_method_handler(
-                    servicer.UnrelayedAcks,
-                    request_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryUnrelayedAcksRequest.FromString,
-                    response_serializer=ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryUnrelayedAcksResponse.SerializeToString,
+            'UnreceivedAcks': grpc.unary_unary_rpc_method_handler(
+                    servicer.UnreceivedAcks,
+                    request_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryUnreceivedAcksRequest.FromString,
+                    response_serializer=ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryUnreceivedAcksResponse.SerializeToString,
             ),
             'NextSequenceReceive': grpc.unary_unary_rpc_method_handler(
                     servicer.NextSequenceReceive,
@@ -348,6 +384,23 @@ class Query(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def PacketReceipt(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ibc.core.channel.v1.Query/PacketReceipt',
+            ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryPacketReceiptRequest.SerializeToString,
+            ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryPacketReceiptResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def PacketAcknowledgement(request,
             target,
             options=(),
@@ -361,6 +414,23 @@ class Query(object):
         return grpc.experimental.unary_unary(request, target, '/ibc.core.channel.v1.Query/PacketAcknowledgement',
             ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryPacketAcknowledgementRequest.SerializeToString,
             ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryPacketAcknowledgementResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def PacketAcknowledgements(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ibc.core.channel.v1.Query/PacketAcknowledgements',
+            ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryPacketAcknowledgementsRequest.SerializeToString,
+            ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryPacketAcknowledgementsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -382,7 +452,7 @@ class Query(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def UnrelayedAcks(request,
+    def UnreceivedAcks(request,
             target,
             options=(),
             channel_credentials=None,
@@ -392,9 +462,9 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.core.channel.v1.Query/UnrelayedAcks',
-            ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryUnrelayedAcksRequest.SerializeToString,
-            ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryUnrelayedAcksResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/ibc.core.channel.v1.Query/UnreceivedAcks',
+            ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryUnreceivedAcksRequest.SerializeToString,
+            ibc_dot_core_dot_channel_dot_v1_dot_query__pb2.QueryUnreceivedAcksResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

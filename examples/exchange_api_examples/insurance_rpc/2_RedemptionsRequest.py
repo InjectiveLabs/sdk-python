@@ -15,17 +15,17 @@
 
 import asyncio
 import logging
-import grpc
 
 from pyinjective.client import Client
 from pyinjective.constant import Network
+
 
 async def main() -> None:
     network = Network.testnet()
     client = Client(network, insecure=True)
     redeemer = "inj1gxqdj76ul07w4ujsl8403nhhzyvug2h66qk057"
     redemption_denom = "share2"
-    status = "disbursed" # pending or disbursed
+    status = "disbursed"  # pending or disbursed
     insurance_redemptions = client.get_redemptions(
         redeemer=redeemer,
         redemption_denom=redemption_denom,

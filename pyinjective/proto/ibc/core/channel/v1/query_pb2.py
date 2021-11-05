@@ -23,9 +23,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='ibc/core/channel/v1/query.proto',
   package='ibc.core.channel.v1',
   syntax='proto3',
-  serialized_options=b'Z8github.com/cosmos/cosmos-sdk/x/ibc/core/04-channel/types',
+  serialized_options=b'Z9github.com/cosmos/ibc-go/v2/modules/core/04-channel/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x1fibc/core/channel/v1/query.proto\x12\x13ibc.core.channel.v1\x1a\x1fibc/core/client/v1/client.proto\x1a*cosmos/base/query/v1beta1/pagination.proto\x1a!ibc/core/channel/v1/channel.proto\x1a\x1cgoogle/api/annotations.proto\x1a\x19google/protobuf/any.proto\x1a\x14gogoproto/gogo.proto\":\n\x13QueryChannelRequest\x12\x0f\n\x07port_id\x18\x01 \x01(\t\x12\x12\n\nchannel_id\x18\x02 \x01(\t\"\xa0\x01\n\x14QueryChannelResponse\x12-\n\x07\x63hannel\x18\x01 \x01(\x0b\x32\x1c.ibc.core.channel.v1.Channel\x12\r\n\x05proof\x18\x02 \x01(\x0c\x12\x12\n\nproof_path\x18\x03 \x01(\t\x12\x36\n\x0cproof_height\x18\x04 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"R\n\x14QueryChannelsRequest\x12:\n\npagination\x18\x01 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequest\"\xc0\x01\n\x15QueryChannelsResponse\x12\x38\n\x08\x63hannels\x18\x01 \x03(\x0b\x32&.ibc.core.channel.v1.IdentifiedChannel\x12;\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponse\x12\x30\n\x06height\x18\x03 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"p\n\x1eQueryConnectionChannelsRequest\x12\x12\n\nconnection\x18\x01 \x01(\t\x12:\n\npagination\x18\x02 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequest\"\xca\x01\n\x1fQueryConnectionChannelsResponse\x12\x38\n\x08\x63hannels\x18\x01 \x03(\x0b\x32&.ibc.core.channel.v1.IdentifiedChannel\x12;\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponse\x12\x30\n\x06height\x18\x03 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"E\n\x1eQueryChannelClientStateRequest\x12\x0f\n\x07port_id\x18\x01 \x01(\t\x12\x12\n\nchannel_id\x18\x02 \x01(\t\"\xc8\x01\n\x1fQueryChannelClientStateResponse\x12J\n\x17identified_client_state\x18\x01 \x01(\x0b\x32).ibc.core.client.v1.IdentifiedClientState\x12\r\n\x05proof\x18\x02 \x01(\x0c\x12\x12\n\nproof_path\x18\x03 \x01(\t\x12\x36\n\x0cproof_height\x18\x04 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"x\n!QueryChannelConsensusStateRequest\x12\x0f\n\x07port_id\x18\x01 \x01(\t\x12\x12\n\nchannel_id\x18\x02 \x01(\t\x12\x16\n\x0eversion_number\x18\x03 \x01(\x04\x12\x16\n\x0eversion_height\x18\x04 \x01(\x04\"\xc1\x01\n\"QueryChannelConsensusStateResponse\x12-\n\x0f\x63onsensus_state\x18\x01 \x01(\x0b\x32\x14.google.protobuf.Any\x12\x11\n\tclient_id\x18\x02 \x01(\t\x12\r\n\x05proof\x18\x03 \x01(\x0c\x12\x12\n\nproof_path\x18\x04 \x01(\t\x12\x36\n\x0cproof_height\x18\x05 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"U\n\x1cQueryPacketCommitmentRequest\x12\x0f\n\x07port_id\x18\x01 \x01(\t\x12\x12\n\nchannel_id\x18\x02 \x01(\t\x12\x10\n\x08sequence\x18\x03 \x01(\x04\"\x8e\x01\n\x1dQueryPacketCommitmentResponse\x12\x12\n\ncommitment\x18\x01 \x01(\x0c\x12\r\n\x05proof\x18\x02 \x01(\x0c\x12\x12\n\nproof_path\x18\x03 \x01(\t\x12\x36\n\x0cproof_height\x18\x04 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"\x80\x01\n\x1dQueryPacketCommitmentsRequest\x12\x0f\n\x07port_id\x18\x01 \x01(\t\x12\x12\n\nchannel_id\x18\x02 \x01(\t\x12:\n\npagination\x18\x03 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequest\"\xce\x01\n\x1eQueryPacketCommitmentsResponse\x12=\n\x0b\x63ommitments\x18\x01 \x03(\x0b\x32(.ibc.core.channel.v1.PacketAckCommitment\x12;\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponse\x12\x30\n\x06height\x18\x03 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"Z\n!QueryPacketAcknowledgementRequest\x12\x0f\n\x07port_id\x18\x01 \x01(\t\x12\x12\n\nchannel_id\x18\x02 \x01(\t\x12\x10\n\x08sequence\x18\x03 \x01(\x04\"\x98\x01\n\"QueryPacketAcknowledgementResponse\x12\x17\n\x0f\x61\x63knowledgement\x18\x01 \x01(\x0c\x12\r\n\x05proof\x18\x02 \x01(\x0c\x12\x12\n\nproof_path\x18\x03 \x01(\t\x12\x36\n\x0cproof_height\x18\x04 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"i\n\x1dQueryUnreceivedPacketsRequest\x12\x0f\n\x07port_id\x18\x01 \x01(\t\x12\x12\n\nchannel_id\x18\x02 \x01(\t\x12#\n\x1bpacket_commitment_sequences\x18\x03 \x03(\x04\"e\n\x1eQueryUnreceivedPacketsResponse\x12\x11\n\tsequences\x18\x01 \x03(\x04\x12\x30\n\x06height\x18\x02 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"e\n\x19QueryUnrelayedAcksRequest\x12\x0f\n\x07port_id\x18\x01 \x01(\t\x12\x12\n\nchannel_id\x18\x02 \x01(\t\x12#\n\x1bpacket_commitment_sequences\x18\x03 \x03(\x04\"a\n\x1aQueryUnrelayedAcksResponse\x12\x11\n\tsequences\x18\x01 \x03(\x04\x12\x30\n\x06height\x18\x02 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"F\n\x1fQueryNextSequenceReceiveRequest\x12\x0f\n\x07port_id\x18\x01 \x01(\t\x12\x12\n\nchannel_id\x18\x02 \x01(\t\"\x9c\x01\n QueryNextSequenceReceiveResponse\x12\x1d\n\x15next_sequence_receive\x18\x01 \x01(\x04\x12\r\n\x05proof\x18\x02 \x01(\x0c\x12\x12\n\nproof_path\x18\x03 \x01(\t\x12\x36\n\x0cproof_height\x18\x04 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\x32\xcf\x12\n\x05Query\x12\xa2\x01\n\x07\x43hannel\x12(.ibc.core.channel.v1.QueryChannelRequest\x1a).ibc.core.channel.v1.QueryChannelResponse\"B\x82\xd3\xe4\x93\x02<\x12:/ibc/channel/v1beta1/channels/{channel_id}/ports/{port_id}\x12\x88\x01\n\x08\x43hannels\x12).ibc.core.channel.v1.QueryChannelsRequest\x1a*.ibc.core.channel.v1.QueryChannelsResponse\"%\x82\xd3\xe4\x93\x02\x1f\x12\x1d/ibc/channel/v1beta1/channels\x12\xbf\x01\n\x12\x43onnectionChannels\x12\x33.ibc.core.channel.v1.QueryConnectionChannelsRequest\x1a\x34.ibc.core.channel.v1.QueryConnectionChannelsResponse\">\x82\xd3\xe4\x93\x02\x38\x12\x36/ibc/channel/v1beta1/connections/{connection}/channels\x12\xd0\x01\n\x12\x43hannelClientState\x12\x33.ibc.core.channel.v1.QueryChannelClientStateRequest\x1a\x34.ibc.core.channel.v1.QueryChannelClientStateResponse\"O\x82\xd3\xe4\x93\x02I\x12G/ibc/channel/v1beta1/channels/{channel_id}/ports/{port_id}/client_state\x12\x8e\x02\n\x15\x43hannelConsensusState\x12\x36.ibc.core.channel.v1.QueryChannelConsensusStateRequest\x1a\x37.ibc.core.channel.v1.QueryChannelConsensusStateResponse\"\x83\x01\x82\xd3\xe4\x93\x02}\x12{/ibc/channel/v1beta1/channels/{channel_id}/ports/{port_id}/consensus_state/version/{version_number}/height/{version_height}\x12\xdb\x01\n\x10PacketCommitment\x12\x31.ibc.core.channel.v1.QueryPacketCommitmentRequest\x1a\x32.ibc.core.channel.v1.QueryPacketCommitmentResponse\"`\x82\xd3\xe4\x93\x02Z\x12X/ibc/channel/v1beta1/channels/{channel_id}/ports/{port_id}/packet_commitments/{sequence}\x12\xd3\x01\n\x11PacketCommitments\x12\x32.ibc.core.channel.v1.QueryPacketCommitmentsRequest\x1a\x33.ibc.core.channel.v1.QueryPacketCommitmentsResponse\"U\x82\xd3\xe4\x93\x02O\x12M/ibc/channel/v1beta1/channels/{channel_id}/ports/{port_id}/packet_commitments\x12\xe3\x01\n\x15PacketAcknowledgement\x12\x36.ibc.core.channel.v1.QueryPacketAcknowledgementRequest\x1a\x37.ibc.core.channel.v1.QueryPacketAcknowledgementResponse\"Y\x82\xd3\xe4\x93\x02S\x12Q/ibc/channel/v1beta1/channels/{channel_id}/ports/{port_id}/packet_acks/{sequence}\x12\x86\x02\n\x11UnreceivedPackets\x12\x32.ibc.core.channel.v1.QueryUnreceivedPacketsRequest\x1a\x33.ibc.core.channel.v1.QueryUnreceivedPacketsResponse\"\x87\x01\x82\xd3\xe4\x93\x02\x80\x01\x12~/ibc/channel/v1beta1/channels/{channel_id}/ports/{port_id}/packet_commitments/{packet_commitment_sequences}/unreceived_packets\x12\xf5\x01\n\rUnrelayedAcks\x12..ibc.core.channel.v1.QueryUnrelayedAcksRequest\x1a/.ibc.core.channel.v1.QueryUnrelayedAcksResponse\"\x82\x01\x82\xd3\xe4\x93\x02|\x12z/ibc/channel/v1beta1/channels/{channel_id}/ports/{port_id}/packet_commitments/{packet_commitment_sequences}/unrelayed_acks\x12\xd4\x01\n\x13NextSequenceReceive\x12\x34.ibc.core.channel.v1.QueryNextSequenceReceiveRequest\x1a\x35.ibc.core.channel.v1.QueryNextSequenceReceiveResponse\"P\x82\xd3\xe4\x93\x02J\x12H/ibc/channel/v1beta1/channels/{channel_id}/ports/{port_id}/next_sequenceB:Z8github.com/cosmos/cosmos-sdk/x/ibc/core/04-channel/typesb\x06proto3'
+  serialized_pb=b'\n\x1fibc/core/channel/v1/query.proto\x12\x13ibc.core.channel.v1\x1a\x1fibc/core/client/v1/client.proto\x1a*cosmos/base/query/v1beta1/pagination.proto\x1a!ibc/core/channel/v1/channel.proto\x1a\x1cgoogle/api/annotations.proto\x1a\x19google/protobuf/any.proto\x1a\x14gogoproto/gogo.proto\":\n\x13QueryChannelRequest\x12\x0f\n\x07port_id\x18\x01 \x01(\t\x12\x12\n\nchannel_id\x18\x02 \x01(\t\"\x8c\x01\n\x14QueryChannelResponse\x12-\n\x07\x63hannel\x18\x01 \x01(\x0b\x32\x1c.ibc.core.channel.v1.Channel\x12\r\n\x05proof\x18\x02 \x01(\x0c\x12\x36\n\x0cproof_height\x18\x03 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"R\n\x14QueryChannelsRequest\x12:\n\npagination\x18\x01 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequest\"\xc0\x01\n\x15QueryChannelsResponse\x12\x38\n\x08\x63hannels\x18\x01 \x03(\x0b\x32&.ibc.core.channel.v1.IdentifiedChannel\x12;\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponse\x12\x30\n\x06height\x18\x03 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"p\n\x1eQueryConnectionChannelsRequest\x12\x12\n\nconnection\x18\x01 \x01(\t\x12:\n\npagination\x18\x02 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequest\"\xca\x01\n\x1fQueryConnectionChannelsResponse\x12\x38\n\x08\x63hannels\x18\x01 \x03(\x0b\x32&.ibc.core.channel.v1.IdentifiedChannel\x12;\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponse\x12\x30\n\x06height\x18\x03 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"E\n\x1eQueryChannelClientStateRequest\x12\x0f\n\x07port_id\x18\x01 \x01(\t\x12\x12\n\nchannel_id\x18\x02 \x01(\t\"\xb4\x01\n\x1fQueryChannelClientStateResponse\x12J\n\x17identified_client_state\x18\x01 \x01(\x0b\x32).ibc.core.client.v1.IdentifiedClientState\x12\r\n\x05proof\x18\x02 \x01(\x0c\x12\x36\n\x0cproof_height\x18\x03 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"z\n!QueryChannelConsensusStateRequest\x12\x0f\n\x07port_id\x18\x01 \x01(\t\x12\x12\n\nchannel_id\x18\x02 \x01(\t\x12\x17\n\x0frevision_number\x18\x03 \x01(\x04\x12\x17\n\x0frevision_height\x18\x04 \x01(\x04\"\xad\x01\n\"QueryChannelConsensusStateResponse\x12-\n\x0f\x63onsensus_state\x18\x01 \x01(\x0b\x32\x14.google.protobuf.Any\x12\x11\n\tclient_id\x18\x02 \x01(\t\x12\r\n\x05proof\x18\x03 \x01(\x0c\x12\x36\n\x0cproof_height\x18\x04 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"U\n\x1cQueryPacketCommitmentRequest\x12\x0f\n\x07port_id\x18\x01 \x01(\t\x12\x12\n\nchannel_id\x18\x02 \x01(\t\x12\x10\n\x08sequence\x18\x03 \x01(\x04\"z\n\x1dQueryPacketCommitmentResponse\x12\x12\n\ncommitment\x18\x01 \x01(\x0c\x12\r\n\x05proof\x18\x02 \x01(\x0c\x12\x36\n\x0cproof_height\x18\x03 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"\x80\x01\n\x1dQueryPacketCommitmentsRequest\x12\x0f\n\x07port_id\x18\x01 \x01(\t\x12\x12\n\nchannel_id\x18\x02 \x01(\t\x12:\n\npagination\x18\x03 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequest\"\xc6\x01\n\x1eQueryPacketCommitmentsResponse\x12\x35\n\x0b\x63ommitments\x18\x01 \x03(\x0b\x32 .ibc.core.channel.v1.PacketState\x12;\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponse\x12\x30\n\x06height\x18\x03 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"R\n\x19QueryPacketReceiptRequest\x12\x0f\n\x07port_id\x18\x01 \x01(\t\x12\x12\n\nchannel_id\x18\x02 \x01(\t\x12\x10\n\x08sequence\x18\x03 \x01(\x04\"u\n\x1aQueryPacketReceiptResponse\x12\x10\n\x08received\x18\x02 \x01(\x08\x12\r\n\x05proof\x18\x03 \x01(\x0c\x12\x36\n\x0cproof_height\x18\x04 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"Z\n!QueryPacketAcknowledgementRequest\x12\x0f\n\x07port_id\x18\x01 \x01(\t\x12\x12\n\nchannel_id\x18\x02 \x01(\t\x12\x10\n\x08sequence\x18\x03 \x01(\x04\"\x84\x01\n\"QueryPacketAcknowledgementResponse\x12\x17\n\x0f\x61\x63knowledgement\x18\x01 \x01(\x0c\x12\r\n\x05proof\x18\x02 \x01(\x0c\x12\x36\n\x0cproof_height\x18\x03 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"\xaa\x01\n\"QueryPacketAcknowledgementsRequest\x12\x0f\n\x07port_id\x18\x01 \x01(\t\x12\x12\n\nchannel_id\x18\x02 \x01(\t\x12:\n\npagination\x18\x03 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequest\x12#\n\x1bpacket_commitment_sequences\x18\x04 \x03(\x04\"\xd0\x01\n#QueryPacketAcknowledgementsResponse\x12:\n\x10\x61\x63knowledgements\x18\x01 \x03(\x0b\x32 .ibc.core.channel.v1.PacketState\x12;\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponse\x12\x30\n\x06height\x18\x03 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"i\n\x1dQueryUnreceivedPacketsRequest\x12\x0f\n\x07port_id\x18\x01 \x01(\t\x12\x12\n\nchannel_id\x18\x02 \x01(\t\x12#\n\x1bpacket_commitment_sequences\x18\x03 \x03(\x04\"e\n\x1eQueryUnreceivedPacketsResponse\x12\x11\n\tsequences\x18\x01 \x03(\x04\x12\x30\n\x06height\x18\x02 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"_\n\x1aQueryUnreceivedAcksRequest\x12\x0f\n\x07port_id\x18\x01 \x01(\t\x12\x12\n\nchannel_id\x18\x02 \x01(\t\x12\x1c\n\x14packet_ack_sequences\x18\x03 \x03(\x04\"b\n\x1bQueryUnreceivedAcksResponse\x12\x11\n\tsequences\x18\x01 \x03(\x04\x12\x30\n\x06height\x18\x02 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"F\n\x1fQueryNextSequenceReceiveRequest\x12\x0f\n\x07port_id\x18\x01 \x01(\t\x12\x12\n\nchannel_id\x18\x02 \x01(\t\"\x88\x01\n QueryNextSequenceReceiveResponse\x12\x1d\n\x15next_sequence_receive\x18\x01 \x01(\x04\x12\r\n\x05proof\x18\x02 \x01(\x0c\x12\x36\n\x0cproof_height\x18\x03 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\x32\x8b\x16\n\x05Query\x12\xa2\x01\n\x07\x43hannel\x12(.ibc.core.channel.v1.QueryChannelRequest\x1a).ibc.core.channel.v1.QueryChannelResponse\"B\x82\xd3\xe4\x93\x02<\x12:/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}\x12\x88\x01\n\x08\x43hannels\x12).ibc.core.channel.v1.QueryChannelsRequest\x1a*.ibc.core.channel.v1.QueryChannelsResponse\"%\x82\xd3\xe4\x93\x02\x1f\x12\x1d/ibc/core/channel/v1/channels\x12\xbf\x01\n\x12\x43onnectionChannels\x12\x33.ibc.core.channel.v1.QueryConnectionChannelsRequest\x1a\x34.ibc.core.channel.v1.QueryConnectionChannelsResponse\">\x82\xd3\xe4\x93\x02\x38\x12\x36/ibc/core/channel/v1/connections/{connection}/channels\x12\xd0\x01\n\x12\x43hannelClientState\x12\x33.ibc.core.channel.v1.QueryChannelClientStateRequest\x1a\x34.ibc.core.channel.v1.QueryChannelClientStateResponse\"O\x82\xd3\xe4\x93\x02I\x12G/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/client_state\x12\x92\x02\n\x15\x43hannelConsensusState\x12\x36.ibc.core.channel.v1.QueryChannelConsensusStateRequest\x1a\x37.ibc.core.channel.v1.QueryChannelConsensusStateResponse\"\x87\x01\x82\xd3\xe4\x93\x02\x80\x01\x12~/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/consensus_state/revision/{revision_number}/height/{revision_height}\x12\xdb\x01\n\x10PacketCommitment\x12\x31.ibc.core.channel.v1.QueryPacketCommitmentRequest\x1a\x32.ibc.core.channel.v1.QueryPacketCommitmentResponse\"`\x82\xd3\xe4\x93\x02Z\x12X/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_commitments/{sequence}\x12\xd3\x01\n\x11PacketCommitments\x12\x32.ibc.core.channel.v1.QueryPacketCommitmentsRequest\x1a\x33.ibc.core.channel.v1.QueryPacketCommitmentsResponse\"U\x82\xd3\xe4\x93\x02O\x12M/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_commitments\x12\xcf\x01\n\rPacketReceipt\x12..ibc.core.channel.v1.QueryPacketReceiptRequest\x1a/.ibc.core.channel.v1.QueryPacketReceiptResponse\"]\x82\xd3\xe4\x93\x02W\x12U/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_receipts/{sequence}\x12\xe3\x01\n\x15PacketAcknowledgement\x12\x36.ibc.core.channel.v1.QueryPacketAcknowledgementRequest\x1a\x37.ibc.core.channel.v1.QueryPacketAcknowledgementResponse\"Y\x82\xd3\xe4\x93\x02S\x12Q/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_acks/{sequence}\x12\xe7\x01\n\x16PacketAcknowledgements\x12\x37.ibc.core.channel.v1.QueryPacketAcknowledgementsRequest\x1a\x38.ibc.core.channel.v1.QueryPacketAcknowledgementsResponse\"Z\x82\xd3\xe4\x93\x02T\x12R/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_acknowledgements\x12\x86\x02\n\x11UnreceivedPackets\x12\x32.ibc.core.channel.v1.QueryUnreceivedPacketsRequest\x1a\x33.ibc.core.channel.v1.QueryUnreceivedPacketsResponse\"\x87\x01\x82\xd3\xe4\x93\x02\x80\x01\x12~/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_commitments/{packet_commitment_sequences}/unreceived_packets\x12\xf1\x01\n\x0eUnreceivedAcks\x12/.ibc.core.channel.v1.QueryUnreceivedAcksRequest\x1a\x30.ibc.core.channel.v1.QueryUnreceivedAcksResponse\"|\x82\xd3\xe4\x93\x02v\x12t/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_commitments/{packet_ack_sequences}/unreceived_acks\x12\xd4\x01\n\x13NextSequenceReceive\x12\x34.ibc.core.channel.v1.QueryNextSequenceReceiveRequest\x1a\x35.ibc.core.channel.v1.QueryNextSequenceReceiveResponse\"P\x82\xd3\xe4\x93\x02J\x12H/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/next_sequenceB;Z9github.com/cosmos/ibc-go/v2/modules/core/04-channel/typesb\x06proto3'
   ,
   dependencies=[ibc_dot_core_dot_client_dot_v1_dot_client__pb2.DESCRIPTOR,cosmos_dot_base_dot_query_dot_v1beta1_dot_pagination__pb2.DESCRIPTOR,ibc_dot_core_dot_channel_dot_v1_dot_channel__pb2.DESCRIPTOR,google_dot_api_dot_annotations__pb2.DESCRIPTOR,google_dot_protobuf_dot_any__pb2.DESCRIPTOR,gogoproto_dot_gogo__pb2.DESCRIPTOR,])
 
@@ -94,15 +94,8 @@ _QUERYCHANNELRESPONSE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='proof_path', full_name='ibc.core.channel.v1.QueryChannelResponse.proof_path', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='proof_height', full_name='ibc.core.channel.v1.QueryChannelResponse.proof_height', index=3,
-      number=4, type=11, cpp_type=10, label=1,
+      name='proof_height', full_name='ibc.core.channel.v1.QueryChannelResponse.proof_height', index=2,
+      number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -120,7 +113,7 @@ _QUERYCHANNELRESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=308,
-  serialized_end=468,
+  serialized_end=448,
 )
 
 
@@ -151,8 +144,8 @@ _QUERYCHANNELSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=470,
-  serialized_end=552,
+  serialized_start=450,
+  serialized_end=532,
 )
 
 
@@ -197,8 +190,8 @@ _QUERYCHANNELSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=555,
-  serialized_end=747,
+  serialized_start=535,
+  serialized_end=727,
 )
 
 
@@ -236,8 +229,8 @@ _QUERYCONNECTIONCHANNELSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=749,
-  serialized_end=861,
+  serialized_start=729,
+  serialized_end=841,
 )
 
 
@@ -282,8 +275,8 @@ _QUERYCONNECTIONCHANNELSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=864,
-  serialized_end=1066,
+  serialized_start=844,
+  serialized_end=1046,
 )
 
 
@@ -321,8 +314,8 @@ _QUERYCHANNELCLIENTSTATEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1068,
-  serialized_end=1137,
+  serialized_start=1048,
+  serialized_end=1117,
 )
 
 
@@ -349,15 +342,8 @@ _QUERYCHANNELCLIENTSTATERESPONSE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='proof_path', full_name='ibc.core.channel.v1.QueryChannelClientStateResponse.proof_path', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='proof_height', full_name='ibc.core.channel.v1.QueryChannelClientStateResponse.proof_height', index=3,
-      number=4, type=11, cpp_type=10, label=1,
+      name='proof_height', full_name='ibc.core.channel.v1.QueryChannelClientStateResponse.proof_height', index=2,
+      number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -374,8 +360,8 @@ _QUERYCHANNELCLIENTSTATERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1140,
-  serialized_end=1340,
+  serialized_start=1120,
+  serialized_end=1300,
 )
 
 
@@ -402,14 +388,14 @@ _QUERYCHANNELCONSENSUSSTATEREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='version_number', full_name='ibc.core.channel.v1.QueryChannelConsensusStateRequest.version_number', index=2,
+      name='revision_number', full_name='ibc.core.channel.v1.QueryChannelConsensusStateRequest.revision_number', index=2,
       number=3, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='version_height', full_name='ibc.core.channel.v1.QueryChannelConsensusStateRequest.version_height', index=3,
+      name='revision_height', full_name='ibc.core.channel.v1.QueryChannelConsensusStateRequest.revision_height', index=3,
       number=4, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -427,8 +413,8 @@ _QUERYCHANNELCONSENSUSSTATEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1342,
-  serialized_end=1462,
+  serialized_start=1302,
+  serialized_end=1424,
 )
 
 
@@ -462,15 +448,8 @@ _QUERYCHANNELCONSENSUSSTATERESPONSE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='proof_path', full_name='ibc.core.channel.v1.QueryChannelConsensusStateResponse.proof_path', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='proof_height', full_name='ibc.core.channel.v1.QueryChannelConsensusStateResponse.proof_height', index=4,
-      number=5, type=11, cpp_type=10, label=1,
+      name='proof_height', full_name='ibc.core.channel.v1.QueryChannelConsensusStateResponse.proof_height', index=3,
+      number=4, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -487,8 +466,8 @@ _QUERYCHANNELCONSENSUSSTATERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1465,
-  serialized_end=1658,
+  serialized_start=1427,
+  serialized_end=1600,
 )
 
 
@@ -533,8 +512,8 @@ _QUERYPACKETCOMMITMENTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1660,
-  serialized_end=1745,
+  serialized_start=1602,
+  serialized_end=1687,
 )
 
 
@@ -561,15 +540,8 @@ _QUERYPACKETCOMMITMENTRESPONSE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='proof_path', full_name='ibc.core.channel.v1.QueryPacketCommitmentResponse.proof_path', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='proof_height', full_name='ibc.core.channel.v1.QueryPacketCommitmentResponse.proof_height', index=3,
-      number=4, type=11, cpp_type=10, label=1,
+      name='proof_height', full_name='ibc.core.channel.v1.QueryPacketCommitmentResponse.proof_height', index=2,
+      number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -586,8 +558,8 @@ _QUERYPACKETCOMMITMENTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1748,
-  serialized_end=1890,
+  serialized_start=1689,
+  serialized_end=1811,
 )
 
 
@@ -632,8 +604,8 @@ _QUERYPACKETCOMMITMENTSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1893,
-  serialized_end=2021,
+  serialized_start=1814,
+  serialized_end=1942,
 )
 
 
@@ -678,8 +650,100 @@ _QUERYPACKETCOMMITMENTSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2024,
-  serialized_end=2230,
+  serialized_start=1945,
+  serialized_end=2143,
+)
+
+
+_QUERYPACKETRECEIPTREQUEST = _descriptor.Descriptor(
+  name='QueryPacketReceiptRequest',
+  full_name='ibc.core.channel.v1.QueryPacketReceiptRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='port_id', full_name='ibc.core.channel.v1.QueryPacketReceiptRequest.port_id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='channel_id', full_name='ibc.core.channel.v1.QueryPacketReceiptRequest.channel_id', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='sequence', full_name='ibc.core.channel.v1.QueryPacketReceiptRequest.sequence', index=2,
+      number=3, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2145,
+  serialized_end=2227,
+)
+
+
+_QUERYPACKETRECEIPTRESPONSE = _descriptor.Descriptor(
+  name='QueryPacketReceiptResponse',
+  full_name='ibc.core.channel.v1.QueryPacketReceiptResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='received', full_name='ibc.core.channel.v1.QueryPacketReceiptResponse.received', index=0,
+      number=2, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='proof', full_name='ibc.core.channel.v1.QueryPacketReceiptResponse.proof', index=1,
+      number=3, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"",
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='proof_height', full_name='ibc.core.channel.v1.QueryPacketReceiptResponse.proof_height', index=2,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2229,
+  serialized_end=2346,
 )
 
 
@@ -724,8 +788,8 @@ _QUERYPACKETACKNOWLEDGEMENTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2232,
-  serialized_end=2322,
+  serialized_start=2348,
+  serialized_end=2438,
 )
 
 
@@ -752,15 +816,8 @@ _QUERYPACKETACKNOWLEDGEMENTRESPONSE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='proof_path', full_name='ibc.core.channel.v1.QueryPacketAcknowledgementResponse.proof_path', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='proof_height', full_name='ibc.core.channel.v1.QueryPacketAcknowledgementResponse.proof_height', index=3,
-      number=4, type=11, cpp_type=10, label=1,
+      name='proof_height', full_name='ibc.core.channel.v1.QueryPacketAcknowledgementResponse.proof_height', index=2,
+      number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -777,8 +834,107 @@ _QUERYPACKETACKNOWLEDGEMENTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2325,
-  serialized_end=2477,
+  serialized_start=2441,
+  serialized_end=2573,
+)
+
+
+_QUERYPACKETACKNOWLEDGEMENTSREQUEST = _descriptor.Descriptor(
+  name='QueryPacketAcknowledgementsRequest',
+  full_name='ibc.core.channel.v1.QueryPacketAcknowledgementsRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='port_id', full_name='ibc.core.channel.v1.QueryPacketAcknowledgementsRequest.port_id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='channel_id', full_name='ibc.core.channel.v1.QueryPacketAcknowledgementsRequest.channel_id', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='pagination', full_name='ibc.core.channel.v1.QueryPacketAcknowledgementsRequest.pagination', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='packet_commitment_sequences', full_name='ibc.core.channel.v1.QueryPacketAcknowledgementsRequest.packet_commitment_sequences', index=3,
+      number=4, type=4, cpp_type=4, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2576,
+  serialized_end=2746,
+)
+
+
+_QUERYPACKETACKNOWLEDGEMENTSRESPONSE = _descriptor.Descriptor(
+  name='QueryPacketAcknowledgementsResponse',
+  full_name='ibc.core.channel.v1.QueryPacketAcknowledgementsResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='acknowledgements', full_name='ibc.core.channel.v1.QueryPacketAcknowledgementsResponse.acknowledgements', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='pagination', full_name='ibc.core.channel.v1.QueryPacketAcknowledgementsResponse.pagination', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='height', full_name='ibc.core.channel.v1.QueryPacketAcknowledgementsResponse.height', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2749,
+  serialized_end=2957,
 )
 
 
@@ -823,8 +979,8 @@ _QUERYUNRECEIVEDPACKETSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2479,
-  serialized_end=2584,
+  serialized_start=2959,
+  serialized_end=3064,
 )
 
 
@@ -862,35 +1018,35 @@ _QUERYUNRECEIVEDPACKETSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2586,
-  serialized_end=2687,
+  serialized_start=3066,
+  serialized_end=3167,
 )
 
 
-_QUERYUNRELAYEDACKSREQUEST = _descriptor.Descriptor(
-  name='QueryUnrelayedAcksRequest',
-  full_name='ibc.core.channel.v1.QueryUnrelayedAcksRequest',
+_QUERYUNRECEIVEDACKSREQUEST = _descriptor.Descriptor(
+  name='QueryUnreceivedAcksRequest',
+  full_name='ibc.core.channel.v1.QueryUnreceivedAcksRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='port_id', full_name='ibc.core.channel.v1.QueryUnrelayedAcksRequest.port_id', index=0,
+      name='port_id', full_name='ibc.core.channel.v1.QueryUnreceivedAcksRequest.port_id', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='channel_id', full_name='ibc.core.channel.v1.QueryUnrelayedAcksRequest.channel_id', index=1,
+      name='channel_id', full_name='ibc.core.channel.v1.QueryUnreceivedAcksRequest.channel_id', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='packet_commitment_sequences', full_name='ibc.core.channel.v1.QueryUnrelayedAcksRequest.packet_commitment_sequences', index=2,
+      name='packet_ack_sequences', full_name='ibc.core.channel.v1.QueryUnreceivedAcksRequest.packet_ack_sequences', index=2,
       number=3, type=4, cpp_type=4, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -908,28 +1064,28 @@ _QUERYUNRELAYEDACKSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2689,
-  serialized_end=2790,
+  serialized_start=3169,
+  serialized_end=3264,
 )
 
 
-_QUERYUNRELAYEDACKSRESPONSE = _descriptor.Descriptor(
-  name='QueryUnrelayedAcksResponse',
-  full_name='ibc.core.channel.v1.QueryUnrelayedAcksResponse',
+_QUERYUNRECEIVEDACKSRESPONSE = _descriptor.Descriptor(
+  name='QueryUnreceivedAcksResponse',
+  full_name='ibc.core.channel.v1.QueryUnreceivedAcksResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='sequences', full_name='ibc.core.channel.v1.QueryUnrelayedAcksResponse.sequences', index=0,
+      name='sequences', full_name='ibc.core.channel.v1.QueryUnreceivedAcksResponse.sequences', index=0,
       number=1, type=4, cpp_type=4, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='height', full_name='ibc.core.channel.v1.QueryUnrelayedAcksResponse.height', index=1,
+      name='height', full_name='ibc.core.channel.v1.QueryUnreceivedAcksResponse.height', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -947,8 +1103,8 @@ _QUERYUNRELAYEDACKSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2792,
-  serialized_end=2889,
+  serialized_start=3266,
+  serialized_end=3364,
 )
 
 
@@ -986,8 +1142,8 @@ _QUERYNEXTSEQUENCERECEIVEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2891,
-  serialized_end=2961,
+  serialized_start=3366,
+  serialized_end=3436,
 )
 
 
@@ -1014,15 +1170,8 @@ _QUERYNEXTSEQUENCERECEIVERESPONSE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='proof_path', full_name='ibc.core.channel.v1.QueryNextSequenceReceiveResponse.proof_path', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='proof_height', full_name='ibc.core.channel.v1.QueryNextSequenceReceiveResponse.proof_height', index=3,
-      number=4, type=11, cpp_type=10, label=1,
+      name='proof_height', full_name='ibc.core.channel.v1.QueryNextSequenceReceiveResponse.proof_height', index=2,
+      number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -1039,8 +1188,8 @@ _QUERYNEXTSEQUENCERECEIVERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2964,
-  serialized_end=3120,
+  serialized_start=3439,
+  serialized_end=3575,
 )
 
 _QUERYCHANNELRESPONSE.fields_by_name['channel'].message_type = ibc_dot_core_dot_channel_dot_v1_dot_channel__pb2._CHANNEL
@@ -1059,12 +1208,17 @@ _QUERYCHANNELCONSENSUSSTATERESPONSE.fields_by_name['consensus_state'].message_ty
 _QUERYCHANNELCONSENSUSSTATERESPONSE.fields_by_name['proof_height'].message_type = ibc_dot_core_dot_client_dot_v1_dot_client__pb2._HEIGHT
 _QUERYPACKETCOMMITMENTRESPONSE.fields_by_name['proof_height'].message_type = ibc_dot_core_dot_client_dot_v1_dot_client__pb2._HEIGHT
 _QUERYPACKETCOMMITMENTSREQUEST.fields_by_name['pagination'].message_type = cosmos_dot_base_dot_query_dot_v1beta1_dot_pagination__pb2._PAGEREQUEST
-_QUERYPACKETCOMMITMENTSRESPONSE.fields_by_name['commitments'].message_type = ibc_dot_core_dot_channel_dot_v1_dot_channel__pb2._PACKETACKCOMMITMENT
+_QUERYPACKETCOMMITMENTSRESPONSE.fields_by_name['commitments'].message_type = ibc_dot_core_dot_channel_dot_v1_dot_channel__pb2._PACKETSTATE
 _QUERYPACKETCOMMITMENTSRESPONSE.fields_by_name['pagination'].message_type = cosmos_dot_base_dot_query_dot_v1beta1_dot_pagination__pb2._PAGERESPONSE
 _QUERYPACKETCOMMITMENTSRESPONSE.fields_by_name['height'].message_type = ibc_dot_core_dot_client_dot_v1_dot_client__pb2._HEIGHT
+_QUERYPACKETRECEIPTRESPONSE.fields_by_name['proof_height'].message_type = ibc_dot_core_dot_client_dot_v1_dot_client__pb2._HEIGHT
 _QUERYPACKETACKNOWLEDGEMENTRESPONSE.fields_by_name['proof_height'].message_type = ibc_dot_core_dot_client_dot_v1_dot_client__pb2._HEIGHT
+_QUERYPACKETACKNOWLEDGEMENTSREQUEST.fields_by_name['pagination'].message_type = cosmos_dot_base_dot_query_dot_v1beta1_dot_pagination__pb2._PAGEREQUEST
+_QUERYPACKETACKNOWLEDGEMENTSRESPONSE.fields_by_name['acknowledgements'].message_type = ibc_dot_core_dot_channel_dot_v1_dot_channel__pb2._PACKETSTATE
+_QUERYPACKETACKNOWLEDGEMENTSRESPONSE.fields_by_name['pagination'].message_type = cosmos_dot_base_dot_query_dot_v1beta1_dot_pagination__pb2._PAGERESPONSE
+_QUERYPACKETACKNOWLEDGEMENTSRESPONSE.fields_by_name['height'].message_type = ibc_dot_core_dot_client_dot_v1_dot_client__pb2._HEIGHT
 _QUERYUNRECEIVEDPACKETSRESPONSE.fields_by_name['height'].message_type = ibc_dot_core_dot_client_dot_v1_dot_client__pb2._HEIGHT
-_QUERYUNRELAYEDACKSRESPONSE.fields_by_name['height'].message_type = ibc_dot_core_dot_client_dot_v1_dot_client__pb2._HEIGHT
+_QUERYUNRECEIVEDACKSRESPONSE.fields_by_name['height'].message_type = ibc_dot_core_dot_client_dot_v1_dot_client__pb2._HEIGHT
 _QUERYNEXTSEQUENCERECEIVERESPONSE.fields_by_name['proof_height'].message_type = ibc_dot_core_dot_client_dot_v1_dot_client__pb2._HEIGHT
 DESCRIPTOR.message_types_by_name['QueryChannelRequest'] = _QUERYCHANNELREQUEST
 DESCRIPTOR.message_types_by_name['QueryChannelResponse'] = _QUERYCHANNELRESPONSE
@@ -1080,12 +1234,16 @@ DESCRIPTOR.message_types_by_name['QueryPacketCommitmentRequest'] = _QUERYPACKETC
 DESCRIPTOR.message_types_by_name['QueryPacketCommitmentResponse'] = _QUERYPACKETCOMMITMENTRESPONSE
 DESCRIPTOR.message_types_by_name['QueryPacketCommitmentsRequest'] = _QUERYPACKETCOMMITMENTSREQUEST
 DESCRIPTOR.message_types_by_name['QueryPacketCommitmentsResponse'] = _QUERYPACKETCOMMITMENTSRESPONSE
+DESCRIPTOR.message_types_by_name['QueryPacketReceiptRequest'] = _QUERYPACKETRECEIPTREQUEST
+DESCRIPTOR.message_types_by_name['QueryPacketReceiptResponse'] = _QUERYPACKETRECEIPTRESPONSE
 DESCRIPTOR.message_types_by_name['QueryPacketAcknowledgementRequest'] = _QUERYPACKETACKNOWLEDGEMENTREQUEST
 DESCRIPTOR.message_types_by_name['QueryPacketAcknowledgementResponse'] = _QUERYPACKETACKNOWLEDGEMENTRESPONSE
+DESCRIPTOR.message_types_by_name['QueryPacketAcknowledgementsRequest'] = _QUERYPACKETACKNOWLEDGEMENTSREQUEST
+DESCRIPTOR.message_types_by_name['QueryPacketAcknowledgementsResponse'] = _QUERYPACKETACKNOWLEDGEMENTSRESPONSE
 DESCRIPTOR.message_types_by_name['QueryUnreceivedPacketsRequest'] = _QUERYUNRECEIVEDPACKETSREQUEST
 DESCRIPTOR.message_types_by_name['QueryUnreceivedPacketsResponse'] = _QUERYUNRECEIVEDPACKETSRESPONSE
-DESCRIPTOR.message_types_by_name['QueryUnrelayedAcksRequest'] = _QUERYUNRELAYEDACKSREQUEST
-DESCRIPTOR.message_types_by_name['QueryUnrelayedAcksResponse'] = _QUERYUNRELAYEDACKSRESPONSE
+DESCRIPTOR.message_types_by_name['QueryUnreceivedAcksRequest'] = _QUERYUNRECEIVEDACKSREQUEST
+DESCRIPTOR.message_types_by_name['QueryUnreceivedAcksResponse'] = _QUERYUNRECEIVEDACKSRESPONSE
 DESCRIPTOR.message_types_by_name['QueryNextSequenceReceiveRequest'] = _QUERYNEXTSEQUENCERECEIVEREQUEST
 DESCRIPTOR.message_types_by_name['QueryNextSequenceReceiveResponse'] = _QUERYNEXTSEQUENCERECEIVERESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -1188,6 +1346,20 @@ QueryPacketCommitmentsResponse = _reflection.GeneratedProtocolMessageType('Query
   })
 _sym_db.RegisterMessage(QueryPacketCommitmentsResponse)
 
+QueryPacketReceiptRequest = _reflection.GeneratedProtocolMessageType('QueryPacketReceiptRequest', (_message.Message,), {
+  'DESCRIPTOR' : _QUERYPACKETRECEIPTREQUEST,
+  '__module__' : 'ibc.core.channel.v1.query_pb2'
+  # @@protoc_insertion_point(class_scope:ibc.core.channel.v1.QueryPacketReceiptRequest)
+  })
+_sym_db.RegisterMessage(QueryPacketReceiptRequest)
+
+QueryPacketReceiptResponse = _reflection.GeneratedProtocolMessageType('QueryPacketReceiptResponse', (_message.Message,), {
+  'DESCRIPTOR' : _QUERYPACKETRECEIPTRESPONSE,
+  '__module__' : 'ibc.core.channel.v1.query_pb2'
+  # @@protoc_insertion_point(class_scope:ibc.core.channel.v1.QueryPacketReceiptResponse)
+  })
+_sym_db.RegisterMessage(QueryPacketReceiptResponse)
+
 QueryPacketAcknowledgementRequest = _reflection.GeneratedProtocolMessageType('QueryPacketAcknowledgementRequest', (_message.Message,), {
   'DESCRIPTOR' : _QUERYPACKETACKNOWLEDGEMENTREQUEST,
   '__module__' : 'ibc.core.channel.v1.query_pb2'
@@ -1201,6 +1373,20 @@ QueryPacketAcknowledgementResponse = _reflection.GeneratedProtocolMessageType('Q
   # @@protoc_insertion_point(class_scope:ibc.core.channel.v1.QueryPacketAcknowledgementResponse)
   })
 _sym_db.RegisterMessage(QueryPacketAcknowledgementResponse)
+
+QueryPacketAcknowledgementsRequest = _reflection.GeneratedProtocolMessageType('QueryPacketAcknowledgementsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _QUERYPACKETACKNOWLEDGEMENTSREQUEST,
+  '__module__' : 'ibc.core.channel.v1.query_pb2'
+  # @@protoc_insertion_point(class_scope:ibc.core.channel.v1.QueryPacketAcknowledgementsRequest)
+  })
+_sym_db.RegisterMessage(QueryPacketAcknowledgementsRequest)
+
+QueryPacketAcknowledgementsResponse = _reflection.GeneratedProtocolMessageType('QueryPacketAcknowledgementsResponse', (_message.Message,), {
+  'DESCRIPTOR' : _QUERYPACKETACKNOWLEDGEMENTSRESPONSE,
+  '__module__' : 'ibc.core.channel.v1.query_pb2'
+  # @@protoc_insertion_point(class_scope:ibc.core.channel.v1.QueryPacketAcknowledgementsResponse)
+  })
+_sym_db.RegisterMessage(QueryPacketAcknowledgementsResponse)
 
 QueryUnreceivedPacketsRequest = _reflection.GeneratedProtocolMessageType('QueryUnreceivedPacketsRequest', (_message.Message,), {
   'DESCRIPTOR' : _QUERYUNRECEIVEDPACKETSREQUEST,
@@ -1216,19 +1402,19 @@ QueryUnreceivedPacketsResponse = _reflection.GeneratedProtocolMessageType('Query
   })
 _sym_db.RegisterMessage(QueryUnreceivedPacketsResponse)
 
-QueryUnrelayedAcksRequest = _reflection.GeneratedProtocolMessageType('QueryUnrelayedAcksRequest', (_message.Message,), {
-  'DESCRIPTOR' : _QUERYUNRELAYEDACKSREQUEST,
+QueryUnreceivedAcksRequest = _reflection.GeneratedProtocolMessageType('QueryUnreceivedAcksRequest', (_message.Message,), {
+  'DESCRIPTOR' : _QUERYUNRECEIVEDACKSREQUEST,
   '__module__' : 'ibc.core.channel.v1.query_pb2'
-  # @@protoc_insertion_point(class_scope:ibc.core.channel.v1.QueryUnrelayedAcksRequest)
+  # @@protoc_insertion_point(class_scope:ibc.core.channel.v1.QueryUnreceivedAcksRequest)
   })
-_sym_db.RegisterMessage(QueryUnrelayedAcksRequest)
+_sym_db.RegisterMessage(QueryUnreceivedAcksRequest)
 
-QueryUnrelayedAcksResponse = _reflection.GeneratedProtocolMessageType('QueryUnrelayedAcksResponse', (_message.Message,), {
-  'DESCRIPTOR' : _QUERYUNRELAYEDACKSRESPONSE,
+QueryUnreceivedAcksResponse = _reflection.GeneratedProtocolMessageType('QueryUnreceivedAcksResponse', (_message.Message,), {
+  'DESCRIPTOR' : _QUERYUNRECEIVEDACKSRESPONSE,
   '__module__' : 'ibc.core.channel.v1.query_pb2'
-  # @@protoc_insertion_point(class_scope:ibc.core.channel.v1.QueryUnrelayedAcksResponse)
+  # @@protoc_insertion_point(class_scope:ibc.core.channel.v1.QueryUnreceivedAcksResponse)
   })
-_sym_db.RegisterMessage(QueryUnrelayedAcksResponse)
+_sym_db.RegisterMessage(QueryUnreceivedAcksResponse)
 
 QueryNextSequenceReceiveRequest = _reflection.GeneratedProtocolMessageType('QueryNextSequenceReceiveRequest', (_message.Message,), {
   'DESCRIPTOR' : _QUERYNEXTSEQUENCERECEIVEREQUEST,
@@ -1253,9 +1439,11 @@ _QUERYCHANNELCLIENTSTATERESPONSE.fields_by_name['proof_height']._options = None
 _QUERYCHANNELCONSENSUSSTATERESPONSE.fields_by_name['proof_height']._options = None
 _QUERYPACKETCOMMITMENTRESPONSE.fields_by_name['proof_height']._options = None
 _QUERYPACKETCOMMITMENTSRESPONSE.fields_by_name['height']._options = None
+_QUERYPACKETRECEIPTRESPONSE.fields_by_name['proof_height']._options = None
 _QUERYPACKETACKNOWLEDGEMENTRESPONSE.fields_by_name['proof_height']._options = None
+_QUERYPACKETACKNOWLEDGEMENTSRESPONSE.fields_by_name['height']._options = None
 _QUERYUNRECEIVEDPACKETSRESPONSE.fields_by_name['height']._options = None
-_QUERYUNRELAYEDACKSRESPONSE.fields_by_name['height']._options = None
+_QUERYUNRECEIVEDACKSRESPONSE.fields_by_name['height']._options = None
 _QUERYNEXTSEQUENCERECEIVERESPONSE.fields_by_name['proof_height']._options = None
 
 _QUERY = _descriptor.ServiceDescriptor(
@@ -1265,8 +1453,8 @@ _QUERY = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=3123,
-  serialized_end=5506,
+  serialized_start=3578,
+  serialized_end=6405,
   methods=[
   _descriptor.MethodDescriptor(
     name='Channel',
@@ -1275,7 +1463,7 @@ _QUERY = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_QUERYCHANNELREQUEST,
     output_type=_QUERYCHANNELRESPONSE,
-    serialized_options=b'\202\323\344\223\002<\022:/ibc/channel/v1beta1/channels/{channel_id}/ports/{port_id}',
+    serialized_options=b'\202\323\344\223\002<\022:/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}',
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
@@ -1285,7 +1473,7 @@ _QUERY = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_QUERYCHANNELSREQUEST,
     output_type=_QUERYCHANNELSRESPONSE,
-    serialized_options=b'\202\323\344\223\002\037\022\035/ibc/channel/v1beta1/channels',
+    serialized_options=b'\202\323\344\223\002\037\022\035/ibc/core/channel/v1/channels',
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
@@ -1295,7 +1483,7 @@ _QUERY = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_QUERYCONNECTIONCHANNELSREQUEST,
     output_type=_QUERYCONNECTIONCHANNELSRESPONSE,
-    serialized_options=b'\202\323\344\223\0028\0226/ibc/channel/v1beta1/connections/{connection}/channels',
+    serialized_options=b'\202\323\344\223\0028\0226/ibc/core/channel/v1/connections/{connection}/channels',
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
@@ -1305,7 +1493,7 @@ _QUERY = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_QUERYCHANNELCLIENTSTATEREQUEST,
     output_type=_QUERYCHANNELCLIENTSTATERESPONSE,
-    serialized_options=b'\202\323\344\223\002I\022G/ibc/channel/v1beta1/channels/{channel_id}/ports/{port_id}/client_state',
+    serialized_options=b'\202\323\344\223\002I\022G/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/client_state',
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
@@ -1315,7 +1503,7 @@ _QUERY = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_QUERYCHANNELCONSENSUSSTATEREQUEST,
     output_type=_QUERYCHANNELCONSENSUSSTATERESPONSE,
-    serialized_options=b'\202\323\344\223\002}\022{/ibc/channel/v1beta1/channels/{channel_id}/ports/{port_id}/consensus_state/version/{version_number}/height/{version_height}',
+    serialized_options=b'\202\323\344\223\002\200\001\022~/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/consensus_state/revision/{revision_number}/height/{revision_height}',
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
@@ -1325,7 +1513,7 @@ _QUERY = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_QUERYPACKETCOMMITMENTREQUEST,
     output_type=_QUERYPACKETCOMMITMENTRESPONSE,
-    serialized_options=b'\202\323\344\223\002Z\022X/ibc/channel/v1beta1/channels/{channel_id}/ports/{port_id}/packet_commitments/{sequence}',
+    serialized_options=b'\202\323\344\223\002Z\022X/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_commitments/{sequence}',
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
@@ -1335,47 +1523,67 @@ _QUERY = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_QUERYPACKETCOMMITMENTSREQUEST,
     output_type=_QUERYPACKETCOMMITMENTSRESPONSE,
-    serialized_options=b'\202\323\344\223\002O\022M/ibc/channel/v1beta1/channels/{channel_id}/ports/{port_id}/packet_commitments',
+    serialized_options=b'\202\323\344\223\002O\022M/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_commitments',
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='PacketReceipt',
+    full_name='ibc.core.channel.v1.Query.PacketReceipt',
+    index=7,
+    containing_service=None,
+    input_type=_QUERYPACKETRECEIPTREQUEST,
+    output_type=_QUERYPACKETRECEIPTRESPONSE,
+    serialized_options=b'\202\323\344\223\002W\022U/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_receipts/{sequence}',
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
     name='PacketAcknowledgement',
     full_name='ibc.core.channel.v1.Query.PacketAcknowledgement',
-    index=7,
+    index=8,
     containing_service=None,
     input_type=_QUERYPACKETACKNOWLEDGEMENTREQUEST,
     output_type=_QUERYPACKETACKNOWLEDGEMENTRESPONSE,
-    serialized_options=b'\202\323\344\223\002S\022Q/ibc/channel/v1beta1/channels/{channel_id}/ports/{port_id}/packet_acks/{sequence}',
+    serialized_options=b'\202\323\344\223\002S\022Q/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_acks/{sequence}',
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='PacketAcknowledgements',
+    full_name='ibc.core.channel.v1.Query.PacketAcknowledgements',
+    index=9,
+    containing_service=None,
+    input_type=_QUERYPACKETACKNOWLEDGEMENTSREQUEST,
+    output_type=_QUERYPACKETACKNOWLEDGEMENTSRESPONSE,
+    serialized_options=b'\202\323\344\223\002T\022R/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_acknowledgements',
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
     name='UnreceivedPackets',
     full_name='ibc.core.channel.v1.Query.UnreceivedPackets',
-    index=8,
+    index=10,
     containing_service=None,
     input_type=_QUERYUNRECEIVEDPACKETSREQUEST,
     output_type=_QUERYUNRECEIVEDPACKETSRESPONSE,
-    serialized_options=b'\202\323\344\223\002\200\001\022~/ibc/channel/v1beta1/channels/{channel_id}/ports/{port_id}/packet_commitments/{packet_commitment_sequences}/unreceived_packets',
+    serialized_options=b'\202\323\344\223\002\200\001\022~/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_commitments/{packet_commitment_sequences}/unreceived_packets',
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='UnrelayedAcks',
-    full_name='ibc.core.channel.v1.Query.UnrelayedAcks',
-    index=9,
+    name='UnreceivedAcks',
+    full_name='ibc.core.channel.v1.Query.UnreceivedAcks',
+    index=11,
     containing_service=None,
-    input_type=_QUERYUNRELAYEDACKSREQUEST,
-    output_type=_QUERYUNRELAYEDACKSRESPONSE,
-    serialized_options=b'\202\323\344\223\002|\022z/ibc/channel/v1beta1/channels/{channel_id}/ports/{port_id}/packet_commitments/{packet_commitment_sequences}/unrelayed_acks',
+    input_type=_QUERYUNRECEIVEDACKSREQUEST,
+    output_type=_QUERYUNRECEIVEDACKSRESPONSE,
+    serialized_options=b'\202\323\344\223\002v\022t/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_commitments/{packet_ack_sequences}/unreceived_acks',
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
     name='NextSequenceReceive',
     full_name='ibc.core.channel.v1.Query.NextSequenceReceive',
-    index=10,
+    index=12,
     containing_service=None,
     input_type=_QUERYNEXTSEQUENCERECEIVEREQUEST,
     output_type=_QUERYNEXTSEQUENCERECEIVERESPONSE,
-    serialized_options=b'\202\323\344\223\002J\022H/ibc/channel/v1beta1/channels/{channel_id}/ports/{port_id}/next_sequence',
+    serialized_options=b'\202\323\344\223\002J\022H/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/next_sequence',
     create_key=_descriptor._internal_create_key,
   ),
 ])

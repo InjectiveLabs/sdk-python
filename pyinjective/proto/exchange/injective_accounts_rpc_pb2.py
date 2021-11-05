@@ -19,10 +19,187 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z\031/injective_accounts_rpcpb',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n%exchange/injective_accounts_rpc.proto\x12\x16injective_accounts_rpc\"1\n\x16SubaccountsListRequest\x12\x17\n\x0f\x61\x63\x63ount_address\x18\x01 \x01(\t\".\n\x17SubaccountsListResponse\x12\x13\n\x0bsubaccounts\x18\x01 \x03(\t\"F\n\x1dSubaccountBalancesListRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x0e\n\x06\x64\x65noms\x18\x02 \x03(\t\"]\n\x1eSubaccountBalancesListResponse\x12;\n\x08\x62\x61lances\x18\x01 \x03(\x0b\x32).injective_accounts_rpc.SubaccountBalance\"\x8e\x01\n\x11SubaccountBalance\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x17\n\x0f\x61\x63\x63ount_address\x18\x02 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x03 \x01(\t\x12:\n\x07\x64\x65posit\x18\x04 \x01(\x0b\x32).injective_accounts_rpc.SubaccountDeposit\"E\n\x11SubaccountDeposit\x12\x15\n\rtotal_balance\x18\x01 \x01(\t\x12\x19\n\x11\x61vailable_balance\x18\x02 \x01(\t\"@\n\x18SubaccountBalanceRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\t\"W\n\x19SubaccountBalanceResponse\x12:\n\x07\x62\x61lance\x18\x01 \x01(\x0b\x32).injective_accounts_rpc.SubaccountBalance\"G\n\x1eStreamSubaccountBalanceRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x0e\n\x06\x64\x65noms\x18\x02 \x03(\t\"p\n\x1fStreamSubaccountBalanceResponse\x12:\n\x07\x62\x61lance\x18\x01 \x01(\x0b\x32).injective_accounts_rpc.SubaccountBalance\x12\x11\n\ttimestamp\x18\x02 \x01(\x12\"X\n\x18SubaccountHistoryRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\t\x12\x16\n\x0etransfer_types\x18\x03 \x03(\t\"a\n\x19SubaccountHistoryResponse\x12\x44\n\ttransfers\x18\x01 \x03(\x0b\x32\x31.injective_accounts_rpc.SubaccountBalanceTransfer\"\xeb\x01\n\x19SubaccountBalanceTransfer\x12\x15\n\rtransfer_type\x18\x01 \x01(\t\x12\x19\n\x11src_subaccount_id\x18\x02 \x01(\t\x12\x1b\n\x13src_account_address\x18\x03 \x01(\t\x12\x19\n\x11\x64st_subaccount_id\x18\x04 \x01(\t\x12\x1b\n\x13\x64st_account_address\x18\x05 \x01(\t\x12\x32\n\x06\x61mount\x18\x06 \x01(\x0b\x32\".injective_accounts_rpc.CosmosCoin\x12\x13\n\x0b\x65xecuted_at\x18\x07 \x01(\x12\"+\n\nCosmosCoin\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\t\"b\n\x1dSubaccountOrderSummaryRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x17\n\x0forder_direction\x18\x03 \x01(\t\"\\\n\x1eSubaccountOrderSummaryResponse\x12\x19\n\x11spot_orders_total\x18\x01 \x01(\x12\x12\x1f\n\x17\x64\x65rivative_orders_total\x18\x02 \x01(\x12\x32\xaa\x06\n\x14InjectiveAccountsRPC\x12r\n\x0fSubaccountsList\x12..injective_accounts_rpc.SubaccountsListRequest\x1a/.injective_accounts_rpc.SubaccountsListResponse\x12\x87\x01\n\x16SubaccountBalancesList\x12\x35.injective_accounts_rpc.SubaccountBalancesListRequest\x1a\x36.injective_accounts_rpc.SubaccountBalancesListResponse\x12\x80\x01\n\x19SubaccountBalanceEndpoint\x12\x30.injective_accounts_rpc.SubaccountBalanceRequest\x1a\x31.injective_accounts_rpc.SubaccountBalanceResponse\x12\x8c\x01\n\x17StreamSubaccountBalance\x12\x36.injective_accounts_rpc.StreamSubaccountBalanceRequest\x1a\x37.injective_accounts_rpc.StreamSubaccountBalanceResponse0\x01\x12x\n\x11SubaccountHistory\x12\x30.injective_accounts_rpc.SubaccountHistoryRequest\x1a\x31.injective_accounts_rpc.SubaccountHistoryResponse\x12\x87\x01\n\x16SubaccountOrderSummary\x12\x35.injective_accounts_rpc.SubaccountOrderSummaryRequest\x1a\x36.injective_accounts_rpc.SubaccountOrderSummaryResponseB\x1bZ\x19/injective_accounts_rpcpbb\x06proto3'
+  serialized_pb=b'\n%exchange/injective_accounts_rpc.proto\x12\x16injective_accounts_rpc\"+\n\x10PortfolioRequest\x12\x17\n\x0f\x61\x63\x63ount_address\x18\x01 \x01(\t\"P\n\x11PortfolioResponse\x12;\n\tportfolio\x18\x01 \x01(\x0b\x32(.injective_accounts_rpc.AccountPortfolio\"\xb8\x01\n\x10\x41\x63\x63ountPortfolio\x12\x17\n\x0fportfolio_value\x18\x01 \x01(\t\x12\x19\n\x11\x61vailable_balance\x18\x02 \x01(\t\x12\x16\n\x0elocked_balance\x18\x03 \x01(\t\x12\x16\n\x0eunrealized_pnl\x18\x04 \x01(\t\x12@\n\x0bsubaccounts\x18\x05 \x03(\x0b\x32+.injective_accounts_rpc.SubaccountPortfolio\"w\n\x13SubaccountPortfolio\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x19\n\x11\x61vailable_balance\x18\x02 \x01(\t\x12\x16\n\x0elocked_balance\x18\x03 \x01(\t\x12\x16\n\x0eunrealized_pnl\x18\x04 \x01(\t\"1\n\x16SubaccountsListRequest\x12\x17\n\x0f\x61\x63\x63ount_address\x18\x01 \x01(\t\".\n\x17SubaccountsListResponse\x12\x13\n\x0bsubaccounts\x18\x01 \x03(\t\"F\n\x1dSubaccountBalancesListRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x0e\n\x06\x64\x65noms\x18\x02 \x03(\t\"]\n\x1eSubaccountBalancesListResponse\x12;\n\x08\x62\x61lances\x18\x01 \x03(\x0b\x32).injective_accounts_rpc.SubaccountBalance\"\x8e\x01\n\x11SubaccountBalance\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x17\n\x0f\x61\x63\x63ount_address\x18\x02 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x03 \x01(\t\x12:\n\x07\x64\x65posit\x18\x04 \x01(\x0b\x32).injective_accounts_rpc.SubaccountDeposit\"E\n\x11SubaccountDeposit\x12\x15\n\rtotal_balance\x18\x01 \x01(\t\x12\x19\n\x11\x61vailable_balance\x18\x02 \x01(\t\"@\n\x18SubaccountBalanceRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\t\"W\n\x19SubaccountBalanceResponse\x12:\n\x07\x62\x61lance\x18\x01 \x01(\x0b\x32).injective_accounts_rpc.SubaccountBalance\"G\n\x1eStreamSubaccountBalanceRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x0e\n\x06\x64\x65noms\x18\x02 \x03(\t\"p\n\x1fStreamSubaccountBalanceResponse\x12:\n\x07\x62\x61lance\x18\x01 \x01(\x0b\x32).injective_accounts_rpc.SubaccountBalance\x12\x11\n\ttimestamp\x18\x02 \x01(\x12\"X\n\x18SubaccountHistoryRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\t\x12\x16\n\x0etransfer_types\x18\x03 \x03(\t\"a\n\x19SubaccountHistoryResponse\x12\x44\n\ttransfers\x18\x01 \x03(\x0b\x32\x31.injective_accounts_rpc.SubaccountBalanceTransfer\"\xeb\x01\n\x19SubaccountBalanceTransfer\x12\x15\n\rtransfer_type\x18\x01 \x01(\t\x12\x19\n\x11src_subaccount_id\x18\x02 \x01(\t\x12\x1b\n\x13src_account_address\x18\x03 \x01(\t\x12\x19\n\x11\x64st_subaccount_id\x18\x04 \x01(\t\x12\x1b\n\x13\x64st_account_address\x18\x05 \x01(\t\x12\x32\n\x06\x61mount\x18\x06 \x01(\x0b\x32\".injective_accounts_rpc.CosmosCoin\x12\x13\n\x0b\x65xecuted_at\x18\x07 \x01(\x12\"+\n\nCosmosCoin\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\t\"b\n\x1dSubaccountOrderSummaryRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x17\n\x0forder_direction\x18\x03 \x01(\t\"\\\n\x1eSubaccountOrderSummaryResponse\x12\x19\n\x11spot_orders_total\x18\x01 \x01(\x12\x12\x1f\n\x17\x64\x65rivative_orders_total\x18\x02 \x01(\x12\x32\x8c\x07\n\x14InjectiveAccountsRPC\x12`\n\tPortfolio\x12(.injective_accounts_rpc.PortfolioRequest\x1a).injective_accounts_rpc.PortfolioResponse\x12r\n\x0fSubaccountsList\x12..injective_accounts_rpc.SubaccountsListRequest\x1a/.injective_accounts_rpc.SubaccountsListResponse\x12\x87\x01\n\x16SubaccountBalancesList\x12\x35.injective_accounts_rpc.SubaccountBalancesListRequest\x1a\x36.injective_accounts_rpc.SubaccountBalancesListResponse\x12\x80\x01\n\x19SubaccountBalanceEndpoint\x12\x30.injective_accounts_rpc.SubaccountBalanceRequest\x1a\x31.injective_accounts_rpc.SubaccountBalanceResponse\x12\x8c\x01\n\x17StreamSubaccountBalance\x12\x36.injective_accounts_rpc.StreamSubaccountBalanceRequest\x1a\x37.injective_accounts_rpc.StreamSubaccountBalanceResponse0\x01\x12x\n\x11SubaccountHistory\x12\x30.injective_accounts_rpc.SubaccountHistoryRequest\x1a\x31.injective_accounts_rpc.SubaccountHistoryResponse\x12\x87\x01\n\x16SubaccountOrderSummary\x12\x35.injective_accounts_rpc.SubaccountOrderSummaryRequest\x1a\x36.injective_accounts_rpc.SubaccountOrderSummaryResponseB\x1bZ\x19/injective_accounts_rpcpbb\x06proto3'
 )
 
 
+
+
+_PORTFOLIOREQUEST = _descriptor.Descriptor(
+  name='PortfolioRequest',
+  full_name='injective_accounts_rpc.PortfolioRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='account_address', full_name='injective_accounts_rpc.PortfolioRequest.account_address', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=65,
+  serialized_end=108,
+)
+
+
+_PORTFOLIORESPONSE = _descriptor.Descriptor(
+  name='PortfolioResponse',
+  full_name='injective_accounts_rpc.PortfolioResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='portfolio', full_name='injective_accounts_rpc.PortfolioResponse.portfolio', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=110,
+  serialized_end=190,
+)
+
+
+_ACCOUNTPORTFOLIO = _descriptor.Descriptor(
+  name='AccountPortfolio',
+  full_name='injective_accounts_rpc.AccountPortfolio',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='portfolio_value', full_name='injective_accounts_rpc.AccountPortfolio.portfolio_value', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='available_balance', full_name='injective_accounts_rpc.AccountPortfolio.available_balance', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='locked_balance', full_name='injective_accounts_rpc.AccountPortfolio.locked_balance', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='unrealized_pnl', full_name='injective_accounts_rpc.AccountPortfolio.unrealized_pnl', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='subaccounts', full_name='injective_accounts_rpc.AccountPortfolio.subaccounts', index=4,
+      number=5, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=193,
+  serialized_end=377,
+)
+
+
+_SUBACCOUNTPORTFOLIO = _descriptor.Descriptor(
+  name='SubaccountPortfolio',
+  full_name='injective_accounts_rpc.SubaccountPortfolio',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='subaccount_id', full_name='injective_accounts_rpc.SubaccountPortfolio.subaccount_id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='available_balance', full_name='injective_accounts_rpc.SubaccountPortfolio.available_balance', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='locked_balance', full_name='injective_accounts_rpc.SubaccountPortfolio.locked_balance', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='unrealized_pnl', full_name='injective_accounts_rpc.SubaccountPortfolio.unrealized_pnl', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=379,
+  serialized_end=498,
+)
 
 
 _SUBACCOUNTSLISTREQUEST = _descriptor.Descriptor(
@@ -52,8 +229,8 @@ _SUBACCOUNTSLISTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=65,
-  serialized_end=114,
+  serialized_start=500,
+  serialized_end=549,
 )
 
 
@@ -84,8 +261,8 @@ _SUBACCOUNTSLISTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=116,
-  serialized_end=162,
+  serialized_start=551,
+  serialized_end=597,
 )
 
 
@@ -123,8 +300,8 @@ _SUBACCOUNTBALANCESLISTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=164,
-  serialized_end=234,
+  serialized_start=599,
+  serialized_end=669,
 )
 
 
@@ -155,8 +332,8 @@ _SUBACCOUNTBALANCESLISTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=236,
-  serialized_end=329,
+  serialized_start=671,
+  serialized_end=764,
 )
 
 
@@ -208,8 +385,8 @@ _SUBACCOUNTBALANCE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=332,
-  serialized_end=474,
+  serialized_start=767,
+  serialized_end=909,
 )
 
 
@@ -247,8 +424,8 @@ _SUBACCOUNTDEPOSIT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=476,
-  serialized_end=545,
+  serialized_start=911,
+  serialized_end=980,
 )
 
 
@@ -286,8 +463,8 @@ _SUBACCOUNTBALANCEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=547,
-  serialized_end=611,
+  serialized_start=982,
+  serialized_end=1046,
 )
 
 
@@ -318,8 +495,8 @@ _SUBACCOUNTBALANCERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=613,
-  serialized_end=700,
+  serialized_start=1048,
+  serialized_end=1135,
 )
 
 
@@ -357,8 +534,8 @@ _STREAMSUBACCOUNTBALANCEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=702,
-  serialized_end=773,
+  serialized_start=1137,
+  serialized_end=1208,
 )
 
 
@@ -396,8 +573,8 @@ _STREAMSUBACCOUNTBALANCERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=775,
-  serialized_end=887,
+  serialized_start=1210,
+  serialized_end=1322,
 )
 
 
@@ -442,8 +619,8 @@ _SUBACCOUNTHISTORYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=889,
-  serialized_end=977,
+  serialized_start=1324,
+  serialized_end=1412,
 )
 
 
@@ -474,8 +651,8 @@ _SUBACCOUNTHISTORYRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=979,
-  serialized_end=1076,
+  serialized_start=1414,
+  serialized_end=1511,
 )
 
 
@@ -548,8 +725,8 @@ _SUBACCOUNTBALANCETRANSFER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1079,
-  serialized_end=1314,
+  serialized_start=1514,
+  serialized_end=1749,
 )
 
 
@@ -587,8 +764,8 @@ _COSMOSCOIN = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1316,
-  serialized_end=1359,
+  serialized_start=1751,
+  serialized_end=1794,
 )
 
 
@@ -633,8 +810,8 @@ _SUBACCOUNTORDERSUMMARYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1361,
-  serialized_end=1459,
+  serialized_start=1796,
+  serialized_end=1894,
 )
 
 
@@ -672,16 +849,22 @@ _SUBACCOUNTORDERSUMMARYRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1461,
-  serialized_end=1553,
+  serialized_start=1896,
+  serialized_end=1988,
 )
 
+_PORTFOLIORESPONSE.fields_by_name['portfolio'].message_type = _ACCOUNTPORTFOLIO
+_ACCOUNTPORTFOLIO.fields_by_name['subaccounts'].message_type = _SUBACCOUNTPORTFOLIO
 _SUBACCOUNTBALANCESLISTRESPONSE.fields_by_name['balances'].message_type = _SUBACCOUNTBALANCE
 _SUBACCOUNTBALANCE.fields_by_name['deposit'].message_type = _SUBACCOUNTDEPOSIT
 _SUBACCOUNTBALANCERESPONSE.fields_by_name['balance'].message_type = _SUBACCOUNTBALANCE
 _STREAMSUBACCOUNTBALANCERESPONSE.fields_by_name['balance'].message_type = _SUBACCOUNTBALANCE
 _SUBACCOUNTHISTORYRESPONSE.fields_by_name['transfers'].message_type = _SUBACCOUNTBALANCETRANSFER
 _SUBACCOUNTBALANCETRANSFER.fields_by_name['amount'].message_type = _COSMOSCOIN
+DESCRIPTOR.message_types_by_name['PortfolioRequest'] = _PORTFOLIOREQUEST
+DESCRIPTOR.message_types_by_name['PortfolioResponse'] = _PORTFOLIORESPONSE
+DESCRIPTOR.message_types_by_name['AccountPortfolio'] = _ACCOUNTPORTFOLIO
+DESCRIPTOR.message_types_by_name['SubaccountPortfolio'] = _SUBACCOUNTPORTFOLIO
 DESCRIPTOR.message_types_by_name['SubaccountsListRequest'] = _SUBACCOUNTSLISTREQUEST
 DESCRIPTOR.message_types_by_name['SubaccountsListResponse'] = _SUBACCOUNTSLISTRESPONSE
 DESCRIPTOR.message_types_by_name['SubaccountBalancesListRequest'] = _SUBACCOUNTBALANCESLISTREQUEST
@@ -699,6 +882,34 @@ DESCRIPTOR.message_types_by_name['CosmosCoin'] = _COSMOSCOIN
 DESCRIPTOR.message_types_by_name['SubaccountOrderSummaryRequest'] = _SUBACCOUNTORDERSUMMARYREQUEST
 DESCRIPTOR.message_types_by_name['SubaccountOrderSummaryResponse'] = _SUBACCOUNTORDERSUMMARYRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
+
+PortfolioRequest = _reflection.GeneratedProtocolMessageType('PortfolioRequest', (_message.Message,), {
+  'DESCRIPTOR' : _PORTFOLIOREQUEST,
+  '__module__' : 'exchange.injective_accounts_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_accounts_rpc.PortfolioRequest)
+  })
+_sym_db.RegisterMessage(PortfolioRequest)
+
+PortfolioResponse = _reflection.GeneratedProtocolMessageType('PortfolioResponse', (_message.Message,), {
+  'DESCRIPTOR' : _PORTFOLIORESPONSE,
+  '__module__' : 'exchange.injective_accounts_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_accounts_rpc.PortfolioResponse)
+  })
+_sym_db.RegisterMessage(PortfolioResponse)
+
+AccountPortfolio = _reflection.GeneratedProtocolMessageType('AccountPortfolio', (_message.Message,), {
+  'DESCRIPTOR' : _ACCOUNTPORTFOLIO,
+  '__module__' : 'exchange.injective_accounts_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_accounts_rpc.AccountPortfolio)
+  })
+_sym_db.RegisterMessage(AccountPortfolio)
+
+SubaccountPortfolio = _reflection.GeneratedProtocolMessageType('SubaccountPortfolio', (_message.Message,), {
+  'DESCRIPTOR' : _SUBACCOUNTPORTFOLIO,
+  '__module__' : 'exchange.injective_accounts_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_accounts_rpc.SubaccountPortfolio)
+  })
+_sym_db.RegisterMessage(SubaccountPortfolio)
 
 SubaccountsListRequest = _reflection.GeneratedProtocolMessageType('SubaccountsListRequest', (_message.Message,), {
   'DESCRIPTOR' : _SUBACCOUNTSLISTREQUEST,
@@ -822,13 +1033,23 @@ _INJECTIVEACCOUNTSRPC = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1556,
-  serialized_end=2366,
+  serialized_start=1991,
+  serialized_end=2899,
   methods=[
+  _descriptor.MethodDescriptor(
+    name='Portfolio',
+    full_name='injective_accounts_rpc.InjectiveAccountsRPC.Portfolio',
+    index=0,
+    containing_service=None,
+    input_type=_PORTFOLIOREQUEST,
+    output_type=_PORTFOLIORESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
   _descriptor.MethodDescriptor(
     name='SubaccountsList',
     full_name='injective_accounts_rpc.InjectiveAccountsRPC.SubaccountsList',
-    index=0,
+    index=1,
     containing_service=None,
     input_type=_SUBACCOUNTSLISTREQUEST,
     output_type=_SUBACCOUNTSLISTRESPONSE,
@@ -838,7 +1059,7 @@ _INJECTIVEACCOUNTSRPC = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='SubaccountBalancesList',
     full_name='injective_accounts_rpc.InjectiveAccountsRPC.SubaccountBalancesList',
-    index=1,
+    index=2,
     containing_service=None,
     input_type=_SUBACCOUNTBALANCESLISTREQUEST,
     output_type=_SUBACCOUNTBALANCESLISTRESPONSE,
@@ -848,7 +1069,7 @@ _INJECTIVEACCOUNTSRPC = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='SubaccountBalanceEndpoint',
     full_name='injective_accounts_rpc.InjectiveAccountsRPC.SubaccountBalanceEndpoint',
-    index=2,
+    index=3,
     containing_service=None,
     input_type=_SUBACCOUNTBALANCEREQUEST,
     output_type=_SUBACCOUNTBALANCERESPONSE,
@@ -858,7 +1079,7 @@ _INJECTIVEACCOUNTSRPC = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='StreamSubaccountBalance',
     full_name='injective_accounts_rpc.InjectiveAccountsRPC.StreamSubaccountBalance',
-    index=3,
+    index=4,
     containing_service=None,
     input_type=_STREAMSUBACCOUNTBALANCEREQUEST,
     output_type=_STREAMSUBACCOUNTBALANCERESPONSE,
@@ -868,7 +1089,7 @@ _INJECTIVEACCOUNTSRPC = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='SubaccountHistory',
     full_name='injective_accounts_rpc.InjectiveAccountsRPC.SubaccountHistory',
-    index=4,
+    index=5,
     containing_service=None,
     input_type=_SUBACCOUNTHISTORYREQUEST,
     output_type=_SUBACCOUNTHISTORYRESPONSE,
@@ -878,7 +1099,7 @@ _INJECTIVEACCOUNTSRPC = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='SubaccountOrderSummary',
     full_name='injective_accounts_rpc.InjectiveAccountsRPC.SubaccountOrderSummary',
-    index=5,
+    index=6,
     containing_service=None,
     input_type=_SUBACCOUNTORDERSUMMARYREQUEST,
     output_type=_SUBACCOUNTORDERSUMMARYRESPONSE,
