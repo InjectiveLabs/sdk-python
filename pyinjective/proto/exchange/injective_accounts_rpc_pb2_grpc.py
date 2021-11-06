@@ -20,6 +20,11 @@ class InjectiveAccountsRPCStub(object):
                 request_serializer=exchange_dot_injective__accounts__rpc__pb2.PortfolioRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__accounts__rpc__pb2.PortfolioResponse.FromString,
                 )
+        self.OrderStates = channel.unary_unary(
+                '/injective_accounts_rpc.InjectiveAccountsRPC/OrderStates',
+                request_serializer=exchange_dot_injective__accounts__rpc__pb2.OrderStatesRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__accounts__rpc__pb2.OrderStatesResponse.FromString,
+                )
         self.SubaccountsList = channel.unary_unary(
                 '/injective_accounts_rpc.InjectiveAccountsRPC/SubaccountsList',
                 request_serializer=exchange_dot_injective__accounts__rpc__pb2.SubaccountsListRequest.SerializeToString,
@@ -58,6 +63,13 @@ class InjectiveAccountsRPCServicer(object):
 
     def Portfolio(self, request, context):
         """Provide the account's portfolio value in USD.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def OrderStates(self, request, context):
+        """List order states by order hashes
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -115,6 +127,11 @@ def add_InjectiveAccountsRPCServicer_to_server(servicer, server):
                     request_deserializer=exchange_dot_injective__accounts__rpc__pb2.PortfolioRequest.FromString,
                     response_serializer=exchange_dot_injective__accounts__rpc__pb2.PortfolioResponse.SerializeToString,
             ),
+            'OrderStates': grpc.unary_unary_rpc_method_handler(
+                    servicer.OrderStates,
+                    request_deserializer=exchange_dot_injective__accounts__rpc__pb2.OrderStatesRequest.FromString,
+                    response_serializer=exchange_dot_injective__accounts__rpc__pb2.OrderStatesResponse.SerializeToString,
+            ),
             'SubaccountsList': grpc.unary_unary_rpc_method_handler(
                     servicer.SubaccountsList,
                     request_deserializer=exchange_dot_injective__accounts__rpc__pb2.SubaccountsListRequest.FromString,
@@ -170,6 +187,23 @@ class InjectiveAccountsRPC(object):
         return grpc.experimental.unary_unary(request, target, '/injective_accounts_rpc.InjectiveAccountsRPC/Portfolio',
             exchange_dot_injective__accounts__rpc__pb2.PortfolioRequest.SerializeToString,
             exchange_dot_injective__accounts__rpc__pb2.PortfolioResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def OrderStates(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective_accounts_rpc.InjectiveAccountsRPC/OrderStates',
+            exchange_dot_injective__accounts__rpc__pb2.OrderStatesRequest.SerializeToString,
+            exchange_dot_injective__accounts__rpc__pb2.OrderStatesResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
