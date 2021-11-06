@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'ZIgithub.com/InjectiveLabs/injective-core/injective-chain/modules/ocr/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x1finjective/ocr/v1beta1/ocr.proto\x12\x15injective.ocr.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\"W\n\x06Params\x12\x12\n\nlink_denom\x18\x01 \x01(\t\x12\x1d\n\x15payout_block_interval\x18\x02 \x01(\x04\x12\x14\n\x0cmodule_admin\x18\x03 \x01(\t:\x04\xe8\xa0\x1f\x01\"\xb6\x01\n\nFeedConfig\x12\x0f\n\x07signers\x18\x01 \x03(\t\x12\x14\n\x0ctransmitters\x18\x02 \x03(\t\x12\t\n\x01\x66\x18\x03 \x01(\r\x12<\n\x0eonchain_config\x18\x04 \x01(\x0b\x32$.injective.ocr.v1beta1.OnchainConfig\x12\x1f\n\x17offchain_config_version\x18\x05 \x01(\x04\x12\x17\n\x0foffchain_config\x18\x06 \x01(\x0c\"~\n\x0e\x46\x65\x65\x64\x43onfigInfo\x12\x1c\n\x14latest_config_digest\x18\x01 \x01(\x0c\x12\t\n\x01\x66\x18\x02 \x01(\r\x12\t\n\x01n\x18\x03 \x01(\r\x12\x14\n\x0c\x63onfig_count\x18\x04 \x01(\x04\x12\"\n\x1alatest_config_block_number\x18\x05 \x01(\x03\"\xc3\x03\n\rOnchainConfig\x12\x10\n\x08\x63hain_id\x18\x01 \x01(\t\x12\x0f\n\x07\x66\x65\x65\x64_id\x18\x02 \x01(\t\x12\x42\n\nmin_answer\x18\x03 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x42\n\nmax_answer\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12L\n\x14link_per_observation\x18\x05 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12M\n\x15link_per_transmission\x18\x06 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x12\n\nlink_denom\x18\x07 \x01(\t\x12\x16\n\x0eunique_reports\x18\x08 \x01(\x08\x12\x13\n\x0b\x64\x65scription\x18\t \x01(\t\x12\x12\n\nfeed_admin\x18\n \x01(\t\x12\x15\n\rbilling_admin\x18\x0b \x01(\t\"\xaa\x01\n\x0e\x43ontractConfig\x12\x14\n\x0c\x63onfig_count\x18\x01 \x01(\x04\x12\x0f\n\x07signers\x18\x02 \x03(\t\x12\x14\n\x0ctransmitters\x18\x03 \x03(\t\x12\t\n\x01\x66\x18\x04 \x01(\r\x12\x16\n\x0eonchain_config\x18\x05 \x01(\x0c\x12\x1f\n\x17offchain_config_version\x18\x06 \x01(\x04\x12\x17\n\x0foffchain_config\x18\x07 \x01(\x0c\"t\n\x11SetConfigProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x31\n\x06\x63onfig\x18\x03 \x01(\x0b\x32!.injective.ocr.v1beta1.FeedConfig:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\xb8\x03\n\x0e\x46\x65\x65\x64Properties\x12\x0f\n\x07\x66\x65\x65\x64_id\x18\x01 \x01(\t\x12\t\n\x01\x66\x18\x02 \x01(\r\x12\x1f\n\x17offchain_config_version\x18\x03 \x01(\x04\x12\x17\n\x0foffchain_config\x18\x04 \x01(\x0c\x12\x42\n\nmin_answer\x18\x05 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x42\n\nmax_answer\x18\x06 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12L\n\x14link_per_observation\x18\x07 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12M\n\x15link_per_transmission\x18\x08 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x16\n\x0eunique_reports\x18\t \x01(\x08\x12\x13\n\x0b\x64\x65scription\x18\n \x01(\t\"\xc1\x01\n\x16SetBatchConfigProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0f\n\x07signers\x18\x03 \x03(\t\x12\x14\n\x0ctransmitters\x18\x04 \x03(\t\x12\x12\n\nlink_denom\x18\x05 \x01(\t\x12>\n\x0f\x66\x65\x65\x64_properties\x18\x06 \x03(\x0b\x32%.injective.ocr.v1beta1.FeedProperties:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"*\n\x18OracleObservationsCounts\x12\x0e\n\x06\x63ounts\x18\x01 \x03(\r\"F\n\x11GasReimbursements\x12\x31\n\x0ereimbursements\x18\x01 \x03(\x0b\x32\x19.cosmos.base.v1beta1.Coin\"7\n\x05Payee\x12\x18\n\x10transmitter_addr\x18\x01 \x01(\t\x12\x14\n\x0cpayment_addr\x18\x02 \x01(\t\"\x8e\x01\n\x0cTransmission\x12>\n\x06\x61nswer\x18\x01 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x1e\n\x16observations_timestamp\x18\x02 \x01(\x03\x12\x1e\n\x16transmission_timestamp\x18\x03 \x01(\x03\"-\n\rEpochAndRound\x12\r\n\x05\x65poch\x18\x01 \x01(\x04\x12\r\n\x05round\x18\x02 \x01(\x04\"\x81\x01\n\x06Report\x12\x1e\n\x16observations_timestamp\x18\x01 \x01(\x03\x12\x11\n\tobservers\x18\x02 \x01(\x0c\x12\x44\n\x0cobservations\x18\x03 \x03(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"g\n\x0cReportToSign\x12\x15\n\rconfig_digest\x18\x01 \x01(\x0c\x12\r\n\x05\x65poch\x18\x02 \x01(\x04\x12\r\n\x05round\x18\x03 \x01(\x04\x12\x12\n\nextra_hash\x18\x04 \x01(\x0c\x12\x0e\n\x06report\x18\x05 \x01(\x0c\"p\n\x0f\x45ventOraclePaid\x12\x18\n\x10transmitter_addr\x18\x01 \x01(\t\x12\x12\n\npayee_addr\x18\x02 \x01(\t\x12/\n\x06\x61mount\x18\x03 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00\"\xd1\x01\n\x12\x45ventAnswerUpdated\x12?\n\x07\x63urrent\x18\x01 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12@\n\x08round_id\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x38\n\nupdated_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.TimestampB\x08\x90\xdf\x1f\x01\xc8\xde\x1f\x00\"\x9f\x01\n\rEventNewRound\x12@\n\x08round_id\x18\x01 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x12\n\nstarted_by\x18\x02 \x01(\t\x12\x38\n\nstarted_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.TimestampB\x08\x90\xdf\x1f\x01\xc8\xde\x1f\x00\"8\n\x10\x45ventTransmitted\x12\x15\n\rconfig_digest\x18\x01 \x01(\x0c\x12\r\n\x05\x65poch\x18\x02 \x01(\x04\"\xe8\x02\n\x14\x45ventNewTransmission\x12\x0f\n\x07\x66\x65\x65\x64_id\x18\x01 \x01(\t\x12\x1b\n\x13\x61ggregator_round_id\x18\x02 \x01(\r\x12>\n\x06\x61nswer\x18\x03 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x13\n\x0btransmitter\x18\x04 \x01(\t\x12\x1e\n\x16observations_timestamp\x18\x05 \x01(\x03\x12\x44\n\x0cobservations\x18\x06 \x03(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x11\n\tobservers\x18\x07 \x01(\x0c\x12\x15\n\rconfig_digest\x18\x08 \x01(\x0c\x12=\n\x0f\x65poch_and_round\x18\t \x01(\x0b\x32$.injective.ocr.v1beta1.EpochAndRound\"\xbc\x01\n\x0e\x45ventConfigSet\x12\x15\n\rconfig_digest\x18\x01 \x01(\x0c\x12$\n\x1cprevious_config_block_number\x18\x02 \x01(\x03\x12\x31\n\x06\x63onfig\x18\x03 \x01(\x0b\x32!.injective.ocr.v1beta1.FeedConfig\x12:\n\x0b\x63onfig_info\x18\x04 \x01(\x0b\x32%.injective.ocr.v1beta1.FeedConfigInfoBKZIgithub.com/InjectiveLabs/injective-core/injective-chain/modules/ocr/typesb\x06proto3'
+  serialized_pb=b'\n\x1finjective/ocr/v1beta1/ocr.proto\x12\x15injective.ocr.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\"W\n\x06Params\x12\x12\n\nlink_denom\x18\x01 \x01(\t\x12\x1d\n\x15payout_block_interval\x18\x02 \x01(\x04\x12\x14\n\x0cmodule_admin\x18\x03 \x01(\t:\x04\xe8\xa0\x1f\x01\"\xcc\x01\n\nFeedConfig\x12\x0f\n\x07signers\x18\x01 \x03(\t\x12\x14\n\x0ctransmitters\x18\x02 \x03(\t\x12\t\n\x01\x66\x18\x03 \x01(\r\x12\x16\n\x0eonchain_config\x18\x04 \x01(\x0c\x12\x1f\n\x17offchain_config_version\x18\x05 \x01(\x04\x12\x17\n\x0foffchain_config\x18\x06 \x01(\x0c\x12:\n\rmodule_params\x18\x07 \x01(\x0b\x32#.injective.ocr.v1beta1.ModuleParams\"~\n\x0e\x46\x65\x65\x64\x43onfigInfo\x12\x1c\n\x14latest_config_digest\x18\x01 \x01(\x0c\x12\t\n\x01\x66\x18\x02 \x01(\r\x12\t\n\x01n\x18\x03 \x01(\r\x12\x14\n\x0c\x63onfig_count\x18\x04 \x01(\x04\x12\"\n\x1alatest_config_block_number\x18\x05 \x01(\x03\"\xb0\x03\n\x0cModuleParams\x12\x0f\n\x07\x66\x65\x65\x64_id\x18\x01 \x01(\t\x12\x42\n\nmin_answer\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x42\n\nmax_answer\x18\x03 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12L\n\x14link_per_observation\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12M\n\x15link_per_transmission\x18\x05 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x12\n\nlink_denom\x18\x06 \x01(\t\x12\x16\n\x0eunique_reports\x18\x07 \x01(\x08\x12\x13\n\x0b\x64\x65scription\x18\x08 \x01(\t\x12\x12\n\nfeed_admin\x18\t \x01(\t\x12\x15\n\rbilling_admin\x18\n \x01(\t\"\xaa\x01\n\x0e\x43ontractConfig\x12\x14\n\x0c\x63onfig_count\x18\x01 \x01(\x04\x12\x0f\n\x07signers\x18\x02 \x03(\t\x12\x14\n\x0ctransmitters\x18\x03 \x03(\t\x12\t\n\x01\x66\x18\x04 \x01(\r\x12\x16\n\x0eonchain_config\x18\x05 \x01(\x0c\x12\x1f\n\x17offchain_config_version\x18\x06 \x01(\x04\x12\x17\n\x0foffchain_config\x18\x07 \x01(\x0c\"t\n\x11SetConfigProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x31\n\x06\x63onfig\x18\x03 \x01(\x0b\x32!.injective.ocr.v1beta1.FeedConfig:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\xd0\x03\n\x0e\x46\x65\x65\x64Properties\x12\x0f\n\x07\x66\x65\x65\x64_id\x18\x01 \x01(\t\x12\t\n\x01\x66\x18\x02 \x01(\r\x12\x16\n\x0eonchain_config\x18\x03 \x01(\x0c\x12\x1f\n\x17offchain_config_version\x18\x04 \x01(\x04\x12\x17\n\x0foffchain_config\x18\x05 \x01(\x0c\x12\x42\n\nmin_answer\x18\x06 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x42\n\nmax_answer\x18\x07 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12L\n\x14link_per_observation\x18\x08 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12M\n\x15link_per_transmission\x18\t \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x16\n\x0eunique_reports\x18\n \x01(\x08\x12\x13\n\x0b\x64\x65scription\x18\x0b \x01(\t\"\xc1\x01\n\x16SetBatchConfigProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0f\n\x07signers\x18\x03 \x03(\t\x12\x14\n\x0ctransmitters\x18\x04 \x03(\t\x12\x12\n\nlink_denom\x18\x05 \x01(\t\x12>\n\x0f\x66\x65\x65\x64_properties\x18\x06 \x03(\x0b\x32%.injective.ocr.v1beta1.FeedProperties:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"*\n\x18OracleObservationsCounts\x12\x0e\n\x06\x63ounts\x18\x01 \x03(\r\"F\n\x11GasReimbursements\x12\x31\n\x0ereimbursements\x18\x01 \x03(\x0b\x32\x19.cosmos.base.v1beta1.Coin\"7\n\x05Payee\x12\x18\n\x10transmitter_addr\x18\x01 \x01(\t\x12\x14\n\x0cpayment_addr\x18\x02 \x01(\t\"\x8e\x01\n\x0cTransmission\x12>\n\x06\x61nswer\x18\x01 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x1e\n\x16observations_timestamp\x18\x02 \x01(\x03\x12\x1e\n\x16transmission_timestamp\x18\x03 \x01(\x03\"-\n\rEpochAndRound\x12\r\n\x05\x65poch\x18\x01 \x01(\x04\x12\r\n\x05round\x18\x02 \x01(\x04\"\x81\x01\n\x06Report\x12\x1e\n\x16observations_timestamp\x18\x01 \x01(\x03\x12\x11\n\tobservers\x18\x02 \x01(\x0c\x12\x44\n\x0cobservations\x18\x03 \x03(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"g\n\x0cReportToSign\x12\x15\n\rconfig_digest\x18\x01 \x01(\x0c\x12\r\n\x05\x65poch\x18\x02 \x01(\x04\x12\r\n\x05round\x18\x03 \x01(\x04\x12\x12\n\nextra_hash\x18\x04 \x01(\x0c\x12\x0e\n\x06report\x18\x05 \x01(\x0c\"p\n\x0f\x45ventOraclePaid\x12\x18\n\x10transmitter_addr\x18\x01 \x01(\t\x12\x12\n\npayee_addr\x18\x02 \x01(\t\x12/\n\x06\x61mount\x18\x03 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00\"\xd1\x01\n\x12\x45ventAnswerUpdated\x12?\n\x07\x63urrent\x18\x01 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12@\n\x08round_id\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x38\n\nupdated_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.TimestampB\x08\x90\xdf\x1f\x01\xc8\xde\x1f\x00\"\x9f\x01\n\rEventNewRound\x12@\n\x08round_id\x18\x01 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x12\n\nstarted_by\x18\x02 \x01(\t\x12\x38\n\nstarted_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.TimestampB\x08\x90\xdf\x1f\x01\xc8\xde\x1f\x00\"8\n\x10\x45ventTransmitted\x12\x15\n\rconfig_digest\x18\x01 \x01(\x0c\x12\r\n\x05\x65poch\x18\x02 \x01(\x04\"\xe8\x02\n\x14\x45ventNewTransmission\x12\x0f\n\x07\x66\x65\x65\x64_id\x18\x01 \x01(\t\x12\x1b\n\x13\x61ggregator_round_id\x18\x02 \x01(\r\x12>\n\x06\x61nswer\x18\x03 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x13\n\x0btransmitter\x18\x04 \x01(\t\x12\x1e\n\x16observations_timestamp\x18\x05 \x01(\x03\x12\x44\n\x0cobservations\x18\x06 \x03(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x11\n\tobservers\x18\x07 \x01(\x0c\x12\x15\n\rconfig_digest\x18\x08 \x01(\x0c\x12=\n\x0f\x65poch_and_round\x18\t \x01(\x0b\x32$.injective.ocr.v1beta1.EpochAndRound\"\xbc\x01\n\x0e\x45ventConfigSet\x12\x15\n\rconfig_digest\x18\x01 \x01(\x0c\x12$\n\x1cprevious_config_block_number\x18\x02 \x01(\x03\x12\x31\n\x06\x63onfig\x18\x03 \x01(\x0b\x32!.injective.ocr.v1beta1.FeedConfig\x12:\n\x0b\x63onfig_info\x18\x04 \x01(\x0b\x32%.injective.ocr.v1beta1.FeedConfigInfoBKZIgithub.com/InjectiveLabs/injective-core/injective-chain/modules/ocr/typesb\x06proto3'
   ,
   dependencies=[gogoproto_dot_gogo__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,cosmos_dot_base_dot_v1beta1_dot_coin__pb2.DESCRIPTOR,])
 
@@ -106,8 +106,8 @@ _FEEDCONFIG = _descriptor.Descriptor(
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='onchain_config', full_name='injective.ocr.v1beta1.FeedConfig.onchain_config', index=3,
-      number=4, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      number=4, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -125,6 +125,13 @@ _FEEDCONFIG = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='module_params', full_name='injective.ocr.v1beta1.FeedConfig.module_params', index=6,
+      number=7, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -138,7 +145,7 @@ _FEEDCONFIG = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=235,
-  serialized_end=417,
+  serialized_end=439,
 )
 
 
@@ -197,92 +204,85 @@ _FEEDCONFIGINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=419,
-  serialized_end=545,
+  serialized_start=441,
+  serialized_end=567,
 )
 
 
-_ONCHAINCONFIG = _descriptor.Descriptor(
-  name='OnchainConfig',
-  full_name='injective.ocr.v1beta1.OnchainConfig',
+_MODULEPARAMS = _descriptor.Descriptor(
+  name='ModuleParams',
+  full_name='injective.ocr.v1beta1.ModuleParams',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='chain_id', full_name='injective.ocr.v1beta1.OnchainConfig.chain_id', index=0,
+      name='feed_id', full_name='injective.ocr.v1beta1.ModuleParams.feed_id', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='feed_id', full_name='injective.ocr.v1beta1.OnchainConfig.feed_id', index=1,
+      name='min_answer', full_name='injective.ocr.v1beta1.ModuleParams.min_answer', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='min_answer', full_name='injective.ocr.v1beta1.OnchainConfig.min_answer', index=2,
+      name='max_answer', full_name='injective.ocr.v1beta1.ModuleParams.max_answer', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='max_answer', full_name='injective.ocr.v1beta1.OnchainConfig.max_answer', index=3,
+      name='link_per_observation', full_name='injective.ocr.v1beta1.ModuleParams.link_per_observation', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Int\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='link_per_observation', full_name='injective.ocr.v1beta1.OnchainConfig.link_per_observation', index=4,
+      name='link_per_transmission', full_name='injective.ocr.v1beta1.ModuleParams.link_per_transmission', index=4,
       number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Int\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='link_per_transmission', full_name='injective.ocr.v1beta1.OnchainConfig.link_per_transmission', index=5,
+      name='link_denom', full_name='injective.ocr.v1beta1.ModuleParams.link_denom', index=5,
       number=6, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Int\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='link_denom', full_name='injective.ocr.v1beta1.OnchainConfig.link_denom', index=6,
-      number=7, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='unique_reports', full_name='injective.ocr.v1beta1.OnchainConfig.unique_reports', index=7,
-      number=8, type=8, cpp_type=7, label=1,
+      name='unique_reports', full_name='injective.ocr.v1beta1.ModuleParams.unique_reports', index=6,
+      number=7, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='description', full_name='injective.ocr.v1beta1.OnchainConfig.description', index=8,
+      name='description', full_name='injective.ocr.v1beta1.ModuleParams.description', index=7,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='feed_admin', full_name='injective.ocr.v1beta1.ModuleParams.feed_admin', index=8,
       number=9, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='feed_admin', full_name='injective.ocr.v1beta1.OnchainConfig.feed_admin', index=9,
+      name='billing_admin', full_name='injective.ocr.v1beta1.ModuleParams.billing_admin', index=9,
       number=10, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='billing_admin', full_name='injective.ocr.v1beta1.OnchainConfig.billing_admin', index=10,
-      number=11, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -299,8 +299,8 @@ _ONCHAINCONFIG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=548,
-  serialized_end=999,
+  serialized_start=570,
+  serialized_end=1002,
 )
 
 
@@ -373,8 +373,8 @@ _CONTRACTCONFIG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1002,
-  serialized_end=1172,
+  serialized_start=1005,
+  serialized_end=1175,
 )
 
 
@@ -419,8 +419,8 @@ _SETCONFIGPROPOSAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1174,
-  serialized_end=1290,
+  serialized_start=1177,
+  serialized_end=1293,
 )
 
 
@@ -447,57 +447,64 @@ _FEEDPROPERTIES = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='offchain_config_version', full_name='injective.ocr.v1beta1.FeedProperties.offchain_config_version', index=2,
-      number=3, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='offchain_config', full_name='injective.ocr.v1beta1.FeedProperties.offchain_config', index=3,
-      number=4, type=12, cpp_type=9, label=1,
+      name='onchain_config', full_name='injective.ocr.v1beta1.FeedProperties.onchain_config', index=2,
+      number=3, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='min_answer', full_name='injective.ocr.v1beta1.FeedProperties.min_answer', index=4,
-      number=5, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
+      name='offchain_config_version', full_name='injective.ocr.v1beta1.FeedProperties.offchain_config_version', index=3,
+      number=4, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='max_answer', full_name='injective.ocr.v1beta1.FeedProperties.max_answer', index=5,
+      name='offchain_config', full_name='injective.ocr.v1beta1.FeedProperties.offchain_config', index=4,
+      number=5, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"",
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='min_answer', full_name='injective.ocr.v1beta1.FeedProperties.min_answer', index=5,
       number=6, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='link_per_observation', full_name='injective.ocr.v1beta1.FeedProperties.link_per_observation', index=6,
+      name='max_answer', full_name='injective.ocr.v1beta1.FeedProperties.max_answer', index=6,
       number=7, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Int\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='link_per_transmission', full_name='injective.ocr.v1beta1.FeedProperties.link_per_transmission', index=7,
+      name='link_per_observation', full_name='injective.ocr.v1beta1.FeedProperties.link_per_observation', index=7,
       number=8, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Int\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='unique_reports', full_name='injective.ocr.v1beta1.FeedProperties.unique_reports', index=8,
-      number=9, type=8, cpp_type=7, label=1,
+      name='link_per_transmission', full_name='injective.ocr.v1beta1.FeedProperties.link_per_transmission', index=8,
+      number=9, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Int\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='unique_reports', full_name='injective.ocr.v1beta1.FeedProperties.unique_reports', index=9,
+      number=10, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='description', full_name='injective.ocr.v1beta1.FeedProperties.description', index=9,
-      number=10, type=9, cpp_type=9, label=1,
+      name='description', full_name='injective.ocr.v1beta1.FeedProperties.description', index=10,
+      number=11, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -514,8 +521,8 @@ _FEEDPROPERTIES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1293,
-  serialized_end=1733,
+  serialized_start=1296,
+  serialized_end=1760,
 )
 
 
@@ -581,8 +588,8 @@ _SETBATCHCONFIGPROPOSAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1736,
-  serialized_end=1929,
+  serialized_start=1763,
+  serialized_end=1956,
 )
 
 
@@ -613,8 +620,8 @@ _ORACLEOBSERVATIONSCOUNTS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1931,
-  serialized_end=1973,
+  serialized_start=1958,
+  serialized_end=2000,
 )
 
 
@@ -645,8 +652,8 @@ _GASREIMBURSEMENTS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1975,
-  serialized_end=2045,
+  serialized_start=2002,
+  serialized_end=2072,
 )
 
 
@@ -684,8 +691,8 @@ _PAYEE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2047,
-  serialized_end=2102,
+  serialized_start=2074,
+  serialized_end=2129,
 )
 
 
@@ -730,8 +737,8 @@ _TRANSMISSION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2105,
-  serialized_end=2247,
+  serialized_start=2132,
+  serialized_end=2274,
 )
 
 
@@ -769,8 +776,8 @@ _EPOCHANDROUND = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2249,
-  serialized_end=2294,
+  serialized_start=2276,
+  serialized_end=2321,
 )
 
 
@@ -815,8 +822,8 @@ _REPORT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2297,
-  serialized_end=2426,
+  serialized_start=2324,
+  serialized_end=2453,
 )
 
 
@@ -875,8 +882,8 @@ _REPORTTOSIGN = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2428,
-  serialized_end=2531,
+  serialized_start=2455,
+  serialized_end=2558,
 )
 
 
@@ -921,8 +928,8 @@ _EVENTORACLEPAID = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2533,
-  serialized_end=2645,
+  serialized_start=2560,
+  serialized_end=2672,
 )
 
 
@@ -967,8 +974,8 @@ _EVENTANSWERUPDATED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2648,
-  serialized_end=2857,
+  serialized_start=2675,
+  serialized_end=2884,
 )
 
 
@@ -1013,8 +1020,8 @@ _EVENTNEWROUND = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2860,
-  serialized_end=3019,
+  serialized_start=2887,
+  serialized_end=3046,
 )
 
 
@@ -1052,8 +1059,8 @@ _EVENTTRANSMITTED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3021,
-  serialized_end=3077,
+  serialized_start=3048,
+  serialized_end=3104,
 )
 
 
@@ -1140,8 +1147,8 @@ _EVENTNEWTRANSMISSION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3080,
-  serialized_end=3440,
+  serialized_start=3107,
+  serialized_end=3467,
 )
 
 
@@ -1193,11 +1200,11 @@ _EVENTCONFIGSET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3443,
-  serialized_end=3631,
+  serialized_start=3470,
+  serialized_end=3658,
 )
 
-_FEEDCONFIG.fields_by_name['onchain_config'].message_type = _ONCHAINCONFIG
+_FEEDCONFIG.fields_by_name['module_params'].message_type = _MODULEPARAMS
 _SETCONFIGPROPOSAL.fields_by_name['config'].message_type = _FEEDCONFIG
 _SETBATCHCONFIGPROPOSAL.fields_by_name['feed_properties'].message_type = _FEEDPROPERTIES
 _GASREIMBURSEMENTS.fields_by_name['reimbursements'].message_type = cosmos_dot_base_dot_v1beta1_dot_coin__pb2._COIN
@@ -1210,7 +1217,7 @@ _EVENTCONFIGSET.fields_by_name['config_info'].message_type = _FEEDCONFIGINFO
 DESCRIPTOR.message_types_by_name['Params'] = _PARAMS
 DESCRIPTOR.message_types_by_name['FeedConfig'] = _FEEDCONFIG
 DESCRIPTOR.message_types_by_name['FeedConfigInfo'] = _FEEDCONFIGINFO
-DESCRIPTOR.message_types_by_name['OnchainConfig'] = _ONCHAINCONFIG
+DESCRIPTOR.message_types_by_name['ModuleParams'] = _MODULEPARAMS
 DESCRIPTOR.message_types_by_name['ContractConfig'] = _CONTRACTCONFIG
 DESCRIPTOR.message_types_by_name['SetConfigProposal'] = _SETCONFIGPROPOSAL
 DESCRIPTOR.message_types_by_name['FeedProperties'] = _FEEDPROPERTIES
@@ -1251,12 +1258,12 @@ FeedConfigInfo = _reflection.GeneratedProtocolMessageType('FeedConfigInfo', (_me
   })
 _sym_db.RegisterMessage(FeedConfigInfo)
 
-OnchainConfig = _reflection.GeneratedProtocolMessageType('OnchainConfig', (_message.Message,), {
-  'DESCRIPTOR' : _ONCHAINCONFIG,
+ModuleParams = _reflection.GeneratedProtocolMessageType('ModuleParams', (_message.Message,), {
+  'DESCRIPTOR' : _MODULEPARAMS,
   '__module__' : 'injective.ocr.v1beta1.ocr_pb2'
-  # @@protoc_insertion_point(class_scope:injective.ocr.v1beta1.OnchainConfig)
+  # @@protoc_insertion_point(class_scope:injective.ocr.v1beta1.ModuleParams)
   })
-_sym_db.RegisterMessage(OnchainConfig)
+_sym_db.RegisterMessage(ModuleParams)
 
 ContractConfig = _reflection.GeneratedProtocolMessageType('ContractConfig', (_message.Message,), {
   'DESCRIPTOR' : _CONTRACTCONFIG,
@@ -1380,10 +1387,10 @@ _sym_db.RegisterMessage(EventConfigSet)
 
 DESCRIPTOR._options = None
 _PARAMS._options = None
-_ONCHAINCONFIG.fields_by_name['min_answer']._options = None
-_ONCHAINCONFIG.fields_by_name['max_answer']._options = None
-_ONCHAINCONFIG.fields_by_name['link_per_observation']._options = None
-_ONCHAINCONFIG.fields_by_name['link_per_transmission']._options = None
+_MODULEPARAMS.fields_by_name['min_answer']._options = None
+_MODULEPARAMS.fields_by_name['max_answer']._options = None
+_MODULEPARAMS.fields_by_name['link_per_observation']._options = None
+_MODULEPARAMS.fields_by_name['link_per_transmission']._options = None
 _SETCONFIGPROPOSAL._options = None
 _FEEDPROPERTIES.fields_by_name['min_answer']._options = None
 _FEEDPROPERTIES.fields_by_name['max_answer']._options = None

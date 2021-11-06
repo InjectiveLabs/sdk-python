@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'ZLgithub.com/InjectiveLabs/injective-core/injective-chain/modules/oracle/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n&injective/oracle/v1beta1/genesis.proto\x12\x18injective.oracle.v1beta1\x1a%injective/oracle/v1beta1/oracle.proto\x1a\x14gogoproto/gogo.proto\"\xa5\x05\n\x0cGenesisState\x12\x36\n\x06params\x18\x01 \x01(\x0b\x32 .injective.oracle.v1beta1.ParamsB\x04\xc8\xde\x1f\x00\x12\x15\n\rband_relayers\x18\x02 \x03(\t\x12\x43\n\x11\x62\x61nd_price_states\x18\x03 \x03(\x0b\x32(.injective.oracle.v1beta1.BandPriceState\x12I\n\x17price_feed_price_states\x18\x04 \x03(\x0b\x32(.injective.oracle.v1beta1.PriceFeedState\x12K\n\x15\x63oinbase_price_states\x18\x05 \x03(\x0b\x32,.injective.oracle.v1beta1.CoinbasePriceState\x12G\n\x15\x62\x61nd_ibc_price_states\x18\x06 \x03(\x0b\x32(.injective.oracle.v1beta1.BandPriceState\x12M\n\x18\x62\x61nd_ibc_oracle_requests\x18\x07 \x03(\x0b\x32+.injective.oracle.v1beta1.BandOracleRequest\x12\x46\n\x0f\x62\x61nd_ibc_params\x18\x08 \x01(\x0b\x32\'.injective.oracle.v1beta1.BandIBCParamsB\x04\xc8\xde\x1f\x00\x12!\n\x19\x62\x61nd_ibc_latest_client_id\x18\t \x01(\x04\x12\x42\n\x10\x63\x61lldata_records\x18\n \x03(\x0b\x32(.injective.oracle.v1beta1.CalldataRecord\x12\"\n\x1a\x62\x61nd_ibc_latest_request_id\x18\x0b \x01(\x04\"5\n\x0e\x43\x61lldataRecord\x12\x11\n\tclient_id\x18\x01 \x01(\x04\x12\x10\n\x08\x63\x61lldata\x18\x02 \x01(\x0c\x42NZLgithub.com/InjectiveLabs/injective-core/injective-chain/modules/oracle/typesb\x06proto3'
+  serialized_pb=b'\n&injective/oracle/v1beta1/genesis.proto\x12\x18injective.oracle.v1beta1\x1a%injective/oracle/v1beta1/oracle.proto\x1a\x14gogoproto/gogo.proto\"\xf4\x05\n\x0cGenesisState\x12\x36\n\x06params\x18\x01 \x01(\x0b\x32 .injective.oracle.v1beta1.ParamsB\x04\xc8\xde\x1f\x00\x12\x15\n\rband_relayers\x18\x02 \x03(\t\x12\x43\n\x11\x62\x61nd_price_states\x18\x03 \x03(\x0b\x32(.injective.oracle.v1beta1.BandPriceState\x12I\n\x17price_feed_price_states\x18\x04 \x03(\x0b\x32(.injective.oracle.v1beta1.PriceFeedState\x12K\n\x15\x63oinbase_price_states\x18\x05 \x03(\x0b\x32,.injective.oracle.v1beta1.CoinbasePriceState\x12G\n\x15\x62\x61nd_ibc_price_states\x18\x06 \x03(\x0b\x32(.injective.oracle.v1beta1.BandPriceState\x12M\n\x18\x62\x61nd_ibc_oracle_requests\x18\x07 \x03(\x0b\x32+.injective.oracle.v1beta1.BandOracleRequest\x12\x46\n\x0f\x62\x61nd_ibc_params\x18\x08 \x01(\x0b\x32\'.injective.oracle.v1beta1.BandIBCParamsB\x04\xc8\xde\x1f\x00\x12!\n\x19\x62\x61nd_ibc_latest_client_id\x18\t \x01(\x04\x12\x42\n\x10\x63\x61lldata_records\x18\n \x03(\x0b\x32(.injective.oracle.v1beta1.CalldataRecord\x12\"\n\x1a\x62\x61nd_ibc_latest_request_id\x18\x0b \x01(\x04\x12M\n\x16\x63hainlink_price_states\x18\x0c \x03(\x0b\x32-.injective.oracle.v1beta1.ChainlinkPriceState\"5\n\x0e\x43\x61lldataRecord\x12\x11\n\tclient_id\x18\x01 \x01(\x04\x12\x10\n\x08\x63\x61lldata\x18\x02 \x01(\x0c\x42NZLgithub.com/InjectiveLabs/injective-core/injective-chain/modules/oracle/typesb\x06proto3'
   ,
   dependencies=[injective_dot_oracle_dot_v1beta1_dot_oracle__pb2.DESCRIPTOR,gogoproto_dot_gogo__pb2.DESCRIPTOR,])
 
@@ -113,6 +113,13 @@ _GENESISSTATE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='chainlink_price_states', full_name='injective.oracle.v1beta1.GenesisState.chainlink_price_states', index=11,
+      number=12, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -126,7 +133,7 @@ _GENESISSTATE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=130,
-  serialized_end=807,
+  serialized_end=886,
 )
 
 
@@ -164,8 +171,8 @@ _CALLDATARECORD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=809,
-  serialized_end=862,
+  serialized_start=888,
+  serialized_end=941,
 )
 
 _GENESISSTATE.fields_by_name['params'].message_type = injective_dot_oracle_dot_v1beta1_dot_oracle__pb2._PARAMS
@@ -176,6 +183,7 @@ _GENESISSTATE.fields_by_name['band_ibc_price_states'].message_type = injective_d
 _GENESISSTATE.fields_by_name['band_ibc_oracle_requests'].message_type = injective_dot_oracle_dot_v1beta1_dot_oracle__pb2._BANDORACLEREQUEST
 _GENESISSTATE.fields_by_name['band_ibc_params'].message_type = injective_dot_oracle_dot_v1beta1_dot_oracle__pb2._BANDIBCPARAMS
 _GENESISSTATE.fields_by_name['calldata_records'].message_type = _CALLDATARECORD
+_GENESISSTATE.fields_by_name['chainlink_price_states'].message_type = injective_dot_oracle_dot_v1beta1_dot_oracle__pb2._CHAINLINKPRICESTATE
 DESCRIPTOR.message_types_by_name['GenesisState'] = _GENESISSTATE
 DESCRIPTOR.message_types_by_name['CalldataRecord'] = _CALLDATARECORD
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
