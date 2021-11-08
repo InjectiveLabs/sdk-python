@@ -19,9 +19,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='ibc/core/channel/v1/genesis.proto',
   package='ibc.core.channel.v1',
   syntax='proto3',
-  serialized_options=b'Z8github.com/cosmos/cosmos-sdk/x/ibc/core/04-channel/types',
+  serialized_options=b'Z9github.com/cosmos/ibc-go/v2/modules/core/04-channel/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n!ibc/core/channel/v1/genesis.proto\x12\x13ibc.core.channel.v1\x1a\x14gogoproto/gogo.proto\x1a!ibc/core/channel/v1/channel.proto\"\x9b\x04\n\x0cGenesisState\x12S\n\x08\x63hannels\x18\x01 \x03(\x0b\x32&.ibc.core.channel.v1.IdentifiedChannelB\x19\xfa\xde\x1f\x11IdentifiedChannel\xc8\xde\x1f\x00\x12_\n\x10\x61\x63knowledgements\x18\x02 \x03(\x0b\x32(.ibc.core.channel.v1.PacketAckCommitmentB\x1b\xfa\xde\x1f\x13PacketAckCommitment\xc8\xde\x1f\x00\x12\x43\n\x0b\x63ommitments\x18\x03 \x03(\x0b\x32(.ibc.core.channel.v1.PacketAckCommitmentB\x04\xc8\xde\x1f\x00\x12Z\n\x0esend_sequences\x18\x04 \x03(\x0b\x32#.ibc.core.channel.v1.PacketSequenceB\x1d\xc8\xde\x1f\x00\xf2\xde\x1f\x15yaml:\"send_sequences\"\x12Z\n\x0erecv_sequences\x18\x05 \x03(\x0b\x32#.ibc.core.channel.v1.PacketSequenceB\x1d\xc8\xde\x1f\x00\xf2\xde\x1f\x15yaml:\"recv_sequences\"\x12X\n\rack_sequences\x18\x06 \x03(\x0b\x32#.ibc.core.channel.v1.PacketSequenceB\x1c\xc8\xde\x1f\x00\xf2\xde\x1f\x14yaml:\"ack_sequences\"\"r\n\x0ePacketSequence\x12#\n\x07port_id\x18\x01 \x01(\tB\x12\xf2\xde\x1f\x0eyaml:\"port_id\"\x12)\n\nchannel_id\x18\x02 \x01(\tB\x15\xf2\xde\x1f\x11yaml:\"channel_id\"\x12\x10\n\x08sequence\x18\x03 \x01(\x04\x42:Z8github.com/cosmos/cosmos-sdk/x/ibc/core/04-channel/typesb\x06proto3'
+  serialized_pb=b'\n!ibc/core/channel/v1/genesis.proto\x12\x13ibc.core.channel.v1\x1a\x14gogoproto/gogo.proto\x1a!ibc/core/channel/v1/channel.proto\"\xef\x04\n\x0cGenesisState\x12S\n\x08\x63hannels\x18\x01 \x03(\x0b\x32&.ibc.core.channel.v1.IdentifiedChannelB\x19\xfa\xde\x1f\x11IdentifiedChannel\xc8\xde\x1f\x00\x12@\n\x10\x61\x63knowledgements\x18\x02 \x03(\x0b\x32 .ibc.core.channel.v1.PacketStateB\x04\xc8\xde\x1f\x00\x12;\n\x0b\x63ommitments\x18\x03 \x03(\x0b\x32 .ibc.core.channel.v1.PacketStateB\x04\xc8\xde\x1f\x00\x12\x38\n\x08receipts\x18\x04 \x03(\x0b\x32 .ibc.core.channel.v1.PacketStateB\x04\xc8\xde\x1f\x00\x12Z\n\x0esend_sequences\x18\x05 \x03(\x0b\x32#.ibc.core.channel.v1.PacketSequenceB\x1d\xc8\xde\x1f\x00\xf2\xde\x1f\x15yaml:\"send_sequences\"\x12Z\n\x0erecv_sequences\x18\x06 \x03(\x0b\x32#.ibc.core.channel.v1.PacketSequenceB\x1d\xc8\xde\x1f\x00\xf2\xde\x1f\x15yaml:\"recv_sequences\"\x12X\n\rack_sequences\x18\x07 \x03(\x0b\x32#.ibc.core.channel.v1.PacketSequenceB\x1c\xc8\xde\x1f\x00\xf2\xde\x1f\x14yaml:\"ack_sequences\"\x12?\n\x15next_channel_sequence\x18\x08 \x01(\x04\x42 \xf2\xde\x1f\x1cyaml:\"next_channel_sequence\"\"r\n\x0ePacketSequence\x12#\n\x07port_id\x18\x01 \x01(\tB\x12\xf2\xde\x1f\x0eyaml:\"port_id\"\x12)\n\nchannel_id\x18\x02 \x01(\tB\x15\xf2\xde\x1f\x11yaml:\"channel_id\"\x12\x10\n\x08sequence\x18\x03 \x01(\x04\x42;Z9github.com/cosmos/ibc-go/v2/modules/core/04-channel/typesb\x06proto3'
   ,
   dependencies=[gogoproto_dot_gogo__pb2.DESCRIPTOR,ibc_dot_core_dot_channel_dot_v1_dot_channel__pb2.DESCRIPTOR,])
 
@@ -49,7 +49,7 @@ _GENESISSTATE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=b'\372\336\037\023PacketAckCommitment\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=b'\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='commitments', full_name='ibc.core.channel.v1.GenesisState.commitments', index=2,
       number=3, type=11, cpp_type=10, label=3,
@@ -58,26 +58,40 @@ _GENESISSTATE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=b'\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='send_sequences', full_name='ibc.core.channel.v1.GenesisState.send_sequences', index=3,
+      name='receipts', full_name='ibc.core.channel.v1.GenesisState.receipts', index=3,
       number=4, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='send_sequences', full_name='ibc.core.channel.v1.GenesisState.send_sequences', index=4,
+      number=5, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=b'\310\336\037\000\362\336\037\025yaml:\"send_sequences\"', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='recv_sequences', full_name='ibc.core.channel.v1.GenesisState.recv_sequences', index=4,
-      number=5, type=11, cpp_type=10, label=3,
+      name='recv_sequences', full_name='ibc.core.channel.v1.GenesisState.recv_sequences', index=5,
+      number=6, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=b'\310\336\037\000\362\336\037\025yaml:\"recv_sequences\"', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='ack_sequences', full_name='ibc.core.channel.v1.GenesisState.ack_sequences', index=5,
-      number=6, type=11, cpp_type=10, label=3,
+      name='ack_sequences', full_name='ibc.core.channel.v1.GenesisState.ack_sequences', index=6,
+      number=7, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=b'\310\336\037\000\362\336\037\024yaml:\"ack_sequences\"', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='next_channel_sequence', full_name='ibc.core.channel.v1.GenesisState.next_channel_sequence', index=7,
+      number=8, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\362\336\037\034yaml:\"next_channel_sequence\"', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -91,7 +105,7 @@ _GENESISSTATE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=116,
-  serialized_end=655,
+  serialized_end=739,
 )
 
 
@@ -136,13 +150,14 @@ _PACKETSEQUENCE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=657,
-  serialized_end=771,
+  serialized_start=741,
+  serialized_end=855,
 )
 
 _GENESISSTATE.fields_by_name['channels'].message_type = ibc_dot_core_dot_channel_dot_v1_dot_channel__pb2._IDENTIFIEDCHANNEL
-_GENESISSTATE.fields_by_name['acknowledgements'].message_type = ibc_dot_core_dot_channel_dot_v1_dot_channel__pb2._PACKETACKCOMMITMENT
-_GENESISSTATE.fields_by_name['commitments'].message_type = ibc_dot_core_dot_channel_dot_v1_dot_channel__pb2._PACKETACKCOMMITMENT
+_GENESISSTATE.fields_by_name['acknowledgements'].message_type = ibc_dot_core_dot_channel_dot_v1_dot_channel__pb2._PACKETSTATE
+_GENESISSTATE.fields_by_name['commitments'].message_type = ibc_dot_core_dot_channel_dot_v1_dot_channel__pb2._PACKETSTATE
+_GENESISSTATE.fields_by_name['receipts'].message_type = ibc_dot_core_dot_channel_dot_v1_dot_channel__pb2._PACKETSTATE
 _GENESISSTATE.fields_by_name['send_sequences'].message_type = _PACKETSEQUENCE
 _GENESISSTATE.fields_by_name['recv_sequences'].message_type = _PACKETSEQUENCE
 _GENESISSTATE.fields_by_name['ack_sequences'].message_type = _PACKETSEQUENCE
@@ -169,9 +184,11 @@ DESCRIPTOR._options = None
 _GENESISSTATE.fields_by_name['channels']._options = None
 _GENESISSTATE.fields_by_name['acknowledgements']._options = None
 _GENESISSTATE.fields_by_name['commitments']._options = None
+_GENESISSTATE.fields_by_name['receipts']._options = None
 _GENESISSTATE.fields_by_name['send_sequences']._options = None
 _GENESISSTATE.fields_by_name['recv_sequences']._options = None
 _GENESISSTATE.fields_by_name['ack_sequences']._options = None
+_GENESISSTATE.fields_by_name['next_channel_sequence']._options = None
 _PACKETSEQUENCE.fields_by_name['port_id']._options = None
 _PACKETSEQUENCE.fields_by_name['channel_id']._options = None
 # @@protoc_insertion_point(module_scope)

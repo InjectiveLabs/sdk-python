@@ -1,5 +1,6 @@
-import grpc
 import time
+
+import grpc
 
 from typing import List, Optional
 
@@ -30,11 +31,13 @@ from .proto.exchange import (
     injective_spot_exchange_rpc_pb2 as spot_exchange_rpc_pb,
     injective_spot_exchange_rpc_pb2_grpc as spot_exchange_rpc_grpc,
     injective_derivative_exchange_rpc_pb2 as derivative_exchange_rpc_pb,
-    injective_derivative_exchange_rpc_pb2_grpc as derivative_exchange_rpc_grpc
-
+    injective_derivative_exchange_rpc_pb2_grpc as derivative_exchange_rpc_grpc,
+    injective_meta_rpc_pb2 as exchange_meta_rpc_pb,
+    injective_meta_rpc_pb2_grpc as exchange_meta_rpc_grpc
 )
 
 from .constant import Network
+
 
 class Client:
     def __init__(
@@ -65,6 +68,7 @@ class Client:
                 credentials or grpc.ssl_channel_credentials(),
             )
         )
+        self.stubMeta = exchange_meta_rpc_grpc.InjectiveMetaRPCStub(exchange_channel)
         self.stubExchangeAccount = exchange_accounts_rpc_grpc.InjectiveAccountsRPCStub(exchange_channel)
         self.stubOracle = oracle_rpc_grpc.InjectiveOracleRPCStub(exchange_channel)
         self.stubInsurance = insurance_rpc_grpc.InjectiveInsuranceRPCStub(exchange_channel)
@@ -106,7 +110,7 @@ class Client:
                 tx_service.SimulateRequest(tx_bytes=tx_byte)
             ), True)
         except grpc.RpcError as err:
-            return (err, False)
+            return err, False
 
     def send_tx_sync_mode(self, tx_byte: bytes) -> abci_type.TxResponse:
         return self.stubTx.BroadcastTx(
@@ -129,7 +133,28 @@ class Client:
 
     # injective exchange client methods
 
-    #AccountsRPC
+    # Meta RPC
+
+    def ping(self):
+        req = exchange_meta_rpc_pb.PingRequest()
+        return self.stubMeta.Ping(req)
+
+    def version(self):
+        req = exchange_meta_rpc_pb.VersionRequest()
+        return self.stubMeta.Version(req)
+
+    def info(self):
+        req = exchange_meta_rpc_pb.InfoRequest(
+            timestamp=int(round(time.time() * 1000)),
+        )
+        return self.stubMeta.Info(req)
+
+    def stream_keepalive(self):
+        req = exchange_meta_rpc_pb.StreamKeepaliveRequest()
+        return self.stubMeta.StreamKeepalive(req)
+
+    # AccountsRPC
+
     def stream_subaccount_balance(self, subaccount_id: str):
         req = exchange_accounts_rpc_pb.StreamSubaccountBalanceRequest(subaccount_id=subaccount_id)
         return self.stubExchangeAccount.StreamSubaccountBalance(req)
@@ -154,20 +179,25 @@ class Client:
         req = exchange_accounts_rpc_pb.SubaccountOrderSummaryRequest(subaccount_id=subaccount_id, order_direction=order_direction, market_id=market_id)
         return self.stubExchangeAccount.SubaccountOrderSummary(req)
 
-    #OracleRPC
+    def get_order_states(self, spot_order_hashes: list = '', derivative_order_hashes: list = ''):
+        req = exchange_accounts_rpc_pb.OrderStatesRequest(spot_order_hashes=spot_order_hashes, derivative_order_hashes=derivative_order_hashes)
+        return self.stubExchangeAccount.OrderStates(req)
+
+    # OracleRPC
+
     def stream_oracle_prices(self, base_symbol: str, quote_symbol: str, oracle_type: str):
         req = oracle_rpc_pb.StreamPricesRequest(base_symbol=base_symbol, quote_symbol=quote_symbol, oracle_type=oracle_type)
         return self.stubOracle.StreamPrices(req)
 
-    def get_oracle_prices(self, base_symbol: str, quote_symbol: str, oracle_type: str, oracle_scale_factor: str):
-        req = oracle_rpc_pb.PriceRequest(base_symbol=base_symbol, quote_symbol=quote_symbol, oracle_type=oracle_type, oracle_scale_factor=oracle_scale_factor)
+    def get_oracle_prices(self, base_symbol: str, quote_symbol: str, oracle_type: str, oracle_scale_factor: int):
+        req = oracle_rpc_pb.PriceRequest(base_symbol=base_symbol, quote_symbol=quote_symbol, oracle_type=oracle_type, oracle_scale_factor=str(oracle_scale_factor))
         return self.stubOracle.Price(req)
 
     def get_oracle_list(self):
         req = oracle_rpc_pb.OracleListRequest()
         return self.stubOracle.OracleList(req)
 
-    #InsuranceRPC
+    # InsuranceRPC
 
     def get_insurance_funds(self):
         req = insurance_rpc_pb.FundsRequest()
@@ -177,13 +207,13 @@ class Client:
         req = insurance_rpc_pb.RedemptionsRequest(redeemer=redeemer, redemption_denom=redemption_denom, status=status)
         return self.stubInsurance.Redemptions(req)
 
-    #SpotRPC
+    # SpotRPC
 
     def get_spot_market(self, market_id: str):
         req = spot_exchange_rpc_pb.MarketRequest(market_id=market_id)
         return self.stubSpotExchange.Market(req)
 
-    def get_spot_markets(self, market_status: str ='', base_denom: str = '', quote_denom: str =''):
+    def get_spot_markets(self, market_status: str = '', base_denom: str = '', quote_denom: str = ''):
         req = spot_exchange_rpc_pb.MarketsRequest(market_status=market_status, base_denom=base_denom, quote_denom=quote_denom)
         return self.stubSpotExchange.Markets(req)
 
@@ -204,10 +234,14 @@ class Client:
         return self.stubSpotExchange.Trades(req)
 
     def stream_spot_orderbook(self, market_id: str):
-        req = spot_exchange_rpc_pb.StreamOrderbookRequest(market_id=market_id)
+        req = spot_exchange_rpc_pb.StreamOrderbookRequest(market_ids=[market_id])
         return self.stubSpotExchange.StreamOrderbook(req)
 
-    def stream_spot_orders(self, market_id: str, order_side: str = '', subaccount_id: str =''):
+    def stream_spot_orderbooks(self, market_ids: list):
+        req = spot_exchange_rpc_pb.StreamOrderbookRequest(market_ids=market_ids)
+        return self.stubSpotExchange.StreamOrderbook(req)
+
+    def stream_spot_orders(self, market_id: str, order_side: str = '', subaccount_id: str = ''):
         req = spot_exchange_rpc_pb.StreamOrdersRequest(market_id=market_id, order_side=order_side, subaccount_id=subaccount_id)
         return self.stubSpotExchange.StreamOrders(req)
 
@@ -215,7 +249,7 @@ class Client:
         req = spot_exchange_rpc_pb.StreamTradesRequest(market_id=market_id, execution_side=execution_side, direction=direction, subaccount_id=subaccount_id)
         return self.stubSpotExchange.StreamTrades(req)
 
-    def get_spot_subaccount_orders(self, subaccount_id: str, market_id: str =''):
+    def get_spot_subaccount_orders(self, subaccount_id: str, market_id: str = ''):
         req = spot_exchange_rpc_pb.SubaccountOrdersListRequest(subaccount_id=subaccount_id, market_id=market_id)
         return self.stubSpotExchange.SubaccountOrdersList(req)
 
@@ -223,7 +257,8 @@ class Client:
         req = spot_exchange_rpc_pb.SubaccountTradesListRequest(subaccount_id=subaccount_id, market_id=market_id, execution_type=execution_type, direction=direction)
         return self.stubSpotExchange.SubaccountTradesList(req)
 
-    #DerivativeRPC
+    # DerivativeRPC
+
     def get_derivative_market(self, market_id: str):
         req = spot_exchange_rpc_pb.MarketRequest(market_id=market_id)
         return self.stubDerivativeExchange.Market(req)
@@ -249,7 +284,11 @@ class Client:
         return self.stubDerivativeExchange.Trades(req)
 
     def stream_derivative_orderbook(self, market_id: str):
-        req = derivative_exchange_rpc_pb.StreamOrderbookRequest(market_id=market_id)
+        req = derivative_exchange_rpc_pb.StreamOrderbookRequest(market_ids=[market_id])
+        return self.stubDerivativeExchange.StreamOrderbook(req)
+
+    def stream_derivative_orderbooks(self, market_ids: list):
+        req = derivative_exchange_rpc_pb.StreamOrderbookRequest(market_ids=market_ids)
         return self.stubDerivativeExchange.StreamOrderbook(req)
 
     def stream_derivative_orders(self, market_id: str, order_side: str = '', subaccount_id: str = ''):

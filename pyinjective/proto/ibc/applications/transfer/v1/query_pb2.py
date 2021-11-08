@@ -21,9 +21,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='ibc/applications/transfer/v1/query.proto',
   package='ibc.applications.transfer.v1',
   syntax='proto3',
-  serialized_options=b'Z>github.com/cosmos/cosmos-sdk/x/ibc/applications/transfer/types',
+  serialized_options=b'Z7github.com/cosmos/ibc-go/v2/modules/apps/transfer/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n(ibc/applications/transfer/v1/query.proto\x12\x1cibc.applications.transfer.v1\x1a\x14gogoproto/gogo.proto\x1a*cosmos/base/query/v1beta1/pagination.proto\x1a+ibc/applications/transfer/v1/transfer.proto\x1a\x1cgoogle/api/annotations.proto\"&\n\x16QueryDenomTraceRequest\x12\x0c\n\x04hash\x18\x01 \x01(\t\"X\n\x17QueryDenomTraceResponse\x12=\n\x0b\x64\x65nom_trace\x18\x01 \x01(\x0b\x32(.ibc.applications.transfer.v1.DenomTrace\"U\n\x17QueryDenomTracesRequest\x12:\n\npagination\x18\x01 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequest\"\xa7\x01\n\x18QueryDenomTracesResponse\x12N\n\x0c\x64\x65nom_traces\x18\x01 \x03(\x0b\x32(.ibc.applications.transfer.v1.DenomTraceB\x0e\xaa\xdf\x1f\x06Traces\xc8\xde\x1f\x00\x12;\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponse\"\x14\n\x12QueryParamsRequest\"K\n\x13QueryParamsResponse\x12\x34\n\x06params\x18\x01 \x01(\x0b\x32$.ibc.applications.transfer.v1.Params2\xf7\x03\n\x05Query\x12\xac\x01\n\nDenomTrace\x12\x34.ibc.applications.transfer.v1.QueryDenomTraceRequest\x1a\x35.ibc.applications.transfer.v1.QueryDenomTraceResponse\"1\x82\xd3\xe4\x93\x02+\x12)/ibc_transfer/v1beta1/denom_traces/{hash}\x12\xa8\x01\n\x0b\x44\x65nomTraces\x12\x35.ibc.applications.transfer.v1.QueryDenomTracesRequest\x1a\x36.ibc.applications.transfer.v1.QueryDenomTracesResponse\"*\x82\xd3\xe4\x93\x02$\x12\"/ibc_transfer/v1beta1/denom_traces\x12\x93\x01\n\x06Params\x12\x30.ibc.applications.transfer.v1.QueryParamsRequest\x1a\x31.ibc.applications.transfer.v1.QueryParamsResponse\"$\x82\xd3\xe4\x93\x02\x1e\x12\x1c/ibc_transfer/v1beta1/paramsB@Z>github.com/cosmos/cosmos-sdk/x/ibc/applications/transfer/typesb\x06proto3'
+  serialized_pb=b'\n(ibc/applications/transfer/v1/query.proto\x12\x1cibc.applications.transfer.v1\x1a\x14gogoproto/gogo.proto\x1a*cosmos/base/query/v1beta1/pagination.proto\x1a+ibc/applications/transfer/v1/transfer.proto\x1a\x1cgoogle/api/annotations.proto\"&\n\x16QueryDenomTraceRequest\x12\x0c\n\x04hash\x18\x01 \x01(\t\"X\n\x17QueryDenomTraceResponse\x12=\n\x0b\x64\x65nom_trace\x18\x01 \x01(\x0b\x32(.ibc.applications.transfer.v1.DenomTrace\"U\n\x17QueryDenomTracesRequest\x12:\n\npagination\x18\x01 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequest\"\xa7\x01\n\x18QueryDenomTracesResponse\x12N\n\x0c\x64\x65nom_traces\x18\x01 \x03(\x0b\x32(.ibc.applications.transfer.v1.DenomTraceB\x0e\xaa\xdf\x1f\x06Traces\xc8\xde\x1f\x00\x12;\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponse\"\x14\n\x12QueryParamsRequest\"K\n\x13QueryParamsResponse\x12\x34\n\x06params\x18\x01 \x01(\x0b\x32$.ibc.applications.transfer.v1.Params2\xf7\x03\n\x05Query\x12\xac\x01\n\nDenomTrace\x12\x34.ibc.applications.transfer.v1.QueryDenomTraceRequest\x1a\x35.ibc.applications.transfer.v1.QueryDenomTraceResponse\"1\x82\xd3\xe4\x93\x02+\x12)/ibc/apps/transfer/v1/denom_traces/{hash}\x12\xa8\x01\n\x0b\x44\x65nomTraces\x12\x35.ibc.applications.transfer.v1.QueryDenomTracesRequest\x1a\x36.ibc.applications.transfer.v1.QueryDenomTracesResponse\"*\x82\xd3\xe4\x93\x02$\x12\"/ibc/apps/transfer/v1/denom_traces\x12\x93\x01\n\x06Params\x12\x30.ibc.applications.transfer.v1.QueryParamsRequest\x1a\x31.ibc.applications.transfer.v1.QueryParamsResponse\"$\x82\xd3\xe4\x93\x02\x1e\x12\x1c/ibc/apps/transfer/v1/paramsB9Z7github.com/cosmos/ibc-go/v2/modules/apps/transfer/typesb\x06proto3'
   ,
   dependencies=[gogoproto_dot_gogo__pb2.DESCRIPTOR,cosmos_dot_base_dot_query_dot_v1beta1_dot_pagination__pb2.DESCRIPTOR,ibc_dot_applications_dot_transfer_dot_v1_dot_transfer__pb2.DESCRIPTOR,google_dot_api_dot_annotations__pb2.DESCRIPTOR,])
 
@@ -297,7 +297,7 @@ _QUERY = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_QUERYDENOMTRACEREQUEST,
     output_type=_QUERYDENOMTRACERESPONSE,
-    serialized_options=b'\202\323\344\223\002+\022)/ibc_transfer/v1beta1/denom_traces/{hash}',
+    serialized_options=b'\202\323\344\223\002+\022)/ibc/apps/transfer/v1/denom_traces/{hash}',
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
@@ -307,7 +307,7 @@ _QUERY = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_QUERYDENOMTRACESREQUEST,
     output_type=_QUERYDENOMTRACESRESPONSE,
-    serialized_options=b'\202\323\344\223\002$\022\"/ibc_transfer/v1beta1/denom_traces',
+    serialized_options=b'\202\323\344\223\002$\022\"/ibc/apps/transfer/v1/denom_traces',
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
@@ -317,7 +317,7 @@ _QUERY = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_QUERYPARAMSREQUEST,
     output_type=_QUERYPARAMSRESPONSE,
-    serialized_options=b'\202\323\344\223\002\036\022\034/ibc_transfer/v1beta1/params',
+    serialized_options=b'\202\323\344\223\002\036\022\034/ibc/apps/transfer/v1/params',
     create_key=_descriptor._internal_create_key,
   ),
 ])

@@ -19,162 +19,10 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z\031/injective_exchange_rpcpb',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n%exchange/injective_exchange_rpc.proto\x12\x16injective_exchange_rpc\"\r\n\x0bPingRequest\"\x0e\n\x0cPingResponse\"\x10\n\x0eVersionRequest\"\x9d\x01\n\x0fVersionResponse\x12\x0f\n\x07version\x18\x01 \x01(\t\x12H\n\tmeta_data\x18\x02 \x03(\x0b\x32\x35.injective_exchange_rpc.VersionResponse.MetaDataEntry\x1a/\n\rMetaDataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\x1c\n\x0cGetTxRequest\x12\x0c\n\x04hash\x18\x01 \x01(\t\"\x92\x01\n\rGetTxResponse\x12\x0f\n\x07tx_hash\x18\x01 \x01(\t\x12\x0e\n\x06height\x18\x02 \x01(\x12\x12\r\n\x05index\x18\x03 \x01(\r\x12\x11\n\tcodespace\x18\x04 \x01(\t\x12\x0c\n\x04\x63ode\x18\x05 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x06 \x01(\x0c\x12\x0f\n\x07raw_log\x18\x07 \x01(\t\x12\x11\n\ttimestamp\x18\x08 \x01(\t\"\xb4\x01\n\x10PrepareTxRequest\x12\x10\n\x08\x63hain_id\x18\x01 \x01(\x04\x12\x16\n\x0esigner_address\x18\x02 \x01(\t\x12\x10\n\x08sequence\x18\x03 \x01(\x04\x12\x0c\n\x04memo\x18\x04 \x01(\t\x12\x16\n\x0etimeout_height\x18\x05 \x01(\x04\x12\x30\n\x03\x66\x65\x65\x18\x06 \x01(\x0b\x32#.injective_exchange_rpc.CosmosTxFee\x12\x0c\n\x04msgs\x18\x07 \x03(\x0c\"c\n\x0b\x43osmosTxFee\x12\x31\n\x05price\x18\x01 \x03(\x0b\x32\".injective_exchange_rpc.CosmosCoin\x12\x0b\n\x03gas\x18\x02 \x01(\x04\x12\x14\n\x0c\x64\x65legate_fee\x18\x03 \x01(\x08\"+\n\nCosmosCoin\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\t\"\x86\x01\n\x11PrepareTxResponse\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\t\x12\x10\n\x08sequence\x18\x02 \x01(\x04\x12\x11\n\tsign_mode\x18\x03 \x01(\t\x12\x14\n\x0cpub_key_type\x18\x04 \x01(\t\x12\x11\n\tfee_payer\x18\x05 \x01(\t\x12\x15\n\rfee_payer_sig\x18\x06 \x01(\t\"\xc2\x01\n\x12\x42roadcastTxRequest\x12\x10\n\x08\x63hain_id\x18\x01 \x01(\x04\x12\n\n\x02tx\x18\x02 \x01(\x0c\x12\x0c\n\x04msgs\x18\x03 \x03(\x0c\x12\x35\n\x07pub_key\x18\x04 \x01(\x0b\x32$.injective_exchange_rpc.CosmosPubKey\x12\x11\n\tsignature\x18\x05 \x01(\t\x12\x11\n\tfee_payer\x18\x06 \x01(\t\x12\x15\n\rfee_payer_sig\x18\x07 \x01(\t\x12\x0c\n\x04mode\x18\x08 \x01(\t\")\n\x0c\x43osmosPubKey\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0b\n\x03key\x18\x02 \x01(\t\"\x98\x01\n\x13\x42roadcastTxResponse\x12\x0f\n\x07tx_hash\x18\x01 \x01(\t\x12\x0e\n\x06height\x18\x02 \x01(\x12\x12\r\n\x05index\x18\x03 \x01(\r\x12\x11\n\tcodespace\x18\x04 \x01(\t\x12\x0c\n\x04\x63ode\x18\x05 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x06 \x01(\x0c\x12\x0f\n\x07raw_log\x18\x07 \x01(\t\x12\x11\n\ttimestamp\x18\x08 \x01(\t2\xe5\x03\n\x14InjectiveExchangeRPC\x12Q\n\x04Ping\x12#.injective_exchange_rpc.PingRequest\x1a$.injective_exchange_rpc.PingResponse\x12Z\n\x07Version\x12&.injective_exchange_rpc.VersionRequest\x1a\'.injective_exchange_rpc.VersionResponse\x12T\n\x05GetTx\x12$.injective_exchange_rpc.GetTxRequest\x1a%.injective_exchange_rpc.GetTxResponse\x12`\n\tPrepareTx\x12(.injective_exchange_rpc.PrepareTxRequest\x1a).injective_exchange_rpc.PrepareTxResponse\x12\x66\n\x0b\x42roadcastTx\x12*.injective_exchange_rpc.BroadcastTxRequest\x1a+.injective_exchange_rpc.BroadcastTxResponseB\x1bZ\x19/injective_exchange_rpcpbb\x06proto3'
+  serialized_pb=b'\n%exchange/injective_exchange_rpc.proto\x12\x16injective_exchange_rpc\"\x1c\n\x0cGetTxRequest\x12\x0c\n\x04hash\x18\x01 \x01(\t\"\x92\x01\n\rGetTxResponse\x12\x0f\n\x07tx_hash\x18\x01 \x01(\t\x12\x0e\n\x06height\x18\x02 \x01(\x12\x12\r\n\x05index\x18\x03 \x01(\r\x12\x11\n\tcodespace\x18\x04 \x01(\t\x12\x0c\n\x04\x63ode\x18\x05 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x06 \x01(\x0c\x12\x0f\n\x07raw_log\x18\x07 \x01(\t\x12\x11\n\ttimestamp\x18\x08 \x01(\t\"\xb4\x01\n\x10PrepareTxRequest\x12\x10\n\x08\x63hain_id\x18\x01 \x01(\x04\x12\x16\n\x0esigner_address\x18\x02 \x01(\t\x12\x10\n\x08sequence\x18\x03 \x01(\x04\x12\x0c\n\x04memo\x18\x04 \x01(\t\x12\x16\n\x0etimeout_height\x18\x05 \x01(\x04\x12\x30\n\x03\x66\x65\x65\x18\x06 \x01(\x0b\x32#.injective_exchange_rpc.CosmosTxFee\x12\x0c\n\x04msgs\x18\x07 \x03(\x0c\"c\n\x0b\x43osmosTxFee\x12\x31\n\x05price\x18\x01 \x03(\x0b\x32\".injective_exchange_rpc.CosmosCoin\x12\x0b\n\x03gas\x18\x02 \x01(\x04\x12\x14\n\x0c\x64\x65legate_fee\x18\x03 \x01(\x08\"+\n\nCosmosCoin\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\t\"\x86\x01\n\x11PrepareTxResponse\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\t\x12\x10\n\x08sequence\x18\x02 \x01(\x04\x12\x11\n\tsign_mode\x18\x03 \x01(\t\x12\x14\n\x0cpub_key_type\x18\x04 \x01(\t\x12\x11\n\tfee_payer\x18\x05 \x01(\t\x12\x15\n\rfee_payer_sig\x18\x06 \x01(\t\"\xc2\x01\n\x12\x42roadcastTxRequest\x12\x10\n\x08\x63hain_id\x18\x01 \x01(\x04\x12\n\n\x02tx\x18\x02 \x01(\x0c\x12\x0c\n\x04msgs\x18\x03 \x03(\x0c\x12\x35\n\x07pub_key\x18\x04 \x01(\x0b\x32$.injective_exchange_rpc.CosmosPubKey\x12\x11\n\tsignature\x18\x05 \x01(\t\x12\x11\n\tfee_payer\x18\x06 \x01(\t\x12\x15\n\rfee_payer_sig\x18\x07 \x01(\t\x12\x0c\n\x04mode\x18\x08 \x01(\t\")\n\x0c\x43osmosPubKey\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0b\n\x03key\x18\x02 \x01(\t\"\x98\x01\n\x13\x42roadcastTxResponse\x12\x0f\n\x07tx_hash\x18\x01 \x01(\t\x12\x0e\n\x06height\x18\x02 \x01(\x12\x12\r\n\x05index\x18\x03 \x01(\r\x12\x11\n\tcodespace\x18\x04 \x01(\t\x12\x0c\n\x04\x63ode\x18\x05 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x06 \x01(\x0c\x12\x0f\n\x07raw_log\x18\x07 \x01(\t\x12\x11\n\ttimestamp\x18\x08 \x01(\t2\xb6\x02\n\x14InjectiveExchangeRPC\x12T\n\x05GetTx\x12$.injective_exchange_rpc.GetTxRequest\x1a%.injective_exchange_rpc.GetTxResponse\x12`\n\tPrepareTx\x12(.injective_exchange_rpc.PrepareTxRequest\x1a).injective_exchange_rpc.PrepareTxResponse\x12\x66\n\x0b\x42roadcastTx\x12*.injective_exchange_rpc.BroadcastTxRequest\x1a+.injective_exchange_rpc.BroadcastTxResponseB\x1bZ\x19/injective_exchange_rpcpbb\x06proto3'
 )
 
 
-
-
-_PINGREQUEST = _descriptor.Descriptor(
-  name='PingRequest',
-  full_name='injective_exchange_rpc.PingRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=65,
-  serialized_end=78,
-)
-
-
-_PINGRESPONSE = _descriptor.Descriptor(
-  name='PingResponse',
-  full_name='injective_exchange_rpc.PingResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=80,
-  serialized_end=94,
-)
-
-
-_VERSIONREQUEST = _descriptor.Descriptor(
-  name='VersionRequest',
-  full_name='injective_exchange_rpc.VersionRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=96,
-  serialized_end=112,
-)
-
-
-_VERSIONRESPONSE_METADATAENTRY = _descriptor.Descriptor(
-  name='MetaDataEntry',
-  full_name='injective_exchange_rpc.VersionResponse.MetaDataEntry',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='key', full_name='injective_exchange_rpc.VersionResponse.MetaDataEntry.key', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='value', full_name='injective_exchange_rpc.VersionResponse.MetaDataEntry.value', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=b'8\001',
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=225,
-  serialized_end=272,
-)
-
-_VERSIONRESPONSE = _descriptor.Descriptor(
-  name='VersionResponse',
-  full_name='injective_exchange_rpc.VersionResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='version', full_name='injective_exchange_rpc.VersionResponse.version', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='meta_data', full_name='injective_exchange_rpc.VersionResponse.meta_data', index=1,
-      number=2, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[_VERSIONRESPONSE_METADATAENTRY, ],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=115,
-  serialized_end=272,
-)
 
 
 _GETTXREQUEST = _descriptor.Descriptor(
@@ -204,8 +52,8 @@ _GETTXREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=274,
-  serialized_end=302,
+  serialized_start=65,
+  serialized_end=93,
 )
 
 
@@ -285,8 +133,8 @@ _GETTXRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=305,
-  serialized_end=451,
+  serialized_start=96,
+  serialized_end=242,
 )
 
 
@@ -359,8 +207,8 @@ _PREPARETXREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=454,
-  serialized_end=634,
+  serialized_start=245,
+  serialized_end=425,
 )
 
 
@@ -405,8 +253,8 @@ _COSMOSTXFEE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=636,
-  serialized_end=735,
+  serialized_start=427,
+  serialized_end=526,
 )
 
 
@@ -444,8 +292,8 @@ _COSMOSCOIN = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=737,
-  serialized_end=780,
+  serialized_start=528,
+  serialized_end=571,
 )
 
 
@@ -511,8 +359,8 @@ _PREPARETXRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=783,
-  serialized_end=917,
+  serialized_start=574,
+  serialized_end=708,
 )
 
 
@@ -592,8 +440,8 @@ _BROADCASTTXREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=920,
-  serialized_end=1114,
+  serialized_start=711,
+  serialized_end=905,
 )
 
 
@@ -631,8 +479,8 @@ _COSMOSPUBKEY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1116,
-  serialized_end=1157,
+  serialized_start=907,
+  serialized_end=948,
 )
 
 
@@ -712,19 +560,13 @@ _BROADCASTTXRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1160,
-  serialized_end=1312,
+  serialized_start=951,
+  serialized_end=1103,
 )
 
-_VERSIONRESPONSE_METADATAENTRY.containing_type = _VERSIONRESPONSE
-_VERSIONRESPONSE.fields_by_name['meta_data'].message_type = _VERSIONRESPONSE_METADATAENTRY
 _PREPARETXREQUEST.fields_by_name['fee'].message_type = _COSMOSTXFEE
 _COSMOSTXFEE.fields_by_name['price'].message_type = _COSMOSCOIN
 _BROADCASTTXREQUEST.fields_by_name['pub_key'].message_type = _COSMOSPUBKEY
-DESCRIPTOR.message_types_by_name['PingRequest'] = _PINGREQUEST
-DESCRIPTOR.message_types_by_name['PingResponse'] = _PINGRESPONSE
-DESCRIPTOR.message_types_by_name['VersionRequest'] = _VERSIONREQUEST
-DESCRIPTOR.message_types_by_name['VersionResponse'] = _VERSIONRESPONSE
 DESCRIPTOR.message_types_by_name['GetTxRequest'] = _GETTXREQUEST
 DESCRIPTOR.message_types_by_name['GetTxResponse'] = _GETTXRESPONSE
 DESCRIPTOR.message_types_by_name['PrepareTxRequest'] = _PREPARETXREQUEST
@@ -735,42 +577,6 @@ DESCRIPTOR.message_types_by_name['BroadcastTxRequest'] = _BROADCASTTXREQUEST
 DESCRIPTOR.message_types_by_name['CosmosPubKey'] = _COSMOSPUBKEY
 DESCRIPTOR.message_types_by_name['BroadcastTxResponse'] = _BROADCASTTXRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
-
-PingRequest = _reflection.GeneratedProtocolMessageType('PingRequest', (_message.Message,), {
-  'DESCRIPTOR' : _PINGREQUEST,
-  '__module__' : 'exchange.injective_exchange_rpc_pb2'
-  # @@protoc_insertion_point(class_scope:injective_exchange_rpc.PingRequest)
-  })
-_sym_db.RegisterMessage(PingRequest)
-
-PingResponse = _reflection.GeneratedProtocolMessageType('PingResponse', (_message.Message,), {
-  'DESCRIPTOR' : _PINGRESPONSE,
-  '__module__' : 'exchange.injective_exchange_rpc_pb2'
-  # @@protoc_insertion_point(class_scope:injective_exchange_rpc.PingResponse)
-  })
-_sym_db.RegisterMessage(PingResponse)
-
-VersionRequest = _reflection.GeneratedProtocolMessageType('VersionRequest', (_message.Message,), {
-  'DESCRIPTOR' : _VERSIONREQUEST,
-  '__module__' : 'exchange.injective_exchange_rpc_pb2'
-  # @@protoc_insertion_point(class_scope:injective_exchange_rpc.VersionRequest)
-  })
-_sym_db.RegisterMessage(VersionRequest)
-
-VersionResponse = _reflection.GeneratedProtocolMessageType('VersionResponse', (_message.Message,), {
-
-  'MetaDataEntry' : _reflection.GeneratedProtocolMessageType('MetaDataEntry', (_message.Message,), {
-    'DESCRIPTOR' : _VERSIONRESPONSE_METADATAENTRY,
-    '__module__' : 'exchange.injective_exchange_rpc_pb2'
-    # @@protoc_insertion_point(class_scope:injective_exchange_rpc.VersionResponse.MetaDataEntry)
-    })
-  ,
-  'DESCRIPTOR' : _VERSIONRESPONSE,
-  '__module__' : 'exchange.injective_exchange_rpc_pb2'
-  # @@protoc_insertion_point(class_scope:injective_exchange_rpc.VersionResponse)
-  })
-_sym_db.RegisterMessage(VersionResponse)
-_sym_db.RegisterMessage(VersionResponse.MetaDataEntry)
 
 GetTxRequest = _reflection.GeneratedProtocolMessageType('GetTxRequest', (_message.Message,), {
   'DESCRIPTOR' : _GETTXREQUEST,
@@ -837,7 +643,6 @@ _sym_db.RegisterMessage(BroadcastTxResponse)
 
 
 DESCRIPTOR._options = None
-_VERSIONRESPONSE_METADATAENTRY._options = None
 
 _INJECTIVEEXCHANGERPC = _descriptor.ServiceDescriptor(
   name='InjectiveExchangeRPC',
@@ -846,33 +651,13 @@ _INJECTIVEEXCHANGERPC = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1315,
-  serialized_end=1800,
+  serialized_start=1106,
+  serialized_end=1416,
   methods=[
-  _descriptor.MethodDescriptor(
-    name='Ping',
-    full_name='injective_exchange_rpc.InjectiveExchangeRPC.Ping',
-    index=0,
-    containing_service=None,
-    input_type=_PINGREQUEST,
-    output_type=_PINGRESPONSE,
-    serialized_options=None,
-    create_key=_descriptor._internal_create_key,
-  ),
-  _descriptor.MethodDescriptor(
-    name='Version',
-    full_name='injective_exchange_rpc.InjectiveExchangeRPC.Version',
-    index=1,
-    containing_service=None,
-    input_type=_VERSIONREQUEST,
-    output_type=_VERSIONRESPONSE,
-    serialized_options=None,
-    create_key=_descriptor._internal_create_key,
-  ),
   _descriptor.MethodDescriptor(
     name='GetTx',
     full_name='injective_exchange_rpc.InjectiveExchangeRPC.GetTx',
-    index=2,
+    index=0,
     containing_service=None,
     input_type=_GETTXREQUEST,
     output_type=_GETTXRESPONSE,
@@ -882,7 +667,7 @@ _INJECTIVEEXCHANGERPC = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='PrepareTx',
     full_name='injective_exchange_rpc.InjectiveExchangeRPC.PrepareTx',
-    index=3,
+    index=1,
     containing_service=None,
     input_type=_PREPARETXREQUEST,
     output_type=_PREPARETXRESPONSE,
@@ -892,7 +677,7 @@ _INJECTIVEEXCHANGERPC = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='BroadcastTx',
     full_name='injective_exchange_rpc.InjectiveExchangeRPC.BroadcastTx',
-    index=4,
+    index=2,
     containing_service=None,
     input_type=_BROADCASTTXREQUEST,
     output_type=_BROADCASTTXRESPONSE,

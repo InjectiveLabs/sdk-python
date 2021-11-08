@@ -4,7 +4,7 @@ from math import floor
 
 """
 One thing you may need to pay more attention to is how to deal with decimals on the Injective Exchange.
-Different cryptocurrencies may require diffrent decimal precisions. More specifically, ERC-20 tokens(e.g. INJ) have 18 decimals whereas USDT/USC have 6 decimals.
+Different cryptocurrencies may require different decimal precisions. More specifically, ERC-20 tokens(e.g. INJ) have 18 decimals whereas USDT/USC have 6 decimals.
 So in our system that means ** having 1 INJ is 1e18 inj ** and that ** 1 USDT is actually 100000 peggy0xdac17f958d2ee523a2206206994597c13d831ec7**.
 
 For spot markets, a price reflects the ** relative exchange rate ** between two tokens.
@@ -22,59 +22,69 @@ This also makes sense since it refers to the minimum INJ quantity tick size each
 
 """
 
-def spot_price_to_backend(price, denom) -> str:
+def spot_price_to_backend(price, denom) -> int:
     price_tick_size = denom.min_price_tick_size
     scale_price = Decimal(18 + denom.quote - denom.base)
     exchange_price = floor_to(price, price_tick_size) * pow(10, scale_price)
-    return str(int(exchange_price))
+    return int(exchange_price)
 
-def spot_quantity_to_backend(quantity, denom) -> str:
+
+def spot_quantity_to_backend(quantity, denom) -> int:
     quantity_tick_size = float(denom.min_quantity_tick_size) / pow(10, denom.base)
     scale_quantity = Decimal(18 + denom.base)
     exchange_quantity = floor_to(quantity, quantity_tick_size) * pow(10, scale_quantity)
-    return str(int(exchange_quantity))
+    return int(exchange_quantity)
 
-def derivative_price_to_backend(price, denom) -> str:
+
+def derivative_price_to_backend(price, denom) -> int:
     price_tick_size = Decimal(denom.min_price_tick_size) / pow(10, denom.quote)
     exchange_price = floor_to(price, float(price_tick_size)) * pow(10, 18 + denom.quote)
-    return str(int(exchange_price))
+    return int(exchange_price)
 
-def derivative_quantity_to_backend(quantity, denom) -> str:
+
+def derivative_quantity_to_backend(quantity, denom) -> int:
     quantity_tick_size = float(denom.min_quantity_tick_size) / pow(10, denom.base)
     scale_quantity = Decimal(18 + denom.base)
     exchange_quantity = floor_to(quantity, quantity_tick_size) * pow(10, scale_quantity)
-    return str(int(exchange_quantity))
+    return int(exchange_quantity)
 
-def derivative_margin_to_backend(price, quantity, leverage, denom) -> str:
+
+def derivative_margin_to_backend(price, quantity, leverage, denom) -> int:
     price_tick_size = Decimal(denom.min_price_tick_size) / pow(10, denom.quote)
     margin = (price * quantity) / leverage
     exchange_margin = floor_to(margin, float(price_tick_size)) * pow(10, 18 + denom.quote)
-    return str(int(exchange_margin))
+    return int(exchange_margin)
 
-def derivative_additional_margin_to_backend(amount, denom) -> str:
+
+def derivative_additional_margin_to_backend(amount, denom) -> int:
     price_tick_size = float(denom.min_price_tick_size) / pow(10, denom.quote)
     additional_margin = floor_to(amount, price_tick_size) * pow(10, 18 + denom.quote)
-    return str(int(additional_margin))
+    return int(additional_margin)
 
-def amount_to_backend(amount, decimals) -> str:
+
+def amount_to_backend(amount, decimals) -> int:
     be_amount = amount * pow(10, decimals)
-    return str(int(be_amount))
+    return int(be_amount)
 
-def floor_to(value: float, target: float) -> str:
+
+def floor_to(value: float, target: float) -> int:
     value = Decimal(str(value))
     target = Decimal(str(target))
-    result = Decimal(int(floor(value / target)) * target)
+    result = int(floor(value / target)) * target
     return result
+
 
 def spot_price_from_backend(price, denom) -> float:
     scale = float(denom.base - denom.quote)
     return float(price) * pow(10, scale - 18)
 
+
 def spot_quantity_from_backend(quantity, denom) -> float:
     scale = float(0 - denom.base)
-    quantity_tick_size = float(denom.min_quantity_tick_size) *pow(10, scale)
+    quantity_tick_size = float(denom.min_quantity_tick_size) * pow(10, scale)
     quantity = float(quantity) * pow(10, scale - 18)
     return floor_to(quantity, quantity_tick_size)
+
 
 def derivative_price_from_backend(price, denom) -> float:
     scale = float(0 - denom.quote)

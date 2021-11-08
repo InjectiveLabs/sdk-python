@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'ZNgithub.com/InjectiveLabs/injective-core/injective-chain/modules/exchange/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n(injective/exchange/v1beta1/genesis.proto\x12\x1ainjective.exchange.v1beta1\x1a)injective/exchange/v1beta1/exchange.proto\x1a\x14gogoproto/gogo.proto\"\xd6\n\n\x0cGenesisState\x12\x38\n\x06params\x18\x01 \x01(\x0b\x32\".injective.exchange.v1beta1.ParamsB\x04\xc8\xde\x1f\x00\x12<\n\x0cspot_markets\x18\x02 \x03(\x0b\x32&.injective.exchange.v1beta1.SpotMarket\x12H\n\x12\x64\x65rivative_markets\x18\x03 \x03(\x0b\x32,.injective.exchange.v1beta1.DerivativeMarket\x12G\n\x0espot_orderbook\x18\x04 \x03(\x0b\x32).injective.exchange.v1beta1.SpotOrderBookB\x04\xc8\xde\x1f\x00\x12S\n\x14\x64\x65rivative_orderbook\x18\x05 \x03(\x0b\x32/.injective.exchange.v1beta1.DerivativeOrderBookB\x04\xc8\xde\x1f\x00\x12;\n\x08\x62\x61lances\x18\x06 \x03(\x0b\x32#.injective.exchange.v1beta1.BalanceB\x04\xc8\xde\x1f\x00\x12G\n\tpositions\x18\x07 \x03(\x0b\x32..injective.exchange.v1beta1.DerivativePositionB\x04\xc8\xde\x1f\x00\x12R\n\x17subaccount_trade_nonces\x18\x08 \x03(\x0b\x32+.injective.exchange.v1beta1.SubaccountNonceB\x04\xc8\xde\x1f\x00\x12h\n expiry_futures_market_info_state\x18\t \x03(\x0b\x32\x38.injective.exchange.v1beta1.ExpiryFuturesMarketInfoStateB\x04\xc8\xde\x1f\x00\x12T\n\x15perpetual_market_info\x18\n \x03(\x0b\x32/.injective.exchange.v1beta1.PerpetualMarketInfoB\x04\xc8\xde\x1f\x00\x12\x65\n\x1eperpetual_market_funding_state\x18\x0b \x03(\x0b\x32\x37.injective.exchange.v1beta1.PerpetualMarketFundingStateB\x04\xc8\xde\x1f\x00\x12p\n&derivative_market_settlement_scheduled\x18\x0c \x03(\x0b\x32:.injective.exchange.v1beta1.DerivativeMarketSettlementInfoB\x04\xc8\xde\x1f\x00\x12 \n\x18is_spot_exchange_enabled\x18\r \x01(\x08\x12\'\n\x1fis_derivatives_exchange_enabled\x18\x0e \x01(\x08\x12g\n\x1fliquidity_mining_account_points\x18\x0f \x03(\x0b\x32\x38.injective.exchange.v1beta1.LiquidityMiningAccountPointsB\x04\xc8\xde\x1f\x00\x12^\n!current_liquidity_mining_campaign\x18\x10 \x01(\x0b\x32\x33.injective.exchange.v1beta1.LiquidityMiningCampaign\x12_\n\"upcoming_liquidity_mining_campaign\x18\x11 \x01(\x0b\x32\x33.injective.exchange.v1beta1.LiquidityMiningCampaign\"{\n\rSpotOrderBook\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x11\n\tisBuySide\x18\x02 \x01(\x08\x12:\n\x06orders\x18\x03 \x03(\x0b\x32*.injective.exchange.v1beta1.SpotLimitOrder:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x87\x01\n\x13\x44\x65rivativeOrderBook\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x11\n\tisBuySide\x18\x02 \x01(\x08\x12@\n\x06orders\x18\x03 \x03(\x0b\x32\x30.injective.exchange.v1beta1.DerivativeLimitOrder:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"p\n\x07\x42\x61lance\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\t\x12\x35\n\x08\x64\x65posits\x18\x03 \x01(\x0b\x32#.injective.exchange.v1beta1.Deposit:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x80\x01\n\x12\x44\x65rivativePosition\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x36\n\x08position\x18\x03 \x01(\x0b\x32$.injective.exchange.v1beta1.Position:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x8a\x01\n\x0fSubaccountNonce\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12V\n\x16subaccount_trade_nonce\x18\x02 \x01(\x0b\x32\x30.injective.exchange.v1beta1.SubaccountTradeNonceB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"{\n\x1c\x45xpiryFuturesMarketInfoState\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12H\n\x0bmarket_info\x18\x02 \x01(\x0b\x32\x33.injective.exchange.v1beta1.ExpiryFuturesMarketInfo\"u\n\x1bPerpetualMarketFundingState\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x43\n\x07\x66unding\x18\x02 \x01(\x0b\x32\x32.injective.exchange.v1beta1.PerpetualMarketFunding\"y\n\x1cLiquidityMiningAccountPoints\x12\x0f\n\x07\x61\x63\x63ount\x18\x01 \x01(\t\x12>\n\x06points\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\x42PZNgithub.com/InjectiveLabs/injective-core/injective-chain/modules/exchange/typesb\x06proto3'
+  serialized_pb=b'\n(injective/exchange/v1beta1/genesis.proto\x12\x1ainjective.exchange.v1beta1\x1a)injective/exchange/v1beta1/exchange.proto\x1a\x14gogoproto/gogo.proto\"\x9a\r\n\x0cGenesisState\x12\x38\n\x06params\x18\x01 \x01(\x0b\x32\".injective.exchange.v1beta1.ParamsB\x04\xc8\xde\x1f\x00\x12<\n\x0cspot_markets\x18\x02 \x03(\x0b\x32&.injective.exchange.v1beta1.SpotMarket\x12H\n\x12\x64\x65rivative_markets\x18\x03 \x03(\x0b\x32,.injective.exchange.v1beta1.DerivativeMarket\x12G\n\x0espot_orderbook\x18\x04 \x03(\x0b\x32).injective.exchange.v1beta1.SpotOrderBookB\x04\xc8\xde\x1f\x00\x12S\n\x14\x64\x65rivative_orderbook\x18\x05 \x03(\x0b\x32/.injective.exchange.v1beta1.DerivativeOrderBookB\x04\xc8\xde\x1f\x00\x12;\n\x08\x62\x61lances\x18\x06 \x03(\x0b\x32#.injective.exchange.v1beta1.BalanceB\x04\xc8\xde\x1f\x00\x12G\n\tpositions\x18\x07 \x03(\x0b\x32..injective.exchange.v1beta1.DerivativePositionB\x04\xc8\xde\x1f\x00\x12R\n\x17subaccount_trade_nonces\x18\x08 \x03(\x0b\x32+.injective.exchange.v1beta1.SubaccountNonceB\x04\xc8\xde\x1f\x00\x12h\n expiry_futures_market_info_state\x18\t \x03(\x0b\x32\x38.injective.exchange.v1beta1.ExpiryFuturesMarketInfoStateB\x04\xc8\xde\x1f\x00\x12T\n\x15perpetual_market_info\x18\n \x03(\x0b\x32/.injective.exchange.v1beta1.PerpetualMarketInfoB\x04\xc8\xde\x1f\x00\x12\x65\n\x1eperpetual_market_funding_state\x18\x0b \x03(\x0b\x32\x37.injective.exchange.v1beta1.PerpetualMarketFundingStateB\x04\xc8\xde\x1f\x00\x12p\n&derivative_market_settlement_scheduled\x18\x0c \x03(\x0b\x32:.injective.exchange.v1beta1.DerivativeMarketSettlementInfoB\x04\xc8\xde\x1f\x00\x12 \n\x18is_spot_exchange_enabled\x18\r \x01(\x08\x12\'\n\x1fis_derivatives_exchange_enabled\x18\x0e \x01(\x08\x12[\n\x1ctrading_reward_campaign_info\x18\x0f \x01(\x0b\x32\x35.injective.exchange.v1beta1.TradingRewardCampaignInfo\x12]\n%trading_reward_pool_campaign_schedule\x18\x10 \x03(\x0b\x32..injective.exchange.v1beta1.CampaignRewardPool\x12n\n&trading_reward_campaign_account_points\x18\x11 \x03(\x0b\x32>.injective.exchange.v1beta1.TradingRewardCampaignAccountPoints\x12N\n\x15\x66\x65\x65_discount_schedule\x18\x12 \x01(\x0b\x32/.injective.exchange.v1beta1.FeeDiscountSchedule\x12\\\n\x1d\x66\x65\x65_discount_account_tier_ttl\x18\x13 \x03(\x0b\x32\x35.injective.exchange.v1beta1.FeeDiscountAccountTierTTL\x12m\n&fee_discount_bucket_fees_paid_accounts\x18\x14 \x03(\x0b\x32=.injective.exchange.v1beta1.FeeDiscountBucketFeesPaidAccounts\x12#\n\x1bis_first_fee_cycle_finished\x18\x15 \x01(\x08\"n\n\x19\x46\x65\x65\x44iscountAccountTierTTL\x12\x0f\n\x07\x61\x63\x63ount\x18\x01 \x01(\t\x12@\n\x08tier_ttl\x18\x02 \x01(\x0b\x32..injective.exchange.v1beta1.FeeDiscountTierTTL\"\x8b\x01\n!FeeDiscountBucketFeesPaidAccounts\x12\x1e\n\x16\x62ucket_start_timestamp\x18\x01 \x01(\x03\x12\x46\n\x11\x61\x63\x63ount_fees_paid\x18\x02 \x03(\x0b\x32+.injective.exchange.v1beta1.AccountFeesPaid\"e\n\x0f\x41\x63\x63ountFeesPaid\x12\x0f\n\x07\x61\x63\x63ount\x18\x01 \x01(\t\x12\x41\n\tfees_paid\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"u\n\"TradingRewardCampaignAccountPoints\x12\x0f\n\x07\x61\x63\x63ount\x18\x01 \x01(\t\x12>\n\x06points\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"{\n\rSpotOrderBook\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x11\n\tisBuySide\x18\x02 \x01(\x08\x12:\n\x06orders\x18\x03 \x03(\x0b\x32*.injective.exchange.v1beta1.SpotLimitOrder:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x87\x01\n\x13\x44\x65rivativeOrderBook\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x11\n\tisBuySide\x18\x02 \x01(\x08\x12@\n\x06orders\x18\x03 \x03(\x0b\x32\x30.injective.exchange.v1beta1.DerivativeLimitOrder:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"p\n\x07\x42\x61lance\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\t\x12\x35\n\x08\x64\x65posits\x18\x03 \x01(\x0b\x32#.injective.exchange.v1beta1.Deposit:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x80\x01\n\x12\x44\x65rivativePosition\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x36\n\x08position\x18\x03 \x01(\x0b\x32$.injective.exchange.v1beta1.Position:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x8a\x01\n\x0fSubaccountNonce\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12V\n\x16subaccount_trade_nonce\x18\x02 \x01(\x0b\x32\x30.injective.exchange.v1beta1.SubaccountTradeNonceB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"{\n\x1c\x45xpiryFuturesMarketInfoState\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12H\n\x0bmarket_info\x18\x02 \x01(\x0b\x32\x33.injective.exchange.v1beta1.ExpiryFuturesMarketInfo\"u\n\x1bPerpetualMarketFundingState\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x43\n\x07\x66unding\x18\x02 \x01(\x0b\x32\x32.injective.exchange.v1beta1.PerpetualMarketFundingBPZNgithub.com/InjectiveLabs/injective-core/injective-chain/modules/exchange/typesb\x06proto3'
   ,
   dependencies=[injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.DESCRIPTOR,gogoproto_dot_gogo__pb2.DESCRIPTOR,])
 
@@ -135,23 +135,51 @@ _GENESISSTATE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='liquidity_mining_account_points', full_name='injective.exchange.v1beta1.GenesisState.liquidity_mining_account_points', index=14,
-      number=15, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=b'\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='current_liquidity_mining_campaign', full_name='injective.exchange.v1beta1.GenesisState.current_liquidity_mining_campaign', index=15,
-      number=16, type=11, cpp_type=10, label=1,
+      name='trading_reward_campaign_info', full_name='injective.exchange.v1beta1.GenesisState.trading_reward_campaign_info', index=14,
+      number=15, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='upcoming_liquidity_mining_campaign', full_name='injective.exchange.v1beta1.GenesisState.upcoming_liquidity_mining_campaign', index=16,
-      number=17, type=11, cpp_type=10, label=1,
+      name='trading_reward_pool_campaign_schedule', full_name='injective.exchange.v1beta1.GenesisState.trading_reward_pool_campaign_schedule', index=15,
+      number=16, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='trading_reward_campaign_account_points', full_name='injective.exchange.v1beta1.GenesisState.trading_reward_campaign_account_points', index=16,
+      number=17, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='fee_discount_schedule', full_name='injective.exchange.v1beta1.GenesisState.fee_discount_schedule', index=17,
+      number=18, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='fee_discount_account_tier_ttl', full_name='injective.exchange.v1beta1.GenesisState.fee_discount_account_tier_ttl', index=18,
+      number=19, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='fee_discount_bucket_fees_paid_accounts', full_name='injective.exchange.v1beta1.GenesisState.fee_discount_bucket_fees_paid_accounts', index=19,
+      number=20, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='is_first_fee_cycle_finished', full_name='injective.exchange.v1beta1.GenesisState.is_first_fee_cycle_finished', index=20,
+      number=21, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -168,7 +196,163 @@ _GENESISSTATE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=138,
-  serialized_end=1504,
+  serialized_end=1828,
+)
+
+
+_FEEDISCOUNTACCOUNTTIERTTL = _descriptor.Descriptor(
+  name='FeeDiscountAccountTierTTL',
+  full_name='injective.exchange.v1beta1.FeeDiscountAccountTierTTL',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='account', full_name='injective.exchange.v1beta1.FeeDiscountAccountTierTTL.account', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='tier_ttl', full_name='injective.exchange.v1beta1.FeeDiscountAccountTierTTL.tier_ttl', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1830,
+  serialized_end=1940,
+)
+
+
+_FEEDISCOUNTBUCKETFEESPAIDACCOUNTS = _descriptor.Descriptor(
+  name='FeeDiscountBucketFeesPaidAccounts',
+  full_name='injective.exchange.v1beta1.FeeDiscountBucketFeesPaidAccounts',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='bucket_start_timestamp', full_name='injective.exchange.v1beta1.FeeDiscountBucketFeesPaidAccounts.bucket_start_timestamp', index=0,
+      number=1, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='account_fees_paid', full_name='injective.exchange.v1beta1.FeeDiscountBucketFeesPaidAccounts.account_fees_paid', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1943,
+  serialized_end=2082,
+)
+
+
+_ACCOUNTFEESPAID = _descriptor.Descriptor(
+  name='AccountFeesPaid',
+  full_name='injective.exchange.v1beta1.AccountFeesPaid',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='account', full_name='injective.exchange.v1beta1.AccountFeesPaid.account', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='fees_paid', full_name='injective.exchange.v1beta1.AccountFeesPaid.fees_paid', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2084,
+  serialized_end=2185,
+)
+
+
+_TRADINGREWARDCAMPAIGNACCOUNTPOINTS = _descriptor.Descriptor(
+  name='TradingRewardCampaignAccountPoints',
+  full_name='injective.exchange.v1beta1.TradingRewardCampaignAccountPoints',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='account', full_name='injective.exchange.v1beta1.TradingRewardCampaignAccountPoints.account', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='points', full_name='injective.exchange.v1beta1.TradingRewardCampaignAccountPoints.points', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2187,
+  serialized_end=2304,
 )
 
 
@@ -213,8 +397,8 @@ _SPOTORDERBOOK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1506,
-  serialized_end=1629,
+  serialized_start=2306,
+  serialized_end=2429,
 )
 
 
@@ -259,8 +443,8 @@ _DERIVATIVEORDERBOOK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1632,
-  serialized_end=1767,
+  serialized_start=2432,
+  serialized_end=2567,
 )
 
 
@@ -305,8 +489,8 @@ _BALANCE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1769,
-  serialized_end=1881,
+  serialized_start=2569,
+  serialized_end=2681,
 )
 
 
@@ -351,8 +535,8 @@ _DERIVATIVEPOSITION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1884,
-  serialized_end=2012,
+  serialized_start=2684,
+  serialized_end=2812,
 )
 
 
@@ -390,8 +574,8 @@ _SUBACCOUNTNONCE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2015,
-  serialized_end=2153,
+  serialized_start=2815,
+  serialized_end=2953,
 )
 
 
@@ -429,8 +613,8 @@ _EXPIRYFUTURESMARKETINFOSTATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2155,
-  serialized_end=2278,
+  serialized_start=2955,
+  serialized_end=3078,
 )
 
 
@@ -468,47 +652,8 @@ _PERPETUALMARKETFUNDINGSTATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2280,
-  serialized_end=2397,
-)
-
-
-_LIQUIDITYMININGACCOUNTPOINTS = _descriptor.Descriptor(
-  name='LiquidityMiningAccountPoints',
-  full_name='injective.exchange.v1beta1.LiquidityMiningAccountPoints',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='account', full_name='injective.exchange.v1beta1.LiquidityMiningAccountPoints.account', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='points', full_name='injective.exchange.v1beta1.LiquidityMiningAccountPoints.points', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=b'\350\240\037\000\210\240\037\000',
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2399,
-  serialized_end=2520,
+  serialized_start=3080,
+  serialized_end=3197,
 )
 
 _GENESISSTATE.fields_by_name['params'].message_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2._PARAMS
@@ -523,9 +668,14 @@ _GENESISSTATE.fields_by_name['expiry_futures_market_info_state'].message_type = 
 _GENESISSTATE.fields_by_name['perpetual_market_info'].message_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2._PERPETUALMARKETINFO
 _GENESISSTATE.fields_by_name['perpetual_market_funding_state'].message_type = _PERPETUALMARKETFUNDINGSTATE
 _GENESISSTATE.fields_by_name['derivative_market_settlement_scheduled'].message_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2._DERIVATIVEMARKETSETTLEMENTINFO
-_GENESISSTATE.fields_by_name['liquidity_mining_account_points'].message_type = _LIQUIDITYMININGACCOUNTPOINTS
-_GENESISSTATE.fields_by_name['current_liquidity_mining_campaign'].message_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2._LIQUIDITYMININGCAMPAIGN
-_GENESISSTATE.fields_by_name['upcoming_liquidity_mining_campaign'].message_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2._LIQUIDITYMININGCAMPAIGN
+_GENESISSTATE.fields_by_name['trading_reward_campaign_info'].message_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2._TRADINGREWARDCAMPAIGNINFO
+_GENESISSTATE.fields_by_name['trading_reward_pool_campaign_schedule'].message_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2._CAMPAIGNREWARDPOOL
+_GENESISSTATE.fields_by_name['trading_reward_campaign_account_points'].message_type = _TRADINGREWARDCAMPAIGNACCOUNTPOINTS
+_GENESISSTATE.fields_by_name['fee_discount_schedule'].message_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2._FEEDISCOUNTSCHEDULE
+_GENESISSTATE.fields_by_name['fee_discount_account_tier_ttl'].message_type = _FEEDISCOUNTACCOUNTTIERTTL
+_GENESISSTATE.fields_by_name['fee_discount_bucket_fees_paid_accounts'].message_type = _FEEDISCOUNTBUCKETFEESPAIDACCOUNTS
+_FEEDISCOUNTACCOUNTTIERTTL.fields_by_name['tier_ttl'].message_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2._FEEDISCOUNTTIERTTL
+_FEEDISCOUNTBUCKETFEESPAIDACCOUNTS.fields_by_name['account_fees_paid'].message_type = _ACCOUNTFEESPAID
 _SPOTORDERBOOK.fields_by_name['orders'].message_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2._SPOTLIMITORDER
 _DERIVATIVEORDERBOOK.fields_by_name['orders'].message_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2._DERIVATIVELIMITORDER
 _BALANCE.fields_by_name['deposits'].message_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2._DEPOSIT
@@ -534,6 +684,10 @@ _SUBACCOUNTNONCE.fields_by_name['subaccount_trade_nonce'].message_type = injecti
 _EXPIRYFUTURESMARKETINFOSTATE.fields_by_name['market_info'].message_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2._EXPIRYFUTURESMARKETINFO
 _PERPETUALMARKETFUNDINGSTATE.fields_by_name['funding'].message_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2._PERPETUALMARKETFUNDING
 DESCRIPTOR.message_types_by_name['GenesisState'] = _GENESISSTATE
+DESCRIPTOR.message_types_by_name['FeeDiscountAccountTierTTL'] = _FEEDISCOUNTACCOUNTTIERTTL
+DESCRIPTOR.message_types_by_name['FeeDiscountBucketFeesPaidAccounts'] = _FEEDISCOUNTBUCKETFEESPAIDACCOUNTS
+DESCRIPTOR.message_types_by_name['AccountFeesPaid'] = _ACCOUNTFEESPAID
+DESCRIPTOR.message_types_by_name['TradingRewardCampaignAccountPoints'] = _TRADINGREWARDCAMPAIGNACCOUNTPOINTS
 DESCRIPTOR.message_types_by_name['SpotOrderBook'] = _SPOTORDERBOOK
 DESCRIPTOR.message_types_by_name['DerivativeOrderBook'] = _DERIVATIVEORDERBOOK
 DESCRIPTOR.message_types_by_name['Balance'] = _BALANCE
@@ -541,7 +695,6 @@ DESCRIPTOR.message_types_by_name['DerivativePosition'] = _DERIVATIVEPOSITION
 DESCRIPTOR.message_types_by_name['SubaccountNonce'] = _SUBACCOUNTNONCE
 DESCRIPTOR.message_types_by_name['ExpiryFuturesMarketInfoState'] = _EXPIRYFUTURESMARKETINFOSTATE
 DESCRIPTOR.message_types_by_name['PerpetualMarketFundingState'] = _PERPETUALMARKETFUNDINGSTATE
-DESCRIPTOR.message_types_by_name['LiquidityMiningAccountPoints'] = _LIQUIDITYMININGACCOUNTPOINTS
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 GenesisState = _reflection.GeneratedProtocolMessageType('GenesisState', (_message.Message,), {
@@ -550,6 +703,34 @@ GenesisState = _reflection.GeneratedProtocolMessageType('GenesisState', (_messag
   # @@protoc_insertion_point(class_scope:injective.exchange.v1beta1.GenesisState)
   })
 _sym_db.RegisterMessage(GenesisState)
+
+FeeDiscountAccountTierTTL = _reflection.GeneratedProtocolMessageType('FeeDiscountAccountTierTTL', (_message.Message,), {
+  'DESCRIPTOR' : _FEEDISCOUNTACCOUNTTIERTTL,
+  '__module__' : 'injective.exchange.v1beta1.genesis_pb2'
+  # @@protoc_insertion_point(class_scope:injective.exchange.v1beta1.FeeDiscountAccountTierTTL)
+  })
+_sym_db.RegisterMessage(FeeDiscountAccountTierTTL)
+
+FeeDiscountBucketFeesPaidAccounts = _reflection.GeneratedProtocolMessageType('FeeDiscountBucketFeesPaidAccounts', (_message.Message,), {
+  'DESCRIPTOR' : _FEEDISCOUNTBUCKETFEESPAIDACCOUNTS,
+  '__module__' : 'injective.exchange.v1beta1.genesis_pb2'
+  # @@protoc_insertion_point(class_scope:injective.exchange.v1beta1.FeeDiscountBucketFeesPaidAccounts)
+  })
+_sym_db.RegisterMessage(FeeDiscountBucketFeesPaidAccounts)
+
+AccountFeesPaid = _reflection.GeneratedProtocolMessageType('AccountFeesPaid', (_message.Message,), {
+  'DESCRIPTOR' : _ACCOUNTFEESPAID,
+  '__module__' : 'injective.exchange.v1beta1.genesis_pb2'
+  # @@protoc_insertion_point(class_scope:injective.exchange.v1beta1.AccountFeesPaid)
+  })
+_sym_db.RegisterMessage(AccountFeesPaid)
+
+TradingRewardCampaignAccountPoints = _reflection.GeneratedProtocolMessageType('TradingRewardCampaignAccountPoints', (_message.Message,), {
+  'DESCRIPTOR' : _TRADINGREWARDCAMPAIGNACCOUNTPOINTS,
+  '__module__' : 'injective.exchange.v1beta1.genesis_pb2'
+  # @@protoc_insertion_point(class_scope:injective.exchange.v1beta1.TradingRewardCampaignAccountPoints)
+  })
+_sym_db.RegisterMessage(TradingRewardCampaignAccountPoints)
 
 SpotOrderBook = _reflection.GeneratedProtocolMessageType('SpotOrderBook', (_message.Message,), {
   'DESCRIPTOR' : _SPOTORDERBOOK,
@@ -600,13 +781,6 @@ PerpetualMarketFundingState = _reflection.GeneratedProtocolMessageType('Perpetua
   })
 _sym_db.RegisterMessage(PerpetualMarketFundingState)
 
-LiquidityMiningAccountPoints = _reflection.GeneratedProtocolMessageType('LiquidityMiningAccountPoints', (_message.Message,), {
-  'DESCRIPTOR' : _LIQUIDITYMININGACCOUNTPOINTS,
-  '__module__' : 'injective.exchange.v1beta1.genesis_pb2'
-  # @@protoc_insertion_point(class_scope:injective.exchange.v1beta1.LiquidityMiningAccountPoints)
-  })
-_sym_db.RegisterMessage(LiquidityMiningAccountPoints)
-
 
 DESCRIPTOR._options = None
 _GENESISSTATE.fields_by_name['params']._options = None
@@ -619,13 +793,12 @@ _GENESISSTATE.fields_by_name['expiry_futures_market_info_state']._options = None
 _GENESISSTATE.fields_by_name['perpetual_market_info']._options = None
 _GENESISSTATE.fields_by_name['perpetual_market_funding_state']._options = None
 _GENESISSTATE.fields_by_name['derivative_market_settlement_scheduled']._options = None
-_GENESISSTATE.fields_by_name['liquidity_mining_account_points']._options = None
+_ACCOUNTFEESPAID.fields_by_name['fees_paid']._options = None
+_TRADINGREWARDCAMPAIGNACCOUNTPOINTS.fields_by_name['points']._options = None
 _SPOTORDERBOOK._options = None
 _DERIVATIVEORDERBOOK._options = None
 _BALANCE._options = None
 _DERIVATIVEPOSITION._options = None
 _SUBACCOUNTNONCE.fields_by_name['subaccount_trade_nonce']._options = None
 _SUBACCOUNTNONCE._options = None
-_LIQUIDITYMININGACCOUNTPOINTS.fields_by_name['points']._options = None
-_LIQUIDITYMININGACCOUNTPOINTS._options = None
 # @@protoc_insertion_point(module_scope)

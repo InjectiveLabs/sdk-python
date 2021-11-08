@@ -10,6 +10,15 @@ sudo apt install python3.X-dev
 ```bash
 sudo dnf install python3-devel
 ```
+
+**macOS**
+
+For installing `bip32` module specifically:
+
+```bash
+brew install autoconf automake libtool
+```
+
 ### Quick Start
 Installation
 ```bash

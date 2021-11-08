@@ -21,9 +21,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='ibc/core/types/v1/genesis.proto',
   package='ibc.core.types.v1',
   syntax='proto3',
-  serialized_options=b'Z-github.com/cosmos/cosmos-sdk/x/ibc/core/types',
+  serialized_options=b'Z.github.com/cosmos/ibc-go/v2/modules/core/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x1fibc/core/types/v1/genesis.proto\x12\x11ibc.core.types.v1\x1a\x14gogoproto/gogo.proto\x1a ibc/core/client/v1/genesis.proto\x1a$ibc/core/connection/v1/genesis.proto\x1a!ibc/core/channel/v1/genesis.proto\"\xa8\x02\n\x0cGenesisState\x12W\n\x0e\x63lient_genesis\x18\x01 \x01(\x0b\x32 .ibc.core.client.v1.GenesisStateB\x1d\xc8\xde\x1f\x00\xf2\xde\x1f\x15yaml:\"client_genesis\"\x12\x63\n\x12\x63onnection_genesis\x18\x02 \x01(\x0b\x32$.ibc.core.connection.v1.GenesisStateB!\xc8\xde\x1f\x00\xf2\xde\x1f\x19yaml:\"connection_genesis\"\x12Z\n\x0f\x63hannel_genesis\x18\x03 \x01(\x0b\x32!.ibc.core.channel.v1.GenesisStateB\x1e\xc8\xde\x1f\x00\xf2\xde\x1f\x16yaml:\"channel_genesis\"B/Z-github.com/cosmos/cosmos-sdk/x/ibc/core/typesb\x06proto3'
+  serialized_pb=b'\n\x1fibc/core/types/v1/genesis.proto\x12\x11ibc.core.types.v1\x1a\x14gogoproto/gogo.proto\x1a ibc/core/client/v1/genesis.proto\x1a$ibc/core/connection/v1/genesis.proto\x1a!ibc/core/channel/v1/genesis.proto\"\xa8\x02\n\x0cGenesisState\x12W\n\x0e\x63lient_genesis\x18\x01 \x01(\x0b\x32 .ibc.core.client.v1.GenesisStateB\x1d\xc8\xde\x1f\x00\xf2\xde\x1f\x15yaml:\"client_genesis\"\x12\x63\n\x12\x63onnection_genesis\x18\x02 \x01(\x0b\x32$.ibc.core.connection.v1.GenesisStateB!\xc8\xde\x1f\x00\xf2\xde\x1f\x19yaml:\"connection_genesis\"\x12Z\n\x0f\x63hannel_genesis\x18\x03 \x01(\x0b\x32!.ibc.core.channel.v1.GenesisStateB\x1e\xc8\xde\x1f\x00\xf2\xde\x1f\x16yaml:\"channel_genesis\"B0Z.github.com/cosmos/ibc-go/v2/modules/core/typesb\x06proto3'
   ,
   dependencies=[gogoproto_dot_gogo__pb2.DESCRIPTOR,ibc_dot_core_dot_client_dot_v1_dot_genesis__pb2.DESCRIPTOR,ibc_dot_core_dot_connection_dot_v1_dot_genesis__pb2.DESCRIPTOR,ibc_dot_core_dot_channel_dot_v1_dot_genesis__pb2.DESCRIPTOR,])
 

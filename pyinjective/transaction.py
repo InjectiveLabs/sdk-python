@@ -22,7 +22,7 @@ class Transaction:
         memo: str = "",
         timeout_height: int = 0
     ):
-        self.msgs = self.__convet_msgs(msgs) if msgs is not None else []
+        self.msgs = self.__convert_msgs(msgs) if msgs is not None else []
         self.account_num = account_num
         self.sequence = sequence
         self.chain_id = chain_id

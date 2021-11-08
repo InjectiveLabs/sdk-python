@@ -7,7 +7,7 @@ from .proto.injective.exchange.v1beta1 import exchange_pb2 as injective_exchange
 from .constant import Denom
 from .utils import *
 
-def splitData(data, seps):
+def split_data(data, seps):
     output = [data]
     for sep in seps:
         data, output = output, []
@@ -17,11 +17,11 @@ def splitData(data, seps):
 
 class Composer:
     def __init__(self, network: str):
-        self.network =  network
+        self.network = network
 
     def Coin(self, amount: int, denom: str):
         return cosmos_base_coin_pb.Coin(
-            amount=amount,
+            amount=str(amount),
             denom=denom
         )
 
@@ -39,28 +39,28 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
-        isBuy: bool
+        is_buy: bool
     ):
         # load denom metadata
-        denom =  Denom.load_market(self.network, market_id)
+        denom = Denom.load_market(self.network, market_id)
         print('Loaded market metadata for', denom.description)
 
         # prepare values
         quantity = spot_quantity_to_backend(quantity, denom)
         price = spot_price_to_backend(price, denom)
         trigger_price = spot_price_to_backend(0, denom)
-        order_type = injective_exchange_pb.OrderType.BUY if isBuy else injective_exchange_pb.OrderType.SELL
+        order_type = injective_exchange_pb.OrderType.BUY if is_buy else injective_exchange_pb.OrderType.SELL
 
         return injective_exchange_pb.SpotOrder(
             market_id=market_id,
             order_info=injective_exchange_pb.OrderInfo(
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,
-                price=price,
-                quantity=quantity
+                price=str(price),
+                quantity=str(quantity)
             ),
             order_type=order_type,
-            trigger_price=trigger_price
+            trigger_price=str(trigger_price)
         )
 
     def DerivativeOrder(
@@ -71,10 +71,10 @@ class Composer:
         price: float,
         quantity: float,
         leverage: float,
-        isBuy: bool
+        is_buy: bool
     ):
         # load denom metadata
-        denom =  Denom.load_market(self.network, market_id)
+        denom = Denom.load_market(self.network, market_id)
         print('Loaded market metadata for', denom.description)
 
         # prepare values
@@ -82,22 +82,22 @@ class Composer:
         price = derivative_price_to_backend(price, denom)
         trigger_price = derivative_price_to_backend(0, denom)
         quantity = derivative_quantity_to_backend(quantity, denom)
-        order_type = injective_exchange_pb.OrderType.BUY if isBuy else injective_exchange_pb.OrderType.SELL
+        order_type = injective_exchange_pb.OrderType.BUY if is_buy else injective_exchange_pb.OrderType.SELL
 
         return injective_exchange_pb.DerivativeOrder(
             market_id=market_id,
             order_info=injective_exchange_pb.OrderInfo(
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,
-                price=price,
-                quantity=quantity
+                price=str(price),
+                quantity=str(quantity)
             ),
-            margin=margin,
+            margin=str(margin),
             order_type=order_type,
-            trigger_price=trigger_price
+            trigger_price=str(trigger_price)
         )
 
-    def MsgSend(self, from_address: str, to_address: str, amount: int, denom: str):
+    def MsgSend(self, from_address: str, to_address: str, amount: float, denom: str):
         peggy_denom, decimals = Denom.load_peggy_denom(self.network, denom)
         be_amount = amount_to_backend(amount, decimals)
         print("Loaded send symbol {} ({}) with decimals = {}".format(denom, peggy_denom, decimals))
@@ -105,10 +105,10 @@ class Composer:
         return cosmos_bank_tx_pb.MsgSend(
             from_address=from_address,
             to_address=to_address,
-            amount=[self.Coin(amount=be_amount,denom=peggy_denom)]
+            amount=[self.Coin(amount=be_amount, denom=peggy_denom)]
         )
 
-    def MsgDeposit(self, sender: str, subaccount_id: str, amount: int, denom: str):
+    def MsgDeposit(self, sender: str, subaccount_id: str, amount: float, denom: str):
         peggy_denom, decimals = Denom.load_peggy_denom(self.network, denom)
         be_amount = amount_to_backend(amount, decimals)
         print("Loaded deposit symbol {} ({}) with decimals = {}".format(denom, peggy_denom, decimals))
@@ -116,7 +116,7 @@ class Composer:
         return injective_exchange_tx_pb.MsgDeposit(
             sender=sender,
             subaccount_id=subaccount_id,
-            amount=self.Coin(amount=be_amount,denom=peggy_denom)
+            amount=self.Coin(amount=be_amount, denom=peggy_denom)
         )
 
     def MsgCreateSpotLimitOrder(
@@ -127,7 +127,7 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
-        isBuy: bool
+        is_buy: bool
     ):
         return injective_exchange_tx_pb.MsgCreateSpotLimitOrder(
             sender=sender,
@@ -137,7 +137,7 @@ class Composer:
                 fee_recipient=fee_recipient,
                 price=price,
                 quantity=quantity,
-                isBuy=isBuy
+                is_buy=is_buy
             )
         )
 
@@ -149,7 +149,7 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
-        isBuy: bool
+        is_buy: bool
     ):
         return injective_exchange_tx_pb.MsgCreateSpotMarketOrder(
             sender=sender,
@@ -159,7 +159,7 @@ class Composer:
                 fee_recipient=fee_recipient,
                 price=price,
                 quantity=quantity,
-                isBuy=isBuy
+                is_buy=is_buy
             )
         )
 
@@ -206,7 +206,7 @@ class Composer:
         price: float,
         quantity: float,
         leverage: float,
-        isBuy: bool
+        is_buy: bool
     ):
         return injective_exchange_tx_pb.MsgCreateDerivativeLimitOrder(
             sender=sender,
@@ -217,7 +217,7 @@ class Composer:
                 price=price,
                 quantity=quantity,
                 leverage=leverage,
-                isBuy=isBuy
+                is_buy=is_buy
             )
         )
 
@@ -230,7 +230,7 @@ class Composer:
         price: float,
         quantity: float,
         leverage: float,
-        isBuy: bool
+        is_buy: bool
     ):
         return injective_exchange_tx_pb.MsgCreateDerivativeMarketOrder(
             sender=sender,
@@ -241,7 +241,7 @@ class Composer:
                 price=price,
                 quantity=quantity,
                 leverage=leverage,
-                isBuy=isBuy
+                is_buy=is_buy
             )
         )
 
@@ -291,25 +291,25 @@ class Composer:
             market_id=market_id
         )
 
-    def MsgIncreasePositionMargin (
+    def MsgIncreasePositionMargin(
         self,
         sender: str,
         source_subaccount_id: str,
         destination_subaccount_id: str,
         market_id: str,
-        amount: str
+        amount: float,
     ):
-        denom =  Denom.load_market(self.network, market_id)
+        denom = Denom.load_market(self.network, market_id)
         additional_margin = derivative_additional_margin_to_backend(amount, denom)
         return injective_exchange_tx_pb.MsgIncreasePositionMargin(
             sender=sender,
             source_subaccount_id=source_subaccount_id,
             destination_subaccount_id=destination_subaccount_id,
             market_id=market_id,
-            amount=additional_margin
+            amount=str(additional_margin)
         )
 
-    def MsgSubaccountTransfer (
+    def MsgSubaccountTransfer(
         self,
         sender: str,
         source_subaccount_id: str,
@@ -322,7 +322,7 @@ class Composer:
             sender=sender,
             source_subaccount_id=source_subaccount_id,
             destination_subaccount_id=destination_subaccount_id,
-            amount=self.Coin(amount=str(amount),denom=denom)
+            amount=self.Coin(amount=amount, denom=denom)
         )
 
     def MsgWithdraw(
@@ -339,7 +339,7 @@ class Composer:
         return injective_exchange_tx_pb.MsgWithdraw(
             sender=sender,
             subaccount_id=subaccount_id,
-            amount=self.Coin(amount=be_amount,denom=peggy_denom)
+            amount=self.Coin(amount=be_amount, denom=peggy_denom)
         )
 
     # data field format: [request-msg-header][raw-byte-msg-response]
@@ -349,7 +349,8 @@ class Composer:
     def MsgResponses(data, simulation=False):
         if not simulation:
             data = bytes.fromhex(data)
-        prefixMap = {
+
+        prefix_map = {
             b'\n{\n3/injective.exchange.v1beta1.MsgCreateSpotLimitOrder\x12D': injective_exchange_tx_pb.MsgCreateSpotLimitOrderResponse,
             b'\n|\n4/injective.exchange.v1beta1.MsgCreateSpotMarketOrder\x12D': injective_exchange_tx_pb.MsgCreateSpotMarketOrderResponse,
             b'\n\x81\x01\n9/injective.exchange.v1beta1.MsgCreateDerivativeLimitOrder\x12D': injective_exchange_tx_pb.MsgCreateDerivativeLimitOrderResponse,
@@ -359,12 +360,13 @@ class Composer:
             b'\n\xc6\x01\n9/injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrders\x12\x88\x01': injective_exchange_tx_pb.MsgBatchCreateSpotLimitOrdersResponse,
             b'\n\xcc\x01\n?/injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrders\x12\x88\x01': injective_exchange_tx_pb.MsgBatchCreateDerivativeLimitOrdersResponse
         }
-        responses = splitData(data, prefixMap.keys())[1:]
-        headers = splitData(data, responses)[:-1]
+
+        responses = split_data(data, prefix_map.keys())[1:]
+        headers = split_data(data, responses)[:-1]
 
         msgs = []
         for i in range(len(headers)):
-            protoResponse = prefixMap[headers[i]].FromString(responses[i])
-            msgs.append(protoResponse)
+            proto_response = prefix_map[headers[i]].FromString(responses[i])
+            msgs.append(proto_response)
 
         return msgs

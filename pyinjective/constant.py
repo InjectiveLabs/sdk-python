@@ -43,8 +43,8 @@ class Denom:
             description=config._sections[market_id]['description'],
             base=int(config._sections[market_id]['base']),
             quote=int(config._sections[market_id]['quote']),
-            min_price_tick_size=str(config._sections[market_id]['min_price_tick_size']),
-            min_quantity_tick_size=str(config._sections[market_id]['min_quantity_tick_size']),
+            min_price_tick_size=config._sections[market_id]['min_price_tick_size'],
+            min_quantity_tick_size=config._sections[market_id]['min_quantity_tick_size'],
         )
 
     @classmethod
@@ -57,6 +57,7 @@ class Denom:
         if network == 'mainnet':
             config = mainnet_config
         return config._sections[symbol]['peggy_denom'], int(config._sections[symbol]['decimals'])
+
 
 class Network:
     def __init__(
@@ -78,23 +79,25 @@ class Network:
     @classmethod
     def devnet(cls):
         return cls(
-            lcd_endpoint='devnet.lcd.injective.dev',
+            lcd_endpoint='https://devnet.lcd.injective.dev',
             grpc_endpoint='devnet.injective.dev:9900',
             grpc_exchange_endpoint='devnet.injective.dev:9910',
             chain_id='injective-777',
             fee_denom='inj',
-            env = 'devnet'
+            env='devnet'
         )
 
     @classmethod
-    def testnet(cls):
+    def testnet(cls, sentry='primary'):
+        s = 'sentry0' if sentry == 'primary' else 'sentry1'
+
         return cls(
-            lcd_endpoint='testnet.lcd.injective.dev',
-            grpc_endpoint='testnet-sentry0.injective.network:9900',
-            grpc_exchange_endpoint='testnet-sentry0.injective.network:9910',
+            lcd_endpoint='https://testnet.lcd.injective.dev',
+            grpc_endpoint=f"{s}.injective.dev:9900",
+            grpc_exchange_endpoint=f"{s}.injective.dev:9910",
             chain_id='injective-888',
             fee_denom='inj',
-            env = 'testnet'
+            env='testnet'
         )
 
     @classmethod
@@ -102,12 +105,12 @@ class Network:
         s = 'sentry1' if location == 'tokyo' else 'sentry0'
 
         return cls(
-            lcd_endpoint='lcd.injective.network',
+            lcd_endpoint='https://lcd.injective.network',
             grpc_endpoint=f"{s}.injective.network:9900",
             grpc_exchange_endpoint=f"{s}.injective.network:9910",
             chain_id='injective-1',
             fee_denom='inj',
-            env = 'mainnet'
+            env='mainnet'
         )
 
     def string(self):
