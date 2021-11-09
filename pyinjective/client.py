@@ -131,7 +131,7 @@ class Client:
         latest_block = self.get_latest_block()
         return latest_block.block.header.chain_id
 
-    # injective exchange client methods
+    # Injective Exchange client methods
 
     # Meta RPC
 

@@ -88,7 +88,7 @@ async def main() -> None:
     # build sim tx
     tx = (
         Transaction()
-        .with_messages(msg1,msg2,msg3)
+        .with_messages(msg1, msg2, msg3)
         .with_sequence(address.get_sequence())
         .with_account_num(address.get_number())
         .with_chain_id(network.chain_id)
@@ -109,7 +109,7 @@ async def main() -> None:
 
     # build tx
     gas_price = 500000000
-    gas_limit = simRes.gas_info.gas_used + 15000 # add 15k for gas, fee computation
+    gas_limit = simRes.gas_info.gas_used + 15000  # add 15k for gas, fee computation
     fee = [composer.Coin(
         amount=gas_price * gas_limit,
         denom=network.fee_denom,

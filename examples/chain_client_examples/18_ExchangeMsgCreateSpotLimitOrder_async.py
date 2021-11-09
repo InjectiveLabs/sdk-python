@@ -18,7 +18,7 @@ async def main() -> None:
 
     # load account
     priv_key = PrivateKey.from_hex("f9db9bf330e23cb7839039e944adef6e9df447b90b503d5b4464c90bea9022f3")
-    pub_key =  priv_key.to_public_key()
+    pub_key = priv_key.to_public_key()
     address = await pub_key.to_address().init_num_seq(network.lcd_endpoint)
     subaccount_id = address.get_subaccount_id(index=0)
 
@@ -34,7 +34,7 @@ async def main() -> None:
         fee_recipient=fee_recipient,
         price=7.523,
         quantity=0.01,
-        isBuy=True
+        is_buy=True
     )
 
     # build sim tx
@@ -50,20 +50,20 @@ async def main() -> None:
     sim_tx_raw_bytes = tx.get_tx_data(sim_sig, pub_key)
 
     # simulate tx
-    (simRes, success) = await client.simulate_tx(sim_tx_raw_bytes)
+    (sim_res, success) = await client.simulate_tx(sim_tx_raw_bytes)
     if not success:
-        print(simRes)
+        print(sim_res)
         return
 
-    simResMsg = ProtoMsgComposer.MsgResponses(simRes.result.data, simulation=True)
+    sim_res_msg = ProtoMsgComposer.MsgResponses(sim_res.result.data, simulation=True)
     print("simulation msg response")
-    print(simResMsg)
+    print(sim_res_msg)
 
     # build tx
     gas_price = 500000000
-    gas_limit = simRes.gas_info.gas_used + 15000 # add 15k for gas, fee computation
+    gas_limit = sim_res.gas_info.gas_used + 15000  # add 15k for gas, fee computation
     fee = [composer.Coin(
-        amount=str(gas_price * gas_limit),
+        amount=gas_price * gas_limit,
         denom=network.fee_denom,
     )]
     tx = tx.with_gas(gas_limit).with_fee(fee).with_memo("").with_timeout_height(0)
@@ -73,11 +73,11 @@ async def main() -> None:
 
     # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
     res = await client.send_tx_block_mode(tx_raw_bytes)
-    resMsg = ProtoMsgComposer.MsgResponses(res.data)
+    res_msg = ProtoMsgComposer.MsgResponses(res.data)
     print("tx response")
     print(res)
     print("tx msg response")
-    print(resMsg)
+    print(res_msg)
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
