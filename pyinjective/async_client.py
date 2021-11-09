@@ -158,23 +158,23 @@ class AsyncClient:
         return self.stubMeta.StreamKeepalive(req)
 
     # Meta RPC
-    def ping(self):
+    async def ping(self):
         req = exchange_meta_rpc_pb.PingRequest()
-        return self.stubMeta.Ping(req)
+        return await self.stubMeta.Ping(req)
 
-    def version(self):
+    async def version(self):
         req = exchange_meta_rpc_pb.VersionRequest()
-        return self.stubMeta.Version(req)
+        return await self.stubMeta.Version(req)
 
-    def info(self):
+    async def info(self):
         req = exchange_meta_rpc_pb.InfoRequest(
             timestamp=int(round(time.time() * 1000)),
         )
-        return self.stubMeta.Info(req)
+        return await self.stubMeta.Info(req)
 
-    def stream_keepalive(self):
+    async def stream_keepalive(self):
         req = exchange_meta_rpc_pb.StreamKeepaliveRequest()
-        return self.stubMeta.StreamKeepalive(req)
+        return await self.stubMeta.StreamKeepalive(req)
 
 
     #AccountsRPC
