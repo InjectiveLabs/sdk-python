@@ -29,8 +29,9 @@ from .proto.exchange import (
     injective_spot_exchange_rpc_pb2 as spot_exchange_rpc_pb,
     injective_spot_exchange_rpc_pb2_grpc as spot_exchange_rpc_grpc,
     injective_derivative_exchange_rpc_pb2 as derivative_exchange_rpc_pb,
-    injective_derivative_exchange_rpc_pb2_grpc as derivative_exchange_rpc_grpc
-
+    injective_derivative_exchange_rpc_pb2_grpc as derivative_exchange_rpc_grpc,
+    injective_meta_rpc_pb2 as exchange_meta_rpc_pb,
+    injective_meta_rpc_pb2_grpc as exchange_meta_rpc_grpc
 )
 
 from .constant import Network
@@ -65,6 +66,7 @@ class AsyncClient:
                 credentials or grpc.ssl_channel_credentials(),
                 )
         )
+        self.stubMeta = exchange_meta_rpc_grpc.InjectiveMetaRPCStub(self.exchange_channel)
         self.stubExchangeAccount = exchange_accounts_rpc_grpc.InjectiveAccountsRPCStub(self.exchange_channel)
         self.stubOracle = oracle_rpc_grpc.InjectiveOracleRPCStub(self.exchange_channel)
         self.stubInsurance = insurance_rpc_grpc.InjectiveInsuranceRPCStub(self.exchange_channel)
@@ -131,6 +133,27 @@ class AsyncClient:
         return latest_block.block.header.chain_id
 
     # injective exchange client methods
+
+    
+    # Meta RPC
+    def ping(self):
+        req = exchange_meta_rpc_pb.PingRequest()
+        return self.stubMeta.Ping(req)
+
+    def version(self):
+        req = exchange_meta_rpc_pb.VersionRequest()
+        return self.stubMeta.Version(req)
+
+    def info(self):
+        req = exchange_meta_rpc_pb.InfoRequest(
+            timestamp=int(round(time.time() * 1000)),
+        )
+        return self.stubMeta.Info(req)
+
+    def stream_keepalive(self):
+        req = exchange_meta_rpc_pb.StreamKeepaliveRequest()
+        return self.stubMeta.StreamKeepalive(req)
+
 
     #AccountsRPC
     async def stream_subaccount_balance(self, subaccount_id: str):
