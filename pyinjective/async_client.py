@@ -157,7 +157,27 @@ class AsyncClient:
         req = exchange_meta_rpc_pb.StreamKeepaliveRequest()
         return self.stubMeta.StreamKeepalive(req)
 
-    # AccountsRPC
+    # Meta RPC
+    def ping(self):
+        req = exchange_meta_rpc_pb.PingRequest()
+        return self.stubMeta.Ping(req)
+
+    def version(self):
+        req = exchange_meta_rpc_pb.VersionRequest()
+        return self.stubMeta.Version(req)
+
+    def info(self):
+        req = exchange_meta_rpc_pb.InfoRequest(
+            timestamp=int(round(time.time() * 1000)),
+        )
+        return self.stubMeta.Info(req)
+
+    def stream_keepalive(self):
+        req = exchange_meta_rpc_pb.StreamKeepaliveRequest()
+        return self.stubMeta.StreamKeepalive(req)
+
+
+    #AccountsRPC
 
     async def stream_subaccount_balance(self, subaccount_id: str):
         req = exchange_accounts_rpc_pb.StreamSubaccountBalanceRequest(subaccount_id=subaccount_id)
