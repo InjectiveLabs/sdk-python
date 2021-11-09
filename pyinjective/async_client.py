@@ -207,7 +207,7 @@ class AsyncClient:
         return await self.stubSpotExchange.Trades(req)
 
     async def stream_spot_orderbook(self, market_id: str):
-        req = spot_exchange_rpc_pb.StreamOrderbookRequest(market_id=market_id)
+        req = spot_exchange_rpc_pb.StreamOrderbookRequest(market_ids=[market_id])
         return self.stubSpotExchange.StreamOrderbook(req)
 
     async def stream_spot_orders(self, market_id: str, order_side: str = '', subaccount_id: str =''):
@@ -252,7 +252,7 @@ class AsyncClient:
         return await self.stubDerivativeExchange.Trades(req)
 
     async def stream_derivative_orderbook(self, market_id: str):
-        req = derivative_exchange_rpc_pb.StreamOrderbookRequest(market_id=market_id)
+        req = derivative_exchange_rpc_pb.StreamOrderbookRequest(market_ids=[market_id])
         return self.stubDerivativeExchange.StreamOrderbook(req)
 
     async def stream_derivative_orders(self, market_id: str, order_side: str = '', subaccount_id: str = ''):
