@@ -86,6 +86,9 @@ python pyinjective/fetch_metadata.py
 
 
 ### Changelogs
+0.5.1
+* add AsyncClient
+* add MetaRPC API
 
 **0.4.8**
 
