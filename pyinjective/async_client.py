@@ -2,7 +2,7 @@ import time
 
 import grpc
 
-from typing import List, Optional
+from typing import List, Optional, Tuple, Union
 
 from .exceptions import NotFoundError
 
@@ -105,7 +105,7 @@ class AsyncClient:
             raise NotFoundError("Request Id is not found")
         return request_ids
 
-    async def simulate_tx(self, tx_byte: bytes) -> abci_type.SimulationResponse:
+    async def simulate_tx(self, tx_byte: bytes) -> Tuple[Union[abci_type.SimulationResponse, grpc.RpcError], bool]:
         try:
             return (await self.stubTx.Simulate(
                 tx_service.SimulateRequest(tx_bytes=tx_byte)
@@ -156,26 +156,6 @@ class AsyncClient:
     async def stream_keepalive(self):
         req = exchange_meta_rpc_pb.StreamKeepaliveRequest()
         return self.stubMeta.StreamKeepalive(req)
-
-    # Meta RPC
-    async def ping(self):
-        req = exchange_meta_rpc_pb.PingRequest()
-        return await self.stubMeta.Ping(req)
-
-    async def version(self):
-        req = exchange_meta_rpc_pb.VersionRequest()
-        return await self.stubMeta.Version(req)
-
-    async def info(self):
-        req = exchange_meta_rpc_pb.InfoRequest(
-            timestamp=int(round(time.time() * 1000)),
-        )
-        return await self.stubMeta.Info(req)
-
-    async def stream_keepalive(self):
-        req = exchange_meta_rpc_pb.StreamKeepaliveRequest()
-        return self.stubMeta.StreamKeepalive(req)
-
 
     #AccountsRPC
 
