@@ -137,17 +137,17 @@ class Client:
 
     def ping(self):
         req = exchange_meta_rpc_pb.PingRequest()
-        return await self.stubMeta.Ping(req)
+        return self.stubMeta.Ping(req)
 
     def version(self):
         req = exchange_meta_rpc_pb.VersionRequest()
-        return await self.stubMeta.Version(req)
+        return self.stubMeta.Version(req)
 
     def info(self):
         req = exchange_meta_rpc_pb.InfoRequest(
             timestamp=int(round(time.time() * 1000)),
         )
-        return await self.stubMeta.Info(req)
+        return self.stubMeta.Info(req)
 
     def stream_keepalive(self):
         req = exchange_meta_rpc_pb.StreamKeepaliveRequest()
