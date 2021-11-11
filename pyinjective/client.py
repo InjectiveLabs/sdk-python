@@ -224,8 +224,8 @@ class Client:
 
     def get_order_states(
         self,
-        spot_order_hashes: list[str] = list(""),
-        derivative_order_hashes: list[str] = list(""),
+        spot_order_hashes: List[str] = [""],
+        derivative_order_hashes: List[str] = [""],
     ):
         req = exchange_accounts_rpc_pb.OrderStatesRequest(
             spot_order_hashes=spot_order_hashes,
