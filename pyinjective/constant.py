@@ -88,26 +88,34 @@ class Network:
         )
 
     @classmethod
-    def testnet(cls, sentry='primary'):
-        s = 'sentry0' if sentry == 'primary' else 'sentry1'
+    def testnet(cls, node='sentry1'):
+        nodes = ['sentry0', 'sentry1']
+        if node not in nodes:
+            raise ValueError("Must one of {}".format(nodes))
 
         return cls(
             lcd_endpoint='https://testnet.lcd.injective.dev',
-            grpc_endpoint=f"{s}.injective.dev:9900",
-            grpc_exchange_endpoint=f"{s}.injective.dev:9910",
+            grpc_endpoint=f"{node}.injective.dev:9900",
+            grpc_exchange_endpoint=f"{node}.injective.dev:9910",
             chain_id='injective-888',
             fee_denom='inj',
             env='testnet'
         )
 
     @classmethod
-    def mainnet(cls, location='tokyo'):
-        s = 'sentry1' if location == 'tokyo' else 'sentry0'
+    def mainnet(cls, node='sentry2'):
+        nodes = [
+            'sentry0',  # us
+            'sentry1',  # tokyo
+            'sentry2'   # us
+        ]
+        if node not in nodes:
+            raise ValueError("Must one of {}".format(nodes))
 
         return cls(
             lcd_endpoint='https://lcd.injective.network',
-            grpc_endpoint=f"{s}.injective.network:9900",
-            grpc_exchange_endpoint=f"{s}.injective.network:9910",
+            grpc_endpoint=f"{node}.injective.network:9900",
+            grpc_exchange_endpoint=f"{node}.injective.network:9910",
             chain_id='injective-1',
             fee_denom='inj',
             env='mainnet'
