@@ -149,7 +149,7 @@ class AsyncClient:
 
     async def info(self):
         req = exchange_meta_rpc_pb.InfoRequest(
-            timestamp=int(round(time.time() * 1000)),
+            timestamp=int(time.time() * 1000),
         )
         return await self.stubMeta.Info(req)
 
