@@ -175,7 +175,7 @@ class AsyncClient:
         req = exchange_accounts_rpc_pb.SubaccountBalancesListRequest(subaccount_id=subaccount_id)
         return await self.stubExchangeAccount.SubaccountBalancesList(req)
 
-    async def get_subaccount_history(self, subaccount_id: str, denom: str = '', transfer_types: list = []):
+    async def get_subaccount_history(self, subaccount_id: str, denom: str = '', transfer_types: List = []):
         req = exchange_accounts_rpc_pb.SubaccountHistoryRequest(subaccount_id=subaccount_id, denom=denom, transfer_types=transfer_types)
         return await self.stubExchangeAccount.SubaccountHistory(req)
 
