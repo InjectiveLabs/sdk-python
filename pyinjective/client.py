@@ -205,7 +205,7 @@ class Client:
         return self.stubExchangeAccount.SubaccountBalancesList(req)
 
     def get_subaccount_history(
-        self, subaccount_id: str, denom: str = "", transfer_types: list = []
+        self, subaccount_id: str, denom: str = "", transfer_types: List = []
     ):
         req = exchange_accounts_rpc_pb.SubaccountHistoryRequest(
             subaccount_id=subaccount_id, denom=denom, transfer_types=transfer_types
@@ -325,7 +325,7 @@ class Client:
         req = spot_exchange_rpc_pb.StreamOrderbookRequest(market_ids=[market_id])
         return self.stubSpotExchange.StreamOrderbook(req)
 
-    def stream_spot_orderbooks(self, market_ids: list):
+    def stream_spot_orderbooks(self, market_ids: List):
         req = spot_exchange_rpc_pb.StreamOrderbookRequest(market_ids=market_ids)
         return self.stubSpotExchange.StreamOrderbook(req)
 
@@ -411,7 +411,7 @@ class Client:
         req = derivative_exchange_rpc_pb.StreamOrderbookRequest(market_ids=[market_id])
         return self.stubDerivativeExchange.StreamOrderbook(req)
 
-    def stream_derivative_orderbooks(self, market_ids: list):
+    def stream_derivative_orderbooks(self, market_ids: List):
         req = derivative_exchange_rpc_pb.StreamOrderbookRequest(market_ids=market_ids)
         return self.stubDerivativeExchange.StreamOrderbook(req)
 
