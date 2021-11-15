@@ -34,17 +34,17 @@ class Denom:
         config = None
         if network == 'devnet':
             config = devnet_config
-        if network == 'testnet':
+        elif network == 'testnet':
             config = testnet_config
-        if network == 'mainnet':
+        else:
             config =mainnet_config
 
         return cls(
-            description=config._sections[market_id]['description'],
-            base=int(config._sections[market_id]['base']),
-            quote=int(config._sections[market_id]['quote']),
-            min_price_tick_size=config._sections[market_id]['min_price_tick_size'],
-            min_quantity_tick_size=config._sections[market_id]['min_quantity_tick_size'],
+            description=config[market_id]['description'],
+            base=int(config[market_id]['base']),
+            quote=int(config[market_id]['quote']),
+            min_price_tick_size=float(config[market_id]['min_price_tick_size']),
+            min_quantity_tick_size=float(config[market_id]['min_quantity_tick_size']),
         )
 
     @classmethod
@@ -52,11 +52,11 @@ class Denom:
         config = None
         if network == 'devnet':
             config = devnet_config
-        if network == 'testnet':
+        elif network == 'testnet':
             config = testnet_config
-        if network == 'mainnet':
+        else:
             config = mainnet_config
-        return config._sections[symbol]['peggy_denom'], int(config._sections[symbol]['decimals'])
+        return config[symbol]['peggy_denom'], int(config[symbol]['decimals'])
 
 
 class Network:

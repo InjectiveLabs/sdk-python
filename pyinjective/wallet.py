@@ -262,7 +262,7 @@ class Address:
         id = index.to_bytes(12, byteorder='big').hex()
         return '0x' + self.addr.hex() + id
 
-    async def init_num_seq(self, lcd_endpoint: str) -> (int, int):
+    async def init_num_seq(self, lcd_endpoint: str) -> "Address":
         async with aiohttp.ClientSession() as session:
             async with session.request(
                 'GET', lcd_endpoint + '/cosmos/auth/v1beta1/accounts/' + self.to_acc_bech32(),

@@ -1,5 +1,4 @@
 from decimal import Decimal
-import decimal
 from math import floor
 
 """
@@ -25,14 +24,14 @@ This also makes sense since it refers to the minimum INJ quantity tick size each
 def spot_price_to_backend(price, denom) -> int:
     price_tick_size = denom.min_price_tick_size
     scale_price = Decimal(18 + denom.quote - denom.base)
-    exchange_price = floor_to(price, price_tick_size) * pow(10, scale_price)
+    exchange_price = floor_to(price, price_tick_size) * pow(Decimal(10), scale_price)
     return int(exchange_price)
 
 
 def spot_quantity_to_backend(quantity, denom) -> int:
     quantity_tick_size = float(denom.min_quantity_tick_size) / pow(10, denom.base)
     scale_quantity = Decimal(18 + denom.base)
-    exchange_quantity = floor_to(quantity, quantity_tick_size) * pow(10, scale_quantity)
+    exchange_quantity = floor_to(quantity, quantity_tick_size) * pow(Decimal(10), scale_quantity)
     return int(exchange_quantity)
 
 
@@ -45,7 +44,7 @@ def derivative_price_to_backend(price, denom) -> int:
 def derivative_quantity_to_backend(quantity, denom) -> int:
     quantity_tick_size = float(denom.min_quantity_tick_size) / pow(10, denom.base)
     scale_quantity = Decimal(18 + denom.base)
-    exchange_quantity = floor_to(quantity, quantity_tick_size) * pow(10, scale_quantity)
+    exchange_quantity = floor_to(quantity, quantity_tick_size) * pow(Decimal(10), scale_quantity)
     return int(exchange_quantity)
 
 
@@ -67,10 +66,10 @@ def amount_to_backend(amount, decimals) -> int:
     return int(be_amount)
 
 
-def floor_to(value: float, target: float) -> int:
-    value = Decimal(str(value))
-    target = Decimal(str(target))
-    result = int(floor(value / target)) * target
+def floor_to(value: float, target: float) -> Decimal:
+    value_tmp = Decimal(str(value))
+    target_tmp = Decimal(str(target))
+    result = int(floor(value_tmp / target_tmp)) * target_tmp
     return result
 
 
@@ -79,7 +78,7 @@ def spot_price_from_backend(price, denom) -> float:
     return float(price) * pow(10, scale - 18)
 
 
-def spot_quantity_from_backend(quantity, denom) -> float:
+def spot_quantity_from_backend(quantity, denom) -> Decimal:
     scale = float(0 - denom.base)
     quantity_tick_size = float(denom.min_quantity_tick_size) * pow(10, scale)
     quantity = float(quantity) * pow(10, scale - 18)
