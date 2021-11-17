@@ -3,17 +3,10 @@ from .proto.cosmos.base.v1beta1 import coin_pb2 as cosmos_base_coin_pb
 
 from .proto.injective.exchange.v1beta1 import tx_pb2 as injective_exchange_tx_pb
 from .proto.injective.exchange.v1beta1 import exchange_pb2 as injective_exchange_pb
+from .proto.injective.types.v1beta1 import tx_response_pb2 as tx_response_pb
 
 from .constant import Denom
 from .utils import *
-
-def split_data(data, seps):
-    output = [data]
-    for sep in seps:
-        data, output = output, []
-        for seq in data:
-            output += seq.split(sep)
-    return output
 
 class Composer:
     def __init__(self, network: str):
@@ -350,23 +343,20 @@ class Composer:
         if not simulation:
             data = bytes.fromhex(data)
 
-        prefix_map = {
-            b'\n{\n3/injective.exchange.v1beta1.MsgCreateSpotLimitOrder\x12D': injective_exchange_tx_pb.MsgCreateSpotLimitOrderResponse,
-            b'\n|\n4/injective.exchange.v1beta1.MsgCreateSpotMarketOrder\x12D': injective_exchange_tx_pb.MsgCreateSpotMarketOrderResponse,
-            b'\n\x81\x01\n9/injective.exchange.v1beta1.MsgCreateDerivativeLimitOrder\x12D': injective_exchange_tx_pb.MsgCreateDerivativeLimitOrderResponse,
-            b'\n\x82\x01\n:/injective.exchange.v1beta1.MsgCreateDerivativeMarketOrder\x12D': injective_exchange_tx_pb.MsgCreateDerivativeMarketOrderResponse,
-            b'\n=\n4/injective.exchange.v1beta1.MsgBatchCancelSpotOrders\x12\x05': injective_exchange_tx_pb.MsgBatchCancelSpotOrdersResponse,
-            b'\nB\n:/injective.exchange.v1beta1.MsgBatchCancelDerivativeOrders\x12\x04': injective_exchange_tx_pb.MsgBatchCancelDerivativeOrdersResponse,
-            b'\n\xc6\x01\n9/injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrders\x12\x88\x01': injective_exchange_tx_pb.MsgBatchCreateSpotLimitOrdersResponse,
-            b'\n\xcc\x01\n?/injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrders\x12\x88\x01': injective_exchange_tx_pb.MsgBatchCreateDerivativeLimitOrdersResponse
+        header_map = {
+            '/injective.exchange.v1beta1.MsgCreateSpotLimitOrder': injective_exchange_tx_pb.MsgCreateSpotLimitOrderResponse,
+            '/injective.exchange.v1beta1.MsgCreateSpotMarketOrder': injective_exchange_tx_pb.MsgCreateSpotMarketOrderResponse,
+            '/injective.exchange.v1beta1.MsgCreateDerivativeLimitOrder': injective_exchange_tx_pb.MsgCreateDerivativeLimitOrderResponse,
+            '/injective.exchange.v1beta1.MsgCreateDerivativeMarketOrder': injective_exchange_tx_pb.MsgCreateDerivativeMarketOrderResponse,
+            '/injective.exchange.v1beta1.MsgBatchCancelSpotOrders': injective_exchange_tx_pb.MsgBatchCancelSpotOrdersResponse,
+            '/injective.exchange.v1beta1.MsgBatchCancelDerivativeOrders': injective_exchange_tx_pb.MsgBatchCancelDerivativeOrdersResponse,
+            '/injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrders': injective_exchange_tx_pb.MsgBatchCreateSpotLimitOrdersResponse,
+            '/injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrders': injective_exchange_tx_pb.MsgBatchCreateDerivativeLimitOrdersResponse
         }
 
-        responses = split_data(data, prefix_map.keys())[1:]
-        headers = split_data(data, responses)[:-1]
-
+        response = tx_response_pb.TxResponseData.FromString(data)
         msgs = []
-        for i in range(len(headers)):
-            proto_response = prefix_map[headers[i]].FromString(responses[i])
-            msgs.append(proto_response)
+        for msg in response.messages:
+            msgs.append(header_map[msg.header].FromString(msg.data))
 
         return msgs

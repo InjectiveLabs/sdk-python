@@ -91,7 +91,7 @@ class Network:
     def testnet(cls, node='sentry1'):
         nodes = ['sentry0', 'sentry1']
         if node not in nodes:
-            raise ValueError("Must one of {}".format(nodes))
+            raise ValueError("Must be one of {}".format(nodes))
 
         return cls(
             lcd_endpoint='https://testnet.lcd.injective.dev',
@@ -110,7 +110,7 @@ class Network:
             'sentry2'   # us
         ]
         if node not in nodes:
-            raise ValueError("Must one of {}".format(nodes))
+            raise ValueError("Must be one of {}".format(nodes))
 
         return cls(
             lcd_endpoint='https://lcd.injective.network',
