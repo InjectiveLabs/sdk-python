@@ -90,6 +90,11 @@ class QueryStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryPositionsRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryPositionsResponse.FromString,
                 )
+        self.SubaccountPositions = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/SubaccountPositions',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountPositionsRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountPositionsResponse.FromString,
+                )
         self.TradeRewardPoints = channel.unary_unary(
                 '/injective.exchange.v1beta1.Query/TradeRewardPoints',
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTradeRewardPointsRequest.SerializeToString,
@@ -221,6 +226,13 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def SubaccountPositions(self, request, context):
+        """Retrieves subaccount's positions
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def TradeRewardPoints(self, request, context):
         """Retrieves the account and total liquidity mining points
         """
@@ -326,6 +338,11 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.Positions,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryPositionsRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryPositionsResponse.SerializeToString,
+            ),
+            'SubaccountPositions': grpc.unary_unary_rpc_method_handler(
+                    servicer.SubaccountPositions,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountPositionsRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountPositionsResponse.SerializeToString,
             ),
             'TradeRewardPoints': grpc.unary_unary_rpc_method_handler(
                     servicer.TradeRewardPoints,
@@ -610,6 +627,23 @@ class Query(object):
         return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/Positions',
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryPositionsRequest.SerializeToString,
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryPositionsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SubaccountPositions(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/SubaccountPositions',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountPositionsRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountPositionsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

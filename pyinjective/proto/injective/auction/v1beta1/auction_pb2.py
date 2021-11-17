@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'ZMgithub.com/InjectiveLabs/injective-core/injective-chain/modules/auction/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\'injective/auction/v1beta1/auction.proto\x12\x19injective.auction.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\"{\n\x06Params\x12\x16\n\x0e\x61uction_period\x18\x01 \x01(\x03\x12S\n\x1bmin_next_bid_increment_rate\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00:\x04\xe8\xa0\x1f\x01\"s\n\x03\x42id\x12+\n\x06\x62idder\x18\x01 \x01(\tB\x1b\xea\xde\x1f\x06\x62idder\xf2\xde\x1f\ryaml:\"bidder\"\x12?\n\x06\x61mount\x18\x02 \x01(\tB/\xda\xde\x1f\'github.com/cosmos/cosmos-sdk/types.Coin\xc8\xde\x1f\x00\"j\n\x08\x45ventBid\x12\x0e\n\x06\x62idder\x18\x01 \x01(\t\x12?\n\x06\x61mount\x18\x02 \x01(\tB/\xda\xde\x1f\'github.com/cosmos/cosmos-sdk/types.Coin\xc8\xde\x1f\x00\x12\r\n\x05round\x18\x03 \x01(\x04\"t\n\x12\x45ventAuctionResult\x12\x0e\n\x06winner\x18\x01 \x01(\t\x12?\n\x06\x61mount\x18\x02 \x01(\tB/\xda\xde\x1f\'github.com/cosmos/cosmos-sdk/types.Coin\xc8\xde\x1f\x00\x12\r\n\x05round\x18\x03 \x01(\x04\x42OZMgithub.com/InjectiveLabs/injective-core/injective-chain/modules/auction/typesb\x06proto3'
+  serialized_pb=b'\n\'injective/auction/v1beta1/auction.proto\x12\x19injective.auction.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\"{\n\x06Params\x12\x16\n\x0e\x61uction_period\x18\x01 \x01(\x03\x12S\n\x1bmin_next_bid_increment_rate\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00:\x04\xe8\xa0\x1f\x01\"s\n\x03\x42id\x12+\n\x06\x62idder\x18\x01 \x01(\tB\x1b\xea\xde\x1f\x06\x62idder\xf2\xde\x1f\ryaml:\"bidder\"\x12?\n\x06\x61mount\x18\x02 \x01(\tB/\xda\xde\x1f\'github.com/cosmos/cosmos-sdk/types.Coin\xc8\xde\x1f\x00\"j\n\x08\x45ventBid\x12\x0e\n\x06\x62idder\x18\x01 \x01(\t\x12?\n\x06\x61mount\x18\x02 \x01(\tB/\xda\xde\x1f\'github.com/cosmos/cosmos-sdk/types.Coin\xc8\xde\x1f\x00\x12\r\n\x05round\x18\x03 \x01(\x04\"t\n\x12\x45ventAuctionResult\x12\x0e\n\x06winner\x18\x01 \x01(\t\x12?\n\x06\x61mount\x18\x02 \x01(\tB/\xda\xde\x1f\'github.com/cosmos/cosmos-sdk/types.Coin\xc8\xde\x1f\x00\x12\r\n\x05round\x18\x03 \x01(\x04\"\x9d\x01\n\x11\x45ventAuctionStart\x12\r\n\x05round\x18\x01 \x01(\x04\x12\x18\n\x10\x65nding_timestamp\x18\x02 \x01(\x03\x12_\n\nnew_basket\x18\x03 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.CoinsBOZMgithub.com/InjectiveLabs/injective-core/injective-chain/modules/auction/typesb\x06proto3'
   ,
   dependencies=[gogoproto_dot_gogo__pb2.DESCRIPTOR,cosmos_dot_base_dot_v1beta1_dot_coin__pb2.DESCRIPTOR,])
 
@@ -197,10 +197,58 @@ _EVENTAUCTIONRESULT = _descriptor.Descriptor(
   serialized_end=590,
 )
 
+
+_EVENTAUCTIONSTART = _descriptor.Descriptor(
+  name='EventAuctionStart',
+  full_name='injective.auction.v1beta1.EventAuctionStart',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='round', full_name='injective.auction.v1beta1.EventAuctionStart.round', index=0,
+      number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='ending_timestamp', full_name='injective.auction.v1beta1.EventAuctionStart.ending_timestamp', index=1,
+      number=2, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='new_basket', full_name='injective.auction.v1beta1.EventAuctionStart.new_basket', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\310\336\037\000\252\337\037(github.com/cosmos/cosmos-sdk/types.Coins', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=593,
+  serialized_end=750,
+)
+
+_EVENTAUCTIONSTART.fields_by_name['new_basket'].message_type = cosmos_dot_base_dot_v1beta1_dot_coin__pb2._COIN
 DESCRIPTOR.message_types_by_name['Params'] = _PARAMS
 DESCRIPTOR.message_types_by_name['Bid'] = _BID
 DESCRIPTOR.message_types_by_name['EventBid'] = _EVENTBID
 DESCRIPTOR.message_types_by_name['EventAuctionResult'] = _EVENTAUCTIONRESULT
+DESCRIPTOR.message_types_by_name['EventAuctionStart'] = _EVENTAUCTIONSTART
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Params = _reflection.GeneratedProtocolMessageType('Params', (_message.Message,), {
@@ -231,6 +279,13 @@ EventAuctionResult = _reflection.GeneratedProtocolMessageType('EventAuctionResul
   })
 _sym_db.RegisterMessage(EventAuctionResult)
 
+EventAuctionStart = _reflection.GeneratedProtocolMessageType('EventAuctionStart', (_message.Message,), {
+  'DESCRIPTOR' : _EVENTAUCTIONSTART,
+  '__module__' : 'injective.auction.v1beta1.auction_pb2'
+  # @@protoc_insertion_point(class_scope:injective.auction.v1beta1.EventAuctionStart)
+  })
+_sym_db.RegisterMessage(EventAuctionStart)
+
 
 DESCRIPTOR._options = None
 _PARAMS.fields_by_name['min_next_bid_increment_rate']._options = None
@@ -239,4 +294,5 @@ _BID.fields_by_name['bidder']._options = None
 _BID.fields_by_name['amount']._options = None
 _EVENTBID.fields_by_name['amount']._options = None
 _EVENTAUCTIONRESULT.fields_by_name['amount']._options = None
+_EVENTAUCTIONSTART.fields_by_name['new_basket']._options = None
 # @@protoc_insertion_point(module_scope)

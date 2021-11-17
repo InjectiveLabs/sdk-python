@@ -35,6 +35,16 @@ class InjectiveExplorerRPCStub(object):
                 request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetBlockRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetBlockResponse.FromString,
                 )
+        self.GetValidator = channel.unary_unary(
+                '/injective_explorer_rpc.InjectiveExplorerRPC/GetValidator',
+                request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetValidatorRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetValidatorResponse.FromString,
+                )
+        self.GetValidatorUptime = channel.unary_unary(
+                '/injective_explorer_rpc.InjectiveExplorerRPC/GetValidatorUptime',
+                request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetValidatorUptimeRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetValidatorUptimeResponse.FromString,
+                )
         self.GetCoinPriceData = channel.unary_unary(
                 '/injective_explorer_rpc.InjectiveExplorerRPC/GetCoinPriceData',
                 request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetCoinPriceDataRequest.SerializeToString,
@@ -89,6 +99,20 @@ class InjectiveExplorerRPCServicer(object):
 
     def GetBlock(self, request, context):
         """GetBlock returns block based upon the height or hash
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetValidator(self, request, context):
+        """GetValidator returns validator information on the active chain
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetValidatorUptime(self, request, context):
+        """GetValidatorUptime returns validator uptime information on the active chain
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -151,6 +175,16 @@ def add_InjectiveExplorerRPCServicer_to_server(servicer, server):
                     servicer.GetBlock,
                     request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetBlockRequest.FromString,
                     response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetBlockResponse.SerializeToString,
+            ),
+            'GetValidator': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetValidator,
+                    request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetValidatorRequest.FromString,
+                    response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetValidatorResponse.SerializeToString,
+            ),
+            'GetValidatorUptime': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetValidatorUptime,
+                    request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetValidatorUptimeRequest.FromString,
+                    response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetValidatorUptimeResponse.SerializeToString,
             ),
             'GetCoinPriceData': grpc.unary_unary_rpc_method_handler(
                     servicer.GetCoinPriceData,
@@ -253,6 +287,40 @@ class InjectiveExplorerRPC(object):
         return grpc.experimental.unary_unary(request, target, '/injective_explorer_rpc.InjectiveExplorerRPC/GetBlock',
             exchange_dot_injective__explorer__rpc__pb2.GetBlockRequest.SerializeToString,
             exchange_dot_injective__explorer__rpc__pb2.GetBlockResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetValidator(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective_explorer_rpc.InjectiveExplorerRPC/GetValidator',
+            exchange_dot_injective__explorer__rpc__pb2.GetValidatorRequest.SerializeToString,
+            exchange_dot_injective__explorer__rpc__pb2.GetValidatorResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetValidatorUptime(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective_explorer_rpc.InjectiveExplorerRPC/GetValidatorUptime',
+            exchange_dot_injective__explorer__rpc__pb2.GetValidatorUptimeRequest.SerializeToString,
+            exchange_dot_injective__explorer__rpc__pb2.GetValidatorUptimeResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
