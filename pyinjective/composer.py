@@ -351,7 +351,11 @@ class Composer:
             '/injective.exchange.v1beta1.MsgBatchCancelSpotOrders': injective_exchange_tx_pb.MsgBatchCancelSpotOrdersResponse,
             '/injective.exchange.v1beta1.MsgBatchCancelDerivativeOrders': injective_exchange_tx_pb.MsgBatchCancelDerivativeOrdersResponse,
             '/injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrders': injective_exchange_tx_pb.MsgBatchCreateSpotLimitOrdersResponse,
-            '/injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrders': injective_exchange_tx_pb.MsgBatchCreateDerivativeLimitOrdersResponse
+            '/injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrders': injective_exchange_tx_pb.MsgBatchCreateDerivativeLimitOrdersResponse,
+            '/injective.exchange.v1beta1.MsgWithdraw': injective_exchange_tx_pb.MsgWithdrawResponse,
+            '/injective.exchange.v1beta1.MsgSubaccountTransfer': injective_exchange_tx_pb.MsgSubaccountTransfer,
+            '/injective.exchange.v1beta1.MsgIncreasePositionMargin': injective_exchange_tx_pb.MsgIncreasePositionMargin,
+
         }
 
         response = tx_response_pb.TxResponseData.FromString(data)
