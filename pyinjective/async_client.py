@@ -256,7 +256,7 @@ class AsyncClient:
     # DerivativeRPC
 
     async def get_derivative_market(self, market_id: str):
-        req = spot_exchange_rpc_pb.MarketRequest(market_id=market_id)
+        req = derivative_exchange_rpc_pb.MarketRequest(market_id=market_id)
         return await self.stubDerivativeExchange.Market(req)
 
     async def get_derivative_markets(self, market_status: str = '', quote_denom: str = ''):
