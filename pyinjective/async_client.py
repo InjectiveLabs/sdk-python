@@ -63,7 +63,7 @@ class AsyncClient:
         self.exchange_channel = (
             grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
             if insecure
-            else grpc.secure_channel(
+            else grpc.aio.secure_channel(
                 network.grpc_endpoint,
                 credentials or grpc.ssl_channel_credentials(),
                 )
