@@ -31,7 +31,6 @@ class Denom:
 
     @classmethod
     def load_market(cls, network, market_id):
-        config = None
         if network == 'devnet':
             config = devnet_config
         elif network == 'testnet':
@@ -49,7 +48,6 @@ class Denom:
 
     @classmethod
     def load_peggy_denom(cls, network, symbol):
-        config = None
         if network == 'devnet':
             config = devnet_config
         elif network == 'testnet':
@@ -62,12 +60,12 @@ class Denom:
 class Network:
     def __init__(
         self,
-        lcd_endpoint: str = None,
-        grpc_endpoint: str = None,
-        grpc_exchange_endpoint: str = None,
-        chain_id: str = None,
-        fee_denom: str = None,
-        env: str = None
+        lcd_endpoint: str ,
+        grpc_endpoint: str ,
+        grpc_exchange_endpoint: str ,
+        chain_id: str ,
+        fee_denom: str ,
+        env: str 
     ):
         self.lcd_endpoint = lcd_endpoint
         self.grpc_endpoint = grpc_endpoint

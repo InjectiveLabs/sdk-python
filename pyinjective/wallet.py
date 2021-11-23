@@ -280,7 +280,7 @@ class Address:
                 return self
 
     def init_num_seq(self, lcd_endpoint: str)-> "Address":
-        response = requests.get(f"http://{lcd_endpoint}/cosmos/auth/v1beta1/accounts/{self.to_acc_bech32()}", 
+        response = requests.get(f"{lcd_endpoint}/cosmos/auth/v1beta1/accounts/{self.to_acc_bech32()}", 
                 headers={'Accept-Encoding': 'application/json'})
         if response.status_code != 200:
             raise ValueError("HTTP response status", response.status_code)
