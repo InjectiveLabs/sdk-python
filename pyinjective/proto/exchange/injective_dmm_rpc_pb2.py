@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z\024/injective_dmm_rpcpb',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n exchange/injective_dmm_rpc.proto\x12\x11injective_dmm_rpc\"\x17\n\x15GetLatestEpochRequest\"A\n\x16GetLatestEpochResponse\x12\'\n\x05\x65poch\x18\x01 \x01(\x0b\x32\x18.injective_dmm_rpc.Epoch\"{\n\x05\x45poch\x12\x10\n\x08\x65poch_id\x18\x01 \x01(\t\x12*\n\x04meta\x18\x03 \x01(\x0b\x32\x1c.injective_dmm_rpc.EpochMeta\x12\x34\n\x06result\x18\x04 \x01(\x0b\x32$.injective_dmm_rpc.EpochResultRecord\"\xe4\x02\n\tEpochMeta\x12\n\n\x02id\x18\x01 \x01(\t\x12\x12\n\nstart_time\x18\x02 \x01(\t\x12\x10\n\x08\x65nd_time\x18\x03 \x01(\t\x12\x18\n\x10reward_token_num\x18\x04 \x01(\t\x12\x16\n\x0e\x64mm_proportion\x18\x05 \x01(\t\x12\x17\n\x0f\x65lcs_proportion\x18\x06 \x01(\t\x12\x17\n\x0f\x65vcs_proportion\x18\x07 \x01(\t\x12\x14\n\x0creward_token\x18\x08 \x01(\t\x12:\n\x07markets\x18\t \x03(\x0b\x32).injective_dmm_rpc.EpochMeta.MarketsEntry\x12\x15\n\rdmm_addresses\x18\n \x03(\t\x1aX\n\x0cMarketsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x37\n\x05value\x18\x02 \x01(\x0b\x32(.injective_dmm_rpc.MapOfStringMarketConf:\x02\x38\x01\"\xa8\x01\n\x15MapOfStringMarketConf\x12\x42\n\x05\x66ield\x18\x01 \x03(\x0b\x32\x33.injective_dmm_rpc.MapOfStringMarketConf.FieldEntry\x1aK\n\nFieldEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12,\n\x05value\x18\x02 \x01(\x0b\x32\x1d.injective_dmm_rpc.MarketConf:\x02\x38\x01\"D\n\nMarketConf\x12\x1a\n\x12\x65lcs_adjust_factor\x18\x01 \x01(\t\x12\x1a\n\x12\x65vcs_adjust_factor\x18\x02 \x01(\t\"\xb3\x02\n\x11\x45pochResultRecord\x12<\n\x04\x65lcs\x18\x01 \x03(\x0b\x32..injective_dmm_rpc.EpochResultRecord.ElcsEntry\x12<\n\x04\x65vcs\x18\x02 \x03(\x0b\x32..injective_dmm_rpc.EpochResultRecord.EvcsEntry\x1aP\n\tElcsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x32\n\x05value\x18\x02 \x01(\x0b\x32#.injective_dmm_rpc.AccountFinalELCS:\x02\x38\x01\x1aP\n\tEvcsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x32\n\x05value\x18\x02 \x01(\x0b\x32#.injective_dmm_rpc.AccountFinalEVCS:\x02\x38\x01\"\xc2\x01\n\x10\x41\x63\x63ountFinalELCS\x12\r\n\x05score\x18\x01 \x01(\t\x12?\n\x06\x64\x65tail\x18\x02 \x03(\x0b\x32/.injective_dmm_rpc.AccountFinalELCS.DetailEntry\x1a^\n\x0b\x44\x65tailEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12>\n\x05value\x18\x02 \x01(\x0b\x32/.injective_dmm_rpc.MapOfStringAccELCSSOneMarket:\x02\x38\x01\"\xbd\x01\n\x1cMapOfStringAccELCSSOneMarket\x12I\n\x05\x66ield\x18\x01 \x03(\x0b\x32:.injective_dmm_rpc.MapOfStringAccELCSSOneMarket.FieldEntry\x1aR\n\nFieldEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x33\n\x05value\x18\x02 \x01(\x0b\x32$.injective_dmm_rpc.AccELCSSOneMarket:\x02\x38\x01\"a\n\x11\x41\x63\x63\x45LCSSOneMarket\x12\r\n\x05score\x18\x01 \x01(\t\x12=\n\x14latest_elcs_snapshot\x18\x02 \x01(\x0b\x32\x1f.injective_dmm_rpc.ELCSSnapshot\"]\n\x0c\x45LCSSnapshot\x12\x0b\n\x03\x62uy\x18\x01 \x01(\t\x12\x10\n\x08\x62uy_norm\x18\x02 \x01(\t\x12\x0c\n\x04sell\x18\x03 \x01(\t\x12\x11\n\tsell_norm\x18\x04 \x01(\t\x12\r\n\x05score\x18\x05 \x01(\t\"\xc2\x01\n\x10\x41\x63\x63ountFinalEVCS\x12\r\n\x05score\x18\x01 \x01(\t\x12?\n\x06\x64\x65tail\x18\x02 \x03(\x0b\x32/.injective_dmm_rpc.AccountFinalEVCS.DetailEntry\x1a^\n\x0b\x44\x65tailEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12>\n\x05value\x18\x02 \x01(\x0b\x32/.injective_dmm_rpc.MapOfStringAccEVCSSOneMarket:\x02\x38\x01\"\xbd\x01\n\x1cMapOfStringAccEVCSSOneMarket\x12I\n\x05\x66ield\x18\x01 \x03(\x0b\x32:.injective_dmm_rpc.MapOfStringAccEVCSSOneMarket.FieldEntry\x1aR\n\nFieldEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x33\n\x05value\x18\x02 \x01(\x0b\x32$.injective_dmm_rpc.AccEVCSSOneMarket:\x02\x38\x01\"n\n\x11\x41\x63\x63\x45VCSSOneMarket\x12\x0c\n\x04\x65vcs\x18\x01 \x01(\t\x12\x12\n\nevcs_trans\x18\x02 \x01(\t\x12\x17\n\x0f\x65vcs_trans_norm\x18\x03 \x01(\t\x12\x1e\n\x16\x65vcs_trans_norm_adjust\x18\x04 \x01(\t\"A\n\x14GetDMMRecordsRequest\x12\x17\n\x0f\x61\x63\x63ount_address\x18\x01 \x01(\t\x12\x10\n\x08\x65poch_id\x18\x02 \x01(\t\"N\n\x15GetDMMRecordsResponse\x12\x35\n\x07records\x18\x01 \x03(\x0b\x32$.injective_dmm_rpc.EpochResultRecord2\xdc\x01\n\x0fInjectiveDmmRPC\x12\x65\n\x0eGetLatestEpoch\x12(.injective_dmm_rpc.GetLatestEpochRequest\x1a).injective_dmm_rpc.GetLatestEpochResponse\x12\x62\n\rGetDMMRecords\x12\'.injective_dmm_rpc.GetDMMRecordsRequest\x1a(.injective_dmm_rpc.GetDMMRecordsResponseB\x16Z\x14/injective_dmm_rpcpbb\x06proto3'
+  serialized_pb=b'\n exchange/injective_dmm_rpc.proto\x12\x11injective_dmm_rpc\"\x17\n\x15GetLatestEpochRequest\"A\n\x16GetLatestEpochResponse\x12\'\n\x05\x65poch\x18\x01 \x01(\x0b\x32\x18.injective_dmm_rpc.Epoch\"{\n\x05\x45poch\x12\x10\n\x08\x65poch_id\x18\x01 \x01(\t\x12*\n\x04meta\x18\x03 \x01(\x0b\x32\x1c.injective_dmm_rpc.EpochMeta\x12\x34\n\x06result\x18\x04 \x01(\x0b\x32$.injective_dmm_rpc.EpochResultRecord\"\xc0\x02\n\tEpochMeta\x12\n\n\x02id\x18\x01 \x01(\t\x12\x12\n\nstart_time\x18\x02 \x01(\t\x12\x10\n\x08\x65nd_time\x18\x03 \x01(\t\x12\x18\n\x10reward_token_num\x18\x04 \x01(\t\x12\x1b\n\x13lcs_reward_fraction\x18\x06 \x01(\t\x12\x1b\n\x13vcs_reward_fraction\x18\x07 \x01(\t\x12:\n\x07markets\x18\x08 \x03(\x0b\x32).injective_dmm_rpc.EpochMeta.MarketsEntry\x12\x15\n\rdmm_addresses\x18\t \x03(\t\x1aZ\n\x0cMarketsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x39\n\x05value\x18\x02 \x01(\x0b\x32*.injective_dmm_rpc.MapOfStringMarketConfig:\x02\x38\x01\"\xae\x01\n\x17MapOfStringMarketConfig\x12\x44\n\x05\x66ield\x18\x01 \x03(\x0b\x32\x35.injective_dmm_rpc.MapOfStringMarketConfig.FieldEntry\x1aM\n\nFieldEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12.\n\x05value\x18\x02 \x01(\x0b\x32\x1f.injective_dmm_rpc.MarketConfig:\x02\x38\x01\"D\n\x0cMarketConfig\x12\x19\n\x11lcs_adjust_factor\x18\x01 \x01(\t\x12\x19\n\x11vcs_adjust_factor\x18\x02 \x01(\t\"\xab\x02\n\x11\x45pochResultRecord\x12:\n\x03lcs\x18\x01 \x03(\x0b\x32-.injective_dmm_rpc.EpochResultRecord.LcsEntry\x12:\n\x03vcs\x18\x02 \x03(\x0b\x32-.injective_dmm_rpc.EpochResultRecord.VcsEntry\x1aN\n\x08LcsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x31\n\x05value\x18\x02 \x01(\x0b\x32\".injective_dmm_rpc.AccountFinalLCS:\x02\x38\x01\x1aN\n\x08VcsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x31\n\x05value\x18\x02 \x01(\x0b\x32\".injective_dmm_rpc.AccountFinalVCS:\x02\x38\x01\"\xbf\x01\n\x0f\x41\x63\x63ountFinalLCS\x12\r\n\x05score\x18\x01 \x01(\t\x12>\n\x06\x64\x65tail\x18\x02 \x03(\x0b\x32..injective_dmm_rpc.AccountFinalLCS.DetailEntry\x1a]\n\x0b\x44\x65tailEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12=\n\x05value\x18\x02 \x01(\x0b\x32..injective_dmm_rpc.MapOfStringAccLCSSOneMarket:\x02\x38\x01\"\xba\x01\n\x1bMapOfStringAccLCSSOneMarket\x12H\n\x05\x66ield\x18\x01 \x03(\x0b\x32\x39.injective_dmm_rpc.MapOfStringAccLCSSOneMarket.FieldEntry\x1aQ\n\nFieldEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x32\n\x05value\x18\x02 \x01(\x0b\x32#.injective_dmm_rpc.AccLCSSOneMarket:\x02\x38\x01\"^\n\x10\x41\x63\x63LCSSOneMarket\x12\r\n\x05score\x18\x01 \x01(\t\x12;\n\x13latest_lcs_snapshot\x18\x02 \x01(\x0b\x32\x1e.injective_dmm_rpc.LCSSnapshot\"\\\n\x0bLCSSnapshot\x12\x0b\n\x03\x62uy\x18\x01 \x01(\t\x12\x10\n\x08\x62uy_norm\x18\x02 \x01(\t\x12\x0c\n\x04sell\x18\x03 \x01(\t\x12\x11\n\tsell_norm\x18\x04 \x01(\t\x12\r\n\x05score\x18\x05 \x01(\t\"\xbf\x01\n\x0f\x41\x63\x63ountFinalVCS\x12\r\n\x05score\x18\x01 \x01(\t\x12>\n\x06\x64\x65tail\x18\x02 \x03(\x0b\x32..injective_dmm_rpc.AccountFinalVCS.DetailEntry\x1a]\n\x0b\x44\x65tailEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12=\n\x05value\x18\x02 \x01(\x0b\x32..injective_dmm_rpc.MapOfStringAccVCSSOneMarket:\x02\x38\x01\"\xba\x01\n\x1bMapOfStringAccVCSSOneMarket\x12H\n\x05\x66ield\x18\x01 \x03(\x0b\x32\x39.injective_dmm_rpc.MapOfStringAccVCSSOneMarket.FieldEntry\x1aQ\n\nFieldEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x32\n\x05value\x18\x02 \x01(\x0b\x32#.injective_dmm_rpc.AccVCSSOneMarket:\x02\x38\x01\"i\n\x10\x41\x63\x63VCSSOneMarket\x12\x0b\n\x03vcs\x18\x01 \x01(\t\x12\x11\n\tvcs_trans\x18\x02 \x01(\t\x12\x16\n\x0evcs_trans_norm\x18\x03 \x01(\t\x12\x1d\n\x15vcs_trans_norm_adjust\x18\x04 \x01(\t\"A\n\x14GetDMMRecordsRequest\x12\x17\n\x0f\x61\x63\x63ount_address\x18\x01 \x01(\t\x12\x10\n\x08\x65poch_id\x18\x02 \x01(\t\"N\n\x15GetDMMRecordsResponse\x12\x35\n\x07records\x18\x01 \x03(\x0b\x32$.injective_dmm_rpc.EpochResultRecord2\xdc\x01\n\x0fInjectiveDmmRPC\x12\x65\n\x0eGetLatestEpoch\x12(.injective_dmm_rpc.GetLatestEpochRequest\x1a).injective_dmm_rpc.GetLatestEpochResponse\x12\x62\n\rGetDMMRecords\x12\'.injective_dmm_rpc.GetDMMRecordsRequest\x1a(.injective_dmm_rpc.GetDMMRecordsResponseB\x16Z\x14/injective_dmm_rpcpbb\x06proto3'
 )
 
 
@@ -162,8 +162,8 @@ _EPOCHMETA_MARKETSENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=541,
-  serialized_end=629,
+  serialized_start=503,
+  serialized_end=593,
 )
 
 _EPOCHMETA = _descriptor.Descriptor(
@@ -203,43 +203,29 @@ _EPOCHMETA = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='dmm_proportion', full_name='injective_dmm_rpc.EpochMeta.dmm_proportion', index=4,
-      number=5, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='elcs_proportion', full_name='injective_dmm_rpc.EpochMeta.elcs_proportion', index=5,
+      name='lcs_reward_fraction', full_name='injective_dmm_rpc.EpochMeta.lcs_reward_fraction', index=4,
       number=6, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='evcs_proportion', full_name='injective_dmm_rpc.EpochMeta.evcs_proportion', index=6,
+      name='vcs_reward_fraction', full_name='injective_dmm_rpc.EpochMeta.vcs_reward_fraction', index=5,
       number=7, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='reward_token', full_name='injective_dmm_rpc.EpochMeta.reward_token', index=7,
-      number=8, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='markets', full_name='injective_dmm_rpc.EpochMeta.markets', index=8,
-      number=9, type=11, cpp_type=10, label=3,
+      name='markets', full_name='injective_dmm_rpc.EpochMeta.markets', index=6,
+      number=8, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='dmm_addresses', full_name='injective_dmm_rpc.EpochMeta.dmm_addresses', index=9,
-      number=10, type=9, cpp_type=9, label=3,
+      name='dmm_addresses', full_name='injective_dmm_rpc.EpochMeta.dmm_addresses', index=7,
+      number=9, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -257,27 +243,27 @@ _EPOCHMETA = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=273,
-  serialized_end=629,
+  serialized_end=593,
 )
 
 
-_MAPOFSTRINGMARKETCONF_FIELDENTRY = _descriptor.Descriptor(
+_MAPOFSTRINGMARKETCONFIG_FIELDENTRY = _descriptor.Descriptor(
   name='FieldEntry',
-  full_name='injective_dmm_rpc.MapOfStringMarketConf.FieldEntry',
+  full_name='injective_dmm_rpc.MapOfStringMarketConfig.FieldEntry',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='key', full_name='injective_dmm_rpc.MapOfStringMarketConf.FieldEntry.key', index=0,
+      name='key', full_name='injective_dmm_rpc.MapOfStringMarketConfig.FieldEntry.key', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='value', full_name='injective_dmm_rpc.MapOfStringMarketConf.FieldEntry.value', index=1,
+      name='value', full_name='injective_dmm_rpc.MapOfStringMarketConfig.FieldEntry.value', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -295,20 +281,20 @@ _MAPOFSTRINGMARKETCONF_FIELDENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=725,
-  serialized_end=800,
+  serialized_start=693,
+  serialized_end=770,
 )
 
-_MAPOFSTRINGMARKETCONF = _descriptor.Descriptor(
-  name='MapOfStringMarketConf',
-  full_name='injective_dmm_rpc.MapOfStringMarketConf',
+_MAPOFSTRINGMARKETCONFIG = _descriptor.Descriptor(
+  name='MapOfStringMarketConfig',
+  full_name='injective_dmm_rpc.MapOfStringMarketConfig',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='field', full_name='injective_dmm_rpc.MapOfStringMarketConf.field', index=0,
+      name='field', full_name='injective_dmm_rpc.MapOfStringMarketConfig.field', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -317,7 +303,7 @@ _MAPOFSTRINGMARKETCONF = _descriptor.Descriptor(
   ],
   extensions=[
   ],
-  nested_types=[_MAPOFSTRINGMARKETCONF_FIELDENTRY, ],
+  nested_types=[_MAPOFSTRINGMARKETCONFIG_FIELDENTRY, ],
   enum_types=[
   ],
   serialized_options=None,
@@ -326,28 +312,28 @@ _MAPOFSTRINGMARKETCONF = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=632,
-  serialized_end=800,
+  serialized_start=596,
+  serialized_end=770,
 )
 
 
-_MARKETCONF = _descriptor.Descriptor(
-  name='MarketConf',
-  full_name='injective_dmm_rpc.MarketConf',
+_MARKETCONFIG = _descriptor.Descriptor(
+  name='MarketConfig',
+  full_name='injective_dmm_rpc.MarketConfig',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='elcs_adjust_factor', full_name='injective_dmm_rpc.MarketConf.elcs_adjust_factor', index=0,
+      name='lcs_adjust_factor', full_name='injective_dmm_rpc.MarketConfig.lcs_adjust_factor', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='evcs_adjust_factor', full_name='injective_dmm_rpc.MarketConf.evcs_adjust_factor', index=1,
+      name='vcs_adjust_factor', full_name='injective_dmm_rpc.MarketConfig.vcs_adjust_factor', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -365,28 +351,28 @@ _MARKETCONF = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=802,
-  serialized_end=870,
+  serialized_start=772,
+  serialized_end=840,
 )
 
 
-_EPOCHRESULTRECORD_ELCSENTRY = _descriptor.Descriptor(
-  name='ElcsEntry',
-  full_name='injective_dmm_rpc.EpochResultRecord.ElcsEntry',
+_EPOCHRESULTRECORD_LCSENTRY = _descriptor.Descriptor(
+  name='LcsEntry',
+  full_name='injective_dmm_rpc.EpochResultRecord.LcsEntry',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='key', full_name='injective_dmm_rpc.EpochResultRecord.ElcsEntry.key', index=0,
+      name='key', full_name='injective_dmm_rpc.EpochResultRecord.LcsEntry.key', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='value', full_name='injective_dmm_rpc.EpochResultRecord.ElcsEntry.value', index=1,
+      name='value', full_name='injective_dmm_rpc.EpochResultRecord.LcsEntry.value', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -404,27 +390,27 @@ _EPOCHRESULTRECORD_ELCSENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1018,
-  serialized_end=1098,
+  serialized_start=984,
+  serialized_end=1062,
 )
 
-_EPOCHRESULTRECORD_EVCSENTRY = _descriptor.Descriptor(
-  name='EvcsEntry',
-  full_name='injective_dmm_rpc.EpochResultRecord.EvcsEntry',
+_EPOCHRESULTRECORD_VCSENTRY = _descriptor.Descriptor(
+  name='VcsEntry',
+  full_name='injective_dmm_rpc.EpochResultRecord.VcsEntry',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='key', full_name='injective_dmm_rpc.EpochResultRecord.EvcsEntry.key', index=0,
+      name='key', full_name='injective_dmm_rpc.EpochResultRecord.VcsEntry.key', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='value', full_name='injective_dmm_rpc.EpochResultRecord.EvcsEntry.value', index=1,
+      name='value', full_name='injective_dmm_rpc.EpochResultRecord.VcsEntry.value', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -442,8 +428,8 @@ _EPOCHRESULTRECORD_EVCSENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1100,
-  serialized_end=1180,
+  serialized_start=1064,
+  serialized_end=1142,
 )
 
 _EPOCHRESULTRECORD = _descriptor.Descriptor(
@@ -455,14 +441,14 @@ _EPOCHRESULTRECORD = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='elcs', full_name='injective_dmm_rpc.EpochResultRecord.elcs', index=0,
+      name='lcs', full_name='injective_dmm_rpc.EpochResultRecord.lcs', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='evcs', full_name='injective_dmm_rpc.EpochResultRecord.evcs', index=1,
+      name='vcs', full_name='injective_dmm_rpc.EpochResultRecord.vcs', index=1,
       number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -471,7 +457,7 @@ _EPOCHRESULTRECORD = _descriptor.Descriptor(
   ],
   extensions=[
   ],
-  nested_types=[_EPOCHRESULTRECORD_ELCSENTRY, _EPOCHRESULTRECORD_EVCSENTRY, ],
+  nested_types=[_EPOCHRESULTRECORD_LCSENTRY, _EPOCHRESULTRECORD_VCSENTRY, ],
   enum_types=[
   ],
   serialized_options=None,
@@ -480,28 +466,28 @@ _EPOCHRESULTRECORD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=873,
-  serialized_end=1180,
+  serialized_start=843,
+  serialized_end=1142,
 )
 
 
-_ACCOUNTFINALELCS_DETAILENTRY = _descriptor.Descriptor(
+_ACCOUNTFINALLCS_DETAILENTRY = _descriptor.Descriptor(
   name='DetailEntry',
-  full_name='injective_dmm_rpc.AccountFinalELCS.DetailEntry',
+  full_name='injective_dmm_rpc.AccountFinalLCS.DetailEntry',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='key', full_name='injective_dmm_rpc.AccountFinalELCS.DetailEntry.key', index=0,
+      name='key', full_name='injective_dmm_rpc.AccountFinalLCS.DetailEntry.key', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='value', full_name='injective_dmm_rpc.AccountFinalELCS.DetailEntry.value', index=1,
+      name='value', full_name='injective_dmm_rpc.AccountFinalLCS.DetailEntry.value', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -519,27 +505,27 @@ _ACCOUNTFINALELCS_DETAILENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1283,
-  serialized_end=1377,
+  serialized_start=1243,
+  serialized_end=1336,
 )
 
-_ACCOUNTFINALELCS = _descriptor.Descriptor(
-  name='AccountFinalELCS',
-  full_name='injective_dmm_rpc.AccountFinalELCS',
+_ACCOUNTFINALLCS = _descriptor.Descriptor(
+  name='AccountFinalLCS',
+  full_name='injective_dmm_rpc.AccountFinalLCS',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='score', full_name='injective_dmm_rpc.AccountFinalELCS.score', index=0,
+      name='score', full_name='injective_dmm_rpc.AccountFinalLCS.score', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='detail', full_name='injective_dmm_rpc.AccountFinalELCS.detail', index=1,
+      name='detail', full_name='injective_dmm_rpc.AccountFinalLCS.detail', index=1,
       number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -548,7 +534,7 @@ _ACCOUNTFINALELCS = _descriptor.Descriptor(
   ],
   extensions=[
   ],
-  nested_types=[_ACCOUNTFINALELCS_DETAILENTRY, ],
+  nested_types=[_ACCOUNTFINALLCS_DETAILENTRY, ],
   enum_types=[
   ],
   serialized_options=None,
@@ -557,28 +543,28 @@ _ACCOUNTFINALELCS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1183,
-  serialized_end=1377,
+  serialized_start=1145,
+  serialized_end=1336,
 )
 
 
-_MAPOFSTRINGACCELCSSONEMARKET_FIELDENTRY = _descriptor.Descriptor(
+_MAPOFSTRINGACCLCSSONEMARKET_FIELDENTRY = _descriptor.Descriptor(
   name='FieldEntry',
-  full_name='injective_dmm_rpc.MapOfStringAccELCSSOneMarket.FieldEntry',
+  full_name='injective_dmm_rpc.MapOfStringAccLCSSOneMarket.FieldEntry',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='key', full_name='injective_dmm_rpc.MapOfStringAccELCSSOneMarket.FieldEntry.key', index=0,
+      name='key', full_name='injective_dmm_rpc.MapOfStringAccLCSSOneMarket.FieldEntry.key', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='value', full_name='injective_dmm_rpc.MapOfStringAccELCSSOneMarket.FieldEntry.value', index=1,
+      name='value', full_name='injective_dmm_rpc.MapOfStringAccLCSSOneMarket.FieldEntry.value', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -596,20 +582,20 @@ _MAPOFSTRINGACCELCSSONEMARKET_FIELDENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1487,
-  serialized_end=1569,
+  serialized_start=1444,
+  serialized_end=1525,
 )
 
-_MAPOFSTRINGACCELCSSONEMARKET = _descriptor.Descriptor(
-  name='MapOfStringAccELCSSOneMarket',
-  full_name='injective_dmm_rpc.MapOfStringAccELCSSOneMarket',
+_MAPOFSTRINGACCLCSSONEMARKET = _descriptor.Descriptor(
+  name='MapOfStringAccLCSSOneMarket',
+  full_name='injective_dmm_rpc.MapOfStringAccLCSSOneMarket',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='field', full_name='injective_dmm_rpc.MapOfStringAccELCSSOneMarket.field', index=0,
+      name='field', full_name='injective_dmm_rpc.MapOfStringAccLCSSOneMarket.field', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -618,7 +604,7 @@ _MAPOFSTRINGACCELCSSONEMARKET = _descriptor.Descriptor(
   ],
   extensions=[
   ],
-  nested_types=[_MAPOFSTRINGACCELCSSONEMARKET_FIELDENTRY, ],
+  nested_types=[_MAPOFSTRINGACCLCSSONEMARKET_FIELDENTRY, ],
   enum_types=[
   ],
   serialized_options=None,
@@ -627,28 +613,28 @@ _MAPOFSTRINGACCELCSSONEMARKET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1380,
-  serialized_end=1569,
+  serialized_start=1339,
+  serialized_end=1525,
 )
 
 
-_ACCELCSSONEMARKET = _descriptor.Descriptor(
-  name='AccELCSSOneMarket',
-  full_name='injective_dmm_rpc.AccELCSSOneMarket',
+_ACCLCSSONEMARKET = _descriptor.Descriptor(
+  name='AccLCSSOneMarket',
+  full_name='injective_dmm_rpc.AccLCSSOneMarket',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='score', full_name='injective_dmm_rpc.AccELCSSOneMarket.score', index=0,
+      name='score', full_name='injective_dmm_rpc.AccLCSSOneMarket.score', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='latest_elcs_snapshot', full_name='injective_dmm_rpc.AccELCSSOneMarket.latest_elcs_snapshot', index=1,
+      name='latest_lcs_snapshot', full_name='injective_dmm_rpc.AccLCSSOneMarket.latest_lcs_snapshot', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -666,49 +652,49 @@ _ACCELCSSONEMARKET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1571,
-  serialized_end=1668,
+  serialized_start=1527,
+  serialized_end=1621,
 )
 
 
-_ELCSSNAPSHOT = _descriptor.Descriptor(
-  name='ELCSSnapshot',
-  full_name='injective_dmm_rpc.ELCSSnapshot',
+_LCSSNAPSHOT = _descriptor.Descriptor(
+  name='LCSSnapshot',
+  full_name='injective_dmm_rpc.LCSSnapshot',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='buy', full_name='injective_dmm_rpc.ELCSSnapshot.buy', index=0,
+      name='buy', full_name='injective_dmm_rpc.LCSSnapshot.buy', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='buy_norm', full_name='injective_dmm_rpc.ELCSSnapshot.buy_norm', index=1,
+      name='buy_norm', full_name='injective_dmm_rpc.LCSSnapshot.buy_norm', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='sell', full_name='injective_dmm_rpc.ELCSSnapshot.sell', index=2,
+      name='sell', full_name='injective_dmm_rpc.LCSSnapshot.sell', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='sell_norm', full_name='injective_dmm_rpc.ELCSSnapshot.sell_norm', index=3,
+      name='sell_norm', full_name='injective_dmm_rpc.LCSSnapshot.sell_norm', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='score', full_name='injective_dmm_rpc.ELCSSnapshot.score', index=4,
+      name='score', full_name='injective_dmm_rpc.LCSSnapshot.score', index=4,
       number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -726,28 +712,28 @@ _ELCSSNAPSHOT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1670,
-  serialized_end=1763,
+  serialized_start=1623,
+  serialized_end=1715,
 )
 
 
-_ACCOUNTFINALEVCS_DETAILENTRY = _descriptor.Descriptor(
+_ACCOUNTFINALVCS_DETAILENTRY = _descriptor.Descriptor(
   name='DetailEntry',
-  full_name='injective_dmm_rpc.AccountFinalEVCS.DetailEntry',
+  full_name='injective_dmm_rpc.AccountFinalVCS.DetailEntry',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='key', full_name='injective_dmm_rpc.AccountFinalEVCS.DetailEntry.key', index=0,
+      name='key', full_name='injective_dmm_rpc.AccountFinalVCS.DetailEntry.key', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='value', full_name='injective_dmm_rpc.AccountFinalEVCS.DetailEntry.value', index=1,
+      name='value', full_name='injective_dmm_rpc.AccountFinalVCS.DetailEntry.value', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -765,27 +751,27 @@ _ACCOUNTFINALEVCS_DETAILENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1866,
-  serialized_end=1960,
+  serialized_start=1816,
+  serialized_end=1909,
 )
 
-_ACCOUNTFINALEVCS = _descriptor.Descriptor(
-  name='AccountFinalEVCS',
-  full_name='injective_dmm_rpc.AccountFinalEVCS',
+_ACCOUNTFINALVCS = _descriptor.Descriptor(
+  name='AccountFinalVCS',
+  full_name='injective_dmm_rpc.AccountFinalVCS',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='score', full_name='injective_dmm_rpc.AccountFinalEVCS.score', index=0,
+      name='score', full_name='injective_dmm_rpc.AccountFinalVCS.score', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='detail', full_name='injective_dmm_rpc.AccountFinalEVCS.detail', index=1,
+      name='detail', full_name='injective_dmm_rpc.AccountFinalVCS.detail', index=1,
       number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -794,7 +780,7 @@ _ACCOUNTFINALEVCS = _descriptor.Descriptor(
   ],
   extensions=[
   ],
-  nested_types=[_ACCOUNTFINALEVCS_DETAILENTRY, ],
+  nested_types=[_ACCOUNTFINALVCS_DETAILENTRY, ],
   enum_types=[
   ],
   serialized_options=None,
@@ -803,28 +789,28 @@ _ACCOUNTFINALEVCS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1766,
-  serialized_end=1960,
+  serialized_start=1718,
+  serialized_end=1909,
 )
 
 
-_MAPOFSTRINGACCEVCSSONEMARKET_FIELDENTRY = _descriptor.Descriptor(
+_MAPOFSTRINGACCVCSSONEMARKET_FIELDENTRY = _descriptor.Descriptor(
   name='FieldEntry',
-  full_name='injective_dmm_rpc.MapOfStringAccEVCSSOneMarket.FieldEntry',
+  full_name='injective_dmm_rpc.MapOfStringAccVCSSOneMarket.FieldEntry',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='key', full_name='injective_dmm_rpc.MapOfStringAccEVCSSOneMarket.FieldEntry.key', index=0,
+      name='key', full_name='injective_dmm_rpc.MapOfStringAccVCSSOneMarket.FieldEntry.key', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='value', full_name='injective_dmm_rpc.MapOfStringAccEVCSSOneMarket.FieldEntry.value', index=1,
+      name='value', full_name='injective_dmm_rpc.MapOfStringAccVCSSOneMarket.FieldEntry.value', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -842,20 +828,20 @@ _MAPOFSTRINGACCEVCSSONEMARKET_FIELDENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2070,
-  serialized_end=2152,
+  serialized_start=2017,
+  serialized_end=2098,
 )
 
-_MAPOFSTRINGACCEVCSSONEMARKET = _descriptor.Descriptor(
-  name='MapOfStringAccEVCSSOneMarket',
-  full_name='injective_dmm_rpc.MapOfStringAccEVCSSOneMarket',
+_MAPOFSTRINGACCVCSSONEMARKET = _descriptor.Descriptor(
+  name='MapOfStringAccVCSSOneMarket',
+  full_name='injective_dmm_rpc.MapOfStringAccVCSSOneMarket',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='field', full_name='injective_dmm_rpc.MapOfStringAccEVCSSOneMarket.field', index=0,
+      name='field', full_name='injective_dmm_rpc.MapOfStringAccVCSSOneMarket.field', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -864,7 +850,7 @@ _MAPOFSTRINGACCEVCSSONEMARKET = _descriptor.Descriptor(
   ],
   extensions=[
   ],
-  nested_types=[_MAPOFSTRINGACCEVCSSONEMARKET_FIELDENTRY, ],
+  nested_types=[_MAPOFSTRINGACCVCSSONEMARKET_FIELDENTRY, ],
   enum_types=[
   ],
   serialized_options=None,
@@ -873,42 +859,42 @@ _MAPOFSTRINGACCEVCSSONEMARKET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1963,
-  serialized_end=2152,
+  serialized_start=1912,
+  serialized_end=2098,
 )
 
 
-_ACCEVCSSONEMARKET = _descriptor.Descriptor(
-  name='AccEVCSSOneMarket',
-  full_name='injective_dmm_rpc.AccEVCSSOneMarket',
+_ACCVCSSONEMARKET = _descriptor.Descriptor(
+  name='AccVCSSOneMarket',
+  full_name='injective_dmm_rpc.AccVCSSOneMarket',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='evcs', full_name='injective_dmm_rpc.AccEVCSSOneMarket.evcs', index=0,
+      name='vcs', full_name='injective_dmm_rpc.AccVCSSOneMarket.vcs', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='evcs_trans', full_name='injective_dmm_rpc.AccEVCSSOneMarket.evcs_trans', index=1,
+      name='vcs_trans', full_name='injective_dmm_rpc.AccVCSSOneMarket.vcs_trans', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='evcs_trans_norm', full_name='injective_dmm_rpc.AccEVCSSOneMarket.evcs_trans_norm', index=2,
+      name='vcs_trans_norm', full_name='injective_dmm_rpc.AccVCSSOneMarket.vcs_trans_norm', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='evcs_trans_norm_adjust', full_name='injective_dmm_rpc.AccEVCSSOneMarket.evcs_trans_norm_adjust', index=3,
+      name='vcs_trans_norm_adjust', full_name='injective_dmm_rpc.AccVCSSOneMarket.vcs_trans_norm_adjust', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -926,8 +912,8 @@ _ACCEVCSSONEMARKET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2154,
-  serialized_end=2264,
+  serialized_start=2100,
+  serialized_end=2205,
 )
 
 
@@ -965,8 +951,8 @@ _GETDMMRECORDSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2266,
-  serialized_end=2331,
+  serialized_start=2207,
+  serialized_end=2272,
 )
 
 
@@ -997,53 +983,53 @@ _GETDMMRECORDSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2333,
-  serialized_end=2411,
+  serialized_start=2274,
+  serialized_end=2352,
 )
 
 _GETLATESTEPOCHRESPONSE.fields_by_name['epoch'].message_type = _EPOCH
 _EPOCH.fields_by_name['meta'].message_type = _EPOCHMETA
 _EPOCH.fields_by_name['result'].message_type = _EPOCHRESULTRECORD
-_EPOCHMETA_MARKETSENTRY.fields_by_name['value'].message_type = _MAPOFSTRINGMARKETCONF
+_EPOCHMETA_MARKETSENTRY.fields_by_name['value'].message_type = _MAPOFSTRINGMARKETCONFIG
 _EPOCHMETA_MARKETSENTRY.containing_type = _EPOCHMETA
 _EPOCHMETA.fields_by_name['markets'].message_type = _EPOCHMETA_MARKETSENTRY
-_MAPOFSTRINGMARKETCONF_FIELDENTRY.fields_by_name['value'].message_type = _MARKETCONF
-_MAPOFSTRINGMARKETCONF_FIELDENTRY.containing_type = _MAPOFSTRINGMARKETCONF
-_MAPOFSTRINGMARKETCONF.fields_by_name['field'].message_type = _MAPOFSTRINGMARKETCONF_FIELDENTRY
-_EPOCHRESULTRECORD_ELCSENTRY.fields_by_name['value'].message_type = _ACCOUNTFINALELCS
-_EPOCHRESULTRECORD_ELCSENTRY.containing_type = _EPOCHRESULTRECORD
-_EPOCHRESULTRECORD_EVCSENTRY.fields_by_name['value'].message_type = _ACCOUNTFINALEVCS
-_EPOCHRESULTRECORD_EVCSENTRY.containing_type = _EPOCHRESULTRECORD
-_EPOCHRESULTRECORD.fields_by_name['elcs'].message_type = _EPOCHRESULTRECORD_ELCSENTRY
-_EPOCHRESULTRECORD.fields_by_name['evcs'].message_type = _EPOCHRESULTRECORD_EVCSENTRY
-_ACCOUNTFINALELCS_DETAILENTRY.fields_by_name['value'].message_type = _MAPOFSTRINGACCELCSSONEMARKET
-_ACCOUNTFINALELCS_DETAILENTRY.containing_type = _ACCOUNTFINALELCS
-_ACCOUNTFINALELCS.fields_by_name['detail'].message_type = _ACCOUNTFINALELCS_DETAILENTRY
-_MAPOFSTRINGACCELCSSONEMARKET_FIELDENTRY.fields_by_name['value'].message_type = _ACCELCSSONEMARKET
-_MAPOFSTRINGACCELCSSONEMARKET_FIELDENTRY.containing_type = _MAPOFSTRINGACCELCSSONEMARKET
-_MAPOFSTRINGACCELCSSONEMARKET.fields_by_name['field'].message_type = _MAPOFSTRINGACCELCSSONEMARKET_FIELDENTRY
-_ACCELCSSONEMARKET.fields_by_name['latest_elcs_snapshot'].message_type = _ELCSSNAPSHOT
-_ACCOUNTFINALEVCS_DETAILENTRY.fields_by_name['value'].message_type = _MAPOFSTRINGACCEVCSSONEMARKET
-_ACCOUNTFINALEVCS_DETAILENTRY.containing_type = _ACCOUNTFINALEVCS
-_ACCOUNTFINALEVCS.fields_by_name['detail'].message_type = _ACCOUNTFINALEVCS_DETAILENTRY
-_MAPOFSTRINGACCEVCSSONEMARKET_FIELDENTRY.fields_by_name['value'].message_type = _ACCEVCSSONEMARKET
-_MAPOFSTRINGACCEVCSSONEMARKET_FIELDENTRY.containing_type = _MAPOFSTRINGACCEVCSSONEMARKET
-_MAPOFSTRINGACCEVCSSONEMARKET.fields_by_name['field'].message_type = _MAPOFSTRINGACCEVCSSONEMARKET_FIELDENTRY
+_MAPOFSTRINGMARKETCONFIG_FIELDENTRY.fields_by_name['value'].message_type = _MARKETCONFIG
+_MAPOFSTRINGMARKETCONFIG_FIELDENTRY.containing_type = _MAPOFSTRINGMARKETCONFIG
+_MAPOFSTRINGMARKETCONFIG.fields_by_name['field'].message_type = _MAPOFSTRINGMARKETCONFIG_FIELDENTRY
+_EPOCHRESULTRECORD_LCSENTRY.fields_by_name['value'].message_type = _ACCOUNTFINALLCS
+_EPOCHRESULTRECORD_LCSENTRY.containing_type = _EPOCHRESULTRECORD
+_EPOCHRESULTRECORD_VCSENTRY.fields_by_name['value'].message_type = _ACCOUNTFINALVCS
+_EPOCHRESULTRECORD_VCSENTRY.containing_type = _EPOCHRESULTRECORD
+_EPOCHRESULTRECORD.fields_by_name['lcs'].message_type = _EPOCHRESULTRECORD_LCSENTRY
+_EPOCHRESULTRECORD.fields_by_name['vcs'].message_type = _EPOCHRESULTRECORD_VCSENTRY
+_ACCOUNTFINALLCS_DETAILENTRY.fields_by_name['value'].message_type = _MAPOFSTRINGACCLCSSONEMARKET
+_ACCOUNTFINALLCS_DETAILENTRY.containing_type = _ACCOUNTFINALLCS
+_ACCOUNTFINALLCS.fields_by_name['detail'].message_type = _ACCOUNTFINALLCS_DETAILENTRY
+_MAPOFSTRINGACCLCSSONEMARKET_FIELDENTRY.fields_by_name['value'].message_type = _ACCLCSSONEMARKET
+_MAPOFSTRINGACCLCSSONEMARKET_FIELDENTRY.containing_type = _MAPOFSTRINGACCLCSSONEMARKET
+_MAPOFSTRINGACCLCSSONEMARKET.fields_by_name['field'].message_type = _MAPOFSTRINGACCLCSSONEMARKET_FIELDENTRY
+_ACCLCSSONEMARKET.fields_by_name['latest_lcs_snapshot'].message_type = _LCSSNAPSHOT
+_ACCOUNTFINALVCS_DETAILENTRY.fields_by_name['value'].message_type = _MAPOFSTRINGACCVCSSONEMARKET
+_ACCOUNTFINALVCS_DETAILENTRY.containing_type = _ACCOUNTFINALVCS
+_ACCOUNTFINALVCS.fields_by_name['detail'].message_type = _ACCOUNTFINALVCS_DETAILENTRY
+_MAPOFSTRINGACCVCSSONEMARKET_FIELDENTRY.fields_by_name['value'].message_type = _ACCVCSSONEMARKET
+_MAPOFSTRINGACCVCSSONEMARKET_FIELDENTRY.containing_type = _MAPOFSTRINGACCVCSSONEMARKET
+_MAPOFSTRINGACCVCSSONEMARKET.fields_by_name['field'].message_type = _MAPOFSTRINGACCVCSSONEMARKET_FIELDENTRY
 _GETDMMRECORDSRESPONSE.fields_by_name['records'].message_type = _EPOCHRESULTRECORD
 DESCRIPTOR.message_types_by_name['GetLatestEpochRequest'] = _GETLATESTEPOCHREQUEST
 DESCRIPTOR.message_types_by_name['GetLatestEpochResponse'] = _GETLATESTEPOCHRESPONSE
 DESCRIPTOR.message_types_by_name['Epoch'] = _EPOCH
 DESCRIPTOR.message_types_by_name['EpochMeta'] = _EPOCHMETA
-DESCRIPTOR.message_types_by_name['MapOfStringMarketConf'] = _MAPOFSTRINGMARKETCONF
-DESCRIPTOR.message_types_by_name['MarketConf'] = _MARKETCONF
+DESCRIPTOR.message_types_by_name['MapOfStringMarketConfig'] = _MAPOFSTRINGMARKETCONFIG
+DESCRIPTOR.message_types_by_name['MarketConfig'] = _MARKETCONFIG
 DESCRIPTOR.message_types_by_name['EpochResultRecord'] = _EPOCHRESULTRECORD
-DESCRIPTOR.message_types_by_name['AccountFinalELCS'] = _ACCOUNTFINALELCS
-DESCRIPTOR.message_types_by_name['MapOfStringAccELCSSOneMarket'] = _MAPOFSTRINGACCELCSSONEMARKET
-DESCRIPTOR.message_types_by_name['AccELCSSOneMarket'] = _ACCELCSSONEMARKET
-DESCRIPTOR.message_types_by_name['ELCSSnapshot'] = _ELCSSNAPSHOT
-DESCRIPTOR.message_types_by_name['AccountFinalEVCS'] = _ACCOUNTFINALEVCS
-DESCRIPTOR.message_types_by_name['MapOfStringAccEVCSSOneMarket'] = _MAPOFSTRINGACCEVCSSONEMARKET
-DESCRIPTOR.message_types_by_name['AccEVCSSOneMarket'] = _ACCEVCSSONEMARKET
+DESCRIPTOR.message_types_by_name['AccountFinalLCS'] = _ACCOUNTFINALLCS
+DESCRIPTOR.message_types_by_name['MapOfStringAccLCSSOneMarket'] = _MAPOFSTRINGACCLCSSONEMARKET
+DESCRIPTOR.message_types_by_name['AccLCSSOneMarket'] = _ACCLCSSONEMARKET
+DESCRIPTOR.message_types_by_name['LCSSnapshot'] = _LCSSNAPSHOT
+DESCRIPTOR.message_types_by_name['AccountFinalVCS'] = _ACCOUNTFINALVCS
+DESCRIPTOR.message_types_by_name['MapOfStringAccVCSSOneMarket'] = _MAPOFSTRINGACCVCSSONEMARKET
+DESCRIPTOR.message_types_by_name['AccVCSSOneMarket'] = _ACCVCSSONEMARKET
 DESCRIPTOR.message_types_by_name['GetDMMRecordsRequest'] = _GETDMMRECORDSREQUEST
 DESCRIPTOR.message_types_by_name['GetDMMRecordsResponse'] = _GETDMMRECORDSRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -1084,41 +1070,41 @@ EpochMeta = _reflection.GeneratedProtocolMessageType('EpochMeta', (_message.Mess
 _sym_db.RegisterMessage(EpochMeta)
 _sym_db.RegisterMessage(EpochMeta.MarketsEntry)
 
-MapOfStringMarketConf = _reflection.GeneratedProtocolMessageType('MapOfStringMarketConf', (_message.Message,), {
+MapOfStringMarketConfig = _reflection.GeneratedProtocolMessageType('MapOfStringMarketConfig', (_message.Message,), {
 
   'FieldEntry' : _reflection.GeneratedProtocolMessageType('FieldEntry', (_message.Message,), {
-    'DESCRIPTOR' : _MAPOFSTRINGMARKETCONF_FIELDENTRY,
+    'DESCRIPTOR' : _MAPOFSTRINGMARKETCONFIG_FIELDENTRY,
     '__module__' : 'exchange.injective_dmm_rpc_pb2'
-    # @@protoc_insertion_point(class_scope:injective_dmm_rpc.MapOfStringMarketConf.FieldEntry)
+    # @@protoc_insertion_point(class_scope:injective_dmm_rpc.MapOfStringMarketConfig.FieldEntry)
     })
   ,
-  'DESCRIPTOR' : _MAPOFSTRINGMARKETCONF,
+  'DESCRIPTOR' : _MAPOFSTRINGMARKETCONFIG,
   '__module__' : 'exchange.injective_dmm_rpc_pb2'
-  # @@protoc_insertion_point(class_scope:injective_dmm_rpc.MapOfStringMarketConf)
+  # @@protoc_insertion_point(class_scope:injective_dmm_rpc.MapOfStringMarketConfig)
   })
-_sym_db.RegisterMessage(MapOfStringMarketConf)
-_sym_db.RegisterMessage(MapOfStringMarketConf.FieldEntry)
+_sym_db.RegisterMessage(MapOfStringMarketConfig)
+_sym_db.RegisterMessage(MapOfStringMarketConfig.FieldEntry)
 
-MarketConf = _reflection.GeneratedProtocolMessageType('MarketConf', (_message.Message,), {
-  'DESCRIPTOR' : _MARKETCONF,
+MarketConfig = _reflection.GeneratedProtocolMessageType('MarketConfig', (_message.Message,), {
+  'DESCRIPTOR' : _MARKETCONFIG,
   '__module__' : 'exchange.injective_dmm_rpc_pb2'
-  # @@protoc_insertion_point(class_scope:injective_dmm_rpc.MarketConf)
+  # @@protoc_insertion_point(class_scope:injective_dmm_rpc.MarketConfig)
   })
-_sym_db.RegisterMessage(MarketConf)
+_sym_db.RegisterMessage(MarketConfig)
 
 EpochResultRecord = _reflection.GeneratedProtocolMessageType('EpochResultRecord', (_message.Message,), {
 
-  'ElcsEntry' : _reflection.GeneratedProtocolMessageType('ElcsEntry', (_message.Message,), {
-    'DESCRIPTOR' : _EPOCHRESULTRECORD_ELCSENTRY,
+  'LcsEntry' : _reflection.GeneratedProtocolMessageType('LcsEntry', (_message.Message,), {
+    'DESCRIPTOR' : _EPOCHRESULTRECORD_LCSENTRY,
     '__module__' : 'exchange.injective_dmm_rpc_pb2'
-    # @@protoc_insertion_point(class_scope:injective_dmm_rpc.EpochResultRecord.ElcsEntry)
+    # @@protoc_insertion_point(class_scope:injective_dmm_rpc.EpochResultRecord.LcsEntry)
     })
   ,
 
-  'EvcsEntry' : _reflection.GeneratedProtocolMessageType('EvcsEntry', (_message.Message,), {
-    'DESCRIPTOR' : _EPOCHRESULTRECORD_EVCSENTRY,
+  'VcsEntry' : _reflection.GeneratedProtocolMessageType('VcsEntry', (_message.Message,), {
+    'DESCRIPTOR' : _EPOCHRESULTRECORD_VCSENTRY,
     '__module__' : 'exchange.injective_dmm_rpc_pb2'
-    # @@protoc_insertion_point(class_scope:injective_dmm_rpc.EpochResultRecord.EvcsEntry)
+    # @@protoc_insertion_point(class_scope:injective_dmm_rpc.EpochResultRecord.VcsEntry)
     })
   ,
   'DESCRIPTOR' : _EPOCHRESULTRECORD,
@@ -1126,89 +1112,89 @@ EpochResultRecord = _reflection.GeneratedProtocolMessageType('EpochResultRecord'
   # @@protoc_insertion_point(class_scope:injective_dmm_rpc.EpochResultRecord)
   })
 _sym_db.RegisterMessage(EpochResultRecord)
-_sym_db.RegisterMessage(EpochResultRecord.ElcsEntry)
-_sym_db.RegisterMessage(EpochResultRecord.EvcsEntry)
+_sym_db.RegisterMessage(EpochResultRecord.LcsEntry)
+_sym_db.RegisterMessage(EpochResultRecord.VcsEntry)
 
-AccountFinalELCS = _reflection.GeneratedProtocolMessageType('AccountFinalELCS', (_message.Message,), {
-
-  'DetailEntry' : _reflection.GeneratedProtocolMessageType('DetailEntry', (_message.Message,), {
-    'DESCRIPTOR' : _ACCOUNTFINALELCS_DETAILENTRY,
-    '__module__' : 'exchange.injective_dmm_rpc_pb2'
-    # @@protoc_insertion_point(class_scope:injective_dmm_rpc.AccountFinalELCS.DetailEntry)
-    })
-  ,
-  'DESCRIPTOR' : _ACCOUNTFINALELCS,
-  '__module__' : 'exchange.injective_dmm_rpc_pb2'
-  # @@protoc_insertion_point(class_scope:injective_dmm_rpc.AccountFinalELCS)
-  })
-_sym_db.RegisterMessage(AccountFinalELCS)
-_sym_db.RegisterMessage(AccountFinalELCS.DetailEntry)
-
-MapOfStringAccELCSSOneMarket = _reflection.GeneratedProtocolMessageType('MapOfStringAccELCSSOneMarket', (_message.Message,), {
-
-  'FieldEntry' : _reflection.GeneratedProtocolMessageType('FieldEntry', (_message.Message,), {
-    'DESCRIPTOR' : _MAPOFSTRINGACCELCSSONEMARKET_FIELDENTRY,
-    '__module__' : 'exchange.injective_dmm_rpc_pb2'
-    # @@protoc_insertion_point(class_scope:injective_dmm_rpc.MapOfStringAccELCSSOneMarket.FieldEntry)
-    })
-  ,
-  'DESCRIPTOR' : _MAPOFSTRINGACCELCSSONEMARKET,
-  '__module__' : 'exchange.injective_dmm_rpc_pb2'
-  # @@protoc_insertion_point(class_scope:injective_dmm_rpc.MapOfStringAccELCSSOneMarket)
-  })
-_sym_db.RegisterMessage(MapOfStringAccELCSSOneMarket)
-_sym_db.RegisterMessage(MapOfStringAccELCSSOneMarket.FieldEntry)
-
-AccELCSSOneMarket = _reflection.GeneratedProtocolMessageType('AccELCSSOneMarket', (_message.Message,), {
-  'DESCRIPTOR' : _ACCELCSSONEMARKET,
-  '__module__' : 'exchange.injective_dmm_rpc_pb2'
-  # @@protoc_insertion_point(class_scope:injective_dmm_rpc.AccELCSSOneMarket)
-  })
-_sym_db.RegisterMessage(AccELCSSOneMarket)
-
-ELCSSnapshot = _reflection.GeneratedProtocolMessageType('ELCSSnapshot', (_message.Message,), {
-  'DESCRIPTOR' : _ELCSSNAPSHOT,
-  '__module__' : 'exchange.injective_dmm_rpc_pb2'
-  # @@protoc_insertion_point(class_scope:injective_dmm_rpc.ELCSSnapshot)
-  })
-_sym_db.RegisterMessage(ELCSSnapshot)
-
-AccountFinalEVCS = _reflection.GeneratedProtocolMessageType('AccountFinalEVCS', (_message.Message,), {
+AccountFinalLCS = _reflection.GeneratedProtocolMessageType('AccountFinalLCS', (_message.Message,), {
 
   'DetailEntry' : _reflection.GeneratedProtocolMessageType('DetailEntry', (_message.Message,), {
-    'DESCRIPTOR' : _ACCOUNTFINALEVCS_DETAILENTRY,
+    'DESCRIPTOR' : _ACCOUNTFINALLCS_DETAILENTRY,
     '__module__' : 'exchange.injective_dmm_rpc_pb2'
-    # @@protoc_insertion_point(class_scope:injective_dmm_rpc.AccountFinalEVCS.DetailEntry)
+    # @@protoc_insertion_point(class_scope:injective_dmm_rpc.AccountFinalLCS.DetailEntry)
     })
   ,
-  'DESCRIPTOR' : _ACCOUNTFINALEVCS,
+  'DESCRIPTOR' : _ACCOUNTFINALLCS,
   '__module__' : 'exchange.injective_dmm_rpc_pb2'
-  # @@protoc_insertion_point(class_scope:injective_dmm_rpc.AccountFinalEVCS)
+  # @@protoc_insertion_point(class_scope:injective_dmm_rpc.AccountFinalLCS)
   })
-_sym_db.RegisterMessage(AccountFinalEVCS)
-_sym_db.RegisterMessage(AccountFinalEVCS.DetailEntry)
+_sym_db.RegisterMessage(AccountFinalLCS)
+_sym_db.RegisterMessage(AccountFinalLCS.DetailEntry)
 
-MapOfStringAccEVCSSOneMarket = _reflection.GeneratedProtocolMessageType('MapOfStringAccEVCSSOneMarket', (_message.Message,), {
+MapOfStringAccLCSSOneMarket = _reflection.GeneratedProtocolMessageType('MapOfStringAccLCSSOneMarket', (_message.Message,), {
 
   'FieldEntry' : _reflection.GeneratedProtocolMessageType('FieldEntry', (_message.Message,), {
-    'DESCRIPTOR' : _MAPOFSTRINGACCEVCSSONEMARKET_FIELDENTRY,
+    'DESCRIPTOR' : _MAPOFSTRINGACCLCSSONEMARKET_FIELDENTRY,
     '__module__' : 'exchange.injective_dmm_rpc_pb2'
-    # @@protoc_insertion_point(class_scope:injective_dmm_rpc.MapOfStringAccEVCSSOneMarket.FieldEntry)
+    # @@protoc_insertion_point(class_scope:injective_dmm_rpc.MapOfStringAccLCSSOneMarket.FieldEntry)
     })
   ,
-  'DESCRIPTOR' : _MAPOFSTRINGACCEVCSSONEMARKET,
+  'DESCRIPTOR' : _MAPOFSTRINGACCLCSSONEMARKET,
   '__module__' : 'exchange.injective_dmm_rpc_pb2'
-  # @@protoc_insertion_point(class_scope:injective_dmm_rpc.MapOfStringAccEVCSSOneMarket)
+  # @@protoc_insertion_point(class_scope:injective_dmm_rpc.MapOfStringAccLCSSOneMarket)
   })
-_sym_db.RegisterMessage(MapOfStringAccEVCSSOneMarket)
-_sym_db.RegisterMessage(MapOfStringAccEVCSSOneMarket.FieldEntry)
+_sym_db.RegisterMessage(MapOfStringAccLCSSOneMarket)
+_sym_db.RegisterMessage(MapOfStringAccLCSSOneMarket.FieldEntry)
 
-AccEVCSSOneMarket = _reflection.GeneratedProtocolMessageType('AccEVCSSOneMarket', (_message.Message,), {
-  'DESCRIPTOR' : _ACCEVCSSONEMARKET,
+AccLCSSOneMarket = _reflection.GeneratedProtocolMessageType('AccLCSSOneMarket', (_message.Message,), {
+  'DESCRIPTOR' : _ACCLCSSONEMARKET,
   '__module__' : 'exchange.injective_dmm_rpc_pb2'
-  # @@protoc_insertion_point(class_scope:injective_dmm_rpc.AccEVCSSOneMarket)
+  # @@protoc_insertion_point(class_scope:injective_dmm_rpc.AccLCSSOneMarket)
   })
-_sym_db.RegisterMessage(AccEVCSSOneMarket)
+_sym_db.RegisterMessage(AccLCSSOneMarket)
+
+LCSSnapshot = _reflection.GeneratedProtocolMessageType('LCSSnapshot', (_message.Message,), {
+  'DESCRIPTOR' : _LCSSNAPSHOT,
+  '__module__' : 'exchange.injective_dmm_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_dmm_rpc.LCSSnapshot)
+  })
+_sym_db.RegisterMessage(LCSSnapshot)
+
+AccountFinalVCS = _reflection.GeneratedProtocolMessageType('AccountFinalVCS', (_message.Message,), {
+
+  'DetailEntry' : _reflection.GeneratedProtocolMessageType('DetailEntry', (_message.Message,), {
+    'DESCRIPTOR' : _ACCOUNTFINALVCS_DETAILENTRY,
+    '__module__' : 'exchange.injective_dmm_rpc_pb2'
+    # @@protoc_insertion_point(class_scope:injective_dmm_rpc.AccountFinalVCS.DetailEntry)
+    })
+  ,
+  'DESCRIPTOR' : _ACCOUNTFINALVCS,
+  '__module__' : 'exchange.injective_dmm_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_dmm_rpc.AccountFinalVCS)
+  })
+_sym_db.RegisterMessage(AccountFinalVCS)
+_sym_db.RegisterMessage(AccountFinalVCS.DetailEntry)
+
+MapOfStringAccVCSSOneMarket = _reflection.GeneratedProtocolMessageType('MapOfStringAccVCSSOneMarket', (_message.Message,), {
+
+  'FieldEntry' : _reflection.GeneratedProtocolMessageType('FieldEntry', (_message.Message,), {
+    'DESCRIPTOR' : _MAPOFSTRINGACCVCSSONEMARKET_FIELDENTRY,
+    '__module__' : 'exchange.injective_dmm_rpc_pb2'
+    # @@protoc_insertion_point(class_scope:injective_dmm_rpc.MapOfStringAccVCSSOneMarket.FieldEntry)
+    })
+  ,
+  'DESCRIPTOR' : _MAPOFSTRINGACCVCSSONEMARKET,
+  '__module__' : 'exchange.injective_dmm_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_dmm_rpc.MapOfStringAccVCSSOneMarket)
+  })
+_sym_db.RegisterMessage(MapOfStringAccVCSSOneMarket)
+_sym_db.RegisterMessage(MapOfStringAccVCSSOneMarket.FieldEntry)
+
+AccVCSSOneMarket = _reflection.GeneratedProtocolMessageType('AccVCSSOneMarket', (_message.Message,), {
+  'DESCRIPTOR' : _ACCVCSSONEMARKET,
+  '__module__' : 'exchange.injective_dmm_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_dmm_rpc.AccVCSSOneMarket)
+  })
+_sym_db.RegisterMessage(AccVCSSOneMarket)
 
 GetDMMRecordsRequest = _reflection.GeneratedProtocolMessageType('GetDMMRecordsRequest', (_message.Message,), {
   'DESCRIPTOR' : _GETDMMRECORDSREQUEST,
@@ -1227,13 +1213,13 @@ _sym_db.RegisterMessage(GetDMMRecordsResponse)
 
 DESCRIPTOR._options = None
 _EPOCHMETA_MARKETSENTRY._options = None
-_MAPOFSTRINGMARKETCONF_FIELDENTRY._options = None
-_EPOCHRESULTRECORD_ELCSENTRY._options = None
-_EPOCHRESULTRECORD_EVCSENTRY._options = None
-_ACCOUNTFINALELCS_DETAILENTRY._options = None
-_MAPOFSTRINGACCELCSSONEMARKET_FIELDENTRY._options = None
-_ACCOUNTFINALEVCS_DETAILENTRY._options = None
-_MAPOFSTRINGACCEVCSSONEMARKET_FIELDENTRY._options = None
+_MAPOFSTRINGMARKETCONFIG_FIELDENTRY._options = None
+_EPOCHRESULTRECORD_LCSENTRY._options = None
+_EPOCHRESULTRECORD_VCSENTRY._options = None
+_ACCOUNTFINALLCS_DETAILENTRY._options = None
+_MAPOFSTRINGACCLCSSONEMARKET_FIELDENTRY._options = None
+_ACCOUNTFINALVCS_DETAILENTRY._options = None
+_MAPOFSTRINGACCVCSSONEMARKET_FIELDENTRY._options = None
 
 _INJECTIVEDMMRPC = _descriptor.ServiceDescriptor(
   name='InjectiveDmmRPC',
@@ -1242,8 +1228,8 @@ _INJECTIVEDMMRPC = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=2414,
-  serialized_end=2634,
+  serialized_start=2355,
+  serialized_end=2575,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetLatestEpoch',
