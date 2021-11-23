@@ -30,6 +30,7 @@ REQUIRED = [
     "pysha3",
     "protobuf",
     "bip32",
+    "coincurve",
 ]
 
 # The rest you shouldn't have to touch too much :)
