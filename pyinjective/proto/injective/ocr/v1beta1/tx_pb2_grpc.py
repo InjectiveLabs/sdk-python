@@ -62,49 +62,57 @@ class MsgServicer(object):
     """
 
     def CreateFeed(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """CreateFeed defines a method for creating feed by module admin
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def UpdateFeed(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """CreateFeed defines a method for creating feed by feed admin or feed billing admin
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def Transmit(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Transmit defines a method for transmitting the feed info by transmitter
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def FundFeedRewardPool(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """FundFeedRewardPool defines a method to put funds into feed reward pool
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def WithdrawFeedRewardPool(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """WithdrawFeedRewardPool defines a method to witdhraw feed reward by feed admin or billing admin
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def SetPayees(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """SetPayees defines a method to set payees for transmitters (batch action)
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def TransferPayeeship(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """TransferPayeeship defines a method for a payee to transfer reward receive ownership
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def AcceptPayeeship(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """AcceptPayeeship defines a method for a new payee to accept reward receive ownership
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')

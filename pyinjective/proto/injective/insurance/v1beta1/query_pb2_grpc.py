@@ -59,25 +59,29 @@ class QueryServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def InsuranceFund(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Retrieves individual insurance fund information from market id
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def InsuranceFunds(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Retrieves all insurance funds
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def EstimatedRedemptions(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Retrives the value of insurance fund share token at current price (not pending redemption)
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def PendingRedemptions(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Retrieves pending redemptions' share token at current price
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
