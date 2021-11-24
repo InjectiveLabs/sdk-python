@@ -342,19 +342,20 @@ class Composer:
     def MsgResponses(data, simulation=False):
         if not simulation:
             data = bytes.fromhex(data)
-
         header_map = {
-            '/injective.exchange.v1beta1.MsgCreateSpotLimitOrder': injective_exchange_tx_pb.MsgCreateSpotLimitOrderResponse,
-            '/injective.exchange.v1beta1.MsgCreateSpotMarketOrder': injective_exchange_tx_pb.MsgCreateSpotMarketOrderResponse,
-            '/injective.exchange.v1beta1.MsgCreateDerivativeLimitOrder': injective_exchange_tx_pb.MsgCreateDerivativeLimitOrderResponse,
-            '/injective.exchange.v1beta1.MsgCreateDerivativeMarketOrder': injective_exchange_tx_pb.MsgCreateDerivativeMarketOrderResponse,
-            '/injective.exchange.v1beta1.MsgBatchCancelSpotOrders': injective_exchange_tx_pb.MsgBatchCancelSpotOrdersResponse,
-            '/injective.exchange.v1beta1.MsgBatchCancelDerivativeOrders': injective_exchange_tx_pb.MsgBatchCancelDerivativeOrdersResponse,
-            '/injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrders': injective_exchange_tx_pb.MsgBatchCreateSpotLimitOrdersResponse,
-            '/injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrders': injective_exchange_tx_pb.MsgBatchCreateDerivativeLimitOrdersResponse,
-            '/injective.exchange.v1beta1.MsgWithdraw': injective_exchange_tx_pb.MsgWithdrawResponse,
-            '/injective.exchange.v1beta1.MsgSubaccountTransfer': injective_exchange_tx_pb.MsgSubaccountTransferResponse,
-            '/injective.exchange.v1beta1.MsgIncreasePositionMargin': injective_exchange_tx_pb.MsgIncreasePositionMarginResponse,
+            "/injective.exchange.v1beta1.MsgCreateSpotLimitOrder": injective_exchange_tx_pb.MsgCreateSpotLimitOrderResponse,
+            "/injective.exchange.v1beta1.MsgCreateSpotMarketOrder": injective_exchange_tx_pb.MsgCreateSpotMarketOrderResponse,
+            "/injective.exchange.v1beta1.MsgCreateDerivativeLimitOrder": injective_exchange_tx_pb.MsgCreateDerivativeLimitOrderResponse,
+            "/injective.exchange.v1beta1.MsgCreateDerivativeMarketOrder": injective_exchange_tx_pb.MsgCreateDerivativeMarketOrderResponse,
+            "/injective.exchange.v1beta1.MsgCancelSpotOrder": injective_exchange_tx_pb.MsgCancelSpotOrderResponse,
+            "/injective.exchange.v1beta1.MsgCancelDerivativeOrder": injective_exchange_tx_pb.MsgCancelDerivativeOrder,
+            "/injective.exchange.v1beta1.MsgBatchCancelSpotOrders": injective_exchange_tx_pb.MsgBatchCancelSpotOrdersResponse,
+            "/injective.exchange.v1beta1.MsgBatchCancelDerivativeOrders": injective_exchange_tx_pb.MsgBatchCancelDerivativeOrdersResponse,
+            "/injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrders": injective_exchange_tx_pb.MsgBatchCreateSpotLimitOrdersResponse,
+            "/injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrders": injective_exchange_tx_pb.MsgBatchCreateDerivativeLimitOrdersResponse,
+            "/injective.exchange.v1beta1.MsgWithdraw": injective_exchange_tx_pb.MsgWithdrawResponse,
+            "/injective.exchange.v1beta1.MsgSubaccountTransfer": injective_exchange_tx_pb.MsgSubaccountTransferResponse,
+            "/injective.exchange.v1beta1.MsgIncreasePositionMargin": injective_exchange_tx_pb.MsgIncreasePositionMarginResponse,
         }
 
         response = tx_response_pb.TxResponseData.FromString(data)
