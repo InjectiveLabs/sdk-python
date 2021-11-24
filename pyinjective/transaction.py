@@ -1,4 +1,4 @@
-from typing import List, Tuple 
+from typing import List, Tuple
 
 from google.protobuf import any_pb2, message
 from .proto.cosmos.base.v1beta1.coin_pb2 import Coin
@@ -130,7 +130,7 @@ class Transaction:
             account_number=self.account_num,
         )
 
-    def get_tx_data(self, signature: bytes, public_key: PublicKey = None) -> str:
+    def get_tx_data(self, signature: bytes, public_key: PublicKey = None) -> bytes:
         body_bytes, auth_info_bytes = self.__generate_info(public_key)
 
         tx_raw = cosmos_tx_type.TxRaw(body_bytes=body_bytes, auth_info_bytes=auth_info_bytes, signatures=[signature])
