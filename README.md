@@ -4,11 +4,11 @@
 
 **Ubuntu**
 ```bash
-sudo apt install python3.X-dev
+sudo apt install python3.X-dev autoconf automake build-essential libffi-dev libtool pkg-config
 ```
 **Fedora**
 ```bash
-sudo dnf install python3-devel
+sudo dnf install python3-devel autoconf automake gcc gcc-c++ libffi-devel libtool make pkgconfig
 ```
 
 **macOS**

@@ -63,13 +63,12 @@ class AsyncClient:
         self.exchange_channel = (
             grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
             if insecure
-            else grpc.secure_channel(
+            else grpc.aio.secure_channel(
                 network.grpc_endpoint,
                 credentials or grpc.ssl_channel_credentials(),
                 )
         )
         self.stubMeta = exchange_meta_rpc_grpc.InjectiveMetaRPCStub(self.exchange_channel)
-        self.stubExchangeAccount = exchange_accounts_rpc_grpc.InjectiveAccountsRPCStub(self.exchange_channel)
         self.stubExchangeAccount = exchange_accounts_rpc_grpc.InjectiveAccountsRPCStub(self.exchange_channel)
         self.stubOracle = oracle_rpc_grpc.InjectiveOracleRPCStub(self.exchange_channel)
         self.stubInsurance = insurance_rpc_grpc.InjectiveInsuranceRPCStub(self.exchange_channel)
@@ -256,7 +255,7 @@ class AsyncClient:
     # DerivativeRPC
 
     async def get_derivative_market(self, market_id: str):
-        req = spot_exchange_rpc_pb.MarketRequest(market_id=market_id)
+        req = derivative_exchange_rpc_pb.MarketRequest(market_id=market_id)
         return await self.stubDerivativeExchange.Market(req)
 
     async def get_derivative_markets(self, market_status: str = '', quote_denom: str = ''):

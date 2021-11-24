@@ -4,6 +4,7 @@ import hashlib
 import bech32
 import aiohttp
 import json
+import requests
 from typing import Tuple
 from bech32 import bech32_encode, bech32_decode, convertbits
 from bip32 import BIP32
@@ -262,7 +263,7 @@ class Address:
         id = index.to_bytes(12, byteorder='big').hex()
         return '0x' + self.addr.hex() + id
 
-    async def init_num_seq(self, lcd_endpoint: str) -> "Address":
+    async def async_init_num_seq(self, lcd_endpoint: str) -> "Address":
         async with aiohttp.ClientSession() as session:
             async with session.request(
                 'GET', lcd_endpoint + '/cosmos/auth/v1beta1/accounts/' + self.to_acc_bech32(),
@@ -277,6 +278,17 @@ class Address:
                 self.number = int(acc['account_number'])
                 self.sequence = int(acc['sequence'])
                 return self
+
+    def init_num_seq(self, lcd_endpoint: str)-> "Address":
+        response = requests.get(f"{lcd_endpoint}/cosmos/auth/v1beta1/accounts/{self.to_acc_bech32()}", 
+                headers={'Accept-Encoding': 'application/json'})
+        if response.status_code != 200:
+            raise ValueError("HTTP response status", response.status_code)
+        resp = json.loads(response.text)
+        acc = resp['account']['base_account']
+        self.number = int(acc['account_number'])
+        self.sequence = int(acc['sequence'])
+        return self
 
     def get_sequence(self):
         current_seq = self.sequence
