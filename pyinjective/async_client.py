@@ -37,7 +37,6 @@ from .proto.exchange import (
 )
 
 from .constant import Network
-# ISSUE: get order state is missing
 
 class AsyncClient:
     def __init__(
