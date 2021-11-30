@@ -41,10 +41,10 @@ async def fetch_denom(network) -> str:
         mresp = await spot_exchange_rpc.Markets(spot_exchange_rpc_pb.MarketsRequest(market_status=status))
         for market in mresp.markets:
             # append symbols to dict
-            if market.base_token_meta.SerializeToString() != b'':
+            if market.base_token_meta.SerializeToString() != '':
                 symbols[market.base_token_meta.symbol] = (market.base_denom, market.base_token_meta.decimals)
 
-            if market.quote_token_meta.SerializeToString() != b'':
+            if market.quote_token_meta.SerializeToString() != '':
                 symbols[market.quote_token_meta.symbol] = (market.base_denom, market.quote_token_meta.decimals)
 
             # format into ini entry
@@ -69,7 +69,7 @@ async def fetch_denom(network) -> str:
         mresp = await derivative_exchange_rpc.Markets(derivative_exchange_rpc_pb.MarketsRequest(market_status=status))
         for market in mresp.markets:
             # append symbols to dict
-            if market.quote_token_meta.SerializeToString() != b'':
+            if market.quote_token_meta.SerializeToString() != '':
                 symbols[market.quote_token_meta.symbol] = (market.quote_denom, market.quote_token_meta.decimals)
 
             # format into ini entry
@@ -97,17 +97,17 @@ async def fetch_denom(network) -> str:
 async def main() -> None:
     devnet = Network.devnet()
     data = await fetch_denom(devnet)
-    with open("./pyinjective/denoms_devnet.ini", "w") as text_file:
+    with open("denoms_devnet.ini", "w") as text_file:
         text_file.write(data)
 
     testnet = Network.testnet()
     data = await fetch_denom(testnet)
-    with open("./pyinjective/denoms_testnet.ini", "w") as text_file:
+    with open("denoms_testnet.ini", "w") as text_file:
         text_file.write(data)
 
     mainnet = Network.mainnet()
     data = await fetch_denom(mainnet)
-    with open("./pyinjective/denoms_mainnet.ini", "w") as text_file:
+    with open("denoms_mainnet.ini", "w") as text_file:
         text_file.write(data)
 
 if __name__ == '__main__':
