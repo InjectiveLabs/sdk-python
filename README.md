@@ -87,12 +87,11 @@ python pyinjective/fetch_metadata.py
 
 ### Changelogs
 0.5.2
-* fix type hints
-* add sync init_num_seq, changed previous init_num_seq to ainit_num_seq
+* add sync init_num_seq, changed previous init_num_seq to async_init_num_seq
 * add staging mainnet endpoint, update market metadata
 * protobuf regen
 * response parser improvements
-
+* fix type hints
 
 0.5.1
 * add AsyncClient
