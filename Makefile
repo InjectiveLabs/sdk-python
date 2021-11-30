@@ -11,7 +11,7 @@ gen-client: copy-proto
 		-I proto \
 		--python_out=./pyinjective/proto \
 		--grpc_python_out=./pyinjective/proto \
-		$$(find $${dir} -type file -name '*.proto'); \
+		$$(find ./$${dir} -type f -name '*.proto'); \
 	done; \
 	rm -rf proto
 	echo "import os\nimport sys\n\nsys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))" > pyinjective/proto/__init__.py
@@ -20,7 +20,7 @@ copy-proto:
 	rm -rf pyinjective/proto
 	mkdir -p proto/exchange
 	cp -r ../injective-core/proto/injective proto/
-	cp -r ../injective-core/third_party/proto/ proto/
+	cp -r ../injective-core/third_party/proto/* proto/
 	@for file in $(EXCHANGE_PROTO_FILES); do \
 		cp "$${file}" proto/exchange/; \
   done
