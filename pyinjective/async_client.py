@@ -38,7 +38,6 @@ from .proto.exchange import (
 
 from .constant import Network
 
-
 class AsyncClient:
     def __init__(
             self,
@@ -182,14 +181,27 @@ class AsyncClient:
         req = exchange_accounts_rpc_pb.SubaccountOrderSummaryRequest(subaccount_id=subaccount_id, order_direction=order_direction, market_id=market_id)
         return await self.stubExchangeAccount.SubaccountOrderSummary(req)
 
+    async def get_order_states(
+        self,
+        spot_order_hashes: List[str] = [""],
+        derivative_order_hashes: List[str] = [""],
+    ):
+        req = exchange_accounts_rpc_pb.OrderStatesRequest(
+            spot_order_hashes=spot_order_hashes,
+            derivative_order_hashes=derivative_order_hashes,
+        )
+        return await self.stubExchangeAccount.OrderStates(req)
+
+
     # OracleRPC
 
     async def stream_oracle_prices(self, base_symbol: str, quote_symbol: str, oracle_type: str):
         req = oracle_rpc_pb.StreamPricesRequest(base_symbol=base_symbol, quote_symbol=quote_symbol, oracle_type=oracle_type)
         return self.stubOracle.StreamPrices(req)
 
-    async def get_oracle_prices(self, base_symbol: str, quote_symbol: str, oracle_type: str, oracle_scale_factor: str):
-        req = oracle_rpc_pb.PriceRequest(base_symbol=base_symbol, quote_symbol=quote_symbol, oracle_type=oracle_type, oracle_scale_factor=oracle_scale_factor)
+    async def get_oracle_prices(self, base_symbol: str, quote_symbol: str, oracle_type: str, oracle_scale_factor: int):
+        req = oracle_rpc_pb.PriceRequest(base_symbol=base_symbol, quote_symbol=quote_symbol, oracle_type=oracle_type,
+                oracle_scale_factor=oracle_scale_factor)
         return await self.stubOracle.Price(req)
 
     async def get_oracle_list(self):
@@ -236,6 +248,11 @@ class AsyncClient:
         req = spot_exchange_rpc_pb.StreamOrderbookRequest(market_ids=[market_id])
         return self.stubSpotExchange.StreamOrderbook(req)
 
+    async def stream_spot_orderbooks(self, market_ids: List[str]):
+        req = spot_exchange_rpc_pb.StreamOrderbookRequest(market_ids=market_ids)
+        return self.stubSpotExchange.StreamOrderbook(req)
+
+
     async def stream_spot_orders(self, market_id: str, order_side: str = '', subaccount_id: str = ''):
         req = spot_exchange_rpc_pb.StreamOrdersRequest(market_id=market_id, order_side=order_side, subaccount_id=subaccount_id)
         return self.stubSpotExchange.StreamOrders(req)
@@ -280,6 +297,10 @@ class AsyncClient:
 
     async def stream_derivative_orderbook(self, market_id: str):
         req = derivative_exchange_rpc_pb.StreamOrderbookRequest(market_ids=[market_id])
+        return self.stubDerivativeExchange.StreamOrderbook(req)
+
+    async def stream_derivative_orderbooks(self, market_ids: List[str]):
+        req = derivative_exchange_rpc_pb.StreamOrderbookRequest(market_ids=market_ids)
         return self.stubDerivativeExchange.StreamOrderbook(req)
 
     async def stream_derivative_orders(self, market_id: str, order_side: str = '', subaccount_id: str = ''):

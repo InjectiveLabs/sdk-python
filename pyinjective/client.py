@@ -254,7 +254,7 @@ class Client:
             base_symbol=base_symbol,
             quote_symbol=quote_symbol,
             oracle_type=oracle_type,
-            oracle_scale_factor=str(oracle_scale_factor),
+            oracle_scale_factor=oracle_scale_factor,
         )
         return self.stubOracle.Price(req)
 

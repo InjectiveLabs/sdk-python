@@ -34,7 +34,7 @@ async def main() -> None:
     # load account
     priv_key = PrivateKey.from_hex("5d386fbdbf11f1141010f81a46b40f94887367562bd33b452bbaa6ce1cd1381e")
     pub_key = priv_key.to_public_key()
-    address = await pub_key.to_address().init_num_seq(network.lcd_endpoint)
+    address = pub_key.to_address().init_num_seq(network.lcd_endpoint)
     subaccount_id = address.get_subaccount_id(index=0)
 
     # prepare trade info
