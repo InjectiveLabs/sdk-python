@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z\031/injective_explorer_rpcpb',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n%exchange/injective_explorer_rpc.proto\x12\x16injective_explorer_rpc\"$\n\x11GetAccountRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\"\xa5\x01\n\x12GetAccountResponse\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\x12\n\npublic_key\x18\x02 \x01(\x0c\x12\x16\n\x0e\x61\x63\x63ount_number\x18\x03 \x01(\x12\x12\x10\n\x08sequence\x18\x04 \x01(\x12\x12\r\n\x05\x66lags\x18\x05 \x01(\x04\x12\x31\n\x08\x62\x61lances\x18\x06 \x03(\x0b\x32\x1f.injective_explorer_rpc.Balance\"G\n\x07\x42\x61lance\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x0c\n\x04\x66ree\x18\x02 \x01(\t\x12\x0e\n\x06locked\x18\x03 \x01(\t\x12\x0e\n\x06\x66rozen\x18\x04 \x01(\t\"c\n\x14GetAccountTxsRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\x0e\n\x06\x62\x65\x66ore\x18\x02 \x01(\x04\x12\r\n\x05\x61\x66ter\x18\x03 \x01(\x04\x12\r\n\x05limit\x18\x04 \x01(\x11\x12\x0c\n\x04skip\x18\x05 \x01(\x04\"u\n\x15GetAccountTxsResponse\x12.\n\x06paging\x18\x01 \x01(\x0b\x32\x1e.injective_explorer_rpc.Paging\x12,\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32\x1e.injective_explorer_rpc.TxData\"1\n\x06Paging\x12\r\n\x05total\x18\x01 \x01(\x12\x12\x0c\n\x04\x66rom\x18\x02 \x01(\x11\x12\n\n\x02to\x18\x03 \x01(\x11\"\xcb\x02\n\x06TxData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x14\n\x0c\x62lock_number\x18\x02 \x01(\x04\x12\x17\n\x0f\x62lock_timestamp\x18\x03 \x01(\t\x12\x0c\n\x04hash\x18\x04 \x01(\t\x12\x0c\n\x04\x63ode\x18\x05 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x06 \x01(\x0c\x12\x0c\n\x04info\x18\x08 \x01(\t\x12\x12\n\ngas_wanted\x18\t \x01(\x12\x12\x10\n\x08gas_used\x18\n \x01(\x12\x12\x11\n\tcodespace\x18\x0b \x01(\t\x12-\n\x06\x65vents\x18\x0c \x03(\x0b\x32\x1d.injective_explorer_rpc.Event\x12\x0f\n\x07tx_type\x18\r \x01(\t\x12\x10\n\x08messages\x18\x0e \x01(\t\x12\x35\n\nsignatures\x18\x0f \x03(\x0b\x32!.injective_explorer_rpc.Signature\x12\x0c\n\x04memo\x18\x10 \x01(\t\"\x8b\x01\n\x05\x45vent\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x41\n\nattributes\x18\x02 \x03(\x0b\x32-.injective_explorer_rpc.Event.AttributesEntry\x1a\x31\n\x0f\x41ttributesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"Q\n\tSignature\x12\x0e\n\x06pubkey\x18\x01 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x02 \x01(\t\x12\x10\n\x08sequence\x18\x03 \x01(\x04\x12\x11\n\tsignature\x18\x04 \x01(\t\"@\n\x10GetBlocksRequest\x12\x0e\n\x06\x62\x65\x66ore\x18\x01 \x01(\x04\x12\r\n\x05\x61\x66ter\x18\x02 \x01(\x04\x12\r\n\x05limit\x18\x03 \x01(\x11\"t\n\x11GetBlocksResponse\x12.\n\x06paging\x18\x01 \x01(\x0b\x32\x1e.injective_explorer_rpc.Paging\x12/\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32!.injective_explorer_rpc.BlockInfo\"\xe4\x01\n\tBlockInfo\x12\x0e\n\x06height\x18\x01 \x01(\x04\x12\x10\n\x08proposer\x18\x02 \x01(\t\x12\x0f\n\x07moniker\x18\x03 \x01(\t\x12\x12\n\nblock_hash\x18\x04 \x01(\t\x12\x13\n\x0bparent_hash\x18\x05 \x01(\t\x12\x17\n\x0fnum_pre_commits\x18\x06 \x01(\x12\x12\x0f\n\x07num_txs\x18\x07 \x01(\x12\x12\x11\n\ttotal_txs\x18\x08 \x01(\x12\x12+\n\x03txs\x18\t \x03(\x0b\x32\x1e.injective_explorer_rpc.TxData\x12\x11\n\ttimestamp\x18\n \x01(\t\"\x1d\n\x0fGetBlockRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\xeb\x01\n\x10GetBlockResponse\x12\x0e\n\x06height\x18\x01 \x01(\x04\x12\x10\n\x08proposer\x18\x02 \x01(\t\x12\x0f\n\x07moniker\x18\x03 \x01(\t\x12\x12\n\nblock_hash\x18\x04 \x01(\t\x12\x13\n\x0bparent_hash\x18\x05 \x01(\t\x12\x17\n\x0fnum_pre_commits\x18\x06 \x01(\x12\x12\x0f\n\x07num_txs\x18\x07 \x01(\x12\x12\x11\n\ttotal_txs\x18\x08 \x01(\x12\x12+\n\x03txs\x18\t \x03(\x0b\x32\x1e.injective_explorer_rpc.TxData\x12\x11\n\ttimestamp\x18\n \x01(\t\"=\n\x17GetCoinPriceDataRequest\x12\x10\n\x08\x63oin_ids\x18\x01 \x01(\t\x12\x10\n\x08\x63urrency\x18\x02 \x01(\t\"R\n\x18GetCoinPriceDataResponse\x12\x36\n\x05\x66ield\x18\x01 \x03(\x0b\x32\'.injective_explorer_rpc.CoinGeckoMarket\"\xd5\x04\n\x0f\x43oinGeckoMarket\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0e\n\x06symbol\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\r\n\x05image\x18\x04 \x01(\t\x12\x15\n\rcurrent_price\x18\x05 \x01(\x01\x12\x12\n\nmarket_cap\x18\x06 \x01(\x01\x12\x17\n\x0fmarket_cap_rank\x18\x07 \x01(\x11\x12\x14\n\x0ctotal_volume\x18\x08 \x01(\x01\x12\x10\n\x08high24_h\x18\t \x01(\x01\x12\x0f\n\x07low24_h\x18\n \x01(\x01\x12\x18\n\x10price_change24_h\x18\x0b \x01(\x01\x12#\n\x1bprice_change_percentage24_h\x18\x0c \x01(\x01\x12\x1d\n\x15market_cap_change24_h\x18\r \x01(\x01\x12(\n market_cap_change_percentage24_h\x18\x0e \x01(\x01\x12\x1a\n\x12\x63irculating_supply\x18\x0f \x01(\x01\x12\x14\n\x0ctotal_supply\x18\x10 \x01(\x01\x12\x12\n\nmax_supply\x18\x11 \x01(\x01\x12\x0b\n\x03\x61th\x18\x12 \x01(\x01\x12\x1d\n\x15\x61th_change_percentage\x18\x13 \x01(\x01\x12\x10\n\x08\x61th_date\x18\x14 \x01(\t\x12\x0b\n\x03\x61tl\x18\x15 \x01(\x01\x12\x1d\n\x15\x61tl_change_percentage\x18\x16 \x01(\x01\x12\x10\n\x08\x61tl_date\x18\x17 \x01(\t\x12,\n\x03roi\x18\x18 \x01(\x0b\x32\x1f.injective_explorer_rpc.ROIItem\x12\x14\n\x0clast_updated\x18\x19 \x01(\t\">\n\x07ROIItem\x12\r\n\x05times\x18\x01 \x01(\x01\x12\x10\n\x08\x63urrency\x18\x02 \x01(\t\x12\x12\n\npercentage\x18\x03 \x01(\x01\"i\n\rGetTxsRequest\x12\x0e\n\x06\x62\x65\x66ore\x18\x01 \x01(\x04\x12\r\n\x05\x61\x66ter\x18\x02 \x01(\x04\x12\r\n\x05limit\x18\x03 \x01(\x11\x12\x0c\n\x04skip\x18\x04 \x01(\x04\x12\x0c\n\x04type\x18\x05 \x01(\t\x12\x0e\n\x06module\x18\x06 \x01(\t\"n\n\x0eGetTxsResponse\x12.\n\x06paging\x18\x01 \x01(\x0b\x32\x1e.injective_explorer_rpc.Paging\x12,\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32\x1e.injective_explorer_rpc.TxData\"$\n\x14GetTxByTxHashRequest\x12\x0c\n\x04hash\x18\x01 \x01(\t\"\xda\x02\n\x15GetTxByTxHashResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\x14\n\x0c\x62lock_number\x18\x02 \x01(\x04\x12\x17\n\x0f\x62lock_timestamp\x18\x03 \x01(\t\x12\x0c\n\x04hash\x18\x04 \x01(\t\x12\x0c\n\x04\x63ode\x18\x05 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x06 \x01(\x0c\x12\x0c\n\x04info\x18\x08 \x01(\t\x12\x12\n\ngas_wanted\x18\t \x01(\x12\x12\x10\n\x08gas_used\x18\n \x01(\x12\x12\x11\n\tcodespace\x18\x0b \x01(\t\x12-\n\x06\x65vents\x18\x0c \x03(\x0b\x32\x1d.injective_explorer_rpc.Event\x12\x0f\n\x07tx_type\x18\r \x01(\t\x12\x10\n\x08messages\x18\x0e \x01(\t\x12\x35\n\nsignatures\x18\x0f \x03(\x0b\x32!.injective_explorer_rpc.Signature\x12\x0c\n\x04memo\x18\x10 \x01(\t\"@\n\x10StreamTxsRequest\x12\x0e\n\x06\x62\x65\x66ore\x18\x01 \x01(\x04\x12\r\n\x05\x61\x66ter\x18\x02 \x01(\x04\x12\r\n\x05limit\x18\x03 \x01(\x11\"B\n\x11StreamTxsResponse\x12-\n\x05\x66ield\x18\x01 \x03(\x0b\x32\x1e.injective_explorer_rpc.TxData\"C\n\x13StreamBlocksRequest\x12\x0e\n\x06\x62\x65\x66ore\x18\x01 \x01(\x04\x12\r\n\x05\x61\x66ter\x18\x02 \x01(\x04\x12\r\n\x05limit\x18\x03 \x01(\x11\"H\n\x14StreamBlocksResponse\x12\x30\n\x05\x66ield\x18\x01 \x03(\x0b\x32!.injective_explorer_rpc.BlockInfo2\xb9\x07\n\x14InjectiveExplorerRPC\x12\x63\n\nGetAccount\x12).injective_explorer_rpc.GetAccountRequest\x1a*.injective_explorer_rpc.GetAccountResponse\x12l\n\rGetAccountTxs\x12,.injective_explorer_rpc.GetAccountTxsRequest\x1a-.injective_explorer_rpc.GetAccountTxsResponse\x12`\n\tGetBlocks\x12(.injective_explorer_rpc.GetBlocksRequest\x1a).injective_explorer_rpc.GetBlocksResponse\x12]\n\x08GetBlock\x12\'.injective_explorer_rpc.GetBlockRequest\x1a(.injective_explorer_rpc.GetBlockResponse\x12u\n\x10GetCoinPriceData\x12/.injective_explorer_rpc.GetCoinPriceDataRequest\x1a\x30.injective_explorer_rpc.GetCoinPriceDataResponse\x12W\n\x06GetTxs\x12%.injective_explorer_rpc.GetTxsRequest\x1a&.injective_explorer_rpc.GetTxsResponse\x12l\n\rGetTxByTxHash\x12,.injective_explorer_rpc.GetTxByTxHashRequest\x1a-.injective_explorer_rpc.GetTxByTxHashResponse\x12\x62\n\tStreamTxs\x12(.injective_explorer_rpc.StreamTxsRequest\x1a).injective_explorer_rpc.StreamTxsResponse0\x01\x12k\n\x0cStreamBlocks\x12+.injective_explorer_rpc.StreamBlocksRequest\x1a,.injective_explorer_rpc.StreamBlocksResponse0\x01\x42\x1bZ\x19/injective_explorer_rpcpbb\x06proto3'
+  serialized_pb=b'\n%exchange/injective_explorer_rpc.proto\x12\x16injective_explorer_rpc\"$\n\x11GetAccountRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\"\xa5\x01\n\x12GetAccountResponse\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\x12\n\npublic_key\x18\x02 \x01(\x0c\x12\x16\n\x0e\x61\x63\x63ount_number\x18\x03 \x01(\x12\x12\x10\n\x08sequence\x18\x04 \x01(\x12\x12\r\n\x05\x66lags\x18\x05 \x01(\x04\x12\x31\n\x08\x62\x61lances\x18\x06 \x03(\x0b\x32\x1f.injective_explorer_rpc.Balance\"G\n\x07\x42\x61lance\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x0c\n\x04\x66ree\x18\x02 \x01(\t\x12\x0e\n\x06locked\x18\x03 \x01(\t\x12\x0e\n\x06\x66rozen\x18\x04 \x01(\t\"c\n\x14GetAccountTxsRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\x0e\n\x06\x62\x65\x66ore\x18\x02 \x01(\x04\x12\r\n\x05\x61\x66ter\x18\x03 \x01(\x04\x12\r\n\x05limit\x18\x04 \x01(\x11\x12\x0c\n\x04skip\x18\x05 \x01(\x04\"u\n\x15GetAccountTxsResponse\x12.\n\x06paging\x18\x01 \x01(\x0b\x32\x1e.injective_explorer_rpc.Paging\x12,\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32\x1e.injective_explorer_rpc.TxData\"1\n\x06Paging\x12\r\n\x05total\x18\x01 \x01(\x12\x12\x0c\n\x04\x66rom\x18\x02 \x01(\x11\x12\n\n\x02to\x18\x03 \x01(\x11\"\xcb\x02\n\x06TxData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x14\n\x0c\x62lock_number\x18\x02 \x01(\x04\x12\x17\n\x0f\x62lock_timestamp\x18\x03 \x01(\t\x12\x0c\n\x04hash\x18\x04 \x01(\t\x12\x0c\n\x04\x63ode\x18\x05 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x06 \x01(\x0c\x12\x0c\n\x04info\x18\x08 \x01(\t\x12\x12\n\ngas_wanted\x18\t \x01(\x12\x12\x10\n\x08gas_used\x18\n \x01(\x12\x12\x11\n\tcodespace\x18\x0b \x01(\t\x12-\n\x06\x65vents\x18\x0c \x03(\x0b\x32\x1d.injective_explorer_rpc.Event\x12\x0f\n\x07tx_type\x18\r \x01(\t\x12\x10\n\x08messages\x18\x0e \x01(\t\x12\x35\n\nsignatures\x18\x0f \x03(\x0b\x32!.injective_explorer_rpc.Signature\x12\x0c\n\x04memo\x18\x10 \x01(\t\"\x8b\x01\n\x05\x45vent\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x41\n\nattributes\x18\x02 \x03(\x0b\x32-.injective_explorer_rpc.Event.AttributesEntry\x1a\x31\n\x0f\x41ttributesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"Q\n\tSignature\x12\x0e\n\x06pubkey\x18\x01 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x02 \x01(\t\x12\x10\n\x08sequence\x18\x03 \x01(\x04\x12\x11\n\tsignature\x18\x04 \x01(\t\"@\n\x10GetBlocksRequest\x12\x0e\n\x06\x62\x65\x66ore\x18\x01 \x01(\x04\x12\r\n\x05\x61\x66ter\x18\x02 \x01(\x04\x12\r\n\x05limit\x18\x03 \x01(\x11\"t\n\x11GetBlocksResponse\x12.\n\x06paging\x18\x01 \x01(\x0b\x32\x1e.injective_explorer_rpc.Paging\x12/\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32!.injective_explorer_rpc.BlockInfo\"\xe4\x01\n\tBlockInfo\x12\x0e\n\x06height\x18\x01 \x01(\x04\x12\x10\n\x08proposer\x18\x02 \x01(\t\x12\x0f\n\x07moniker\x18\x03 \x01(\t\x12\x12\n\nblock_hash\x18\x04 \x01(\t\x12\x13\n\x0bparent_hash\x18\x05 \x01(\t\x12\x17\n\x0fnum_pre_commits\x18\x06 \x01(\x12\x12\x0f\n\x07num_txs\x18\x07 \x01(\x12\x12\x11\n\ttotal_txs\x18\x08 \x01(\x12\x12+\n\x03txs\x18\t \x03(\x0b\x32\x1e.injective_explorer_rpc.TxData\x12\x11\n\ttimestamp\x18\n \x01(\t\"\x1d\n\x0fGetBlockRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\xeb\x01\n\x10GetBlockResponse\x12\x0e\n\x06height\x18\x01 \x01(\x04\x12\x10\n\x08proposer\x18\x02 \x01(\t\x12\x0f\n\x07moniker\x18\x03 \x01(\t\x12\x12\n\nblock_hash\x18\x04 \x01(\t\x12\x13\n\x0bparent_hash\x18\x05 \x01(\t\x12\x17\n\x0fnum_pre_commits\x18\x06 \x01(\x12\x12\x0f\n\x07num_txs\x18\x07 \x01(\x12\x12\x11\n\ttotal_txs\x18\x08 \x01(\x12\x12+\n\x03txs\x18\t \x03(\x0b\x32\x1e.injective_explorer_rpc.TxData\x12\x11\n\ttimestamp\x18\n \x01(\t\"&\n\x13GetValidatorRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\"\xde\x04\n\x14GetValidatorResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0f\n\x07moniker\x18\x02 \x01(\t\x12\x18\n\x10operator_address\x18\x03 \x01(\t\x12\x19\n\x11\x63onsensus_address\x18\x04 \x01(\t\x12\x0e\n\x06jailed\x18\x05 \x01(\x08\x12\x0e\n\x06status\x18\x06 \x01(\x11\x12\x0e\n\x06tokens\x18\x07 \x01(\t\x12\x18\n\x10\x64\x65legator_shares\x18\x08 \x01(\t\x12\x41\n\x0b\x64\x65scription\x18\t \x01(\x0b\x32,.injective_explorer_rpc.ValidatorDescription\x12\x18\n\x10unbonding_height\x18\n \x01(\x12\x12\x16\n\x0eunbonding_time\x18\x0b \x01(\t\x12\x17\n\x0f\x63ommission_rate\x18\x0c \x01(\t\x12\x1b\n\x13\x63ommission_max_rate\x18\r \x01(\t\x12\"\n\x1a\x63ommission_max_change_rate\x18\x0e \x01(\t\x12\x1e\n\x16\x63ommission_update_time\x18\x0f \x01(\t\x12\x10\n\x08proposed\x18\x10 \x01(\x04\x12\x0e\n\x06signed\x18\x11 \x01(\x04\x12\x0e\n\x06missed\x18\x12 \x01(\x04\x12\x11\n\ttimestamp\x18\x13 \x01(\t\x12\x38\n\x07uptimes\x18\x14 \x03(\x0b\x32\'.injective_explorer_rpc.ValidatorUptime\x12<\n\x0eslashing_infos\x18\x15 \x03(\x0b\x32$.injective_explorer_rpc.SlashingInfo\"u\n\x14ValidatorDescription\x12\x0f\n\x07moniker\x18\x01 \x01(\t\x12\x10\n\x08identity\x18\x02 \x01(\t\x12\x0f\n\x07website\x18\x03 \x01(\t\x12\x18\n\x10security_contact\x18\x04 \x01(\t\x12\x0f\n\x07\x64\x65tails\x18\x05 \x01(\t\"7\n\x0fValidatorUptime\x12\x14\n\x0c\x62lock_number\x18\x01 \x01(\x04\x12\x0e\n\x06status\x18\x02 \x01(\t\"\x94\x01\n\x0cSlashingInfo\x12\x14\n\x0c\x62lock_number\x18\x01 \x01(\x04\x12\x17\n\x0f\x62lock_timestamp\x18\x02 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x03 \x01(\t\x12\r\n\x05power\x18\x04 \x01(\x04\x12\x0e\n\x06reason\x18\x05 \x01(\t\x12\x0e\n\x06jailed\x18\x06 \x01(\t\x12\x15\n\rmissed_blocks\x18\x07 \x01(\x04\",\n\x19GetValidatorUptimeRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\"T\n\x1aGetValidatorUptimeResponse\x12\x36\n\x05\x66ield\x18\x01 \x03(\x0b\x32\'.injective_explorer_rpc.ValidatorUptime\"=\n\x17GetCoinPriceDataRequest\x12\x10\n\x08\x63oin_ids\x18\x01 \x01(\t\x12\x10\n\x08\x63urrency\x18\x02 \x01(\t\"R\n\x18GetCoinPriceDataResponse\x12\x36\n\x05\x66ield\x18\x01 \x03(\x0b\x32\'.injective_explorer_rpc.CoinGeckoMarket\"\xd5\x04\n\x0f\x43oinGeckoMarket\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0e\n\x06symbol\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\r\n\x05image\x18\x04 \x01(\t\x12\x15\n\rcurrent_price\x18\x05 \x01(\x01\x12\x12\n\nmarket_cap\x18\x06 \x01(\x01\x12\x17\n\x0fmarket_cap_rank\x18\x07 \x01(\x11\x12\x14\n\x0ctotal_volume\x18\x08 \x01(\x01\x12\x10\n\x08high24_h\x18\t \x01(\x01\x12\x0f\n\x07low24_h\x18\n \x01(\x01\x12\x18\n\x10price_change24_h\x18\x0b \x01(\x01\x12#\n\x1bprice_change_percentage24_h\x18\x0c \x01(\x01\x12\x1d\n\x15market_cap_change24_h\x18\r \x01(\x01\x12(\n market_cap_change_percentage24_h\x18\x0e \x01(\x01\x12\x1a\n\x12\x63irculating_supply\x18\x0f \x01(\x01\x12\x14\n\x0ctotal_supply\x18\x10 \x01(\x01\x12\x12\n\nmax_supply\x18\x11 \x01(\x01\x12\x0b\n\x03\x61th\x18\x12 \x01(\x01\x12\x1d\n\x15\x61th_change_percentage\x18\x13 \x01(\x01\x12\x10\n\x08\x61th_date\x18\x14 \x01(\t\x12\x0b\n\x03\x61tl\x18\x15 \x01(\x01\x12\x1d\n\x15\x61tl_change_percentage\x18\x16 \x01(\x01\x12\x10\n\x08\x61tl_date\x18\x17 \x01(\t\x12,\n\x03roi\x18\x18 \x01(\x0b\x32\x1f.injective_explorer_rpc.ROIItem\x12\x14\n\x0clast_updated\x18\x19 \x01(\t\">\n\x07ROIItem\x12\r\n\x05times\x18\x01 \x01(\x01\x12\x10\n\x08\x63urrency\x18\x02 \x01(\t\x12\x12\n\npercentage\x18\x03 \x01(\x01\"i\n\rGetTxsRequest\x12\x0e\n\x06\x62\x65\x66ore\x18\x01 \x01(\x04\x12\r\n\x05\x61\x66ter\x18\x02 \x01(\x04\x12\r\n\x05limit\x18\x03 \x01(\x11\x12\x0c\n\x04skip\x18\x04 \x01(\x04\x12\x0c\n\x04type\x18\x05 \x01(\t\x12\x0e\n\x06module\x18\x06 \x01(\t\"n\n\x0eGetTxsResponse\x12.\n\x06paging\x18\x01 \x01(\x0b\x32\x1e.injective_explorer_rpc.Paging\x12,\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32\x1e.injective_explorer_rpc.TxData\"$\n\x14GetTxByTxHashRequest\x12\x0c\n\x04hash\x18\x01 \x01(\t\"\xda\x02\n\x15GetTxByTxHashResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\x14\n\x0c\x62lock_number\x18\x02 \x01(\x04\x12\x17\n\x0f\x62lock_timestamp\x18\x03 \x01(\t\x12\x0c\n\x04hash\x18\x04 \x01(\t\x12\x0c\n\x04\x63ode\x18\x05 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x06 \x01(\x0c\x12\x0c\n\x04info\x18\x08 \x01(\t\x12\x12\n\ngas_wanted\x18\t \x01(\x12\x12\x10\n\x08gas_used\x18\n \x01(\x12\x12\x11\n\tcodespace\x18\x0b \x01(\t\x12-\n\x06\x65vents\x18\x0c \x03(\x0b\x32\x1d.injective_explorer_rpc.Event\x12\x0f\n\x07tx_type\x18\r \x01(\t\x12\x10\n\x08messages\x18\x0e \x01(\t\x12\x35\n\nsignatures\x18\x0f \x03(\x0b\x32!.injective_explorer_rpc.Signature\x12\x0c\n\x04memo\x18\x10 \x01(\t\"@\n\x10StreamTxsRequest\x12\x0e\n\x06\x62\x65\x66ore\x18\x01 \x01(\x04\x12\r\n\x05\x61\x66ter\x18\x02 \x01(\x04\x12\r\n\x05limit\x18\x03 \x01(\x11\"B\n\x11StreamTxsResponse\x12-\n\x05\x66ield\x18\x01 \x03(\x0b\x32\x1e.injective_explorer_rpc.TxData\"C\n\x13StreamBlocksRequest\x12\x0e\n\x06\x62\x65\x66ore\x18\x01 \x01(\x04\x12\r\n\x05\x61\x66ter\x18\x02 \x01(\x04\x12\r\n\x05limit\x18\x03 \x01(\x11\"H\n\x14StreamBlocksResponse\x12\x30\n\x05\x66ield\x18\x01 \x03(\x0b\x32!.injective_explorer_rpc.BlockInfo2\xa1\t\n\x14InjectiveExplorerRPC\x12\x63\n\nGetAccount\x12).injective_explorer_rpc.GetAccountRequest\x1a*.injective_explorer_rpc.GetAccountResponse\x12l\n\rGetAccountTxs\x12,.injective_explorer_rpc.GetAccountTxsRequest\x1a-.injective_explorer_rpc.GetAccountTxsResponse\x12`\n\tGetBlocks\x12(.injective_explorer_rpc.GetBlocksRequest\x1a).injective_explorer_rpc.GetBlocksResponse\x12]\n\x08GetBlock\x12\'.injective_explorer_rpc.GetBlockRequest\x1a(.injective_explorer_rpc.GetBlockResponse\x12i\n\x0cGetValidator\x12+.injective_explorer_rpc.GetValidatorRequest\x1a,.injective_explorer_rpc.GetValidatorResponse\x12{\n\x12GetValidatorUptime\x12\x31.injective_explorer_rpc.GetValidatorUptimeRequest\x1a\x32.injective_explorer_rpc.GetValidatorUptimeResponse\x12u\n\x10GetCoinPriceData\x12/.injective_explorer_rpc.GetCoinPriceDataRequest\x1a\x30.injective_explorer_rpc.GetCoinPriceDataResponse\x12W\n\x06GetTxs\x12%.injective_explorer_rpc.GetTxsRequest\x1a&.injective_explorer_rpc.GetTxsResponse\x12l\n\rGetTxByTxHash\x12,.injective_explorer_rpc.GetTxByTxHashRequest\x1a-.injective_explorer_rpc.GetTxByTxHashResponse\x12\x62\n\tStreamTxs\x12(.injective_explorer_rpc.StreamTxsRequest\x1a).injective_explorer_rpc.StreamTxsResponse0\x01\x12k\n\x0cStreamBlocks\x12+.injective_explorer_rpc.StreamBlocksRequest\x1a,.injective_explorer_rpc.StreamBlocksResponse0\x01\x42\x1bZ\x19/injective_explorer_rpcpbb\x06proto3'
 )
 
 
@@ -889,6 +889,447 @@ _GETBLOCKRESPONSE = _descriptor.Descriptor(
 )
 
 
+_GETVALIDATORREQUEST = _descriptor.Descriptor(
+  name='GetValidatorRequest',
+  full_name='injective_explorer_rpc.GetValidatorRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='address', full_name='injective_explorer_rpc.GetValidatorRequest.address', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1858,
+  serialized_end=1896,
+)
+
+
+_GETVALIDATORRESPONSE = _descriptor.Descriptor(
+  name='GetValidatorResponse',
+  full_name='injective_explorer_rpc.GetValidatorResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='id', full_name='injective_explorer_rpc.GetValidatorResponse.id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='moniker', full_name='injective_explorer_rpc.GetValidatorResponse.moniker', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='operator_address', full_name='injective_explorer_rpc.GetValidatorResponse.operator_address', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='consensus_address', full_name='injective_explorer_rpc.GetValidatorResponse.consensus_address', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='jailed', full_name='injective_explorer_rpc.GetValidatorResponse.jailed', index=4,
+      number=5, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='status', full_name='injective_explorer_rpc.GetValidatorResponse.status', index=5,
+      number=6, type=17, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='tokens', full_name='injective_explorer_rpc.GetValidatorResponse.tokens', index=6,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='delegator_shares', full_name='injective_explorer_rpc.GetValidatorResponse.delegator_shares', index=7,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='description', full_name='injective_explorer_rpc.GetValidatorResponse.description', index=8,
+      number=9, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='unbonding_height', full_name='injective_explorer_rpc.GetValidatorResponse.unbonding_height', index=9,
+      number=10, type=18, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='unbonding_time', full_name='injective_explorer_rpc.GetValidatorResponse.unbonding_time', index=10,
+      number=11, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='commission_rate', full_name='injective_explorer_rpc.GetValidatorResponse.commission_rate', index=11,
+      number=12, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='commission_max_rate', full_name='injective_explorer_rpc.GetValidatorResponse.commission_max_rate', index=12,
+      number=13, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='commission_max_change_rate', full_name='injective_explorer_rpc.GetValidatorResponse.commission_max_change_rate', index=13,
+      number=14, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='commission_update_time', full_name='injective_explorer_rpc.GetValidatorResponse.commission_update_time', index=14,
+      number=15, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='proposed', full_name='injective_explorer_rpc.GetValidatorResponse.proposed', index=15,
+      number=16, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='signed', full_name='injective_explorer_rpc.GetValidatorResponse.signed', index=16,
+      number=17, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='missed', full_name='injective_explorer_rpc.GetValidatorResponse.missed', index=17,
+      number=18, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='timestamp', full_name='injective_explorer_rpc.GetValidatorResponse.timestamp', index=18,
+      number=19, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='uptimes', full_name='injective_explorer_rpc.GetValidatorResponse.uptimes', index=19,
+      number=20, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='slashing_infos', full_name='injective_explorer_rpc.GetValidatorResponse.slashing_infos', index=20,
+      number=21, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1899,
+  serialized_end=2505,
+)
+
+
+_VALIDATORDESCRIPTION = _descriptor.Descriptor(
+  name='ValidatorDescription',
+  full_name='injective_explorer_rpc.ValidatorDescription',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='moniker', full_name='injective_explorer_rpc.ValidatorDescription.moniker', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='identity', full_name='injective_explorer_rpc.ValidatorDescription.identity', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='website', full_name='injective_explorer_rpc.ValidatorDescription.website', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='security_contact', full_name='injective_explorer_rpc.ValidatorDescription.security_contact', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='details', full_name='injective_explorer_rpc.ValidatorDescription.details', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2507,
+  serialized_end=2624,
+)
+
+
+_VALIDATORUPTIME = _descriptor.Descriptor(
+  name='ValidatorUptime',
+  full_name='injective_explorer_rpc.ValidatorUptime',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='block_number', full_name='injective_explorer_rpc.ValidatorUptime.block_number', index=0,
+      number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='status', full_name='injective_explorer_rpc.ValidatorUptime.status', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2626,
+  serialized_end=2681,
+)
+
+
+_SLASHINGINFO = _descriptor.Descriptor(
+  name='SlashingInfo',
+  full_name='injective_explorer_rpc.SlashingInfo',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='block_number', full_name='injective_explorer_rpc.SlashingInfo.block_number', index=0,
+      number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='block_timestamp', full_name='injective_explorer_rpc.SlashingInfo.block_timestamp', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='address', full_name='injective_explorer_rpc.SlashingInfo.address', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='power', full_name='injective_explorer_rpc.SlashingInfo.power', index=3,
+      number=4, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='reason', full_name='injective_explorer_rpc.SlashingInfo.reason', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='jailed', full_name='injective_explorer_rpc.SlashingInfo.jailed', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='missed_blocks', full_name='injective_explorer_rpc.SlashingInfo.missed_blocks', index=6,
+      number=7, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2684,
+  serialized_end=2832,
+)
+
+
+_GETVALIDATORUPTIMEREQUEST = _descriptor.Descriptor(
+  name='GetValidatorUptimeRequest',
+  full_name='injective_explorer_rpc.GetValidatorUptimeRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='address', full_name='injective_explorer_rpc.GetValidatorUptimeRequest.address', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2834,
+  serialized_end=2878,
+)
+
+
+_GETVALIDATORUPTIMERESPONSE = _descriptor.Descriptor(
+  name='GetValidatorUptimeResponse',
+  full_name='injective_explorer_rpc.GetValidatorUptimeResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='field', full_name='injective_explorer_rpc.GetValidatorUptimeResponse.field', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2880,
+  serialized_end=2964,
+)
+
+
 _GETCOINPRICEDATAREQUEST = _descriptor.Descriptor(
   name='GetCoinPriceDataRequest',
   full_name='injective_explorer_rpc.GetCoinPriceDataRequest',
@@ -923,8 +1364,8 @@ _GETCOINPRICEDATAREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1858,
-  serialized_end=1919,
+  serialized_start=2966,
+  serialized_end=3027,
 )
 
 
@@ -955,8 +1396,8 @@ _GETCOINPRICEDATARESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1921,
-  serialized_end=2003,
+  serialized_start=3029,
+  serialized_end=3111,
 )
 
 
@@ -1155,8 +1596,8 @@ _COINGECKOMARKET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2006,
-  serialized_end=2603,
+  serialized_start=3114,
+  serialized_end=3711,
 )
 
 
@@ -1201,8 +1642,8 @@ _ROIITEM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2605,
-  serialized_end=2667,
+  serialized_start=3713,
+  serialized_end=3775,
 )
 
 
@@ -1268,8 +1709,8 @@ _GETTXSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2669,
-  serialized_end=2774,
+  serialized_start=3777,
+  serialized_end=3882,
 )
 
 
@@ -1307,8 +1748,8 @@ _GETTXSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2776,
-  serialized_end=2886,
+  serialized_start=3884,
+  serialized_end=3994,
 )
 
 
@@ -1339,8 +1780,8 @@ _GETTXBYTXHASHREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2888,
-  serialized_end=2924,
+  serialized_start=3996,
+  serialized_end=4032,
 )
 
 
@@ -1469,8 +1910,8 @@ _GETTXBYTXHASHRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2927,
-  serialized_end=3273,
+  serialized_start=4035,
+  serialized_end=4381,
 )
 
 
@@ -1515,8 +1956,8 @@ _STREAMTXSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3275,
-  serialized_end=3339,
+  serialized_start=4383,
+  serialized_end=4447,
 )
 
 
@@ -1547,8 +1988,8 @@ _STREAMTXSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3341,
-  serialized_end=3407,
+  serialized_start=4449,
+  serialized_end=4515,
 )
 
 
@@ -1593,8 +2034,8 @@ _STREAMBLOCKSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3409,
-  serialized_end=3476,
+  serialized_start=4517,
+  serialized_end=4584,
 )
 
 
@@ -1625,8 +2066,8 @@ _STREAMBLOCKSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3478,
-  serialized_end=3550,
+  serialized_start=4586,
+  serialized_end=4658,
 )
 
 _GETACCOUNTRESPONSE.fields_by_name['balances'].message_type = _BALANCE
@@ -1640,6 +2081,10 @@ _GETBLOCKSRESPONSE.fields_by_name['paging'].message_type = _PAGING
 _GETBLOCKSRESPONSE.fields_by_name['data'].message_type = _BLOCKINFO
 _BLOCKINFO.fields_by_name['txs'].message_type = _TXDATA
 _GETBLOCKRESPONSE.fields_by_name['txs'].message_type = _TXDATA
+_GETVALIDATORRESPONSE.fields_by_name['description'].message_type = _VALIDATORDESCRIPTION
+_GETVALIDATORRESPONSE.fields_by_name['uptimes'].message_type = _VALIDATORUPTIME
+_GETVALIDATORRESPONSE.fields_by_name['slashing_infos'].message_type = _SLASHINGINFO
+_GETVALIDATORUPTIMERESPONSE.fields_by_name['field'].message_type = _VALIDATORUPTIME
 _GETCOINPRICEDATARESPONSE.fields_by_name['field'].message_type = _COINGECKOMARKET
 _COINGECKOMARKET.fields_by_name['roi'].message_type = _ROIITEM
 _GETTXSRESPONSE.fields_by_name['paging'].message_type = _PAGING
@@ -1662,6 +2107,13 @@ DESCRIPTOR.message_types_by_name['GetBlocksResponse'] = _GETBLOCKSRESPONSE
 DESCRIPTOR.message_types_by_name['BlockInfo'] = _BLOCKINFO
 DESCRIPTOR.message_types_by_name['GetBlockRequest'] = _GETBLOCKREQUEST
 DESCRIPTOR.message_types_by_name['GetBlockResponse'] = _GETBLOCKRESPONSE
+DESCRIPTOR.message_types_by_name['GetValidatorRequest'] = _GETVALIDATORREQUEST
+DESCRIPTOR.message_types_by_name['GetValidatorResponse'] = _GETVALIDATORRESPONSE
+DESCRIPTOR.message_types_by_name['ValidatorDescription'] = _VALIDATORDESCRIPTION
+DESCRIPTOR.message_types_by_name['ValidatorUptime'] = _VALIDATORUPTIME
+DESCRIPTOR.message_types_by_name['SlashingInfo'] = _SLASHINGINFO
+DESCRIPTOR.message_types_by_name['GetValidatorUptimeRequest'] = _GETVALIDATORUPTIMEREQUEST
+DESCRIPTOR.message_types_by_name['GetValidatorUptimeResponse'] = _GETVALIDATORUPTIMERESPONSE
 DESCRIPTOR.message_types_by_name['GetCoinPriceDataRequest'] = _GETCOINPRICEDATAREQUEST
 DESCRIPTOR.message_types_by_name['GetCoinPriceDataResponse'] = _GETCOINPRICEDATARESPONSE
 DESCRIPTOR.message_types_by_name['CoinGeckoMarket'] = _COINGECKOMARKET
@@ -1782,6 +2234,55 @@ GetBlockResponse = _reflection.GeneratedProtocolMessageType('GetBlockResponse', 
   })
 _sym_db.RegisterMessage(GetBlockResponse)
 
+GetValidatorRequest = _reflection.GeneratedProtocolMessageType('GetValidatorRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETVALIDATORREQUEST,
+  '__module__' : 'exchange.injective_explorer_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_explorer_rpc.GetValidatorRequest)
+  })
+_sym_db.RegisterMessage(GetValidatorRequest)
+
+GetValidatorResponse = _reflection.GeneratedProtocolMessageType('GetValidatorResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETVALIDATORRESPONSE,
+  '__module__' : 'exchange.injective_explorer_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_explorer_rpc.GetValidatorResponse)
+  })
+_sym_db.RegisterMessage(GetValidatorResponse)
+
+ValidatorDescription = _reflection.GeneratedProtocolMessageType('ValidatorDescription', (_message.Message,), {
+  'DESCRIPTOR' : _VALIDATORDESCRIPTION,
+  '__module__' : 'exchange.injective_explorer_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_explorer_rpc.ValidatorDescription)
+  })
+_sym_db.RegisterMessage(ValidatorDescription)
+
+ValidatorUptime = _reflection.GeneratedProtocolMessageType('ValidatorUptime', (_message.Message,), {
+  'DESCRIPTOR' : _VALIDATORUPTIME,
+  '__module__' : 'exchange.injective_explorer_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_explorer_rpc.ValidatorUptime)
+  })
+_sym_db.RegisterMessage(ValidatorUptime)
+
+SlashingInfo = _reflection.GeneratedProtocolMessageType('SlashingInfo', (_message.Message,), {
+  'DESCRIPTOR' : _SLASHINGINFO,
+  '__module__' : 'exchange.injective_explorer_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_explorer_rpc.SlashingInfo)
+  })
+_sym_db.RegisterMessage(SlashingInfo)
+
+GetValidatorUptimeRequest = _reflection.GeneratedProtocolMessageType('GetValidatorUptimeRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETVALIDATORUPTIMEREQUEST,
+  '__module__' : 'exchange.injective_explorer_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_explorer_rpc.GetValidatorUptimeRequest)
+  })
+_sym_db.RegisterMessage(GetValidatorUptimeRequest)
+
+GetValidatorUptimeResponse = _reflection.GeneratedProtocolMessageType('GetValidatorUptimeResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETVALIDATORUPTIMERESPONSE,
+  '__module__' : 'exchange.injective_explorer_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_explorer_rpc.GetValidatorUptimeResponse)
+  })
+_sym_db.RegisterMessage(GetValidatorUptimeResponse)
+
 GetCoinPriceDataRequest = _reflection.GeneratedProtocolMessageType('GetCoinPriceDataRequest', (_message.Message,), {
   'DESCRIPTOR' : _GETCOINPRICEDATAREQUEST,
   '__module__' : 'exchange.injective_explorer_rpc_pb2'
@@ -1877,8 +2378,8 @@ _INJECTIVEEXPLORERRPC = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=3553,
-  serialized_end=4506,
+  serialized_start=4661,
+  serialized_end=5846,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetAccount',
@@ -1921,9 +2422,29 @@ _INJECTIVEEXPLORERRPC = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
+    name='GetValidator',
+    full_name='injective_explorer_rpc.InjectiveExplorerRPC.GetValidator',
+    index=4,
+    containing_service=None,
+    input_type=_GETVALIDATORREQUEST,
+    output_type=_GETVALIDATORRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetValidatorUptime',
+    full_name='injective_explorer_rpc.InjectiveExplorerRPC.GetValidatorUptime',
+    index=5,
+    containing_service=None,
+    input_type=_GETVALIDATORUPTIMEREQUEST,
+    output_type=_GETVALIDATORUPTIMERESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
     name='GetCoinPriceData',
     full_name='injective_explorer_rpc.InjectiveExplorerRPC.GetCoinPriceData',
-    index=4,
+    index=6,
     containing_service=None,
     input_type=_GETCOINPRICEDATAREQUEST,
     output_type=_GETCOINPRICEDATARESPONSE,
@@ -1933,7 +2454,7 @@ _INJECTIVEEXPLORERRPC = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='GetTxs',
     full_name='injective_explorer_rpc.InjectiveExplorerRPC.GetTxs',
-    index=5,
+    index=7,
     containing_service=None,
     input_type=_GETTXSREQUEST,
     output_type=_GETTXSRESPONSE,
@@ -1943,7 +2464,7 @@ _INJECTIVEEXPLORERRPC = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='GetTxByTxHash',
     full_name='injective_explorer_rpc.InjectiveExplorerRPC.GetTxByTxHash',
-    index=6,
+    index=8,
     containing_service=None,
     input_type=_GETTXBYTXHASHREQUEST,
     output_type=_GETTXBYTXHASHRESPONSE,
@@ -1953,7 +2474,7 @@ _INJECTIVEEXPLORERRPC = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='StreamTxs',
     full_name='injective_explorer_rpc.InjectiveExplorerRPC.StreamTxs',
-    index=7,
+    index=9,
     containing_service=None,
     input_type=_STREAMTXSREQUEST,
     output_type=_STREAMTXSRESPONSE,
@@ -1963,7 +2484,7 @@ _INJECTIVEEXPLORERRPC = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='StreamBlocks',
     full_name='injective_explorer_rpc.InjectiveExplorerRPC.StreamBlocks',
-    index=8,
+    index=10,
     containing_service=None,
     input_type=_STREAMBLOCKSREQUEST,
     output_type=_STREAMBLOCKSRESPONSE,
