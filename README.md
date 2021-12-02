@@ -86,6 +86,9 @@ python pyinjective/fetch_metadata.py
 
 
 ### Changelogs
+0.5.3
+* add skip, and limit to trade request
+
 0.5.2
 * add sync init_num_seq, changed previous init_num_seq to async_init_num_seq
 * add staging mainnet endpoint, update market metadata
