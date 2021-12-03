@@ -78,8 +78,8 @@ class AsyncClient:
         self.stubInsurance = insurance_rpc_grpc.InjectiveInsuranceRPCStub(self.exchange_channel)
         self.stubSpotExchange = spot_exchange_rpc_grpc.InjectiveSpotExchangeRPCStub(self.exchange_channel)
         self.stubDerivativeExchange = derivative_exchange_rpc_grpc.InjectiveDerivativeExchangeRPCStub(self.exchange_channel)
-        self.stubExplorer = explorer_rpc_grpc.InjectiveExplorerRPCStub(exchange_channel)
-        self.stubAuction = auction_rpc_grpc.InjectiveAuctionRPCStub(exchange_channel)
+        self.stubExplorer = explorer_rpc_grpc.InjectiveExplorerRPCStub(self.exchange_channel)
+        self.stubAuction = auction_rpc_grpc.InjectiveAuctionRPCStub(self.exchange_channel)
 
     # default client methods
     async def get_latest_block(self) -> tendermint_query.GetLatestBlockResponse:
