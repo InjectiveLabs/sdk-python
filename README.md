@@ -86,6 +86,11 @@ python pyinjective/fetch_metadata.py
 
 
 ### Changelogs
+0.5.4
+* Added PortfolioRequest, GetTxByHashRequest, AuctionRequest, AuctionsRequest, StreamBidsRequest and provided examples
+* Updated the composer with MsgIncreasePosition and MsgLiquidatePosition
+* Added reduce-only orders to the composer and updated examples
+
 0.5.3
 * add skip, and limit to trade request
 
