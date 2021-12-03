@@ -250,6 +250,7 @@ class AsyncClient:
         req = insurance_rpc_pb.RedemptionsRequest(redeemer=redeemer, redemption_denom=redemption_denom, status=status)
         return await self.stubInsurance.Redemptions(req)
 
+
     # SpotRPC
 
     async def get_spot_market(self, market_id: str):
@@ -272,8 +273,8 @@ class AsyncClient:
         req = spot_exchange_rpc_pb.OrdersRequest(market_id=market_id, order_side=order_side, subaccount_id=subaccount_id)
         return await self.stubSpotExchange.Orders(req)
 
-    async def get_spot_trades(self, market_id: str, execution_side: str = '', direction: str = '', subaccount_id: str = ''):
-        req = spot_exchange_rpc_pb.TradesRequest(market_id=market_id, execution_side=execution_side, direction=direction, subaccount_id=subaccount_id)
+    async def get_spot_trades(self, market_id: str, execution_side: str = '', direction: str = '', subaccount_id: str = '', skip: int = 0, limit: int = 0):
+        req = spot_exchange_rpc_pb.TradesRequest(market_id=market_id, execution_side=execution_side, direction=direction, subaccount_id=subaccount_id, skip=skip, limit=limit)
         return await self.stubSpotExchange.Trades(req)
 
     async def stream_spot_orderbook(self, market_id: str):
@@ -289,8 +290,8 @@ class AsyncClient:
         req = spot_exchange_rpc_pb.StreamOrdersRequest(market_id=market_id, order_side=order_side, subaccount_id=subaccount_id)
         return self.stubSpotExchange.StreamOrders(req)
 
-    async def stream_spot_trades(self, market_id: str, execution_side: str = '', direction: str = '', subaccount_id: str = ''):
-        req = spot_exchange_rpc_pb.StreamTradesRequest(market_id=market_id, execution_side=execution_side, direction=direction, subaccount_id=subaccount_id)
+    async def stream_spot_trades(self, market_id: str, execution_side: str = '', direction: str = '', subaccount_id: str = '', skip: int = 0, limit: int = 0):
+        req = spot_exchange_rpc_pb.StreamTradesRequest(market_id=market_id, execution_side=execution_side, direction=direction, subaccount_id=subaccount_id, skip=skip, limit=limit)
         return self.stubSpotExchange.StreamTrades(req)
 
     async def get_spot_subaccount_orders(self, subaccount_id: str, market_id: str = ''):
@@ -323,8 +324,8 @@ class AsyncClient:
         req = derivative_exchange_rpc_pb.OrdersRequest(market_id=market_id, order_side=order_side, subaccount_id=subaccount_id)
         return await self.stubDerivativeExchange.Orders(req)
 
-    async def get_derivative_trades(self, market_id: str, subaccount_id: str = ''):
-        req = derivative_exchange_rpc_pb.TradesRequest(market_id=market_id, subaccount_id=subaccount_id)
+    async def get_derivative_trades(self, market_id: str, subaccount_id: str = '', skip: int = 0, limit: int = 0):
+        req = derivative_exchange_rpc_pb.TradesRequest(market_id=market_id, subaccount_id=subaccount_id, execution_side=execution_side, direction=direction, skip=skip, limit=limit)
         return await self.stubDerivativeExchange.Trades(req)
 
     async def stream_derivative_orderbook(self, market_id: str):
@@ -339,8 +340,8 @@ class AsyncClient:
         req = derivative_exchange_rpc_pb.StreamOrdersRequest(market_id=market_id, order_side=order_side, subaccount_id=subaccount_id)
         return self.stubDerivativeExchange.StreamOrders(req)
 
-    async def stream_derivative_trades(self, market_id: str, subaccount_id: str = ''):
-        req = derivative_exchange_rpc_pb.StreamTradesRequest(market_id=market_id, subaccount_id=subaccount_id)
+    async def stream_derivative_trades(self, market_id: str, subaccount_id: str = "", execution_side: str = "", direction: str = "", skip: int = 0, limit: int = 0):
+        req = derivative_exchange_rpc_pb.StreamTradesRequest(market_id=market_id, subaccount_id=subaccount_id, execution_side=execution_side, direction=direction, skip=skip, limit=limit)
         return self.stubDerivativeExchange.StreamTrades(req)
 
     async def get_derivative_positions(self, market_id: str, subaccount_id: str = ''):

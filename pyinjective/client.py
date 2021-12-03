@@ -306,7 +306,7 @@ class Client:
         )
         return self.stubInsurance.Redemptions(req)
 
-    # SpotRPC
+   # SpotRPC
 
     def get_spot_market(self, market_id: str):
         req = spot_exchange_rpc_pb.MarketRequest(market_id=market_id)
@@ -342,12 +342,16 @@ class Client:
         execution_side: str = "",
         direction: str = "",
         subaccount_id: str = "",
+        skip: int = 0,
+        limit: int = 0
     ):
         req = spot_exchange_rpc_pb.TradesRequest(
             market_id=market_id,
             execution_side=execution_side,
             direction=direction,
             subaccount_id=subaccount_id,
+            skip=skip,
+            limit=limit
         )
         return self.stubSpotExchange.Trades(req)
 
@@ -373,12 +377,16 @@ class Client:
         execution_side: str = "",
         direction: str = "",
         subaccount_id: str = "",
+        skip: int = 0,
+        limit: int = 0
     ):
         req = spot_exchange_rpc_pb.StreamTradesRequest(
             market_id=market_id,
             execution_side=execution_side,
             direction=direction,
             subaccount_id=subaccount_id,
+            skip=skip,
+            limit=limit
         )
         return self.stubSpotExchange.StreamTrades(req)
 
@@ -431,9 +439,9 @@ class Client:
         )
         return self.stubDerivativeExchange.Orders(req)
 
-    def get_derivative_trades(self, market_id: str, subaccount_id: str = ""):
+    def get_derivative_trades(self, market_id: str, subaccount_id: str = "", execution_side: str = "", direction: str = "", skip: int = 0, limit: int = 0):
         req = derivative_exchange_rpc_pb.TradesRequest(
-            market_id=market_id, subaccount_id=subaccount_id
+            market_id=market_id, subaccount_id=subaccount_id, execution_side=execution_side, direction=direction, skip=skip, limit=limit
         )
         return self.stubDerivativeExchange.Trades(req)
 
@@ -453,9 +461,9 @@ class Client:
         )
         return self.stubDerivativeExchange.StreamOrders(req)
 
-    def stream_derivative_trades(self, market_id: str, subaccount_id: str = ""):
+    def stream_derivative_trades(self, market_id: str, subaccount_id: str = "", execution_side: str = "", direction: str = "", skip: int = 0, limit: int = 0):
         req = derivative_exchange_rpc_pb.StreamTradesRequest(
-            market_id=market_id, subaccount_id=subaccount_id
+            market_id=market_id, subaccount_id=subaccount_id, execution_side=execution_side, direction=direction, skip=skip, limit=limit
         )
         return self.stubDerivativeExchange.StreamTrades(req)
 
