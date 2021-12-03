@@ -5,6 +5,8 @@ from .proto.injective.exchange.v1beta1 import tx_pb2 as injective_exchange_tx_pb
 from .proto.injective.exchange.v1beta1 import exchange_pb2 as injective_exchange_pb
 from .proto.injective.types.v1beta1 import tx_response_pb2 as tx_response_pb
 
+from .proto.injective.auction.v1beta1 import tx_pb2 as injective_auction_tx_pb
+
 from .constant import Denom
 from .utils import *
 
@@ -64,14 +66,19 @@ class Composer:
         price: float,
         quantity: float,
         leverage: float,
-        is_buy: bool
+        is_buy: bool,
+        is_reduce_only: bool = False
     ):
         # load denom metadata
         denom = Denom.load_market(self.network, market_id)
         print('Loaded market metadata for', denom.description)
 
+        if is_reduce_only is True:
+            margin = 0
+        else:
+            margin = derivative_margin_to_backend(price, quantity, leverage, denom)
+
         # prepare values
-        margin = derivative_margin_to_backend(price, quantity, leverage, denom)
         price = derivative_price_to_backend(price, denom)
         trigger_price = derivative_price_to_backend(0, denom)
         quantity = derivative_quantity_to_backend(quantity, denom)
@@ -198,8 +205,9 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
-        leverage: float,
-        is_buy: bool
+        is_buy: bool,
+        is_reduce_only: bool,
+        leverage: float = 1
     ):
         return injective_exchange_tx_pb.MsgCreateDerivativeLimitOrder(
             sender=sender,
@@ -210,7 +218,8 @@ class Composer:
                 price=price,
                 quantity=quantity,
                 leverage=leverage,
-                is_buy=is_buy
+                is_buy=is_buy,
+                is_reduce_only=is_reduce_only
             )
         )
 
@@ -356,6 +365,8 @@ class Composer:
             "/injective.exchange.v1beta1.MsgWithdraw": injective_exchange_tx_pb.MsgWithdrawResponse,
             "/injective.exchange.v1beta1.MsgSubaccountTransfer": injective_exchange_tx_pb.MsgSubaccountTransferResponse,
             "/injective.exchange.v1beta1.MsgIncreasePositionMargin": injective_exchange_tx_pb.MsgIncreasePositionMarginResponse,
+            "/injective.exchange.v1beta1.MsgLiquidatePosition": injective_exchange_tx_pb.MsgLiquidatePosition,
+            "/injective.exchange.v1beta1.MsgIncreasePositionMargin": injective_exchange_tx_pb.MsgIncreasePositionMargin
         }
 
         response = tx_response_pb.TxResponseData.FromString(data)
