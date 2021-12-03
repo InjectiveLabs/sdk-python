@@ -32,6 +32,10 @@ from .proto.exchange import (
     injective_derivative_exchange_rpc_pb2_grpc as derivative_exchange_rpc_grpc,
     injective_meta_rpc_pb2 as exchange_meta_rpc_pb,
     injective_meta_rpc_pb2_grpc as exchange_meta_rpc_grpc,
+    injective_explorer_rpc_pb2 as explorer_rpc_pb,
+    injective_explorer_rpc_pb2_grpc as explorer_rpc_grpc,
+    injective_auction_rpc_pb2 as auction_rpc_pb,
+    injective_auction_rpc_pb2_grpc as auction_rpc_grpc
 )
 
 from .constant import Network
@@ -82,6 +86,8 @@ class Client:
                 exchange_channel
             )
         )
+        self.stubExplorer = explorer_rpc_grpc.InjectiveExplorerRPCStub(exchange_channel)
+        self.stubAuction = auction_rpc_grpc.InjectiveAuctionRPCStub(exchange_channel)
 
     # default client methods
     def get_latest_block(self) -> tendermint_query.GetLatestBlockResponse:
@@ -158,6 +164,20 @@ class Client:
 
     # Injective Exchange client methods
 
+    # Auction RPC
+
+    def get_auction(self, bid_round: int):
+        req = auction_rpc_pb.AuctionRequest(round=bid_round)
+        return self.stubAuction.AuctionEndpoint(req)
+
+    def get_auctions(self):
+        req = auction_rpc_pb.AuctionsRequest()
+        return self.stubAuction.Auctions(req)
+
+    def stream_bids(self):
+        req = auction_rpc_pb.StreamBidsRequest()
+        return self.stubAuction.StreamBids(req)
+
     # Meta RPC
 
     def ping(self):
@@ -177,6 +197,12 @@ class Client:
     def stream_keepalive(self):
         req = exchange_meta_rpc_pb.StreamKeepaliveRequest()
         return self.stubMeta.StreamKeepalive(req)
+
+    # Explorer RPC
+
+    def get_tx_by_hash(self, tx_hash: str):
+        req = explorer_rpc_pb.GetTxByTxHashRequest(hash=tx_hash)
+        return self.stubExplorer.GetTxByTxHash(req)
 
     # AccountsRPC
 
@@ -232,6 +258,10 @@ class Client:
             derivative_order_hashes=derivative_order_hashes,
         )
         return self.stubExchangeAccount.OrderStates(req)
+
+    def get_portfolio(self, account_address: str):
+        req = exchange_accounts_rpc_pb.PortfolioRequest(account_address=account_address)
+        return self.stubExchangeAccount.Portfolio(req)
 
     # OracleRPC
 
@@ -312,16 +342,12 @@ class Client:
         execution_side: str = "",
         direction: str = "",
         subaccount_id: str = "",
-        skip: int = 0,
-        limit: int = 0
     ):
         req = spot_exchange_rpc_pb.TradesRequest(
             market_id=market_id,
             execution_side=execution_side,
             direction=direction,
             subaccount_id=subaccount_id,
-            skip=skip,
-            limit=limit
         )
         return self.stubSpotExchange.Trades(req)
 
@@ -347,16 +373,12 @@ class Client:
         execution_side: str = "",
         direction: str = "",
         subaccount_id: str = "",
-        skip: int = 0,
-        limit: int = 0
     ):
         req = spot_exchange_rpc_pb.StreamTradesRequest(
             market_id=market_id,
             execution_side=execution_side,
             direction=direction,
             subaccount_id=subaccount_id,
-            skip=skip,
-            limit=limit
         )
         return self.stubSpotExchange.StreamTrades(req)
 
@@ -409,9 +431,9 @@ class Client:
         )
         return self.stubDerivativeExchange.Orders(req)
 
-    def get_derivative_trades(self, market_id: str, subaccount_id: str = "", execution_side: str = "", direction: str = "", skip: int = 0, limit: int = 0):
+    def get_derivative_trades(self, market_id: str, subaccount_id: str = ""):
         req = derivative_exchange_rpc_pb.TradesRequest(
-            market_id=market_id, subaccount_id=subaccount_id, execution_side=execution_side, direction=direction, skip=skip, limit=limit
+            market_id=market_id, subaccount_id=subaccount_id
         )
         return self.stubDerivativeExchange.Trades(req)
 
@@ -431,9 +453,9 @@ class Client:
         )
         return self.stubDerivativeExchange.StreamOrders(req)
 
-    def stream_derivative_trades(self, market_id: str, subaccount_id: str = "", execution_side: str = "", direction: str = "", skip: int = 0, limit: int = 0):
+    def stream_derivative_trades(self, market_id: str, subaccount_id: str = ""):
         req = derivative_exchange_rpc_pb.StreamTradesRequest(
-            market_id=market_id, subaccount_id=subaccount_id, execution_side=execution_side, direction=direction, skip=skip, limit=limit
+            market_id=market_id, subaccount_id=subaccount_id
         )
         return self.stubDerivativeExchange.StreamTrades(req)
 
