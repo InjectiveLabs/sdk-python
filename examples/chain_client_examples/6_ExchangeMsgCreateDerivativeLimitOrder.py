@@ -48,10 +48,11 @@ async def main() -> None:
         market_id=market_id,
         subaccount_id=subaccount_id,
         fee_recipient=fee_recipient,
-        price=44054.48,
-        quantity=0.01,
-        leverage=0.7,
-        is_buy=True
+        price=50000,
+        quantity=0.1,
+        leverage=1,
+        is_buy=False,
+        is_reduce_only=False
     )
 
     # build sim tx
