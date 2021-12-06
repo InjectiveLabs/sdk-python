@@ -48,8 +48,8 @@ async def main() -> None:
             fee_recipient=fee_recipient,
             price=41027,
             quantity=0.01,
+            is_buy=True,
             leverage=0.7,
-            is_buy=True
         ),
         composer.DerivativeOrder(
             market_id=market_id,
@@ -57,7 +57,6 @@ async def main() -> None:
             fee_recipient=fee_recipient,
             price=62140,
             quantity=0.01,
-            leverage=1.4,
             is_buy=False,
             is_reduce_only=True
         ),

@@ -50,8 +50,8 @@ async def main() -> None:
         fee_recipient=fee_recipient,
         price=50000,
         quantity=0.1,
-        leverage=1,
         is_buy=False,
+        leverage=1,
         is_reduce_only=False
     )
 

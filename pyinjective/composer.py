@@ -65,8 +65,8 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
-        leverage: float = 1,
         is_buy: bool,
+        leverage: float = 1,
         is_reduce_only: bool = False
     ):
         # load denom metadata
