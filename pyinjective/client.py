@@ -32,6 +32,10 @@ from .proto.exchange import (
     injective_derivative_exchange_rpc_pb2_grpc as derivative_exchange_rpc_grpc,
     injective_meta_rpc_pb2 as exchange_meta_rpc_pb,
     injective_meta_rpc_pb2_grpc as exchange_meta_rpc_grpc,
+    injective_explorer_rpc_pb2 as explorer_rpc_pb,
+    injective_explorer_rpc_pb2_grpc as explorer_rpc_grpc,
+    injective_auction_rpc_pb2 as auction_rpc_pb,
+    injective_auction_rpc_pb2_grpc as auction_rpc_grpc
 )
 
 from .constant import Network
@@ -82,6 +86,8 @@ class Client:
                 exchange_channel
             )
         )
+        self.stubExplorer = explorer_rpc_grpc.InjectiveExplorerRPCStub(exchange_channel)
+        self.stubAuction = auction_rpc_grpc.InjectiveAuctionRPCStub(exchange_channel)
 
     # default client methods
     def get_latest_block(self) -> tendermint_query.GetLatestBlockResponse:
@@ -158,6 +164,20 @@ class Client:
 
     # Injective Exchange client methods
 
+    # Auction RPC
+
+    def get_auction(self, bid_round: int):
+        req = auction_rpc_pb.AuctionRequest(round=bid_round)
+        return self.stubAuction.AuctionEndpoint(req)
+
+    def get_auctions(self):
+        req = auction_rpc_pb.AuctionsRequest()
+        return self.stubAuction.Auctions(req)
+
+    def stream_bids(self):
+        req = auction_rpc_pb.StreamBidsRequest()
+        return self.stubAuction.StreamBids(req)
+
     # Meta RPC
 
     def ping(self):
@@ -177,6 +197,12 @@ class Client:
     def stream_keepalive(self):
         req = exchange_meta_rpc_pb.StreamKeepaliveRequest()
         return self.stubMeta.StreamKeepalive(req)
+
+    # Explorer RPC
+
+    def get_tx_by_hash(self, tx_hash: str):
+        req = explorer_rpc_pb.GetTxByTxHashRequest(hash=tx_hash)
+        return self.stubExplorer.GetTxByTxHash(req)
 
     # AccountsRPC
 
@@ -233,6 +259,10 @@ class Client:
         )
         return self.stubExchangeAccount.OrderStates(req)
 
+    def get_portfolio(self, account_address: str):
+        req = exchange_accounts_rpc_pb.PortfolioRequest(account_address=account_address)
+        return self.stubExchangeAccount.Portfolio(req)
+
     # OracleRPC
 
     def stream_oracle_prices(
@@ -276,7 +306,7 @@ class Client:
         )
         return self.stubInsurance.Redemptions(req)
 
-    # SpotRPC
+   # SpotRPC
 
     def get_spot_market(self, market_id: str):
         req = spot_exchange_rpc_pb.MarketRequest(market_id=market_id)

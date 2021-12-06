@@ -21,6 +21,7 @@ from .proto.cosmos.tx.v1beta1 import (
     service_pb2_grpc as tx_service_grpc,
     service_pb2 as tx_service,
 )
+
 from .proto.exchange import (
     injective_accounts_rpc_pb2 as exchange_accounts_rpc_pb,
     injective_accounts_rpc_pb2_grpc as exchange_accounts_rpc_grpc,
@@ -33,7 +34,11 @@ from .proto.exchange import (
     injective_derivative_exchange_rpc_pb2 as derivative_exchange_rpc_pb,
     injective_derivative_exchange_rpc_pb2_grpc as derivative_exchange_rpc_grpc,
     injective_meta_rpc_pb2 as exchange_meta_rpc_pb,
-    injective_meta_rpc_pb2_grpc as exchange_meta_rpc_grpc
+    injective_meta_rpc_pb2_grpc as exchange_meta_rpc_grpc,
+    injective_explorer_rpc_pb2 as explorer_rpc_pb,
+    injective_explorer_rpc_pb2_grpc as explorer_rpc_grpc,
+    injective_auction_rpc_pb2 as auction_rpc_pb,
+    injective_auction_rpc_pb2_grpc as auction_rpc_grpc
 )
 
 from .constant import Network
@@ -73,6 +78,8 @@ class AsyncClient:
         self.stubInsurance = insurance_rpc_grpc.InjectiveInsuranceRPCStub(self.exchange_channel)
         self.stubSpotExchange = spot_exchange_rpc_grpc.InjectiveSpotExchangeRPCStub(self.exchange_channel)
         self.stubDerivativeExchange = derivative_exchange_rpc_grpc.InjectiveDerivativeExchangeRPCStub(self.exchange_channel)
+        self.stubExplorer = explorer_rpc_grpc.InjectiveExplorerRPCStub(self.exchange_channel)
+        self.stubAuction = auction_rpc_grpc.InjectiveAuctionRPCStub(self.exchange_channel)
 
     # default client methods
     async def get_latest_block(self) -> tendermint_query.GetLatestBlockResponse:
@@ -135,6 +142,21 @@ class AsyncClient:
 
     # Injective Exchange client methods
 
+    # Auction RPC
+
+    async def get_auction(self, bid_round: int):
+        req = auction_rpc_pb.AuctionRequest(round=bid_round)
+        return await self.stubAuction.AuctionEndpoint(req)
+
+    async def get_auctions(self):
+        req = auction_rpc_pb.AuctionsRequest()
+        return await self.stubAuction.Auctions(req)
+
+    async def stream_bids(self):
+        req = auction_rpc_pb.StreamBidsRequest()
+        return await self.stubAuction.StreamBids(req)
+
+
     # Meta RPC
 
     async def ping(self):
@@ -154,6 +176,12 @@ class AsyncClient:
     async def stream_keepalive(self):
         req = exchange_meta_rpc_pb.StreamKeepaliveRequest()
         return self.stubMeta.StreamKeepalive(req)
+
+    # Explorer RPC
+
+    async def get_tx_by_hash(self, tx_hash: str):
+        req = explorer_rpc_pb.GetTxByTxHashRequest(hash=tx_hash)
+        return await self.stubExplorer.GetTxByTxHash(req)
 
     #AccountsRPC
 
@@ -192,6 +220,10 @@ class AsyncClient:
         )
         return await self.stubExchangeAccount.OrderStates(req)
 
+    async def get_portfolio(self, account_address: str):
+        req = exchange_accounts_rpc_pb.PortfolioRequest(account_address=account_address)
+        return await self.stubExchangeAccount.Portfolio(req)
+
 
     # OracleRPC
 
@@ -217,6 +249,7 @@ class AsyncClient:
     async def get_redemptions(self, redeemer: str = '', redemption_denom: str = '', status: str = ''):
         req = insurance_rpc_pb.RedemptionsRequest(redeemer=redeemer, redemption_denom=redemption_denom, status=status)
         return await self.stubInsurance.Redemptions(req)
+
 
     # SpotRPC
 
