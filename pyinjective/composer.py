@@ -67,7 +67,7 @@ class Composer:
         quantity: float,
         leverage: float,
         is_buy: bool,
-        is_reduce_only: bool = False
+        is_reduce_only: bool
     ):
         # load denom metadata
         denom = Denom.load_market(self.network, market_id)
@@ -206,7 +206,7 @@ class Composer:
         price: float,
         quantity: float,
         is_buy: bool,
-        is_reduce_only: bool,
+        is_reduce_only: bool = False,
         leverage: float = 1
     ):
         return injective_exchange_tx_pb.MsgCreateDerivativeLimitOrder(
