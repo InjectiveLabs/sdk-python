@@ -65,9 +65,9 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
-        leverage: float,
+        leverage: float = 1,
         is_buy: bool,
-        is_reduce_only: bool
+        is_reduce_only: bool = False
     ):
         # load denom metadata
         denom = Denom.load_market(self.network, market_id)

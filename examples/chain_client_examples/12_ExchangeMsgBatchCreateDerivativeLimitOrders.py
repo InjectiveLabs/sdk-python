@@ -49,8 +49,7 @@ async def main() -> None:
             price=41027,
             quantity=0.01,
             leverage=0.7,
-            is_buy=True,
-            is_reduce_only=False
+            is_buy=True
         ),
         composer.DerivativeOrder(
             market_id=market_id,
