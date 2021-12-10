@@ -344,6 +344,21 @@ class Composer:
             amount=self.Coin(amount=be_amount, denom=peggy_denom)
         )
 
+    def MsgBid(
+        self,
+        sender: str,
+        bid_amount: float,
+        round: float
+    ):
+
+        be_amount = amount_to_backend(bid_amount, 18)
+
+        return injective_auction_tx_pb.MsgBid(
+            sender=sender,
+            round=round,
+            bid_amount=self.Coin(amount=be_amount, denom="inj")
+            )
+
     # data field format: [request-msg-header][raw-byte-msg-response]
     # you need to figure out this magic prefix number to trim request-msg-header off the data
     # this method handles only exchange responses
@@ -365,7 +380,8 @@ class Composer:
             "/injective.exchange.v1beta1.MsgWithdraw": injective_exchange_tx_pb.MsgWithdrawResponse,
             "/injective.exchange.v1beta1.MsgSubaccountTransfer": injective_exchange_tx_pb.MsgSubaccountTransferResponse,
             "/injective.exchange.v1beta1.MsgLiquidatePosition": injective_exchange_tx_pb.MsgLiquidatePosition,
-            "/injective.exchange.v1beta1.MsgIncreasePositionMargin": injective_exchange_tx_pb.MsgIncreasePositionMargin
+            "/injective.exchange.v1beta1.MsgIncreasePositionMargin": injective_exchange_tx_pb.MsgIncreasePositionMargin,
+            "/injective.auction.v1beta1.MsgBid": injective_auction_tx_pb.MsgBidResponse,
         }
 
         response = tx_response_pb.TxResponseData.FromString(data)
