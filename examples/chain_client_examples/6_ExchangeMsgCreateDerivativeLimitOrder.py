@@ -35,7 +35,7 @@ async def main() -> None:
     # load account
     priv_key = PrivateKey.from_hex("5d386fbdbf11f1141010f81a46b40f94887367562bd33b452bbaa6ce1cd1381e")
     pub_key = priv_key.to_public_key()
-    address = await pub_key.to_address().init_num_seq(network.lcd_endpoint)
+    address = pub_key.to_address().init_num_seq(network.lcd_endpoint)
     subaccount_id = address.get_subaccount_id(index=0)
 
     # prepare trade info
@@ -48,10 +48,11 @@ async def main() -> None:
         market_id=market_id,
         subaccount_id=subaccount_id,
         fee_recipient=fee_recipient,
-        price=44054.48,
-        quantity=0.01,
-        leverage=0.7,
-        is_buy=True
+        price=50000,
+        quantity=0.1,
+        is_buy=False,
+        leverage=1,
+        is_reduce_only=False
     )
 
     # build sim tx

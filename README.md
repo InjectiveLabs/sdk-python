@@ -86,13 +86,20 @@ python pyinjective/fetch_metadata.py
 
 
 ### Changelogs
+0.5.4
+* Added PortfolioRequest, GetTxByHashRequest, AuctionRequest, AuctionsRequest, StreamBidsRequest and provided examples
+* Updated the composer with MsgIncreasePosition and MsgLiquidatePosition
+* Added reduce-only orders to the composer and updated examples
+
+0.5.3
+* add skip, and limit to trade request
+
 0.5.2
-* fix type hints
-* add sync init_num_seq, changed previous init_num_seq to ainit_num_seq
+* add sync init_num_seq, changed previous init_num_seq to async_init_num_seq
 * add staging mainnet endpoint, update market metadata
 * protobuf regen
 * response parser improvements
-
+* fix type hints
 
 0.5.1
 * add AsyncClient
