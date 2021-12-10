@@ -65,7 +65,7 @@ class Network:
         grpc_exchange_endpoint: str ,
         chain_id: str ,
         fee_denom: str ,
-        env: str 
+        env: str
     ):
         self.lcd_endpoint = lcd_endpoint
         self.grpc_endpoint = grpc_endpoint
@@ -77,7 +77,7 @@ class Network:
     @classmethod
     def devnet(cls):
         return cls(
-            lcd_endpoint='https://devnet.lcd.injective.dev',
+            lcd_endpoint='devnet.injective.dev:10337',
             grpc_endpoint='devnet.injective.dev:9900',
             grpc_exchange_endpoint='devnet.injective.dev:9910',
             chain_id='injective-777',
@@ -86,13 +86,13 @@ class Network:
         )
 
     @classmethod
-    def testnet(cls, node='sentry1'):
+    def testnet(cls, node='sentry0'):
         nodes = ['sentry0', 'sentry1']
         if node not in nodes:
             raise ValueError("Must be one of {}".format(nodes))
 
         return cls(
-            lcd_endpoint='https://testnet.lcd.injective.dev',
+            lcd_endpoint=f"{node}.injective.dev:10337",
             grpc_endpoint=f"{node}.injective.dev:9900",
             grpc_exchange_endpoint=f"{node}.injective.dev:9910",
             chain_id='injective-888',
@@ -106,13 +106,14 @@ class Network:
             'sentry0',  # us, prod
             'sentry1',  # us, prod
             'sentry2',  # us, staging
-            'sentry3',  # tokyo, prod
+            'sentry3',  # tokyo, prod,
+            'sentry4'
         ]
         if node not in nodes:
             raise ValueError("Must be one of {}".format(nodes))
 
         return cls(
-            lcd_endpoint='https://lcd.injective.network',
+            lcd_endpoint=f"{node}.injective.network:10337",
             grpc_endpoint=f"{node}.injective.network:9900",
             grpc_exchange_endpoint=f"{node}.injective.network:9910",
             chain_id='injective-1',
