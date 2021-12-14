@@ -15,11 +15,6 @@ class InjectiveExplorerRPCStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.GetAccount = channel.unary_unary(
-                '/injective_explorer_rpc.InjectiveExplorerRPC/GetAccount',
-                request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetAccountRequest.SerializeToString,
-                response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetAccountResponse.FromString,
-                )
         self.GetAccountTxs = channel.unary_unary(
                 '/injective_explorer_rpc.InjectiveExplorerRPC/GetAccountTxs',
                 request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetAccountTxsRequest.SerializeToString,
@@ -75,13 +70,6 @@ class InjectiveExplorerRPCStub(object):
 class InjectiveExplorerRPCServicer(object):
     """ExplorerRPC defines gRPC API of explorer data for e.g. Blockchain Explorer
     """
-
-    def GetAccount(self, request, context):
-        """GetAccount returns account information given an account address.
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
 
     def GetAccountTxs(self, request, context):
         """GetAccountTxs returns tranctions involving in an account based upon params.
@@ -147,7 +135,7 @@ class InjectiveExplorerRPCServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def StreamBlocks(self, request, context):
-        """StreamBlocks returns blocks based upon the request params
+        """StreamBlocks returns the latest blocks
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -156,11 +144,6 @@ class InjectiveExplorerRPCServicer(object):
 
 def add_InjectiveExplorerRPCServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'GetAccount': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetAccount,
-                    request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetAccountRequest.FromString,
-                    response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetAccountResponse.SerializeToString,
-            ),
             'GetAccountTxs': grpc.unary_unary_rpc_method_handler(
                     servicer.GetAccountTxs,
                     request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetAccountTxsRequest.FromString,
@@ -221,23 +204,6 @@ def add_InjectiveExplorerRPCServicer_to_server(servicer, server):
 class InjectiveExplorerRPC(object):
     """ExplorerRPC defines gRPC API of explorer data for e.g. Blockchain Explorer
     """
-
-    @staticmethod
-    def GetAccount(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_explorer_rpc.InjectiveExplorerRPC/GetAccount',
-            exchange_dot_injective__explorer__rpc__pb2.GetAccountRequest.SerializeToString,
-            exchange_dot_injective__explorer__rpc__pb2.GetAccountResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def GetAccountTxs(request,
