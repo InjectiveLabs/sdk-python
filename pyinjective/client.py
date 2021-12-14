@@ -231,31 +231,29 @@ class Client:
         return self.stubExchangeAccount.SubaccountBalancesList(req)
 
     def get_subaccount_history(
-        self, subaccount_id: str, denom: str = "", transfer_types: List = []
+        self, subaccount_id: str, **kwargs
     ):
         req = exchange_accounts_rpc_pb.SubaccountHistoryRequest(
-            subaccount_id=subaccount_id, denom=denom, transfer_types=transfer_types
+            subaccount_id=subaccount_id, denom=kwargs.get("denom"), transfer_types=kwargs.get("transfer_types")
         )
         return self.stubExchangeAccount.SubaccountHistory(req)
 
     def get_subaccount_order_summary(
-        self, subaccount_id: str, order_direction: str = "", market_id: str = ""
+        self, subaccount_id: str, **kwargs
     ):
         req = exchange_accounts_rpc_pb.SubaccountOrderSummaryRequest(
             subaccount_id=subaccount_id,
-            order_direction=order_direction,
-            market_id=market_id,
+            order_direction=kwargs.get("order_direction"),
+            market_id=kwargs.get("market_id"),
         )
         return self.stubExchangeAccount.SubaccountOrderSummary(req)
 
     def get_order_states(
-        self,
-        spot_order_hashes: List[str] = [""],
-        derivative_order_hashes: List[str] = [""],
+        self, **kwargs
     ):
         req = exchange_accounts_rpc_pb.OrderStatesRequest(
-            spot_order_hashes=spot_order_hashes,
-            derivative_order_hashes=derivative_order_hashes,
+            spot_order_hashes=kwargs.get("spot_order_hashes"),
+            derivative_order_hashes=kwargs.get("derivative_order_hashes"),
         )
         return self.stubExchangeAccount.OrderStates(req)
 
@@ -299,10 +297,10 @@ class Client:
         return self.stubInsurance.Funds(req)
 
     def get_redemptions(
-        self, redeemer: str = "", redemption_denom: str = "", status: str = ""
+        self, **kwargs
     ):
         req = insurance_rpc_pb.RedemptionsRequest(
-            redeemer=redeemer, redemption_denom=redemption_denom, status=status
+            redeemer=kwargs.get("redeemer"), redemption_denom=kwargs.get("redemption_denom"), status=kwargs.get("status")
         )
         return self.stubInsurance.Redemptions(req)
 
@@ -313,10 +311,10 @@ class Client:
         return self.stubSpotExchange.Market(req)
 
     def get_spot_markets(
-        self, market_status: str = "", base_denom: str = "", quote_denom: str = ""
+        self, **kwargs
     ):
         req = spot_exchange_rpc_pb.MarketsRequest(
-            market_status=market_status, base_denom=base_denom, quote_denom=quote_denom
+            market_status=kwargs.get("market_status"), base_denom=kwargs.get("base_denom"), quote_denom=kwargs.get("quote_denom")
         )
         return self.stubSpotExchange.Markets(req)
 
@@ -329,29 +327,25 @@ class Client:
         return self.stubSpotExchange.Orderbook(req)
 
     def get_spot_orders(
-        self, market_id: str, order_side: str = "", subaccount_id: str = ""
+        self, market_id: str, **kwargs
     ):
         req = spot_exchange_rpc_pb.OrdersRequest(
-            market_id=market_id, order_side=order_side, subaccount_id=subaccount_id
+            market_id=market_id, order_side=kwargs.get("order_side"), subaccount_id=kwargs.get("subaccount_id")
         )
         return self.stubSpotExchange.Orders(req)
 
     def get_spot_trades(
         self,
         market_id: str,
-        execution_side: str = "",
-        direction: str = "",
-        subaccount_id: str = "",
-        skip: int = 0,
-        limit: int = 0
+        **kwargs
     ):
         req = spot_exchange_rpc_pb.TradesRequest(
             market_id=market_id,
-            execution_side=execution_side,
-            direction=direction,
-            subaccount_id=subaccount_id,
-            skip=skip,
-            limit=limit
+            execution_side=kwargs.get("execution_side"),
+            direction=kwargs.get("direction"),
+            subaccount_id=kwargs.get("subaccount_id"),
+            skip=kwargs.get("skip"),
+            limit=kwargs.get("limit")
         )
         return self.stubSpotExchange.Trades(req)
 
@@ -364,50 +358,44 @@ class Client:
         return self.stubSpotExchange.StreamOrderbook(req)
 
     def stream_spot_orders(
-        self, market_id: str, order_side: str = "", subaccount_id: str = ""
+        self, market_id: str, **kwargs
     ):
         req = spot_exchange_rpc_pb.StreamOrdersRequest(
-            market_id=market_id, order_side=order_side, subaccount_id=subaccount_id
+            market_id=market_id, order_side=kwargs.get("order_side"), subaccount_id=kwargs.get("subaccount_id")
         )
         return self.stubSpotExchange.StreamOrders(req)
 
     def stream_spot_trades(
         self,
         market_id: str,
-        execution_side: str = "",
-        direction: str = "",
-        subaccount_id: str = "",
-        skip: int = 0,
-        limit: int = 0
+        **kwargs
     ):
         req = spot_exchange_rpc_pb.StreamTradesRequest(
             market_id=market_id,
-            execution_side=execution_side,
-            direction=direction,
-            subaccount_id=subaccount_id,
-            skip=skip,
-            limit=limit
+            execution_side=kwargs.get("execution_side"),
+            direction=kwargs.get("direction"),
+            subaccount_id=kwargs.get("subaccount_id"),
+            skip=kwargs.get("skip"),
+            limit=kwargs.get("limit")
         )
         return self.stubSpotExchange.StreamTrades(req)
 
-    def get_spot_subaccount_orders(self, subaccount_id: str, market_id: str = ""):
+    def get_spot_subaccount_orders(self, subaccount_id: str, **kwargs):
         req = spot_exchange_rpc_pb.SubaccountOrdersListRequest(
-            subaccount_id=subaccount_id, market_id=market_id
+            subaccount_id=subaccount_id, market_id=kwargs.get("market_id")
         )
         return self.stubSpotExchange.SubaccountOrdersList(req)
 
     def get_spot_subaccount_trades(
         self,
         subaccount_id: str,
-        market_id: str = "",
-        execution_type: str = "",
-        direction: str = "",
+        **kwargs
     ):
         req = spot_exchange_rpc_pb.SubaccountTradesListRequest(
             subaccount_id=subaccount_id,
-            market_id=market_id,
-            execution_type=execution_type,
-            direction=direction,
+            market_id=kwargs.get("market_id"),
+            execution_type=kwargs.get("execution_type"),
+            direction=kwargs.get("direction"),
         )
         return self.stubSpotExchange.SubaccountTradesList(req)
 
@@ -417,9 +405,9 @@ class Client:
         req = derivative_exchange_rpc_pb.MarketRequest(market_id=market_id)
         return self.stubDerivativeExchange.Market(req)
 
-    def get_derivative_markets(self, market_status: str = "", quote_denom: str = ""):
+    def get_derivative_markets(self, **kwargs):
         req = derivative_exchange_rpc_pb.MarketsRequest(
-            market_status=market_status, quote_denom=quote_denom
+            market_status=kwargs.get("market_status"), quote_denom=kwargs.get("quote_denom")
         )
         return self.stubDerivativeExchange.Markets(req)
 
@@ -432,16 +420,16 @@ class Client:
         return self.stubDerivativeExchange.Orderbook(req)
 
     def get_derivative_orders(
-        self, market_id: str, order_side: str = "", subaccount_id: str = ""
+        self, market_id: str, **kwargs
     ):
         req = derivative_exchange_rpc_pb.OrdersRequest(
-            market_id=market_id, order_side=order_side, subaccount_id=subaccount_id
+            market_id=market_id, order_side=kwargs.get("order_side"), subaccount_id=kwargs.get("subaccount_id")
         )
         return self.stubDerivativeExchange.Orders(req)
 
-    def get_derivative_trades(self, market_id: str, subaccount_id: str = "", execution_side: str = "", direction: str = "", skip: int = 0, limit: int = 0):
+    def get_derivative_trades(self, market_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.TradesRequest(
-            market_id=market_id, subaccount_id=subaccount_id, execution_side=execution_side, direction=direction, skip=skip, limit=limit
+            market_id=market_id, subaccount_id=kwargs.get("subaccount_id"), execution_side=kwargs.get("execution_side"), direction=kwargs.get("direction"), skip=kwargs.get("skip"), limit=kwargs.get("limit")
         )
         return self.stubDerivativeExchange.Trades(req)
 
@@ -454,58 +442,56 @@ class Client:
         return self.stubDerivativeExchange.StreamOrderbook(req)
 
     def stream_derivative_orders(
-        self, market_id: str, order_side: str = "", subaccount_id: str = ""
+        self, market_id: str, **kwargs
     ):
         req = derivative_exchange_rpc_pb.StreamOrdersRequest(
-            market_id=market_id, order_side=order_side, subaccount_id=subaccount_id
+            market_id=market_id, order_side=kwargs.get("order_side"), subaccount_id=kwargs.get("subaccount_id")
         )
         return self.stubDerivativeExchange.StreamOrders(req)
 
-    def stream_derivative_trades(self, market_id: str, subaccount_id: str = "", execution_side: str = "", direction: str = "", skip: int = 0, limit: int = 0):
+    def stream_derivative_trades(self, market_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.StreamTradesRequest(
-            market_id=market_id, subaccount_id=subaccount_id, execution_side=execution_side, direction=direction, skip=skip, limit=limit
+            market_id=market_id, subaccount_id=kwargs.get("subaccount_id"), execution_side=kwargs.get("execution_side"), direction=kwargs.get("direction"), skip=kwargs.get("skip"), limit=kwargs.get("limit")
         )
         return self.stubDerivativeExchange.StreamTrades(req)
 
-    def get_derivative_positions(self, market_id: str, subaccount_id: str = ""):
+    def get_derivative_positions(self, market_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.PositionsRequest(
-            market_id=market_id, subaccount_id=subaccount_id
+            market_id=market_id, subaccount_id=kwargs.get("subaccount_id")
         )
         return self.stubDerivativeExchange.Positions(req)
 
-    def stream_derivative_positions(self, market_id: str, subaccount_id: str = ""):
+    def stream_derivative_positions(self, market_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.StreamPositionsRequest(
-            market_id=market_id, subaccount_id=subaccount_id
+            market_id=market_id, subaccount_id=kwargs.get("subaccount_id")
         )
         return self.stubDerivativeExchange.StreamPositions(req)
 
-    def get_derivative_liquidable_positions(self, market_id: str = ""):
-        req = derivative_exchange_rpc_pb.LiquidablePositionsRequest(market_id=market_id)
+    def get_derivative_liquidable_positions(self, **kwargs):
+        req = derivative_exchange_rpc_pb.LiquidablePositionsRequest(market_id=kwargs.get("market_id"))
         return self.stubDerivativeExchange.LiquidablePositions(req)
 
-    def get_derivative_subaccount_orders(self, subaccount_id: str, market_id: str = ""):
+    def get_derivative_subaccount_orders(self, subaccount_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.SubaccountOrdersListRequest(
-            subaccount_id=subaccount_id, market_id=market_id
+            subaccount_id=subaccount_id, market_id=kwargs.get("market_id")
         )
         return self.stubDerivativeExchange.SubaccountOrdersList(req)
 
     def get_derivative_subaccount_trades(
         self,
         subaccount_id: str,
-        market_id: str = "",
-        execution_type: str = "",
-        direction: str = "",
+        **kwargs
     ):
         req = derivative_exchange_rpc_pb.SubaccountTradesListRequest(
             subaccount_id=subaccount_id,
-            market_id=market_id,
-            execution_type=execution_type,
-            direction=direction,
+            market_id=kwargs.get("market_id"),
+            execution_type=kwargs.get("execution_type"),
+            direction=kwargs.get("direction"),
         )
         return self.stubDerivativeExchange.SubaccountTradesList(req)
 
-    def get_funding_payments(self, subaccount_id: str, market_id: str = ""):
+    def get_funding_payments(self, subaccount_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.FundingPaymentsRequest(
-            subaccount_id=subaccount_id, market_id=market_id
+            subaccount_id=subaccount_id, market_id=kwargs.get("market_id")
         )
         return self.stubDerivativeExchange.FundingPayments(req)
