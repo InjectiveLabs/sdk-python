@@ -66,17 +66,16 @@ class Composer:
         price: float,
         quantity: float,
         is_buy: bool,
-        leverage: float = 1,
-        is_reduce_only: bool = False
+        **kwargs
     ):
         # load denom metadata
         denom = Denom.load_market(self.network, market_id)
         print('Loaded market metadata for', denom.description)
 
-        if is_reduce_only is True:
+        if kwargs.get("is_reduce_only", True):
             margin = 0
         else:
-            margin = derivative_margin_to_backend(price, quantity, leverage, denom)
+            margin = derivative_margin_to_backend(price, quantity, kwargs.get("leverage"), denom)
 
         # prepare values
         price = derivative_price_to_backend(price, denom)
@@ -206,8 +205,7 @@ class Composer:
         price: float,
         quantity: float,
         is_buy: bool,
-        is_reduce_only: bool = False,
-        leverage: float = 1
+        **kwargs
     ):
         return injective_exchange_tx_pb.MsgCreateDerivativeLimitOrder(
             sender=sender,
@@ -217,9 +215,9 @@ class Composer:
                 fee_recipient=fee_recipient,
                 price=price,
                 quantity=quantity,
-                leverage=leverage,
                 is_buy=is_buy,
-                is_reduce_only=is_reduce_only
+                leverage=kwargs.get("leverage"),
+                is_reduce_only=kwargs.get("is_reduce_only")
             )
         )
 
