@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z\030/injective_auction_rpcpb',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n$exchange/injective_auction_rpc.proto\x12\x15injective_auction_rpc\"\x1f\n\x0e\x41uctionRequest\x12\r\n\x05round\x18\x01 \x01(\x04\"B\n\x0f\x41uctionResponse\x12/\n\x07\x61uction\x18\x01 \x01(\x0b\x32\x1e.injective_auction_rpc.Auction\"\xc6\x01\n\x07\x41uction\x12\x0e\n\x06winner\x18\x01 \x01(\t\x12+\n\x06\x62\x61sket\x18\x02 \x03(\x0b\x32\x1b.injective_auction_rpc.Coin\x12\x1a\n\x12winning_bid_amount\x18\x03 \x01(\t\x12\r\n\x05round\x18\x04 \x01(\x04\x12(\n\x04\x62ids\x18\x05 \x03(\x0b\x32\x1a.injective_auction_rpc.Bid\x12\x15\n\rend_timestamp\x18\x06 \x01(\x12\x12\x12\n\nupdated_at\x18\x07 \x01(\x12\"%\n\x04\x43oin\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\t\"@\n\x03\x42id\x12\x0e\n\x06\x62idder\x18\x01 \x01(\t\x12\x12\n\nbid_amount\x18\x02 \x01(\t\x12\x15\n\rbid_timestamp\x18\x03 \x01(\x12\"\x11\n\x0f\x41uctionsRequest\"D\n\x10\x41uctionsResponse\x12\x30\n\x08\x61uctions\x18\x01 \x03(\x0b\x32\x1e.injective_auction_rpc.Auction\"\x13\n\x11StreamBidsRequest\"Z\n\x12StreamBidsResponse\x12\x0e\n\x06\x62idder\x18\x01 \x01(\t\x12\x12\n\nbid_amount\x18\x02 \x01(\t\x12\r\n\x05round\x18\x03 \x01(\x04\x12\x11\n\ttimestamp\x18\x04 \x01(\x12\x32\xb9\x02\n\x13InjectiveAuctionRPC\x12`\n\x0f\x41uctionEndpoint\x12%.injective_auction_rpc.AuctionRequest\x1a&.injective_auction_rpc.AuctionResponse\x12[\n\x08\x41uctions\x12&.injective_auction_rpc.AuctionsRequest\x1a\'.injective_auction_rpc.AuctionsResponse\x12\x63\n\nStreamBids\x12(.injective_auction_rpc.StreamBidsRequest\x1a).injective_auction_rpc.StreamBidsResponse0\x01\x42\x1aZ\x18/injective_auction_rpcpbb\x06proto3'
+  serialized_pb=b'\n$exchange/injective_auction_rpc.proto\x12\x15injective_auction_rpc\"\x1f\n\x0e\x41uctionRequest\x12\r\n\x05round\x18\x01 \x01(\x12\"l\n\x0f\x41uctionResponse\x12/\n\x07\x61uction\x18\x01 \x01(\x0b\x32\x1e.injective_auction_rpc.Auction\x12(\n\x04\x62ids\x18\x02 \x03(\x0b\x32\x1a.injective_auction_rpc.Bid\"\x9c\x01\n\x07\x41uction\x12\x0e\n\x06winner\x18\x01 \x01(\t\x12+\n\x06\x62\x61sket\x18\x02 \x03(\x0b\x32\x1b.injective_auction_rpc.Coin\x12\x1a\n\x12winning_bid_amount\x18\x03 \x01(\t\x12\r\n\x05round\x18\x04 \x01(\x04\x12\x15\n\rend_timestamp\x18\x05 \x01(\x12\x12\x12\n\nupdated_at\x18\x06 \x01(\x12\"%\n\x04\x43oin\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\t\"8\n\x03\x42id\x12\x0e\n\x06\x62idder\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"\x11\n\x0f\x41uctionsRequest\"D\n\x10\x41uctionsResponse\x12\x30\n\x08\x61uctions\x18\x01 \x03(\x0b\x32\x1e.injective_auction_rpc.Auction\"\x13\n\x11StreamBidsRequest\"Z\n\x12StreamBidsResponse\x12\x0e\n\x06\x62idder\x18\x01 \x01(\t\x12\x12\n\nbid_amount\x18\x02 \x01(\t\x12\r\n\x05round\x18\x03 \x01(\x04\x12\x11\n\ttimestamp\x18\x04 \x01(\x12\x32\xb9\x02\n\x13InjectiveAuctionRPC\x12`\n\x0f\x41uctionEndpoint\x12%.injective_auction_rpc.AuctionRequest\x1a&.injective_auction_rpc.AuctionResponse\x12[\n\x08\x41uctions\x12&.injective_auction_rpc.AuctionsRequest\x1a\'.injective_auction_rpc.AuctionsResponse\x12\x63\n\nStreamBids\x12(.injective_auction_rpc.StreamBidsRequest\x1a).injective_auction_rpc.StreamBidsResponse0\x01\x42\x1aZ\x18/injective_auction_rpcpbb\x06proto3'
 )
 
 
@@ -35,7 +35,7 @@ _AUCTIONREQUEST = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='round', full_name='injective_auction_rpc.AuctionRequest.round', index=0,
-      number=1, type=4, cpp_type=4, label=1,
+      number=1, type=18, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -72,6 +72,13 @@ _AUCTIONRESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='bids', full_name='injective_auction_rpc.AuctionResponse.bids', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -85,7 +92,7 @@ _AUCTIONRESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=96,
-  serialized_end=162,
+  serialized_end=204,
 )
 
 
@@ -126,22 +133,15 @@ _AUCTION = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='bids', full_name='injective_auction_rpc.Auction.bids', index=4,
-      number=5, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='end_timestamp', full_name='injective_auction_rpc.Auction.end_timestamp', index=5,
-      number=6, type=18, cpp_type=2, label=1,
+      name='end_timestamp', full_name='injective_auction_rpc.Auction.end_timestamp', index=4,
+      number=5, type=18, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='updated_at', full_name='injective_auction_rpc.Auction.updated_at', index=6,
-      number=7, type=18, cpp_type=2, label=1,
+      name='updated_at', full_name='injective_auction_rpc.Auction.updated_at', index=5,
+      number=6, type=18, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -158,7 +158,7 @@ _AUCTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=165,
+  serialized_start=207,
   serialized_end=363,
 )
 
@@ -218,14 +218,14 @@ _BID = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='bid_amount', full_name='injective_auction_rpc.Bid.bid_amount', index=1,
+      name='amount', full_name='injective_auction_rpc.Bid.amount', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='bid_timestamp', full_name='injective_auction_rpc.Bid.bid_timestamp', index=2,
+      name='timestamp', full_name='injective_auction_rpc.Bid.timestamp', index=2,
       number=3, type=18, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -244,7 +244,7 @@ _BID = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=404,
-  serialized_end=468,
+  serialized_end=460,
 )
 
 
@@ -268,8 +268,8 @@ _AUCTIONSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=470,
-  serialized_end=487,
+  serialized_start=462,
+  serialized_end=479,
 )
 
 
@@ -300,8 +300,8 @@ _AUCTIONSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=489,
-  serialized_end=557,
+  serialized_start=481,
+  serialized_end=549,
 )
 
 
@@ -325,8 +325,8 @@ _STREAMBIDSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=559,
-  serialized_end=578,
+  serialized_start=551,
+  serialized_end=570,
 )
 
 
@@ -378,13 +378,13 @@ _STREAMBIDSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=580,
-  serialized_end=670,
+  serialized_start=572,
+  serialized_end=662,
 )
 
 _AUCTIONRESPONSE.fields_by_name['auction'].message_type = _AUCTION
+_AUCTIONRESPONSE.fields_by_name['bids'].message_type = _BID
 _AUCTION.fields_by_name['basket'].message_type = _COIN
-_AUCTION.fields_by_name['bids'].message_type = _BID
 _AUCTIONSRESPONSE.fields_by_name['auctions'].message_type = _AUCTION
 DESCRIPTOR.message_types_by_name['AuctionRequest'] = _AUCTIONREQUEST
 DESCRIPTOR.message_types_by_name['AuctionResponse'] = _AUCTIONRESPONSE
@@ -470,8 +470,8 @@ _INJECTIVEAUCTIONRPC = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=673,
-  serialized_end=986,
+  serialized_start=665,
+  serialized_end=978,
   methods=[
   _descriptor.MethodDescriptor(
     name='AuctionEndpoint',
