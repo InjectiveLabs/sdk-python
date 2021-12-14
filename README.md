@@ -86,6 +86,10 @@ python pyinjective/fetch_metadata.py
 
 
 ### Changelogs
+0.5.5
+* Added MsgBid to the Composer and provided an example
+* Refactored the clients and composer with kwargs for optional arguments
+
 0.5.4
 * Added PortfolioRequest, GetTxByHashRequest, AuctionRequest, AuctionsRequest, StreamBidsRequest and provided examples
 * Updated the composer with MsgIncreasePosition and MsgLiquidatePosition
