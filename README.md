@@ -51,7 +51,7 @@ $ python examples/chain_client_examples/1_CosmosBankMsgSend.py
 ```
 Upgrade `pip` to the latest version, if you see these warnings:
   ```
-  WARNING: Value for scheme.platlib does not match. Please report this to <https://github.com/pypa/pip/issues/10151>    
+  WARNING: Value for scheme.platlib does not match. Please report this to <https://github.com/pypa/pip/issues/10151>
   WARNING: Additional context:   user = True   home = None   root = None   prefix = None
   ```
 
@@ -86,6 +86,9 @@ python pyinjective/fetch_metadata.py
 
 
 ### Changelogs
+0.5.5.1
+* Add ATOM back to denoms_mainnet.ini
+
 0.5.5
 * Added MsgBid to the Composer and provided an example
 * Refactored the clients and composer with kwargs for optional arguments
