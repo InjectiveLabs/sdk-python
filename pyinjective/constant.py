@@ -113,7 +113,8 @@ class Network:
             raise ValueError("Must be one of {}".format(nodes))
 
         return cls(
-            lcd_endpoint=f"{node}.injective.network:10337",
+                #lcd_endpoint=f"{node}.injective.network:10337",
+            lcd_endpoint="https://lcd.injective.network",
             grpc_endpoint=f"{node}.injective.network:9900",
             grpc_exchange_endpoint=f"{node}.injective.network:9910",
             chain_id='injective-1',
