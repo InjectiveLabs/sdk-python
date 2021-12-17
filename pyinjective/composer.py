@@ -72,7 +72,9 @@ class Composer:
         denom = Denom.load_market(self.network, market_id)
         print('Loaded market metadata for', denom.description)
 
-        if kwargs.get("is_reduce_only", True):
+        if kwargs.get("is_reduce_only") is None:
+            margin = derivative_margin_to_backend(price, quantity, kwargs.get("leverage"), denom)
+        elif kwargs.get("is_reduce_only", True):
             margin = 0
         else:
             margin = derivative_margin_to_backend(price, quantity, kwargs.get("leverage"), denom)
