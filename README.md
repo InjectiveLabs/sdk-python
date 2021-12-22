@@ -86,6 +86,10 @@ python pyinjective/fetch_metadata.py
 
 
 ### Changelogs
+0.5.5.5
+* Refactor LCD endpoints
+* regen ini files
+
 0.5.5.1
 * Add ATOM back to denoms_mainnet.ini
 
