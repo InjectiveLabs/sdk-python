@@ -16,13 +16,12 @@
 import asyncio
 import logging
 
-from pyinjective.client import Client
+from pyinjective.async_client import AsyncClient
 from pyinjective.constant import Network
-
 
 async def main() -> None:
     network = Network.testnet()
-    client = Client(network, insecure=True)
+    client = AsyncClient(network, insecure=True)
 
     task1 = asyncio.create_task(get_markets(client))
     task2 = asyncio.create_task(keepalive(client, [task1]))
@@ -37,16 +36,16 @@ async def main() -> None:
 
 
 async def get_markets(client):
-    stream = client.stream_spot_markets()
-    for market in stream:
+    stream = await client.stream_spot_markets()
+    async for market in stream:
         print(market)
 
 
 async def keepalive(client, tasks: list):
-    stream = client.stream_keepalive()
-    for announce in stream:
+    stream = await client.stream_keepalive()
+    async for announce in stream:
         print('Server announce:', announce)
-        for task in tasks:
+        async for task in tasks:
             task.cancel()
         print('Cancelled all tasks')
 

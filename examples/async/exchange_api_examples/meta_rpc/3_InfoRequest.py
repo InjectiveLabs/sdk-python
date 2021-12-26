@@ -17,14 +17,13 @@ import asyncio
 import logging
 import time
 
-from pyinjective.client import Client
+from pyinjective.async_client import AsyncClient
 from pyinjective.constant import Network
-
 
 async def main() -> None:
     network = Network.testnet()
-    client = Client(network, insecure=True)
-    resp = client.info()
+    client = AsyncClient(network, insecure=True)
+    resp = await client.info()
     print('[!] Info:')
     print(resp)
 

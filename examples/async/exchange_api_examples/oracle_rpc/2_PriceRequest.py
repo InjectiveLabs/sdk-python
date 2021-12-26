@@ -16,18 +16,17 @@
 import asyncio
 import logging
 
-from pyinjective.client import Client
+from pyinjective.async_client import AsyncClient
 from pyinjective.constant import Network
-
 
 async def main() -> None:
     network = Network.testnet()
-    client = Client(network, insecure=True)
+    client = AsyncClient(network, insecure=True)
     base_symbol = 'BTC'
     quote_symbol = 'USD'
     oracle_type = 'coinbase'
     oracle_scale_factor = 6
-    oracle_prices = client.get_oracle_prices(
+    oracle_prices = await client.get_oracle_prices(
         base_symbol=base_symbol,
         quote_symbol=quote_symbol,
         oracle_type=oracle_type,

@@ -19,9 +19,6 @@ import logging
 from pyinjective.client import Client
 from pyinjective.constant import Network
 
-network = Network.testnet()
-
-
 async def main() -> None:
     network = Network.testnet()
     client = Client(network, insecure=True)

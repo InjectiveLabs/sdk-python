@@ -16,17 +16,16 @@
 import asyncio
 import logging
 
-from pyinjective.client import Client
+from pyinjective.async_client import AsyncClient
 from pyinjective.constant import Network
-
 
 async def main() -> None:
     network = Network.testnet()
-    client = Client(network, insecure=True)
+    client = AsyncClient(network, insecure=True)
     redeemer = "inj1gxqdj76ul07w4ujsl8403nhhzyvug2h66qk057"
     redemption_denom = "share2"
     status = "disbursed"  # pending or disbursed
-    insurance_redemptions = client.get_redemptions(
+    insurance_redemptions = await client.get_redemptions(
         redeemer=redeemer,
         redemption_denom=redemption_denom,
         status=status

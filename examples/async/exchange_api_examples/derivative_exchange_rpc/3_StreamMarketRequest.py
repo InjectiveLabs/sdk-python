@@ -16,15 +16,14 @@
 import asyncio
 import logging
 
-from pyinjective.client import Client
+from pyinjective.async_client import AsyncClient
 from pyinjective.constant import Network
-
 
 async def main() -> None:
     network = Network.testnet()
-    client = Client(network, insecure=True)
-    markets = client.stream_derivative_markets()
-    for market in markets:
+    client = AsyncClient(network, insecure=True)
+    markets = await client.stream_derivative_markets()
+    async for market in markets:
         print(market)
 
 

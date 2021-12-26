@@ -16,15 +16,15 @@
 import asyncio
 import logging
 
-from pyinjective.client import Client
+from pyinjective.async_client import AsyncClient
 from pyinjective.constant import Network
 
 async def main() -> None:
     network = Network.testnet()
-    client = Client(network, insecure=True)
+    client = AsyncClient(network, insecure=True)
     market_ids = ["0x897519d4cf8c460481638b3ff64871668d0a7f6afea10c1b0a952c0b5927f48f", "0x31200279ada822061217372150d567be124f02df157650395d1d6ce58a8207aa"]
-    orderbook = client.stream_derivative_orderbooks(market_ids=market_ids)
-    for orders in orderbook:
+    orderbook = await client.stream_derivative_orderbooks(market_ids=market_ids)
+    async for orders in orderbook:
         print(orders)
 
 if __name__ == '__main__':

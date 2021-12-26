@@ -16,19 +16,16 @@
 import asyncio
 import logging
 
-from pyinjective.client import Client
+from pyinjective.async_client import AsyncClient
 from pyinjective.constant import Network
-
-network = Network.testnet()
-
 
 async def main() -> None:
     network = Network.testnet()
-    client = Client(network, insecure=True)
+    client = AsyncClient(network, insecure=True)
     subaccount = "0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000"
     denom = "inj"
     transfer_types = ["withdraw", "deposit"] # Enum with values "withdraw", "deposit", "internal", "external"
-    subacc_history = client.get_subaccount_history(
+    subacc_history = await client.get_subaccount_history(
         subaccount_id=subaccount,
         denom=denom,
         transfer_types=transfer_types

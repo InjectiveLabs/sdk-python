@@ -16,14 +16,13 @@
 import asyncio
 import logging
 
-from pyinjective.client import Client
+from pyinjective.async_client import AsyncClient
 from pyinjective.constant import Network
-
 
 async def main() -> None:
     network = Network.testnet()
-    client = Client(network, insecure=True)
-    resp = client.version()
+    client = AsyncClient(network, insecure=True)
+    resp = await client.version()
     print('Version:', resp)
 
 if __name__ == '__main__':

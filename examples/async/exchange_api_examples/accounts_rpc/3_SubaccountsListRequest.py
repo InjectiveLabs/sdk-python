@@ -16,15 +16,14 @@
 import asyncio
 import logging
 
-from pyinjective.client import Client
+from pyinjective.async_client import AsyncClient
 from pyinjective.constant import Network
-
 
 async def main() -> None:
     network = Network.testnet()
-    client = Client(network, insecure=True)
+    client = AsyncClient(network, insecure=True)
     account_address = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku"
-    subacc_list = client.get_subaccount_list(account_address)
+    subacc_list = await client.get_subaccount_list(account_address)
     print(subacc_list)
 
 if __name__ == '__main__':

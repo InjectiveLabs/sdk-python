@@ -16,14 +16,14 @@
 import asyncio
 import logging
 
-from pyinjective.client import Client
+from pyinjective.async_client import AsyncClient
 from pyinjective.constant import Network
 
 async def main() -> None:
     network = Network.testnet()
-    client = Client(network, insecure=True)
+    client = AsyncClient(network, insecure=True)
     bid_round = 135
-    auction = client.get_auction(bid_round=bid_round)
+    auction = await client.get_auction(bid_round=bid_round)
     print(auction)
 
 if __name__ == '__main__':
