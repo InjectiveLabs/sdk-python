@@ -65,6 +65,11 @@ class MsgStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgBatchCancelSpotOrders.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgBatchCancelSpotOrdersResponse.FromString,
                 )
+        self.BatchUpdateOrders = channel.unary_unary(
+                '/injective.exchange.v1beta1.Msg/BatchUpdateOrders',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgBatchUpdateOrders.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgBatchUpdateOrdersResponse.FromString,
+                )
         self.CreateDerivativeLimitOrder = channel.unary_unary(
                 '/injective.exchange.v1beta1.Msg/CreateDerivativeLimitOrder',
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgCreateDerivativeLimitOrder.SerializeToString,
@@ -186,6 +191,12 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def BatchUpdateOrders(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def CreateDerivativeLimitOrder(self, request, context):
         """CreateDerivativeLimitOrder defines a method for creating a new derivative limit order.
         """
@@ -301,6 +312,11 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.BatchCancelSpotOrders,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgBatchCancelSpotOrders.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgBatchCancelSpotOrdersResponse.SerializeToString,
+            ),
+            'BatchUpdateOrders': grpc.unary_unary_rpc_method_handler(
+                    servicer.BatchUpdateOrders,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgBatchUpdateOrders.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgBatchUpdateOrdersResponse.SerializeToString,
             ),
             'CreateDerivativeLimitOrder': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateDerivativeLimitOrder,
@@ -525,6 +541,23 @@ class Msg(object):
         return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Msg/BatchCancelSpotOrders',
             injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgBatchCancelSpotOrders.SerializeToString,
             injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgBatchCancelSpotOrdersResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def BatchUpdateOrders(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Msg/BatchUpdateOrders',
+            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgBatchUpdateOrders.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgBatchUpdateOrdersResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
