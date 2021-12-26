@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z\024/injective_dmm_rpcpb',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n exchange/injective_dmm_rpc.proto\x12\x11injective_dmm_rpc\"\x12\n\x10GetEpochsRequest\"A\n\x11GetEpochsResponse\x12,\n\x06\x65pochs\x18\x01 \x03(\x0b\x32\x1c.injective_dmm_rpc.EpochMeta\"\xba\x03\n\tEpochMeta\x12\n\n\x02id\x18\x01 \x01(\t\x12\x12\n\nstart_time\x18\x02 \x01(\t\x12\x10\n\x08\x65nd_time\x18\x03 \x01(\t\x12\x16\n\x0ereward_inj_num\x18\x04 \x01(\t\x12\x1b\n\x13lcs_reward_fraction\x18\x06 \x01(\t\x12\x1b\n\x13vcs_reward_fraction\x18\x07 \x01(\t\x12:\n\x07markets\x18\x08 \x03(\x0b\x32).injective_dmm_rpc.EpochMeta.MarketsEntry\x12\x45\n\rdmm_addresses\x18\t \x03(\x0b\x32..injective_dmm_rpc.EpochMeta.DmmAddressesEntry\x1aO\n\x0cMarketsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12.\n\x05value\x18\x02 \x01(\x0b\x32\x1f.injective_dmm_rpc.MarketConfig:\x02\x38\x01\x1aU\n\x11\x44mmAddressesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12/\n\x05value\x18\x02 \x01(\x0b\x32 .injective_dmm_rpc.ArrayOfString:\x02\x38\x01\"\x8e\x01\n\x0cMarketConfig\x12\x19\n\x11lcs_adjust_factor\x18\x01 \x01(\t\x12\x19\n\x11vcs_adjust_factor\x18\x02 \x01(\t\x12H\n\x17order_value_multipliers\x18\x03 \x03(\x0b\x32\'.injective_dmm_rpc.OrderValueMultiplier\"N\n\x14OrderValueMultiplier\x12\"\n\x1aorder_price_bias_threshold\x18\x01 \x01(\t\x12\x12\n\nmultiplier\x18\x02 \x01(\t\"\x1e\n\rArrayOfString\x12\r\n\x05\x66ield\x18\x01 \x03(\t\"*\n\x16GetEpochSummaryRequest\x12\x10\n\x08\x65poch_id\x18\x01 \x01(\t\"B\n\x17GetEpochSummaryResponse\x12\'\n\x05\x65poch\x18\x01 \x01(\x0b\x32\x18.injective_dmm_rpc.Epoch\"i\n\x05\x45poch\x12*\n\x04meta\x18\x01 \x01(\x0b\x32\x1c.injective_dmm_rpc.EpochMeta\x12\x34\n\x06result\x18\x02 \x01(\x0b\x32$.injective_dmm_rpc.EpochResultRecord\"u\n\x11\x45pochResultRecord\x12/\n\x03lcs\x18\x01 \x01(\x0b\x32\".injective_dmm_rpc.LCSResultRecord\x12/\n\x03vcs\x18\x02 \x01(\x0b\x32\".injective_dmm_rpc.VCSResultRecord\"\xbd\x02\n\x0fLCSResultRecord\x12@\n\x07summary\x18\x01 \x03(\x0b\x32/.injective_dmm_rpc.LCSResultRecord.SummaryEntry\x12\x45\n\nby_markets\x18\x02 \x03(\x0b\x32\x31.injective_dmm_rpc.LCSResultRecord.ByMarketsEntry\x1aI\n\x0cSummaryEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12(\n\x05value\x18\x02 \x01(\x0b\x32\x19.injective_dmm_rpc.DMMLCS:\x02\x38\x01\x1aV\n\x0e\x42yMarketsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x33\n\x05value\x18\x02 \x01(\x0b\x32$.injective_dmm_rpc.MapOfStringDMMLCS:\x02\x38\x01\":\n\x06\x44MMLCS\x12\x0b\n\x03lcs\x18\x01 \x01(\t\x12\x10\n\x08norm_buy\x18\x02 \x01(\t\x12\x11\n\tnorm_sell\x18\x03 \x01(\t\"\x9c\x01\n\x11MapOfStringDMMLCS\x12>\n\x05\x66ield\x18\x01 \x03(\x0b\x32/.injective_dmm_rpc.MapOfStringDMMLCS.FieldEntry\x1aG\n\nFieldEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12(\n\x05value\x18\x02 \x01(\x0b\x32\x19.injective_dmm_rpc.DMMLCS:\x02\x38\x01\"\xd3\x03\n\x0fVCSResultRecord\x12@\n\x07summary\x18\x01 \x03(\x0b\x32/.injective_dmm_rpc.VCSResultRecord.SummaryEntry\x12\x45\n\nby_markets\x18\x02 \x03(\x0b\x32\x31.injective_dmm_rpc.VCSResultRecord.ByMarketsEntry\x12?\n\x07\x62y_date\x18\x03 \x03(\x0b\x32..injective_dmm_rpc.VCSResultRecord.ByDateEntry\x1aI\n\x0cSummaryEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12(\n\x05value\x18\x02 \x01(\x0b\x32\x19.injective_dmm_rpc.DMMVCS:\x02\x38\x01\x1aV\n\x0e\x42yMarketsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x33\n\x05value\x18\x02 \x01(\x0b\x32$.injective_dmm_rpc.MapOfStringDMMVCS:\x02\x38\x01\x1aS\n\x0b\x42yDateEntry\x12\x0b\n\x03key\x18\x01 \x01(\x11\x12\x33\n\x05value\x18\x02 \x01(\x0b\x32$.injective_dmm_rpc.MapOfStringDMMVCS:\x02\x38\x01\"%\n\x06\x44MMVCS\x12\x0b\n\x03vcs\x18\x01 \x01(\t\x12\x0e\n\x06volume\x18\x02 \x01(\t\"\x9c\x01\n\x11MapOfStringDMMVCS\x12>\n\x05\x66ield\x18\x01 \x03(\x0b\x32/.injective_dmm_rpc.MapOfStringDMMVCS.FieldEntry\x1aG\n\nFieldEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12(\n\x05value\x18\x02 \x01(\x0b\x32\x19.injective_dmm_rpc.DMMVCS:\x02\x38\x01\"S\n\x14GetDMMRecordsRequest\x12\x17\n\x0f\x61\x63\x63ount_address\x18\x01 \x01(\t\x12\x10\n\x08\x64mm_name\x18\x02 \x01(\t\x12\x10\n\x08\x65poch_id\x18\x03 \x01(\t\"z\n\x15GetDMMRecordsResponse\x12*\n\x04meta\x18\x01 \x01(\x0b\x32\x1c.injective_dmm_rpc.EpochMeta\x12\x35\n\x07records\x18\x02 \x03(\x0b\x32$.injective_dmm_rpc.EpochResultRecord2\xb7\x02\n\x0fInjectiveDmmRPC\x12V\n\tGetEpochs\x12#.injective_dmm_rpc.GetEpochsRequest\x1a$.injective_dmm_rpc.GetEpochsResponse\x12h\n\x0fGetEpochSummary\x12).injective_dmm_rpc.GetEpochSummaryRequest\x1a*.injective_dmm_rpc.GetEpochSummaryResponse\x12\x62\n\rGetDMMRecords\x12\'.injective_dmm_rpc.GetDMMRecordsRequest\x1a(.injective_dmm_rpc.GetDMMRecordsResponseB\x16Z\x14/injective_dmm_rpcpbb\x06proto3'
+  serialized_pb=b'\n exchange/injective_dmm_rpc.proto\x12\x11injective_dmm_rpc\"\x12\n\x10GetEpochsRequest\"A\n\x11GetEpochsResponse\x12,\n\x06\x65pochs\x18\x01 \x03(\x0b\x32\x1c.injective_dmm_rpc.EpochMeta\"\xba\x03\n\tEpochMeta\x12\n\n\x02id\x18\x01 \x01(\t\x12\x12\n\nstart_time\x18\x02 \x01(\t\x12\x10\n\x08\x65nd_time\x18\x03 \x01(\t\x12\x16\n\x0ereward_inj_num\x18\x04 \x01(\t\x12\x1b\n\x13lcs_reward_fraction\x18\x06 \x01(\t\x12\x1b\n\x13vcs_reward_fraction\x18\x07 \x01(\t\x12:\n\x07markets\x18\x08 \x03(\x0b\x32).injective_dmm_rpc.EpochMeta.MarketsEntry\x12\x45\n\rdmm_addresses\x18\t \x03(\x0b\x32..injective_dmm_rpc.EpochMeta.DmmAddressesEntry\x1aO\n\x0cMarketsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12.\n\x05value\x18\x02 \x01(\x0b\x32\x1f.injective_dmm_rpc.MarketConfig:\x02\x38\x01\x1aU\n\x11\x44mmAddressesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12/\n\x05value\x18\x02 \x01(\x0b\x32 .injective_dmm_rpc.ArrayOfString:\x02\x38\x01\"\x8e\x01\n\x0cMarketConfig\x12\x19\n\x11lcs_adjust_factor\x18\x01 \x01(\t\x12\x19\n\x11vcs_adjust_factor\x18\x02 \x01(\t\x12H\n\x17order_value_multipliers\x18\x03 \x03(\x0b\x32\'.injective_dmm_rpc.OrderValueMultiplier\"N\n\x14OrderValueMultiplier\x12\"\n\x1aorder_price_bias_threshold\x18\x01 \x01(\t\x12\x12\n\nmultiplier\x18\x02 \x01(\t\"\x1e\n\rArrayOfString\x12\r\n\x05\x66ield\x18\x01 \x03(\t\"*\n\x16GetEpochSummaryRequest\x12\x10\n\x08\x65poch_id\x18\x01 \x01(\t\"B\n\x17GetEpochSummaryResponse\x12\'\n\x05\x65poch\x18\x01 \x01(\x0b\x32\x18.injective_dmm_rpc.Epoch\"i\n\x05\x45poch\x12*\n\x04meta\x18\x01 \x01(\x0b\x32\x1c.injective_dmm_rpc.EpochMeta\x12\x34\n\x06result\x18\x02 \x01(\x0b\x32$.injective_dmm_rpc.EpochResultRecord\"\x89\x01\n\x11\x45pochResultRecord\x12/\n\x03lcs\x18\x01 \x01(\x0b\x32\".injective_dmm_rpc.LCSResultRecord\x12/\n\x03vcs\x18\x02 \x01(\x0b\x32\".injective_dmm_rpc.VCSResultRecord\x12\x12\n\ncreated_at\x18\x03 \x01(\t\"\xbd\x02\n\x0fLCSResultRecord\x12@\n\x07summary\x18\x01 \x03(\x0b\x32/.injective_dmm_rpc.LCSResultRecord.SummaryEntry\x12\x45\n\nby_markets\x18\x02 \x03(\x0b\x32\x31.injective_dmm_rpc.LCSResultRecord.ByMarketsEntry\x1aI\n\x0cSummaryEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12(\n\x05value\x18\x02 \x01(\x0b\x32\x19.injective_dmm_rpc.DMMLCS:\x02\x38\x01\x1aV\n\x0e\x42yMarketsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x33\n\x05value\x18\x02 \x01(\x0b\x32$.injective_dmm_rpc.MapOfStringDMMLCS:\x02\x38\x01\":\n\x06\x44MMLCS\x12\x0b\n\x03lcs\x18\x01 \x01(\t\x12\x10\n\x08norm_buy\x18\x02 \x01(\t\x12\x11\n\tnorm_sell\x18\x03 \x01(\t\"\x9c\x01\n\x11MapOfStringDMMLCS\x12>\n\x05\x66ield\x18\x01 \x03(\x0b\x32/.injective_dmm_rpc.MapOfStringDMMLCS.FieldEntry\x1aG\n\nFieldEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12(\n\x05value\x18\x02 \x01(\x0b\x32\x19.injective_dmm_rpc.DMMLCS:\x02\x38\x01\"\xd3\x03\n\x0fVCSResultRecord\x12@\n\x07summary\x18\x01 \x03(\x0b\x32/.injective_dmm_rpc.VCSResultRecord.SummaryEntry\x12\x45\n\nby_markets\x18\x02 \x03(\x0b\x32\x31.injective_dmm_rpc.VCSResultRecord.ByMarketsEntry\x12?\n\x07\x62y_date\x18\x03 \x03(\x0b\x32..injective_dmm_rpc.VCSResultRecord.ByDateEntry\x1aI\n\x0cSummaryEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12(\n\x05value\x18\x02 \x01(\x0b\x32\x19.injective_dmm_rpc.DMMVCS:\x02\x38\x01\x1aV\n\x0e\x42yMarketsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x33\n\x05value\x18\x02 \x01(\x0b\x32$.injective_dmm_rpc.MapOfStringDMMVCS:\x02\x38\x01\x1aS\n\x0b\x42yDateEntry\x12\x0b\n\x03key\x18\x01 \x01(\x11\x12\x33\n\x05value\x18\x02 \x01(\x0b\x32$.injective_dmm_rpc.MapOfStringDMMVCS:\x02\x38\x01\"%\n\x06\x44MMVCS\x12\x0b\n\x03vcs\x18\x01 \x01(\t\x12\x0e\n\x06volume\x18\x02 \x01(\t\"\x9c\x01\n\x11MapOfStringDMMVCS\x12>\n\x05\x66ield\x18\x01 \x03(\x0b\x32/.injective_dmm_rpc.MapOfStringDMMVCS.FieldEntry\x1aG\n\nFieldEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12(\n\x05value\x18\x02 \x01(\x0b\x32\x19.injective_dmm_rpc.DMMVCS:\x02\x38\x01\"S\n\x14GetDMMRecordsRequest\x12\x17\n\x0f\x61\x63\x63ount_address\x18\x01 \x01(\t\x12\x10\n\x08\x64mm_name\x18\x02 \x01(\t\x12\x10\n\x08\x65poch_id\x18\x03 \x01(\t\"z\n\x15GetDMMRecordsResponse\x12*\n\x04meta\x18\x01 \x01(\x0b\x32\x1c.injective_dmm_rpc.EpochMeta\x12\x35\n\x07records\x18\x02 \x03(\x0b\x32$.injective_dmm_rpc.EpochResultRecord2\xb7\x02\n\x0fInjectiveDmmRPC\x12V\n\tGetEpochs\x12#.injective_dmm_rpc.GetEpochsRequest\x1a$.injective_dmm_rpc.GetEpochsResponse\x12h\n\x0fGetEpochSummary\x12).injective_dmm_rpc.GetEpochSummaryRequest\x1a*.injective_dmm_rpc.GetEpochSummaryResponse\x12\x62\n\rGetDMMRecords\x12\'.injective_dmm_rpc.GetDMMRecordsRequest\x1a(.injective_dmm_rpc.GetDMMRecordsResponseB\x16Z\x14/injective_dmm_rpcpbb\x06proto3'
 )
 
 
@@ -481,6 +481,13 @@ _EPOCHRESULTRECORD = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='created_at', full_name='injective_dmm_rpc.EpochResultRecord.created_at', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -493,8 +500,8 @@ _EPOCHRESULTRECORD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1063,
-  serialized_end=1180,
+  serialized_start=1064,
+  serialized_end=1201,
 )
 
 
@@ -532,8 +539,8 @@ _LCSRESULTRECORD_SUMMARYENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1339,
-  serialized_end=1412,
+  serialized_start=1360,
+  serialized_end=1433,
 )
 
 _LCSRESULTRECORD_BYMARKETSENTRY = _descriptor.Descriptor(
@@ -570,8 +577,8 @@ _LCSRESULTRECORD_BYMARKETSENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1414,
-  serialized_end=1500,
+  serialized_start=1435,
+  serialized_end=1521,
 )
 
 _LCSRESULTRECORD = _descriptor.Descriptor(
@@ -608,8 +615,8 @@ _LCSRESULTRECORD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1183,
-  serialized_end=1500,
+  serialized_start=1204,
+  serialized_end=1521,
 )
 
 
@@ -654,8 +661,8 @@ _DMMLCS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1502,
-  serialized_end=1560,
+  serialized_start=1523,
+  serialized_end=1581,
 )
 
 
@@ -693,8 +700,8 @@ _MAPOFSTRINGDMMLCS_FIELDENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1648,
-  serialized_end=1719,
+  serialized_start=1669,
+  serialized_end=1740,
 )
 
 _MAPOFSTRINGDMMLCS = _descriptor.Descriptor(
@@ -724,8 +731,8 @@ _MAPOFSTRINGDMMLCS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1563,
-  serialized_end=1719,
+  serialized_start=1584,
+  serialized_end=1740,
 )
 
 
@@ -763,8 +770,8 @@ _VCSRESULTRECORD_SUMMARYENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1943,
-  serialized_end=2016,
+  serialized_start=1964,
+  serialized_end=2037,
 )
 
 _VCSRESULTRECORD_BYMARKETSENTRY = _descriptor.Descriptor(
@@ -801,8 +808,8 @@ _VCSRESULTRECORD_BYMARKETSENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2018,
-  serialized_end=2104,
+  serialized_start=2039,
+  serialized_end=2125,
 )
 
 _VCSRESULTRECORD_BYDATEENTRY = _descriptor.Descriptor(
@@ -839,8 +846,8 @@ _VCSRESULTRECORD_BYDATEENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2106,
-  serialized_end=2189,
+  serialized_start=2127,
+  serialized_end=2210,
 )
 
 _VCSRESULTRECORD = _descriptor.Descriptor(
@@ -884,8 +891,8 @@ _VCSRESULTRECORD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1722,
-  serialized_end=2189,
+  serialized_start=1743,
+  serialized_end=2210,
 )
 
 
@@ -923,8 +930,8 @@ _DMMVCS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2191,
-  serialized_end=2228,
+  serialized_start=2212,
+  serialized_end=2249,
 )
 
 
@@ -962,8 +969,8 @@ _MAPOFSTRINGDMMVCS_FIELDENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2316,
-  serialized_end=2387,
+  serialized_start=2337,
+  serialized_end=2408,
 )
 
 _MAPOFSTRINGDMMVCS = _descriptor.Descriptor(
@@ -993,8 +1000,8 @@ _MAPOFSTRINGDMMVCS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2231,
-  serialized_end=2387,
+  serialized_start=2252,
+  serialized_end=2408,
 )
 
 
@@ -1039,8 +1046,8 @@ _GETDMMRECORDSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2389,
-  serialized_end=2472,
+  serialized_start=2410,
+  serialized_end=2493,
 )
 
 
@@ -1078,8 +1085,8 @@ _GETDMMRECORDSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2474,
-  serialized_end=2596,
+  serialized_start=2495,
+  serialized_end=2617,
 )
 
 _GETEPOCHSRESPONSE.fields_by_name['epochs'].message_type = _EPOCHMETA
@@ -1355,8 +1362,8 @@ _INJECTIVEDMMRPC = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=2599,
-  serialized_end=2910,
+  serialized_start=2620,
+  serialized_end=2931,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetEpochs',

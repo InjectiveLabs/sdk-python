@@ -11,7 +11,9 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from injective.peggy.v1 import attestation_pb2 as injective_dot_peggy_dot_v1_dot_attestation__pb2
+from injective.peggy.v1 import types_pb2 as injective_dot_peggy_dot_v1_dot_types__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -20,9 +22,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'ZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/peggy/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x1finjective/peggy/v1/events.proto\x12\x12injective.peggy.v1\x1a$injective/peggy/v1/attestation.proto\"\xac\x01\n\x18\x45ventAttestationObserved\x12\x37\n\x10\x61ttestation_type\x18\x01 \x01(\x0e\x32\x1d.injective.peggy.v1.ClaimType\x12\x17\n\x0f\x62ridge_contract\x18\x02 \x01(\t\x12\x17\n\x0f\x62ridge_chain_id\x18\x03 \x01(\x04\x12\x16\n\x0e\x61ttestation_id\x18\x04 \x01(\x0c\x12\r\n\x05nonce\x18\x05 \x01(\x04\"O\n\x1b\x45ventBridgeWithdrawCanceled\x12\x17\n\x0f\x62ridge_contract\x18\x01 \x01(\t\x12\x17\n\x0f\x62ridge_chain_id\x18\x02 \x01(\x04\"x\n\x1d\x45ventBridgeWithdrawalReceived\x12\x17\n\x0f\x62ridge_contract\x18\x01 \x01(\t\x12\x17\n\x0f\x62ridge_chain_id\x18\x02 \x01(\x04\x12\x16\n\x0eoutgoing_tx_id\x18\x03 \x01(\x04\x12\r\n\x05nonce\x18\x04 \x01(\x04\"g\n\x12\x45ventOutgoingBatch\x12\x17\n\x0f\x62ridge_contract\x18\x01 \x01(\t\x12\x17\n\x0f\x62ridge_chain_id\x18\x02 \x01(\x04\x12\x10\n\x08\x62\x61tch_id\x18\x03 \x01(\x04\x12\r\n\x05nonce\x18\x04 \x01(\x04\"o\n\x1a\x45ventOutgoingBatchCanceled\x12\x17\n\x0f\x62ridge_contract\x18\x01 \x01(\t\x12\x17\n\x0f\x62ridge_chain_id\x18\x02 \x01(\x04\x12\x10\n\x08\x62\x61tch_id\x18\x03 \x01(\x04\x12\r\n\x05nonce\x18\x04 \x01(\x04\"r\n\x1a\x45ventMultisigUpdateRequest\x12\x17\n\x0f\x62ridge_contract\x18\x01 \x01(\t\x12\x17\n\x0f\x62ridge_chain_id\x18\x02 \x01(\x04\x12\x13\n\x0bmultisig_id\x18\x03 \x01(\x04\x12\r\n\x05nonce\x18\x04 \x01(\x04\"=\n\x1d\x45ventSetOrchestratorAddresses\x12\x1c\n\x14set_operator_address\x18\x01 \x01(\x0c\"0\n\x12\x45ventValsetConfirm\x12\x1a\n\x12valset_confirm_key\x18\x01 \x01(\x0c\"(\n\x0e\x45ventSendToEth\x12\x16\n\x0eoutgoing_tx_id\x18\x01 \x01(\x04\"(\n\x11\x45ventRequestBatch\x12\x13\n\x0b\x62\x61tch_nonce\x18\x01 \x01(\x04\".\n\x11\x45ventConfirmBatch\x12\x19\n\x11\x62\x61tch_confirm_key\x18\x01 \x01(\x0c\"+\n\x11\x45ventDepositClaim\x12\x16\n\x0e\x61ttestation_id\x18\x01 \x01(\x0c\",\n\x12\x45ventWithdrawClaim\x12\x16\n\x0e\x61ttestation_id\x18\x01 \x01(\x0c\"1\n\x17\x45ventERC20DeployedClaim\x12\x16\n\x0e\x61ttestation_id\x18\x01 \x01(\x0c\"0\n\x16\x45ventValsetUpdateClaim\x12\x16\n\x0e\x61ttestation_id\x18\x01 \x01(\x0c\".\n\x14\x45ventCancelSendToEth\x12\x16\n\x0eoutgoing_tx_id\x18\x01 \x01(\x04\"_\n\x1f\x45ventSubmitBadSignatureEvidence\x12\x19\n\x11\x62\x61\x64_eth_signature\x18\x01 \x01(\t\x12!\n\x19\x62\x61\x64_eth_signature_subject\x18\x02 \x01(\tBMZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/peggy/typesb\x06proto3'
+  serialized_pb=b'\n\x1finjective/peggy/v1/events.proto\x12\x12injective.peggy.v1\x1a\x14gogoproto/gogo.proto\x1a$injective/peggy/v1/attestation.proto\x1a\x1einjective/peggy/v1/types.proto\"\xac\x01\n\x18\x45ventAttestationObserved\x12\x37\n\x10\x61ttestation_type\x18\x01 \x01(\x0e\x32\x1d.injective.peggy.v1.ClaimType\x12\x17\n\x0f\x62ridge_contract\x18\x02 \x01(\t\x12\x17\n\x0f\x62ridge_chain_id\x18\x03 \x01(\x04\x12\x16\n\x0e\x61ttestation_id\x18\x04 \x01(\x0c\x12\r\n\x05nonce\x18\x05 \x01(\x04\"O\n\x1b\x45ventBridgeWithdrawCanceled\x12\x17\n\x0f\x62ridge_contract\x18\x01 \x01(\t\x12\x17\n\x0f\x62ridge_chain_id\x18\x02 \x01(\x04\"\x89\x01\n\x12\x45ventOutgoingBatch\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x1c\n\x14orchestrator_address\x18\x02 \x01(\t\x12\x13\n\x0b\x62\x61tch_nonce\x18\x03 \x01(\x04\x12\x15\n\rbatch_timeout\x18\x04 \x01(\x04\x12\x1a\n\x0c\x62\x61tch_tx_ids\x18\x05 \x03(\x04\x42\x04\xc8\xde\x1f\x00\"o\n\x1a\x45ventOutgoingBatchCanceled\x12\x17\n\x0f\x62ridge_contract\x18\x01 \x01(\t\x12\x17\n\x0f\x62ridge_chain_id\x18\x02 \x01(\x04\x12\x10\n\x08\x62\x61tch_id\x18\x03 \x01(\x04\x12\r\n\x05nonce\x18\x04 \x01(\x04\"\xe1\x01\n\x18\x45ventValsetUpdateRequest\x12\x14\n\x0cvalset_nonce\x18\x01 \x01(\x04\x12\x15\n\rvalset_height\x18\x02 \x01(\x04\x12;\n\x0evalset_members\x18\x03 \x03(\x0b\x32#.injective.peggy.v1.BridgeValidator\x12\x45\n\rreward_amount\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x14\n\x0creward_token\x18\x05 \x01(\t\"v\n\x1d\x45ventSetOrchestratorAddresses\x12\x19\n\x11validator_address\x18\x01 \x01(\t\x12\x1c\n\x14orchestrator_address\x18\x02 \x01(\t\x12\x1c\n\x14operator_eth_address\x18\x03 \x01(\t\"H\n\x12\x45ventValsetConfirm\x12\x14\n\x0cvalset_nonce\x18\x01 \x01(\x04\x12\x1c\n\x14orchestrator_address\x18\x02 \x01(\t\"\xd0\x01\n\x0e\x45ventSendToEth\x12\x16\n\x0eoutgoing_tx_id\x18\x01 \x01(\x04\x12\x0e\n\x06sender\x18\x02 \x01(\t\x12\x10\n\x08receiver\x18\x03 \x01(\t\x12?\n\x06\x61mount\x18\x04 \x01(\tB/\xda\xde\x1f\'github.com/cosmos/cosmos-sdk/types.Coin\xc8\xde\x1f\x00\x12\x43\n\nbridge_fee\x18\x05 \x01(\tB/\xda\xde\x1f\'github.com/cosmos/cosmos-sdk/types.Coin\xc8\xde\x1f\x00\"F\n\x11\x45ventConfirmBatch\x12\x13\n\x0b\x62\x61tch_nonce\x18\x01 \x01(\x04\x12\x1c\n\x14orchestrator_address\x18\x02 \x01(\t\"R\n\x14\x45ventAttestationVote\x12\x13\n\x0b\x65vent_nonce\x18\x01 \x01(\x04\x12\x16\n\x0e\x61ttestation_id\x18\x02 \x01(\x0c\x12\r\n\x05voter\x18\x03 \x01(\t\"\xfe\x01\n\x11\x45ventDepositClaim\x12\x13\n\x0b\x65vent_nonce\x18\x01 \x01(\x04\x12\x14\n\x0c\x65vent_height\x18\x02 \x01(\x04\x12\x16\n\x0e\x61ttestation_id\x18\x03 \x01(\x0c\x12\x17\n\x0f\x65thereum_sender\x18\x04 \x01(\t\x12\x17\n\x0f\x63osmos_receiver\x18\x05 \x01(\t\x12\x16\n\x0etoken_contract\x18\x06 \x01(\t\x12>\n\x06\x61mount\x18\x07 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x1c\n\x14orchestrator_address\x18\x08 \x01(\t\"\xa2\x01\n\x12\x45ventWithdrawClaim\x12\x13\n\x0b\x65vent_nonce\x18\x01 \x01(\x04\x12\x14\n\x0c\x65vent_height\x18\x02 \x01(\x04\x12\x16\n\x0e\x61ttestation_id\x18\x03 \x01(\x0c\x12\x13\n\x0b\x62\x61tch_nonce\x18\x04 \x01(\x04\x12\x16\n\x0etoken_contract\x18\x05 \x01(\t\x12\x1c\n\x14orchestrator_address\x18\x06 \x01(\t\"\xd8\x01\n\x17\x45ventERC20DeployedClaim\x12\x13\n\x0b\x65vent_nonce\x18\x01 \x01(\x04\x12\x14\n\x0c\x65vent_height\x18\x02 \x01(\x04\x12\x16\n\x0e\x61ttestation_id\x18\x03 \x01(\x0c\x12\x14\n\x0c\x63osmos_denom\x18\x04 \x01(\t\x12\x16\n\x0etoken_contract\x18\x05 \x01(\t\x12\x0c\n\x04name\x18\x06 \x01(\t\x12\x0e\n\x06symbol\x18\x07 \x01(\t\x12\x10\n\x08\x64\x65\x63imals\x18\x08 \x01(\x04\x12\x1c\n\x14orchestrator_address\x18\t \x01(\t\"\xa9\x02\n\x16\x45ventValsetUpdateClaim\x12\x13\n\x0b\x65vent_nonce\x18\x01 \x01(\x04\x12\x14\n\x0c\x65vent_height\x18\x02 \x01(\x04\x12\x16\n\x0e\x61ttestation_id\x18\x03 \x01(\x0c\x12\x14\n\x0cvalset_nonce\x18\x04 \x01(\x04\x12;\n\x0evalset_members\x18\x05 \x03(\x0b\x32#.injective.peggy.v1.BridgeValidator\x12\x45\n\rreward_amount\x18\x06 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x14\n\x0creward_token\x18\x07 \x01(\t\x12\x1c\n\x14orchestrator_address\x18\x08 \x01(\t\".\n\x14\x45ventCancelSendToEth\x12\x16\n\x0eoutgoing_tx_id\x18\x01 \x01(\x04\"_\n\x1f\x45ventSubmitBadSignatureEvidence\x12\x19\n\x11\x62\x61\x64_eth_signature\x18\x01 \x01(\t\x12!\n\x19\x62\x61\x64_eth_signature_subject\x18\x02 \x01(\tBMZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/peggy/typesb\x06proto3'
   ,
-  dependencies=[injective_dot_peggy_dot_v1_dot_attestation__pb2.DESCRIPTOR,])
+  dependencies=[gogoproto_dot_gogo__pb2.DESCRIPTOR,injective_dot_peggy_dot_v1_dot_attestation__pb2.DESCRIPTOR,injective_dot_peggy_dot_v1_dot_types__pb2.DESCRIPTOR,])
 
 
 
@@ -82,8 +84,8 @@ _EVENTATTESTATIONOBSERVED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=94,
-  serialized_end=266,
+  serialized_start=148,
+  serialized_end=320,
 )
 
 
@@ -121,61 +123,8 @@ _EVENTBRIDGEWITHDRAWCANCELED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=268,
-  serialized_end=347,
-)
-
-
-_EVENTBRIDGEWITHDRAWALRECEIVED = _descriptor.Descriptor(
-  name='EventBridgeWithdrawalReceived',
-  full_name='injective.peggy.v1.EventBridgeWithdrawalReceived',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='bridge_contract', full_name='injective.peggy.v1.EventBridgeWithdrawalReceived.bridge_contract', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='bridge_chain_id', full_name='injective.peggy.v1.EventBridgeWithdrawalReceived.bridge_chain_id', index=1,
-      number=2, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='outgoing_tx_id', full_name='injective.peggy.v1.EventBridgeWithdrawalReceived.outgoing_tx_id', index=2,
-      number=3, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='nonce', full_name='injective.peggy.v1.EventBridgeWithdrawalReceived.nonce', index=3,
-      number=4, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=349,
-  serialized_end=469,
+  serialized_start=322,
+  serialized_end=401,
 )
 
 
@@ -188,33 +137,40 @@ _EVENTOUTGOINGBATCH = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='bridge_contract', full_name='injective.peggy.v1.EventOutgoingBatch.bridge_contract', index=0,
+      name='denom', full_name='injective.peggy.v1.EventOutgoingBatch.denom', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='bridge_chain_id', full_name='injective.peggy.v1.EventOutgoingBatch.bridge_chain_id', index=1,
-      number=2, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
+      name='orchestrator_address', full_name='injective.peggy.v1.EventOutgoingBatch.orchestrator_address', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='batch_id', full_name='injective.peggy.v1.EventOutgoingBatch.batch_id', index=2,
+      name='batch_nonce', full_name='injective.peggy.v1.EventOutgoingBatch.batch_nonce', index=2,
       number=3, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='nonce', full_name='injective.peggy.v1.EventOutgoingBatch.nonce', index=3,
+      name='batch_timeout', full_name='injective.peggy.v1.EventOutgoingBatch.batch_timeout', index=3,
       number=4, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='batch_tx_ids', full_name='injective.peggy.v1.EventOutgoingBatch.batch_tx_ids', index=4,
+      number=5, type=4, cpp_type=4, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -227,8 +183,8 @@ _EVENTOUTGOINGBATCH = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=471,
-  serialized_end=574,
+  serialized_start=404,
+  serialized_end=541,
 )
 
 
@@ -280,44 +236,51 @@ _EVENTOUTGOINGBATCHCANCELED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=576,
-  serialized_end=687,
+  serialized_start=543,
+  serialized_end=654,
 )
 
 
-_EVENTMULTISIGUPDATEREQUEST = _descriptor.Descriptor(
-  name='EventMultisigUpdateRequest',
-  full_name='injective.peggy.v1.EventMultisigUpdateRequest',
+_EVENTVALSETUPDATEREQUEST = _descriptor.Descriptor(
+  name='EventValsetUpdateRequest',
+  full_name='injective.peggy.v1.EventValsetUpdateRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='bridge_contract', full_name='injective.peggy.v1.EventMultisigUpdateRequest.bridge_contract', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
+      name='valset_nonce', full_name='injective.peggy.v1.EventValsetUpdateRequest.valset_nonce', index=0,
+      number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='bridge_chain_id', full_name='injective.peggy.v1.EventMultisigUpdateRequest.bridge_chain_id', index=1,
+      name='valset_height', full_name='injective.peggy.v1.EventValsetUpdateRequest.valset_height', index=1,
       number=2, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='multisig_id', full_name='injective.peggy.v1.EventMultisigUpdateRequest.multisig_id', index=2,
-      number=3, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
+      name='valset_members', full_name='injective.peggy.v1.EventValsetUpdateRequest.valset_members', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='nonce', full_name='injective.peggy.v1.EventMultisigUpdateRequest.nonce', index=3,
-      number=4, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
+      name='reward_amount', full_name='injective.peggy.v1.EventValsetUpdateRequest.reward_amount', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Int\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='reward_token', full_name='injective.peggy.v1.EventValsetUpdateRequest.reward_token', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -333,8 +296,8 @@ _EVENTMULTISIGUPDATEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=689,
-  serialized_end=803,
+  serialized_start=657,
+  serialized_end=882,
 )
 
 
@@ -347,9 +310,23 @@ _EVENTSETORCHESTRATORADDRESSES = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='set_operator_address', full_name='injective.peggy.v1.EventSetOrchestratorAddresses.set_operator_address', index=0,
-      number=1, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"",
+      name='validator_address', full_name='injective.peggy.v1.EventSetOrchestratorAddresses.validator_address', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='orchestrator_address', full_name='injective.peggy.v1.EventSetOrchestratorAddresses.orchestrator_address', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='operator_eth_address', full_name='injective.peggy.v1.EventSetOrchestratorAddresses.operator_eth_address', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -365,8 +342,8 @@ _EVENTSETORCHESTRATORADDRESSES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=805,
-  serialized_end=866,
+  serialized_start=884,
+  serialized_end=1002,
 )
 
 
@@ -379,9 +356,16 @@ _EVENTVALSETCONFIRM = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='valset_confirm_key', full_name='injective.peggy.v1.EventValsetConfirm.valset_confirm_key', index=0,
-      number=1, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"",
+      name='valset_nonce', full_name='injective.peggy.v1.EventValsetConfirm.valset_nonce', index=0,
+      number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='orchestrator_address', full_name='injective.peggy.v1.EventValsetConfirm.orchestrator_address', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -397,8 +381,8 @@ _EVENTVALSETCONFIRM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=868,
-  serialized_end=916,
+  serialized_start=1004,
+  serialized_end=1076,
 )
 
 
@@ -417,38 +401,34 @@ _EVENTSENDTOETH = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=918,
-  serialized_end=958,
-)
-
-
-_EVENTREQUESTBATCH = _descriptor.Descriptor(
-  name='EventRequestBatch',
-  full_name='injective.peggy.v1.EventRequestBatch',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
     _descriptor.FieldDescriptor(
-      name='batch_nonce', full_name='injective.peggy.v1.EventRequestBatch.batch_nonce', index=0,
-      number=1, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
+      name='sender', full_name='injective.peggy.v1.EventSendToEth.sender', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='receiver', full_name='injective.peggy.v1.EventSendToEth.receiver', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='amount', full_name='injective.peggy.v1.EventSendToEth.amount', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\332\336\037\'github.com/cosmos/cosmos-sdk/types.Coin\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='bridge_fee', full_name='injective.peggy.v1.EventSendToEth.bridge_fee', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\332\336\037\'github.com/cosmos/cosmos-sdk/types.Coin\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -461,8 +441,8 @@ _EVENTREQUESTBATCH = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=960,
-  serialized_end=1000,
+  serialized_start=1079,
+  serialized_end=1287,
 )
 
 
@@ -475,9 +455,16 @@ _EVENTCONFIRMBATCH = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='batch_confirm_key', full_name='injective.peggy.v1.EventConfirmBatch.batch_confirm_key', index=0,
-      number=1, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"",
+      name='batch_nonce', full_name='injective.peggy.v1.EventConfirmBatch.batch_nonce', index=0,
+      number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='orchestrator_address', full_name='injective.peggy.v1.EventConfirmBatch.orchestrator_address', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -493,8 +480,54 @@ _EVENTCONFIRMBATCH = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1002,
-  serialized_end=1048,
+  serialized_start=1289,
+  serialized_end=1359,
+)
+
+
+_EVENTATTESTATIONVOTE = _descriptor.Descriptor(
+  name='EventAttestationVote',
+  full_name='injective.peggy.v1.EventAttestationVote',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='event_nonce', full_name='injective.peggy.v1.EventAttestationVote.event_nonce', index=0,
+      number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='attestation_id', full_name='injective.peggy.v1.EventAttestationVote.attestation_id', index=1,
+      number=2, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"",
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='voter', full_name='injective.peggy.v1.EventAttestationVote.voter', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1361,
+  serialized_end=1443,
 )
 
 
@@ -507,9 +540,58 @@ _EVENTDEPOSITCLAIM = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='attestation_id', full_name='injective.peggy.v1.EventDepositClaim.attestation_id', index=0,
-      number=1, type=12, cpp_type=9, label=1,
+      name='event_nonce', full_name='injective.peggy.v1.EventDepositClaim.event_nonce', index=0,
+      number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='event_height', full_name='injective.peggy.v1.EventDepositClaim.event_height', index=1,
+      number=2, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='attestation_id', full_name='injective.peggy.v1.EventDepositClaim.attestation_id', index=2,
+      number=3, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='ethereum_sender', full_name='injective.peggy.v1.EventDepositClaim.ethereum_sender', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='cosmos_receiver', full_name='injective.peggy.v1.EventDepositClaim.cosmos_receiver', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='token_contract', full_name='injective.peggy.v1.EventDepositClaim.token_contract', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='amount', full_name='injective.peggy.v1.EventDepositClaim.amount', index=6,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Int\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='orchestrator_address', full_name='injective.peggy.v1.EventDepositClaim.orchestrator_address', index=7,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -525,8 +607,8 @@ _EVENTDEPOSITCLAIM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1050,
-  serialized_end=1093,
+  serialized_start=1446,
+  serialized_end=1700,
 )
 
 
@@ -539,9 +621,44 @@ _EVENTWITHDRAWCLAIM = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='attestation_id', full_name='injective.peggy.v1.EventWithdrawClaim.attestation_id', index=0,
-      number=1, type=12, cpp_type=9, label=1,
+      name='event_nonce', full_name='injective.peggy.v1.EventWithdrawClaim.event_nonce', index=0,
+      number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='event_height', full_name='injective.peggy.v1.EventWithdrawClaim.event_height', index=1,
+      number=2, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='attestation_id', full_name='injective.peggy.v1.EventWithdrawClaim.attestation_id', index=2,
+      number=3, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='batch_nonce', full_name='injective.peggy.v1.EventWithdrawClaim.batch_nonce', index=3,
+      number=4, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='token_contract', full_name='injective.peggy.v1.EventWithdrawClaim.token_contract', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='orchestrator_address', full_name='injective.peggy.v1.EventWithdrawClaim.orchestrator_address', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -557,8 +674,8 @@ _EVENTWITHDRAWCLAIM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1095,
-  serialized_end=1139,
+  serialized_start=1703,
+  serialized_end=1865,
 )
 
 
@@ -571,9 +688,65 @@ _EVENTERC20DEPLOYEDCLAIM = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='attestation_id', full_name='injective.peggy.v1.EventERC20DeployedClaim.attestation_id', index=0,
-      number=1, type=12, cpp_type=9, label=1,
+      name='event_nonce', full_name='injective.peggy.v1.EventERC20DeployedClaim.event_nonce', index=0,
+      number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='event_height', full_name='injective.peggy.v1.EventERC20DeployedClaim.event_height', index=1,
+      number=2, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='attestation_id', full_name='injective.peggy.v1.EventERC20DeployedClaim.attestation_id', index=2,
+      number=3, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='cosmos_denom', full_name='injective.peggy.v1.EventERC20DeployedClaim.cosmos_denom', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='token_contract', full_name='injective.peggy.v1.EventERC20DeployedClaim.token_contract', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='injective.peggy.v1.EventERC20DeployedClaim.name', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='symbol', full_name='injective.peggy.v1.EventERC20DeployedClaim.symbol', index=6,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='decimals', full_name='injective.peggy.v1.EventERC20DeployedClaim.decimals', index=7,
+      number=8, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='orchestrator_address', full_name='injective.peggy.v1.EventERC20DeployedClaim.orchestrator_address', index=8,
+      number=9, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -589,8 +762,8 @@ _EVENTERC20DEPLOYEDCLAIM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1141,
-  serialized_end=1190,
+  serialized_start=1868,
+  serialized_end=2084,
 )
 
 
@@ -603,9 +776,58 @@ _EVENTVALSETUPDATECLAIM = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='attestation_id', full_name='injective.peggy.v1.EventValsetUpdateClaim.attestation_id', index=0,
-      number=1, type=12, cpp_type=9, label=1,
+      name='event_nonce', full_name='injective.peggy.v1.EventValsetUpdateClaim.event_nonce', index=0,
+      number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='event_height', full_name='injective.peggy.v1.EventValsetUpdateClaim.event_height', index=1,
+      number=2, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='attestation_id', full_name='injective.peggy.v1.EventValsetUpdateClaim.attestation_id', index=2,
+      number=3, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='valset_nonce', full_name='injective.peggy.v1.EventValsetUpdateClaim.valset_nonce', index=3,
+      number=4, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='valset_members', full_name='injective.peggy.v1.EventValsetUpdateClaim.valset_members', index=4,
+      number=5, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='reward_amount', full_name='injective.peggy.v1.EventValsetUpdateClaim.reward_amount', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Int\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='reward_token', full_name='injective.peggy.v1.EventValsetUpdateClaim.reward_token', index=6,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='orchestrator_address', full_name='injective.peggy.v1.EventValsetUpdateClaim.orchestrator_address', index=7,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -621,8 +843,8 @@ _EVENTVALSETUPDATECLAIM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1192,
-  serialized_end=1240,
+  serialized_start=2087,
+  serialized_end=2384,
 )
 
 
@@ -653,8 +875,8 @@ _EVENTCANCELSENDTOETH = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1242,
-  serialized_end=1288,
+  serialized_start=2386,
+  serialized_end=2432,
 )
 
 
@@ -692,22 +914,23 @@ _EVENTSUBMITBADSIGNATUREEVIDENCE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1290,
-  serialized_end=1385,
+  serialized_start=2434,
+  serialized_end=2529,
 )
 
 _EVENTATTESTATIONOBSERVED.fields_by_name['attestation_type'].enum_type = injective_dot_peggy_dot_v1_dot_attestation__pb2._CLAIMTYPE
+_EVENTVALSETUPDATEREQUEST.fields_by_name['valset_members'].message_type = injective_dot_peggy_dot_v1_dot_types__pb2._BRIDGEVALIDATOR
+_EVENTVALSETUPDATECLAIM.fields_by_name['valset_members'].message_type = injective_dot_peggy_dot_v1_dot_types__pb2._BRIDGEVALIDATOR
 DESCRIPTOR.message_types_by_name['EventAttestationObserved'] = _EVENTATTESTATIONOBSERVED
 DESCRIPTOR.message_types_by_name['EventBridgeWithdrawCanceled'] = _EVENTBRIDGEWITHDRAWCANCELED
-DESCRIPTOR.message_types_by_name['EventBridgeWithdrawalReceived'] = _EVENTBRIDGEWITHDRAWALRECEIVED
 DESCRIPTOR.message_types_by_name['EventOutgoingBatch'] = _EVENTOUTGOINGBATCH
 DESCRIPTOR.message_types_by_name['EventOutgoingBatchCanceled'] = _EVENTOUTGOINGBATCHCANCELED
-DESCRIPTOR.message_types_by_name['EventMultisigUpdateRequest'] = _EVENTMULTISIGUPDATEREQUEST
+DESCRIPTOR.message_types_by_name['EventValsetUpdateRequest'] = _EVENTVALSETUPDATEREQUEST
 DESCRIPTOR.message_types_by_name['EventSetOrchestratorAddresses'] = _EVENTSETORCHESTRATORADDRESSES
 DESCRIPTOR.message_types_by_name['EventValsetConfirm'] = _EVENTVALSETCONFIRM
 DESCRIPTOR.message_types_by_name['EventSendToEth'] = _EVENTSENDTOETH
-DESCRIPTOR.message_types_by_name['EventRequestBatch'] = _EVENTREQUESTBATCH
 DESCRIPTOR.message_types_by_name['EventConfirmBatch'] = _EVENTCONFIRMBATCH
+DESCRIPTOR.message_types_by_name['EventAttestationVote'] = _EVENTATTESTATIONVOTE
 DESCRIPTOR.message_types_by_name['EventDepositClaim'] = _EVENTDEPOSITCLAIM
 DESCRIPTOR.message_types_by_name['EventWithdrawClaim'] = _EVENTWITHDRAWCLAIM
 DESCRIPTOR.message_types_by_name['EventERC20DeployedClaim'] = _EVENTERC20DEPLOYEDCLAIM
@@ -730,13 +953,6 @@ EventBridgeWithdrawCanceled = _reflection.GeneratedProtocolMessageType('EventBri
   })
 _sym_db.RegisterMessage(EventBridgeWithdrawCanceled)
 
-EventBridgeWithdrawalReceived = _reflection.GeneratedProtocolMessageType('EventBridgeWithdrawalReceived', (_message.Message,), {
-  'DESCRIPTOR' : _EVENTBRIDGEWITHDRAWALRECEIVED,
-  '__module__' : 'injective.peggy.v1.events_pb2'
-  # @@protoc_insertion_point(class_scope:injective.peggy.v1.EventBridgeWithdrawalReceived)
-  })
-_sym_db.RegisterMessage(EventBridgeWithdrawalReceived)
-
 EventOutgoingBatch = _reflection.GeneratedProtocolMessageType('EventOutgoingBatch', (_message.Message,), {
   'DESCRIPTOR' : _EVENTOUTGOINGBATCH,
   '__module__' : 'injective.peggy.v1.events_pb2'
@@ -751,12 +967,12 @@ EventOutgoingBatchCanceled = _reflection.GeneratedProtocolMessageType('EventOutg
   })
 _sym_db.RegisterMessage(EventOutgoingBatchCanceled)
 
-EventMultisigUpdateRequest = _reflection.GeneratedProtocolMessageType('EventMultisigUpdateRequest', (_message.Message,), {
-  'DESCRIPTOR' : _EVENTMULTISIGUPDATEREQUEST,
+EventValsetUpdateRequest = _reflection.GeneratedProtocolMessageType('EventValsetUpdateRequest', (_message.Message,), {
+  'DESCRIPTOR' : _EVENTVALSETUPDATEREQUEST,
   '__module__' : 'injective.peggy.v1.events_pb2'
-  # @@protoc_insertion_point(class_scope:injective.peggy.v1.EventMultisigUpdateRequest)
+  # @@protoc_insertion_point(class_scope:injective.peggy.v1.EventValsetUpdateRequest)
   })
-_sym_db.RegisterMessage(EventMultisigUpdateRequest)
+_sym_db.RegisterMessage(EventValsetUpdateRequest)
 
 EventSetOrchestratorAddresses = _reflection.GeneratedProtocolMessageType('EventSetOrchestratorAddresses', (_message.Message,), {
   'DESCRIPTOR' : _EVENTSETORCHESTRATORADDRESSES,
@@ -779,19 +995,19 @@ EventSendToEth = _reflection.GeneratedProtocolMessageType('EventSendToEth', (_me
   })
 _sym_db.RegisterMessage(EventSendToEth)
 
-EventRequestBatch = _reflection.GeneratedProtocolMessageType('EventRequestBatch', (_message.Message,), {
-  'DESCRIPTOR' : _EVENTREQUESTBATCH,
-  '__module__' : 'injective.peggy.v1.events_pb2'
-  # @@protoc_insertion_point(class_scope:injective.peggy.v1.EventRequestBatch)
-  })
-_sym_db.RegisterMessage(EventRequestBatch)
-
 EventConfirmBatch = _reflection.GeneratedProtocolMessageType('EventConfirmBatch', (_message.Message,), {
   'DESCRIPTOR' : _EVENTCONFIRMBATCH,
   '__module__' : 'injective.peggy.v1.events_pb2'
   # @@protoc_insertion_point(class_scope:injective.peggy.v1.EventConfirmBatch)
   })
 _sym_db.RegisterMessage(EventConfirmBatch)
+
+EventAttestationVote = _reflection.GeneratedProtocolMessageType('EventAttestationVote', (_message.Message,), {
+  'DESCRIPTOR' : _EVENTATTESTATIONVOTE,
+  '__module__' : 'injective.peggy.v1.events_pb2'
+  # @@protoc_insertion_point(class_scope:injective.peggy.v1.EventAttestationVote)
+  })
+_sym_db.RegisterMessage(EventAttestationVote)
 
 EventDepositClaim = _reflection.GeneratedProtocolMessageType('EventDepositClaim', (_message.Message,), {
   'DESCRIPTOR' : _EVENTDEPOSITCLAIM,
@@ -837,4 +1053,10 @@ _sym_db.RegisterMessage(EventSubmitBadSignatureEvidence)
 
 
 DESCRIPTOR._options = None
+_EVENTOUTGOINGBATCH.fields_by_name['batch_tx_ids']._options = None
+_EVENTVALSETUPDATEREQUEST.fields_by_name['reward_amount']._options = None
+_EVENTSENDTOETH.fields_by_name['amount']._options = None
+_EVENTSENDTOETH.fields_by_name['bridge_fee']._options = None
+_EVENTDEPOSITCLAIM.fields_by_name['amount']._options = None
+_EVENTVALSETUPDATECLAIM.fields_by_name['reward_amount']._options = None
 # @@protoc_insertion_point(module_scope)

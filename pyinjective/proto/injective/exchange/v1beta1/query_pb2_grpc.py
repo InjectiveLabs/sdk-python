@@ -75,6 +75,11 @@ class QueryStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDerivativeMarketRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDerivativeMarketResponse.FromString,
                 )
+        self.DerivativeMarketAddress = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/DerivativeMarketAddress',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDerivativeMarketAddressRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDerivativeMarketAddressResponse.FromString,
+                )
         self.SubaccountTradeNonce = channel.unary_unary(
                 '/injective.exchange.v1beta1.Query/SubaccountTradeNonce',
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountTradeNonceRequest.SerializeToString,
@@ -210,6 +215,13 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def DerivativeMarketAddress(self, request, context):
+        """Retrieves a derivative market's corresponding address for fees
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def SubaccountTradeNonce(self, request, context):
         """Retrieves a subaccount's trade nonce
         """
@@ -335,6 +347,11 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.DerivativeMarket,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDerivativeMarketRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDerivativeMarketResponse.SerializeToString,
+            ),
+            'DerivativeMarketAddress': grpc.unary_unary_rpc_method_handler(
+                    servicer.DerivativeMarketAddress,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDerivativeMarketAddressRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDerivativeMarketAddressResponse.SerializeToString,
             ),
             'SubaccountTradeNonce': grpc.unary_unary_rpc_method_handler(
                     servicer.SubaccountTradeNonce,
@@ -593,6 +610,23 @@ class Query(object):
         return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/DerivativeMarket',
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDerivativeMarketRequest.SerializeToString,
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDerivativeMarketResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DerivativeMarketAddress(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/DerivativeMarketAddress',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDerivativeMarketAddressRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDerivativeMarketAddressResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

@@ -24,7 +24,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'ZOgithub.com/InjectiveLabs/injective-core/injective-chain/modules/insurance/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n+injective/insurance/v1beta1/insurance.proto\x12\x1binjective.insurance.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a%injective/oracle/v1beta1/oracle.proto\"\x9b\x01\n\x06Params\x12\x8a\x01\n)default_redemption_notice_period_duration\x18\x01 \x01(\x0b\x32\x19.google.protobuf.DurationB<\x98\xdf\x1f\x01\xc8\xde\x1f\x00\xf2\xde\x1f\x30yaml:\"default_redemption_notice_period_duration\":\x04\xe8\xa0\x1f\x01\"\xec\x03\n\rInsuranceFund\x12\x15\n\rdeposit_denom\x18\x01 \x01(\t\x12\"\n\x1ainsurance_pool_token_denom\x18\x02 \x01(\t\x12z\n!redemption_notice_period_duration\x18\x03 \x01(\x0b\x32\x19.google.protobuf.DurationB4\x98\xdf\x1f\x01\xc8\xde\x1f\x00\xf2\xde\x1f(yaml:\"redemption_notice_period_duration\"\x12?\n\x07\x62\x61lance\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x43\n\x0btotal_share\x18\x05 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x11\n\tmarket_id\x18\x06 \x01(\t\x12\x15\n\rmarket_ticker\x18\x07 \x01(\t\x12\x13\n\x0boracle_base\x18\x08 \x01(\t\x12\x14\n\x0coracle_quote\x18\t \x01(\t\x12\x39\n\x0boracle_type\x18\n \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x0e\n\x06\x65xpiry\x18\x0b \x01(\x03\"\xed\x01\n\x12RedemptionSchedule\x12\n\n\x02id\x18\x01 \x01(\x04\x12\x10\n\x08marketId\x18\x02 \x01(\t\x12\x10\n\x08redeemer\x18\x03 \x01(\t\x12k\n\x19\x63laimable_redemption_time\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.TimestampB,\x90\xdf\x1f\x01\xc8\xde\x1f\x00\xf2\xde\x1f yaml:\"claimable_redemption_time\"\x12:\n\x11redemption_amount\x18\x05 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00\"T\n\x18\x45ventInsuranceFundUpdate\x12\x38\n\x04\x66und\x18\x01 \x01(\x0b\x32*.injective.insurance.v1beta1.InsuranceFund\"[\n\x16\x45ventRequestRedemption\x12\x41\n\x08schedule\x18\x01 \x01(\x0b\x32/.injective.insurance.v1beta1.RedemptionSchedule\"\x92\x01\n\x17\x45ventWithdrawRedemption\x12\x41\n\x08schedule\x18\x01 \x01(\x0b\x32/.injective.insurance.v1beta1.RedemptionSchedule\x12\x34\n\x0bredeem_coin\x18\x02 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00\x42QZOgithub.com/InjectiveLabs/injective-core/injective-chain/modules/insurance/typesb\x06proto3'
+  serialized_pb=b'\n+injective/insurance/v1beta1/insurance.proto\x12\x1binjective.insurance.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a%injective/oracle/v1beta1/oracle.proto\"\x9b\x01\n\x06Params\x12\x8a\x01\n)default_redemption_notice_period_duration\x18\x01 \x01(\x0b\x32\x19.google.protobuf.DurationB<\x98\xdf\x1f\x01\xc8\xde\x1f\x00\xf2\xde\x1f\x30yaml:\"default_redemption_notice_period_duration\":\x04\xe8\xa0\x1f\x01\"\xec\x03\n\rInsuranceFund\x12\x15\n\rdeposit_denom\x18\x01 \x01(\t\x12\"\n\x1ainsurance_pool_token_denom\x18\x02 \x01(\t\x12z\n!redemption_notice_period_duration\x18\x03 \x01(\x0b\x32\x19.google.protobuf.DurationB4\x98\xdf\x1f\x01\xc8\xde\x1f\x00\xf2\xde\x1f(yaml:\"redemption_notice_period_duration\"\x12?\n\x07\x62\x61lance\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x43\n\x0btotal_share\x18\x05 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x11\n\tmarket_id\x18\x06 \x01(\t\x12\x15\n\rmarket_ticker\x18\x07 \x01(\t\x12\x13\n\x0boracle_base\x18\x08 \x01(\t\x12\x14\n\x0coracle_quote\x18\t \x01(\t\x12\x39\n\x0boracle_type\x18\n \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x0e\n\x06\x65xpiry\x18\x0b \x01(\x03\"\xed\x01\n\x12RedemptionSchedule\x12\n\n\x02id\x18\x01 \x01(\x04\x12\x10\n\x08marketId\x18\x02 \x01(\t\x12\x10\n\x08redeemer\x18\x03 \x01(\t\x12k\n\x19\x63laimable_redemption_time\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.TimestampB,\x90\xdf\x1f\x01\xc8\xde\x1f\x00\xf2\xde\x1f yaml:\"claimable_redemption_time\"\x12:\n\x11redemption_amount\x18\x05 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00\"T\n\x18\x45ventInsuranceFundUpdate\x12\x38\n\x04\x66und\x18\x01 \x01(\x0b\x32*.injective.insurance.v1beta1.InsuranceFund\"[\n\x16\x45ventRequestRedemption\x12\x41\n\x08schedule\x18\x01 \x01(\x0b\x32/.injective.insurance.v1beta1.RedemptionSchedule\"\x92\x01\n\x17\x45ventWithdrawRedemption\x12\x41\n\x08schedule\x18\x01 \x01(\x0b\x32/.injective.insurance.v1beta1.RedemptionSchedule\x12\x34\n\x0bredeem_coin\x18\x02 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00\"\x9b\x01\n\x0f\x45ventUnderwrite\x12\x13\n\x0bunderwriter\x18\x01 \x01(\t\x12\x10\n\x08marketId\x18\x02 \x01(\t\x12\x30\n\x07\x64\x65posit\x18\x03 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00\x12/\n\x06shares\x18\x04 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00\x42QZOgithub.com/InjectiveLabs/injective-core/injective-chain/modules/insurance/typesb\x06proto3'
   ,
   dependencies=[gogoproto_dot_gogo__pb2.DESCRIPTOR,google_dot_protobuf_dot_duration__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,cosmos_dot_base_dot_v1beta1_dot_coin__pb2.DESCRIPTOR,injective_dot_oracle_dot_v1beta1_dot_oracle__pb2.DESCRIPTOR,])
 
@@ -327,6 +327,59 @@ _EVENTWITHDRAWREDEMPTION = _descriptor.Descriptor(
   serialized_end=1453,
 )
 
+
+_EVENTUNDERWRITE = _descriptor.Descriptor(
+  name='EventUnderwrite',
+  full_name='injective.insurance.v1beta1.EventUnderwrite',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='underwriter', full_name='injective.insurance.v1beta1.EventUnderwrite.underwriter', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='marketId', full_name='injective.insurance.v1beta1.EventUnderwrite.marketId', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='deposit', full_name='injective.insurance.v1beta1.EventUnderwrite.deposit', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='shares', full_name='injective.insurance.v1beta1.EventUnderwrite.shares', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1456,
+  serialized_end=1611,
+)
+
 _PARAMS.fields_by_name['default_redemption_notice_period_duration'].message_type = google_dot_protobuf_dot_duration__pb2._DURATION
 _INSURANCEFUND.fields_by_name['redemption_notice_period_duration'].message_type = google_dot_protobuf_dot_duration__pb2._DURATION
 _INSURANCEFUND.fields_by_name['oracle_type'].enum_type = injective_dot_oracle_dot_v1beta1_dot_oracle__pb2._ORACLETYPE
@@ -336,12 +389,15 @@ _EVENTINSURANCEFUNDUPDATE.fields_by_name['fund'].message_type = _INSURANCEFUND
 _EVENTREQUESTREDEMPTION.fields_by_name['schedule'].message_type = _REDEMPTIONSCHEDULE
 _EVENTWITHDRAWREDEMPTION.fields_by_name['schedule'].message_type = _REDEMPTIONSCHEDULE
 _EVENTWITHDRAWREDEMPTION.fields_by_name['redeem_coin'].message_type = cosmos_dot_base_dot_v1beta1_dot_coin__pb2._COIN
+_EVENTUNDERWRITE.fields_by_name['deposit'].message_type = cosmos_dot_base_dot_v1beta1_dot_coin__pb2._COIN
+_EVENTUNDERWRITE.fields_by_name['shares'].message_type = cosmos_dot_base_dot_v1beta1_dot_coin__pb2._COIN
 DESCRIPTOR.message_types_by_name['Params'] = _PARAMS
 DESCRIPTOR.message_types_by_name['InsuranceFund'] = _INSURANCEFUND
 DESCRIPTOR.message_types_by_name['RedemptionSchedule'] = _REDEMPTIONSCHEDULE
 DESCRIPTOR.message_types_by_name['EventInsuranceFundUpdate'] = _EVENTINSURANCEFUNDUPDATE
 DESCRIPTOR.message_types_by_name['EventRequestRedemption'] = _EVENTREQUESTREDEMPTION
 DESCRIPTOR.message_types_by_name['EventWithdrawRedemption'] = _EVENTWITHDRAWREDEMPTION
+DESCRIPTOR.message_types_by_name['EventUnderwrite'] = _EVENTUNDERWRITE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Params = _reflection.GeneratedProtocolMessageType('Params', (_message.Message,), {
@@ -386,6 +442,13 @@ EventWithdrawRedemption = _reflection.GeneratedProtocolMessageType('EventWithdra
   })
 _sym_db.RegisterMessage(EventWithdrawRedemption)
 
+EventUnderwrite = _reflection.GeneratedProtocolMessageType('EventUnderwrite', (_message.Message,), {
+  'DESCRIPTOR' : _EVENTUNDERWRITE,
+  '__module__' : 'injective.insurance.v1beta1.insurance_pb2'
+  # @@protoc_insertion_point(class_scope:injective.insurance.v1beta1.EventUnderwrite)
+  })
+_sym_db.RegisterMessage(EventUnderwrite)
+
 
 DESCRIPTOR._options = None
 _PARAMS.fields_by_name['default_redemption_notice_period_duration']._options = None
@@ -396,4 +459,6 @@ _INSURANCEFUND.fields_by_name['total_share']._options = None
 _REDEMPTIONSCHEDULE.fields_by_name['claimable_redemption_time']._options = None
 _REDEMPTIONSCHEDULE.fields_by_name['redemption_amount']._options = None
 _EVENTWITHDRAWREDEMPTION.fields_by_name['redeem_coin']._options = None
+_EVENTUNDERWRITE.fields_by_name['deposit']._options = None
+_EVENTUNDERWRITE.fields_by_name['shares']._options = None
 # @@protoc_insertion_point(module_scope)
