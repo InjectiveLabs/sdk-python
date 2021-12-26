@@ -86,6 +86,10 @@ python pyinjective/fetch_metadata.py
 
 
 ### Changelogs
+0.5.5.8
+* fix stream_bids in async client
+* add more messages in MsgResponses for simulation
+
 0.5.5.5
 * Refactor LCD endpoints
 * regen ini files
