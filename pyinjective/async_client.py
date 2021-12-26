@@ -154,7 +154,7 @@ class AsyncClient:
 
     async def stream_bids(self):
         req = auction_rpc_pb.StreamBidsRequest()
-        return await self.stubAuction.StreamBids(req)
+        return self.stubAuction.StreamBids(req)
 
 
     # Meta RPC
