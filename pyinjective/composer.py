@@ -280,22 +280,6 @@ class Composer:
             sender=sender,
             data=data
         )
-        
-    def MsgBatchUpdateOrders(
-        self,
-        sender: str,
-        **kwargs
-    ):
-        return injective_exchange_tx_pb.MsgBatchUpdateOrders(
-            sender=sender,
-            subaccount_id=kwargs.get('subaccount_id'),
-            spot_market_ids_to_cancel_all=kwargs.get('spot_market_ids_to_cancel_all'),
-            derivative_market_ids_to_cancel_all=kwargs.get('derivative_market_ids_to_cancel_all'),
-            spot_orders_to_cancel=kwargs.get('spot_orders_to_cancel'),
-            derivative_orders_to_cancel=kwargs.get('derivative_orders_to_cancel'),
-            spot_orders_to_create=kwargs.get('spot_orders_to_create'),
-            derivative_orders_to_create=kwargs.get('derivative_orders_to_create')
-            )
 
     def MsgLiquidatePosition(
         self,
@@ -393,7 +377,6 @@ class Composer:
             "/injective.exchange.v1beta1.MsgBatchCancelDerivativeOrders": injective_exchange_tx_pb.MsgBatchCancelDerivativeOrdersResponse,
             "/injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrders": injective_exchange_tx_pb.MsgBatchCreateSpotLimitOrdersResponse,
             "/injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrders": injective_exchange_tx_pb.MsgBatchCreateDerivativeLimitOrdersResponse,
-            "/injective.exchange.v1beta1.MsgBatchUpdateOrders": injective_exchange_tx_pb.MsgBatchUpdateOrdersResponse,
             "/injective.exchange.v1beta1.MsgDeposit": injective_exchange_tx_pb.MsgDepositResponse,
             "/injective.exchange.v1beta1.MsgWithdraw": injective_exchange_tx_pb.MsgWithdrawResponse,
             "/injective.exchange.v1beta1.MsgSubaccountTransfer": injective_exchange_tx_pb.MsgSubaccountTransferResponse,
