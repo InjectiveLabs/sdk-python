@@ -19,15 +19,18 @@ import logging
 from pyinjective.client import Client
 from pyinjective.constant import Network
 
-
 async def main() -> None:
     network = Network.testnet()
     client = Client(network, insecure=True)
     market_id = "0xd0f46edfba58827fe692aab7c8d46395d1696239fdf6aeddfa668b73ca82ea30"
     subaccount_id = "0xc6fe5d33615a1c52c08018c47e8bc53646a0e101000000000000000000000000"
+    skip=0
+    limit=10
     funding = client.get_funding_payments(
         market_id=market_id,
-        subaccount_id=subaccount_id
+        subaccount_id=subaccount_id,
+        skip=skip,
+        limit=limit
     )
     print(funding)
 
