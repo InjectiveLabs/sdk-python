@@ -55,6 +55,11 @@ class InjectiveAccountsRPCStub(object):
                 request_serializer=exchange_dot_injective__accounts__rpc__pb2.SubaccountOrderSummaryRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__accounts__rpc__pb2.SubaccountOrderSummaryResponse.FromString,
                 )
+        self.Rewards = channel.unary_unary(
+                '/injective_accounts_rpc.InjectiveAccountsRPC/Rewards',
+                request_serializer=exchange_dot_injective__accounts__rpc__pb2.RewardsRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__accounts__rpc__pb2.RewardsResponse.FromString,
+                )
 
 
 class InjectiveAccountsRPCServicer(object):
@@ -119,6 +124,13 @@ class InjectiveAccountsRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def Rewards(self, request, context):
+        """Provide historical trading rewards
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_InjectiveAccountsRPCServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -161,6 +173,11 @@ def add_InjectiveAccountsRPCServicer_to_server(servicer, server):
                     servicer.SubaccountOrderSummary,
                     request_deserializer=exchange_dot_injective__accounts__rpc__pb2.SubaccountOrderSummaryRequest.FromString,
                     response_serializer=exchange_dot_injective__accounts__rpc__pb2.SubaccountOrderSummaryResponse.SerializeToString,
+            ),
+            'Rewards': grpc.unary_unary_rpc_method_handler(
+                    servicer.Rewards,
+                    request_deserializer=exchange_dot_injective__accounts__rpc__pb2.RewardsRequest.FromString,
+                    response_serializer=exchange_dot_injective__accounts__rpc__pb2.RewardsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -306,5 +323,22 @@ class InjectiveAccountsRPC(object):
         return grpc.experimental.unary_unary(request, target, '/injective_accounts_rpc.InjectiveAccountsRPC/SubaccountOrderSummary',
             exchange_dot_injective__accounts__rpc__pb2.SubaccountOrderSummaryRequest.SerializeToString,
             exchange_dot_injective__accounts__rpc__pb2.SubaccountOrderSummaryResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Rewards(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective_accounts_rpc.InjectiveAccountsRPC/Rewards',
+            exchange_dot_injective__accounts__rpc__pb2.RewardsRequest.SerializeToString,
+            exchange_dot_injective__accounts__rpc__pb2.RewardsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
