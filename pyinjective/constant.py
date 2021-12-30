@@ -107,7 +107,8 @@ class Network:
             'sentry1',  # us, prod
             'sentry2',  # us, staging
             'sentry3',  # tokyo, prod,
-            'sentry4'
+            'sentry4',
+            'sentry.cd' # dedicated github-runner
         ]
         if node not in nodes:
             raise ValueError("Must be one of {}".format(nodes))
