@@ -492,6 +492,6 @@ class Client:
 
     def get_funding_payments(self, subaccount_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.FundingPaymentsRequest(
-            subaccount_id=subaccount_id, market_id=kwargs.get("market_id")
+            subaccount_id=subaccount_id, market_id=kwargs.get("market_id"), skip=kwargs.get("skip"), limit=kwargs.get("limit")
         )
         return self.stubDerivativeExchange.FundingPayments(req)

@@ -88,6 +88,7 @@ python pyinjective/fetch_metadata.py
 ### Changelogs
 0.5.5.9
 * add MsgBatchUpdateOrders to the composer
+* add skip/limit parameters to funding payments
 
 0.5.5.8
 * fix stream_bids in async client
