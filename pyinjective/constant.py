@@ -122,5 +122,16 @@ class Network:
             env='mainnet'
         )
 
+    @classmethod
+    def local(cls):
+        return cls(
+            lcd_endpoint="localhost:10337",
+            grpc_endpoint="localhost:9900",
+            grpc_exchange_endpoint="localhost:9910",
+            chain_id='injective-1',
+            fee_denom='inj',
+            env='local'
+        )
+
     def string(self):
         return self.env
