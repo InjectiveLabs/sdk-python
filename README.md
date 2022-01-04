@@ -86,6 +86,12 @@ python pyinjective/fetch_metadata.py
 
 
 ### Changelogs
+0.5.6.1
+* Add devnet ini to local env
+
+0.5.6.0
+* add local env in networks
+
 0.5.5.9
 * add MsgBatchUpdateOrders to the composer
 * add skip/limit parameters to funding payments
