@@ -1,6 +1,6 @@
 ## Injective Python SDK
 
-### Dependences
+### Dependencies
 
 **Ubuntu**
 ```bash
