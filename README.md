@@ -1,6 +1,6 @@
 ## Injective Python SDK
 
-### Dependences
+### Dependencies
 
 **Ubuntu**
 ```bash
@@ -23,14 +23,6 @@ brew install autoconf automake libtool
 Installation
 ```bash
 pip install injective-py
-```
-Example usage
-```python
-from pyinjective.composer import Composer as ProtoMsgComposer
-from pyinjective.client import Client
-from pyinjective.transaction import Transaction
-from pyinjective.constant import Network
-from pyinjective.wallet import PrivateKey, PublicKey, Address
 ```
 
 ### Usage
