@@ -223,6 +223,10 @@ class AsyncClient:
         req = exchange_accounts_rpc_pb.PortfolioRequest(account_address=account_address)
         return await self.stubExchangeAccount.Portfolio(req)
 
+    async def get_rewards(self, **kwargs):
+        req = exchange_accounts_rpc_pb.RewardsRequest(account_address=kwargs.get("account_address"), epoch=kwargs.get("epoch"))
+        return await self.stubExchangeAccount.Rewards(req)
+
 
     # OracleRPC
 
