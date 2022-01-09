@@ -34,12 +34,12 @@ $ pipenv shell
 $ pipenv install
 
 # connecting to Injective Exchange API
-# and listening for new orders from one specific spot market
-$ python examples/exchange_api_examples/spot_exchange_rpc/8_StreamOrdersRequest.py
+# and listening for new orders from a specific spot market
+$ python examples/sync/exchange_client/spot_exchange_rpc/8_StreamOrders.py
 
 # sending a msg with bank transfer
-# signs and posts a Tx to the Injective Chain
-$ python examples/chain_client_examples/1_CosmosBankMsgSend.py
+# signs and posts a transaction to the Injective Chain
+$ python examples/sync/chain_client/1_MsgSend.py
 ```
 Upgrade `pip` to the latest version, if you see these warnings:
   ```
@@ -78,47 +78,47 @@ python pyinjective/fetch_metadata.py
 
 
 ### Changelogs
-0.5.6.1
+**0.5.6.1**
 * Add devnet ini to local env
 
-0.5.6.0
+**0.5.6.0**
 * add local env in networks
 
-0.5.5.9
+**0.5.5.9**
 * add MsgBatchUpdateOrders to the composer
 * add skip/limit parameters to funding payments
 
-0.5.5.8
+**0.5.5.8**
 * fix stream_bids in async client
 * add more messages in MsgResponses for simulation
 
-0.5.5.5
+**0.5.5.5**
 * Refactor LCD endpoints
 * regen ini files
 
-0.5.5.1
+**0.5.5.1**
 * Add ATOM back to denoms_mainnet.ini
 
-0.5.5
+**0.5.5**
 * Added MsgBid to the Composer and provided an example
 * Refactored the clients and composer with kwargs for optional arguments
 
-0.5.4
+**0.5.4**
 * Added PortfolioRequest, GetTxByHashRequest, AuctionRequest, AuctionsRequest, StreamBidsRequest and provided examples
 * Updated the composer with MsgIncreasePosition and MsgLiquidatePosition
 * Added reduce-only orders to the composer and updated examples
 
-0.5.3
+**0.5.3**
 * add skip, and limit to trade request
 
-0.5.2
+**0.5.2**
 * add sync init_num_seq, changed previous init_num_seq to async_init_num_seq
 * add staging mainnet endpoint, update market metadata
 * protobuf regen
 * response parser improvements
 * fix type hints
 
-0.5.1
+**0.5.1**
 * add AsyncClient
 * add MetaRPC API
 
