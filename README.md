@@ -78,23 +78,27 @@ python pyinjective/fetch_metadata.py
 
 
 ### Changelogs
+**0.5.6.2**
+* Add authz support in composer and client
+* Add historical rewards for Trade & Earn
+
 **0.5.6.1**
 * Add devnet ini to local env
 
 **0.5.6.0**
-* add local env in networks
+* Add local env in networks
 
 **0.5.5.9**
-* add MsgBatchUpdateOrders to the composer
-* add skip/limit parameters to funding payments
+* Add MsgBatchUpdateOrders to the composer
+* Add skip/limit parameters to funding payments
 
 **0.5.5.8**
-* fix stream_bids in async client
-* add more messages in MsgResponses for simulation
+* Fix stream_bids in async client
+* Add more messages in MsgResponses for simulation
 
 **0.5.5.5**
 * Refactor LCD endpoints
-* regen ini files
+* Regen ini files
 
 **0.5.5.1**
 * Add ATOM back to denoms_mainnet.ini
@@ -109,26 +113,25 @@ python pyinjective/fetch_metadata.py
 * Added reduce-only orders to the composer and updated examples
 
 **0.5.3**
-* add skip, and limit to trade request
+* Add skip, and limit to trade request
 
 **0.5.2**
-* add sync init_num_seq, changed previous init_num_seq to async_init_num_seq
-* add staging mainnet endpoint, update market metadata
-* protobuf regen
-* response parser improvements
-* fix type hints
+* Add sync init_num_seq, changed previous init_num_seq to async_init_num_seq
+* Add staging mainnet endpoint, update market metadata
+* Protobuf regen
+* Response parser improvements
+* Fix type hints
 
 **0.5.1**
-* add AsyncClient
-* add MetaRPC API
+* Add AsyncClient
+* Add MetaRPC API
 
 **0.4.8**
-
-* add tokyo as optional API node option for mainnet
-* improve conversion utils, include gas estimation in simulation response
-* update exchange client
-* add display fields, update ini files, fix derv quantity conversion
-* minor format fixes
+* Add tokyo as optional API node option for mainnet
+* Improve conversion utils, include gas estimation in simulation response
+* Update exchange client
+* Add display fields, update ini files, fix derv quantity conversion
+* Minor format fixes
 
 **0.4.5**
 * Wrap exchange grpc client into Client class.
