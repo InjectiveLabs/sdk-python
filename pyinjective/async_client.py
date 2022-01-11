@@ -1,10 +1,8 @@
 import time
-
 import grpc
-
 from typing import List, Optional, Tuple, Union
 
-from .exceptions import NotFoundError
+from .exceptions import NotFoundError, EmptyMsgError
 
 from .proto.cosmos.base.abci.v1beta1 import abci_pb2 as abci_type
 
@@ -17,11 +15,15 @@ from .proto.cosmos.auth.v1beta1 import (
     query_pb2 as auth_query,
     auth_pb2 as auth_type,
 )
+from .proto.cosmos.authz.v1beta1 import (
+    query_pb2_grpc as authz_query_grpc,
+    query_pb2 as authz_query,
+    authz_pb2 as authz_type,
+)
 from .proto.cosmos.tx.v1beta1 import (
     service_pb2_grpc as tx_service_grpc,
     service_pb2 as tx_service,
 )
-
 from .proto.exchange import (
     injective_accounts_rpc_pb2 as exchange_accounts_rpc_pb,
     injective_accounts_rpc_pb2_grpc as exchange_accounts_rpc_grpc,
@@ -140,6 +142,11 @@ class AsyncClient:
         latest_block = await self.get_latest_block()
         return latest_block.block.header.chain_id
 
+    async def get_grants(self, granter: str, grantee: str, **kwargs):
+        return await self.stubAuthz.Grants(
+            authz_query.QueryGrantsRequest(
+                granter=granter, grantee=grantee, msg_type_url=kwargs.get("msg_type_url")))
+
     # Injective Exchange client methods
 
     # Auction RPC
@@ -222,6 +229,10 @@ class AsyncClient:
     async def get_portfolio(self, account_address: str):
         req = exchange_accounts_rpc_pb.PortfolioRequest(account_address=account_address)
         return await self.stubExchangeAccount.Portfolio(req)
+
+    async def get_rewards(self, **kwargs):
+        req = exchange_accounts_rpc_pb.RewardsRequest(account_address=kwargs.get("account_address"), epoch=kwargs.get("epoch"))
+        return await self.stubExchangeAccount.Rewards(req)
 
 
     # OracleRPC
