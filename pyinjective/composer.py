@@ -1,3 +1,10 @@
+from time import time
+
+from google.protobuf import any_pb2, message, timestamp_pb2
+
+from .proto.cosmos.authz.v1beta1 import authz_pb2 as cosmos_authz_pb
+from .proto.cosmos.authz.v1beta1 import tx_pb2 as cosmos_authz_tx_pb
+
 from .proto.cosmos.bank.v1beta1 import tx_pb2 as cosmos_bank_tx_pb
 from .proto.cosmos.base.v1beta1 import coin_pb2 as cosmos_base_coin_pb
 
@@ -280,7 +287,7 @@ class Composer:
             sender=sender,
             data=data
         )
-        
+
     def MsgBatchUpdateOrders(
         self,
         sender: str,
@@ -374,6 +381,56 @@ class Composer:
             round=round,
             bid_amount=self.Coin(amount=be_amount, denom="inj")
             )
+
+    def MsgGrant(
+        self,
+        granter: str,
+        grantee: str,
+        msg_type: str,
+        expire_in: int
+    ):
+        auth = cosmos_authz_pb.GenericAuthorization(msg=msg_type)
+        any_auth = any_pb2.Any()
+        any_auth.Pack(auth, type_url_prefix="")
+
+        grant = cosmos_authz_pb.Grant(
+            authorization=any_auth,
+            expiration=timestamp_pb2.Timestamp(seconds=(int(time()) + expire_in))
+        )
+
+        return cosmos_authz_tx_pb.MsgGrant(
+            granter=granter,
+            grantee=grantee,
+            grant=grant
+        )
+
+    def MsgExec(
+        self,
+        grantee: str,
+        msgs: list
+    ):
+        any_msgs: [any_pb2.Any] = []
+        for msg in msgs:
+            any_msg = any_pb2.Any()
+            any_msg.Pack(msg, type_url_prefix="")
+            any_msgs.append(any_msg)
+
+        return cosmos_authz_tx_pb.MsgExec(
+            grantee=grantee,
+            msgs=any_msgs
+        )
+
+    def MsgRevoke(
+        self,
+        granter: str,
+        grantee: str,
+        msg_type: list
+    ):
+        return cosmos_authz_tx_pb.MsgRevoke(
+            granter=granter,
+            grantee=grantee,
+            msg_type_url=msg_type
+        )
 
     # data field format: [request-msg-header][raw-byte-msg-response]
     # you need to figure out this magic prefix number to trim request-msg-header off the data
