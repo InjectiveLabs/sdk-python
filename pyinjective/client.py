@@ -167,6 +167,11 @@ class Client:
         latest_block = self.get_latest_block()
         return latest_block.block.header.chain_id
 
+    def get_grants(self, granter: str, grantee: str, **kwargs):
+        return self.stubAuthz.Grants(
+            authz_query.QueryGrantsRequest(
+                granter=granter, grantee=grantee, msg_type_url=kwargs.get("msg_type_url")))
+
     # Injective Exchange client methods
 
     # Auction RPC
