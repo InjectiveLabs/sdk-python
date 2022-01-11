@@ -1,6 +1,3 @@
-import sys
-sys.path.insert(0, '/Users/nam/desktop/injective/sdk-python/')
-
 import asyncio
 import logging
 
@@ -12,22 +9,22 @@ from pyinjective.wallet import PrivateKey, PublicKey, Address
 
 async def main() -> None:
     # select network: local, testnet, mainnet
-    network = Network.devnet()
+    network = Network.testnet()
     composer = ProtoMsgComposer(network=network.string())
 
     # initialize grpc client
     client = Client(network, insecure=True)
 
     # load account
-    priv_key = PrivateKey.from_hex("f9db9bf330e23cb7839039e944adef6e9df447b90b503d5b4464c90bea9022f3")
+    priv_key = PrivateKey.from_hex("5d386fbdbf11f1141010f81a46b40f94887367562bd33b452bbaa6ce1cd1381e")
     pub_key = priv_key.to_public_key()
     address = pub_key.to_address().init_num_seq(network.lcd_endpoint)
 
     # prepare tx msg
     msg = composer.MsgRevoke(
-        granter='inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r',
-        grantee='inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku',
-        msg_type='/injective.exchange.v1beta1.MsgCreateSpotLimitOrder'
+        granter = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku",
+        grantee = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
+        msg_type = "/injective.exchange.v1beta1.MsgCreateSpotLimitOrder"
     )
 
     # build sim tx
