@@ -15,6 +15,11 @@ from .proto.cosmos.auth.v1beta1 import (
     query_pb2 as auth_query,
     auth_pb2 as auth_type,
 )
+from .proto.cosmos.authz.v1beta1 import (
+    query_pb2_grpc as authz_query_grpc,
+    query_pb2 as authz_query,
+    authz_pb2 as authz_type,
+)
 from .proto.cosmos.tx.v1beta1 import (
     service_pb2_grpc as tx_service_grpc,
     service_pb2 as tx_service,
@@ -40,7 +45,6 @@ from .proto.exchange import (
 
 from .constant import Network
 
-
 class Client:
     def __init__(
         self,
@@ -59,6 +63,7 @@ class Client:
         )
         self.stubCosmosTendermint = tendermint_query_grpc.ServiceStub(chain_channel)
         self.stubAuth = auth_query_grpc.QueryStub(chain_channel)
+        self.stubAuthz = authz_query_grpc.QueryStub(chain_channel)
         self.stubTx = tx_service_grpc.ServiceStub(chain_channel)
 
         # exchange stubs
@@ -162,6 +167,11 @@ class Client:
         latest_block = self.get_latest_block()
         return latest_block.block.header.chain_id
 
+    def get_grants(self, granter: str, grantee: str, **kwargs):
+        return self.stubAuthz.Grants(
+            authz_query.QueryGrantsRequest(
+                granter=granter, grantee=grantee, msg_type_url=kwargs.get("msg_type_url")))
+
     # Injective Exchange client methods
 
     # Auction RPC
@@ -260,6 +270,10 @@ class Client:
     def get_portfolio(self, account_address: str):
         req = exchange_accounts_rpc_pb.PortfolioRequest(account_address=account_address)
         return self.stubExchangeAccount.Portfolio(req)
+
+    def get_rewards(self, **kwargs):
+        req = exchange_accounts_rpc_pb.RewardsRequest(account_address=kwargs.get("account_address"), epoch=kwargs.get("epoch"))
+        return self.stubExchangeAccount.Rewards(req)
 
     # OracleRPC
 
