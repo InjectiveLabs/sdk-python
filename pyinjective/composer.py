@@ -198,12 +198,12 @@ class Composer:
             order_hash=order_hash,
         )
 
-    def MsgBatchCreateSpotLimitOrders(self, sender: str, orders: list):
+    def MsgBatchCreateSpotLimitOrders(self, sender: str, orders: List):
         return injective_exchange_tx_pb.MsgBatchCreateSpotLimitOrders(
             sender=sender, orders=orders
         )
 
-    def MsgBatchCancelSpotOrders(self, sender: str, data: list):
+    def MsgBatchCancelSpotOrders(self, sender: str, data: List):
         return injective_exchange_tx_pb.MsgBatchCancelSpotOrders(
             sender=sender, data=data
         )
@@ -267,12 +267,12 @@ class Composer:
             order_hash=order_hash,
         )
 
-    def MsgBatchCreateDerivativeLimitOrders(self, sender: str, orders: list):
+    def MsgBatchCreateDerivativeLimitOrders(self, sender: str, orders: List):
         return injective_exchange_tx_pb.MsgBatchCreateDerivativeLimitOrders(
             sender=sender, orders=orders
         )
 
-    def MsgBatchCancelDerivativeOrders(self, sender: str, data: list):
+    def MsgBatchCancelDerivativeOrders(self, sender: str, data: List):
         return injective_exchange_tx_pb.MsgBatchCancelDerivativeOrders(
             sender=sender, data=data
         )
@@ -369,7 +369,7 @@ class Composer:
             granter=granter, grantee=grantee, grant=grant
         )
 
-    def MsgExec(self, grantee: str, msgs: list):
+    def MsgExec(self, grantee: str, msgs: List):
         any_msgs: List[any_pb2.Any] = []
         for msg in msgs:
             any_msg = any_pb2.Any()
@@ -378,7 +378,7 @@ class Composer:
 
         return cosmos_authz_tx_pb.MsgExec(grantee=grantee, msgs=any_msgs)
 
-    def MsgRevoke(self, granter: str, grantee: str, msg_type: list):
+    def MsgRevoke(self, granter: str, grantee: str, msg_type: str):
         return cosmos_authz_tx_pb.MsgRevoke(
             granter=granter, grantee=grantee, msg_type_url=msg_type
         )
