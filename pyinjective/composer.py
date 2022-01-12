@@ -409,6 +409,8 @@ class Composer:
             "/injective.exchange.v1beta1.MsgIncreasePositionMargin": injective_exchange_tx_pb.MsgIncreasePositionMarginResponse,
             "/injective.auction.v1beta1.MsgBid": injective_auction_tx_pb.MsgBidResponse,
             "/cosmos.bank.v1beta1.MsgSend": cosmos_bank_tx_pb.MsgSendResponse,
+            "/cosmos.authz.v1beta1.MsgGrant": cosmos_authz_tx_pb.MsgGrantResponse,
+            "/cosmos.authz.v1beta1.MsgRevoke": cosmos_authz_tx_pb.MsgRevokeResponse,
         }
 
         response = tx_response_pb.TxResponseData.FromString(data)
