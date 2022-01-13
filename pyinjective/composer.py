@@ -371,6 +371,7 @@ class Composer:
 
     def MsgExec(self, grantee: str, msgs: List):
         any_msgs: List[any_pb2.Any] = []
+
         for msg in msgs:
             any_msg = any_pb2.Any()
             any_msg.Pack(msg, type_url_prefix="")
@@ -409,8 +410,9 @@ class Composer:
             "/injective.exchange.v1beta1.MsgIncreasePositionMargin": injective_exchange_tx_pb.MsgIncreasePositionMarginResponse,
             "/injective.auction.v1beta1.MsgBid": injective_auction_tx_pb.MsgBidResponse,
             "/cosmos.bank.v1beta1.MsgSend": cosmos_bank_tx_pb.MsgSendResponse,
-            "/cosmos.authz.v1beta1.MsgGrant": cosmos_authz_tx_pb.MsgGrantResponse,
-            "/cosmos.authz.v1beta1.MsgRevoke": cosmos_authz_tx_pb.MsgRevokeResponse,
+            "/cosmos.authz.v1beta1.MsgGrant": cosmos_authz_tx_pb.MsgGrant,
+            "/cosmos.authz.v1beta1.MsgExec": cosmos_authz_tx_pb.MsgExec,
+            "/cosmos.authz.v1beta1.MsgRevoke": cosmos_authz_tx_pb.MsgRevoke,
         }
 
         response = tx_response_pb.TxResponseData.FromString(data)
@@ -419,3 +421,27 @@ class Composer:
             msgs.append(header_map[msg.header].FromString(msg.data))
 
         return msgs
+
+    @staticmethod
+    def UnpackMsgExecResponse(msg_type, data):
+        header_map = {
+            "MsgCreateSpotLimitOrder": injective_exchange_tx_pb.MsgCreateSpotLimitOrderResponse,
+            "MsgCreateSpotMarketOrder": injective_exchange_tx_pb.MsgCreateSpotMarketOrderResponse,
+            "MsgCreateDerivativeLimitOrder": injective_exchange_tx_pb.MsgCreateDerivativeLimitOrderResponse,
+            "MsgCreateDerivativeMarketOrder": injective_exchange_tx_pb.MsgCreateDerivativeMarketOrderResponse,
+            "MsgCancelSpotOrder": injective_exchange_tx_pb.MsgCancelSpotOrderResponse,
+            "MsgCancelDerivativeOrder": injective_exchange_tx_pb.MsgCancelDerivativeOrderResponse,
+            "MsgBatchCancelSpotOrders": injective_exchange_tx_pb.MsgBatchCancelSpotOrdersResponse,
+            "MsgBatchCancelDerivativeOrders": injective_exchange_tx_pb.MsgBatchCancelDerivativeOrdersResponse,
+            "MsgBatchCreateSpotLimitOrders": injective_exchange_tx_pb.MsgBatchCreateSpotLimitOrdersResponse,
+            "MsgBatchCreateDerivativeLimitOrders": injective_exchange_tx_pb.MsgBatchCreateDerivativeLimitOrdersResponse,
+            "MsgBatchUpdateOrders": injective_exchange_tx_pb.MsgBatchUpdateOrdersResponse,
+            "MsgDeposit": injective_exchange_tx_pb.MsgDepositResponse,
+            "MsgWithdraw": injective_exchange_tx_pb.MsgWithdrawResponse,
+            "MsgSubaccountTransfer": injective_exchange_tx_pb.MsgSubaccountTransferResponse,
+            "MsgLiquidatePosition": injective_exchange_tx_pb.MsgLiquidatePositionResponse,
+            "MsgIncreasePositionMargin": injective_exchange_tx_pb.MsgIncreasePositionMarginResponse,
+            "MsgBid": injective_auction_tx_pb.MsgBidResponse,
+        }
+
+        return header_map[msg_type].FromString(bytes(data, "utf-8"))
