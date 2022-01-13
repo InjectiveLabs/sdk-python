@@ -58,6 +58,16 @@ async def main() -> None:
         print(sim_res)
         return
 
+    # We need to unpack 2 layers of response when using MsgExec
+    # response bytes -> response msgs
+    # exec msg response -> grantee msg response
+    sim_res_msg = ProtoMsgComposer.MsgResponses(sim_res.result.data, simulation=True)
+    unpacked_msg_res = ProtoMsgComposer.UnpackMsgExecResponse(
+        msg_type=msg0.__class__.__name__,
+        data=sim_res_msg[0].grantee
+    )
+    print(unpacked_msg_res)
+
     # build tx
     gas_price = 500000000
     gas_limit = sim_res.gas_info.gas_used + 15000  # add 15k for gas, fee computation
