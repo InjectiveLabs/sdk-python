@@ -15,6 +15,9 @@ pysha = "*"
 protobuf = "*"
 grpcio-tools = "*"
 bip32 = "*"
+web3 = "*"
+json = "*"
+requests = "*"
 
 [dev-packages]
 
