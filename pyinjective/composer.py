@@ -14,6 +14,8 @@ from .proto.injective.types.v1beta1 import tx_response_pb2 as tx_response_pb
 
 from .proto.injective.auction.v1beta1 import tx_pb2 as injective_auction_tx_pb
 
+from .proto.injective.peggy.v1 import msgs_pb2 as injective_peggy_tx_pb
+
 from .constant import Denom
 from .utils import *
 
@@ -430,6 +432,27 @@ class Composer:
             granter=granter,
             grantee=grantee,
             msg_type_url=msg_type
+        )
+
+    def MsgSendToEth(
+        self,
+        denom: str,
+        sender: str,
+        eth_dest: str,
+        amount: float,
+        bridge_fee: float
+    ):
+
+        peggy_denom, decimals = Denom.load_peggy_denom(self.network, denom)
+        be_amount = amount_to_backend(amount, decimals)
+        be_bridge_fee = amount_to_backend(bridge_fee, decimals)
+        print("Loaded withdrawal symbol {} ({}) with decimals = {}".format(denom, peggy_denom, decimals))
+
+        return injective_peggy_tx_pb.MsgSendToEth(
+            sender=sender,
+            eth_dest=eth_dest,
+            amount=self.Coin(amount=be_amount, denom=peggy_denom),
+            bridge_fee=self.Coin(amount=be_bridge_fee, denom=peggy_denom)
         )
 
     # data field format: [request-msg-header][raw-byte-msg-response]
