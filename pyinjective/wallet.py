@@ -263,6 +263,9 @@ class Address:
         id = index.to_bytes(12, byteorder='big').hex()
         return '0x' + self.addr.hex() + id
 
+    def get_ethereum_address(self) -> str:
+        return '0x' + self.addr.hex()
+
     async def async_init_num_seq(self, lcd_endpoint: str) -> "Address":
         async with aiohttp.ClientSession() as session:
             async with session.request(
