@@ -21,7 +21,7 @@ from pyinjective.constant import Network
 
 async def main() -> None:
     network = Network.testnet()
-    client = AsyncClient(network, insecure=True)
+    client = AsyncClient(network, insecure=False)
     subaccount = "0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000"
     subacc_balances_list = await client.get_subaccount_balances_list(subaccount)
     print(subacc_balances_list)

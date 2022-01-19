@@ -21,7 +21,7 @@ from pyinjective.constant import Network
 
 async def main() -> None:
     network = Network.testnet()
-    client = AsyncClient(network, insecure=True)
+    client = AsyncClient(network, insecure=False)
 
     task1 = asyncio.create_task(get_markets(client))
     task2 = asyncio.create_task(keepalive(client, [task1]))

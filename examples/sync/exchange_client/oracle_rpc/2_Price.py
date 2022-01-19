@@ -23,8 +23,8 @@ async def main() -> None:
     network = Network.testnet()
     client = Client(network, insecure=False)
     base_symbol = 'BTC'
-    quote_symbol = 'USD'
-    oracle_type = 'coinbase'
+    quote_symbol = 'USDT'
+    oracle_type = 'BandIBC'
     oracle_scale_factor = 6
     oracle_prices = client.get_oracle_prices(
         base_symbol=base_symbol,
