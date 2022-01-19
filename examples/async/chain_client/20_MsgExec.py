@@ -24,12 +24,15 @@ async def main() -> None:
 
     # prepare tx msg
     market_id = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
-    granter = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku"
+
     grantee = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
+    granter = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku"
+    granter_address = Address.from_acc_bech32(granter)
+    granter_subaccount_id = granter_address.get_subaccount_id(index=0)
     msg0 = composer.MsgCreateSpotLimitOrder(
         sender=granter,
         market_id=market_id,
-        subaccount_id=subaccount_id,
+        subaccount_id=granter_subaccount_id,
         fee_recipient=grantee,
         price=7.523,
         quantity=0.01,
