@@ -43,12 +43,12 @@ async def main() -> None:
         composer.OrderData(
             market_id=market_id,
             subaccount_id=subaccount_id,
-            order_hash="0x3d2750114faabe76c2433fd0eeb1e4e9be771ee3acac63c3689b880fb27227a2"
+            order_hash="0xdb8d61cdb541dcc9b7286e8712573890caef06bea5f2a6e38c50ee2b098a1b42"
         ),
         composer.OrderData(
             market_id=market_id,
             subaccount_id=subaccount_id,
-            order_hash="0x101ee98abc9a5922689ae070f64fedae78728bf73a822a91498b68793ac7b7e7"
+            order_hash="0x59bf0c576127e4087487500cb34fcdddac239597c3b165521f49386017530aac"
         ),
         composer.OrderData(
             market_id=market_id,
