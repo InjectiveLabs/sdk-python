@@ -1,2 +1,3 @@
 recursive-include pyinjective/proto *.py
 recursive-include pyinjective *.ini
+recursive-include pyinjective/cert/ *.crt
