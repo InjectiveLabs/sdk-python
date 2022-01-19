@@ -22,7 +22,7 @@ from pyinjective.constant import Network
 async def main() -> None:
     network = Network.testnet()
     client = AsyncClient(network, insecure=False)
-    market_ids = ["00x4ca0f92fc28be0c9761326016b5a1a2177dd6375558365116b5bdda9abc229ce"]
+    market_ids = ["0x4ca0f92fc28be0c9761326016b5a1a2177dd6375558365116b5bdda9abc229ce"]
     orderbook = await client.stream_derivative_orderbooks(market_ids=market_ids)
     async for orders in orderbook:
         print(orders)
