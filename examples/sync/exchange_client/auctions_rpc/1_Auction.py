@@ -21,7 +21,7 @@ from pyinjective.constant import Network
 
 async def main() -> None:
     network = Network.testnet()
-    client = Client(network, insecure=True)
+    client = Client(network, insecure=False)
     bid_round = 135
     auction = client.get_auction(bid_round=bid_round)
     print(auction)

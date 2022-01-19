@@ -22,7 +22,7 @@ from pyinjective.constant import Network
 
 async def main() -> None:
     network = Network.testnet()
-    client = Client(network, insecure=True)
+    client = Client(network, insecure=False)
     markets = client.stream_derivative_markets()
     for market in markets:
         print(market)
