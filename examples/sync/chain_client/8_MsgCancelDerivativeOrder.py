@@ -38,8 +38,8 @@ async def main() -> None:
     subaccount_id = address.get_subaccount_id(index=0)
 
     # prepare trade info
-    market_id = "0xd0f46edfba58827fe692aab7c8d46395d1696239fdf6aeddfa668b73ca82ea30"
-    order_hash = "0x7d0b95cfc0fb5901ba4d686060074107eaff6bbcc9eba25823d16fa21508bfeb"
+    market_id = "0x4ca0f92fc28be0c9761326016b5a1a2177dd6375558365116b5bdda9abc229ce"
+    order_hash = "0x7e0c96e9965380045d35eead9cb0e759709e85acf02f39be75cddedad9d3f14f"
 
     # prepare tx msg
     msg = composer.MsgCancelDerivativeOrder(

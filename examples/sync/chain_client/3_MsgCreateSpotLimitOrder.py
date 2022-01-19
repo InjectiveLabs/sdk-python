@@ -32,7 +32,7 @@ async def main() -> None:
     client = Client(network, insecure=False)
 
     # load account
-    priv_key = PrivateKey.from_hex("f9db9bf330e23cb7839039e944adef6e9df447b90b503d5b4464c90bea9022f3")
+    priv_key = PrivateKey.from_hex("5d386fbdbf11f1141010f81a46b40f94887367562bd33b452bbaa6ce1cd1381e")
     pub_key = priv_key.to_public_key()
     address =  pub_key.to_address().init_num_seq(network.lcd_endpoint)
     subaccount_id = address.get_subaccount_id(index=0)
@@ -65,12 +65,12 @@ async def main() -> None:
     sim_tx_raw_bytes = tx.get_tx_data(sim_sig, pub_key)
 
     # simulate tx
-    (simRes, success) = client.simulate_tx(sim_tx_raw_bytes)
+    (sim_res, success) = client.simulate_tx(sim_tx_raw_bytes)
     if not success:
         print(simRes)
         return
 
-    sim_res_msg = ProtoMsgComposer.MsgResponses(simRes.result.data, simulation=True)
+    sim_res_msg = ProtoMsgComposer.MsgResponses(sim_res.result.data, simulation=True)
     print("simulation msg response")
     print(sim_res_msg)
 
