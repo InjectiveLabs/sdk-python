@@ -67,7 +67,7 @@ class AsyncClient:
 
         # chain stubs
         self.chain_channel = (
-            grpc.insecure_channel(network.grpc_endpoint)
+            grpc.aio.insecure_channel(network.grpc_endpoint)
             if insecure else grpc.aio.secure_channel(network.grpc_endpoint, creds)
         )
         self.stubCosmosTendermint = tendermint_query_grpc.ServiceStub(self.chain_channel)
