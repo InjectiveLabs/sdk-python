@@ -76,7 +76,7 @@ class AsyncClient:
 
         # exchange stubs
         self.exchange_channel = (
-            grpc.insecure_channel(network.grpc_exchange_endpoint)
+            grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
             if insecure else grpc.aio.secure_channel(network.grpc_exchange_endpoint, creds)
         )
         self.stubMeta = exchange_meta_rpc_grpc.InjectiveMetaRPCStub(self.exchange_channel)
