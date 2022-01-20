@@ -21,7 +21,7 @@ from pyinjective.constant import Network
 
 async def main() -> None:
     network = Network.testnet()
-    client = AsyncClient(network, insecure=True)
+    client = AsyncClient(network, insecure=False)
     resp = await client.version()
     print('Version:', resp)
 

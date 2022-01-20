@@ -40,7 +40,7 @@ async def main() -> None:
     # prepare trade info
     fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
 
-    derivative_market_id_create = "0x7cc8b10d7deb61e744ef83bdec2bbcf4a056867e89b062c6a453020ca82bd4e4"
+    derivative_market_id_create = "0x9b9980167ecc3645ff1a5517886652d94a0825e54a77d2057cbbe3ebee015963"
     spot_market_id_create = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
 
     derivative_market_id_cancel = "0x1f73e21972972c69c03fb105a5864592ac2b47996ffea3c500d1ea2d20138717"

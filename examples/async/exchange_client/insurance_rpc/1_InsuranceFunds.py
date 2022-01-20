@@ -21,7 +21,7 @@ from pyinjective.constant import Network
 
 async def main() -> None:
     network = Network.testnet()
-    client = AsyncClient(network, insecure=True)
+    client = AsyncClient(network, insecure=False)
     insurance_funds = await client.get_insurance_funds()
     print(insurance_funds)
 

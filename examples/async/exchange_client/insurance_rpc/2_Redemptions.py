@@ -21,7 +21,7 @@ from pyinjective.constant import Network
 
 async def main() -> None:
     network = Network.testnet()
-    client = AsyncClient(network, insecure=True)
+    client = AsyncClient(network, insecure=False)
     redeemer = "inj1gxqdj76ul07w4ujsl8403nhhzyvug2h66qk057"
     redemption_denom = "share2"
     status = "disbursed"  # pending or disbursed

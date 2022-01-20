@@ -1,3 +1,8 @@
+
+import sys
+sys.path.insert(0, '/Users/nam/desktop/injective/sdk-python/')
+
+
 import asyncio
 import logging
 
@@ -64,7 +69,7 @@ async def main() -> None:
     sim_res_msg = ProtoMsgComposer.MsgResponses(sim_res.result.data, simulation=True)
     unpacked_msg_res = ProtoMsgComposer.UnpackMsgExecResponse(
         msg_type=msg0.__class__.__name__,
-        data=sim_res_msg[0].grantee
+        data=sim_res_msg[0].results[0]
     )
     print(unpacked_msg_res)
 

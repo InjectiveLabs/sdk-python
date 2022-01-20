@@ -38,7 +38,7 @@ async def main() -> None:
     subaccount_id = address.get_subaccount_id(index=0)
 
     # prepare trade info
-    market_id = "0x0f4209dbe160ce7b09559c69012d2f5fd73070f8552699a9b77aebda16ccdeb1"
+    market_id = "0x4ca0f92fc28be0c9761326016b5a1a2177dd6375558365116b5bdda9abc229ce"
 
     # prepare tx msg
     msg = composer.MsgIncreasePositionMargin(

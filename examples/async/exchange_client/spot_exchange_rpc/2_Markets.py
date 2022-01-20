@@ -21,7 +21,7 @@ from pyinjective.constant import Network
 
 async def main() -> None:
     network = Network.testnet()
-    client = AsyncClient(network, insecure=True)
+    client = AsyncClient(network, insecure=False)
     market_status = "active"  # active, paused, suspended, demolished or expired
     base_denom = "inj"
     quote_denom = "peggy0x69efCB62D98f4a6ff5a0b0CFaa4AAbB122e85e08"
