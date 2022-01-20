@@ -72,6 +72,7 @@ class AsyncClient:
         )
         self.stubCosmosTendermint = tendermint_query_grpc.ServiceStub(self.chain_channel)
         self.stubAuth = auth_query_grpc.QueryStub(self.chain_channel)
+        self.stubAuthz = authz_query_grpc.QueryStub(self.chain_channel)
         self.stubTx = tx_service_grpc.ServiceStub(self.chain_channel)
 
         # exchange stubs
