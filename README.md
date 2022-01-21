@@ -78,6 +78,13 @@ python pyinjective/fetch_metadata.py
 
 
 ### Changelogs
+**0.5.6.4**
+* Add K8S endpoint on testnet as default
+* Add root CA certs for mainnet & testnet for secure gRPC connections
+* Add method to unpack responses inside MsgExec
+* Fix type hints in composer & clients
+* Add Peggy contract ABIs for mainnet & testnet
+
 **0.5.6.3**
 * Update the testnet ini file
 
