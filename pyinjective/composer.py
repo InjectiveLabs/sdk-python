@@ -465,4 +465,4 @@ class Composer:
             "MsgBid": injective_auction_tx_pb.MsgBidResponse,
         }
 
-        return header_map[msg_type].FromString(bytes(data, "utf-8"))
+        return header_map[msg_type].FromString(data)
