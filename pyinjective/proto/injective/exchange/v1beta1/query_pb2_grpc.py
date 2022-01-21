@@ -110,6 +110,11 @@ class QueryStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTradeRewardPointsRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTradeRewardPointsResponse.FromString,
                 )
+        self.PendingTradeRewardPoints = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/PendingTradeRewardPoints',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTradeRewardPointsRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTradeRewardPointsResponse.FromString,
+                )
         self.TradeRewardCampaign = channel.unary_unary(
                 '/injective.exchange.v1beta1.Query/TradeRewardCampaign',
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTradeRewardCampaignRequest.SerializeToString,
@@ -124,6 +129,16 @@ class QueryStub(object):
                 '/injective.exchange.v1beta1.Query/FeeDiscountSchedule',
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountScheduleRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountScheduleResponse.FromString,
+                )
+        self.BalanceMismatches = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/BalanceMismatches',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBalanceMismatchesRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBalanceMismatchesResponse.FromString,
+                )
+        self.BalanceWithBalanceHolds = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/BalanceWithBalanceHolds',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBalanceWithBalanceHoldsRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBalanceWithBalanceHoldsResponse.FromString,
                 )
 
 
@@ -216,7 +231,7 @@ class QueryServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def DerivativeMarketAddress(self, request, context):
-        """Retrieves a derivative market's corresponding address for fees
+        """Retrieves a derivative market's corresponding address for fees that contribute to the market's insurance fund
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -258,7 +273,14 @@ class QueryServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def TradeRewardPoints(self, request, context):
-        """Retrieves the account and total liquidity mining points
+        """Retrieves the account and total trade rewards points
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def PendingTradeRewardPoints(self, request, context):
+        """Retrieves the pending account and total trade rewards points
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -280,6 +302,20 @@ class QueryServicer(object):
 
     def FeeDiscountSchedule(self, request, context):
         """Retrieves the fee discount schedule
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def BalanceMismatches(self, request, context):
+        """Retrieves mismatches between available vs. total balance
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def BalanceWithBalanceHolds(self, request, context):
+        """Retrieves available and total balances with balance holds
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -383,6 +419,11 @@ def add_QueryServicer_to_server(servicer, server):
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTradeRewardPointsRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTradeRewardPointsResponse.SerializeToString,
             ),
+            'PendingTradeRewardPoints': grpc.unary_unary_rpc_method_handler(
+                    servicer.PendingTradeRewardPoints,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTradeRewardPointsRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTradeRewardPointsResponse.SerializeToString,
+            ),
             'TradeRewardCampaign': grpc.unary_unary_rpc_method_handler(
                     servicer.TradeRewardCampaign,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTradeRewardCampaignRequest.FromString,
@@ -397,6 +438,16 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.FeeDiscountSchedule,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountScheduleRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountScheduleResponse.SerializeToString,
+            ),
+            'BalanceMismatches': grpc.unary_unary_rpc_method_handler(
+                    servicer.BalanceMismatches,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBalanceMismatchesRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBalanceMismatchesResponse.SerializeToString,
+            ),
+            'BalanceWithBalanceHolds': grpc.unary_unary_rpc_method_handler(
+                    servicer.BalanceWithBalanceHolds,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBalanceWithBalanceHoldsRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBalanceWithBalanceHoldsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -733,6 +784,23 @@ class Query(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def PendingTradeRewardPoints(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/PendingTradeRewardPoints',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTradeRewardPointsRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTradeRewardPointsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def TradeRewardCampaign(request,
             target,
             options=(),
@@ -780,5 +848,39 @@ class Query(object):
         return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/FeeDiscountSchedule',
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountScheduleRequest.SerializeToString,
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountScheduleResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def BalanceMismatches(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/BalanceMismatches',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBalanceMismatchesRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBalanceMismatchesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def BalanceWithBalanceHolds(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/BalanceWithBalanceHolds',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBalanceWithBalanceHoldsRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBalanceWithBalanceHoldsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

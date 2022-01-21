@@ -20,7 +20,6 @@ from .constant import Denom
 from .utils import *
 from typing import List
 
-
 class Composer:
     def __init__(self, network: str):
         self.network = network
@@ -373,7 +372,6 @@ class Composer:
 
     def MsgExec(self, grantee: str, msgs: List):
         any_msgs: List[any_pb2.Any] = []
-
         for msg in msgs:
             any_msg = any_pb2.Any()
             any_msg.Pack(msg, type_url_prefix="")

@@ -20,10 +20,9 @@ import time
 from pyinjective.client import Client
 from pyinjective.constant import Network
 
-
 async def main() -> None:
     network = Network.testnet()
-    client = Client(network, insecure=True)
+    client = Client(network, insecure=False)
     resp = client.info()
     print('[!] Info:')
     print(resp)

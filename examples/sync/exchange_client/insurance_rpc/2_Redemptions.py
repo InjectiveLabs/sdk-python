@@ -19,10 +19,9 @@ import logging
 from pyinjective.client import Client
 from pyinjective.constant import Network
 
-
 async def main() -> None:
     network = Network.testnet()
-    client = Client(network, insecure=True)
+    client = Client(network, insecure=False)
     redeemer = "inj1gxqdj76ul07w4ujsl8403nhhzyvug2h66qk057"
     redemption_denom = "share2"
     status = "disbursed"  # pending or disbursed

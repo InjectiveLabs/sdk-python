@@ -21,7 +21,7 @@ from pyinjective.constant import Network
 
 async def main() -> None:
     network = Network.testnet()
-    client = Client(network, insecure=True)
+    client = Client(network, insecure=False)
     account_address = "inj13q8u96uftm0d7ljcf6hdp0uj5tyqrwftmxllaq"
     epoch = 2
     rewards = client.get_rewards(account_address=account_address, epoch=epoch)

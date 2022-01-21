@@ -22,8 +22,8 @@ from pyinjective.constant import Network
 
 async def main() -> None:
     network = Network.testnet()
-    client = Client(network, insecure=True)
-    market_id = "0xd0f46edfba58827fe692aab7c8d46395d1696239fdf6aeddfa668b73ca82ea30"
+    client = Client(network, insecure=False)
+    market_id = "0x4ca0f92fc28be0c9761326016b5a1a2177dd6375558365116b5bdda9abc229ce"
     market = client.get_derivative_orderbook(market_id=market_id)
     print(market)
 

@@ -29,7 +29,7 @@ async def main() -> None:
     composer = ProtoMsgComposer(network=network.string())
 
     # initialize grpc client
-    client = AsyncClient(network, insecure=True)
+    client = AsyncClient(network, insecure=False)
 
     # load account
     priv_key = PrivateKey.from_hex("f9db9bf330e23cb7839039e944adef6e9df447b90b503d5b4464c90bea9022f3")
@@ -40,7 +40,7 @@ async def main() -> None:
     # prepare trade info
     fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
 
-    derivative_market_id_create = "0x7cc8b10d7deb61e744ef83bdec2bbcf4a056867e89b062c6a453020ca82bd4e4"
+    derivative_market_id_create = "0x4ca0f92fc28be0c9761326016b5a1a2177dd6375558365116b5bdda9abc229ce"
     spot_market_id_create = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
 
     derivative_market_id_cancel = "0x1f73e21972972c69c03fb105a5864592ac2b47996ffea3c500d1ea2d20138717"
@@ -153,7 +153,7 @@ async def main() -> None:
 
     # build tx
     gas_price = 500000000
-    gas_limit = sim_res.gas_info.gas_used + 15000 # add 15k for gas, fee computation
+    gas_limit = sim_res.gas_info.gas_used + 20000 # add 15k for gas, fee computation
     fee = [composer.Coin(
         amount=gas_price * gas_limit,
         denom=network.fee_denom,

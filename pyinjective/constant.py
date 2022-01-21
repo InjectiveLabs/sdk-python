@@ -88,15 +88,24 @@ class Network:
         )
 
     @classmethod
-    def testnet(cls, node='sentry0'):
-        nodes = ['sentry0', 'sentry1']
+    def testnet(cls, node='k8s'):
+        nodes = ['sentry0', 'sentry1', 'k8s']
         if node not in nodes:
-            raise ValueError("Must be one of {}".format(nodes))
+            raise ValueError('Must be one of {}'.format(nodes))
+
+        if node == 'k8s':
+            lcd_endpoint='https://k8s.testnet.lcd.injective.network'
+            grpc_endpoint='k8s.testnet.chain.grpc.injective.network:443'
+            grpc_exchange_endpoint='k8s.testnet.exchange.grpc.injective.network:443'
+        else:
+            lcd_endpoint='https://testnet.lcd.injective.dev'
+            grpc_endpoint=f'{node}.injective.dev:9900'
+            grpc_exchange_endpoint=f'{node}.injective.dev:9910'
 
         return cls(
-            lcd_endpoint="https://testnet.lcd.injective.dev",
-            grpc_endpoint=f"{node}.injective.dev:9900",
-            grpc_exchange_endpoint=f"{node}.injective.dev:9910",
+            lcd_endpoint=lcd_endpoint,
+            grpc_endpoint=grpc_endpoint,
+            grpc_exchange_endpoint=grpc_exchange_endpoint,
             chain_id='injective-888',
             fee_denom='inj',
             env='testnet'
@@ -109,16 +118,15 @@ class Network:
             'sentry1',  # us, prod
             'sentry2',  # us, staging
             'sentry3',  # tokyo, prod,
-            'sentry4',
             'sentry.cd' # dedicated github-runner
         ]
         if node not in nodes:
-            raise ValueError("Must be one of {}".format(nodes))
+            raise ValueError('Must be one of {}'.format(nodes))
 
         return cls(
-            lcd_endpoint="https://lcd.injective.network",
-            grpc_endpoint=f"{node}.injective.network:9900",
-            grpc_exchange_endpoint=f"{node}.injective.network:9910",
+            lcd_endpoint='https://lcd.injective.network',
+            grpc_endpoint=f'{node}.injective.network:9900',
+            grpc_exchange_endpoint=f'{node}.injective.network:9910',
             chain_id='injective-1',
             fee_denom='inj',
             env='mainnet'
@@ -127,9 +135,9 @@ class Network:
     @classmethod
     def local(cls):
         return cls(
-            lcd_endpoint="localhost:10337",
-            grpc_endpoint="localhost:9900",
-            grpc_exchange_endpoint="localhost:9910",
+            lcd_endpoint='localhost:10337',
+            grpc_endpoint='localhost:9900',
+            grpc_exchange_endpoint='localhost:9910',
             chain_id='injective-1',
             fee_denom='inj',
             env='local'

@@ -19,10 +19,9 @@ import logging
 from pyinjective.client import Client
 from pyinjective.constant import Network
 
-
 async def main() -> None:
     network = Network.testnet()
-    client = Client(network, insecure=True)
+    client = Client(network, insecure=False)
 
     task1 = asyncio.create_task(get_markets(client))
     task2 = asyncio.create_task(keepalive(client, [task1]))
