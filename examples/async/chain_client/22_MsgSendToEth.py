@@ -1,12 +1,12 @@
 import asyncio
 import logging
+import requests
 
 from pyinjective.composer import Composer as ProtoMsgComposer
 from pyinjective.async_client import AsyncClient
 from pyinjective.transaction import Transaction
 from pyinjective.constant import Network
 from pyinjective.wallet import PrivateKey, PublicKey, Address
-
 
 async def main() -> None:
     # select network: local, testnet, mainnet
@@ -17,31 +17,24 @@ async def main() -> None:
     client = AsyncClient(network, insecure=False)
 
     # load account
-    priv_key = PrivateKey.from_hex("f9db9bf330e23cb7839039e944adef6e9df447b90b503d5b4464c90bea9022f3")
+    priv_key = PrivateKey.from_hex("5d386fbdbf11f1141010f81a46b40f94887367562bd33b452bbaa6ce1cd1381e")
     pub_key = priv_key.to_public_key()
     address = await pub_key.to_address().async_init_num_seq(network.lcd_endpoint)
-    subaccount_id = address.get_subaccount_id(index=0)
+
+    # prepare msg
+    asset = "injective-protocol"
+    coingecko_endpoint = f"https://api.coingecko.com/api/v3/simple/price?ids={asset}&vs_currencies=usd"
+    token_price = requests.get(coingecko_endpoint).json()[asset]["usd"]
+    minimum_bridge_fee_usd = 10
+    bridge_fee = minimum_bridge_fee_usd / token_price
 
     # prepare tx msg
-    market_id = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
-    
-    grantee = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
-    granter_inj_address = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku"
-    granter_address = Address.from_acc_bech32(granter_inj_address)
-    granter_subaccount_id = granter_address.get_subaccount_id(index=0)
-    msg0 = composer.MsgCreateSpotLimitOrder(
-        sender=granter_inj_address,
-        market_id=market_id,
-        subaccount_id=granter_subaccount_id,
-        fee_recipient=grantee,
-        price=7.523,
-        quantity=0.01,
-        is_buy=True
-    )
-
-    msg = composer.MsgExec(
-        grantee=grantee,
-        msgs=[msg0]
+    msg = composer.MsgSendToEth(
+        sender=address.to_acc_bech32(),
+        denom="INJ",
+        eth_dest="0xaf79152ac5df276d9a8e1e2e22822f9713474902",
+        amount=23,
+        bridge_fee=bridge_fee
     )
 
     # build sim tx
@@ -62,13 +55,9 @@ async def main() -> None:
         print(sim_res)
         return
 
-    sim_res_msg = ProtoMsgComposer.MsgResponses(sim_res.result.data, simulation=True)
-    print("simulation msg response")
-    print(sim_res_msg)
-
     # build tx
     gas_price = 500000000
-    gas_limit = sim_res.gas_info.gas_used + 20000 # add 15k for gas, fee computation
+    gas_limit = sim_res.gas_info.gas_used + 20000  # add 20k for gas, fee computation
     fee = [composer.Coin(
         amount=gas_price * gas_limit,
         denom=network.fee_denom,
@@ -80,11 +69,9 @@ async def main() -> None:
 
     # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
     res = await client.send_tx_block_mode(tx_raw_bytes)
-    res_msg = ProtoMsgComposer.MsgResponses(res.data)
-    print("tx response")
+
+    # print tx response
     print(res)
-    print("tx msg response")
-    print(res_msg)
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)

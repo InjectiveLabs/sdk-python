@@ -1,5 +1,6 @@
 import asyncio
 import logging
+import requests
 
 from pyinjective.composer import Composer as ProtoMsgComposer
 from pyinjective.client import Client
@@ -16,31 +17,24 @@ async def main() -> None:
     client = Client(network, insecure=False)
 
     # load account
-    priv_key = PrivateKey.from_hex("f9db9bf330e23cb7839039e944adef6e9df447b90b503d5b4464c90bea9022f3")
+    priv_key = PrivateKey.from_hex("5d386fbdbf11f1141010f81a46b40f94887367562bd33b452bbaa6ce1cd1381e")
     pub_key = priv_key.to_public_key()
     address = pub_key.to_address().init_num_seq(network.lcd_endpoint)
-    subaccount_id = address.get_subaccount_id(index=0)
+
+    # prepare msg
+    asset = "injective-protocol"
+    coingecko_endpoint = f"https://api.coingecko.com/api/v3/simple/price?ids={asset}&vs_currencies=usd"
+    token_price = requests.get(coingecko_endpoint).json()[asset]["usd"]
+    minimum_bridge_fee_usd = 10
+    bridge_fee = minimum_bridge_fee_usd / token_price
 
     # prepare tx msg
-    market_id = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
-    grantee = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
-    granter_inj_address = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku"
-    granter_address = Address.from_acc_bech32(granter_inj_address)
-    granter_subaccount_id = granter_address.get_subaccount_id(index=0)
-    msg0 = composer.MsgCreateSpotLimitOrder(
-        sender=granter_inj_address,
-        market_id=market_id,
-        subaccount_id=granter_subaccount_id,
-        fee_recipient=grantee,
-        price=7.523,
-        quantity=0.01,
-        is_buy=True
-    )
-
-
-    msg = composer.MsgExec(
-        grantee=grantee,
-        msgs=[msg0]
+    msg = composer.MsgSendToEth(
+        sender=address.to_acc_bech32(),
+        denom="INJ",
+        eth_dest="0xaf79152ac5df276d9a8e1e2e22822f9713474902",
+        amount=23,
+        bridge_fee=bridge_fee
     )
 
     # build sim tx
@@ -61,19 +55,9 @@ async def main() -> None:
         print(sim_res)
         return
 
-    # We need to unpack 2 layers of response when using MsgExec
-    # response bytes -> response msgs
-    # exec msg response -> grantee msg response
-    sim_res_msg = ProtoMsgComposer.MsgResponses(sim_res.result.data, simulation=True)
-    unpacked_msg_res = ProtoMsgComposer.UnpackMsgExecResponse(
-        msg_type=msg0.__class__.__name__,
-        data=sim_res_msg[0].results[0]
-    )
-    print(unpacked_msg_res)
-
     # build tx
     gas_price = 500000000
-    gas_limit = sim_res.gas_info.gas_used + 20000 # add 20k for gas, fee computation
+    gas_limit = sim_res.gas_info.gas_used + 20000  # add 20k for gas, fee computation
     fee = [composer.Coin(
         amount=gas_price * gas_limit,
         denom=network.fee_denom,
