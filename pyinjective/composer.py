@@ -16,6 +16,7 @@ from .proto.injective.auction.v1beta1 import tx_pb2 as injective_auction_tx_pb
 
 from .constant import Denom
 from .utils import *
+from typing import List
 
 class Composer:
     def __init__(self, network: str):
@@ -188,7 +189,7 @@ class Composer:
     def MsgBatchCreateSpotLimitOrders(
         self,
         sender: str,
-        orders: list
+        orders: List
     ):
         return injective_exchange_tx_pb.MsgBatchCreateSpotLimitOrders(
             sender=sender,
@@ -198,7 +199,7 @@ class Composer:
     def MsgBatchCancelSpotOrders(
         self,
         sender: str,
-        data: list
+        data: List
     ):
         return injective_exchange_tx_pb.MsgBatchCancelSpotOrders(
             sender=sender,
@@ -271,7 +272,7 @@ class Composer:
     def MsgBatchCreateDerivativeLimitOrders(
         self,
         sender: str,
-        orders: list
+        orders: List
     ):
         return injective_exchange_tx_pb.MsgBatchCreateDerivativeLimitOrders(
             sender=sender,
@@ -281,7 +282,7 @@ class Composer:
     def MsgBatchCancelDerivativeOrders(
         self,
         sender: str,
-        data: list
+        data: List
     ):
         return injective_exchange_tx_pb.MsgBatchCancelDerivativeOrders(
             sender=sender,
@@ -407,9 +408,9 @@ class Composer:
     def MsgExec(
         self,
         grantee: str,
-        msgs: list
+        msgs: List
     ):
-        any_msgs: [any_pb2.Any] = []
+        any_msgs: List[any_pb2.Any] = []
         for msg in msgs:
             any_msg = any_pb2.Any()
             any_msg.Pack(msg, type_url_prefix="")
@@ -424,7 +425,7 @@ class Composer:
         self,
         granter: str,
         grantee: str,
-        msg_type: list
+        msg_type: str
     ):
         return cosmos_authz_tx_pb.MsgRevoke(
             granter=granter,
@@ -458,9 +459,9 @@ class Composer:
             "/injective.exchange.v1beta1.MsgIncreasePositionMargin": injective_exchange_tx_pb.MsgIncreasePositionMarginResponse,
             "/injective.auction.v1beta1.MsgBid": injective_auction_tx_pb.MsgBidResponse,
             "/cosmos.bank.v1beta1.MsgSend": cosmos_bank_tx_pb.MsgSendResponse,
-            "/cosmos.authz.v1beta1.MsgGrant": cosmos_authz_tx_pb.MsgGrant,
-            "/cosmos.authz.v1beta1.MsgExec": cosmos_authz_tx_pb.MsgExec,
-            "/cosmos.authz.v1beta1.MsgRevoke": cosmos_authz_tx_pb.MsgRevoke
+            "/cosmos.authz.v1beta1.MsgGrant": cosmos_authz_tx_pb.MsgGrantResponse,
+            "/cosmos.authz.v1beta1.MsgExec": cosmos_authz_tx_pb.MsgExecResponse,
+            "/cosmos.authz.v1beta1.MsgRevoke": cosmos_authz_tx_pb.MsgRevokeResponse
         }
 
         response = tx_response_pb.TxResponseData.FromString(data)
@@ -470,6 +471,7 @@ class Composer:
 
         return msgs
 
+    @staticmethod
     def UnpackMsgExecResponse(msg_type, data):
         header_map = {
             "MsgCreateSpotLimitOrder": injective_exchange_tx_pb.MsgCreateSpotLimitOrderResponse,
@@ -491,4 +493,4 @@ class Composer:
             "MsgBid": injective_auction_tx_pb.MsgBidResponse,
         }
 
-        return header_map[msg_type].FromString(bytes(data, 'utf-8'))
+        return header_map[msg_type].FromString(data)

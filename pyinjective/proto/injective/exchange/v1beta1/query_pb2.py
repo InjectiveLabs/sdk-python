@@ -23,7 +23,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'ZNgithub.com/InjectiveLabs/injective-core/injective-chain/modules/exchange/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n&injective/exchange/v1beta1/query.proto\x12\x1ainjective.exchange.v1beta1\x1a\x1cgoogle/api/annotations.proto\x1a)injective/exchange/v1beta1/exchange.proto\x1a(injective/exchange/v1beta1/genesis.proto\x1a\x14gogoproto/gogo.proto\"6\n\nSubaccount\x12\x0e\n\x06trader\x18\x01 \x01(\t\x12\x18\n\x10subaccount_nonce\x18\x02 \x01(\r\"\x94\x01\n%SubaccountOrderbookMetadataWithMarket\x12I\n\x08metadata\x18\x01 \x01(\x0b\x32\x37.injective.exchange.v1beta1.SubaccountOrderbookMetadata\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\r\n\x05isBuy\x18\x03 \x01(\x08\"\x1c\n\x1aQueryExchangeParamsRequest\"W\n\x1bQueryExchangeParamsResponse\x12\x38\n\x06params\x18\x01 \x01(\x0b\x32\".injective.exchange.v1beta1.ParamsB\x04\xc8\xde\x1f\x00\"y\n\x1eQuerySubaccountDepositsRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12@\n\nsubaccount\x18\x02 \x01(\x0b\x32&.injective.exchange.v1beta1.SubaccountB\x04\xc8\xde\x1f\x01\"\xd4\x01\n\x1fQuerySubaccountDepositsResponse\x12[\n\x08\x64\x65posits\x18\x01 \x03(\x0b\x32I.injective.exchange.v1beta1.QuerySubaccountDepositsResponse.DepositsEntry\x1aT\n\rDepositsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x32\n\x05value\x18\x02 \x01(\x0b\x32#.injective.exchange.v1beta1.Deposit:\x02\x38\x01\"\x1e\n\x1cQueryExchangeBalancesRequest\"\\\n\x1dQueryExchangeBalancesResponse\x12;\n\x08\x62\x61lances\x18\x01 \x03(\x0b\x32#.injective.exchange.v1beta1.BalanceB\x04\xc8\xde\x1f\x00\"E\n\x1dQuerySubaccountDepositRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\t\"W\n\x1eQuerySubaccountDepositResponse\x12\x35\n\x08\x64\x65posits\x18\x01 \x01(\x0b\x32#.injective.exchange.v1beta1.Deposit\")\n\x17QuerySpotMarketsRequest\x12\x0e\n\x06status\x18\x01 \x01(\t\"S\n\x18QuerySpotMarketsResponse\x12\x37\n\x07markets\x18\x01 \x03(\x0b\x32&.injective.exchange.v1beta1.SpotMarket\"+\n\x16QuerySpotMarketRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\"Q\n\x17QuerySpotMarketResponse\x12\x36\n\x06market\x18\x01 \x01(\x0b\x32&.injective.exchange.v1beta1.SpotMarket\"=\n\x19QuerySpotOrderbookRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\r\n\x05limit\x18\x02 \x01(\x04\"\xa1\x01\n\x1aQuerySpotOrderbookResponse\x12@\n\x10\x62uys_price_level\x18\x01 \x03(\x0b\x32&.injective.exchange.v1beta1.PriceLevel\x12\x41\n\x11sells_price_level\x18\x02 \x03(\x0b\x32&.injective.exchange.v1beta1.PriceLevel\"H\n\x1cQueryTraderSpotOrdersRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\"\xfd\x01\n\x15TrimmedSpotLimitOrder\x12=\n\x05price\x18\x01 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12@\n\x08quantity\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12@\n\x08\x66illable\x18\x03 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\r\n\x05isBuy\x18\x04 \x01(\x08\x12\x12\n\norder_hash\x18\x05 \x01(\t\"b\n\x1dQueryTraderSpotOrdersResponse\x12\x41\n\x06orders\x18\x01 \x03(\x0b\x32\x31.injective.exchange.v1beta1.TrimmedSpotLimitOrder\"C\n\x1fQueryDerivativeOrderbookRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\r\n\x05limit\x18\x02 \x01(\x04\"\xa7\x01\n QueryDerivativeOrderbookResponse\x12@\n\x10\x62uys_price_level\x18\x01 \x03(\x0b\x32&.injective.exchange.v1beta1.PriceLevel\x12\x41\n\x11sells_price_level\x18\x02 \x03(\x0b\x32&.injective.exchange.v1beta1.PriceLevel\"N\n\"QueryTraderDerivativeOrdersRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\"\xc3\x02\n\x1bTrimmedDerivativeLimitOrder\x12=\n\x05price\x18\x01 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12@\n\x08quantity\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12>\n\x06margin\x18\x03 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12@\n\x08\x66illable\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\r\n\x05isBuy\x18\x05 \x01(\x08\x12\x12\n\norder_hash\x18\x06 \x01(\t\"n\n#QueryTraderDerivativeOrdersResponse\x12G\n\x06orders\x18\x01 \x03(\x0b\x32\x37.injective.exchange.v1beta1.TrimmedDerivativeLimitOrder\"/\n\x1dQueryDerivativeMarketsRequest\x12\x0e\n\x06status\x18\x01 \x01(\t\"\x8d\x01\n\nPriceLevel\x12=\n\x05price\x18\x01 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12@\n\x08quantity\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"\xa6\x01\n\x14PerpetualMarketState\x12\x44\n\x0bmarket_info\x18\x01 \x01(\x0b\x32/.injective.exchange.v1beta1.PerpetualMarketInfo\x12H\n\x0c\x66unding_info\x18\x02 \x01(\x0b\x32\x32.injective.exchange.v1beta1.PerpetualMarketFunding\"\xb9\x02\n\x14\x46ullDerivativeMarket\x12<\n\x06market\x18\x01 \x01(\x0b\x32,.injective.exchange.v1beta1.DerivativeMarket\x12J\n\x0eperpetual_info\x18\x02 \x01(\x0b\x32\x30.injective.exchange.v1beta1.PerpetualMarketStateH\x00\x12K\n\x0c\x66utures_info\x18\x03 \x01(\x0b\x32\x33.injective.exchange.v1beta1.ExpiryFuturesMarketInfoH\x00\x12\x42\n\nmark_price\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x42\x06\n\x04info\"c\n\x1eQueryDerivativeMarketsResponse\x12\x41\n\x07markets\x18\x01 \x03(\x0b\x32\x30.injective.exchange.v1beta1.FullDerivativeMarket\"1\n\x1cQueryDerivativeMarketRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\"a\n\x1dQueryDerivativeMarketResponse\x12@\n\x06market\x18\x01 \x01(\x0b\x32\x30.injective.exchange.v1beta1.FullDerivativeMarket\"8\n#QueryDerivativeMarketAddressRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\"N\n$QueryDerivativeMarketAddressResponse\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\"9\n QuerySubaccountTradeNonceRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\"8\n\x1fQuerySubaccountPositionsRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\"<\n#QuerySubaccountOrderMetadataRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\"g\n QuerySubaccountPositionsResponse\x12\x43\n\x05state\x18\x01 \x03(\x0b\x32..injective.exchange.v1beta1.DerivativePositionB\x04\xc8\xde\x1f\x00\"\x81\x01\n$QuerySubaccountOrderMetadataResponse\x12Y\n\x08metadata\x18\x01 \x03(\x0b\x32\x41.injective.exchange.v1beta1.SubaccountOrderbookMetadataWithMarketB\x04\xc8\xde\x1f\x00\"2\n!QuerySubaccountTradeNonceResponse\x12\r\n\x05nonce\x18\x01 \x01(\r\"\x19\n\x17QueryModuleStateRequest\"S\n\x18QueryModuleStateResponse\x12\x37\n\x05state\x18\x01 \x01(\x0b\x32(.injective.exchange.v1beta1.GenesisState\"\x17\n\x15QueryPositionsRequest\"]\n\x16QueryPositionsResponse\x12\x43\n\x05state\x18\x01 \x03(\x0b\x32..injective.exchange.v1beta1.DerivativePositionB\x04\xc8\xde\x1f\x00\"1\n\x1dQueryTradeRewardPointsRequest\x12\x10\n\x08\x61\x63\x63ounts\x18\x01 \x03(\t\"u\n\x1eQueryTradeRewardPointsResponse\x12S\n\x1b\x61\x63\x63ount_trade_reward_points\x18\x01 \x03(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"!\n\x1fQueryTradeRewardCampaignRequest\"\xb1\x02\n QueryTradeRewardCampaignResponse\x12[\n\x1ctrading_reward_campaign_info\x18\x01 \x01(\x0b\x32\x35.injective.exchange.v1beta1.TradingRewardCampaignInfo\x12]\n%trading_reward_pool_campaign_schedule\x18\x02 \x03(\x0b\x32..injective.exchange.v1beta1.CampaignRewardPool\x12Q\n\x19total_trade_reward_points\x18\x03 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"5\n\"QueryFeeDiscountAccountInfoRequest\x12\x0f\n\x07\x61\x63\x63ount\x18\x01 \x01(\t\"\xc5\x01\n#QueryFeeDiscountAccountInfoResponse\x12\x12\n\ntier_level\x18\x01 \x01(\x04\x12\x45\n\x0c\x61\x63\x63ount_info\x18\x02 \x01(\x0b\x32/.injective.exchange.v1beta1.FeeDiscountTierInfo\x12\x43\n\x0b\x61\x63\x63ount_ttl\x18\x03 \x01(\x0b\x32..injective.exchange.v1beta1.FeeDiscountTierTTL\"!\n\x1fQueryFeeDiscountScheduleRequest\"r\n QueryFeeDiscountScheduleResponse\x12N\n\x15\x66\x65\x65_discount_schedule\x18\x01 \x01(\x0b\x32/.injective.exchange.v1beta1.FeeDiscountSchedule2\x94#\n\x05Query\x12\xba\x01\n\x13QueryExchangeParams\x12\x36.injective.exchange.v1beta1.QueryExchangeParamsRequest\x1a\x37.injective.exchange.v1beta1.QueryExchangeParamsResponse\"2\x82\xd3\xe4\x93\x02,\x12*/injective/exchange/v1beta1/exchangeParams\x12\xce\x01\n\x12SubaccountDeposits\x12:.injective.exchange.v1beta1.QuerySubaccountDepositsRequest\x1a;.injective.exchange.v1beta1.QuerySubaccountDepositsResponse\"?\x82\xd3\xe4\x93\x02\x39\x12\x37/injective/exchange/v1beta1/exchange/subaccountDeposits\x12\xca\x01\n\x11SubaccountDeposit\x12\x39.injective.exchange.v1beta1.QuerySubaccountDepositRequest\x1a:.injective.exchange.v1beta1.QuerySubaccountDepositResponse\">\x82\xd3\xe4\x93\x02\x38\x12\x36/injective/exchange/v1beta1/exchange/subaccountDeposit\x12\xc6\x01\n\x10\x45xchangeBalances\x12\x38.injective.exchange.v1beta1.QueryExchangeBalancesRequest\x1a\x39.injective.exchange.v1beta1.QueryExchangeBalancesResponse\"=\x82\xd3\xe4\x93\x02\x37\x12\x35/injective/exchange/v1beta1/exchange/exchangeBalances\x12\xaa\x01\n\x0bSpotMarkets\x12\x33.injective.exchange.v1beta1.QuerySpotMarketsRequest\x1a\x34.injective.exchange.v1beta1.QuerySpotMarketsResponse\"0\x82\xd3\xe4\x93\x02*\x12(/injective/exchange/v1beta1/spot/markets\x12\xb3\x01\n\nSpotMarket\x12\x32.injective.exchange.v1beta1.QuerySpotMarketRequest\x1a\x33.injective.exchange.v1beta1.QuerySpotMarketResponse\"<\x82\xd3\xe4\x93\x02\x36\x12\x34/injective/exchange/v1beta1/spot/markets/{market_id}\x12\xbe\x01\n\rSpotOrderbook\x12\x35.injective.exchange.v1beta1.QuerySpotOrderbookRequest\x1a\x36.injective.exchange.v1beta1.QuerySpotOrderbookResponse\">\x82\xd3\xe4\x93\x02\x38\x12\x36/injective/exchange/v1beta1/spot/orderbook/{market_id}\x12\xd4\x01\n\x10TraderSpotOrders\x12\x38.injective.exchange.v1beta1.QueryTraderSpotOrdersRequest\x1a\x39.injective.exchange.v1beta1.QueryTraderSpotOrdersResponse\"K\x82\xd3\xe4\x93\x02\x45\x12\x43/injective/exchange/v1beta1/spot/orders/{market_id}/{subaccount_id}\x12\xd6\x01\n\x13\x44\x65rivativeOrderbook\x12;.injective.exchange.v1beta1.QueryDerivativeOrderbookRequest\x1a<.injective.exchange.v1beta1.QueryDerivativeOrderbookResponse\"D\x82\xd3\xe4\x93\x02>\x12</injective/exchange/v1beta1/derivative/orderbook/{market_id}\x12\xec\x01\n\x16TraderDerivativeOrders\x12>.injective.exchange.v1beta1.QueryTraderDerivativeOrdersRequest\x1a?.injective.exchange.v1beta1.QueryTraderDerivativeOrdersResponse\"Q\x82\xd3\xe4\x93\x02K\x12I/injective/exchange/v1beta1/derivative/orders/{market_id}/{subaccount_id}\x12\xc2\x01\n\x11\x44\x65rivativeMarkets\x12\x39.injective.exchange.v1beta1.QueryDerivativeMarketsRequest\x1a:.injective.exchange.v1beta1.QueryDerivativeMarketsResponse\"6\x82\xd3\xe4\x93\x02\x30\x12./injective/exchange/v1beta1/derivative/markets\x12\xcb\x01\n\x10\x44\x65rivativeMarket\x12\x38.injective.exchange.v1beta1.QueryDerivativeMarketRequest\x1a\x39.injective.exchange.v1beta1.QueryDerivativeMarketResponse\"B\x82\xd3\xe4\x93\x02<\x12:/injective/exchange/v1beta1/derivative/markets/{market_id}\x12\xe7\x01\n\x17\x44\x65rivativeMarketAddress\x12?.injective.exchange.v1beta1.QueryDerivativeMarketAddressRequest\x1a@.injective.exchange.v1beta1.QueryDerivativeMarketAddressResponse\"I\x82\xd3\xe4\x93\x02\x43\x12\x41/injective/exchange/v1beta1/derivative/market_address/{market_id}\x12\xd1\x01\n\x14SubaccountTradeNonce\x12<.injective.exchange.v1beta1.QuerySubaccountTradeNonceRequest\x1a=.injective.exchange.v1beta1.QuerySubaccountTradeNonceResponse\"<\x82\xd3\xe4\x93\x02\x36\x12\x34/injective/exchange/v1beta1/exchange/{subaccount_id}\x12\xb2\x01\n\x13\x45xchangeModuleState\x12\x33.injective.exchange.v1beta1.QueryModuleStateRequest\x1a\x34.injective.exchange.v1beta1.QueryModuleStateResponse\"0\x82\xd3\xe4\x93\x02*\x12(/injective/exchange/v1beta1/module_state\x12\xa1\x01\n\tPositions\x12\x31.injective.exchange.v1beta1.QueryPositionsRequest\x1a\x32.injective.exchange.v1beta1.QueryPositionsResponse\"-\x82\xd3\xe4\x93\x02\'\x12%/injective/exchange/v1beta1/positions\x12\xcf\x01\n\x13SubaccountPositions\x12;.injective.exchange.v1beta1.QuerySubaccountPositionsRequest\x1a<.injective.exchange.v1beta1.QuerySubaccountPositionsResponse\"=\x82\xd3\xe4\x93\x02\x37\x12\x35/injective/exchange/v1beta1/positions/{subaccount_id}\x12\xe0\x01\n\x17SubaccountOrderMetadata\x12?.injective.exchange.v1beta1.QuerySubaccountOrderMetadataRequest\x1a@.injective.exchange.v1beta1.QuerySubaccountOrderMetadataResponse\"B\x82\xd3\xe4\x93\x02<\x12:/injective/exchange/v1beta1/order_metadata/{subaccount_id}\x12\xc3\x01\n\x11TradeRewardPoints\x12\x39.injective.exchange.v1beta1.QueryTradeRewardPointsRequest\x1a:.injective.exchange.v1beta1.QueryTradeRewardPointsResponse\"7\x82\xd3\xe4\x93\x02\x31\x12//injective/exchange/v1beta1/trade_reward_points\x12\xcb\x01\n\x13TradeRewardCampaign\x12;.injective.exchange.v1beta1.QueryTradeRewardCampaignRequest\x1a<.injective.exchange.v1beta1.QueryTradeRewardCampaignResponse\"9\x82\xd3\xe4\x93\x02\x33\x12\x31/injective/exchange/v1beta1/trade_reward_campaign\x12\xe2\x01\n\x16\x46\x65\x65\x44iscountAccountInfo\x12>.injective.exchange.v1beta1.QueryFeeDiscountAccountInfoRequest\x1a?.injective.exchange.v1beta1.QueryFeeDiscountAccountInfoResponse\"G\x82\xd3\xe4\x93\x02\x41\x12?/injective/exchange/v1beta1/fee_discount_account_info/{account}\x12\xcb\x01\n\x13\x46\x65\x65\x44iscountSchedule\x12;.injective.exchange.v1beta1.QueryFeeDiscountScheduleRequest\x1a<.injective.exchange.v1beta1.QueryFeeDiscountScheduleResponse\"9\x82\xd3\xe4\x93\x02\x33\x12\x31/injective/exchange/v1beta1/fee_discount_scheduleBPZNgithub.com/InjectiveLabs/injective-core/injective-chain/modules/exchange/typesb\x06proto3'
+  serialized_pb=b'\n&injective/exchange/v1beta1/query.proto\x12\x1ainjective.exchange.v1beta1\x1a\x1cgoogle/api/annotations.proto\x1a)injective/exchange/v1beta1/exchange.proto\x1a(injective/exchange/v1beta1/genesis.proto\x1a\x14gogoproto/gogo.proto\"6\n\nSubaccount\x12\x0e\n\x06trader\x18\x01 \x01(\t\x12\x18\n\x10subaccount_nonce\x18\x02 \x01(\r\"\x94\x01\n%SubaccountOrderbookMetadataWithMarket\x12I\n\x08metadata\x18\x01 \x01(\x0b\x32\x37.injective.exchange.v1beta1.SubaccountOrderbookMetadata\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\r\n\x05isBuy\x18\x03 \x01(\x08\"\x1c\n\x1aQueryExchangeParamsRequest\"W\n\x1bQueryExchangeParamsResponse\x12\x38\n\x06params\x18\x01 \x01(\x0b\x32\".injective.exchange.v1beta1.ParamsB\x04\xc8\xde\x1f\x00\"y\n\x1eQuerySubaccountDepositsRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12@\n\nsubaccount\x18\x02 \x01(\x0b\x32&.injective.exchange.v1beta1.SubaccountB\x04\xc8\xde\x1f\x01\"\xd4\x01\n\x1fQuerySubaccountDepositsResponse\x12[\n\x08\x64\x65posits\x18\x01 \x03(\x0b\x32I.injective.exchange.v1beta1.QuerySubaccountDepositsResponse.DepositsEntry\x1aT\n\rDepositsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x32\n\x05value\x18\x02 \x01(\x0b\x32#.injective.exchange.v1beta1.Deposit:\x02\x38\x01\"\x1e\n\x1cQueryExchangeBalancesRequest\"\\\n\x1dQueryExchangeBalancesResponse\x12;\n\x08\x62\x61lances\x18\x01 \x03(\x0b\x32#.injective.exchange.v1beta1.BalanceB\x04\xc8\xde\x1f\x00\"E\n\x1dQuerySubaccountDepositRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\t\"W\n\x1eQuerySubaccountDepositResponse\x12\x35\n\x08\x64\x65posits\x18\x01 \x01(\x0b\x32#.injective.exchange.v1beta1.Deposit\")\n\x17QuerySpotMarketsRequest\x12\x0e\n\x06status\x18\x01 \x01(\t\"S\n\x18QuerySpotMarketsResponse\x12\x37\n\x07markets\x18\x01 \x03(\x0b\x32&.injective.exchange.v1beta1.SpotMarket\"+\n\x16QuerySpotMarketRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\"Q\n\x17QuerySpotMarketResponse\x12\x36\n\x06market\x18\x01 \x01(\x0b\x32&.injective.exchange.v1beta1.SpotMarket\"=\n\x19QuerySpotOrderbookRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\r\n\x05limit\x18\x02 \x01(\x04\"\xa1\x01\n\x1aQuerySpotOrderbookResponse\x12@\n\x10\x62uys_price_level\x18\x01 \x03(\x0b\x32&.injective.exchange.v1beta1.PriceLevel\x12\x41\n\x11sells_price_level\x18\x02 \x03(\x0b\x32&.injective.exchange.v1beta1.PriceLevel\"H\n\x1cQueryTraderSpotOrdersRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\"\xfd\x01\n\x15TrimmedSpotLimitOrder\x12=\n\x05price\x18\x01 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12@\n\x08quantity\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12@\n\x08\x66illable\x18\x03 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\r\n\x05isBuy\x18\x04 \x01(\x08\x12\x12\n\norder_hash\x18\x05 \x01(\t\"b\n\x1dQueryTraderSpotOrdersResponse\x12\x41\n\x06orders\x18\x01 \x03(\x0b\x32\x31.injective.exchange.v1beta1.TrimmedSpotLimitOrder\"C\n\x1fQueryDerivativeOrderbookRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\r\n\x05limit\x18\x02 \x01(\x04\"\xa7\x01\n QueryDerivativeOrderbookResponse\x12@\n\x10\x62uys_price_level\x18\x01 \x03(\x0b\x32&.injective.exchange.v1beta1.PriceLevel\x12\x41\n\x11sells_price_level\x18\x02 \x03(\x0b\x32&.injective.exchange.v1beta1.PriceLevel\"N\n\"QueryTraderDerivativeOrdersRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\"\xc3\x02\n\x1bTrimmedDerivativeLimitOrder\x12=\n\x05price\x18\x01 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12@\n\x08quantity\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12>\n\x06margin\x18\x03 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12@\n\x08\x66illable\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\r\n\x05isBuy\x18\x05 \x01(\x08\x12\x12\n\norder_hash\x18\x06 \x01(\t\"n\n#QueryTraderDerivativeOrdersResponse\x12G\n\x06orders\x18\x01 \x03(\x0b\x32\x37.injective.exchange.v1beta1.TrimmedDerivativeLimitOrder\"/\n\x1dQueryDerivativeMarketsRequest\x12\x0e\n\x06status\x18\x01 \x01(\t\"\x8d\x01\n\nPriceLevel\x12=\n\x05price\x18\x01 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12@\n\x08quantity\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"\xa6\x01\n\x14PerpetualMarketState\x12\x44\n\x0bmarket_info\x18\x01 \x01(\x0b\x32/.injective.exchange.v1beta1.PerpetualMarketInfo\x12H\n\x0c\x66unding_info\x18\x02 \x01(\x0b\x32\x32.injective.exchange.v1beta1.PerpetualMarketFunding\"\xb9\x02\n\x14\x46ullDerivativeMarket\x12<\n\x06market\x18\x01 \x01(\x0b\x32,.injective.exchange.v1beta1.DerivativeMarket\x12J\n\x0eperpetual_info\x18\x02 \x01(\x0b\x32\x30.injective.exchange.v1beta1.PerpetualMarketStateH\x00\x12K\n\x0c\x66utures_info\x18\x03 \x01(\x0b\x32\x33.injective.exchange.v1beta1.ExpiryFuturesMarketInfoH\x00\x12\x42\n\nmark_price\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x42\x06\n\x04info\"c\n\x1eQueryDerivativeMarketsResponse\x12\x41\n\x07markets\x18\x01 \x03(\x0b\x32\x30.injective.exchange.v1beta1.FullDerivativeMarket\"1\n\x1cQueryDerivativeMarketRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\"a\n\x1dQueryDerivativeMarketResponse\x12@\n\x06market\x18\x01 \x01(\x0b\x32\x30.injective.exchange.v1beta1.FullDerivativeMarket\"8\n#QueryDerivativeMarketAddressRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\"N\n$QueryDerivativeMarketAddressResponse\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\"9\n QuerySubaccountTradeNonceRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\"8\n\x1fQuerySubaccountPositionsRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\"<\n#QuerySubaccountOrderMetadataRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\"g\n QuerySubaccountPositionsResponse\x12\x43\n\x05state\x18\x01 \x03(\x0b\x32..injective.exchange.v1beta1.DerivativePositionB\x04\xc8\xde\x1f\x00\"\x81\x01\n$QuerySubaccountOrderMetadataResponse\x12Y\n\x08metadata\x18\x01 \x03(\x0b\x32\x41.injective.exchange.v1beta1.SubaccountOrderbookMetadataWithMarketB\x04\xc8\xde\x1f\x00\"2\n!QuerySubaccountTradeNonceResponse\x12\r\n\x05nonce\x18\x01 \x01(\r\"\x19\n\x17QueryModuleStateRequest\"S\n\x18QueryModuleStateResponse\x12\x37\n\x05state\x18\x01 \x01(\x0b\x32(.injective.exchange.v1beta1.GenesisState\"\x17\n\x15QueryPositionsRequest\"]\n\x16QueryPositionsResponse\x12\x43\n\x05state\x18\x01 \x03(\x0b\x32..injective.exchange.v1beta1.DerivativePositionB\x04\xc8\xde\x1f\x00\"Q\n\x1dQueryTradeRewardPointsRequest\x12\x10\n\x08\x61\x63\x63ounts\x18\x01 \x03(\t\x12\x1e\n\x16pending_pool_timestamp\x18\x02 \x01(\x03\"u\n\x1eQueryTradeRewardPointsResponse\x12S\n\x1b\x61\x63\x63ount_trade_reward_points\x18\x01 \x03(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"!\n\x1fQueryTradeRewardCampaignRequest\"\xf3\x03\n QueryTradeRewardCampaignResponse\x12[\n\x1ctrading_reward_campaign_info\x18\x01 \x01(\x0b\x32\x35.injective.exchange.v1beta1.TradingRewardCampaignInfo\x12]\n%trading_reward_pool_campaign_schedule\x18\x02 \x03(\x0b\x32..injective.exchange.v1beta1.CampaignRewardPool\x12Q\n\x19total_trade_reward_points\x18\x03 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x65\n-pending_trading_reward_pool_campaign_schedule\x18\x04 \x03(\x0b\x32..injective.exchange.v1beta1.CampaignRewardPool\x12Y\n!pending_total_trade_reward_points\x18\x05 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"5\n\"QueryFeeDiscountAccountInfoRequest\x12\x0f\n\x07\x61\x63\x63ount\x18\x01 \x01(\t\"\xc5\x01\n#QueryFeeDiscountAccountInfoResponse\x12\x12\n\ntier_level\x18\x01 \x01(\x04\x12\x45\n\x0c\x61\x63\x63ount_info\x18\x02 \x01(\x0b\x32/.injective.exchange.v1beta1.FeeDiscountTierInfo\x12\x43\n\x0b\x61\x63\x63ount_ttl\x18\x03 \x01(\x0b\x32..injective.exchange.v1beta1.FeeDiscountTierTTL\"!\n\x1fQueryFeeDiscountScheduleRequest\"r\n QueryFeeDiscountScheduleResponse\x12N\n\x15\x66\x65\x65_discount_schedule\x18\x01 \x01(\x0b\x32/.injective.exchange.v1beta1.FeeDiscountSchedule\"4\n\x1dQueryBalanceMismatchesRequest\x12\x13\n\x0b\x64ust_factor\x18\x01 \x01(\x03\"\x8a\x03\n\x0f\x42\x61lanceMismatch\x12\x14\n\x0csubaccountId\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\t\x12\x41\n\tavailable\x18\x03 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12=\n\x05total\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x44\n\x0c\x62\x61lance_hold\x18\x05 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x46\n\x0e\x65xpected_total\x18\x06 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x42\n\ndifference\x18\x07 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"i\n\x1eQueryBalanceMismatchesResponse\x12G\n\x12\x62\x61lance_mismatches\x18\x01 \x03(\x0b\x32+.injective.exchange.v1beta1.BalanceMismatch\"%\n#QueryBalanceWithBalanceHoldsRequest\"\x84\x02\n\x15\x42\x61lanceWithMarginHold\x12\x14\n\x0csubaccountId\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\t\x12\x41\n\tavailable\x18\x03 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12=\n\x05total\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x44\n\x0c\x62\x61lance_hold\x18\x05 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"}\n$QueryBalanceWithBalanceHoldsResponse\x12U\n\x1a\x62\x61lance_with_balance_holds\x18\x01 \x03(\x0b\x32\x31.injective.exchange.v1beta1.BalanceWithMarginHold2\x9c(\n\x05Query\x12\xba\x01\n\x13QueryExchangeParams\x12\x36.injective.exchange.v1beta1.QueryExchangeParamsRequest\x1a\x37.injective.exchange.v1beta1.QueryExchangeParamsResponse\"2\x82\xd3\xe4\x93\x02,\x12*/injective/exchange/v1beta1/exchangeParams\x12\xce\x01\n\x12SubaccountDeposits\x12:.injective.exchange.v1beta1.QuerySubaccountDepositsRequest\x1a;.injective.exchange.v1beta1.QuerySubaccountDepositsResponse\"?\x82\xd3\xe4\x93\x02\x39\x12\x37/injective/exchange/v1beta1/exchange/subaccountDeposits\x12\xca\x01\n\x11SubaccountDeposit\x12\x39.injective.exchange.v1beta1.QuerySubaccountDepositRequest\x1a:.injective.exchange.v1beta1.QuerySubaccountDepositResponse\">\x82\xd3\xe4\x93\x02\x38\x12\x36/injective/exchange/v1beta1/exchange/subaccountDeposit\x12\xc6\x01\n\x10\x45xchangeBalances\x12\x38.injective.exchange.v1beta1.QueryExchangeBalancesRequest\x1a\x39.injective.exchange.v1beta1.QueryExchangeBalancesResponse\"=\x82\xd3\xe4\x93\x02\x37\x12\x35/injective/exchange/v1beta1/exchange/exchangeBalances\x12\xaa\x01\n\x0bSpotMarkets\x12\x33.injective.exchange.v1beta1.QuerySpotMarketsRequest\x1a\x34.injective.exchange.v1beta1.QuerySpotMarketsResponse\"0\x82\xd3\xe4\x93\x02*\x12(/injective/exchange/v1beta1/spot/markets\x12\xb3\x01\n\nSpotMarket\x12\x32.injective.exchange.v1beta1.QuerySpotMarketRequest\x1a\x33.injective.exchange.v1beta1.QuerySpotMarketResponse\"<\x82\xd3\xe4\x93\x02\x36\x12\x34/injective/exchange/v1beta1/spot/markets/{market_id}\x12\xbe\x01\n\rSpotOrderbook\x12\x35.injective.exchange.v1beta1.QuerySpotOrderbookRequest\x1a\x36.injective.exchange.v1beta1.QuerySpotOrderbookResponse\">\x82\xd3\xe4\x93\x02\x38\x12\x36/injective/exchange/v1beta1/spot/orderbook/{market_id}\x12\xd4\x01\n\x10TraderSpotOrders\x12\x38.injective.exchange.v1beta1.QueryTraderSpotOrdersRequest\x1a\x39.injective.exchange.v1beta1.QueryTraderSpotOrdersResponse\"K\x82\xd3\xe4\x93\x02\x45\x12\x43/injective/exchange/v1beta1/spot/orders/{market_id}/{subaccount_id}\x12\xd6\x01\n\x13\x44\x65rivativeOrderbook\x12;.injective.exchange.v1beta1.QueryDerivativeOrderbookRequest\x1a<.injective.exchange.v1beta1.QueryDerivativeOrderbookResponse\"D\x82\xd3\xe4\x93\x02>\x12</injective/exchange/v1beta1/derivative/orderbook/{market_id}\x12\xec\x01\n\x16TraderDerivativeOrders\x12>.injective.exchange.v1beta1.QueryTraderDerivativeOrdersRequest\x1a?.injective.exchange.v1beta1.QueryTraderDerivativeOrdersResponse\"Q\x82\xd3\xe4\x93\x02K\x12I/injective/exchange/v1beta1/derivative/orders/{market_id}/{subaccount_id}\x12\xc2\x01\n\x11\x44\x65rivativeMarkets\x12\x39.injective.exchange.v1beta1.QueryDerivativeMarketsRequest\x1a:.injective.exchange.v1beta1.QueryDerivativeMarketsResponse\"6\x82\xd3\xe4\x93\x02\x30\x12./injective/exchange/v1beta1/derivative/markets\x12\xcb\x01\n\x10\x44\x65rivativeMarket\x12\x38.injective.exchange.v1beta1.QueryDerivativeMarketRequest\x1a\x39.injective.exchange.v1beta1.QueryDerivativeMarketResponse\"B\x82\xd3\xe4\x93\x02<\x12:/injective/exchange/v1beta1/derivative/markets/{market_id}\x12\xe7\x01\n\x17\x44\x65rivativeMarketAddress\x12?.injective.exchange.v1beta1.QueryDerivativeMarketAddressRequest\x1a@.injective.exchange.v1beta1.QueryDerivativeMarketAddressResponse\"I\x82\xd3\xe4\x93\x02\x43\x12\x41/injective/exchange/v1beta1/derivative/market_address/{market_id}\x12\xd1\x01\n\x14SubaccountTradeNonce\x12<.injective.exchange.v1beta1.QuerySubaccountTradeNonceRequest\x1a=.injective.exchange.v1beta1.QuerySubaccountTradeNonceResponse\"<\x82\xd3\xe4\x93\x02\x36\x12\x34/injective/exchange/v1beta1/exchange/{subaccount_id}\x12\xb2\x01\n\x13\x45xchangeModuleState\x12\x33.injective.exchange.v1beta1.QueryModuleStateRequest\x1a\x34.injective.exchange.v1beta1.QueryModuleStateResponse\"0\x82\xd3\xe4\x93\x02*\x12(/injective/exchange/v1beta1/module_state\x12\xa1\x01\n\tPositions\x12\x31.injective.exchange.v1beta1.QueryPositionsRequest\x1a\x32.injective.exchange.v1beta1.QueryPositionsResponse\"-\x82\xd3\xe4\x93\x02\'\x12%/injective/exchange/v1beta1/positions\x12\xcf\x01\n\x13SubaccountPositions\x12;.injective.exchange.v1beta1.QuerySubaccountPositionsRequest\x1a<.injective.exchange.v1beta1.QuerySubaccountPositionsResponse\"=\x82\xd3\xe4\x93\x02\x37\x12\x35/injective/exchange/v1beta1/positions/{subaccount_id}\x12\xe0\x01\n\x17SubaccountOrderMetadata\x12?.injective.exchange.v1beta1.QuerySubaccountOrderMetadataRequest\x1a@.injective.exchange.v1beta1.QuerySubaccountOrderMetadataResponse\"B\x82\xd3\xe4\x93\x02<\x12:/injective/exchange/v1beta1/order_metadata/{subaccount_id}\x12\xc3\x01\n\x11TradeRewardPoints\x12\x39.injective.exchange.v1beta1.QueryTradeRewardPointsRequest\x1a:.injective.exchange.v1beta1.QueryTradeRewardPointsResponse\"7\x82\xd3\xe4\x93\x02\x31\x12//injective/exchange/v1beta1/trade_reward_points\x12\xd2\x01\n\x18PendingTradeRewardPoints\x12\x39.injective.exchange.v1beta1.QueryTradeRewardPointsRequest\x1a:.injective.exchange.v1beta1.QueryTradeRewardPointsResponse\"?\x82\xd3\xe4\x93\x02\x39\x12\x37/injective/exchange/v1beta1/pending_trade_reward_points\x12\xcb\x01\n\x13TradeRewardCampaign\x12;.injective.exchange.v1beta1.QueryTradeRewardCampaignRequest\x1a<.injective.exchange.v1beta1.QueryTradeRewardCampaignResponse\"9\x82\xd3\xe4\x93\x02\x33\x12\x31/injective/exchange/v1beta1/trade_reward_campaign\x12\xe2\x01\n\x16\x46\x65\x65\x44iscountAccountInfo\x12>.injective.exchange.v1beta1.QueryFeeDiscountAccountInfoRequest\x1a?.injective.exchange.v1beta1.QueryFeeDiscountAccountInfoResponse\"G\x82\xd3\xe4\x93\x02\x41\x12?/injective/exchange/v1beta1/fee_discount_account_info/{account}\x12\xcb\x01\n\x13\x46\x65\x65\x44iscountSchedule\x12;.injective.exchange.v1beta1.QueryFeeDiscountScheduleRequest\x1a<.injective.exchange.v1beta1.QueryFeeDiscountScheduleResponse\"9\x82\xd3\xe4\x93\x02\x33\x12\x31/injective/exchange/v1beta1/fee_discount_schedule\x12\xd0\x01\n\x11\x42\x61lanceMismatches\x12\x39.injective.exchange.v1beta1.QueryBalanceMismatchesRequest\x1a:.injective.exchange.v1beta1.QueryBalanceMismatchesResponse\"D\x82\xd3\xe4\x93\x02>\x12</injective/exchange/v1beta1/balance_mismatches/{dust_factor}\x12\xdd\x01\n\x17\x42\x61lanceWithBalanceHolds\x12?.injective.exchange.v1beta1.QueryBalanceWithBalanceHoldsRequest\x1a@.injective.exchange.v1beta1.QueryBalanceWithBalanceHoldsResponse\"?\x82\xd3\xe4\x93\x02\x39\x12\x37/injective/exchange/v1beta1/balances_with_balance_holdsBPZNgithub.com/InjectiveLabs/injective-core/injective-chain/modules/exchange/typesb\x06proto3'
   ,
   dependencies=[google_dot_api_dot_annotations__pb2.DESCRIPTOR,injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.DESCRIPTOR,injective_dot_exchange_dot_v1beta1_dot_genesis__pb2.DESCRIPTOR,gogoproto_dot_gogo__pb2.DESCRIPTOR,])
 
@@ -1618,6 +1618,13 @@ _QUERYTRADEREWARDPOINTSREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='pending_pool_timestamp', full_name='injective.exchange.v1beta1.QueryTradeRewardPointsRequest.pending_pool_timestamp', index=1,
+      number=2, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -1631,7 +1638,7 @@ _QUERYTRADEREWARDPOINTSREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=4594,
-  serialized_end=4643,
+  serialized_end=4675,
 )
 
 
@@ -1662,8 +1669,8 @@ _QUERYTRADEREWARDPOINTSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4645,
-  serialized_end=4762,
+  serialized_start=4677,
+  serialized_end=4794,
 )
 
 
@@ -1687,8 +1694,8 @@ _QUERYTRADEREWARDCAMPAIGNREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4764,
-  serialized_end=4797,
+  serialized_start=4796,
+  serialized_end=4829,
 )
 
 
@@ -1721,6 +1728,20 @@ _QUERYTRADEREWARDCAMPAIGNRESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='pending_trading_reward_pool_campaign_schedule', full_name='injective.exchange.v1beta1.QueryTradeRewardCampaignResponse.pending_trading_reward_pool_campaign_schedule', index=3,
+      number=4, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='pending_total_trade_reward_points', full_name='injective.exchange.v1beta1.QueryTradeRewardCampaignResponse.pending_total_trade_reward_points', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -1733,8 +1754,8 @@ _QUERYTRADEREWARDCAMPAIGNRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4800,
-  serialized_end=5105,
+  serialized_start=4832,
+  serialized_end=5331,
 )
 
 
@@ -1765,8 +1786,8 @@ _QUERYFEEDISCOUNTACCOUNTINFOREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5107,
-  serialized_end=5160,
+  serialized_start=5333,
+  serialized_end=5386,
 )
 
 
@@ -1811,8 +1832,8 @@ _QUERYFEEDISCOUNTACCOUNTINFORESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5163,
-  serialized_end=5360,
+  serialized_start=5389,
+  serialized_end=5586,
 )
 
 
@@ -1836,8 +1857,8 @@ _QUERYFEEDISCOUNTSCHEDULEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5362,
-  serialized_end=5395,
+  serialized_start=5588,
+  serialized_end=5621,
 )
 
 
@@ -1868,8 +1889,263 @@ _QUERYFEEDISCOUNTSCHEDULERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5397,
-  serialized_end=5511,
+  serialized_start=5623,
+  serialized_end=5737,
+)
+
+
+_QUERYBALANCEMISMATCHESREQUEST = _descriptor.Descriptor(
+  name='QueryBalanceMismatchesRequest',
+  full_name='injective.exchange.v1beta1.QueryBalanceMismatchesRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='dust_factor', full_name='injective.exchange.v1beta1.QueryBalanceMismatchesRequest.dust_factor', index=0,
+      number=1, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=5739,
+  serialized_end=5791,
+)
+
+
+_BALANCEMISMATCH = _descriptor.Descriptor(
+  name='BalanceMismatch',
+  full_name='injective.exchange.v1beta1.BalanceMismatch',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='subaccountId', full_name='injective.exchange.v1beta1.BalanceMismatch.subaccountId', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='denom', full_name='injective.exchange.v1beta1.BalanceMismatch.denom', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='available', full_name='injective.exchange.v1beta1.BalanceMismatch.available', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='total', full_name='injective.exchange.v1beta1.BalanceMismatch.total', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='balance_hold', full_name='injective.exchange.v1beta1.BalanceMismatch.balance_hold', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='expected_total', full_name='injective.exchange.v1beta1.BalanceMismatch.expected_total', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='difference', full_name='injective.exchange.v1beta1.BalanceMismatch.difference', index=6,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=5794,
+  serialized_end=6188,
+)
+
+
+_QUERYBALANCEMISMATCHESRESPONSE = _descriptor.Descriptor(
+  name='QueryBalanceMismatchesResponse',
+  full_name='injective.exchange.v1beta1.QueryBalanceMismatchesResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='balance_mismatches', full_name='injective.exchange.v1beta1.QueryBalanceMismatchesResponse.balance_mismatches', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=6190,
+  serialized_end=6295,
+)
+
+
+_QUERYBALANCEWITHBALANCEHOLDSREQUEST = _descriptor.Descriptor(
+  name='QueryBalanceWithBalanceHoldsRequest',
+  full_name='injective.exchange.v1beta1.QueryBalanceWithBalanceHoldsRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=6297,
+  serialized_end=6334,
+)
+
+
+_BALANCEWITHMARGINHOLD = _descriptor.Descriptor(
+  name='BalanceWithMarginHold',
+  full_name='injective.exchange.v1beta1.BalanceWithMarginHold',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='subaccountId', full_name='injective.exchange.v1beta1.BalanceWithMarginHold.subaccountId', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='denom', full_name='injective.exchange.v1beta1.BalanceWithMarginHold.denom', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='available', full_name='injective.exchange.v1beta1.BalanceWithMarginHold.available', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='total', full_name='injective.exchange.v1beta1.BalanceWithMarginHold.total', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='balance_hold', full_name='injective.exchange.v1beta1.BalanceWithMarginHold.balance_hold', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=6337,
+  serialized_end=6597,
+)
+
+
+_QUERYBALANCEWITHBALANCEHOLDSRESPONSE = _descriptor.Descriptor(
+  name='QueryBalanceWithBalanceHoldsResponse',
+  full_name='injective.exchange.v1beta1.QueryBalanceWithBalanceHoldsResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='balance_with_balance_holds', full_name='injective.exchange.v1beta1.QueryBalanceWithBalanceHoldsResponse.balance_with_balance_holds', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=6599,
+  serialized_end=6724,
 )
 
 _SUBACCOUNTORDERBOOKMETADATAWITHMARKET.fields_by_name['metadata'].message_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2._SUBACCOUNTORDERBOOKMETADATA
@@ -1907,9 +2183,12 @@ _QUERYMODULESTATERESPONSE.fields_by_name['state'].message_type = injective_dot_e
 _QUERYPOSITIONSRESPONSE.fields_by_name['state'].message_type = injective_dot_exchange_dot_v1beta1_dot_genesis__pb2._DERIVATIVEPOSITION
 _QUERYTRADEREWARDCAMPAIGNRESPONSE.fields_by_name['trading_reward_campaign_info'].message_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2._TRADINGREWARDCAMPAIGNINFO
 _QUERYTRADEREWARDCAMPAIGNRESPONSE.fields_by_name['trading_reward_pool_campaign_schedule'].message_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2._CAMPAIGNREWARDPOOL
+_QUERYTRADEREWARDCAMPAIGNRESPONSE.fields_by_name['pending_trading_reward_pool_campaign_schedule'].message_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2._CAMPAIGNREWARDPOOL
 _QUERYFEEDISCOUNTACCOUNTINFORESPONSE.fields_by_name['account_info'].message_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2._FEEDISCOUNTTIERINFO
 _QUERYFEEDISCOUNTACCOUNTINFORESPONSE.fields_by_name['account_ttl'].message_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2._FEEDISCOUNTTIERTTL
 _QUERYFEEDISCOUNTSCHEDULERESPONSE.fields_by_name['fee_discount_schedule'].message_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2._FEEDISCOUNTSCHEDULE
+_QUERYBALANCEMISMATCHESRESPONSE.fields_by_name['balance_mismatches'].message_type = _BALANCEMISMATCH
+_QUERYBALANCEWITHBALANCEHOLDSRESPONSE.fields_by_name['balance_with_balance_holds'].message_type = _BALANCEWITHMARGINHOLD
 DESCRIPTOR.message_types_by_name['Subaccount'] = _SUBACCOUNT
 DESCRIPTOR.message_types_by_name['SubaccountOrderbookMetadataWithMarket'] = _SUBACCOUNTORDERBOOKMETADATAWITHMARKET
 DESCRIPTOR.message_types_by_name['QueryExchangeParamsRequest'] = _QUERYEXCHANGEPARAMSREQUEST
@@ -1961,6 +2240,12 @@ DESCRIPTOR.message_types_by_name['QueryFeeDiscountAccountInfoRequest'] = _QUERYF
 DESCRIPTOR.message_types_by_name['QueryFeeDiscountAccountInfoResponse'] = _QUERYFEEDISCOUNTACCOUNTINFORESPONSE
 DESCRIPTOR.message_types_by_name['QueryFeeDiscountScheduleRequest'] = _QUERYFEEDISCOUNTSCHEDULEREQUEST
 DESCRIPTOR.message_types_by_name['QueryFeeDiscountScheduleResponse'] = _QUERYFEEDISCOUNTSCHEDULERESPONSE
+DESCRIPTOR.message_types_by_name['QueryBalanceMismatchesRequest'] = _QUERYBALANCEMISMATCHESREQUEST
+DESCRIPTOR.message_types_by_name['BalanceMismatch'] = _BALANCEMISMATCH
+DESCRIPTOR.message_types_by_name['QueryBalanceMismatchesResponse'] = _QUERYBALANCEMISMATCHESRESPONSE
+DESCRIPTOR.message_types_by_name['QueryBalanceWithBalanceHoldsRequest'] = _QUERYBALANCEWITHBALANCEHOLDSREQUEST
+DESCRIPTOR.message_types_by_name['BalanceWithMarginHold'] = _BALANCEWITHMARGINHOLD
+DESCRIPTOR.message_types_by_name['QueryBalanceWithBalanceHoldsResponse'] = _QUERYBALANCEWITHBALANCEHOLDSRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Subaccount = _reflection.GeneratedProtocolMessageType('Subaccount', (_message.Message,), {
@@ -2328,6 +2613,48 @@ QueryFeeDiscountScheduleResponse = _reflection.GeneratedProtocolMessageType('Que
   })
 _sym_db.RegisterMessage(QueryFeeDiscountScheduleResponse)
 
+QueryBalanceMismatchesRequest = _reflection.GeneratedProtocolMessageType('QueryBalanceMismatchesRequest', (_message.Message,), {
+  'DESCRIPTOR' : _QUERYBALANCEMISMATCHESREQUEST,
+  '__module__' : 'injective.exchange.v1beta1.query_pb2'
+  # @@protoc_insertion_point(class_scope:injective.exchange.v1beta1.QueryBalanceMismatchesRequest)
+  })
+_sym_db.RegisterMessage(QueryBalanceMismatchesRequest)
+
+BalanceMismatch = _reflection.GeneratedProtocolMessageType('BalanceMismatch', (_message.Message,), {
+  'DESCRIPTOR' : _BALANCEMISMATCH,
+  '__module__' : 'injective.exchange.v1beta1.query_pb2'
+  # @@protoc_insertion_point(class_scope:injective.exchange.v1beta1.BalanceMismatch)
+  })
+_sym_db.RegisterMessage(BalanceMismatch)
+
+QueryBalanceMismatchesResponse = _reflection.GeneratedProtocolMessageType('QueryBalanceMismatchesResponse', (_message.Message,), {
+  'DESCRIPTOR' : _QUERYBALANCEMISMATCHESRESPONSE,
+  '__module__' : 'injective.exchange.v1beta1.query_pb2'
+  # @@protoc_insertion_point(class_scope:injective.exchange.v1beta1.QueryBalanceMismatchesResponse)
+  })
+_sym_db.RegisterMessage(QueryBalanceMismatchesResponse)
+
+QueryBalanceWithBalanceHoldsRequest = _reflection.GeneratedProtocolMessageType('QueryBalanceWithBalanceHoldsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _QUERYBALANCEWITHBALANCEHOLDSREQUEST,
+  '__module__' : 'injective.exchange.v1beta1.query_pb2'
+  # @@protoc_insertion_point(class_scope:injective.exchange.v1beta1.QueryBalanceWithBalanceHoldsRequest)
+  })
+_sym_db.RegisterMessage(QueryBalanceWithBalanceHoldsRequest)
+
+BalanceWithMarginHold = _reflection.GeneratedProtocolMessageType('BalanceWithMarginHold', (_message.Message,), {
+  'DESCRIPTOR' : _BALANCEWITHMARGINHOLD,
+  '__module__' : 'injective.exchange.v1beta1.query_pb2'
+  # @@protoc_insertion_point(class_scope:injective.exchange.v1beta1.BalanceWithMarginHold)
+  })
+_sym_db.RegisterMessage(BalanceWithMarginHold)
+
+QueryBalanceWithBalanceHoldsResponse = _reflection.GeneratedProtocolMessageType('QueryBalanceWithBalanceHoldsResponse', (_message.Message,), {
+  'DESCRIPTOR' : _QUERYBALANCEWITHBALANCEHOLDSRESPONSE,
+  '__module__' : 'injective.exchange.v1beta1.query_pb2'
+  # @@protoc_insertion_point(class_scope:injective.exchange.v1beta1.QueryBalanceWithBalanceHoldsResponse)
+  })
+_sym_db.RegisterMessage(QueryBalanceWithBalanceHoldsResponse)
+
 
 DESCRIPTOR._options = None
 _QUERYEXCHANGEPARAMSRESPONSE.fields_by_name['params']._options = None
@@ -2349,6 +2676,15 @@ _QUERYSUBACCOUNTORDERMETADATARESPONSE.fields_by_name['metadata']._options = None
 _QUERYPOSITIONSRESPONSE.fields_by_name['state']._options = None
 _QUERYTRADEREWARDPOINTSRESPONSE.fields_by_name['account_trade_reward_points']._options = None
 _QUERYTRADEREWARDCAMPAIGNRESPONSE.fields_by_name['total_trade_reward_points']._options = None
+_QUERYTRADEREWARDCAMPAIGNRESPONSE.fields_by_name['pending_total_trade_reward_points']._options = None
+_BALANCEMISMATCH.fields_by_name['available']._options = None
+_BALANCEMISMATCH.fields_by_name['total']._options = None
+_BALANCEMISMATCH.fields_by_name['balance_hold']._options = None
+_BALANCEMISMATCH.fields_by_name['expected_total']._options = None
+_BALANCEMISMATCH.fields_by_name['difference']._options = None
+_BALANCEWITHMARGINHOLD.fields_by_name['available']._options = None
+_BALANCEWITHMARGINHOLD.fields_by_name['total']._options = None
+_BALANCEWITHMARGINHOLD.fields_by_name['balance_hold']._options = None
 
 _QUERY = _descriptor.ServiceDescriptor(
   name='Query',
@@ -2357,8 +2693,8 @@ _QUERY = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=5514,
-  serialized_end=10014,
+  serialized_start=6727,
+  serialized_end=11875,
   methods=[
   _descriptor.MethodDescriptor(
     name='QueryExchangeParams',
@@ -2551,9 +2887,19 @@ _QUERY = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
+    name='PendingTradeRewardPoints',
+    full_name='injective.exchange.v1beta1.Query.PendingTradeRewardPoints',
+    index=19,
+    containing_service=None,
+    input_type=_QUERYTRADEREWARDPOINTSREQUEST,
+    output_type=_QUERYTRADEREWARDPOINTSRESPONSE,
+    serialized_options=b'\202\323\344\223\0029\0227/injective/exchange/v1beta1/pending_trade_reward_points',
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
     name='TradeRewardCampaign',
     full_name='injective.exchange.v1beta1.Query.TradeRewardCampaign',
-    index=19,
+    index=20,
     containing_service=None,
     input_type=_QUERYTRADEREWARDCAMPAIGNREQUEST,
     output_type=_QUERYTRADEREWARDCAMPAIGNRESPONSE,
@@ -2563,7 +2909,7 @@ _QUERY = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='FeeDiscountAccountInfo',
     full_name='injective.exchange.v1beta1.Query.FeeDiscountAccountInfo',
-    index=20,
+    index=21,
     containing_service=None,
     input_type=_QUERYFEEDISCOUNTACCOUNTINFOREQUEST,
     output_type=_QUERYFEEDISCOUNTACCOUNTINFORESPONSE,
@@ -2573,11 +2919,31 @@ _QUERY = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='FeeDiscountSchedule',
     full_name='injective.exchange.v1beta1.Query.FeeDiscountSchedule',
-    index=21,
+    index=22,
     containing_service=None,
     input_type=_QUERYFEEDISCOUNTSCHEDULEREQUEST,
     output_type=_QUERYFEEDISCOUNTSCHEDULERESPONSE,
     serialized_options=b'\202\323\344\223\0023\0221/injective/exchange/v1beta1/fee_discount_schedule',
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='BalanceMismatches',
+    full_name='injective.exchange.v1beta1.Query.BalanceMismatches',
+    index=23,
+    containing_service=None,
+    input_type=_QUERYBALANCEMISMATCHESREQUEST,
+    output_type=_QUERYBALANCEMISMATCHESRESPONSE,
+    serialized_options=b'\202\323\344\223\002>\022</injective/exchange/v1beta1/balance_mismatches/{dust_factor}',
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='BalanceWithBalanceHolds',
+    full_name='injective.exchange.v1beta1.Query.BalanceWithBalanceHolds',
+    index=24,
+    containing_service=None,
+    input_type=_QUERYBALANCEWITHBALANCEHOLDSREQUEST,
+    output_type=_QUERYBALANCEWITHBALANCEHOLDSRESPONSE,
+    serialized_options=b'\202\323\344\223\0029\0227/injective/exchange/v1beta1/balances_with_balance_holds',
     create_key=_descriptor._internal_create_key,
   ),
 ])

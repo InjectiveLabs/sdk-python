@@ -21,7 +21,7 @@ from pyinjective.constant import Network
 
 async def main() -> None:
     network = Network.testnet()
-    client = Client(network, insecure=True)
+    client = Client(network, insecure=False)
     granter = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku"
     grantee = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
     msg_type_url = "/injective.exchange.v1beta1.MsgCreateDerivativeLimitOrder"

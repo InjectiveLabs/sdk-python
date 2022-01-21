@@ -29,7 +29,7 @@ async def main() -> None:
     composer = ProtoMsgComposer(network=network.string())
 
     # initialize grpc client
-    client = Client(network, insecure=True)
+    client = Client(network, insecure=False)
 
     # load account
     priv_key = PrivateKey.from_hex("5d386fbdbf11f1141010f81a46b40f94887367562bd33b452bbaa6ce1cd1381e")
@@ -43,12 +43,12 @@ async def main() -> None:
         composer.OrderData(
             market_id=market_id,
             subaccount_id=subaccount_id,
-            order_hash="0x3d2750114faabe76c2433fd0eeb1e4e9be771ee3acac63c3689b880fb27227a2"
+            order_hash="0xdb8d61cdb541dcc9b7286e8712573890caef06bea5f2a6e38c50ee2b098a1b42"
         ),
         composer.OrderData(
             market_id=market_id,
             subaccount_id=subaccount_id,
-            order_hash="0x101ee98abc9a5922689ae070f64fedae78728bf73a822a91498b68793ac7b7e7"
+            order_hash="0x59bf0c576127e4087487500cb34fcdddac239597c3b165521f49386017530aac"
         ),
         composer.OrderData(
             market_id=market_id,
@@ -87,7 +87,7 @@ async def main() -> None:
 
     # build tx
     gas_price = 500000000
-    gas_limit = sim_res.gas_info.gas_used + 15000 # add 15k for gas, fee computation
+    gas_limit = sim_res.gas_info.gas_used + 20000 # add 20k for gas, fee computation
     fee = [composer.Coin(
         amount=gas_price * gas_limit,
         denom=network.fee_denom,

@@ -78,6 +78,9 @@ python pyinjective/fetch_metadata.py
 
 
 ### Changelogs
+**0.5.6.3**
+* Update the testnet ini file
+
 **0.5.6.2**
 * Add authz support in composer and client
 * Add historical rewards for Trade & Earn

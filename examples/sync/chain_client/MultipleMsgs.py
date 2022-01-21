@@ -29,7 +29,7 @@ async def main() -> None:
     composer = ProtoMsgComposer(network=network.string())
 
     # initialize grpc client
-    client = Client(network, insecure=True)
+    client = Client(network, insecure=False)
 
     # load account
     priv_key = PrivateKey.from_hex("f9db9bf330e23cb7839039e944adef6e9df447b90b503d5b4464c90bea9022f3")
@@ -109,7 +109,7 @@ async def main() -> None:
 
     # build tx
     gas_price = 500000000
-    gas_limit = simRes.gas_info.gas_used + 15000  # add 15k for gas, fee computation
+    gas_limit = simRes.gas_info.gas_used + 20000 # add 20k for gas, fee computation
     fee = [composer.Coin(
         amount=gas_price * gas_limit,
         denom=network.fee_denom,
