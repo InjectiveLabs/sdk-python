@@ -84,6 +84,8 @@ python pyinjective/fetch_metadata.py
 * Add method to unpack responses inside MsgExec
 * Fix type hints in composer & clients
 * Add Peggy contract ABIs for mainnet & testnet
+* Add reduce-only support for market orders
+* Add sticky session cookie for broadcast methods
 
 **0.5.6.3**
 * Update the testnet ini file
