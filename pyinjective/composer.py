@@ -242,8 +242,8 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
-        leverage: float,
         is_buy: bool,
+        **kwargs
     ):
         return injective_exchange_tx_pb.MsgCreateDerivativeMarketOrder(
             sender=sender,
@@ -253,8 +253,9 @@ class Composer:
                 fee_recipient=fee_recipient,
                 price=price,
                 quantity=quantity,
-                leverage=leverage,
                 is_buy=is_buy,
+                leverage=kwargs.get("leverage"),
+                is_reduce_only=kwargs.get("is_reduce_only"),
             ),
         )
 
