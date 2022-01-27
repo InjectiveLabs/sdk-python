@@ -46,7 +46,6 @@ from .proto.exchange import (
 
 from .constant import Network
 
-
 class Client:
     def __init__(
         self,
@@ -73,6 +72,8 @@ class Client:
         self.stubAuth = auth_query_grpc.QueryStub(chain_channel)
         self.stubAuthz = authz_query_grpc.QueryStub(chain_channel)
         self.stubTx = tx_service_grpc.ServiceStub(chain_channel)
+        self.chain_cookie = ""
+        self.exchange_cookie = ""
 
         # exchange stubs
         exchange_channel = (
@@ -98,6 +99,31 @@ class Client:
         )
         self.stubExplorer = explorer_rpc_grpc.InjectiveExplorerRPCStub(exchange_channel)
         self.stubAuction = auction_rpc_grpc.InjectiveAuctionRPCStub(exchange_channel)
+
+    # cookie helper methods
+    def get_cookie(self, type):
+        metadata = None
+        if type == "chain":
+            if self.chain_cookie != "":
+                metadata = (("cookie", self.chain_cookie),)
+        if type == "exchange":
+            if self.exchange_cookie != "":
+                metadata = (("cookie", self.exchange_cookie),)
+        return metadata
+
+    def set_cookie(self, call, type):
+        new_cookie = None
+        for k, v in call.initial_metadata():
+            if k == "set-cookie":
+                new_cookie = v
+
+        if new_cookie == None:
+            return
+
+        if type == "chain":
+            self.chain_cookie = new_cookie
+        if type == "exchange":
+            self.exchange_cookie = new_cookie
 
     # default client methods
     def get_latest_block(self) -> tendermint_query.GetLatestBlockResponse:
@@ -140,33 +166,48 @@ class Client:
         self, tx_byte: bytes
     ) -> Tuple[Union[abci_type.SimulationResponse, grpc.RpcError], bool]:
         try:
-            return (
-                self.stubTx.Simulate(tx_service.SimulateRequest(tx_bytes=tx_byte)),
-                True,
-            )
+            req = tx_service.SimulateRequest(tx_bytes=tx_byte)
+
+            metadata = self.get_cookie(type="chain")
+            res, call = self.stubTx.Simulate.with_call(req, metadata=metadata)
+            self.set_cookie(call,type="chain")
+
+            return res, True
+
         except grpc.RpcError as err:
             return err, False
 
     def send_tx_sync_mode(self, tx_byte: bytes) -> abci_type.TxResponse:
-        return self.stubTx.BroadcastTx(
-            tx_service.BroadcastTxRequest(
-                tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_SYNC
-            )
-        ).tx_response
+        req = tx_service.BroadcastTxRequest(
+            tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_SYNC
+        )
+        metadata = self.get_cookie(type="chain")
+        res, call = self.stubTx.BroadcastTx.with_call(req, metadata=metadata)
+        self.set_cookie(call,type="chain")
+
+        return res.tx_response
 
     def send_tx_async_mode(self, tx_byte: bytes) -> abci_type.TxResponse:
-        return self.stubTx.BroadcastTx(
-            tx_service.BroadcastTxRequest(
-                tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_ASYNC
-            )
-        ).tx_response
+        req = tx_service.BroadcastTxRequest(
+            tx_bytes=tx_byte,
+            mode=tx_service.BroadcastMode.BROADCAST_MODE_ASYNC
+        )
+        metadata = self.get_cookie(type="chain")
+        res, call = self.stubTx.BroadcastTx.with_call(req, metadata=metadata)
+        self.set_cookie(call,type="chain")
+
+        return res.tx_response
 
     def send_tx_block_mode(self, tx_byte: bytes) -> abci_type.TxResponse:
-        return self.stubTx.BroadcastTx(
-            tx_service.BroadcastTxRequest(
-                tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_BLOCK
-            )
-        ).tx_response
+        req = tx_service.BroadcastTxRequest(
+            tx_bytes=tx_byte,
+            mode=tx_service.BroadcastMode.BROADCAST_MODE_BLOCK
+        )
+        metadata = self.get_cookie(type="chain")
+        res, call = self.stubTx.BroadcastTx.with_call(req, metadata=metadata)
+        self.set_cookie(call,type="chain")
+
+        return res.tx_response
 
     def get_chain_id(self) -> str:
         latest_block = self.get_latest_block()
