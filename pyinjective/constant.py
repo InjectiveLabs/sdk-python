@@ -112,8 +112,9 @@ class Network:
         )
 
     @classmethod
-    def mainnet(cls, node='sentry2'):
+    def mainnet(cls, node='lb'):
         nodes = [
+            'lb',
             'sentry0',  # us, prod
             'sentry1',  # us, prod
             'sentry2',  # us, staging
@@ -123,10 +124,19 @@ class Network:
         if node not in nodes:
             raise ValueError('Must be one of {}'.format(nodes))
 
+        if node == 'lb':
+            lcd_endpoint='https://lb.mainnet.lcd.injective.network'
+            grpc_endpoint='lb.mainnet.chain.grpc.injective.network:443'
+            grpc_exchange_endpoint='lb.mainnet.exchange.grpc.injective.network:443'
+        else:
+            lcd_endpoint='https://lcd.injective.network'
+            grpc_endpoint=f'{node}.injective.network:9900'
+            grpc_exchange_endpoint=f'{node}.injective.network:9910'
+
         return cls(
-            lcd_endpoint='https://lcd.injective.network',
-            grpc_endpoint=f'{node}.injective.network:9900',
-            grpc_exchange_endpoint=f'{node}.injective.network:9910',
+            lcd_endpoint=lcd_endpoint,
+            grpc_endpoint=grpc_endpoint,
+            grpc_exchange_endpoint=grpc_exchange_endpoint,
             chain_id='injective-1',
             fee_denom='inj',
             env='mainnet'
