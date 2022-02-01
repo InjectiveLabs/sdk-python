@@ -529,3 +529,11 @@ class AsyncClient:
             limit=kwargs.get("limit"),
         )
         return await self.stubDerivativeExchange.FundingPayments(req)
+
+    async def get_funding_rates(self, market_id: str, **kwargs):
+        req = derivative_exchange_rpc_pb.FundingRatesRequest(
+            market_id=market_id,
+            skip=kwargs.get("skip"),
+            limit=kwargs.get("limit"),
+        )
+        return await self.stubDerivativeExchange.FundingRates(req)
