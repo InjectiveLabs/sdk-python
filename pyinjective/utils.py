@@ -75,13 +75,13 @@ def floor_to(value: float, target: float) -> Decimal:
 
 def spot_price_from_backend(price, denom) -> float:
     scale = float(denom.base - denom.quote)
-    return float(price) * pow(10, scale - 18)
+    return float(price) * pow(10, scale)
 
 
 def spot_quantity_from_backend(quantity, denom) -> Decimal:
     scale = float(0 - denom.base)
     quantity_tick_size = float(denom.min_quantity_tick_size) * pow(10, scale)
-    quantity = float(quantity) * pow(10, scale - 18)
+    quantity = float(quantity) * pow(10, scale)
     return floor_to(quantity, quantity_tick_size)
 
 
