@@ -61,6 +61,11 @@ class InjectiveDerivativeExchangeRPCStub(object):
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.FundingPaymentsRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.FundingPaymentsResponse.FromString,
                 )
+        self.FundingRates = channel.unary_unary(
+                '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/FundingRates',
+                request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.FundingRatesRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.FundingRatesResponse.FromString,
+                )
         self.StreamPositions = channel.unary_stream(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamPositions',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamPositionsRequest.SerializeToString,
@@ -161,6 +166,13 @@ class InjectiveDerivativeExchangeRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def FundingRates(self, request, context):
+        """FundingRates gets the historical funding rates for a market.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def StreamPositions(self, request, context):
         """StreamPositions streams derivatives position updates.
         """
@@ -251,6 +263,11 @@ def add_InjectiveDerivativeExchangeRPCServicer_to_server(servicer, server):
                     servicer.FundingPayments,
                     request_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.FundingPaymentsRequest.FromString,
                     response_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.FundingPaymentsResponse.SerializeToString,
+            ),
+            'FundingRates': grpc.unary_unary_rpc_method_handler(
+                    servicer.FundingRates,
+                    request_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.FundingRatesRequest.FromString,
+                    response_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.FundingRatesResponse.SerializeToString,
             ),
             'StreamPositions': grpc.unary_stream_rpc_method_handler(
                     servicer.StreamPositions,
@@ -444,6 +461,23 @@ class InjectiveDerivativeExchangeRPC(object):
         return grpc.experimental.unary_unary(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/FundingPayments',
             exchange_dot_injective__derivative__exchange__rpc__pb2.FundingPaymentsRequest.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.FundingPaymentsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def FundingRates(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/FundingRates',
+            exchange_dot_injective__derivative__exchange__rpc__pb2.FundingRatesRequest.SerializeToString,
+            exchange_dot_injective__derivative__exchange__rpc__pb2.FundingRatesResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

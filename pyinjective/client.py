@@ -557,3 +557,11 @@ class Client:
             limit=kwargs.get("limit"),
         )
         return self.stubDerivativeExchange.FundingPayments(req)
+
+    def get_funding_rates(self, market_id: str, **kwargs):
+        req = derivative_exchange_rpc_pb.FundingRatesRequest(
+            market_id=market_id,
+            skip=kwargs.get("skip"),
+            limit=kwargs.get("limit"),
+        )
+        return self.stubDerivativeExchange.FundingRates(req)

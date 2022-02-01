@@ -140,6 +140,11 @@ class QueryStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBalanceWithBalanceHoldsRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBalanceWithBalanceHoldsResponse.FromString,
                 )
+        self.FeeDiscountTierStatistics = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/FeeDiscountTierStatistics',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountTierStatisticsRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountTierStatisticsResponse.FromString,
+                )
 
 
 class QueryServicer(object):
@@ -321,6 +326,13 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def FeeDiscountTierStatistics(self, request, context):
+        """Retrieves fee discount tier stats
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_QueryServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -448,6 +460,11 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.BalanceWithBalanceHolds,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBalanceWithBalanceHoldsRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBalanceWithBalanceHoldsResponse.SerializeToString,
+            ),
+            'FeeDiscountTierStatistics': grpc.unary_unary_rpc_method_handler(
+                    servicer.FeeDiscountTierStatistics,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountTierStatisticsRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountTierStatisticsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -882,5 +899,22 @@ class Query(object):
         return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/BalanceWithBalanceHolds',
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBalanceWithBalanceHoldsRequest.SerializeToString,
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBalanceWithBalanceHoldsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def FeeDiscountTierStatistics(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/FeeDiscountTierStatistics',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountTierStatisticsRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountTierStatisticsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

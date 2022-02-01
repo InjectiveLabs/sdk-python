@@ -65,6 +65,21 @@ class InjectiveExplorerRPCStub(object):
                 request_serializer=exchange_dot_injective__explorer__rpc__pb2.StreamBlocksRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__explorer__rpc__pb2.StreamBlocksResponse.FromString,
                 )
+        self.GetPeggyDepositTxs = channel.unary_unary(
+                '/injective_explorer_rpc.InjectiveExplorerRPC/GetPeggyDepositTxs',
+                request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetPeggyDepositTxsRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetPeggyDepositTxsResponse.FromString,
+                )
+        self.GetPeggyWithdrawalTxs = channel.unary_unary(
+                '/injective_explorer_rpc.InjectiveExplorerRPC/GetPeggyWithdrawalTxs',
+                request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetPeggyWithdrawalTxsRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetPeggyWithdrawalTxsResponse.FromString,
+                )
+        self.GetIBCTransferTxs = channel.unary_unary(
+                '/injective_explorer_rpc.InjectiveExplorerRPC/GetIBCTransferTxs',
+                request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetIBCTransferTxsRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetIBCTransferTxsResponse.FromString,
+                )
 
 
 class InjectiveExplorerRPCServicer(object):
@@ -141,6 +156,30 @@ class InjectiveExplorerRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetPeggyDepositTxs(self, request, context):
+        """GetPeggyDepositTxs returns the peggy deposit transactions based upon the
+        request params
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetPeggyWithdrawalTxs(self, request, context):
+        """GetPeggyWithdrawalTxs returns the peggy withdrawal transactions based upon
+        the request params
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetIBCTransferTxs(self, request, context):
+        """GetIBCTransferTxs returns the ibc transfer transactions based upon the
+        request params
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_InjectiveExplorerRPCServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -193,6 +232,21 @@ def add_InjectiveExplorerRPCServicer_to_server(servicer, server):
                     servicer.StreamBlocks,
                     request_deserializer=exchange_dot_injective__explorer__rpc__pb2.StreamBlocksRequest.FromString,
                     response_serializer=exchange_dot_injective__explorer__rpc__pb2.StreamBlocksResponse.SerializeToString,
+            ),
+            'GetPeggyDepositTxs': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetPeggyDepositTxs,
+                    request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetPeggyDepositTxsRequest.FromString,
+                    response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetPeggyDepositTxsResponse.SerializeToString,
+            ),
+            'GetPeggyWithdrawalTxs': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetPeggyWithdrawalTxs,
+                    request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetPeggyWithdrawalTxsRequest.FromString,
+                    response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetPeggyWithdrawalTxsResponse.SerializeToString,
+            ),
+            'GetIBCTransferTxs': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetIBCTransferTxs,
+                    request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetIBCTransferTxsRequest.FromString,
+                    response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetIBCTransferTxsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -372,5 +426,56 @@ class InjectiveExplorerRPC(object):
         return grpc.experimental.unary_stream(request, target, '/injective_explorer_rpc.InjectiveExplorerRPC/StreamBlocks',
             exchange_dot_injective__explorer__rpc__pb2.StreamBlocksRequest.SerializeToString,
             exchange_dot_injective__explorer__rpc__pb2.StreamBlocksResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetPeggyDepositTxs(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective_explorer_rpc.InjectiveExplorerRPC/GetPeggyDepositTxs',
+            exchange_dot_injective__explorer__rpc__pb2.GetPeggyDepositTxsRequest.SerializeToString,
+            exchange_dot_injective__explorer__rpc__pb2.GetPeggyDepositTxsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetPeggyWithdrawalTxs(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective_explorer_rpc.InjectiveExplorerRPC/GetPeggyWithdrawalTxs',
+            exchange_dot_injective__explorer__rpc__pb2.GetPeggyWithdrawalTxsRequest.SerializeToString,
+            exchange_dot_injective__explorer__rpc__pb2.GetPeggyWithdrawalTxsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetIBCTransferTxs(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective_explorer_rpc.InjectiveExplorerRPC/GetIBCTransferTxs',
+            exchange_dot_injective__explorer__rpc__pb2.GetIBCTransferTxsRequest.SerializeToString,
+            exchange_dot_injective__explorer__rpc__pb2.GetIBCTransferTxsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
