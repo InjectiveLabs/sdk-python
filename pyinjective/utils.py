@@ -83,5 +83,5 @@ def spot_quantity_from_backend(quantity, denom) -> Decimal:
     return floor_to(quantity, quantity_tick_size)
 
 def derivative_price_from_backend(price, denom) -> float:
-    scale = float(0 - denom.quote)
-    return float(price) * pow(10, scale - 18)
+    scale = float(denom.quote)
+    return float(price) / pow(10, scale)
