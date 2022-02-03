@@ -27,19 +27,16 @@ def spot_price_to_backend(price, denom) -> int:
     exchange_price = floor_to(price, price_tick_size) * pow(Decimal(10), scale_price)
     return int(exchange_price)
 
-
 def spot_quantity_to_backend(quantity, denom) -> int:
     quantity_tick_size = float(denom.min_quantity_tick_size) / pow(10, denom.base)
     scale_quantity = Decimal(18 + denom.base)
     exchange_quantity = floor_to(quantity, quantity_tick_size) * pow(Decimal(10), scale_quantity)
     return int(exchange_quantity)
 
-
 def derivative_price_to_backend(price, denom) -> int:
     price_tick_size = Decimal(denom.min_price_tick_size) / pow(10, denom.quote)
     exchange_price = floor_to(price, float(price_tick_size)) * pow(10, 18 + denom.quote)
     return int(exchange_price)
-
 
 def derivative_quantity_to_backend(quantity, denom) -> int:
     quantity_tick_size = float(denom.min_quantity_tick_size) / pow(10, denom.base)
@@ -47,24 +44,20 @@ def derivative_quantity_to_backend(quantity, denom) -> int:
     exchange_quantity = floor_to(quantity, quantity_tick_size) * pow(Decimal(10), scale_quantity)
     return int(exchange_quantity)
 
-
 def derivative_margin_to_backend(price, quantity, leverage, denom) -> int:
     price_tick_size = Decimal(denom.min_price_tick_size) / pow(10, denom.quote)
     margin = (price * quantity) / leverage
     exchange_margin = floor_to(margin, float(price_tick_size)) * pow(10, 18 + denom.quote)
     return int(exchange_margin)
 
-
 def derivative_additional_margin_to_backend(amount, denom) -> int:
     price_tick_size = float(denom.min_price_tick_size) / pow(10, denom.quote)
     additional_margin = floor_to(amount, price_tick_size) * pow(10, 18 + denom.quote)
     return int(additional_margin)
 
-
 def amount_to_backend(amount, decimals) -> int:
     be_amount = amount * pow(10, decimals)
     return int(be_amount)
-
 
 def floor_to(value: float, target: float) -> Decimal:
     value_tmp = Decimal(str(value))
