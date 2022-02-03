@@ -103,6 +103,6 @@ def compute_order_hashes(network, orders) -> [str]:
         keccak256 = sha3.keccak_256()
         keccak256.update(typed_bytes)
         order_hash = keccak256.hexdigest()
-        order_hashes.append(order_hash)
+        order_hashes.append('0x' + order_hash)
 
     return order_hashes
