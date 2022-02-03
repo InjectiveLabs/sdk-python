@@ -54,20 +54,21 @@ class Client:
         insecure: bool = False,
         credentials: grpc.ChannelCredentials = None,
     ):
-        creds = None
         # load root CA cert
         if not insecure:
             if network.env == 'testnet':
-                with open(os.path.join(os.path.dirname(__file__), 'cert/testnet.crt'), 'rb') as f:
-                    creds = grpc.ssl_channel_credentials(f.read())
+                if credentials is None:
+                    with open(os.path.join(os.path.dirname(__file__), 'cert/testnet.crt'), 'rb') as f:
+                        credentials = grpc.ssl_channel_credentials(f.read())
             if network.env == 'mainnet':
-                with open(os.path.join(os.path.dirname(__file__), 'cert/mainnet.crt'), 'rb') as f:
-                    creds = grpc.ssl_channel_credentials(f.read())
+                if credentials is None:
+                    with open(os.path.join(os.path.dirname(__file__), 'cert/mainnet.crt'), 'rb') as f:
+                        credentials = grpc.ssl_channel_credentials(f.read())
 
         # chain stubs
         chain_channel = (
             grpc.insecure_channel(network.grpc_endpoint)
-            if insecure else grpc.secure_channel(network.grpc_endpoint, creds)
+            if insecure else grpc.secure_channel(network.grpc_endpoint, credentials)
         )
         self.stubCosmosTendermint = tendermint_query_grpc.ServiceStub(chain_channel)
         self.stubAuth = auth_query_grpc.QueryStub(chain_channel)
@@ -77,7 +78,7 @@ class Client:
         # exchange stubs
         exchange_channel = (
             grpc.insecure_channel(network.grpc_exchange_endpoint)
-            if insecure else grpc.secure_channel(network.grpc_exchange_endpoint, creds)
+            if insecure else grpc.secure_channel(network.grpc_exchange_endpoint, credentials)
         )
 
         self.stubMeta = exchange_meta_rpc_grpc.InjectiveMetaRPCStub(exchange_channel)
