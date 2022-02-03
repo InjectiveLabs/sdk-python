@@ -13,10 +13,6 @@
 # limitations under the License.
 """Injective Chain Tx/Query client for Python. Example only."""
 
-import sys
-sys.path.insert(0, '/Users/nam/desktop/injective/sdk-python/')
-
-
 import asyncio
 import logging
 
