@@ -83,12 +83,12 @@ python pyinjective/fetch_metadata.py
 * Add root CA certs for mainnet & testnet for secure gRPC connections
 * Add method to unpack responses inside MsgExec
 * Fix type hints in composer & clients
-* Add Peggy contract ABIs for mainnet & testnet
+* Add Peggy contract ABI
 * Add reduce-only support for market orders
 * Add sticky session cookie for broadcast methods
 * Add historical funding rates in clients
 * Minor fixes in spot conversions for price/quantity returned from the backend
-* Add MsgSendToEth in the composer
+* Add MsgSendToEth & SendToCosmos in the composer for INJ <> ETH transfers
 * Add function to compute order hashes locally
 
 **0.5.6.3**
