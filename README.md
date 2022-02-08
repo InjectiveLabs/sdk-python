@@ -90,6 +90,8 @@ python pyinjective/fetch_metadata.py
 * Minor fixes in spot conversions for price/quantity returned from the backend
 * Add MsgSendToEth & SendToCosmos in the composer for INJ <> ETH transfers
 * Add function to compute order hashes locally
+* Add load balancer endpoint on mainnet as default
+* Re-gen ini files
 
 **0.5.6.3**
 * Update the testnet ini file
