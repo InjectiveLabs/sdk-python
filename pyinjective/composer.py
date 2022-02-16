@@ -17,6 +17,8 @@ from .proto.injective.auction.v1beta1 import tx_pb2 as injective_auction_tx_pb
 
 from .proto.injective.peggy.v1 import msgs_pb2 as injective_peggy_tx_pb
 
+from .proto.injective.oracle.v1beta1 import tx_pb2 as injective_oracle_tx_pb
+
 from .constant import Denom
 from .utils import *
 from typing import List
@@ -390,6 +392,21 @@ class Composer:
             granter=granter, grantee=grantee, msg_type_url=msg_type
         )
 
+    def MsgRelayPriceFeedPrice(
+        self,
+        sender: list,
+        base: list,
+        quote: list,
+        price: list
+    ):
+
+        return injective_oracle_tx_pb.MsgRelayPriceFeedPrice(
+            sender=sender,
+            base=base,
+            quote=quote,
+            price=price
+        )
+
     def MsgSendToEth(
         self,
         denom: str,
@@ -494,6 +511,7 @@ class Composer:
             "/cosmos.authz.v1beta1.MsgGrant": cosmos_authz_tx_pb.MsgGrantResponse,
             "/cosmos.authz.v1beta1.MsgExec": cosmos_authz_tx_pb.MsgExecResponse,
             "/cosmos.authz.v1beta1.MsgRevoke": cosmos_authz_tx_pb.MsgRevokeResponse,
+            "/injective.oracle.v1beta1.MsgRelayPriceFeedPrice": injective_oracle_tx_pb.MsgRelayPriceFeedPriceResponse
         }
 
         response = tx_response_pb.TxResponseData.FromString(data)
