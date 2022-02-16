@@ -383,7 +383,10 @@ class Client:
 
     def stream_spot_markets(self):
         req = spot_exchange_rpc_pb.StreamMarketsRequest()
-        return self.stubSpotExchange.StreamMarkets(req)
+        metadata = self.get_cookie(type="exchange")
+        res = self.stubSpotExchange.StreamMarkets(req, metadata=metadata)
+        self.set_cookie(res,type="exchange")
+        return res.tx_response
 
     def get_spot_orderbook(self, market_id: str):
         req = spot_exchange_rpc_pb.OrderbookRequest(market_id=market_id)
@@ -410,11 +413,17 @@ class Client:
 
     def stream_spot_orderbook(self, market_id: str):
         req = spot_exchange_rpc_pb.StreamOrderbookRequest(market_ids=[market_id])
-        return self.stubSpotExchange.StreamOrderbook(req)
+        metadata = self.get_cookie(type="exchange")
+        res = self.stubSpotExchange.StreamOrderbook(req, metadata=metadata)
+        self.set_cookie(res,type="exchange")
+        return res
 
     def stream_spot_orderbooks(self, market_ids: List):
         req = spot_exchange_rpc_pb.StreamOrderbookRequest(market_ids=market_ids)
-        return self.stubSpotExchange.StreamOrderbook(req)
+        metadata = self.get_cookie(type="exchange")
+        res = self.stubSpotExchange.StreamOrderbook(req, metadata=metadata)
+        self.set_cookie(res,type="exchange")
+        return res
 
     def stream_spot_orders(self, market_id: str, **kwargs):
         req = spot_exchange_rpc_pb.StreamOrdersRequest(
@@ -422,7 +431,10 @@ class Client:
             order_side=kwargs.get("order_side"),
             subaccount_id=kwargs.get("subaccount_id"),
         )
-        return self.stubSpotExchange.StreamOrders(req)
+        metadata = self.get_cookie(type="exchange")
+        res = self.stubSpotExchange.StreamOrders(req, metadata=metadata)
+        self.set_cookie(res,type="exchange")
+        return res
 
     def stream_spot_trades(self, market_id: str, **kwargs):
         req = spot_exchange_rpc_pb.StreamTradesRequest(
@@ -433,7 +445,10 @@ class Client:
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
         )
-        return self.stubSpotExchange.StreamTrades(req)
+        metadata = self.get_cookie(type="exchange")
+        res = self.stubSpotExchange.StreamTrades(req, metadata=metadata)
+        self.set_cookie(res,type="exchange")
+        return res
 
     def get_spot_subaccount_orders(self, subaccount_id: str, **kwargs):
         req = spot_exchange_rpc_pb.SubaccountOrdersListRequest(
@@ -465,7 +480,10 @@ class Client:
 
     def stream_derivative_markets(self):
         req = derivative_exchange_rpc_pb.StreamMarketRequest()
-        return self.stubDerivativeExchange.StreamMarket(req)
+        metadata = self.get_cookie(type="exchange")
+        res = self.stubDerivativeExchange.StreamMarket(req, metadata=metadata)
+        self.set_cookie(res,type="exchange")
+        return res
 
     def get_derivative_orderbook(self, market_id: str):
         req = derivative_exchange_rpc_pb.OrderbookRequest(market_id=market_id)
@@ -492,11 +510,17 @@ class Client:
 
     def stream_derivative_orderbook(self, market_id: str):
         req = derivative_exchange_rpc_pb.StreamOrderbookRequest(market_ids=[market_id])
-        return self.stubDerivativeExchange.StreamOrderbook(req)
+        metadata = self.get_cookie(type="exchange")
+        res = self.stubDerivativeExchange.StreamOrderbook(req, metadata=metadata)
+        self.set_cookie(res,type="exchange")
+        return res
 
     def stream_derivative_orderbooks(self, market_ids: List):
         req = derivative_exchange_rpc_pb.StreamOrderbookRequest(market_ids=market_ids)
-        return self.stubDerivativeExchange.StreamOrderbook(req)
+        metadata = self.get_cookie(type="exchange")
+        res = self.stubDerivativeExchange.StreamOrderbook(req, metadata=metadata)
+        self.set_cookie(res,type="exchange")
+        return res
 
     def stream_derivative_orders(self, market_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.StreamOrdersRequest(
@@ -504,7 +528,10 @@ class Client:
             order_side=kwargs.get("order_side"),
             subaccount_id=kwargs.get("subaccount_id"),
         )
-        return self.stubDerivativeExchange.StreamOrders(req)
+        metadata = self.get_cookie(type="exchange")
+        res = self.stubDerivativeExchange.StreamOrders(req, metadata=metadata)
+        self.set_cookie(res,type="exchange")
+        return res
 
     def stream_derivative_trades(self, market_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.StreamTradesRequest(
@@ -515,7 +542,10 @@ class Client:
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
         )
-        return self.stubDerivativeExchange.StreamTrades(req)
+        metadata = self.get_cookie(type="exchange")
+        res = self.stubDerivativeExchange.StreamTrades(req, metadata=metadata)
+        self.set_cookie(res,type="exchange")
+        return res
 
     def get_derivative_positions(self, market_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.PositionsRequest(
@@ -527,7 +557,10 @@ class Client:
         req = derivative_exchange_rpc_pb.StreamPositionsRequest(
             market_id=market_id, subaccount_id=kwargs.get("subaccount_id")
         )
-        return self.stubDerivativeExchange.StreamPositions(req)
+        metadata = self.get_cookie(type="exchange")
+        res = self.stubDerivativeExchange.StreamPositions(req, metadata=metadata)
+        self.set_cookie(res,type="exchange")
+        return res
 
     def get_derivative_liquidable_positions(self, **kwargs):
         req = derivative_exchange_rpc_pb.LiquidablePositionsRequest(
