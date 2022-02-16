@@ -78,6 +78,9 @@ python pyinjective/fetch_metadata.py
 
 
 ### Changelogs
+**0.5.6.5**
+* Add MsgRelayPriceFeedPrice in the composer
+
 **0.5.6.4**
 * Add K8S endpoint on testnet as default
 * Add root CA certs for mainnet & testnet for secure gRPC connections
@@ -139,27 +142,6 @@ python pyinjective/fetch_metadata.py
 * Protobuf regen
 * Response parser improvements
 * Fix type hints
-
-**0.5.1**
-* Add AsyncClient
-* Add MetaRPC API
-
-**0.4.8**
-* Add tokyo as optional API node option for mainnet
-* Improve conversion utils, include gas estimation in simulation response
-* Update exchange client
-* Add display fields, update ini files, fix derv quantity conversion
-* Minor format fixes
-
-**0.4.5**
-* Wrap exchange grpc client into Client class.
-* Add Single-threaded pending sequence management.
-
-**0.4.4**
-* Allow to parse one or multiple exchange responses in simulation/tx response data.
-* Add simulation before broadcasting tx for gas estimation and error preview.
-* Add devnet to network options.
-
 
 
 
