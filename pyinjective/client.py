@@ -553,9 +553,11 @@ class Client:
         )
         return self.stubDerivativeExchange.Positions(req)
 
-    def stream_derivative_positions(self, market_id: str, **kwargs):
+    def stream_derivative_positions(self, market_id: str = None, market_ids: list = [], **kwargs):
         req = derivative_exchange_rpc_pb.StreamPositionsRequest(
-            market_id=market_id, subaccount_id=kwargs.get("subaccount_id")
+            market_id=market_id,
+            market_ids=market_ids,
+            subaccount_id=kwargs.get("subaccount_id")
         )
         metadata = self.get_cookie(type="exchange")
         res = self.stubDerivativeExchange.StreamPositions(req, metadata=metadata)
