@@ -391,6 +391,10 @@ class Client:
     def get_spot_orderbook(self, market_id: str):
         req = spot_exchange_rpc_pb.OrderbookRequest(market_id=market_id)
         return self.stubSpotExchange.Orderbook(req)
+    
+    def get_spot_orderbooks(self, market_ids: List):
+        req = spot_exchange_rpc_pb.OrderbooksRequest(market_ids=market_ids)
+        return self.stubSpotExchange.Orderbooks(req)
 
     def get_spot_orders(self, market_id: str, **kwargs):
         req = spot_exchange_rpc_pb.OrdersRequest(
@@ -439,6 +443,7 @@ class Client:
     def stream_spot_trades(self, market_id: str, **kwargs):
         req = spot_exchange_rpc_pb.StreamTradesRequest(
             market_id=market_id,
+            market_ids=kwargs.get("market_ids"),
             execution_side=kwargs.get("execution_side"),
             direction=kwargs.get("direction"),
             subaccount_id=kwargs.get("subaccount_id"),
@@ -489,6 +494,10 @@ class Client:
         req = derivative_exchange_rpc_pb.OrderbookRequest(market_id=market_id)
         return self.stubDerivativeExchange.Orderbook(req)
 
+    def get_derivative_orderbooks(self, market_ids: List):
+        req = derivative_exchange_rpc_pb.OrderbooksRequest(market_ids=market_ids)
+        return self.stubDerivativeExchange.Orderbooks(req)
+
     def get_derivative_orders(self, market_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.OrdersRequest(
             market_id=market_id,
@@ -536,6 +545,7 @@ class Client:
     def stream_derivative_trades(self, market_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.StreamTradesRequest(
             market_id=market_id,
+            market_ids=kwargs.get("market_ids"),
             subaccount_id=kwargs.get("subaccount_id"),
             execution_side=kwargs.get("execution_side"),
             direction=kwargs.get("direction"),

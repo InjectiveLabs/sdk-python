@@ -361,6 +361,10 @@ class AsyncClient:
         req = spot_exchange_rpc_pb.OrderbookRequest(market_id=market_id)
         return await self.stubSpotExchange.Orderbook(req)
 
+    async def get_spot_orderbooks(self, market_ids: List):
+        req = spot_exchange_rpc_pb.OrderbooksRequest(market_ids=market_ids)
+        return await self.stubSpotExchange.Orderbooks(req)
+
     async def get_spot_orders(self, market_id: str, **kwargs):
         req = spot_exchange_rpc_pb.OrdersRequest(
             market_id=market_id,
@@ -442,6 +446,10 @@ class AsyncClient:
     async def get_derivative_orderbook(self, market_id: str):
         req = derivative_exchange_rpc_pb.OrderbookRequest(market_id=market_id)
         return await self.stubDerivativeExchange.Orderbook(req)
+    
+    async def get_derivative_orderbooks(self, market_ids: List):
+        req = derivative_exchange_rpc_pb.OrderbookRequest(market_ids=market_ids)
+        return await self.stubDerivativeExchange.Orderbooks(req)
 
     async def get_derivative_orders(self, market_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.OrdersRequest(
@@ -481,6 +489,7 @@ class AsyncClient:
     async def stream_derivative_trades(self, market_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.StreamTradesRequest(
             market_id=market_id,
+            market_ids=kwargs.get("market_ids"),
             subaccount_id=kwargs.get("subaccount_id"),
             execution_side=kwargs.get("execution_side"),
             direction=kwargs.get("direction"),
