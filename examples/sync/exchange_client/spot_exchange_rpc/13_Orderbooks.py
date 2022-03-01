@@ -24,19 +24,13 @@ async def main() -> None:
     network = Network.devnet()
     client = Client(network, insecure=True)
     market_ids = [
-        "0x4ca0f92fc28be0c9761326016b5a1a2177dd6375558365116b5bdda9abc229ce",
-        "0x1f73e21972972c69c03fb105a5864592ac2b47996ffea3c500d1ea2d20138717"
+        "0x74b17b0d6855feba39f1f7ab1e8bad0363bd510ee1dcc74e40c2adfe1502f781",
+        "0x26413a70c9b78a495023e5ab8003c9cf963ef963f6755f8b57255feb5744bf31"
     ]
-    subaccount_id = "0xc6fe5d33615a1c52c08018c47e8bc53646a0e101000000000000000000000000"
-    # stream_derivative_trades use market_id if market_id is provided
-    # otherwise, use market_ids
-    trades = client.stream_derivative_trades(
-        market_id=market_ids[0],
-        # market_ids=[market_ids[0]],
-        subaccount_id=subaccount_id
-    )
-    for trade in trades:
-        print(trade)
+
+    markets = client.get_spot_orderbooks(market_ids=market_ids)
+    print(markets)
+
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)

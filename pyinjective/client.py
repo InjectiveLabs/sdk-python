@@ -394,7 +394,7 @@ class Client:
     
     def get_spot_orderbooks(self, market_ids: List):
         req = spot_exchange_rpc_pb.OrderbooksRequest(market_ids=market_ids)
-        return self.stubSpotExchange.Orderbooks(req)
+        return self.stubSpotExchange.Order(req)
 
     def get_spot_orders(self, market_id: str, **kwargs):
         req = spot_exchange_rpc_pb.OrdersRequest(
@@ -440,7 +440,7 @@ class Client:
         self.set_cookie(res,type="exchange")
         return res
 
-    def stream_spot_trades(self, market_id: str, **kwargs):
+    def stream_spot_trades(self, market_id: str = None, **kwargs):
         req = spot_exchange_rpc_pb.StreamTradesRequest(
             market_id=market_id,
             market_ids=kwargs.get("market_ids"),
@@ -542,7 +542,7 @@ class Client:
         self.set_cookie(res,type="exchange")
         return res
 
-    def stream_derivative_trades(self, market_id: str, **kwargs):
+    def stream_derivative_trades(self, market_id: str = None, **kwargs):
         req = derivative_exchange_rpc_pb.StreamTradesRequest(
             market_id=market_id,
             market_ids=kwargs.get("market_ids"),

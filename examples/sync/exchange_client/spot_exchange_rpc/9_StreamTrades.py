@@ -20,14 +20,18 @@ from pyinjective.client import Client
 from pyinjective.constant import Network
 
 async def main() -> None:
-    network = Network.testnet()
-    client = Client(network, insecure=False)
-    market_id = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
+    network = Network.devnet()
+    client = Client(network, insecure=True)
+    market_ids = [
+        "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0",
+        "0x26413a70c9b78a495023e5ab8003c9cf963ef963f6755f8b57255feb5744bf31"
+    ]
     execution_side = "maker"  # maker or taker
     direction = "sell"  # sell or buy
     subaccount_id = "0xc6fe5d33615a1c52c08018c47e8bc53646a0e101000000000000000000000000"
     trades = client.stream_spot_trades(
-        market_id=market_id,
+        market_id=market_ids[0],
+        # market_ids=market_ids,
         execution_side=execution_side,
         direction=direction,
         subaccount_id=subaccount_id

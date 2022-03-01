@@ -400,7 +400,7 @@ class AsyncClient:
         )
         return self.stubSpotExchange.StreamOrders(req)
 
-    async def stream_spot_trades(self, market_id: str, **kwargs):
+    async def stream_spot_trades(self, market_id: str = None, **kwargs):
         req = spot_exchange_rpc_pb.StreamTradesRequest(
             market_id=market_id,
             execution_side=kwargs.get("execution_side"),
@@ -486,7 +486,7 @@ class AsyncClient:
         )
         return self.stubDerivativeExchange.StreamOrders(req)
 
-    async def stream_derivative_trades(self, market_id: str, **kwargs):
+    async def stream_derivative_trades(self, market_id: str = None, **kwargs):
         req = derivative_exchange_rpc_pb.StreamTradesRequest(
             market_id=market_id,
             market_ids=kwargs.get("market_ids"),
