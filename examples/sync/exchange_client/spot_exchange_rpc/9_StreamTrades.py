@@ -20,7 +20,7 @@ from pyinjective.client import Client
 from pyinjective.constant import Network
 
 async def main() -> None:
-    network = Network.devnet()
+    network = Network.testnet()
     client = Client(network, insecure=True)
     market_ids = [
         "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0",
