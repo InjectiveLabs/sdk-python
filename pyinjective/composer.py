@@ -46,7 +46,7 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
-        is_buy: bool,
+        **kwargs
     ):
         # load denom metadata
         denom = Denom.load_market(self.network, market_id)
@@ -56,11 +56,18 @@ class Composer:
         quantity = spot_quantity_to_backend(quantity, denom)
         price = spot_price_to_backend(price, denom)
         trigger_price = spot_price_to_backend(0, denom)
-        order_type = (
-            injective_exchange_pb.OrderType.BUY
-            if is_buy
-            else injective_exchange_pb.OrderType.SELL
-        )
+
+        if kwargs.get("is_buy") and not kwargs.get("is_po"):
+            order_type = injective_exchange_pb.OrderType.BUY
+
+        elif not kwargs.get("is_buy") and not kwargs.get("is_po"):
+            order_type = injective_exchange_pb.OrderType.SELL
+
+        elif kwargs.get("is_buy") and kwargs.get("is_po"):
+            order_type = injective_exchange_pb.OrderType.BUY_PO
+
+        elif not kwargs.get("is_buy") and kwargs.get("is_po"):
+            order_type = injective_exchange_pb.OrderType.SELL_PO
 
         return injective_exchange_pb.SpotOrder(
             market_id=market_id,
@@ -81,7 +88,6 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
-        is_buy: bool,
         **kwargs
     ):
         # load denom metadata
@@ -103,11 +109,18 @@ class Composer:
         price = derivative_price_to_backend(price, denom)
         trigger_price = derivative_price_to_backend(0, denom)
         quantity = derivative_quantity_to_backend(quantity, denom)
-        order_type = (
-            injective_exchange_pb.OrderType.BUY
-            if is_buy
-            else injective_exchange_pb.OrderType.SELL
-        )
+
+        if kwargs.get("is_buy") and not kwargs.get("is_po"):
+            order_type = injective_exchange_pb.OrderType.BUY
+
+        elif not kwargs.get("is_buy") and not kwargs.get("is_po"):
+            order_type = injective_exchange_pb.OrderType.SELL
+
+        elif kwargs.get("is_buy") and kwargs.get("is_po"):
+            order_type = injective_exchange_pb.OrderType.BUY_PO
+
+        elif not kwargs.get("is_buy") and kwargs.get("is_po"):
+            order_type = injective_exchange_pb.OrderType.SELL_PO
 
         return injective_exchange_pb.DerivativeOrder(
             market_id=market_id,
@@ -160,7 +173,7 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
-        is_buy: bool,
+        **kwargs
     ):
         return injective_exchange_tx_pb.MsgCreateSpotLimitOrder(
             sender=sender,
@@ -170,7 +183,8 @@ class Composer:
                 fee_recipient=fee_recipient,
                 price=price,
                 quantity=quantity,
-                is_buy=is_buy,
+                is_buy=kwargs.get("is_buy"),
+                is_po=kwargs.get("is_po")
             ),
         )
 
@@ -224,7 +238,6 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
-        is_buy: bool,
         **kwargs
     ):
         return injective_exchange_tx_pb.MsgCreateDerivativeLimitOrder(
@@ -235,7 +248,8 @@ class Composer:
                 fee_recipient=fee_recipient,
                 price=price,
                 quantity=quantity,
-                is_buy=is_buy,
+                is_buy=kwargs.get("is_buy"),
+                is_po=kwargs.get("is_po"),
                 leverage=kwargs.get("leverage"),
                 is_reduce_only=kwargs.get("is_reduce_only"),
             ),

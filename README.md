@@ -80,6 +80,7 @@ python pyinjective/fetch_metadata.py
 ### Changelogs
 **0.5.6.5**
 * Add MsgRelayPriceFeedPrice in the composer
+* Add Post-only orders in the composer
 
 **0.5.6.4**
 * Add K8S endpoint on testnet as default

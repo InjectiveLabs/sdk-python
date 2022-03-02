@@ -49,7 +49,8 @@ async def main() -> None:
             fee_recipient=fee_recipient,
             price=3.524,
             quantity=0.01,
-            is_buy=True
+            is_buy=True,
+            is_po=False
         ),
         composer.SpotOrder(
             market_id=spot_market_id,
@@ -57,7 +58,8 @@ async def main() -> None:
             fee_recipient=fee_recipient,
             price=27.92,
             quantity=0.01,
-            is_buy=False
+            is_buy=False,
+            is_po=True
         ),
     ]
 
@@ -70,6 +72,7 @@ async def main() -> None:
             quantity=0.01,
             leverage=0.7,
             is_buy=True,
+            is_po=False
         ),
         composer.DerivativeOrder(
             market_id=deriv_market_id,
