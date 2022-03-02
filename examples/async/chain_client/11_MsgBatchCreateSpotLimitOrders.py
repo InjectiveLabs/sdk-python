@@ -48,7 +48,8 @@ async def main() -> None:
             fee_recipient=fee_recipient,
             price=7.523,
             quantity=0.01,
-            is_buy=True
+            is_buy=True,
+            is_po=True
         ),
         composer.SpotOrder(
             market_id=market_id,
@@ -56,7 +57,8 @@ async def main() -> None:
             fee_recipient=fee_recipient,
             price=27.92,
             quantity=0.01,
-            is_buy=False
+            is_buy=False,
+            is_po=False
         ),
     ]
 

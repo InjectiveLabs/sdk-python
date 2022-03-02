@@ -34,7 +34,8 @@ async def main() -> None:
         fee_recipient=grantee,
         price=7.523,
         quantity=0.01,
-        is_buy=True
+        is_buy=True,
+        is_po=False
     )
 
 
