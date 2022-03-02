@@ -32,7 +32,7 @@ async def main() -> None:
     # otherwise, use market_ids
     trades = client.stream_derivative_trades(
         market_id=market_ids[0],
-        # market_ids=[market_ids[0]],
+        # market_ids=market_ids,
         subaccount_id=subaccount_id
     )
     for trade in trades:
