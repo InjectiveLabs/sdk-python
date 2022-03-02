@@ -35,6 +35,11 @@ class InjectiveSpotExchangeRPCStub(object):
                 request_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.OrderbookRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.OrderbookResponse.FromString,
                 )
+        self.Orderbooks = channel.unary_unary(
+                '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/Orderbooks',
+                request_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.OrderbooksRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.OrderbooksResponse.FromString,
+                )
         self.StreamOrderbook = channel.unary_stream(
                 '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/StreamOrderbook',
                 request_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrderbookRequest.SerializeToString,
@@ -99,6 +104,13 @@ class InjectiveSpotExchangeRPCServicer(object):
 
     def Orderbook(self, request, context):
         """Orderbook of a Spot Market
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Orderbooks(self, request, context):
+        """Orderbook of Spot Markets
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -175,6 +187,11 @@ def add_InjectiveSpotExchangeRPCServicer_to_server(servicer, server):
                     servicer.Orderbook,
                     request_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.OrderbookRequest.FromString,
                     response_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.OrderbookResponse.SerializeToString,
+            ),
+            'Orderbooks': grpc.unary_unary_rpc_method_handler(
+                    servicer.Orderbooks,
+                    request_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.OrderbooksRequest.FromString,
+                    response_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.OrderbooksResponse.SerializeToString,
             ),
             'StreamOrderbook': grpc.unary_stream_rpc_method_handler(
                     servicer.StreamOrderbook,
@@ -287,6 +304,23 @@ class InjectiveSpotExchangeRPC(object):
         return grpc.experimental.unary_unary(request, target, '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/Orderbook',
             exchange_dot_injective__spot__exchange__rpc__pb2.OrderbookRequest.SerializeToString,
             exchange_dot_injective__spot__exchange__rpc__pb2.OrderbookResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Orderbooks(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/Orderbooks',
+            exchange_dot_injective__spot__exchange__rpc__pb2.OrderbooksRequest.SerializeToString,
+            exchange_dot_injective__spot__exchange__rpc__pb2.OrderbooksResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
