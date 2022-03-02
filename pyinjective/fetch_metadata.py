@@ -95,7 +95,7 @@ async def fetch_denom(network) -> str:
     return denom_output
 
 async def main() -> None:
-    devnet = Network.testnet()
+    devnet = Network.devnet()
     data = await fetch_denom(devnet)
     with open("denoms_devnet.ini", "w") as text_file:
         text_file.write(data)
