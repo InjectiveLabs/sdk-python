@@ -505,9 +505,11 @@ class AsyncClient:
         )
         return await self.stubDerivativeExchange.Positions(req)
 
-    async def stream_derivative_positions(self, market_id: str, **kwargs):
+    async def stream_derivative_positions(self, market_id: str = None, **kwargs):
         req = derivative_exchange_rpc_pb.StreamPositionsRequest(
-            market_id=market_id, subaccount_id=kwargs.get("subaccount_id")
+            market_id=market_id, 
+            market_ids=kwargs.get("market_ids"),
+            subaccount_id=kwargs.get("subaccount_id")
         )
         return self.stubDerivativeExchange.StreamPositions(req)
 
