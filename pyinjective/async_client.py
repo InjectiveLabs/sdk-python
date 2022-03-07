@@ -402,6 +402,7 @@ class AsyncClient:
             execution_side=kwargs.get("execution_side"),
             direction=kwargs.get("direction"),
             subaccount_id=kwargs.get("subaccount_id"),
+            subaccount_ids=kwargs.get("subaccount_ids"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
         )
@@ -482,6 +483,7 @@ class AsyncClient:
         req = derivative_exchange_rpc_pb.StreamTradesRequest(
             market_id=market_id,
             subaccount_id=kwargs.get("subaccount_id"),
+            subaccount_ids=kwargs.get("subaccount_ids"),
             execution_side=kwargs.get("execution_side"),
             direction=kwargs.get("direction"),
             skip=kwargs.get("skip"),
@@ -497,7 +499,7 @@ class AsyncClient:
 
     async def stream_derivative_positions(self, market_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.StreamPositionsRequest(
-            market_id=market_id, subaccount_id=kwargs.get("subaccount_id")
+            market_id=market_id, subaccount_id=kwargs.get("subaccount_id"), subaccount_ids=kwargs.get("subaccount_ids"),
         )
         return self.stubDerivativeExchange.StreamPositions(req)
 
