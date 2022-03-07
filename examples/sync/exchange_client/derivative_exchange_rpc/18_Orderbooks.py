@@ -19,26 +19,16 @@ import logging
 from pyinjective.client import Client
 from pyinjective.constant import Network
 
+
 async def main() -> None:
     network = Network.testnet()
     client = Client(network, insecure=False)
     market_ids = [
-        "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0",
-        "0x26413a70c9b78a495023e5ab8003c9cf963ef963f6755f8b57255feb5744bf31"
+        "0x4ca0f92fc28be0c9761326016b5a1a2177dd6375558365116b5bdda9abc229ce",
+        "0x1f73e21972972c69c03fb105a5864592ac2b47996ffea3c500d1ea2d20138717"
     ]
-    execution_side = "maker"  # maker or taker
-    direction = "sell"  # sell or buy
-    subaccount_id = "0xc6fe5d33615a1c52c08018c47e8bc53646a0e101000000000000000000000000"
-    trades = client.stream_spot_trades(
-        market_id=market_ids[0],
-        # market_ids=market_ids,
-        execution_side=execution_side,
-        direction=direction,
-        subaccount_id=subaccount_id
-    )
-    for trade in trades:
-        print(trade)
-
+    markets = client.get_derivative_orderbooks(market_ids=market_ids)
+    print(markets)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
