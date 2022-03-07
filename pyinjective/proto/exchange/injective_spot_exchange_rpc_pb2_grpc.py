@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from exchange import injective_spot_exchange_rpc_pb2 as exchange_dot_injective__spot__exchange__rpc__pb2
+import injective_spot_exchange_rpc_pb2 as injective__spot__exchange__rpc__pb2
 
 
 class InjectiveSpotExchangeRPCStub(object):
@@ -17,63 +17,63 @@ class InjectiveSpotExchangeRPCStub(object):
         """
         self.Markets = channel.unary_unary(
                 '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/Markets',
-                request_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.MarketsRequest.SerializeToString,
-                response_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.MarketsResponse.FromString,
+                request_serializer=injective__spot__exchange__rpc__pb2.MarketsRequest.SerializeToString,
+                response_deserializer=injective__spot__exchange__rpc__pb2.MarketsResponse.FromString,
                 )
         self.Market = channel.unary_unary(
                 '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/Market',
-                request_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.MarketRequest.SerializeToString,
-                response_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.MarketResponse.FromString,
+                request_serializer=injective__spot__exchange__rpc__pb2.MarketRequest.SerializeToString,
+                response_deserializer=injective__spot__exchange__rpc__pb2.MarketResponse.FromString,
                 )
         self.StreamMarkets = channel.unary_stream(
                 '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/StreamMarkets',
-                request_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamMarketsRequest.SerializeToString,
-                response_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamMarketsResponse.FromString,
+                request_serializer=injective__spot__exchange__rpc__pb2.StreamMarketsRequest.SerializeToString,
+                response_deserializer=injective__spot__exchange__rpc__pb2.StreamMarketsResponse.FromString,
                 )
         self.Orderbook = channel.unary_unary(
                 '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/Orderbook',
-                request_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.OrderbookRequest.SerializeToString,
-                response_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.OrderbookResponse.FromString,
+                request_serializer=injective__spot__exchange__rpc__pb2.OrderbookRequest.SerializeToString,
+                response_deserializer=injective__spot__exchange__rpc__pb2.OrderbookResponse.FromString,
                 )
         self.Orderbooks = channel.unary_unary(
                 '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/Orderbooks',
-                request_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.OrderbooksRequest.SerializeToString,
-                response_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.OrderbooksResponse.FromString,
+                request_serializer=injective__spot__exchange__rpc__pb2.OrderbooksRequest.SerializeToString,
+                response_deserializer=injective__spot__exchange__rpc__pb2.OrderbooksResponse.FromString,
                 )
         self.StreamOrderbook = channel.unary_stream(
                 '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/StreamOrderbook',
-                request_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrderbookRequest.SerializeToString,
-                response_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrderbookResponse.FromString,
+                request_serializer=injective__spot__exchange__rpc__pb2.StreamOrderbookRequest.SerializeToString,
+                response_deserializer=injective__spot__exchange__rpc__pb2.StreamOrderbookResponse.FromString,
                 )
         self.Orders = channel.unary_unary(
                 '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/Orders',
-                request_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.OrdersRequest.SerializeToString,
-                response_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.OrdersResponse.FromString,
+                request_serializer=injective__spot__exchange__rpc__pb2.OrdersRequest.SerializeToString,
+                response_deserializer=injective__spot__exchange__rpc__pb2.OrdersResponse.FromString,
                 )
         self.StreamOrders = channel.unary_stream(
                 '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/StreamOrders',
-                request_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrdersRequest.SerializeToString,
-                response_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrdersResponse.FromString,
+                request_serializer=injective__spot__exchange__rpc__pb2.StreamOrdersRequest.SerializeToString,
+                response_deserializer=injective__spot__exchange__rpc__pb2.StreamOrdersResponse.FromString,
                 )
         self.Trades = channel.unary_unary(
                 '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/Trades',
-                request_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.TradesRequest.SerializeToString,
-                response_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.TradesResponse.FromString,
+                request_serializer=injective__spot__exchange__rpc__pb2.TradesRequest.SerializeToString,
+                response_deserializer=injective__spot__exchange__rpc__pb2.TradesResponse.FromString,
                 )
         self.StreamTrades = channel.unary_stream(
                 '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/StreamTrades',
-                request_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamTradesRequest.SerializeToString,
-                response_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamTradesResponse.FromString,
+                request_serializer=injective__spot__exchange__rpc__pb2.StreamTradesRequest.SerializeToString,
+                response_deserializer=injective__spot__exchange__rpc__pb2.StreamTradesResponse.FromString,
                 )
         self.SubaccountOrdersList = channel.unary_unary(
                 '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/SubaccountOrdersList',
-                request_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.SubaccountOrdersListRequest.SerializeToString,
-                response_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.SubaccountOrdersListResponse.FromString,
+                request_serializer=injective__spot__exchange__rpc__pb2.SubaccountOrdersListRequest.SerializeToString,
+                response_deserializer=injective__spot__exchange__rpc__pb2.SubaccountOrdersListResponse.FromString,
                 )
         self.SubaccountTradesList = channel.unary_unary(
                 '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/SubaccountTradesList',
-                request_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.SubaccountTradesListRequest.SerializeToString,
-                response_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.SubaccountTradesListResponse.FromString,
+                request_serializer=injective__spot__exchange__rpc__pb2.SubaccountTradesListRequest.SerializeToString,
+                response_deserializer=injective__spot__exchange__rpc__pb2.SubaccountTradesListResponse.FromString,
                 )
 
 
@@ -170,63 +170,63 @@ def add_InjectiveSpotExchangeRPCServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'Markets': grpc.unary_unary_rpc_method_handler(
                     servicer.Markets,
-                    request_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.MarketsRequest.FromString,
-                    response_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.MarketsResponse.SerializeToString,
+                    request_deserializer=injective__spot__exchange__rpc__pb2.MarketsRequest.FromString,
+                    response_serializer=injective__spot__exchange__rpc__pb2.MarketsResponse.SerializeToString,
             ),
             'Market': grpc.unary_unary_rpc_method_handler(
                     servicer.Market,
-                    request_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.MarketRequest.FromString,
-                    response_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.MarketResponse.SerializeToString,
+                    request_deserializer=injective__spot__exchange__rpc__pb2.MarketRequest.FromString,
+                    response_serializer=injective__spot__exchange__rpc__pb2.MarketResponse.SerializeToString,
             ),
             'StreamMarkets': grpc.unary_stream_rpc_method_handler(
                     servicer.StreamMarkets,
-                    request_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamMarketsRequest.FromString,
-                    response_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamMarketsResponse.SerializeToString,
+                    request_deserializer=injective__spot__exchange__rpc__pb2.StreamMarketsRequest.FromString,
+                    response_serializer=injective__spot__exchange__rpc__pb2.StreamMarketsResponse.SerializeToString,
             ),
             'Orderbook': grpc.unary_unary_rpc_method_handler(
                     servicer.Orderbook,
-                    request_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.OrderbookRequest.FromString,
-                    response_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.OrderbookResponse.SerializeToString,
+                    request_deserializer=injective__spot__exchange__rpc__pb2.OrderbookRequest.FromString,
+                    response_serializer=injective__spot__exchange__rpc__pb2.OrderbookResponse.SerializeToString,
             ),
             'Orderbooks': grpc.unary_unary_rpc_method_handler(
                     servicer.Orderbooks,
-                    request_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.OrderbooksRequest.FromString,
-                    response_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.OrderbooksResponse.SerializeToString,
+                    request_deserializer=injective__spot__exchange__rpc__pb2.OrderbooksRequest.FromString,
+                    response_serializer=injective__spot__exchange__rpc__pb2.OrderbooksResponse.SerializeToString,
             ),
             'StreamOrderbook': grpc.unary_stream_rpc_method_handler(
                     servicer.StreamOrderbook,
-                    request_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrderbookRequest.FromString,
-                    response_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrderbookResponse.SerializeToString,
+                    request_deserializer=injective__spot__exchange__rpc__pb2.StreamOrderbookRequest.FromString,
+                    response_serializer=injective__spot__exchange__rpc__pb2.StreamOrderbookResponse.SerializeToString,
             ),
             'Orders': grpc.unary_unary_rpc_method_handler(
                     servicer.Orders,
-                    request_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.OrdersRequest.FromString,
-                    response_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.OrdersResponse.SerializeToString,
+                    request_deserializer=injective__spot__exchange__rpc__pb2.OrdersRequest.FromString,
+                    response_serializer=injective__spot__exchange__rpc__pb2.OrdersResponse.SerializeToString,
             ),
             'StreamOrders': grpc.unary_stream_rpc_method_handler(
                     servicer.StreamOrders,
-                    request_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrdersRequest.FromString,
-                    response_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrdersResponse.SerializeToString,
+                    request_deserializer=injective__spot__exchange__rpc__pb2.StreamOrdersRequest.FromString,
+                    response_serializer=injective__spot__exchange__rpc__pb2.StreamOrdersResponse.SerializeToString,
             ),
             'Trades': grpc.unary_unary_rpc_method_handler(
                     servicer.Trades,
-                    request_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.TradesRequest.FromString,
-                    response_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.TradesResponse.SerializeToString,
+                    request_deserializer=injective__spot__exchange__rpc__pb2.TradesRequest.FromString,
+                    response_serializer=injective__spot__exchange__rpc__pb2.TradesResponse.SerializeToString,
             ),
             'StreamTrades': grpc.unary_stream_rpc_method_handler(
                     servicer.StreamTrades,
-                    request_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamTradesRequest.FromString,
-                    response_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamTradesResponse.SerializeToString,
+                    request_deserializer=injective__spot__exchange__rpc__pb2.StreamTradesRequest.FromString,
+                    response_serializer=injective__spot__exchange__rpc__pb2.StreamTradesResponse.SerializeToString,
             ),
             'SubaccountOrdersList': grpc.unary_unary_rpc_method_handler(
                     servicer.SubaccountOrdersList,
-                    request_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.SubaccountOrdersListRequest.FromString,
-                    response_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.SubaccountOrdersListResponse.SerializeToString,
+                    request_deserializer=injective__spot__exchange__rpc__pb2.SubaccountOrdersListRequest.FromString,
+                    response_serializer=injective__spot__exchange__rpc__pb2.SubaccountOrdersListResponse.SerializeToString,
             ),
             'SubaccountTradesList': grpc.unary_unary_rpc_method_handler(
                     servicer.SubaccountTradesList,
-                    request_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.SubaccountTradesListRequest.FromString,
-                    response_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.SubaccountTradesListResponse.SerializeToString,
+                    request_deserializer=injective__spot__exchange__rpc__pb2.SubaccountTradesListRequest.FromString,
+                    response_serializer=injective__spot__exchange__rpc__pb2.SubaccountTradesListResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -251,8 +251,8 @@ class InjectiveSpotExchangeRPC(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/Markets',
-            exchange_dot_injective__spot__exchange__rpc__pb2.MarketsRequest.SerializeToString,
-            exchange_dot_injective__spot__exchange__rpc__pb2.MarketsResponse.FromString,
+            injective__spot__exchange__rpc__pb2.MarketsRequest.SerializeToString,
+            injective__spot__exchange__rpc__pb2.MarketsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -268,8 +268,8 @@ class InjectiveSpotExchangeRPC(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/Market',
-            exchange_dot_injective__spot__exchange__rpc__pb2.MarketRequest.SerializeToString,
-            exchange_dot_injective__spot__exchange__rpc__pb2.MarketResponse.FromString,
+            injective__spot__exchange__rpc__pb2.MarketRequest.SerializeToString,
+            injective__spot__exchange__rpc__pb2.MarketResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -285,8 +285,8 @@ class InjectiveSpotExchangeRPC(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_stream(request, target, '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/StreamMarkets',
-            exchange_dot_injective__spot__exchange__rpc__pb2.StreamMarketsRequest.SerializeToString,
-            exchange_dot_injective__spot__exchange__rpc__pb2.StreamMarketsResponse.FromString,
+            injective__spot__exchange__rpc__pb2.StreamMarketsRequest.SerializeToString,
+            injective__spot__exchange__rpc__pb2.StreamMarketsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -302,8 +302,8 @@ class InjectiveSpotExchangeRPC(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/Orderbook',
-            exchange_dot_injective__spot__exchange__rpc__pb2.OrderbookRequest.SerializeToString,
-            exchange_dot_injective__spot__exchange__rpc__pb2.OrderbookResponse.FromString,
+            injective__spot__exchange__rpc__pb2.OrderbookRequest.SerializeToString,
+            injective__spot__exchange__rpc__pb2.OrderbookResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -319,8 +319,8 @@ class InjectiveSpotExchangeRPC(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/Orderbooks',
-            exchange_dot_injective__spot__exchange__rpc__pb2.OrderbooksRequest.SerializeToString,
-            exchange_dot_injective__spot__exchange__rpc__pb2.OrderbooksResponse.FromString,
+            injective__spot__exchange__rpc__pb2.OrderbooksRequest.SerializeToString,
+            injective__spot__exchange__rpc__pb2.OrderbooksResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -336,8 +336,8 @@ class InjectiveSpotExchangeRPC(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_stream(request, target, '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/StreamOrderbook',
-            exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrderbookRequest.SerializeToString,
-            exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrderbookResponse.FromString,
+            injective__spot__exchange__rpc__pb2.StreamOrderbookRequest.SerializeToString,
+            injective__spot__exchange__rpc__pb2.StreamOrderbookResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -353,8 +353,8 @@ class InjectiveSpotExchangeRPC(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/Orders',
-            exchange_dot_injective__spot__exchange__rpc__pb2.OrdersRequest.SerializeToString,
-            exchange_dot_injective__spot__exchange__rpc__pb2.OrdersResponse.FromString,
+            injective__spot__exchange__rpc__pb2.OrdersRequest.SerializeToString,
+            injective__spot__exchange__rpc__pb2.OrdersResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -370,8 +370,8 @@ class InjectiveSpotExchangeRPC(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_stream(request, target, '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/StreamOrders',
-            exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrdersRequest.SerializeToString,
-            exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrdersResponse.FromString,
+            injective__spot__exchange__rpc__pb2.StreamOrdersRequest.SerializeToString,
+            injective__spot__exchange__rpc__pb2.StreamOrdersResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -387,8 +387,8 @@ class InjectiveSpotExchangeRPC(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/Trades',
-            exchange_dot_injective__spot__exchange__rpc__pb2.TradesRequest.SerializeToString,
-            exchange_dot_injective__spot__exchange__rpc__pb2.TradesResponse.FromString,
+            injective__spot__exchange__rpc__pb2.TradesRequest.SerializeToString,
+            injective__spot__exchange__rpc__pb2.TradesResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -404,8 +404,8 @@ class InjectiveSpotExchangeRPC(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_stream(request, target, '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/StreamTrades',
-            exchange_dot_injective__spot__exchange__rpc__pb2.StreamTradesRequest.SerializeToString,
-            exchange_dot_injective__spot__exchange__rpc__pb2.StreamTradesResponse.FromString,
+            injective__spot__exchange__rpc__pb2.StreamTradesRequest.SerializeToString,
+            injective__spot__exchange__rpc__pb2.StreamTradesResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -421,8 +421,8 @@ class InjectiveSpotExchangeRPC(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/SubaccountOrdersList',
-            exchange_dot_injective__spot__exchange__rpc__pb2.SubaccountOrdersListRequest.SerializeToString,
-            exchange_dot_injective__spot__exchange__rpc__pb2.SubaccountOrdersListResponse.FromString,
+            injective__spot__exchange__rpc__pb2.SubaccountOrdersListRequest.SerializeToString,
+            injective__spot__exchange__rpc__pb2.SubaccountOrdersListResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -438,7 +438,7 @@ class InjectiveSpotExchangeRPC(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/SubaccountTradesList',
-            exchange_dot_injective__spot__exchange__rpc__pb2.SubaccountTradesListRequest.SerializeToString,
-            exchange_dot_injective__spot__exchange__rpc__pb2.SubaccountTradesListResponse.FromString,
+            injective__spot__exchange__rpc__pb2.SubaccountTradesListRequest.SerializeToString,
+            injective__spot__exchange__rpc__pb2.SubaccountTradesListResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
