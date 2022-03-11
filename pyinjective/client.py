@@ -394,7 +394,7 @@ class Client:
     
     def get_spot_orderbooks(self, market_ids: List):
         req = spot_exchange_rpc_pb.OrderbooksRequest(market_ids=market_ids)
-        return self.stubSpotExchange.Order(req)
+        return self.stubSpotExchange.Orderbooks(req)
 
     def get_spot_orders(self, market_id: str, **kwargs):
         req = spot_exchange_rpc_pb.OrdersRequest(
