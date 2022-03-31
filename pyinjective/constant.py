@@ -114,6 +114,7 @@ class Network:
     @classmethod
     def mainnet(cls, node='lb'):
         nodes = [
+            'k8s',
             'lb',
             'sentry0',  # us, prod
             'sentry1',  # us, prod
@@ -124,10 +125,10 @@ class Network:
         if node not in nodes:
             raise ValueError('Must be one of {}'.format(nodes))
 
-        if node == 'lb':
-            lcd_endpoint='https://lb.mainnet.lcd.injective.network'
-            grpc_endpoint='lb.mainnet.chain.grpc.injective.network:443'
-            grpc_exchange_endpoint='lb.mainnet.exchange.grpc.injective.network:443'
+        if node == 'lb' or node == 'k8s':
+            lcd_endpoint=f'https://{node}.mainnet.lcd.injective.network'
+            grpc_endpoint=f'{node}.mainnet.chain.grpc.injective.network:443'
+            grpc_exchange_endpoint=f'{node}.mainnet.exchange.grpc.injective.network:443'
         else:
             lcd_endpoint='https://lcd.injective.network'
             grpc_endpoint=f'{node}.injective.network:9900'
