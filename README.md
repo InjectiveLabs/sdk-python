@@ -84,6 +84,7 @@ python pyinjective/fetch_metadata.py
 * Add OrderbooksRequest in the clients
 * Add support for multiple markets in StreamTrades and StreamPosition
 * Add support for multiple subaccounts in StreamTrades and StreamPosition
+* Add K8S endpoint to mainnet network options
 
 
 **0.5.6.4**
@@ -137,16 +138,6 @@ python pyinjective/fetch_metadata.py
 * Added PortfolioRequest, GetTxByHashRequest, AuctionRequest, AuctionsRequest, StreamBidsRequest and provided examples
 * Updated the composer with MsgIncreasePosition and MsgLiquidatePosition
 * Added reduce-only orders to the composer and updated examples
-
-**0.5.3**
-* Add skip, and limit to trade request
-
-**0.5.2**
-* Add sync init_num_seq, changed previous init_num_seq to async_init_num_seq
-* Add staging mainnet endpoint, update market metadata
-* Protobuf regen
-* Response parser improvements
-* Fix type hints
 
 
 
