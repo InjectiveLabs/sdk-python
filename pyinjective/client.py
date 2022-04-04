@@ -381,8 +381,9 @@ class Client:
         )
         return self.stubSpotExchange.Markets(req)
 
-    def stream_spot_markets(self):
-        req = spot_exchange_rpc_pb.StreamMarketsRequest()
+    def stream_spot_markets(self, **kwargs):
+        req = spot_exchange_rpc_pb.StreamMarketsRequest(
+            market_ids=kwargs.get("market_ids"))
         metadata = self.get_cookie(type="exchange")
         res = self.stubSpotExchange.StreamMarkets(req, metadata=metadata)
         self.set_cookie(res,type="exchange")
@@ -484,8 +485,9 @@ class Client:
         )
         return self.stubDerivativeExchange.Markets(req)
 
-    def stream_derivative_markets(self):
-        req = derivative_exchange_rpc_pb.StreamMarketRequest()
+    def stream_derivative_markets(self, **kwargs):
+        req = derivative_exchange_rpc_pb.StreamMarketRequest(
+            market_ids=kwargs.get("market_ids"))
         metadata = self.get_cookie(type="exchange")
         res = self.stubDerivativeExchange.StreamMarket(req, metadata=metadata)
         self.set_cookie(res,type="exchange")

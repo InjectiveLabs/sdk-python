@@ -353,8 +353,9 @@ class AsyncClient:
         )
         return await self.stubSpotExchange.Markets(req)
 
-    async def stream_spot_markets(self):
-        req = spot_exchange_rpc_pb.StreamMarketsRequest()
+    async def stream_spot_markets(self, **kwargs):
+        req = spot_exchange_rpc_pb.StreamMarketsRequest(
+            market_ids=kwargs.get("market_ids"))
         return self.stubSpotExchange.StreamMarkets(req)
 
     async def get_spot_orderbook(self, market_id: str):
@@ -441,8 +442,9 @@ class AsyncClient:
         )
         return await self.stubDerivativeExchange.Markets(req)
 
-    async def stream_derivative_markets(self):
-        req = derivative_exchange_rpc_pb.StreamMarketRequest()
+    async def stream_derivative_markets(self, **kwargs):
+        req = derivative_exchange_rpc_pb.StreamMarketRequest(
+            market_ids=kwargs.get("market_ids"))
         return self.stubDerivativeExchange.StreamMarket(req)
 
     async def get_derivative_orderbook(self, market_id: str):
