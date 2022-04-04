@@ -115,6 +115,11 @@ class MsgStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgIncreasePositionMargin.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgIncreasePositionMarginResponse.FromString,
                 )
+        self.RegisterAsDMM = channel.unary_unary(
+                '/injective.exchange.v1beta1.Msg/RegisterAsDMM',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgRegisterAsDMM.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgRegisterAsDMMResponse.FromString,
+                )
 
 
 class MsgServicer(object):
@@ -260,6 +265,13 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def RegisterAsDMM(self, request, context):
+        """RegisterAsDMM defines a method for registering as a DMM
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -362,6 +374,11 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.IncreasePositionMargin,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgIncreasePositionMargin.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgIncreasePositionMarginResponse.SerializeToString,
+            ),
+            'RegisterAsDMM': grpc.unary_unary_rpc_method_handler(
+                    servicer.RegisterAsDMM,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgRegisterAsDMM.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgRegisterAsDMMResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -711,5 +728,22 @@ class Msg(object):
         return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Msg/IncreasePositionMargin',
             injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgIncreasePositionMargin.SerializeToString,
             injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgIncreasePositionMarginResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def RegisterAsDMM(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Msg/RegisterAsDMM',
+            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgRegisterAsDMM.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgRegisterAsDMMResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
