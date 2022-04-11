@@ -86,6 +86,7 @@ python pyinjective/fetch_metadata.py
 * Add support for multiple subaccounts in StreamTrades and StreamPosition
 * Add K8S endpoint to mainnet network options
 * Add MsgRegisterAsDMM to the composer
+* Add functions to close chain/exchange channels
 * Re-gen ini files
 
 
