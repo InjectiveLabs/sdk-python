@@ -65,41 +65,47 @@ class Client:
                         credentials = grpc.ssl_channel_credentials(f.read())
 
         # chain stubs
-        chain_channel = (
+        self.chain_channel = (
             grpc.insecure_channel(network.grpc_endpoint)
             if insecure else grpc.secure_channel(network.grpc_endpoint, credentials)
         )
-        self.stubCosmosTendermint = tendermint_query_grpc.ServiceStub(chain_channel)
-        self.stubAuth = auth_query_grpc.QueryStub(chain_channel)
-        self.stubAuthz = authz_query_grpc.QueryStub(chain_channel)
-        self.stubTx = tx_service_grpc.ServiceStub(chain_channel)
+        self.stubCosmosTendermint = tendermint_query_grpc.ServiceStub(self.chain_channel)
+        self.stubAuth = auth_query_grpc.QueryStub(self.chain_channel)
+        self.stubAuthz = authz_query_grpc.QueryStub(self.chain_channel)
+        self.stubTx = tx_service_grpc.ServiceStub(self.chain_channel)
         self.chain_cookie = ""
         self.exchange_cookie = ""
 
         # exchange stubs
-        exchange_channel = (
+        self.exchange_channel = (
             grpc.insecure_channel(network.grpc_exchange_endpoint)
             if insecure else grpc.secure_channel(network.grpc_exchange_endpoint, credentials)
         )
 
-        self.stubMeta = exchange_meta_rpc_grpc.InjectiveMetaRPCStub(exchange_channel)
+        self.stubMeta = exchange_meta_rpc_grpc.InjectiveMetaRPCStub(self.exchange_channel)
         self.stubExchangeAccount = exchange_accounts_rpc_grpc.InjectiveAccountsRPCStub(
-            exchange_channel
+            self.exchange_channel
         )
-        self.stubOracle = oracle_rpc_grpc.InjectiveOracleRPCStub(exchange_channel)
+        self.stubOracle = oracle_rpc_grpc.InjectiveOracleRPCStub(self.exchange_channel)
         self.stubInsurance = insurance_rpc_grpc.InjectiveInsuranceRPCStub(
-            exchange_channel
+            self.exchange_channel
         )
         self.stubSpotExchange = spot_exchange_rpc_grpc.InjectiveSpotExchangeRPCStub(
-            exchange_channel
+            self.exchange_channel
         )
         self.stubDerivativeExchange = (
             derivative_exchange_rpc_grpc.InjectiveDerivativeExchangeRPCStub(
-                exchange_channel
+                self.exchange_channel
             )
         )
-        self.stubExplorer = explorer_rpc_grpc.InjectiveExplorerRPCStub(exchange_channel)
-        self.stubAuction = auction_rpc_grpc.InjectiveAuctionRPCStub(exchange_channel)
+        self.stubExplorer = explorer_rpc_grpc.InjectiveExplorerRPCStub(self.exchange_channel)
+        self.stubAuction = auction_rpc_grpc.InjectiveAuctionRPCStub(self.exchange_channel)
+
+    def close_exchange_channel(self):
+        self.exchange_channel.close()
+
+    def close_chain_channel(self):
+        self.chain_channel.close()
 
     # cookie helper methods
     def get_cookie(self, type):
