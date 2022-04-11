@@ -108,6 +108,12 @@ class AsyncClient:
             self.exchange_channel
         )
 
+    async def close_exchange_channel(self):
+        await self.exchange_channel.close()
+
+    async def close_chain_channel(self):
+        await self.chain_channel.close()
+
     # default client methods
     async def get_latest_block(self) -> tendermint_query.GetLatestBlockResponse:
         return await self.stubCosmosTendermint.GetLatestBlock(
