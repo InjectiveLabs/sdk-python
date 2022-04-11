@@ -14,10 +14,10 @@ from setuptools import setup, Command, find_packages
 NAME = "injective-py"
 DESCRIPTION = "Injective Python SDK, with Exchange API client"
 URL = "https://github.com/InjectiveLabs/sdk-python"
-EMAIL = "max@injectiveprotocol.com"
+EMAIL = "achilleas@injectivelabs.com"
 AUTHOR = "Injective Labs"
 REQUIRES_PYTHON = ">=3.7.0"
-VERSION = "0.5.6.4"
+VERSION = "0.5.6.5"
 
 REQUIRED = [
     "grpcio",
