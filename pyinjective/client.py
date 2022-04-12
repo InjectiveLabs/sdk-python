@@ -1,6 +1,9 @@
 import os
 import time
 import grpc
+import datetime
+import threading
+from http.cookies import SimpleCookie
 from typing import List, Optional, Tuple, Union
 
 from .exceptions import NotFoundError, EmptyMsgError
@@ -46,6 +49,11 @@ from .proto.exchange import (
 
 from .constant import Network
 
+DEFAULT_TIMEOUTHEIGHT_SYNC_INTERVAL = 10 # seconds
+DEFAULT_TIMEOUTHEIGHT = 20 # blocks
+DEFAULT_SESSION_RENEWAL_OFFSET = 120 # seconds
+DEFAULT_BLOCK_TIME = 3 # seconds
+
 class Client:
     def __init__(
         self,
@@ -75,6 +83,7 @@ class Client:
         self.stubTx = tx_service_grpc.ServiceStub(self.chain_channel)
         self.chain_cookie = ""
         self.exchange_cookie = ""
+        self.timeout_height = 1
 
         # exchange stubs
         self.exchange_channel = (
@@ -107,12 +116,44 @@ class Client:
     def close_chain_channel(self):
         self.chain_channel.close()
 
+        # timeout height update routine
+        self.sync_timeout_height()
+
+    def sync_timeout_height(self):
+        threading.Timer(DEFAULT_TIMEOUTHEIGHT_SYNC_INTERVAL, self.sync_timeout_height).start()
+        block = self.get_latest_block()
+        self.timeout_height = block.block.header.height + DEFAULT_TIMEOUTHEIGHT
+
     # cookie helper methods
     def get_cookie(self, type):
         metadata = None
         if type == "chain":
             if self.chain_cookie != "":
                 metadata = (("cookie", self.chain_cookie),)
+
+		        # format cookie date into RFC1123 standard
+                cookie = SimpleCookie()
+                cookie.load(self.chain_cookie)
+                expires_at = cookie.get("grpc-cookie").get("expires")
+                expires_at = expires_at.replace("-"," ")
+                yyyy = "20{}".format(expires_at[12:14])
+                expires_at = expires_at[:12] + yyyy + expires_at[14:]
+
+                # parse expire field to unix timestamp
+                expire_timestamp = datetime.datetime.strptime(expires_at, "%a, %d %b %Y %H:%M:%S GMT").timestamp()
+
+                # renew session if timestamp diff < offset
+                timestamp_diff = expire_timestamp - int(time.time())
+                if timestamp_diff < DEFAULT_SESSION_RENEWAL_OFFSET:
+                    # request and set new cookie
+                    req = tendermint_query.GetLatestBlockRequest()
+                    res, call = self.stubCosmosTendermint.GetLatestBlock.with_call(req)
+                    self.set_cookie(call,type="chain")
+                    time.sleep(DEFAULT_BLOCK_TIME)
+                    metadata = (("cookie", self.chain_cookie),)
+                    return metadata
+            return metadata
+
         if type == "exchange":
             if self.exchange_cookie != "":
                 metadata = (("cookie", self.exchange_cookie),)
@@ -398,7 +439,7 @@ class Client:
     def get_spot_orderbook(self, market_id: str):
         req = spot_exchange_rpc_pb.OrderbookRequest(market_id=market_id)
         return self.stubSpotExchange.Orderbook(req)
-    
+
     def get_spot_orderbooks(self, market_ids: List):
         req = spot_exchange_rpc_pb.OrderbooksRequest(market_ids=market_ids)
         return self.stubSpotExchange.Orderbooks(req)
