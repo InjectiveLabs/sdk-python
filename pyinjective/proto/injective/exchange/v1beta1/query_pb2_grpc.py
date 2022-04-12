@@ -145,6 +145,16 @@ class QueryStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountTierStatisticsRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountTierStatisticsResponse.FromString,
                 )
+        self.IsRegisteredDMM = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/IsRegisteredDMM',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryIsRegisteredDMMRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryIsRegisteredDMMResponse.FromString,
+                )
+        self.RegisteredDMMs = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/RegisteredDMMs',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryRegisteredDMMsRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryRegisteredDMMsResponse.FromString,
+                )
 
 
 class QueryServicer(object):
@@ -333,6 +343,20 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def IsRegisteredDMM(self, request, context):
+        """Retrieves if the account is a registered DMM
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def RegisteredDMMs(self, request, context):
+        """Retrieves all registered DMMs
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_QueryServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -465,6 +489,16 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.FeeDiscountTierStatistics,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountTierStatisticsRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountTierStatisticsResponse.SerializeToString,
+            ),
+            'IsRegisteredDMM': grpc.unary_unary_rpc_method_handler(
+                    servicer.IsRegisteredDMM,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryIsRegisteredDMMRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryIsRegisteredDMMResponse.SerializeToString,
+            ),
+            'RegisteredDMMs': grpc.unary_unary_rpc_method_handler(
+                    servicer.RegisteredDMMs,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryRegisteredDMMsRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryRegisteredDMMsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -916,5 +950,39 @@ class Query(object):
         return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/FeeDiscountTierStatistics',
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountTierStatisticsRequest.SerializeToString,
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountTierStatisticsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def IsRegisteredDMM(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/IsRegisteredDMM',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryIsRegisteredDMMRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryIsRegisteredDMMResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def RegisteredDMMs(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/RegisteredDMMs',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryRegisteredDMMsRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryRegisteredDMMsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
