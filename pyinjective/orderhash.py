@@ -33,7 +33,7 @@ EIP712_domain = make_domain(
 )
 
 domain_separator = EIP712_domain.hash_struct()
-order_type_dict = {0: '\x00', 1: '\x01', 2: '\x02', 3: '\x03', 4: '\x04', 5: '\x05', 6: '\x06'}
+order_type_dict = {0: '\x00', 1: '\x01', 2: '\x02', 3: '\x03', 4: '\x04', 5: '\x05', 6: '\x06', 7: '\x07', 8: '\x08'}
 
 def param_to_backend_go(param) -> int:
     go_param = Decimal(param) / pow(10, 18)

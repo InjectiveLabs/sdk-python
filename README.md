@@ -79,6 +79,11 @@ python pyinjective/fetch_metadata.py
 
 ### Changelogs
 **0.5.6.5**
+* Add PO orders in local order hash computation function
+* Add automatic timeout height in transactions
+* Add automatic session renewal for K8S
+
+**0.5.6.5**
 * Add MsgRelayPriceFeedPrice in the composer
 * Add Post-only orders in the composer
 * Add OrderbooksRequest in the clients
@@ -125,22 +130,6 @@ python pyinjective/fetch_metadata.py
 **0.5.5.8**
 * Fix stream_bids in async client
 * Add more messages in MsgResponses for simulation
-
-**0.5.5.5**
-* Refactor LCD endpoints
-* Regen ini files
-
-**0.5.5.1**
-* Add ATOM back to denoms_mainnet.ini
-
-**0.5.5**
-* Added MsgBid to the Composer and provided an example
-* Refactored the clients and composer with kwargs for optional arguments
-
-**0.5.4**
-* Added PortfolioRequest, GetTxByHashRequest, AuctionRequest, AuctionsRequest, StreamBidsRequest and provided examples
-* Updated the composer with MsgIncreasePosition and MsgLiquidatePosition
-* Added reduce-only orders to the composer and updated examples
 
 
 
