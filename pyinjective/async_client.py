@@ -164,10 +164,8 @@ class AsyncClient:
         timestamp_diff = expire_timestamp - int(time.time())
         if timestamp_diff < DEFAULT_SESSION_RENEWAL_OFFSET:
             metadata = await self.fetch_cookie(type)
-            print("new {} cookie".format(type), metadata)
         else:
             metadata = (("cookie", existing_cookie),)
-            print("existing {} cookie".format(type), metadata)
         return metadata
 
     async def load_cookie(self, type):
@@ -179,7 +177,6 @@ class AsyncClient:
             else:
                 metadata = await self.fetch_cookie(type)
                 self.set_cookie(metadata, type)
-                print("initial {} cookie".format(type), metadata)
 
         if type == "exchange":
             if self.exchange_cookie != "":
@@ -188,7 +185,6 @@ class AsyncClient:
             else:
                 metadata = await self.fetch_cookie(type)
                 self.set_cookie(metadata, type)
-                print("initial {} cookie".format(type), metadata)
 
         return metadata
 
