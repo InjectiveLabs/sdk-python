@@ -31,6 +31,7 @@ REQUIRED = [
     "protobuf",
     "bip32",
     "coincurve",
+    "aiocron"
 ]
 
 # The rest you shouldn't have to touch too much :)
