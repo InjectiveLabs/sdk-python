@@ -78,7 +78,7 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
-**0.5.6.5**
+**0.5.6.6**
 * Add PO orders in local order hash computation function
 * Add automatic timeout height in transactions
 * Add automatic session renewal for K8S
