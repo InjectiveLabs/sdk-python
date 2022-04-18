@@ -19,6 +19,10 @@ from .proto.injective.peggy.v1 import msgs_pb2 as injective_peggy_tx_pb
 
 from .proto.injective.oracle.v1beta1 import tx_pb2 as injective_oracle_tx_pb
 
+from .proto.cosmos.staking.v1beta1 import tx_pb2 as cosmos_staking_tx_pb
+
+from .proto.cosmos.distribution.v1beta1 import tx_pb2 as cosmos_distribution_tx_pb
+
 from .constant import Denom
 from .utils import *
 from typing import List
@@ -445,6 +449,32 @@ class Composer:
             eth_dest=eth_dest,
             amount=self.Coin(amount=be_amount, denom=peggy_denom),
             bridge_fee=self.Coin(amount=be_bridge_fee, denom=peggy_denom)
+        )
+
+    def MsgDelegate(
+        self,
+        delegator_address: str,
+        validator_address: str,
+        amount: float
+    ):
+
+        be_amount = amount_to_backend(amount, 18)
+
+        return cosmos_staking_tx_pb.MsgDelegate(
+            delegator_address=delegator_address,
+            validator_address=validator_address,
+            amount=self.Coin(amount=be_amount, denom="inj"),
+        )
+
+    def MsgWithdrawDelegatorReward(
+        self,
+        delegator_address: str,
+        validator_address: str
+    ):
+
+        return cosmos_distribution_tx_pb.MsgWithdrawDelegatorReward(
+            delegator_address=delegator_address,
+            validator_address=validator_address
         )
 
     def SendToCosmos(self, ethereum_endpoint: str, private_key: str, token_contract: str, receiver: str, amount: int, maxFeePerGas: int,  maxPriorityFeePerGas: int, peggo_abi: str, decimals=18):
