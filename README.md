@@ -13,8 +13,6 @@ sudo dnf install python3-devel autoconf automake gcc gcc-c++ libffi-devel libtoo
 
 **macOS**
 
-For installing `bip32` module specifically:
-
 ```bash
 brew install autoconf automake libtool
 ```
@@ -35,11 +33,11 @@ $ pipenv install
 
 # connecting to Injective Exchange API
 # and listening for new orders from a specific spot market
-$ python examples/sync/exchange_client/spot_exchange_rpc/8_StreamOrders.py
+$ python examples/async/exchange_client/spot_exchange_rpc/8_StreamOrders.py
 
 # sending a msg with bank transfer
 # signs and posts a transaction to the Injective Chain
-$ python examples/sync/chain_client/1_MsgSend.py
+$ python examples/async/chain_client/1_MsgSend.py
 ```
 Upgrade `pip` to the latest version, if you see these warnings:
   ```
@@ -76,12 +74,16 @@ Upgrade `pip` to the latest version, if you see these warnings:
 python pyinjective/fetch_metadata.py
 ```
 
+Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/master/pyinjective/client.py) has been deprecated as of April 18, 2022. If you are using the sync client please make sure to transition to the [async client](https://github.com/InjectiveLabs/sdk-python/blob/master/pyinjective/async_client.py), for more information read [here](https://github.com/InjectiveLabs/sdk-python/issues/101)
+
 
 ### Changelogs
 **0.5.6.5**
 * Add PO orders in local order hash computation function
 * Add automatic timeout height in transactions
 * Add automatic session renewal for K8S
+* Add MsgDelegate and MsgWithdrawDelegatorReward in the composer
+* Re-gen ini files
 
 **0.5.6.5**
 * Add MsgRelayPriceFeedPrice in the composer
@@ -104,32 +106,11 @@ python pyinjective/fetch_metadata.py
 * Add reduce-only support for market orders
 * Add sticky session cookie for broadcast methods
 * Add historical funding rates in clients
-* Minor fixes in spot conversions for price/quantity returned from the backend
+* Fixes in spot conversions for price/quantity returned from the backend
 * Add MsgSendToEth & SendToCosmos in the composer for INJ <> ETH transfers
 * Add function to compute order hashes locally
 * Add load balancer endpoint on mainnet as default
 * Re-gen ini files
-
-**0.5.6.3**
-* Update the testnet ini file
-
-**0.5.6.2**
-* Add authz support in composer and client
-* Add historical rewards for Trade & Earn
-
-**0.5.6.1**
-* Add devnet ini to local env
-
-**0.5.6.0**
-* Add local env in networks
-
-**0.5.5.9**
-* Add MsgBatchUpdateOrders to the composer
-* Add skip/limit parameters to funding payments
-
-**0.5.5.8**
-* Fix stream_bids in async client
-* Add more messages in MsgResponses for simulation
 
 
 
