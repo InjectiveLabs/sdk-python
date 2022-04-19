@@ -156,4 +156,4 @@ def compute_order_hashes(network, **kwargs) -> [str]:
             order_hash = keccak256.hexdigest()
             derivative_order.append('0x' + order_hash)
    
-    return ["spot order hashes", spot_order, "derivative order hashes", derivative_order]
+    return ["spot order hashes", spot_order], ["derivative order hashes", derivative_order]
