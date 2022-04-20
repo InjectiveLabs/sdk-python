@@ -35,6 +35,15 @@ EIP712_domain = make_domain(
 domain_separator = EIP712_domain.hash_struct()
 order_type_dict = {0: '\x00', 1: '\x01', 2: '\x02', 3: '\x03', 4: '\x04', 5: '\x05', 6: '\x06', 7: '\x07', 8: '\x08'}
 
+class OrderHashes:
+    def __init__(
+            self,
+            spot: [str],
+            derivative: [str],
+    ):
+        self.spot = spot
+        self.derivative = derivative
+
 def param_to_backend_go(param) -> int:
     go_param = Decimal(param) / pow(10, 18)
     return format(go_param, '.18f')
@@ -86,74 +95,34 @@ def build_eip712_msg(network, order, nonce):
         )
 
 # only support msgs from single subaccount
-def compute_order_hashes(network, **kwargs) -> [str]:
+def compute_order_hashes(network, spot_orders, derivative_orders) -> [str]:
+    if len(spot_orders) + len(derivative_orders) == 0:
+        return []
+
+    order_hashes = OrderHashes(spot=[], derivative=[])
+
     # get starting nonce
-    nonce = None
-    spot_order = []
-    derivative_order = []
+    nonce = get_subaccount_nonce(network, spot_orders[0].order_info.subaccount_id)
+    nonce += 1
 
-    if kwargs.get("spot_orders") and not kwargs.get("derivative_orders"):
-        nonce = get_subaccount_nonce(network, kwargs.get("spot_orders")[0].order_info.subaccount_id)
-        print("starting subaccount nonce", nonce)
+    for o in spot_orders:
+        msg = build_eip712_msg(network, o, nonce)
+        typed_data_hash = msg.hash_struct()
+        typed_bytes = b'\x19\x01' + domain_separator + typed_data_hash
+        keccak256 = sha3.keccak_256()
+        keccak256.update(typed_bytes)
+        order_hash = keccak256.hexdigest()
+        order_hashes.spot.append('0x' + order_hash)
+        nonce += 1
 
-        for order in kwargs.get("spot_orders"):
-            # increase nonce for next order
-            nonce += 1
-            # construct eip712 msg
-            msg = build_eip712_msg(network, order, nonce)
-            # compute order hash
-            typed_data_hash = msg.hash_struct()
-            typed_bytes = b'\x19\x01' + domain_separator + typed_data_hash
-            keccak256 = sha3.keccak_256()
-            keccak256.update(typed_bytes)
-            order_hash = keccak256.hexdigest()
-            spot_order.append('0x' + order_hash)
+    for o in derivative_orders:
+        msg = build_eip712_msg(network, o, nonce)
+        typed_data_hash = msg.hash_struct()
+        typed_bytes = b'\x19\x01' + domain_separator + typed_data_hash
+        keccak256 = sha3.keccak_256()
+        keccak256.update(typed_bytes)
+        order_hash = keccak256.hexdigest()
+        order_hashes.derivative.append('0x' + order_hash)
+        nonce += 1
 
-    elif kwargs.get("derivative_orders") and not kwargs.get("spot_orders"):
-        nonce = get_subaccount_nonce(network, kwargs.get("derivative_orders")[0].order_info.subaccount_id)
-        print("starting subaccount nonce", nonce)
-
-        for order in kwargs.get("derivative_orders"):
-            # increase nonce for next order
-            nonce += 1
-            # construct eip712 msg
-            msg = build_eip712_msg(network, order, nonce)
-            # compute order hash
-            typed_data_hash = msg.hash_struct()
-            typed_bytes = b'\x19\x01' + domain_separator + typed_data_hash
-            keccak256 = sha3.keccak_256()
-            keccak256.update(typed_bytes)
-            order_hash = keccak256.hexdigest()
-            derivative_order.append('0x' + order_hash)
-
-    elif kwargs.get("derivative_orders") and kwargs.get("spot_orders"):
-        nonce = get_subaccount_nonce(network, kwargs.get("derivative_orders")[0].order_info.subaccount_id)
-        print("starting subaccount nonce", nonce)
-
-        for order in kwargs.get("spot_orders"):
-            # increase nonce for next order
-            nonce += 1
-            # construct eip712 msg
-            msg = build_eip712_msg(network, order, nonce)
-            # compute order hash
-            typed_data_hash = msg.hash_struct()
-            typed_bytes = b'\x19\x01' + domain_separator + typed_data_hash
-            keccak256 = sha3.keccak_256()
-            keccak256.update(typed_bytes)
-            order_hash = keccak256.hexdigest()
-            spot_order.append('0x' + order_hash)
-
-        for order in kwargs.get("derivative_orders"):
-            # increase nonce for next order
-            nonce += 1
-            # construct eip712 msg
-            msg = build_eip712_msg(network, order, nonce)
-            # compute order hash
-            typed_data_hash = msg.hash_struct()
-            typed_bytes = b'\x19\x01' + domain_separator + typed_data_hash
-            keccak256 = sha3.keccak_256()
-            keccak256.update(typed_bytes)
-            order_hash = keccak256.hexdigest()
-            derivative_order.append('0x' + order_hash)
-   
-    return ["spot order hashes", spot_order], ["derivative order hashes", derivative_order]
+    return order_hashes

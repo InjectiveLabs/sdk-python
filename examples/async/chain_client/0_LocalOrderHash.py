@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """Injective Chain Tx/Query client for Python. Example only."""
+import sys
+sys.path.insert(0, '/Users/nam/desktop/injective/sdk-python/')
 
 import asyncio
 import logging
@@ -101,7 +103,8 @@ async def main() -> None:
 
     # compute order hashes
     order_hashes = compute_order_hashes(network, spot_orders=spot_orders, derivative_orders=derivative_orders)
-    print(order_hashes)
+    print("computed spot order hashes", order_hashes.spot)
+    print("computed derivative order hashes", order_hashes.derivative)
 
     # build sim tx
     tx = (
@@ -122,27 +125,8 @@ async def main() -> None:
         return
 
     sim_res_msg = ProtoMsgComposer.MsgResponses(simRes.result.data, simulation=True)
-
-    # build tx
-    gas_price = 500000000
-    gas_limit = simRes.gas_info.gas_used + 20000 # add 20k for gas, fee computation
-    fee = [composer.Coin(
-        amount=gas_price * gas_limit,
-        denom=network.fee_denom,
-    )]
-
-    tx = tx.with_gas(gas_limit).with_fee(fee).with_memo('').with_timeout_height(client.timeout_height)
-    sign_doc = tx.get_sign_doc(pub_key)
-    sig = priv_key.sign(sign_doc.SerializeToString())
-    tx_raw_bytes = tx.get_tx_data(sig, pub_key)
-
-    # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
-    res = await client.send_tx_block_mode(tx_raw_bytes)
-    res_msg = ProtoMsgComposer.MsgResponses(res.data)
-    print("tx response")
-    print(res)
-    print("tx msg response")
-    print(res_msg)
+    print("simulated spot order hashes", sim_res_msg[0].order_hashes)
+    print("simulated derivative order hashes", sim_res_msg[1].order_hashes)
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
