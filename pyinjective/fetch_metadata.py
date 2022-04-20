@@ -100,12 +100,12 @@ async def main() -> None:
     with open("denoms_devnet.ini", "w") as text_file:
         text_file.write(data)
 
-    testnet = Network.testnet()
+    testnet = Network.testnet(node="sentry0")
     data = await fetch_denom(testnet)
     with open("denoms_testnet.ini", "w") as text_file:
         text_file.write(data)
 
-    mainnet = Network.mainnet()
+    mainnet = Network.mainnet(node="sentry0")
     data = await fetch_denom(mainnet)
     with open("denoms_mainnet.ini", "w") as text_file:
         text_file.write(data)
