@@ -56,7 +56,7 @@ def get_subaccount_nonce(network, subaccount_id) -> int:
 def parse_order_type(order):
     return order_type_dict[order.order_type]
 
-def build_eip712_msg(network, order, nonce):
+def build_eip712_msg(order, nonce):
     if order.__class__.__name__ == 'SpotOrder':
         go_price = param_to_backend_go(order.order_info.price)
         go_trigger_price = param_to_backend_go(order.trigger_price)
@@ -101,12 +101,18 @@ def compute_order_hashes(network, spot_orders, derivative_orders) -> [str]:
 
     order_hashes = OrderHashes(spot=[], derivative=[])
 
+    subaccount_id = None
+    if len(spot_orders) > 0:
+        subaccount_id = spot_orders[0].order_info.subaccount_id
+    else:
+        subaccount_id = derivative_orders[0].order_info.subaccount_id
+
     # get starting nonce
-    nonce = get_subaccount_nonce(network, spot_orders[0].order_info.subaccount_id)
+    nonce = get_subaccount_nonce(network, subaccount_id)
     nonce += 1
 
     for o in spot_orders:
-        msg = build_eip712_msg(network, o, nonce)
+        msg = build_eip712_msg(o, nonce)
         typed_data_hash = msg.hash_struct()
         typed_bytes = b'\x19\x01' + domain_separator + typed_data_hash
         keccak256 = sha3.keccak_256()
@@ -116,7 +122,7 @@ def compute_order_hashes(network, spot_orders, derivative_orders) -> [str]:
         nonce += 1
 
     for o in derivative_orders:
-        msg = build_eip712_msg(network, o, nonce)
+        msg = build_eip712_msg(o, nonce)
         typed_data_hash = msg.hash_struct()
         typed_bytes = b'\x19\x01' + domain_separator + typed_data_hash
         keccak256 = sha3.keccak_256()
