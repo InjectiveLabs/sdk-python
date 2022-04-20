@@ -34,7 +34,7 @@ async def main() -> None:
     await client.sync_timeout_height()
 
     # load account
-    priv_key = PrivateKey.from_hex("f9db9bf330e23cb7839039e944adef6e9df447b90b503d5b4464c90bea9022f3")
+    priv_key = PrivateKey.from_hex("5d386fbdbf11f1141010f81a46b40f94887367562bd33b452bbaa6ce1cd1381e")
     pub_key = priv_key.to_public_key()
     address = await pub_key.to_address().async_init_num_seq(network.lcd_endpoint)
     subaccount_id = address.get_subaccount_id(index=0)
@@ -65,14 +65,14 @@ async def main() -> None:
         ),
     ]
 
-    deriv_orders = [
+    derivative_orders = [
         composer.DerivativeOrder(
             market_id=deriv_market_id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
-            price=31027,
+            price=25111,
             quantity=0.01,
-            leverage=0.7,
+            leverage=1.5,
             is_buy=True,
             is_po=False
         ),
@@ -80,9 +80,9 @@ async def main() -> None:
             market_id=deriv_market_id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
-            price=62140,
+            price=65111,
             quantity=0.01,
-            leverage=0.7,
+            leverage=2,
             is_buy=False,
             is_reduce_only=False
         ),
@@ -96,12 +96,13 @@ async def main() -> None:
 
     deriv_msg = composer.MsgBatchCreateDerivativeLimitOrders(
         sender=address.to_acc_bech32(),
-        orders=deriv_orders
+        orders=derivative_orders
     )
 
     # compute order hashes
-    order_hashes = compute_order_hashes(network, spot_orders + deriv_orders)
-    print("The order hashes: ", order_hashes)
+    order_hashes = compute_order_hashes(network, spot_orders=spot_orders, derivative_orders=derivative_orders)
+    print("computed spot order hashes", order_hashes.spot)
+    print("computed derivative order hashes", order_hashes.derivative)
 
     # build sim tx
     tx = (
@@ -122,23 +123,8 @@ async def main() -> None:
         return
 
     sim_res_msg = ProtoMsgComposer.MsgResponses(simRes.result.data, simulation=True)
-
-    # build tx
-    gas_price = 500000000
-    gas_limit = simRes.gas_info.gas_used + 20000 # add 20k for gas, fee computation
-    fee = [composer.Coin(
-        amount=gas_price * gas_limit,
-        denom=network.fee_denom,
-    )]
-
-    tx = tx.with_gas(gas_limit).with_fee(fee).with_memo('').with_timeout_height(client.timeout_height)
-    sign_doc = tx.get_sign_doc(pub_key)
-    sig = priv_key.sign(sign_doc.SerializeToString())
-    tx_raw_bytes = tx.get_tx_data(sig, pub_key)
-
-    # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
-    res = await client.send_tx_block_mode(tx_raw_bytes)
-    res_msg = ProtoMsgComposer.MsgResponses(res.data)
+    print("simulated spot order hashes", sim_res_msg[0].order_hashes)
+    print("simulated derivative order hashes", sim_res_msg[1].order_hashes)
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)

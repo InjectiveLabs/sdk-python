@@ -35,6 +35,15 @@ EIP712_domain = make_domain(
 domain_separator = EIP712_domain.hash_struct()
 order_type_dict = {0: '\x00', 1: '\x01', 2: '\x02', 3: '\x03', 4: '\x04', 5: '\x05', 6: '\x06', 7: '\x07', 8: '\x08'}
 
+class OrderHashes:
+    def __init__(
+            self,
+            spot: [str],
+            derivative: [str],
+    ):
+        self.spot = spot
+        self.derivative = derivative
+
 def param_to_backend_go(param) -> int:
     go_param = Decimal(param) / pow(10, 18)
     return format(go_param, '.18f')
@@ -86,23 +95,34 @@ def build_eip712_msg(network, order, nonce):
         )
 
 # only support msgs from single subaccount
-def compute_order_hashes(network, orders) -> [str]:
+def compute_order_hashes(network, spot_orders, derivative_orders) -> [str]:
+    if len(spot_orders) + len(derivative_orders) == 0:
+        return []
+
+    order_hashes = OrderHashes(spot=[], derivative=[])
+
     # get starting nonce
-    nonce = get_subaccount_nonce(network, orders[0].order_info.subaccount_id)
-    print("starting subaccount nonce", nonce)
-    # compute hashes
-    order_hashes = []
-    for o in orders:
-        # increase nonce for next order
-        nonce += 1
-        # construct eip712 msg
+    nonce = get_subaccount_nonce(network, spot_orders[0].order_info.subaccount_id)
+    nonce += 1
+
+    for o in spot_orders:
         msg = build_eip712_msg(network, o, nonce)
-        # compute order hash
         typed_data_hash = msg.hash_struct()
         typed_bytes = b'\x19\x01' + domain_separator + typed_data_hash
         keccak256 = sha3.keccak_256()
         keccak256.update(typed_bytes)
         order_hash = keccak256.hexdigest()
-        order_hashes.append('0x' + order_hash)
+        order_hashes.spot.append('0x' + order_hash)
+        nonce += 1
+
+    for o in derivative_orders:
+        msg = build_eip712_msg(network, o, nonce)
+        typed_data_hash = msg.hash_struct()
+        typed_bytes = b'\x19\x01' + domain_separator + typed_data_hash
+        keccak256 = sha3.keccak_256()
+        keccak256.update(typed_bytes)
+        order_hash = keccak256.hexdigest()
+        order_hashes.derivative.append('0x' + order_hash)
+        nonce += 1
 
     return order_hashes
