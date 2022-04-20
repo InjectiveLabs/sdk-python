@@ -101,13 +101,14 @@ async def main() -> None:
 
     # compute order hashes
     order_hashes = compute_order_hashes(network, spot_orders=spot_orders, derivative_orders=derivative_orders)
+
     print("computed spot order hashes", order_hashes.spot)
     print("computed derivative order hashes", order_hashes.derivative)
 
     # build sim tx
     tx = (
         Transaction()
-        .with_messages(spot_msg,deriv_msg)
+        .with_messages(spot_msg, deriv_msg)
         .with_sequence(address.get_sequence())
         .with_account_num(address.get_number())
         .with_chain_id(network.chain_id)
@@ -117,14 +118,30 @@ async def main() -> None:
     sim_tx_raw_bytes = tx.get_tx_data(sim_sig, pub_key)
 
     # simulate tx
-    (simRes, success) = await client.simulate_tx(sim_tx_raw_bytes)
+    (sim_res, success) = await client.simulate_tx(sim_tx_raw_bytes)
     if not success:
-        print(simRes)
+        print(sim_res)
         return
 
-    sim_res_msg = ProtoMsgComposer.MsgResponses(simRes.result.data, simulation=True)
-    print("simulated spot order hashes", sim_res_msg[0].order_hashes)
-    print("simulated derivative order hashes", sim_res_msg[1].order_hashes)
+    # build tx
+    gas_price = 500000000
+    gas_limit = sim_res.gas_info.gas_used + 20000  # add 15k for gas, fee computation
+    fee = [composer.Coin(
+        amount=gas_price * gas_limit,
+        denom=network.fee_denom,
+    )]
+    tx = tx.with_gas(gas_limit).with_fee(fee).with_memo('').with_timeout_height(client.timeout_height)
+    sign_doc = tx.get_sign_doc(pub_key)
+    sig = priv_key.sign(sign_doc.SerializeToString())
+    tx_raw_bytes = tx.get_tx_data(sig, pub_key)
+
+    # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
+    res = await client.send_tx_sync_mode(tx_raw_bytes)
+    res_msg = ProtoMsgComposer.MsgResponses(res.data)
+    print("tx response")
+    print(res)
+    print("tx msg response")
+    print(res_msg)
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
