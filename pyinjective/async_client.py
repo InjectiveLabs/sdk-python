@@ -83,6 +83,7 @@ class AsyncClient:
             grpc.aio.insecure_channel(network.grpc_endpoint)
             if insecure else grpc.aio.secure_channel(network.grpc_endpoint, credentials)
         )
+        self.insecure = insecure
         self.stubCosmosTendermint = tendermint_query_grpc.ServiceStub(self.chain_channel)
         self.stubAuth = auth_query_grpc.QueryStub(self.chain_channel)
         self.stubAuthz = authz_query_grpc.QueryStub(self.chain_channel)
@@ -170,6 +171,9 @@ class AsyncClient:
 
     async def load_cookie(self, type):
         metadata = None
+        if self.insecure:
+            return metadata
+
         if type == "chain":
             if self.chain_cookie != "":
                  metadata = await self.renew_cookie(self.chain_cookie, type)
@@ -190,6 +194,9 @@ class AsyncClient:
 
     def set_cookie(self, metadata, type):
         new_cookie = None
+        if self.insecure:
+            return new_cookie
+
         for k, v in metadata:
             if k == "set-cookie":
                 new_cookie = v
