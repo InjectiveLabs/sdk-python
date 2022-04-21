@@ -11,7 +11,7 @@ ecdsa = "*"
 bech32 = "*"
 mnemonic = "*"
 hdwallets = "*"
-pysha = "*"
+pysha3 = "*"
 protobuf = "*"
 grpcio-tools = "*"
 bip32 = "*"
@@ -19,6 +19,8 @@ web3 = "*"
 json = "*"
 requests = "*"
 eip712_structs = "*"
+coincurve = "*"
+aiocron = "*"
 
 [dev-packages]
 
