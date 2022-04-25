@@ -22,17 +22,26 @@ async def main() -> None:
     pub_key = priv_key.to_public_key()
     address = await pub_key.to_address().async_init_num_seq(network.lcd_endpoint)
     subaccount_id = address.get_subaccount_id(index=0)
+    market_ids = ["0x0511ddc4e6586f3bfe1acb2dd905f8b8a82c97e1edaef654b12ca7e6031ca0fa"]
 
     # prepare tx msg
-    # WARNING
-    # be aware that this grant the grantee unrestricted ability to send this type of msg
-    # this can be exploited to drain your funds if your grantee becomes malicious
-    # we will support restrictive MsgGrant in next mainnet upgrade
-    msg = composer.MsgGrant(
+
+    #GENERIC AUTHZ
+    # msg = composer.MsgGrantGeneric(
+    #     granter = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku",
+    #     grantee = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
+    #     msg_type = "/injective.exchange.v1beta1.MsgCreateSpotLimitOrder",
+    #     expire_in=31536000 # 1 year
+    # )
+
+    #TYPED AUTHZ
+    msg = composer.MsgGrantTyped(
         granter = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku",
         grantee = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
-        msg_type = "/injective.exchange.v1beta1.MsgCreateSpotLimitOrder",
-        expire_in=31536000 # 1 year
+        msg_type = "CreateSpotLimitOrderAuthz",
+        expire_in=31536000, # 1 year
+        subaccount_id=subaccount_id,
+        market_ids=market_ids
     )
 
     # build sim tx
