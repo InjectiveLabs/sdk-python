@@ -83,6 +83,7 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 * Add automatic timeout height in transactions
 * Add automatic session renewal for K8S
 * Add MsgDelegate and MsgWithdrawDelegatorReward in the composer
+* Add typed authz support in the composer
 * Re-gen ini files
 
 **0.5.6.5**

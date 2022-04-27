@@ -6,6 +6,8 @@ from google.protobuf import any_pb2, message, timestamp_pb2
 from .proto.cosmos.authz.v1beta1 import authz_pb2 as cosmos_authz_pb
 from .proto.cosmos.authz.v1beta1 import tx_pb2 as cosmos_authz_tx_pb
 
+from .proto.injective.exchange.v1beta1 import authz_pb2 as injective_authz_pb
+
 from .proto.cosmos.bank.v1beta1 import tx_pb2 as cosmos_bank_tx_pb
 from .proto.cosmos.base.v1beta1 import coin_pb2 as cosmos_base_coin_pb
 
@@ -387,8 +389,67 @@ class Composer:
             bid_amount=self.Coin(amount=be_amount, denom="inj"),
         )
 
-    def MsgGrant(self, granter: str, grantee: str, msg_type: str, expire_in: int):
+    def MsgGrantGeneric(self, granter: str, grantee: str, msg_type: str, expire_in: int):
         auth = cosmos_authz_pb.GenericAuthorization(msg=msg_type)
+        any_auth = any_pb2.Any()
+        any_auth.Pack(auth, type_url_prefix="")
+
+        grant = cosmos_authz_pb.Grant(
+            authorization=any_auth,
+            expiration=timestamp_pb2.Timestamp(seconds=(int(time()) + expire_in)),
+        )
+
+        return cosmos_authz_tx_pb.MsgGrant(
+            granter=granter, grantee=grantee, grant=grant
+        )
+
+    def MsgGrantTyped(self, granter: str, grantee: str, msg_type: str, expire_in: int, subaccount_id: str, **kwargs):
+        auth = None
+        if msg_type == "CreateSpotLimitOrderAuthz":
+            auth = injective_authz_pb.CreateSpotLimitOrderAuthz(
+                subaccount_id=subaccount_id, market_ids=kwargs.get("market_ids")
+            )
+        elif msg_type == "CreateSpotMarketOrderAuthz":
+            auth = injective_authz_pb.CreateSpotMarketOrderAuthz(
+                subaccount_id=subaccount_id, market_ids=kwargs.get("market_ids")
+            )
+        elif msg_type == "BatchCreateSpotLimitOrdersAuthz":
+            auth = injective_authz_pb.BatchCreateSpotLimitOrdersAuthz(
+                subaccount_id=subaccount_id, market_ids=kwargs.get("market_ids")
+            )
+        elif msg_type == "CancelSpotOrderAuthz":
+            auth = injective_authz_pb.CancelSpotOrderAuthz(
+                subaccount_id=subaccount_id, market_ids=kwargs.get("market_ids")
+            )
+        elif msg_type == "BatchCancelSpotOrdersAuthz":
+            auth = injective_authz_pb.BatchCancelSpotOrdersAuthz(
+                subaccount_id=subaccount_id, market_ids=kwargs.get("market_ids")
+            )
+        elif msg_type == "CreateDerivativeLimitOrderAuthz":
+            auth = injective_authz_pb.CreateDerivativeLimitOrderAuthz(
+                subaccount_id=subaccount_id, market_ids=kwargs.get("market_ids")
+            )
+        elif msg_type == "CreateDerivativeMarketOrderAuthz":
+            auth = injective_authz_pb.CreateDerivativeMarketOrderAuthz(
+                subaccount_id=subaccount_id, market_ids=kwargs.get("market_ids")
+            )
+        elif msg_type == "BatchCreateDerivativeLimitOrdersAuthz":
+            auth = injective_authz_pb.BatchCreateDerivativeLimitOrdersAuthz(
+                subaccount_id=subaccount_id, market_ids=kwargs.get("market_ids")
+            )
+        elif msg_type == "CancelDerivativeOrderAuthz":
+            auth = injective_authz_pb.CancelDerivativeOrderAuthz(
+                subaccount_id=subaccount_id, market_ids=kwargs.get("market_ids")
+            )
+        elif msg_type == "BatchCancelDerivativeOrdersAuthz":
+            auth = injective_authz_pb.BatchCancelDerivativeOrdersAuthz(
+                subaccount_id=subaccount_id, market_ids=kwargs.get("market_ids")
+            )
+        elif msg_type == "BatchUpdateOrdersAuthz":
+            auth = injective_authz_pb.BatchUpdateOrdersAuthz(
+                subaccount_id=subaccount_id, spot_markets=kwargs.get("spot_markets"), derivative_markets=kwargs.get("derivative_markets")
+            )
+
         any_auth = any_pb2.Any()
         any_auth.Pack(auth, type_url_prefix="")
 
