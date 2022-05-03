@@ -1,4 +1,4 @@
-from web3 import Web3, HTTPProvider
+from web3 import Web3
 
 from .wallet import Address
 

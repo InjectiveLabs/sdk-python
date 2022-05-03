@@ -29,8 +29,6 @@ from .constant import Denom
 from .utils import *
 from typing import List
 
-from .wallet import Address
-
 class Composer:
     def __init__(self, network: str):
         self.network = network
