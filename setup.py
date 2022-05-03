@@ -31,7 +31,6 @@ REQUIRED = [
     "protobuf",
     "grpcio-tools",
     "bip32",
-    "web3",
     "json",
     "requests",
     "eip712_structs",

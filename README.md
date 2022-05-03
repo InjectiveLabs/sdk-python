@@ -84,7 +84,9 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 * Add automatic session renewal for K8S
 * Add MsgDelegate and MsgWithdrawDelegatorReward in the composer
 * Add typed authz support in the composer
+* Decouple SendToCosmos from the composer and remove web3 dependency
 * Re-gen ini files
+
 
 **0.5.6.5**
 * Add MsgRelayPriceFeedPrice in the composer
