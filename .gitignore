@@ -140,3 +140,6 @@ dmypy.json
 cython_debug/
 
 .idea
+
+.chain_cookie
+.exchange_cookie

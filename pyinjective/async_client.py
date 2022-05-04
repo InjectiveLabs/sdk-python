@@ -58,6 +58,11 @@ DEFAULT_TIMEOUTHEIGHT_SYNC_INTERVAL = 10 # seconds
 DEFAULT_TIMEOUTHEIGHT = 20 # blocks
 DEFAULT_SESSION_RENEWAL_OFFSET = 120 # seconds
 DEFAULT_BLOCK_TIME = 3 # seconds
+DEFAULT_CHAIN_COOKIE_NAME = '.chain_cookie'
+
+# use append mode to create file if not exist
+cookie_file = open(DEFAULT_CHAIN_COOKIE_NAME, "a+")
+cookie_file.close()
 
 class AsyncClient:
     def __init__(
@@ -88,7 +93,13 @@ class AsyncClient:
         self.stubAuth = auth_query_grpc.QueryStub(self.chain_channel)
         self.stubAuthz = authz_query_grpc.QueryStub(self.chain_channel)
         self.stubTx = tx_service_grpc.ServiceStub(self.chain_channel)
-        self.chain_cookie = ""
+
+        # attempt to load from disk
+        cookie_file = open(DEFAULT_CHAIN_COOKIE_NAME, "r+")
+        self.chain_cookie = cookie_file.read()
+        cookie_file.close()
+        print("chain session cookie loaded from disk:", self.chain_cookie)
+
         self.exchange_cookie = ""
         self.timeout_height = 1
 
@@ -205,7 +216,14 @@ class AsyncClient:
             return
 
         if type == "chain":
+            # write to client instance
             self.chain_cookie = new_cookie
+            # write to disk
+            cookie_file = open(DEFAULT_CHAIN_COOKIE_NAME, "w")
+            cookie_file.write(new_cookie)
+            cookie_file.close()
+            print("chain session cookie saved to disk")
+
         if type == "exchange":
             self.exchange_cookie = new_cookie
 
