@@ -480,6 +480,8 @@ class AsyncClient:
             market_id=market_id,
             order_side=kwargs.get("order_side"),
             subaccount_id=kwargs.get("subaccount_id"),
+            skip=kwargs.get("skip"),
+            limit=kwargs.get("limit")
         )
         return await self.stubSpotExchange.Orders(req)
 
@@ -529,7 +531,10 @@ class AsyncClient:
 
     async def get_spot_subaccount_orders(self, subaccount_id: str, **kwargs):
         req = spot_exchange_rpc_pb.SubaccountOrdersListRequest(
-            subaccount_id=subaccount_id, market_id=kwargs.get("market_id")
+            subaccount_id=subaccount_id,
+            market_id=kwargs.get("market_id"),
+            skip=kwargs.get("skip"),
+            limit=kwargs.get("limit")
         )
         return await self.stubSpotExchange.SubaccountOrdersList(req)
 
@@ -539,6 +544,8 @@ class AsyncClient:
             market_id=kwargs.get("market_id"),
             execution_type=kwargs.get("execution_type"),
             direction=kwargs.get("direction"),
+            skip=kwargs.get("skip"),
+            limit=kwargs.get("limit")
         )
         return await self.stubSpotExchange.SubaccountTradesList(req)
 
@@ -573,6 +580,8 @@ class AsyncClient:
             market_id=market_id,
             order_side=kwargs.get("order_side"),
             subaccount_id=kwargs.get("subaccount_id"),
+            skip=kwargs.get("skip"),
+            limit=kwargs.get("limit")
         )
         return await self.stubDerivativeExchange.Orders(req)
 
@@ -622,7 +631,10 @@ class AsyncClient:
 
     async def get_derivative_positions(self, market_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.PositionsRequest(
-            market_id=market_id, subaccount_id=kwargs.get("subaccount_id")
+            market_id=market_id,
+            subaccount_id=kwargs.get("subaccount_id"),
+            skip=kwargs.get("skip"),
+            limit=kwargs.get("limit")
         )
         return await self.stubDerivativeExchange.Positions(req)
 
@@ -638,13 +650,18 @@ class AsyncClient:
 
     async def get_derivative_liquidable_positions(self, **kwargs):
         req = derivative_exchange_rpc_pb.LiquidablePositionsRequest(
-            market_id=kwargs.get("market_id")
+            market_id=kwargs.get("market_id"),
+            skip=kwargs.get("skip"),
+            limit=kwargs.get("limit")
         )
         return await self.stubDerivativeExchange.LiquidablePositions(req)
 
     async def get_derivative_subaccount_orders(self, subaccount_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.SubaccountOrdersListRequest(
-            subaccount_id=subaccount_id, market_id=kwargs.get("market_id")
+            subaccount_id=subaccount_id,
+            market_id=kwargs.get("market_id"),
+            skip=kwargs.get("skip"),
+            limit=kwargs.get("limit")
         )
         return await self.stubDerivativeExchange.SubaccountOrdersList(req)
 
@@ -654,6 +671,8 @@ class AsyncClient:
             market_id=kwargs.get("market_id"),
             execution_type=kwargs.get("execution_type"),
             direction=kwargs.get("direction"),
+            skip=kwargs.get("skip"),
+            limit=kwargs.get("limit")
         )
         return await self.stubDerivativeExchange.SubaccountTradesList(req)
 
