@@ -377,6 +377,8 @@ class AsyncClient:
             subaccount_id=subaccount_id,
             denom=kwargs.get("denom"),
             transfer_types=kwargs.get("transfer_types"),
+            skip=kwargs.get("skip"),
+            limit=kwargs.get("limit")
         )
         return await self.stubExchangeAccount.SubaccountHistory(req)
 

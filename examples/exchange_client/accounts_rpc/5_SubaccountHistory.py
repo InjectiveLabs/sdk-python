@@ -25,10 +25,14 @@ async def main() -> None:
     subaccount = "0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000"
     denom = "inj"
     transfer_types = ["withdraw", "deposit"] # Enum with values "withdraw", "deposit", "internal", "external"
+    skip = 10
+    limit = 10
     subacc_history = await client.get_subaccount_history(
         subaccount_id=subaccount,
         denom=denom,
-        transfer_types=transfer_types
+        transfer_types=transfer_types,
+        skip=skip,
+        limit=limit
     )
     print(subacc_history)
 
