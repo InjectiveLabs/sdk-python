@@ -24,9 +24,13 @@ async def main() -> None:
     client = AsyncClient(network, insecure=False)
     subaccount_id = "0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000"
     market_id = "0x4ca0f92fc28be0c9761326016b5a1a2177dd6375558365116b5bdda9abc229ce"
+    skip = 10
+    limit = 10
     orders = await client.get_derivative_subaccount_orders(
         subaccount_id=subaccount_id,
-        market_id=market_id
+        market_id=market_id,
+        skip=skip,
+        limit=limit
     )
     print(orders)
 
