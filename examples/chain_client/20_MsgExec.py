@@ -78,8 +78,13 @@ async def main() -> None:
         return
 
     sim_res_msg = ProtoMsgComposer.MsgResponses(sim_res.result.data, simulation=True)
-    print("simulation msg response")
     print(sim_res_msg)
+    unpacked_msg_res = ProtoMsgComposer.UnpackMsgExecResponse(
+        msg_type=msg0.__class__.__name__,
+        data=sim_res_msg[0]
+    )
+    print("simulation msg response")
+    print(unpacked_msg_res)
 
     # build tx
     gas_price = 500000000

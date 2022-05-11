@@ -592,7 +592,6 @@ class Composer:
             "MsgSubaccountTransfer": injective_exchange_tx_pb.MsgSubaccountTransferResponse,
             "MsgLiquidatePosition": injective_exchange_tx_pb.MsgLiquidatePositionResponse,
             "MsgIncreasePositionMargin": injective_exchange_tx_pb.MsgIncreasePositionMarginResponse,
-            "MsgBid": injective_auction_tx_pb.MsgBidResponse,
         }
 
-        return header_map[msg_type].FromString(data)
+        return header_map[msg_type].FromString(bytes(data, "utf-8"))
