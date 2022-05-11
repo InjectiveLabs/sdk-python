@@ -1,4 +1,4 @@
-# Copyright 2021 Injective Labs
+# Copyright 2022 Injective Labs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Injective Chain Tx/Query client for Python. Example only."""
 
 import asyncio
 import logging
@@ -20,7 +19,7 @@ from pyinjective.composer import Composer as ProtoMsgComposer
 from pyinjective.async_client import AsyncClient
 from pyinjective.transaction import Transaction
 from pyinjective.constant import Network
-from pyinjective.wallet import PrivateKey, PublicKey, Address
+from pyinjective.wallet import PrivateKey
 
 
 async def main() -> None:
@@ -38,7 +37,7 @@ async def main() -> None:
     address = await pub_key.to_address().async_init_num_seq(network.lcd_endpoint)
 
     # prepare tx msg
-    validator_address = "injvaloper1ultw9r29l8nxy5u6thcgusjn95vsy2caw722q5"
+    validator_address = "injvaloper14gy4acwjm96wd20awm9ar6j54lev5p7espy9ug"
 
     msg = composer.MsgWithdrawDelegatorReward(
         delegator_address=address.to_acc_bech32(),
@@ -76,9 +75,9 @@ async def main() -> None:
     tx_raw_bytes = tx.get_tx_data(sig, pub_key)
 
     # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
-    res = await client.send_tx_block_mode(tx_raw_bytes)
-    print("tx response")
+    res = await client.send_tx_sync_mode(tx_raw_bytes)
     print(res)
+    print("gas wanted: {}".format(gas_limit))
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)

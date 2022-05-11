@@ -1,3 +1,17 @@
+# Copyright 2022 Injective Labs
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import asyncio
 import logging
 
@@ -5,7 +19,7 @@ from pyinjective.composer import Composer as ProtoMsgComposer
 from pyinjective.async_client import AsyncClient
 from pyinjective.transaction import Transaction
 from pyinjective.constant import Network
-from pyinjective.wallet import PrivateKey, PublicKey, Address
+from pyinjective.wallet import PrivateKey, Address
 
 
 async def main() -> None:
@@ -21,10 +35,9 @@ async def main() -> None:
     priv_key = PrivateKey.from_hex("f9db9bf330e23cb7839039e944adef6e9df447b90b503d5b4464c90bea9022f3")
     pub_key = priv_key.to_public_key()
     address = await pub_key.to_address().async_init_num_seq(network.lcd_endpoint)
-    subaccount_id = address.get_subaccount_id(index=0)
 
     # prepare tx msg
-    market_id = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
+    market_id = "0x0511ddc4e6586f3bfe1acb2dd905f8b8a82c97e1edaef654b12ca7e6031ca0fa"
 
     grantee = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
     granter_inj_address = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku"
@@ -38,7 +51,7 @@ async def main() -> None:
         price=7.523,
         quantity=0.01,
         is_buy=True,
-        is_po=True
+        is_po=False
     )
 
     msg = composer.MsgExec(
@@ -70,7 +83,7 @@ async def main() -> None:
 
     # build tx
     gas_price = 500000000
-    gas_limit = sim_res.gas_info.gas_used + 20000 # add 15k for gas, fee computation
+    gas_limit = sim_res.gas_info.gas_used + 20000 # add 20k for gas, fee computation
     fee = [composer.Coin(
         amount=gas_price * gas_limit,
         denom=network.fee_denom,
@@ -81,12 +94,9 @@ async def main() -> None:
     tx_raw_bytes = tx.get_tx_data(sig, pub_key)
 
     # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
-    res = await client.send_tx_block_mode(tx_raw_bytes)
-    res_msg = ProtoMsgComposer.MsgResponses(res.data)
-    print("tx response")
+    res = await client.send_tx_sync_mode(tx_raw_bytes)
     print(res)
-    print("tx msg response")
-    print(res_msg)
+    print("gas wanted: {}".format(gas_limit))
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
