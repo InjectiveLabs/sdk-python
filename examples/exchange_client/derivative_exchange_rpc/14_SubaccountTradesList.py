@@ -26,11 +26,15 @@ async def main() -> None:
     market_id = "0x4ca0f92fc28be0c9761326016b5a1a2177dd6375558365116b5bdda9abc229ce"
     execution_type = "market"  # market, limitFill, limitMatchRestingOrder or limitMatchNewOrder
     direction = "sell"  # buy or sell
+    skip = 10
+    limit = 10
     trades = await client.get_derivative_subaccount_trades(
         subaccount_id=subaccount_id,
         market_id=market_id,
         execution_type=execution_type,
-        direction=direction
+        direction=direction,
+        skip=skip,
+        limit=limit
     )
     print(trades)
 

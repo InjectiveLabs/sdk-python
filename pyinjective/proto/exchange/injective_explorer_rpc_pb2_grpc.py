@@ -40,11 +40,6 @@ class InjectiveExplorerRPCStub(object):
                 request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetValidatorUptimeRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetValidatorUptimeResponse.FromString,
                 )
-        self.GetCoinPriceData = channel.unary_unary(
-                '/injective_explorer_rpc.InjectiveExplorerRPC/GetCoinPriceData',
-                request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetCoinPriceDataRequest.SerializeToString,
-                response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetCoinPriceDataResponse.FromString,
-                )
         self.GetTxs = channel.unary_unary(
                 '/injective_explorer_rpc.InjectiveExplorerRPC/GetTxs',
                 request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetTxsRequest.SerializeToString,
@@ -116,13 +111,6 @@ class InjectiveExplorerRPCServicer(object):
 
     def GetValidatorUptime(self, request, context):
         """GetValidatorUptime returns validator uptime information on the active chain
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def GetCoinPriceData(self, request, context):
-        """GetCoinPriceData returns price data from CoinGecko API
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -207,11 +195,6 @@ def add_InjectiveExplorerRPCServicer_to_server(servicer, server):
                     servicer.GetValidatorUptime,
                     request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetValidatorUptimeRequest.FromString,
                     response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetValidatorUptimeResponse.SerializeToString,
-            ),
-            'GetCoinPriceData': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetCoinPriceData,
-                    request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetCoinPriceDataRequest.FromString,
-                    response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetCoinPriceDataResponse.SerializeToString,
             ),
             'GetTxs': grpc.unary_unary_rpc_method_handler(
                     servicer.GetTxs,
@@ -341,23 +324,6 @@ class InjectiveExplorerRPC(object):
         return grpc.experimental.unary_unary(request, target, '/injective_explorer_rpc.InjectiveExplorerRPC/GetValidatorUptime',
             exchange_dot_injective__explorer__rpc__pb2.GetValidatorUptimeRequest.SerializeToString,
             exchange_dot_injective__explorer__rpc__pb2.GetValidatorUptimeResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def GetCoinPriceData(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_explorer_rpc.InjectiveExplorerRPC/GetCoinPriceData',
-            exchange_dot_injective__explorer__rpc__pb2.GetCoinPriceDataRequest.SerializeToString,
-            exchange_dot_injective__explorer__rpc__pb2.GetCoinPriceDataResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

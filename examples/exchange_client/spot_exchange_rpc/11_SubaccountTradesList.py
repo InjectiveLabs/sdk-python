@@ -26,11 +26,15 @@ async def main() -> None:
     market_id = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
     execution_type = "market"  # market, limitFill, limitMatchRestingOrder or limitMatchNewOrder
     direction = "buy"  # buy or sell
+    skip = 10
+    limit = 10
     trades = await client.get_spot_subaccount_trades(
         subaccount_id=subaccount_id,
         market_id=market_id,
         execution_type=execution_type,
-        direction=direction
+        direction=direction,
+        skip=skip,
+        limit=limit
     )
     print(trades)
 
