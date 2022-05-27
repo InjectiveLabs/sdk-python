@@ -346,6 +346,47 @@ class AsyncClient:
         req = explorer_rpc_pb.GetTxByTxHashRequest(hash=tx_hash)
         return await self.stubExplorer.GetTxByTxHash(req)
 
+    async def get_account_txs(self, address: str, **kwargs):
+        req = explorer_rpc_pb.GetAccountTxsRequest(
+            address=address,
+            before=kwargs.get("before"),
+            after=kwargs.get("after"),
+            limit=kwargs.get("limit"),
+            skip=kwargs.get("skip"),
+            type=kwargs.get("type"),
+            module=kwargs.get("module"))
+        return await self.stubExplorer.GetAccountTxs(req)
+
+    async def get_blocks(self, **kwargs):
+        req = explorer_rpc_pb.GetBlocksRequest(
+            before=kwargs.get("before"),
+            after=kwargs.get("after"),
+            limit=kwargs.get("limit")
+            )
+        return await self.stubExplorer.GetBlocks(req)
+
+    async def get_block(self, block_height: str):
+        req = explorer_rpc_pb.GetBlockRequest(id=block_height)
+        return await self.stubExplorer.GetBlock(req)
+
+    async def get_txs(self, **kwargs):
+        req = explorer_rpc_pb.GetTxsRequest(
+            before=kwargs.get("before"),
+            after=kwargs.get("after"),
+            limit=kwargs.get("limit"),
+            skip=kwargs.get("skip"),
+            type=kwargs.get("type"),
+            module=kwargs.get("module"))
+        return await self.stubExplorer.GetTxs(req)
+
+    async def stream_txs(self):
+        req = explorer_rpc_pb.StreamTxsRequest()
+        return self.stubExplorer.StreamTxs(req)
+
+    async def stream_blocks(self):
+        req = explorer_rpc_pb.StreamBlocksRequest()
+        return self.stubExplorer.StreamBlocks(req)
+
     # AccountsRPC
 
     async def stream_subaccount_balance(self, subaccount_id: str):

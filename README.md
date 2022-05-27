@@ -80,6 +80,7 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 ### Changelogs
 **0.5.6.8**
 * Add skip & limit params to Exchange API methods
+* Add more methods in ExplorerRPC
 * Re-gen ini files
 
 **0.5.6.6**
