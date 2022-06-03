@@ -38,20 +38,65 @@ order_type_dict = {0: '\x00', 1: '\x01', 2: '\x02', 3: '\x03', 4: '\x04', 5: '\x
 class OrderHashes:
     def __init__(
             self,
-            spot: [str],
-            derivative: [str],
+            spot: [str] = None,
+            derivative: [str] = None,
+            nonce: str = None
     ):
         self.spot = spot
         self.derivative = derivative
+        self.nonce = nonce
+
+    @classmethod
+    def get_subaccount_nonce(self, network, subaccount_id) -> int:
+        url = network.lcd_endpoint + '/injective/exchange/v1beta1/exchange/' + subaccount_id
+        res = requests.get(url = url)
+        nonce = res.json()["nonce"]
+        self.nonce = nonce + 1
+        return self.nonce
+
+    @classmethod
+    def compute_order_hashes(self, spot_orders, derivative_orders) -> [str]:
+        if len(spot_orders) + len(derivative_orders) == 0:
+            return []
+
+        order_hashes = OrderHashes(spot=[], derivative=[])
+
+        subaccount_id = None
+        if len(spot_orders) > 0:
+            subaccount_id = spot_orders[0].order_info.subaccount_id
+        else:
+            subaccount_id = derivative_orders[0].order_info.subaccount_id
+
+        for o in spot_orders:
+            msg = build_eip712_msg(o, self.nonce)
+            typed_data_hash = msg.hash_struct()
+            typed_bytes = b'\x19\x01' + domain_separator + typed_data_hash
+            keccak256 = sha3.keccak_256()
+            keccak256.update(typed_bytes)
+            order_hash = keccak256.hexdigest()
+            order_hashes.spot.append('0x' + order_hash)
+            self.nonce += 1
+
+        for o in derivative_orders:
+            msg = build_eip712_msg(o, self.nonce)
+            typed_data_hash = msg.hash_struct()
+            typed_bytes = b'\x19\x01' + domain_separator + typed_data_hash
+            keccak256 = sha3.keccak_256()
+            keccak256.update(typed_bytes)
+            order_hash = keccak256.hexdigest()
+            order_hashes.derivative.append('0x' + order_hash)
+            self.nonce += 1
+
+        return order_hashes
 
 def param_to_backend_go(param) -> int:
     go_param = Decimal(param) / pow(10, 18)
     return format(go_param, '.18f')
 
-def get_subaccount_nonce(network, subaccount_id) -> int:
-    url = network.lcd_endpoint + '/injective/exchange/v1beta1/exchange/' + subaccount_id
-    res = requests.get(url = url)
-    return res.json()["nonce"]
+def increment_nonce(self):
+    current_nonce = self.nonce
+    self.nonce += 1
+    return current_nonce
 
 def parse_order_type(order):
     return order_type_dict[order.order_type]
@@ -95,40 +140,4 @@ def build_eip712_msg(order, nonce):
         )
 
 # only support msgs from single subaccount
-def compute_order_hashes(network, spot_orders, derivative_orders) -> [str]:
-    if len(spot_orders) + len(derivative_orders) == 0:
-        return []
 
-    order_hashes = OrderHashes(spot=[], derivative=[])
-
-    subaccount_id = None
-    if len(spot_orders) > 0:
-        subaccount_id = spot_orders[0].order_info.subaccount_id
-    else:
-        subaccount_id = derivative_orders[0].order_info.subaccount_id
-
-    # get starting nonce
-    nonce = get_subaccount_nonce(network, subaccount_id)
-    nonce += 1
-
-    for o in spot_orders:
-        msg = build_eip712_msg(o, nonce)
-        typed_data_hash = msg.hash_struct()
-        typed_bytes = b'\x19\x01' + domain_separator + typed_data_hash
-        keccak256 = sha3.keccak_256()
-        keccak256.update(typed_bytes)
-        order_hash = keccak256.hexdigest()
-        order_hashes.spot.append('0x' + order_hash)
-        nonce += 1
-
-    for o in derivative_orders:
-        msg = build_eip712_msg(o, nonce)
-        typed_data_hash = msg.hash_struct()
-        typed_bytes = b'\x19\x01' + domain_separator + typed_data_hash
-        keccak256 = sha3.keccak_256()
-        keccak256.update(typed_bytes)
-        order_hash = keccak256.hexdigest()
-        order_hashes.derivative.append('0x' + order_hash)
-        nonce += 1
-
-    return order_hashes
