@@ -81,6 +81,8 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 **0.5.6.8**
 * Add skip & limit params to Exchange API methods
 * Add more methods in ExplorerRPC
+* Remove LB endpoint and keep K8S as default
+* Refactored local order hash computation
 * Re-gen ini files
 
 **0.5.6.6**
