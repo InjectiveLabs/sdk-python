@@ -29,6 +29,10 @@ from .proto.cosmos.authz.v1beta1 import (
     query_pb2 as authz_query,
     authz_pb2 as authz_type,
 )
+from .proto.cosmos.bank.v1beta1 import (
+    query_pb2_grpc as bank_query_grpc,
+    query_pb2 as bank_query,
+)
 from .proto.cosmos.tx.v1beta1 import (
     service_pb2_grpc as tx_service_grpc,
     service_pb2 as tx_service,
@@ -92,6 +96,7 @@ class AsyncClient:
         self.stubCosmosTendermint = tendermint_query_grpc.ServiceStub(self.chain_channel)
         self.stubAuth = auth_query_grpc.QueryStub(self.chain_channel)
         self.stubAuthz = authz_query_grpc.QueryStub(self.chain_channel)
+        self.stubBank = bank_query_grpc.QueryStub(self.chain_channel)
         self.stubTx = tx_service_grpc.ServiceStub(self.chain_channel)
 
         # attempt to load from disk
@@ -304,6 +309,21 @@ class AsyncClient:
             )
         )
 
+    async def get_bank_balances(self, address: str):
+        return await self.stubBank.AllBalances(
+            bank_query.QueryAllBalancesRequest(
+                address=address
+            )
+        )
+
+    async def get_bank_balance(self, address: str, denom: str):
+        return await self.stubBank.Balance(
+            bank_query.QueryBalanceRequest(
+                address=address,
+                denom=denom
+            )
+        )
+
     # Injective Exchange client methods
 
     # Auction RPC
@@ -386,6 +406,37 @@ class AsyncClient:
     async def stream_blocks(self):
         req = explorer_rpc_pb.StreamBlocksRequest()
         return self.stubExplorer.StreamBlocks(req)
+
+    async def get_peggy_deposits(self, **kwargs):
+        req = explorer_rpc_pb.GetPeggyDepositTxsRequest(
+            sender=kwargs.get("sender"),
+            receiver=kwargs.get("receiver"),
+            limit=kwargs.get("limit"),
+            skip=kwargs.get("skip")
+        )
+        return await self.stubExplorer.GetPeggyDepositTxs(req)
+
+    async def get_peggy_withdrawals(self, **kwargs):
+        req = explorer_rpc_pb.GetPeggyWithdrawalTxsRequest(
+            sender=kwargs.get("sender"),
+            receiver=kwargs.get("receiver"),
+            limit=kwargs.get("limit"),
+            skip=kwargs.get("skip")
+        )
+        return await self.stubExplorer.GetPeggyWithdrawalTxs(req)
+
+    async def get_ibc_transfers(self, **kwargs):
+        req = explorer_rpc_pb.GetIBCTransferTxsRequest(
+            sender=kwargs.get("sender"),
+            receiver=kwargs.get("receiver"),
+            src_channel=kwargs.get("src_channel"),
+            src_port=kwargs.get("src_port"),
+            dest_channel=kwargs.get("dest_channel"),
+            dest_port=kwargs.get("dest_port"),
+            limit=kwargs.get("limit"),
+            skip=kwargs.get("skip")
+        )
+        return await self.stubExplorer.GetIBCTransferTxs(req)
 
     # AccountsRPC
 
