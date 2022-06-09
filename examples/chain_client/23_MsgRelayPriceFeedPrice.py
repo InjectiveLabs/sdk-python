@@ -36,9 +36,8 @@ async def main() -> None:
     pub_key = priv_key.to_public_key()
     address = await pub_key.to_address().async_init_num_seq(network.lcd_endpoint)
 
-    quote_decimals = 18
     price = 100
-    price_to_send = [str(int(price * 10 ** quote_decimals))]
+    price_to_send = [str(int(price * 10 ** 18))]
     base = ["BAYC"]
     quote = ["WETH"]
 
