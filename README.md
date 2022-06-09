@@ -82,7 +82,6 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 * Add skip & limit params to Exchange API methods
 * Add more methods in ExplorerRPC
 * Add bank balance chain queries
-* Add Peggy & IBC transfers in ExplorerRPC
 * Remove LB endpoint and keep K8S as default
 * Refactored local order hash computation
 * Re-gen ini files
