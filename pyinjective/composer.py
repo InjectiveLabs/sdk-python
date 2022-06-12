@@ -375,6 +375,22 @@ class Composer:
             amount=self.Coin(amount=be_amount, denom=peggy_denom),
         )
 
+    def MsgExternalTransfer(
+        self,
+        sender: str,
+        source_subaccount_id: str,
+        destination_subaccount_id: str,
+        amount: int,
+        denom: str,
+    ):
+
+        return injective_exchange_tx_pb.MsgExternalTransfer(
+            sender=sender,
+            source_subaccount_id=source_subaccount_id,
+            destination_subaccount_id=destination_subaccount_id,
+            amount=self.Coin(amount=amount, denom=denom),
+        )
+
     def MsgBid(self, sender: str, bid_amount: float, round: float):
 
         be_amount = amount_to_backend(bid_amount, 18)
