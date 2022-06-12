@@ -78,6 +78,9 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.5.6.9**
+* Add MsgExternalTransfer to the composer
+
 **0.5.6.8**
 * Add skip & limit params to Exchange API methods
 * Add more methods in ExplorerRPC
