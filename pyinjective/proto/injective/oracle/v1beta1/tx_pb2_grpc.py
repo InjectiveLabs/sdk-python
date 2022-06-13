@@ -15,6 +15,11 @@ class MsgStub(object):
         Args:
             channel: A grpc.Channel.
         """
+        self.RelayProviderPrices = channel.unary_unary(
+                '/injective.oracle.v1beta1.Msg/RelayProviderPrices',
+                request_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayProviderPrices.SerializeToString,
+                response_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayProviderPricesResponse.FromString,
+                )
         self.RelayPriceFeedPrice = channel.unary_unary(
                 '/injective.oracle.v1beta1.Msg/RelayPriceFeedPrice',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPriceFeedPrice.SerializeToString,
@@ -40,6 +45,13 @@ class MsgStub(object):
 class MsgServicer(object):
     """Msg defines the oracle Msg service.
     """
+
+    def RelayProviderPrices(self, request, context):
+        """RelayProviderPrice defines a method for relaying a price for a provider-based oracle
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def RelayPriceFeedPrice(self, request, context):
         """RelayPriceFeedPrice defines a method for relaying a price for a price feeder-based oracle
@@ -72,6 +84,11 @@ class MsgServicer(object):
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
+            'RelayProviderPrices': grpc.unary_unary_rpc_method_handler(
+                    servicer.RelayProviderPrices,
+                    request_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayProviderPrices.FromString,
+                    response_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayProviderPricesResponse.SerializeToString,
+            ),
             'RelayPriceFeedPrice': grpc.unary_unary_rpc_method_handler(
                     servicer.RelayPriceFeedPrice,
                     request_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPriceFeedPrice.FromString,
@@ -102,6 +119,23 @@ def add_MsgServicer_to_server(servicer, server):
 class Msg(object):
     """Msg defines the oracle Msg service.
     """
+
+    @staticmethod
+    def RelayProviderPrices(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Msg/RelayProviderPrices',
+            injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayProviderPrices.SerializeToString,
+            injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayProviderPricesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def RelayPriceFeedPrice(request,

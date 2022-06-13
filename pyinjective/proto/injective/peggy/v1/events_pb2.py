@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'ZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/peggy/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x1finjective/peggy/v1/events.proto\x12\x12injective.peggy.v1\x1a\x14gogoproto/gogo.proto\x1a$injective/peggy/v1/attestation.proto\x1a\x1einjective/peggy/v1/types.proto\"\xac\x01\n\x18\x45ventAttestationObserved\x12\x37\n\x10\x61ttestation_type\x18\x01 \x01(\x0e\x32\x1d.injective.peggy.v1.ClaimType\x12\x17\n\x0f\x62ridge_contract\x18\x02 \x01(\t\x12\x17\n\x0f\x62ridge_chain_id\x18\x03 \x01(\x04\x12\x16\n\x0e\x61ttestation_id\x18\x04 \x01(\x0c\x12\r\n\x05nonce\x18\x05 \x01(\x04\"O\n\x1b\x45ventBridgeWithdrawCanceled\x12\x17\n\x0f\x62ridge_contract\x18\x01 \x01(\t\x12\x17\n\x0f\x62ridge_chain_id\x18\x02 \x01(\x04\"\x89\x01\n\x12\x45ventOutgoingBatch\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x1c\n\x14orchestrator_address\x18\x02 \x01(\t\x12\x13\n\x0b\x62\x61tch_nonce\x18\x03 \x01(\x04\x12\x15\n\rbatch_timeout\x18\x04 \x01(\x04\x12\x1a\n\x0c\x62\x61tch_tx_ids\x18\x05 \x03(\x04\x42\x04\xc8\xde\x1f\x00\"o\n\x1a\x45ventOutgoingBatchCanceled\x12\x17\n\x0f\x62ridge_contract\x18\x01 \x01(\t\x12\x17\n\x0f\x62ridge_chain_id\x18\x02 \x01(\x04\x12\x10\n\x08\x62\x61tch_id\x18\x03 \x01(\x04\x12\r\n\x05nonce\x18\x04 \x01(\x04\"\xe1\x01\n\x18\x45ventValsetUpdateRequest\x12\x14\n\x0cvalset_nonce\x18\x01 \x01(\x04\x12\x15\n\rvalset_height\x18\x02 \x01(\x04\x12;\n\x0evalset_members\x18\x03 \x03(\x0b\x32#.injective.peggy.v1.BridgeValidator\x12\x45\n\rreward_amount\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x14\n\x0creward_token\x18\x05 \x01(\t\"v\n\x1d\x45ventSetOrchestratorAddresses\x12\x19\n\x11validator_address\x18\x01 \x01(\t\x12\x1c\n\x14orchestrator_address\x18\x02 \x01(\t\x12\x1c\n\x14operator_eth_address\x18\x03 \x01(\t\"H\n\x12\x45ventValsetConfirm\x12\x14\n\x0cvalset_nonce\x18\x01 \x01(\x04\x12\x1c\n\x14orchestrator_address\x18\x02 \x01(\t\"\xd0\x01\n\x0e\x45ventSendToEth\x12\x16\n\x0eoutgoing_tx_id\x18\x01 \x01(\x04\x12\x0e\n\x06sender\x18\x02 \x01(\t\x12\x10\n\x08receiver\x18\x03 \x01(\t\x12?\n\x06\x61mount\x18\x04 \x01(\tB/\xda\xde\x1f\'github.com/cosmos/cosmos-sdk/types.Coin\xc8\xde\x1f\x00\x12\x43\n\nbridge_fee\x18\x05 \x01(\tB/\xda\xde\x1f\'github.com/cosmos/cosmos-sdk/types.Coin\xc8\xde\x1f\x00\"F\n\x11\x45ventConfirmBatch\x12\x13\n\x0b\x62\x61tch_nonce\x18\x01 \x01(\x04\x12\x1c\n\x14orchestrator_address\x18\x02 \x01(\t\"R\n\x14\x45ventAttestationVote\x12\x13\n\x0b\x65vent_nonce\x18\x01 \x01(\x04\x12\x16\n\x0e\x61ttestation_id\x18\x02 \x01(\x0c\x12\r\n\x05voter\x18\x03 \x01(\t\"\xfe\x01\n\x11\x45ventDepositClaim\x12\x13\n\x0b\x65vent_nonce\x18\x01 \x01(\x04\x12\x14\n\x0c\x65vent_height\x18\x02 \x01(\x04\x12\x16\n\x0e\x61ttestation_id\x18\x03 \x01(\x0c\x12\x17\n\x0f\x65thereum_sender\x18\x04 \x01(\t\x12\x17\n\x0f\x63osmos_receiver\x18\x05 \x01(\t\x12\x16\n\x0etoken_contract\x18\x06 \x01(\t\x12>\n\x06\x61mount\x18\x07 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x1c\n\x14orchestrator_address\x18\x08 \x01(\t\"\xa2\x01\n\x12\x45ventWithdrawClaim\x12\x13\n\x0b\x65vent_nonce\x18\x01 \x01(\x04\x12\x14\n\x0c\x65vent_height\x18\x02 \x01(\x04\x12\x16\n\x0e\x61ttestation_id\x18\x03 \x01(\x0c\x12\x13\n\x0b\x62\x61tch_nonce\x18\x04 \x01(\x04\x12\x16\n\x0etoken_contract\x18\x05 \x01(\t\x12\x1c\n\x14orchestrator_address\x18\x06 \x01(\t\"\xd8\x01\n\x17\x45ventERC20DeployedClaim\x12\x13\n\x0b\x65vent_nonce\x18\x01 \x01(\x04\x12\x14\n\x0c\x65vent_height\x18\x02 \x01(\x04\x12\x16\n\x0e\x61ttestation_id\x18\x03 \x01(\x0c\x12\x14\n\x0c\x63osmos_denom\x18\x04 \x01(\t\x12\x16\n\x0etoken_contract\x18\x05 \x01(\t\x12\x0c\n\x04name\x18\x06 \x01(\t\x12\x0e\n\x06symbol\x18\x07 \x01(\t\x12\x10\n\x08\x64\x65\x63imals\x18\x08 \x01(\x04\x12\x1c\n\x14orchestrator_address\x18\t \x01(\t\"\xa9\x02\n\x16\x45ventValsetUpdateClaim\x12\x13\n\x0b\x65vent_nonce\x18\x01 \x01(\x04\x12\x14\n\x0c\x65vent_height\x18\x02 \x01(\x04\x12\x16\n\x0e\x61ttestation_id\x18\x03 \x01(\x0c\x12\x14\n\x0cvalset_nonce\x18\x04 \x01(\x04\x12;\n\x0evalset_members\x18\x05 \x03(\x0b\x32#.injective.peggy.v1.BridgeValidator\x12\x45\n\rreward_amount\x18\x06 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x14\n\x0creward_token\x18\x07 \x01(\t\x12\x1c\n\x14orchestrator_address\x18\x08 \x01(\t\".\n\x14\x45ventCancelSendToEth\x12\x16\n\x0eoutgoing_tx_id\x18\x01 \x01(\x04\"_\n\x1f\x45ventSubmitBadSignatureEvidence\x12\x19\n\x11\x62\x61\x64_eth_signature\x18\x01 \x01(\t\x12!\n\x19\x62\x61\x64_eth_signature_subject\x18\x02 \x01(\tBMZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/peggy/typesb\x06proto3'
+  serialized_pb=b'\n\x1finjective/peggy/v1/events.proto\x12\x12injective.peggy.v1\x1a\x14gogoproto/gogo.proto\x1a$injective/peggy/v1/attestation.proto\x1a\x1einjective/peggy/v1/types.proto\"\xac\x01\n\x18\x45ventAttestationObserved\x12\x37\n\x10\x61ttestation_type\x18\x01 \x01(\x0e\x32\x1d.injective.peggy.v1.ClaimType\x12\x17\n\x0f\x62ridge_contract\x18\x02 \x01(\t\x12\x17\n\x0f\x62ridge_chain_id\x18\x03 \x01(\x04\x12\x16\n\x0e\x61ttestation_id\x18\x04 \x01(\x0c\x12\r\n\x05nonce\x18\x05 \x01(\x04\"O\n\x1b\x45ventBridgeWithdrawCanceled\x12\x17\n\x0f\x62ridge_contract\x18\x01 \x01(\t\x12\x17\n\x0f\x62ridge_chain_id\x18\x02 \x01(\x04\"\x83\x01\n\x12\x45ventOutgoingBatch\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x1c\n\x14orchestrator_address\x18\x02 \x01(\t\x12\x13\n\x0b\x62\x61tch_nonce\x18\x03 \x01(\x04\x12\x15\n\rbatch_timeout\x18\x04 \x01(\x04\x12\x14\n\x0c\x62\x61tch_tx_ids\x18\x05 \x03(\x04\"o\n\x1a\x45ventOutgoingBatchCanceled\x12\x17\n\x0f\x62ridge_contract\x18\x01 \x01(\t\x12\x17\n\x0f\x62ridge_chain_id\x18\x02 \x01(\x04\x12\x10\n\x08\x62\x61tch_id\x18\x03 \x01(\x04\x12\r\n\x05nonce\x18\x04 \x01(\x04\"\xe1\x01\n\x18\x45ventValsetUpdateRequest\x12\x14\n\x0cvalset_nonce\x18\x01 \x01(\x04\x12\x15\n\rvalset_height\x18\x02 \x01(\x04\x12;\n\x0evalset_members\x18\x03 \x03(\x0b\x32#.injective.peggy.v1.BridgeValidator\x12\x45\n\rreward_amount\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x14\n\x0creward_token\x18\x05 \x01(\t\"v\n\x1d\x45ventSetOrchestratorAddresses\x12\x19\n\x11validator_address\x18\x01 \x01(\t\x12\x1c\n\x14orchestrator_address\x18\x02 \x01(\t\x12\x1c\n\x14operator_eth_address\x18\x03 \x01(\t\"H\n\x12\x45ventValsetConfirm\x12\x14\n\x0cvalset_nonce\x18\x01 \x01(\x04\x12\x1c\n\x14orchestrator_address\x18\x02 \x01(\t\"\xd0\x01\n\x0e\x45ventSendToEth\x12\x16\n\x0eoutgoing_tx_id\x18\x01 \x01(\x04\x12\x0e\n\x06sender\x18\x02 \x01(\t\x12\x10\n\x08receiver\x18\x03 \x01(\t\x12?\n\x06\x61mount\x18\x04 \x01(\tB/\xda\xde\x1f\'github.com/cosmos/cosmos-sdk/types.Coin\xc8\xde\x1f\x00\x12\x43\n\nbridge_fee\x18\x05 \x01(\tB/\xda\xde\x1f\'github.com/cosmos/cosmos-sdk/types.Coin\xc8\xde\x1f\x00\"F\n\x11\x45ventConfirmBatch\x12\x13\n\x0b\x62\x61tch_nonce\x18\x01 \x01(\x04\x12\x1c\n\x14orchestrator_address\x18\x02 \x01(\t\"R\n\x14\x45ventAttestationVote\x12\x13\n\x0b\x65vent_nonce\x18\x01 \x01(\x04\x12\x16\n\x0e\x61ttestation_id\x18\x02 \x01(\x0c\x12\r\n\x05voter\x18\x03 \x01(\t\"\x8c\x02\n\x11\x45ventDepositClaim\x12\x13\n\x0b\x65vent_nonce\x18\x01 \x01(\x04\x12\x14\n\x0c\x65vent_height\x18\x02 \x01(\x04\x12\x16\n\x0e\x61ttestation_id\x18\x03 \x01(\x0c\x12\x17\n\x0f\x65thereum_sender\x18\x04 \x01(\t\x12\x17\n\x0f\x63osmos_receiver\x18\x05 \x01(\t\x12\x16\n\x0etoken_contract\x18\x06 \x01(\t\x12>\n\x06\x61mount\x18\x07 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x1c\n\x14orchestrator_address\x18\x08 \x01(\t\x12\x0c\n\x04\x64\x61ta\x18\t \x01(\t\"\xa2\x01\n\x12\x45ventWithdrawClaim\x12\x13\n\x0b\x65vent_nonce\x18\x01 \x01(\x04\x12\x14\n\x0c\x65vent_height\x18\x02 \x01(\x04\x12\x16\n\x0e\x61ttestation_id\x18\x03 \x01(\x0c\x12\x13\n\x0b\x62\x61tch_nonce\x18\x04 \x01(\x04\x12\x16\n\x0etoken_contract\x18\x05 \x01(\t\x12\x1c\n\x14orchestrator_address\x18\x06 \x01(\t\"\xd8\x01\n\x17\x45ventERC20DeployedClaim\x12\x13\n\x0b\x65vent_nonce\x18\x01 \x01(\x04\x12\x14\n\x0c\x65vent_height\x18\x02 \x01(\x04\x12\x16\n\x0e\x61ttestation_id\x18\x03 \x01(\x0c\x12\x14\n\x0c\x63osmos_denom\x18\x04 \x01(\t\x12\x16\n\x0etoken_contract\x18\x05 \x01(\t\x12\x0c\n\x04name\x18\x06 \x01(\t\x12\x0e\n\x06symbol\x18\x07 \x01(\t\x12\x10\n\x08\x64\x65\x63imals\x18\x08 \x01(\x04\x12\x1c\n\x14orchestrator_address\x18\t \x01(\t\"\xa9\x02\n\x16\x45ventValsetUpdateClaim\x12\x13\n\x0b\x65vent_nonce\x18\x01 \x01(\x04\x12\x14\n\x0c\x65vent_height\x18\x02 \x01(\x04\x12\x16\n\x0e\x61ttestation_id\x18\x03 \x01(\x0c\x12\x14\n\x0cvalset_nonce\x18\x04 \x01(\x04\x12;\n\x0evalset_members\x18\x05 \x03(\x0b\x32#.injective.peggy.v1.BridgeValidator\x12\x45\n\rreward_amount\x18\x06 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x14\n\x0creward_token\x18\x07 \x01(\t\x12\x1c\n\x14orchestrator_address\x18\x08 \x01(\t\".\n\x14\x45ventCancelSendToEth\x12\x16\n\x0eoutgoing_tx_id\x18\x01 \x01(\x04\"_\n\x1f\x45ventSubmitBadSignatureEvidence\x12\x19\n\x11\x62\x61\x64_eth_signature\x18\x01 \x01(\t\x12!\n\x19\x62\x61\x64_eth_signature_subject\x18\x02 \x01(\tBMZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/peggy/typesb\x06proto3'
   ,
   dependencies=[gogoproto_dot_gogo__pb2.DESCRIPTOR,injective_dot_peggy_dot_v1_dot_attestation__pb2.DESCRIPTOR,injective_dot_peggy_dot_v1_dot_types__pb2.DESCRIPTOR,])
 
@@ -170,7 +170,7 @@ _EVENTOUTGOINGBATCH = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=b'\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -184,7 +184,7 @@ _EVENTOUTGOINGBATCH = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=404,
-  serialized_end=541,
+  serialized_end=535,
 )
 
 
@@ -236,8 +236,8 @@ _EVENTOUTGOINGBATCHCANCELED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=543,
-  serialized_end=654,
+  serialized_start=537,
+  serialized_end=648,
 )
 
 
@@ -296,8 +296,8 @@ _EVENTVALSETUPDATEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=657,
-  serialized_end=882,
+  serialized_start=651,
+  serialized_end=876,
 )
 
 
@@ -342,8 +342,8 @@ _EVENTSETORCHESTRATORADDRESSES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=884,
-  serialized_end=1002,
+  serialized_start=878,
+  serialized_end=996,
 )
 
 
@@ -381,8 +381,8 @@ _EVENTVALSETCONFIRM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1004,
-  serialized_end=1076,
+  serialized_start=998,
+  serialized_end=1070,
 )
 
 
@@ -441,8 +441,8 @@ _EVENTSENDTOETH = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1079,
-  serialized_end=1287,
+  serialized_start=1073,
+  serialized_end=1281,
 )
 
 
@@ -480,8 +480,8 @@ _EVENTCONFIRMBATCH = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1289,
-  serialized_end=1359,
+  serialized_start=1283,
+  serialized_end=1353,
 )
 
 
@@ -526,8 +526,8 @@ _EVENTATTESTATIONVOTE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1361,
-  serialized_end=1443,
+  serialized_start=1355,
+  serialized_end=1437,
 )
 
 
@@ -595,6 +595,13 @@ _EVENTDEPOSITCLAIM = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='data', full_name='injective.peggy.v1.EventDepositClaim.data', index=8,
+      number=9, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -607,8 +614,8 @@ _EVENTDEPOSITCLAIM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1446,
-  serialized_end=1700,
+  serialized_start=1440,
+  serialized_end=1708,
 )
 
 
@@ -674,8 +681,8 @@ _EVENTWITHDRAWCLAIM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1703,
-  serialized_end=1865,
+  serialized_start=1711,
+  serialized_end=1873,
 )
 
 
@@ -762,8 +769,8 @@ _EVENTERC20DEPLOYEDCLAIM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1868,
-  serialized_end=2084,
+  serialized_start=1876,
+  serialized_end=2092,
 )
 
 
@@ -843,8 +850,8 @@ _EVENTVALSETUPDATECLAIM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2087,
-  serialized_end=2384,
+  serialized_start=2095,
+  serialized_end=2392,
 )
 
 
@@ -875,8 +882,8 @@ _EVENTCANCELSENDTOETH = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2386,
-  serialized_end=2432,
+  serialized_start=2394,
+  serialized_end=2440,
 )
 
 
@@ -914,8 +921,8 @@ _EVENTSUBMITBADSIGNATUREEVIDENCE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2434,
-  serialized_end=2529,
+  serialized_start=2442,
+  serialized_end=2537,
 )
 
 _EVENTATTESTATIONOBSERVED.fields_by_name['attestation_type'].enum_type = injective_dot_peggy_dot_v1_dot_attestation__pb2._CLAIMTYPE
@@ -1053,7 +1060,6 @@ _sym_db.RegisterMessage(EventSubmitBadSignatureEvidence)
 
 
 DESCRIPTOR._options = None
-_EVENTOUTGOINGBATCH.fields_by_name['batch_tx_ids']._options = None
 _EVENTVALSETUPDATEREQUEST.fields_by_name['reward_amount']._options = None
 _EVENTSENDTOETH.fields_by_name['amount']._options = None
 _EVENTSENDTOETH.fields_by_name['bridge_fee']._options = None

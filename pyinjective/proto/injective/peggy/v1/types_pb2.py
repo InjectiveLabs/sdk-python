@@ -11,7 +11,6 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
-from cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
 from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
@@ -21,9 +20,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'ZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/peggy/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x1einjective/peggy/v1/types.proto\x12\x12injective.peggy.v1\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a\x14gogoproto/gogo.proto\":\n\x0f\x42ridgeValidator\x12\r\n\x05power\x18\x01 \x01(\x04\x12\x18\n\x10\x65thereum_address\x18\x02 \x01(\t\"\xba\x01\n\x06Valset\x12\r\n\x05nonce\x18\x01 \x01(\x04\x12\x34\n\x07members\x18\x02 \x03(\x0b\x32#.injective.peggy.v1.BridgeValidator\x12\x0e\n\x06height\x18\x03 \x01(\x04\x12\x45\n\rreward_amount\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x14\n\x0creward_token\x18\x05 \x01(\t\"]\n\x1fLastObservedEthereumBlockHeight\x12\x1b\n\x13\x63osmos_block_height\x18\x01 \x01(\x04\x12\x1d\n\x15\x65thereum_block_height\x18\x02 \x01(\x04\"M\n\x0eLastClaimEvent\x12\x1c\n\x14\x65thereum_event_nonce\x18\x01 \x01(\x04\x12\x1d\n\x15\x65thereum_event_height\x18\x02 \x01(\x04\",\n\x0c\x45RC20ToDenom\x12\r\n\x05\x65rc20\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\tBMZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/peggy/typesb\x06proto3'
+  serialized_pb=b'\n\x1einjective/peggy/v1/types.proto\x12\x12injective.peggy.v1\x1a\x14gogoproto/gogo.proto\":\n\x0f\x42ridgeValidator\x12\r\n\x05power\x18\x01 \x01(\x04\x12\x18\n\x10\x65thereum_address\x18\x02 \x01(\t\"\xba\x01\n\x06Valset\x12\r\n\x05nonce\x18\x01 \x01(\x04\x12\x34\n\x07members\x18\x02 \x03(\x0b\x32#.injective.peggy.v1.BridgeValidator\x12\x0e\n\x06height\x18\x03 \x01(\x04\x12\x45\n\rreward_amount\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x14\n\x0creward_token\x18\x05 \x01(\t\"]\n\x1fLastObservedEthereumBlockHeight\x12\x1b\n\x13\x63osmos_block_height\x18\x01 \x01(\x04\x12\x1d\n\x15\x65thereum_block_height\x18\x02 \x01(\x04\"M\n\x0eLastClaimEvent\x12\x1c\n\x14\x65thereum_event_nonce\x18\x01 \x01(\x04\x12\x1d\n\x15\x65thereum_event_height\x18\x02 \x01(\x04\",\n\x0c\x45RC20ToDenom\x12\r\n\x05\x65rc20\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\tBMZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/peggy/typesb\x06proto3'
   ,
-  dependencies=[cosmos_dot_base_dot_v1beta1_dot_coin__pb2.DESCRIPTOR,gogoproto_dot_gogo__pb2.DESCRIPTOR,])
+  dependencies=[gogoproto_dot_gogo__pb2.DESCRIPTOR,])
 
 
 
@@ -62,8 +61,8 @@ _BRIDGEVALIDATOR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=108,
-  serialized_end=166,
+  serialized_start=76,
+  serialized_end=134,
 )
 
 
@@ -122,8 +121,8 @@ _VALSET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=169,
-  serialized_end=355,
+  serialized_start=137,
+  serialized_end=323,
 )
 
 
@@ -161,8 +160,8 @@ _LASTOBSERVEDETHEREUMBLOCKHEIGHT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=357,
-  serialized_end=450,
+  serialized_start=325,
+  serialized_end=418,
 )
 
 
@@ -200,8 +199,8 @@ _LASTCLAIMEVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=452,
-  serialized_end=529,
+  serialized_start=420,
+  serialized_end=497,
 )
 
 
@@ -239,8 +238,8 @@ _ERC20TODENOM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=531,
-  serialized_end=575,
+  serialized_start=499,
+  serialized_end=543,
 )
 
 _VALSET.fields_by_name['members'].message_type = _BRIDGEVALIDATOR

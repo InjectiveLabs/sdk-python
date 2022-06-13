@@ -11,10 +11,7 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
-from cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
-from injective.exchange.v1beta1 import exchange_pb2 as injective_dot_exchange_dot_v1beta1_dot_exchange__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -23,9 +20,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'ZNgithub.com/InjectiveLabs/injective-core/injective-chain/modules/exchange/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n&injective/exchange/v1beta1/authz.proto\x12\x1ainjective.exchange.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a)injective/exchange/v1beta1/exchange.proto\"Y\n\x19\x43reateSpotLimitOrderAuthz\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x12\n\nmarket_ids\x18\x02 \x03(\t:\x11\xd2\xb4-\rAuthorization\"Z\n\x1a\x43reateSpotMarketOrderAuthz\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x12\n\nmarket_ids\x18\x02 \x03(\t:\x11\xd2\xb4-\rAuthorization\"_\n\x1f\x42\x61tchCreateSpotLimitOrdersAuthz\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x12\n\nmarket_ids\x18\x02 \x03(\t:\x11\xd2\xb4-\rAuthorization\"T\n\x14\x43\x61ncelSpotOrderAuthz\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x12\n\nmarket_ids\x18\x02 \x03(\t:\x11\xd2\xb4-\rAuthorization\"Z\n\x1a\x42\x61tchCancelSpotOrdersAuthz\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x12\n\nmarket_ids\x18\x02 \x03(\t:\x11\xd2\xb4-\rAuthorization\"_\n\x1f\x43reateDerivativeLimitOrderAuthz\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x12\n\nmarket_ids\x18\x02 \x03(\t:\x11\xd2\xb4-\rAuthorization\"`\n CreateDerivativeMarketOrderAuthz\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x12\n\nmarket_ids\x18\x02 \x03(\t:\x11\xd2\xb4-\rAuthorization\"e\n%BatchCreateDerivativeLimitOrdersAuthz\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x12\n\nmarket_ids\x18\x02 \x03(\t:\x11\xd2\xb4-\rAuthorization\"Z\n\x1a\x43\x61ncelDerivativeOrderAuthz\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x12\n\nmarket_ids\x18\x02 \x03(\t:\x11\xd2\xb4-\rAuthorization\"`\n BatchCancelDerivativeOrdersAuthz\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x12\n\nmarket_ids\x18\x02 \x03(\t:\x11\xd2\xb4-\rAuthorization\"t\n\x16\x42\x61tchUpdateOrdersAuthz\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x14\n\x0cspot_markets\x18\x02 \x03(\t\x12\x1a\n\x12\x64\x65rivative_markets\x18\x03 \x03(\t:\x11\xd2\xb4-\rAuthorizationBPZNgithub.com/InjectiveLabs/injective-core/injective-chain/modules/exchange/typesb\x06proto3'
+  serialized_pb=b'\n&injective/exchange/v1beta1/authz.proto\x12\x1ainjective.exchange.v1beta1\x1a\x19\x63osmos_proto/cosmos.proto\"Y\n\x19\x43reateSpotLimitOrderAuthz\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x12\n\nmarket_ids\x18\x02 \x03(\t:\x11\xd2\xb4-\rAuthorization\"Z\n\x1a\x43reateSpotMarketOrderAuthz\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x12\n\nmarket_ids\x18\x02 \x03(\t:\x11\xd2\xb4-\rAuthorization\"_\n\x1f\x42\x61tchCreateSpotLimitOrdersAuthz\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x12\n\nmarket_ids\x18\x02 \x03(\t:\x11\xd2\xb4-\rAuthorization\"T\n\x14\x43\x61ncelSpotOrderAuthz\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x12\n\nmarket_ids\x18\x02 \x03(\t:\x11\xd2\xb4-\rAuthorization\"Z\n\x1a\x42\x61tchCancelSpotOrdersAuthz\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x12\n\nmarket_ids\x18\x02 \x03(\t:\x11\xd2\xb4-\rAuthorization\"_\n\x1f\x43reateDerivativeLimitOrderAuthz\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x12\n\nmarket_ids\x18\x02 \x03(\t:\x11\xd2\xb4-\rAuthorization\"`\n CreateDerivativeMarketOrderAuthz\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x12\n\nmarket_ids\x18\x02 \x03(\t:\x11\xd2\xb4-\rAuthorization\"e\n%BatchCreateDerivativeLimitOrdersAuthz\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x12\n\nmarket_ids\x18\x02 \x03(\t:\x11\xd2\xb4-\rAuthorization\"Z\n\x1a\x43\x61ncelDerivativeOrderAuthz\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x12\n\nmarket_ids\x18\x02 \x03(\t:\x11\xd2\xb4-\rAuthorization\"`\n BatchCancelDerivativeOrdersAuthz\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x12\n\nmarket_ids\x18\x02 \x03(\t:\x11\xd2\xb4-\rAuthorization\"t\n\x16\x42\x61tchUpdateOrdersAuthz\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x14\n\x0cspot_markets\x18\x02 \x03(\t\x12\x1a\n\x12\x64\x65rivative_markets\x18\x03 \x03(\t:\x11\xd2\xb4-\rAuthorizationBPZNgithub.com/InjectiveLabs/injective-core/injective-chain/modules/exchange/typesb\x06proto3'
   ,
-  dependencies=[gogoproto_dot_gogo__pb2.DESCRIPTOR,cosmos__proto_dot_cosmos__pb2.DESCRIPTOR,cosmos_dot_base_dot_v1beta1_dot_coin__pb2.DESCRIPTOR,injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.DESCRIPTOR,])
+  dependencies=[cosmos__proto_dot_cosmos__pb2.DESCRIPTOR,])
 
 
 
@@ -64,8 +61,8 @@ _CREATESPOTLIMITORDERAUTHZ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=194,
-  serialized_end=283,
+  serialized_start=97,
+  serialized_end=186,
 )
 
 
@@ -103,8 +100,8 @@ _CREATESPOTMARKETORDERAUTHZ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=285,
-  serialized_end=375,
+  serialized_start=188,
+  serialized_end=278,
 )
 
 
@@ -142,8 +139,8 @@ _BATCHCREATESPOTLIMITORDERSAUTHZ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=377,
-  serialized_end=472,
+  serialized_start=280,
+  serialized_end=375,
 )
 
 
@@ -181,8 +178,8 @@ _CANCELSPOTORDERAUTHZ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=474,
-  serialized_end=558,
+  serialized_start=377,
+  serialized_end=461,
 )
 
 
@@ -220,8 +217,8 @@ _BATCHCANCELSPOTORDERSAUTHZ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=560,
-  serialized_end=650,
+  serialized_start=463,
+  serialized_end=553,
 )
 
 
@@ -259,8 +256,8 @@ _CREATEDERIVATIVELIMITORDERAUTHZ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=652,
-  serialized_end=747,
+  serialized_start=555,
+  serialized_end=650,
 )
 
 
@@ -298,8 +295,8 @@ _CREATEDERIVATIVEMARKETORDERAUTHZ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=749,
-  serialized_end=845,
+  serialized_start=652,
+  serialized_end=748,
 )
 
 
@@ -337,8 +334,8 @@ _BATCHCREATEDERIVATIVELIMITORDERSAUTHZ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=847,
-  serialized_end=948,
+  serialized_start=750,
+  serialized_end=851,
 )
 
 
@@ -376,8 +373,8 @@ _CANCELDERIVATIVEORDERAUTHZ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=950,
-  serialized_end=1040,
+  serialized_start=853,
+  serialized_end=943,
 )
 
 
@@ -415,8 +412,8 @@ _BATCHCANCELDERIVATIVEORDERSAUTHZ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1042,
-  serialized_end=1138,
+  serialized_start=945,
+  serialized_end=1041,
 )
 
 
@@ -461,8 +458,8 @@ _BATCHUPDATEORDERSAUTHZ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1140,
-  serialized_end=1256,
+  serialized_start=1043,
+  serialized_end=1159,
 )
 
 DESCRIPTOR.message_types_by_name['CreateSpotLimitOrderAuthz'] = _CREATESPOTLIMITORDERAUTHZ

@@ -13,7 +13,6 @@ _sym_db = _symbol_database.Default()
 
 from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
-from injective.auction.v1beta1 import auction_pb2 as injective_dot_auction_dot_v1beta1_dot_auction__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -22,9 +21,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'ZMgithub.com/InjectiveLabs/injective-core/injective-chain/modules/auction/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\"injective/auction/v1beta1/tx.proto\x12\x19injective.auction.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a\'injective/auction/v1beta1/auction.proto\"f\n\x06MsgBid\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x33\n\nbid_amount\x18\x02 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00\x12\r\n\x05round\x18\x03 \x01(\x04:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x10\n\x0eMsgBidResponse2Z\n\x03Msg\x12S\n\x03\x42id\x12!.injective.auction.v1beta1.MsgBid\x1a).injective.auction.v1beta1.MsgBidResponseBOZMgithub.com/InjectiveLabs/injective-core/injective-chain/modules/auction/typesb\x06proto3'
+  serialized_pb=b'\n\"injective/auction/v1beta1/tx.proto\x12\x19injective.auction.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\"f\n\x06MsgBid\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x33\n\nbid_amount\x18\x02 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00\x12\r\n\x05round\x18\x03 \x01(\x04:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x10\n\x0eMsgBidResponse2Z\n\x03Msg\x12S\n\x03\x42id\x12!.injective.auction.v1beta1.MsgBid\x1a).injective.auction.v1beta1.MsgBidResponseBOZMgithub.com/InjectiveLabs/injective-core/injective-chain/modules/auction/typesb\x06proto3'
   ,
-  dependencies=[gogoproto_dot_gogo__pb2.DESCRIPTOR,cosmos_dot_base_dot_v1beta1_dot_coin__pb2.DESCRIPTOR,injective_dot_auction_dot_v1beta1_dot_auction__pb2.DESCRIPTOR,])
+  dependencies=[gogoproto_dot_gogo__pb2.DESCRIPTOR,cosmos_dot_base_dot_v1beta1_dot_coin__pb2.DESCRIPTOR,])
 
 
 
@@ -70,8 +69,8 @@ _MSGBID = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=160,
-  serialized_end=262,
+  serialized_start=119,
+  serialized_end=221,
 )
 
 
@@ -95,8 +94,8 @@ _MSGBIDRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=264,
-  serialized_end=280,
+  serialized_start=223,
+  serialized_end=239,
 )
 
 _MSGBID.fields_by_name['bid_amount'].message_type = cosmos_dot_base_dot_v1beta1_dot_coin__pb2._COIN
@@ -130,8 +129,8 @@ _MSG = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=282,
-  serialized_end=372,
+  serialized_start=241,
+  serialized_end=331,
   methods=[
   _descriptor.MethodDescriptor(
     name='Bid',
