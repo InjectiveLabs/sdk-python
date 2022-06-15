@@ -38,7 +38,18 @@ def derivative_price_to_backend(price, denom) -> int:
     exchange_price = floor_to(price, float(price_tick_size)) * pow(10, 18 + denom.quote)
     return int(exchange_price)
 
+def binary_options_price_to_backend(price, denom) -> int:
+    price_tick_size = Decimal(denom.min_price_tick_size) / pow(10, denom.quote)
+    exchange_price = floor_to(price, float(price_tick_size)) * pow(10, 18 + denom.quote)
+    return int(exchange_price)
+
 def derivative_quantity_to_backend(quantity, denom) -> int:
+    quantity_tick_size = float(denom.min_quantity_tick_size) / pow(10, denom.base)
+    scale_quantity = Decimal(18 + denom.base)
+    exchange_quantity = floor_to(quantity, quantity_tick_size) * pow(Decimal(10), scale_quantity)
+    return int(exchange_quantity)
+
+def binary_options_quantity_to_backend(quantity, denom) -> int:
     quantity_tick_size = float(denom.min_quantity_tick_size) / pow(10, denom.base)
     scale_quantity = Decimal(18 + denom.base)
     exchange_quantity = floor_to(quantity, quantity_tick_size) * pow(Decimal(10), scale_quantity)
@@ -47,6 +58,18 @@ def derivative_quantity_to_backend(quantity, denom) -> int:
 def derivative_margin_to_backend(price, quantity, leverage, denom) -> int:
     price_tick_size = Decimal(denom.min_price_tick_size) / pow(10, denom.quote)
     margin = (price * quantity) / leverage
+    exchange_margin = floor_to(margin, float(price_tick_size)) * pow(10, 18 + denom.quote)
+    return int(exchange_margin)
+
+def binary_options_buy_margin_to_backend(price, quantity, denom) -> int:
+    price_tick_size = Decimal(denom.min_price_tick_size) / pow(10, denom.quote)
+    margin = price * quantity
+    exchange_margin = floor_to(margin, float(price_tick_size)) * pow(10, 18 + denom.quote)
+    return int(exchange_margin)
+
+def binary_options_sell_margin_to_backend(price, quantity, denom) -> int:
+    price_tick_size = Decimal(denom.min_price_tick_size) / pow(10, denom.quote)
+    margin = (1 - (price / pow (10, denom.quote))) * quantity
     exchange_margin = floor_to(margin, float(price_tick_size)) * pow(10, 18 + denom.quote)
     return int(exchange_margin)
 

@@ -55,6 +55,16 @@ class QueryStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderSpotOrdersRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderSpotOrdersResponse.FromString,
                 )
+        self.SpotMidPriceAndTOB = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/SpotMidPriceAndTOB',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySpotMidPriceAndTOBRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySpotMidPriceAndTOBResponse.FromString,
+                )
+        self.DerivativeMidPriceAndTOB = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/DerivativeMidPriceAndTOB',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDerivativeMidPriceAndTOBRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDerivativeMidPriceAndTOBResponse.FromString,
+                )
         self.DerivativeOrderbook = channel.unary_unary(
                 '/injective.exchange.v1beta1.Query/DerivativeOrderbook',
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDerivativeOrderbookRequest.SerializeToString,
@@ -62,6 +72,11 @@ class QueryStub(object):
                 )
         self.TraderDerivativeOrders = channel.unary_unary(
                 '/injective.exchange.v1beta1.Query/TraderDerivativeOrders',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeOrdersRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeOrdersResponse.FromString,
+                )
+        self.TraderDerivativeTransientOrders = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/TraderDerivativeTransientOrders',
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeOrdersRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeOrdersResponse.FromString,
                 )
@@ -99,6 +114,31 @@ class QueryStub(object):
                 '/injective.exchange.v1beta1.Query/SubaccountPositions',
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountPositionsRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountPositionsResponse.FromString,
+                )
+        self.SubaccountPositionInMarket = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/SubaccountPositionInMarket',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountPositionInMarketRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountPositionInMarketResponse.FromString,
+                )
+        self.SubaccountEffectivePositionInMarket = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/SubaccountEffectivePositionInMarket',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountEffectivePositionInMarketRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountEffectivePositionInMarketResponse.FromString,
+                )
+        self.PerpetualMarketInfo = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/PerpetualMarketInfo',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryPerpetualMarketInfoRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryPerpetualMarketInfoResponse.FromString,
+                )
+        self.ExpiryFuturesMarketInfo = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/ExpiryFuturesMarketInfo',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryExpiryFuturesMarketInfoRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryExpiryFuturesMarketInfoResponse.FromString,
+                )
+        self.PerpetualMarketFunding = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/PerpetualMarketFunding',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryPerpetualMarketFundingRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryPerpetualMarketFundingResponse.FromString,
                 )
         self.SubaccountOrderMetadata = channel.unary_unary(
                 '/injective.exchange.v1beta1.Query/SubaccountOrderMetadata',
@@ -145,6 +185,21 @@ class QueryStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountTierStatisticsRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountTierStatisticsResponse.FromString,
                 )
+        self.NinjaVaultInfos = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/NinjaVaultInfos',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.NinjaVaultInfosRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.NinjaVaultInfosResponse.FromString,
+                )
+        self.QueryMarketIDFromVault = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/QueryMarketIDFromVault',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryMarketIDFromVaultRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryMarketIDFromVaultResponse.FromString,
+                )
+        self.HistoricalTradeRecords = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/HistoricalTradeRecords',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryHistoricalTradeRecordsRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryHistoricalTradeRecordsResponse.FromString,
+                )
         self.IsRegisteredDMM = channel.unary_unary(
                 '/injective.exchange.v1beta1.Query/IsRegisteredDMM',
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryIsRegisteredDMMRequest.SerializeToString,
@@ -154,6 +209,16 @@ class QueryStub(object):
                 '/injective.exchange.v1beta1.Query/RegisteredDMMs',
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryRegisteredDMMsRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryRegisteredDMMsResponse.FromString,
+                )
+        self.MarketVolatility = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/MarketVolatility',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryMarketVolatilityRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryMarketVolatilityResponse.FromString,
+                )
+        self.BinaryOptionsMarkets = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/BinaryOptionsMarkets',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBinaryMarketsRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBinaryMarketsResponse.FromString,
                 )
 
 
@@ -217,6 +282,20 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def SpotMidPriceAndTOB(self, request, context):
+        """Retrieves a spot market's mid-price
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DerivativeMidPriceAndTOB(self, request, context):
+        """Retrieves a derivative market's mid-price
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def DerivativeOrderbook(self, request, context):
         """Retrieves a derivative market's orderbook by marketID
         """
@@ -226,6 +305,13 @@ class QueryServicer(object):
 
     def TraderDerivativeOrders(self, request, context):
         """Retrieves a trader's derivative orders
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def TraderDerivativeTransientOrders(self, request, context):
+        """Retrieves a trader's transient derivative orders
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -275,6 +361,41 @@ class QueryServicer(object):
 
     def SubaccountPositions(self, request, context):
         """Retrieves subaccount's positions
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SubaccountPositionInMarket(self, request, context):
+        """Retrieves subaccount's position in market
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SubaccountEffectivePositionInMarket(self, request, context):
+        """Retrieves subaccount's position in market
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def PerpetualMarketInfo(self, request, context):
+        """Retrieves perpetual market info
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ExpiryFuturesMarketInfo(self, request, context):
+        """Retrieves expiry market info
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def PerpetualMarketFunding(self, request, context):
+        """Retrieves perpetual market funding
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -343,6 +464,27 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def NinjaVaultInfos(self, request, context):
+        """Retrieves market making pool info
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def QueryMarketIDFromVault(self, request, context):
+        """QueryMarketIDFromVault returns the market ID for a given vault subaccount ID
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def HistoricalTradeRecords(self, request, context):
+        """Retrieves historical trade records for a given market ID
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def IsRegisteredDMM(self, request, context):
         """Retrieves if the account is a registered DMM
         """
@@ -352,6 +494,20 @@ class QueryServicer(object):
 
     def RegisteredDMMs(self, request, context):
         """Retrieves all registered DMMs
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def MarketVolatility(self, request, context):
+        """MarketVolatility computes the volatility for spot and derivative markets trading history.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def BinaryOptionsMarkets(self, request, context):
+        """Retrieves a spot market's orderbook by marketID
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -400,6 +556,16 @@ def add_QueryServicer_to_server(servicer, server):
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderSpotOrdersRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderSpotOrdersResponse.SerializeToString,
             ),
+            'SpotMidPriceAndTOB': grpc.unary_unary_rpc_method_handler(
+                    servicer.SpotMidPriceAndTOB,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySpotMidPriceAndTOBRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySpotMidPriceAndTOBResponse.SerializeToString,
+            ),
+            'DerivativeMidPriceAndTOB': grpc.unary_unary_rpc_method_handler(
+                    servicer.DerivativeMidPriceAndTOB,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDerivativeMidPriceAndTOBRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDerivativeMidPriceAndTOBResponse.SerializeToString,
+            ),
             'DerivativeOrderbook': grpc.unary_unary_rpc_method_handler(
                     servicer.DerivativeOrderbook,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDerivativeOrderbookRequest.FromString,
@@ -407,6 +573,11 @@ def add_QueryServicer_to_server(servicer, server):
             ),
             'TraderDerivativeOrders': grpc.unary_unary_rpc_method_handler(
                     servicer.TraderDerivativeOrders,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeOrdersRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeOrdersResponse.SerializeToString,
+            ),
+            'TraderDerivativeTransientOrders': grpc.unary_unary_rpc_method_handler(
+                    servicer.TraderDerivativeTransientOrders,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeOrdersRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeOrdersResponse.SerializeToString,
             ),
@@ -444,6 +615,31 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.SubaccountPositions,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountPositionsRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountPositionsResponse.SerializeToString,
+            ),
+            'SubaccountPositionInMarket': grpc.unary_unary_rpc_method_handler(
+                    servicer.SubaccountPositionInMarket,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountPositionInMarketRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountPositionInMarketResponse.SerializeToString,
+            ),
+            'SubaccountEffectivePositionInMarket': grpc.unary_unary_rpc_method_handler(
+                    servicer.SubaccountEffectivePositionInMarket,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountEffectivePositionInMarketRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountEffectivePositionInMarketResponse.SerializeToString,
+            ),
+            'PerpetualMarketInfo': grpc.unary_unary_rpc_method_handler(
+                    servicer.PerpetualMarketInfo,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryPerpetualMarketInfoRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryPerpetualMarketInfoResponse.SerializeToString,
+            ),
+            'ExpiryFuturesMarketInfo': grpc.unary_unary_rpc_method_handler(
+                    servicer.ExpiryFuturesMarketInfo,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryExpiryFuturesMarketInfoRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryExpiryFuturesMarketInfoResponse.SerializeToString,
+            ),
+            'PerpetualMarketFunding': grpc.unary_unary_rpc_method_handler(
+                    servicer.PerpetualMarketFunding,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryPerpetualMarketFundingRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryPerpetualMarketFundingResponse.SerializeToString,
             ),
             'SubaccountOrderMetadata': grpc.unary_unary_rpc_method_handler(
                     servicer.SubaccountOrderMetadata,
@@ -490,6 +686,21 @@ def add_QueryServicer_to_server(servicer, server):
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountTierStatisticsRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountTierStatisticsResponse.SerializeToString,
             ),
+            'NinjaVaultInfos': grpc.unary_unary_rpc_method_handler(
+                    servicer.NinjaVaultInfos,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.NinjaVaultInfosRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.NinjaVaultInfosResponse.SerializeToString,
+            ),
+            'QueryMarketIDFromVault': grpc.unary_unary_rpc_method_handler(
+                    servicer.QueryMarketIDFromVault,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryMarketIDFromVaultRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryMarketIDFromVaultResponse.SerializeToString,
+            ),
+            'HistoricalTradeRecords': grpc.unary_unary_rpc_method_handler(
+                    servicer.HistoricalTradeRecords,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryHistoricalTradeRecordsRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryHistoricalTradeRecordsResponse.SerializeToString,
+            ),
             'IsRegisteredDMM': grpc.unary_unary_rpc_method_handler(
                     servicer.IsRegisteredDMM,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryIsRegisteredDMMRequest.FromString,
@@ -499,6 +710,16 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.RegisteredDMMs,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryRegisteredDMMsRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryRegisteredDMMsResponse.SerializeToString,
+            ),
+            'MarketVolatility': grpc.unary_unary_rpc_method_handler(
+                    servicer.MarketVolatility,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryMarketVolatilityRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryMarketVolatilityResponse.SerializeToString,
+            ),
+            'BinaryOptionsMarkets': grpc.unary_unary_rpc_method_handler(
+                    servicer.BinaryOptionsMarkets,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBinaryMarketsRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBinaryMarketsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -648,6 +869,40 @@ class Query(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def SpotMidPriceAndTOB(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/SpotMidPriceAndTOB',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySpotMidPriceAndTOBRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySpotMidPriceAndTOBResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DerivativeMidPriceAndTOB(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/DerivativeMidPriceAndTOB',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDerivativeMidPriceAndTOBRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDerivativeMidPriceAndTOBResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def DerivativeOrderbook(request,
             target,
             options=(),
@@ -676,6 +931,23 @@ class Query(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/TraderDerivativeOrders',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeOrdersRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeOrdersResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def TraderDerivativeTransientOrders(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/TraderDerivativeTransientOrders',
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeOrdersRequest.SerializeToString,
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeOrdersResponse.FromString,
             options, channel_credentials,
@@ -797,6 +1069,91 @@ class Query(object):
         return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/SubaccountPositions',
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountPositionsRequest.SerializeToString,
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountPositionsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SubaccountPositionInMarket(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/SubaccountPositionInMarket',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountPositionInMarketRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountPositionInMarketResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SubaccountEffectivePositionInMarket(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/SubaccountEffectivePositionInMarket',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountEffectivePositionInMarketRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountEffectivePositionInMarketResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def PerpetualMarketInfo(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/PerpetualMarketInfo',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryPerpetualMarketInfoRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryPerpetualMarketInfoResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ExpiryFuturesMarketInfo(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/ExpiryFuturesMarketInfo',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryExpiryFuturesMarketInfoRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryExpiryFuturesMarketInfoResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def PerpetualMarketFunding(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/PerpetualMarketFunding',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryPerpetualMarketFundingRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryPerpetualMarketFundingResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -954,6 +1311,57 @@ class Query(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def NinjaVaultInfos(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/NinjaVaultInfos',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.NinjaVaultInfosRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.NinjaVaultInfosResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def QueryMarketIDFromVault(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/QueryMarketIDFromVault',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryMarketIDFromVaultRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryMarketIDFromVaultResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def HistoricalTradeRecords(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/HistoricalTradeRecords',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryHistoricalTradeRecordsRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryHistoricalTradeRecordsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def IsRegisteredDMM(request,
             target,
             options=(),
@@ -984,5 +1392,39 @@ class Query(object):
         return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/RegisteredDMMs',
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryRegisteredDMMsRequest.SerializeToString,
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryRegisteredDMMsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def MarketVolatility(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/MarketVolatility',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryMarketVolatilityRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryMarketVolatilityResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def BinaryOptionsMarkets(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/BinaryOptionsMarkets',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBinaryMarketsRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBinaryMarketsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -38,6 +38,8 @@ class QueryServicer(object):
 
     def Accounts(self, request, context):
         """Accounts returns all the existing accounts
+
+        Since: cosmos-sdk 0.43
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')

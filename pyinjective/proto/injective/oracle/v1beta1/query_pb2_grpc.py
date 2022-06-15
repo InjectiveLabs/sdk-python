@@ -45,10 +45,40 @@ class QueryStub(object):
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryCoinbasePriceStatesRequest.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryCoinbasePriceStatesResponse.FromString,
                 )
+        self.ProviderPriceStates = channel.unary_unary(
+                '/injective.oracle.v1beta1.Query/ProviderPriceStates',
+                request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStatesRequest.SerializeToString,
+                response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStatesResponse.FromString,
+                )
+        self.ProviderPriceState = channel.unary_unary(
+                '/injective.oracle.v1beta1.Query/ProviderPriceState',
+                request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStateRequest.SerializeToString,
+                response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStateResponse.FromString,
+                )
         self.OracleModuleState = channel.unary_unary(
                 '/injective.oracle.v1beta1.Query/OracleModuleState',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryModuleStateRequest.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryModuleStateResponse.FromString,
+                )
+        self.HistoricalPriceRecords = channel.unary_unary(
+                '/injective.oracle.v1beta1.Query/HistoricalPriceRecords',
+                request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryHistoricalPriceRecordsRequest.SerializeToString,
+                response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryHistoricalPriceRecordsResponse.FromString,
+                )
+        self.OracleVolatility = channel.unary_unary(
+                '/injective.oracle.v1beta1.Query/OracleVolatility',
+                request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleVolatilityRequest.SerializeToString,
+                response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleVolatilityResponse.FromString,
+                )
+        self.OracleProvidersInfo = channel.unary_unary(
+                '/injective.oracle.v1beta1.Query/OracleProvidersInfo',
+                request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleProvidersInfoRequest.SerializeToString,
+                response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleProvidersInfoResponse.FromString,
+                )
+        self.OracleProviderPrices = channel.unary_unary(
+                '/injective.oracle.v1beta1.Query/OracleProviderPrices',
+                request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleProviderPricesRequest.SerializeToString,
+                response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleProviderPricesResponse.FromString,
                 )
 
 
@@ -98,9 +128,49 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ProviderPriceStates(self, request, context):
+        """Retrieves the state for all provider price feeds
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ProviderPriceState(self, request, context):
+        """Retrieves the state for all provider price feeds
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def OracleModuleState(self, request, context):
         """Retrieves the entire oracle module's state
         """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def HistoricalPriceRecords(self, request, context):
+        """Retrieves historical price records for a given OracleType and Symbol
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def OracleVolatility(self, request, context):
+        """Retrieves mixed volatility value for the specified pair of base/quote
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def OracleProvidersInfo(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def OracleProviderPrices(self, request, context):
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -138,10 +208,40 @@ def add_QueryServicer_to_server(servicer, server):
                     request_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryCoinbasePriceStatesRequest.FromString,
                     response_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryCoinbasePriceStatesResponse.SerializeToString,
             ),
+            'ProviderPriceStates': grpc.unary_unary_rpc_method_handler(
+                    servicer.ProviderPriceStates,
+                    request_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStatesRequest.FromString,
+                    response_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStatesResponse.SerializeToString,
+            ),
+            'ProviderPriceState': grpc.unary_unary_rpc_method_handler(
+                    servicer.ProviderPriceState,
+                    request_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStateRequest.FromString,
+                    response_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStateResponse.SerializeToString,
+            ),
             'OracleModuleState': grpc.unary_unary_rpc_method_handler(
                     servicer.OracleModuleState,
                     request_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryModuleStateRequest.FromString,
                     response_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryModuleStateResponse.SerializeToString,
+            ),
+            'HistoricalPriceRecords': grpc.unary_unary_rpc_method_handler(
+                    servicer.HistoricalPriceRecords,
+                    request_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryHistoricalPriceRecordsRequest.FromString,
+                    response_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryHistoricalPriceRecordsResponse.SerializeToString,
+            ),
+            'OracleVolatility': grpc.unary_unary_rpc_method_handler(
+                    servicer.OracleVolatility,
+                    request_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleVolatilityRequest.FromString,
+                    response_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleVolatilityResponse.SerializeToString,
+            ),
+            'OracleProvidersInfo': grpc.unary_unary_rpc_method_handler(
+                    servicer.OracleProvidersInfo,
+                    request_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleProvidersInfoRequest.FromString,
+                    response_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleProvidersInfoResponse.SerializeToString,
+            ),
+            'OracleProviderPrices': grpc.unary_unary_rpc_method_handler(
+                    servicer.OracleProviderPrices,
+                    request_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleProviderPricesRequest.FromString,
+                    response_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleProviderPricesResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -257,6 +357,40 @@ class Query(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def ProviderPriceStates(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/ProviderPriceStates',
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStatesRequest.SerializeToString,
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStatesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ProviderPriceState(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/ProviderPriceState',
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStateRequest.SerializeToString,
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStateResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def OracleModuleState(request,
             target,
             options=(),
@@ -270,5 +404,73 @@ class Query(object):
         return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/OracleModuleState',
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryModuleStateRequest.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryModuleStateResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def HistoricalPriceRecords(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/HistoricalPriceRecords',
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryHistoricalPriceRecordsRequest.SerializeToString,
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryHistoricalPriceRecordsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def OracleVolatility(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/OracleVolatility',
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleVolatilityRequest.SerializeToString,
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleVolatilityResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def OracleProvidersInfo(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/OracleProvidersInfo',
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleProvidersInfoRequest.SerializeToString,
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleProvidersInfoResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def OracleProviderPrices(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/OracleProviderPrices',
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleProviderPricesRequest.SerializeToString,
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleProviderPricesResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

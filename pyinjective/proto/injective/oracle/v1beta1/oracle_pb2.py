@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'ZLgithub.com/InjectiveLabs/injective-core/injective-chain/modules/oracle/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n%injective/oracle/v1beta1/oracle.proto\x12\x18injective.oracle.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\"\x0e\n\x06Params:\x04\xe8\xa0\x1f\x01\"\xba\x01\n\x13\x43hainlinkPriceState\x12\x0f\n\x07\x66\x65\x65\x64_id\x18\x01 \x01(\t\x12>\n\x06\x61nswer\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x11\n\ttimestamp\x18\x03 \x01(\x04\x12?\n\x0bprice_state\x18\x04 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceStateB\x04\xc8\xde\x1f\x00\"|\n\x16SetChainlinkPriceEvent\x12\x0f\n\x07\x66\x65\x65\x64_id\x18\x01 \x01(\t\x12>\n\x06\x61nswer\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x11\n\ttimestamp\x18\x03 \x01(\x04\"\xc9\x01\n\x0e\x42\x61ndPriceState\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12<\n\x04rate\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x14\n\x0cresolve_time\x18\x03 \x01(\x04\x12\x12\n\nrequest_ID\x18\x04 \x01(\x04\x12?\n\x0bprice_state\x18\x05 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceStateB\x04\xc8\xde\x1f\x00\"\x9d\x01\n\x11SetBandPriceEvent\x12\x0f\n\x07relayer\x18\x01 \x01(\t\x12\x0e\n\x06symbol\x18\x02 \x01(\t\x12=\n\x05price\x18\x03 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x14\n\x0cresolve_time\x18\x04 \x01(\x04\x12\x12\n\nrequest_id\x18\x05 \x01(\x04\"\xb5\x01\n\x14SetBandIBCPriceEvent\x12\x0f\n\x07relayer\x18\x01 \x01(\t\x12\x0f\n\x07symbols\x18\x02 \x03(\t\x12>\n\x06prices\x18\x03 \x03(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x14\n\x0cresolve_time\x18\x04 \x01(\x04\x12\x12\n\nrequest_id\x18\x05 \x01(\x04\x12\x11\n\tclient_id\x18\x06 \x01(\x03\"?\n\x16\x45ventBandIBCAckSuccess\x12\x12\n\nack_result\x18\x01 \x01(\t\x12\x11\n\tclient_id\x18\x02 \x01(\x03\"<\n\x14\x45ventBandIBCAckError\x12\x11\n\tack_error\x18\x01 \x01(\t\x12\x11\n\tclient_id\x18\x02 \x01(\x03\"0\n\x1b\x45ventBandIBCResponseTimeout\x12\x11\n\tclient_id\x18\x01 \x01(\x03\"{\n\x10GetReferenceData\x12\x19\n\x11\x62\x61se_quote_symbol\x18\x01 \x01(\t\x12\x17\n\x0f\x62\x61se_quote_rate\x18\x02 \x01(\t\x12\x18\n\x10last_update_base\x18\x03 \x01(\t\x12\x19\n\x11last_update_quote\x18\x04 \x01(\t\"b\n GrantBandOraclePrivilegeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x10\n\x08relayers\x18\x03 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"c\n!RevokeBandOraclePrivilegeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x10\n\x08relayers\x18\x03 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x80\x01\n!GrantPriceFeederPrivilegeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0c\n\x04\x62\x61se\x18\x03 \x01(\t\x12\r\n\x05quote\x18\x04 \x01(\t\x12\x10\n\x08relayers\x18\x05 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x81\x01\n\"RevokePriceFeederPrivilegeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0c\n\x04\x62\x61se\x18\x03 \x01(\t\x12\r\n\x05quote\x18\x04 \x01(\t\x12\x10\n\x08relayers\x18\x05 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"z\n\x0ePriceFeedState\x12\x0c\n\x04\x62\x61se\x18\x01 \x01(\t\x12\r\n\x05quote\x18\x02 \x01(\t\x12\x39\n\x0bprice_state\x18\x03 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceState\x12\x10\n\x08relayers\x18\x04 \x03(\t\",\n\rPriceFeedInfo\x12\x0c\n\x04\x62\x61se\x18\x01 \x01(\t\x12\r\n\x05quote\x18\x02 \x01(\t\"O\n\x0ePriceFeedPrice\x12=\n\x05price\x18\x01 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"\x85\x01\n\x16SetPriceFeedPriceEvent\x12\x0f\n\x07relayer\x18\x01 \x01(\t\x12\x0c\n\x04\x62\x61se\x18\x02 \x01(\t\x12\r\n\x05quote\x18\x03 \x01(\t\x12=\n\x05price\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"\x92\x01\n\x12\x43oinbasePriceState\x12\x0c\n\x04kind\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x04\x12\x0b\n\x03key\x18\x03 \x01(\t\x12\r\n\x05value\x18\x04 \x01(\x04\x12?\n\x0bprice_state\x18\x05 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceStateB\x04\xc8\xde\x1f\x00\"y\n\x15SetCoinbasePriceEvent\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12=\n\x05price\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x11\n\ttimestamp\x18\x03 \x01(\x04\"\xa8\x01\n\nPriceState\x12=\n\x05price\x18\x01 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12H\n\x10\x63umulative_price\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x11\n\ttimestamp\x18\x03 \x01(\x03\"\x96\x01\n\"AuthorizeBandOracleRequestProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x42\n\x07request\x18\x03 \x01(\x0b\x32+.injective.oracle.v1beta1.BandOracleRequestB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\xb6\x01\n\x1fUpdateBandOracleRequestProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x19\n\x11\x64\x65lete_request_id\x18\x03 \x01(\x04\x12J\n\x15update_oracle_request\x18\x04 \x01(\x0b\x32+.injective.oracle.v1beta1.BandOracleRequest:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x8d\x01\n\x15\x45nableBandIBCProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x46\n\x0f\x62\x61nd_ibc_params\x18\x03 \x01(\x0b\x32\'.injective.oracle.v1beta1.BandIBCParamsB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x88\x02\n\x11\x42\x61ndOracleRequest\x12\x12\n\nrequest_id\x18\x01 \x01(\x04\x12\x18\n\x10oracle_script_id\x18\x02 \x01(\x03\x12\x15\n\x07symbols\x18\x03 \x03(\tB\x04\xc8\xde\x1f\x00\x12\x11\n\task_count\x18\x04 \x01(\x04\x12\x11\n\tmin_count\x18\x05 \x01(\x04\x12^\n\tfee_limit\x18\x06 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins\x12\x13\n\x0bprepare_gas\x18\x07 \x01(\x04\x12\x13\n\x0b\x65xecute_gas\x18\x08 \x01(\x04\"\x8d\x01\n\rBandIBCParams\x12\x18\n\x10\x62\x61nd_ibc_enabled\x18\x01 \x01(\x08\x12\x1c\n\x14ibc_request_interval\x18\x02 \x01(\x03\x12\x1a\n\x12ibc_source_channel\x18\x03 \x01(\t\x12\x13\n\x0bibc_version\x18\x04 \x01(\t\x12\x13\n\x0bibc_port_id\x18\x05 \x01(\t*\x91\x01\n\nOracleType\x12\x0f\n\x0bUnspecified\x10\x00\x12\x08\n\x04\x42\x61nd\x10\x01\x12\r\n\tPriceFeed\x10\x02\x12\x0c\n\x08\x43oinbase\x10\x03\x12\r\n\tChainlink\x10\x04\x12\t\n\x05Razor\x10\x05\x12\x07\n\x03\x44ia\x10\x06\x12\x08\n\x04\x41PI3\x10\x07\x12\x07\n\x03Uma\x10\x08\x12\x08\n\x04Pyth\x10\t\x12\x0b\n\x07\x42\x61ndIBC\x10\nBNZLgithub.com/InjectiveLabs/injective-core/injective-chain/modules/oracle/typesb\x06proto3'
+  serialized_pb=b'\n%injective/oracle/v1beta1/oracle.proto\x12\x18injective.oracle.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\"\x0e\n\x06Params:\x04\xe8\xa0\x1f\x01\"m\n\nOracleInfo\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x39\n\x0boracle_type\x18\x02 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x14\n\x0cscale_factor\x18\x03 \x01(\r\"\xba\x01\n\x13\x43hainlinkPriceState\x12\x0f\n\x07\x66\x65\x65\x64_id\x18\x01 \x01(\t\x12>\n\x06\x61nswer\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x11\n\ttimestamp\x18\x03 \x01(\x04\x12?\n\x0bprice_state\x18\x04 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceStateB\x04\xc8\xde\x1f\x00\"\xc9\x01\n\x0e\x42\x61ndPriceState\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12<\n\x04rate\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x14\n\x0cresolve_time\x18\x03 \x01(\x04\x12\x12\n\nrequest_ID\x18\x04 \x01(\x04\x12?\n\x0bprice_state\x18\x05 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceStateB\x04\xc8\xde\x1f\x00\"z\n\x0ePriceFeedState\x12\x0c\n\x04\x62\x61se\x18\x01 \x01(\t\x12\r\n\x05quote\x18\x02 \x01(\t\x12\x39\n\x0bprice_state\x18\x03 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceState\x12\x10\n\x08relayers\x18\x04 \x03(\t\"2\n\x0cProviderInfo\x12\x10\n\x08provider\x18\x01 \x01(\t\x12\x10\n\x08relayers\x18\x02 \x03(\t\"\x9b\x01\n\rProviderState\x12=\n\rprovider_info\x18\x01 \x01(\x0b\x32&.injective.oracle.v1beta1.ProviderInfo\x12K\n\x15provider_price_states\x18\x02 \x03(\x0b\x32,.injective.oracle.v1beta1.ProviderPriceState\"Y\n\x12ProviderPriceState\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x33\n\x05state\x18\x02 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceState\",\n\rPriceFeedInfo\x12\x0c\n\x04\x62\x61se\x18\x01 \x01(\t\x12\r\n\x05quote\x18\x02 \x01(\t\"O\n\x0ePriceFeedPrice\x12=\n\x05price\x18\x01 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"\x92\x01\n\x12\x43oinbasePriceState\x12\x0c\n\x04kind\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x04\x12\x0b\n\x03key\x18\x03 \x01(\t\x12\r\n\x05value\x18\x04 \x01(\x04\x12?\n\x0bprice_state\x18\x05 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceStateB\x04\xc8\xde\x1f\x00\"\xa8\x01\n\nPriceState\x12=\n\x05price\x18\x01 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12H\n\x10\x63umulative_price\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x11\n\ttimestamp\x18\x03 \x01(\x03\"\x82\x02\n\x11\x42\x61ndOracleRequest\x12\x12\n\nrequest_id\x18\x01 \x01(\x04\x12\x18\n\x10oracle_script_id\x18\x02 \x01(\x03\x12\x0f\n\x07symbols\x18\x03 \x03(\t\x12\x11\n\task_count\x18\x04 \x01(\x04\x12\x11\n\tmin_count\x18\x05 \x01(\x04\x12^\n\tfee_limit\x18\x06 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins\x12\x13\n\x0bprepare_gas\x18\x07 \x01(\x04\x12\x13\n\x0b\x65xecute_gas\x18\x08 \x01(\x04\"\x8d\x01\n\rBandIBCParams\x12\x18\n\x10\x62\x61nd_ibc_enabled\x18\x01 \x01(\x08\x12\x1c\n\x14ibc_request_interval\x18\x02 \x01(\x03\x12\x1a\n\x12ibc_source_channel\x18\x03 \x01(\t\x12\x13\n\x0bibc_version\x18\x04 \x01(\t\x12\x13\n\x0bibc_port_id\x18\x05 \x01(\t\"r\n\x14SymbolPriceTimestamp\x12\x34\n\x06oracle\x18\x01 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x11\n\tsymbol_id\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x03\"d\n\x13LastPriceTimestamps\x12M\n\x15last_price_timestamps\x18\x01 \x03(\x0b\x32..injective.oracle.v1beta1.SymbolPriceTimestamp\"\x9c\x01\n\x0cPriceRecords\x12\x34\n\x06oracle\x18\x01 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x11\n\tsymbol_id\x18\x02 \x01(\t\x12\x43\n\x14latest_price_records\x18\x03 \x03(\x0b\x32%.injective.oracle.v1beta1.PriceRecord\"_\n\x0bPriceRecord\x12\x11\n\ttimestamp\x18\x01 \x01(\x03\x12=\n\x05price\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"\xbf\x03\n\x12MetadataStatistics\x12\x13\n\x0bgroup_count\x18\x01 \x01(\r\x12\x1b\n\x13records_sample_size\x18\x02 \x01(\r\x12<\n\x04mean\x18\x03 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12<\n\x04twap\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x17\n\x0f\x66irst_timestamp\x18\x05 \x01(\x03\x12\x16\n\x0elast_timestamp\x18\x06 \x01(\x03\x12\x41\n\tmin_price\x18\x07 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x41\n\tmax_price\x18\x08 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x44\n\x0cmedian_price\x18\t \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00*\x9f\x01\n\nOracleType\x12\x0f\n\x0bUnspecified\x10\x00\x12\x08\n\x04\x42\x61nd\x10\x01\x12\r\n\tPriceFeed\x10\x02\x12\x0c\n\x08\x43oinbase\x10\x03\x12\r\n\tChainlink\x10\x04\x12\t\n\x05Razor\x10\x05\x12\x07\n\x03\x44ia\x10\x06\x12\x08\n\x04\x41PI3\x10\x07\x12\x07\n\x03Uma\x10\x08\x12\x08\n\x04Pyth\x10\t\x12\x0b\n\x07\x42\x61ndIBC\x10\n\x12\x0c\n\x08Provider\x10\x0b\x42NZLgithub.com/InjectiveLabs/injective-core/injective-chain/modules/oracle/typesb\x06proto3'
   ,
   dependencies=[gogoproto_dot_gogo__pb2.DESCRIPTOR,cosmos_dot_base_dot_v1beta1_dot_coin__pb2.DESCRIPTOR,])
 
@@ -88,11 +88,16 @@ _ORACLETYPE = _descriptor.EnumDescriptor(
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='Provider', index=11, number=11,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=3490,
-  serialized_end=3635,
+  serialized_start=2843,
+  serialized_end=3002,
 )
 _sym_db.RegisterEnumDescriptor(_ORACLETYPE)
 
@@ -108,6 +113,7 @@ API3 = 7
 Uma = 8
 Pyth = 9
 BandIBC = 10
+Provider = 11
 
 
 
@@ -133,6 +139,52 @@ _PARAMS = _descriptor.Descriptor(
   ],
   serialized_start=121,
   serialized_end=135,
+)
+
+
+_ORACLEINFO = _descriptor.Descriptor(
+  name='OracleInfo',
+  full_name='injective.oracle.v1beta1.OracleInfo',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='symbol', full_name='injective.oracle.v1beta1.OracleInfo.symbol', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='oracle_type', full_name='injective.oracle.v1beta1.OracleInfo.oracle_type', index=1,
+      number=2, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='scale_factor', full_name='injective.oracle.v1beta1.OracleInfo.scale_factor', index=2,
+      number=3, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=137,
+  serialized_end=246,
 )
 
 
@@ -184,54 +236,8 @@ _CHAINLINKPRICESTATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=138,
-  serialized_end=324,
-)
-
-
-_SETCHAINLINKPRICEEVENT = _descriptor.Descriptor(
-  name='SetChainlinkPriceEvent',
-  full_name='injective.oracle.v1beta1.SetChainlinkPriceEvent',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='feed_id', full_name='injective.oracle.v1beta1.SetChainlinkPriceEvent.feed_id', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='answer', full_name='injective.oracle.v1beta1.SetChainlinkPriceEvent.answer', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='timestamp', full_name='injective.oracle.v1beta1.SetChainlinkPriceEvent.timestamp', index=2,
-      number=3, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=326,
-  serialized_end=450,
+  serialized_start=249,
+  serialized_end=435,
 )
 
 
@@ -290,510 +296,8 @@ _BANDPRICESTATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=453,
-  serialized_end=654,
-)
-
-
-_SETBANDPRICEEVENT = _descriptor.Descriptor(
-  name='SetBandPriceEvent',
-  full_name='injective.oracle.v1beta1.SetBandPriceEvent',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='relayer', full_name='injective.oracle.v1beta1.SetBandPriceEvent.relayer', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='symbol', full_name='injective.oracle.v1beta1.SetBandPriceEvent.symbol', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='price', full_name='injective.oracle.v1beta1.SetBandPriceEvent.price', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='resolve_time', full_name='injective.oracle.v1beta1.SetBandPriceEvent.resolve_time', index=3,
-      number=4, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='request_id', full_name='injective.oracle.v1beta1.SetBandPriceEvent.request_id', index=4,
-      number=5, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=657,
-  serialized_end=814,
-)
-
-
-_SETBANDIBCPRICEEVENT = _descriptor.Descriptor(
-  name='SetBandIBCPriceEvent',
-  full_name='injective.oracle.v1beta1.SetBandIBCPriceEvent',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='relayer', full_name='injective.oracle.v1beta1.SetBandIBCPriceEvent.relayer', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='symbols', full_name='injective.oracle.v1beta1.SetBandIBCPriceEvent.symbols', index=1,
-      number=2, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='prices', full_name='injective.oracle.v1beta1.SetBandIBCPriceEvent.prices', index=2,
-      number=3, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='resolve_time', full_name='injective.oracle.v1beta1.SetBandIBCPriceEvent.resolve_time', index=3,
-      number=4, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='request_id', full_name='injective.oracle.v1beta1.SetBandIBCPriceEvent.request_id', index=4,
-      number=5, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='client_id', full_name='injective.oracle.v1beta1.SetBandIBCPriceEvent.client_id', index=5,
-      number=6, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=817,
-  serialized_end=998,
-)
-
-
-_EVENTBANDIBCACKSUCCESS = _descriptor.Descriptor(
-  name='EventBandIBCAckSuccess',
-  full_name='injective.oracle.v1beta1.EventBandIBCAckSuccess',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='ack_result', full_name='injective.oracle.v1beta1.EventBandIBCAckSuccess.ack_result', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='client_id', full_name='injective.oracle.v1beta1.EventBandIBCAckSuccess.client_id', index=1,
-      number=2, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1000,
-  serialized_end=1063,
-)
-
-
-_EVENTBANDIBCACKERROR = _descriptor.Descriptor(
-  name='EventBandIBCAckError',
-  full_name='injective.oracle.v1beta1.EventBandIBCAckError',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='ack_error', full_name='injective.oracle.v1beta1.EventBandIBCAckError.ack_error', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='client_id', full_name='injective.oracle.v1beta1.EventBandIBCAckError.client_id', index=1,
-      number=2, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1065,
-  serialized_end=1125,
-)
-
-
-_EVENTBANDIBCRESPONSETIMEOUT = _descriptor.Descriptor(
-  name='EventBandIBCResponseTimeout',
-  full_name='injective.oracle.v1beta1.EventBandIBCResponseTimeout',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='client_id', full_name='injective.oracle.v1beta1.EventBandIBCResponseTimeout.client_id', index=0,
-      number=1, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1127,
-  serialized_end=1175,
-)
-
-
-_GETREFERENCEDATA = _descriptor.Descriptor(
-  name='GetReferenceData',
-  full_name='injective.oracle.v1beta1.GetReferenceData',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='base_quote_symbol', full_name='injective.oracle.v1beta1.GetReferenceData.base_quote_symbol', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='base_quote_rate', full_name='injective.oracle.v1beta1.GetReferenceData.base_quote_rate', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='last_update_base', full_name='injective.oracle.v1beta1.GetReferenceData.last_update_base', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='last_update_quote', full_name='injective.oracle.v1beta1.GetReferenceData.last_update_quote', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1177,
-  serialized_end=1300,
-)
-
-
-_GRANTBANDORACLEPRIVILEGEPROPOSAL = _descriptor.Descriptor(
-  name='GrantBandOraclePrivilegeProposal',
-  full_name='injective.oracle.v1beta1.GrantBandOraclePrivilegeProposal',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='title', full_name='injective.oracle.v1beta1.GrantBandOraclePrivilegeProposal.title', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='description', full_name='injective.oracle.v1beta1.GrantBandOraclePrivilegeProposal.description', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='relayers', full_name='injective.oracle.v1beta1.GrantBandOraclePrivilegeProposal.relayers', index=2,
-      number=3, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=b'\350\240\037\000\210\240\037\000',
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1302,
-  serialized_end=1400,
-)
-
-
-_REVOKEBANDORACLEPRIVILEGEPROPOSAL = _descriptor.Descriptor(
-  name='RevokeBandOraclePrivilegeProposal',
-  full_name='injective.oracle.v1beta1.RevokeBandOraclePrivilegeProposal',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='title', full_name='injective.oracle.v1beta1.RevokeBandOraclePrivilegeProposal.title', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='description', full_name='injective.oracle.v1beta1.RevokeBandOraclePrivilegeProposal.description', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='relayers', full_name='injective.oracle.v1beta1.RevokeBandOraclePrivilegeProposal.relayers', index=2,
-      number=3, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=b'\350\240\037\000\210\240\037\000',
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1402,
-  serialized_end=1501,
-)
-
-
-_GRANTPRICEFEEDERPRIVILEGEPROPOSAL = _descriptor.Descriptor(
-  name='GrantPriceFeederPrivilegeProposal',
-  full_name='injective.oracle.v1beta1.GrantPriceFeederPrivilegeProposal',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='title', full_name='injective.oracle.v1beta1.GrantPriceFeederPrivilegeProposal.title', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='description', full_name='injective.oracle.v1beta1.GrantPriceFeederPrivilegeProposal.description', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='base', full_name='injective.oracle.v1beta1.GrantPriceFeederPrivilegeProposal.base', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='quote', full_name='injective.oracle.v1beta1.GrantPriceFeederPrivilegeProposal.quote', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='relayers', full_name='injective.oracle.v1beta1.GrantPriceFeederPrivilegeProposal.relayers', index=4,
-      number=5, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=b'\350\240\037\000\210\240\037\000',
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1504,
-  serialized_end=1632,
-)
-
-
-_REVOKEPRICEFEEDERPRIVILEGEPROPOSAL = _descriptor.Descriptor(
-  name='RevokePriceFeederPrivilegeProposal',
-  full_name='injective.oracle.v1beta1.RevokePriceFeederPrivilegeProposal',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='title', full_name='injective.oracle.v1beta1.RevokePriceFeederPrivilegeProposal.title', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='description', full_name='injective.oracle.v1beta1.RevokePriceFeederPrivilegeProposal.description', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='base', full_name='injective.oracle.v1beta1.RevokePriceFeederPrivilegeProposal.base', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='quote', full_name='injective.oracle.v1beta1.RevokePriceFeederPrivilegeProposal.quote', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='relayers', full_name='injective.oracle.v1beta1.RevokePriceFeederPrivilegeProposal.relayers', index=4,
-      number=5, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=b'\350\240\037\000\210\240\037\000',
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1635,
-  serialized_end=1764,
+  serialized_start=438,
+  serialized_end=639,
 )
 
 
@@ -845,8 +349,125 @@ _PRICEFEEDSTATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1766,
-  serialized_end=1888,
+  serialized_start=641,
+  serialized_end=763,
+)
+
+
+_PROVIDERINFO = _descriptor.Descriptor(
+  name='ProviderInfo',
+  full_name='injective.oracle.v1beta1.ProviderInfo',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='provider', full_name='injective.oracle.v1beta1.ProviderInfo.provider', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='relayers', full_name='injective.oracle.v1beta1.ProviderInfo.relayers', index=1,
+      number=2, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=765,
+  serialized_end=815,
+)
+
+
+_PROVIDERSTATE = _descriptor.Descriptor(
+  name='ProviderState',
+  full_name='injective.oracle.v1beta1.ProviderState',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='provider_info', full_name='injective.oracle.v1beta1.ProviderState.provider_info', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='provider_price_states', full_name='injective.oracle.v1beta1.ProviderState.provider_price_states', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=818,
+  serialized_end=973,
+)
+
+
+_PROVIDERPRICESTATE = _descriptor.Descriptor(
+  name='ProviderPriceState',
+  full_name='injective.oracle.v1beta1.ProviderPriceState',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='symbol', full_name='injective.oracle.v1beta1.ProviderPriceState.symbol', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='state', full_name='injective.oracle.v1beta1.ProviderPriceState.state', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=975,
+  serialized_end=1064,
 )
 
 
@@ -884,8 +505,8 @@ _PRICEFEEDINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1890,
-  serialized_end=1934,
+  serialized_start=1066,
+  serialized_end=1110,
 )
 
 
@@ -916,61 +537,8 @@ _PRICEFEEDPRICE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1936,
-  serialized_end=2015,
-)
-
-
-_SETPRICEFEEDPRICEEVENT = _descriptor.Descriptor(
-  name='SetPriceFeedPriceEvent',
-  full_name='injective.oracle.v1beta1.SetPriceFeedPriceEvent',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='relayer', full_name='injective.oracle.v1beta1.SetPriceFeedPriceEvent.relayer', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='base', full_name='injective.oracle.v1beta1.SetPriceFeedPriceEvent.base', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='quote', full_name='injective.oracle.v1beta1.SetPriceFeedPriceEvent.quote', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='price', full_name='injective.oracle.v1beta1.SetPriceFeedPriceEvent.price', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2018,
-  serialized_end=2151,
+  serialized_start=1112,
+  serialized_end=1191,
 )
 
 
@@ -1029,54 +597,8 @@ _COINBASEPRICESTATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2154,
-  serialized_end=2300,
-)
-
-
-_SETCOINBASEPRICEEVENT = _descriptor.Descriptor(
-  name='SetCoinbasePriceEvent',
-  full_name='injective.oracle.v1beta1.SetCoinbasePriceEvent',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='symbol', full_name='injective.oracle.v1beta1.SetCoinbasePriceEvent.symbol', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='price', full_name='injective.oracle.v1beta1.SetCoinbasePriceEvent.price', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='timestamp', full_name='injective.oracle.v1beta1.SetCoinbasePriceEvent.timestamp', index=2,
-      number=3, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2302,
-  serialized_end=2423,
+  serialized_start=1194,
+  serialized_end=1340,
 )
 
 
@@ -1121,153 +643,8 @@ _PRICESTATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2426,
-  serialized_end=2594,
-)
-
-
-_AUTHORIZEBANDORACLEREQUESTPROPOSAL = _descriptor.Descriptor(
-  name='AuthorizeBandOracleRequestProposal',
-  full_name='injective.oracle.v1beta1.AuthorizeBandOracleRequestProposal',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='title', full_name='injective.oracle.v1beta1.AuthorizeBandOracleRequestProposal.title', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='description', full_name='injective.oracle.v1beta1.AuthorizeBandOracleRequestProposal.description', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='request', full_name='injective.oracle.v1beta1.AuthorizeBandOracleRequestProposal.request', index=2,
-      number=3, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=b'\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=b'\350\240\037\000\210\240\037\000',
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2597,
-  serialized_end=2747,
-)
-
-
-_UPDATEBANDORACLEREQUESTPROPOSAL = _descriptor.Descriptor(
-  name='UpdateBandOracleRequestProposal',
-  full_name='injective.oracle.v1beta1.UpdateBandOracleRequestProposal',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='title', full_name='injective.oracle.v1beta1.UpdateBandOracleRequestProposal.title', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='description', full_name='injective.oracle.v1beta1.UpdateBandOracleRequestProposal.description', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='delete_request_id', full_name='injective.oracle.v1beta1.UpdateBandOracleRequestProposal.delete_request_id', index=2,
-      number=3, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='update_oracle_request', full_name='injective.oracle.v1beta1.UpdateBandOracleRequestProposal.update_oracle_request', index=3,
-      number=4, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=b'\350\240\037\000\210\240\037\000',
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2750,
-  serialized_end=2932,
-)
-
-
-_ENABLEBANDIBCPROPOSAL = _descriptor.Descriptor(
-  name='EnableBandIBCProposal',
-  full_name='injective.oracle.v1beta1.EnableBandIBCProposal',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='title', full_name='injective.oracle.v1beta1.EnableBandIBCProposal.title', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='description', full_name='injective.oracle.v1beta1.EnableBandIBCProposal.description', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='band_ibc_params', full_name='injective.oracle.v1beta1.EnableBandIBCProposal.band_ibc_params', index=2,
-      number=3, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=b'\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=b'\350\240\037\000\210\240\037\000',
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2935,
-  serialized_end=3076,
+  serialized_start=1343,
+  serialized_end=1511,
 )
 
 
@@ -1299,7 +676,7 @@ _BANDORACLEREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=b'\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='ask_count', full_name='injective.oracle.v1beta1.BandOracleRequest.ask_count', index=3,
       number=4, type=4, cpp_type=4, label=1,
@@ -1347,8 +724,8 @@ _BANDORACLEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3079,
-  serialized_end=3343,
+  serialized_start=1514,
+  serialized_end=1772,
 )
 
 
@@ -1407,44 +784,293 @@ _BANDIBCPARAMS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3346,
-  serialized_end=3487,
+  serialized_start=1775,
+  serialized_end=1916,
 )
 
+
+_SYMBOLPRICETIMESTAMP = _descriptor.Descriptor(
+  name='SymbolPriceTimestamp',
+  full_name='injective.oracle.v1beta1.SymbolPriceTimestamp',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='oracle', full_name='injective.oracle.v1beta1.SymbolPriceTimestamp.oracle', index=0,
+      number=1, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='symbol_id', full_name='injective.oracle.v1beta1.SymbolPriceTimestamp.symbol_id', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='timestamp', full_name='injective.oracle.v1beta1.SymbolPriceTimestamp.timestamp', index=2,
+      number=3, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1918,
+  serialized_end=2032,
+)
+
+
+_LASTPRICETIMESTAMPS = _descriptor.Descriptor(
+  name='LastPriceTimestamps',
+  full_name='injective.oracle.v1beta1.LastPriceTimestamps',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='last_price_timestamps', full_name='injective.oracle.v1beta1.LastPriceTimestamps.last_price_timestamps', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2034,
+  serialized_end=2134,
+)
+
+
+_PRICERECORDS = _descriptor.Descriptor(
+  name='PriceRecords',
+  full_name='injective.oracle.v1beta1.PriceRecords',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='oracle', full_name='injective.oracle.v1beta1.PriceRecords.oracle', index=0,
+      number=1, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='symbol_id', full_name='injective.oracle.v1beta1.PriceRecords.symbol_id', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='latest_price_records', full_name='injective.oracle.v1beta1.PriceRecords.latest_price_records', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2137,
+  serialized_end=2293,
+)
+
+
+_PRICERECORD = _descriptor.Descriptor(
+  name='PriceRecord',
+  full_name='injective.oracle.v1beta1.PriceRecord',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='timestamp', full_name='injective.oracle.v1beta1.PriceRecord.timestamp', index=0,
+      number=1, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='price', full_name='injective.oracle.v1beta1.PriceRecord.price', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2295,
+  serialized_end=2390,
+)
+
+
+_METADATASTATISTICS = _descriptor.Descriptor(
+  name='MetadataStatistics',
+  full_name='injective.oracle.v1beta1.MetadataStatistics',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='group_count', full_name='injective.oracle.v1beta1.MetadataStatistics.group_count', index=0,
+      number=1, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='records_sample_size', full_name='injective.oracle.v1beta1.MetadataStatistics.records_sample_size', index=1,
+      number=2, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='mean', full_name='injective.oracle.v1beta1.MetadataStatistics.mean', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='twap', full_name='injective.oracle.v1beta1.MetadataStatistics.twap', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='first_timestamp', full_name='injective.oracle.v1beta1.MetadataStatistics.first_timestamp', index=4,
+      number=5, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='last_timestamp', full_name='injective.oracle.v1beta1.MetadataStatistics.last_timestamp', index=5,
+      number=6, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='min_price', full_name='injective.oracle.v1beta1.MetadataStatistics.min_price', index=6,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='max_price', full_name='injective.oracle.v1beta1.MetadataStatistics.max_price', index=7,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='median_price', full_name='injective.oracle.v1beta1.MetadataStatistics.median_price', index=8,
+      number=9, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2393,
+  serialized_end=2840,
+)
+
+_ORACLEINFO.fields_by_name['oracle_type'].enum_type = _ORACLETYPE
 _CHAINLINKPRICESTATE.fields_by_name['price_state'].message_type = _PRICESTATE
 _BANDPRICESTATE.fields_by_name['price_state'].message_type = _PRICESTATE
 _PRICEFEEDSTATE.fields_by_name['price_state'].message_type = _PRICESTATE
+_PROVIDERSTATE.fields_by_name['provider_info'].message_type = _PROVIDERINFO
+_PROVIDERSTATE.fields_by_name['provider_price_states'].message_type = _PROVIDERPRICESTATE
+_PROVIDERPRICESTATE.fields_by_name['state'].message_type = _PRICESTATE
 _COINBASEPRICESTATE.fields_by_name['price_state'].message_type = _PRICESTATE
-_AUTHORIZEBANDORACLEREQUESTPROPOSAL.fields_by_name['request'].message_type = _BANDORACLEREQUEST
-_UPDATEBANDORACLEREQUESTPROPOSAL.fields_by_name['update_oracle_request'].message_type = _BANDORACLEREQUEST
-_ENABLEBANDIBCPROPOSAL.fields_by_name['band_ibc_params'].message_type = _BANDIBCPARAMS
 _BANDORACLEREQUEST.fields_by_name['fee_limit'].message_type = cosmos_dot_base_dot_v1beta1_dot_coin__pb2._COIN
+_SYMBOLPRICETIMESTAMP.fields_by_name['oracle'].enum_type = _ORACLETYPE
+_LASTPRICETIMESTAMPS.fields_by_name['last_price_timestamps'].message_type = _SYMBOLPRICETIMESTAMP
+_PRICERECORDS.fields_by_name['oracle'].enum_type = _ORACLETYPE
+_PRICERECORDS.fields_by_name['latest_price_records'].message_type = _PRICERECORD
 DESCRIPTOR.message_types_by_name['Params'] = _PARAMS
+DESCRIPTOR.message_types_by_name['OracleInfo'] = _ORACLEINFO
 DESCRIPTOR.message_types_by_name['ChainlinkPriceState'] = _CHAINLINKPRICESTATE
-DESCRIPTOR.message_types_by_name['SetChainlinkPriceEvent'] = _SETCHAINLINKPRICEEVENT
 DESCRIPTOR.message_types_by_name['BandPriceState'] = _BANDPRICESTATE
-DESCRIPTOR.message_types_by_name['SetBandPriceEvent'] = _SETBANDPRICEEVENT
-DESCRIPTOR.message_types_by_name['SetBandIBCPriceEvent'] = _SETBANDIBCPRICEEVENT
-DESCRIPTOR.message_types_by_name['EventBandIBCAckSuccess'] = _EVENTBANDIBCACKSUCCESS
-DESCRIPTOR.message_types_by_name['EventBandIBCAckError'] = _EVENTBANDIBCACKERROR
-DESCRIPTOR.message_types_by_name['EventBandIBCResponseTimeout'] = _EVENTBANDIBCRESPONSETIMEOUT
-DESCRIPTOR.message_types_by_name['GetReferenceData'] = _GETREFERENCEDATA
-DESCRIPTOR.message_types_by_name['GrantBandOraclePrivilegeProposal'] = _GRANTBANDORACLEPRIVILEGEPROPOSAL
-DESCRIPTOR.message_types_by_name['RevokeBandOraclePrivilegeProposal'] = _REVOKEBANDORACLEPRIVILEGEPROPOSAL
-DESCRIPTOR.message_types_by_name['GrantPriceFeederPrivilegeProposal'] = _GRANTPRICEFEEDERPRIVILEGEPROPOSAL
-DESCRIPTOR.message_types_by_name['RevokePriceFeederPrivilegeProposal'] = _REVOKEPRICEFEEDERPRIVILEGEPROPOSAL
 DESCRIPTOR.message_types_by_name['PriceFeedState'] = _PRICEFEEDSTATE
+DESCRIPTOR.message_types_by_name['ProviderInfo'] = _PROVIDERINFO
+DESCRIPTOR.message_types_by_name['ProviderState'] = _PROVIDERSTATE
+DESCRIPTOR.message_types_by_name['ProviderPriceState'] = _PROVIDERPRICESTATE
 DESCRIPTOR.message_types_by_name['PriceFeedInfo'] = _PRICEFEEDINFO
 DESCRIPTOR.message_types_by_name['PriceFeedPrice'] = _PRICEFEEDPRICE
-DESCRIPTOR.message_types_by_name['SetPriceFeedPriceEvent'] = _SETPRICEFEEDPRICEEVENT
 DESCRIPTOR.message_types_by_name['CoinbasePriceState'] = _COINBASEPRICESTATE
-DESCRIPTOR.message_types_by_name['SetCoinbasePriceEvent'] = _SETCOINBASEPRICEEVENT
 DESCRIPTOR.message_types_by_name['PriceState'] = _PRICESTATE
-DESCRIPTOR.message_types_by_name['AuthorizeBandOracleRequestProposal'] = _AUTHORIZEBANDORACLEREQUESTPROPOSAL
-DESCRIPTOR.message_types_by_name['UpdateBandOracleRequestProposal'] = _UPDATEBANDORACLEREQUESTPROPOSAL
-DESCRIPTOR.message_types_by_name['EnableBandIBCProposal'] = _ENABLEBANDIBCPROPOSAL
 DESCRIPTOR.message_types_by_name['BandOracleRequest'] = _BANDORACLEREQUEST
 DESCRIPTOR.message_types_by_name['BandIBCParams'] = _BANDIBCPARAMS
+DESCRIPTOR.message_types_by_name['SymbolPriceTimestamp'] = _SYMBOLPRICETIMESTAMP
+DESCRIPTOR.message_types_by_name['LastPriceTimestamps'] = _LASTPRICETIMESTAMPS
+DESCRIPTOR.message_types_by_name['PriceRecords'] = _PRICERECORDS
+DESCRIPTOR.message_types_by_name['PriceRecord'] = _PRICERECORD
+DESCRIPTOR.message_types_by_name['MetadataStatistics'] = _METADATASTATISTICS
 DESCRIPTOR.enum_types_by_name['OracleType'] = _ORACLETYPE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -1455,19 +1081,19 @@ Params = _reflection.GeneratedProtocolMessageType('Params', (_message.Message,),
   })
 _sym_db.RegisterMessage(Params)
 
+OracleInfo = _reflection.GeneratedProtocolMessageType('OracleInfo', (_message.Message,), {
+  'DESCRIPTOR' : _ORACLEINFO,
+  '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
+  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.OracleInfo)
+  })
+_sym_db.RegisterMessage(OracleInfo)
+
 ChainlinkPriceState = _reflection.GeneratedProtocolMessageType('ChainlinkPriceState', (_message.Message,), {
   'DESCRIPTOR' : _CHAINLINKPRICESTATE,
   '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
   # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.ChainlinkPriceState)
   })
 _sym_db.RegisterMessage(ChainlinkPriceState)
-
-SetChainlinkPriceEvent = _reflection.GeneratedProtocolMessageType('SetChainlinkPriceEvent', (_message.Message,), {
-  'DESCRIPTOR' : _SETCHAINLINKPRICEEVENT,
-  '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
-  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.SetChainlinkPriceEvent)
-  })
-_sym_db.RegisterMessage(SetChainlinkPriceEvent)
 
 BandPriceState = _reflection.GeneratedProtocolMessageType('BandPriceState', (_message.Message,), {
   'DESCRIPTOR' : _BANDPRICESTATE,
@@ -1476,82 +1102,33 @@ BandPriceState = _reflection.GeneratedProtocolMessageType('BandPriceState', (_me
   })
 _sym_db.RegisterMessage(BandPriceState)
 
-SetBandPriceEvent = _reflection.GeneratedProtocolMessageType('SetBandPriceEvent', (_message.Message,), {
-  'DESCRIPTOR' : _SETBANDPRICEEVENT,
-  '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
-  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.SetBandPriceEvent)
-  })
-_sym_db.RegisterMessage(SetBandPriceEvent)
-
-SetBandIBCPriceEvent = _reflection.GeneratedProtocolMessageType('SetBandIBCPriceEvent', (_message.Message,), {
-  'DESCRIPTOR' : _SETBANDIBCPRICEEVENT,
-  '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
-  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.SetBandIBCPriceEvent)
-  })
-_sym_db.RegisterMessage(SetBandIBCPriceEvent)
-
-EventBandIBCAckSuccess = _reflection.GeneratedProtocolMessageType('EventBandIBCAckSuccess', (_message.Message,), {
-  'DESCRIPTOR' : _EVENTBANDIBCACKSUCCESS,
-  '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
-  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.EventBandIBCAckSuccess)
-  })
-_sym_db.RegisterMessage(EventBandIBCAckSuccess)
-
-EventBandIBCAckError = _reflection.GeneratedProtocolMessageType('EventBandIBCAckError', (_message.Message,), {
-  'DESCRIPTOR' : _EVENTBANDIBCACKERROR,
-  '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
-  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.EventBandIBCAckError)
-  })
-_sym_db.RegisterMessage(EventBandIBCAckError)
-
-EventBandIBCResponseTimeout = _reflection.GeneratedProtocolMessageType('EventBandIBCResponseTimeout', (_message.Message,), {
-  'DESCRIPTOR' : _EVENTBANDIBCRESPONSETIMEOUT,
-  '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
-  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.EventBandIBCResponseTimeout)
-  })
-_sym_db.RegisterMessage(EventBandIBCResponseTimeout)
-
-GetReferenceData = _reflection.GeneratedProtocolMessageType('GetReferenceData', (_message.Message,), {
-  'DESCRIPTOR' : _GETREFERENCEDATA,
-  '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
-  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.GetReferenceData)
-  })
-_sym_db.RegisterMessage(GetReferenceData)
-
-GrantBandOraclePrivilegeProposal = _reflection.GeneratedProtocolMessageType('GrantBandOraclePrivilegeProposal', (_message.Message,), {
-  'DESCRIPTOR' : _GRANTBANDORACLEPRIVILEGEPROPOSAL,
-  '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
-  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.GrantBandOraclePrivilegeProposal)
-  })
-_sym_db.RegisterMessage(GrantBandOraclePrivilegeProposal)
-
-RevokeBandOraclePrivilegeProposal = _reflection.GeneratedProtocolMessageType('RevokeBandOraclePrivilegeProposal', (_message.Message,), {
-  'DESCRIPTOR' : _REVOKEBANDORACLEPRIVILEGEPROPOSAL,
-  '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
-  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.RevokeBandOraclePrivilegeProposal)
-  })
-_sym_db.RegisterMessage(RevokeBandOraclePrivilegeProposal)
-
-GrantPriceFeederPrivilegeProposal = _reflection.GeneratedProtocolMessageType('GrantPriceFeederPrivilegeProposal', (_message.Message,), {
-  'DESCRIPTOR' : _GRANTPRICEFEEDERPRIVILEGEPROPOSAL,
-  '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
-  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.GrantPriceFeederPrivilegeProposal)
-  })
-_sym_db.RegisterMessage(GrantPriceFeederPrivilegeProposal)
-
-RevokePriceFeederPrivilegeProposal = _reflection.GeneratedProtocolMessageType('RevokePriceFeederPrivilegeProposal', (_message.Message,), {
-  'DESCRIPTOR' : _REVOKEPRICEFEEDERPRIVILEGEPROPOSAL,
-  '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
-  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.RevokePriceFeederPrivilegeProposal)
-  })
-_sym_db.RegisterMessage(RevokePriceFeederPrivilegeProposal)
-
 PriceFeedState = _reflection.GeneratedProtocolMessageType('PriceFeedState', (_message.Message,), {
   'DESCRIPTOR' : _PRICEFEEDSTATE,
   '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
   # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.PriceFeedState)
   })
 _sym_db.RegisterMessage(PriceFeedState)
+
+ProviderInfo = _reflection.GeneratedProtocolMessageType('ProviderInfo', (_message.Message,), {
+  'DESCRIPTOR' : _PROVIDERINFO,
+  '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
+  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.ProviderInfo)
+  })
+_sym_db.RegisterMessage(ProviderInfo)
+
+ProviderState = _reflection.GeneratedProtocolMessageType('ProviderState', (_message.Message,), {
+  'DESCRIPTOR' : _PROVIDERSTATE,
+  '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
+  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.ProviderState)
+  })
+_sym_db.RegisterMessage(ProviderState)
+
+ProviderPriceState = _reflection.GeneratedProtocolMessageType('ProviderPriceState', (_message.Message,), {
+  'DESCRIPTOR' : _PROVIDERPRICESTATE,
+  '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
+  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.ProviderPriceState)
+  })
+_sym_db.RegisterMessage(ProviderPriceState)
 
 PriceFeedInfo = _reflection.GeneratedProtocolMessageType('PriceFeedInfo', (_message.Message,), {
   'DESCRIPTOR' : _PRICEFEEDINFO,
@@ -1567,13 +1144,6 @@ PriceFeedPrice = _reflection.GeneratedProtocolMessageType('PriceFeedPrice', (_me
   })
 _sym_db.RegisterMessage(PriceFeedPrice)
 
-SetPriceFeedPriceEvent = _reflection.GeneratedProtocolMessageType('SetPriceFeedPriceEvent', (_message.Message,), {
-  'DESCRIPTOR' : _SETPRICEFEEDPRICEEVENT,
-  '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
-  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.SetPriceFeedPriceEvent)
-  })
-_sym_db.RegisterMessage(SetPriceFeedPriceEvent)
-
 CoinbasePriceState = _reflection.GeneratedProtocolMessageType('CoinbasePriceState', (_message.Message,), {
   'DESCRIPTOR' : _COINBASEPRICESTATE,
   '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
@@ -1581,40 +1151,12 @@ CoinbasePriceState = _reflection.GeneratedProtocolMessageType('CoinbasePriceStat
   })
 _sym_db.RegisterMessage(CoinbasePriceState)
 
-SetCoinbasePriceEvent = _reflection.GeneratedProtocolMessageType('SetCoinbasePriceEvent', (_message.Message,), {
-  'DESCRIPTOR' : _SETCOINBASEPRICEEVENT,
-  '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
-  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.SetCoinbasePriceEvent)
-  })
-_sym_db.RegisterMessage(SetCoinbasePriceEvent)
-
 PriceState = _reflection.GeneratedProtocolMessageType('PriceState', (_message.Message,), {
   'DESCRIPTOR' : _PRICESTATE,
   '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
   # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.PriceState)
   })
 _sym_db.RegisterMessage(PriceState)
-
-AuthorizeBandOracleRequestProposal = _reflection.GeneratedProtocolMessageType('AuthorizeBandOracleRequestProposal', (_message.Message,), {
-  'DESCRIPTOR' : _AUTHORIZEBANDORACLEREQUESTPROPOSAL,
-  '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
-  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.AuthorizeBandOracleRequestProposal)
-  })
-_sym_db.RegisterMessage(AuthorizeBandOracleRequestProposal)
-
-UpdateBandOracleRequestProposal = _reflection.GeneratedProtocolMessageType('UpdateBandOracleRequestProposal', (_message.Message,), {
-  'DESCRIPTOR' : _UPDATEBANDORACLEREQUESTPROPOSAL,
-  '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
-  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.UpdateBandOracleRequestProposal)
-  })
-_sym_db.RegisterMessage(UpdateBandOracleRequestProposal)
-
-EnableBandIBCProposal = _reflection.GeneratedProtocolMessageType('EnableBandIBCProposal', (_message.Message,), {
-  'DESCRIPTOR' : _ENABLEBANDIBCPROPOSAL,
-  '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
-  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.EnableBandIBCProposal)
-  })
-_sym_db.RegisterMessage(EnableBandIBCProposal)
 
 BandOracleRequest = _reflection.GeneratedProtocolMessageType('BandOracleRequest', (_message.Message,), {
   'DESCRIPTOR' : _BANDORACLEREQUEST,
@@ -1630,31 +1172,57 @@ BandIBCParams = _reflection.GeneratedProtocolMessageType('BandIBCParams', (_mess
   })
 _sym_db.RegisterMessage(BandIBCParams)
 
+SymbolPriceTimestamp = _reflection.GeneratedProtocolMessageType('SymbolPriceTimestamp', (_message.Message,), {
+  'DESCRIPTOR' : _SYMBOLPRICETIMESTAMP,
+  '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
+  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.SymbolPriceTimestamp)
+  })
+_sym_db.RegisterMessage(SymbolPriceTimestamp)
+
+LastPriceTimestamps = _reflection.GeneratedProtocolMessageType('LastPriceTimestamps', (_message.Message,), {
+  'DESCRIPTOR' : _LASTPRICETIMESTAMPS,
+  '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
+  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.LastPriceTimestamps)
+  })
+_sym_db.RegisterMessage(LastPriceTimestamps)
+
+PriceRecords = _reflection.GeneratedProtocolMessageType('PriceRecords', (_message.Message,), {
+  'DESCRIPTOR' : _PRICERECORDS,
+  '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
+  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.PriceRecords)
+  })
+_sym_db.RegisterMessage(PriceRecords)
+
+PriceRecord = _reflection.GeneratedProtocolMessageType('PriceRecord', (_message.Message,), {
+  'DESCRIPTOR' : _PRICERECORD,
+  '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
+  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.PriceRecord)
+  })
+_sym_db.RegisterMessage(PriceRecord)
+
+MetadataStatistics = _reflection.GeneratedProtocolMessageType('MetadataStatistics', (_message.Message,), {
+  'DESCRIPTOR' : _METADATASTATISTICS,
+  '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
+  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.MetadataStatistics)
+  })
+_sym_db.RegisterMessage(MetadataStatistics)
+
 
 DESCRIPTOR._options = None
 _PARAMS._options = None
 _CHAINLINKPRICESTATE.fields_by_name['answer']._options = None
 _CHAINLINKPRICESTATE.fields_by_name['price_state']._options = None
-_SETCHAINLINKPRICEEVENT.fields_by_name['answer']._options = None
 _BANDPRICESTATE.fields_by_name['rate']._options = None
 _BANDPRICESTATE.fields_by_name['price_state']._options = None
-_SETBANDPRICEEVENT.fields_by_name['price']._options = None
-_SETBANDIBCPRICEEVENT.fields_by_name['prices']._options = None
-_GRANTBANDORACLEPRIVILEGEPROPOSAL._options = None
-_REVOKEBANDORACLEPRIVILEGEPROPOSAL._options = None
-_GRANTPRICEFEEDERPRIVILEGEPROPOSAL._options = None
-_REVOKEPRICEFEEDERPRIVILEGEPROPOSAL._options = None
 _PRICEFEEDPRICE.fields_by_name['price']._options = None
-_SETPRICEFEEDPRICEEVENT.fields_by_name['price']._options = None
 _COINBASEPRICESTATE.fields_by_name['price_state']._options = None
-_SETCOINBASEPRICEEVENT.fields_by_name['price']._options = None
 _PRICESTATE.fields_by_name['price']._options = None
 _PRICESTATE.fields_by_name['cumulative_price']._options = None
-_AUTHORIZEBANDORACLEREQUESTPROPOSAL.fields_by_name['request']._options = None
-_AUTHORIZEBANDORACLEREQUESTPROPOSAL._options = None
-_UPDATEBANDORACLEREQUESTPROPOSAL._options = None
-_ENABLEBANDIBCPROPOSAL.fields_by_name['band_ibc_params']._options = None
-_ENABLEBANDIBCPROPOSAL._options = None
-_BANDORACLEREQUEST.fields_by_name['symbols']._options = None
 _BANDORACLEREQUEST.fields_by_name['fee_limit']._options = None
+_PRICERECORD.fields_by_name['price']._options = None
+_METADATASTATISTICS.fields_by_name['mean']._options = None
+_METADATASTATISTICS.fields_by_name['twap']._options = None
+_METADATASTATISTICS.fields_by_name['min_price']._options = None
+_METADATASTATISTICS.fields_by_name['max_price']._options = None
+_METADATASTATISTICS.fields_by_name['median_price']._options = None
 # @@protoc_insertion_point(module_scope)

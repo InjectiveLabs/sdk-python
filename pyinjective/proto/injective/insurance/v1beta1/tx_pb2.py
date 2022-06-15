@@ -14,7 +14,6 @@ _sym_db = _symbol_database.Default()
 from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
 from injective.oracle.v1beta1 import oracle_pb2 as injective_dot_oracle_dot_v1beta1_dot_oracle__pb2
-from injective.insurance.v1beta1 import insurance_pb2 as injective_dot_insurance_dot_v1beta1_dot_insurance__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -23,9 +22,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'ZOgithub.com/InjectiveLabs/injective-core/injective-chain/modules/insurance/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n$injective/insurance/v1beta1/tx.proto\x12\x1binjective.insurance.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a%injective/oracle/v1beta1/oracle.proto\x1a+injective/insurance/v1beta1/insurance.proto\"\x87\x02\n\x16MsgCreateInsuranceFund\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x0e\n\x06ticker\x18\x02 \x01(\t\x12\x13\n\x0bquote_denom\x18\x03 \x01(\t\x12\x13\n\x0boracle_base\x18\x04 \x01(\t\x12\x14\n\x0coracle_quote\x18\x05 \x01(\t\x12\x39\n\x0boracle_type\x18\x06 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x0e\n\x06\x65xpiry\x18\x07 \x01(\x03\x12\x38\n\x0finitial_deposit\x18\x08 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\" \n\x1eMsgCreateInsuranceFundResponse\"n\n\rMsgUnderwrite\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x30\n\x07\x64\x65posit\x18\x03 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x17\n\x15MsgUnderwriteResponse\"t\n\x14MsgRequestRedemption\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12/\n\x06\x61mount\x18\x03 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x1e\n\x1cMsgRequestRedemptionResponse2\x81\x03\n\x03Msg\x12\x87\x01\n\x13\x43reateInsuranceFund\x12\x33.injective.insurance.v1beta1.MsgCreateInsuranceFund\x1a;.injective.insurance.v1beta1.MsgCreateInsuranceFundResponse\x12l\n\nUnderwrite\x12*.injective.insurance.v1beta1.MsgUnderwrite\x1a\x32.injective.insurance.v1beta1.MsgUnderwriteResponse\x12\x81\x01\n\x11RequestRedemption\x12\x31.injective.insurance.v1beta1.MsgRequestRedemption\x1a\x39.injective.insurance.v1beta1.MsgRequestRedemptionResponseBQZOgithub.com/InjectiveLabs/injective-core/injective-chain/modules/insurance/typesb\x06proto3'
+  serialized_pb=b'\n$injective/insurance/v1beta1/tx.proto\x12\x1binjective.insurance.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a%injective/oracle/v1beta1/oracle.proto\"\x87\x02\n\x16MsgCreateInsuranceFund\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x0e\n\x06ticker\x18\x02 \x01(\t\x12\x13\n\x0bquote_denom\x18\x03 \x01(\t\x12\x13\n\x0boracle_base\x18\x04 \x01(\t\x12\x14\n\x0coracle_quote\x18\x05 \x01(\t\x12\x39\n\x0boracle_type\x18\x06 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x0e\n\x06\x65xpiry\x18\x07 \x01(\x03\x12\x38\n\x0finitial_deposit\x18\x08 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\" \n\x1eMsgCreateInsuranceFundResponse\"n\n\rMsgUnderwrite\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x30\n\x07\x64\x65posit\x18\x03 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x17\n\x15MsgUnderwriteResponse\"t\n\x14MsgRequestRedemption\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12/\n\x06\x61mount\x18\x03 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x1e\n\x1cMsgRequestRedemptionResponse2\x81\x03\n\x03Msg\x12\x87\x01\n\x13\x43reateInsuranceFund\x12\x33.injective.insurance.v1beta1.MsgCreateInsuranceFund\x1a;.injective.insurance.v1beta1.MsgCreateInsuranceFundResponse\x12l\n\nUnderwrite\x12*.injective.insurance.v1beta1.MsgUnderwrite\x1a\x32.injective.insurance.v1beta1.MsgUnderwriteResponse\x12\x81\x01\n\x11RequestRedemption\x12\x31.injective.insurance.v1beta1.MsgRequestRedemption\x1a\x39.injective.insurance.v1beta1.MsgRequestRedemptionResponseBQZOgithub.com/InjectiveLabs/injective-core/injective-chain/modules/insurance/typesb\x06proto3'
   ,
-  dependencies=[gogoproto_dot_gogo__pb2.DESCRIPTOR,cosmos_dot_base_dot_v1beta1_dot_coin__pb2.DESCRIPTOR,injective_dot_oracle_dot_v1beta1_dot_oracle__pb2.DESCRIPTOR,injective_dot_insurance_dot_v1beta1_dot_insurance__pb2.DESCRIPTOR,])
+  dependencies=[gogoproto_dot_gogo__pb2.DESCRIPTOR,cosmos_dot_base_dot_v1beta1_dot_coin__pb2.DESCRIPTOR,injective_dot_oracle_dot_v1beta1_dot_oracle__pb2.DESCRIPTOR,])
 
 
 
@@ -106,8 +105,8 @@ _MSGCREATEINSURANCEFUND = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=208,
-  serialized_end=471,
+  serialized_start=163,
+  serialized_end=426,
 )
 
 
@@ -131,8 +130,8 @@ _MSGCREATEINSURANCEFUNDRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=473,
-  serialized_end=505,
+  serialized_start=428,
+  serialized_end=460,
 )
 
 
@@ -177,8 +176,8 @@ _MSGUNDERWRITE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=507,
-  serialized_end=617,
+  serialized_start=462,
+  serialized_end=572,
 )
 
 
@@ -202,8 +201,8 @@ _MSGUNDERWRITERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=619,
-  serialized_end=642,
+  serialized_start=574,
+  serialized_end=597,
 )
 
 
@@ -248,8 +247,8 @@ _MSGREQUESTREDEMPTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=644,
-  serialized_end=760,
+  serialized_start=599,
+  serialized_end=715,
 )
 
 
@@ -273,8 +272,8 @@ _MSGREQUESTREDEMPTIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=762,
-  serialized_end=792,
+  serialized_start=717,
+  serialized_end=747,
 )
 
 _MSGCREATEINSURANCEFUND.fields_by_name['oracle_type'].enum_type = injective_dot_oracle_dot_v1beta1_dot_oracle__pb2._ORACLETYPE
@@ -347,8 +346,8 @@ _MSG = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=795,
-  serialized_end=1180,
+  serialized_start=750,
+  serialized_end=1135,
   methods=[
   _descriptor.MethodDescriptor(
     name='CreateInsuranceFund',

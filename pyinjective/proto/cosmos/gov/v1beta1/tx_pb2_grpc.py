@@ -57,6 +57,8 @@ class MsgServicer(object):
 
     def VoteWeighted(self, request, context):
         """VoteWeighted defines a method to add a weighted vote on a specific proposal.
+
+        Since: cosmos-sdk 0.43
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
