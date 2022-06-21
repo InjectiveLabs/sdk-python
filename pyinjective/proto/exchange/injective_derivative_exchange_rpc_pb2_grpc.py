@@ -31,6 +31,16 @@ class InjectiveDerivativeExchangeRPCStub(object):
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamMarketRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamMarketResponse.FromString,
                 )
+        self.BinaryOptionsMarkets = channel.unary_unary(
+                '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/BinaryOptionsMarkets',
+                request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.BinaryOptionsMarketsRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.BinaryOptionsMarketsResponse.FromString,
+                )
+        self.BinaryOptionsMarket = channel.unary_unary(
+                '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/BinaryOptionsMarket',
+                request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.BinaryOptionsMarketRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.BinaryOptionsMarketResponse.FromString,
+                )
         self.Orderbook = channel.unary_unary(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/Orderbook',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.OrderbookRequest.SerializeToString,
@@ -124,6 +134,20 @@ class InjectiveDerivativeExchangeRPCServicer(object):
 
     def StreamMarket(self, request, context):
         """StreamMarket streams live updates of selected derivative markets
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def BinaryOptionsMarkets(self, request, context):
+        """BinaryOptionsMarkets gets a list of Binary Options Markets
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def BinaryOptionsMarket(self, request, context):
+        """BinaryOptionMarket gets details of a single binary options market
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -245,6 +269,16 @@ def add_InjectiveDerivativeExchangeRPCServicer_to_server(servicer, server):
                     servicer.StreamMarket,
                     request_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamMarketRequest.FromString,
                     response_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamMarketResponse.SerializeToString,
+            ),
+            'BinaryOptionsMarkets': grpc.unary_unary_rpc_method_handler(
+                    servicer.BinaryOptionsMarkets,
+                    request_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.BinaryOptionsMarketsRequest.FromString,
+                    response_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.BinaryOptionsMarketsResponse.SerializeToString,
+            ),
+            'BinaryOptionsMarket': grpc.unary_unary_rpc_method_handler(
+                    servicer.BinaryOptionsMarket,
+                    request_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.BinaryOptionsMarketRequest.FromString,
+                    response_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.BinaryOptionsMarketResponse.SerializeToString,
             ),
             'Orderbook': grpc.unary_unary_rpc_method_handler(
                     servicer.Orderbook,
@@ -376,6 +410,40 @@ class InjectiveDerivativeExchangeRPC(object):
         return grpc.experimental.unary_stream(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamMarket',
             exchange_dot_injective__derivative__exchange__rpc__pb2.StreamMarketRequest.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.StreamMarketResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def BinaryOptionsMarkets(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/BinaryOptionsMarkets',
+            exchange_dot_injective__derivative__exchange__rpc__pb2.BinaryOptionsMarketsRequest.SerializeToString,
+            exchange_dot_injective__derivative__exchange__rpc__pb2.BinaryOptionsMarketsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def BinaryOptionsMarket(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/BinaryOptionsMarket',
+            exchange_dot_injective__derivative__exchange__rpc__pb2.BinaryOptionsMarketRequest.SerializeToString,
+            exchange_dot_injective__derivative__exchange__rpc__pb2.BinaryOptionsMarketResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
