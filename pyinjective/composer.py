@@ -436,6 +436,27 @@ class Composer:
             status=status
         )
 
+    def MsgRelayProviderPrices (
+      self,
+      sender: str,
+      provider: str,
+      symbols: list,
+      prices: list
+    ):
+      oracle_prices = []
+
+      for price in prices:
+        scale_price = Decimal((price) * pow (10, 18))
+        price_to_bytes = bytes(str(scale_price), "utf-8")
+        oracle_prices.append(price_to_bytes)
+
+      return injective_oracle_tx_pb.MsgRelayProviderPrices(
+        sender=sender,
+        provider=provider,
+        symbols=symbols,
+        prices=oracle_prices
+      )
+
     def MsgInstantBinaryOptionsMarketLaunch(
         self,
         sender: str,
@@ -781,7 +802,8 @@ class Composer:
             "/cosmos.authz.v1beta1.MsgGrant": cosmos_authz_tx_pb.MsgGrantResponse,
             "/cosmos.authz.v1beta1.MsgExec": cosmos_authz_tx_pb.MsgExecResponse,
             "/cosmos.authz.v1beta1.MsgRevoke": cosmos_authz_tx_pb.MsgRevokeResponse,
-            "/injective.oracle.v1beta1.MsgRelayPriceFeedPrice": injective_oracle_tx_pb.MsgRelayPriceFeedPriceResponse
+            "/injective.oracle.v1beta1.MsgRelayPriceFeedPrice": injective_oracle_tx_pb.MsgRelayPriceFeedPriceResponse,
+            "/injective.oracle.v1beta1.MsgRelayProviderPrices": injective_oracle_tx_pb.MsgRelayProviderPrices
         }
 
         response = tx_response_pb.TxResponseData.FromString(data)
