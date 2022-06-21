@@ -414,22 +414,25 @@ class Composer:
         self,
         sender: str,
         market_id: str,
-        settlement_price: float,
-        expiration_timestamp: int,
-        settlement_timestamp: int,
-        status: str
+        status: str,
+        **kwargs,
     ):
 
-        scale_price = Decimal((settlement_price * pow(10, 18)))
-        price_to_bytes = bytes(str(scale_price), "utf-8")
-        print(scale_price)
+        price_to_bytes = None
+
+        if kwargs.get("settlement_price") is not None:
+            scale_price = Decimal((kwargs.get("settlement_price") * pow(10, 18)))
+            price_to_bytes = bytes(str(scale_price), "utf-8")
+
+        else:
+            price_to_bytes = ""
 
         return injective_exchange_tx_pb.MsgAdminUpdateBinaryOptionsMarket(
             sender=sender,
             market_id=market_id,
             settlement_price=price_to_bytes,
-            expiration_timestamp=expiration_timestamp,
-            settlement_timestamp=settlement_timestamp,
+            expiration_timestamp=kwargs.get("expiration_timestamp"),
+            settlement_timestamp=kwargs.get("settlement_timestamp"),
             status=status
         )
 
