@@ -120,6 +120,11 @@ class MsgStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgCancelBinaryOptionsOrder.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgCancelBinaryOptionsOrderResponse.FromString,
                 )
+        self.BatchCancelBinaryOptionsOrders = channel.unary_unary(
+                '/injective.exchange.v1beta1.Msg/BatchCancelBinaryOptionsOrders',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgBatchCancelBinaryOptionsOrders.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgBatchCancelBinaryOptionsOrdersResponse.FromString,
+                )
         self.SubaccountTransfer = channel.unary_unary(
                 '/injective.exchange.v1beta1.Msg/SubaccountTransfer',
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgSubaccountTransfer.SerializeToString,
@@ -303,6 +308,13 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def BatchCancelBinaryOptionsOrders(self, request, context):
+        """BatchCancelBinaryOptionsOrders defines a method for cancelling a batch of binary options limit orders.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def SubaccountTransfer(self, request, context):
         """SubaccountTransfer defines a method for transfer between subaccounts
         """
@@ -452,6 +464,11 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.CancelBinaryOptionsOrder,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgCancelBinaryOptionsOrder.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgCancelBinaryOptionsOrderResponse.SerializeToString,
+            ),
+            'BatchCancelBinaryOptionsOrders': grpc.unary_unary_rpc_method_handler(
+                    servicer.BatchCancelBinaryOptionsOrders,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgBatchCancelBinaryOptionsOrders.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgBatchCancelBinaryOptionsOrdersResponse.SerializeToString,
             ),
             'SubaccountTransfer': grpc.unary_unary_rpc_method_handler(
                     servicer.SubaccountTransfer,
@@ -848,6 +865,23 @@ class Msg(object):
         return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Msg/CancelBinaryOptionsOrder',
             injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgCancelBinaryOptionsOrder.SerializeToString,
             injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgCancelBinaryOptionsOrderResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def BatchCancelBinaryOptionsOrders(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Msg/BatchCancelBinaryOptionsOrders',
+            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgBatchCancelBinaryOptionsOrders.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgBatchCancelBinaryOptionsOrdersResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

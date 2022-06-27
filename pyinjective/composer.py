@@ -414,24 +414,48 @@ class Composer:
         self,
         sender: str,
         market_id: str,
-        settlement_price: float,
-        expiration_timestamp: int,
-        settlement_timestamp: int,
-        status: str
+        status: str,
+        **kwargs,
     ):
 
-        scale_price = Decimal((settlement_price * pow(10, 18)))
-        price_to_bytes = bytes(str(scale_price), "utf-8")
-        print(scale_price)
+        price_to_bytes = None
+
+        if kwargs.get("settlement_price") is not None:
+            scale_price = Decimal((kwargs.get("settlement_price") * pow(10, 18)))
+            price_to_bytes = bytes(str(scale_price), "utf-8")
+
+        else:
+            price_to_bytes = ""
 
         return injective_exchange_tx_pb.MsgAdminUpdateBinaryOptionsMarket(
             sender=sender,
             market_id=market_id,
             settlement_price=price_to_bytes,
-            expiration_timestamp=expiration_timestamp,
-            settlement_timestamp=settlement_timestamp,
+            expiration_timestamp=kwargs.get("expiration_timestamp"),
+            settlement_timestamp=kwargs.get("settlement_timestamp"),
             status=status
         )
+
+    def MsgRelayProviderPrices (
+      self,
+      sender: str,
+      provider: str,
+      symbols: list,
+      prices: list
+    ):
+      oracle_prices = []
+
+      for price in prices:
+        scale_price = Decimal((price) * pow (10, 18))
+        price_to_bytes = bytes(str(scale_price), "utf-8")
+        oracle_prices.append(price_to_bytes)
+
+      return injective_oracle_tx_pb.MsgRelayProviderPrices(
+        sender=sender,
+        provider=provider,
+        symbols=symbols,
+        prices=oracle_prices
+      )
 
     def MsgInstantBinaryOptionsMarketLaunch(
         self,
@@ -778,7 +802,8 @@ class Composer:
             "/cosmos.authz.v1beta1.MsgGrant": cosmos_authz_tx_pb.MsgGrantResponse,
             "/cosmos.authz.v1beta1.MsgExec": cosmos_authz_tx_pb.MsgExecResponse,
             "/cosmos.authz.v1beta1.MsgRevoke": cosmos_authz_tx_pb.MsgRevokeResponse,
-            "/injective.oracle.v1beta1.MsgRelayPriceFeedPrice": injective_oracle_tx_pb.MsgRelayPriceFeedPriceResponse
+            "/injective.oracle.v1beta1.MsgRelayPriceFeedPrice": injective_oracle_tx_pb.MsgRelayPriceFeedPriceResponse,
+            "/injective.oracle.v1beta1.MsgRelayProviderPrices": injective_oracle_tx_pb.MsgRelayProviderPrices
         }
 
         response = tx_response_pb.TxResponseData.FromString(data)
