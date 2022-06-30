@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 import asyncio
 import logging
 
@@ -20,16 +19,15 @@ from pyinjective.async_client import AsyncClient
 from pyinjective.transaction import Transaction
 from pyinjective.constant import Network
 from pyinjective.wallet import PrivateKey
-from pyinjective.orderhash import OrderHashes
-
+from pyinjective.orderhash import OrderHashManager
 
 async def main() -> None:
     # select network: local, testnet, mainnet
-    network = Network.testnet()
+    network = Network.mainnet(node="sentry1")
     composer = ProtoMsgComposer(network=network.string())
 
     # initialize grpc client
-    client = AsyncClient(network, insecure=False)
+    client = AsyncClient(network, insecure=True)
     await client.sync_timeout_height()
 
     # load account
@@ -39,9 +37,11 @@ async def main() -> None:
     subaccount_id = address.get_subaccount_id(index=0)
     subaccount_id_2 = address.get_subaccount_id(index=1)
 
-    init_nonce = OrderHashes()
-    init_nonce.get_subaccount_nonce(network=network, subaccount_id=subaccount_id)
-    init_nonce.get_subaccount_nonce(network=network, subaccount_id=subaccount_id_2)
+    order_hash_manager = OrderHashManager(
+        address=address,
+        network=network,
+        subaccount_indexes=[0,1,2,7]
+    )
 
     # prepare trade info
     spot_market_id = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
@@ -104,7 +104,7 @@ async def main() -> None:
     )
 
     # compute order hashes
-    order_hashes = init_nonce.compute_order_hashes(spot_orders=spot_orders, derivative_orders=derivative_orders, subaccount_id=subaccount_id)
+    order_hashes = order_hash_manager.compute_order_hashes(spot_orders=spot_orders, derivative_orders=derivative_orders, subaccount_index=0)
 
     print("computed spot order hashes", order_hashes.spot)
     print("computed derivative order hashes", order_hashes.derivative)
@@ -148,7 +148,7 @@ async def main() -> None:
 
 
     # compute order hashes
-    order_hashes = init_nonce.compute_order_hashes(spot_orders=spot_orders, derivative_orders=derivative_orders, subaccount_id=subaccount_id)
+    order_hashes = order_hash_manager.compute_order_hashes(spot_orders=spot_orders, derivative_orders=derivative_orders, subaccount_index=0)
 
     print("computed spot order hashes", order_hashes.spot)
     print("computed derivative order hashes", order_hashes.derivative)
@@ -246,7 +246,7 @@ async def main() -> None:
     )
 
     # compute order hashes
-    order_hashes = init_nonce.compute_order_hashes(spot_orders=spot_orders, derivative_orders=derivative_orders, subaccount_id=subaccount_id_2)
+    order_hashes = order_hash_manager.compute_order_hashes(spot_orders=spot_orders, derivative_orders=derivative_orders, subaccount_id=1)
 
     print("computed spot order hashes", order_hashes.spot)
     print("computed derivative order hashes", order_hashes.derivative)

@@ -35,7 +35,7 @@ EIP712_domain = make_domain(
 domain_separator = EIP712_domain.hash_struct()
 order_type_dict = {0: '\x00', 1: '\x01', 2: '\x02', 3: '\x03', 4: '\x04', 5: '\x05', 6: '\x06', 7: '\x07', 8: '\x08'}
 
-class OrderHashes:
+class OrderHashResponse:
     def __init__(
             self,
             spot: [str] = None,
@@ -43,42 +43,41 @@ class OrderHashes:
     ):
         self.spot = spot
         self.derivative = derivative
-        self.subacc_nonce_dict = {}
 
-    def get_subaccount_nonce(self, network, subaccount_id) -> int:
-        subaccount_dict = {}
-        url = network.lcd_endpoint + '/injective/exchange/v1beta1/exchange/' + subaccount_id
-        res = requests.get(url = url)
-        nonce = res.json()["nonce"]
-        subaccount_dict[subaccount_id] = nonce + 1
-        self.subacc_nonce_dict.update(subaccount_dict)
-        return self.subacc_nonce_dict[subaccount_id]
+class OrderHashManager:
+    def __init__(
+            self,
+            address,
+            network,
+            subaccount_indexes: [int] = None,
+    ):
+        self.address = address
+        self.subacc_nonces = dict()
 
-    def compute_order_hashes(self, spot_orders, derivative_orders, subaccount_id) -> [str]:
+        for i in subaccount_indexes:
+            subaccount_id = address.get_subaccount_id(index=i)
+            url = network.lcd_endpoint + '/injective/exchange/v1beta1/exchange/' + subaccount_id
+            res = requests.get(url=url)
+            nonce = res.json()["nonce"]
+            self.subacc_nonces[i] = [subaccount_id, nonce + 1]
+
+    def compute_order_hashes(self, spot_orders, derivative_orders, subaccount_index) -> [str]:
         if len(spot_orders) + len(derivative_orders) == 0:
             return []
 
-        order_hashes = OrderHashes(spot=[], derivative=[])
+        order_hashes = OrderHashResponse(spot=[], derivative=[])
 
         for o in spot_orders:
-            msg = build_eip712_msg(o, self.subacc_nonce_dict[subaccount_id])
-            typed_data_hash = msg.hash_struct()
-            typed_bytes = b'\x19\x01' + domain_separator + typed_data_hash
-            keccak256 = sha3.keccak_256()
-            keccak256.update(typed_bytes)
-            order_hash = keccak256.hexdigest()
-            order_hashes.spot.append('0x' + order_hash)
-            self.subacc_nonce_dict[subaccount_id] += 1
+            msg = build_eip712_msg(o, self.subacc_nonces[subaccount_index][1])
+            order_hash = hash_order(msg)
+            order_hashes.spot.append(order_hash)
+            self.subacc_nonces[subaccount_index][1] += 1
 
         for o in derivative_orders:
-            msg = build_eip712_msg(o, self.subacc_nonce_dict[subaccount_id])
-            typed_data_hash = msg.hash_struct()
-            typed_bytes = b'\x19\x01' + domain_separator + typed_data_hash
-            keccak256 = sha3.keccak_256()
-            keccak256.update(typed_bytes)
-            order_hash = keccak256.hexdigest()
-            order_hashes.derivative.append('0x' + order_hash)
-            self.subacc_nonce_dict[subaccount_id] += 1
+            msg = build_eip712_msg(o, self.subacc_nonces[subaccount_index][1])
+            order_hash = hash_order(msg)
+            order_hashes.derivative.append(order_hash)
+            self.subacc_nonces[subaccount_index][1] += 1
 
         return order_hashes
 
@@ -126,3 +125,10 @@ def build_eip712_msg(order, nonce):
             TriggerPrice=go_trigger_price,
             Margin=go_margin
         )
+
+def hash_order(msg):
+    typed_data_hash = msg.hash_struct()
+    typed_bytes = b'\x19\x01' + domain_separator + typed_data_hash
+    keccak256 = sha3.keccak_256()
+    keccak256.update(typed_bytes)
+    return '0x' + keccak256.hexdigest()
