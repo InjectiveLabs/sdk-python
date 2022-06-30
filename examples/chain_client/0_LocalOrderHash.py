@@ -23,11 +23,11 @@ from pyinjective.orderhash import OrderHashManager
 
 async def main() -> None:
     # select network: local, testnet, mainnet
-    network = Network.mainnet(node="sentry1")
+    network = Network.testnet()
     composer = ProtoMsgComposer(network=network.string())
 
     # initialize grpc client
-    client = AsyncClient(network, insecure=True)
+    client = AsyncClient(network, insecure=False)
     await client.sync_timeout_height()
 
     # load account
@@ -246,7 +246,7 @@ async def main() -> None:
     )
 
     # compute order hashes
-    order_hashes = order_hash_manager.compute_order_hashes(spot_orders=spot_orders, derivative_orders=derivative_orders, subaccount_id=1)
+    order_hashes = order_hash_manager.compute_order_hashes(spot_orders=spot_orders, derivative_orders=derivative_orders, subaccount_index=1)
 
     print("computed spot order hashes", order_hashes.spot)
     print("computed derivative order hashes", order_hashes.derivative)
