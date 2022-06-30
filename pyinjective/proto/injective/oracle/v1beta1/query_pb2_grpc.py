@@ -45,11 +45,6 @@ class QueryStub(object):
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryCoinbasePriceStatesRequest.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryCoinbasePriceStatesResponse.FromString,
                 )
-        self.ProviderPriceStates = channel.unary_unary(
-                '/injective.oracle.v1beta1.Query/ProviderPriceStates',
-                request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStatesRequest.SerializeToString,
-                response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStatesResponse.FromString,
-                )
         self.ProviderPriceState = channel.unary_unary(
                 '/injective.oracle.v1beta1.Query/ProviderPriceState',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStateRequest.SerializeToString,
@@ -128,13 +123,6 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def ProviderPriceStates(self, request, context):
-        """Retrieves the state for all provider price feeds
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def ProviderPriceState(self, request, context):
         """Retrieves the state for all provider price feeds
         """
@@ -207,11 +195,6 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.CoinbasePriceStates,
                     request_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryCoinbasePriceStatesRequest.FromString,
                     response_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryCoinbasePriceStatesResponse.SerializeToString,
-            ),
-            'ProviderPriceStates': grpc.unary_unary_rpc_method_handler(
-                    servicer.ProviderPriceStates,
-                    request_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStatesRequest.FromString,
-                    response_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStatesResponse.SerializeToString,
             ),
             'ProviderPriceState': grpc.unary_unary_rpc_method_handler(
                     servicer.ProviderPriceState,
@@ -353,23 +336,6 @@ class Query(object):
         return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/CoinbasePriceStates',
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryCoinbasePriceStatesRequest.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryCoinbasePriceStatesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def ProviderPriceStates(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/ProviderPriceStates',
-            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStatesRequest.SerializeToString,
-            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStatesResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
