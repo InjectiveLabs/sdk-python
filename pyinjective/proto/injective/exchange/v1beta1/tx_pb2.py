@@ -25,7 +25,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'ZNgithub.com/InjectiveLabs/injective-core/injective-chain/modules/exchange/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n#injective/exchange/v1beta1/tx.proto\x12\x1ainjective.exchange.v1beta1\x1a\x14gogoproto/gogo.proto\x1a%injective/oracle/v1beta1/oracle.proto\x1a)injective/exchange/v1beta1/exchange.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a.cosmos/distribution/v1beta1/distribution.proto\"n\n\nMsgDeposit\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\x12/\n\x06\x61mount\x18\x03 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x14\n\x12MsgDepositResponse\"o\n\x0bMsgWithdraw\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\x12/\n\x06\x61mount\x18\x03 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x15\n\x13MsgWithdrawResponse\"o\n\x17MsgCreateSpotLimitOrder\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12:\n\x05order\x18\x02 \x01(\x0b\x32%.injective.exchange.v1beta1.SpotOrderB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"?\n\x1fMsgCreateSpotLimitOrderResponse\x12\x12\n\norder_hash\x18\x01 \x01(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"v\n\x1dMsgBatchCreateSpotLimitOrders\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12;\n\x06orders\x18\x02 \x03(\x0b\x32%.injective.exchange.v1beta1.SpotOrderB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"G\n%MsgBatchCreateSpotLimitOrdersResponse\x12\x14\n\x0corder_hashes\x18\x01 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x8c\x02\n\x1aMsgInstantSpotMarketLaunch\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x0e\n\x06ticker\x18\x02 \x01(\t\x12\x12\n\nbase_denom\x18\x03 \x01(\t\x12\x13\n\x0bquote_denom\x18\x04 \x01(\t\x12K\n\x13min_price_tick_size\x18\x05 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12N\n\x16min_quantity_tick_size\x18\x06 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"$\n\"MsgInstantSpotMarketLaunchResponse\"\xb0\x05\n\x1fMsgInstantPerpetualMarketLaunch\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x0e\n\x06ticker\x18\x02 \x01(\t\x12\x13\n\x0bquote_denom\x18\x03 \x01(\t\x12\x13\n\x0boracle_base\x18\x04 \x01(\t\x12\x14\n\x0coracle_quote\x18\x05 \x01(\t\x12\x1b\n\x13oracle_scale_factor\x18\x06 \x01(\r\x12\x39\n\x0boracle_type\x18\x07 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x46\n\x0emaker_fee_rate\x18\x08 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x46\n\x0etaker_fee_rate\x18\t \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12L\n\x14initial_margin_ratio\x18\n \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12P\n\x18maintenance_margin_ratio\x18\x0b \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12K\n\x13min_price_tick_size\x18\x0c \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12N\n\x16min_quantity_tick_size\x18\r \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\")\n\'MsgInstantPerpetualMarketLaunchResponse\"\xe4\x04\n#MsgInstantBinaryOptionsMarketLaunch\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x0e\n\x06ticker\x18\x02 \x01(\t\x12\x15\n\roracle_symbol\x18\x03 \x01(\t\x12\x17\n\x0foracle_provider\x18\x04 \x01(\t\x12\x39\n\x0boracle_type\x18\x05 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x1b\n\x13oracle_scale_factor\x18\x06 \x01(\r\x12\x46\n\x0emaker_fee_rate\x18\x07 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x46\n\x0etaker_fee_rate\x18\x08 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x1c\n\x14\x65xpiration_timestamp\x18\t \x01(\x03\x12\x1c\n\x14settlement_timestamp\x18\n \x01(\x03\x12\r\n\x05\x61\x64min\x18\x0b \x01(\t\x12\x13\n\x0bquote_denom\x18\x0c \x01(\t\x12K\n\x13min_price_tick_size\x18\r \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12N\n\x16min_quantity_tick_size\x18\x0e \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"-\n+MsgInstantBinaryOptionsMarketLaunchResponse\"\xc4\x05\n#MsgInstantExpiryFuturesMarketLaunch\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x0e\n\x06ticker\x18\x02 \x01(\t\x12\x13\n\x0bquote_denom\x18\x03 \x01(\t\x12\x13\n\x0boracle_base\x18\x04 \x01(\t\x12\x14\n\x0coracle_quote\x18\x05 \x01(\t\x12\x39\n\x0boracle_type\x18\x06 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x1b\n\x13oracle_scale_factor\x18\x07 \x01(\r\x12\x0e\n\x06\x65xpiry\x18\x08 \x01(\x03\x12\x46\n\x0emaker_fee_rate\x18\t \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x46\n\x0etaker_fee_rate\x18\n \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12L\n\x14initial_margin_ratio\x18\x0b \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12P\n\x18maintenance_margin_ratio\x18\x0c \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12K\n\x13min_price_tick_size\x18\r \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12N\n\x16min_quantity_tick_size\x18\x0e \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"-\n+MsgInstantExpiryFuturesMarketLaunchResponse\"p\n\x18MsgCreateSpotMarketOrder\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12:\n\x05order\x18\x02 \x01(\x0b\x32%.injective.exchange.v1beta1.SpotOrderB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"@\n MsgCreateSpotMarketOrderResponse\x12\x12\n\norder_hash\x18\x01 \x01(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"w\n\x1dMsgCreateDerivativeLimitOrder\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12@\n\x05order\x18\x02 \x01(\x0b\x32+.injective.exchange.v1beta1.DerivativeOrderB\x04\xc8\xde\x1f\x00:\x04\x88\xa0\x1f\x00\"E\n%MsgCreateDerivativeLimitOrderResponse\x12\x12\n\norder_hash\x18\x01 \x01(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"z\n MsgCreateBinaryOptionsLimitOrder\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12@\n\x05order\x18\x02 \x01(\x0b\x32+.injective.exchange.v1beta1.DerivativeOrderB\x04\xc8\xde\x1f\x00:\x04\x88\xa0\x1f\x00\"H\n(MsgCreateBinaryOptionsLimitOrderResponse\x12\x12\n\norder_hash\x18\x01 \x01(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"~\n#MsgBatchCreateDerivativeLimitOrders\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x41\n\x06orders\x18\x02 \x03(\x0b\x32+.injective.exchange.v1beta1.DerivativeOrderB\x04\xc8\xde\x1f\x00:\x04\x88\xa0\x1f\x00\"M\n+MsgBatchCreateDerivativeLimitOrdersResponse\x12\x14\n\x0corder_hashes\x18\x01 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"h\n\x12MsgCancelSpotOrder\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x15\n\rsubaccount_id\x18\x03 \x01(\t\x12\x12\n\norder_hash\x18\x04 \x01(\t:\x04\x88\xa0\x1f\x00\"\x1c\n\x1aMsgCancelSpotOrderResponse\"k\n\x18MsgBatchCancelSpotOrders\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x39\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32%.injective.exchange.v1beta1.OrderDataB\x04\xc8\xde\x1f\x00:\x04\x88\xa0\x1f\x00\"=\n MsgBatchCancelSpotOrdersResponse\x12\x0f\n\x07success\x18\x01 \x03(\x08:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"t\n!MsgBatchCancelBinaryOptionsOrders\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x39\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32%.injective.exchange.v1beta1.OrderDataB\x04\xc8\xde\x1f\x00:\x04\x88\xa0\x1f\x00\"F\n)MsgBatchCancelBinaryOptionsOrdersResponse\x12\x0f\n\x07success\x18\x01 \x03(\x08:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\xbc\x05\n\x14MsgBatchUpdateOrders\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\x12%\n\x1dspot_market_ids_to_cancel_all\x18\x03 \x03(\t\x12+\n#derivative_market_ids_to_cancel_all\x18\x04 \x03(\t\x12J\n\x15spot_orders_to_cancel\x18\x05 \x03(\x0b\x32%.injective.exchange.v1beta1.OrderDataB\x04\xc8\xde\x1f\x01\x12P\n\x1b\x64\x65rivative_orders_to_cancel\x18\x06 \x03(\x0b\x32%.injective.exchange.v1beta1.OrderDataB\x04\xc8\xde\x1f\x01\x12J\n\x15spot_orders_to_create\x18\x07 \x03(\x0b\x32%.injective.exchange.v1beta1.SpotOrderB\x04\xc8\xde\x1f\x01\x12V\n\x1b\x64\x65rivative_orders_to_create\x18\x08 \x03(\x0b\x32+.injective.exchange.v1beta1.DerivativeOrderB\x04\xc8\xde\x1f\x01\x12T\n\x1f\x62inary_options_orders_to_cancel\x18\t \x03(\x0b\x32%.injective.exchange.v1beta1.OrderDataB\x04\xc8\xde\x1f\x01\x12/\n\'binary_options_market_ids_to_cancel_all\x18\n \x03(\t\x12Z\n\x1f\x62inary_options_orders_to_create\x18\x0b \x03(\x0b\x32+.injective.exchange.v1beta1.DerivativeOrderB\x04\xc8\xde\x1f\x01:\x04\x88\xa0\x1f\x00\"\xf0\x01\n\x1cMsgBatchUpdateOrdersResponse\x12\x1b\n\x13spot_cancel_success\x18\x01 \x03(\x08\x12!\n\x19\x64\x65rivative_cancel_success\x18\x02 \x03(\x08\x12\x19\n\x11spot_order_hashes\x18\x03 \x03(\t\x12\x1f\n\x17\x64\x65rivative_order_hashes\x18\x04 \x03(\t\x12%\n\x1d\x62inary_options_cancel_success\x18\x05 \x03(\x08\x12#\n\x1b\x62inary_options_order_hashes\x18\x06 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"x\n\x1eMsgCreateDerivativeMarketOrder\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12@\n\x05order\x18\x02 \x01(\x0b\x32+.injective.exchange.v1beta1.DerivativeOrderB\x04\xc8\xde\x1f\x00:\x04\x88\xa0\x1f\x00\"F\n&MsgCreateDerivativeMarketOrderResponse\x12\x12\n\norder_hash\x18\x01 \x01(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"{\n!MsgCreateBinaryOptionsMarketOrder\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12@\n\x05order\x18\x02 \x01(\x0b\x32+.injective.exchange.v1beta1.DerivativeOrderB\x04\xc8\xde\x1f\x00:\x04\x88\xa0\x1f\x00\"I\n)MsgCreateBinaryOptionsMarketOrderResponse\x12\x12\n\norder_hash\x18\x01 \x01(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"n\n\x18MsgCancelDerivativeOrder\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x15\n\rsubaccount_id\x18\x03 \x01(\t\x12\x12\n\norder_hash\x18\x04 \x01(\t:\x04\x88\xa0\x1f\x00\"\"\n MsgCancelDerivativeOrderResponse\"q\n\x1bMsgCancelBinaryOptionsOrder\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x15\n\rsubaccount_id\x18\x03 \x01(\t\x12\x12\n\norder_hash\x18\x04 \x01(\t:\x04\x88\xa0\x1f\x00\"%\n#MsgCancelBinaryOptionsOrderResponse\"I\n\tOrderData\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\x12\x12\n\norder_hash\x18\x03 \x01(\t\"q\n\x1eMsgBatchCancelDerivativeOrders\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x39\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32%.injective.exchange.v1beta1.OrderDataB\x04\xc8\xde\x1f\x00:\x04\x88\xa0\x1f\x00\"C\n&MsgBatchCancelDerivativeOrdersResponse\x12\x0f\n\x07success\x18\x01 \x03(\x08:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x99\x01\n\x15MsgSubaccountTransfer\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x1c\n\x14source_subaccount_id\x18\x02 \x01(\t\x12!\n\x19\x64\x65stination_subaccount_id\x18\x03 \x01(\t\x12/\n\x06\x61mount\x18\x04 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00\"\x1f\n\x1dMsgSubaccountTransferResponse\"\x97\x01\n\x13MsgExternalTransfer\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x1c\n\x14source_subaccount_id\x18\x02 \x01(\t\x12!\n\x19\x64\x65stination_subaccount_id\x18\x03 \x01(\t\x12/\n\x06\x61mount\x18\x04 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00\"\x1d\n\x1bMsgExternalTransferResponse\"\x92\x01\n\x14MsgLiquidatePosition\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\x12\x11\n\tmarket_id\x18\x03 \x01(\t\x12@\n\x05order\x18\x04 \x01(\x0b\x32+.injective.exchange.v1beta1.DerivativeOrderB\x04\xc8\xde\x1f\x01\"\x1e\n\x1cMsgLiquidatePositionResponse\"\xbf\x01\n\x19MsgIncreasePositionMargin\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x1c\n\x14source_subaccount_id\x18\x02 \x01(\t\x12!\n\x19\x64\x65stination_subaccount_id\x18\x03 \x01(\t\x12\x11\n\tmarket_id\x18\x04 \x01(\t\x12>\n\x06\x61mount\x18\x05 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"#\n!MsgIncreasePositionMarginResponse\"\xb0\x02\n\x07MsgExec\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12_\n\nbank_funds\x18\x02 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins\x12\x1e\n\x16\x64\x65posits_subaccount_id\x18\x03 \x01(\t\x12\x62\n\rdeposit_funds\x18\x04 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins\x12\x18\n\x10\x63ontract_address\x18\x05 \x01(\t\x12\x0c\n\x04\x64\x61ta\x18\x06 \x01(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x11\n\x0fMsgExecResponse\"\x97\x04\n\x1dSpotMarketParamUpdateProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x11\n\tmarket_id\x18\x03 \x01(\t\x12\x46\n\x0emaker_fee_rate\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12\x46\n\x0etaker_fee_rate\x18\x05 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12N\n\x16relayer_fee_share_rate\x18\x06 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12K\n\x13min_price_tick_size\x18\x07 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12N\n\x16min_quantity_tick_size\x18\x08 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12\x38\n\x06status\x18\t \x01(\x0e\x32(.injective.exchange.v1beta1.MarketStatus:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x86\x01\n\x16\x45xchangeEnableProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12>\n\x0c\x65xchangeType\x18\x03 \x01(\x0e\x32(.injective.exchange.v1beta1.ExchangeType:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\xce\x05\n!BatchExchangeModificationProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x65\n\"spot_market_param_update_proposals\x18\x03 \x03(\x0b\x32\x39.injective.exchange.v1beta1.SpotMarketParamUpdateProposal\x12q\n(derivative_market_param_update_proposals\x18\x04 \x03(\x0b\x32?.injective.exchange.v1beta1.DerivativeMarketParamUpdateProposal\x12Z\n\x1cspot_market_launch_proposals\x18\x05 \x03(\x0b\x32\x34.injective.exchange.v1beta1.SpotMarketLaunchProposal\x12\x64\n!perpetual_market_launch_proposals\x18\x06 \x03(\x0b\x32\x39.injective.exchange.v1beta1.PerpetualMarketLaunchProposal\x12m\n&expiry_futures_market_launch_proposals\x18\x07 \x03(\x0b\x32=.injective.exchange.v1beta1.ExpiryFuturesMarketLaunchProposal\x12p\n\'trading_reward_campaign_update_proposal\x18\x08 \x01(\x0b\x32?.injective.exchange.v1beta1.TradingRewardCampaignUpdateProposal:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\xae\x03\n\x18SpotMarketLaunchProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0e\n\x06ticker\x18\x03 \x01(\t\x12\x12\n\nbase_denom\x18\x04 \x01(\t\x12\x13\n\x0bquote_denom\x18\x05 \x01(\t\x12K\n\x13min_price_tick_size\x18\x06 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12N\n\x16min_quantity_tick_size\x18\x07 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x46\n\x0emaker_fee_rate\x18\x08 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12\x46\n\x0etaker_fee_rate\x18\t \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\xc2\x05\n\x1dPerpetualMarketLaunchProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0e\n\x06ticker\x18\x03 \x01(\t\x12\x13\n\x0bquote_denom\x18\x04 \x01(\t\x12\x13\n\x0boracle_base\x18\x05 \x01(\t\x12\x14\n\x0coracle_quote\x18\x06 \x01(\t\x12\x1b\n\x13oracle_scale_factor\x18\x07 \x01(\r\x12\x39\n\x0boracle_type\x18\x08 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12L\n\x14initial_margin_ratio\x18\t \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12P\n\x18maintenance_margin_ratio\x18\n \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x46\n\x0emaker_fee_rate\x18\x0b \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x46\n\x0etaker_fee_rate\x18\x0c \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12K\n\x13min_price_tick_size\x18\r \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12N\n\x16min_quantity_tick_size\x18\x0e \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\xf6\x04\n!BinaryOptionsMarketLaunchProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0e\n\x06ticker\x18\x03 \x01(\t\x12\x15\n\roracle_symbol\x18\x04 \x01(\t\x12\x17\n\x0foracle_provider\x18\x05 \x01(\t\x12\x39\n\x0boracle_type\x18\x06 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x1b\n\x13oracle_scale_factor\x18\x07 \x01(\r\x12\x1c\n\x14\x65xpiration_timestamp\x18\x08 \x01(\x03\x12\x1c\n\x14settlement_timestamp\x18\t \x01(\x03\x12\r\n\x05\x61\x64min\x18\n \x01(\t\x12\x13\n\x0bquote_denom\x18\x0b \x01(\t\x12\x46\n\x0emaker_fee_rate\x18\x0c \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x46\n\x0etaker_fee_rate\x18\r \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12K\n\x13min_price_tick_size\x18\x0e \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12N\n\x16min_quantity_tick_size\x18\x0f \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\xd6\x05\n!ExpiryFuturesMarketLaunchProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0e\n\x06ticker\x18\x03 \x01(\t\x12\x13\n\x0bquote_denom\x18\x04 \x01(\t\x12\x13\n\x0boracle_base\x18\x05 \x01(\t\x12\x14\n\x0coracle_quote\x18\x06 \x01(\t\x12\x1b\n\x13oracle_scale_factor\x18\x07 \x01(\r\x12\x39\n\x0boracle_type\x18\x08 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x0e\n\x06\x65xpiry\x18\t \x01(\x03\x12L\n\x14initial_margin_ratio\x18\n \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12P\n\x18maintenance_margin_ratio\x18\x0b \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x46\n\x0emaker_fee_rate\x18\x0c \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x46\n\x0etaker_fee_rate\x18\r \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12K\n\x13min_price_tick_size\x18\x0e \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12N\n\x16min_quantity_tick_size\x18\x0f \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x98\x07\n#DerivativeMarketParamUpdateProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x11\n\tmarket_id\x18\x03 \x01(\t\x12L\n\x14initial_margin_ratio\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12P\n\x18maintenance_margin_ratio\x18\x05 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12\x46\n\x0emaker_fee_rate\x18\x06 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12\x46\n\x0etaker_fee_rate\x18\x07 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12N\n\x16relayer_fee_share_rate\x18\x08 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12K\n\x13min_price_tick_size\x18\t \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12N\n\x16min_quantity_tick_size\x18\n \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12J\n\x12HourlyInterestRate\x18\x0b \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12L\n\x14HourlyFundingRateCap\x18\x0c \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12\x38\n\x06status\x18\r \x01(\x0e\x32(.injective.exchange.v1beta1.MarketStatus\x12?\n\roracle_params\x18\x0e \x01(\x0b\x32(.injective.exchange.v1beta1.OracleParams:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\xab\x01\n\x1eMarketForcedSettlementProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x11\n\tmarket_id\x18\x03 \x01(\t\x12H\n\x10settlement_price\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\xfe\x05\n&BinaryOptionsMarketParamUpdateProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x11\n\tmarket_id\x18\x03 \x01(\t\x12\x46\n\x0emaker_fee_rate\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12\x46\n\x0etaker_fee_rate\x18\x05 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12N\n\x16relayer_fee_share_rate\x18\x06 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12K\n\x13min_price_tick_size\x18\x07 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12N\n\x16min_quantity_tick_size\x18\x08 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12\x1c\n\x14\x65xpiration_timestamp\x18\t \x01(\x03\x12\x1c\n\x14settlement_timestamp\x18\n \x01(\x03\x12H\n\x10settlement_price\x18\x0b \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12\r\n\x05\x61\x64min\x18\x0c \x01(\t\x12\x38\n\x06status\x18\r \x01(\x0e\x32(.injective.exchange.v1beta1.MarketStatus\x12G\n\roracle_params\x18\x0e \x01(\x0b\x32\x30.injective.exchange.v1beta1.ProviderOracleParams:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x90\x01\n\x14ProviderOracleParams\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08provider\x18\x02 \x01(\t\x12\x1b\n\x13oracle_scale_factor\x18\x03 \x01(\r\x12\x39\n\x0boracle_type\x18\x04 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\"\x91\x01\n\x0cOracleParams\x12\x13\n\x0boracle_base\x18\x01 \x01(\t\x12\x14\n\x0coracle_quote\x18\x02 \x01(\t\x12\x1b\n\x13oracle_scale_factor\x18\x03 \x01(\r\x12\x39\n\x0boracle_type\x18\x04 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\"\xf0\x01\n#TradingRewardCampaignLaunchProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12L\n\rcampaign_info\x18\x03 \x01(\x0b\x32\x35.injective.exchange.v1beta1.TradingRewardCampaignInfo\x12M\n\x15\x63\x61mpaign_reward_pools\x18\x04 \x03(\x0b\x32..injective.exchange.v1beta1.CampaignRewardPool:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\xd1\x02\n#TradingRewardCampaignUpdateProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12L\n\rcampaign_info\x18\x03 \x01(\x0b\x32\x35.injective.exchange.v1beta1.TradingRewardCampaignInfo\x12W\n\x1f\x63\x61mpaign_reward_pools_additions\x18\x04 \x03(\x0b\x32..injective.exchange.v1beta1.CampaignRewardPool\x12U\n\x1d\x63\x61mpaign_reward_pools_updates\x18\x05 \x03(\x0b\x32..injective.exchange.v1beta1.CampaignRewardPool:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"p\n\x11RewardPointUpdate\x12\x17\n\x0f\x61\x63\x63ount_address\x18\x01 \x01(\t\x12\x42\n\nnew_points\x18\x0c \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"\xc5\x01\n(TradingRewardPendingPointsUpdateProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x1e\n\x16pending_pool_timestamp\x18\x03 \x01(\x03\x12K\n\x14reward_point_updates\x18\x04 \x03(\x0b\x32-.injective.exchange.v1beta1.RewardPointUpdate:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x86\x01\n\x13\x46\x65\x65\x44iscountProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x41\n\x08schedule\x18\x03 \x01(\x0b\x32/.injective.exchange.v1beta1.FeeDiscountSchedule:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x9b\x01\n\x1f\x42\x61tchCommunityPoolSpendProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12J\n\tproposals\x18\x03 \x03(\x0b\x32\x37.cosmos.distribution.v1beta1.CommunityPoolSpendProposal:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"7\n\x10MsgRegisterAsDMM\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x13\n\x0b\x64mm_account\x18\x02 \x01(\t\"\x1a\n\x18MsgRegisterAsDMMResponse\"\x86\x02\n!MsgAdminUpdateBinaryOptionsMarket\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12H\n\x10settlement_price\x18\x03 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12\x1c\n\x14\x65xpiration_timestamp\x18\x04 \x01(\x03\x12\x1c\n\x14settlement_timestamp\x18\x05 \x01(\x03\x12\x38\n\x06status\x18\x06 \x01(\x0e\x32(.injective.exchange.v1beta1.MarketStatus\"+\n)MsgAdminUpdateBinaryOptionsMarketResponse*x\n\x0c\x45xchangeType\x12\x32\n\x14\x45XCHANGE_UNSPECIFIED\x10\x00\x1a\x18\x8a\x9d \x14\x45XCHANGE_UNSPECIFIED\x12\x12\n\x04SPOT\x10\x01\x1a\x08\x8a\x9d \x04SPOT\x12 \n\x0b\x44\x45RIVATIVES\x10\x02\x1a\x0f\x8a\x9d \x0b\x44\x45RIVATIVES2\xd9\x1f\n\x03Msg\x12\x61\n\x07\x44\x65posit\x12&.injective.exchange.v1beta1.MsgDeposit\x1a..injective.exchange.v1beta1.MsgDepositResponse\x12\x64\n\x08Withdraw\x12\'.injective.exchange.v1beta1.MsgWithdraw\x1a/.injective.exchange.v1beta1.MsgWithdrawResponse\x12\x91\x01\n\x17InstantSpotMarketLaunch\x12\x36.injective.exchange.v1beta1.MsgInstantSpotMarketLaunch\x1a>.injective.exchange.v1beta1.MsgInstantSpotMarketLaunchResponse\x12\xa0\x01\n\x1cInstantPerpetualMarketLaunch\x12;.injective.exchange.v1beta1.MsgInstantPerpetualMarketLaunch\x1a\x43.injective.exchange.v1beta1.MsgInstantPerpetualMarketLaunchResponse\x12\xac\x01\n InstantExpiryFuturesMarketLaunch\x12?.injective.exchange.v1beta1.MsgInstantExpiryFuturesMarketLaunch\x1aG.injective.exchange.v1beta1.MsgInstantExpiryFuturesMarketLaunchResponse\x12\x88\x01\n\x14\x43reateSpotLimitOrder\x12\x33.injective.exchange.v1beta1.MsgCreateSpotLimitOrder\x1a;.injective.exchange.v1beta1.MsgCreateSpotLimitOrderResponse\x12\x9a\x01\n\x1a\x42\x61tchCreateSpotLimitOrders\x12\x39.injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrders\x1a\x41.injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrdersResponse\x12\x8b\x01\n\x15\x43reateSpotMarketOrder\x12\x34.injective.exchange.v1beta1.MsgCreateSpotMarketOrder\x1a<.injective.exchange.v1beta1.MsgCreateSpotMarketOrderResponse\x12y\n\x0f\x43\x61ncelSpotOrder\x12..injective.exchange.v1beta1.MsgCancelSpotOrder\x1a\x36.injective.exchange.v1beta1.MsgCancelSpotOrderResponse\x12\x8b\x01\n\x15\x42\x61tchCancelSpotOrders\x12\x34.injective.exchange.v1beta1.MsgBatchCancelSpotOrders\x1a<.injective.exchange.v1beta1.MsgBatchCancelSpotOrdersResponse\x12\x7f\n\x11\x42\x61tchUpdateOrders\x12\x30.injective.exchange.v1beta1.MsgBatchUpdateOrders\x1a\x38.injective.exchange.v1beta1.MsgBatchUpdateOrdersResponse\x12X\n\x04\x45xec\x12#.injective.exchange.v1beta1.MsgExec\x1a+.injective.exchange.v1beta1.MsgExecResponse\x12\x9a\x01\n\x1a\x43reateDerivativeLimitOrder\x12\x39.injective.exchange.v1beta1.MsgCreateDerivativeLimitOrder\x1a\x41.injective.exchange.v1beta1.MsgCreateDerivativeLimitOrderResponse\x12\xac\x01\n BatchCreateDerivativeLimitOrders\x12?.injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrders\x1aG.injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrdersResponse\x12\x9d\x01\n\x1b\x43reateDerivativeMarketOrder\x12:.injective.exchange.v1beta1.MsgCreateDerivativeMarketOrder\x1a\x42.injective.exchange.v1beta1.MsgCreateDerivativeMarketOrderResponse\x12\x8b\x01\n\x15\x43\x61ncelDerivativeOrder\x12\x34.injective.exchange.v1beta1.MsgCancelDerivativeOrder\x1a<.injective.exchange.v1beta1.MsgCancelDerivativeOrderResponse\x12\x9d\x01\n\x1b\x42\x61tchCancelDerivativeOrders\x12:.injective.exchange.v1beta1.MsgBatchCancelDerivativeOrders\x1a\x42.injective.exchange.v1beta1.MsgBatchCancelDerivativeOrdersResponse\x12\xac\x01\n InstantBinaryOptionsMarketLaunch\x12?.injective.exchange.v1beta1.MsgInstantBinaryOptionsMarketLaunch\x1aG.injective.exchange.v1beta1.MsgInstantBinaryOptionsMarketLaunchResponse\x12\xa3\x01\n\x1d\x43reateBinaryOptionsLimitOrder\x12<.injective.exchange.v1beta1.MsgCreateBinaryOptionsLimitOrder\x1a\x44.injective.exchange.v1beta1.MsgCreateBinaryOptionsLimitOrderResponse\x12\xa6\x01\n\x1e\x43reateBinaryOptionsMarketOrder\x12=.injective.exchange.v1beta1.MsgCreateBinaryOptionsMarketOrder\x1a\x45.injective.exchange.v1beta1.MsgCreateBinaryOptionsMarketOrderResponse\x12\x94\x01\n\x18\x43\x61ncelBinaryOptionsOrder\x12\x37.injective.exchange.v1beta1.MsgCancelBinaryOptionsOrder\x1a?.injective.exchange.v1beta1.MsgCancelBinaryOptionsOrderResponse\x12\xa6\x01\n\x1e\x42\x61tchCancelBinaryOptionsOrders\x12=.injective.exchange.v1beta1.MsgBatchCancelBinaryOptionsOrders\x1a\x45.injective.exchange.v1beta1.MsgBatchCancelBinaryOptionsOrdersResponse\x12\x82\x01\n\x12SubaccountTransfer\x12\x31.injective.exchange.v1beta1.MsgSubaccountTransfer\x1a\x39.injective.exchange.v1beta1.MsgSubaccountTransferResponse\x12|\n\x10\x45xternalTransfer\x12/.injective.exchange.v1beta1.MsgExternalTransfer\x1a\x37.injective.exchange.v1beta1.MsgExternalTransferResponse\x12\x7f\n\x11LiquidatePosition\x12\x30.injective.exchange.v1beta1.MsgLiquidatePosition\x1a\x38.injective.exchange.v1beta1.MsgLiquidatePositionResponse\x12\x8e\x01\n\x16IncreasePositionMargin\x12\x35.injective.exchange.v1beta1.MsgIncreasePositionMargin\x1a=.injective.exchange.v1beta1.MsgIncreasePositionMarginResponse\x12s\n\rRegisterAsDMM\x12,.injective.exchange.v1beta1.MsgRegisterAsDMM\x1a\x34.injective.exchange.v1beta1.MsgRegisterAsDMMResponse\x12\xa6\x01\n\x1e\x41\x64minUpdateBinaryOptionsMarket\x12=.injective.exchange.v1beta1.MsgAdminUpdateBinaryOptionsMarket\x1a\x45.injective.exchange.v1beta1.MsgAdminUpdateBinaryOptionsMarketResponseBPZNgithub.com/InjectiveLabs/injective-core/injective-chain/modules/exchange/typesb\x06proto3'
+  serialized_pb=b'\n#injective/exchange/v1beta1/tx.proto\x12\x1ainjective.exchange.v1beta1\x1a\x14gogoproto/gogo.proto\x1a%injective/oracle/v1beta1/oracle.proto\x1a)injective/exchange/v1beta1/exchange.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a.cosmos/distribution/v1beta1/distribution.proto\"n\n\nMsgDeposit\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\x12/\n\x06\x61mount\x18\x03 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x14\n\x12MsgDepositResponse\"o\n\x0bMsgWithdraw\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\x12/\n\x06\x61mount\x18\x03 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x15\n\x13MsgWithdrawResponse\"o\n\x17MsgCreateSpotLimitOrder\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12:\n\x05order\x18\x02 \x01(\x0b\x32%.injective.exchange.v1beta1.SpotOrderB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"?\n\x1fMsgCreateSpotLimitOrderResponse\x12\x12\n\norder_hash\x18\x01 \x01(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"v\n\x1dMsgBatchCreateSpotLimitOrders\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12;\n\x06orders\x18\x02 \x03(\x0b\x32%.injective.exchange.v1beta1.SpotOrderB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"G\n%MsgBatchCreateSpotLimitOrdersResponse\x12\x14\n\x0corder_hashes\x18\x01 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x8c\x02\n\x1aMsgInstantSpotMarketLaunch\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x0e\n\x06ticker\x18\x02 \x01(\t\x12\x12\n\nbase_denom\x18\x03 \x01(\t\x12\x13\n\x0bquote_denom\x18\x04 \x01(\t\x12K\n\x13min_price_tick_size\x18\x05 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12N\n\x16min_quantity_tick_size\x18\x06 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"$\n\"MsgInstantSpotMarketLaunchResponse\"\xb0\x05\n\x1fMsgInstantPerpetualMarketLaunch\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x0e\n\x06ticker\x18\x02 \x01(\t\x12\x13\n\x0bquote_denom\x18\x03 \x01(\t\x12\x13\n\x0boracle_base\x18\x04 \x01(\t\x12\x14\n\x0coracle_quote\x18\x05 \x01(\t\x12\x1b\n\x13oracle_scale_factor\x18\x06 \x01(\r\x12\x39\n\x0boracle_type\x18\x07 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x46\n\x0emaker_fee_rate\x18\x08 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x46\n\x0etaker_fee_rate\x18\t \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12L\n\x14initial_margin_ratio\x18\n \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12P\n\x18maintenance_margin_ratio\x18\x0b \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12K\n\x13min_price_tick_size\x18\x0c \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12N\n\x16min_quantity_tick_size\x18\r \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\")\n\'MsgInstantPerpetualMarketLaunchResponse\"\xe4\x04\n#MsgInstantBinaryOptionsMarketLaunch\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x0e\n\x06ticker\x18\x02 \x01(\t\x12\x15\n\roracle_symbol\x18\x03 \x01(\t\x12\x17\n\x0foracle_provider\x18\x04 \x01(\t\x12\x39\n\x0boracle_type\x18\x05 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x1b\n\x13oracle_scale_factor\x18\x06 \x01(\r\x12\x46\n\x0emaker_fee_rate\x18\x07 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x46\n\x0etaker_fee_rate\x18\x08 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x1c\n\x14\x65xpiration_timestamp\x18\t \x01(\x03\x12\x1c\n\x14settlement_timestamp\x18\n \x01(\x03\x12\r\n\x05\x61\x64min\x18\x0b \x01(\t\x12\x13\n\x0bquote_denom\x18\x0c \x01(\t\x12K\n\x13min_price_tick_size\x18\r \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12N\n\x16min_quantity_tick_size\x18\x0e \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"-\n+MsgInstantBinaryOptionsMarketLaunchResponse\"\xc4\x05\n#MsgInstantExpiryFuturesMarketLaunch\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x0e\n\x06ticker\x18\x02 \x01(\t\x12\x13\n\x0bquote_denom\x18\x03 \x01(\t\x12\x13\n\x0boracle_base\x18\x04 \x01(\t\x12\x14\n\x0coracle_quote\x18\x05 \x01(\t\x12\x39\n\x0boracle_type\x18\x06 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x1b\n\x13oracle_scale_factor\x18\x07 \x01(\r\x12\x0e\n\x06\x65xpiry\x18\x08 \x01(\x03\x12\x46\n\x0emaker_fee_rate\x18\t \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x46\n\x0etaker_fee_rate\x18\n \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12L\n\x14initial_margin_ratio\x18\x0b \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12P\n\x18maintenance_margin_ratio\x18\x0c \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12K\n\x13min_price_tick_size\x18\r \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12N\n\x16min_quantity_tick_size\x18\x0e \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"-\n+MsgInstantExpiryFuturesMarketLaunchResponse\"p\n\x18MsgCreateSpotMarketOrder\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12:\n\x05order\x18\x02 \x01(\x0b\x32%.injective.exchange.v1beta1.SpotOrderB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"@\n MsgCreateSpotMarketOrderResponse\x12\x12\n\norder_hash\x18\x01 \x01(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"w\n\x1dMsgCreateDerivativeLimitOrder\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12@\n\x05order\x18\x02 \x01(\x0b\x32+.injective.exchange.v1beta1.DerivativeOrderB\x04\xc8\xde\x1f\x00:\x04\x88\xa0\x1f\x00\"E\n%MsgCreateDerivativeLimitOrderResponse\x12\x12\n\norder_hash\x18\x01 \x01(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"z\n MsgCreateBinaryOptionsLimitOrder\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12@\n\x05order\x18\x02 \x01(\x0b\x32+.injective.exchange.v1beta1.DerivativeOrderB\x04\xc8\xde\x1f\x00:\x04\x88\xa0\x1f\x00\"H\n(MsgCreateBinaryOptionsLimitOrderResponse\x12\x12\n\norder_hash\x18\x01 \x01(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"~\n#MsgBatchCreateDerivativeLimitOrders\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x41\n\x06orders\x18\x02 \x03(\x0b\x32+.injective.exchange.v1beta1.DerivativeOrderB\x04\xc8\xde\x1f\x00:\x04\x88\xa0\x1f\x00\"M\n+MsgBatchCreateDerivativeLimitOrdersResponse\x12\x14\n\x0corder_hashes\x18\x01 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"h\n\x12MsgCancelSpotOrder\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x15\n\rsubaccount_id\x18\x03 \x01(\t\x12\x12\n\norder_hash\x18\x04 \x01(\t:\x04\x88\xa0\x1f\x00\"\x1c\n\x1aMsgCancelSpotOrderResponse\"k\n\x18MsgBatchCancelSpotOrders\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x39\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32%.injective.exchange.v1beta1.OrderDataB\x04\xc8\xde\x1f\x00:\x04\x88\xa0\x1f\x00\"=\n MsgBatchCancelSpotOrdersResponse\x12\x0f\n\x07success\x18\x01 \x03(\x08:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"t\n!MsgBatchCancelBinaryOptionsOrders\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x39\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32%.injective.exchange.v1beta1.OrderDataB\x04\xc8\xde\x1f\x00:\x04\x88\xa0\x1f\x00\"F\n)MsgBatchCancelBinaryOptionsOrdersResponse\x12\x0f\n\x07success\x18\x01 \x03(\x08:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\xbc\x05\n\x14MsgBatchUpdateOrders\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\x12%\n\x1dspot_market_ids_to_cancel_all\x18\x03 \x03(\t\x12+\n#derivative_market_ids_to_cancel_all\x18\x04 \x03(\t\x12J\n\x15spot_orders_to_cancel\x18\x05 \x03(\x0b\x32%.injective.exchange.v1beta1.OrderDataB\x04\xc8\xde\x1f\x01\x12P\n\x1b\x64\x65rivative_orders_to_cancel\x18\x06 \x03(\x0b\x32%.injective.exchange.v1beta1.OrderDataB\x04\xc8\xde\x1f\x01\x12J\n\x15spot_orders_to_create\x18\x07 \x03(\x0b\x32%.injective.exchange.v1beta1.SpotOrderB\x04\xc8\xde\x1f\x01\x12V\n\x1b\x64\x65rivative_orders_to_create\x18\x08 \x03(\x0b\x32+.injective.exchange.v1beta1.DerivativeOrderB\x04\xc8\xde\x1f\x01\x12T\n\x1f\x62inary_options_orders_to_cancel\x18\t \x03(\x0b\x32%.injective.exchange.v1beta1.OrderDataB\x04\xc8\xde\x1f\x01\x12/\n\'binary_options_market_ids_to_cancel_all\x18\n \x03(\t\x12Z\n\x1f\x62inary_options_orders_to_create\x18\x0b \x03(\x0b\x32+.injective.exchange.v1beta1.DerivativeOrderB\x04\xc8\xde\x1f\x01:\x04\x88\xa0\x1f\x00\"\xf0\x01\n\x1cMsgBatchUpdateOrdersResponse\x12\x1b\n\x13spot_cancel_success\x18\x01 \x03(\x08\x12!\n\x19\x64\x65rivative_cancel_success\x18\x02 \x03(\x08\x12\x19\n\x11spot_order_hashes\x18\x03 \x03(\t\x12\x1f\n\x17\x64\x65rivative_order_hashes\x18\x04 \x03(\t\x12%\n\x1d\x62inary_options_cancel_success\x18\x05 \x03(\x08\x12#\n\x1b\x62inary_options_order_hashes\x18\x06 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"x\n\x1eMsgCreateDerivativeMarketOrder\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12@\n\x05order\x18\x02 \x01(\x0b\x32+.injective.exchange.v1beta1.DerivativeOrderB\x04\xc8\xde\x1f\x00:\x04\x88\xa0\x1f\x00\"F\n&MsgCreateDerivativeMarketOrderResponse\x12\x12\n\norder_hash\x18\x01 \x01(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"{\n!MsgCreateBinaryOptionsMarketOrder\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12@\n\x05order\x18\x02 \x01(\x0b\x32+.injective.exchange.v1beta1.DerivativeOrderB\x04\xc8\xde\x1f\x00:\x04\x88\xa0\x1f\x00\"I\n)MsgCreateBinaryOptionsMarketOrderResponse\x12\x12\n\norder_hash\x18\x01 \x01(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"n\n\x18MsgCancelDerivativeOrder\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x15\n\rsubaccount_id\x18\x03 \x01(\t\x12\x12\n\norder_hash\x18\x04 \x01(\t:\x04\x88\xa0\x1f\x00\"\"\n MsgCancelDerivativeOrderResponse\"q\n\x1bMsgCancelBinaryOptionsOrder\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x15\n\rsubaccount_id\x18\x03 \x01(\t\x12\x12\n\norder_hash\x18\x04 \x01(\t:\x04\x88\xa0\x1f\x00\"%\n#MsgCancelBinaryOptionsOrderResponse\"I\n\tOrderData\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\x12\x12\n\norder_hash\x18\x03 \x01(\t\"q\n\x1eMsgBatchCancelDerivativeOrders\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x39\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32%.injective.exchange.v1beta1.OrderDataB\x04\xc8\xde\x1f\x00:\x04\x88\xa0\x1f\x00\"C\n&MsgBatchCancelDerivativeOrdersResponse\x12\x0f\n\x07success\x18\x01 \x03(\x08:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x99\x01\n\x15MsgSubaccountTransfer\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x1c\n\x14source_subaccount_id\x18\x02 \x01(\t\x12!\n\x19\x64\x65stination_subaccount_id\x18\x03 \x01(\t\x12/\n\x06\x61mount\x18\x04 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00\"\x1f\n\x1dMsgSubaccountTransferResponse\"\x97\x01\n\x13MsgExternalTransfer\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x1c\n\x14source_subaccount_id\x18\x02 \x01(\t\x12!\n\x19\x64\x65stination_subaccount_id\x18\x03 \x01(\t\x12/\n\x06\x61mount\x18\x04 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00\"\x1d\n\x1bMsgExternalTransferResponse\"\x92\x01\n\x14MsgLiquidatePosition\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\x12\x11\n\tmarket_id\x18\x03 \x01(\t\x12@\n\x05order\x18\x04 \x01(\x0b\x32+.injective.exchange.v1beta1.DerivativeOrderB\x04\xc8\xde\x1f\x01\"\x1e\n\x1cMsgLiquidatePositionResponse\"\xbf\x01\n\x19MsgIncreasePositionMargin\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x1c\n\x14source_subaccount_id\x18\x02 \x01(\t\x12!\n\x19\x64\x65stination_subaccount_id\x18\x03 \x01(\t\x12\x11\n\tmarket_id\x18\x04 \x01(\t\x12>\n\x06\x61mount\x18\x05 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"#\n!MsgIncreasePositionMarginResponse\"\xb0\x02\n\x07MsgExec\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12_\n\nbank_funds\x18\x02 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins\x12\x1e\n\x16\x64\x65posits_subaccount_id\x18\x03 \x01(\t\x12\x62\n\rdeposit_funds\x18\x04 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins\x12\x18\n\x10\x63ontract_address\x18\x05 \x01(\t\x12\x0c\n\x04\x64\x61ta\x18\x06 \x01(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x11\n\x0fMsgExecResponse\"\x97\x04\n\x1dSpotMarketParamUpdateProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x11\n\tmarket_id\x18\x03 \x01(\t\x12\x46\n\x0emaker_fee_rate\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12\x46\n\x0etaker_fee_rate\x18\x05 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12N\n\x16relayer_fee_share_rate\x18\x06 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12K\n\x13min_price_tick_size\x18\x07 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12N\n\x16min_quantity_tick_size\x18\x08 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12\x38\n\x06status\x18\t \x01(\x0e\x32(.injective.exchange.v1beta1.MarketStatus:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x86\x01\n\x16\x45xchangeEnableProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12>\n\x0c\x65xchangeType\x18\x03 \x01(\x0e\x32(.injective.exchange.v1beta1.ExchangeType:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x91\x08\n!BatchExchangeModificationProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x65\n\"spot_market_param_update_proposals\x18\x03 \x03(\x0b\x32\x39.injective.exchange.v1beta1.SpotMarketParamUpdateProposal\x12q\n(derivative_market_param_update_proposals\x18\x04 \x03(\x0b\x32?.injective.exchange.v1beta1.DerivativeMarketParamUpdateProposal\x12Z\n\x1cspot_market_launch_proposals\x18\x05 \x03(\x0b\x32\x34.injective.exchange.v1beta1.SpotMarketLaunchProposal\x12\x64\n!perpetual_market_launch_proposals\x18\x06 \x03(\x0b\x32\x39.injective.exchange.v1beta1.PerpetualMarketLaunchProposal\x12m\n&expiry_futures_market_launch_proposals\x18\x07 \x03(\x0b\x32=.injective.exchange.v1beta1.ExpiryFuturesMarketLaunchProposal\x12p\n\'trading_reward_campaign_update_proposal\x18\x08 \x01(\x0b\x32?.injective.exchange.v1beta1.TradingRewardCampaignUpdateProposal\x12m\n&binary_options_market_launch_proposals\x18\t \x03(\x0b\x32=.injective.exchange.v1beta1.BinaryOptionsMarketLaunchProposal\x12q\n%binary_options_param_update_proposals\x18\n \x03(\x0b\x32\x42.injective.exchange.v1beta1.BinaryOptionsMarketParamUpdateProposal\x12_\n\x1e\x64\x65nom_decimals_update_proposal\x18\x0b \x01(\x0b\x32\x37.injective.exchange.v1beta1.UpdateDenomDecimalsProposal:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\xae\x03\n\x18SpotMarketLaunchProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0e\n\x06ticker\x18\x03 \x01(\t\x12\x12\n\nbase_denom\x18\x04 \x01(\t\x12\x13\n\x0bquote_denom\x18\x05 \x01(\t\x12K\n\x13min_price_tick_size\x18\x06 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12N\n\x16min_quantity_tick_size\x18\x07 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x46\n\x0emaker_fee_rate\x18\x08 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12\x46\n\x0etaker_fee_rate\x18\t \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\xc2\x05\n\x1dPerpetualMarketLaunchProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0e\n\x06ticker\x18\x03 \x01(\t\x12\x13\n\x0bquote_denom\x18\x04 \x01(\t\x12\x13\n\x0boracle_base\x18\x05 \x01(\t\x12\x14\n\x0coracle_quote\x18\x06 \x01(\t\x12\x1b\n\x13oracle_scale_factor\x18\x07 \x01(\r\x12\x39\n\x0boracle_type\x18\x08 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12L\n\x14initial_margin_ratio\x18\t \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12P\n\x18maintenance_margin_ratio\x18\n \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x46\n\x0emaker_fee_rate\x18\x0b \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x46\n\x0etaker_fee_rate\x18\x0c \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12K\n\x13min_price_tick_size\x18\r \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12N\n\x16min_quantity_tick_size\x18\x0e \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\xf6\x04\n!BinaryOptionsMarketLaunchProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0e\n\x06ticker\x18\x03 \x01(\t\x12\x15\n\roracle_symbol\x18\x04 \x01(\t\x12\x17\n\x0foracle_provider\x18\x05 \x01(\t\x12\x39\n\x0boracle_type\x18\x06 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x1b\n\x13oracle_scale_factor\x18\x07 \x01(\r\x12\x1c\n\x14\x65xpiration_timestamp\x18\x08 \x01(\x03\x12\x1c\n\x14settlement_timestamp\x18\t \x01(\x03\x12\r\n\x05\x61\x64min\x18\n \x01(\t\x12\x13\n\x0bquote_denom\x18\x0b \x01(\t\x12\x46\n\x0emaker_fee_rate\x18\x0c \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x46\n\x0etaker_fee_rate\x18\r \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12K\n\x13min_price_tick_size\x18\x0e \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12N\n\x16min_quantity_tick_size\x18\x0f \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\xd6\x05\n!ExpiryFuturesMarketLaunchProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0e\n\x06ticker\x18\x03 \x01(\t\x12\x13\n\x0bquote_denom\x18\x04 \x01(\t\x12\x13\n\x0boracle_base\x18\x05 \x01(\t\x12\x14\n\x0coracle_quote\x18\x06 \x01(\t\x12\x1b\n\x13oracle_scale_factor\x18\x07 \x01(\r\x12\x39\n\x0boracle_type\x18\x08 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x0e\n\x06\x65xpiry\x18\t \x01(\x03\x12L\n\x14initial_margin_ratio\x18\n \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12P\n\x18maintenance_margin_ratio\x18\x0b \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x46\n\x0emaker_fee_rate\x18\x0c \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x46\n\x0etaker_fee_rate\x18\r \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12K\n\x13min_price_tick_size\x18\x0e \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12N\n\x16min_quantity_tick_size\x18\x0f \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x98\x07\n#DerivativeMarketParamUpdateProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x11\n\tmarket_id\x18\x03 \x01(\t\x12L\n\x14initial_margin_ratio\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12P\n\x18maintenance_margin_ratio\x18\x05 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12\x46\n\x0emaker_fee_rate\x18\x06 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12\x46\n\x0etaker_fee_rate\x18\x07 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12N\n\x16relayer_fee_share_rate\x18\x08 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12K\n\x13min_price_tick_size\x18\t \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12N\n\x16min_quantity_tick_size\x18\n \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12J\n\x12HourlyInterestRate\x18\x0b \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12L\n\x14HourlyFundingRateCap\x18\x0c \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12\x38\n\x06status\x18\r \x01(\x0e\x32(.injective.exchange.v1beta1.MarketStatus\x12?\n\roracle_params\x18\x0e \x01(\x0b\x32(.injective.exchange.v1beta1.OracleParams:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\xab\x01\n\x1eMarketForcedSettlementProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x11\n\tmarket_id\x18\x03 \x01(\t\x12H\n\x10settlement_price\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x8e\x01\n\x1bUpdateDenomDecimalsProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x41\n\x0e\x64\x65nom_decimals\x18\x03 \x03(\x0b\x32).injective.exchange.v1beta1.DenomDecimals:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"0\n\rDenomDecimals\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x10\n\x08\x64\x65\x63imals\x18\x02 \x01(\x04\"\xfe\x05\n&BinaryOptionsMarketParamUpdateProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x11\n\tmarket_id\x18\x03 \x01(\t\x12\x46\n\x0emaker_fee_rate\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12\x46\n\x0etaker_fee_rate\x18\x05 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12N\n\x16relayer_fee_share_rate\x18\x06 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12K\n\x13min_price_tick_size\x18\x07 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12N\n\x16min_quantity_tick_size\x18\x08 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12\x1c\n\x14\x65xpiration_timestamp\x18\t \x01(\x03\x12\x1c\n\x14settlement_timestamp\x18\n \x01(\x03\x12H\n\x10settlement_price\x18\x0b \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12\r\n\x05\x61\x64min\x18\x0c \x01(\t\x12\x38\n\x06status\x18\r \x01(\x0e\x32(.injective.exchange.v1beta1.MarketStatus\x12G\n\roracle_params\x18\x0e \x01(\x0b\x32\x30.injective.exchange.v1beta1.ProviderOracleParams:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x90\x01\n\x14ProviderOracleParams\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08provider\x18\x02 \x01(\t\x12\x1b\n\x13oracle_scale_factor\x18\x03 \x01(\r\x12\x39\n\x0boracle_type\x18\x04 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\"\x91\x01\n\x0cOracleParams\x12\x13\n\x0boracle_base\x18\x01 \x01(\t\x12\x14\n\x0coracle_quote\x18\x02 \x01(\t\x12\x1b\n\x13oracle_scale_factor\x18\x03 \x01(\r\x12\x39\n\x0boracle_type\x18\x04 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\"\xf0\x01\n#TradingRewardCampaignLaunchProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12L\n\rcampaign_info\x18\x03 \x01(\x0b\x32\x35.injective.exchange.v1beta1.TradingRewardCampaignInfo\x12M\n\x15\x63\x61mpaign_reward_pools\x18\x04 \x03(\x0b\x32..injective.exchange.v1beta1.CampaignRewardPool:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\xd1\x02\n#TradingRewardCampaignUpdateProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12L\n\rcampaign_info\x18\x03 \x01(\x0b\x32\x35.injective.exchange.v1beta1.TradingRewardCampaignInfo\x12W\n\x1f\x63\x61mpaign_reward_pools_additions\x18\x04 \x03(\x0b\x32..injective.exchange.v1beta1.CampaignRewardPool\x12U\n\x1d\x63\x61mpaign_reward_pools_updates\x18\x05 \x03(\x0b\x32..injective.exchange.v1beta1.CampaignRewardPool:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"p\n\x11RewardPointUpdate\x12\x17\n\x0f\x61\x63\x63ount_address\x18\x01 \x01(\t\x12\x42\n\nnew_points\x18\x0c \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"\xc5\x01\n(TradingRewardPendingPointsUpdateProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x1e\n\x16pending_pool_timestamp\x18\x03 \x01(\x03\x12K\n\x14reward_point_updates\x18\x04 \x03(\x0b\x32-.injective.exchange.v1beta1.RewardPointUpdate:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x86\x01\n\x13\x46\x65\x65\x44iscountProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x41\n\x08schedule\x18\x03 \x01(\x0b\x32/.injective.exchange.v1beta1.FeeDiscountSchedule:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x9b\x01\n\x1f\x42\x61tchCommunityPoolSpendProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12J\n\tproposals\x18\x03 \x03(\x0b\x32\x37.cosmos.distribution.v1beta1.CommunityPoolSpendProposal:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"7\n\x10MsgRegisterAsDMM\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x13\n\x0b\x64mm_account\x18\x02 \x01(\t\"\x1a\n\x18MsgRegisterAsDMMResponse\"\x86\x02\n!MsgAdminUpdateBinaryOptionsMarket\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12H\n\x10settlement_price\x18\x03 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x01\x12\x1c\n\x14\x65xpiration_timestamp\x18\x04 \x01(\x03\x12\x1c\n\x14settlement_timestamp\x18\x05 \x01(\x03\x12\x38\n\x06status\x18\x06 \x01(\x0e\x32(.injective.exchange.v1beta1.MarketStatus\"+\n)MsgAdminUpdateBinaryOptionsMarketResponse*x\n\x0c\x45xchangeType\x12\x32\n\x14\x45XCHANGE_UNSPECIFIED\x10\x00\x1a\x18\x8a\x9d \x14\x45XCHANGE_UNSPECIFIED\x12\x12\n\x04SPOT\x10\x01\x1a\x08\x8a\x9d \x04SPOT\x12 \n\x0b\x44\x45RIVATIVES\x10\x02\x1a\x0f\x8a\x9d \x0b\x44\x45RIVATIVES2\xd9\x1f\n\x03Msg\x12\x61\n\x07\x44\x65posit\x12&.injective.exchange.v1beta1.MsgDeposit\x1a..injective.exchange.v1beta1.MsgDepositResponse\x12\x64\n\x08Withdraw\x12\'.injective.exchange.v1beta1.MsgWithdraw\x1a/.injective.exchange.v1beta1.MsgWithdrawResponse\x12\x91\x01\n\x17InstantSpotMarketLaunch\x12\x36.injective.exchange.v1beta1.MsgInstantSpotMarketLaunch\x1a>.injective.exchange.v1beta1.MsgInstantSpotMarketLaunchResponse\x12\xa0\x01\n\x1cInstantPerpetualMarketLaunch\x12;.injective.exchange.v1beta1.MsgInstantPerpetualMarketLaunch\x1a\x43.injective.exchange.v1beta1.MsgInstantPerpetualMarketLaunchResponse\x12\xac\x01\n InstantExpiryFuturesMarketLaunch\x12?.injective.exchange.v1beta1.MsgInstantExpiryFuturesMarketLaunch\x1aG.injective.exchange.v1beta1.MsgInstantExpiryFuturesMarketLaunchResponse\x12\x88\x01\n\x14\x43reateSpotLimitOrder\x12\x33.injective.exchange.v1beta1.MsgCreateSpotLimitOrder\x1a;.injective.exchange.v1beta1.MsgCreateSpotLimitOrderResponse\x12\x9a\x01\n\x1a\x42\x61tchCreateSpotLimitOrders\x12\x39.injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrders\x1a\x41.injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrdersResponse\x12\x8b\x01\n\x15\x43reateSpotMarketOrder\x12\x34.injective.exchange.v1beta1.MsgCreateSpotMarketOrder\x1a<.injective.exchange.v1beta1.MsgCreateSpotMarketOrderResponse\x12y\n\x0f\x43\x61ncelSpotOrder\x12..injective.exchange.v1beta1.MsgCancelSpotOrder\x1a\x36.injective.exchange.v1beta1.MsgCancelSpotOrderResponse\x12\x8b\x01\n\x15\x42\x61tchCancelSpotOrders\x12\x34.injective.exchange.v1beta1.MsgBatchCancelSpotOrders\x1a<.injective.exchange.v1beta1.MsgBatchCancelSpotOrdersResponse\x12\x7f\n\x11\x42\x61tchUpdateOrders\x12\x30.injective.exchange.v1beta1.MsgBatchUpdateOrders\x1a\x38.injective.exchange.v1beta1.MsgBatchUpdateOrdersResponse\x12X\n\x04\x45xec\x12#.injective.exchange.v1beta1.MsgExec\x1a+.injective.exchange.v1beta1.MsgExecResponse\x12\x9a\x01\n\x1a\x43reateDerivativeLimitOrder\x12\x39.injective.exchange.v1beta1.MsgCreateDerivativeLimitOrder\x1a\x41.injective.exchange.v1beta1.MsgCreateDerivativeLimitOrderResponse\x12\xac\x01\n BatchCreateDerivativeLimitOrders\x12?.injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrders\x1aG.injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrdersResponse\x12\x9d\x01\n\x1b\x43reateDerivativeMarketOrder\x12:.injective.exchange.v1beta1.MsgCreateDerivativeMarketOrder\x1a\x42.injective.exchange.v1beta1.MsgCreateDerivativeMarketOrderResponse\x12\x8b\x01\n\x15\x43\x61ncelDerivativeOrder\x12\x34.injective.exchange.v1beta1.MsgCancelDerivativeOrder\x1a<.injective.exchange.v1beta1.MsgCancelDerivativeOrderResponse\x12\x9d\x01\n\x1b\x42\x61tchCancelDerivativeOrders\x12:.injective.exchange.v1beta1.MsgBatchCancelDerivativeOrders\x1a\x42.injective.exchange.v1beta1.MsgBatchCancelDerivativeOrdersResponse\x12\xac\x01\n InstantBinaryOptionsMarketLaunch\x12?.injective.exchange.v1beta1.MsgInstantBinaryOptionsMarketLaunch\x1aG.injective.exchange.v1beta1.MsgInstantBinaryOptionsMarketLaunchResponse\x12\xa3\x01\n\x1d\x43reateBinaryOptionsLimitOrder\x12<.injective.exchange.v1beta1.MsgCreateBinaryOptionsLimitOrder\x1a\x44.injective.exchange.v1beta1.MsgCreateBinaryOptionsLimitOrderResponse\x12\xa6\x01\n\x1e\x43reateBinaryOptionsMarketOrder\x12=.injective.exchange.v1beta1.MsgCreateBinaryOptionsMarketOrder\x1a\x45.injective.exchange.v1beta1.MsgCreateBinaryOptionsMarketOrderResponse\x12\x94\x01\n\x18\x43\x61ncelBinaryOptionsOrder\x12\x37.injective.exchange.v1beta1.MsgCancelBinaryOptionsOrder\x1a?.injective.exchange.v1beta1.MsgCancelBinaryOptionsOrderResponse\x12\xa6\x01\n\x1e\x42\x61tchCancelBinaryOptionsOrders\x12=.injective.exchange.v1beta1.MsgBatchCancelBinaryOptionsOrders\x1a\x45.injective.exchange.v1beta1.MsgBatchCancelBinaryOptionsOrdersResponse\x12\x82\x01\n\x12SubaccountTransfer\x12\x31.injective.exchange.v1beta1.MsgSubaccountTransfer\x1a\x39.injective.exchange.v1beta1.MsgSubaccountTransferResponse\x12|\n\x10\x45xternalTransfer\x12/.injective.exchange.v1beta1.MsgExternalTransfer\x1a\x37.injective.exchange.v1beta1.MsgExternalTransferResponse\x12\x7f\n\x11LiquidatePosition\x12\x30.injective.exchange.v1beta1.MsgLiquidatePosition\x1a\x38.injective.exchange.v1beta1.MsgLiquidatePositionResponse\x12\x8e\x01\n\x16IncreasePositionMargin\x12\x35.injective.exchange.v1beta1.MsgIncreasePositionMargin\x1a=.injective.exchange.v1beta1.MsgIncreasePositionMarginResponse\x12s\n\rRegisterAsDMM\x12,.injective.exchange.v1beta1.MsgRegisterAsDMM\x1a\x34.injective.exchange.v1beta1.MsgRegisterAsDMMResponse\x12\xa6\x01\n\x1e\x41\x64minUpdateBinaryOptionsMarket\x12=.injective.exchange.v1beta1.MsgAdminUpdateBinaryOptionsMarket\x1a\x45.injective.exchange.v1beta1.MsgAdminUpdateBinaryOptionsMarketResponseBPZNgithub.com/InjectiveLabs/injective-core/injective-chain/modules/exchange/typesb\x06proto3'
   ,
   dependencies=[gogoproto_dot_gogo__pb2.DESCRIPTOR,injective_dot_oracle_dot_v1beta1_dot_oracle__pb2.DESCRIPTOR,injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.DESCRIPTOR,cosmos_dot_base_dot_v1beta1_dot_coin__pb2.DESCRIPTOR,cosmos_dot_distribution_dot_v1beta1_dot_distribution__pb2.DESCRIPTOR,])
 
@@ -54,8 +54,8 @@ _EXCHANGETYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=15291,
-  serialized_end=15411,
+  serialized_start=15809,
+  serialized_end=15929,
 )
 _sym_db.RegisterEnumDescriptor(_EXCHANGETYPE)
 
@@ -2576,6 +2576,27 @@ _BATCHEXCHANGEMODIFICATIONPROPOSAL = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='binary_options_market_launch_proposals', full_name='injective.exchange.v1beta1.BatchExchangeModificationProposal.binary_options_market_launch_proposals', index=8,
+      number=9, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='binary_options_param_update_proposals', full_name='injective.exchange.v1beta1.BatchExchangeModificationProposal.binary_options_param_update_proposals', index=9,
+      number=10, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='denom_decimals_update_proposal', full_name='injective.exchange.v1beta1.BatchExchangeModificationProposal.denom_decimals_update_proposal', index=10,
+      number=11, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -2589,7 +2610,7 @@ _BATCHEXCHANGEMODIFICATIONPROPOSAL = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=8319,
-  serialized_end=9037,
+  serialized_end=9360,
 )
 
 
@@ -2676,8 +2697,8 @@ _SPOTMARKETLAUNCHPROPOSAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=9040,
-  serialized_end=9470,
+  serialized_start=9363,
+  serialized_end=9793,
 )
 
 
@@ -2799,8 +2820,8 @@ _PERPETUALMARKETLAUNCHPROPOSAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=9473,
-  serialized_end=10179,
+  serialized_start=9796,
+  serialized_end=10502,
 )
 
 
@@ -2929,8 +2950,8 @@ _BINARYOPTIONSMARKETLAUNCHPROPOSAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=10182,
-  serialized_end=10812,
+  serialized_start=10505,
+  serialized_end=11135,
 )
 
 
@@ -3059,8 +3080,8 @@ _EXPIRYFUTURESMARKETLAUNCHPROPOSAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=10815,
-  serialized_end=11541,
+  serialized_start=11138,
+  serialized_end=11864,
 )
 
 
@@ -3182,8 +3203,8 @@ _DERIVATIVEMARKETPARAMUPDATEPROPOSAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=11544,
-  serialized_end=12464,
+  serialized_start=11867,
+  serialized_end=12787,
 )
 
 
@@ -3235,8 +3256,93 @@ _MARKETFORCEDSETTLEMENTPROPOSAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=12467,
-  serialized_end=12638,
+  serialized_start=12790,
+  serialized_end=12961,
+)
+
+
+_UPDATEDENOMDECIMALSPROPOSAL = _descriptor.Descriptor(
+  name='UpdateDenomDecimalsProposal',
+  full_name='injective.exchange.v1beta1.UpdateDenomDecimalsProposal',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='title', full_name='injective.exchange.v1beta1.UpdateDenomDecimalsProposal.title', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='description', full_name='injective.exchange.v1beta1.UpdateDenomDecimalsProposal.description', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='denom_decimals', full_name='injective.exchange.v1beta1.UpdateDenomDecimalsProposal.denom_decimals', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=b'\350\240\037\000\210\240\037\000',
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=12964,
+  serialized_end=13106,
+)
+
+
+_DENOMDECIMALS = _descriptor.Descriptor(
+  name='DenomDecimals',
+  full_name='injective.exchange.v1beta1.DenomDecimals',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='denom', full_name='injective.exchange.v1beta1.DenomDecimals.denom', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='decimals', full_name='injective.exchange.v1beta1.DenomDecimals.decimals', index=1,
+      number=2, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=13108,
+  serialized_end=13156,
 )
 
 
@@ -3358,8 +3464,8 @@ _BINARYOPTIONSMARKETPARAMUPDATEPROPOSAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=12641,
-  serialized_end=13407,
+  serialized_start=13159,
+  serialized_end=13925,
 )
 
 
@@ -3411,8 +3517,8 @@ _PROVIDERORACLEPARAMS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=13410,
-  serialized_end=13554,
+  serialized_start=13928,
+  serialized_end=14072,
 )
 
 
@@ -3464,8 +3570,8 @@ _ORACLEPARAMS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=13557,
-  serialized_end=13702,
+  serialized_start=14075,
+  serialized_end=14220,
 )
 
 
@@ -3517,8 +3623,8 @@ _TRADINGREWARDCAMPAIGNLAUNCHPROPOSAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=13705,
-  serialized_end=13945,
+  serialized_start=14223,
+  serialized_end=14463,
 )
 
 
@@ -3577,8 +3683,8 @@ _TRADINGREWARDCAMPAIGNUPDATEPROPOSAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=13948,
-  serialized_end=14285,
+  serialized_start=14466,
+  serialized_end=14803,
 )
 
 
@@ -3616,8 +3722,8 @@ _REWARDPOINTUPDATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=14287,
-  serialized_end=14399,
+  serialized_start=14805,
+  serialized_end=14917,
 )
 
 
@@ -3669,8 +3775,8 @@ _TRADINGREWARDPENDINGPOINTSUPDATEPROPOSAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=14402,
-  serialized_end=14599,
+  serialized_start=14920,
+  serialized_end=15117,
 )
 
 
@@ -3715,8 +3821,8 @@ _FEEDISCOUNTPROPOSAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=14602,
-  serialized_end=14736,
+  serialized_start=15120,
+  serialized_end=15254,
 )
 
 
@@ -3761,8 +3867,8 @@ _BATCHCOMMUNITYPOOLSPENDPROPOSAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=14739,
-  serialized_end=14894,
+  serialized_start=15257,
+  serialized_end=15412,
 )
 
 
@@ -3800,8 +3906,8 @@ _MSGREGISTERASDMM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=14896,
-  serialized_end=14951,
+  serialized_start=15414,
+  serialized_end=15469,
 )
 
 
@@ -3825,8 +3931,8 @@ _MSGREGISTERASDMMRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=14953,
-  serialized_end=14979,
+  serialized_start=15471,
+  serialized_end=15497,
 )
 
 
@@ -3892,8 +3998,8 @@ _MSGADMINUPDATEBINARYOPTIONSMARKET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=14982,
-  serialized_end=15244,
+  serialized_start=15500,
+  serialized_end=15762,
 )
 
 
@@ -3917,8 +4023,8 @@ _MSGADMINUPDATEBINARYOPTIONSMARKETRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=15246,
-  serialized_end=15289,
+  serialized_start=15764,
+  serialized_end=15807,
 )
 
 _MSGDEPOSIT.fields_by_name['amount'].message_type = cosmos_dot_base_dot_v1beta1_dot_coin__pb2._COIN
@@ -3956,11 +4062,15 @@ _BATCHEXCHANGEMODIFICATIONPROPOSAL.fields_by_name['spot_market_launch_proposals'
 _BATCHEXCHANGEMODIFICATIONPROPOSAL.fields_by_name['perpetual_market_launch_proposals'].message_type = _PERPETUALMARKETLAUNCHPROPOSAL
 _BATCHEXCHANGEMODIFICATIONPROPOSAL.fields_by_name['expiry_futures_market_launch_proposals'].message_type = _EXPIRYFUTURESMARKETLAUNCHPROPOSAL
 _BATCHEXCHANGEMODIFICATIONPROPOSAL.fields_by_name['trading_reward_campaign_update_proposal'].message_type = _TRADINGREWARDCAMPAIGNUPDATEPROPOSAL
+_BATCHEXCHANGEMODIFICATIONPROPOSAL.fields_by_name['binary_options_market_launch_proposals'].message_type = _BINARYOPTIONSMARKETLAUNCHPROPOSAL
+_BATCHEXCHANGEMODIFICATIONPROPOSAL.fields_by_name['binary_options_param_update_proposals'].message_type = _BINARYOPTIONSMARKETPARAMUPDATEPROPOSAL
+_BATCHEXCHANGEMODIFICATIONPROPOSAL.fields_by_name['denom_decimals_update_proposal'].message_type = _UPDATEDENOMDECIMALSPROPOSAL
 _PERPETUALMARKETLAUNCHPROPOSAL.fields_by_name['oracle_type'].enum_type = injective_dot_oracle_dot_v1beta1_dot_oracle__pb2._ORACLETYPE
 _BINARYOPTIONSMARKETLAUNCHPROPOSAL.fields_by_name['oracle_type'].enum_type = injective_dot_oracle_dot_v1beta1_dot_oracle__pb2._ORACLETYPE
 _EXPIRYFUTURESMARKETLAUNCHPROPOSAL.fields_by_name['oracle_type'].enum_type = injective_dot_oracle_dot_v1beta1_dot_oracle__pb2._ORACLETYPE
 _DERIVATIVEMARKETPARAMUPDATEPROPOSAL.fields_by_name['status'].enum_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2._MARKETSTATUS
 _DERIVATIVEMARKETPARAMUPDATEPROPOSAL.fields_by_name['oracle_params'].message_type = _ORACLEPARAMS
+_UPDATEDENOMDECIMALSPROPOSAL.fields_by_name['denom_decimals'].message_type = _DENOMDECIMALS
 _BINARYOPTIONSMARKETPARAMUPDATEPROPOSAL.fields_by_name['status'].enum_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2._MARKETSTATUS
 _BINARYOPTIONSMARKETPARAMUPDATEPROPOSAL.fields_by_name['oracle_params'].message_type = _PROVIDERORACLEPARAMS
 _PROVIDERORACLEPARAMS.fields_by_name['oracle_type'].enum_type = injective_dot_oracle_dot_v1beta1_dot_oracle__pb2._ORACLETYPE
@@ -4036,6 +4146,8 @@ DESCRIPTOR.message_types_by_name['BinaryOptionsMarketLaunchProposal'] = _BINARYO
 DESCRIPTOR.message_types_by_name['ExpiryFuturesMarketLaunchProposal'] = _EXPIRYFUTURESMARKETLAUNCHPROPOSAL
 DESCRIPTOR.message_types_by_name['DerivativeMarketParamUpdateProposal'] = _DERIVATIVEMARKETPARAMUPDATEPROPOSAL
 DESCRIPTOR.message_types_by_name['MarketForcedSettlementProposal'] = _MARKETFORCEDSETTLEMENTPROPOSAL
+DESCRIPTOR.message_types_by_name['UpdateDenomDecimalsProposal'] = _UPDATEDENOMDECIMALSPROPOSAL
+DESCRIPTOR.message_types_by_name['DenomDecimals'] = _DENOMDECIMALS
 DESCRIPTOR.message_types_by_name['BinaryOptionsMarketParamUpdateProposal'] = _BINARYOPTIONSMARKETPARAMUPDATEPROPOSAL
 DESCRIPTOR.message_types_by_name['ProviderOracleParams'] = _PROVIDERORACLEPARAMS
 DESCRIPTOR.message_types_by_name['OracleParams'] = _ORACLEPARAMS
@@ -4486,6 +4598,20 @@ MarketForcedSettlementProposal = _reflection.GeneratedProtocolMessageType('Marke
   })
 _sym_db.RegisterMessage(MarketForcedSettlementProposal)
 
+UpdateDenomDecimalsProposal = _reflection.GeneratedProtocolMessageType('UpdateDenomDecimalsProposal', (_message.Message,), {
+  'DESCRIPTOR' : _UPDATEDENOMDECIMALSPROPOSAL,
+  '__module__' : 'injective.exchange.v1beta1.tx_pb2'
+  # @@protoc_insertion_point(class_scope:injective.exchange.v1beta1.UpdateDenomDecimalsProposal)
+  })
+_sym_db.RegisterMessage(UpdateDenomDecimalsProposal)
+
+DenomDecimals = _reflection.GeneratedProtocolMessageType('DenomDecimals', (_message.Message,), {
+  'DESCRIPTOR' : _DENOMDECIMALS,
+  '__module__' : 'injective.exchange.v1beta1.tx_pb2'
+  # @@protoc_insertion_point(class_scope:injective.exchange.v1beta1.DenomDecimals)
+  })
+_sym_db.RegisterMessage(DenomDecimals)
+
 BinaryOptionsMarketParamUpdateProposal = _reflection.GeneratedProtocolMessageType('BinaryOptionsMarketParamUpdateProposal', (_message.Message,), {
   'DESCRIPTOR' : _BINARYOPTIONSMARKETPARAMUPDATEPROPOSAL,
   '__module__' : 'injective.exchange.v1beta1.tx_pb2'
@@ -4703,6 +4829,7 @@ _DERIVATIVEMARKETPARAMUPDATEPROPOSAL.fields_by_name['HourlyFundingRateCap']._opt
 _DERIVATIVEMARKETPARAMUPDATEPROPOSAL._options = None
 _MARKETFORCEDSETTLEMENTPROPOSAL.fields_by_name['settlement_price']._options = None
 _MARKETFORCEDSETTLEMENTPROPOSAL._options = None
+_UPDATEDENOMDECIMALSPROPOSAL._options = None
 _BINARYOPTIONSMARKETPARAMUPDATEPROPOSAL.fields_by_name['maker_fee_rate']._options = None
 _BINARYOPTIONSMARKETPARAMUPDATEPROPOSAL.fields_by_name['taker_fee_rate']._options = None
 _BINARYOPTIONSMARKETPARAMUPDATEPROPOSAL.fields_by_name['relayer_fee_share_rate']._options = None
@@ -4725,8 +4852,8 @@ _MSG = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=15414,
-  serialized_end=19471,
+  serialized_start=15932,
+  serialized_end=19989,
   methods=[
   _descriptor.MethodDescriptor(
     name='Deposit',

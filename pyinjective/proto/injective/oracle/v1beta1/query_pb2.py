@@ -23,7 +23,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'ZLgithub.com/InjectiveLabs/injective-core/injective-chain/modules/oracle/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n$injective/oracle/v1beta1/query.proto\x12\x18injective.oracle.v1beta1\x1a\x1cgoogle/api/annotations.proto\x1a%injective/oracle/v1beta1/oracle.proto\x1a&injective/oracle/v1beta1/genesis.proto\x1a\x14gogoproto/gogo.proto\"\x14\n\x12QueryParamsRequest\"M\n\x13QueryParamsResponse\x12\x36\n\x06params\x18\x01 \x01(\x0b\x32 .injective.oracle.v1beta1.ParamsB\x04\xc8\xde\x1f\x00\"\x1a\n\x18QueryBandRelayersRequest\"-\n\x19QueryBandRelayersResponse\x12\x10\n\x08relayers\x18\x01 \x03(\t\"\x1d\n\x1bQueryBandPriceStatesRequest\"^\n\x1cQueryBandPriceStatesResponse\x12>\n\x0cprice_states\x18\x01 \x03(\x0b\x32(.injective.oracle.v1beta1.BandPriceState\" \n\x1eQueryBandIBCPriceStatesRequest\"a\n\x1fQueryBandIBCPriceStatesResponse\x12>\n\x0cprice_states\x18\x01 \x03(\x0b\x32(.injective.oracle.v1beta1.BandPriceState\"\"\n QueryPriceFeedPriceStatesRequest\"c\n!QueryPriceFeedPriceStatesResponse\x12>\n\x0cprice_states\x18\x01 \x03(\x0b\x32(.injective.oracle.v1beta1.PriceFeedState\"!\n\x1fQueryCoinbasePriceStatesRequest\"f\n QueryCoinbasePriceStatesResponse\x12\x42\n\x0cprice_states\x18\x01 \x03(\x0b\x32,.injective.oracle.v1beta1.CoinbasePriceState\"!\n\x1fQueryProviderPriceStatesRequest\"f\n QueryProviderPriceStatesResponse\x12\x42\n\x0cprice_states\x18\x01 \x03(\x0b\x32,.injective.oracle.v1beta1.ProviderPriceState\"B\n\x1eQueryProviderPriceStateRequest\x12\x10\n\x08provider\x18\x01 \x01(\t\x12\x0e\n\x06symbol\x18\x02 \x01(\t\"\\\n\x1fQueryProviderPriceStateResponse\x12\x39\n\x0bprice_state\x18\x01 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceState\"\x19\n\x17QueryModuleStateRequest\"Q\n\x18QueryModuleStateResponse\x12\x35\n\x05state\x18\x01 \x01(\x0b\x32&.injective.oracle.v1beta1.GenesisState\"m\n\"QueryHistoricalPriceRecordsRequest\x12\x34\n\x06oracle\x18\x01 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x11\n\tsymbol_id\x18\x02 \x01(\t\"d\n#QueryHistoricalPriceRecordsResponse\x12=\n\rprice_records\x18\x01 \x03(\x0b\x32&.injective.oracle.v1beta1.PriceRecords\"^\n\x14OracleHistoryOptions\x12\x0f\n\x07max_age\x18\x01 \x01(\x04\x12\x1b\n\x13include_raw_history\x18\x02 \x01(\x08\x12\x18\n\x10include_metadata\x18\x03 \x01(\x08\"\xe1\x01\n\x1cQueryOracleVolatilityRequest\x12\x37\n\tbase_info\x18\x01 \x01(\x0b\x32$.injective.oracle.v1beta1.OracleInfo\x12\x38\n\nquote_info\x18\x02 \x01(\x0b\x32$.injective.oracle.v1beta1.OracleInfo\x12N\n\x16oracle_history_options\x18\x03 \x01(\x0b\x32..injective.oracle.v1beta1.OracleHistoryOptions\"\xe3\x01\n\x1dQueryOracleVolatilityResponse\x12>\n\nvolatility\x18\x01 \x01(\tB*\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\x12\x46\n\x10history_metadata\x18\x02 \x01(\x0b\x32,.injective.oracle.v1beta1.MetadataStatistics\x12:\n\x0braw_history\x18\x03 \x03(\x0b\x32%.injective.oracle.v1beta1.PriceRecord\"!\n\x1fQueryOracleProvidersInfoRequest\"]\n QueryOracleProvidersInfoResponse\x12\x39\n\tproviders\x18\x01 \x03(\x0b\x32&.injective.oracle.v1beta1.ProviderInfo\"4\n QueryOracleProviderPricesRequest\x12\x10\n\x08provider\x18\x01 \x01(\t\"c\n!QueryOracleProviderPricesResponse\x12>\n\rproviderState\x18\x01 \x03(\x0b\x32\'.injective.oracle.v1beta1.ProviderState2\xab\x13\n\x05Query\x12\x8f\x01\n\x06Params\x12,.injective.oracle.v1beta1.QueryParamsRequest\x1a-.injective.oracle.v1beta1.QueryParamsResponse\"(\x82\xd3\xe4\x93\x02\"\x12 /injective/oracle/v1beta1/params\x12\xa8\x01\n\x0c\x42\x61ndRelayers\x12\x32.injective.oracle.v1beta1.QueryBandRelayersRequest\x1a\x33.injective.oracle.v1beta1.QueryBandRelayersResponse\"/\x82\xd3\xe4\x93\x02)\x12\'/injective/oracle/v1beta1/band_relayers\x12\xb5\x01\n\x0f\x42\x61ndPriceStates\x12\x35.injective.oracle.v1beta1.QueryBandPriceStatesRequest\x1a\x36.injective.oracle.v1beta1.QueryBandPriceStatesResponse\"3\x82\xd3\xe4\x93\x02-\x12+/injective/oracle/v1beta1/band_price_states\x12\xc2\x01\n\x12\x42\x61ndIBCPriceStates\x12\x38.injective.oracle.v1beta1.QueryBandIBCPriceStatesRequest\x1a\x39.injective.oracle.v1beta1.QueryBandIBCPriceStatesResponse\"7\x82\xd3\xe4\x93\x02\x31\x12//injective/oracle/v1beta1/band_ibc_price_states\x12\xc9\x01\n\x14PriceFeedPriceStates\x12:.injective.oracle.v1beta1.QueryPriceFeedPriceStatesRequest\x1a;.injective.oracle.v1beta1.QueryPriceFeedPriceStatesResponse\"8\x82\xd3\xe4\x93\x02\x32\x12\x30/injective/oracle/v1beta1/pricefeed_price_states\x12\xc5\x01\n\x13\x43oinbasePriceStates\x12\x39.injective.oracle.v1beta1.QueryCoinbasePriceStatesRequest\x1a:.injective.oracle.v1beta1.QueryCoinbasePriceStatesResponse\"7\x82\xd3\xe4\x93\x02\x31\x12//injective/oracle/v1beta1/coinbase_price_states\x12\xc5\x01\n\x13ProviderPriceStates\x12\x39.injective.oracle.v1beta1.QueryProviderPriceStatesRequest\x1a:.injective.oracle.v1beta1.QueryProviderPriceStatesResponse\"7\x82\xd3\xe4\x93\x02\x31\x12//injective/oracle/v1beta1/provider_price_states\x12\xd5\x01\n\x12ProviderPriceState\x12\x38.injective.oracle.v1beta1.QueryProviderPriceStateRequest\x1a\x39.injective.oracle.v1beta1.QueryProviderPriceStateResponse\"J\x82\xd3\xe4\x93\x02\x44\x12\x42/injective/oracle/v1beta1/provider_price_state/{provider}/{symbol}\x12\xaa\x01\n\x11OracleModuleState\x12\x31.injective.oracle.v1beta1.QueryModuleStateRequest\x1a\x32.injective.oracle.v1beta1.QueryModuleStateResponse\".\x82\xd3\xe4\x93\x02(\x12&/injective/oracle/v1beta1/module_state\x12\xd1\x01\n\x16HistoricalPriceRecords\x12<.injective.oracle.v1beta1.QueryHistoricalPriceRecordsRequest\x1a=.injective.oracle.v1beta1.QueryHistoricalPriceRecordsResponse\":\x82\xd3\xe4\x93\x02\x34\x12\x32/injective/oracle/v1beta1/historical_price_records\x12\xb1\x01\n\x10OracleVolatility\x12\x36.injective.oracle.v1beta1.QueryOracleVolatilityRequest\x1a\x37.injective.oracle.v1beta1.QueryOracleVolatilityResponse\",\x82\xd3\xe4\x93\x02&\x12$/injective/oracle/v1beta1/volatility\x12\xb9\x01\n\x13OracleProvidersInfo\x12\x39.injective.oracle.v1beta1.QueryOracleProvidersInfoRequest\x1a:.injective.oracle.v1beta1.QueryOracleProvidersInfoResponse\"+\x82\xd3\xe4\x93\x02%\x12#/injective/oracle/v1beta1/providers\x12\xc2\x01\n\x14OracleProviderPrices\x12:.injective.oracle.v1beta1.QueryOracleProviderPricesRequest\x1a;.injective.oracle.v1beta1.QueryOracleProviderPricesResponse\"1\x82\xd3\xe4\x93\x02+\x12)/injective/oracle/v1beta1/provider_pricesBNZLgithub.com/InjectiveLabs/injective-core/injective-chain/modules/oracle/typesb\x06proto3'
+  serialized_pb=b'\n$injective/oracle/v1beta1/query.proto\x12\x18injective.oracle.v1beta1\x1a\x1cgoogle/api/annotations.proto\x1a%injective/oracle/v1beta1/oracle.proto\x1a&injective/oracle/v1beta1/genesis.proto\x1a\x14gogoproto/gogo.proto\"\x14\n\x12QueryParamsRequest\"M\n\x13QueryParamsResponse\x12\x36\n\x06params\x18\x01 \x01(\x0b\x32 .injective.oracle.v1beta1.ParamsB\x04\xc8\xde\x1f\x00\"\x1a\n\x18QueryBandRelayersRequest\"-\n\x19QueryBandRelayersResponse\x12\x10\n\x08relayers\x18\x01 \x03(\t\"\x1d\n\x1bQueryBandPriceStatesRequest\"^\n\x1cQueryBandPriceStatesResponse\x12>\n\x0cprice_states\x18\x01 \x03(\x0b\x32(.injective.oracle.v1beta1.BandPriceState\" \n\x1eQueryBandIBCPriceStatesRequest\"a\n\x1fQueryBandIBCPriceStatesResponse\x12>\n\x0cprice_states\x18\x01 \x03(\x0b\x32(.injective.oracle.v1beta1.BandPriceState\"\"\n QueryPriceFeedPriceStatesRequest\"c\n!QueryPriceFeedPriceStatesResponse\x12>\n\x0cprice_states\x18\x01 \x03(\x0b\x32(.injective.oracle.v1beta1.PriceFeedState\"!\n\x1fQueryCoinbasePriceStatesRequest\"f\n QueryCoinbasePriceStatesResponse\x12\x42\n\x0cprice_states\x18\x01 \x03(\x0b\x32,.injective.oracle.v1beta1.CoinbasePriceState\"B\n\x1eQueryProviderPriceStateRequest\x12\x10\n\x08provider\x18\x01 \x01(\t\x12\x0e\n\x06symbol\x18\x02 \x01(\t\"\\\n\x1fQueryProviderPriceStateResponse\x12\x39\n\x0bprice_state\x18\x01 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceState\"\x19\n\x17QueryModuleStateRequest\"Q\n\x18QueryModuleStateResponse\x12\x35\n\x05state\x18\x01 \x01(\x0b\x32&.injective.oracle.v1beta1.GenesisState\"m\n\"QueryHistoricalPriceRecordsRequest\x12\x34\n\x06oracle\x18\x01 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x11\n\tsymbol_id\x18\x02 \x01(\t\"d\n#QueryHistoricalPriceRecordsResponse\x12=\n\rprice_records\x18\x01 \x03(\x0b\x32&.injective.oracle.v1beta1.PriceRecords\"^\n\x14OracleHistoryOptions\x12\x0f\n\x07max_age\x18\x01 \x01(\x04\x12\x1b\n\x13include_raw_history\x18\x02 \x01(\x08\x12\x18\n\x10include_metadata\x18\x03 \x01(\x08\"\xe1\x01\n\x1cQueryOracleVolatilityRequest\x12\x37\n\tbase_info\x18\x01 \x01(\x0b\x32$.injective.oracle.v1beta1.OracleInfo\x12\x38\n\nquote_info\x18\x02 \x01(\x0b\x32$.injective.oracle.v1beta1.OracleInfo\x12N\n\x16oracle_history_options\x18\x03 \x01(\x0b\x32..injective.oracle.v1beta1.OracleHistoryOptions\"\xe3\x01\n\x1dQueryOracleVolatilityResponse\x12>\n\nvolatility\x18\x01 \x01(\tB*\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\x12\x46\n\x10history_metadata\x18\x02 \x01(\x0b\x32,.injective.oracle.v1beta1.MetadataStatistics\x12:\n\x0braw_history\x18\x03 \x03(\x0b\x32%.injective.oracle.v1beta1.PriceRecord\"!\n\x1fQueryOracleProvidersInfoRequest\"]\n QueryOracleProvidersInfoResponse\x12\x39\n\tproviders\x18\x01 \x03(\x0b\x32&.injective.oracle.v1beta1.ProviderInfo\"4\n QueryOracleProviderPricesRequest\x12\x10\n\x08provider\x18\x01 \x01(\t\"c\n!QueryOracleProviderPricesResponse\x12>\n\rproviderState\x18\x01 \x03(\x0b\x32\'.injective.oracle.v1beta1.ProviderState2\xe3\x11\n\x05Query\x12\x8f\x01\n\x06Params\x12,.injective.oracle.v1beta1.QueryParamsRequest\x1a-.injective.oracle.v1beta1.QueryParamsResponse\"(\x82\xd3\xe4\x93\x02\"\x12 /injective/oracle/v1beta1/params\x12\xa8\x01\n\x0c\x42\x61ndRelayers\x12\x32.injective.oracle.v1beta1.QueryBandRelayersRequest\x1a\x33.injective.oracle.v1beta1.QueryBandRelayersResponse\"/\x82\xd3\xe4\x93\x02)\x12\'/injective/oracle/v1beta1/band_relayers\x12\xb5\x01\n\x0f\x42\x61ndPriceStates\x12\x35.injective.oracle.v1beta1.QueryBandPriceStatesRequest\x1a\x36.injective.oracle.v1beta1.QueryBandPriceStatesResponse\"3\x82\xd3\xe4\x93\x02-\x12+/injective/oracle/v1beta1/band_price_states\x12\xc2\x01\n\x12\x42\x61ndIBCPriceStates\x12\x38.injective.oracle.v1beta1.QueryBandIBCPriceStatesRequest\x1a\x39.injective.oracle.v1beta1.QueryBandIBCPriceStatesResponse\"7\x82\xd3\xe4\x93\x02\x31\x12//injective/oracle/v1beta1/band_ibc_price_states\x12\xc9\x01\n\x14PriceFeedPriceStates\x12:.injective.oracle.v1beta1.QueryPriceFeedPriceStatesRequest\x1a;.injective.oracle.v1beta1.QueryPriceFeedPriceStatesResponse\"8\x82\xd3\xe4\x93\x02\x32\x12\x30/injective/oracle/v1beta1/pricefeed_price_states\x12\xc5\x01\n\x13\x43oinbasePriceStates\x12\x39.injective.oracle.v1beta1.QueryCoinbasePriceStatesRequest\x1a:.injective.oracle.v1beta1.QueryCoinbasePriceStatesResponse\"7\x82\xd3\xe4\x93\x02\x31\x12//injective/oracle/v1beta1/coinbase_price_states\x12\xd5\x01\n\x12ProviderPriceState\x12\x38.injective.oracle.v1beta1.QueryProviderPriceStateRequest\x1a\x39.injective.oracle.v1beta1.QueryProviderPriceStateResponse\"J\x82\xd3\xe4\x93\x02\x44\x12\x42/injective/oracle/v1beta1/provider_price_state/{provider}/{symbol}\x12\xaa\x01\n\x11OracleModuleState\x12\x31.injective.oracle.v1beta1.QueryModuleStateRequest\x1a\x32.injective.oracle.v1beta1.QueryModuleStateResponse\".\x82\xd3\xe4\x93\x02(\x12&/injective/oracle/v1beta1/module_state\x12\xd1\x01\n\x16HistoricalPriceRecords\x12<.injective.oracle.v1beta1.QueryHistoricalPriceRecordsRequest\x1a=.injective.oracle.v1beta1.QueryHistoricalPriceRecordsResponse\":\x82\xd3\xe4\x93\x02\x34\x12\x32/injective/oracle/v1beta1/historical_price_records\x12\xb1\x01\n\x10OracleVolatility\x12\x36.injective.oracle.v1beta1.QueryOracleVolatilityRequest\x1a\x37.injective.oracle.v1beta1.QueryOracleVolatilityResponse\",\x82\xd3\xe4\x93\x02&\x12$/injective/oracle/v1beta1/volatility\x12\xb9\x01\n\x13OracleProvidersInfo\x12\x39.injective.oracle.v1beta1.QueryOracleProvidersInfoRequest\x1a:.injective.oracle.v1beta1.QueryOracleProvidersInfoResponse\"+\x82\xd3\xe4\x93\x02%\x12#/injective/oracle/v1beta1/providers\x12\xc2\x01\n\x14OracleProviderPrices\x12:.injective.oracle.v1beta1.QueryOracleProviderPricesRequest\x1a;.injective.oracle.v1beta1.QueryOracleProviderPricesResponse\"1\x82\xd3\xe4\x93\x02+\x12)/injective/oracle/v1beta1/provider_pricesBNZLgithub.com/InjectiveLabs/injective-core/injective-chain/modules/oracle/typesb\x06proto3'
   ,
   dependencies=[google_dot_api_dot_annotations__pb2.DESCRIPTOR,injective_dot_oracle_dot_v1beta1_dot_oracle__pb2.DESCRIPTOR,injective_dot_oracle_dot_v1beta1_dot_genesis__pb2.DESCRIPTOR,gogoproto_dot_gogo__pb2.DESCRIPTOR,])
 
@@ -372,63 +372,6 @@ _QUERYCOINBASEPRICESTATESRESPONSE = _descriptor.Descriptor(
 )
 
 
-_QUERYPROVIDERPRICESTATESREQUEST = _descriptor.Descriptor(
-  name='QueryProviderPriceStatesRequest',
-  full_name='injective.oracle.v1beta1.QueryProviderPriceStatesRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=909,
-  serialized_end=942,
-)
-
-
-_QUERYPROVIDERPRICESTATESRESPONSE = _descriptor.Descriptor(
-  name='QueryProviderPriceStatesResponse',
-  full_name='injective.oracle.v1beta1.QueryProviderPriceStatesResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='price_states', full_name='injective.oracle.v1beta1.QueryProviderPriceStatesResponse.price_states', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=944,
-  serialized_end=1046,
-)
-
-
 _QUERYPROVIDERPRICESTATEREQUEST = _descriptor.Descriptor(
   name='QueryProviderPriceStateRequest',
   full_name='injective.oracle.v1beta1.QueryProviderPriceStateRequest',
@@ -463,8 +406,8 @@ _QUERYPROVIDERPRICESTATEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1048,
-  serialized_end=1114,
+  serialized_start=909,
+  serialized_end=975,
 )
 
 
@@ -495,8 +438,8 @@ _QUERYPROVIDERPRICESTATERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1116,
-  serialized_end=1208,
+  serialized_start=977,
+  serialized_end=1069,
 )
 
 
@@ -520,8 +463,8 @@ _QUERYMODULESTATEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1210,
-  serialized_end=1235,
+  serialized_start=1071,
+  serialized_end=1096,
 )
 
 
@@ -552,8 +495,8 @@ _QUERYMODULESTATERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1237,
-  serialized_end=1318,
+  serialized_start=1098,
+  serialized_end=1179,
 )
 
 
@@ -591,8 +534,8 @@ _QUERYHISTORICALPRICERECORDSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1320,
-  serialized_end=1429,
+  serialized_start=1181,
+  serialized_end=1290,
 )
 
 
@@ -623,8 +566,8 @@ _QUERYHISTORICALPRICERECORDSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1431,
-  serialized_end=1531,
+  serialized_start=1292,
+  serialized_end=1392,
 )
 
 
@@ -669,8 +612,8 @@ _ORACLEHISTORYOPTIONS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1533,
-  serialized_end=1627,
+  serialized_start=1394,
+  serialized_end=1488,
 )
 
 
@@ -715,8 +658,8 @@ _QUERYORACLEVOLATILITYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1630,
-  serialized_end=1855,
+  serialized_start=1491,
+  serialized_end=1716,
 )
 
 
@@ -761,8 +704,8 @@ _QUERYORACLEVOLATILITYRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1858,
-  serialized_end=2085,
+  serialized_start=1719,
+  serialized_end=1946,
 )
 
 
@@ -786,8 +729,8 @@ _QUERYORACLEPROVIDERSINFOREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2087,
-  serialized_end=2120,
+  serialized_start=1948,
+  serialized_end=1981,
 )
 
 
@@ -818,8 +761,8 @@ _QUERYORACLEPROVIDERSINFORESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2122,
-  serialized_end=2215,
+  serialized_start=1983,
+  serialized_end=2076,
 )
 
 
@@ -850,8 +793,8 @@ _QUERYORACLEPROVIDERPRICESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2217,
-  serialized_end=2269,
+  serialized_start=2078,
+  serialized_end=2130,
 )
 
 
@@ -882,8 +825,8 @@ _QUERYORACLEPROVIDERPRICESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2271,
-  serialized_end=2370,
+  serialized_start=2132,
+  serialized_end=2231,
 )
 
 _QUERYPARAMSRESPONSE.fields_by_name['params'].message_type = injective_dot_oracle_dot_v1beta1_dot_oracle__pb2._PARAMS
@@ -891,7 +834,6 @@ _QUERYBANDPRICESTATESRESPONSE.fields_by_name['price_states'].message_type = inje
 _QUERYBANDIBCPRICESTATESRESPONSE.fields_by_name['price_states'].message_type = injective_dot_oracle_dot_v1beta1_dot_oracle__pb2._BANDPRICESTATE
 _QUERYPRICEFEEDPRICESTATESRESPONSE.fields_by_name['price_states'].message_type = injective_dot_oracle_dot_v1beta1_dot_oracle__pb2._PRICEFEEDSTATE
 _QUERYCOINBASEPRICESTATESRESPONSE.fields_by_name['price_states'].message_type = injective_dot_oracle_dot_v1beta1_dot_oracle__pb2._COINBASEPRICESTATE
-_QUERYPROVIDERPRICESTATESRESPONSE.fields_by_name['price_states'].message_type = injective_dot_oracle_dot_v1beta1_dot_oracle__pb2._PROVIDERPRICESTATE
 _QUERYPROVIDERPRICESTATERESPONSE.fields_by_name['price_state'].message_type = injective_dot_oracle_dot_v1beta1_dot_oracle__pb2._PRICESTATE
 _QUERYMODULESTATERESPONSE.fields_by_name['state'].message_type = injective_dot_oracle_dot_v1beta1_dot_genesis__pb2._GENESISSTATE
 _QUERYHISTORICALPRICERECORDSREQUEST.fields_by_name['oracle'].enum_type = injective_dot_oracle_dot_v1beta1_dot_oracle__pb2._ORACLETYPE
@@ -915,8 +857,6 @@ DESCRIPTOR.message_types_by_name['QueryPriceFeedPriceStatesRequest'] = _QUERYPRI
 DESCRIPTOR.message_types_by_name['QueryPriceFeedPriceStatesResponse'] = _QUERYPRICEFEEDPRICESTATESRESPONSE
 DESCRIPTOR.message_types_by_name['QueryCoinbasePriceStatesRequest'] = _QUERYCOINBASEPRICESTATESREQUEST
 DESCRIPTOR.message_types_by_name['QueryCoinbasePriceStatesResponse'] = _QUERYCOINBASEPRICESTATESRESPONSE
-DESCRIPTOR.message_types_by_name['QueryProviderPriceStatesRequest'] = _QUERYPROVIDERPRICESTATESREQUEST
-DESCRIPTOR.message_types_by_name['QueryProviderPriceStatesResponse'] = _QUERYPROVIDERPRICESTATESRESPONSE
 DESCRIPTOR.message_types_by_name['QueryProviderPriceStateRequest'] = _QUERYPROVIDERPRICESTATEREQUEST
 DESCRIPTOR.message_types_by_name['QueryProviderPriceStateResponse'] = _QUERYPROVIDERPRICESTATERESPONSE
 DESCRIPTOR.message_types_by_name['QueryModuleStateRequest'] = _QUERYMODULESTATEREQUEST
@@ -1015,20 +955,6 @@ QueryCoinbasePriceStatesResponse = _reflection.GeneratedProtocolMessageType('Que
   # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.QueryCoinbasePriceStatesResponse)
   })
 _sym_db.RegisterMessage(QueryCoinbasePriceStatesResponse)
-
-QueryProviderPriceStatesRequest = _reflection.GeneratedProtocolMessageType('QueryProviderPriceStatesRequest', (_message.Message,), {
-  'DESCRIPTOR' : _QUERYPROVIDERPRICESTATESREQUEST,
-  '__module__' : 'injective.oracle.v1beta1.query_pb2'
-  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.QueryProviderPriceStatesRequest)
-  })
-_sym_db.RegisterMessage(QueryProviderPriceStatesRequest)
-
-QueryProviderPriceStatesResponse = _reflection.GeneratedProtocolMessageType('QueryProviderPriceStatesResponse', (_message.Message,), {
-  'DESCRIPTOR' : _QUERYPROVIDERPRICESTATESRESPONSE,
-  '__module__' : 'injective.oracle.v1beta1.query_pb2'
-  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.QueryProviderPriceStatesResponse)
-  })
-_sym_db.RegisterMessage(QueryProviderPriceStatesResponse)
 
 QueryProviderPriceStateRequest = _reflection.GeneratedProtocolMessageType('QueryProviderPriceStateRequest', (_message.Message,), {
   'DESCRIPTOR' : _QUERYPROVIDERPRICESTATEREQUEST,
@@ -1133,8 +1059,8 @@ _QUERY = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=2373,
-  serialized_end=4848,
+  serialized_start=2234,
+  serialized_end=4509,
   methods=[
   _descriptor.MethodDescriptor(
     name='Params',
@@ -1197,19 +1123,9 @@ _QUERY = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='ProviderPriceStates',
-    full_name='injective.oracle.v1beta1.Query.ProviderPriceStates',
-    index=6,
-    containing_service=None,
-    input_type=_QUERYPROVIDERPRICESTATESREQUEST,
-    output_type=_QUERYPROVIDERPRICESTATESRESPONSE,
-    serialized_options=b'\202\323\344\223\0021\022//injective/oracle/v1beta1/provider_price_states',
-    create_key=_descriptor._internal_create_key,
-  ),
-  _descriptor.MethodDescriptor(
     name='ProviderPriceState',
     full_name='injective.oracle.v1beta1.Query.ProviderPriceState',
-    index=7,
+    index=6,
     containing_service=None,
     input_type=_QUERYPROVIDERPRICESTATEREQUEST,
     output_type=_QUERYPROVIDERPRICESTATERESPONSE,
@@ -1219,7 +1135,7 @@ _QUERY = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='OracleModuleState',
     full_name='injective.oracle.v1beta1.Query.OracleModuleState',
-    index=8,
+    index=7,
     containing_service=None,
     input_type=_QUERYMODULESTATEREQUEST,
     output_type=_QUERYMODULESTATERESPONSE,
@@ -1229,7 +1145,7 @@ _QUERY = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='HistoricalPriceRecords',
     full_name='injective.oracle.v1beta1.Query.HistoricalPriceRecords',
-    index=9,
+    index=8,
     containing_service=None,
     input_type=_QUERYHISTORICALPRICERECORDSREQUEST,
     output_type=_QUERYHISTORICALPRICERECORDSRESPONSE,
@@ -1239,7 +1155,7 @@ _QUERY = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='OracleVolatility',
     full_name='injective.oracle.v1beta1.Query.OracleVolatility',
-    index=10,
+    index=9,
     containing_service=None,
     input_type=_QUERYORACLEVOLATILITYREQUEST,
     output_type=_QUERYORACLEVOLATILITYRESPONSE,
@@ -1249,7 +1165,7 @@ _QUERY = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='OracleProvidersInfo',
     full_name='injective.oracle.v1beta1.Query.OracleProvidersInfo',
-    index=11,
+    index=10,
     containing_service=None,
     input_type=_QUERYORACLEPROVIDERSINFOREQUEST,
     output_type=_QUERYORACLEPROVIDERSINFORESPONSE,
@@ -1259,7 +1175,7 @@ _QUERY = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='OracleProviderPrices',
     full_name='injective.oracle.v1beta1.Query.OracleProviderPrices',
-    index=12,
+    index=11,
     containing_service=None,
     input_type=_QUERYORACLEPROVIDERPRICESREQUEST,
     output_type=_QUERYORACLEPROVIDERPRICESRESPONSE,

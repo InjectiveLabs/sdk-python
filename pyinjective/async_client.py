@@ -786,3 +786,15 @@ class AsyncClient:
             limit=kwargs.get("limit"),
         )
         return await self.stubDerivativeExchange.FundingRates(req)
+
+    async def get_binary_options_markets(self, **kwargs):
+        req = derivative_exchange_rpc_pb.BinaryOptionsMarketsRequest(
+            market_status=kwargs.get("market_status"),
+            quote_denom=kwargs.get("quote_denom"),
+        )
+        return await self.stubDerivativeExchange.BinaryOptionsMarkets(req)
+
+    async def get_binary_options_market(self, market_id: str):
+        req = derivative_exchange_rpc_pb.BinaryOptionsMarketRequest(market_id=market_id)
+        return await self.stubDerivativeExchange.BinaryOptionsMarket(req)
+    

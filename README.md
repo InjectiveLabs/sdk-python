@@ -80,6 +80,9 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 ### Changelogs
 **0.5.6.9**
 * Add MsgExternalTransfer to the composer
+* Add support for Binary Options
+* Add multi-subaccount support in local order hash calculation
+* Re-gen ini files
 
 **0.5.6.8**
 * Add skip & limit params to Exchange API methods
@@ -108,22 +111,6 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 * Add K8S endpoint to mainnet network options
 * Add MsgRegisterAsDMM to the composer
 * Add functions to close chain/exchange channels
-* Re-gen ini files
-
-
-**0.5.6.4**
-* Add K8S endpoint on testnet as default
-* Add root CA certs for mainnet & testnet for secure gRPC connections
-* Add method to unpack responses inside MsgExec
-* Fix type hints in composer & clients
-* Add Peggy contract ABI
-* Add reduce-only support for market orders
-* Add sticky session cookie for broadcast methods
-* Add historical funding rates in clients
-* Fixes in spot conversions for price/quantity returned from the backend
-* Add MsgSendToEth & SendToCosmos in the composer for INJ <> ETH transfers
-* Add function to compute order hashes locally
-* Add load balancer endpoint on mainnet as default
 * Re-gen ini files
 
 
