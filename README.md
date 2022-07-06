@@ -78,6 +78,9 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.5.7.0**
+* Add GetTx Tendermint
+
 **0.5.6.9**
 * Add MsgExternalTransfer to the composer
 * Add support for Binary Options
