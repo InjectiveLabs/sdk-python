@@ -804,4 +804,3 @@ class AsyncClient:
     async def get_binary_options_market(self, market_id: str):
         req = derivative_exchange_rpc_pb.BinaryOptionsMarketRequest(market_id=market_id)
         return await self.stubDerivativeExchange.BinaryOptionsMarket(req)
-    
