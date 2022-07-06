@@ -14,6 +14,7 @@ from .proto.cosmos.base.tendermint.v1beta1 import (
     query_pb2_grpc as tendermint_query_grpc,
     query_pb2 as tendermint_query,
 )
+
 from .proto.cosmos.auth.v1beta1 import (
     query_pb2_grpc as auth_query_grpc,
     query_pb2 as auth_query,
@@ -140,6 +141,12 @@ class AsyncClient:
             func=self.sync_timeout_height,
             args=(),
             start=True
+        )
+
+    async def get_tx(self, tx_hash):
+        return await self.stubTx.GetTx(
+            tx_service.GetTxRequest(
+                hash=tx_hash )
         )
 
     async def close_exchange_channel(self):
