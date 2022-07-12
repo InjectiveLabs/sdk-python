@@ -78,6 +78,9 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.5.7.1**
+* Add optional argument to bypass ini file load in binary options
+
 **0.5.7.0**
 * Add GetTxRequest Tendermint
 * Re-gen ini files
