@@ -19,9 +19,8 @@ import logging
 from pyinjective.composer import Composer as ProtoMsgComposer
 from pyinjective.async_client import AsyncClient
 from pyinjective.transaction import Transaction
-from pyinjective.constant import Network
+from pyinjective.constant import Network, Denom
 from pyinjective.wallet import PrivateKey
-
 
 async def main() -> None:
     # select network: local, testnet, mainnet
@@ -33,14 +32,17 @@ async def main() -> None:
     await client.sync_timeout_height()
 
     # load account
-    priv_key = PrivateKey.from_hex("5d386fbdbf11f1141010f81a46b40f94887367562bd33b452bbaa6ce1cd1381e")
+    priv_key = PrivateKey.from_hex("f9db9bf330e23cb7839039e944adef6e9df447b90b503d5b4464c90bea9022f3")
     pub_key = priv_key.to_public_key()
     address = await pub_key.to_address().async_init_num_seq(network.lcd_endpoint)
     subaccount_id = address.get_subaccount_id(index=0)
 
     # prepare trade info
-    market_id = "0x00617e128fdc0c0423dd18a1ff454511af14c4db6bdd98005a99cdf8fdbf74e9"
+    market_id = "0x767e1542fbc111e88901e223e625a4a8eb6d630c96884bbde672e8bc874075bb"
     fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
+
+    denom = Denom(description="desc", base=0, quote=6,
+                  min_price_tick_size=1000, min_quantity_tick_size=0.0001)
 
     # prepare tx msg
     msg = composer.MsgCreateBinaryOptionsLimitOrder(
@@ -50,9 +52,11 @@ async def main() -> None:
         fee_recipient=fee_recipient,
         price=0.5,
         quantity=1,
-        is_buy=True,
-        is_reduce_only=False
+        is_buy=False,
+        is_reduce_only=False,
+        denom=denom
     )
+
     # build sim tx
     tx = (
         Transaction()
