@@ -41,6 +41,7 @@ async def main() -> None:
     market_id = "0x767e1542fbc111e88901e223e625a4a8eb6d630c96884bbde672e8bc874075bb"
     fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
 
+    # set custom denom to bypass ini file load (optional)
     denom = Denom(description="desc", base=0, quote=6,
                   min_price_tick_size=1000, min_quantity_tick_size=0.0001)
 
