@@ -146,8 +146,13 @@ class Composer:
         quantity: float,
         **kwargs
     ):
+
+        if "denom" in kwargs:
+            denom = kwargs.get("denom")
+        else:
+            denom = Denom.load_market(self.network, market_id)
+
         # load denom metadata
-        denom = Denom.load_market(self.network, market_id)
         print("Loaded market metadata for", denom.description)
 
         if kwargs.get("is_reduce_only") is None and kwargs.get("is_buy"):
@@ -247,8 +252,7 @@ class Composer:
                 fee_recipient=fee_recipient,
                 price=price,
                 quantity=quantity,
-                is_buy=kwargs.get("is_buy"),
-                is_po=kwargs.get("is_po")
+                **kwargs
             ),
         )
 
@@ -317,10 +321,7 @@ class Composer:
                 fee_recipient=fee_recipient,
                 price=price,
                 quantity=quantity,
-                is_buy=kwargs.get("is_buy"),
-                is_po=kwargs.get("is_po"),
-                leverage=kwargs.get("leverage"),
-                is_reduce_only=kwargs.get("is_reduce_only"),
+                **kwargs
             ),
         )
 
@@ -344,8 +345,7 @@ class Composer:
                 price=price,
                 quantity=quantity,
                 is_buy=is_buy,
-                leverage=kwargs.get("leverage"),
-                is_reduce_only=kwargs.get("is_reduce_only"),
+                **kwargs
             ),
         )
 
@@ -359,6 +359,7 @@ class Composer:
         quantity: float,
         **kwargs
     ):
+
         return injective_exchange_tx_pb.MsgCreateBinaryOptionsLimitOrder(
             sender=sender,
             order=self.BinaryOptionsOrder(
@@ -367,9 +368,7 @@ class Composer:
                 fee_recipient=fee_recipient,
                 price=price,
                 quantity=quantity,
-                is_buy=kwargs.get("is_buy"),
-                is_po=kwargs.get("is_po"),
-                is_reduce_only=kwargs.get("is_reduce_only"),
+                **kwargs
             ),
         )
 
@@ -391,8 +390,7 @@ class Composer:
                 fee_recipient=fee_recipient,
                 price=price,
                 quantity=quantity,
-                is_buy=kwargs.get("is_buy"),
-                is_reduce_only=kwargs.get("is_reduce_only"),
+                **kwargs
             ),
         )
 
