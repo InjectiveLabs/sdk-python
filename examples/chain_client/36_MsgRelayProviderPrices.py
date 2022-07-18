@@ -38,7 +38,7 @@ async def main() -> None:
     address = await pub_key.to_address().async_init_num_seq(network.lcd_endpoint)
 
     provider = "ufc"
-    symbols = ["0x7ba77b6c69c15270bd9235f11a0068f3080017116aa3c57e17c16f49ea13f57f", "0x7ba77b6c69c15270bd9235f11a0068f3080017116aa3c57e17c16f49ea13f57f"]
+    symbols = ["KHABIB-TKO-05/30/2023", "KHABIB-TKO-05/26/2023"]
     prices = [0.5, 0.8]
 
     # prepare tx msg
