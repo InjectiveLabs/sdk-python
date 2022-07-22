@@ -46,6 +46,7 @@ async def main() -> None:
         oracle_provider="UFC",
         oracle_type="Provider",
         quote_denom="peggy0xdAC17F958D2ee523a2206206994597C13D831ec7",
+        quote_decimals=6,
         oracle_scale_factor=6,
         maker_fee_rate=0.0005, # 0.05%
         taker_fee_rate=0.0010, # 0.10%

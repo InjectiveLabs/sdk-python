@@ -468,6 +468,7 @@ class Composer:
         expiration_timestamp: int,
         settlement_timestamp: int,
         quote_denom: str,
+        quote_decimals: int,
         min_price_tick_size: float,
         min_quantity_tick_size: float,
         **kwargs
@@ -479,7 +480,7 @@ class Composer:
         scaled_taker_fee_rate = Decimal((taker_fee_rate * pow(10, 18)))
         taker_fee_to_bytes = bytes(str(scaled_taker_fee_rate), "utf-8")
 
-        scaled_min_price_tick_size = Decimal((min_price_tick_size * pow(10, 18)))
+        scaled_min_price_tick_size = Decimal((min_price_tick_size * pow(10, quote_decimals + 18)))
         min_price_to_bytes = bytes(str(scaled_min_price_tick_size), "utf-8")
 
         scaled_min_quantity_tick_size = Decimal((min_quantity_tick_size * pow(10, 18)))
