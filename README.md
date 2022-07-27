@@ -78,6 +78,9 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.5.7.3**
+* Add multi-subaccount and multi-market support in TradesRequest
+
 **0.5.7.2**
 * Fix MsgInstantBinaryOptionsLaunch
 
