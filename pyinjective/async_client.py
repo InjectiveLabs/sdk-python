@@ -588,10 +588,12 @@ class AsyncClient:
 
     async def get_spot_trades(self, market_id: str, **kwargs):
         req = spot_exchange_rpc_pb.TradesRequest(
-            market_id=market_id,
+            market_id=kwargs.get("market_id"),
+            market_ids=kwargs.get("market_ids"),
             execution_side=kwargs.get("execution_side"),
             direction=kwargs.get("direction"),
             subaccount_id=kwargs.get("subaccount_id"),
+            subaccount_ids=kwargs.get("subaccount_ids"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
         )
@@ -688,8 +690,10 @@ class AsyncClient:
 
     async def get_derivative_trades(self, market_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.TradesRequest(
-            market_id=market_id,
+            market_id=kwargs.get("market_id"),
+            market_ids=kwargs.get("market_ids"),
             subaccount_id=kwargs.get("subaccount_id"),
+            subaccount_ids=kwargs.get("subaccount_ids"),
             execution_side=kwargs.get("execution_side"),
             direction=kwargs.get("direction"),
             skip=kwargs.get("skip"),
