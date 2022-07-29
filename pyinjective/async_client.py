@@ -2,6 +2,7 @@ import os
 import time
 import grpc
 import aiocron
+import logging
 import datetime
 from http.cookies import SimpleCookie
 from typing import List, Optional, Tuple, Union
@@ -63,11 +64,9 @@ DEFAULT_TIMEOUTHEIGHT_SYNC_INTERVAL = 10 # seconds
 DEFAULT_TIMEOUTHEIGHT = 20 # blocks
 DEFAULT_SESSION_RENEWAL_OFFSET = 120 # seconds
 DEFAULT_BLOCK_TIME = 3 # seconds
-DEFAULT_CHAIN_COOKIE_NAME = '.chain_cookie'
 
-# use append mode to create file if not exist
-cookie_file = open(DEFAULT_CHAIN_COOKIE_NAME, "a+")
-cookie_file.close()
+
+logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 
 class AsyncClient:
     def __init__(
@@ -75,7 +74,13 @@ class AsyncClient:
         network: Network,
         insecure: bool = False,
         credentials: grpc.ChannelCredentials = None,
+        chain_cookie_location = ".chain_cookie"
     ):
+
+        # use append mode to create file if not exist
+        self.chain_cookie_location = chain_cookie_location
+        cookie_file = open(chain_cookie_location, "a+")
+        cookie_file.close()
 
         # load root CA cert
         if not insecure:
@@ -101,10 +106,10 @@ class AsyncClient:
         self.stubTx = tx_service_grpc.ServiceStub(self.chain_channel)
 
         # attempt to load from disk
-        cookie_file = open(DEFAULT_CHAIN_COOKIE_NAME, "r+")
+        cookie_file = open(chain_cookie_location, "r+")
         self.chain_cookie = cookie_file.read()
         cookie_file.close()
-        print("chain session cookie loaded from disk:", self.chain_cookie)
+        logging.info("chain session cookie loaded from disk:{}".format(self.chain_cookie))
 
         self.exchange_cookie = ""
         self.timeout_height = 1
@@ -231,10 +236,10 @@ class AsyncClient:
             # write to client instance
             self.chain_cookie = new_cookie
             # write to disk
-            cookie_file = open(DEFAULT_CHAIN_COOKIE_NAME, "w")
+            cookie_file = open(self.chain_cookie_location, "w")
             cookie_file.write(new_cookie)
             cookie_file.close()
-            print("chain session cookie saved to disk")
+            logging.info("chain session cookie saved to disk")
 
         if type == "exchange":
             self.exchange_cookie = new_cookie

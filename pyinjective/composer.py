@@ -1,5 +1,6 @@
 from time import time
 import json
+import logging
 
 from google.protobuf import any_pb2, message, timestamp_pb2
 
@@ -29,6 +30,8 @@ from .constant import Denom
 from .utils import *
 from typing import List
 
+logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
+
 class Composer:
     def __init__(self, network: str):
         self.network = network
@@ -52,7 +55,7 @@ class Composer:
     ):
         # load denom metadata
         denom = Denom.load_market(self.network, market_id)
-        print("Loaded market metadata for", denom.description)
+        logging.info("Loaded market metadata for:{}".format(denom.description))
 
         # prepare values
         quantity = spot_quantity_to_backend(quantity, denom)
@@ -94,7 +97,7 @@ class Composer:
     ):
         # load denom metadata
         denom = Denom.load_market(self.network, market_id)
-        print("Loaded market metadata for", denom.description)
+        logging.info("Loaded market metadata for:{}".format(denom.description))
 
         if kwargs.get("is_reduce_only") is None:
             margin = derivative_margin_to_backend(
@@ -153,7 +156,7 @@ class Composer:
             denom = Denom.load_market(self.network, market_id)
 
         # load denom metadata
-        print("Loaded market metadata for", denom.description)
+        logging.info("Loaded market metadata for:{}".format(denom.description))
 
         if kwargs.get("is_reduce_only") is None and kwargs.get("is_buy"):
             margin = binary_options_buy_margin_to_backend(
@@ -207,7 +210,7 @@ class Composer:
     def MsgSend(self, from_address: str, to_address: str, amount: float, denom: str):
         peggy_denom, decimals = Denom.load_peggy_denom(self.network, denom)
         be_amount = amount_to_backend(amount, decimals)
-        print(
+        logging.info(
             "Loaded send symbol {} ({}) with decimals = {}".format(
                 denom, peggy_denom, decimals
             )
@@ -222,7 +225,7 @@ class Composer:
     def MsgDeposit(self, sender: str, subaccount_id: str, amount: float, denom: str):
         peggy_denom, decimals = Denom.load_peggy_denom(self.network, denom)
         be_amount = amount_to_backend(amount, decimals)
-        print(
+        logging.info(
             "Loaded deposit symbol {} ({}) with decimals = {}".format(
                 denom, peggy_denom, decimals
             )
@@ -580,7 +583,7 @@ class Composer:
     def MsgWithdraw(self, sender: str, subaccount_id: str, amount: float, denom: str):
         peggy_denom, decimals = Denom.load_peggy_denom(self.network, denom)
         be_amount = amount_to_backend(amount, decimals)
-        print(
+        logging.info(
             "Loaded withdrawal symbol {} ({}) with decimals = {}".format(
                 denom, peggy_denom, decimals
             )
@@ -732,7 +735,7 @@ class Composer:
         peggy_denom, decimals = Denom.load_peggy_denom(self.network, denom)
         be_amount = amount_to_backend(amount, decimals)
         be_bridge_fee = amount_to_backend(bridge_fee, decimals)
-        print("Loaded withdrawal symbol {} ({}) with decimals = {}".format(denom, peggy_denom, decimals))
+        logging.info("Loaded withdrawal symbol {} ({}) with decimals = {}".format(denom, peggy_denom, decimals))
 
         return injective_peggy_tx_pb.MsgSendToEth(
             sender=sender,
