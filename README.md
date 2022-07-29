@@ -81,6 +81,8 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 **0.5.7.4**
 * Refactor fetch_metada script to use K8S
 * Refactor testnet network config to K8S
+* Removed print logs and standardized logging to info
+* Added support for custom cookie in client initialization
 
 **0.5.7.3**
 * Add multi-subaccount and multi-market support in TradesRequest

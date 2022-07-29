@@ -28,7 +28,8 @@ async def main() -> None:
     composer = ProtoMsgComposer(network=network.string())
 
     # initialize grpc client
-    client = AsyncClient(network, insecure=False)
+    # set custom cookie location (optional) - defaults to current dir
+    client = AsyncClient(network, insecure=False, chain_cookie_location="/tmp/.chain_cookie")
     await client.sync_timeout_height()
 
     # load account
