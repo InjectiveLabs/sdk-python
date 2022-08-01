@@ -1,6 +1,9 @@
 from web3 import Web3
+import logging
 
 from .wallet import Address
+
+logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 
 class Peggo:
     def __init__(self, network: str):
@@ -8,11 +11,11 @@ class Peggo:
     def SendToCosmos(self, ethereum_endpoint: str, private_key: str, token_contract: str, receiver: str, amount: int,
                      maxFeePerGas: int, maxPriorityFeePerGas: int, peggo_abi: str, decimals=18):
         if self.network == 'testnet':
-            peggy_proxy_address = "0xd6Da9dA014806Fdb64bF39b48fcA386AE3420d21"
+            peggy_proxy_address = "0xd2C6753F6B1783EF0a3857275e16e79D91b539a3"
         elif self.network == 'mainnet':
             peggy_proxy_address = "0xF955C57f9EA9Dc8781965FEaE0b6A2acE2BAD6f3"
         else:
-            print("SendToCosmos is only supported on Mainnet & Testnet")
+            logging.info("SendToCosmos is only supported on Mainnet & Testnet")
         web3 = Web3(Web3.HTTPProvider(ethereum_endpoint))
         contract = web3.eth.contract(address=peggy_proxy_address, abi=peggo_abi)
 
@@ -55,7 +58,7 @@ class Peggo:
 
         try:
             tx_hash = web3.eth.send_raw_transaction(signed_tx.rawTransaction)
-            print("Transferred {} {} from {} to {}".format(amount, token_contract, sender_ethereum_address, receiver))
-            print("Transaction hash:", web3.toHex(tx_hash))
+            logging.info("Transferred {} {} from {} to {}".format(amount, token_contract, sender_ethereum_address, receiver))
+            logging.info("Transaction hash:".format(web3.toHex(tx_hash)))
         except Exception as e:
-            print("Transaction failed", e)
+            logging.info("Transaction failed".format(e))
