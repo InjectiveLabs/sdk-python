@@ -78,11 +78,14 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.5.7.5**
+* Fix MsgExternalTransfer
+
 **0.5.7.4**
 * Refactor fetch_metadata script to use K8S
 * Refactor testnet network config to K8S
-* Removed print logs and standardized logging to info
-* Added support for custom cookie in client initialization
+* Remove print logs and standardized logging to info
+* Print support for custom cookie in client initialization
 
 **0.5.7.3**
 * Add multi-subaccount and multi-market support in TradesRequest

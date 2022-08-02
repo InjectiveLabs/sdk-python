@@ -135,7 +135,7 @@ class Network:
             lcd_endpoint='http://localhost:10337',
             grpc_endpoint='localhost:9900',
             grpc_exchange_endpoint='localhost:9910',
-            chain_id='injective-777',
+            chain_id='injective-1',
             fee_denom='inj',
             env='local'
         )
