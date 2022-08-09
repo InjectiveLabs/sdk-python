@@ -80,6 +80,7 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 ### Changelogs
 **0.5.7.5**
 * Fix MsgExternalTransfer
+* Adapt TradesRequest to optional args
 
 **0.5.7.4**
 * Refactor fetch_metadata script to use K8S
