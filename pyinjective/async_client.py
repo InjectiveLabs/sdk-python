@@ -591,7 +591,7 @@ class AsyncClient:
         )
         return await self.stubSpotExchange.Orders(req)
 
-    async def get_spot_trades(self, market_id: str, **kwargs):
+    async def get_spot_trades(self, **kwargs):
         req = spot_exchange_rpc_pb.TradesRequest(
             market_id=kwargs.get("market_id"),
             market_ids=kwargs.get("market_ids"),
@@ -693,7 +693,7 @@ class AsyncClient:
         )
         return await self.stubDerivativeExchange.Orders(req)
 
-    async def get_derivative_trades(self, market_id: str, **kwargs):
+    async def get_derivative_trades(self, **kwargs):
         req = derivative_exchange_rpc_pb.TradesRequest(
             market_id=kwargs.get("market_id"),
             market_ids=kwargs.get("market_ids"),
