@@ -301,8 +301,8 @@ class Composer:
             sender=sender, data=data
         )
 
-    def MsgRegisterAsDMM(self, sender: str, dmm_account: str):
-        return injective_exchange_tx_pb.MsgRegisterAsDMM(
+    def MsgRewardsOptOut(self, sender: str, dmm_account: str):
+        return injective_exchange_tx_pb.MsgRewardsOptOut(
             sender=sender, dmm_account=dmm_account
         )
 
