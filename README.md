@@ -78,6 +78,9 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.5.7.6**
+* Added OrdersHistory
+
 **0.5.7.5**
 * Fix MsgExternalTransfer
 * Adapt TradesRequest to optional args
