@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z\'github.com/cosmos/cosmos-sdk/x/feegrant',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n#cosmos/feegrant/v1beta1/query.proto\x12\x17\x63osmos.feegrant.v1beta1\x1a&cosmos/feegrant/v1beta1/feegrant.proto\x1a*cosmos/base/query/v1beta1/pagination.proto\x1a\x1cgoogle/api/annotations.proto\"9\n\x15QueryAllowanceRequest\x12\x0f\n\x07granter\x18\x01 \x01(\t\x12\x0f\n\x07grantee\x18\x02 \x01(\t\"K\n\x16QueryAllowanceResponse\x12\x31\n\tallowance\x18\x01 \x01(\x0b\x32\x1e.cosmos.feegrant.v1beta1.Grant\"e\n\x16QueryAllowancesRequest\x12\x0f\n\x07grantee\x18\x01 \x01(\t\x12:\n\npagination\x18\x02 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequest\"\x8a\x01\n\x17QueryAllowancesResponse\x12\x32\n\nallowances\x18\x01 \x03(\x0b\x32\x1e.cosmos.feegrant.v1beta1.Grant\x12;\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponse2\xdf\x02\n\x05Query\x12\xac\x01\n\tAllowance\x12..cosmos.feegrant.v1beta1.QueryAllowanceRequest\x1a/.cosmos.feegrant.v1beta1.QueryAllowanceResponse\">\x82\xd3\xe4\x93\x02\x38\x12\x36/cosmos/feegrant/v1beta1/allowance/{granter}/{grantee}\x12\xa6\x01\n\nAllowances\x12/.cosmos.feegrant.v1beta1.QueryAllowancesRequest\x1a\x30.cosmos.feegrant.v1beta1.QueryAllowancesResponse\"5\x82\xd3\xe4\x93\x02/\x12-/cosmos/feegrant/v1beta1/allowances/{grantee}B)Z\'github.com/cosmos/cosmos-sdk/x/feegrantb\x06proto3'
+  serialized_pb=b'\n#cosmos/feegrant/v1beta1/query.proto\x12\x17\x63osmos.feegrant.v1beta1\x1a&cosmos/feegrant/v1beta1/feegrant.proto\x1a*cosmos/base/query/v1beta1/pagination.proto\x1a\x1cgoogle/api/annotations.proto\"9\n\x15QueryAllowanceRequest\x12\x0f\n\x07granter\x18\x01 \x01(\t\x12\x0f\n\x07grantee\x18\x02 \x01(\t\"K\n\x16QueryAllowanceResponse\x12\x31\n\tallowance\x18\x01 \x01(\x0b\x32\x1e.cosmos.feegrant.v1beta1.Grant\"e\n\x16QueryAllowancesRequest\x12\x0f\n\x07grantee\x18\x01 \x01(\t\x12:\n\npagination\x18\x02 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequest\"\x8a\x01\n\x17QueryAllowancesResponse\x12\x32\n\nallowances\x18\x01 \x03(\x0b\x32\x1e.cosmos.feegrant.v1beta1.Grant\x12;\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponse\"n\n\x1fQueryAllowancesByGranterRequest\x12\x0f\n\x07granter\x18\x01 \x01(\t\x12:\n\npagination\x18\x02 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequest\"\x93\x01\n QueryAllowancesByGranterResponse\x12\x32\n\nallowances\x18\x01 \x03(\x0b\x32\x1e.cosmos.feegrant.v1beta1.Grant\x12;\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponse2\x9f\x04\n\x05Query\x12\xac\x01\n\tAllowance\x12..cosmos.feegrant.v1beta1.QueryAllowanceRequest\x1a/.cosmos.feegrant.v1beta1.QueryAllowanceResponse\">\x82\xd3\xe4\x93\x02\x38\x12\x36/cosmos/feegrant/v1beta1/allowance/{granter}/{grantee}\x12\xa6\x01\n\nAllowances\x12/.cosmos.feegrant.v1beta1.QueryAllowancesRequest\x1a\x30.cosmos.feegrant.v1beta1.QueryAllowancesResponse\"5\x82\xd3\xe4\x93\x02/\x12-/cosmos/feegrant/v1beta1/allowances/{grantee}\x12\xbd\x01\n\x13\x41llowancesByGranter\x12\x38.cosmos.feegrant.v1beta1.QueryAllowancesByGranterRequest\x1a\x39.cosmos.feegrant.v1beta1.QueryAllowancesByGranterResponse\"1\x82\xd3\xe4\x93\x02+\x12)/cosmos/feegrant/v1beta1/issued/{granter}B)Z\'github.com/cosmos/cosmos-sdk/x/feegrantb\x06proto3'
   ,
   dependencies=[cosmos_dot_feegrant_dot_v1beta1_dot_feegrant__pb2.DESCRIPTOR,cosmos_dot_base_dot_query_dot_v1beta1_dot_pagination__pb2.DESCRIPTOR,google_dot_api_dot_annotations__pb2.DESCRIPTOR,])
 
@@ -177,14 +177,97 @@ _QUERYALLOWANCESRESPONSE = _descriptor.Descriptor(
   serialized_end=556,
 )
 
+
+_QUERYALLOWANCESBYGRANTERREQUEST = _descriptor.Descriptor(
+  name='QueryAllowancesByGranterRequest',
+  full_name='cosmos.feegrant.v1beta1.QueryAllowancesByGranterRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='granter', full_name='cosmos.feegrant.v1beta1.QueryAllowancesByGranterRequest.granter', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='pagination', full_name='cosmos.feegrant.v1beta1.QueryAllowancesByGranterRequest.pagination', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=558,
+  serialized_end=668,
+)
+
+
+_QUERYALLOWANCESBYGRANTERRESPONSE = _descriptor.Descriptor(
+  name='QueryAllowancesByGranterResponse',
+  full_name='cosmos.feegrant.v1beta1.QueryAllowancesByGranterResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='allowances', full_name='cosmos.feegrant.v1beta1.QueryAllowancesByGranterResponse.allowances', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='pagination', full_name='cosmos.feegrant.v1beta1.QueryAllowancesByGranterResponse.pagination', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=671,
+  serialized_end=818,
+)
+
 _QUERYALLOWANCERESPONSE.fields_by_name['allowance'].message_type = cosmos_dot_feegrant_dot_v1beta1_dot_feegrant__pb2._GRANT
 _QUERYALLOWANCESREQUEST.fields_by_name['pagination'].message_type = cosmos_dot_base_dot_query_dot_v1beta1_dot_pagination__pb2._PAGEREQUEST
 _QUERYALLOWANCESRESPONSE.fields_by_name['allowances'].message_type = cosmos_dot_feegrant_dot_v1beta1_dot_feegrant__pb2._GRANT
 _QUERYALLOWANCESRESPONSE.fields_by_name['pagination'].message_type = cosmos_dot_base_dot_query_dot_v1beta1_dot_pagination__pb2._PAGERESPONSE
+_QUERYALLOWANCESBYGRANTERREQUEST.fields_by_name['pagination'].message_type = cosmos_dot_base_dot_query_dot_v1beta1_dot_pagination__pb2._PAGEREQUEST
+_QUERYALLOWANCESBYGRANTERRESPONSE.fields_by_name['allowances'].message_type = cosmos_dot_feegrant_dot_v1beta1_dot_feegrant__pb2._GRANT
+_QUERYALLOWANCESBYGRANTERRESPONSE.fields_by_name['pagination'].message_type = cosmos_dot_base_dot_query_dot_v1beta1_dot_pagination__pb2._PAGERESPONSE
 DESCRIPTOR.message_types_by_name['QueryAllowanceRequest'] = _QUERYALLOWANCEREQUEST
 DESCRIPTOR.message_types_by_name['QueryAllowanceResponse'] = _QUERYALLOWANCERESPONSE
 DESCRIPTOR.message_types_by_name['QueryAllowancesRequest'] = _QUERYALLOWANCESREQUEST
 DESCRIPTOR.message_types_by_name['QueryAllowancesResponse'] = _QUERYALLOWANCESRESPONSE
+DESCRIPTOR.message_types_by_name['QueryAllowancesByGranterRequest'] = _QUERYALLOWANCESBYGRANTERREQUEST
+DESCRIPTOR.message_types_by_name['QueryAllowancesByGranterResponse'] = _QUERYALLOWANCESBYGRANTERRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 QueryAllowanceRequest = _reflection.GeneratedProtocolMessageType('QueryAllowanceRequest', (_message.Message,), {
@@ -215,6 +298,20 @@ QueryAllowancesResponse = _reflection.GeneratedProtocolMessageType('QueryAllowan
   })
 _sym_db.RegisterMessage(QueryAllowancesResponse)
 
+QueryAllowancesByGranterRequest = _reflection.GeneratedProtocolMessageType('QueryAllowancesByGranterRequest', (_message.Message,), {
+  'DESCRIPTOR' : _QUERYALLOWANCESBYGRANTERREQUEST,
+  '__module__' : 'cosmos.feegrant.v1beta1.query_pb2'
+  # @@protoc_insertion_point(class_scope:cosmos.feegrant.v1beta1.QueryAllowancesByGranterRequest)
+  })
+_sym_db.RegisterMessage(QueryAllowancesByGranterRequest)
+
+QueryAllowancesByGranterResponse = _reflection.GeneratedProtocolMessageType('QueryAllowancesByGranterResponse', (_message.Message,), {
+  'DESCRIPTOR' : _QUERYALLOWANCESBYGRANTERRESPONSE,
+  '__module__' : 'cosmos.feegrant.v1beta1.query_pb2'
+  # @@protoc_insertion_point(class_scope:cosmos.feegrant.v1beta1.QueryAllowancesByGranterResponse)
+  })
+_sym_db.RegisterMessage(QueryAllowancesByGranterResponse)
+
 
 DESCRIPTOR._options = None
 
@@ -225,8 +322,8 @@ _QUERY = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=559,
-  serialized_end=910,
+  serialized_start=821,
+  serialized_end=1364,
   methods=[
   _descriptor.MethodDescriptor(
     name='Allowance',
@@ -246,6 +343,16 @@ _QUERY = _descriptor.ServiceDescriptor(
     input_type=_QUERYALLOWANCESREQUEST,
     output_type=_QUERYALLOWANCESRESPONSE,
     serialized_options=b'\202\323\344\223\002/\022-/cosmos/feegrant/v1beta1/allowances/{grantee}',
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='AllowancesByGranter',
+    full_name='cosmos.feegrant.v1beta1.Query.AllowancesByGranter',
+    index=2,
+    containing_service=None,
+    input_type=_QUERYALLOWANCESBYGRANTERREQUEST,
+    output_type=_QUERYALLOWANCESBYGRANTERRESPONSE,
+    serialized_options=b'\202\323\344\223\002+\022)/cosmos/feegrant/v1beta1/issued/{granter}',
     create_key=_descriptor._internal_create_key,
   ),
 ])

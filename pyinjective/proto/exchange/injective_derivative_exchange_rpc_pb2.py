@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z$/injective_derivative_exchange_rpcpb',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n0exchange/injective_derivative_exchange_rpc.proto\x12!injective_derivative_exchange_rpc\"<\n\x0eMarketsRequest\x12\x15\n\rmarket_status\x18\x01 \x01(\t\x12\x13\n\x0bquote_denom\x18\x02 \x01(\t\"[\n\x0fMarketsResponse\x12H\n\x07markets\x18\x01 \x03(\x0b\x32\x37.injective_derivative_exchange_rpc.DerivativeMarketInfo\"\xff\x05\n\x14\x44\x65rivativeMarketInfo\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x15\n\rmarket_status\x18\x02 \x01(\t\x12\x0e\n\x06ticker\x18\x03 \x01(\t\x12\x13\n\x0boracle_base\x18\x04 \x01(\t\x12\x14\n\x0coracle_quote\x18\x05 \x01(\t\x12\x13\n\x0boracle_type\x18\x06 \x01(\t\x12\x1b\n\x13oracle_scale_factor\x18\x07 \x01(\r\x12\x1c\n\x14initial_margin_ratio\x18\x08 \x01(\t\x12 \n\x18maintenance_margin_ratio\x18\t \x01(\t\x12\x13\n\x0bquote_denom\x18\n \x01(\t\x12\x46\n\x10quote_token_meta\x18\x0b \x01(\x0b\x32,.injective_derivative_exchange_rpc.TokenMeta\x12\x16\n\x0emaker_fee_rate\x18\x0c \x01(\t\x12\x16\n\x0etaker_fee_rate\x18\r \x01(\t\x12\x1c\n\x14service_provider_fee\x18\x0e \x01(\t\x12\x14\n\x0cis_perpetual\x18\x0f \x01(\x08\x12\x1b\n\x13min_price_tick_size\x18\x10 \x01(\t\x12\x1e\n\x16min_quantity_tick_size\x18\x11 \x01(\t\x12U\n\x15perpetual_market_info\x18\x12 \x01(\x0b\x32\x36.injective_derivative_exchange_rpc.PerpetualMarketInfo\x12[\n\x18perpetual_market_funding\x18\x13 \x01(\x0b\x32\x39.injective_derivative_exchange_rpc.PerpetualMarketFunding\x12^\n\x1a\x65xpiry_futures_market_info\x18\x14 \x01(\x0b\x32:.injective_derivative_exchange_rpc.ExpiryFuturesMarketInfo\"n\n\tTokenMeta\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x02 \x01(\t\x12\x0e\n\x06symbol\x18\x03 \x01(\t\x12\x0c\n\x04logo\x18\x04 \x01(\t\x12\x10\n\x08\x64\x65\x63imals\x18\x05 \x01(\x11\x12\x12\n\nupdated_at\x18\x06 \x01(\x12\"\x8e\x01\n\x13PerpetualMarketInfo\x12\x1f\n\x17hourly_funding_rate_cap\x18\x01 \x01(\t\x12\x1c\n\x14hourly_interest_rate\x18\x02 \x01(\t\x12\x1e\n\x16next_funding_timestamp\x18\x03 \x01(\x12\x12\x18\n\x10\x66unding_interval\x18\x04 \x01(\x12\"f\n\x16PerpetualMarketFunding\x12\x1a\n\x12\x63umulative_funding\x18\x01 \x01(\t\x12\x18\n\x10\x63umulative_price\x18\x02 \x01(\t\x12\x16\n\x0elast_timestamp\x18\x03 \x01(\x12\"Q\n\x17\x45xpiryFuturesMarketInfo\x12\x1c\n\x14\x65xpiration_timestamp\x18\x01 \x01(\x12\x12\x18\n\x10settlement_price\x18\x02 \x01(\t\"\"\n\rMarketRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\"Y\n\x0eMarketResponse\x12G\n\x06market\x18\x01 \x01(\x0b\x32\x37.injective_derivative_exchange_rpc.DerivativeMarketInfo\")\n\x13StreamMarketRequest\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"\x8a\x01\n\x14StreamMarketResponse\x12G\n\x06market\x18\x01 \x01(\x0b\x32\x37.injective_derivative_exchange_rpc.DerivativeMarketInfo\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"I\n\x1b\x42inaryOptionsMarketsRequest\x12\x15\n\rmarket_status\x18\x01 \x01(\t\x12\x13\n\x0bquote_denom\x18\x02 \x01(\t\"k\n\x1c\x42inaryOptionsMarketsResponse\x12K\n\x07markets\x18\x01 \x03(\x0b\x32:.injective_derivative_exchange_rpc.BinaryOptionsMarketInfo\"\xf3\x03\n\x17\x42inaryOptionsMarketInfo\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x15\n\rmarket_status\x18\x02 \x01(\t\x12\x0e\n\x06ticker\x18\x03 \x01(\t\x12\x15\n\roracle_symbol\x18\x04 \x01(\t\x12\x17\n\x0foracle_provider\x18\x05 \x01(\t\x12\x13\n\x0boracle_type\x18\x06 \x01(\t\x12\x1b\n\x13oracle_scale_factor\x18\x07 \x01(\r\x12\x1c\n\x14\x65xpiration_timestamp\x18\x08 \x01(\x12\x12\x1c\n\x14settlement_timestamp\x18\t \x01(\x12\x12\x13\n\x0bquote_denom\x18\n \x01(\t\x12\x46\n\x10quote_token_meta\x18\x0b \x01(\x0b\x32,.injective_derivative_exchange_rpc.TokenMeta\x12\x16\n\x0emaker_fee_rate\x18\x0c \x01(\t\x12\x16\n\x0etaker_fee_rate\x18\r \x01(\t\x12\x1c\n\x14service_provider_fee\x18\x0e \x01(\t\x12\x1b\n\x13min_price_tick_size\x18\x0f \x01(\t\x12\x1e\n\x16min_quantity_tick_size\x18\x10 \x01(\t\x12\x18\n\x10settlement_price\x18\x11 \x01(\t\"/\n\x1a\x42inaryOptionsMarketRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\"i\n\x1b\x42inaryOptionsMarketResponse\x12J\n\x06market\x18\x01 \x01(\x0b\x32:.injective_derivative_exchange_rpc.BinaryOptionsMarketInfo\"%\n\x10OrderbookRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\"c\n\x11OrderbookResponse\x12N\n\torderbook\x18\x01 \x01(\x0b\x32;.injective_derivative_exchange_rpc.DerivativeLimitOrderbook\"\x95\x01\n\x18\x44\x65rivativeLimitOrderbook\x12;\n\x04\x62uys\x18\x01 \x03(\x0b\x32-.injective_derivative_exchange_rpc.PriceLevel\x12<\n\x05sells\x18\x02 \x03(\x0b\x32-.injective_derivative_exchange_rpc.PriceLevel\"@\n\nPriceLevel\x12\r\n\x05price\x18\x01 \x01(\t\x12\x10\n\x08quantity\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"\'\n\x11OrderbooksRequest\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"k\n\x12OrderbooksResponse\x12U\n\norderbooks\x18\x01 \x03(\x0b\x32\x41.injective_derivative_exchange_rpc.SingleDerivativeLimitOrderbook\"\x83\x01\n\x1eSingleDerivativeLimitOrderbook\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12N\n\torderbook\x18\x02 \x01(\x0b\x32;.injective_derivative_exchange_rpc.DerivativeLimitOrderbook\",\n\x16StreamOrderbookRequest\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"\xa7\x01\n\x17StreamOrderbookResponse\x12N\n\torderbook\x18\x01 \x01(\x0b\x32;.injective_derivative_exchange_rpc.DerivativeLimitOrderbook\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\x12\x11\n\tmarket_id\x18\x04 \x01(\t\"j\n\rOrdersRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x12\n\norder_side\x18\x02 \x01(\t\x12\x15\n\rsubaccount_id\x18\x03 \x01(\t\x12\x0c\n\x04skip\x18\x04 \x01(\x04\x12\r\n\x05limit\x18\x05 \x01(\x11\"Y\n\x0eOrdersResponse\x12G\n\x06orders\x18\x01 \x03(\x0b\x32\x37.injective_derivative_exchange_rpc.DerivativeLimitOrder\"\xb1\x02\n\x14\x44\x65rivativeLimitOrder\x12\x12\n\norder_hash\x18\x01 \x01(\t\x12\x12\n\norder_side\x18\x02 \x01(\t\x12\x11\n\tmarket_id\x18\x03 \x01(\t\x12\x15\n\rsubaccount_id\x18\x04 \x01(\t\x12\x16\n\x0eis_reduce_only\x18\x05 \x01(\x08\x12\x0e\n\x06margin\x18\x06 \x01(\t\x12\r\n\x05price\x18\x07 \x01(\t\x12\x10\n\x08quantity\x18\x08 \x01(\t\x12\x19\n\x11unfilled_quantity\x18\t \x01(\t\x12\x15\n\rtrigger_price\x18\n \x01(\t\x12\x15\n\rfee_recipient\x18\x0b \x01(\t\x12\r\n\x05state\x18\x0c \x01(\t\x12\x12\n\ncreated_at\x18\r \x01(\x12\x12\x12\n\nupdated_at\x18\x0e \x01(\x12\"Y\n\x10PositionsRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x0c\n\x04skip\x18\x03 \x01(\x04\x12\r\n\x05limit\x18\x04 \x01(\x11\"]\n\x11PositionsResponse\x12H\n\tpositions\x18\x01 \x03(\x0b\x32\x35.injective_derivative_exchange_rpc.DerivativePosition\"\xef\x01\n\x12\x44\x65rivativePosition\x12\x0e\n\x06ticker\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x15\n\rsubaccount_id\x18\x03 \x01(\t\x12\x11\n\tdirection\x18\x04 \x01(\t\x12\x10\n\x08quantity\x18\x05 \x01(\t\x12\x13\n\x0b\x65ntry_price\x18\x06 \x01(\t\x12\x0e\n\x06margin\x18\x07 \x01(\t\x12\x19\n\x11liquidation_price\x18\x08 \x01(\t\x12\x12\n\nmark_price\x18\t \x01(\t\x12&\n\x1e\x61ggregate_reduce_only_quantity\x18\x0b \x01(\t\"L\n\x1aLiquidablePositionsRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x0c\n\x04skip\x18\x02 \x01(\x04\x12\r\n\x05limit\x18\x03 \x01(\x11\"g\n\x1bLiquidablePositionsResponse\x12H\n\tpositions\x18\x01 \x03(\x0b\x32\x35.injective_derivative_exchange_rpc.DerivativePosition\"_\n\x16\x46undingPaymentsRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x0c\n\x04skip\x18\x03 \x01(\x04\x12\r\n\x05limit\x18\x04 \x01(\x11\"^\n\x17\x46undingPaymentsResponse\x12\x43\n\x08payments\x18\x01 \x03(\x0b\x32\x31.injective_derivative_exchange_rpc.FundingPayment\"]\n\x0e\x46undingPayment\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\t\x12\x11\n\ttimestamp\x18\x04 \x01(\x12\"E\n\x13\x46undingRatesRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x0c\n\x04skip\x18\x02 \x01(\x04\x12\r\n\x05limit\x18\x03 \x01(\x11\"]\n\x14\x46undingRatesResponse\x12\x45\n\rfunding_rates\x18\x01 \x03(\x0b\x32..injective_derivative_exchange_rpc.FundingRate\"A\n\x0b\x46undingRate\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x0c\n\x04rate\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"n\n\x16StreamPositionsRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x12\n\nmarket_ids\x18\x03 \x03(\t\x12\x16\n\x0esubaccount_ids\x18\x04 \x03(\t\"u\n\x17StreamPositionsResponse\x12G\n\x08position\x18\x01 \x01(\x0b\x32\x35.injective_derivative_exchange_rpc.DerivativePosition\x12\x11\n\ttimestamp\x18\x02 \x01(\x12\"p\n\x13StreamOrdersRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x12\n\norder_side\x18\x02 \x01(\t\x12\x15\n\rsubaccount_id\x18\x03 \x01(\t\x12\x0c\n\x04skip\x18\x04 \x01(\x04\x12\r\n\x05limit\x18\x05 \x01(\x11\"\x89\x01\n\x14StreamOrdersResponse\x12\x46\n\x05order\x18\x01 \x01(\x0b\x32\x37.injective_derivative_exchange_rpc.DerivativeLimitOrder\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"\xd3\x01\n\rTradesRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x16\n\x0e\x65xecution_side\x18\x02 \x01(\t\x12\x11\n\tdirection\x18\x03 \x01(\t\x12\x15\n\rsubaccount_id\x18\x04 \x01(\t\x12\x0c\n\x04skip\x18\x05 \x01(\x04\x12\r\n\x05limit\x18\x06 \x01(\x11\x12\x12\n\nstart_time\x18\x07 \x01(\x12\x12\x10\n\x08\x65nd_time\x18\x08 \x01(\x12\x12\x12\n\nmarket_ids\x18\t \x03(\t\x12\x16\n\x0esubaccount_ids\x18\n \x03(\t\"T\n\x0eTradesResponse\x12\x42\n\x06trades\x18\x01 \x03(\x0b\x32\x32.injective_derivative_exchange_rpc.DerivativeTrade\"\xaa\x02\n\x0f\x44\x65rivativeTrade\x12\x12\n\norder_hash\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\x12\x11\n\tmarket_id\x18\x03 \x01(\t\x12\x1c\n\x14trade_execution_type\x18\x04 \x01(\t\x12\x16\n\x0eis_liquidation\x18\x05 \x01(\x08\x12H\n\x0eposition_delta\x18\x06 \x01(\x0b\x32\x30.injective_derivative_exchange_rpc.PositionDelta\x12\x0e\n\x06payout\x18\x07 \x01(\t\x12\x0b\n\x03\x66\x65\x65\x18\x08 \x01(\t\x12\x13\n\x0b\x65xecuted_at\x18\t \x01(\x12\x12\x15\n\rfee_recipient\x18\n \x01(\t\x12\x10\n\x08trade_id\x18\x0b \x01(\t\"w\n\rPositionDelta\x12\x17\n\x0ftrade_direction\x18\x01 \x01(\t\x12\x17\n\x0f\x65xecution_price\x18\x02 \x01(\t\x12\x1a\n\x12\x65xecution_quantity\x18\x03 \x01(\t\x12\x18\n\x10\x65xecution_margin\x18\x04 \x01(\t\"\xd9\x01\n\x13StreamTradesRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x16\n\x0e\x65xecution_side\x18\x02 \x01(\t\x12\x11\n\tdirection\x18\x03 \x01(\t\x12\x15\n\rsubaccount_id\x18\x04 \x01(\t\x12\x0c\n\x04skip\x18\x05 \x01(\x04\x12\r\n\x05limit\x18\x06 \x01(\x11\x12\x12\n\nstart_time\x18\x07 \x01(\x12\x12\x10\n\x08\x65nd_time\x18\x08 \x01(\x12\x12\x12\n\nmarket_ids\x18\t \x03(\t\x12\x16\n\x0esubaccount_ids\x18\n \x03(\t\"\x84\x01\n\x14StreamTradesResponse\x12\x41\n\x05trade\x18\x01 \x01(\x0b\x32\x32.injective_derivative_exchange_rpc.DerivativeTrade\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"d\n\x1bSubaccountOrdersListRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x0c\n\x04skip\x18\x03 \x01(\x04\x12\r\n\x05limit\x18\x04 \x01(\x11\"g\n\x1cSubaccountOrdersListResponse\x12G\n\x06orders\x18\x01 \x03(\x0b\x32\x37.injective_derivative_exchange_rpc.DerivativeLimitOrder\"\x8f\x01\n\x1bSubaccountTradesListRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x16\n\x0e\x65xecution_type\x18\x03 \x01(\t\x12\x11\n\tdirection\x18\x04 \x01(\t\x12\x0c\n\x04skip\x18\x05 \x01(\x04\x12\r\n\x05limit\x18\x06 \x01(\x11\"b\n\x1cSubaccountTradesListResponse\x12\x42\n\x06trades\x18\x01 \x03(\x0b\x32\x32.injective_derivative_exchange_rpc.DerivativeTrade2\xf8\x13\n\x1eInjectiveDerivativeExchangeRPC\x12p\n\x07Markets\x12\x31.injective_derivative_exchange_rpc.MarketsRequest\x1a\x32.injective_derivative_exchange_rpc.MarketsResponse\x12m\n\x06Market\x12\x30.injective_derivative_exchange_rpc.MarketRequest\x1a\x31.injective_derivative_exchange_rpc.MarketResponse\x12\x81\x01\n\x0cStreamMarket\x12\x36.injective_derivative_exchange_rpc.StreamMarketRequest\x1a\x37.injective_derivative_exchange_rpc.StreamMarketResponse0\x01\x12\x97\x01\n\x14\x42inaryOptionsMarkets\x12>.injective_derivative_exchange_rpc.BinaryOptionsMarketsRequest\x1a?.injective_derivative_exchange_rpc.BinaryOptionsMarketsResponse\x12\x94\x01\n\x13\x42inaryOptionsMarket\x12=.injective_derivative_exchange_rpc.BinaryOptionsMarketRequest\x1a>.injective_derivative_exchange_rpc.BinaryOptionsMarketResponse\x12v\n\tOrderbook\x12\x33.injective_derivative_exchange_rpc.OrderbookRequest\x1a\x34.injective_derivative_exchange_rpc.OrderbookResponse\x12y\n\nOrderbooks\x12\x34.injective_derivative_exchange_rpc.OrderbooksRequest\x1a\x35.injective_derivative_exchange_rpc.OrderbooksResponse\x12\x8a\x01\n\x0fStreamOrderbook\x12\x39.injective_derivative_exchange_rpc.StreamOrderbookRequest\x1a:.injective_derivative_exchange_rpc.StreamOrderbookResponse0\x01\x12m\n\x06Orders\x12\x30.injective_derivative_exchange_rpc.OrdersRequest\x1a\x31.injective_derivative_exchange_rpc.OrdersResponse\x12v\n\tPositions\x12\x33.injective_derivative_exchange_rpc.PositionsRequest\x1a\x34.injective_derivative_exchange_rpc.PositionsResponse\x12\x94\x01\n\x13LiquidablePositions\x12=.injective_derivative_exchange_rpc.LiquidablePositionsRequest\x1a>.injective_derivative_exchange_rpc.LiquidablePositionsResponse\x12\x88\x01\n\x0f\x46undingPayments\x12\x39.injective_derivative_exchange_rpc.FundingPaymentsRequest\x1a:.injective_derivative_exchange_rpc.FundingPaymentsResponse\x12\x7f\n\x0c\x46undingRates\x12\x36.injective_derivative_exchange_rpc.FundingRatesRequest\x1a\x37.injective_derivative_exchange_rpc.FundingRatesResponse\x12\x8a\x01\n\x0fStreamPositions\x12\x39.injective_derivative_exchange_rpc.StreamPositionsRequest\x1a:.injective_derivative_exchange_rpc.StreamPositionsResponse0\x01\x12\x81\x01\n\x0cStreamOrders\x12\x36.injective_derivative_exchange_rpc.StreamOrdersRequest\x1a\x37.injective_derivative_exchange_rpc.StreamOrdersResponse0\x01\x12m\n\x06Trades\x12\x30.injective_derivative_exchange_rpc.TradesRequest\x1a\x31.injective_derivative_exchange_rpc.TradesResponse\x12\x81\x01\n\x0cStreamTrades\x12\x36.injective_derivative_exchange_rpc.StreamTradesRequest\x1a\x37.injective_derivative_exchange_rpc.StreamTradesResponse0\x01\x12\x97\x01\n\x14SubaccountOrdersList\x12>.injective_derivative_exchange_rpc.SubaccountOrdersListRequest\x1a?.injective_derivative_exchange_rpc.SubaccountOrdersListResponse\x12\x97\x01\n\x14SubaccountTradesList\x12>.injective_derivative_exchange_rpc.SubaccountTradesListRequest\x1a?.injective_derivative_exchange_rpc.SubaccountTradesListResponseB&Z$/injective_derivative_exchange_rpcpbb\x06proto3'
+  serialized_pb=b'\n0exchange/injective_derivative_exchange_rpc.proto\x12!injective_derivative_exchange_rpc\"<\n\x0eMarketsRequest\x12\x15\n\rmarket_status\x18\x01 \x01(\t\x12\x13\n\x0bquote_denom\x18\x02 \x01(\t\"[\n\x0fMarketsResponse\x12H\n\x07markets\x18\x01 \x03(\x0b\x32\x37.injective_derivative_exchange_rpc.DerivativeMarketInfo\"\xff\x05\n\x14\x44\x65rivativeMarketInfo\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x15\n\rmarket_status\x18\x02 \x01(\t\x12\x0e\n\x06ticker\x18\x03 \x01(\t\x12\x13\n\x0boracle_base\x18\x04 \x01(\t\x12\x14\n\x0coracle_quote\x18\x05 \x01(\t\x12\x13\n\x0boracle_type\x18\x06 \x01(\t\x12\x1b\n\x13oracle_scale_factor\x18\x07 \x01(\r\x12\x1c\n\x14initial_margin_ratio\x18\x08 \x01(\t\x12 \n\x18maintenance_margin_ratio\x18\t \x01(\t\x12\x13\n\x0bquote_denom\x18\n \x01(\t\x12\x46\n\x10quote_token_meta\x18\x0b \x01(\x0b\x32,.injective_derivative_exchange_rpc.TokenMeta\x12\x16\n\x0emaker_fee_rate\x18\x0c \x01(\t\x12\x16\n\x0etaker_fee_rate\x18\r \x01(\t\x12\x1c\n\x14service_provider_fee\x18\x0e \x01(\t\x12\x14\n\x0cis_perpetual\x18\x0f \x01(\x08\x12\x1b\n\x13min_price_tick_size\x18\x10 \x01(\t\x12\x1e\n\x16min_quantity_tick_size\x18\x11 \x01(\t\x12U\n\x15perpetual_market_info\x18\x12 \x01(\x0b\x32\x36.injective_derivative_exchange_rpc.PerpetualMarketInfo\x12[\n\x18perpetual_market_funding\x18\x13 \x01(\x0b\x32\x39.injective_derivative_exchange_rpc.PerpetualMarketFunding\x12^\n\x1a\x65xpiry_futures_market_info\x18\x14 \x01(\x0b\x32:.injective_derivative_exchange_rpc.ExpiryFuturesMarketInfo\"n\n\tTokenMeta\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x02 \x01(\t\x12\x0e\n\x06symbol\x18\x03 \x01(\t\x12\x0c\n\x04logo\x18\x04 \x01(\t\x12\x10\n\x08\x64\x65\x63imals\x18\x05 \x01(\x11\x12\x12\n\nupdated_at\x18\x06 \x01(\x12\"\x8e\x01\n\x13PerpetualMarketInfo\x12\x1f\n\x17hourly_funding_rate_cap\x18\x01 \x01(\t\x12\x1c\n\x14hourly_interest_rate\x18\x02 \x01(\t\x12\x1e\n\x16next_funding_timestamp\x18\x03 \x01(\x12\x12\x18\n\x10\x66unding_interval\x18\x04 \x01(\x12\"f\n\x16PerpetualMarketFunding\x12\x1a\n\x12\x63umulative_funding\x18\x01 \x01(\t\x12\x18\n\x10\x63umulative_price\x18\x02 \x01(\t\x12\x16\n\x0elast_timestamp\x18\x03 \x01(\x12\"Q\n\x17\x45xpiryFuturesMarketInfo\x12\x1c\n\x14\x65xpiration_timestamp\x18\x01 \x01(\x12\x12\x18\n\x10settlement_price\x18\x02 \x01(\t\"\"\n\rMarketRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\"Y\n\x0eMarketResponse\x12G\n\x06market\x18\x01 \x01(\x0b\x32\x37.injective_derivative_exchange_rpc.DerivativeMarketInfo\")\n\x13StreamMarketRequest\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"\x8a\x01\n\x14StreamMarketResponse\x12G\n\x06market\x18\x01 \x01(\x0b\x32\x37.injective_derivative_exchange_rpc.DerivativeMarketInfo\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"I\n\x1b\x42inaryOptionsMarketsRequest\x12\x15\n\rmarket_status\x18\x01 \x01(\t\x12\x13\n\x0bquote_denom\x18\x02 \x01(\t\"k\n\x1c\x42inaryOptionsMarketsResponse\x12K\n\x07markets\x18\x01 \x03(\x0b\x32:.injective_derivative_exchange_rpc.BinaryOptionsMarketInfo\"\xf3\x03\n\x17\x42inaryOptionsMarketInfo\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x15\n\rmarket_status\x18\x02 \x01(\t\x12\x0e\n\x06ticker\x18\x03 \x01(\t\x12\x15\n\roracle_symbol\x18\x04 \x01(\t\x12\x17\n\x0foracle_provider\x18\x05 \x01(\t\x12\x13\n\x0boracle_type\x18\x06 \x01(\t\x12\x1b\n\x13oracle_scale_factor\x18\x07 \x01(\r\x12\x1c\n\x14\x65xpiration_timestamp\x18\x08 \x01(\x12\x12\x1c\n\x14settlement_timestamp\x18\t \x01(\x12\x12\x13\n\x0bquote_denom\x18\n \x01(\t\x12\x46\n\x10quote_token_meta\x18\x0b \x01(\x0b\x32,.injective_derivative_exchange_rpc.TokenMeta\x12\x16\n\x0emaker_fee_rate\x18\x0c \x01(\t\x12\x16\n\x0etaker_fee_rate\x18\r \x01(\t\x12\x1c\n\x14service_provider_fee\x18\x0e \x01(\t\x12\x1b\n\x13min_price_tick_size\x18\x0f \x01(\t\x12\x1e\n\x16min_quantity_tick_size\x18\x10 \x01(\t\x12\x18\n\x10settlement_price\x18\x11 \x01(\t\"/\n\x1a\x42inaryOptionsMarketRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\"i\n\x1b\x42inaryOptionsMarketResponse\x12J\n\x06market\x18\x01 \x01(\x0b\x32:.injective_derivative_exchange_rpc.BinaryOptionsMarketInfo\"%\n\x10OrderbookRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\"c\n\x11OrderbookResponse\x12N\n\torderbook\x18\x01 \x01(\x0b\x32;.injective_derivative_exchange_rpc.DerivativeLimitOrderbook\"\x95\x01\n\x18\x44\x65rivativeLimitOrderbook\x12;\n\x04\x62uys\x18\x01 \x03(\x0b\x32-.injective_derivative_exchange_rpc.PriceLevel\x12<\n\x05sells\x18\x02 \x03(\x0b\x32-.injective_derivative_exchange_rpc.PriceLevel\"@\n\nPriceLevel\x12\r\n\x05price\x18\x01 \x01(\t\x12\x10\n\x08quantity\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"\'\n\x11OrderbooksRequest\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"k\n\x12OrderbooksResponse\x12U\n\norderbooks\x18\x01 \x03(\x0b\x32\x41.injective_derivative_exchange_rpc.SingleDerivativeLimitOrderbook\"\x83\x01\n\x1eSingleDerivativeLimitOrderbook\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12N\n\torderbook\x18\x02 \x01(\x0b\x32;.injective_derivative_exchange_rpc.DerivativeLimitOrderbook\",\n\x16StreamOrderbookRequest\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"\xa7\x01\n\x17StreamOrderbookResponse\x12N\n\torderbook\x18\x01 \x01(\x0b\x32;.injective_derivative_exchange_rpc.DerivativeLimitOrderbook\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\x12\x11\n\tmarket_id\x18\x04 \x01(\t\"j\n\rOrdersRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x12\n\norder_side\x18\x02 \x01(\t\x12\x15\n\rsubaccount_id\x18\x03 \x01(\t\x12\x0c\n\x04skip\x18\x04 \x01(\x04\x12\r\n\x05limit\x18\x05 \x01(\x11\"\x94\x01\n\x0eOrdersResponse\x12G\n\x06orders\x18\x01 \x03(\x0b\x32\x37.injective_derivative_exchange_rpc.DerivativeLimitOrder\x12\x39\n\x06paging\x18\x02 \x01(\x0b\x32).injective_derivative_exchange_rpc.Paging\"\xc7\x02\n\x14\x44\x65rivativeLimitOrder\x12\x12\n\norder_hash\x18\x01 \x01(\t\x12\x12\n\norder_side\x18\x02 \x01(\t\x12\x11\n\tmarket_id\x18\x03 \x01(\t\x12\x15\n\rsubaccount_id\x18\x04 \x01(\t\x12\x16\n\x0eis_reduce_only\x18\x05 \x01(\x08\x12\x0e\n\x06margin\x18\x06 \x01(\t\x12\r\n\x05price\x18\x07 \x01(\t\x12\x10\n\x08quantity\x18\x08 \x01(\t\x12\x19\n\x11unfilled_quantity\x18\t \x01(\t\x12\x15\n\rtrigger_price\x18\n \x01(\t\x12\x15\n\rfee_recipient\x18\x0b \x01(\t\x12\r\n\x05state\x18\x0c \x01(\t\x12\x12\n\ncreated_at\x18\r \x01(\x12\x12\x12\n\nupdated_at\x18\x0e \x01(\x12\x12\x14\n\x0corder_number\x18\x0f \x01(\x12\"1\n\x06Paging\x12\r\n\x05total\x18\x01 \x01(\x12\x12\x0c\n\x04\x66rom\x18\x02 \x01(\x11\x12\n\n\x02to\x18\x03 \x01(\x11\"Y\n\x10PositionsRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x0c\n\x04skip\x18\x03 \x01(\x04\x12\r\n\x05limit\x18\x04 \x01(\x11\"\x98\x01\n\x11PositionsResponse\x12H\n\tpositions\x18\x01 \x03(\x0b\x32\x35.injective_derivative_exchange_rpc.DerivativePosition\x12\x39\n\x06paging\x18\x02 \x01(\x0b\x32).injective_derivative_exchange_rpc.Paging\"\xef\x01\n\x12\x44\x65rivativePosition\x12\x0e\n\x06ticker\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x15\n\rsubaccount_id\x18\x03 \x01(\t\x12\x11\n\tdirection\x18\x04 \x01(\t\x12\x10\n\x08quantity\x18\x05 \x01(\t\x12\x13\n\x0b\x65ntry_price\x18\x06 \x01(\t\x12\x0e\n\x06margin\x18\x07 \x01(\t\x12\x19\n\x11liquidation_price\x18\x08 \x01(\t\x12\x12\n\nmark_price\x18\t \x01(\t\x12&\n\x1e\x61ggregate_reduce_only_quantity\x18\x0b \x01(\t\"L\n\x1aLiquidablePositionsRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x0c\n\x04skip\x18\x02 \x01(\x04\x12\r\n\x05limit\x18\x03 \x01(\x11\"g\n\x1bLiquidablePositionsResponse\x12H\n\tpositions\x18\x01 \x03(\x0b\x32\x35.injective_derivative_exchange_rpc.DerivativePosition\"\x85\x01\n\x16\x46undingPaymentsRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x0c\n\x04skip\x18\x03 \x01(\x04\x12\r\n\x05limit\x18\x04 \x01(\x11\x12\x10\n\x08\x65nd_time\x18\x05 \x01(\x12\x12\x12\n\nmarket_ids\x18\x06 \x03(\t\"\x99\x01\n\x17\x46undingPaymentsResponse\x12\x43\n\x08payments\x18\x01 \x03(\x0b\x32\x31.injective_derivative_exchange_rpc.FundingPayment\x12\x39\n\x06paging\x18\x02 \x01(\x0b\x32).injective_derivative_exchange_rpc.Paging\"]\n\x0e\x46undingPayment\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\t\x12\x11\n\ttimestamp\x18\x04 \x01(\x12\"W\n\x13\x46undingRatesRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x0c\n\x04skip\x18\x02 \x01(\x04\x12\r\n\x05limit\x18\x03 \x01(\x11\x12\x10\n\x08\x65nd_time\x18\x04 \x01(\x12\"\x98\x01\n\x14\x46undingRatesResponse\x12\x45\n\rfunding_rates\x18\x01 \x03(\x0b\x32..injective_derivative_exchange_rpc.FundingRate\x12\x39\n\x06paging\x18\x02 \x01(\x0b\x32).injective_derivative_exchange_rpc.Paging\"A\n\x0b\x46undingRate\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x0c\n\x04rate\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"n\n\x16StreamPositionsRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x12\n\nmarket_ids\x18\x03 \x03(\t\x12\x16\n\x0esubaccount_ids\x18\x04 \x03(\t\"u\n\x17StreamPositionsResponse\x12G\n\x08position\x18\x01 \x01(\x0b\x32\x35.injective_derivative_exchange_rpc.DerivativePosition\x12\x11\n\ttimestamp\x18\x02 \x01(\x12\"p\n\x13StreamOrdersRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x12\n\norder_side\x18\x02 \x01(\t\x12\x15\n\rsubaccount_id\x18\x03 \x01(\t\x12\x0c\n\x04skip\x18\x04 \x01(\x04\x12\r\n\x05limit\x18\x05 \x01(\x11\"\x89\x01\n\x14StreamOrdersResponse\x12\x46\n\x05order\x18\x01 \x01(\x0b\x32\x37.injective_derivative_exchange_rpc.DerivativeLimitOrder\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"\xeb\x01\n\rTradesRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x16\n\x0e\x65xecution_side\x18\x02 \x01(\t\x12\x11\n\tdirection\x18\x03 \x01(\t\x12\x15\n\rsubaccount_id\x18\x04 \x01(\t\x12\x0c\n\x04skip\x18\x05 \x01(\x04\x12\r\n\x05limit\x18\x06 \x01(\x11\x12\x12\n\nstart_time\x18\x07 \x01(\x12\x12\x10\n\x08\x65nd_time\x18\x08 \x01(\x12\x12\x12\n\nmarket_ids\x18\x0c \x03(\t\x12\x16\n\x0esubaccount_ids\x18\n \x03(\t\x12\x16\n\x0e\x65xecution_type\x18\x0b \x01(\t\"\x8f\x01\n\x0eTradesResponse\x12\x42\n\x06trades\x18\x01 \x03(\x0b\x32\x32.injective_derivative_exchange_rpc.DerivativeTrade\x12\x39\n\x06paging\x18\x02 \x01(\x0b\x32).injective_derivative_exchange_rpc.Paging\"\xaa\x02\n\x0f\x44\x65rivativeTrade\x12\x12\n\norder_hash\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\x12\x11\n\tmarket_id\x18\x03 \x01(\t\x12\x1c\n\x14trade_execution_type\x18\x04 \x01(\t\x12\x16\n\x0eis_liquidation\x18\x05 \x01(\x08\x12H\n\x0eposition_delta\x18\x06 \x01(\x0b\x32\x30.injective_derivative_exchange_rpc.PositionDelta\x12\x0e\n\x06payout\x18\x07 \x01(\t\x12\x0b\n\x03\x66\x65\x65\x18\x08 \x01(\t\x12\x13\n\x0b\x65xecuted_at\x18\t \x01(\x12\x12\x15\n\rfee_recipient\x18\n \x01(\t\x12\x10\n\x08trade_id\x18\x0b \x01(\t\"w\n\rPositionDelta\x12\x17\n\x0ftrade_direction\x18\x01 \x01(\t\x12\x17\n\x0f\x65xecution_price\x18\x02 \x01(\t\x12\x1a\n\x12\x65xecution_quantity\x18\x03 \x01(\t\x12\x18\n\x10\x65xecution_margin\x18\x04 \x01(\t\"\xf1\x01\n\x13StreamTradesRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x16\n\x0e\x65xecution_side\x18\x02 \x01(\t\x12\x11\n\tdirection\x18\x03 \x01(\t\x12\x15\n\rsubaccount_id\x18\x04 \x01(\t\x12\x0c\n\x04skip\x18\x05 \x01(\x04\x12\r\n\x05limit\x18\x06 \x01(\x11\x12\x12\n\nstart_time\x18\x07 \x01(\x12\x12\x10\n\x08\x65nd_time\x18\x08 \x01(\x12\x12\x12\n\nmarket_ids\x18\x0c \x03(\t\x12\x16\n\x0esubaccount_ids\x18\n \x03(\t\x12\x16\n\x0e\x65xecution_type\x18\x0b \x01(\t\"\x84\x01\n\x14StreamTradesResponse\x12\x41\n\x05trade\x18\x01 \x01(\x0b\x32\x32.injective_derivative_exchange_rpc.DerivativeTrade\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"d\n\x1bSubaccountOrdersListRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x0c\n\x04skip\x18\x03 \x01(\x04\x12\r\n\x05limit\x18\x04 \x01(\x11\"\xa2\x01\n\x1cSubaccountOrdersListResponse\x12G\n\x06orders\x18\x01 \x03(\x0b\x32\x37.injective_derivative_exchange_rpc.DerivativeLimitOrder\x12\x39\n\x06paging\x18\x02 \x01(\x0b\x32).injective_derivative_exchange_rpc.Paging\"\x8f\x01\n\x1bSubaccountTradesListRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x16\n\x0e\x65xecution_type\x18\x03 \x01(\t\x12\x11\n\tdirection\x18\x04 \x01(\t\x12\x0c\n\x04skip\x18\x05 \x01(\x04\x12\r\n\x05limit\x18\x06 \x01(\x11\"b\n\x1cSubaccountTradesListResponse\x12\x42\n\x06trades\x18\x01 \x03(\x0b\x32\x32.injective_derivative_exchange_rpc.DerivativeTrade\"\xaa\x01\n\x14OrdersHistoryRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x0c\n\x04skip\x18\x03 \x01(\x04\x12\r\n\x05limit\x18\x04 \x01(\x11\x12\x12\n\norder_type\x18\x05 \x01(\t\x12\x11\n\tdirection\x18\x06 \x01(\t\x12\x12\n\nstart_time\x18\x07 \x01(\x12\x12\x10\n\x08\x65nd_time\x18\x08 \x01(\x12\"b\n\x15OrdersHistoryResponse\x12I\n\x06orders\x18\x01 \x03(\x0b\x32\x39.injective_derivative_exchange_rpc.DerivativeOrderHistory\"\xc8\x02\n\x16\x44\x65rivativeOrderHistory\x12\x12\n\norder_hash\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x11\n\tis_active\x18\x03 \x01(\x08\x12\x15\n\rsubaccount_id\x18\x04 \x01(\t\x12\x16\n\x0e\x65xecution_type\x18\x05 \x01(\t\x12\x12\n\norder_type\x18\x06 \x01(\t\x12\r\n\x05price\x18\x07 \x01(\t\x12\x15\n\rtrigger_price\x18\x08 \x01(\t\x12\x10\n\x08quantity\x18\t \x01(\t\x12\x17\n\x0f\x66illed_quantity\x18\n \x01(\t\x12\r\n\x05state\x18\x0b \x01(\t\x12\x12\n\ncreated_at\x18\x0c \x01(\x12\x12\x12\n\nupdated_at\x18\r \x01(\x12\x12\x16\n\x0eis_reduce_only\x18\x0e \x01(\x08\x12\x11\n\tdirection\x18\x0f \x01(\t2\xfd\x14\n\x1eInjectiveDerivativeExchangeRPC\x12p\n\x07Markets\x12\x31.injective_derivative_exchange_rpc.MarketsRequest\x1a\x32.injective_derivative_exchange_rpc.MarketsResponse\x12m\n\x06Market\x12\x30.injective_derivative_exchange_rpc.MarketRequest\x1a\x31.injective_derivative_exchange_rpc.MarketResponse\x12\x81\x01\n\x0cStreamMarket\x12\x36.injective_derivative_exchange_rpc.StreamMarketRequest\x1a\x37.injective_derivative_exchange_rpc.StreamMarketResponse0\x01\x12\x97\x01\n\x14\x42inaryOptionsMarkets\x12>.injective_derivative_exchange_rpc.BinaryOptionsMarketsRequest\x1a?.injective_derivative_exchange_rpc.BinaryOptionsMarketsResponse\x12\x94\x01\n\x13\x42inaryOptionsMarket\x12=.injective_derivative_exchange_rpc.BinaryOptionsMarketRequest\x1a>.injective_derivative_exchange_rpc.BinaryOptionsMarketResponse\x12v\n\tOrderbook\x12\x33.injective_derivative_exchange_rpc.OrderbookRequest\x1a\x34.injective_derivative_exchange_rpc.OrderbookResponse\x12y\n\nOrderbooks\x12\x34.injective_derivative_exchange_rpc.OrderbooksRequest\x1a\x35.injective_derivative_exchange_rpc.OrderbooksResponse\x12\x8a\x01\n\x0fStreamOrderbook\x12\x39.injective_derivative_exchange_rpc.StreamOrderbookRequest\x1a:.injective_derivative_exchange_rpc.StreamOrderbookResponse0\x01\x12m\n\x06Orders\x12\x30.injective_derivative_exchange_rpc.OrdersRequest\x1a\x31.injective_derivative_exchange_rpc.OrdersResponse\x12v\n\tPositions\x12\x33.injective_derivative_exchange_rpc.PositionsRequest\x1a\x34.injective_derivative_exchange_rpc.PositionsResponse\x12\x94\x01\n\x13LiquidablePositions\x12=.injective_derivative_exchange_rpc.LiquidablePositionsRequest\x1a>.injective_derivative_exchange_rpc.LiquidablePositionsResponse\x12\x88\x01\n\x0f\x46undingPayments\x12\x39.injective_derivative_exchange_rpc.FundingPaymentsRequest\x1a:.injective_derivative_exchange_rpc.FundingPaymentsResponse\x12\x7f\n\x0c\x46undingRates\x12\x36.injective_derivative_exchange_rpc.FundingRatesRequest\x1a\x37.injective_derivative_exchange_rpc.FundingRatesResponse\x12\x8a\x01\n\x0fStreamPositions\x12\x39.injective_derivative_exchange_rpc.StreamPositionsRequest\x1a:.injective_derivative_exchange_rpc.StreamPositionsResponse0\x01\x12\x81\x01\n\x0cStreamOrders\x12\x36.injective_derivative_exchange_rpc.StreamOrdersRequest\x1a\x37.injective_derivative_exchange_rpc.StreamOrdersResponse0\x01\x12m\n\x06Trades\x12\x30.injective_derivative_exchange_rpc.TradesRequest\x1a\x31.injective_derivative_exchange_rpc.TradesResponse\x12\x81\x01\n\x0cStreamTrades\x12\x36.injective_derivative_exchange_rpc.StreamTradesRequest\x1a\x37.injective_derivative_exchange_rpc.StreamTradesResponse0\x01\x12\x97\x01\n\x14SubaccountOrdersList\x12>.injective_derivative_exchange_rpc.SubaccountOrdersListRequest\x1a?.injective_derivative_exchange_rpc.SubaccountOrdersListResponse\x12\x97\x01\n\x14SubaccountTradesList\x12>.injective_derivative_exchange_rpc.SubaccountTradesListRequest\x1a?.injective_derivative_exchange_rpc.SubaccountTradesListResponse\x12\x82\x01\n\rOrdersHistory\x12\x37.injective_derivative_exchange_rpc.OrdersHistoryRequest\x1a\x38.injective_derivative_exchange_rpc.OrdersHistoryResponseB&Z$/injective_derivative_exchange_rpcpbb\x06proto3'
 )
 
 
@@ -1299,6 +1299,13 @@ _ORDERSRESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='paging', full_name='injective_derivative_exchange_rpc.OrdersResponse.paging', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -1311,8 +1318,8 @@ _ORDERSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3575,
-  serialized_end=3664,
+  serialized_start=3576,
+  serialized_end=3724,
 )
 
 
@@ -1422,6 +1429,13 @@ _DERIVATIVELIMITORDER = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='order_number', full_name='injective_derivative_exchange_rpc.DerivativeLimitOrder.order_number', index=14,
+      number=15, type=18, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -1434,8 +1448,54 @@ _DERIVATIVELIMITORDER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3667,
-  serialized_end=3972,
+  serialized_start=3727,
+  serialized_end=4054,
+)
+
+
+_PAGING = _descriptor.Descriptor(
+  name='Paging',
+  full_name='injective_derivative_exchange_rpc.Paging',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='total', full_name='injective_derivative_exchange_rpc.Paging.total', index=0,
+      number=1, type=18, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='from', full_name='injective_derivative_exchange_rpc.Paging.from', index=1,
+      number=2, type=17, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='to', full_name='injective_derivative_exchange_rpc.Paging.to', index=2,
+      number=3, type=17, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=4056,
+  serialized_end=4105,
 )
 
 
@@ -1487,8 +1547,8 @@ _POSITIONSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3974,
-  serialized_end=4063,
+  serialized_start=4107,
+  serialized_end=4196,
 )
 
 
@@ -1507,6 +1567,13 @@ _POSITIONSRESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='paging', full_name='injective_derivative_exchange_rpc.PositionsResponse.paging', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -1519,8 +1586,8 @@ _POSITIONSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4065,
-  serialized_end=4158,
+  serialized_start=4199,
+  serialized_end=4351,
 )
 
 
@@ -1614,8 +1681,8 @@ _DERIVATIVEPOSITION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4161,
-  serialized_end=4400,
+  serialized_start=4354,
+  serialized_end=4593,
 )
 
 
@@ -1660,8 +1727,8 @@ _LIQUIDABLEPOSITIONSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4402,
-  serialized_end=4478,
+  serialized_start=4595,
+  serialized_end=4671,
 )
 
 
@@ -1692,8 +1759,8 @@ _LIQUIDABLEPOSITIONSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4480,
-  serialized_end=4583,
+  serialized_start=4673,
+  serialized_end=4776,
 )
 
 
@@ -1733,6 +1800,20 @@ _FUNDINGPAYMENTSREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='end_time', full_name='injective_derivative_exchange_rpc.FundingPaymentsRequest.end_time', index=4,
+      number=5, type=18, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='market_ids', full_name='injective_derivative_exchange_rpc.FundingPaymentsRequest.market_ids', index=5,
+      number=6, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -1745,8 +1826,8 @@ _FUNDINGPAYMENTSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4585,
-  serialized_end=4680,
+  serialized_start=4779,
+  serialized_end=4912,
 )
 
 
@@ -1765,6 +1846,13 @@ _FUNDINGPAYMENTSRESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='paging', full_name='injective_derivative_exchange_rpc.FundingPaymentsResponse.paging', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -1777,8 +1865,8 @@ _FUNDINGPAYMENTSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4682,
-  serialized_end=4776,
+  serialized_start=4915,
+  serialized_end=5068,
 )
 
 
@@ -1830,8 +1918,8 @@ _FUNDINGPAYMENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4778,
-  serialized_end=4871,
+  serialized_start=5070,
+  serialized_end=5163,
 )
 
 
@@ -1864,6 +1952,13 @@ _FUNDINGRATESREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='end_time', full_name='injective_derivative_exchange_rpc.FundingRatesRequest.end_time', index=3,
+      number=4, type=18, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -1876,8 +1971,8 @@ _FUNDINGRATESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4873,
-  serialized_end=4942,
+  serialized_start=5165,
+  serialized_end=5252,
 )
 
 
@@ -1896,6 +1991,13 @@ _FUNDINGRATESRESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='paging', full_name='injective_derivative_exchange_rpc.FundingRatesResponse.paging', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -1908,8 +2010,8 @@ _FUNDINGRATESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4944,
-  serialized_end=5037,
+  serialized_start=5255,
+  serialized_end=5407,
 )
 
 
@@ -1954,8 +2056,8 @@ _FUNDINGRATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5039,
-  serialized_end=5104,
+  serialized_start=5409,
+  serialized_end=5474,
 )
 
 
@@ -2007,8 +2109,8 @@ _STREAMPOSITIONSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5106,
-  serialized_end=5216,
+  serialized_start=5476,
+  serialized_end=5586,
 )
 
 
@@ -2046,8 +2148,8 @@ _STREAMPOSITIONSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5218,
-  serialized_end=5335,
+  serialized_start=5588,
+  serialized_end=5705,
 )
 
 
@@ -2106,8 +2208,8 @@ _STREAMORDERSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5337,
-  serialized_end=5449,
+  serialized_start=5707,
+  serialized_end=5819,
 )
 
 
@@ -2152,8 +2254,8 @@ _STREAMORDERSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5452,
-  serialized_end=5589,
+  serialized_start=5822,
+  serialized_end=5959,
 )
 
 
@@ -2223,7 +2325,7 @@ _TRADESREQUEST = _descriptor.Descriptor(
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='market_ids', full_name='injective_derivative_exchange_rpc.TradesRequest.market_ids', index=8,
-      number=9, type=9, cpp_type=9, label=3,
+      number=12, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -2232,6 +2334,13 @@ _TRADESREQUEST = _descriptor.Descriptor(
       name='subaccount_ids', full_name='injective_derivative_exchange_rpc.TradesRequest.subaccount_ids', index=9,
       number=10, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='execution_type', full_name='injective_derivative_exchange_rpc.TradesRequest.execution_type', index=10,
+      number=11, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -2247,8 +2356,8 @@ _TRADESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5592,
-  serialized_end=5803,
+  serialized_start=5962,
+  serialized_end=6197,
 )
 
 
@@ -2267,6 +2376,13 @@ _TRADESRESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='paging', full_name='injective_derivative_exchange_rpc.TradesResponse.paging', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -2279,8 +2395,8 @@ _TRADESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5805,
-  serialized_end=5889,
+  serialized_start=6200,
+  serialized_end=6343,
 )
 
 
@@ -2381,8 +2497,8 @@ _DERIVATIVETRADE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5892,
-  serialized_end=6190,
+  serialized_start=6346,
+  serialized_end=6644,
 )
 
 
@@ -2434,8 +2550,8 @@ _POSITIONDELTA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6192,
-  serialized_end=6311,
+  serialized_start=6646,
+  serialized_end=6765,
 )
 
 
@@ -2505,7 +2621,7 @@ _STREAMTRADESREQUEST = _descriptor.Descriptor(
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='market_ids', full_name='injective_derivative_exchange_rpc.StreamTradesRequest.market_ids', index=8,
-      number=9, type=9, cpp_type=9, label=3,
+      number=12, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -2514,6 +2630,13 @@ _STREAMTRADESREQUEST = _descriptor.Descriptor(
       name='subaccount_ids', full_name='injective_derivative_exchange_rpc.StreamTradesRequest.subaccount_ids', index=9,
       number=10, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='execution_type', full_name='injective_derivative_exchange_rpc.StreamTradesRequest.execution_type', index=10,
+      number=11, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -2529,8 +2652,8 @@ _STREAMTRADESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6314,
-  serialized_end=6531,
+  serialized_start=6768,
+  serialized_end=7009,
 )
 
 
@@ -2575,8 +2698,8 @@ _STREAMTRADESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6534,
-  serialized_end=6666,
+  serialized_start=7012,
+  serialized_end=7144,
 )
 
 
@@ -2628,8 +2751,8 @@ _SUBACCOUNTORDERSLISTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6668,
-  serialized_end=6768,
+  serialized_start=7146,
+  serialized_end=7246,
 )
 
 
@@ -2648,6 +2771,13 @@ _SUBACCOUNTORDERSLISTRESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='paging', full_name='injective_derivative_exchange_rpc.SubaccountOrdersListResponse.paging', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -2660,8 +2790,8 @@ _SUBACCOUNTORDERSLISTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6770,
-  serialized_end=6873,
+  serialized_start=7249,
+  serialized_end=7411,
 )
 
 
@@ -2727,8 +2857,8 @@ _SUBACCOUNTTRADESLISTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6876,
-  serialized_end=7019,
+  serialized_start=7414,
+  serialized_end=7557,
 )
 
 
@@ -2759,8 +2889,251 @@ _SUBACCOUNTTRADESLISTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7021,
-  serialized_end=7119,
+  serialized_start=7559,
+  serialized_end=7657,
+)
+
+
+_ORDERSHISTORYREQUEST = _descriptor.Descriptor(
+  name='OrdersHistoryRequest',
+  full_name='injective_derivative_exchange_rpc.OrdersHistoryRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='subaccount_id', full_name='injective_derivative_exchange_rpc.OrdersHistoryRequest.subaccount_id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='market_id', full_name='injective_derivative_exchange_rpc.OrdersHistoryRequest.market_id', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='skip', full_name='injective_derivative_exchange_rpc.OrdersHistoryRequest.skip', index=2,
+      number=3, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='limit', full_name='injective_derivative_exchange_rpc.OrdersHistoryRequest.limit', index=3,
+      number=4, type=17, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='order_type', full_name='injective_derivative_exchange_rpc.OrdersHistoryRequest.order_type', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='direction', full_name='injective_derivative_exchange_rpc.OrdersHistoryRequest.direction', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='start_time', full_name='injective_derivative_exchange_rpc.OrdersHistoryRequest.start_time', index=6,
+      number=7, type=18, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='end_time', full_name='injective_derivative_exchange_rpc.OrdersHistoryRequest.end_time', index=7,
+      number=8, type=18, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=7660,
+  serialized_end=7830,
+)
+
+
+_ORDERSHISTORYRESPONSE = _descriptor.Descriptor(
+  name='OrdersHistoryResponse',
+  full_name='injective_derivative_exchange_rpc.OrdersHistoryResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='orders', full_name='injective_derivative_exchange_rpc.OrdersHistoryResponse.orders', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=7832,
+  serialized_end=7930,
+)
+
+
+_DERIVATIVEORDERHISTORY = _descriptor.Descriptor(
+  name='DerivativeOrderHistory',
+  full_name='injective_derivative_exchange_rpc.DerivativeOrderHistory',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='order_hash', full_name='injective_derivative_exchange_rpc.DerivativeOrderHistory.order_hash', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='market_id', full_name='injective_derivative_exchange_rpc.DerivativeOrderHistory.market_id', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='is_active', full_name='injective_derivative_exchange_rpc.DerivativeOrderHistory.is_active', index=2,
+      number=3, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='subaccount_id', full_name='injective_derivative_exchange_rpc.DerivativeOrderHistory.subaccount_id', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='execution_type', full_name='injective_derivative_exchange_rpc.DerivativeOrderHistory.execution_type', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='order_type', full_name='injective_derivative_exchange_rpc.DerivativeOrderHistory.order_type', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='price', full_name='injective_derivative_exchange_rpc.DerivativeOrderHistory.price', index=6,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='trigger_price', full_name='injective_derivative_exchange_rpc.DerivativeOrderHistory.trigger_price', index=7,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='quantity', full_name='injective_derivative_exchange_rpc.DerivativeOrderHistory.quantity', index=8,
+      number=9, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='filled_quantity', full_name='injective_derivative_exchange_rpc.DerivativeOrderHistory.filled_quantity', index=9,
+      number=10, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='state', full_name='injective_derivative_exchange_rpc.DerivativeOrderHistory.state', index=10,
+      number=11, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='created_at', full_name='injective_derivative_exchange_rpc.DerivativeOrderHistory.created_at', index=11,
+      number=12, type=18, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='updated_at', full_name='injective_derivative_exchange_rpc.DerivativeOrderHistory.updated_at', index=12,
+      number=13, type=18, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='is_reduce_only', full_name='injective_derivative_exchange_rpc.DerivativeOrderHistory.is_reduce_only', index=13,
+      number=14, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='direction', full_name='injective_derivative_exchange_rpc.DerivativeOrderHistory.direction', index=14,
+      number=15, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=7933,
+  serialized_end=8261,
 )
 
 _MARKETSRESPONSE.fields_by_name['markets'].message_type = _DERIVATIVEMARKETINFO
@@ -2780,17 +3153,24 @@ _ORDERBOOKSRESPONSE.fields_by_name['orderbooks'].message_type = _SINGLEDERIVATIV
 _SINGLEDERIVATIVELIMITORDERBOOK.fields_by_name['orderbook'].message_type = _DERIVATIVELIMITORDERBOOK
 _STREAMORDERBOOKRESPONSE.fields_by_name['orderbook'].message_type = _DERIVATIVELIMITORDERBOOK
 _ORDERSRESPONSE.fields_by_name['orders'].message_type = _DERIVATIVELIMITORDER
+_ORDERSRESPONSE.fields_by_name['paging'].message_type = _PAGING
 _POSITIONSRESPONSE.fields_by_name['positions'].message_type = _DERIVATIVEPOSITION
+_POSITIONSRESPONSE.fields_by_name['paging'].message_type = _PAGING
 _LIQUIDABLEPOSITIONSRESPONSE.fields_by_name['positions'].message_type = _DERIVATIVEPOSITION
 _FUNDINGPAYMENTSRESPONSE.fields_by_name['payments'].message_type = _FUNDINGPAYMENT
+_FUNDINGPAYMENTSRESPONSE.fields_by_name['paging'].message_type = _PAGING
 _FUNDINGRATESRESPONSE.fields_by_name['funding_rates'].message_type = _FUNDINGRATE
+_FUNDINGRATESRESPONSE.fields_by_name['paging'].message_type = _PAGING
 _STREAMPOSITIONSRESPONSE.fields_by_name['position'].message_type = _DERIVATIVEPOSITION
 _STREAMORDERSRESPONSE.fields_by_name['order'].message_type = _DERIVATIVELIMITORDER
 _TRADESRESPONSE.fields_by_name['trades'].message_type = _DERIVATIVETRADE
+_TRADESRESPONSE.fields_by_name['paging'].message_type = _PAGING
 _DERIVATIVETRADE.fields_by_name['position_delta'].message_type = _POSITIONDELTA
 _STREAMTRADESRESPONSE.fields_by_name['trade'].message_type = _DERIVATIVETRADE
 _SUBACCOUNTORDERSLISTRESPONSE.fields_by_name['orders'].message_type = _DERIVATIVELIMITORDER
+_SUBACCOUNTORDERSLISTRESPONSE.fields_by_name['paging'].message_type = _PAGING
 _SUBACCOUNTTRADESLISTRESPONSE.fields_by_name['trades'].message_type = _DERIVATIVETRADE
+_ORDERSHISTORYRESPONSE.fields_by_name['orders'].message_type = _DERIVATIVEORDERHISTORY
 DESCRIPTOR.message_types_by_name['MarketsRequest'] = _MARKETSREQUEST
 DESCRIPTOR.message_types_by_name['MarketsResponse'] = _MARKETSRESPONSE
 DESCRIPTOR.message_types_by_name['DerivativeMarketInfo'] = _DERIVATIVEMARKETINFO
@@ -2819,6 +3199,7 @@ DESCRIPTOR.message_types_by_name['StreamOrderbookResponse'] = _STREAMORDERBOOKRE
 DESCRIPTOR.message_types_by_name['OrdersRequest'] = _ORDERSREQUEST
 DESCRIPTOR.message_types_by_name['OrdersResponse'] = _ORDERSRESPONSE
 DESCRIPTOR.message_types_by_name['DerivativeLimitOrder'] = _DERIVATIVELIMITORDER
+DESCRIPTOR.message_types_by_name['Paging'] = _PAGING
 DESCRIPTOR.message_types_by_name['PositionsRequest'] = _POSITIONSREQUEST
 DESCRIPTOR.message_types_by_name['PositionsResponse'] = _POSITIONSRESPONSE
 DESCRIPTOR.message_types_by_name['DerivativePosition'] = _DERIVATIVEPOSITION
@@ -2844,6 +3225,9 @@ DESCRIPTOR.message_types_by_name['SubaccountOrdersListRequest'] = _SUBACCOUNTORD
 DESCRIPTOR.message_types_by_name['SubaccountOrdersListResponse'] = _SUBACCOUNTORDERSLISTRESPONSE
 DESCRIPTOR.message_types_by_name['SubaccountTradesListRequest'] = _SUBACCOUNTTRADESLISTREQUEST
 DESCRIPTOR.message_types_by_name['SubaccountTradesListResponse'] = _SUBACCOUNTTRADESLISTRESPONSE
+DESCRIPTOR.message_types_by_name['OrdersHistoryRequest'] = _ORDERSHISTORYREQUEST
+DESCRIPTOR.message_types_by_name['OrdersHistoryResponse'] = _ORDERSHISTORYRESPONSE
+DESCRIPTOR.message_types_by_name['DerivativeOrderHistory'] = _DERIVATIVEORDERHISTORY
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 MarketsRequest = _reflection.GeneratedProtocolMessageType('MarketsRequest', (_message.Message,), {
@@ -3042,6 +3426,13 @@ DerivativeLimitOrder = _reflection.GeneratedProtocolMessageType('DerivativeLimit
   })
 _sym_db.RegisterMessage(DerivativeLimitOrder)
 
+Paging = _reflection.GeneratedProtocolMessageType('Paging', (_message.Message,), {
+  'DESCRIPTOR' : _PAGING,
+  '__module__' : 'exchange.injective_derivative_exchange_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_derivative_exchange_rpc.Paging)
+  })
+_sym_db.RegisterMessage(Paging)
+
 PositionsRequest = _reflection.GeneratedProtocolMessageType('PositionsRequest', (_message.Message,), {
   'DESCRIPTOR' : _POSITIONSREQUEST,
   '__module__' : 'exchange.injective_derivative_exchange_rpc_pb2'
@@ -3217,6 +3608,27 @@ SubaccountTradesListResponse = _reflection.GeneratedProtocolMessageType('Subacco
   })
 _sym_db.RegisterMessage(SubaccountTradesListResponse)
 
+OrdersHistoryRequest = _reflection.GeneratedProtocolMessageType('OrdersHistoryRequest', (_message.Message,), {
+  'DESCRIPTOR' : _ORDERSHISTORYREQUEST,
+  '__module__' : 'exchange.injective_derivative_exchange_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_derivative_exchange_rpc.OrdersHistoryRequest)
+  })
+_sym_db.RegisterMessage(OrdersHistoryRequest)
+
+OrdersHistoryResponse = _reflection.GeneratedProtocolMessageType('OrdersHistoryResponse', (_message.Message,), {
+  'DESCRIPTOR' : _ORDERSHISTORYRESPONSE,
+  '__module__' : 'exchange.injective_derivative_exchange_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_derivative_exchange_rpc.OrdersHistoryResponse)
+  })
+_sym_db.RegisterMessage(OrdersHistoryResponse)
+
+DerivativeOrderHistory = _reflection.GeneratedProtocolMessageType('DerivativeOrderHistory', (_message.Message,), {
+  'DESCRIPTOR' : _DERIVATIVEORDERHISTORY,
+  '__module__' : 'exchange.injective_derivative_exchange_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_derivative_exchange_rpc.DerivativeOrderHistory)
+  })
+_sym_db.RegisterMessage(DerivativeOrderHistory)
+
 
 DESCRIPTOR._options = None
 
@@ -3227,8 +3639,8 @@ _INJECTIVEDERIVATIVEEXCHANGERPC = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=7122,
-  serialized_end=9674,
+  serialized_start=8264,
+  serialized_end=10949,
   methods=[
   _descriptor.MethodDescriptor(
     name='Markets',
@@ -3417,6 +3829,16 @@ _INJECTIVEDERIVATIVEEXCHANGERPC = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_SUBACCOUNTTRADESLISTREQUEST,
     output_type=_SUBACCOUNTTRADESLISTRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='OrdersHistory',
+    full_name='injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC.OrdersHistory',
+    index=19,
+    containing_service=None,
+    input_type=_ORDERSHISTORYREQUEST,
+    output_type=_ORDERSHISTORYRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

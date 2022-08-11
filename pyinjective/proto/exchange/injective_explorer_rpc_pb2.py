@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z\031/injective_explorer_rpcpb',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n%exchange/injective_explorer_rpc.proto\x12\x16injective_explorer_rpc\"\x81\x01\n\x14GetAccountTxsRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\x0e\n\x06\x62\x65\x66ore\x18\x02 \x01(\x04\x12\r\n\x05\x61\x66ter\x18\x03 \x01(\x04\x12\r\n\x05limit\x18\x04 \x01(\x11\x12\x0c\n\x04skip\x18\x05 \x01(\x04\x12\x0c\n\x04type\x18\x06 \x01(\t\x12\x0e\n\x06module\x18\x07 \x01(\t\"u\n\x15GetAccountTxsResponse\x12.\n\x06paging\x18\x01 \x01(\x0b\x32\x1e.injective_explorer_rpc.Paging\x12,\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32\x1e.injective_explorer_rpc.TxData\"1\n\x06Paging\x12\r\n\x05total\x18\x01 \x01(\x12\x12\x0c\n\x04\x66rom\x18\x02 \x01(\x11\x12\n\n\x02to\x18\x03 \x01(\x11\"\xc0\x03\n\x06TxData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x14\n\x0c\x62lock_number\x18\x02 \x01(\x04\x12\x17\n\x0f\x62lock_timestamp\x18\x03 \x01(\t\x12\x0c\n\x04hash\x18\x04 \x01(\t\x12\x0c\n\x04\x63ode\x18\x05 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x06 \x01(\x0c\x12\x0c\n\x04info\x18\x08 \x01(\t\x12\x12\n\ngas_wanted\x18\t \x01(\x12\x12\x10\n\x08gas_used\x18\n \x01(\x12\x12/\n\x07gas_fee\x18\x0b \x01(\x0b\x32\x1e.injective_explorer_rpc.GasFee\x12\x11\n\tcodespace\x18\x0c \x01(\t\x12-\n\x06\x65vents\x18\r \x03(\x0b\x32\x1d.injective_explorer_rpc.Event\x12\x0f\n\x07tx_type\x18\x0e \x01(\t\x12\x10\n\x08messages\x18\x0f \x01(\t\x12\x35\n\nsignatures\x18\x10 \x03(\x0b\x32!.injective_explorer_rpc.Signature\x12\x0c\n\x04memo\x18\x11 \x01(\t\x12\x11\n\ttx_number\x18\x12 \x01(\x04\x12\x1c\n\x14\x62lock_unix_timestamp\x18\x13 \x01(\x04\x12\x11\n\terror_log\x18\x14 \x01(\t\"o\n\x06GasFee\x12\x32\n\x06\x61mount\x18\x01 \x03(\x0b\x32\".injective_explorer_rpc.CosmosCoin\x12\x11\n\tgas_limit\x18\x02 \x01(\x04\x12\r\n\x05payer\x18\x03 \x01(\t\x12\x0f\n\x07granter\x18\x04 \x01(\t\"+\n\nCosmosCoin\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\t\"\x8b\x01\n\x05\x45vent\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x41\n\nattributes\x18\x02 \x03(\x0b\x32-.injective_explorer_rpc.Event.AttributesEntry\x1a\x31\n\x0f\x41ttributesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"Q\n\tSignature\x12\x0e\n\x06pubkey\x18\x01 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x02 \x01(\t\x12\x10\n\x08sequence\x18\x03 \x01(\x04\x12\x11\n\tsignature\x18\x04 \x01(\t\"@\n\x10GetBlocksRequest\x12\x0e\n\x06\x62\x65\x66ore\x18\x01 \x01(\x04\x12\r\n\x05\x61\x66ter\x18\x02 \x01(\x04\x12\r\n\x05limit\x18\x03 \x01(\x11\"t\n\x11GetBlocksResponse\x12.\n\x06paging\x18\x01 \x01(\x0b\x32\x1e.injective_explorer_rpc.Paging\x12/\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32!.injective_explorer_rpc.BlockInfo\"\xd1\x01\n\tBlockInfo\x12\x0e\n\x06height\x18\x01 \x01(\x04\x12\x10\n\x08proposer\x18\x02 \x01(\t\x12\x0f\n\x07moniker\x18\x03 \x01(\t\x12\x12\n\nblock_hash\x18\x04 \x01(\t\x12\x13\n\x0bparent_hash\x18\x05 \x01(\t\x12\x17\n\x0fnum_pre_commits\x18\x06 \x01(\x12\x12\x0f\n\x07num_txs\x18\x07 \x01(\x12\x12+\n\x03txs\x18\x08 \x03(\x0b\x32\x1e.injective_explorer_rpc.TxData\x12\x11\n\ttimestamp\x18\t \x01(\t\"\x1d\n\x0fGetBlockRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\xd8\x01\n\x10GetBlockResponse\x12\x0e\n\x06height\x18\x01 \x01(\x04\x12\x10\n\x08proposer\x18\x02 \x01(\t\x12\x0f\n\x07moniker\x18\x03 \x01(\t\x12\x12\n\nblock_hash\x18\x04 \x01(\t\x12\x13\n\x0bparent_hash\x18\x05 \x01(\t\x12\x17\n\x0fnum_pre_commits\x18\x06 \x01(\x12\x12\x0f\n\x07num_txs\x18\x07 \x01(\x12\x12+\n\x03txs\x18\x08 \x03(\x0b\x32\x1e.injective_explorer_rpc.TxData\x12\x11\n\ttimestamp\x18\t \x01(\t\"&\n\x13GetValidatorRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\"\xfb\x04\n\x14GetValidatorResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0f\n\x07moniker\x18\x02 \x01(\t\x12\x18\n\x10operator_address\x18\x03 \x01(\t\x12\x19\n\x11\x63onsensus_address\x18\x04 \x01(\t\x12\x0e\n\x06jailed\x18\x05 \x01(\x08\x12\x0e\n\x06status\x18\x06 \x01(\x11\x12\x0e\n\x06tokens\x18\x07 \x01(\t\x12\x18\n\x10\x64\x65legator_shares\x18\x08 \x01(\t\x12\x41\n\x0b\x64\x65scription\x18\t \x01(\x0b\x32,.injective_explorer_rpc.ValidatorDescription\x12\x18\n\x10unbonding_height\x18\n \x01(\x12\x12\x16\n\x0eunbonding_time\x18\x0b \x01(\t\x12\x17\n\x0f\x63ommission_rate\x18\x0c \x01(\t\x12\x1b\n\x13\x63ommission_max_rate\x18\r \x01(\t\x12\"\n\x1a\x63ommission_max_change_rate\x18\x0e \x01(\t\x12\x1e\n\x16\x63ommission_update_time\x18\x0f \x01(\t\x12\x10\n\x08proposed\x18\x10 \x01(\x04\x12\x0e\n\x06signed\x18\x11 \x01(\x04\x12\x0e\n\x06missed\x18\x12 \x01(\x04\x12\x11\n\ttimestamp\x18\x13 \x01(\t\x12\x38\n\x07uptimes\x18\x14 \x03(\x0b\x32\'.injective_explorer_rpc.ValidatorUptime\x12>\n\x0fslashing_events\x18\x15 \x03(\x0b\x32%.injective_explorer_rpc.SlashingEvent\x12\x19\n\x11uptime_percentage\x18\x16 \x01(\x01\"u\n\x14ValidatorDescription\x12\x0f\n\x07moniker\x18\x01 \x01(\t\x12\x10\n\x08identity\x18\x02 \x01(\t\x12\x0f\n\x07website\x18\x03 \x01(\t\x12\x18\n\x10security_contact\x18\x04 \x01(\t\x12\x0f\n\x07\x64\x65tails\x18\x05 \x01(\t\"7\n\x0fValidatorUptime\x12\x14\n\x0c\x62lock_number\x18\x01 \x01(\x04\x12\x0e\n\x06status\x18\x02 \x01(\t\"\x95\x01\n\rSlashingEvent\x12\x14\n\x0c\x62lock_number\x18\x01 \x01(\x04\x12\x17\n\x0f\x62lock_timestamp\x18\x02 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x03 \x01(\t\x12\r\n\x05power\x18\x04 \x01(\x04\x12\x0e\n\x06reason\x18\x05 \x01(\t\x12\x0e\n\x06jailed\x18\x06 \x01(\t\x12\x15\n\rmissed_blocks\x18\x07 \x01(\x04\",\n\x19GetValidatorUptimeRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\"T\n\x1aGetValidatorUptimeResponse\x12\x36\n\x05\x66ield\x18\x01 \x03(\x0b\x32\'.injective_explorer_rpc.ValidatorUptime\"i\n\rGetTxsRequest\x12\x0e\n\x06\x62\x65\x66ore\x18\x01 \x01(\x04\x12\r\n\x05\x61\x66ter\x18\x02 \x01(\x04\x12\r\n\x05limit\x18\x03 \x01(\x11\x12\x0c\n\x04skip\x18\x04 \x01(\x04\x12\x0c\n\x04type\x18\x05 \x01(\t\x12\x0e\n\x06module\x18\x06 \x01(\t\"n\n\x0eGetTxsResponse\x12.\n\x06paging\x18\x01 \x01(\x0b\x32\x1e.injective_explorer_rpc.Paging\x12,\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32\x1e.injective_explorer_rpc.TxData\"$\n\x14GetTxByTxHashRequest\x12\x0c\n\x04hash\x18\x01 \x01(\t\"\xcf\x03\n\x15GetTxByTxHashResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\x14\n\x0c\x62lock_number\x18\x02 \x01(\x04\x12\x17\n\x0f\x62lock_timestamp\x18\x03 \x01(\t\x12\x0c\n\x04hash\x18\x04 \x01(\t\x12\x0c\n\x04\x63ode\x18\x05 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x06 \x01(\x0c\x12\x0c\n\x04info\x18\x08 \x01(\t\x12\x12\n\ngas_wanted\x18\t \x01(\x12\x12\x10\n\x08gas_used\x18\n \x01(\x12\x12/\n\x07gas_fee\x18\x0b \x01(\x0b\x32\x1e.injective_explorer_rpc.GasFee\x12\x11\n\tcodespace\x18\x0c \x01(\t\x12-\n\x06\x65vents\x18\r \x03(\x0b\x32\x1d.injective_explorer_rpc.Event\x12\x0f\n\x07tx_type\x18\x0e \x01(\t\x12\x10\n\x08messages\x18\x0f \x01(\t\x12\x35\n\nsignatures\x18\x10 \x03(\x0b\x32!.injective_explorer_rpc.Signature\x12\x0c\n\x04memo\x18\x11 \x01(\t\x12\x11\n\ttx_number\x18\x12 \x01(\x04\x12\x1c\n\x14\x62lock_unix_timestamp\x18\x13 \x01(\x04\x12\x11\n\terror_log\x18\x14 \x01(\t\"\x12\n\x10StreamTxsRequest\"\xcb\x03\n\x11StreamTxsResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\x14\n\x0c\x62lock_number\x18\x02 \x01(\x04\x12\x17\n\x0f\x62lock_timestamp\x18\x03 \x01(\t\x12\x0c\n\x04hash\x18\x04 \x01(\t\x12\x0c\n\x04\x63ode\x18\x05 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x06 \x01(\x0c\x12\x0c\n\x04info\x18\x08 \x01(\t\x12\x12\n\ngas_wanted\x18\t \x01(\x12\x12\x10\n\x08gas_used\x18\n \x01(\x12\x12/\n\x07gas_fee\x18\x0b \x01(\x0b\x32\x1e.injective_explorer_rpc.GasFee\x12\x11\n\tcodespace\x18\x0c \x01(\t\x12-\n\x06\x65vents\x18\r \x03(\x0b\x32\x1d.injective_explorer_rpc.Event\x12\x0f\n\x07tx_type\x18\x0e \x01(\t\x12\x10\n\x08messages\x18\x0f \x01(\t\x12\x35\n\nsignatures\x18\x10 \x03(\x0b\x32!.injective_explorer_rpc.Signature\x12\x0c\n\x04memo\x18\x11 \x01(\t\x12\x11\n\ttx_number\x18\x12 \x01(\x04\x12\x1c\n\x14\x62lock_unix_timestamp\x18\x13 \x01(\x04\x12\x11\n\terror_log\x18\x14 \x01(\t\"\x15\n\x13StreamBlocksRequest\"\xdc\x01\n\x14StreamBlocksResponse\x12\x0e\n\x06height\x18\x01 \x01(\x04\x12\x10\n\x08proposer\x18\x02 \x01(\t\x12\x0f\n\x07moniker\x18\x03 \x01(\t\x12\x12\n\nblock_hash\x18\x04 \x01(\t\x12\x13\n\x0bparent_hash\x18\x05 \x01(\t\x12\x17\n\x0fnum_pre_commits\x18\x06 \x01(\x12\x12\x0f\n\x07num_txs\x18\x07 \x01(\x12\x12+\n\x03txs\x18\x08 \x03(\x0b\x32\x1e.injective_explorer_rpc.TxData\x12\x11\n\ttimestamp\x18\t \x01(\t\"Z\n\x19GetPeggyDepositTxsRequest\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08receiver\x18\x02 \x01(\t\x12\r\n\x05limit\x18\x03 \x01(\x11\x12\x0c\n\x04skip\x18\x04 \x01(\x04\"S\n\x1aGetPeggyDepositTxsResponse\x12\x35\n\x05\x66ield\x18\x01 \x03(\x0b\x32&.injective_explorer_rpc.PeggyDepositTx\"\xf8\x01\n\x0ePeggyDepositTx\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08receiver\x18\x02 \x01(\t\x12\x13\n\x0b\x65vent_nonce\x18\x03 \x01(\x04\x12\x14\n\x0c\x65vent_height\x18\x04 \x01(\x04\x12\x0e\n\x06\x61mount\x18\x05 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x06 \x01(\t\x12\x1c\n\x14orchestrator_address\x18\x07 \x01(\t\x12\r\n\x05state\x18\x08 \x01(\t\x12\x12\n\nclaim_type\x18\t \x01(\x11\x12\x11\n\ttx_hashes\x18\n \x03(\t\x12\x12\n\ncreated_at\x18\x0b \x01(\t\x12\x12\n\nupdated_at\x18\x0c \x01(\t\"]\n\x1cGetPeggyWithdrawalTxsRequest\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08receiver\x18\x02 \x01(\t\x12\r\n\x05limit\x18\x03 \x01(\x11\x12\x0c\n\x04skip\x18\x04 \x01(\x04\"Y\n\x1dGetPeggyWithdrawalTxsResponse\x12\x38\n\x05\x66ield\x18\x01 \x03(\x0b\x32).injective_explorer_rpc.PeggyWithdrawalTx\"\xd3\x02\n\x11PeggyWithdrawalTx\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08receiver\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x04 \x01(\t\x12\x12\n\nbridge_fee\x18\x05 \x01(\t\x12\x16\n\x0eoutgoing_tx_id\x18\x06 \x01(\x04\x12\x15\n\rbatch_timeout\x18\x07 \x01(\x04\x12\x13\n\x0b\x62\x61tch_nonce\x18\x08 \x01(\x04\x12\x1c\n\x14orchestrator_address\x18\t \x01(\t\x12\x13\n\x0b\x65vent_nonce\x18\n \x01(\x04\x12\x14\n\x0c\x65vent_height\x18\x0b \x01(\x04\x12\r\n\x05state\x18\x0c \x01(\t\x12\x12\n\nclaim_type\x18\r \x01(\x11\x12\x11\n\ttx_hashes\x18\x0e \x03(\t\x12\x12\n\ncreated_at\x18\x0f \x01(\t\x12\x12\n\nupdated_at\x18\x10 \x01(\t\"\xa9\x01\n\x18GetIBCTransferTxsRequest\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08receiver\x18\x02 \x01(\t\x12\x13\n\x0bsrc_channel\x18\x03 \x01(\t\x12\x10\n\x08src_port\x18\x04 \x01(\t\x12\x14\n\x0c\x64\x65st_channel\x18\x05 \x01(\t\x12\x11\n\tdest_port\x18\x06 \x01(\t\x12\r\n\x05limit\x18\x07 \x01(\x11\x12\x0c\n\x04skip\x18\x08 \x01(\x04\"Q\n\x19GetIBCTransferTxsResponse\x12\x34\n\x05\x66ield\x18\x01 \x03(\x0b\x32%.injective_explorer_rpc.IBCTransferTx\"\xdc\x02\n\rIBCTransferTx\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08receiver\x18\x02 \x01(\t\x12\x13\n\x0bsource_port\x18\x03 \x01(\t\x12\x16\n\x0esource_channel\x18\x04 \x01(\t\x12\x18\n\x10\x64\x65stination_port\x18\x05 \x01(\t\x12\x1b\n\x13\x64\x65stination_channel\x18\x06 \x01(\t\x12\x0e\n\x06\x61mount\x18\x07 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x08 \x01(\t\x12\x16\n\x0etimeout_height\x18\t \x01(\t\x12\x19\n\x11timeout_timestamp\x18\n \x01(\x04\x12\x17\n\x0fpacket_sequence\x18\x0b \x01(\x04\x12\x10\n\x08\x64\x61ta_hex\x18\x0c \x01(\x0c\x12\r\n\x05state\x18\r \x01(\t\x12\x11\n\ttx_hashes\x18\x0e \x03(\t\x12\x12\n\ncreated_at\x18\x0f \x01(\t\x12\x12\n\nupdated_at\x18\x10 \x01(\t2\xc3\n\n\x14InjectiveExplorerRPC\x12l\n\rGetAccountTxs\x12,.injective_explorer_rpc.GetAccountTxsRequest\x1a-.injective_explorer_rpc.GetAccountTxsResponse\x12`\n\tGetBlocks\x12(.injective_explorer_rpc.GetBlocksRequest\x1a).injective_explorer_rpc.GetBlocksResponse\x12]\n\x08GetBlock\x12\'.injective_explorer_rpc.GetBlockRequest\x1a(.injective_explorer_rpc.GetBlockResponse\x12i\n\x0cGetValidator\x12+.injective_explorer_rpc.GetValidatorRequest\x1a,.injective_explorer_rpc.GetValidatorResponse\x12{\n\x12GetValidatorUptime\x12\x31.injective_explorer_rpc.GetValidatorUptimeRequest\x1a\x32.injective_explorer_rpc.GetValidatorUptimeResponse\x12W\n\x06GetTxs\x12%.injective_explorer_rpc.GetTxsRequest\x1a&.injective_explorer_rpc.GetTxsResponse\x12l\n\rGetTxByTxHash\x12,.injective_explorer_rpc.GetTxByTxHashRequest\x1a-.injective_explorer_rpc.GetTxByTxHashResponse\x12\x62\n\tStreamTxs\x12(.injective_explorer_rpc.StreamTxsRequest\x1a).injective_explorer_rpc.StreamTxsResponse0\x01\x12k\n\x0cStreamBlocks\x12+.injective_explorer_rpc.StreamBlocksRequest\x1a,.injective_explorer_rpc.StreamBlocksResponse0\x01\x12{\n\x12GetPeggyDepositTxs\x12\x31.injective_explorer_rpc.GetPeggyDepositTxsRequest\x1a\x32.injective_explorer_rpc.GetPeggyDepositTxsResponse\x12\x84\x01\n\x15GetPeggyWithdrawalTxs\x12\x34.injective_explorer_rpc.GetPeggyWithdrawalTxsRequest\x1a\x35.injective_explorer_rpc.GetPeggyWithdrawalTxsResponse\x12x\n\x11GetIBCTransferTxs\x12\x30.injective_explorer_rpc.GetIBCTransferTxsRequest\x1a\x31.injective_explorer_rpc.GetIBCTransferTxsResponseB\x1bZ\x19/injective_explorer_rpcpbb\x06proto3'
+  serialized_pb=b'\n%exchange/injective_explorer_rpc.proto\x12\x16injective_explorer_rpc\"\x81\x01\n\x14GetAccountTxsRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\x0e\n\x06\x62\x65\x66ore\x18\x02 \x01(\x04\x12\r\n\x05\x61\x66ter\x18\x03 \x01(\x04\x12\r\n\x05limit\x18\x04 \x01(\x11\x12\x0c\n\x04skip\x18\x05 \x01(\x04\x12\x0c\n\x04type\x18\x06 \x01(\t\x12\x0e\n\x06module\x18\x07 \x01(\t\"~\n\x15GetAccountTxsResponse\x12.\n\x06paging\x18\x01 \x01(\x0b\x32\x1e.injective_explorer_rpc.Paging\x12\x35\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32\'.injective_explorer_rpc.TxDetailDataRPC\"1\n\x06Paging\x12\r\n\x05total\x18\x01 \x01(\x12\x12\x0c\n\x04\x66rom\x18\x02 \x01(\x11\x12\n\n\x02to\x18\x03 \x01(\x11\"\xc9\x03\n\x0fTxDetailDataRPC\x12\n\n\x02id\x18\x01 \x01(\t\x12\x14\n\x0c\x62lock_number\x18\x02 \x01(\x04\x12\x17\n\x0f\x62lock_timestamp\x18\x03 \x01(\t\x12\x0c\n\x04hash\x18\x04 \x01(\t\x12\x0c\n\x04\x63ode\x18\x05 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x06 \x01(\x0c\x12\x0c\n\x04info\x18\x08 \x01(\t\x12\x12\n\ngas_wanted\x18\t \x01(\x12\x12\x10\n\x08gas_used\x18\n \x01(\x12\x12/\n\x07gas_fee\x18\x0b \x01(\x0b\x32\x1e.injective_explorer_rpc.GasFee\x12\x11\n\tcodespace\x18\x0c \x01(\t\x12-\n\x06\x65vents\x18\r \x03(\x0b\x32\x1d.injective_explorer_rpc.Event\x12\x0f\n\x07tx_type\x18\x0e \x01(\t\x12\x10\n\x08messages\x18\x0f \x01(\t\x12\x35\n\nsignatures\x18\x10 \x03(\x0b\x32!.injective_explorer_rpc.Signature\x12\x0c\n\x04memo\x18\x11 \x01(\t\x12\x11\n\ttx_number\x18\x12 \x01(\x04\x12\x1c\n\x14\x62lock_unix_timestamp\x18\x13 \x01(\x04\x12\x11\n\terror_log\x18\x14 \x01(\t\"o\n\x06GasFee\x12\x32\n\x06\x61mount\x18\x01 \x03(\x0b\x32\".injective_explorer_rpc.CosmosCoin\x12\x11\n\tgas_limit\x18\x02 \x01(\x04\x12\r\n\x05payer\x18\x03 \x01(\t\x12\x0f\n\x07granter\x18\x04 \x01(\t\"+\n\nCosmosCoin\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\t\"\x8b\x01\n\x05\x45vent\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x41\n\nattributes\x18\x02 \x03(\x0b\x32-.injective_explorer_rpc.Event.AttributesEntry\x1a\x31\n\x0f\x41ttributesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"Q\n\tSignature\x12\x0e\n\x06pubkey\x18\x01 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x02 \x01(\t\x12\x10\n\x08sequence\x18\x03 \x01(\x04\x12\x11\n\tsignature\x18\x04 \x01(\t\"@\n\x10GetBlocksRequest\x12\x0e\n\x06\x62\x65\x66ore\x18\x01 \x01(\x04\x12\r\n\x05\x61\x66ter\x18\x02 \x01(\x04\x12\r\n\x05limit\x18\x03 \x01(\x11\"t\n\x11GetBlocksResponse\x12.\n\x06paging\x18\x01 \x01(\x0b\x32\x1e.injective_explorer_rpc.Paging\x12/\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32!.injective_explorer_rpc.BlockInfo\"\xd4\x01\n\tBlockInfo\x12\x0e\n\x06height\x18\x01 \x01(\x04\x12\x10\n\x08proposer\x18\x02 \x01(\t\x12\x0f\n\x07moniker\x18\x03 \x01(\t\x12\x12\n\nblock_hash\x18\x04 \x01(\t\x12\x13\n\x0bparent_hash\x18\x05 \x01(\t\x12\x17\n\x0fnum_pre_commits\x18\x06 \x01(\x12\x12\x0f\n\x07num_txs\x18\x07 \x01(\x12\x12.\n\x03txs\x18\x08 \x03(\x0b\x32!.injective_explorer_rpc.TxDataRPC\x12\x11\n\ttimestamp\x18\t \x01(\t\"\xad\x01\n\tTxDataRPC\x12\n\n\x02id\x18\x01 \x01(\t\x12\x14\n\x0c\x62lock_number\x18\x02 \x01(\x04\x12\x17\n\x0f\x62lock_timestamp\x18\x03 \x01(\t\x12\x0c\n\x04hash\x18\x04 \x01(\t\x12\x11\n\tcodespace\x18\x05 \x01(\t\x12\x10\n\x08messages\x18\x06 \x01(\t\x12\x11\n\ttx_number\x18\x07 \x01(\x04\x12\x11\n\terror_log\x18\x08 \x01(\t\x12\x0c\n\x04\x63ode\x18\t \x01(\r\"\x1d\n\x0fGetBlockRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\xdb\x01\n\x10GetBlockResponse\x12\x0e\n\x06height\x18\x01 \x01(\x04\x12\x10\n\x08proposer\x18\x02 \x01(\t\x12\x0f\n\x07moniker\x18\x03 \x01(\t\x12\x12\n\nblock_hash\x18\x04 \x01(\t\x12\x13\n\x0bparent_hash\x18\x05 \x01(\t\x12\x17\n\x0fnum_pre_commits\x18\x06 \x01(\x12\x12\x0f\n\x07num_txs\x18\x07 \x01(\x12\x12.\n\x03txs\x18\x08 \x03(\x0b\x32!.injective_explorer_rpc.TxDataRPC\x12\x11\n\ttimestamp\x18\t \x01(\t\"&\n\x13GetValidatorRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\"\xfb\x04\n\x14GetValidatorResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0f\n\x07moniker\x18\x02 \x01(\t\x12\x18\n\x10operator_address\x18\x03 \x01(\t\x12\x19\n\x11\x63onsensus_address\x18\x04 \x01(\t\x12\x0e\n\x06jailed\x18\x05 \x01(\x08\x12\x0e\n\x06status\x18\x06 \x01(\x11\x12\x0e\n\x06tokens\x18\x07 \x01(\t\x12\x18\n\x10\x64\x65legator_shares\x18\x08 \x01(\t\x12\x41\n\x0b\x64\x65scription\x18\t \x01(\x0b\x32,.injective_explorer_rpc.ValidatorDescription\x12\x18\n\x10unbonding_height\x18\n \x01(\x12\x12\x16\n\x0eunbonding_time\x18\x0b \x01(\t\x12\x17\n\x0f\x63ommission_rate\x18\x0c \x01(\t\x12\x1b\n\x13\x63ommission_max_rate\x18\r \x01(\t\x12\"\n\x1a\x63ommission_max_change_rate\x18\x0e \x01(\t\x12\x1e\n\x16\x63ommission_update_time\x18\x0f \x01(\t\x12\x10\n\x08proposed\x18\x10 \x01(\x04\x12\x0e\n\x06signed\x18\x11 \x01(\x04\x12\x0e\n\x06missed\x18\x12 \x01(\x04\x12\x11\n\ttimestamp\x18\x13 \x01(\t\x12\x38\n\x07uptimes\x18\x14 \x03(\x0b\x32\'.injective_explorer_rpc.ValidatorUptime\x12>\n\x0fslashing_events\x18\x15 \x03(\x0b\x32%.injective_explorer_rpc.SlashingEvent\x12\x19\n\x11uptime_percentage\x18\x16 \x01(\x01\"u\n\x14ValidatorDescription\x12\x0f\n\x07moniker\x18\x01 \x01(\t\x12\x10\n\x08identity\x18\x02 \x01(\t\x12\x0f\n\x07website\x18\x03 \x01(\t\x12\x18\n\x10security_contact\x18\x04 \x01(\t\x12\x0f\n\x07\x64\x65tails\x18\x05 \x01(\t\"7\n\x0fValidatorUptime\x12\x14\n\x0c\x62lock_number\x18\x01 \x01(\x04\x12\x0e\n\x06status\x18\x02 \x01(\t\"\x95\x01\n\rSlashingEvent\x12\x14\n\x0c\x62lock_number\x18\x01 \x01(\x04\x12\x17\n\x0f\x62lock_timestamp\x18\x02 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x03 \x01(\t\x12\r\n\x05power\x18\x04 \x01(\x04\x12\x0e\n\x06reason\x18\x05 \x01(\t\x12\x0e\n\x06jailed\x18\x06 \x01(\t\x12\x15\n\rmissed_blocks\x18\x07 \x01(\x04\",\n\x19GetValidatorUptimeRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\"T\n\x1aGetValidatorUptimeResponse\x12\x36\n\x05\x66ield\x18\x01 \x03(\x0b\x32\'.injective_explorer_rpc.ValidatorUptime\"i\n\rGetTxsRequest\x12\x0e\n\x06\x62\x65\x66ore\x18\x01 \x01(\x04\x12\r\n\x05\x61\x66ter\x18\x02 \x01(\x04\x12\r\n\x05limit\x18\x03 \x01(\x11\x12\x0c\n\x04skip\x18\x04 \x01(\x04\x12\x0c\n\x04type\x18\x05 \x01(\t\x12\x0e\n\x06module\x18\x06 \x01(\t\"q\n\x0eGetTxsResponse\x12.\n\x06paging\x18\x01 \x01(\x0b\x32\x1e.injective_explorer_rpc.Paging\x12/\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32!.injective_explorer_rpc.TxDataRPC\"$\n\x14GetTxByTxHashRequest\x12\x0c\n\x04hash\x18\x01 \x01(\t\"\xcf\x03\n\x15GetTxByTxHashResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\x14\n\x0c\x62lock_number\x18\x02 \x01(\x04\x12\x17\n\x0f\x62lock_timestamp\x18\x03 \x01(\t\x12\x0c\n\x04hash\x18\x04 \x01(\t\x12\x0c\n\x04\x63ode\x18\x05 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x06 \x01(\x0c\x12\x0c\n\x04info\x18\x08 \x01(\t\x12\x12\n\ngas_wanted\x18\t \x01(\x12\x12\x10\n\x08gas_used\x18\n \x01(\x12\x12/\n\x07gas_fee\x18\x0b \x01(\x0b\x32\x1e.injective_explorer_rpc.GasFee\x12\x11\n\tcodespace\x18\x0c \x01(\t\x12-\n\x06\x65vents\x18\r \x03(\x0b\x32\x1d.injective_explorer_rpc.Event\x12\x0f\n\x07tx_type\x18\x0e \x01(\t\x12\x10\n\x08messages\x18\x0f \x01(\t\x12\x35\n\nsignatures\x18\x10 \x03(\x0b\x32!.injective_explorer_rpc.Signature\x12\x0c\n\x04memo\x18\x11 \x01(\t\x12\x11\n\ttx_number\x18\x12 \x01(\x04\x12\x1c\n\x14\x62lock_unix_timestamp\x18\x13 \x01(\x04\x12\x11\n\terror_log\x18\x14 \x01(\t\"\x12\n\x10StreamTxsRequest\"\xb5\x01\n\x11StreamTxsResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\x14\n\x0c\x62lock_number\x18\x02 \x01(\x04\x12\x17\n\x0f\x62lock_timestamp\x18\x03 \x01(\t\x12\x0c\n\x04hash\x18\x04 \x01(\t\x12\x11\n\tcodespace\x18\x05 \x01(\t\x12\x10\n\x08messages\x18\x06 \x01(\t\x12\x11\n\ttx_number\x18\x07 \x01(\x04\x12\x11\n\terror_log\x18\x08 \x01(\t\x12\x0c\n\x04\x63ode\x18\t \x01(\r\"\x15\n\x13StreamBlocksRequest\"\xdf\x01\n\x14StreamBlocksResponse\x12\x0e\n\x06height\x18\x01 \x01(\x04\x12\x10\n\x08proposer\x18\x02 \x01(\t\x12\x0f\n\x07moniker\x18\x03 \x01(\t\x12\x12\n\nblock_hash\x18\x04 \x01(\t\x12\x13\n\x0bparent_hash\x18\x05 \x01(\t\x12\x17\n\x0fnum_pre_commits\x18\x06 \x01(\x12\x12\x0f\n\x07num_txs\x18\x07 \x01(\x12\x12.\n\x03txs\x18\x08 \x03(\x0b\x32!.injective_explorer_rpc.TxDataRPC\x12\x11\n\ttimestamp\x18\t \x01(\t\"Z\n\x19GetPeggyDepositTxsRequest\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08receiver\x18\x02 \x01(\t\x12\r\n\x05limit\x18\x03 \x01(\x11\x12\x0c\n\x04skip\x18\x04 \x01(\x04\"S\n\x1aGetPeggyDepositTxsResponse\x12\x35\n\x05\x66ield\x18\x01 \x03(\x0b\x32&.injective_explorer_rpc.PeggyDepositTx\"\xf8\x01\n\x0ePeggyDepositTx\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08receiver\x18\x02 \x01(\t\x12\x13\n\x0b\x65vent_nonce\x18\x03 \x01(\x04\x12\x14\n\x0c\x65vent_height\x18\x04 \x01(\x04\x12\x0e\n\x06\x61mount\x18\x05 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x06 \x01(\t\x12\x1c\n\x14orchestrator_address\x18\x07 \x01(\t\x12\r\n\x05state\x18\x08 \x01(\t\x12\x12\n\nclaim_type\x18\t \x01(\x11\x12\x11\n\ttx_hashes\x18\n \x03(\t\x12\x12\n\ncreated_at\x18\x0b \x01(\t\x12\x12\n\nupdated_at\x18\x0c \x01(\t\"]\n\x1cGetPeggyWithdrawalTxsRequest\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08receiver\x18\x02 \x01(\t\x12\r\n\x05limit\x18\x03 \x01(\x11\x12\x0c\n\x04skip\x18\x04 \x01(\x04\"Y\n\x1dGetPeggyWithdrawalTxsResponse\x12\x38\n\x05\x66ield\x18\x01 \x03(\x0b\x32).injective_explorer_rpc.PeggyWithdrawalTx\"\xd3\x02\n\x11PeggyWithdrawalTx\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08receiver\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x04 \x01(\t\x12\x12\n\nbridge_fee\x18\x05 \x01(\t\x12\x16\n\x0eoutgoing_tx_id\x18\x06 \x01(\x04\x12\x15\n\rbatch_timeout\x18\x07 \x01(\x04\x12\x13\n\x0b\x62\x61tch_nonce\x18\x08 \x01(\x04\x12\x1c\n\x14orchestrator_address\x18\t \x01(\t\x12\x13\n\x0b\x65vent_nonce\x18\n \x01(\x04\x12\x14\n\x0c\x65vent_height\x18\x0b \x01(\x04\x12\r\n\x05state\x18\x0c \x01(\t\x12\x12\n\nclaim_type\x18\r \x01(\x11\x12\x11\n\ttx_hashes\x18\x0e \x03(\t\x12\x12\n\ncreated_at\x18\x0f \x01(\t\x12\x12\n\nupdated_at\x18\x10 \x01(\t\"\xa9\x01\n\x18GetIBCTransferTxsRequest\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08receiver\x18\x02 \x01(\t\x12\x13\n\x0bsrc_channel\x18\x03 \x01(\t\x12\x10\n\x08src_port\x18\x04 \x01(\t\x12\x14\n\x0c\x64\x65st_channel\x18\x05 \x01(\t\x12\x11\n\tdest_port\x18\x06 \x01(\t\x12\r\n\x05limit\x18\x07 \x01(\x11\x12\x0c\n\x04skip\x18\x08 \x01(\x04\"Q\n\x19GetIBCTransferTxsResponse\x12\x34\n\x05\x66ield\x18\x01 \x03(\x0b\x32%.injective_explorer_rpc.IBCTransferTx\"\xdc\x02\n\rIBCTransferTx\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08receiver\x18\x02 \x01(\t\x12\x13\n\x0bsource_port\x18\x03 \x01(\t\x12\x16\n\x0esource_channel\x18\x04 \x01(\t\x12\x18\n\x10\x64\x65stination_port\x18\x05 \x01(\t\x12\x1b\n\x13\x64\x65stination_channel\x18\x06 \x01(\t\x12\x0e\n\x06\x61mount\x18\x07 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x08 \x01(\t\x12\x16\n\x0etimeout_height\x18\t \x01(\t\x12\x19\n\x11timeout_timestamp\x18\n \x01(\x04\x12\x17\n\x0fpacket_sequence\x18\x0b \x01(\x04\x12\x10\n\x08\x64\x61ta_hex\x18\x0c \x01(\x0c\x12\r\n\x05state\x18\r \x01(\t\x12\x11\n\ttx_hashes\x18\x0e \x03(\t\x12\x12\n\ncreated_at\x18\x0f \x01(\t\x12\x12\n\nupdated_at\x18\x10 \x01(\t2\xc3\n\n\x14InjectiveExplorerRPC\x12l\n\rGetAccountTxs\x12,.injective_explorer_rpc.GetAccountTxsRequest\x1a-.injective_explorer_rpc.GetAccountTxsResponse\x12`\n\tGetBlocks\x12(.injective_explorer_rpc.GetBlocksRequest\x1a).injective_explorer_rpc.GetBlocksResponse\x12]\n\x08GetBlock\x12\'.injective_explorer_rpc.GetBlockRequest\x1a(.injective_explorer_rpc.GetBlockResponse\x12i\n\x0cGetValidator\x12+.injective_explorer_rpc.GetValidatorRequest\x1a,.injective_explorer_rpc.GetValidatorResponse\x12{\n\x12GetValidatorUptime\x12\x31.injective_explorer_rpc.GetValidatorUptimeRequest\x1a\x32.injective_explorer_rpc.GetValidatorUptimeResponse\x12W\n\x06GetTxs\x12%.injective_explorer_rpc.GetTxsRequest\x1a&.injective_explorer_rpc.GetTxsResponse\x12l\n\rGetTxByTxHash\x12,.injective_explorer_rpc.GetTxByTxHashRequest\x1a-.injective_explorer_rpc.GetTxByTxHashResponse\x12\x62\n\tStreamTxs\x12(.injective_explorer_rpc.StreamTxsRequest\x1a).injective_explorer_rpc.StreamTxsResponse0\x01\x12k\n\x0cStreamBlocks\x12+.injective_explorer_rpc.StreamBlocksRequest\x1a,.injective_explorer_rpc.StreamBlocksResponse0\x01\x12{\n\x12GetPeggyDepositTxs\x12\x31.injective_explorer_rpc.GetPeggyDepositTxsRequest\x1a\x32.injective_explorer_rpc.GetPeggyDepositTxsResponse\x12\x84\x01\n\x15GetPeggyWithdrawalTxs\x12\x34.injective_explorer_rpc.GetPeggyWithdrawalTxsRequest\x1a\x35.injective_explorer_rpc.GetPeggyWithdrawalTxsResponse\x12x\n\x11GetIBCTransferTxs\x12\x30.injective_explorer_rpc.GetIBCTransferTxsRequest\x1a\x31.injective_explorer_rpc.GetIBCTransferTxsResponseB\x1bZ\x19/injective_explorer_rpcpbb\x06proto3'
 )
 
 
@@ -134,7 +134,7 @@ _GETACCOUNTTXSRESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=197,
-  serialized_end=314,
+  serialized_end=323,
 )
 
 
@@ -179,147 +179,147 @@ _PAGING = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=316,
-  serialized_end=365,
+  serialized_start=325,
+  serialized_end=374,
 )
 
 
-_TXDATA = _descriptor.Descriptor(
-  name='TxData',
-  full_name='injective_explorer_rpc.TxData',
+_TXDETAILDATARPC = _descriptor.Descriptor(
+  name='TxDetailDataRPC',
+  full_name='injective_explorer_rpc.TxDetailDataRPC',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='injective_explorer_rpc.TxData.id', index=0,
+      name='id', full_name='injective_explorer_rpc.TxDetailDataRPC.id', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='block_number', full_name='injective_explorer_rpc.TxData.block_number', index=1,
+      name='block_number', full_name='injective_explorer_rpc.TxDetailDataRPC.block_number', index=1,
       number=2, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='block_timestamp', full_name='injective_explorer_rpc.TxData.block_timestamp', index=2,
+      name='block_timestamp', full_name='injective_explorer_rpc.TxDetailDataRPC.block_timestamp', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='hash', full_name='injective_explorer_rpc.TxData.hash', index=3,
+      name='hash', full_name='injective_explorer_rpc.TxDetailDataRPC.hash', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='code', full_name='injective_explorer_rpc.TxData.code', index=4,
+      name='code', full_name='injective_explorer_rpc.TxDetailDataRPC.code', index=4,
       number=5, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='data', full_name='injective_explorer_rpc.TxData.data', index=5,
+      name='data', full_name='injective_explorer_rpc.TxDetailDataRPC.data', index=5,
       number=6, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='info', full_name='injective_explorer_rpc.TxData.info', index=6,
+      name='info', full_name='injective_explorer_rpc.TxDetailDataRPC.info', index=6,
       number=8, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='gas_wanted', full_name='injective_explorer_rpc.TxData.gas_wanted', index=7,
+      name='gas_wanted', full_name='injective_explorer_rpc.TxDetailDataRPC.gas_wanted', index=7,
       number=9, type=18, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='gas_used', full_name='injective_explorer_rpc.TxData.gas_used', index=8,
+      name='gas_used', full_name='injective_explorer_rpc.TxDetailDataRPC.gas_used', index=8,
       number=10, type=18, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='gas_fee', full_name='injective_explorer_rpc.TxData.gas_fee', index=9,
+      name='gas_fee', full_name='injective_explorer_rpc.TxDetailDataRPC.gas_fee', index=9,
       number=11, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='codespace', full_name='injective_explorer_rpc.TxData.codespace', index=10,
+      name='codespace', full_name='injective_explorer_rpc.TxDetailDataRPC.codespace', index=10,
       number=12, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='events', full_name='injective_explorer_rpc.TxData.events', index=11,
+      name='events', full_name='injective_explorer_rpc.TxDetailDataRPC.events', index=11,
       number=13, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='tx_type', full_name='injective_explorer_rpc.TxData.tx_type', index=12,
+      name='tx_type', full_name='injective_explorer_rpc.TxDetailDataRPC.tx_type', index=12,
       number=14, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='messages', full_name='injective_explorer_rpc.TxData.messages', index=13,
+      name='messages', full_name='injective_explorer_rpc.TxDetailDataRPC.messages', index=13,
       number=15, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='signatures', full_name='injective_explorer_rpc.TxData.signatures', index=14,
+      name='signatures', full_name='injective_explorer_rpc.TxDetailDataRPC.signatures', index=14,
       number=16, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='memo', full_name='injective_explorer_rpc.TxData.memo', index=15,
+      name='memo', full_name='injective_explorer_rpc.TxDetailDataRPC.memo', index=15,
       number=17, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='tx_number', full_name='injective_explorer_rpc.TxData.tx_number', index=16,
+      name='tx_number', full_name='injective_explorer_rpc.TxDetailDataRPC.tx_number', index=16,
       number=18, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='block_unix_timestamp', full_name='injective_explorer_rpc.TxData.block_unix_timestamp', index=17,
+      name='block_unix_timestamp', full_name='injective_explorer_rpc.TxDetailDataRPC.block_unix_timestamp', index=17,
       number=19, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='error_log', full_name='injective_explorer_rpc.TxData.error_log', index=18,
+      name='error_log', full_name='injective_explorer_rpc.TxDetailDataRPC.error_log', index=18,
       number=20, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -337,8 +337,8 @@ _TXDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=368,
-  serialized_end=816,
+  serialized_start=377,
+  serialized_end=834,
 )
 
 
@@ -390,8 +390,8 @@ _GASFEE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=818,
-  serialized_end=929,
+  serialized_start=836,
+  serialized_end=947,
 )
 
 
@@ -429,8 +429,8 @@ _COSMOSCOIN = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=931,
-  serialized_end=974,
+  serialized_start=949,
+  serialized_end=992,
 )
 
 
@@ -468,8 +468,8 @@ _EVENT_ATTRIBUTESENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1067,
-  serialized_end=1116,
+  serialized_start=1085,
+  serialized_end=1134,
 )
 
 _EVENT = _descriptor.Descriptor(
@@ -506,8 +506,8 @@ _EVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=977,
-  serialized_end=1116,
+  serialized_start=995,
+  serialized_end=1134,
 )
 
 
@@ -559,8 +559,8 @@ _SIGNATURE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1118,
-  serialized_end=1199,
+  serialized_start=1136,
+  serialized_end=1217,
 )
 
 
@@ -605,8 +605,8 @@ _GETBLOCKSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1201,
-  serialized_end=1265,
+  serialized_start=1219,
+  serialized_end=1283,
 )
 
 
@@ -644,8 +644,8 @@ _GETBLOCKSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1267,
-  serialized_end=1383,
+  serialized_start=1285,
+  serialized_end=1401,
 )
 
 
@@ -732,8 +732,96 @@ _BLOCKINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1386,
-  serialized_end=1595,
+  serialized_start=1404,
+  serialized_end=1616,
+)
+
+
+_TXDATARPC = _descriptor.Descriptor(
+  name='TxDataRPC',
+  full_name='injective_explorer_rpc.TxDataRPC',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='id', full_name='injective_explorer_rpc.TxDataRPC.id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='block_number', full_name='injective_explorer_rpc.TxDataRPC.block_number', index=1,
+      number=2, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='block_timestamp', full_name='injective_explorer_rpc.TxDataRPC.block_timestamp', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='hash', full_name='injective_explorer_rpc.TxDataRPC.hash', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='codespace', full_name='injective_explorer_rpc.TxDataRPC.codespace', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='messages', full_name='injective_explorer_rpc.TxDataRPC.messages', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='tx_number', full_name='injective_explorer_rpc.TxDataRPC.tx_number', index=6,
+      number=7, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='error_log', full_name='injective_explorer_rpc.TxDataRPC.error_log', index=7,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='code', full_name='injective_explorer_rpc.TxDataRPC.code', index=8,
+      number=9, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1619,
+  serialized_end=1792,
 )
 
 
@@ -764,8 +852,8 @@ _GETBLOCKREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1597,
-  serialized_end=1626,
+  serialized_start=1794,
+  serialized_end=1823,
 )
 
 
@@ -852,8 +940,8 @@ _GETBLOCKRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1629,
-  serialized_end=1845,
+  serialized_start=1826,
+  serialized_end=2045,
 )
 
 
@@ -884,8 +972,8 @@ _GETVALIDATORREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1847,
-  serialized_end=1885,
+  serialized_start=2047,
+  serialized_end=2085,
 )
 
 
@@ -1063,8 +1151,8 @@ _GETVALIDATORRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1888,
-  serialized_end=2523,
+  serialized_start=2088,
+  serialized_end=2723,
 )
 
 
@@ -1123,8 +1211,8 @@ _VALIDATORDESCRIPTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2525,
-  serialized_end=2642,
+  serialized_start=2725,
+  serialized_end=2842,
 )
 
 
@@ -1162,8 +1250,8 @@ _VALIDATORUPTIME = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2644,
-  serialized_end=2699,
+  serialized_start=2844,
+  serialized_end=2899,
 )
 
 
@@ -1236,8 +1324,8 @@ _SLASHINGEVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2702,
-  serialized_end=2851,
+  serialized_start=2902,
+  serialized_end=3051,
 )
 
 
@@ -1268,8 +1356,8 @@ _GETVALIDATORUPTIMEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2853,
-  serialized_end=2897,
+  serialized_start=3053,
+  serialized_end=3097,
 )
 
 
@@ -1300,8 +1388,8 @@ _GETVALIDATORUPTIMERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2899,
-  serialized_end=2983,
+  serialized_start=3099,
+  serialized_end=3183,
 )
 
 
@@ -1367,8 +1455,8 @@ _GETTXSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2985,
-  serialized_end=3090,
+  serialized_start=3185,
+  serialized_end=3290,
 )
 
 
@@ -1406,8 +1494,8 @@ _GETTXSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3092,
-  serialized_end=3202,
+  serialized_start=3292,
+  serialized_end=3405,
 )
 
 
@@ -1438,8 +1526,8 @@ _GETTXBYTXHASHREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3204,
-  serialized_end=3240,
+  serialized_start=3407,
+  serialized_end=3443,
 )
 
 
@@ -1596,8 +1684,8 @@ _GETTXBYTXHASHRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3243,
-  serialized_end=3706,
+  serialized_start=3446,
+  serialized_end=3909,
 )
 
 
@@ -1621,8 +1709,8 @@ _STREAMTXSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3708,
-  serialized_end=3726,
+  serialized_start=3911,
+  serialized_end=3929,
 )
 
 
@@ -1663,107 +1751,37 @@ _STREAMTXSRESPONSE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='code', full_name='injective_explorer_rpc.StreamTxsResponse.code', index=4,
-      number=5, type=13, cpp_type=3, label=1,
+      name='codespace', full_name='injective_explorer_rpc.StreamTxsResponse.codespace', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='messages', full_name='injective_explorer_rpc.StreamTxsResponse.messages', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='tx_number', full_name='injective_explorer_rpc.StreamTxsResponse.tx_number', index=6,
+      number=7, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='data', full_name='injective_explorer_rpc.StreamTxsResponse.data', index=5,
-      number=6, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"",
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='info', full_name='injective_explorer_rpc.StreamTxsResponse.info', index=6,
+      name='error_log', full_name='injective_explorer_rpc.StreamTxsResponse.error_log', index=7,
       number=8, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='gas_wanted', full_name='injective_explorer_rpc.StreamTxsResponse.gas_wanted', index=7,
-      number=9, type=18, cpp_type=2, label=1,
+      name='code', full_name='injective_explorer_rpc.StreamTxsResponse.code', index=8,
+      number=9, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='gas_used', full_name='injective_explorer_rpc.StreamTxsResponse.gas_used', index=8,
-      number=10, type=18, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='gas_fee', full_name='injective_explorer_rpc.StreamTxsResponse.gas_fee', index=9,
-      number=11, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='codespace', full_name='injective_explorer_rpc.StreamTxsResponse.codespace', index=10,
-      number=12, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='events', full_name='injective_explorer_rpc.StreamTxsResponse.events', index=11,
-      number=13, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='tx_type', full_name='injective_explorer_rpc.StreamTxsResponse.tx_type', index=12,
-      number=14, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='messages', full_name='injective_explorer_rpc.StreamTxsResponse.messages', index=13,
-      number=15, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='signatures', full_name='injective_explorer_rpc.StreamTxsResponse.signatures', index=14,
-      number=16, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='memo', full_name='injective_explorer_rpc.StreamTxsResponse.memo', index=15,
-      number=17, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='tx_number', full_name='injective_explorer_rpc.StreamTxsResponse.tx_number', index=16,
-      number=18, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='block_unix_timestamp', full_name='injective_explorer_rpc.StreamTxsResponse.block_unix_timestamp', index=17,
-      number=19, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='error_log', full_name='injective_explorer_rpc.StreamTxsResponse.error_log', index=18,
-      number=20, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -1779,8 +1797,8 @@ _STREAMTXSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3729,
-  serialized_end=4188,
+  serialized_start=3932,
+  serialized_end=4113,
 )
 
 
@@ -1804,8 +1822,8 @@ _STREAMBLOCKSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4190,
-  serialized_end=4211,
+  serialized_start=4115,
+  serialized_end=4136,
 )
 
 
@@ -1892,8 +1910,8 @@ _STREAMBLOCKSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4214,
-  serialized_end=4434,
+  serialized_start=4139,
+  serialized_end=4362,
 )
 
 
@@ -1945,8 +1963,8 @@ _GETPEGGYDEPOSITTXSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4436,
-  serialized_end=4526,
+  serialized_start=4364,
+  serialized_end=4454,
 )
 
 
@@ -1977,8 +1995,8 @@ _GETPEGGYDEPOSITTXSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4528,
-  serialized_end=4611,
+  serialized_start=4456,
+  serialized_end=4539,
 )
 
 
@@ -2086,8 +2104,8 @@ _PEGGYDEPOSITTX = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4614,
-  serialized_end=4862,
+  serialized_start=4542,
+  serialized_end=4790,
 )
 
 
@@ -2139,8 +2157,8 @@ _GETPEGGYWITHDRAWALTXSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4864,
-  serialized_end=4957,
+  serialized_start=4792,
+  serialized_end=4885,
 )
 
 
@@ -2171,8 +2189,8 @@ _GETPEGGYWITHDRAWALTXSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4959,
-  serialized_end=5048,
+  serialized_start=4887,
+  serialized_end=4976,
 )
 
 
@@ -2308,8 +2326,8 @@ _PEGGYWITHDRAWALTX = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5051,
-  serialized_end=5390,
+  serialized_start=4979,
+  serialized_end=5318,
 )
 
 
@@ -2389,8 +2407,8 @@ _GETIBCTRANSFERTXSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5393,
-  serialized_end=5562,
+  serialized_start=5321,
+  serialized_end=5490,
 )
 
 
@@ -2421,8 +2439,8 @@ _GETIBCTRANSFERTXSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5564,
-  serialized_end=5645,
+  serialized_start=5492,
+  serialized_end=5573,
 )
 
 
@@ -2558,42 +2576,39 @@ _IBCTRANSFERTX = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5648,
-  serialized_end=5996,
+  serialized_start=5576,
+  serialized_end=5924,
 )
 
 _GETACCOUNTTXSRESPONSE.fields_by_name['paging'].message_type = _PAGING
-_GETACCOUNTTXSRESPONSE.fields_by_name['data'].message_type = _TXDATA
-_TXDATA.fields_by_name['gas_fee'].message_type = _GASFEE
-_TXDATA.fields_by_name['events'].message_type = _EVENT
-_TXDATA.fields_by_name['signatures'].message_type = _SIGNATURE
+_GETACCOUNTTXSRESPONSE.fields_by_name['data'].message_type = _TXDETAILDATARPC
+_TXDETAILDATARPC.fields_by_name['gas_fee'].message_type = _GASFEE
+_TXDETAILDATARPC.fields_by_name['events'].message_type = _EVENT
+_TXDETAILDATARPC.fields_by_name['signatures'].message_type = _SIGNATURE
 _GASFEE.fields_by_name['amount'].message_type = _COSMOSCOIN
 _EVENT_ATTRIBUTESENTRY.containing_type = _EVENT
 _EVENT.fields_by_name['attributes'].message_type = _EVENT_ATTRIBUTESENTRY
 _GETBLOCKSRESPONSE.fields_by_name['paging'].message_type = _PAGING
 _GETBLOCKSRESPONSE.fields_by_name['data'].message_type = _BLOCKINFO
-_BLOCKINFO.fields_by_name['txs'].message_type = _TXDATA
-_GETBLOCKRESPONSE.fields_by_name['txs'].message_type = _TXDATA
+_BLOCKINFO.fields_by_name['txs'].message_type = _TXDATARPC
+_GETBLOCKRESPONSE.fields_by_name['txs'].message_type = _TXDATARPC
 _GETVALIDATORRESPONSE.fields_by_name['description'].message_type = _VALIDATORDESCRIPTION
 _GETVALIDATORRESPONSE.fields_by_name['uptimes'].message_type = _VALIDATORUPTIME
 _GETVALIDATORRESPONSE.fields_by_name['slashing_events'].message_type = _SLASHINGEVENT
 _GETVALIDATORUPTIMERESPONSE.fields_by_name['field'].message_type = _VALIDATORUPTIME
 _GETTXSRESPONSE.fields_by_name['paging'].message_type = _PAGING
-_GETTXSRESPONSE.fields_by_name['data'].message_type = _TXDATA
+_GETTXSRESPONSE.fields_by_name['data'].message_type = _TXDATARPC
 _GETTXBYTXHASHRESPONSE.fields_by_name['gas_fee'].message_type = _GASFEE
 _GETTXBYTXHASHRESPONSE.fields_by_name['events'].message_type = _EVENT
 _GETTXBYTXHASHRESPONSE.fields_by_name['signatures'].message_type = _SIGNATURE
-_STREAMTXSRESPONSE.fields_by_name['gas_fee'].message_type = _GASFEE
-_STREAMTXSRESPONSE.fields_by_name['events'].message_type = _EVENT
-_STREAMTXSRESPONSE.fields_by_name['signatures'].message_type = _SIGNATURE
-_STREAMBLOCKSRESPONSE.fields_by_name['txs'].message_type = _TXDATA
+_STREAMBLOCKSRESPONSE.fields_by_name['txs'].message_type = _TXDATARPC
 _GETPEGGYDEPOSITTXSRESPONSE.fields_by_name['field'].message_type = _PEGGYDEPOSITTX
 _GETPEGGYWITHDRAWALTXSRESPONSE.fields_by_name['field'].message_type = _PEGGYWITHDRAWALTX
 _GETIBCTRANSFERTXSRESPONSE.fields_by_name['field'].message_type = _IBCTRANSFERTX
 DESCRIPTOR.message_types_by_name['GetAccountTxsRequest'] = _GETACCOUNTTXSREQUEST
 DESCRIPTOR.message_types_by_name['GetAccountTxsResponse'] = _GETACCOUNTTXSRESPONSE
 DESCRIPTOR.message_types_by_name['Paging'] = _PAGING
-DESCRIPTOR.message_types_by_name['TxData'] = _TXDATA
+DESCRIPTOR.message_types_by_name['TxDetailDataRPC'] = _TXDETAILDATARPC
 DESCRIPTOR.message_types_by_name['GasFee'] = _GASFEE
 DESCRIPTOR.message_types_by_name['CosmosCoin'] = _COSMOSCOIN
 DESCRIPTOR.message_types_by_name['Event'] = _EVENT
@@ -2601,6 +2616,7 @@ DESCRIPTOR.message_types_by_name['Signature'] = _SIGNATURE
 DESCRIPTOR.message_types_by_name['GetBlocksRequest'] = _GETBLOCKSREQUEST
 DESCRIPTOR.message_types_by_name['GetBlocksResponse'] = _GETBLOCKSRESPONSE
 DESCRIPTOR.message_types_by_name['BlockInfo'] = _BLOCKINFO
+DESCRIPTOR.message_types_by_name['TxDataRPC'] = _TXDATARPC
 DESCRIPTOR.message_types_by_name['GetBlockRequest'] = _GETBLOCKREQUEST
 DESCRIPTOR.message_types_by_name['GetBlockResponse'] = _GETBLOCKRESPONSE
 DESCRIPTOR.message_types_by_name['GetValidatorRequest'] = _GETVALIDATORREQUEST
@@ -2650,12 +2666,12 @@ Paging = _reflection.GeneratedProtocolMessageType('Paging', (_message.Message,),
   })
 _sym_db.RegisterMessage(Paging)
 
-TxData = _reflection.GeneratedProtocolMessageType('TxData', (_message.Message,), {
-  'DESCRIPTOR' : _TXDATA,
+TxDetailDataRPC = _reflection.GeneratedProtocolMessageType('TxDetailDataRPC', (_message.Message,), {
+  'DESCRIPTOR' : _TXDETAILDATARPC,
   '__module__' : 'exchange.injective_explorer_rpc_pb2'
-  # @@protoc_insertion_point(class_scope:injective_explorer_rpc.TxData)
+  # @@protoc_insertion_point(class_scope:injective_explorer_rpc.TxDetailDataRPC)
   })
-_sym_db.RegisterMessage(TxData)
+_sym_db.RegisterMessage(TxDetailDataRPC)
 
 GasFee = _reflection.GeneratedProtocolMessageType('GasFee', (_message.Message,), {
   'DESCRIPTOR' : _GASFEE,
@@ -2713,6 +2729,13 @@ BlockInfo = _reflection.GeneratedProtocolMessageType('BlockInfo', (_message.Mess
   # @@protoc_insertion_point(class_scope:injective_explorer_rpc.BlockInfo)
   })
 _sym_db.RegisterMessage(BlockInfo)
+
+TxDataRPC = _reflection.GeneratedProtocolMessageType('TxDataRPC', (_message.Message,), {
+  'DESCRIPTOR' : _TXDATARPC,
+  '__module__' : 'exchange.injective_explorer_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_explorer_rpc.TxDataRPC)
+  })
+_sym_db.RegisterMessage(TxDataRPC)
 
 GetBlockRequest = _reflection.GeneratedProtocolMessageType('GetBlockRequest', (_message.Message,), {
   'DESCRIPTOR' : _GETBLOCKREQUEST,
@@ -2907,8 +2930,8 @@ _INJECTIVEEXPLORERRPC = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=5999,
-  serialized_end=7346,
+  serialized_start=5927,
+  serialized_end=7274,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetAccountTxs',

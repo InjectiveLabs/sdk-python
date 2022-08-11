@@ -75,6 +75,11 @@ class InjectiveSpotExchangeRPCStub(object):
                 request_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.SubaccountTradesListRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.SubaccountTradesListResponse.FromString,
                 )
+        self.OrdersHistory = channel.unary_unary(
+                '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/OrdersHistory',
+                request_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.OrdersHistoryRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.OrdersHistoryResponse.FromString,
+                )
 
 
 class InjectiveSpotExchangeRPCServicer(object):
@@ -165,6 +170,13 @@ class InjectiveSpotExchangeRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def OrdersHistory(self, request, context):
+        """Lists history orders posted from this subaccount
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_InjectiveSpotExchangeRPCServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -227,6 +239,11 @@ def add_InjectiveSpotExchangeRPCServicer_to_server(servicer, server):
                     servicer.SubaccountTradesList,
                     request_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.SubaccountTradesListRequest.FromString,
                     response_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.SubaccountTradesListResponse.SerializeToString,
+            ),
+            'OrdersHistory': grpc.unary_unary_rpc_method_handler(
+                    servicer.OrdersHistory,
+                    request_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.OrdersHistoryRequest.FromString,
+                    response_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.OrdersHistoryResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -440,5 +457,22 @@ class InjectiveSpotExchangeRPC(object):
         return grpc.experimental.unary_unary(request, target, '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/SubaccountTradesList',
             exchange_dot_injective__spot__exchange__rpc__pb2.SubaccountTradesListRequest.SerializeToString,
             exchange_dot_injective__spot__exchange__rpc__pb2.SubaccountTradesListResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def OrdersHistory(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/OrdersHistory',
+            exchange_dot_injective__spot__exchange__rpc__pb2.OrdersHistoryRequest.SerializeToString,
+            exchange_dot_injective__spot__exchange__rpc__pb2.OrdersHistoryResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
