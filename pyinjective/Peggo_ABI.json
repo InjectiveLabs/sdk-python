@@ -110,9 +110,15 @@
                 "internalType": "uint256",
                 "name": "_eventNonce",
                 "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "_data",
+                "type": "string"
             }
         ],
-        "name": "SendToCosmosEvent",
+        "name": "SendToInjectiveEvent",
         "type": "event"
     },
     {
@@ -393,9 +399,14 @@
                 "internalType": "uint256",
                 "name": "_amount",
                 "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "_data",
+                "type": "string"
             }
         ],
-        "name": "sendToCosmos",
+        "name": "sendToInjective",
         "outputs":
         [],
         "stateMutability": "nonpayable",

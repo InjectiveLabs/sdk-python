@@ -8,14 +8,16 @@ logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 class Peggo:
     def __init__(self, network: str):
         self.network = network
-    def SendToCosmos(self, ethereum_endpoint: str, private_key: str, token_contract: str, receiver: str, amount: int,
-                     maxFeePerGas: int, maxPriorityFeePerGas: int, peggo_abi: str, decimals=18):
+    def sendToInjective(self, ethereum_endpoint: str, private_key: str, token_contract: str, receiver: str, amount: int,
+                     maxFeePerGas: int, maxPriorityFeePerGas: int, peggo_abi: str, data: str, decimals=18):
         if self.network == 'testnet':
             peggy_proxy_address = "0xd2C6753F6B1783EF0a3857275e16e79D91b539a3"
         elif self.network == 'mainnet':
             peggy_proxy_address = "0xF955C57f9EA9Dc8781965FEaE0b6A2acE2BAD6f3"
+        elif self.network == 'devnet':
+            peggy_proxy_address = "0x4F38F75606d046819638f909b66B112aF1095e8d"
         else:
-            logging.info("SendToCosmos is only supported on Mainnet & Testnet")
+            logging.info("Network is not supported")
         web3 = Web3(Web3.HTTPProvider(ethereum_endpoint))
         contract = web3.eth.contract(address=peggy_proxy_address, abi=peggo_abi)
 
@@ -35,10 +37,11 @@ class Peggo:
 
         amount_to_send = int(amount * pow(10, decimals))
 
-        gas = contract.functions.sendToCosmos(
+        gas = contract.functions.sendToInjective(
             token_contract_address,
             destination,
             amount_to_send,
+            data
         ).estimateGas({'from': sender_address_checksum})
 
         transaction_body = {
@@ -48,10 +51,11 @@ class Peggo:
             'maxPriorityFeePerGas': web3.toWei(maxPriorityFeePerGas, 'gwei'),
         }
 
-        tx = contract.functions.sendToCosmos(
+        tx = contract.functions.sendToInjective(
             token_contract_address,
             destination,
             amount_to_send,
+            data
         ).buildTransaction(transaction_body)
 
         signed_tx = web3.eth.account.signTransaction(tx, private_key=private_key)
