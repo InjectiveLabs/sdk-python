@@ -591,6 +591,19 @@ class AsyncClient:
         )
         return await self.stubSpotExchange.Orders(req)
 
+    async def get_historical_spot_orders(self, market_id: str, **kwargs):
+        req = spot_exchange_rpc_pb.OrdersHistoryRequest(
+            market_id=market_id,
+            direction=kwargs.get("direction"),
+            order_type=kwargs.get("order_type"),
+            subaccount_id=kwargs.get("subaccount_id"),
+            skip=kwargs.get("skip"),
+            limit=kwargs.get("limit"),
+            start_time=kwargs.get("start_time"),
+            end_time=kwargs.get("end_time")
+        )
+        return await self.stubSpotExchange.OrdersHistory(req)
+
     async def get_spot_trades(self, **kwargs):
         req = spot_exchange_rpc_pb.TradesRequest(
             market_id=kwargs.get("market_id"),
@@ -692,6 +705,19 @@ class AsyncClient:
             limit=kwargs.get("limit")
         )
         return await self.stubDerivativeExchange.Orders(req)
+
+    async def get_historical_derivative_orders(self, market_id: str, **kwargs):
+        req = derivative_exchange_rpc_pb.OrdersHistoryRequest(
+            market_id=market_id,
+            direction=kwargs.get("direction"),
+            order_type=kwargs.get("order_type"),
+            subaccount_id=kwargs.get("subaccount_id"),
+            skip=kwargs.get("skip"),
+            limit=kwargs.get("limit"),
+            start_time=kwargs.get("start_time"),
+            end_time=kwargs.get("end_time")
+        )
+        return await self.stubDerivativeExchange.OrdersHistory(req)
 
     async def get_derivative_trades(self, **kwargs):
         req = derivative_exchange_rpc_pb.TradesRequest(
