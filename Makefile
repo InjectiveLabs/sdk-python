@@ -1,6 +1,6 @@
 all:
 
-EXCHANGE_PROTO_FILES=$(shell find ../injective-exchange/api/gen/grpc -type f -name '*.proto')
+EXCHANGE_PROTO_FILES=$(shell find ../injective-indexer/api/gen/grpc -type f -name '*.proto')
 PROTO_DIRS=$(shell find ./proto -path -prune -o -name '*.proto' -print0 | xargs -0 -n1 dirname | sort | uniq)
 gen: gen-client
 

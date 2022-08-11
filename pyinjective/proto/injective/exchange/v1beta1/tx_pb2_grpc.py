@@ -145,10 +145,10 @@ class MsgStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgIncreasePositionMargin.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgIncreasePositionMarginResponse.FromString,
                 )
-        self.RegisterAsDMM = channel.unary_unary(
-                '/injective.exchange.v1beta1.Msg/RegisterAsDMM',
-                request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgRegisterAsDMM.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgRegisterAsDMMResponse.FromString,
+        self.RewardsOptOut = channel.unary_unary(
+                '/injective.exchange.v1beta1.Msg/RewardsOptOut',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgRewardsOptOut.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgRewardsOptOutResponse.FromString,
                 )
         self.AdminUpdateBinaryOptionsMarket = channel.unary_unary(
                 '/injective.exchange.v1beta1.Msg/AdminUpdateBinaryOptionsMarket',
@@ -343,8 +343,8 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def RegisterAsDMM(self, request, context):
-        """RegisterAsDMM defines a method for registering as a DMM
+    def RewardsOptOut(self, request, context):
+        """RewardsOptOut defines a method for opting out of rewards
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -490,10 +490,10 @@ def add_MsgServicer_to_server(servicer, server):
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgIncreasePositionMargin.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgIncreasePositionMarginResponse.SerializeToString,
             ),
-            'RegisterAsDMM': grpc.unary_unary_rpc_method_handler(
-                    servicer.RegisterAsDMM,
-                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgRegisterAsDMM.FromString,
-                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgRegisterAsDMMResponse.SerializeToString,
+            'RewardsOptOut': grpc.unary_unary_rpc_method_handler(
+                    servicer.RewardsOptOut,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgRewardsOptOut.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgRewardsOptOutResponse.SerializeToString,
             ),
             'AdminUpdateBinaryOptionsMarket': grpc.unary_unary_rpc_method_handler(
                     servicer.AdminUpdateBinaryOptionsMarket,
@@ -954,7 +954,7 @@ class Msg(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def RegisterAsDMM(request,
+    def RewardsOptOut(request,
             target,
             options=(),
             channel_credentials=None,
@@ -964,9 +964,9 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Msg/RegisterAsDMM',
-            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgRegisterAsDMM.SerializeToString,
-            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgRegisterAsDMMResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Msg/RewardsOptOut',
+            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgRewardsOptOut.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgRewardsOptOutResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

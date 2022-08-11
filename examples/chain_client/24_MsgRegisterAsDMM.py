@@ -37,9 +37,8 @@ async def main() -> None:
     address = await pub_key.to_address().async_init_num_seq(network.lcd_endpoint)
 
     # prepare tx msg
-    msg = composer.MsgRegisterAsDMM(
-        sender=address.to_acc_bech32(),
-        dmm_account=address.to_acc_bech32()
+    msg = composer.MsgRewardsOptOut(
+        sender=address.to_acc_bech32()
     )
 
     # build sim tx

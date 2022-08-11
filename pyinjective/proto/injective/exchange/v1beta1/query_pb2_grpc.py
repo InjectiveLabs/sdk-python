@@ -55,6 +55,16 @@ class QueryStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderSpotOrdersRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderSpotOrdersResponse.FromString,
                 )
+        self.SubaccountOrders = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/SubaccountOrders',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountOrdersRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountOrdersResponse.FromString,
+                )
+        self.TraderSpotTransientOrders = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/TraderSpotTransientOrders',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderSpotOrdersRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderSpotOrdersResponse.FromString,
+                )
         self.SpotMidPriceAndTOB = channel.unary_unary(
                 '/injective.exchange.v1beta1.Query/SpotMidPriceAndTOB',
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySpotMidPriceAndTOBRequest.SerializeToString,
@@ -200,15 +210,15 @@ class QueryStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryHistoricalTradeRecordsRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryHistoricalTradeRecordsResponse.FromString,
                 )
-        self.IsRegisteredDMM = channel.unary_unary(
-                '/injective.exchange.v1beta1.Query/IsRegisteredDMM',
-                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryIsRegisteredDMMRequest.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryIsRegisteredDMMResponse.FromString,
+        self.IsOptedOutOfRewards = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/IsOptedOutOfRewards',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryIsOptedOutOfRewardsRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryIsOptedOutOfRewardsResponse.FromString,
                 )
-        self.RegisteredDMMs = channel.unary_unary(
-                '/injective.exchange.v1beta1.Query/RegisteredDMMs',
-                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryRegisteredDMMsRequest.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryRegisteredDMMsResponse.FromString,
+        self.OptedOutOfRewardsAccounts = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/OptedOutOfRewardsAccounts',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryOptedOutOfRewardsAccountsRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryOptedOutOfRewardsAccountsResponse.FromString,
                 )
         self.MarketVolatility = channel.unary_unary(
                 '/injective.exchange.v1beta1.Query/MarketVolatility',
@@ -277,6 +287,20 @@ class QueryServicer(object):
 
     def TraderSpotOrders(self, request, context):
         """Retrieves a trader's spot orders
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SubaccountOrders(self, request, context):
+        """Retrieves subaccount's orders
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def TraderSpotTransientOrders(self, request, context):
+        """Retrieves a trader's transient spot orders
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -485,15 +509,15 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def IsRegisteredDMM(self, request, context):
-        """Retrieves if the account is a registered DMM
+    def IsOptedOutOfRewards(self, request, context):
+        """Retrieves if the account is opted out of rewards
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def RegisteredDMMs(self, request, context):
-        """Retrieves all registered DMMs
+    def OptedOutOfRewardsAccounts(self, request, context):
+        """Retrieves all accounts opted out of rewards
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -553,6 +577,16 @@ def add_QueryServicer_to_server(servicer, server):
             ),
             'TraderSpotOrders': grpc.unary_unary_rpc_method_handler(
                     servicer.TraderSpotOrders,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderSpotOrdersRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderSpotOrdersResponse.SerializeToString,
+            ),
+            'SubaccountOrders': grpc.unary_unary_rpc_method_handler(
+                    servicer.SubaccountOrders,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountOrdersRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountOrdersResponse.SerializeToString,
+            ),
+            'TraderSpotTransientOrders': grpc.unary_unary_rpc_method_handler(
+                    servicer.TraderSpotTransientOrders,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderSpotOrdersRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderSpotOrdersResponse.SerializeToString,
             ),
@@ -701,15 +735,15 @@ def add_QueryServicer_to_server(servicer, server):
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryHistoricalTradeRecordsRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryHistoricalTradeRecordsResponse.SerializeToString,
             ),
-            'IsRegisteredDMM': grpc.unary_unary_rpc_method_handler(
-                    servicer.IsRegisteredDMM,
-                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryIsRegisteredDMMRequest.FromString,
-                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryIsRegisteredDMMResponse.SerializeToString,
+            'IsOptedOutOfRewards': grpc.unary_unary_rpc_method_handler(
+                    servicer.IsOptedOutOfRewards,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryIsOptedOutOfRewardsRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryIsOptedOutOfRewardsResponse.SerializeToString,
             ),
-            'RegisteredDMMs': grpc.unary_unary_rpc_method_handler(
-                    servicer.RegisteredDMMs,
-                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryRegisteredDMMsRequest.FromString,
-                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryRegisteredDMMsResponse.SerializeToString,
+            'OptedOutOfRewardsAccounts': grpc.unary_unary_rpc_method_handler(
+                    servicer.OptedOutOfRewardsAccounts,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryOptedOutOfRewardsAccountsRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryOptedOutOfRewardsAccountsResponse.SerializeToString,
             ),
             'MarketVolatility': grpc.unary_unary_rpc_method_handler(
                     servicer.MarketVolatility,
@@ -863,6 +897,40 @@ class Query(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/TraderSpotOrders',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderSpotOrdersRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderSpotOrdersResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SubaccountOrders(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/SubaccountOrders',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountOrdersRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountOrdersResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def TraderSpotTransientOrders(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/TraderSpotTransientOrders',
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderSpotOrdersRequest.SerializeToString,
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderSpotOrdersResponse.FromString,
             options, channel_credentials,
@@ -1362,7 +1430,7 @@ class Query(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def IsRegisteredDMM(request,
+    def IsOptedOutOfRewards(request,
             target,
             options=(),
             channel_credentials=None,
@@ -1372,14 +1440,14 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/IsRegisteredDMM',
-            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryIsRegisteredDMMRequest.SerializeToString,
-            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryIsRegisteredDMMResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/IsOptedOutOfRewards',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryIsOptedOutOfRewardsRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryIsOptedOutOfRewardsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def RegisteredDMMs(request,
+    def OptedOutOfRewardsAccounts(request,
             target,
             options=(),
             channel_credentials=None,
@@ -1389,9 +1457,9 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/RegisteredDMMs',
-            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryRegisteredDMMsRequest.SerializeToString,
-            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryRegisteredDMMsResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/OptedOutOfRewardsAccounts',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryOptedOutOfRewardsAccountsRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryOptedOutOfRewardsAccountsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
