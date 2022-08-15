@@ -82,6 +82,7 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 * Add OrdersHistory
 * Add SendToInjective
 * Add MsgRewardsOptOut
+* Re-gen ini files
 
 **0.5.7.5**
 * Fix MsgExternalTransfer
