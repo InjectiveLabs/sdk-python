@@ -78,6 +78,9 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.5.7.7**
+* Add start_time and end_time in TradesRequest
+
 **0.5.7.6**
 * Add OrdersHistory
 * Add SendToInjective

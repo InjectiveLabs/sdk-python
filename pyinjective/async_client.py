@@ -614,6 +614,8 @@ class AsyncClient:
             subaccount_ids=kwargs.get("subaccount_ids"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
+            start_time=kwargs.get("start_time"),
+            end_time=kwargs.get("end_time")
         )
         return await self.stubSpotExchange.Trades(req)
 
@@ -729,6 +731,8 @@ class AsyncClient:
             direction=kwargs.get("direction"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
+            start_time=kwargs.get("start_time"),
+            end_time=kwargs.get("end_time")
         )
         return await self.stubDerivativeExchange.Trades(req)
 
