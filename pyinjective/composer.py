@@ -26,6 +26,8 @@ from .proto.cosmos.staking.v1beta1 import tx_pb2 as cosmos_staking_tx_pb
 
 from .proto.cosmos.distribution.v1beta1 import tx_pb2 as cosmos_distribution_tx_pb
 
+from .proto.cosmos.gov.v1beta1 import tx_pb2 as cosmos_gov_tx_pb
+
 from .constant import Denom
 from .utils import *
 from typing import List
@@ -775,6 +777,19 @@ class Composer:
         return cosmos_distribution_tx_pb.MsgWithdrawDelegatorReward(
             delegator_address=delegator_address,
             validator_address=validator_address
+        )
+
+    def MsgVote(
+        self,
+        proposal_id: str,
+        voter: str,
+        option: int,
+    ):
+
+        return cosmos_gov_tx_pb.MsgVote(
+            proposal_id=proposal_id,
+            voter=voter,
+            option=option
         )
 
     # data field format: [request-msg-header][raw-byte-msg-response]
