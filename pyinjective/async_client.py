@@ -600,7 +600,8 @@ class AsyncClient:
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
             start_time=kwargs.get("start_time"),
-            end_time=kwargs.get("end_time")
+            end_time=kwargs.get("end_time"),
+            state=kwargs.get("state")
         )
         return await self.stubSpotExchange.OrdersHistory(req)
 
@@ -717,7 +718,8 @@ class AsyncClient:
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
             start_time=kwargs.get("start_time"),
-            end_time=kwargs.get("end_time")
+            end_time=kwargs.get("end_time"),
+            state=kwargs.get("state")
         )
         return await self.stubDerivativeExchange.OrdersHistory(req)
 
@@ -769,9 +771,9 @@ class AsyncClient:
         metadata = await self.load_cookie(type="exchange")
         return self.stubDerivativeExchange.StreamTrades.__call__(req, metadata=metadata)
 
-    async def get_derivative_positions(self, market_id: str, **kwargs):
+    async def get_derivative_positions(self, **kwargs):
         req = derivative_exchange_rpc_pb.PositionsRequest(
-            market_id=market_id,
+            market_id=kwargs.get("market_id"),
             subaccount_id=kwargs.get("subaccount_id"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit")
