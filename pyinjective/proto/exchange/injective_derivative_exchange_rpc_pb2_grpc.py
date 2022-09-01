@@ -116,6 +116,11 @@ class InjectiveDerivativeExchangeRPCStub(object):
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.OrdersHistoryRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.OrdersHistoryResponse.FromString,
                 )
+        self.StreamOrdersHistory = channel.unary_stream(
+                '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamOrdersHistory',
+                request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrdersHistoryRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrdersHistoryResponse.FromString,
+                )
 
 
 class InjectiveDerivativeExchangeRPCServicer(object):
@@ -258,7 +263,14 @@ class InjectiveDerivativeExchangeRPCServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def OrdersHistory(self, request, context):
-        """Lists history orders posted from this subaccount
+        """Lists history orders posted from a subaccount
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def StreamOrdersHistory(self, request, context):
+        """Stream updates to historical orders of a spot Market
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -366,6 +378,11 @@ def add_InjectiveDerivativeExchangeRPCServicer_to_server(servicer, server):
                     servicer.OrdersHistory,
                     request_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.OrdersHistoryRequest.FromString,
                     response_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.OrdersHistoryResponse.SerializeToString,
+            ),
+            'StreamOrdersHistory': grpc.unary_stream_rpc_method_handler(
+                    servicer.StreamOrdersHistory,
+                    request_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrdersHistoryRequest.FromString,
+                    response_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrdersHistoryResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -716,5 +733,22 @@ class InjectiveDerivativeExchangeRPC(object):
         return grpc.experimental.unary_unary(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/OrdersHistory',
             exchange_dot_injective__derivative__exchange__rpc__pb2.OrdersHistoryRequest.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.OrdersHistoryResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def StreamOrdersHistory(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamOrdersHistory',
+            exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrdersHistoryRequest.SerializeToString,
+            exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrdersHistoryResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
