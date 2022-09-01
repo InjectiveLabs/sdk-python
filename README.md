@@ -81,6 +81,7 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 **0.5.7.8**
 * Add state as a request param in OrdersHistory
 * Add market_id as an optional param in Positions
+* Re-gen proto files
 
 **0.5.7.7**
 * Add start_time and end_time in TradesRequest

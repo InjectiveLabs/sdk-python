@@ -55,6 +55,11 @@ class QueryStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderSpotOrdersRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderSpotOrdersResponse.FromString,
                 )
+        self.SpotOrdersByHashes = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/SpotOrdersByHashes',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySpotOrdersByHashesRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySpotOrdersByHashesResponse.FromString,
+                )
         self.SubaccountOrders = channel.unary_unary(
                 '/injective.exchange.v1beta1.Query/SubaccountOrders',
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountOrdersRequest.SerializeToString,
@@ -84,6 +89,11 @@ class QueryStub(object):
                 '/injective.exchange.v1beta1.Query/TraderDerivativeOrders',
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeOrdersRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeOrdersResponse.FromString,
+                )
+        self.DerivativeOrdersByHashes = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/DerivativeOrdersByHashes',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDerivativeOrdersByHashesRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDerivativeOrdersByHashesResponse.FromString,
                 )
         self.TraderDerivativeTransientOrders = channel.unary_unary(
                 '/injective.exchange.v1beta1.Query/TraderDerivativeTransientOrders',
@@ -230,6 +240,11 @@ class QueryStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBinaryMarketsRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBinaryMarketsResponse.FromString,
                 )
+        self.TraderDerivativeConditionalOrders = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/TraderDerivativeConditionalOrders',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeConditionalOrdersRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeConditionalOrdersResponse.FromString,
+                )
 
 
 class QueryServicer(object):
@@ -292,6 +307,13 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def SpotOrdersByHashes(self, request, context):
+        """Retrieves spot orders corresponding to specified order hashes for a given subaccountID and marketID
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def SubaccountOrders(self, request, context):
         """Retrieves subaccount's orders
         """
@@ -328,6 +350,13 @@ class QueryServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def TraderDerivativeOrders(self, request, context):
+        """Retrieves a trader's derivative orders
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DerivativeOrdersByHashes(self, request, context):
         """Retrieves a trader's derivative orders
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -537,6 +566,13 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def TraderDerivativeConditionalOrders(self, request, context):
+        """Retrieves a trader's derivative conditional orders
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_QueryServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -580,6 +616,11 @@ def add_QueryServicer_to_server(servicer, server):
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderSpotOrdersRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderSpotOrdersResponse.SerializeToString,
             ),
+            'SpotOrdersByHashes': grpc.unary_unary_rpc_method_handler(
+                    servicer.SpotOrdersByHashes,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySpotOrdersByHashesRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySpotOrdersByHashesResponse.SerializeToString,
+            ),
             'SubaccountOrders': grpc.unary_unary_rpc_method_handler(
                     servicer.SubaccountOrders,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySubaccountOrdersRequest.FromString,
@@ -609,6 +650,11 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.TraderDerivativeOrders,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeOrdersRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeOrdersResponse.SerializeToString,
+            ),
+            'DerivativeOrdersByHashes': grpc.unary_unary_rpc_method_handler(
+                    servicer.DerivativeOrdersByHashes,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDerivativeOrdersByHashesRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDerivativeOrdersByHashesResponse.SerializeToString,
             ),
             'TraderDerivativeTransientOrders': grpc.unary_unary_rpc_method_handler(
                     servicer.TraderDerivativeTransientOrders,
@@ -754,6 +800,11 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.BinaryOptionsMarkets,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBinaryMarketsRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBinaryMarketsResponse.SerializeToString,
+            ),
+            'TraderDerivativeConditionalOrders': grpc.unary_unary_rpc_method_handler(
+                    servicer.TraderDerivativeConditionalOrders,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeConditionalOrdersRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeConditionalOrdersResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -903,6 +954,23 @@ class Query(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def SpotOrdersByHashes(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/SpotOrdersByHashes',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySpotOrdersByHashesRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySpotOrdersByHashesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def SubaccountOrders(request,
             target,
             options=(),
@@ -1001,6 +1069,23 @@ class Query(object):
         return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/TraderDerivativeOrders',
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeOrdersRequest.SerializeToString,
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeOrdersResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DerivativeOrdersByHashes(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/DerivativeOrdersByHashes',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDerivativeOrdersByHashesRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDerivativeOrdersByHashesResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -1494,5 +1579,22 @@ class Query(object):
         return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/BinaryOptionsMarkets',
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBinaryMarketsRequest.SerializeToString,
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryBinaryMarketsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def TraderDerivativeConditionalOrders(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/TraderDerivativeConditionalOrders',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeConditionalOrdersRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeConditionalOrdersResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
