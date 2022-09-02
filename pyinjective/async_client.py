@@ -66,7 +66,7 @@ DEFAULT_SESSION_RENEWAL_OFFSET = 120 # seconds
 DEFAULT_BLOCK_TIME = 3 # seconds
 
 
-logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
+logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
 
 class AsyncClient:
     def __init__(
