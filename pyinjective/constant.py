@@ -140,5 +140,16 @@ class Network:
             env='local'
         )
 
+    @classmethod
+    def custom(cls, lcd_endpoint, grpc_endpoint, grpc_exchange_endpoint, chain_id, env):
+        return cls(
+            lcd_endpoint=lcd_endpoint,
+            grpc_endpoint=grpc_endpoint,
+            grpc_exchange_endpoint=grpc_exchange_endpoint,
+            chain_id=chain_id,
+            fee_denom='inj',
+            env=env
+        )
+
     def string(self):
         return self.env
