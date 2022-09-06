@@ -34,7 +34,8 @@ REQUIRED = [
     "requests",
     "eip712_structs",
     "coincurve",
-    "aiocron"
+    "aiocron",
+    "websockets"
 ]
 
 # The rest you shouldn't have to touch too much :)
