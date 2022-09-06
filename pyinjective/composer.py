@@ -54,10 +54,10 @@ class Composer:
       elif kwargs.get("is_conditional", False):
         order_mask += injective_exchange_pb.OrderMask.REGULAR
 
-      if kwargs.get("is_conditional") and kwargs.get("order_direction") == "buy":
+      if kwargs.get("order_direction") == "buy":
         order_mask += injective_exchange_pb.OrderMask.DIRECTION_BUY_OR_HIGHER
 
-      elif kwargs.get("is_conditional") and kwargs.get("order_direction") == "sell":
+      elif kwargs.get("order_direction") == "sell":
         order_mask += injective_exchange_pb.OrderMask.DIRECTION_SELL_OR_LOWER
 
       if kwargs.get("order_type") == "market":
@@ -65,6 +65,9 @@ class Composer:
 
       elif kwargs.get("order_type") == "limit":
         order_mask += injective_exchange_pb.OrderMask.TYPE_LIMIT
+
+      if order_mask == 0:
+        order_mask = 1
 
         return injective_exchange_tx_pb.OrderData(
             market_id=market_id, subaccount_id=subaccount_id, order_hash=order_hash, order_mask=order_mask
@@ -560,10 +563,10 @@ class Composer:
       elif kwargs.get("is_conditional", False):
         order_mask += injective_exchange_pb.OrderMask.REGULAR
 
-      if kwargs.get("is_conditional") and kwargs.get("order_direction") == "buy":
+      if kwargs.get("order_direction") == "buy":
         order_mask += injective_exchange_pb.OrderMask.DIRECTION_BUY_OR_HIGHER
 
-      elif kwargs.get("is_conditional") and kwargs.get("order_direction") == "sell":
+      elif kwargs.get("order_direction") == "sell":
         order_mask += injective_exchange_pb.OrderMask.DIRECTION_SELL_OR_LOWER
 
       if kwargs.get("order_type") == "market":
@@ -571,6 +574,9 @@ class Composer:
 
       elif kwargs.get("order_type") == "limit":
         order_mask += injective_exchange_pb.OrderMask.TYPE_LIMIT
+
+      if order_mask == 0:
+        order_mask = 1
 
       return injective_exchange_tx_pb.MsgCancelDerivativeOrder(
           sender=sender,
