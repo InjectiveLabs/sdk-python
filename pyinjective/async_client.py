@@ -156,9 +156,11 @@ class AsyncClient:
 
     async def close_exchange_channel(self):
         await self.exchange_channel.close()
+        self.cron.stop()
 
     async def close_chain_channel(self):
         await self.chain_channel.close()
+        self.cron.stop()
 
     async def sync_timeout_height(self):
         block = await self.get_latest_block()
