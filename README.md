@@ -78,6 +78,12 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.5.7.9**
+* Add support for conditional orders & order mask
+* Add support for custom network
+* Add chain event streaming support
+* Re-gen proto files
+
 **0.5.7.8**
 * Add state as a request param in OrdersHistory
 * Add market_id as an optional param in Positions
