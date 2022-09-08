@@ -41,33 +41,34 @@ class Composer:
     def Coin(self, amount: int, denom: str):
         return cosmos_base_coin_pb.Coin(amount=str(amount), denom=denom)
 
+    def get_order_mask(self, **kwargs):
+        order_mask = 0
+
+        if kwargs.get("is_conditional"):
+            order_mask += injective_exchange_pb.OrderMask.CONDITIONAL
+        else:
+            order_mask += injective_exchange_pb.OrderMask.REGULAR
+
+        if kwargs.get("order_direction") == "buy":
+            order_mask += injective_exchange_pb.OrderMask.DIRECTION_BUY_OR_HIGHER
+
+        elif kwargs.get("order_direction") == "sell":
+            order_mask += injective_exchange_pb.OrderMask.DIRECTION_SELL_OR_LOWER
+
+        if kwargs.get("order_type") == "market":
+            order_mask += injective_exchange_pb.OrderMask.TYPE_MARKET
+
+        elif kwargs.get("order_type") == "limit":
+            order_mask += injective_exchange_pb.OrderMask.TYPE_LIMIT
+
+        if order_mask == 0:
+            order_mask = 1
+
+        return order_mask
+
     def OrderData(self, market_id: str, subaccount_id: str, order_hash: str, **kwargs):
 
-      order_mask = 0
-
-      if not kwargs.get("is_conditional") and not kwargs.get("order_direction") and not kwargs.get("order_type"):
-        order_mask = 1
-
-      if kwargs.get("is_conditional"):
-        order_mask += injective_exchange_pb.OrderMask.CONDITIONAL
-
-      elif kwargs.get("is_conditional", False):
-        order_mask += injective_exchange_pb.OrderMask.REGULAR
-
-      if kwargs.get("order_direction") == "buy":
-        order_mask += injective_exchange_pb.OrderMask.DIRECTION_BUY_OR_HIGHER
-
-      elif kwargs.get("order_direction") == "sell":
-        order_mask += injective_exchange_pb.OrderMask.DIRECTION_SELL_OR_LOWER
-
-      if kwargs.get("order_type") == "market":
-        order_mask += injective_exchange_pb.OrderMask.TYPE_MARKET
-
-      elif kwargs.get("order_type") == "limit":
-        order_mask += injective_exchange_pb.OrderMask.TYPE_LIMIT
-
-      if order_mask == 0:
-        order_mask = 1
+        self.get_order_mask(**kwargs)
 
         return injective_exchange_tx_pb.OrderData(
             market_id=market_id, subaccount_id=subaccount_id, order_hash=order_hash, order_mask=order_mask
@@ -551,34 +552,9 @@ class Composer:
     def MsgCancelDerivativeOrder(
         self, market_id: str, sender: str, subaccount_id: str, order_hash: str, **kwargs
     ):
+        order_mask = self.get_order_mask(**kwargs)
 
-      order_mask = 0
-
-      if not kwargs.get("is_conditional") and not kwargs.get("order_direction") and not kwargs.get("order_type"):
-        order_mask = 1
-
-      if kwargs.get("is_conditional"):
-        order_mask += injective_exchange_pb.OrderMask.CONDITIONAL
-
-      elif kwargs.get("is_conditional", False):
-        order_mask += injective_exchange_pb.OrderMask.REGULAR
-
-      if kwargs.get("order_direction") == "buy":
-        order_mask += injective_exchange_pb.OrderMask.DIRECTION_BUY_OR_HIGHER
-
-      elif kwargs.get("order_direction") == "sell":
-        order_mask += injective_exchange_pb.OrderMask.DIRECTION_SELL_OR_LOWER
-
-      if kwargs.get("order_type") == "market":
-        order_mask += injective_exchange_pb.OrderMask.TYPE_MARKET
-
-      elif kwargs.get("order_type") == "limit":
-        order_mask += injective_exchange_pb.OrderMask.TYPE_LIMIT
-
-      if order_mask == 0:
-        order_mask = 1
-
-      return injective_exchange_tx_pb.MsgCancelDerivativeOrder(
+        return injective_exchange_tx_pb.MsgCancelDerivativeOrder(
           sender=sender,
           market_id=market_id,
           subaccount_id=subaccount_id,
