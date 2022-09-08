@@ -41,9 +41,37 @@ class Composer:
     def Coin(self, amount: int, denom: str):
         return cosmos_base_coin_pb.Coin(amount=str(amount), denom=denom)
 
-    def OrderData(self, market_id: str, subaccount_id: str, order_hash: str):
+    def get_order_mask(self, **kwargs):
+        order_mask = 0
+
+        if kwargs.get("is_conditional"):
+            order_mask += injective_exchange_pb.OrderMask.CONDITIONAL
+        else:
+            order_mask += injective_exchange_pb.OrderMask.REGULAR
+
+        if kwargs.get("order_direction") == "buy":
+            order_mask += injective_exchange_pb.OrderMask.DIRECTION_BUY_OR_HIGHER
+
+        elif kwargs.get("order_direction") == "sell":
+            order_mask += injective_exchange_pb.OrderMask.DIRECTION_SELL_OR_LOWER
+
+        if kwargs.get("order_type") == "market":
+            order_mask += injective_exchange_pb.OrderMask.TYPE_MARKET
+
+        elif kwargs.get("order_type") == "limit":
+            order_mask += injective_exchange_pb.OrderMask.TYPE_LIMIT
+
+        if order_mask == 0:
+            order_mask = 1
+
+        return order_mask
+
+    def OrderData(self, market_id: str, subaccount_id: str, order_hash: str, **kwargs):
+
+        self.get_order_mask(**kwargs)
+
         return injective_exchange_tx_pb.OrderData(
-            market_id=market_id, subaccount_id=subaccount_id, order_hash=order_hash
+            market_id=market_id, subaccount_id=subaccount_id, order_hash=order_hash, order_mask=order_mask
         )
 
     def SpotOrder(
@@ -95,6 +123,7 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
+        trigger_price: float = 0,
         **kwargs
     ):
         # load denom metadata
@@ -114,7 +143,7 @@ class Composer:
 
         # prepare values
         price = derivative_price_to_backend(price, denom)
-        trigger_price = derivative_price_to_backend(0, denom)
+        trigger_price = derivative_price_to_backend(trigger_price, denom)
         quantity = derivative_quantity_to_backend(quantity, denom)
 
         if kwargs.get("is_buy") and not kwargs.get("is_po"):
@@ -128,6 +157,18 @@ class Composer:
 
         elif not kwargs.get("is_buy") and kwargs.get("is_po"):
             order_type = injective_exchange_pb.OrderType.SELL_PO
+
+        elif kwargs.get("stop_buy"):
+            order_type = injective_exchange_pb.OrderType.STOP_BUY
+
+        elif kwargs.get("stop_sell"):
+            order_type = injective_exchange_pb.OrderType.STOP_SEll
+
+        elif kwargs.get("take_buy"):
+            order_type = injective_exchange_pb.OrderType.TAKE_BUY
+
+        elif kwargs.get("take_sell"):
+            order_type = injective_exchange_pb.OrderType.TAKE_SELL
 
         return injective_exchange_pb.DerivativeOrder(
             market_id=market_id,
@@ -290,7 +331,7 @@ class Composer:
             sender=sender,
             market_id=market_id,
             subaccount_id=subaccount_id,
-            order_hash=order_hash,
+            order_hash=order_hash
         )
 
     def MsgBatchCreateSpotLimitOrders(self, sender: str, orders: List):
@@ -509,13 +550,16 @@ class Composer:
         )
 
     def MsgCancelDerivativeOrder(
-        self, market_id: str, sender: str, subaccount_id: str, order_hash: str
+        self, market_id: str, sender: str, subaccount_id: str, order_hash: str, **kwargs
     ):
+        order_mask = self.get_order_mask(**kwargs)
+
         return injective_exchange_tx_pb.MsgCancelDerivativeOrder(
-            sender=sender,
-            market_id=market_id,
-            subaccount_id=subaccount_id,
-            order_hash=order_hash,
+          sender=sender,
+          market_id=market_id,
+          subaccount_id=subaccount_id,
+          order_hash=order_hash,
+          order_mask=order_mask
         )
 
     def MsgBatchCreateDerivativeLimitOrders(self, sender: str, orders: List):
