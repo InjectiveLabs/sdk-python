@@ -33,35 +33,24 @@ async def main() -> None:
         },
     })
 
-    events_dict = {}
-    failed_orders = {}
-    flags = []
-    order_hashes = []
-
     async with websockets.connect(network.tm_websocket_endpoint) as ws:
         await ws.send(query)
         while True:
-            events = await ws.recv()
-            events_json = json.loads(events)
-            resp = events_json["result"]
-            for key, value in resp.items():
-                if key == "events":
-                    events_dict = value
-            for key, value in events_dict.items():
-                if key == "injective.exchange.v1beta1.EventOrderFail.flags":
-                    k = json.loads(value[0])
-                    for i in range(len(k)):
-                        flags.append(k[i])
-                if key == "injective.exchange.v1beta1.EventOrderFail.hashes":
-                    k = json.loads(value[0])
-                    for i in range(len(k)):
-                        hash_to_bytes = k[i].encode("utf-8")
-                        bytes_to_base64 = base64.standard_b64decode(hash_to_bytes)
-                        base64_to_hex = '0x' + bytes_to_base64.hex()
-                        order_hashes.append(base64_to_hex)
-            for i in range(len(order_hashes)):
-                failed_orders[order_hashes[i]] = flags[i]
-            print(failed_orders)
+            res = await ws.recv()
+            res = json.loads(res)
+            result = res["result"]
+            if result == {}:
+                continue
+
+            failed_order_hashes = result["events"]["injective.exchange.v1beta1.EventOrderFail.hashes"]
+            failed_order_codes = json.loads(result["events"]["injective.exchange.v1beta1.EventOrderFail.flags"][0])
+
+            dict = {}
+            for i, order_hash in enumerate(failed_order_hashes):
+                hash = "0x" + base64.b64decode(order_hash).hex()
+                dict[hash] = failed_order_codes[i]
+
+            print(dict)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
