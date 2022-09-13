@@ -141,7 +141,7 @@ class AsyncClient:
         )
 
         # timeout height update routine
-        aiocron.crontab(
+        self.cron = aiocron.crontab(
             '* * * * * */{}'.format(DEFAULT_TIMEOUTHEIGHT_SYNC_INTERVAL),
             func=self.sync_timeout_height,
             args=(),
