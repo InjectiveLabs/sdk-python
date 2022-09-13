@@ -73,7 +73,7 @@ class AsyncClient:
         self,
         network: Network,
         insecure: bool = False,
-        credentials: grpc.ChannelCredentials = None,
+        credentials = grpc.ssl_channel_credentials(),
         chain_cookie_location = ".chain_cookie"
     ):
 
@@ -81,17 +81,6 @@ class AsyncClient:
         self.chain_cookie_location = chain_cookie_location
         cookie_file = open(chain_cookie_location, "a+")
         cookie_file.close()
-
-        # load root CA cert
-        if not insecure:
-            if network.env == 'testnet':
-                if credentials is None:
-                    with open(os.path.join(os.path.dirname(__file__), 'cert/testnet.crt'), 'rb') as f:
-                        credentials = grpc.ssl_channel_credentials(f.read())
-            if network.env == 'mainnet':
-                if credentials is None:
-                    with open(os.path.join(os.path.dirname(__file__), 'cert/mainnet.crt'), 'rb') as f:
-                        credentials = grpc.ssl_channel_credentials(f.read())
 
         # chain stubs
         self.chain_channel = (
