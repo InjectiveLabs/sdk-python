@@ -73,6 +73,7 @@ class AsyncClient:
         self,
         network: Network,
         insecure: bool = False,
+        load_balancer: bool = False,
         credentials = grpc.ssl_channel_credentials(),
         chain_cookie_location = ".chain_cookie"
     ):
@@ -81,6 +82,18 @@ class AsyncClient:
         self.chain_cookie_location = chain_cookie_location
         cookie_file = open(chain_cookie_location, "a+")
         cookie_file.close()
+
+        self.cookie_type = None
+        self.expiration_format = None
+        self.load_balancer = load_balancer
+
+        if self.load_balancer is False:
+          self.cookie_type = "grpc-cookie"
+          self.expiration_format = "20{}"
+
+        else:
+          self.cookie_type = "GCLB"
+          self.expiration_format = "{}"
 
         # chain stubs
         self.chain_channel = (
@@ -172,9 +185,9 @@ class AsyncClient:
         # format cookie date into RFC1123 standard
         cookie = SimpleCookie()
         cookie.load(existing_cookie)
-        expires_at = cookie.get("grpc-cookie").get("expires")
+        expires_at = cookie.get(f"{self.cookie_type}").get("expires")
         expires_at = expires_at.replace("-"," ")
-        yyyy = "20{}".format(expires_at[12:14])
+        yyyy = f"{self.expiration_format}".format(expires_at[12:14])
         expires_at = expires_at[:12] + yyyy + expires_at[14:]
 
         # parse expire field to unix timestamp
