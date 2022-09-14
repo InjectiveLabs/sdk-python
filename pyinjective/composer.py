@@ -32,7 +32,8 @@ from .constant import Denom
 from .utils import *
 from typing import List
 
-logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
+logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.INFO)
+
 
 class Composer:
     def __init__(self, network: str):
@@ -68,10 +69,13 @@ class Composer:
 
     def OrderData(self, market_id: str, subaccount_id: str, order_hash: str, **kwargs):
 
-        self.get_order_mask(**kwargs)
+        order_mask = self.get_order_mask(**kwargs)
 
         return injective_exchange_tx_pb.OrderData(
-            market_id=market_id, subaccount_id=subaccount_id, order_hash=order_hash, order_mask=order_mask
+            market_id=market_id,
+            subaccount_id=subaccount_id,
+            order_hash=order_hash,
+            order_mask=order_mask,
         )
 
     def SpotOrder(
@@ -81,7 +85,7 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
-        **kwargs
+        **kwargs,
     ):
         # load denom metadata
         denom = Denom.load_market(self.network, market_id)
@@ -124,7 +128,7 @@ class Composer:
         price: float,
         quantity: float,
         trigger_price: float = 0,
-        **kwargs
+        **kwargs,
     ):
         # load denom metadata
         denom = Denom.load_market(self.network, market_id)
@@ -190,7 +194,7 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
-        **kwargs
+        **kwargs,
     ):
 
         if "denom" in kwargs:
@@ -202,21 +206,13 @@ class Composer:
         logging.info("Loaded market metadata for:{}".format(denom.description))
 
         if kwargs.get("is_reduce_only") is None and kwargs.get("is_buy"):
-            margin = binary_options_buy_margin_to_backend(
-                price, quantity, denom
-            )
+            margin = binary_options_buy_margin_to_backend(price, quantity, denom)
         elif kwargs.get("is_reduce_only") is None and not kwargs.get("is_buy"):
-            margin = binary_options_sell_margin_to_backend(
-                price, quantity, denom
-            )
+            margin = binary_options_sell_margin_to_backend(price, quantity, denom)
         elif kwargs.get("is_reduce_only") is False and kwargs.get("is_buy"):
-            margin = binary_options_buy_margin_to_backend(
-                price, quantity, denom
-            )
+            margin = binary_options_buy_margin_to_backend(price, quantity, denom)
         elif kwargs.get("is_reduce_only") is False and not kwargs.get("is_buy"):
-            margin = binary_options_sell_margin_to_backend(
-                price, quantity, denom
-            )
+            margin = binary_options_sell_margin_to_backend(price, quantity, denom)
         elif kwargs.get("is_reduce_only", True):
             margin = 0
 
@@ -288,7 +284,7 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
-        **kwargs
+        **kwargs,
     ):
         return injective_exchange_tx_pb.MsgCreateSpotLimitOrder(
             sender=sender,
@@ -298,7 +294,7 @@ class Composer:
                 fee_recipient=fee_recipient,
                 price=price,
                 quantity=quantity,
-                **kwargs
+                **kwargs,
             ),
         )
 
@@ -331,7 +327,7 @@ class Composer:
             sender=sender,
             market_id=market_id,
             subaccount_id=subaccount_id,
-            order_hash=order_hash
+            order_hash=order_hash,
         )
 
     def MsgBatchCreateSpotLimitOrders(self, sender: str, orders: List):
@@ -357,7 +353,7 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
-        **kwargs
+        **kwargs,
     ):
         return injective_exchange_tx_pb.MsgCreateDerivativeLimitOrder(
             sender=sender,
@@ -367,7 +363,7 @@ class Composer:
                 fee_recipient=fee_recipient,
                 price=price,
                 quantity=quantity,
-                **kwargs
+                **kwargs,
             ),
         )
 
@@ -380,7 +376,7 @@ class Composer:
         price: float,
         quantity: float,
         is_buy: bool,
-        **kwargs
+        **kwargs,
     ):
         return injective_exchange_tx_pb.MsgCreateDerivativeMarketOrder(
             sender=sender,
@@ -391,7 +387,7 @@ class Composer:
                 price=price,
                 quantity=quantity,
                 is_buy=is_buy,
-                **kwargs
+                **kwargs,
             ),
         )
 
@@ -403,7 +399,7 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
-        **kwargs
+        **kwargs,
     ):
 
         return injective_exchange_tx_pb.MsgCreateBinaryOptionsLimitOrder(
@@ -414,7 +410,7 @@ class Composer:
                 fee_recipient=fee_recipient,
                 price=price,
                 quantity=quantity,
-                **kwargs
+                **kwargs,
             ),
         )
 
@@ -426,7 +422,7 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
-        **kwargs
+        **kwargs,
     ):
         return injective_exchange_tx_pb.MsgCreateBinaryOptionsMarketOrder(
             sender=sender,
@@ -436,22 +432,19 @@ class Composer:
                 fee_recipient=fee_recipient,
                 price=price,
                 quantity=quantity,
-                **kwargs
+                **kwargs,
             ),
         )
 
     def MsgCancelBinaryOptionsOrder(
-        self,
-        sender: str,
-        market_id: str,
-        subaccount_id: str,
-        order_hash: str):
+        self, sender: str, market_id: str, subaccount_id: str, order_hash: str
+    ):
 
         return injective_exchange_tx_pb.MsgCancelBinaryOptionsOrder(
             sender=sender,
             market_id=market_id,
             subaccount_id=subaccount_id,
-            order_hash=order_hash
+            order_hash=order_hash,
         )
 
     def MsgAdminUpdateBinaryOptionsMarket(
@@ -477,29 +470,22 @@ class Composer:
             settlement_price=price_to_bytes,
             expiration_timestamp=kwargs.get("expiration_timestamp"),
             settlement_timestamp=kwargs.get("settlement_timestamp"),
-            status=status
+            status=status,
         )
 
-    def MsgRelayProviderPrices (
-      self,
-      sender: str,
-      provider: str,
-      symbols: list,
-      prices: list
+    def MsgRelayProviderPrices(
+        self, sender: str, provider: str, symbols: list, prices: list
     ):
-      oracle_prices = []
+        oracle_prices = []
 
-      for price in prices:
-        scale_price = Decimal((price) * pow (10, 18))
-        price_to_bytes = bytes(str(scale_price), "utf-8")
-        oracle_prices.append(price_to_bytes)
+        for price in prices:
+            scale_price = Decimal((price) * pow(10, 18))
+            price_to_bytes = bytes(str(scale_price), "utf-8")
+            oracle_prices.append(price_to_bytes)
 
-      return injective_oracle_tx_pb.MsgRelayProviderPrices(
-        sender=sender,
-        provider=provider,
-        symbols=symbols,
-        prices=oracle_prices
-      )
+        return injective_oracle_tx_pb.MsgRelayProviderPrices(
+            sender=sender, provider=provider, symbols=symbols, prices=oracle_prices
+        )
 
     def MsgInstantBinaryOptionsMarketLaunch(
         self,
@@ -517,8 +503,8 @@ class Composer:
         quote_decimals: int,
         min_price_tick_size: float,
         min_quantity_tick_size: float,
-        **kwargs
-        ):
+        **kwargs,
+    ):
 
         scaled_maker_fee_rate = Decimal((maker_fee_rate * pow(10, 18)))
         maker_fee_to_bytes = bytes(str(scaled_maker_fee_rate), "utf-8")
@@ -526,7 +512,9 @@ class Composer:
         scaled_taker_fee_rate = Decimal((taker_fee_rate * pow(10, 18)))
         taker_fee_to_bytes = bytes(str(scaled_taker_fee_rate), "utf-8")
 
-        scaled_min_price_tick_size = Decimal((min_price_tick_size * pow(10, quote_decimals + 18)))
+        scaled_min_price_tick_size = Decimal(
+            (min_price_tick_size * pow(10, quote_decimals + 18))
+        )
         min_price_to_bytes = bytes(str(scaled_min_price_tick_size), "utf-8")
 
         scaled_min_quantity_tick_size = Decimal((min_quantity_tick_size * pow(10, 18)))
@@ -546,7 +534,7 @@ class Composer:
             quote_denom=quote_denom,
             min_price_tick_size=min_price_to_bytes,
             min_quantity_tick_size=min_quantity_to_bytes,
-            admin=kwargs.get("admin")
+            admin=kwargs.get("admin"),
         )
 
     def MsgCancelDerivativeOrder(
@@ -555,11 +543,11 @@ class Composer:
         order_mask = self.get_order_mask(**kwargs)
 
         return injective_exchange_tx_pb.MsgCancelDerivativeOrder(
-          sender=sender,
-          market_id=market_id,
-          subaccount_id=subaccount_id,
-          order_hash=order_hash,
-          order_mask=order_mask
+            sender=sender,
+            market_id=market_id,
+            subaccount_id=subaccount_id,
+            order_hash=order_hash,
+            order_mask=order_mask,
         )
 
     def MsgBatchCreateDerivativeLimitOrders(self, sender: str, orders: List):
@@ -577,14 +565,22 @@ class Composer:
             sender=sender,
             subaccount_id=kwargs.get("subaccount_id"),
             spot_market_ids_to_cancel_all=kwargs.get("spot_market_ids_to_cancel_all"),
-            derivative_market_ids_to_cancel_all=kwargs.get("derivative_market_ids_to_cancel_all"),
+            derivative_market_ids_to_cancel_all=kwargs.get(
+                "derivative_market_ids_to_cancel_all"
+            ),
             spot_orders_to_cancel=kwargs.get("spot_orders_to_cancel"),
             derivative_orders_to_cancel=kwargs.get("derivative_orders_to_cancel"),
             spot_orders_to_create=kwargs.get("spot_orders_to_create"),
             derivative_orders_to_create=kwargs.get("derivative_orders_to_create"),
-            binary_options_orders_to_cancel=kwargs.get("binary_options_orders_to_cancel"),
-            binary_options_market_ids_to_cancel_all=kwargs.get("binary_options_market_ids_to_cancel_all"),
-            binary_options_orders_to_create=kwargs.get("binary_options_orders_to_create")
+            binary_options_orders_to_cancel=kwargs.get(
+                "binary_options_orders_to_cancel"
+            ),
+            binary_options_market_ids_to_cancel_all=kwargs.get(
+                "binary_options_market_ids_to_cancel_all"
+            ),
+            binary_options_orders_to_create=kwargs.get(
+                "binary_options_orders_to_create"
+            ),
         )
 
     def MsgLiquidatePosition(self, sender: str, subaccount_id: str, market_id: str):
@@ -674,7 +670,9 @@ class Composer:
             bid_amount=self.Coin(amount=be_amount, denom="inj"),
         )
 
-    def MsgGrantGeneric(self, granter: str, grantee: str, msg_type: str, expire_in: int):
+    def MsgGrantGeneric(
+        self, granter: str, grantee: str, msg_type: str, expire_in: int
+    ):
         auth = cosmos_authz_pb.GenericAuthorization(msg=msg_type)
         any_auth = any_pb2.Any()
         any_auth.Pack(auth, type_url_prefix="")
@@ -688,7 +686,15 @@ class Composer:
             granter=granter, grantee=grantee, grant=grant
         )
 
-    def MsgGrantTyped(self, granter: str, grantee: str, msg_type: str, expire_in: int, subaccount_id: str, **kwargs):
+    def MsgGrantTyped(
+        self,
+        granter: str,
+        grantee: str,
+        msg_type: str,
+        expire_in: int,
+        subaccount_id: str,
+        **kwargs,
+    ):
         auth = None
         if msg_type == "CreateSpotLimitOrderAuthz":
             auth = injective_authz_pb.CreateSpotLimitOrderAuthz(
@@ -732,7 +738,9 @@ class Composer:
             )
         elif msg_type == "BatchUpdateOrdersAuthz":
             auth = injective_authz_pb.BatchUpdateOrdersAuthz(
-                subaccount_id=subaccount_id, spot_markets=kwargs.get("spot_markets"), derivative_markets=kwargs.get("derivative_markets")
+                subaccount_id=subaccount_id,
+                spot_markets=kwargs.get("spot_markets"),
+                derivative_markets=kwargs.get("derivative_markets"),
             )
 
         any_auth = any_pb2.Any()
@@ -762,46 +770,35 @@ class Composer:
         )
 
     def MsgRelayPriceFeedPrice(
-        self,
-        sender: list,
-        base: list,
-        quote: list,
-        price: list
+        self, sender: list, base: list, quote: list, price: list
     ):
 
         return injective_oracle_tx_pb.MsgRelayPriceFeedPrice(
-            sender=sender,
-            base=base,
-            quote=quote,
-            price=price
+            sender=sender, base=base, quote=quote, price=price
         )
 
     def MsgSendToEth(
-        self,
-        denom: str,
-        sender: str,
-        eth_dest: str,
-        amount: float,
-        bridge_fee: float
+        self, denom: str, sender: str, eth_dest: str, amount: float, bridge_fee: float
     ):
 
         peggy_denom, decimals = Denom.load_peggy_denom(self.network, denom)
         be_amount = amount_to_backend(amount, decimals)
         be_bridge_fee = amount_to_backend(bridge_fee, decimals)
-        logging.info("Loaded withdrawal symbol {} ({}) with decimals = {}".format(denom, peggy_denom, decimals))
+        logging.info(
+            "Loaded withdrawal symbol {} ({}) with decimals = {}".format(
+                denom, peggy_denom, decimals
+            )
+        )
 
         return injective_peggy_tx_pb.MsgSendToEth(
             sender=sender,
             eth_dest=eth_dest,
             amount=self.Coin(amount=be_amount, denom=peggy_denom),
-            bridge_fee=self.Coin(amount=be_bridge_fee, denom=peggy_denom)
+            bridge_fee=self.Coin(amount=be_bridge_fee, denom=peggy_denom),
         )
 
     def MsgDelegate(
-        self,
-        delegator_address: str,
-        validator_address: str,
-        amount: float
+        self, delegator_address: str, validator_address: str, amount: float
     ):
 
         be_amount = amount_to_backend(amount, 18)
@@ -813,14 +810,11 @@ class Composer:
         )
 
     def MsgWithdrawDelegatorReward(
-        self,
-        delegator_address: str,
-        validator_address: str
+        self, delegator_address: str, validator_address: str
     ):
 
         return cosmos_distribution_tx_pb.MsgWithdrawDelegatorReward(
-            delegator_address=delegator_address,
-            validator_address=validator_address
+            delegator_address=delegator_address, validator_address=validator_address
         )
 
     def MsgVote(
@@ -831,9 +825,7 @@ class Composer:
     ):
 
         return cosmos_gov_tx_pb.MsgVote(
-            proposal_id=proposal_id,
-            voter=voter,
-            option=option
+            proposal_id=proposal_id, voter=voter, option=option
         )
 
     # data field format: [request-msg-header][raw-byte-msg-response]
@@ -871,7 +863,7 @@ class Composer:
             "/cosmos.authz.v1beta1.MsgExec": cosmos_authz_tx_pb.MsgExecResponse,
             "/cosmos.authz.v1beta1.MsgRevoke": cosmos_authz_tx_pb.MsgRevokeResponse,
             "/injective.oracle.v1beta1.MsgRelayPriceFeedPrice": injective_oracle_tx_pb.MsgRelayPriceFeedPriceResponse,
-            "/injective.oracle.v1beta1.MsgRelayProviderPrices": injective_oracle_tx_pb.MsgRelayProviderPrices
+            "/injective.oracle.v1beta1.MsgRelayProviderPrices": injective_oracle_tx_pb.MsgRelayProviderPrices,
         }
 
         response = tx_response_pb.TxResponseData.FromString(data)
@@ -904,7 +896,7 @@ class Composer:
             "MsgCreateBinaryOptionsMarketOrder": injective_exchange_tx_pb.MsgCreateBinaryOptionsMarketOrderResponse,
             "MsgCancelBinaryOptionsOrder": injective_exchange_tx_pb.MsgCancelBinaryOptionsOrderResponse,
             "MsgAdminUpdateBinaryOptionsMarket": injective_exchange_tx_pb.MsgAdminUpdateBinaryOptionsMarketResponse,
-            "MsgInstantBinaryOptionsMarketLaunch": injective_exchange_tx_pb.MsgInstantBinaryOptionsMarketLaunchResponse
+            "MsgInstantBinaryOptionsMarketLaunch": injective_exchange_tx_pb.MsgInstantBinaryOptionsMarketLaunchResponse,
         }
 
         return header_map[msg_type].FromString(bytes(data, "utf-8"))

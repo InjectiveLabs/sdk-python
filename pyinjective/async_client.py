@@ -60,13 +60,14 @@ from .proto.exchange import (
 
 from .constant import Network
 
-DEFAULT_TIMEOUTHEIGHT_SYNC_INTERVAL = 10 # seconds
-DEFAULT_TIMEOUTHEIGHT = 20 # blocks
-DEFAULT_SESSION_RENEWAL_OFFSET = 120 # seconds
-DEFAULT_BLOCK_TIME = 3 # seconds
+DEFAULT_TIMEOUTHEIGHT_SYNC_INTERVAL = 10  # seconds
+DEFAULT_TIMEOUTHEIGHT = 20  # blocks
+DEFAULT_SESSION_RENEWAL_OFFSET = 120  # seconds
+DEFAULT_BLOCK_TIME = 3  # seconds
 
 
-logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
+logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.INFO)
+
 
 class AsyncClient:
     def __init__(
@@ -82,7 +83,7 @@ class AsyncClient:
         self.chain_cookie_location = chain_cookie_location
         cookie_file = open(chain_cookie_location, "a+")
         cookie_file.close()
-
+        
         self.cookie_type = None
         self.expiration_format = None
         self.load_balancer = load_balancer
@@ -98,10 +99,13 @@ class AsyncClient:
         # chain stubs
         self.chain_channel = (
             grpc.aio.insecure_channel(network.grpc_endpoint)
-            if insecure else grpc.aio.secure_channel(network.grpc_endpoint, credentials)
+            if (insecure or credentials is None)
+            else grpc.aio.secure_channel(network.grpc_endpoint, credentials)
         )
         self.insecure = insecure
-        self.stubCosmosTendermint = tendermint_query_grpc.ServiceStub(self.chain_channel)
+        self.stubCosmosTendermint = tendermint_query_grpc.ServiceStub(
+            self.chain_channel
+        )
         self.stubAuth = auth_query_grpc.QueryStub(self.chain_channel)
         self.stubAuthz = authz_query_grpc.QueryStub(self.chain_channel)
         self.stubBank = bank_query_grpc.QueryStub(self.chain_channel)
@@ -111,7 +115,9 @@ class AsyncClient:
         cookie_file = open(chain_cookie_location, "r+")
         self.chain_cookie = cookie_file.read()
         cookie_file.close()
-        logging.info("chain session cookie loaded from disk:{}".format(self.chain_cookie))
+        logging.info(
+            "chain session cookie loaded from disk:{}".format(self.chain_cookie)
+        )
 
         self.exchange_cookie = ""
         self.timeout_height = 1
@@ -119,10 +125,15 @@ class AsyncClient:
         # exchange stubs
         self.exchange_channel = (
             grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-            if insecure else grpc.aio.secure_channel(network.grpc_exchange_endpoint, credentials)
+            if (insecure or credentials is None)
+            else grpc.aio.secure_channel(network.grpc_exchange_endpoint, credentials)
         )
-        self.stubMeta = exchange_meta_rpc_grpc.InjectiveMetaRPCStub(self.exchange_channel)
-        self.stubExchangeAccount = exchange_accounts_rpc_grpc.InjectiveAccountsRPCStub(self.exchange_channel)
+        self.stubMeta = exchange_meta_rpc_grpc.InjectiveMetaRPCStub(
+            self.exchange_channel
+        )
+        self.stubExchangeAccount = exchange_accounts_rpc_grpc.InjectiveAccountsRPCStub(
+            self.exchange_channel
+        )
         self.stubOracle = oracle_rpc_grpc.InjectiveOracleRPCStub(self.exchange_channel)
         self.stubInsurance = insurance_rpc_grpc.InjectiveInsuranceRPCStub(
             self.exchange_channel
@@ -144,17 +155,14 @@ class AsyncClient:
 
         # timeout height update routine
         self.cron = aiocron.crontab(
-            '* * * * * */{}'.format(DEFAULT_TIMEOUTHEIGHT_SYNC_INTERVAL),
+            "* * * * * */{}".format(DEFAULT_TIMEOUTHEIGHT_SYNC_INTERVAL),
             func=self.sync_timeout_height,
             args=(),
-            start=True
+            start=True,
         )
 
     async def get_tx(self, tx_hash):
-        return await self.stubTx.GetTx(
-            tx_service.GetTxRequest(
-                hash=tx_hash )
-        )
+        return await self.stubTx.GetTx(tx_service.GetTxRequest(hash=tx_hash))
 
     async def close_exchange_channel(self):
         await self.exchange_channel.close()
@@ -173,7 +181,9 @@ class AsyncClient:
         metadata = None
         if type == "chain":
             req = tendermint_query.GetLatestBlockRequest()
-            metadata = await self.stubCosmosTendermint.GetLatestBlock(req).initial_metadata()
+            metadata = await self.stubCosmosTendermint.GetLatestBlock(
+                req
+            ).initial_metadata()
             time.sleep(DEFAULT_BLOCK_TIME)
         if type == "exchange":
             req = exchange_meta_rpc_pb.VersionRequest()
@@ -185,13 +195,16 @@ class AsyncClient:
         # format cookie date into RFC1123 standard
         cookie = SimpleCookie()
         cookie.load(existing_cookie)
+        
         expires_at = cookie.get(f"{self.cookie_type}").get("expires")
         expires_at = expires_at.replace("-"," ")
         yyyy = f"{self.expiration_format}".format(expires_at[12:14])
         expires_at = expires_at[:12] + yyyy + expires_at[14:]
 
         # parse expire field to unix timestamp
-        expire_timestamp = datetime.datetime.strptime(expires_at, "%a, %d %b %Y %H:%M:%S GMT").timestamp()
+        expire_timestamp = datetime.datetime.strptime(
+            expires_at, "%a, %d %b %Y %H:%M:%S GMT"
+        ).timestamp()
 
         # renew session if timestamp diff < offset
         timestamp_diff = expire_timestamp - int(time.time())
@@ -208,16 +221,16 @@ class AsyncClient:
 
         if type == "chain":
             if self.chain_cookie != "":
-                 metadata = await self.renew_cookie(self.chain_cookie, type)
-                 self.set_cookie(metadata, type)
+                metadata = await self.renew_cookie(self.chain_cookie, type)
+                self.set_cookie(metadata, type)
             else:
                 metadata = await self.fetch_cookie(type)
                 self.set_cookie(metadata, type)
 
         if type == "exchange":
             if self.exchange_cookie != "":
-                 metadata = await self.renew_cookie(self.exchange_cookie, type)
-                 self.set_cookie(metadata, type)
+                metadata = await self.renew_cookie(self.exchange_cookie, type)
+                self.set_cookie(metadata, type)
             else:
                 metadata = await self.fetch_cookie(type)
                 self.set_cookie(metadata, type)
@@ -295,19 +308,25 @@ class AsyncClient:
             return err, False
 
     async def send_tx_sync_mode(self, tx_byte: bytes) -> abci_type.TxResponse:
-        req = tx_service.BroadcastTxRequest(tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_SYNC)
+        req = tx_service.BroadcastTxRequest(
+            tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_SYNC
+        )
         metadata = await self.load_cookie(type="chain")
         result = await self.stubTx.BroadcastTx.__call__(req, metadata=metadata)
         return result.tx_response
 
     async def send_tx_async_mode(self, tx_byte: bytes) -> abci_type.TxResponse:
-        req = tx_service.BroadcastTxRequest(tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_ASYNC)
+        req = tx_service.BroadcastTxRequest(
+            tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_ASYNC
+        )
         metadata = await self.load_cookie(type="chain")
         result = await self.stubTx.BroadcastTx.__call__(req, metadata=metadata)
         return result.tx_response
 
     async def send_tx_block_mode(self, tx_byte: bytes) -> abci_type.TxResponse:
-        req = tx_service.BroadcastTxRequest(tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_BLOCK)
+        req = tx_service.BroadcastTxRequest(
+            tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_BLOCK
+        )
         metadata = await self.load_cookie(type="chain")
         result = await self.stubTx.BroadcastTx.__call__(req, metadata=metadata)
         return result.tx_response
@@ -327,17 +346,12 @@ class AsyncClient:
 
     async def get_bank_balances(self, address: str):
         return await self.stubBank.AllBalances(
-            bank_query.QueryAllBalancesRequest(
-                address=address
-            )
+            bank_query.QueryAllBalancesRequest(address=address)
         )
 
     async def get_bank_balance(self, address: str, denom: str):
         return await self.stubBank.Balance(
-            bank_query.QueryBalanceRequest(
-                address=address,
-                denom=denom
-            )
+            bank_query.QueryBalanceRequest(address=address, denom=denom)
         )
 
     # Injective Exchange client methods
@@ -390,15 +404,16 @@ class AsyncClient:
             limit=kwargs.get("limit"),
             skip=kwargs.get("skip"),
             type=kwargs.get("type"),
-            module=kwargs.get("module"))
+            module=kwargs.get("module"),
+        )
         return await self.stubExplorer.GetAccountTxs(req)
 
     async def get_blocks(self, **kwargs):
         req = explorer_rpc_pb.GetBlocksRequest(
             before=kwargs.get("before"),
             after=kwargs.get("after"),
-            limit=kwargs.get("limit")
-            )
+            limit=kwargs.get("limit"),
+        )
         return await self.stubExplorer.GetBlocks(req)
 
     async def get_block(self, block_height: str):
@@ -412,7 +427,8 @@ class AsyncClient:
             limit=kwargs.get("limit"),
             skip=kwargs.get("skip"),
             type=kwargs.get("type"),
-            module=kwargs.get("module"))
+            module=kwargs.get("module"),
+        )
         return await self.stubExplorer.GetTxs(req)
 
     async def stream_txs(self):
@@ -428,7 +444,7 @@ class AsyncClient:
             sender=kwargs.get("sender"),
             receiver=kwargs.get("receiver"),
             limit=kwargs.get("limit"),
-            skip=kwargs.get("skip")
+            skip=kwargs.get("skip"),
         )
         return await self.stubExplorer.GetPeggyDepositTxs(req)
 
@@ -437,7 +453,7 @@ class AsyncClient:
             sender=kwargs.get("sender"),
             receiver=kwargs.get("receiver"),
             limit=kwargs.get("limit"),
-            skip=kwargs.get("skip")
+            skip=kwargs.get("skip"),
         )
         return await self.stubExplorer.GetPeggyWithdrawalTxs(req)
 
@@ -450,7 +466,7 @@ class AsyncClient:
             dest_channel=kwargs.get("dest_channel"),
             dest_port=kwargs.get("dest_port"),
             limit=kwargs.get("limit"),
-            skip=kwargs.get("skip")
+            skip=kwargs.get("skip"),
         )
         return await self.stubExplorer.GetIBCTransferTxs(req)
 
@@ -486,7 +502,7 @@ class AsyncClient:
             denom=kwargs.get("denom"),
             transfer_types=kwargs.get("transfer_types"),
             skip=kwargs.get("skip"),
-            limit=kwargs.get("limit")
+            limit=kwargs.get("limit"),
         )
         return await self.stubExchangeAccount.SubaccountHistory(req)
 
@@ -573,7 +589,9 @@ class AsyncClient:
         return await self.stubSpotExchange.Markets(req)
 
     async def stream_spot_markets(self, **kwargs):
-        req = spot_exchange_rpc_pb.StreamMarketsRequest(market_ids=kwargs.get("market_ids"))
+        req = spot_exchange_rpc_pb.StreamMarketsRequest(
+            market_ids=kwargs.get("market_ids")
+        )
         metadata = await self.load_cookie(type="exchange")
         return self.stubSpotExchange.StreamMarkets.__call__(req, metadata=metadata)
 
@@ -591,7 +609,7 @@ class AsyncClient:
             order_side=kwargs.get("order_side"),
             subaccount_id=kwargs.get("subaccount_id"),
             skip=kwargs.get("skip"),
-            limit=kwargs.get("limit")
+            limit=kwargs.get("limit"),
         )
         return await self.stubSpotExchange.Orders(req)
 
@@ -605,7 +623,7 @@ class AsyncClient:
             limit=kwargs.get("limit"),
             start_time=kwargs.get("start_time"),
             end_time=kwargs.get("end_time"),
-            state=kwargs.get("state")
+            state=kwargs.get("state"),
         )
         return await self.stubSpotExchange.OrdersHistory(req)
 
@@ -620,7 +638,7 @@ class AsyncClient:
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
             start_time=kwargs.get("start_time"),
-            end_time=kwargs.get("end_time")
+            end_time=kwargs.get("end_time"),
         )
         return await self.stubSpotExchange.Trades(req)
 
@@ -662,7 +680,7 @@ class AsyncClient:
             subaccount_id=subaccount_id,
             market_id=kwargs.get("market_id"),
             skip=kwargs.get("skip"),
-            limit=kwargs.get("limit")
+            limit=kwargs.get("limit"),
         )
         return await self.stubSpotExchange.SubaccountOrdersList(req)
 
@@ -673,7 +691,7 @@ class AsyncClient:
             execution_type=kwargs.get("execution_type"),
             direction=kwargs.get("direction"),
             skip=kwargs.get("skip"),
-            limit=kwargs.get("limit")
+            limit=kwargs.get("limit"),
         )
         return await self.stubSpotExchange.SubaccountTradesList(req)
 
@@ -691,7 +709,9 @@ class AsyncClient:
         return await self.stubDerivativeExchange.Markets(req)
 
     async def stream_derivative_markets(self, **kwargs):
-        req = derivative_exchange_rpc_pb.StreamMarketRequest(market_ids=kwargs.get("market_ids"))
+        req = derivative_exchange_rpc_pb.StreamMarketRequest(
+            market_ids=kwargs.get("market_ids")
+        )
         metadata = await self.load_cookie(type="exchange")
         return self.stubDerivativeExchange.StreamMarket.__call__(req, metadata=metadata)
 
@@ -709,7 +729,7 @@ class AsyncClient:
             order_side=kwargs.get("order_side"),
             subaccount_id=kwargs.get("subaccount_id"),
             skip=kwargs.get("skip"),
-            limit=kwargs.get("limit")
+            limit=kwargs.get("limit"),
         )
         return await self.stubDerivativeExchange.Orders(req)
 
@@ -723,7 +743,7 @@ class AsyncClient:
             limit=kwargs.get("limit"),
             start_time=kwargs.get("start_time"),
             end_time=kwargs.get("end_time"),
-            state=kwargs.get("state")
+            state=kwargs.get("state"),
         )
         return await self.stubDerivativeExchange.OrdersHistory(req)
 
@@ -738,19 +758,23 @@ class AsyncClient:
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
             start_time=kwargs.get("start_time"),
-            end_time=kwargs.get("end_time")
+            end_time=kwargs.get("end_time"),
         )
         return await self.stubDerivativeExchange.Trades(req)
 
     async def stream_derivative_orderbook(self, market_id: str):
         req = derivative_exchange_rpc_pb.StreamOrderbookRequest(market_ids=[market_id])
         metadata = await self.load_cookie(type="exchange")
-        return self.stubDerivativeExchange.StreamOrderbook.__call__(req, metadata=metadata)
+        return self.stubDerivativeExchange.StreamOrderbook.__call__(
+            req, metadata=metadata
+        )
 
     async def stream_derivative_orderbooks(self, market_ids: List[str]):
         req = derivative_exchange_rpc_pb.StreamOrderbookRequest(market_ids=market_ids)
         metadata = await self.load_cookie(type="exchange")
-        return self.stubDerivativeExchange.StreamOrderbook.__call__(req, metadata=metadata)
+        return self.stubDerivativeExchange.StreamOrderbook.__call__(
+            req, metadata=metadata
+        )
 
     async def stream_derivative_orders(self, market_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.StreamOrdersRequest(
@@ -780,7 +804,7 @@ class AsyncClient:
             market_id=kwargs.get("market_id"),
             subaccount_id=kwargs.get("subaccount_id"),
             skip=kwargs.get("skip"),
-            limit=kwargs.get("limit")
+            limit=kwargs.get("limit"),
         )
         return await self.stubDerivativeExchange.Positions(req)
 
@@ -789,16 +813,18 @@ class AsyncClient:
             market_id=kwargs.get("market_id"),
             market_ids=kwargs.get("market_ids"),
             subaccount_id=kwargs.get("subaccount_id"),
-            subaccount_ids=kwargs.get("subaccount_ids")
+            subaccount_ids=kwargs.get("subaccount_ids"),
         )
         metadata = await self.load_cookie(type="exchange")
-        return self.stubDerivativeExchange.StreamPositions.__call__(req, metadata=metadata)
+        return self.stubDerivativeExchange.StreamPositions.__call__(
+            req, metadata=metadata
+        )
 
     async def get_derivative_liquidable_positions(self, **kwargs):
         req = derivative_exchange_rpc_pb.LiquidablePositionsRequest(
             market_id=kwargs.get("market_id"),
             skip=kwargs.get("skip"),
-            limit=kwargs.get("limit")
+            limit=kwargs.get("limit"),
         )
         return await self.stubDerivativeExchange.LiquidablePositions(req)
 
@@ -807,7 +833,7 @@ class AsyncClient:
             subaccount_id=subaccount_id,
             market_id=kwargs.get("market_id"),
             skip=kwargs.get("skip"),
-            limit=kwargs.get("limit")
+            limit=kwargs.get("limit"),
         )
         return await self.stubDerivativeExchange.SubaccountOrdersList(req)
 
@@ -818,7 +844,7 @@ class AsyncClient:
             execution_type=kwargs.get("execution_type"),
             direction=kwargs.get("direction"),
             skip=kwargs.get("skip"),
-            limit=kwargs.get("limit")
+            limit=kwargs.get("limit"),
         )
         return await self.stubDerivativeExchange.SubaccountTradesList(req)
 
