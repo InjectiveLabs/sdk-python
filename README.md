@@ -78,6 +78,11 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+
+**0.5.8.2**
+* Add global load balancer
+* Refactor secure client initialization
+
 **0.5.7.9**
 * Add support for conditional orders & order mask
 * Add support for custom network
@@ -126,36 +131,6 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 * Add support for Binary Options
 * Add multi-subaccount support in local order hash calculation
 * Re-gen ini files
-
-**0.5.6.8**
-* Add skip & limit params to Exchange API methods
-* Add more methods in ExplorerRPC
-* Add bank balance chain queries
-* Remove LB endpoint and keep K8S as default
-* Refactored local order hash computation
-* Re-gen ini files
-
-**0.5.6.6**
-* Add PO orders in local order hash computation function
-* Add automatic timeout height in transactions
-* Add automatic session renewal for K8S
-* Add MsgDelegate and MsgWithdrawDelegatorReward in the composer
-* Add typed authz support in the composer
-* Decouple SendToCosmos from the composer and remove web3 dependency
-* Re-gen ini files
-
-
-**0.5.6.5**
-* Add MsgRelayPriceFeedPrice in the composer
-* Add Post-only orders in the composer
-* Add OrderbooksRequest in the clients
-* Add support for multiple markets in StreamTrades and StreamPosition
-* Add support for multiple subaccounts in StreamTrades and StreamPosition
-* Add K8S endpoint to mainnet network options
-* Add MsgRegisterAsDMM to the composer
-* Add functions to close chain/exchange channels
-* Re-gen ini files
-
 
 
 ## License

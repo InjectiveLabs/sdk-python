@@ -106,6 +106,7 @@ class Network:
     def mainnet(cls, node='k8s'):
         nodes = [
             'k8s',
+            'lb',
             'sentry0',  # us, prod
             'sentry1',  # us, prod
             'sentry2',  # us, staging
@@ -115,10 +116,15 @@ class Network:
             raise ValueError('Must be one of {}'.format(nodes))
 
         if node == 'k8s':
-            lcd_endpoint='https://k8s.mainnet.lcd.injective.network'
-            tm_websocket_endpoint='wss://k8s.mainnet.tm.injective.network/websocket'
+            lcd_endpoint='https://k8s.mainnet.lcd.injective.network:443'
+            tm_websocket_endpoint='wss://k8s.mainnet.tm.injective.network:443/websocket'
             grpc_endpoint='k8s.mainnet.chain.grpc.injective.network:443'
             grpc_exchange_endpoint='k8s.mainnet.exchange.grpc.injective.network:443'
+        elif node == 'lb':
+          lcd_endpoint = 'https://k8s.global.mainnet.lcd.injective.network:443'
+          tm_websocket_endpoint = 'wss://k8s.global.mainnet.tm.injective.network:443/websocket'
+          grpc_endpoint = 'k8s.global.mainnet.chain.grpc.injective.network:443'
+          grpc_exchange_endpoint = 'k8s.global.mainnet.exchange.grpc.injective.network:443'
         else:
             lcd_endpoint='https://lcd.injective.network'
             tm_websocket_endpoint=f'ws://{node}.injective.network:26657/websocket'
