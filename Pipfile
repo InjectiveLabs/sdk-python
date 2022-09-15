@@ -19,6 +19,7 @@ requests = "*"
 eip712_structs = "*"
 coincurve = "*"
 aiocron = "*"
+websockets = "*"
 
 [dev-packages]
 
