@@ -42,7 +42,7 @@ async def main() -> None:
             if result == {}:
                 continue
 
-            failed_order_hashes = result["events"]["injective.exchange.v1beta1.EventOrderFail.hashes"]
+            failed_order_hashes = json.loads(result["events"]["injective.exchange.v1beta1.EventOrderFail.hashes"][0])
             failed_order_codes = json.loads(result["events"]["injective.exchange.v1beta1.EventOrderFail.flags"][0])
 
             dict = {}
