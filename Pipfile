@@ -4,6 +4,8 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+protobuf = "==4.21.6"
+grpcio-tools = "==1.49.1"
 grpcio = "*"
 asyncio = "*"
 aiohttp = "*"
@@ -12,8 +14,6 @@ bech32 = "*"
 mnemonic = "*"
 hdwallets = "*"
 pysha3 = "*"
-protobuf = "*"
-grpcio-tools = "*"
 bip32 = "*"
 requests = "*"
 eip712_structs = "*"
