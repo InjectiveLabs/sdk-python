@@ -60,10 +60,10 @@ from .proto.exchange import (
 
 from .constant import Network
 
-DEFAULT_TIMEOUTHEIGHT_SYNC_INTERVAL = 10  # seconds
-DEFAULT_TIMEOUTHEIGHT = 20  # blocks
+DEFAULT_TIMEOUTHEIGHT_SYNC_INTERVAL = 20  # seconds
+DEFAULT_TIMEOUTHEIGHT = 30  # blocks
 DEFAULT_SESSION_RENEWAL_OFFSET = 120  # seconds
-DEFAULT_BLOCK_TIME = 3  # seconds
+DEFAULT_BLOCK_TIME = 2  # seconds
 
 
 logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.INFO)
