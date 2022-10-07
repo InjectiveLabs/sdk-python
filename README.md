@@ -78,6 +78,11 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.5.8.4**
+* Adjust block and timeouts to new block time
+* Set explicit version for protobuf and grpcio-tool dependencies
+* Add order_types as a request param for OrdersHistory
+* Re-gen proto files
 
 **0.5.8.2**
 * Add global load balancer
@@ -101,35 +106,6 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 * Add OrdersHistory
 * Add SendToInjective
 * Add MsgRewardsOptOut
-* Re-gen ini files
-
-**0.5.7.5**
-* Fix MsgExternalTransfer
-* Adapt TradesRequest to optional args
-
-**0.5.7.4**
-* Refactor fetch_metadata script to use K8S
-* Refactor testnet network config to K8S
-* Remove print logs and standardized logging to info
-* Print support for custom cookie in client initialization
-
-**0.5.7.3**
-* Add multi-subaccount and multi-market support in TradesRequest
-
-**0.5.7.2**
-* Fix MsgInstantBinaryOptionsLaunch
-
-**0.5.7.1**
-* Add optional argument to bypass ini file load in binary options
-
-**0.5.7.0**
-* Add GetTxRequest Tendermint
-* Re-gen ini files
-
-**0.5.6.9**
-* Add MsgExternalTransfer to the composer
-* Add support for Binary Options
-* Add multi-subaccount support in local order hash calculation
 * Re-gen ini files
 
 
