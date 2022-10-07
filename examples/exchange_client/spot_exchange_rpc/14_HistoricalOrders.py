@@ -26,6 +26,7 @@ async def main() -> None:
     subaccount_id = "0xed8c4C43E03E24b7F12975472da771Ce2f8b857c000000000000000000000000"
     skip = 10
     limit = 10
+    order_types = ["buy_po"]
     orders = await client.get_historical_spot_orders(
         market_id=market_id,
         subaccount_id=subaccount_id,

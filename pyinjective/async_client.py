@@ -617,7 +617,7 @@ class AsyncClient:
         req = spot_exchange_rpc_pb.OrdersHistoryRequest(
             market_id=market_id,
             direction=kwargs.get("direction"),
-            order_type=kwargs.get("order_type"),
+            order_types=kwargs.get("order_types"),
             subaccount_id=kwargs.get("subaccount_id"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
@@ -737,7 +737,7 @@ class AsyncClient:
         req = derivative_exchange_rpc_pb.OrdersHistoryRequest(
             market_id=market_id,
             direction=kwargs.get("direction"),
-            order_type=kwargs.get("order_type"),
+            order_types=kwargs.get("order_types"),
             subaccount_id=kwargs.get("subaccount_id"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
