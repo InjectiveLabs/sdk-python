@@ -618,6 +618,7 @@ class AsyncClient:
             market_id=market_id,
             direction=kwargs.get("direction"),
             order_types=kwargs.get("order_types"),
+            execution_types=kwargs.get("execution_types"),
             subaccount_id=kwargs.get("subaccount_id"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
@@ -660,6 +661,30 @@ class AsyncClient:
         )
         metadata = await self.load_cookie(type="exchange")
         return self.stubSpotExchange.StreamOrders.__call__(req, metadata=metadata)
+
+    async def stream_historical_spot_orders(self, market_id: str, **kwargs):
+        req = spot_exchange_rpc_pb.StreamOrdersHistoryRequest(
+            market_id=market_id,
+            direction=kwargs.get("direction"),
+            subaccount_id=kwargs.get("subaccount_id"),
+            order_types=kwargs.get("order_types"),
+            state=kwargs.get("state"),
+            execution_types=kwargs.get("execution_types")
+        )
+        metadata = await self.load_cookie(type="exchange")
+        return self.stubSpotExchange.StreamOrdersHistory.__call__(req, metadata=metadata)
+
+    async def stream_historical_derivative_orders(self, market_id: str, **kwargs):
+        req = derivative_exchange_rpc_pb.StreamOrdersHistoryRequest(
+            market_id=market_id,
+            direction=kwargs.get("direction"),
+            subaccount_id=kwargs.get("subaccount_id"),
+            order_types=kwargs.get("order_types"),
+            state=kwargs.get("state"),
+            execution_types=kwargs.get("execution_types")
+        )
+        metadata = await self.load_cookie(type="exchange")
+        return self.stubDerivativeExchange.StreamOrdersHistory.__call__(req, metadata=metadata)
 
     async def stream_spot_trades(self, **kwargs):
         req = spot_exchange_rpc_pb.StreamTradesRequest(
@@ -738,7 +763,9 @@ class AsyncClient:
             market_id=market_id,
             direction=kwargs.get("direction"),
             order_types=kwargs.get("order_types"),
+            execution_types=kwargs.get("execution_types"),
             subaccount_id=kwargs.get("subaccount_id"),
+            is_conditional=kwargs.get("is_conditional"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
             start_time=kwargs.get("start_time"),

@@ -22,19 +22,14 @@ from pyinjective.constant import Network
 async def main() -> None:
     network = Network.testnet()
     client = AsyncClient(network, insecure=False)
-    market_id = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
-    order_side = "sell" # buy or sell
-    subaccount_id = "0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000"
-    skip = 10
-    limit = 10
-    orders = await client.get_spot_orders(
-        market_id=market_id,
-        order_side=order_side,
-        subaccount_id=subaccount_id,
-        skip=skip,
-        limit=limit
+    market_id = "0x1c79dac019f73e4060494ab1b4fcba734350656d6fc4d474f6a238c13c6f9ced"
+    order_side = "sell"  # sell or buy
+    subaccount_id = "0xc6fe5d33615a1c52c08018c47e8bc53646a0e101000000000000000000000000"
+    orders = await client.stream_historical_derivative_orders(
+        market_id=market_id
     )
-    print(orders)
+    async for order in orders:
+        print(order)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
