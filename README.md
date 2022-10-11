@@ -78,6 +78,10 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.5.8.5**
+* Add StreamOrdersHistory
+* Add more request params in OrdersHistory
+
 **0.5.8.4**
 * Adjust block and timeouts to new block time
 * Set explicit version for protobuf and grpcio-tool dependencies
