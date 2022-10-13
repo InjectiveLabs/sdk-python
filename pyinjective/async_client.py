@@ -176,7 +176,7 @@ class AsyncClient:
         try:
             block = await self.get_latest_block()
             self.timeout_height = block.block.header.height + DEFAULT_TIMEOUTHEIGHT
-        except Exception as e:
+        except Exception:
             self.timeout_height = 0
 
     # cookie helper methods
