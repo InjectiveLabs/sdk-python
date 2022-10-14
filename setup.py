@@ -20,6 +20,8 @@ REQUIRES_PYTHON = ">=3.7.0"
 VERSION = "0.5.8.5"
 
 REQUIRED = [
+    "protobuf==3.19.1",
+    "grpcio-tools==1.42.0",
     "grpcio",
     "asyncio",
     "aiohttp",
@@ -28,8 +30,6 @@ REQUIRED = [
     "mnemonic",
     "hdwallets",
     "pysha3",
-    "protobuf",
-    "grpcio-tools",
     "bip32",
     "requests",
     "eip712_structs",
