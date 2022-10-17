@@ -36,7 +36,7 @@ async def main() -> None:
     priv_key = PrivateKey.from_hex("f9db9bf330e23cb7839039e944adef6e9df447b90b503d5b4464c90bea9022f3")
     pub_key = priv_key.to_public_key()
     address = pub_key.to_address()
-    account = await client.get_account("inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r")
+    account = await client.get_account(address.to_acc_bech32())
 
     # prepare tx msg
     msg = composer.MsgSend(
@@ -50,8 +50,8 @@ async def main() -> None:
     tx = (
         Transaction()
         .with_messages(msg)
-        .with_sequence(address.get_sequence())
-        .with_account_num(address.get_number())
+        .with_sequence(client.get_sequence())
+        .with_account_num(client.get_number())
         .with_chain_id(network.chain_id)
     )
     sim_sign_doc = tx.get_sign_doc(pub_key)
