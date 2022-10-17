@@ -58,6 +58,10 @@ from .proto.exchange import (
     injective_auction_rpc_pb2_grpc as auction_rpc_grpc,
 )
 
+from proto.injective.types.v1beta1 import (
+    account_pb2
+)
+
 from .constant import Network
 
 DEFAULT_TIMEOUTHEIGHT_SYNC_INTERVAL = 20  # seconds
@@ -270,12 +274,13 @@ class AsyncClient:
         req = tendermint_query.GetLatestBlockRequest()
         return await self.stubCosmosTendermint.GetLatestBlock(req)
 
-    async def get_account(self, address: str) -> Optional[auth_type.BaseAccount]:
+    async def get_account(self, address: str) -> Optional[account_pb2.EthAccount]:
         try:
-            account_any = await self.stubAuth.Account(
-                auth_query.QueryAccountRequest(address=address)
-            ).account
-            account = auth_type.BaseAccount()
+            metadata = await self.load_cookie(type="chain")
+            account_any = (await self.stubAuth.Account(
+                auth_query.QueryAccountRequest.__call__(address=address, metadata=metadata)
+            )).account
+            account = account_pb2.EthAccount()
             if account_any.Is(account.DESCRIPTOR):
                 account_any.Unpack(account)
                 return account
