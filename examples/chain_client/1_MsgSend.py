@@ -35,7 +35,8 @@ async def main() -> None:
     # load account
     priv_key = PrivateKey.from_hex("f9db9bf330e23cb7839039e944adef6e9df447b90b503d5b4464c90bea9022f3")
     pub_key = priv_key.to_public_key()
-    address = await pub_key.to_address().async_init_num_seq(network.lcd_endpoint)
+    address = pub_key.to_address()
+    account = await client.get_account("inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r")
 
     # prepare tx msg
     msg = composer.MsgSend(

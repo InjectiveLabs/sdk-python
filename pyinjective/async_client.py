@@ -69,36 +69,39 @@ DEFAULT_TIMEOUTHEIGHT = 30  # blocks
 DEFAULT_SESSION_RENEWAL_OFFSET = 120  # seconds
 DEFAULT_BLOCK_TIME = 2  # seconds
 
-
 logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.INFO)
 
 
 class AsyncClient:
     def __init__(
-        self,
-        network: Network,
-        insecure: bool = False,
-        load_balancer: bool = False,
-        credentials = grpc.ssl_channel_credentials(),
-        chain_cookie_location = ".chain_cookie"
+            self,
+            network: Network,
+            insecure: bool = False,
+            load_balancer: bool = False,
+            credentials=grpc.ssl_channel_credentials(),
+            chain_cookie_location=".chain_cookie",
     ):
 
         # use append mode to create file if not exist
         self.chain_cookie_location = chain_cookie_location
         cookie_file = open(chain_cookie_location, "a+")
         cookie_file.close()
-        
+
+        self.addr = ""
+        self.number = 0
+        self.sequence = 0
+
         self.cookie_type = None
         self.expiration_format = None
         self.load_balancer = load_balancer
 
         if self.load_balancer is False:
-          self.cookie_type = "grpc-cookie"
-          self.expiration_format = "20{}"
+            self.cookie_type = "grpc-cookie"
+            self.expiration_format = "20{}"
 
         else:
-          self.cookie_type = "GCLB"
-          self.expiration_format = "{}"
+            self.cookie_type = "GCLB"
+            self.expiration_format = "{}"
 
         # chain stubs
         self.chain_channel = (
@@ -165,6 +168,14 @@ class AsyncClient:
             start=True,
         )
 
+    def get_sequence(self):
+        current_seq = self.sequence
+        self.sequence += 1
+        return current_seq
+
+    def get_number(self):
+        return self.number
+
     async def get_tx(self, tx_hash):
         return await self.stubTx.GetTx(tx_service.GetTxRequest(hash=tx_hash))
 
@@ -203,9 +214,9 @@ class AsyncClient:
         # format cookie date into RFC1123 standard
         cookie = SimpleCookie()
         cookie.load(existing_cookie)
-        
+
         expires_at = cookie.get(f"{self.cookie_type}").get("expires")
-        expires_at = expires_at.replace("-"," ")
+        expires_at = expires_at.replace("-", " ")
         yyyy = f"{self.expiration_format}".format(expires_at[12:14])
         expires_at = expires_at[:12] + yyyy + expires_at[14:]
 
@@ -278,13 +289,15 @@ class AsyncClient:
         try:
             metadata = await self.load_cookie(type="chain")
             account_any = (await self.stubAuth.Account(
-                auth_query.QueryAccountRequest.__call__(address=address, metadata=metadata)
+                auth_query.QueryAccountRequest.__call__(address=address), metadata=metadata
             )).account
             account = account_pb2.EthAccount()
             if account_any.Is(account.DESCRIPTOR):
                 account_any.Unpack(account)
-                return account
-        except:
+                self.number = int(account.base_account.account_number)
+                self.sequence = int(account.base_account.sequence)
+        except Exception as e:
+            logging.debug("error while fetching sequence and number{}".format(e))
             return None
 
     async def get_request_id_by_tx_hash(self, tx_hash: bytes) -> List[int]:
@@ -307,7 +320,7 @@ class AsyncClient:
         return request_ids
 
     async def simulate_tx(
-        self, tx_byte: bytes
+            self, tx_byte: bytes
     ) -> Tuple[Union[abci_type.SimulationResponse, grpc.RpcError], bool]:
         try:
             req = tx_service.SimulateRequest(tx_bytes=tx_byte)
@@ -543,7 +556,7 @@ class AsyncClient:
     # OracleRPC
 
     async def stream_oracle_prices(
-        self, base_symbol: str, quote_symbol: str, oracle_type: str
+            self, base_symbol: str, quote_symbol: str, oracle_type: str
     ):
         req = oracle_rpc_pb.StreamPricesRequest(
             base_symbol=base_symbol, quote_symbol=quote_symbol, oracle_type=oracle_type
@@ -551,11 +564,11 @@ class AsyncClient:
         return self.stubOracle.StreamPrices(req)
 
     async def get_oracle_prices(
-        self,
-        base_symbol: str,
-        quote_symbol: str,
-        oracle_type: str,
-        oracle_scale_factor: int,
+            self,
+            base_symbol: str,
+            quote_symbol: str,
+            oracle_type: str,
+            oracle_scale_factor: int,
     ):
         req = oracle_rpc_pb.PriceRequest(
             base_symbol=base_symbol,
