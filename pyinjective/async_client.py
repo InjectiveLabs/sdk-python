@@ -58,7 +58,7 @@ from .proto.exchange import (
     injective_auction_rpc_pb2_grpc as auction_rpc_grpc,
 )
 
-from proto.injective.types.v1beta1 import (
+from .proto.injective.types.v1beta1 import (
     account_pb2
 )
 
