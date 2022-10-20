@@ -78,6 +78,10 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.5.8.7**
+* Add testnet ini metadata
+* Fix account pb import
+
 **0.5.8.6**
 * Add logic to handle cached sequence in client with gRPC
 * Fix get_account with EthAccount type and added cookie support
