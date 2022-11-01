@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """Injective Exchange API client for Python. Example only."""
+import sys
+sys.path.insert(0, '/Users/nam/desktop/injective/sdk-python/')
 
 import asyncio
 import logging
@@ -20,12 +22,10 @@ from pyinjective.async_client import AsyncClient
 from pyinjective.constant import Network
 
 async def main() -> None:
-    network = Network.mainnet(node="sentry0")
-    client = AsyncClient(network, insecure=True)
-    market_id = "0x4ca0f92fc28be0c9761326016b5a1a2177dd6375558365116b5bdda9abc229ce"
-    markets = await client.stream_derivative_orderbook(market_id=market_id)
-    async for market in markets:
-        print(market)
+    network = Network.mainnet()
+    client = AsyncClient(network, insecure=False)
+    async for e in client.stream_event_order_fail(address='inj1rwv4zn3jptsqs7l8lpa3uvzhs57y8duemete9e'):
+       print(e)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)

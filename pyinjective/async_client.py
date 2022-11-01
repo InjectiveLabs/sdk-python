@@ -1,9 +1,12 @@
 import os
 import time
 import grpc
+import json
+import base64
 import aiocron
 import logging
 import datetime
+import websockets
 from http.cookies import SimpleCookie
 from typing import List, Optional, Tuple, Union
 
@@ -64,6 +67,8 @@ from .proto.injective.types.v1beta1 import (
 
 from .constant import Network
 
+from enum import Enum
+
 DEFAULT_TIMEOUTHEIGHT_SYNC_INTERVAL = 20  # seconds
 DEFAULT_TIMEOUTHEIGHT = 30  # blocks
 DEFAULT_SESSION_RENEWAL_OFFSET = 120  # seconds
@@ -71,6 +76,9 @@ DEFAULT_BLOCK_TIME = 2  # seconds
 
 logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.INFO)
 
+class OrderBookUpdate(Enum):
+    SPOT = "injective.exchange.v1beta1.EventOrderbookUpdate.spot_orderbooks"
+    DERIVATIVE = "injective.exchange.v1beta1.EventOrderbookUpdate.derivative_orderbooks"
 
 class AsyncClient:
     def __init__(
@@ -117,6 +125,7 @@ class AsyncClient:
         self.stubAuthz = authz_query_grpc.QueryStub(self.chain_channel)
         self.stubBank = bank_query_grpc.QueryStub(self.chain_channel)
         self.stubTx = tx_service_grpc.ServiceStub(self.chain_channel)
+        self.tm_ws = network.tm_websocket_endpoint
 
         # attempt to load from disk
         cookie_file = open(chain_cookie_location, "r+")
@@ -375,6 +384,74 @@ class AsyncClient:
         return await self.stubBank.Balance(
             bank_query.QueryBalanceRequest(address=address, denom=denom)
         )
+
+    async def stream_event_order_fail(self, address: str):
+        filter = f"tm.event='Tx' AND message.sender='{address}' AND message.action='/injective.exchange.v1beta1.MsgBatchUpdateOrders' AND injective.exchange.v1beta1.EventOrderFail.flags EXISTS"
+        query = json.dumps({
+            "jsonrpc": "2.0",
+            "method": "subscribe",
+            "id": "0",
+            "params": {
+                "query": filter
+            },
+        })
+
+        ws = await websockets.connect(self.tm_ws)
+        await ws.send(query)
+
+        while True:
+            res = await ws.recv()
+            res = json.loads(res)
+            result = res["result"]
+            if result == {}:
+                continue
+
+            failed_order_hashes = json.loads(result["events"]["injective.exchange.v1beta1.EventOrderFail.hashes"][0])
+            failed_order_codes = json.loads(result["events"]["injective.exchange.v1beta1.EventOrderFail.flags"][0])
+
+            dict = {}
+            for i, order_hash in enumerate(failed_order_hashes):
+                hash = "0x" + base64.b64decode(order_hash).hex()
+                dict[hash] = failed_order_codes[i]
+
+            yield dict
+
+
+    async def stream_event_orderbook_update(self, orderbook_type: OrderBookUpdate, market_ids: list[str]):
+        filter = f"tm.event='NewBlock' AND {orderbook_type.value} EXISTS"
+        query = json.dumps({
+            "jsonrpc": "2.0",
+            "method": "subscribe",
+            "id": "0",
+            "params": {
+                "query": filter
+            },
+        })
+
+        # turn array into map for convenient lookup
+        market_ids_map = dict()
+        for id in market_ids:
+            market_ids_map[id] = True
+
+        ws = await websockets.connect(self.tm_ws)
+        await ws.send(query)
+
+        while True:
+            res = await ws.recv()
+            res = json.loads(res)
+            result = res["result"]
+            if result == {}:
+                continue
+
+            # extract all orderbook updates
+            all_orderbook_updates = json.loads(result["events"][orderbook_type.value][0])
+
+            # filter
+            for u in all_orderbook_updates:
+                id = "0x" + base64.b64decode(u["market_id"]).hex()
+                if id in market_ids_map:
+                    yield u
+
 
     # Injective Exchange client methods
 
