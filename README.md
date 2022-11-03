@@ -125,4 +125,12 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 ## License
 
-Apache Software License 2.0
+Copyright © 2021 - 2022 Injective Labs Inc. (https://injectivelabs.org/)
+
+<a href="https://drive.google.com/uc?export=view&id=1ntpioUcVM9SOLpSkgNwtASkpdRhisFrJ"><img src="https://drive.google.com/uc?export=view&id=1ntpioUcVM9SOLpSkgNwtASkpdRhisFrJ" style="width: 100px; max-width: 100%; height: auto" />
+
+Originally released by Injective Labs Inc. under: <br />
+Apache License <br />
+Version 2.0, January 2004 <br />
+http://www.apache.org/licenses/ 
+
