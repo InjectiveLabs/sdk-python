@@ -98,30 +98,6 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 * Add order_types as a request param for OrdersHistory
 * Re-gen proto files
 
-**0.5.8.2**
-* Add global load balancer
-* Refactor secure client initialization
-
-**0.5.7.9**
-* Add support for conditional orders & order mask
-* Add support for custom network
-* Add chain event streaming support
-* Re-gen proto files
-
-**0.5.7.8**
-* Add state as a request param in OrdersHistory
-* Add market_id as an optional param in Positions
-* Re-gen proto files
-
-**0.5.7.7**
-* Add start_time and end_time in TradesRequest
-
-**0.5.7.6**
-* Add OrdersHistory
-* Add SendToInjective
-* Add MsgRewardsOptOut
-* Re-gen ini files
-
 
 ## License
 
