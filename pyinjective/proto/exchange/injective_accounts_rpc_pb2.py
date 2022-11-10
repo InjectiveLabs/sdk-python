@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z\031/injective_accounts_rpcpb',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n%exchange/injective_accounts_rpc.proto\x12\x16injective_accounts_rpc\"+\n\x10PortfolioRequest\x12\x17\n\x0f\x61\x63\x63ount_address\x18\x01 \x01(\t\"P\n\x11PortfolioResponse\x12;\n\tportfolio\x18\x01 \x01(\x0b\x32(.injective_accounts_rpc.AccountPortfolio\"\xb8\x01\n\x10\x41\x63\x63ountPortfolio\x12\x17\n\x0fportfolio_value\x18\x01 \x01(\t\x12\x19\n\x11\x61vailable_balance\x18\x02 \x01(\t\x12\x16\n\x0elocked_balance\x18\x03 \x01(\t\x12\x16\n\x0eunrealized_pnl\x18\x04 \x01(\t\x12@\n\x0bsubaccounts\x18\x05 \x03(\x0b\x32+.injective_accounts_rpc.SubaccountPortfolio\"w\n\x13SubaccountPortfolio\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x19\n\x11\x61vailable_balance\x18\x02 \x01(\t\x12\x16\n\x0elocked_balance\x18\x03 \x01(\t\x12\x16\n\x0eunrealized_pnl\x18\x04 \x01(\t\"P\n\x12OrderStatesRequest\x12\x19\n\x11spot_order_hashes\x18\x01 \x03(\t\x12\x1f\n\x17\x64\x65rivative_order_hashes\x18\x02 \x03(\t\"\xa5\x01\n\x13OrderStatesResponse\x12\x43\n\x11spot_order_states\x18\x01 \x03(\x0b\x32(.injective_accounts_rpc.OrderStateRecord\x12I\n\x17\x64\x65rivative_order_states\x18\x02 \x03(\x0b\x32(.injective_accounts_rpc.OrderStateRecord\"\xe4\x01\n\x10OrderStateRecord\x12\x12\n\norder_hash\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\x12\x11\n\tmarket_id\x18\x03 \x01(\t\x12\x12\n\norder_type\x18\x04 \x01(\t\x12\x12\n\norder_side\x18\x05 \x01(\t\x12\r\n\x05state\x18\x06 \x01(\t\x12\x17\n\x0fquantity_filled\x18\x07 \x01(\t\x12\x1a\n\x12quantity_remaining\x18\x08 \x01(\t\x12\x12\n\ncreated_at\x18\t \x01(\x12\x12\x12\n\nupdated_at\x18\n \x01(\x12\"1\n\x16SubaccountsListRequest\x12\x17\n\x0f\x61\x63\x63ount_address\x18\x01 \x01(\t\".\n\x17SubaccountsListResponse\x12\x13\n\x0bsubaccounts\x18\x01 \x03(\t\"F\n\x1dSubaccountBalancesListRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x0e\n\x06\x64\x65noms\x18\x02 \x03(\t\"]\n\x1eSubaccountBalancesListResponse\x12;\n\x08\x62\x61lances\x18\x01 \x03(\x0b\x32).injective_accounts_rpc.SubaccountBalance\"\x8e\x01\n\x11SubaccountBalance\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x17\n\x0f\x61\x63\x63ount_address\x18\x02 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x03 \x01(\t\x12:\n\x07\x64\x65posit\x18\x04 \x01(\x0b\x32).injective_accounts_rpc.SubaccountDeposit\"E\n\x11SubaccountDeposit\x12\x15\n\rtotal_balance\x18\x01 \x01(\t\x12\x19\n\x11\x61vailable_balance\x18\x02 \x01(\t\"@\n\x18SubaccountBalanceRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\t\"W\n\x19SubaccountBalanceResponse\x12:\n\x07\x62\x61lance\x18\x01 \x01(\x0b\x32).injective_accounts_rpc.SubaccountBalance\"G\n\x1eStreamSubaccountBalanceRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x0e\n\x06\x64\x65noms\x18\x02 \x03(\t\"p\n\x1fStreamSubaccountBalanceResponse\x12:\n\x07\x62\x61lance\x18\x01 \x01(\x0b\x32).injective_accounts_rpc.SubaccountBalance\x12\x11\n\ttimestamp\x18\x02 \x01(\x12\"\x87\x01\n\x18SubaccountHistoryRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\t\x12\x16\n\x0etransfer_types\x18\x03 \x03(\t\x12\x0c\n\x04skip\x18\x04 \x01(\x04\x12\r\n\x05limit\x18\x05 \x01(\x11\x12\x10\n\x08\x65nd_time\x18\x06 \x01(\x12\"\x91\x01\n\x19SubaccountHistoryResponse\x12\x44\n\ttransfers\x18\x01 \x03(\x0b\x32\x31.injective_accounts_rpc.SubaccountBalanceTransfer\x12.\n\x06paging\x18\x02 \x01(\x0b\x32\x1e.injective_accounts_rpc.Paging\"\xeb\x01\n\x19SubaccountBalanceTransfer\x12\x15\n\rtransfer_type\x18\x01 \x01(\t\x12\x19\n\x11src_subaccount_id\x18\x02 \x01(\t\x12\x1b\n\x13src_account_address\x18\x03 \x01(\t\x12\x19\n\x11\x64st_subaccount_id\x18\x04 \x01(\t\x12\x1b\n\x13\x64st_account_address\x18\x05 \x01(\t\x12\x32\n\x06\x61mount\x18\x06 \x01(\x0b\x32\".injective_accounts_rpc.CosmosCoin\x12\x13\n\x0b\x65xecuted_at\x18\x07 \x01(\x12\"+\n\nCosmosCoin\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\t\"1\n\x06Paging\x12\r\n\x05total\x18\x01 \x01(\x12\x12\x0c\n\x04\x66rom\x18\x02 \x01(\x11\x12\n\n\x02to\x18\x03 \x01(\x11\"b\n\x1dSubaccountOrderSummaryRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x17\n\x0forder_direction\x18\x03 \x01(\t\"\\\n\x1eSubaccountOrderSummaryResponse\x12\x19\n\x11spot_orders_total\x18\x01 \x01(\x12\x12\x1f\n\x17\x64\x65rivative_orders_total\x18\x02 \x01(\x12\"8\n\x0eRewardsRequest\x12\r\n\x05\x65poch\x18\x01 \x01(\x12\x12\x17\n\x0f\x61\x63\x63ount_address\x18\x02 \x01(\t\"B\n\x0fRewardsResponse\x12/\n\x07rewards\x18\x01 \x03(\x0b\x32\x1e.injective_accounts_rpc.Reward\"h\n\x06Reward\x12\x17\n\x0f\x61\x63\x63ount_address\x18\x01 \x01(\t\x12-\n\x07rewards\x18\x02 \x03(\x0b\x32\x1c.injective_accounts_rpc.Coin\x12\x16\n\x0e\x64istributed_at\x18\x03 \x01(\x12\"%\n\x04\x43oin\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\t2\xd0\x08\n\x14InjectiveAccountsRPC\x12`\n\tPortfolio\x12(.injective_accounts_rpc.PortfolioRequest\x1a).injective_accounts_rpc.PortfolioResponse\x12\x66\n\x0bOrderStates\x12*.injective_accounts_rpc.OrderStatesRequest\x1a+.injective_accounts_rpc.OrderStatesResponse\x12r\n\x0fSubaccountsList\x12..injective_accounts_rpc.SubaccountsListRequest\x1a/.injective_accounts_rpc.SubaccountsListResponse\x12\x87\x01\n\x16SubaccountBalancesList\x12\x35.injective_accounts_rpc.SubaccountBalancesListRequest\x1a\x36.injective_accounts_rpc.SubaccountBalancesListResponse\x12\x80\x01\n\x19SubaccountBalanceEndpoint\x12\x30.injective_accounts_rpc.SubaccountBalanceRequest\x1a\x31.injective_accounts_rpc.SubaccountBalanceResponse\x12\x8c\x01\n\x17StreamSubaccountBalance\x12\x36.injective_accounts_rpc.StreamSubaccountBalanceRequest\x1a\x37.injective_accounts_rpc.StreamSubaccountBalanceResponse0\x01\x12x\n\x11SubaccountHistory\x12\x30.injective_accounts_rpc.SubaccountHistoryRequest\x1a\x31.injective_accounts_rpc.SubaccountHistoryResponse\x12\x87\x01\n\x16SubaccountOrderSummary\x12\x35.injective_accounts_rpc.SubaccountOrderSummaryRequest\x1a\x36.injective_accounts_rpc.SubaccountOrderSummaryResponse\x12Z\n\x07Rewards\x12&.injective_accounts_rpc.RewardsRequest\x1a\'.injective_accounts_rpc.RewardsResponseB\x1bZ\x19/injective_accounts_rpcpbb\x06proto3'
+  serialized_pb=b'\n%exchange/injective_accounts_rpc.proto\x12\x16injective_accounts_rpc\"+\n\x10PortfolioRequest\x12\x17\n\x0f\x61\x63\x63ount_address\x18\x01 \x01(\t\"P\n\x11PortfolioResponse\x12;\n\tportfolio\x18\x01 \x01(\x0b\x32(.injective_accounts_rpc.AccountPortfolio\"\xb8\x01\n\x10\x41\x63\x63ountPortfolio\x12\x17\n\x0fportfolio_value\x18\x01 \x01(\t\x12\x19\n\x11\x61vailable_balance\x18\x02 \x01(\t\x12\x16\n\x0elocked_balance\x18\x03 \x01(\t\x12\x16\n\x0eunrealized_pnl\x18\x04 \x01(\t\x12@\n\x0bsubaccounts\x18\x05 \x03(\x0b\x32+.injective_accounts_rpc.SubaccountPortfolio\"w\n\x13SubaccountPortfolio\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x19\n\x11\x61vailable_balance\x18\x02 \x01(\t\x12\x16\n\x0elocked_balance\x18\x03 \x01(\t\x12\x16\n\x0eunrealized_pnl\x18\x04 \x01(\t\"P\n\x12OrderStatesRequest\x12\x19\n\x11spot_order_hashes\x18\x01 \x03(\t\x12\x1f\n\x17\x64\x65rivative_order_hashes\x18\x02 \x03(\t\"\xa5\x01\n\x13OrderStatesResponse\x12\x43\n\x11spot_order_states\x18\x01 \x03(\x0b\x32(.injective_accounts_rpc.OrderStateRecord\x12I\n\x17\x64\x65rivative_order_states\x18\x02 \x03(\x0b\x32(.injective_accounts_rpc.OrderStateRecord\"\xe4\x01\n\x10OrderStateRecord\x12\x12\n\norder_hash\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\x12\x11\n\tmarket_id\x18\x03 \x01(\t\x12\x12\n\norder_type\x18\x04 \x01(\t\x12\x12\n\norder_side\x18\x05 \x01(\t\x12\r\n\x05state\x18\x06 \x01(\t\x12\x17\n\x0fquantity_filled\x18\x07 \x01(\t\x12\x1a\n\x12quantity_remaining\x18\x08 \x01(\t\x12\x12\n\ncreated_at\x18\t \x01(\x12\x12\x12\n\nupdated_at\x18\n \x01(\x12\"1\n\x16SubaccountsListRequest\x12\x17\n\x0f\x61\x63\x63ount_address\x18\x01 \x01(\t\".\n\x17SubaccountsListResponse\x12\x13\n\x0bsubaccounts\x18\x01 \x03(\t\"F\n\x1dSubaccountBalancesListRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x0e\n\x06\x64\x65noms\x18\x02 \x03(\t\"]\n\x1eSubaccountBalancesListResponse\x12;\n\x08\x62\x61lances\x18\x01 \x03(\x0b\x32).injective_accounts_rpc.SubaccountBalance\"\x8e\x01\n\x11SubaccountBalance\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x17\n\x0f\x61\x63\x63ount_address\x18\x02 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x03 \x01(\t\x12:\n\x07\x64\x65posit\x18\x04 \x01(\x0b\x32).injective_accounts_rpc.SubaccountDeposit\"E\n\x11SubaccountDeposit\x12\x15\n\rtotal_balance\x18\x01 \x01(\t\x12\x19\n\x11\x61vailable_balance\x18\x02 \x01(\t\"@\n\x18SubaccountBalanceRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\t\"W\n\x19SubaccountBalanceResponse\x12:\n\x07\x62\x61lance\x18\x01 \x01(\x0b\x32).injective_accounts_rpc.SubaccountBalance\"G\n\x1eStreamSubaccountBalanceRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x0e\n\x06\x64\x65noms\x18\x02 \x03(\t\"p\n\x1fStreamSubaccountBalanceResponse\x12:\n\x07\x62\x61lance\x18\x01 \x01(\x0b\x32).injective_accounts_rpc.SubaccountBalance\x12\x11\n\ttimestamp\x18\x02 \x01(\x12\"\x87\x01\n\x18SubaccountHistoryRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\t\x12\x16\n\x0etransfer_types\x18\x03 \x03(\t\x12\x0c\n\x04skip\x18\x04 \x01(\x04\x12\r\n\x05limit\x18\x05 \x01(\x11\x12\x10\n\x08\x65nd_time\x18\x06 \x01(\x12\"\x91\x01\n\x19SubaccountHistoryResponse\x12\x44\n\ttransfers\x18\x01 \x03(\x0b\x32\x31.injective_accounts_rpc.SubaccountBalanceTransfer\x12.\n\x06paging\x18\x02 \x01(\x0b\x32\x1e.injective_accounts_rpc.Paging\"\xeb\x01\n\x19SubaccountBalanceTransfer\x12\x15\n\rtransfer_type\x18\x01 \x01(\t\x12\x19\n\x11src_subaccount_id\x18\x02 \x01(\t\x12\x1b\n\x13src_account_address\x18\x03 \x01(\t\x12\x19\n\x11\x64st_subaccount_id\x18\x04 \x01(\t\x12\x1b\n\x13\x64st_account_address\x18\x05 \x01(\t\x12\x32\n\x06\x61mount\x18\x06 \x01(\x0b\x32\".injective_accounts_rpc.CosmosCoin\x12\x13\n\x0b\x65xecuted_at\x18\x07 \x01(\x12\"+\n\nCosmosCoin\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\t\"N\n\x06Paging\x12\r\n\x05total\x18\x01 \x01(\x12\x12\x0c\n\x04\x66rom\x18\x02 \x01(\x11\x12\n\n\x02to\x18\x03 \x01(\x11\x12\x1b\n\x13\x63ount_by_subaccount\x18\x04 \x01(\x12\"b\n\x1dSubaccountOrderSummaryRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x17\n\x0forder_direction\x18\x03 \x01(\t\"\\\n\x1eSubaccountOrderSummaryResponse\x12\x19\n\x11spot_orders_total\x18\x01 \x01(\x12\x12\x1f\n\x17\x64\x65rivative_orders_total\x18\x02 \x01(\x12\"8\n\x0eRewardsRequest\x12\r\n\x05\x65poch\x18\x01 \x01(\x12\x12\x17\n\x0f\x61\x63\x63ount_address\x18\x02 \x01(\t\"B\n\x0fRewardsResponse\x12/\n\x07rewards\x18\x01 \x03(\x0b\x32\x1e.injective_accounts_rpc.Reward\"h\n\x06Reward\x12\x17\n\x0f\x61\x63\x63ount_address\x18\x01 \x01(\t\x12-\n\x07rewards\x18\x02 \x03(\x0b\x32\x1c.injective_accounts_rpc.Coin\x12\x16\n\x0e\x64istributed_at\x18\x03 \x01(\x12\"%\n\x04\x43oin\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\t2\xd0\x08\n\x14InjectiveAccountsRPC\x12`\n\tPortfolio\x12(.injective_accounts_rpc.PortfolioRequest\x1a).injective_accounts_rpc.PortfolioResponse\x12\x66\n\x0bOrderStates\x12*.injective_accounts_rpc.OrderStatesRequest\x1a+.injective_accounts_rpc.OrderStatesResponse\x12r\n\x0fSubaccountsList\x12..injective_accounts_rpc.SubaccountsListRequest\x1a/.injective_accounts_rpc.SubaccountsListResponse\x12\x87\x01\n\x16SubaccountBalancesList\x12\x35.injective_accounts_rpc.SubaccountBalancesListRequest\x1a\x36.injective_accounts_rpc.SubaccountBalancesListResponse\x12\x80\x01\n\x19SubaccountBalanceEndpoint\x12\x30.injective_accounts_rpc.SubaccountBalanceRequest\x1a\x31.injective_accounts_rpc.SubaccountBalanceResponse\x12\x8c\x01\n\x17StreamSubaccountBalance\x12\x36.injective_accounts_rpc.StreamSubaccountBalanceRequest\x1a\x37.injective_accounts_rpc.StreamSubaccountBalanceResponse0\x01\x12x\n\x11SubaccountHistory\x12\x30.injective_accounts_rpc.SubaccountHistoryRequest\x1a\x31.injective_accounts_rpc.SubaccountHistoryResponse\x12\x87\x01\n\x16SubaccountOrderSummary\x12\x35.injective_accounts_rpc.SubaccountOrderSummaryRequest\x1a\x36.injective_accounts_rpc.SubaccountOrderSummaryResponse\x12Z\n\x07Rewards\x12&.injective_accounts_rpc.RewardsRequest\x1a\'.injective_accounts_rpc.RewardsResponseB\x1bZ\x19/injective_accounts_rpcpbb\x06proto3'
 )
 
 
@@ -999,6 +999,13 @@ _PAGING = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='count_by_subaccount', full_name='injective_accounts_rpc.Paging.count_by_subaccount', index=3,
+      number=4, type=18, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -1012,7 +1019,7 @@ _PAGING = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=2374,
-  serialized_end=2423,
+  serialized_end=2452,
 )
 
 
@@ -1057,8 +1064,8 @@ _SUBACCOUNTORDERSUMMARYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2425,
-  serialized_end=2523,
+  serialized_start=2454,
+  serialized_end=2552,
 )
 
 
@@ -1096,8 +1103,8 @@ _SUBACCOUNTORDERSUMMARYRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2525,
-  serialized_end=2617,
+  serialized_start=2554,
+  serialized_end=2646,
 )
 
 
@@ -1135,8 +1142,8 @@ _REWARDSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2619,
-  serialized_end=2675,
+  serialized_start=2648,
+  serialized_end=2704,
 )
 
 
@@ -1167,8 +1174,8 @@ _REWARDSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2677,
-  serialized_end=2743,
+  serialized_start=2706,
+  serialized_end=2772,
 )
 
 
@@ -1213,8 +1220,8 @@ _REWARD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2745,
-  serialized_end=2849,
+  serialized_start=2774,
+  serialized_end=2878,
 )
 
 
@@ -1252,8 +1259,8 @@ _COIN = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2851,
-  serialized_end=2888,
+  serialized_start=2880,
+  serialized_end=2917,
 )
 
 _PORTFOLIORESPONSE.fields_by_name['portfolio'].message_type = _ACCOUNTPORTFOLIO
@@ -1505,8 +1512,8 @@ _INJECTIVEACCOUNTSRPC = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=2891,
-  serialized_end=3995,
+  serialized_start=2920,
+  serialized_end=4024,
   methods=[
   _descriptor.MethodDescriptor(
     name='Portfolio',

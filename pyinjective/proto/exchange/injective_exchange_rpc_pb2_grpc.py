@@ -30,6 +30,21 @@ class InjectiveExchangeRPCStub(object):
                 request_serializer=exchange_dot_injective__exchange__rpc__pb2.BroadcastTxRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__exchange__rpc__pb2.BroadcastTxResponse.FromString,
                 )
+        self.PrepareCosmosTx = channel.unary_unary(
+                '/injective_exchange_rpc.InjectiveExchangeRPC/PrepareCosmosTx',
+                request_serializer=exchange_dot_injective__exchange__rpc__pb2.PrepareCosmosTxRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__exchange__rpc__pb2.PrepareCosmosTxResponse.FromString,
+                )
+        self.BroadcastCosmosTx = channel.unary_unary(
+                '/injective_exchange_rpc.InjectiveExchangeRPC/BroadcastCosmosTx',
+                request_serializer=exchange_dot_injective__exchange__rpc__pb2.BroadcastCosmosTxRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__exchange__rpc__pb2.BroadcastCosmosTxResponse.FromString,
+                )
+        self.GetFeePayer = channel.unary_unary(
+                '/injective_exchange_rpc.InjectiveExchangeRPC/GetFeePayer',
+                request_serializer=exchange_dot_injective__exchange__rpc__pb2.GetFeePayerRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__exchange__rpc__pb2.GetFeePayerResponse.FromString,
+                )
 
 
 class InjectiveExchangeRPCServicer(object):
@@ -57,6 +72,27 @@ class InjectiveExchangeRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def PrepareCosmosTx(self, request, context):
+        """PrepareCosmosTx generates a Web3-signable body for a Cosmos transaction
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def BroadcastCosmosTx(self, request, context):
+        """BroadcastCosmosTx broadcasts a signed Web3 transaction
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetFeePayer(self, request, context):
+        """Return fee payer information's
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_InjectiveExchangeRPCServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -74,6 +110,21 @@ def add_InjectiveExchangeRPCServicer_to_server(servicer, server):
                     servicer.BroadcastTx,
                     request_deserializer=exchange_dot_injective__exchange__rpc__pb2.BroadcastTxRequest.FromString,
                     response_serializer=exchange_dot_injective__exchange__rpc__pb2.BroadcastTxResponse.SerializeToString,
+            ),
+            'PrepareCosmosTx': grpc.unary_unary_rpc_method_handler(
+                    servicer.PrepareCosmosTx,
+                    request_deserializer=exchange_dot_injective__exchange__rpc__pb2.PrepareCosmosTxRequest.FromString,
+                    response_serializer=exchange_dot_injective__exchange__rpc__pb2.PrepareCosmosTxResponse.SerializeToString,
+            ),
+            'BroadcastCosmosTx': grpc.unary_unary_rpc_method_handler(
+                    servicer.BroadcastCosmosTx,
+                    request_deserializer=exchange_dot_injective__exchange__rpc__pb2.BroadcastCosmosTxRequest.FromString,
+                    response_serializer=exchange_dot_injective__exchange__rpc__pb2.BroadcastCosmosTxResponse.SerializeToString,
+            ),
+            'GetFeePayer': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetFeePayer,
+                    request_deserializer=exchange_dot_injective__exchange__rpc__pb2.GetFeePayerRequest.FromString,
+                    response_serializer=exchange_dot_injective__exchange__rpc__pb2.GetFeePayerResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -134,5 +185,56 @@ class InjectiveExchangeRPC(object):
         return grpc.experimental.unary_unary(request, target, '/injective_exchange_rpc.InjectiveExchangeRPC/BroadcastTx',
             exchange_dot_injective__exchange__rpc__pb2.BroadcastTxRequest.SerializeToString,
             exchange_dot_injective__exchange__rpc__pb2.BroadcastTxResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def PrepareCosmosTx(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective_exchange_rpc.InjectiveExchangeRPC/PrepareCosmosTx',
+            exchange_dot_injective__exchange__rpc__pb2.PrepareCosmosTxRequest.SerializeToString,
+            exchange_dot_injective__exchange__rpc__pb2.PrepareCosmosTxResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def BroadcastCosmosTx(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective_exchange_rpc.InjectiveExchangeRPC/BroadcastCosmosTx',
+            exchange_dot_injective__exchange__rpc__pb2.BroadcastCosmosTxRequest.SerializeToString,
+            exchange_dot_injective__exchange__rpc__pb2.BroadcastCosmosTxResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetFeePayer(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective_exchange_rpc.InjectiveExchangeRPC/GetFeePayer',
+            exchange_dot_injective__exchange__rpc__pb2.GetFeePayerRequest.SerializeToString,
+            exchange_dot_injective__exchange__rpc__pb2.GetFeePayerResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

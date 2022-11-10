@@ -153,11 +153,18 @@ class AsyncClient:
                 self.exchange_channel
             )
         )
-        self.stubExplorer = explorer_rpc_grpc.InjectiveExplorerRPCStub(
-            self.exchange_channel
-        )
         self.stubAuction = auction_rpc_grpc.InjectiveAuctionRPCStub(
             self.exchange_channel
+        )
+
+        # explorer stubs
+        self.explorer_channel = (
+            grpc.aio.insecure_channel(network.grpc_explorer_endpoint)
+            if (insecure or credentials is None)
+            else grpc.aio.secure_channel(network.grpc_explorer_endpoint, credentials)
+        )
+        self.stubExplorer = explorer_rpc_grpc.InjectiveExplorerRPCStub(
+            self.explorer_channel
         )
 
         # timeout height update routine
