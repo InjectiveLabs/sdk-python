@@ -6,7 +6,7 @@ from exchange import injective_explorer_rpc_pb2 as exchange_dot_injective__explo
 
 
 class InjectiveExplorerRPCStub(object):
-    """ExplorerRPC defines gRPC API of explorer data for e.g. Blockchain Explorer
+    """ExplorerAPI implements explorer data API for e.g. Blockchain Explorer
     """
 
     def __init__(self, channel):
@@ -20,6 +20,11 @@ class InjectiveExplorerRPCStub(object):
                 request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetAccountTxsRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetAccountTxsResponse.FromString,
                 )
+        self.GetContractTxs = channel.unary_unary(
+                '/injective_explorer_rpc.InjectiveExplorerRPC/GetContractTxs',
+                request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetContractTxsRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetContractTxsResponse.FromString,
+                )
         self.GetBlocks = channel.unary_unary(
                 '/injective_explorer_rpc.InjectiveExplorerRPC/GetBlocks',
                 request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetBlocksRequest.SerializeToString,
@@ -29,6 +34,11 @@ class InjectiveExplorerRPCStub(object):
                 '/injective_explorer_rpc.InjectiveExplorerRPC/GetBlock',
                 request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetBlockRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetBlockResponse.FromString,
+                )
+        self.GetValidators = channel.unary_unary(
+                '/injective_explorer_rpc.InjectiveExplorerRPC/GetValidators',
+                request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetValidatorsRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetValidatorsResponse.FromString,
                 )
         self.GetValidator = channel.unary_unary(
                 '/injective_explorer_rpc.InjectiveExplorerRPC/GetValidator',
@@ -50,16 +60,6 @@ class InjectiveExplorerRPCStub(object):
                 request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetTxByTxHashRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetTxByTxHashResponse.FromString,
                 )
-        self.StreamTxs = channel.unary_stream(
-                '/injective_explorer_rpc.InjectiveExplorerRPC/StreamTxs',
-                request_serializer=exchange_dot_injective__explorer__rpc__pb2.StreamTxsRequest.SerializeToString,
-                response_deserializer=exchange_dot_injective__explorer__rpc__pb2.StreamTxsResponse.FromString,
-                )
-        self.StreamBlocks = channel.unary_stream(
-                '/injective_explorer_rpc.InjectiveExplorerRPC/StreamBlocks',
-                request_serializer=exchange_dot_injective__explorer__rpc__pb2.StreamBlocksRequest.SerializeToString,
-                response_deserializer=exchange_dot_injective__explorer__rpc__pb2.StreamBlocksResponse.FromString,
-                )
         self.GetPeggyDepositTxs = channel.unary_unary(
                 '/injective_explorer_rpc.InjectiveExplorerRPC/GetPeggyDepositTxs',
                 request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetPeggyDepositTxsRequest.SerializeToString,
@@ -75,14 +75,61 @@ class InjectiveExplorerRPCStub(object):
                 request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetIBCTransferTxsRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetIBCTransferTxsResponse.FromString,
                 )
+        self.GetWasmCodes = channel.unary_unary(
+                '/injective_explorer_rpc.InjectiveExplorerRPC/GetWasmCodes',
+                request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetWasmCodesRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetWasmCodesResponse.FromString,
+                )
+        self.GetWasmCodeByID = channel.unary_unary(
+                '/injective_explorer_rpc.InjectiveExplorerRPC/GetWasmCodeByID',
+                request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetWasmCodeByIDRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetWasmCodeByIDResponse.FromString,
+                )
+        self.GetWasmContracts = channel.unary_unary(
+                '/injective_explorer_rpc.InjectiveExplorerRPC/GetWasmContracts',
+                request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetWasmContractsRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetWasmContractsResponse.FromString,
+                )
+        self.GetWasmContractByAddress = channel.unary_unary(
+                '/injective_explorer_rpc.InjectiveExplorerRPC/GetWasmContractByAddress',
+                request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetWasmContractByAddressRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetWasmContractByAddressResponse.FromString,
+                )
+        self.GetCw20Balance = channel.unary_unary(
+                '/injective_explorer_rpc.InjectiveExplorerRPC/GetCw20Balance',
+                request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetCw20BalanceRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetCw20BalanceResponse.FromString,
+                )
+        self.Relayers = channel.unary_unary(
+                '/injective_explorer_rpc.InjectiveExplorerRPC/Relayers',
+                request_serializer=exchange_dot_injective__explorer__rpc__pb2.RelayersRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__explorer__rpc__pb2.RelayersResponse.FromString,
+                )
+        self.StreamTxs = channel.unary_stream(
+                '/injective_explorer_rpc.InjectiveExplorerRPC/StreamTxs',
+                request_serializer=exchange_dot_injective__explorer__rpc__pb2.StreamTxsRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__explorer__rpc__pb2.StreamTxsResponse.FromString,
+                )
+        self.StreamBlocks = channel.unary_stream(
+                '/injective_explorer_rpc.InjectiveExplorerRPC/StreamBlocks',
+                request_serializer=exchange_dot_injective__explorer__rpc__pb2.StreamBlocksRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__explorer__rpc__pb2.StreamBlocksResponse.FromString,
+                )
 
 
 class InjectiveExplorerRPCServicer(object):
-    """ExplorerRPC defines gRPC API of explorer data for e.g. Blockchain Explorer
+    """ExplorerAPI implements explorer data API for e.g. Blockchain Explorer
     """
 
     def GetAccountTxs(self, request, context):
         """GetAccountTxs returns tranctions involving in an account based upon params.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetContractTxs(self, request, context):
+        """GetContractTxs returns contract-related transactions
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -97,6 +144,13 @@ class InjectiveExplorerRPCServicer(object):
 
     def GetBlock(self, request, context):
         """GetBlock returns block based upon the height or hash
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetValidators(self, request, context):
+        """GetValidators returns validators on the active chain
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -130,20 +184,6 @@ class InjectiveExplorerRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def StreamTxs(self, request, context):
-        """StreamTxs returns transactions based upon the request params
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def StreamBlocks(self, request, context):
-        """StreamBlocks returns the latest blocks
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def GetPeggyDepositTxs(self, request, context):
         """GetPeggyDepositTxs returns the peggy deposit transactions based upon the
         request params
@@ -168,6 +208,63 @@ class InjectiveExplorerRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetWasmCodes(self, request, context):
+        """GetWasmCodes lists all stored code
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetWasmCodeByID(self, request, context):
+        """GetWasmCodeById list cosmwasm code infor by ID
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetWasmContracts(self, request, context):
+        """GetWasmContracts lists all contracts
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetWasmContractByAddress(self, request, context):
+        """GetWasmContractByAddress list cosmwasm contract infor by its address
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetCw20Balance(self, request, context):
+        """GetCw20Balance lists all cw20 balances of an injective account
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Relayers(self, request, context):
+        """Request relayers infos by marketIDs. If no ids are provided, all market with
+        associated relayers are returned
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def StreamTxs(self, request, context):
+        """StreamTxs returns transactions based upon the request params
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def StreamBlocks(self, request, context):
+        """StreamBlocks returns the latest blocks
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_InjectiveExplorerRPCServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -175,6 +272,11 @@ def add_InjectiveExplorerRPCServicer_to_server(servicer, server):
                     servicer.GetAccountTxs,
                     request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetAccountTxsRequest.FromString,
                     response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetAccountTxsResponse.SerializeToString,
+            ),
+            'GetContractTxs': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetContractTxs,
+                    request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetContractTxsRequest.FromString,
+                    response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetContractTxsResponse.SerializeToString,
             ),
             'GetBlocks': grpc.unary_unary_rpc_method_handler(
                     servicer.GetBlocks,
@@ -185,6 +287,11 @@ def add_InjectiveExplorerRPCServicer_to_server(servicer, server):
                     servicer.GetBlock,
                     request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetBlockRequest.FromString,
                     response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetBlockResponse.SerializeToString,
+            ),
+            'GetValidators': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetValidators,
+                    request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetValidatorsRequest.FromString,
+                    response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetValidatorsResponse.SerializeToString,
             ),
             'GetValidator': grpc.unary_unary_rpc_method_handler(
                     servicer.GetValidator,
@@ -206,16 +313,6 @@ def add_InjectiveExplorerRPCServicer_to_server(servicer, server):
                     request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetTxByTxHashRequest.FromString,
                     response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetTxByTxHashResponse.SerializeToString,
             ),
-            'StreamTxs': grpc.unary_stream_rpc_method_handler(
-                    servicer.StreamTxs,
-                    request_deserializer=exchange_dot_injective__explorer__rpc__pb2.StreamTxsRequest.FromString,
-                    response_serializer=exchange_dot_injective__explorer__rpc__pb2.StreamTxsResponse.SerializeToString,
-            ),
-            'StreamBlocks': grpc.unary_stream_rpc_method_handler(
-                    servicer.StreamBlocks,
-                    request_deserializer=exchange_dot_injective__explorer__rpc__pb2.StreamBlocksRequest.FromString,
-                    response_serializer=exchange_dot_injective__explorer__rpc__pb2.StreamBlocksResponse.SerializeToString,
-            ),
             'GetPeggyDepositTxs': grpc.unary_unary_rpc_method_handler(
                     servicer.GetPeggyDepositTxs,
                     request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetPeggyDepositTxsRequest.FromString,
@@ -231,6 +328,46 @@ def add_InjectiveExplorerRPCServicer_to_server(servicer, server):
                     request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetIBCTransferTxsRequest.FromString,
                     response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetIBCTransferTxsResponse.SerializeToString,
             ),
+            'GetWasmCodes': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetWasmCodes,
+                    request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetWasmCodesRequest.FromString,
+                    response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetWasmCodesResponse.SerializeToString,
+            ),
+            'GetWasmCodeByID': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetWasmCodeByID,
+                    request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetWasmCodeByIDRequest.FromString,
+                    response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetWasmCodeByIDResponse.SerializeToString,
+            ),
+            'GetWasmContracts': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetWasmContracts,
+                    request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetWasmContractsRequest.FromString,
+                    response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetWasmContractsResponse.SerializeToString,
+            ),
+            'GetWasmContractByAddress': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetWasmContractByAddress,
+                    request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetWasmContractByAddressRequest.FromString,
+                    response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetWasmContractByAddressResponse.SerializeToString,
+            ),
+            'GetCw20Balance': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCw20Balance,
+                    request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetCw20BalanceRequest.FromString,
+                    response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetCw20BalanceResponse.SerializeToString,
+            ),
+            'Relayers': grpc.unary_unary_rpc_method_handler(
+                    servicer.Relayers,
+                    request_deserializer=exchange_dot_injective__explorer__rpc__pb2.RelayersRequest.FromString,
+                    response_serializer=exchange_dot_injective__explorer__rpc__pb2.RelayersResponse.SerializeToString,
+            ),
+            'StreamTxs': grpc.unary_stream_rpc_method_handler(
+                    servicer.StreamTxs,
+                    request_deserializer=exchange_dot_injective__explorer__rpc__pb2.StreamTxsRequest.FromString,
+                    response_serializer=exchange_dot_injective__explorer__rpc__pb2.StreamTxsResponse.SerializeToString,
+            ),
+            'StreamBlocks': grpc.unary_stream_rpc_method_handler(
+                    servicer.StreamBlocks,
+                    request_deserializer=exchange_dot_injective__explorer__rpc__pb2.StreamBlocksRequest.FromString,
+                    response_serializer=exchange_dot_injective__explorer__rpc__pb2.StreamBlocksResponse.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
             'injective_explorer_rpc.InjectiveExplorerRPC', rpc_method_handlers)
@@ -239,7 +376,7 @@ def add_InjectiveExplorerRPCServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class InjectiveExplorerRPC(object):
-    """ExplorerRPC defines gRPC API of explorer data for e.g. Blockchain Explorer
+    """ExplorerAPI implements explorer data API for e.g. Blockchain Explorer
     """
 
     @staticmethod
@@ -256,6 +393,23 @@ class InjectiveExplorerRPC(object):
         return grpc.experimental.unary_unary(request, target, '/injective_explorer_rpc.InjectiveExplorerRPC/GetAccountTxs',
             exchange_dot_injective__explorer__rpc__pb2.GetAccountTxsRequest.SerializeToString,
             exchange_dot_injective__explorer__rpc__pb2.GetAccountTxsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetContractTxs(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective_explorer_rpc.InjectiveExplorerRPC/GetContractTxs',
+            exchange_dot_injective__explorer__rpc__pb2.GetContractTxsRequest.SerializeToString,
+            exchange_dot_injective__explorer__rpc__pb2.GetContractTxsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -290,6 +444,23 @@ class InjectiveExplorerRPC(object):
         return grpc.experimental.unary_unary(request, target, '/injective_explorer_rpc.InjectiveExplorerRPC/GetBlock',
             exchange_dot_injective__explorer__rpc__pb2.GetBlockRequest.SerializeToString,
             exchange_dot_injective__explorer__rpc__pb2.GetBlockResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetValidators(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective_explorer_rpc.InjectiveExplorerRPC/GetValidators',
+            exchange_dot_injective__explorer__rpc__pb2.GetValidatorsRequest.SerializeToString,
+            exchange_dot_injective__explorer__rpc__pb2.GetValidatorsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -362,40 +533,6 @@ class InjectiveExplorerRPC(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def StreamTxs(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/injective_explorer_rpc.InjectiveExplorerRPC/StreamTxs',
-            exchange_dot_injective__explorer__rpc__pb2.StreamTxsRequest.SerializeToString,
-            exchange_dot_injective__explorer__rpc__pb2.StreamTxsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def StreamBlocks(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/injective_explorer_rpc.InjectiveExplorerRPC/StreamBlocks',
-            exchange_dot_injective__explorer__rpc__pb2.StreamBlocksRequest.SerializeToString,
-            exchange_dot_injective__explorer__rpc__pb2.StreamBlocksResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
     def GetPeggyDepositTxs(request,
             target,
             options=(),
@@ -443,5 +580,141 @@ class InjectiveExplorerRPC(object):
         return grpc.experimental.unary_unary(request, target, '/injective_explorer_rpc.InjectiveExplorerRPC/GetIBCTransferTxs',
             exchange_dot_injective__explorer__rpc__pb2.GetIBCTransferTxsRequest.SerializeToString,
             exchange_dot_injective__explorer__rpc__pb2.GetIBCTransferTxsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetWasmCodes(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective_explorer_rpc.InjectiveExplorerRPC/GetWasmCodes',
+            exchange_dot_injective__explorer__rpc__pb2.GetWasmCodesRequest.SerializeToString,
+            exchange_dot_injective__explorer__rpc__pb2.GetWasmCodesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetWasmCodeByID(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective_explorer_rpc.InjectiveExplorerRPC/GetWasmCodeByID',
+            exchange_dot_injective__explorer__rpc__pb2.GetWasmCodeByIDRequest.SerializeToString,
+            exchange_dot_injective__explorer__rpc__pb2.GetWasmCodeByIDResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetWasmContracts(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective_explorer_rpc.InjectiveExplorerRPC/GetWasmContracts',
+            exchange_dot_injective__explorer__rpc__pb2.GetWasmContractsRequest.SerializeToString,
+            exchange_dot_injective__explorer__rpc__pb2.GetWasmContractsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetWasmContractByAddress(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective_explorer_rpc.InjectiveExplorerRPC/GetWasmContractByAddress',
+            exchange_dot_injective__explorer__rpc__pb2.GetWasmContractByAddressRequest.SerializeToString,
+            exchange_dot_injective__explorer__rpc__pb2.GetWasmContractByAddressResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetCw20Balance(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective_explorer_rpc.InjectiveExplorerRPC/GetCw20Balance',
+            exchange_dot_injective__explorer__rpc__pb2.GetCw20BalanceRequest.SerializeToString,
+            exchange_dot_injective__explorer__rpc__pb2.GetCw20BalanceResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Relayers(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective_explorer_rpc.InjectiveExplorerRPC/Relayers',
+            exchange_dot_injective__explorer__rpc__pb2.RelayersRequest.SerializeToString,
+            exchange_dot_injective__explorer__rpc__pb2.RelayersResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def StreamTxs(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/injective_explorer_rpc.InjectiveExplorerRPC/StreamTxs',
+            exchange_dot_injective__explorer__rpc__pb2.StreamTxsRequest.SerializeToString,
+            exchange_dot_injective__explorer__rpc__pb2.StreamTxsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def StreamBlocks(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/injective_explorer_rpc.InjectiveExplorerRPC/StreamBlocks',
+            exchange_dot_injective__explorer__rpc__pb2.StreamBlocksRequest.SerializeToString,
+            exchange_dot_injective__explorer__rpc__pb2.StreamBlocksResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

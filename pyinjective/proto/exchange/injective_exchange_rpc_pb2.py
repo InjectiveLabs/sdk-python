@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z\031/injective_exchange_rpcpb',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n%exchange/injective_exchange_rpc.proto\x12\x16injective_exchange_rpc\"\x1c\n\x0cGetTxRequest\x12\x0c\n\x04hash\x18\x01 \x01(\t\"\x92\x01\n\rGetTxResponse\x12\x0f\n\x07tx_hash\x18\x01 \x01(\t\x12\x0e\n\x06height\x18\x02 \x01(\x12\x12\r\n\x05index\x18\x03 \x01(\r\x12\x11\n\tcodespace\x18\x04 \x01(\t\x12\x0c\n\x04\x63ode\x18\x05 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x06 \x01(\x0c\x12\x0f\n\x07raw_log\x18\x07 \x01(\t\x12\x11\n\ttimestamp\x18\x08 \x01(\t\"\xb4\x01\n\x10PrepareTxRequest\x12\x10\n\x08\x63hain_id\x18\x01 \x01(\x04\x12\x16\n\x0esigner_address\x18\x02 \x01(\t\x12\x10\n\x08sequence\x18\x03 \x01(\x04\x12\x0c\n\x04memo\x18\x04 \x01(\t\x12\x16\n\x0etimeout_height\x18\x05 \x01(\x04\x12\x30\n\x03\x66\x65\x65\x18\x06 \x01(\x0b\x32#.injective_exchange_rpc.CosmosTxFee\x12\x0c\n\x04msgs\x18\x07 \x03(\x0c\"c\n\x0b\x43osmosTxFee\x12\x31\n\x05price\x18\x01 \x03(\x0b\x32\".injective_exchange_rpc.CosmosCoin\x12\x0b\n\x03gas\x18\x02 \x01(\x04\x12\x14\n\x0c\x64\x65legate_fee\x18\x03 \x01(\x08\"+\n\nCosmosCoin\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\t\"\x86\x01\n\x11PrepareTxResponse\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\t\x12\x10\n\x08sequence\x18\x02 \x01(\x04\x12\x11\n\tsign_mode\x18\x03 \x01(\t\x12\x14\n\x0cpub_key_type\x18\x04 \x01(\t\x12\x11\n\tfee_payer\x18\x05 \x01(\t\x12\x15\n\rfee_payer_sig\x18\x06 \x01(\t\"\xc2\x01\n\x12\x42roadcastTxRequest\x12\x10\n\x08\x63hain_id\x18\x01 \x01(\x04\x12\n\n\x02tx\x18\x02 \x01(\x0c\x12\x0c\n\x04msgs\x18\x03 \x03(\x0c\x12\x35\n\x07pub_key\x18\x04 \x01(\x0b\x32$.injective_exchange_rpc.CosmosPubKey\x12\x11\n\tsignature\x18\x05 \x01(\t\x12\x11\n\tfee_payer\x18\x06 \x01(\t\x12\x15\n\rfee_payer_sig\x18\x07 \x01(\t\x12\x0c\n\x04mode\x18\x08 \x01(\t\")\n\x0c\x43osmosPubKey\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0b\n\x03key\x18\x02 \x01(\t\"\x98\x01\n\x13\x42roadcastTxResponse\x12\x0f\n\x07tx_hash\x18\x01 \x01(\t\x12\x0e\n\x06height\x18\x02 \x01(\x12\x12\r\n\x05index\x18\x03 \x01(\r\x12\x11\n\tcodespace\x18\x04 \x01(\t\x12\x0c\n\x04\x63ode\x18\x05 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x06 \x01(\x0c\x12\x0f\n\x07raw_log\x18\x07 \x01(\t\x12\x11\n\ttimestamp\x18\x08 \x01(\t2\xb6\x02\n\x14InjectiveExchangeRPC\x12T\n\x05GetTx\x12$.injective_exchange_rpc.GetTxRequest\x1a%.injective_exchange_rpc.GetTxResponse\x12`\n\tPrepareTx\x12(.injective_exchange_rpc.PrepareTxRequest\x1a).injective_exchange_rpc.PrepareTxResponse\x12\x66\n\x0b\x42roadcastTx\x12*.injective_exchange_rpc.BroadcastTxRequest\x1a+.injective_exchange_rpc.BroadcastTxResponseB\x1bZ\x19/injective_exchange_rpcpbb\x06proto3'
+  serialized_pb=b'\n%exchange/injective_exchange_rpc.proto\x12\x16injective_exchange_rpc\"\x1c\n\x0cGetTxRequest\x12\x0c\n\x04hash\x18\x01 \x01(\t\"\x92\x01\n\rGetTxResponse\x12\x0f\n\x07tx_hash\x18\x01 \x01(\t\x12\x0e\n\x06height\x18\x02 \x01(\x12\x12\r\n\x05index\x18\x03 \x01(\r\x12\x11\n\tcodespace\x18\x04 \x01(\t\x12\x0c\n\x04\x63ode\x18\x05 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x06 \x01(\x0c\x12\x0f\n\x07raw_log\x18\x07 \x01(\t\x12\x11\n\ttimestamp\x18\x08 \x01(\t\"\xb4\x01\n\x10PrepareTxRequest\x12\x10\n\x08\x63hain_id\x18\x01 \x01(\x04\x12\x16\n\x0esigner_address\x18\x02 \x01(\t\x12\x10\n\x08sequence\x18\x03 \x01(\x04\x12\x0c\n\x04memo\x18\x04 \x01(\t\x12\x16\n\x0etimeout_height\x18\x05 \x01(\x04\x12\x30\n\x03\x66\x65\x65\x18\x06 \x01(\x0b\x32#.injective_exchange_rpc.CosmosTxFee\x12\x0c\n\x04msgs\x18\x07 \x03(\x0c\"c\n\x0b\x43osmosTxFee\x12\x31\n\x05price\x18\x01 \x03(\x0b\x32\".injective_exchange_rpc.CosmosCoin\x12\x0b\n\x03gas\x18\x02 \x01(\x04\x12\x14\n\x0c\x64\x65legate_fee\x18\x03 \x01(\x08\"+\n\nCosmosCoin\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\t\"\x86\x01\n\x11PrepareTxResponse\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\t\x12\x10\n\x08sequence\x18\x02 \x01(\x04\x12\x11\n\tsign_mode\x18\x03 \x01(\t\x12\x14\n\x0cpub_key_type\x18\x04 \x01(\t\x12\x11\n\tfee_payer\x18\x05 \x01(\t\x12\x15\n\rfee_payer_sig\x18\x06 \x01(\t\"\xc2\x01\n\x12\x42roadcastTxRequest\x12\x10\n\x08\x63hain_id\x18\x01 \x01(\x04\x12\n\n\x02tx\x18\x02 \x01(\x0c\x12\x0c\n\x04msgs\x18\x03 \x03(\x0c\x12\x35\n\x07pub_key\x18\x04 \x01(\x0b\x32$.injective_exchange_rpc.CosmosPubKey\x12\x11\n\tsignature\x18\x05 \x01(\t\x12\x11\n\tfee_payer\x18\x06 \x01(\t\x12\x15\n\rfee_payer_sig\x18\x07 \x01(\t\x12\x0c\n\x04mode\x18\x08 \x01(\t\")\n\x0c\x43osmosPubKey\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0b\n\x03key\x18\x02 \x01(\t\"\x98\x01\n\x13\x42roadcastTxResponse\x12\x0f\n\x07tx_hash\x18\x01 \x01(\t\x12\x0e\n\x06height\x18\x02 \x01(\x12\x12\r\n\x05index\x18\x03 \x01(\r\x12\x11\n\tcodespace\x18\x04 \x01(\t\x12\x0c\n\x04\x63ode\x18\x05 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x06 \x01(\x0c\x12\x0f\n\x07raw_log\x18\x07 \x01(\t\x12\x11\n\ttimestamp\x18\x08 \x01(\t\"\xa8\x01\n\x16PrepareCosmosTxRequest\x12\x10\n\x08\x63hain_id\x18\x01 \x01(\x04\x12\x16\n\x0esender_address\x18\x02 \x01(\t\x12\x0c\n\x04memo\x18\x03 \x01(\t\x12\x16\n\x0etimeout_height\x18\x04 \x01(\x04\x12\x30\n\x03\x66\x65\x65\x18\x05 \x01(\x0b\x32#.injective_exchange_rpc.CosmosTxFee\x12\x0c\n\x04msgs\x18\x06 \x03(\x0c\"\xb9\x01\n\x17PrepareCosmosTxResponse\x12\n\n\x02tx\x18\x01 \x01(\x0c\x12\x11\n\tsign_mode\x18\x02 \x01(\t\x12\x14\n\x0cpub_key_type\x18\x03 \x01(\t\x12\x11\n\tfee_payer\x18\x04 \x01(\t\x12\x15\n\rfee_payer_sig\x18\x05 \x01(\t\x12?\n\x11\x66\x65\x65_payer_pub_key\x18\x06 \x01(\x0b\x32$.injective_exchange_rpc.CosmosPubKey\"\x88\x01\n\x18\x42roadcastCosmosTxRequest\x12\n\n\x02tx\x18\x01 \x01(\x0c\x12\x35\n\x07pub_key\x18\x02 \x01(\x0b\x32$.injective_exchange_rpc.CosmosPubKey\x12\x11\n\tsignature\x18\x03 \x01(\t\x12\x16\n\x0esender_address\x18\x04 \x01(\t\"\x9e\x01\n\x19\x42roadcastCosmosTxResponse\x12\x0f\n\x07tx_hash\x18\x01 \x01(\t\x12\x0e\n\x06height\x18\x02 \x01(\x12\x12\r\n\x05index\x18\x03 \x01(\r\x12\x11\n\tcodespace\x18\x04 \x01(\t\x12\x0c\n\x04\x63ode\x18\x05 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x06 \x01(\x0c\x12\x0f\n\x07raw_log\x18\x07 \x01(\t\x12\x11\n\ttimestamp\x18\x08 \x01(\t\"\x14\n\x12GetFeePayerRequest\"i\n\x13GetFeePayerResponse\x12\x11\n\tfee_payer\x18\x01 \x01(\t\x12?\n\x11\x66\x65\x65_payer_pub_key\x18\x02 \x01(\x0b\x32$.injective_exchange_rpc.CosmosPubKey2\x8c\x05\n\x14InjectiveExchangeRPC\x12T\n\x05GetTx\x12$.injective_exchange_rpc.GetTxRequest\x1a%.injective_exchange_rpc.GetTxResponse\x12`\n\tPrepareTx\x12(.injective_exchange_rpc.PrepareTxRequest\x1a).injective_exchange_rpc.PrepareTxResponse\x12\x66\n\x0b\x42roadcastTx\x12*.injective_exchange_rpc.BroadcastTxRequest\x1a+.injective_exchange_rpc.BroadcastTxResponse\x12r\n\x0fPrepareCosmosTx\x12..injective_exchange_rpc.PrepareCosmosTxRequest\x1a/.injective_exchange_rpc.PrepareCosmosTxResponse\x12x\n\x11\x42roadcastCosmosTx\x12\x30.injective_exchange_rpc.BroadcastCosmosTxRequest\x1a\x31.injective_exchange_rpc.BroadcastCosmosTxResponse\x12\x66\n\x0bGetFeePayer\x12*.injective_exchange_rpc.GetFeePayerRequest\x1a+.injective_exchange_rpc.GetFeePayerResponseB\x1bZ\x19/injective_exchange_rpcpbb\x06proto3'
 )
 
 
@@ -564,9 +564,345 @@ _BROADCASTTXRESPONSE = _descriptor.Descriptor(
   serialized_end=1103,
 )
 
+
+_PREPARECOSMOSTXREQUEST = _descriptor.Descriptor(
+  name='PrepareCosmosTxRequest',
+  full_name='injective_exchange_rpc.PrepareCosmosTxRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='chain_id', full_name='injective_exchange_rpc.PrepareCosmosTxRequest.chain_id', index=0,
+      number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='sender_address', full_name='injective_exchange_rpc.PrepareCosmosTxRequest.sender_address', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='memo', full_name='injective_exchange_rpc.PrepareCosmosTxRequest.memo', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='timeout_height', full_name='injective_exchange_rpc.PrepareCosmosTxRequest.timeout_height', index=3,
+      number=4, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='fee', full_name='injective_exchange_rpc.PrepareCosmosTxRequest.fee', index=4,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='msgs', full_name='injective_exchange_rpc.PrepareCosmosTxRequest.msgs', index=5,
+      number=6, type=12, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1106,
+  serialized_end=1274,
+)
+
+
+_PREPARECOSMOSTXRESPONSE = _descriptor.Descriptor(
+  name='PrepareCosmosTxResponse',
+  full_name='injective_exchange_rpc.PrepareCosmosTxResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='tx', full_name='injective_exchange_rpc.PrepareCosmosTxResponse.tx', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"",
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='sign_mode', full_name='injective_exchange_rpc.PrepareCosmosTxResponse.sign_mode', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='pub_key_type', full_name='injective_exchange_rpc.PrepareCosmosTxResponse.pub_key_type', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='fee_payer', full_name='injective_exchange_rpc.PrepareCosmosTxResponse.fee_payer', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='fee_payer_sig', full_name='injective_exchange_rpc.PrepareCosmosTxResponse.fee_payer_sig', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='fee_payer_pub_key', full_name='injective_exchange_rpc.PrepareCosmosTxResponse.fee_payer_pub_key', index=5,
+      number=6, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1277,
+  serialized_end=1462,
+)
+
+
+_BROADCASTCOSMOSTXREQUEST = _descriptor.Descriptor(
+  name='BroadcastCosmosTxRequest',
+  full_name='injective_exchange_rpc.BroadcastCosmosTxRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='tx', full_name='injective_exchange_rpc.BroadcastCosmosTxRequest.tx', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"",
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='pub_key', full_name='injective_exchange_rpc.BroadcastCosmosTxRequest.pub_key', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='signature', full_name='injective_exchange_rpc.BroadcastCosmosTxRequest.signature', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='sender_address', full_name='injective_exchange_rpc.BroadcastCosmosTxRequest.sender_address', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1465,
+  serialized_end=1601,
+)
+
+
+_BROADCASTCOSMOSTXRESPONSE = _descriptor.Descriptor(
+  name='BroadcastCosmosTxResponse',
+  full_name='injective_exchange_rpc.BroadcastCosmosTxResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='tx_hash', full_name='injective_exchange_rpc.BroadcastCosmosTxResponse.tx_hash', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='height', full_name='injective_exchange_rpc.BroadcastCosmosTxResponse.height', index=1,
+      number=2, type=18, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='index', full_name='injective_exchange_rpc.BroadcastCosmosTxResponse.index', index=2,
+      number=3, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='codespace', full_name='injective_exchange_rpc.BroadcastCosmosTxResponse.codespace', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='code', full_name='injective_exchange_rpc.BroadcastCosmosTxResponse.code', index=4,
+      number=5, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='data', full_name='injective_exchange_rpc.BroadcastCosmosTxResponse.data', index=5,
+      number=6, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"",
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='raw_log', full_name='injective_exchange_rpc.BroadcastCosmosTxResponse.raw_log', index=6,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='timestamp', full_name='injective_exchange_rpc.BroadcastCosmosTxResponse.timestamp', index=7,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1604,
+  serialized_end=1762,
+)
+
+
+_GETFEEPAYERREQUEST = _descriptor.Descriptor(
+  name='GetFeePayerRequest',
+  full_name='injective_exchange_rpc.GetFeePayerRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1764,
+  serialized_end=1784,
+)
+
+
+_GETFEEPAYERRESPONSE = _descriptor.Descriptor(
+  name='GetFeePayerResponse',
+  full_name='injective_exchange_rpc.GetFeePayerResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='fee_payer', full_name='injective_exchange_rpc.GetFeePayerResponse.fee_payer', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='fee_payer_pub_key', full_name='injective_exchange_rpc.GetFeePayerResponse.fee_payer_pub_key', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1786,
+  serialized_end=1891,
+)
+
 _PREPARETXREQUEST.fields_by_name['fee'].message_type = _COSMOSTXFEE
 _COSMOSTXFEE.fields_by_name['price'].message_type = _COSMOSCOIN
 _BROADCASTTXREQUEST.fields_by_name['pub_key'].message_type = _COSMOSPUBKEY
+_PREPARECOSMOSTXREQUEST.fields_by_name['fee'].message_type = _COSMOSTXFEE
+_PREPARECOSMOSTXRESPONSE.fields_by_name['fee_payer_pub_key'].message_type = _COSMOSPUBKEY
+_BROADCASTCOSMOSTXREQUEST.fields_by_name['pub_key'].message_type = _COSMOSPUBKEY
+_GETFEEPAYERRESPONSE.fields_by_name['fee_payer_pub_key'].message_type = _COSMOSPUBKEY
 DESCRIPTOR.message_types_by_name['GetTxRequest'] = _GETTXREQUEST
 DESCRIPTOR.message_types_by_name['GetTxResponse'] = _GETTXRESPONSE
 DESCRIPTOR.message_types_by_name['PrepareTxRequest'] = _PREPARETXREQUEST
@@ -576,6 +912,12 @@ DESCRIPTOR.message_types_by_name['PrepareTxResponse'] = _PREPARETXRESPONSE
 DESCRIPTOR.message_types_by_name['BroadcastTxRequest'] = _BROADCASTTXREQUEST
 DESCRIPTOR.message_types_by_name['CosmosPubKey'] = _COSMOSPUBKEY
 DESCRIPTOR.message_types_by_name['BroadcastTxResponse'] = _BROADCASTTXRESPONSE
+DESCRIPTOR.message_types_by_name['PrepareCosmosTxRequest'] = _PREPARECOSMOSTXREQUEST
+DESCRIPTOR.message_types_by_name['PrepareCosmosTxResponse'] = _PREPARECOSMOSTXRESPONSE
+DESCRIPTOR.message_types_by_name['BroadcastCosmosTxRequest'] = _BROADCASTCOSMOSTXREQUEST
+DESCRIPTOR.message_types_by_name['BroadcastCosmosTxResponse'] = _BROADCASTCOSMOSTXRESPONSE
+DESCRIPTOR.message_types_by_name['GetFeePayerRequest'] = _GETFEEPAYERREQUEST
+DESCRIPTOR.message_types_by_name['GetFeePayerResponse'] = _GETFEEPAYERRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 GetTxRequest = _reflection.GeneratedProtocolMessageType('GetTxRequest', (_message.Message,), {
@@ -641,6 +983,48 @@ BroadcastTxResponse = _reflection.GeneratedProtocolMessageType('BroadcastTxRespo
   })
 _sym_db.RegisterMessage(BroadcastTxResponse)
 
+PrepareCosmosTxRequest = _reflection.GeneratedProtocolMessageType('PrepareCosmosTxRequest', (_message.Message,), {
+  'DESCRIPTOR' : _PREPARECOSMOSTXREQUEST,
+  '__module__' : 'exchange.injective_exchange_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_exchange_rpc.PrepareCosmosTxRequest)
+  })
+_sym_db.RegisterMessage(PrepareCosmosTxRequest)
+
+PrepareCosmosTxResponse = _reflection.GeneratedProtocolMessageType('PrepareCosmosTxResponse', (_message.Message,), {
+  'DESCRIPTOR' : _PREPARECOSMOSTXRESPONSE,
+  '__module__' : 'exchange.injective_exchange_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_exchange_rpc.PrepareCosmosTxResponse)
+  })
+_sym_db.RegisterMessage(PrepareCosmosTxResponse)
+
+BroadcastCosmosTxRequest = _reflection.GeneratedProtocolMessageType('BroadcastCosmosTxRequest', (_message.Message,), {
+  'DESCRIPTOR' : _BROADCASTCOSMOSTXREQUEST,
+  '__module__' : 'exchange.injective_exchange_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_exchange_rpc.BroadcastCosmosTxRequest)
+  })
+_sym_db.RegisterMessage(BroadcastCosmosTxRequest)
+
+BroadcastCosmosTxResponse = _reflection.GeneratedProtocolMessageType('BroadcastCosmosTxResponse', (_message.Message,), {
+  'DESCRIPTOR' : _BROADCASTCOSMOSTXRESPONSE,
+  '__module__' : 'exchange.injective_exchange_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_exchange_rpc.BroadcastCosmosTxResponse)
+  })
+_sym_db.RegisterMessage(BroadcastCosmosTxResponse)
+
+GetFeePayerRequest = _reflection.GeneratedProtocolMessageType('GetFeePayerRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETFEEPAYERREQUEST,
+  '__module__' : 'exchange.injective_exchange_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_exchange_rpc.GetFeePayerRequest)
+  })
+_sym_db.RegisterMessage(GetFeePayerRequest)
+
+GetFeePayerResponse = _reflection.GeneratedProtocolMessageType('GetFeePayerResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETFEEPAYERRESPONSE,
+  '__module__' : 'exchange.injective_exchange_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_exchange_rpc.GetFeePayerResponse)
+  })
+_sym_db.RegisterMessage(GetFeePayerResponse)
+
 
 DESCRIPTOR._options = None
 
@@ -651,8 +1035,8 @@ _INJECTIVEEXCHANGERPC = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1106,
-  serialized_end=1416,
+  serialized_start=1894,
+  serialized_end=2546,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetTx',
@@ -681,6 +1065,36 @@ _INJECTIVEEXCHANGERPC = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_BROADCASTTXREQUEST,
     output_type=_BROADCASTTXRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='PrepareCosmosTx',
+    full_name='injective_exchange_rpc.InjectiveExchangeRPC.PrepareCosmosTx',
+    index=3,
+    containing_service=None,
+    input_type=_PREPARECOSMOSTXREQUEST,
+    output_type=_PREPARECOSMOSTXRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='BroadcastCosmosTx',
+    full_name='injective_exchange_rpc.InjectiveExchangeRPC.BroadcastCosmosTx',
+    index=4,
+    containing_service=None,
+    input_type=_BROADCASTCOSMOSTXREQUEST,
+    output_type=_BROADCASTCOSMOSTXRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetFeePayer',
+    full_name='injective_exchange_rpc.InjectiveExchangeRPC.GetFeePayer',
+    index=5,
+    containing_service=None,
+    input_type=_GETFEEPAYERREQUEST,
+    output_type=_GETFEEPAYERRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
