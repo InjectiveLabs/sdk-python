@@ -82,9 +82,9 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 * Add grpc_explorer_endpoint in Network
 * Add explorer channel and stub
 
-*BREAKING CHANGE*
+*BREAKING CHANGES*
 
-Clients using [Custom Network](https://github.com/InjectiveLabs/sdk-python/blob/master/pyinjective/constant.py#L157) must now set grpc_explorer_endpoint during init
+- Clients using [Custom Network](https://github.com/InjectiveLabs/sdk-python/blob/master/pyinjective/constant.py#L157) must now set grpc_explorer_endpoint during init
 
 **0.5.8.7**
 * Add testnet ini metadata
