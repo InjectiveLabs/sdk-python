@@ -1,18 +1,3 @@
-# Copyright 2021 Injective Labs
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-"""Injective Exchange API client for Python. Example only."""
-
 import asyncio
 import logging
 
@@ -23,9 +8,9 @@ async def main() -> None:
     network = Network.testnet()
     client = AsyncClient(network, insecure=False)
     subaccount_id = "0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000"
-    market_id = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
-    execution_type = "market"  # market, limitFill, limitMatchRestingOrder or limitMatchNewOrder
-    direction = "buy"  # buy or sell
+    market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
+    execution_type = "market"
+    direction = "buy"
     skip = 10
     limit = 10
     trades = await client.get_spot_subaccount_trades(

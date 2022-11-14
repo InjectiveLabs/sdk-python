@@ -1,18 +1,3 @@
-# Copyright 2021 Injective Labs
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-"""Injective Exchange API client for Python. Example only."""
-
 import asyncio
 import logging
 
@@ -24,7 +9,7 @@ async def main() -> None:
     client = AsyncClient(network, insecure=False)
     redeemer = "inj1gxqdj76ul07w4ujsl8403nhhzyvug2h66qk057"
     redemption_denom = "share2"
-    status = "disbursed"  # pending or disbursed
+    status = "disbursed"
     insurance_redemptions = await client.get_redemptions(
         redeemer=redeemer,
         redemption_denom=redemption_denom,
