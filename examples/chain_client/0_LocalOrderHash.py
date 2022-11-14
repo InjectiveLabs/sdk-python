@@ -145,8 +145,8 @@ async def main() -> None:
     tx = (
         Transaction()
         .with_messages(spot_msg, deriv_msg)
-        .with_sequence(address.get_sequence())
-        .with_account_num(address.get_number())
+        .with_sequence(client.get_sequence())
+        .with_account_num(client.get_number())
         .with_chain_id(network.chain_id)
     )
     sim_sign_doc = tx.get_sign_doc(pub_key)
@@ -243,8 +243,8 @@ async def main() -> None:
     tx = (
         Transaction()
         .with_messages(spot_msg, deriv_msg)
-        .with_sequence(address.get_sequence())
-        .with_account_num(address.get_number())
+        .with_sequence(client.get_sequence())
+        .with_account_num(client.get_number())
         .with_chain_id(network.chain_id)
     )
     sim_sign_doc = tx.get_sign_doc(pub_key)

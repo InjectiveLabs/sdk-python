@@ -30,13 +30,10 @@ async def main() -> None:
     derivative_market_id_create = "0x90e662193fa29a3a7e6c07be4407c94833e762d9ee82136a2cc712d6b87d7de3"
     spot_market_id_create = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
 
-    derivative_market_id_cancel = "0x90e662193fa29a3a7e6c07be4407c94833e762d9ee82136a2cc712d6b87d7de3"
+    derivative_market_id_cancel = "0xd5e4b12b19ecf176e4e14b42944731c27677819d2ed93be4104ad7025529c7ff"
     derivative_market_id_cancel_2 = "0x90e662193fa29a3a7e6c07be4407c94833e762d9ee82136a2cc712d6b87d7de3"
     spot_market_id_cancel = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
-    spot_market_id_cancel_2 = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
-
-    spot_market_ids_to_cancel_all =['0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe', '0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe']
-    derivative_market_ids_to_cancel_all = ['0x90e662193fa29a3a7e6c07be4407c94833e762d9ee82136a2cc712d6b87d7de3', '0x90e662193fa29a3a7e6c07be4407c94833e762d9ee82136a2cc712d6b87d7de3']
+    spot_market_id_cancel_2 = "0x7a57e705bb4e09c88aecfc295569481dbf2fe1d5efe364651fbe72385938e9b0"
 
     derivative_orders_to_cancel = [
         composer.OrderData(
@@ -111,13 +108,10 @@ async def main() -> None:
     # prepare tx msg
     msg = composer.MsgBatchUpdateOrders(
         sender=address.to_acc_bech32(),
-        subaccount_id=subaccount_id,
         derivative_orders_to_create=derivative_orders_to_create,
         spot_orders_to_create=spot_orders_to_create,
         derivative_orders_to_cancel=derivative_orders_to_cancel,
-        spot_orders_to_cancel=spot_orders_to_cancel,
-        spot_market_ids_to_cancel_all=spot_market_ids_to_cancel_all,
-        derivative_market_ids_to_cancel_all=derivative_market_ids_to_cancel_all,
+        spot_orders_to_cancel=spot_orders_to_cancel
     )
 
     # build sim tx
