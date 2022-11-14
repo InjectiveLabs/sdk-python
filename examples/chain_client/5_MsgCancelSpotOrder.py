@@ -1,17 +1,3 @@
-# Copyright 2022 Injective Labs
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 import asyncio
 import logging
 
@@ -39,7 +25,7 @@ async def main() -> None:
     subaccount_id = address.get_subaccount_id(index=0)
 
     # prepare trade info
-    market_id = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
+    market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
     order_hash = "0x52888d397d5ae821869c8acde5823dfd8018802d2ef642d3aa639e5308173fcf"
 
     # prepare tx msg

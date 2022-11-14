@@ -1,17 +1,3 @@
-# Copyright 2022 Injective Labs
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 import asyncio
 import logging
 
@@ -36,7 +22,7 @@ async def main() -> None:
     pub_key = priv_key.to_public_key()
     address = pub_key.to_address()
     account = await client.get_account(address.to_acc_bech32())
-    
+
     # prepare tx msg
     market_id = "0x0511ddc4e6586f3bfe1acb2dd905f8b8a82c97e1edaef654b12ca7e6031ca0fa"
     grantee = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
