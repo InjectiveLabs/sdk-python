@@ -16,7 +16,6 @@ python_purge () {
 install_libraries() {
 	python3 -m pip install aiohttp
 	python3 -m pip install ecdsa
-	python3 -m pip install pysha3
 	python3 -m pip install grpcio
 	python3 -m pip install typing
 	python3 -m pip install protobuf

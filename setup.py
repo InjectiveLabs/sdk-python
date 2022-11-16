@@ -29,7 +29,6 @@ REQUIRED = [
     "bech32",
     "mnemonic",
     "hdwallets",
-    "pysha3",
     "bip32",
     "requests",
     "eip712_structs",
