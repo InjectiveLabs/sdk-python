@@ -6,7 +6,7 @@ from injective.exchange.v1beta1 import tx_pb2 as injective_dot_exchange_dot_v1be
 
 
 class MsgStub(object):
-    """Msg defines the staking Msg service.
+    """Msg defines the exchange Msg service.
     """
 
     def __init__(self, channel):
@@ -15,6 +15,16 @@ class MsgStub(object):
         Args:
             channel: A grpc.Channel.
         """
+        self.TransferAndExecute = channel.unary_unary(
+                '/injective.exchange.v1beta1.Msg/TransferAndExecute',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgTransferAndExecute.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgTransferAndExecuteResponse.FromString,
+                )
+        self.MultiExecute = channel.unary_unary(
+                '/injective.exchange.v1beta1.Msg/MultiExecute',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgMultiExecute.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgMultiExecuteResponse.FromString,
+                )
         self.Deposit = channel.unary_unary(
                 '/injective.exchange.v1beta1.Msg/Deposit',
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgDeposit.SerializeToString,
@@ -72,8 +82,8 @@ class MsgStub(object):
                 )
         self.Exec = channel.unary_unary(
                 '/injective.exchange.v1beta1.Msg/Exec',
-                request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgExec.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgExecResponse.FromString,
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgPrivilegedExecuteContract.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgPrivilegedExecuteContractResponse.FromString,
                 )
         self.CreateDerivativeLimitOrder = channel.unary_unary(
                 '/injective.exchange.v1beta1.Msg/CreateDerivativeLimitOrder',
@@ -155,11 +165,31 @@ class MsgStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgAdminUpdateBinaryOptionsMarket.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgAdminUpdateBinaryOptionsMarketResponse.FromString,
                 )
+        self.ReclaimLockedFunds = channel.unary_unary(
+                '/injective.exchange.v1beta1.Msg/ReclaimLockedFunds',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgReclaimLockedFunds.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgReclaimLockedFundsResponse.FromString,
+                )
 
 
 class MsgServicer(object):
-    """Msg defines the staking Msg service.
+    """Msg defines the exchange Msg service.
     """
+
+    def TransferAndExecute(self, request, context):
+        """TransferAndExecute defines a method for transferring coins to/from either the bank or default subaccount balances
+        and then executing a Msg.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def MultiExecute(self, request, context):
+        """MultiExecute defines a method for executing multiple Msgs.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def Deposit(self, request, context):
         """Deposit defines a method for transferring coins from the sender's bank balance into the subaccount's exchange deposits
@@ -357,9 +387,26 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ReclaimLockedFunds(self, request, context):
+        """
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
+            'TransferAndExecute': grpc.unary_unary_rpc_method_handler(
+                    servicer.TransferAndExecute,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgTransferAndExecute.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgTransferAndExecuteResponse.SerializeToString,
+            ),
+            'MultiExecute': grpc.unary_unary_rpc_method_handler(
+                    servicer.MultiExecute,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgMultiExecute.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgMultiExecuteResponse.SerializeToString,
+            ),
             'Deposit': grpc.unary_unary_rpc_method_handler(
                     servicer.Deposit,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgDeposit.FromString,
@@ -417,8 +464,8 @@ def add_MsgServicer_to_server(servicer, server):
             ),
             'Exec': grpc.unary_unary_rpc_method_handler(
                     servicer.Exec,
-                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgExec.FromString,
-                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgExecResponse.SerializeToString,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgPrivilegedExecuteContract.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgPrivilegedExecuteContractResponse.SerializeToString,
             ),
             'CreateDerivativeLimitOrder': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateDerivativeLimitOrder,
@@ -500,6 +547,11 @@ def add_MsgServicer_to_server(servicer, server):
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgAdminUpdateBinaryOptionsMarket.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgAdminUpdateBinaryOptionsMarketResponse.SerializeToString,
             ),
+            'ReclaimLockedFunds': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReclaimLockedFunds,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgReclaimLockedFunds.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgReclaimLockedFundsResponse.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
             'injective.exchange.v1beta1.Msg', rpc_method_handlers)
@@ -508,8 +560,42 @@ def add_MsgServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class Msg(object):
-    """Msg defines the staking Msg service.
+    """Msg defines the exchange Msg service.
     """
+
+    @staticmethod
+    def TransferAndExecute(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Msg/TransferAndExecute',
+            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgTransferAndExecute.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgTransferAndExecuteResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def MultiExecute(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Msg/MultiExecute',
+            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgMultiExecute.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgMultiExecuteResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def Deposit(request,
@@ -710,8 +796,8 @@ class Msg(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Msg/Exec',
-            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgExec.SerializeToString,
-            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgExecResponse.FromString,
+            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgPrivilegedExecuteContract.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgPrivilegedExecuteContractResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -984,5 +1070,22 @@ class Msg(object):
         return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Msg/AdminUpdateBinaryOptionsMarket',
             injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgAdminUpdateBinaryOptionsMarket.SerializeToString,
             injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgAdminUpdateBinaryOptionsMarketResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ReclaimLockedFunds(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Msg/ReclaimLockedFunds',
+            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgReclaimLockedFunds.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgReclaimLockedFundsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
