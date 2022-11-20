@@ -78,6 +78,10 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.5.9.0**
+* Re-gen proto
+* Remove pysha3 dependency
+
 **0.5.8.8**
 * Add grpc_explorer_endpoint in Network
 * Add explorer channel and stub
