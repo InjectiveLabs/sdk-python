@@ -80,6 +80,7 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 ### Changelogs
 **0.5.9.0**
 * Re-gen proto
+* Fix MsgRewardsOptOut
 * Remove pysha3 dependency
 
 **0.5.8.8**
