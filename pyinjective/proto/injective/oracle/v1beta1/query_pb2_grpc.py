@@ -75,6 +75,11 @@ class QueryStub(object):
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleProviderPricesRequest.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleProviderPricesResponse.FromString,
                 )
+        self.OraclePrice = channel.unary_unary(
+                '/injective.oracle.v1beta1.Query/OraclePrice',
+                request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOraclePriceRequest.SerializeToString,
+                response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOraclePriceResponse.FromString,
+                )
 
 
 class QueryServicer(object):
@@ -163,6 +168,12 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def OraclePrice(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_QueryServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -225,6 +236,11 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.OracleProviderPrices,
                     request_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleProviderPricesRequest.FromString,
                     response_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleProviderPricesResponse.SerializeToString,
+            ),
+            'OraclePrice': grpc.unary_unary_rpc_method_handler(
+                    servicer.OraclePrice,
+                    request_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOraclePriceRequest.FromString,
+                    response_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOraclePriceResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -438,5 +454,22 @@ class Query(object):
         return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/OracleProviderPrices',
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleProviderPricesRequest.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleProviderPricesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def OraclePrice(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/OraclePrice',
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOraclePriceRequest.SerializeToString,
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOraclePriceResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
