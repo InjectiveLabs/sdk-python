@@ -925,6 +925,8 @@ class AsyncClient:
         req = derivative_exchange_rpc_pb.BinaryOptionsMarketsRequest(
             market_status=kwargs.get("market_status"),
             quote_denom=kwargs.get("quote_denom"),
+            skip=kwargs.get("skip"),
+            limit=kwargs.get("limit"),
         )
         return await self.stubDerivativeExchange.BinaryOptionsMarkets(req)
 
