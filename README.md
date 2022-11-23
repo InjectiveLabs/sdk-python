@@ -78,6 +78,9 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.5.9.1**
+* Add skip/limit to BinaryOptionsMarketsRequest
+
 **0.5.9.0**
 * Re-gen proto
 * Fix MsgRewardsOptOut
@@ -100,17 +103,6 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 * Fix get_account with EthAccount type and added cookie support
 * Fix sync_timeout_height func with exception handling
 * Set explicit version requirements for protobuf and grpcio-tools in pkg
-
-**0.5.8.5**
-* Add StreamOrdersHistory
-* Add more request params in OrdersHistory
-
-**0.5.8.4**
-* Adjust block and timeouts to new block time
-* Set explicit version requirements for protobuf and grpcio-tools in Pipfile
-* Add order_types as a request param for OrdersHistory
-* Re-gen proto files
-
 
 ## License
 
