@@ -7,8 +7,8 @@ from pyinjective.constant import Network
 async def main() -> None:
     network = Network.testnet()
     client = AsyncClient(network, insecure=False)
-    market_id = "0x90e662193fa29a3a7e6c07be4407c94833e762d9ee82136a2cc712d6b87d7de3"
-    markets = await client.stream_derivative_orderbook(market_id=market_id)
+    market_id = "0x4ca0f92fc28be0c9761326016b5a1a2177dd6375558365116b5bdda9abc229ce"
+    markets = await client.stream_derivative_orderbook_snapshot(market_id=market_id)
     async for market in markets:
         print(market)
 

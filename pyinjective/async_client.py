@@ -827,10 +827,14 @@ class AsyncClient:
         )
         return await self.stubDerivativeExchange.Trades(req)
 
+    # deprecated: use stream_derivative_orderbook_snapshot
     async def stream_derivative_orderbook(self, market_id: str):
-        req = derivative_exchange_rpc_pb.StreamOrderbookRequest(market_ids=[market_id])
+        return self.stream_derivative_orderbook_snapshot(market_id)
+
+    async def stream_derivative_orderbook_snapshot(self, market_id: str):
+        req = derivative_exchange_rpc_pb.StreamOrderbookSnapshotRequest(market_ids=[market_id])
         metadata = await self.load_cookie(type="exchange")
-        return self.stubDerivativeExchange.StreamOrderbook.__call__(
+        return self.stubDerivativeExchange.StreamOrderbookSnapshot.__call__(
             req, metadata=metadata
         )
 
