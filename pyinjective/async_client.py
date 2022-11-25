@@ -838,6 +838,13 @@ class AsyncClient:
             req, metadata=metadata
         )
 
+    async def stream_derivative_orderbook_update(self, market_id: str):
+        req = derivative_exchange_rpc_pb.StreamOrderbookUpdateRequest(market_ids=[market_id])
+        metadata = await self.load_cookie(type="exchange")
+        return self.stubDerivativeExchange.StreamOrderbookUpdate.__call__(
+            req, metadata=metadata
+        )
+
     async def stream_derivative_orderbooks(self, market_ids: List[str]):
         req = derivative_exchange_rpc_pb.StreamOrderbookRequest(market_ids=market_ids)
         metadata = await self.load_cookie(type="exchange")
