@@ -674,15 +674,15 @@ class AsyncClient:
 
     # deprecated: use stream_spot_orderbook_snapshot
     async def stream_spot_orderbook(self, market_id: str):
-        return self.stream_spot_orderbook_snapshot(market_id)
+        return self.stream_spot_orderbook_snapshot(market_ids=[market_id])
 
-    async def stream_spot_orderbook_snapshot(self, market_id: str):
-        req = spot_exchange_rpc_pb.StreamOrderbookSnapshotRequest(market_ids=[market_id])
+    async def stream_spot_orderbook_snapshot(self, market_ids: List[str]):
+        req = spot_exchange_rpc_pb.StreamOrderbookSnapshotRequest(market_ids=market_ids)
         metadata = await self.load_cookie(type="exchange")
         return self.stubSpotExchange.StreamOrderbookSnapshot.__call__(req, metadata=metadata)
 
-    async def stream_spot_orderbook_update(self, market_id: str):
-        req = spot_exchange_rpc_pb.StreamOrderbookUpdateRequest(market_ids=[market_id])
+    async def stream_spot_orderbook_update(self, market_ids: List[str]):
+        req = spot_exchange_rpc_pb.StreamOrderbookUpdateRequest(market_ids=market_ids)
         metadata = await self.load_cookie(type="exchange")
         return self.stubSpotExchange.StreamOrderbookUpdate.__call__(req, metadata=metadata)
 
@@ -829,17 +829,17 @@ class AsyncClient:
 
     # deprecated: use stream_derivative_orderbook_snapshot
     async def stream_derivative_orderbook(self, market_id: str):
-        return self.stream_derivative_orderbook_snapshot(market_id)
+        return self.stream_derivative_orderbook_snapshot(market_ids=[market_id])
 
-    async def stream_derivative_orderbook_snapshot(self, market_id: str):
-        req = derivative_exchange_rpc_pb.StreamOrderbookSnapshotRequest(market_ids=[market_id])
+    async def stream_derivative_orderbook_snapshot(self, market_ids: List[str]):
+        req = derivative_exchange_rpc_pb.StreamOrderbookSnapshotRequest(market_ids=market_ids)
         metadata = await self.load_cookie(type="exchange")
         return self.stubDerivativeExchange.StreamOrderbookSnapshot.__call__(
             req, metadata=metadata
         )
 
-    async def stream_derivative_orderbook_update(self, market_id: str):
-        req = derivative_exchange_rpc_pb.StreamOrderbookUpdateRequest(market_ids=[market_id])
+    async def stream_derivative_orderbook_update(self, market_ids: List[str]):
+        req = derivative_exchange_rpc_pb.StreamOrderbookUpdateRequest(market_ids=market_ids)
         metadata = await self.load_cookie(type="exchange")
         return self.stubDerivativeExchange.StreamOrderbookUpdate.__call__(
             req, metadata=metadata

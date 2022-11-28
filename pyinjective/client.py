@@ -454,10 +454,20 @@ class Client:
         return self.stubSpotExchange.Trades(req)
 
     def stream_spot_orderbook(self, market_id: str):
-        req = spot_exchange_rpc_pb.StreamOrderbookRequest(market_ids=[market_id])
+        return self.stream_spot_orderbook_snapshot(market_ids=[market_id])
+
+    def stream_spot_orderbook_snapshot(self, market_ids: List[str]):
+        req = spot_exchange_rpc_pb.StreamOrderbookSnapshotRequest(market_ids=market_ids)
         metadata = self.get_cookie(type="exchange")
-        res = self.stubSpotExchange.StreamOrderbook(req, metadata=metadata)
-        self.set_cookie(res,type="exchange")
+        res = self.stubSpotExchange.StreamOrderbookSnapshot(req, metadata=metadata)
+        self.set_cookie(res, type="exchange")
+        return res
+
+    def stream_spot_orderbook_update(self, market_ids: List[str]):
+        req = spot_exchange_rpc_pb.StreamOrderbookUpdateRequest(market_ids=market_ids)
+        metadata = self.get_cookie(type="exchange")
+        res = self.stubSpotExchange.StreamOrderbookUpdate(req, metadata=metadata)
+        self.set_cookie(res, type="exchange")
         return res
 
     def stream_spot_orderbooks(self, market_ids: List):
@@ -557,11 +567,22 @@ class Client:
         )
         return self.stubDerivativeExchange.Trades(req)
 
+    # deprecated: use stream_derivative_orderbook_snapshot
     def stream_derivative_orderbook(self, market_id: str):
-        req = derivative_exchange_rpc_pb.StreamOrderbookRequest(market_ids=[market_id])
+        return self.stream_derivative_orderbook_snapshot(market_ids=[market_id])
+
+    def stream_derivative_orderbook_snapshot(self, market_ids: List[str]):
+        req = derivative_exchange_rpc_pb.StreamOrderbookSnapshotRequest(market_ids=market_ids)
         metadata = self.get_cookie(type="exchange")
-        res = self.stubDerivativeExchange.StreamOrderbook(req, metadata=metadata)
-        self.set_cookie(res,type="exchange")
+        res = self.stubDerivativeExchange.StreamOrderbookSnapshot(req, metadata=metadata)
+        self.set_cookie(res, type="exchange")
+        return res
+
+    def stream_derivative_orderbook_update(self, market_ids: List[str]):
+        req = derivative_exchange_rpc_pb.StreamOrderbookUpdateRequest(market_ids=market_ids)
+        metadata = self.get_cookie(type="exchange")
+        res = self.stubDerivativeExchange.StreamOrderbookUpdate(req, metadata=metadata)
+        self.set_cookie(res, type="exchange")
         return res
 
     def stream_derivative_orderbooks(self, market_ids: List):
