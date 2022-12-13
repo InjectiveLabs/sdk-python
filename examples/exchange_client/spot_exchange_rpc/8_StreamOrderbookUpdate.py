@@ -27,7 +27,6 @@ async def load_orderbook_snapshot(client: AsyncClient, orderbook: Orderbook):
     # load the snapshot
     snapshots = await client.stream_spot_orderbook_snapshot(market_ids=[orderbook.market_id])
     async for snapshot in snapshots:
-        print(snapshot)
         if snapshot.market_id != orderbook.market_id:
             raise Exception("unexpected snapshot")
 
@@ -52,14 +51,14 @@ async def main() -> None:
     network = Network.testnet()
     client = AsyncClient(network, insecure=True)
 
-    market_id = "0x01edfab47f124748dc89998eb33144af734484ba07099014594321729a0ca16b"
+    market_id = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
     orderbook = Orderbook(market_id=market_id)
 
     # start getting price levels updates
-    updates = await client.stream_spot_orderbook_update(market_ids=[market_id])
+    stream = await client.stream_spot_orderbook_update(market_ids=[market_id])
     first_update = None
-    async for update in updates:
-        first_update = update.orderbook_level
+    async for update in stream:
+        first_update = update.orderbook_level_updates
         break
 
     # load the snapshot once we are already receiving updates, so we don't miss any
@@ -67,58 +66,59 @@ async def main() -> None:
 
     # start consuming updates again to process them
     apply_orderbook_update(orderbook, first_update)
-    async for update in updates:
-        apply_orderbook_update(orderbook, update.orderbook_level)
+    async for update in stream:
+        apply_orderbook_update(orderbook, update.orderbook_level_updates)
 
 
-def apply_orderbook_update(orderbook: Orderbook, level):
-    # discard old updates
-    if level.sequence <= orderbook.sequence:
+def apply_orderbook_update(orderbook: Orderbook, updates):
+    # discard updates older than the snapshot
+    if updates.sequence <= orderbook.sequence:
         return
 
+    print(" * * * * * * * * * * * * * * * * * * *")
+
     # ensure we have not missed any update
-    if level.sequence > (orderbook.sequence + 1):
+    if updates.sequence > (orderbook.sequence + 1):
         raise Exception("missing orderbook update events from stream, must restart: {} vs {}".format(
-            level.sequence, (orderbook.sequence + 1)))
+            updates.sequence, (orderbook.sequence + 1)))
+
+    print("updating orderbook with updates at sequence {}".format(updates.sequence))
 
     # update orderbook
-    orderbook.sequence = level.sequence
-    level_side = get_level_side(level.is_buy)
-    price = Decimal(level.price)
-    if level.is_active:
-        # upsert level
-        orderbook.levels[level_side][price] = PriceLevel(
-            price=price,
-            quantity=Decimal(level.quantity),
-            timestamp=level.updated_at,
-        )
-    else:
-        if price in orderbook.levels[level_side]:
-            del orderbook.levels[level_side][price]
+    orderbook.sequence = updates.sequence
+    for direction, levels in {"buys": updates.buys, "sells": updates.sells}.items():
+        for level in levels:
+            if level.is_active:
+                # upsert level
+                orderbook.levels[direction][level.price] = PriceLevel(
+                    price=Decimal(level.price),
+                    quantity=Decimal(level.quantity),
+                    timestamp=level.timestamp)
+            else:
+                if level.price in orderbook.levels[direction]:
+                    del orderbook.levels[direction][level.price]
+
+    # sort the level numerically
+    buys = sorted(orderbook.levels["buys"].values(), key=lambda x: x.price, reverse=True)
+    sells = sorted(orderbook.levels["sells"].values(), key=lambda x: x.price, reverse=True)
 
     # lowest sell price should be higher than the highest buy price
-    buys = orderbook.levels["buys"]
-    sells = orderbook.levels["sells"]
-
-    print("Max buy: {} > Min sell: {}".format(max(buys.keys()), min(sells.keys())))
-    if len(sells) > 0 and len(buys) > 0 and min(buys.keys()) >= max(sells.keys()):
-        raise Exception("crossed orderbook, must restart")
+    if len(buys) > 0 and len(sells) > 0:
+        highest_buy = buys[0].price
+        lowest_sell = sells[-1].price
+        print("Max buy: {} - Min sell: {}".format(highest_buy, lowest_sell))
+        if highest_buy >= lowest_sell:
+            raise Exception("crossed orderbook, must restart")
 
     # for the example, print the list of buys and sells orders.
     print("sells")
-    for k in sorted(sells.keys()):
-        print(sells[k])
+    for k in sells:
+        print(k)
     print("=========")
     print("buys")
-    for k in sorted(buys.keys()):
-        print(buys[k])
+    for k in buys:
+        print(k)
     print("====================================")
-
-
-def get_level_side(is_buy: bool) -> str:
-    if is_buy:
-        return "buys"
-    return "sells"
 
 
 if __name__ == '__main__':
