@@ -69,7 +69,7 @@ def binary_options_buy_margin_to_backend(price, quantity, denom) -> int:
 
 def binary_options_sell_margin_to_backend(price, quantity, denom) -> int:
     price_tick_size = Decimal(denom.min_price_tick_size) / pow(10, denom.quote)
-    margin = (1 - (Decimal(str(price)) * (Decimal(str(quantity)))))
+    margin = (1 - (Decimal(str(price)))) * (Decimal(str(quantity)))
     exchange_margin = floor_to(margin, float(price_tick_size)) * pow(10, 18 + denom.quote)
     return int(exchange_margin)
 
