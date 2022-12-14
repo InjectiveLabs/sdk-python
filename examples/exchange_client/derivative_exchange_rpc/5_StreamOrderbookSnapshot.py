@@ -7,10 +7,10 @@ from pyinjective.constant import Network
 async def main() -> None:
     network = Network.testnet()
     client = AsyncClient(network, insecure=False)
-    market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
-    orderbook = await client.stream_spot_orderbook(market_id=market_id)
-    async for orders in orderbook:
-        print(orders)
+    market_id = "0x4ca0f92fc28be0c9761326016b5a1a2177dd6375558365116b5bdda9abc229ce"
+    markets = await client.stream_derivative_orderbook_snapshot(market_id=market_id)
+    async for market in markets:
+        print(market)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)

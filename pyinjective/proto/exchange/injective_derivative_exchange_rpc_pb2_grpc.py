@@ -56,6 +56,16 @@ class InjectiveDerivativeExchangeRPCStub(object):
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrderbookRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrderbookResponse.FromString,
                 )
+        self.StreamOrderbookSnapshot = channel.unary_stream(
+                '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamOrderbookSnapshot',
+                request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrderbookSnapshotRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrderbookSnapshotResponse.FromString,
+                )
+        self.StreamOrderbookUpdate = channel.unary_stream(
+                '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamOrderbookUpdate',
+                request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrderbookUpdateRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrderbookUpdateResponse.FromString,
+                )
         self.Orders = channel.unary_unary(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/Orders',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.OrdersRequest.SerializeToString,
@@ -178,7 +188,21 @@ class InjectiveDerivativeExchangeRPCServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def StreamOrderbook(self, request, context):
-        """StreamOrderbook streams live updates of selected derivative market orderbook.
+        """Stream live snapshot updates of selected derivative market orderbook
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def StreamOrderbookSnapshot(self, request, context):
+        """Stream live snapshot updates of selected derivative market orderbook
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def StreamOrderbookUpdate(self, request, context):
+        """Stream live level updates of selected derivative market orderbook
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -270,7 +294,7 @@ class InjectiveDerivativeExchangeRPCServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def StreamOrdersHistory(self, request, context):
-        """Stream updates to historical orders of a spot Market
+        """Stream updates to historical orders of a derivative Market
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -318,6 +342,16 @@ def add_InjectiveDerivativeExchangeRPCServicer_to_server(servicer, server):
                     servicer.StreamOrderbook,
                     request_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrderbookRequest.FromString,
                     response_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrderbookResponse.SerializeToString,
+            ),
+            'StreamOrderbookSnapshot': grpc.unary_stream_rpc_method_handler(
+                    servicer.StreamOrderbookSnapshot,
+                    request_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrderbookSnapshotRequest.FromString,
+                    response_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrderbookSnapshotResponse.SerializeToString,
+            ),
+            'StreamOrderbookUpdate': grpc.unary_stream_rpc_method_handler(
+                    servicer.StreamOrderbookUpdate,
+                    request_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrderbookUpdateRequest.FromString,
+                    response_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrderbookUpdateResponse.SerializeToString,
             ),
             'Orders': grpc.unary_unary_rpc_method_handler(
                     servicer.Orders,
@@ -529,6 +563,40 @@ class InjectiveDerivativeExchangeRPC(object):
         return grpc.experimental.unary_stream(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamOrderbook',
             exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrderbookRequest.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrderbookResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def StreamOrderbookSnapshot(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamOrderbookSnapshot',
+            exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrderbookSnapshotRequest.SerializeToString,
+            exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrderbookSnapshotResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def StreamOrderbookUpdate(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamOrderbookUpdate',
+            exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrderbookUpdateRequest.SerializeToString,
+            exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrderbookUpdateResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

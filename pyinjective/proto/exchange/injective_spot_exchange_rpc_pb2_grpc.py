@@ -45,6 +45,16 @@ class InjectiveSpotExchangeRPCStub(object):
                 request_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrderbookRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrderbookResponse.FromString,
                 )
+        self.StreamOrderbookSnapshot = channel.unary_stream(
+                '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/StreamOrderbookSnapshot',
+                request_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrderbookSnapshotRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrderbookSnapshotResponse.FromString,
+                )
+        self.StreamOrderbookUpdate = channel.unary_stream(
+                '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/StreamOrderbookUpdate',
+                request_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrderbookUpdateRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrderbookUpdateResponse.FromString,
+                )
         self.Orders = channel.unary_unary(
                 '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/Orders',
                 request_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.OrdersRequest.SerializeToString,
@@ -127,7 +137,21 @@ class InjectiveSpotExchangeRPCServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def StreamOrderbook(self, request, context):
-        """Stream live updates of selected spot market orderbook
+        """Stream live snapshot updates of selected spot market orderbook
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def StreamOrderbookSnapshot(self, request, context):
+        """Stream live snapshot updates of selected spot market orderbook
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def StreamOrderbookUpdate(self, request, context):
+        """Stream live level updates of selected spot market orderbook
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -221,6 +245,16 @@ def add_InjectiveSpotExchangeRPCServicer_to_server(servicer, server):
                     servicer.StreamOrderbook,
                     request_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrderbookRequest.FromString,
                     response_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrderbookResponse.SerializeToString,
+            ),
+            'StreamOrderbookSnapshot': grpc.unary_stream_rpc_method_handler(
+                    servicer.StreamOrderbookSnapshot,
+                    request_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrderbookSnapshotRequest.FromString,
+                    response_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrderbookSnapshotResponse.SerializeToString,
+            ),
+            'StreamOrderbookUpdate': grpc.unary_stream_rpc_method_handler(
+                    servicer.StreamOrderbookUpdate,
+                    request_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrderbookUpdateRequest.FromString,
+                    response_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrderbookUpdateResponse.SerializeToString,
             ),
             'Orders': grpc.unary_unary_rpc_method_handler(
                     servicer.Orders,
@@ -372,6 +406,40 @@ class InjectiveSpotExchangeRPC(object):
         return grpc.experimental.unary_stream(request, target, '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/StreamOrderbook',
             exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrderbookRequest.SerializeToString,
             exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrderbookResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def StreamOrderbookSnapshot(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/StreamOrderbookSnapshot',
+            exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrderbookSnapshotRequest.SerializeToString,
+            exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrderbookSnapshotResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def StreamOrderbookUpdate(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/StreamOrderbookUpdate',
+            exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrderbookUpdateRequest.SerializeToString,
+            exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrderbookUpdateResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
