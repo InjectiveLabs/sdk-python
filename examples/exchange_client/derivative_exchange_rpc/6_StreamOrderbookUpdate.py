@@ -26,7 +26,7 @@ class Orderbook:
 
 async def load_orderbook_snapshot(client: Client, orderbook: Orderbook):
     # load the snapshot
-    res = client.get_derivative_orderbooks(market_ids=[orderbook.market_id])
+    res = client.get_derivative_orderbooks_v2(market_ids=[orderbook.market_id])
     for snapshot in res.orderbooks:
         if snapshot.market_id != orderbook.market_id:
             raise Exception("unexpected snapshot")
@@ -50,8 +50,8 @@ async def load_orderbook_snapshot(client: Client, orderbook: Orderbook):
 
 async def main() -> None:
     network = Network.testnet()
-    async_client = AsyncClient(network, insecure=True)
-    client = Client(network, insecure=True)
+    async_client = AsyncClient(network, insecure=False)
+    client = Client(network, insecure=False)
 
     market_id = "0x4ca0f92fc28be0c9761326016b5a1a2177dd6375558365116b5bdda9abc229ce"
     orderbook = Orderbook(market_id=market_id)
