@@ -78,6 +78,9 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.5.9.4**
+* Re-gen mainnet denoms
+
 **0.5.9.2**
 * Fix margin conversion for binary options
 
