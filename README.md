@@ -78,6 +78,12 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.5.9.5**
+* Add orderbook snaphot methods
+
+**0.5.9.4**
+* Re-gen mainnet denoms
+
 **0.5.9.4**
 * Re-gen mainnet denoms
 
