@@ -434,6 +434,14 @@ class Client:
         req = spot_exchange_rpc_pb.OrderbooksRequest(market_ids=market_ids)
         return self.stubSpotExchange.Orderbooks(req)
 
+    def get_spot_orderbook_v2(self, market_id: str):
+        req = spot_exchange_rpc_pb.OrderbookV2Request(market_id=market_id)
+        return self.stubSpotExchange.OrderbookV2(req)
+
+    def get_spot_orderbooks_v2(self, market_ids: List):
+        req = spot_exchange_rpc_pb.OrderbooksV2Request(market_ids=market_ids)
+        return self.stubSpotExchange.OrderbooksV2(req)
+
     def get_spot_orders(self, market_id: str, **kwargs):
         req = spot_exchange_rpc_pb.OrdersRequest(
             market_id=market_id,
@@ -547,6 +555,14 @@ class Client:
     def get_derivative_orderbooks(self, market_ids: List):
         req = derivative_exchange_rpc_pb.OrderbooksRequest(market_ids=market_ids)
         return self.stubDerivativeExchange.Orderbooks(req)
+
+    def get_derivative_orderbook_v2(self, market_id: str):
+        req = derivative_exchange_rpc_pb.OrderbookV2Request(market_id=market_id)
+        return self.stubDerivativeExchange.OrderbookV2(req)
+
+    def get_derivative_orderbooks_v2(self, market_ids: List):
+        req = derivative_exchange_rpc_pb.OrderbooksV2Request(market_ids=market_ids)
+        return self.stubDerivativeExchange.OrderbooksV2(req)
 
     def get_derivative_orders(self, market_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.OrdersRequest(

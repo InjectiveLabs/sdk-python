@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z$/injective_derivative_exchange_rpcpb',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n0exchange/injective_derivative_exchange_rpc.proto\x12!injective_derivative_exchange_rpc\"<\n\x0eMarketsRequest\x12\x15\n\rmarket_status\x18\x01 \x01(\t\x12\x13\n\x0bquote_denom\x18\x02 \x01(\t\"[\n\x0fMarketsResponse\x12H\n\x07markets\x18\x01 \x03(\x0b\x32\x37.injective_derivative_exchange_rpc.DerivativeMarketInfo\"\xff\x05\n\x14\x44\x65rivativeMarketInfo\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x15\n\rmarket_status\x18\x02 \x01(\t\x12\x0e\n\x06ticker\x18\x03 \x01(\t\x12\x13\n\x0boracle_base\x18\x04 \x01(\t\x12\x14\n\x0coracle_quote\x18\x05 \x01(\t\x12\x13\n\x0boracle_type\x18\x06 \x01(\t\x12\x1b\n\x13oracle_scale_factor\x18\x07 \x01(\r\x12\x1c\n\x14initial_margin_ratio\x18\x08 \x01(\t\x12 \n\x18maintenance_margin_ratio\x18\t \x01(\t\x12\x13\n\x0bquote_denom\x18\n \x01(\t\x12\x46\n\x10quote_token_meta\x18\x0b \x01(\x0b\x32,.injective_derivative_exchange_rpc.TokenMeta\x12\x16\n\x0emaker_fee_rate\x18\x0c \x01(\t\x12\x16\n\x0etaker_fee_rate\x18\r \x01(\t\x12\x1c\n\x14service_provider_fee\x18\x0e \x01(\t\x12\x14\n\x0cis_perpetual\x18\x0f \x01(\x08\x12\x1b\n\x13min_price_tick_size\x18\x10 \x01(\t\x12\x1e\n\x16min_quantity_tick_size\x18\x11 \x01(\t\x12U\n\x15perpetual_market_info\x18\x12 \x01(\x0b\x32\x36.injective_derivative_exchange_rpc.PerpetualMarketInfo\x12[\n\x18perpetual_market_funding\x18\x13 \x01(\x0b\x32\x39.injective_derivative_exchange_rpc.PerpetualMarketFunding\x12^\n\x1a\x65xpiry_futures_market_info\x18\x14 \x01(\x0b\x32:.injective_derivative_exchange_rpc.ExpiryFuturesMarketInfo\"n\n\tTokenMeta\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x02 \x01(\t\x12\x0e\n\x06symbol\x18\x03 \x01(\t\x12\x0c\n\x04logo\x18\x04 \x01(\t\x12\x10\n\x08\x64\x65\x63imals\x18\x05 \x01(\x11\x12\x12\n\nupdated_at\x18\x06 \x01(\x12\"\x8e\x01\n\x13PerpetualMarketInfo\x12\x1f\n\x17hourly_funding_rate_cap\x18\x01 \x01(\t\x12\x1c\n\x14hourly_interest_rate\x18\x02 \x01(\t\x12\x1e\n\x16next_funding_timestamp\x18\x03 \x01(\x12\x12\x18\n\x10\x66unding_interval\x18\x04 \x01(\x12\"f\n\x16PerpetualMarketFunding\x12\x1a\n\x12\x63umulative_funding\x18\x01 \x01(\t\x12\x18\n\x10\x63umulative_price\x18\x02 \x01(\t\x12\x16\n\x0elast_timestamp\x18\x03 \x01(\x12\"Q\n\x17\x45xpiryFuturesMarketInfo\x12\x1c\n\x14\x65xpiration_timestamp\x18\x01 \x01(\x12\x12\x18\n\x10settlement_price\x18\x02 \x01(\t\"\"\n\rMarketRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\"Y\n\x0eMarketResponse\x12G\n\x06market\x18\x01 \x01(\x0b\x32\x37.injective_derivative_exchange_rpc.DerivativeMarketInfo\")\n\x13StreamMarketRequest\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"\x8a\x01\n\x14StreamMarketResponse\x12G\n\x06market\x18\x01 \x01(\x0b\x32\x37.injective_derivative_exchange_rpc.DerivativeMarketInfo\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"f\n\x1b\x42inaryOptionsMarketsRequest\x12\x15\n\rmarket_status\x18\x01 \x01(\t\x12\x13\n\x0bquote_denom\x18\x02 \x01(\t\x12\x0c\n\x04skip\x18\x03 \x01(\x04\x12\r\n\x05limit\x18\x04 \x01(\x11\"\xa6\x01\n\x1c\x42inaryOptionsMarketsResponse\x12K\n\x07markets\x18\x01 \x03(\x0b\x32:.injective_derivative_exchange_rpc.BinaryOptionsMarketInfo\x12\x39\n\x06paging\x18\x02 \x01(\x0b\x32).injective_derivative_exchange_rpc.Paging\"\xf3\x03\n\x17\x42inaryOptionsMarketInfo\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x15\n\rmarket_status\x18\x02 \x01(\t\x12\x0e\n\x06ticker\x18\x03 \x01(\t\x12\x15\n\roracle_symbol\x18\x04 \x01(\t\x12\x17\n\x0foracle_provider\x18\x05 \x01(\t\x12\x13\n\x0boracle_type\x18\x06 \x01(\t\x12\x1b\n\x13oracle_scale_factor\x18\x07 \x01(\r\x12\x1c\n\x14\x65xpiration_timestamp\x18\x08 \x01(\x12\x12\x1c\n\x14settlement_timestamp\x18\t \x01(\x12\x12\x13\n\x0bquote_denom\x18\n \x01(\t\x12\x46\n\x10quote_token_meta\x18\x0b \x01(\x0b\x32,.injective_derivative_exchange_rpc.TokenMeta\x12\x16\n\x0emaker_fee_rate\x18\x0c \x01(\t\x12\x16\n\x0etaker_fee_rate\x18\r \x01(\t\x12\x1c\n\x14service_provider_fee\x18\x0e \x01(\t\x12\x1b\n\x13min_price_tick_size\x18\x0f \x01(\t\x12\x1e\n\x16min_quantity_tick_size\x18\x10 \x01(\t\x12\x18\n\x10settlement_price\x18\x11 \x01(\t\"N\n\x06Paging\x12\r\n\x05total\x18\x01 \x01(\x12\x12\x0c\n\x04\x66rom\x18\x02 \x01(\x11\x12\n\n\x02to\x18\x03 \x01(\x11\x12\x1b\n\x13\x63ount_by_subaccount\x18\x04 \x01(\x12\"/\n\x1a\x42inaryOptionsMarketRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\"i\n\x1b\x42inaryOptionsMarketResponse\x12J\n\x06market\x18\x01 \x01(\x0b\x32:.injective_derivative_exchange_rpc.BinaryOptionsMarketInfo\"%\n\x10OrderbookRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\"c\n\x11OrderbookResponse\x12N\n\torderbook\x18\x01 \x01(\x0b\x32;.injective_derivative_exchange_rpc.DerivativeLimitOrderbook\"\xa7\x01\n\x18\x44\x65rivativeLimitOrderbook\x12;\n\x04\x62uys\x18\x01 \x03(\x0b\x32-.injective_derivative_exchange_rpc.PriceLevel\x12<\n\x05sells\x18\x02 \x03(\x0b\x32-.injective_derivative_exchange_rpc.PriceLevel\x12\x10\n\x08sequence\x18\x03 \x01(\x04\"@\n\nPriceLevel\x12\r\n\x05price\x18\x01 \x01(\t\x12\x10\n\x08quantity\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"\'\n\x11OrderbooksRequest\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"k\n\x12OrderbooksResponse\x12U\n\norderbooks\x18\x01 \x03(\x0b\x32\x41.injective_derivative_exchange_rpc.SingleDerivativeLimitOrderbook\"\x83\x01\n\x1eSingleDerivativeLimitOrderbook\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12N\n\torderbook\x18\x02 \x01(\x0b\x32;.injective_derivative_exchange_rpc.DerivativeLimitOrderbook\",\n\x16StreamOrderbookRequest\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"\xa7\x01\n\x17StreamOrderbookResponse\x12N\n\torderbook\x18\x01 \x01(\x0b\x32;.injective_derivative_exchange_rpc.DerivativeLimitOrderbook\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\x12\x11\n\tmarket_id\x18\x04 \x01(\t\"4\n\x1eStreamOrderbookSnapshotRequest\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"\xaf\x01\n\x1fStreamOrderbookSnapshotResponse\x12N\n\torderbook\x18\x01 \x01(\x0b\x32;.injective_derivative_exchange_rpc.DerivativeLimitOrderbook\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\x12\x11\n\tmarket_id\x18\x04 \x01(\t\"2\n\x1cStreamOrderbookUpdateRequest\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"\xb8\x01\n\x1dStreamOrderbookUpdateResponse\x12Y\n\x17orderbook_level_updates\x18\x01 \x01(\x0b\x32\x38.injective_derivative_exchange_rpc.OrderbookLevelUpdates\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\x12\x11\n\tmarket_id\x18\x04 \x01(\t\"\xd7\x01\n\x15OrderbookLevelUpdates\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x10\n\x08sequence\x18\x02 \x01(\x04\x12\x41\n\x04\x62uys\x18\x03 \x03(\x0b\x32\x33.injective_derivative_exchange_rpc.PriceLevelUpdate\x12\x42\n\x05sells\x18\x04 \x03(\x0b\x32\x33.injective_derivative_exchange_rpc.PriceLevelUpdate\x12\x12\n\nupdated_at\x18\x05 \x01(\x12\"Y\n\x10PriceLevelUpdate\x12\r\n\x05price\x18\x01 \x01(\t\x12\x10\n\x08quantity\x18\x02 \x01(\t\x12\x11\n\tis_active\x18\x03 \x01(\x08\x12\x11\n\ttimestamp\x18\x04 \x01(\x12\"\x8b\x02\n\rOrdersRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x12\n\norder_side\x18\x02 \x01(\t\x12\x15\n\rsubaccount_id\x18\x03 \x01(\t\x12\x0c\n\x04skip\x18\x04 \x01(\x04\x12\r\n\x05limit\x18\x05 \x01(\x11\x12\x12\n\nstart_time\x18\x06 \x01(\x12\x12\x10\n\x08\x65nd_time\x18\x07 \x01(\x12\x12\x12\n\nmarket_ids\x18\x08 \x03(\t\x12\x16\n\x0eis_conditional\x18\t \x01(\t\x12\x12\n\norder_type\x18\n \x01(\t\x12\x18\n\x10include_inactive\x18\x0b \x01(\x08\x12\x1f\n\x17subaccount_total_orders\x18\x0c \x01(\x08\"\x94\x01\n\x0eOrdersResponse\x12G\n\x06orders\x18\x01 \x03(\x0b\x32\x37.injective_derivative_exchange_rpc.DerivativeLimitOrder\x12\x39\n\x06paging\x18\x02 \x01(\x0b\x32).injective_derivative_exchange_rpc.Paging\"\xba\x03\n\x14\x44\x65rivativeLimitOrder\x12\x12\n\norder_hash\x18\x01 \x01(\t\x12\x12\n\norder_side\x18\x02 \x01(\t\x12\x11\n\tmarket_id\x18\x03 \x01(\t\x12\x15\n\rsubaccount_id\x18\x04 \x01(\t\x12\x16\n\x0eis_reduce_only\x18\x05 \x01(\x08\x12\x0e\n\x06margin\x18\x06 \x01(\t\x12\r\n\x05price\x18\x07 \x01(\t\x12\x10\n\x08quantity\x18\x08 \x01(\t\x12\x19\n\x11unfilled_quantity\x18\t \x01(\t\x12\x15\n\rtrigger_price\x18\n \x01(\t\x12\x15\n\rfee_recipient\x18\x0b \x01(\t\x12\r\n\x05state\x18\x0c \x01(\t\x12\x12\n\ncreated_at\x18\r \x01(\x12\x12\x12\n\nupdated_at\x18\x0e \x01(\x12\x12\x14\n\x0corder_number\x18\x0f \x01(\x12\x12\x12\n\norder_type\x18\x10 \x01(\t\x12\x16\n\x0eis_conditional\x18\x11 \x01(\x08\x12\x12\n\ntrigger_at\x18\x12 \x01(\x04\x12\x19\n\x11placed_order_hash\x18\x13 \x01(\t\x12\x16\n\x0e\x65xecution_type\x18\x14 \x01(\t\"\xca\x01\n\x10PositionsRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x0c\n\x04skip\x18\x03 \x01(\x04\x12\r\n\x05limit\x18\x04 \x01(\x11\x12\x12\n\nstart_time\x18\x05 \x01(\x12\x12\x10\n\x08\x65nd_time\x18\x06 \x01(\x12\x12\x12\n\nmarket_ids\x18\x07 \x03(\t\x12\x11\n\tdirection\x18\x08 \x01(\t\x12\"\n\x1asubaccount_total_positions\x18\t \x01(\x08\"\x98\x01\n\x11PositionsResponse\x12H\n\tpositions\x18\x01 \x03(\x0b\x32\x35.injective_derivative_exchange_rpc.DerivativePosition\x12\x39\n\x06paging\x18\x02 \x01(\x0b\x32).injective_derivative_exchange_rpc.Paging\"\x97\x02\n\x12\x44\x65rivativePosition\x12\x0e\n\x06ticker\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x15\n\rsubaccount_id\x18\x03 \x01(\t\x12\x11\n\tdirection\x18\x04 \x01(\t\x12\x10\n\x08quantity\x18\x05 \x01(\t\x12\x13\n\x0b\x65ntry_price\x18\x06 \x01(\t\x12\x0e\n\x06margin\x18\x07 \x01(\t\x12\x19\n\x11liquidation_price\x18\x08 \x01(\t\x12\x12\n\nmark_price\x18\t \x01(\t\x12&\n\x1e\x61ggregate_reduce_only_quantity\x18\x0b \x01(\t\x12\x12\n\nupdated_at\x18\x0c \x01(\x12\x12\x12\n\ncreated_at\x18\r \x01(\x12\"L\n\x1aLiquidablePositionsRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x0c\n\x04skip\x18\x02 \x01(\x04\x12\r\n\x05limit\x18\x03 \x01(\x11\"g\n\x1bLiquidablePositionsResponse\x12H\n\tpositions\x18\x01 \x03(\x0b\x32\x35.injective_derivative_exchange_rpc.DerivativePosition\"\x85\x01\n\x16\x46undingPaymentsRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x0c\n\x04skip\x18\x03 \x01(\x04\x12\r\n\x05limit\x18\x04 \x01(\x11\x12\x10\n\x08\x65nd_time\x18\x05 \x01(\x12\x12\x12\n\nmarket_ids\x18\x06 \x03(\t\"\x99\x01\n\x17\x46undingPaymentsResponse\x12\x43\n\x08payments\x18\x01 \x03(\x0b\x32\x31.injective_derivative_exchange_rpc.FundingPayment\x12\x39\n\x06paging\x18\x02 \x01(\x0b\x32).injective_derivative_exchange_rpc.Paging\"]\n\x0e\x46undingPayment\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\t\x12\x11\n\ttimestamp\x18\x04 \x01(\x12\"W\n\x13\x46undingRatesRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x0c\n\x04skip\x18\x02 \x01(\x04\x12\r\n\x05limit\x18\x03 \x01(\x11\x12\x10\n\x08\x65nd_time\x18\x04 \x01(\x12\"\x98\x01\n\x14\x46undingRatesResponse\x12\x45\n\rfunding_rates\x18\x01 \x03(\x0b\x32..injective_derivative_exchange_rpc.FundingRate\x12\x39\n\x06paging\x18\x02 \x01(\x0b\x32).injective_derivative_exchange_rpc.Paging\"A\n\x0b\x46undingRate\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x0c\n\x04rate\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"n\n\x16StreamPositionsRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x12\n\nmarket_ids\x18\x03 \x03(\t\x12\x16\n\x0esubaccount_ids\x18\x04 \x03(\t\"u\n\x17StreamPositionsResponse\x12G\n\x08position\x18\x01 \x01(\x0b\x32\x35.injective_derivative_exchange_rpc.DerivativePosition\x12\x11\n\ttimestamp\x18\x02 \x01(\x12\"\x91\x02\n\x13StreamOrdersRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x12\n\norder_side\x18\x02 \x01(\t\x12\x15\n\rsubaccount_id\x18\x03 \x01(\t\x12\x0c\n\x04skip\x18\x04 \x01(\x04\x12\r\n\x05limit\x18\x05 \x01(\x11\x12\x12\n\nstart_time\x18\x06 \x01(\x12\x12\x10\n\x08\x65nd_time\x18\x07 \x01(\x12\x12\x12\n\nmarket_ids\x18\x08 \x03(\t\x12\x16\n\x0eis_conditional\x18\t \x01(\t\x12\x12\n\norder_type\x18\n \x01(\t\x12\x18\n\x10include_inactive\x18\x0b \x01(\x08\x12\x1f\n\x17subaccount_total_orders\x18\x0c \x01(\x08\"\x89\x01\n\x14StreamOrdersResponse\x12\x46\n\x05order\x18\x01 \x01(\x0b\x32\x37.injective_derivative_exchange_rpc.DerivativeLimitOrder\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"\xec\x01\n\rTradesRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x16\n\x0e\x65xecution_side\x18\x02 \x01(\t\x12\x11\n\tdirection\x18\x03 \x01(\t\x12\x15\n\rsubaccount_id\x18\x04 \x01(\t\x12\x0c\n\x04skip\x18\x05 \x01(\x04\x12\r\n\x05limit\x18\x06 \x01(\x11\x12\x12\n\nstart_time\x18\x07 \x01(\x12\x12\x10\n\x08\x65nd_time\x18\x08 \x01(\x12\x12\x12\n\nmarket_ids\x18\t \x03(\t\x12\x16\n\x0esubaccount_ids\x18\n \x03(\t\x12\x17\n\x0f\x65xecution_types\x18\x0b \x03(\t\"\x8f\x01\n\x0eTradesResponse\x12\x42\n\x06trades\x18\x01 \x03(\x0b\x32\x32.injective_derivative_exchange_rpc.DerivativeTrade\x12\x39\n\x06paging\x18\x02 \x01(\x0b\x32).injective_derivative_exchange_rpc.Paging\"\xc2\x02\n\x0f\x44\x65rivativeTrade\x12\x12\n\norder_hash\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\x12\x11\n\tmarket_id\x18\x03 \x01(\t\x12\x1c\n\x14trade_execution_type\x18\x04 \x01(\t\x12\x16\n\x0eis_liquidation\x18\x05 \x01(\x08\x12H\n\x0eposition_delta\x18\x06 \x01(\x0b\x32\x30.injective_derivative_exchange_rpc.PositionDelta\x12\x0e\n\x06payout\x18\x07 \x01(\t\x12\x0b\n\x03\x66\x65\x65\x18\x08 \x01(\t\x12\x13\n\x0b\x65xecuted_at\x18\t \x01(\x12\x12\x15\n\rfee_recipient\x18\n \x01(\t\x12\x10\n\x08trade_id\x18\x0b \x01(\t\x12\x16\n\x0e\x65xecution_side\x18\x0c \x01(\t\"w\n\rPositionDelta\x12\x17\n\x0ftrade_direction\x18\x01 \x01(\t\x12\x17\n\x0f\x65xecution_price\x18\x02 \x01(\t\x12\x1a\n\x12\x65xecution_quantity\x18\x03 \x01(\t\x12\x18\n\x10\x65xecution_margin\x18\x04 \x01(\t\"\xf2\x01\n\x13StreamTradesRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x16\n\x0e\x65xecution_side\x18\x02 \x01(\t\x12\x11\n\tdirection\x18\x03 \x01(\t\x12\x15\n\rsubaccount_id\x18\x04 \x01(\t\x12\x0c\n\x04skip\x18\x05 \x01(\x04\x12\r\n\x05limit\x18\x06 \x01(\x11\x12\x12\n\nstart_time\x18\x07 \x01(\x12\x12\x10\n\x08\x65nd_time\x18\x08 \x01(\x12\x12\x12\n\nmarket_ids\x18\t \x03(\t\x12\x16\n\x0esubaccount_ids\x18\n \x03(\t\x12\x17\n\x0f\x65xecution_types\x18\x0b \x03(\t\"\x84\x01\n\x14StreamTradesResponse\x12\x41\n\x05trade\x18\x01 \x01(\x0b\x32\x32.injective_derivative_exchange_rpc.DerivativeTrade\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"d\n\x1bSubaccountOrdersListRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x0c\n\x04skip\x18\x03 \x01(\x04\x12\r\n\x05limit\x18\x04 \x01(\x11\"\xa2\x01\n\x1cSubaccountOrdersListResponse\x12G\n\x06orders\x18\x01 \x03(\x0b\x32\x37.injective_derivative_exchange_rpc.DerivativeLimitOrder\x12\x39\n\x06paging\x18\x02 \x01(\x0b\x32).injective_derivative_exchange_rpc.Paging\"\x8f\x01\n\x1bSubaccountTradesListRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x16\n\x0e\x65xecution_type\x18\x03 \x01(\t\x12\x11\n\tdirection\x18\x04 \x01(\t\x12\x0c\n\x04skip\x18\x05 \x01(\x04\x12\r\n\x05limit\x18\x06 \x01(\x11\"b\n\x1cSubaccountTradesListResponse\x12\x42\n\x06trades\x18\x01 \x03(\x0b\x32\x32.injective_derivative_exchange_rpc.DerivativeTrade\"\xff\x01\n\x14OrdersHistoryRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x0c\n\x04skip\x18\x03 \x01(\x04\x12\r\n\x05limit\x18\x04 \x01(\x11\x12\x13\n\x0border_types\x18\x05 \x03(\t\x12\x11\n\tdirection\x18\x06 \x01(\t\x12\x12\n\nstart_time\x18\x07 \x01(\x12\x12\x10\n\x08\x65nd_time\x18\x08 \x01(\x12\x12\x16\n\x0eis_conditional\x18\t \x01(\t\x12\x12\n\norder_type\x18\n \x01(\t\x12\r\n\x05state\x18\x0b \x01(\t\x12\x17\n\x0f\x65xecution_types\x18\x0c \x03(\t\"\x9d\x01\n\x15OrdersHistoryResponse\x12I\n\x06orders\x18\x01 \x03(\x0b\x32\x39.injective_derivative_exchange_rpc.DerivativeOrderHistory\x12\x39\n\x06paging\x18\x02 \x01(\x0b\x32).injective_derivative_exchange_rpc.Paging\"\x9f\x03\n\x16\x44\x65rivativeOrderHistory\x12\x12\n\norder_hash\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x11\n\tis_active\x18\x03 \x01(\x08\x12\x15\n\rsubaccount_id\x18\x04 \x01(\t\x12\x16\n\x0e\x65xecution_type\x18\x05 \x01(\t\x12\x12\n\norder_type\x18\x06 \x01(\t\x12\r\n\x05price\x18\x07 \x01(\t\x12\x15\n\rtrigger_price\x18\x08 \x01(\t\x12\x10\n\x08quantity\x18\t \x01(\t\x12\x17\n\x0f\x66illed_quantity\x18\n \x01(\t\x12\r\n\x05state\x18\x0b \x01(\t\x12\x12\n\ncreated_at\x18\x0c \x01(\x12\x12\x12\n\nupdated_at\x18\r \x01(\x12\x12\x16\n\x0eis_reduce_only\x18\x0e \x01(\x08\x12\x11\n\tdirection\x18\x0f \x01(\t\x12\x16\n\x0eis_conditional\x18\x10 \x01(\x08\x12\x12\n\ntrigger_at\x18\x11 \x01(\x04\x12\x19\n\x11placed_order_hash\x18\x12 \x01(\t\x12\x0e\n\x06margin\x18\x13 \x01(\t\"\x96\x01\n\x1aStreamOrdersHistoryRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x13\n\x0border_types\x18\x03 \x03(\t\x12\x11\n\tdirection\x18\x04 \x01(\t\x12\r\n\x05state\x18\x05 \x01(\t\x12\x17\n\x0f\x65xecution_types\x18\x06 \x03(\t\"\x92\x01\n\x1bStreamOrdersHistoryResponse\x12H\n\x05order\x18\x01 \x01(\x0b\x32\x39.injective_derivative_exchange_rpc.DerivativeOrderHistory\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\x32\xda\x18\n\x1eInjectiveDerivativeExchangeRPC\x12p\n\x07Markets\x12\x31.injective_derivative_exchange_rpc.MarketsRequest\x1a\x32.injective_derivative_exchange_rpc.MarketsResponse\x12m\n\x06Market\x12\x30.injective_derivative_exchange_rpc.MarketRequest\x1a\x31.injective_derivative_exchange_rpc.MarketResponse\x12\x81\x01\n\x0cStreamMarket\x12\x36.injective_derivative_exchange_rpc.StreamMarketRequest\x1a\x37.injective_derivative_exchange_rpc.StreamMarketResponse0\x01\x12\x97\x01\n\x14\x42inaryOptionsMarkets\x12>.injective_derivative_exchange_rpc.BinaryOptionsMarketsRequest\x1a?.injective_derivative_exchange_rpc.BinaryOptionsMarketsResponse\x12\x94\x01\n\x13\x42inaryOptionsMarket\x12=.injective_derivative_exchange_rpc.BinaryOptionsMarketRequest\x1a>.injective_derivative_exchange_rpc.BinaryOptionsMarketResponse\x12v\n\tOrderbook\x12\x33.injective_derivative_exchange_rpc.OrderbookRequest\x1a\x34.injective_derivative_exchange_rpc.OrderbookResponse\x12y\n\nOrderbooks\x12\x34.injective_derivative_exchange_rpc.OrderbooksRequest\x1a\x35.injective_derivative_exchange_rpc.OrderbooksResponse\x12\x8a\x01\n\x0fStreamOrderbook\x12\x39.injective_derivative_exchange_rpc.StreamOrderbookRequest\x1a:.injective_derivative_exchange_rpc.StreamOrderbookResponse0\x01\x12\xa2\x01\n\x17StreamOrderbookSnapshot\x12\x41.injective_derivative_exchange_rpc.StreamOrderbookSnapshotRequest\x1a\x42.injective_derivative_exchange_rpc.StreamOrderbookSnapshotResponse0\x01\x12\x9c\x01\n\x15StreamOrderbookUpdate\x12?.injective_derivative_exchange_rpc.StreamOrderbookUpdateRequest\x1a@.injective_derivative_exchange_rpc.StreamOrderbookUpdateResponse0\x01\x12m\n\x06Orders\x12\x30.injective_derivative_exchange_rpc.OrdersRequest\x1a\x31.injective_derivative_exchange_rpc.OrdersResponse\x12v\n\tPositions\x12\x33.injective_derivative_exchange_rpc.PositionsRequest\x1a\x34.injective_derivative_exchange_rpc.PositionsResponse\x12\x94\x01\n\x13LiquidablePositions\x12=.injective_derivative_exchange_rpc.LiquidablePositionsRequest\x1a>.injective_derivative_exchange_rpc.LiquidablePositionsResponse\x12\x88\x01\n\x0f\x46undingPayments\x12\x39.injective_derivative_exchange_rpc.FundingPaymentsRequest\x1a:.injective_derivative_exchange_rpc.FundingPaymentsResponse\x12\x7f\n\x0c\x46undingRates\x12\x36.injective_derivative_exchange_rpc.FundingRatesRequest\x1a\x37.injective_derivative_exchange_rpc.FundingRatesResponse\x12\x8a\x01\n\x0fStreamPositions\x12\x39.injective_derivative_exchange_rpc.StreamPositionsRequest\x1a:.injective_derivative_exchange_rpc.StreamPositionsResponse0\x01\x12\x81\x01\n\x0cStreamOrders\x12\x36.injective_derivative_exchange_rpc.StreamOrdersRequest\x1a\x37.injective_derivative_exchange_rpc.StreamOrdersResponse0\x01\x12m\n\x06Trades\x12\x30.injective_derivative_exchange_rpc.TradesRequest\x1a\x31.injective_derivative_exchange_rpc.TradesResponse\x12\x81\x01\n\x0cStreamTrades\x12\x36.injective_derivative_exchange_rpc.StreamTradesRequest\x1a\x37.injective_derivative_exchange_rpc.StreamTradesResponse0\x01\x12\x97\x01\n\x14SubaccountOrdersList\x12>.injective_derivative_exchange_rpc.SubaccountOrdersListRequest\x1a?.injective_derivative_exchange_rpc.SubaccountOrdersListResponse\x12\x97\x01\n\x14SubaccountTradesList\x12>.injective_derivative_exchange_rpc.SubaccountTradesListRequest\x1a?.injective_derivative_exchange_rpc.SubaccountTradesListResponse\x12\x82\x01\n\rOrdersHistory\x12\x37.injective_derivative_exchange_rpc.OrdersHistoryRequest\x1a\x38.injective_derivative_exchange_rpc.OrdersHistoryResponse\x12\x96\x01\n\x13StreamOrdersHistory\x12=.injective_derivative_exchange_rpc.StreamOrdersHistoryRequest\x1a>.injective_derivative_exchange_rpc.StreamOrdersHistoryResponse0\x01\x42&Z$/injective_derivative_exchange_rpcpbb\x06proto3'
+  serialized_pb=b'\n0exchange/injective_derivative_exchange_rpc.proto\x12!injective_derivative_exchange_rpc\"<\n\x0eMarketsRequest\x12\x15\n\rmarket_status\x18\x01 \x01(\t\x12\x13\n\x0bquote_denom\x18\x02 \x01(\t\"[\n\x0fMarketsResponse\x12H\n\x07markets\x18\x01 \x03(\x0b\x32\x37.injective_derivative_exchange_rpc.DerivativeMarketInfo\"\xff\x05\n\x14\x44\x65rivativeMarketInfo\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x15\n\rmarket_status\x18\x02 \x01(\t\x12\x0e\n\x06ticker\x18\x03 \x01(\t\x12\x13\n\x0boracle_base\x18\x04 \x01(\t\x12\x14\n\x0coracle_quote\x18\x05 \x01(\t\x12\x13\n\x0boracle_type\x18\x06 \x01(\t\x12\x1b\n\x13oracle_scale_factor\x18\x07 \x01(\r\x12\x1c\n\x14initial_margin_ratio\x18\x08 \x01(\t\x12 \n\x18maintenance_margin_ratio\x18\t \x01(\t\x12\x13\n\x0bquote_denom\x18\n \x01(\t\x12\x46\n\x10quote_token_meta\x18\x0b \x01(\x0b\x32,.injective_derivative_exchange_rpc.TokenMeta\x12\x16\n\x0emaker_fee_rate\x18\x0c \x01(\t\x12\x16\n\x0etaker_fee_rate\x18\r \x01(\t\x12\x1c\n\x14service_provider_fee\x18\x0e \x01(\t\x12\x14\n\x0cis_perpetual\x18\x0f \x01(\x08\x12\x1b\n\x13min_price_tick_size\x18\x10 \x01(\t\x12\x1e\n\x16min_quantity_tick_size\x18\x11 \x01(\t\x12U\n\x15perpetual_market_info\x18\x12 \x01(\x0b\x32\x36.injective_derivative_exchange_rpc.PerpetualMarketInfo\x12[\n\x18perpetual_market_funding\x18\x13 \x01(\x0b\x32\x39.injective_derivative_exchange_rpc.PerpetualMarketFunding\x12^\n\x1a\x65xpiry_futures_market_info\x18\x14 \x01(\x0b\x32:.injective_derivative_exchange_rpc.ExpiryFuturesMarketInfo\"n\n\tTokenMeta\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x02 \x01(\t\x12\x0e\n\x06symbol\x18\x03 \x01(\t\x12\x0c\n\x04logo\x18\x04 \x01(\t\x12\x10\n\x08\x64\x65\x63imals\x18\x05 \x01(\x11\x12\x12\n\nupdated_at\x18\x06 \x01(\x12\"\x8e\x01\n\x13PerpetualMarketInfo\x12\x1f\n\x17hourly_funding_rate_cap\x18\x01 \x01(\t\x12\x1c\n\x14hourly_interest_rate\x18\x02 \x01(\t\x12\x1e\n\x16next_funding_timestamp\x18\x03 \x01(\x12\x12\x18\n\x10\x66unding_interval\x18\x04 \x01(\x12\"f\n\x16PerpetualMarketFunding\x12\x1a\n\x12\x63umulative_funding\x18\x01 \x01(\t\x12\x18\n\x10\x63umulative_price\x18\x02 \x01(\t\x12\x16\n\x0elast_timestamp\x18\x03 \x01(\x12\"Q\n\x17\x45xpiryFuturesMarketInfo\x12\x1c\n\x14\x65xpiration_timestamp\x18\x01 \x01(\x12\x12\x18\n\x10settlement_price\x18\x02 \x01(\t\"\"\n\rMarketRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\"Y\n\x0eMarketResponse\x12G\n\x06market\x18\x01 \x01(\x0b\x32\x37.injective_derivative_exchange_rpc.DerivativeMarketInfo\")\n\x13StreamMarketRequest\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"\x8a\x01\n\x14StreamMarketResponse\x12G\n\x06market\x18\x01 \x01(\x0b\x32\x37.injective_derivative_exchange_rpc.DerivativeMarketInfo\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"f\n\x1b\x42inaryOptionsMarketsRequest\x12\x15\n\rmarket_status\x18\x01 \x01(\t\x12\x13\n\x0bquote_denom\x18\x02 \x01(\t\x12\x0c\n\x04skip\x18\x03 \x01(\x04\x12\r\n\x05limit\x18\x04 \x01(\x11\"\xa6\x01\n\x1c\x42inaryOptionsMarketsResponse\x12K\n\x07markets\x18\x01 \x03(\x0b\x32:.injective_derivative_exchange_rpc.BinaryOptionsMarketInfo\x12\x39\n\x06paging\x18\x02 \x01(\x0b\x32).injective_derivative_exchange_rpc.Paging\"\xf3\x03\n\x17\x42inaryOptionsMarketInfo\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x15\n\rmarket_status\x18\x02 \x01(\t\x12\x0e\n\x06ticker\x18\x03 \x01(\t\x12\x15\n\roracle_symbol\x18\x04 \x01(\t\x12\x17\n\x0foracle_provider\x18\x05 \x01(\t\x12\x13\n\x0boracle_type\x18\x06 \x01(\t\x12\x1b\n\x13oracle_scale_factor\x18\x07 \x01(\r\x12\x1c\n\x14\x65xpiration_timestamp\x18\x08 \x01(\x12\x12\x1c\n\x14settlement_timestamp\x18\t \x01(\x12\x12\x13\n\x0bquote_denom\x18\n \x01(\t\x12\x46\n\x10quote_token_meta\x18\x0b \x01(\x0b\x32,.injective_derivative_exchange_rpc.TokenMeta\x12\x16\n\x0emaker_fee_rate\x18\x0c \x01(\t\x12\x16\n\x0etaker_fee_rate\x18\r \x01(\t\x12\x1c\n\x14service_provider_fee\x18\x0e \x01(\t\x12\x1b\n\x13min_price_tick_size\x18\x0f \x01(\t\x12\x1e\n\x16min_quantity_tick_size\x18\x10 \x01(\t\x12\x18\n\x10settlement_price\x18\x11 \x01(\t\"N\n\x06Paging\x12\r\n\x05total\x18\x01 \x01(\x12\x12\x0c\n\x04\x66rom\x18\x02 \x01(\x11\x12\n\n\x02to\x18\x03 \x01(\x11\x12\x1b\n\x13\x63ount_by_subaccount\x18\x04 \x01(\x12\"/\n\x1a\x42inaryOptionsMarketRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\"i\n\x1b\x42inaryOptionsMarketResponse\x12J\n\x06market\x18\x01 \x01(\x0b\x32:.injective_derivative_exchange_rpc.BinaryOptionsMarketInfo\"%\n\x10OrderbookRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\"c\n\x11OrderbookResponse\x12N\n\torderbook\x18\x01 \x01(\x0b\x32;.injective_derivative_exchange_rpc.DerivativeLimitOrderbook\"\x95\x01\n\x18\x44\x65rivativeLimitOrderbook\x12;\n\x04\x62uys\x18\x01 \x03(\x0b\x32-.injective_derivative_exchange_rpc.PriceLevel\x12<\n\x05sells\x18\x02 \x03(\x0b\x32-.injective_derivative_exchange_rpc.PriceLevel\"@\n\nPriceLevel\x12\r\n\x05price\x18\x01 \x01(\t\x12\x10\n\x08quantity\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"\'\n\x12OrderbookV2Request\x12\x11\n\tmarket_id\x18\x01 \x01(\t\"g\n\x13OrderbookV2Response\x12P\n\torderbook\x18\x01 \x01(\x0b\x32=.injective_derivative_exchange_rpc.DerivativeLimitOrderbookV2\"\xa9\x01\n\x1a\x44\x65rivativeLimitOrderbookV2\x12;\n\x04\x62uys\x18\x01 \x03(\x0b\x32-.injective_derivative_exchange_rpc.PriceLevel\x12<\n\x05sells\x18\x02 \x03(\x0b\x32-.injective_derivative_exchange_rpc.PriceLevel\x12\x10\n\x08sequence\x18\x03 \x01(\x04\"\'\n\x11OrderbooksRequest\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"k\n\x12OrderbooksResponse\x12U\n\norderbooks\x18\x01 \x03(\x0b\x32\x41.injective_derivative_exchange_rpc.SingleDerivativeLimitOrderbook\"\x83\x01\n\x1eSingleDerivativeLimitOrderbook\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12N\n\torderbook\x18\x02 \x01(\x0b\x32;.injective_derivative_exchange_rpc.DerivativeLimitOrderbook\")\n\x13OrderbooksV2Request\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"o\n\x14OrderbooksV2Response\x12W\n\norderbooks\x18\x01 \x03(\x0b\x32\x43.injective_derivative_exchange_rpc.SingleDerivativeLimitOrderbookV2\"\x87\x01\n SingleDerivativeLimitOrderbookV2\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12P\n\torderbook\x18\x02 \x01(\x0b\x32=.injective_derivative_exchange_rpc.DerivativeLimitOrderbookV2\",\n\x16StreamOrderbookRequest\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"\xa7\x01\n\x17StreamOrderbookResponse\x12N\n\torderbook\x18\x01 \x01(\x0b\x32;.injective_derivative_exchange_rpc.DerivativeLimitOrderbook\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\x12\x11\n\tmarket_id\x18\x04 \x01(\t\".\n\x18StreamOrderbookV2Request\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"\xab\x01\n\x19StreamOrderbookV2Response\x12P\n\torderbook\x18\x01 \x01(\x0b\x32=.injective_derivative_exchange_rpc.DerivativeLimitOrderbookV2\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\x12\x11\n\tmarket_id\x18\x04 \x01(\t\"2\n\x1cStreamOrderbookUpdateRequest\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"\xb8\x01\n\x1dStreamOrderbookUpdateResponse\x12Y\n\x17orderbook_level_updates\x18\x01 \x01(\x0b\x32\x38.injective_derivative_exchange_rpc.OrderbookLevelUpdates\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\x12\x11\n\tmarket_id\x18\x04 \x01(\t\"\xd7\x01\n\x15OrderbookLevelUpdates\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x10\n\x08sequence\x18\x02 \x01(\x04\x12\x41\n\x04\x62uys\x18\x03 \x03(\x0b\x32\x33.injective_derivative_exchange_rpc.PriceLevelUpdate\x12\x42\n\x05sells\x18\x04 \x03(\x0b\x32\x33.injective_derivative_exchange_rpc.PriceLevelUpdate\x12\x12\n\nupdated_at\x18\x05 \x01(\x12\"Y\n\x10PriceLevelUpdate\x12\r\n\x05price\x18\x01 \x01(\t\x12\x10\n\x08quantity\x18\x02 \x01(\t\x12\x11\n\tis_active\x18\x03 \x01(\x08\x12\x11\n\ttimestamp\x18\x04 \x01(\x12\"\x8b\x02\n\rOrdersRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x12\n\norder_side\x18\x02 \x01(\t\x12\x15\n\rsubaccount_id\x18\x03 \x01(\t\x12\x0c\n\x04skip\x18\x04 \x01(\x04\x12\r\n\x05limit\x18\x05 \x01(\x11\x12\x12\n\nstart_time\x18\x06 \x01(\x12\x12\x10\n\x08\x65nd_time\x18\x07 \x01(\x12\x12\x12\n\nmarket_ids\x18\x08 \x03(\t\x12\x16\n\x0eis_conditional\x18\t \x01(\t\x12\x12\n\norder_type\x18\n \x01(\t\x12\x18\n\x10include_inactive\x18\x0b \x01(\x08\x12\x1f\n\x17subaccount_total_orders\x18\x0c \x01(\x08\"\x94\x01\n\x0eOrdersResponse\x12G\n\x06orders\x18\x01 \x03(\x0b\x32\x37.injective_derivative_exchange_rpc.DerivativeLimitOrder\x12\x39\n\x06paging\x18\x02 \x01(\x0b\x32).injective_derivative_exchange_rpc.Paging\"\xba\x03\n\x14\x44\x65rivativeLimitOrder\x12\x12\n\norder_hash\x18\x01 \x01(\t\x12\x12\n\norder_side\x18\x02 \x01(\t\x12\x11\n\tmarket_id\x18\x03 \x01(\t\x12\x15\n\rsubaccount_id\x18\x04 \x01(\t\x12\x16\n\x0eis_reduce_only\x18\x05 \x01(\x08\x12\x0e\n\x06margin\x18\x06 \x01(\t\x12\r\n\x05price\x18\x07 \x01(\t\x12\x10\n\x08quantity\x18\x08 \x01(\t\x12\x19\n\x11unfilled_quantity\x18\t \x01(\t\x12\x15\n\rtrigger_price\x18\n \x01(\t\x12\x15\n\rfee_recipient\x18\x0b \x01(\t\x12\r\n\x05state\x18\x0c \x01(\t\x12\x12\n\ncreated_at\x18\r \x01(\x12\x12\x12\n\nupdated_at\x18\x0e \x01(\x12\x12\x14\n\x0corder_number\x18\x0f \x01(\x12\x12\x12\n\norder_type\x18\x10 \x01(\t\x12\x16\n\x0eis_conditional\x18\x11 \x01(\x08\x12\x12\n\ntrigger_at\x18\x12 \x01(\x04\x12\x19\n\x11placed_order_hash\x18\x13 \x01(\t\x12\x16\n\x0e\x65xecution_type\x18\x14 \x01(\t\"\xca\x01\n\x10PositionsRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x0c\n\x04skip\x18\x03 \x01(\x04\x12\r\n\x05limit\x18\x04 \x01(\x11\x12\x12\n\nstart_time\x18\x05 \x01(\x12\x12\x10\n\x08\x65nd_time\x18\x06 \x01(\x12\x12\x12\n\nmarket_ids\x18\x07 \x03(\t\x12\x11\n\tdirection\x18\x08 \x01(\t\x12\"\n\x1asubaccount_total_positions\x18\t \x01(\x08\"\x98\x01\n\x11PositionsResponse\x12H\n\tpositions\x18\x01 \x03(\x0b\x32\x35.injective_derivative_exchange_rpc.DerivativePosition\x12\x39\n\x06paging\x18\x02 \x01(\x0b\x32).injective_derivative_exchange_rpc.Paging\"\x97\x02\n\x12\x44\x65rivativePosition\x12\x0e\n\x06ticker\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x15\n\rsubaccount_id\x18\x03 \x01(\t\x12\x11\n\tdirection\x18\x04 \x01(\t\x12\x10\n\x08quantity\x18\x05 \x01(\t\x12\x13\n\x0b\x65ntry_price\x18\x06 \x01(\t\x12\x0e\n\x06margin\x18\x07 \x01(\t\x12\x19\n\x11liquidation_price\x18\x08 \x01(\t\x12\x12\n\nmark_price\x18\t \x01(\t\x12&\n\x1e\x61ggregate_reduce_only_quantity\x18\x0b \x01(\t\x12\x12\n\nupdated_at\x18\x0c \x01(\x12\x12\x12\n\ncreated_at\x18\r \x01(\x12\"L\n\x1aLiquidablePositionsRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x0c\n\x04skip\x18\x02 \x01(\x04\x12\r\n\x05limit\x18\x03 \x01(\x11\"g\n\x1bLiquidablePositionsResponse\x12H\n\tpositions\x18\x01 \x03(\x0b\x32\x35.injective_derivative_exchange_rpc.DerivativePosition\"\x85\x01\n\x16\x46undingPaymentsRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x0c\n\x04skip\x18\x03 \x01(\x04\x12\r\n\x05limit\x18\x04 \x01(\x11\x12\x10\n\x08\x65nd_time\x18\x05 \x01(\x12\x12\x12\n\nmarket_ids\x18\x06 \x03(\t\"\x99\x01\n\x17\x46undingPaymentsResponse\x12\x43\n\x08payments\x18\x01 \x03(\x0b\x32\x31.injective_derivative_exchange_rpc.FundingPayment\x12\x39\n\x06paging\x18\x02 \x01(\x0b\x32).injective_derivative_exchange_rpc.Paging\"]\n\x0e\x46undingPayment\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\t\x12\x11\n\ttimestamp\x18\x04 \x01(\x12\"W\n\x13\x46undingRatesRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x0c\n\x04skip\x18\x02 \x01(\x04\x12\r\n\x05limit\x18\x03 \x01(\x11\x12\x10\n\x08\x65nd_time\x18\x04 \x01(\x12\"\x98\x01\n\x14\x46undingRatesResponse\x12\x45\n\rfunding_rates\x18\x01 \x03(\x0b\x32..injective_derivative_exchange_rpc.FundingRate\x12\x39\n\x06paging\x18\x02 \x01(\x0b\x32).injective_derivative_exchange_rpc.Paging\"A\n\x0b\x46undingRate\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x0c\n\x04rate\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"n\n\x16StreamPositionsRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x12\n\nmarket_ids\x18\x03 \x03(\t\x12\x16\n\x0esubaccount_ids\x18\x04 \x03(\t\"u\n\x17StreamPositionsResponse\x12G\n\x08position\x18\x01 \x01(\x0b\x32\x35.injective_derivative_exchange_rpc.DerivativePosition\x12\x11\n\ttimestamp\x18\x02 \x01(\x12\"\x91\x02\n\x13StreamOrdersRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x12\n\norder_side\x18\x02 \x01(\t\x12\x15\n\rsubaccount_id\x18\x03 \x01(\t\x12\x0c\n\x04skip\x18\x04 \x01(\x04\x12\r\n\x05limit\x18\x05 \x01(\x11\x12\x12\n\nstart_time\x18\x06 \x01(\x12\x12\x10\n\x08\x65nd_time\x18\x07 \x01(\x12\x12\x12\n\nmarket_ids\x18\x08 \x03(\t\x12\x16\n\x0eis_conditional\x18\t \x01(\t\x12\x12\n\norder_type\x18\n \x01(\t\x12\x18\n\x10include_inactive\x18\x0b \x01(\x08\x12\x1f\n\x17subaccount_total_orders\x18\x0c \x01(\x08\"\x89\x01\n\x14StreamOrdersResponse\x12\x46\n\x05order\x18\x01 \x01(\x0b\x32\x37.injective_derivative_exchange_rpc.DerivativeLimitOrder\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"\xec\x01\n\rTradesRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x16\n\x0e\x65xecution_side\x18\x02 \x01(\t\x12\x11\n\tdirection\x18\x03 \x01(\t\x12\x15\n\rsubaccount_id\x18\x04 \x01(\t\x12\x0c\n\x04skip\x18\x05 \x01(\x04\x12\r\n\x05limit\x18\x06 \x01(\x11\x12\x12\n\nstart_time\x18\x07 \x01(\x12\x12\x10\n\x08\x65nd_time\x18\x08 \x01(\x12\x12\x12\n\nmarket_ids\x18\t \x03(\t\x12\x16\n\x0esubaccount_ids\x18\n \x03(\t\x12\x17\n\x0f\x65xecution_types\x18\x0b \x03(\t\"\x8f\x01\n\x0eTradesResponse\x12\x42\n\x06trades\x18\x01 \x03(\x0b\x32\x32.injective_derivative_exchange_rpc.DerivativeTrade\x12\x39\n\x06paging\x18\x02 \x01(\x0b\x32).injective_derivative_exchange_rpc.Paging\"\xc2\x02\n\x0f\x44\x65rivativeTrade\x12\x12\n\norder_hash\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\x12\x11\n\tmarket_id\x18\x03 \x01(\t\x12\x1c\n\x14trade_execution_type\x18\x04 \x01(\t\x12\x16\n\x0eis_liquidation\x18\x05 \x01(\x08\x12H\n\x0eposition_delta\x18\x06 \x01(\x0b\x32\x30.injective_derivative_exchange_rpc.PositionDelta\x12\x0e\n\x06payout\x18\x07 \x01(\t\x12\x0b\n\x03\x66\x65\x65\x18\x08 \x01(\t\x12\x13\n\x0b\x65xecuted_at\x18\t \x01(\x12\x12\x15\n\rfee_recipient\x18\n \x01(\t\x12\x10\n\x08trade_id\x18\x0b \x01(\t\x12\x16\n\x0e\x65xecution_side\x18\x0c \x01(\t\"w\n\rPositionDelta\x12\x17\n\x0ftrade_direction\x18\x01 \x01(\t\x12\x17\n\x0f\x65xecution_price\x18\x02 \x01(\t\x12\x1a\n\x12\x65xecution_quantity\x18\x03 \x01(\t\x12\x18\n\x10\x65xecution_margin\x18\x04 \x01(\t\"\xf2\x01\n\x13StreamTradesRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x16\n\x0e\x65xecution_side\x18\x02 \x01(\t\x12\x11\n\tdirection\x18\x03 \x01(\t\x12\x15\n\rsubaccount_id\x18\x04 \x01(\t\x12\x0c\n\x04skip\x18\x05 \x01(\x04\x12\r\n\x05limit\x18\x06 \x01(\x11\x12\x12\n\nstart_time\x18\x07 \x01(\x12\x12\x10\n\x08\x65nd_time\x18\x08 \x01(\x12\x12\x12\n\nmarket_ids\x18\t \x03(\t\x12\x16\n\x0esubaccount_ids\x18\n \x03(\t\x12\x17\n\x0f\x65xecution_types\x18\x0b \x03(\t\"\x84\x01\n\x14StreamTradesResponse\x12\x41\n\x05trade\x18\x01 \x01(\x0b\x32\x32.injective_derivative_exchange_rpc.DerivativeTrade\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"d\n\x1bSubaccountOrdersListRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x0c\n\x04skip\x18\x03 \x01(\x04\x12\r\n\x05limit\x18\x04 \x01(\x11\"\xa2\x01\n\x1cSubaccountOrdersListResponse\x12G\n\x06orders\x18\x01 \x03(\x0b\x32\x37.injective_derivative_exchange_rpc.DerivativeLimitOrder\x12\x39\n\x06paging\x18\x02 \x01(\x0b\x32).injective_derivative_exchange_rpc.Paging\"\x8f\x01\n\x1bSubaccountTradesListRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x16\n\x0e\x65xecution_type\x18\x03 \x01(\t\x12\x11\n\tdirection\x18\x04 \x01(\t\x12\x0c\n\x04skip\x18\x05 \x01(\x04\x12\r\n\x05limit\x18\x06 \x01(\x11\"b\n\x1cSubaccountTradesListResponse\x12\x42\n\x06trades\x18\x01 \x03(\x0b\x32\x32.injective_derivative_exchange_rpc.DerivativeTrade\"\xff\x01\n\x14OrdersHistoryRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x0c\n\x04skip\x18\x03 \x01(\x04\x12\r\n\x05limit\x18\x04 \x01(\x11\x12\x13\n\x0border_types\x18\x05 \x03(\t\x12\x11\n\tdirection\x18\x06 \x01(\t\x12\x12\n\nstart_time\x18\x07 \x01(\x12\x12\x10\n\x08\x65nd_time\x18\x08 \x01(\x12\x12\x16\n\x0eis_conditional\x18\t \x01(\t\x12\x12\n\norder_type\x18\n \x01(\t\x12\r\n\x05state\x18\x0b \x01(\t\x12\x17\n\x0f\x65xecution_types\x18\x0c \x03(\t\"\x9d\x01\n\x15OrdersHistoryResponse\x12I\n\x06orders\x18\x01 \x03(\x0b\x32\x39.injective_derivative_exchange_rpc.DerivativeOrderHistory\x12\x39\n\x06paging\x18\x02 \x01(\x0b\x32).injective_derivative_exchange_rpc.Paging\"\x9f\x03\n\x16\x44\x65rivativeOrderHistory\x12\x12\n\norder_hash\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x11\n\tis_active\x18\x03 \x01(\x08\x12\x15\n\rsubaccount_id\x18\x04 \x01(\t\x12\x16\n\x0e\x65xecution_type\x18\x05 \x01(\t\x12\x12\n\norder_type\x18\x06 \x01(\t\x12\r\n\x05price\x18\x07 \x01(\t\x12\x15\n\rtrigger_price\x18\x08 \x01(\t\x12\x10\n\x08quantity\x18\t \x01(\t\x12\x17\n\x0f\x66illed_quantity\x18\n \x01(\t\x12\r\n\x05state\x18\x0b \x01(\t\x12\x12\n\ncreated_at\x18\x0c \x01(\x12\x12\x12\n\nupdated_at\x18\r \x01(\x12\x12\x16\n\x0eis_reduce_only\x18\x0e \x01(\x08\x12\x11\n\tdirection\x18\x0f \x01(\t\x12\x16\n\x0eis_conditional\x18\x10 \x01(\x08\x12\x12\n\ntrigger_at\x18\x11 \x01(\x04\x12\x19\n\x11placed_order_hash\x18\x12 \x01(\t\x12\x0e\n\x06margin\x18\x13 \x01(\t\"\x96\x01\n\x1aStreamOrdersHistoryRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x13\n\x0border_types\x18\x03 \x03(\t\x12\x11\n\tdirection\x18\x04 \x01(\t\x12\r\n\x05state\x18\x05 \x01(\t\x12\x17\n\x0f\x65xecution_types\x18\x06 \x03(\t\"\x92\x01\n\x1bStreamOrdersHistoryResponse\x12H\n\x05order\x18\x01 \x01(\x0b\x32\x39.injective_derivative_exchange_rpc.DerivativeOrderHistory\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\x32\xc7\x1a\n\x1eInjectiveDerivativeExchangeRPC\x12p\n\x07Markets\x12\x31.injective_derivative_exchange_rpc.MarketsRequest\x1a\x32.injective_derivative_exchange_rpc.MarketsResponse\x12m\n\x06Market\x12\x30.injective_derivative_exchange_rpc.MarketRequest\x1a\x31.injective_derivative_exchange_rpc.MarketResponse\x12\x81\x01\n\x0cStreamMarket\x12\x36.injective_derivative_exchange_rpc.StreamMarketRequest\x1a\x37.injective_derivative_exchange_rpc.StreamMarketResponse0\x01\x12\x97\x01\n\x14\x42inaryOptionsMarkets\x12>.injective_derivative_exchange_rpc.BinaryOptionsMarketsRequest\x1a?.injective_derivative_exchange_rpc.BinaryOptionsMarketsResponse\x12\x94\x01\n\x13\x42inaryOptionsMarket\x12=.injective_derivative_exchange_rpc.BinaryOptionsMarketRequest\x1a>.injective_derivative_exchange_rpc.BinaryOptionsMarketResponse\x12v\n\tOrderbook\x12\x33.injective_derivative_exchange_rpc.OrderbookRequest\x1a\x34.injective_derivative_exchange_rpc.OrderbookResponse\x12|\n\x0bOrderbookV2\x12\x35.injective_derivative_exchange_rpc.OrderbookV2Request\x1a\x36.injective_derivative_exchange_rpc.OrderbookV2Response\x12y\n\nOrderbooks\x12\x34.injective_derivative_exchange_rpc.OrderbooksRequest\x1a\x35.injective_derivative_exchange_rpc.OrderbooksResponse\x12\x7f\n\x0cOrderbooksV2\x12\x36.injective_derivative_exchange_rpc.OrderbooksV2Request\x1a\x37.injective_derivative_exchange_rpc.OrderbooksV2Response\x12\x8a\x01\n\x0fStreamOrderbook\x12\x39.injective_derivative_exchange_rpc.StreamOrderbookRequest\x1a:.injective_derivative_exchange_rpc.StreamOrderbookResponse0\x01\x12\x90\x01\n\x11StreamOrderbookV2\x12;.injective_derivative_exchange_rpc.StreamOrderbookV2Request\x1a<.injective_derivative_exchange_rpc.StreamOrderbookV2Response0\x01\x12\x9c\x01\n\x15StreamOrderbookUpdate\x12?.injective_derivative_exchange_rpc.StreamOrderbookUpdateRequest\x1a@.injective_derivative_exchange_rpc.StreamOrderbookUpdateResponse0\x01\x12m\n\x06Orders\x12\x30.injective_derivative_exchange_rpc.OrdersRequest\x1a\x31.injective_derivative_exchange_rpc.OrdersResponse\x12v\n\tPositions\x12\x33.injective_derivative_exchange_rpc.PositionsRequest\x1a\x34.injective_derivative_exchange_rpc.PositionsResponse\x12\x94\x01\n\x13LiquidablePositions\x12=.injective_derivative_exchange_rpc.LiquidablePositionsRequest\x1a>.injective_derivative_exchange_rpc.LiquidablePositionsResponse\x12\x88\x01\n\x0f\x46undingPayments\x12\x39.injective_derivative_exchange_rpc.FundingPaymentsRequest\x1a:.injective_derivative_exchange_rpc.FundingPaymentsResponse\x12\x7f\n\x0c\x46undingRates\x12\x36.injective_derivative_exchange_rpc.FundingRatesRequest\x1a\x37.injective_derivative_exchange_rpc.FundingRatesResponse\x12\x8a\x01\n\x0fStreamPositions\x12\x39.injective_derivative_exchange_rpc.StreamPositionsRequest\x1a:.injective_derivative_exchange_rpc.StreamPositionsResponse0\x01\x12\x81\x01\n\x0cStreamOrders\x12\x36.injective_derivative_exchange_rpc.StreamOrdersRequest\x1a\x37.injective_derivative_exchange_rpc.StreamOrdersResponse0\x01\x12m\n\x06Trades\x12\x30.injective_derivative_exchange_rpc.TradesRequest\x1a\x31.injective_derivative_exchange_rpc.TradesResponse\x12\x81\x01\n\x0cStreamTrades\x12\x36.injective_derivative_exchange_rpc.StreamTradesRequest\x1a\x37.injective_derivative_exchange_rpc.StreamTradesResponse0\x01\x12\x97\x01\n\x14SubaccountOrdersList\x12>.injective_derivative_exchange_rpc.SubaccountOrdersListRequest\x1a?.injective_derivative_exchange_rpc.SubaccountOrdersListResponse\x12\x97\x01\n\x14SubaccountTradesList\x12>.injective_derivative_exchange_rpc.SubaccountTradesListRequest\x1a?.injective_derivative_exchange_rpc.SubaccountTradesListResponse\x12\x82\x01\n\rOrdersHistory\x12\x37.injective_derivative_exchange_rpc.OrdersHistoryRequest\x1a\x38.injective_derivative_exchange_rpc.OrdersHistoryResponse\x12\x96\x01\n\x13StreamOrdersHistory\x12=.injective_derivative_exchange_rpc.StreamOrdersHistoryRequest\x1a>.injective_derivative_exchange_rpc.StreamOrdersHistoryResponse0\x01\x42&Z$/injective_derivative_exchange_rpcpbb\x06proto3'
 )
 
 
@@ -1047,13 +1047,6 @@ _DERIVATIVELIMITORDERBOOK = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='sequence', full_name='injective_derivative_exchange_rpc.DerivativeLimitOrderbook.sequence', index=2,
-      number=3, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -1067,7 +1060,7 @@ _DERIVATIVELIMITORDERBOOK = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=2919,
-  serialized_end=3086,
+  serialized_end=3068,
 )
 
 
@@ -1112,8 +1105,118 @@ _PRICELEVEL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3088,
-  serialized_end=3152,
+  serialized_start=3070,
+  serialized_end=3134,
+)
+
+
+_ORDERBOOKV2REQUEST = _descriptor.Descriptor(
+  name='OrderbookV2Request',
+  full_name='injective_derivative_exchange_rpc.OrderbookV2Request',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='market_id', full_name='injective_derivative_exchange_rpc.OrderbookV2Request.market_id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=3136,
+  serialized_end=3175,
+)
+
+
+_ORDERBOOKV2RESPONSE = _descriptor.Descriptor(
+  name='OrderbookV2Response',
+  full_name='injective_derivative_exchange_rpc.OrderbookV2Response',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='orderbook', full_name='injective_derivative_exchange_rpc.OrderbookV2Response.orderbook', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=3177,
+  serialized_end=3280,
+)
+
+
+_DERIVATIVELIMITORDERBOOKV2 = _descriptor.Descriptor(
+  name='DerivativeLimitOrderbookV2',
+  full_name='injective_derivative_exchange_rpc.DerivativeLimitOrderbookV2',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='buys', full_name='injective_derivative_exchange_rpc.DerivativeLimitOrderbookV2.buys', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='sells', full_name='injective_derivative_exchange_rpc.DerivativeLimitOrderbookV2.sells', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='sequence', full_name='injective_derivative_exchange_rpc.DerivativeLimitOrderbookV2.sequence', index=2,
+      number=3, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=3283,
+  serialized_end=3452,
 )
 
 
@@ -1144,8 +1247,8 @@ _ORDERBOOKSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3154,
-  serialized_end=3193,
+  serialized_start=3454,
+  serialized_end=3493,
 )
 
 
@@ -1176,8 +1279,8 @@ _ORDERBOOKSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3195,
-  serialized_end=3302,
+  serialized_start=3495,
+  serialized_end=3602,
 )
 
 
@@ -1215,8 +1318,111 @@ _SINGLEDERIVATIVELIMITORDERBOOK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3305,
-  serialized_end=3436,
+  serialized_start=3605,
+  serialized_end=3736,
+)
+
+
+_ORDERBOOKSV2REQUEST = _descriptor.Descriptor(
+  name='OrderbooksV2Request',
+  full_name='injective_derivative_exchange_rpc.OrderbooksV2Request',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='market_ids', full_name='injective_derivative_exchange_rpc.OrderbooksV2Request.market_ids', index=0,
+      number=1, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=3738,
+  serialized_end=3779,
+)
+
+
+_ORDERBOOKSV2RESPONSE = _descriptor.Descriptor(
+  name='OrderbooksV2Response',
+  full_name='injective_derivative_exchange_rpc.OrderbooksV2Response',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='orderbooks', full_name='injective_derivative_exchange_rpc.OrderbooksV2Response.orderbooks', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=3781,
+  serialized_end=3892,
+)
+
+
+_SINGLEDERIVATIVELIMITORDERBOOKV2 = _descriptor.Descriptor(
+  name='SingleDerivativeLimitOrderbookV2',
+  full_name='injective_derivative_exchange_rpc.SingleDerivativeLimitOrderbookV2',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='market_id', full_name='injective_derivative_exchange_rpc.SingleDerivativeLimitOrderbookV2.market_id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='orderbook', full_name='injective_derivative_exchange_rpc.SingleDerivativeLimitOrderbookV2.orderbook', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=3895,
+  serialized_end=4030,
 )
 
 
@@ -1247,8 +1453,8 @@ _STREAMORDERBOOKREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3438,
-  serialized_end=3482,
+  serialized_start=4032,
+  serialized_end=4076,
 )
 
 
@@ -1300,21 +1506,21 @@ _STREAMORDERBOOKRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3485,
-  serialized_end=3652,
+  serialized_start=4079,
+  serialized_end=4246,
 )
 
 
-_STREAMORDERBOOKSNAPSHOTREQUEST = _descriptor.Descriptor(
-  name='StreamOrderbookSnapshotRequest',
-  full_name='injective_derivative_exchange_rpc.StreamOrderbookSnapshotRequest',
+_STREAMORDERBOOKV2REQUEST = _descriptor.Descriptor(
+  name='StreamOrderbookV2Request',
+  full_name='injective_derivative_exchange_rpc.StreamOrderbookV2Request',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='market_ids', full_name='injective_derivative_exchange_rpc.StreamOrderbookSnapshotRequest.market_ids', index=0,
+      name='market_ids', full_name='injective_derivative_exchange_rpc.StreamOrderbookV2Request.market_ids', index=0,
       number=1, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -1332,42 +1538,42 @@ _STREAMORDERBOOKSNAPSHOTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3654,
-  serialized_end=3706,
+  serialized_start=4248,
+  serialized_end=4294,
 )
 
 
-_STREAMORDERBOOKSNAPSHOTRESPONSE = _descriptor.Descriptor(
-  name='StreamOrderbookSnapshotResponse',
-  full_name='injective_derivative_exchange_rpc.StreamOrderbookSnapshotResponse',
+_STREAMORDERBOOKV2RESPONSE = _descriptor.Descriptor(
+  name='StreamOrderbookV2Response',
+  full_name='injective_derivative_exchange_rpc.StreamOrderbookV2Response',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='orderbook', full_name='injective_derivative_exchange_rpc.StreamOrderbookSnapshotResponse.orderbook', index=0,
+      name='orderbook', full_name='injective_derivative_exchange_rpc.StreamOrderbookV2Response.orderbook', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='operation_type', full_name='injective_derivative_exchange_rpc.StreamOrderbookSnapshotResponse.operation_type', index=1,
+      name='operation_type', full_name='injective_derivative_exchange_rpc.StreamOrderbookV2Response.operation_type', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='timestamp', full_name='injective_derivative_exchange_rpc.StreamOrderbookSnapshotResponse.timestamp', index=2,
+      name='timestamp', full_name='injective_derivative_exchange_rpc.StreamOrderbookV2Response.timestamp', index=2,
       number=3, type=18, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='market_id', full_name='injective_derivative_exchange_rpc.StreamOrderbookSnapshotResponse.market_id', index=3,
+      name='market_id', full_name='injective_derivative_exchange_rpc.StreamOrderbookV2Response.market_id', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -1385,8 +1591,8 @@ _STREAMORDERBOOKSNAPSHOTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3709,
-  serialized_end=3884,
+  serialized_start=4297,
+  serialized_end=4468,
 )
 
 
@@ -1417,8 +1623,8 @@ _STREAMORDERBOOKUPDATEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3886,
-  serialized_end=3936,
+  serialized_start=4470,
+  serialized_end=4520,
 )
 
 
@@ -1470,8 +1676,8 @@ _STREAMORDERBOOKUPDATERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3939,
-  serialized_end=4123,
+  serialized_start=4523,
+  serialized_end=4707,
 )
 
 
@@ -1530,8 +1736,8 @@ _ORDERBOOKLEVELUPDATES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4126,
-  serialized_end=4341,
+  serialized_start=4710,
+  serialized_end=4925,
 )
 
 
@@ -1583,8 +1789,8 @@ _PRICELEVELUPDATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4343,
-  serialized_end=4432,
+  serialized_start=4927,
+  serialized_end=5016,
 )
 
 
@@ -1692,8 +1898,8 @@ _ORDERSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4435,
-  serialized_end=4702,
+  serialized_start=5019,
+  serialized_end=5286,
 )
 
 
@@ -1731,8 +1937,8 @@ _ORDERSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4705,
-  serialized_end=4853,
+  serialized_start=5289,
+  serialized_end=5437,
 )
 
 
@@ -1896,8 +2102,8 @@ _DERIVATIVELIMITORDER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4856,
-  serialized_end=5298,
+  serialized_start=5440,
+  serialized_end=5882,
 )
 
 
@@ -1984,8 +2190,8 @@ _POSITIONSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5301,
-  serialized_end=5503,
+  serialized_start=5885,
+  serialized_end=6087,
 )
 
 
@@ -2023,8 +2229,8 @@ _POSITIONSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5506,
-  serialized_end=5658,
+  serialized_start=6090,
+  serialized_end=6242,
 )
 
 
@@ -2132,8 +2338,8 @@ _DERIVATIVEPOSITION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5661,
-  serialized_end=5940,
+  serialized_start=6245,
+  serialized_end=6524,
 )
 
 
@@ -2178,8 +2384,8 @@ _LIQUIDABLEPOSITIONSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5942,
-  serialized_end=6018,
+  serialized_start=6526,
+  serialized_end=6602,
 )
 
 
@@ -2210,8 +2416,8 @@ _LIQUIDABLEPOSITIONSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6020,
-  serialized_end=6123,
+  serialized_start=6604,
+  serialized_end=6707,
 )
 
 
@@ -2277,8 +2483,8 @@ _FUNDINGPAYMENTSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6126,
-  serialized_end=6259,
+  serialized_start=6710,
+  serialized_end=6843,
 )
 
 
@@ -2316,8 +2522,8 @@ _FUNDINGPAYMENTSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6262,
-  serialized_end=6415,
+  serialized_start=6846,
+  serialized_end=6999,
 )
 
 
@@ -2369,8 +2575,8 @@ _FUNDINGPAYMENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6417,
-  serialized_end=6510,
+  serialized_start=7001,
+  serialized_end=7094,
 )
 
 
@@ -2422,8 +2628,8 @@ _FUNDINGRATESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6512,
-  serialized_end=6599,
+  serialized_start=7096,
+  serialized_end=7183,
 )
 
 
@@ -2461,8 +2667,8 @@ _FUNDINGRATESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6602,
-  serialized_end=6754,
+  serialized_start=7186,
+  serialized_end=7338,
 )
 
 
@@ -2507,8 +2713,8 @@ _FUNDINGRATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6756,
-  serialized_end=6821,
+  serialized_start=7340,
+  serialized_end=7405,
 )
 
 
@@ -2560,8 +2766,8 @@ _STREAMPOSITIONSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6823,
-  serialized_end=6933,
+  serialized_start=7407,
+  serialized_end=7517,
 )
 
 
@@ -2599,8 +2805,8 @@ _STREAMPOSITIONSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6935,
-  serialized_end=7052,
+  serialized_start=7519,
+  serialized_end=7636,
 )
 
 
@@ -2708,8 +2914,8 @@ _STREAMORDERSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7055,
-  serialized_end=7328,
+  serialized_start=7639,
+  serialized_end=7912,
 )
 
 
@@ -2754,8 +2960,8 @@ _STREAMORDERSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7331,
-  serialized_end=7468,
+  serialized_start=7915,
+  serialized_end=8052,
 )
 
 
@@ -2856,8 +3062,8 @@ _TRADESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7471,
-  serialized_end=7707,
+  serialized_start=8055,
+  serialized_end=8291,
 )
 
 
@@ -2895,8 +3101,8 @@ _TRADESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7710,
-  serialized_end=7853,
+  serialized_start=8294,
+  serialized_end=8437,
 )
 
 
@@ -3004,8 +3210,8 @@ _DERIVATIVETRADE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7856,
-  serialized_end=8178,
+  serialized_start=8440,
+  serialized_end=8762,
 )
 
 
@@ -3057,8 +3263,8 @@ _POSITIONDELTA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=8180,
-  serialized_end=8299,
+  serialized_start=8764,
+  serialized_end=8883,
 )
 
 
@@ -3159,8 +3365,8 @@ _STREAMTRADESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=8302,
-  serialized_end=8544,
+  serialized_start=8886,
+  serialized_end=9128,
 )
 
 
@@ -3205,8 +3411,8 @@ _STREAMTRADESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=8547,
-  serialized_end=8679,
+  serialized_start=9131,
+  serialized_end=9263,
 )
 
 
@@ -3258,8 +3464,8 @@ _SUBACCOUNTORDERSLISTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=8681,
-  serialized_end=8781,
+  serialized_start=9265,
+  serialized_end=9365,
 )
 
 
@@ -3297,8 +3503,8 @@ _SUBACCOUNTORDERSLISTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=8784,
-  serialized_end=8946,
+  serialized_start=9368,
+  serialized_end=9530,
 )
 
 
@@ -3364,8 +3570,8 @@ _SUBACCOUNTTRADESLISTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=8949,
-  serialized_end=9092,
+  serialized_start=9533,
+  serialized_end=9676,
 )
 
 
@@ -3396,8 +3602,8 @@ _SUBACCOUNTTRADESLISTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=9094,
-  serialized_end=9192,
+  serialized_start=9678,
+  serialized_end=9776,
 )
 
 
@@ -3505,8 +3711,8 @@ _ORDERSHISTORYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=9195,
-  serialized_end=9450,
+  serialized_start=9779,
+  serialized_end=10034,
 )
 
 
@@ -3544,8 +3750,8 @@ _ORDERSHISTORYRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=9453,
-  serialized_end=9610,
+  serialized_start=10037,
+  serialized_end=10194,
 )
 
 
@@ -3702,8 +3908,8 @@ _DERIVATIVEORDERHISTORY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=9613,
-  serialized_end=10028,
+  serialized_start=10197,
+  serialized_end=10612,
 )
 
 
@@ -3769,8 +3975,8 @@ _STREAMORDERSHISTORYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=10031,
-  serialized_end=10181,
+  serialized_start=10615,
+  serialized_end=10765,
 )
 
 
@@ -3815,8 +4021,8 @@ _STREAMORDERSHISTORYRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=10184,
-  serialized_end=10330,
+  serialized_start=10768,
+  serialized_end=10914,
 )
 
 _MARKETSRESPONSE.fields_by_name['markets'].message_type = _DERIVATIVEMARKETINFO
@@ -3833,10 +4039,15 @@ _BINARYOPTIONSMARKETRESPONSE.fields_by_name['market'].message_type = _BINARYOPTI
 _ORDERBOOKRESPONSE.fields_by_name['orderbook'].message_type = _DERIVATIVELIMITORDERBOOK
 _DERIVATIVELIMITORDERBOOK.fields_by_name['buys'].message_type = _PRICELEVEL
 _DERIVATIVELIMITORDERBOOK.fields_by_name['sells'].message_type = _PRICELEVEL
+_ORDERBOOKV2RESPONSE.fields_by_name['orderbook'].message_type = _DERIVATIVELIMITORDERBOOKV2
+_DERIVATIVELIMITORDERBOOKV2.fields_by_name['buys'].message_type = _PRICELEVEL
+_DERIVATIVELIMITORDERBOOKV2.fields_by_name['sells'].message_type = _PRICELEVEL
 _ORDERBOOKSRESPONSE.fields_by_name['orderbooks'].message_type = _SINGLEDERIVATIVELIMITORDERBOOK
 _SINGLEDERIVATIVELIMITORDERBOOK.fields_by_name['orderbook'].message_type = _DERIVATIVELIMITORDERBOOK
+_ORDERBOOKSV2RESPONSE.fields_by_name['orderbooks'].message_type = _SINGLEDERIVATIVELIMITORDERBOOKV2
+_SINGLEDERIVATIVELIMITORDERBOOKV2.fields_by_name['orderbook'].message_type = _DERIVATIVELIMITORDERBOOKV2
 _STREAMORDERBOOKRESPONSE.fields_by_name['orderbook'].message_type = _DERIVATIVELIMITORDERBOOK
-_STREAMORDERBOOKSNAPSHOTRESPONSE.fields_by_name['orderbook'].message_type = _DERIVATIVELIMITORDERBOOK
+_STREAMORDERBOOKV2RESPONSE.fields_by_name['orderbook'].message_type = _DERIVATIVELIMITORDERBOOKV2
 _STREAMORDERBOOKUPDATERESPONSE.fields_by_name['orderbook_level_updates'].message_type = _ORDERBOOKLEVELUPDATES
 _ORDERBOOKLEVELUPDATES.fields_by_name['buys'].message_type = _PRICELEVELUPDATE
 _ORDERBOOKLEVELUPDATES.fields_by_name['sells'].message_type = _PRICELEVELUPDATE
@@ -3882,13 +4093,19 @@ DESCRIPTOR.message_types_by_name['OrderbookRequest'] = _ORDERBOOKREQUEST
 DESCRIPTOR.message_types_by_name['OrderbookResponse'] = _ORDERBOOKRESPONSE
 DESCRIPTOR.message_types_by_name['DerivativeLimitOrderbook'] = _DERIVATIVELIMITORDERBOOK
 DESCRIPTOR.message_types_by_name['PriceLevel'] = _PRICELEVEL
+DESCRIPTOR.message_types_by_name['OrderbookV2Request'] = _ORDERBOOKV2REQUEST
+DESCRIPTOR.message_types_by_name['OrderbookV2Response'] = _ORDERBOOKV2RESPONSE
+DESCRIPTOR.message_types_by_name['DerivativeLimitOrderbookV2'] = _DERIVATIVELIMITORDERBOOKV2
 DESCRIPTOR.message_types_by_name['OrderbooksRequest'] = _ORDERBOOKSREQUEST
 DESCRIPTOR.message_types_by_name['OrderbooksResponse'] = _ORDERBOOKSRESPONSE
 DESCRIPTOR.message_types_by_name['SingleDerivativeLimitOrderbook'] = _SINGLEDERIVATIVELIMITORDERBOOK
+DESCRIPTOR.message_types_by_name['OrderbooksV2Request'] = _ORDERBOOKSV2REQUEST
+DESCRIPTOR.message_types_by_name['OrderbooksV2Response'] = _ORDERBOOKSV2RESPONSE
+DESCRIPTOR.message_types_by_name['SingleDerivativeLimitOrderbookV2'] = _SINGLEDERIVATIVELIMITORDERBOOKV2
 DESCRIPTOR.message_types_by_name['StreamOrderbookRequest'] = _STREAMORDERBOOKREQUEST
 DESCRIPTOR.message_types_by_name['StreamOrderbookResponse'] = _STREAMORDERBOOKRESPONSE
-DESCRIPTOR.message_types_by_name['StreamOrderbookSnapshotRequest'] = _STREAMORDERBOOKSNAPSHOTREQUEST
-DESCRIPTOR.message_types_by_name['StreamOrderbookSnapshotResponse'] = _STREAMORDERBOOKSNAPSHOTRESPONSE
+DESCRIPTOR.message_types_by_name['StreamOrderbookV2Request'] = _STREAMORDERBOOKV2REQUEST
+DESCRIPTOR.message_types_by_name['StreamOrderbookV2Response'] = _STREAMORDERBOOKV2RESPONSE
 DESCRIPTOR.message_types_by_name['StreamOrderbookUpdateRequest'] = _STREAMORDERBOOKUPDATEREQUEST
 DESCRIPTOR.message_types_by_name['StreamOrderbookUpdateResponse'] = _STREAMORDERBOOKUPDATERESPONSE
 DESCRIPTOR.message_types_by_name['OrderbookLevelUpdates'] = _ORDERBOOKLEVELUPDATES
@@ -4075,6 +4292,27 @@ PriceLevel = _reflection.GeneratedProtocolMessageType('PriceLevel', (_message.Me
   })
 _sym_db.RegisterMessage(PriceLevel)
 
+OrderbookV2Request = _reflection.GeneratedProtocolMessageType('OrderbookV2Request', (_message.Message,), {
+  'DESCRIPTOR' : _ORDERBOOKV2REQUEST,
+  '__module__' : 'exchange.injective_derivative_exchange_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_derivative_exchange_rpc.OrderbookV2Request)
+  })
+_sym_db.RegisterMessage(OrderbookV2Request)
+
+OrderbookV2Response = _reflection.GeneratedProtocolMessageType('OrderbookV2Response', (_message.Message,), {
+  'DESCRIPTOR' : _ORDERBOOKV2RESPONSE,
+  '__module__' : 'exchange.injective_derivative_exchange_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_derivative_exchange_rpc.OrderbookV2Response)
+  })
+_sym_db.RegisterMessage(OrderbookV2Response)
+
+DerivativeLimitOrderbookV2 = _reflection.GeneratedProtocolMessageType('DerivativeLimitOrderbookV2', (_message.Message,), {
+  'DESCRIPTOR' : _DERIVATIVELIMITORDERBOOKV2,
+  '__module__' : 'exchange.injective_derivative_exchange_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_derivative_exchange_rpc.DerivativeLimitOrderbookV2)
+  })
+_sym_db.RegisterMessage(DerivativeLimitOrderbookV2)
+
 OrderbooksRequest = _reflection.GeneratedProtocolMessageType('OrderbooksRequest', (_message.Message,), {
   'DESCRIPTOR' : _ORDERBOOKSREQUEST,
   '__module__' : 'exchange.injective_derivative_exchange_rpc_pb2'
@@ -4096,6 +4334,27 @@ SingleDerivativeLimitOrderbook = _reflection.GeneratedProtocolMessageType('Singl
   })
 _sym_db.RegisterMessage(SingleDerivativeLimitOrderbook)
 
+OrderbooksV2Request = _reflection.GeneratedProtocolMessageType('OrderbooksV2Request', (_message.Message,), {
+  'DESCRIPTOR' : _ORDERBOOKSV2REQUEST,
+  '__module__' : 'exchange.injective_derivative_exchange_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_derivative_exchange_rpc.OrderbooksV2Request)
+  })
+_sym_db.RegisterMessage(OrderbooksV2Request)
+
+OrderbooksV2Response = _reflection.GeneratedProtocolMessageType('OrderbooksV2Response', (_message.Message,), {
+  'DESCRIPTOR' : _ORDERBOOKSV2RESPONSE,
+  '__module__' : 'exchange.injective_derivative_exchange_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_derivative_exchange_rpc.OrderbooksV2Response)
+  })
+_sym_db.RegisterMessage(OrderbooksV2Response)
+
+SingleDerivativeLimitOrderbookV2 = _reflection.GeneratedProtocolMessageType('SingleDerivativeLimitOrderbookV2', (_message.Message,), {
+  'DESCRIPTOR' : _SINGLEDERIVATIVELIMITORDERBOOKV2,
+  '__module__' : 'exchange.injective_derivative_exchange_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_derivative_exchange_rpc.SingleDerivativeLimitOrderbookV2)
+  })
+_sym_db.RegisterMessage(SingleDerivativeLimitOrderbookV2)
+
 StreamOrderbookRequest = _reflection.GeneratedProtocolMessageType('StreamOrderbookRequest', (_message.Message,), {
   'DESCRIPTOR' : _STREAMORDERBOOKREQUEST,
   '__module__' : 'exchange.injective_derivative_exchange_rpc_pb2'
@@ -4110,19 +4369,19 @@ StreamOrderbookResponse = _reflection.GeneratedProtocolMessageType('StreamOrderb
   })
 _sym_db.RegisterMessage(StreamOrderbookResponse)
 
-StreamOrderbookSnapshotRequest = _reflection.GeneratedProtocolMessageType('StreamOrderbookSnapshotRequest', (_message.Message,), {
-  'DESCRIPTOR' : _STREAMORDERBOOKSNAPSHOTREQUEST,
+StreamOrderbookV2Request = _reflection.GeneratedProtocolMessageType('StreamOrderbookV2Request', (_message.Message,), {
+  'DESCRIPTOR' : _STREAMORDERBOOKV2REQUEST,
   '__module__' : 'exchange.injective_derivative_exchange_rpc_pb2'
-  # @@protoc_insertion_point(class_scope:injective_derivative_exchange_rpc.StreamOrderbookSnapshotRequest)
+  # @@protoc_insertion_point(class_scope:injective_derivative_exchange_rpc.StreamOrderbookV2Request)
   })
-_sym_db.RegisterMessage(StreamOrderbookSnapshotRequest)
+_sym_db.RegisterMessage(StreamOrderbookV2Request)
 
-StreamOrderbookSnapshotResponse = _reflection.GeneratedProtocolMessageType('StreamOrderbookSnapshotResponse', (_message.Message,), {
-  'DESCRIPTOR' : _STREAMORDERBOOKSNAPSHOTRESPONSE,
+StreamOrderbookV2Response = _reflection.GeneratedProtocolMessageType('StreamOrderbookV2Response', (_message.Message,), {
+  'DESCRIPTOR' : _STREAMORDERBOOKV2RESPONSE,
   '__module__' : 'exchange.injective_derivative_exchange_rpc_pb2'
-  # @@protoc_insertion_point(class_scope:injective_derivative_exchange_rpc.StreamOrderbookSnapshotResponse)
+  # @@protoc_insertion_point(class_scope:injective_derivative_exchange_rpc.StreamOrderbookV2Response)
   })
-_sym_db.RegisterMessage(StreamOrderbookSnapshotResponse)
+_sym_db.RegisterMessage(StreamOrderbookV2Response)
 
 StreamOrderbookUpdateRequest = _reflection.GeneratedProtocolMessageType('StreamOrderbookUpdateRequest', (_message.Message,), {
   'DESCRIPTOR' : _STREAMORDERBOOKUPDATEREQUEST,
@@ -4393,8 +4652,8 @@ _INJECTIVEDERIVATIVEEXCHANGERPC = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=10333,
-  serialized_end=13495,
+  serialized_start=10917,
+  serialized_end=14316,
   methods=[
   _descriptor.MethodDescriptor(
     name='Markets',
@@ -4457,9 +4716,19 @@ _INJECTIVEDERIVATIVEEXCHANGERPC = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
+    name='OrderbookV2',
+    full_name='injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC.OrderbookV2',
+    index=6,
+    containing_service=None,
+    input_type=_ORDERBOOKV2REQUEST,
+    output_type=_ORDERBOOKV2RESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
     name='Orderbooks',
     full_name='injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC.Orderbooks',
-    index=6,
+    index=7,
     containing_service=None,
     input_type=_ORDERBOOKSREQUEST,
     output_type=_ORDERBOOKSRESPONSE,
@@ -4467,9 +4736,19 @@ _INJECTIVEDERIVATIVEEXCHANGERPC = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
+    name='OrderbooksV2',
+    full_name='injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC.OrderbooksV2',
+    index=8,
+    containing_service=None,
+    input_type=_ORDERBOOKSV2REQUEST,
+    output_type=_ORDERBOOKSV2RESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
     name='StreamOrderbook',
     full_name='injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC.StreamOrderbook',
-    index=7,
+    index=9,
     containing_service=None,
     input_type=_STREAMORDERBOOKREQUEST,
     output_type=_STREAMORDERBOOKRESPONSE,
@@ -4477,19 +4756,19 @@ _INJECTIVEDERIVATIVEEXCHANGERPC = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='StreamOrderbookSnapshot',
-    full_name='injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC.StreamOrderbookSnapshot',
-    index=8,
+    name='StreamOrderbookV2',
+    full_name='injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC.StreamOrderbookV2',
+    index=10,
     containing_service=None,
-    input_type=_STREAMORDERBOOKSNAPSHOTREQUEST,
-    output_type=_STREAMORDERBOOKSNAPSHOTRESPONSE,
+    input_type=_STREAMORDERBOOKV2REQUEST,
+    output_type=_STREAMORDERBOOKV2RESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
     name='StreamOrderbookUpdate',
     full_name='injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC.StreamOrderbookUpdate',
-    index=9,
+    index=11,
     containing_service=None,
     input_type=_STREAMORDERBOOKUPDATEREQUEST,
     output_type=_STREAMORDERBOOKUPDATERESPONSE,
@@ -4499,7 +4778,7 @@ _INJECTIVEDERIVATIVEEXCHANGERPC = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='Orders',
     full_name='injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC.Orders',
-    index=10,
+    index=12,
     containing_service=None,
     input_type=_ORDERSREQUEST,
     output_type=_ORDERSRESPONSE,
@@ -4509,7 +4788,7 @@ _INJECTIVEDERIVATIVEEXCHANGERPC = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='Positions',
     full_name='injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC.Positions',
-    index=11,
+    index=13,
     containing_service=None,
     input_type=_POSITIONSREQUEST,
     output_type=_POSITIONSRESPONSE,
@@ -4519,7 +4798,7 @@ _INJECTIVEDERIVATIVEEXCHANGERPC = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='LiquidablePositions',
     full_name='injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC.LiquidablePositions',
-    index=12,
+    index=14,
     containing_service=None,
     input_type=_LIQUIDABLEPOSITIONSREQUEST,
     output_type=_LIQUIDABLEPOSITIONSRESPONSE,
@@ -4529,7 +4808,7 @@ _INJECTIVEDERIVATIVEEXCHANGERPC = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='FundingPayments',
     full_name='injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC.FundingPayments',
-    index=13,
+    index=15,
     containing_service=None,
     input_type=_FUNDINGPAYMENTSREQUEST,
     output_type=_FUNDINGPAYMENTSRESPONSE,
@@ -4539,7 +4818,7 @@ _INJECTIVEDERIVATIVEEXCHANGERPC = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='FundingRates',
     full_name='injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC.FundingRates',
-    index=14,
+    index=16,
     containing_service=None,
     input_type=_FUNDINGRATESREQUEST,
     output_type=_FUNDINGRATESRESPONSE,
@@ -4549,7 +4828,7 @@ _INJECTIVEDERIVATIVEEXCHANGERPC = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='StreamPositions',
     full_name='injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC.StreamPositions',
-    index=15,
+    index=17,
     containing_service=None,
     input_type=_STREAMPOSITIONSREQUEST,
     output_type=_STREAMPOSITIONSRESPONSE,
@@ -4559,7 +4838,7 @@ _INJECTIVEDERIVATIVEEXCHANGERPC = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='StreamOrders',
     full_name='injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC.StreamOrders',
-    index=16,
+    index=18,
     containing_service=None,
     input_type=_STREAMORDERSREQUEST,
     output_type=_STREAMORDERSRESPONSE,
@@ -4569,7 +4848,7 @@ _INJECTIVEDERIVATIVEEXCHANGERPC = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='Trades',
     full_name='injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC.Trades',
-    index=17,
+    index=19,
     containing_service=None,
     input_type=_TRADESREQUEST,
     output_type=_TRADESRESPONSE,
@@ -4579,7 +4858,7 @@ _INJECTIVEDERIVATIVEEXCHANGERPC = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='StreamTrades',
     full_name='injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC.StreamTrades',
-    index=18,
+    index=20,
     containing_service=None,
     input_type=_STREAMTRADESREQUEST,
     output_type=_STREAMTRADESRESPONSE,
@@ -4589,7 +4868,7 @@ _INJECTIVEDERIVATIVEEXCHANGERPC = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='SubaccountOrdersList',
     full_name='injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC.SubaccountOrdersList',
-    index=19,
+    index=21,
     containing_service=None,
     input_type=_SUBACCOUNTORDERSLISTREQUEST,
     output_type=_SUBACCOUNTORDERSLISTRESPONSE,
@@ -4599,7 +4878,7 @@ _INJECTIVEDERIVATIVEEXCHANGERPC = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='SubaccountTradesList',
     full_name='injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC.SubaccountTradesList',
-    index=20,
+    index=22,
     containing_service=None,
     input_type=_SUBACCOUNTTRADESLISTREQUEST,
     output_type=_SUBACCOUNTTRADESLISTRESPONSE,
@@ -4609,7 +4888,7 @@ _INJECTIVEDERIVATIVEEXCHANGERPC = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='OrdersHistory',
     full_name='injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC.OrdersHistory',
-    index=21,
+    index=23,
     containing_service=None,
     input_type=_ORDERSHISTORYREQUEST,
     output_type=_ORDERSHISTORYRESPONSE,
@@ -4619,7 +4898,7 @@ _INJECTIVEDERIVATIVEEXCHANGERPC = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='StreamOrdersHistory',
     full_name='injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC.StreamOrdersHistory',
-    index=22,
+    index=24,
     containing_service=None,
     input_type=_STREAMORDERSHISTORYREQUEST,
     output_type=_STREAMORDERSHISTORYRESPONSE,
