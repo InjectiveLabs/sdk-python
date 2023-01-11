@@ -674,7 +674,9 @@ class AsyncClient:
 
     # deprecated: use stream_spot_orderbook_snapshot
     async def stream_spot_orderbook(self, market_id: str):
-        return self.stream_spot_orderbook(market_id=market_id)
+        req = spot_exchange_rpc_pb.StreamOrderbookRequest(market_ids=[market_id])
+        metadata = await self.load_cookie(type="exchange")
+        return self.stubSpotExchange.StreamOrderbook.__call__(req, metadata=metadata)
 
     async def stream_spot_orderbook_snapshot(self, market_ids: List[str]):
         req = spot_exchange_rpc_pb.StreamOrderbookV2Request(market_ids=market_ids)
@@ -829,7 +831,11 @@ class AsyncClient:
 
     # deprecated: use stream_derivative_orderbook_snapshot
     async def stream_derivative_orderbook(self, market_id: str):
-        return self.stream_derivative_orderbook(market_id=market_id)
+        req = derivative_exchange_rpc_pb.StreamOrderbookRequest(market_ids=[market_id])
+        metadata = await self.load_cookie(type="exchange")
+        return self.stubDerivativeExchange.StreamOrderbook.__call__(
+            req, metadata=metadata
+        )
 
     async def stream_derivative_orderbook_snapshot(self, market_ids: List[str]):
         req = derivative_exchange_rpc_pb.StreamOrderbookV2Request(market_ids=market_ids)
