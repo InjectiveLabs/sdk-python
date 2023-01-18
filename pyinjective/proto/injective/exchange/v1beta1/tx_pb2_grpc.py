@@ -80,8 +80,8 @@ class MsgStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgBatchUpdateOrders.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgBatchUpdateOrdersResponse.FromString,
                 )
-        self.Exec = channel.unary_unary(
-                '/injective.exchange.v1beta1.Msg/Exec',
+        self.PrivilegedExecuteContract = channel.unary_unary(
+                '/injective.exchange.v1beta1.Msg/PrivilegedExecuteContract',
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgPrivilegedExecuteContract.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgPrivilegedExecuteContractResponse.FromString,
                 )
@@ -268,8 +268,8 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def Exec(self, request, context):
-        """Exec defines a method for executing a Cosmwasm contract from the exchange module with privileged capabilities.
+    def PrivilegedExecuteContract(self, request, context):
+        """PrivilegedExecuteContract defines a method for executing a Cosmwasm contract from the exchange module with privileged capabilities.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -462,8 +462,8 @@ def add_MsgServicer_to_server(servicer, server):
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgBatchUpdateOrders.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgBatchUpdateOrdersResponse.SerializeToString,
             ),
-            'Exec': grpc.unary_unary_rpc_method_handler(
-                    servicer.Exec,
+            'PrivilegedExecuteContract': grpc.unary_unary_rpc_method_handler(
+                    servicer.PrivilegedExecuteContract,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgPrivilegedExecuteContract.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgPrivilegedExecuteContractResponse.SerializeToString,
             ),
@@ -785,7 +785,7 @@ class Msg(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def Exec(request,
+    def PrivilegedExecuteContract(request,
             target,
             options=(),
             channel_credentials=None,
@@ -795,7 +795,7 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Msg/Exec',
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Msg/PrivilegedExecuteContract',
             injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgPrivilegedExecuteContract.SerializeToString,
             injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgPrivilegedExecuteContractResponse.FromString,
             options, channel_credentials,
