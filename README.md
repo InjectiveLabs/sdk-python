@@ -78,6 +78,9 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.5.9.6**
+* Re-gen proto
+
 **0.5.9.5**
 * Add orderbook snaphot methods
 

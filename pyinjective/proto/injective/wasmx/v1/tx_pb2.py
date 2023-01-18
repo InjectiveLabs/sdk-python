@@ -11,6 +11,7 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -19,12 +20,114 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'ZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/wasmx/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x1binjective/wasmx/v1/tx.proto\x12\x12injective.wasmx.v12\x05\n\x03MsgBMZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/wasmx/typesb\x06proto3'
+  serialized_pb=b'\n\x1binjective/wasmx/v1/tx.proto\x12\x12injective.wasmx.v1\x1a\x14gogoproto/gogo.proto\"X\n\x18MsgExecuteContractCompat\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08\x63ontract\x18\x02 \x01(\t\x12\x0b\n\x03msg\x18\x03 \x01(\t\x12\r\n\x05\x66unds\x18\x04 \x01(\t\"0\n MsgExecuteContractCompatResponse\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\x32\x82\x01\n\x03Msg\x12{\n\x15\x45xecuteContractCompat\x12,.injective.wasmx.v1.MsgExecuteContractCompat\x1a\x34.injective.wasmx.v1.MsgExecuteContractCompatResponseBMZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/wasmx/typesb\x06proto3'
+  ,
+  dependencies=[gogoproto_dot_gogo__pb2.DESCRIPTOR,])
+
+
+
+
+_MSGEXECUTECONTRACTCOMPAT = _descriptor.Descriptor(
+  name='MsgExecuteContractCompat',
+  full_name='injective.wasmx.v1.MsgExecuteContractCompat',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='sender', full_name='injective.wasmx.v1.MsgExecuteContractCompat.sender', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='contract', full_name='injective.wasmx.v1.MsgExecuteContractCompat.contract', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='msg', full_name='injective.wasmx.v1.MsgExecuteContractCompat.msg', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='funds', full_name='injective.wasmx.v1.MsgExecuteContractCompat.funds', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=73,
+  serialized_end=161,
 )
 
 
+_MSGEXECUTECONTRACTCOMPATRESPONSE = _descriptor.Descriptor(
+  name='MsgExecuteContractCompatResponse',
+  full_name='injective.wasmx.v1.MsgExecuteContractCompatResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='data', full_name='injective.wasmx.v1.MsgExecuteContractCompatResponse.data', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"",
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=163,
+  serialized_end=211,
+)
 
+DESCRIPTOR.message_types_by_name['MsgExecuteContractCompat'] = _MSGEXECUTECONTRACTCOMPAT
+DESCRIPTOR.message_types_by_name['MsgExecuteContractCompatResponse'] = _MSGEXECUTECONTRACTCOMPATRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
+
+MsgExecuteContractCompat = _reflection.GeneratedProtocolMessageType('MsgExecuteContractCompat', (_message.Message,), {
+  'DESCRIPTOR' : _MSGEXECUTECONTRACTCOMPAT,
+  '__module__' : 'injective.wasmx.v1.tx_pb2'
+  # @@protoc_insertion_point(class_scope:injective.wasmx.v1.MsgExecuteContractCompat)
+  })
+_sym_db.RegisterMessage(MsgExecuteContractCompat)
+
+MsgExecuteContractCompatResponse = _reflection.GeneratedProtocolMessageType('MsgExecuteContractCompatResponse', (_message.Message,), {
+  'DESCRIPTOR' : _MSGEXECUTECONTRACTCOMPATRESPONSE,
+  '__module__' : 'injective.wasmx.v1.tx_pb2'
+  # @@protoc_insertion_point(class_scope:injective.wasmx.v1.MsgExecuteContractCompatResponse)
+  })
+_sym_db.RegisterMessage(MsgExecuteContractCompatResponse)
 
 
 DESCRIPTOR._options = None
@@ -36,9 +139,19 @@ _MSG = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=51,
-  serialized_end=56,
+  serialized_start=214,
+  serialized_end=344,
   methods=[
+  _descriptor.MethodDescriptor(
+    name='ExecuteContractCompat',
+    full_name='injective.wasmx.v1.Msg.ExecuteContractCompat',
+    index=0,
+    containing_service=None,
+    input_type=_MSGEXECUTECONTRACTCOMPAT,
+    output_type=_MSGEXECUTECONTRACTCOMPATRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
 ])
 _sym_db.RegisterServiceDescriptor(_MSG)
 
