@@ -78,6 +78,9 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.5.9.7**
+* Re-gen denoms mainnet
+
 **0.5.9.6**
 * Re-gen proto
 
@@ -109,15 +112,6 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 - Clients using [Custom Network](https://github.com/InjectiveLabs/sdk-python/blob/master/pyinjective/constant.py#L166) must now set grpc_explorer_endpoint during init
 
-**0.5.8.7**
-* Add testnet ini metadata
-* Fix account pb import
-
-**0.5.8.6**
-* Add logic to handle cached sequence in client with gRPC
-* Fix get_account with EthAccount type and added cookie support
-* Fix sync_timeout_height func with exception handling
-* Set explicit version requirements for protobuf and grpcio-tools in pkg
 
 ## License
 
