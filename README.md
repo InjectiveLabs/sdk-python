@@ -78,6 +78,9 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.6.0.0**
+* Change default network to LB
+
 **0.5.9.7**
 * Re-gen denoms mainnet
 

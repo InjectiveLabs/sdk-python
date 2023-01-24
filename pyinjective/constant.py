@@ -107,7 +107,7 @@ class Network:
         )
 
     @classmethod
-    def mainnet(cls, node='k8s'):
+    def mainnet(cls, node='lb'):
         nodes = [
             'k8s',
             'lb',
