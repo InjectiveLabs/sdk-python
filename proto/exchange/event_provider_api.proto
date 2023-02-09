@@ -1,0 +1,74 @@
+// Code generated with goa v3.5.2, DO NOT EDIT.
+//
+// EventProviderAPI protocol buffer definition
+//
+// Command:
+// $ goa gen github.com/InjectiveLabs/injective-indexer/api/design -o ../
+
+syntax = "proto3";
+
+package event_provider_api;
+
+option go_package = "/event_provider_apipb";
+
+// EventProviderAPI provides processed block events for different backends.
+service EventProviderAPI {
+	// Get latest block from event provider
+	rpc GetLatestHeight (GetLatestHeightRequest) returns (GetLatestHeightResponse);
+	// Get processed block events for selected backend
+	rpc GetBlockEventsRPC (GetBlockEventsRPCRequest) returns (GetBlockEventsRPCResponse);
+	// Get custom processed block events for selected backend
+	rpc GetCustomEventsRPC (GetCustomEventsRPCRequest) returns (GetCustomEventsRPCResponse);
+}
+
+message GetLatestHeightRequest {
+}
+
+message GetLatestHeightResponse {
+	// Status of the response.
+	string s = 1;
+	// Error message.
+	string errmsg = 2;
+	LatestBlockHeight data = 3;
+}
+// Latest block height from event provider db
+message LatestBlockHeight {
+	uint64 height = 1;
+}
+
+message GetBlockEventsRPCRequest {
+	// Select backend processor
+	string backend = 1;
+	sint32 height = 2;
+}
+
+message GetBlockEventsRPCResponse {
+	// Status of the response.
+	string s = 1;
+	// Error message.
+	string errmsg = 2;
+	BlockEventsRPC data = 3;
+}
+// Processed block events for backend processor to consume
+message BlockEventsRPC {
+	// Array of event types
+	repeated string types = 1;
+	// Array of parsed events
+	repeated bytes events = 2;
+}
+
+message GetCustomEventsRPCRequest {
+	// Select backend processor
+	string backend = 1;
+	sint32 height = 2;
+	// Specify custom events to get
+	string events = 3;
+}
+
+message GetCustomEventsRPCResponse {
+	// Status of the response.
+	string s = 1;
+	// Error message.
+	string errmsg = 2;
+	BlockEventsRPC data = 3;
+}

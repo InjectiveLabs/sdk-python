@@ -501,9 +501,10 @@ class AsyncClient:
 
     # AccountsRPC
 
-    async def stream_subaccount_balance(self, subaccount_id: str):
+    async def stream_subaccount_balance(self, subaccount_id: str, **kwargs):
         req = exchange_accounts_rpc_pb.StreamSubaccountBalanceRequest(
-            subaccount_id=subaccount_id
+            subaccount_id=subaccount_id,
+            denoms=kwargs.get("denoms")
         )
         return self.stubExchangeAccount.StreamSubaccountBalance(req)
 
@@ -519,9 +520,10 @@ class AsyncClient:
         )
         return await self.stubExchangeAccount.SubaccountsList(req)
 
-    async def get_subaccount_balances_list(self, subaccount_id: str):
+    async def get_subaccount_balances_list(self, subaccount_id: str, **kwargs):
         req = exchange_accounts_rpc_pb.SubaccountBalancesListRequest(
-            subaccount_id=subaccount_id
+            subaccount_id=subaccount_id,
+            denoms=kwargs.get("denoms")
         )
         return await self.stubExchangeAccount.SubaccountBalancesList(req)
 
@@ -532,6 +534,7 @@ class AsyncClient:
             transfer_types=kwargs.get("transfer_types"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
+            end_time=kwargs.get("end_time")
         )
         return await self.stubExchangeAccount.SubaccountHistory(req)
 

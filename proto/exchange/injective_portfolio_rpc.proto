@@ -1,0 +1,56 @@
+// Code generated with goa v3.5.2, DO NOT EDIT.
+//
+// InjectivePortfolioRPC protocol buffer definition
+//
+// Command:
+// $ goa gen github.com/InjectiveLabs/injective-indexer/api/design -o ../
+
+syntax = "proto3";
+
+package injective_portfolio_rpc;
+
+option go_package = "/injective_portfolio_rpcpb";
+
+// InjectivePortfolioRPC defines gRPC API of Exchange Portfolio provider.
+service InjectivePortfolioRPC {
+	// Provide the account's portfolio
+	rpc AccountPortfolio (AccountPortfolioRequest) returns (AccountPortfolioResponse);
+}
+
+message AccountPortfolioRequest {
+	// Account address
+	string account_address = 1;
+}
+
+message AccountPortfolioResponse {
+	// The portfolio of this account
+	Portfolio portfolio = 1;
+}
+
+message Portfolio {
+	// The account's portfolio address
+	string account_address = 1;
+	// Account denom
+	string denom = 2;
+	// Account available bank balances
+	repeated Coin bank_balances = 3;
+	// The subaccount balances of this account
+	repeated SubaccountBalanceV2 subaccount_balances = 4;
+}
+
+message Coin {
+	// Denom of the coin
+	string denom = 1;
+	string amount = 2;
+}
+
+message SubaccountBalanceV2 {
+	// Related subaccount ID
+	string subaccount_id = 1;
+	// Available subaccount balances
+	repeated Coin available_balances = 2;
+	// Margin held by open orders
+	repeated Coin margin_hold = 3;
+	// unrealizedPNL of open positions
+	repeated Coin unrealized_pnl = 4;
+}
