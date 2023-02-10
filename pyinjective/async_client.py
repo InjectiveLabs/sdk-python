@@ -672,6 +672,7 @@ class AsyncClient:
             limit=kwargs.get("limit"),
             start_time=kwargs.get("start_time"),
             end_time=kwargs.get("end_time"),
+            execution_types=kwargs.get("execution_types"),
         )
         return await self.stubSpotExchange.Trades(req)
 
