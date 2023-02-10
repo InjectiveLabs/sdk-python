@@ -7,15 +7,17 @@ from pyinjective.constant import Network
 async def main() -> None:
     network = Network.testnet()
     client = AsyncClient(network, insecure=False)
-    market_id = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
+    market_ids = ["0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"]
     execution_side = "taker"
     direction = "buy"
-    subaccount_id = "0xc6fe5d33615a1c52c08018c47e8bc53646a0e101000000000000000000000000"
+    subaccount_id = "0xc7dca7c15c364865f77a4fb67ab11dc95502e6fe000000000000000000000001"
+    execution_types = ["limitMatchNewOrder", "market"]
     orders = await client.get_spot_trades(
-        market_id=market_id,
+        market_ids=market_ids,
         execution_side=execution_side,
         direction=direction,
-        subaccount_id=subaccount_id
+        subaccount_id=subaccount_id,
+        execution_types=execution_types
     )
     print(orders)
 

@@ -9,16 +9,18 @@ async def main() -> None:
     client = AsyncClient(network, insecure=False)
     market_ids = [
         "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
-        "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
+        "0x7a57e705bb4e09c88aecfc295569481dbf2fe1d5efe364651fbe72385938e9b0"
     ]
     execution_side = "maker"
     direction = "sell"
-    subaccount_id = "0xc6fe5d33615a1c52c08018c47e8bc53646a0e101000000000000000000000000"
+    subaccount_id = "0xc7dca7c15c364865f77a4fb67ab11dc95502e6fe000000000000000000000001"
+    execution_types = ["limitMatchRestingOrder"]
     trades = await client.stream_spot_trades(
-        market_id=market_ids[0],
+        market_ids=market_ids,
         execution_side=execution_side,
         direction=direction,
-        subaccount_id=subaccount_id
+        subaccount_id=subaccount_id,
+        execution_types=execution_types
     )
     async for trade in trades:
         print(trade)
