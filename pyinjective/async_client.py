@@ -738,8 +738,7 @@ class AsyncClient:
             direction=kwargs.get("direction"),
             subaccount_id=kwargs.get("subaccount_id"),
             subaccount_ids=kwargs.get("subaccount_ids"),
-            skip=kwargs.get("skip"),
-            limit=kwargs.get("limit"),
+            execution_types=kwargs.get("execution_types"),
         )
         metadata = await self.load_cookie(type="exchange")
         return self.stubSpotExchange.StreamTrades.__call__(req, metadata=metadata)
