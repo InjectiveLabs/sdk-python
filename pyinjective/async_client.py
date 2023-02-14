@@ -809,7 +809,9 @@ class AsyncClient:
     async def get_historical_derivative_orders(self, market_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.OrdersHistoryRequest(
             market_id=market_id,
+            market_ids=kwargs.get("market_ids"),
             direction=kwargs.get("direction"),
+            order_type=kwargs.get("order_type"),
             order_types=kwargs.get("order_types"),
             execution_types=kwargs.get("execution_types"),
             subaccount_id=kwargs.get("subaccount_id"),
@@ -834,6 +836,7 @@ class AsyncClient:
             limit=kwargs.get("limit"),
             start_time=kwargs.get("start_time"),
             end_time=kwargs.get("end_time"),
+            execution_types=kwargs.get("execution_types"),
         )
         return await self.stubDerivativeExchange.Trades(req)
 
