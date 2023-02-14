@@ -56,6 +56,8 @@ from .proto.exchange import (
     injective_explorer_rpc_pb2_grpc as explorer_rpc_grpc,
     injective_auction_rpc_pb2 as auction_rpc_pb,
     injective_auction_rpc_pb2_grpc as auction_rpc_grpc,
+    injective_portfolio_rpc_pb2 as portfolio_rpc_pb,
+    injective_portfolio_rpc_pb2_grpc as portfolio_rpc_grpc,
 )
 
 from .proto.injective.types.v1beta1 import (
@@ -154,6 +156,9 @@ class AsyncClient:
             )
         )
         self.stubAuction = auction_rpc_grpc.InjectiveAuctionRPCStub(
+            self.exchange_channel
+        )
+        self.stubPortfolio = portfolio_rpc_grpc.InjectivePortfolioRPCStub(
             self.exchange_channel
         )
 
@@ -962,3 +967,9 @@ class AsyncClient:
     async def get_binary_options_market(self, market_id: str):
         req = derivative_exchange_rpc_pb.BinaryOptionsMarketRequest(market_id=market_id)
         return await self.stubDerivativeExchange.BinaryOptionsMarket(req)
+
+    # PortfolioRPC
+
+    async def get_account_portfolio(self, account_address: str):
+        req = portfolio_rpc_pb.AccountPortfolioRequest(account_address=account_address)
+        return await self.stubPortfolio.AccountPortfolio(req)
