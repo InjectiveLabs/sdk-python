@@ -77,7 +77,7 @@ class AsyncClient:
             self,
             network: Network,
             insecure: bool = False,
-            load_balancer: bool = False,
+            load_balancer: bool = True,
             credentials=grpc.ssl_channel_credentials(),
             chain_cookie_location=".chain_cookie",
     ):
