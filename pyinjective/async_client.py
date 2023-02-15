@@ -888,6 +888,7 @@ class AsyncClient:
             direction=kwargs.get("direction"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
+            execution_types=kwargs.get("execution_types"),
         )
         metadata = await self.load_cookie(type="exchange")
         return self.stubDerivativeExchange.StreamTrades.__call__(req, metadata=metadata)
@@ -895,7 +896,10 @@ class AsyncClient:
     async def get_derivative_positions(self, **kwargs):
         req = derivative_exchange_rpc_pb.PositionsRequest(
             market_id=kwargs.get("market_id"),
+            market_ids=kwargs.get("market_ids"),
             subaccount_id=kwargs.get("subaccount_id"),
+            direction=kwargs.get("direction"),
+            subaccount_total_positions=kwargs.get("subaccount_total_positions"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
         )
@@ -945,7 +949,9 @@ class AsyncClient:
         req = derivative_exchange_rpc_pb.FundingPaymentsRequest(
             subaccount_id=subaccount_id,
             market_id=kwargs.get("market_id"),
+            market_ids=kwargs.get("market_ids"),
             skip=kwargs.get("skip"),
+            end_time=kwargs.get("end_time"),
             limit=kwargs.get("limit"),
         )
         return await self.stubDerivativeExchange.FundingPayments(req)
@@ -955,7 +961,8 @@ class AsyncClient:
             market_id=market_id,
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
-        )
+            end_time=kwargs.get("end_time"),
+)
         return await self.stubDerivativeExchange.FundingRates(req)
 
     async def get_binary_options_markets(self, **kwargs):
