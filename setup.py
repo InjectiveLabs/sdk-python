@@ -17,11 +17,11 @@ URL = "https://github.com/InjectiveLabs/sdk-python"
 EMAIL = "achilleas@injectivelabs.com"
 AUTHOR = "Injective Labs"
 REQUIRES_PYTHON = ">=3.7.0"
-VERSION = "0.6.0.3"
+VERSION = "0.6.0.4"
 
 REQUIRED = [
-    "protobuf==3.19.1",
-    "grpcio-tools==1.42.0",
+    "protobuf",
+    "grpcio-tools",
     "grpcio",
     "asyncio",
     "aiohttp",
