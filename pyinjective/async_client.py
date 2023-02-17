@@ -800,6 +800,10 @@ class AsyncClient:
         req = derivative_exchange_rpc_pb.OrderbooksRequest(market_ids=market_ids)
         return await self.stubDerivativeExchange.Orderbooks(req)
 
+    async def get_derivative_orderbooksV2(self, market_ids: List):
+        req = derivative_exchange_rpc_pb.OrderbooksV2Request(market_ids=market_ids)
+        return await self.stubDerivativeExchange.OrderbooksV2(req)
+
     async def get_derivative_orders(self, market_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.OrdersRequest(
             market_id=market_id,
