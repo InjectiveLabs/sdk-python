@@ -3,7 +3,6 @@ import logging
 from decimal import *
 
 from pyinjective.async_client import AsyncClient
-from pyinjective.client import Client
 from pyinjective.constant import Network
 
 
@@ -24,9 +23,9 @@ class Orderbook:
         self.levels = {"buys": {}, "sells": {}}
 
 
-async def load_orderbook_snapshot(client: Client, orderbook: Orderbook):
+async def load_orderbook_snapshot(async_client: AsyncClient, orderbook: Orderbook):
     # load the snapshot
-    res = client.get_derivative_orderbooks_v2(market_ids=[orderbook.market_id])
+    res = await async_client.get_derivative_orderbooksV2(market_ids=[orderbook.market_id])
     for snapshot in res.orderbooks:
         if snapshot.market_id != orderbook.market_id:
             raise Exception("unexpected snapshot")
@@ -49,11 +48,11 @@ async def load_orderbook_snapshot(client: Client, orderbook: Orderbook):
 
 
 async def main() -> None:
+    # select network: local, testnet, mainnet
     network = Network.testnet()
     async_client = AsyncClient(network, insecure=False)
-    client = Client(network, insecure=False)
 
-    market_id = "0x4ca0f92fc28be0c9761326016b5a1a2177dd6375558365116b5bdda9abc229ce"
+    market_id = "0x90e662193fa29a3a7e6c07be4407c94833e762d9ee82136a2cc712d6b87d7de3"
     orderbook = Orderbook(market_id=market_id)
 
     # start getting price levels updates
@@ -64,7 +63,7 @@ async def main() -> None:
         break
 
     # load the snapshot once we are already receiving updates, so we don't miss any
-    await load_orderbook_snapshot(client=client, orderbook=orderbook)
+    await load_orderbook_snapshot(async_client=async_client, orderbook=orderbook)
 
     # start consuming updates again to process them
     apply_orderbook_update(orderbook, first_update)
