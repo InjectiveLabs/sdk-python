@@ -46,6 +46,7 @@ async def load_orderbook_snapshot(async_client: AsyncClient, orderbook: Orderboo
             )
         break
 
+
 async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
@@ -53,12 +54,14 @@ async def main() -> None:
 
     market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
     orderbook = Orderbook(market_id=market_id)
+
     # start getting price levels updates
     stream = await async_client.stream_spot_orderbook_update(market_ids=[market_id])
     first_update = None
     async for update in stream:
         first_update = update.orderbook_level_updates
         break
+        
     # load the snapshot once we are already receiving updates, so we don't miss any
     await load_orderbook_snapshot(async_client=async_client, orderbook=orderbook)
 
