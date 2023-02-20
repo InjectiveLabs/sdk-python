@@ -96,11 +96,11 @@ class Network:
     @classmethod
     def testnet(cls):
         return cls(
-            lcd_endpoint='https://k8s.testnet.lcd.injective.network',
-            tm_websocket_endpoint='wss://k8s.testnet.tm.injective.network/websocket',
-            grpc_endpoint='k8s.testnet.chain.grpc.injective.network:443',
-            grpc_exchange_endpoint='k8s.testnet.exchange.grpc.injective.network:443',
-            grpc_explorer_endpoint='k8s.testnet.explorer.grpc.injective.network:443',
+            lcd_endpoint='https://testnet.lcd.injective.network',
+            tm_websocket_endpoint='wss://testnet.tm.injective.network/websocket',
+            grpc_endpoint='testnet.grpc.injective.network',
+            grpc_exchange_endpoint='testnet.exchange.grpc.injective.network',
+            grpc_explorer_endpoint='testnet.explorer.grpc.injective.network',
             chain_id='injective-888',
             fee_denom='inj',
             env='testnet'
