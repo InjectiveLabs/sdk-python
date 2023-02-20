@@ -78,6 +78,10 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.6.0.5**
+* Add new testnet endpoints
+* Re-gen mainnet denoms
+
 **0.6.0.4**
 * Remove explicit versions from protobuf and grpcio-tools dependencies
 
