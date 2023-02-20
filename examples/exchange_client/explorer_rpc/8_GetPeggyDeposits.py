@@ -5,9 +5,10 @@ from pyinjective.async_client import AsyncClient
 from pyinjective.constant import Network
 
 async def main() -> None:
+    # select network: local, testnet, mainnet
     network = Network.testnet()
     client = AsyncClient(network, insecure=False)
-    receiver = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
+    receiver = "inj1phd706jqzd9wznkk5hgsfkrc8jqxv0kmlj0kex"
     peggy_deposits = await client.get_peggy_deposits(receiver=receiver)
     print(peggy_deposits)
 

@@ -56,6 +56,8 @@ from .proto.exchange import (
     injective_explorer_rpc_pb2_grpc as explorer_rpc_grpc,
     injective_auction_rpc_pb2 as auction_rpc_pb,
     injective_auction_rpc_pb2_grpc as auction_rpc_grpc,
+    injective_portfolio_rpc_pb2 as portfolio_rpc_pb,
+    injective_portfolio_rpc_pb2_grpc as portfolio_rpc_grpc,
 )
 
 from .proto.injective.types.v1beta1 import (
@@ -154,6 +156,9 @@ class AsyncClient:
             )
         )
         self.stubAuction = auction_rpc_grpc.InjectiveAuctionRPCStub(
+            self.exchange_channel
+        )
+        self.stubPortfolio = portfolio_rpc_grpc.InjectivePortfolioRPCStub(
             self.exchange_channel
         )
 
@@ -501,9 +506,10 @@ class AsyncClient:
 
     # AccountsRPC
 
-    async def stream_subaccount_balance(self, subaccount_id: str):
+    async def stream_subaccount_balance(self, subaccount_id: str, **kwargs):
         req = exchange_accounts_rpc_pb.StreamSubaccountBalanceRequest(
-            subaccount_id=subaccount_id
+            subaccount_id=subaccount_id,
+            denoms=kwargs.get("denoms")
         )
         return self.stubExchangeAccount.StreamSubaccountBalance(req)
 
@@ -519,9 +525,10 @@ class AsyncClient:
         )
         return await self.stubExchangeAccount.SubaccountsList(req)
 
-    async def get_subaccount_balances_list(self, subaccount_id: str):
+    async def get_subaccount_balances_list(self, subaccount_id: str, **kwargs):
         req = exchange_accounts_rpc_pb.SubaccountBalancesListRequest(
-            subaccount_id=subaccount_id
+            subaccount_id=subaccount_id,
+            denoms=kwargs.get("denoms")
         )
         return await self.stubExchangeAccount.SubaccountBalancesList(req)
 
@@ -532,6 +539,7 @@ class AsyncClient:
             transfer_types=kwargs.get("transfer_types"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
+            end_time=kwargs.get("end_time")
         )
         return await self.stubExchangeAccount.SubaccountHistory(req)
 
@@ -632,6 +640,10 @@ class AsyncClient:
         req = spot_exchange_rpc_pb.OrderbooksRequest(market_ids=market_ids)
         return await self.stubSpotExchange.Orderbooks(req)
 
+    async def get_spot_orderbooksV2(self, market_ids: List):
+        req = spot_exchange_rpc_pb.OrderbooksV2Request(market_ids=market_ids)
+        return await self.stubSpotExchange.OrderbooksV2(req)
+
     async def get_spot_orders(self, market_id: str, **kwargs):
         req = spot_exchange_rpc_pb.OrdersRequest(
             market_id=market_id,
@@ -669,6 +681,7 @@ class AsyncClient:
             limit=kwargs.get("limit"),
             start_time=kwargs.get("start_time"),
             end_time=kwargs.get("end_time"),
+            execution_types=kwargs.get("execution_types"),
         )
         return await self.stubSpotExchange.Trades(req)
 
@@ -734,8 +747,7 @@ class AsyncClient:
             direction=kwargs.get("direction"),
             subaccount_id=kwargs.get("subaccount_id"),
             subaccount_ids=kwargs.get("subaccount_ids"),
-            skip=kwargs.get("skip"),
-            limit=kwargs.get("limit"),
+            execution_types=kwargs.get("execution_types"),
         )
         metadata = await self.load_cookie(type="exchange")
         return self.stubSpotExchange.StreamTrades.__call__(req, metadata=metadata)
@@ -788,6 +800,10 @@ class AsyncClient:
         req = derivative_exchange_rpc_pb.OrderbooksRequest(market_ids=market_ids)
         return await self.stubDerivativeExchange.Orderbooks(req)
 
+    async def get_derivative_orderbooksV2(self, market_ids: List):
+        req = derivative_exchange_rpc_pb.OrderbooksV2Request(market_ids=market_ids)
+        return await self.stubDerivativeExchange.OrderbooksV2(req)
+
     async def get_derivative_orders(self, market_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.OrdersRequest(
             market_id=market_id,
@@ -801,7 +817,9 @@ class AsyncClient:
     async def get_historical_derivative_orders(self, market_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.OrdersHistoryRequest(
             market_id=market_id,
+            market_ids=kwargs.get("market_ids"),
             direction=kwargs.get("direction"),
+            order_type=kwargs.get("order_type"),
             order_types=kwargs.get("order_types"),
             execution_types=kwargs.get("execution_types"),
             subaccount_id=kwargs.get("subaccount_id"),
@@ -826,6 +844,7 @@ class AsyncClient:
             limit=kwargs.get("limit"),
             start_time=kwargs.get("start_time"),
             end_time=kwargs.get("end_time"),
+            execution_types=kwargs.get("execution_types"),
         )
         return await self.stubDerivativeExchange.Trades(req)
 
@@ -877,6 +896,7 @@ class AsyncClient:
             direction=kwargs.get("direction"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
+            execution_types=kwargs.get("execution_types"),
         )
         metadata = await self.load_cookie(type="exchange")
         return self.stubDerivativeExchange.StreamTrades.__call__(req, metadata=metadata)
@@ -884,7 +904,10 @@ class AsyncClient:
     async def get_derivative_positions(self, **kwargs):
         req = derivative_exchange_rpc_pb.PositionsRequest(
             market_id=kwargs.get("market_id"),
+            market_ids=kwargs.get("market_ids"),
             subaccount_id=kwargs.get("subaccount_id"),
+            direction=kwargs.get("direction"),
+            subaccount_total_positions=kwargs.get("subaccount_total_positions"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
         )
@@ -934,7 +957,9 @@ class AsyncClient:
         req = derivative_exchange_rpc_pb.FundingPaymentsRequest(
             subaccount_id=subaccount_id,
             market_id=kwargs.get("market_id"),
+            market_ids=kwargs.get("market_ids"),
             skip=kwargs.get("skip"),
+            end_time=kwargs.get("end_time"),
             limit=kwargs.get("limit"),
         )
         return await self.stubDerivativeExchange.FundingPayments(req)
@@ -944,7 +969,8 @@ class AsyncClient:
             market_id=market_id,
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
-        )
+            end_time=kwargs.get("end_time"),
+)
         return await self.stubDerivativeExchange.FundingRates(req)
 
     async def get_binary_options_markets(self, **kwargs):
@@ -959,3 +985,9 @@ class AsyncClient:
     async def get_binary_options_market(self, market_id: str):
         req = derivative_exchange_rpc_pb.BinaryOptionsMarketRequest(market_id=market_id)
         return await self.stubDerivativeExchange.BinaryOptionsMarket(req)
+
+    # PortfolioRPC
+
+    async def get_account_portfolio(self, account_address: str):
+        req = portfolio_rpc_pb.AccountPortfolioRequest(account_address=account_address)
+        return await self.stubPortfolio.AccountPortfolio(req)

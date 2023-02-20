@@ -6,6 +6,7 @@ from pyinjective.constant import Network
 
 
 async def main() -> None:
+    # select network: local, testnet, mainnet
     network = Network.testnet()
     client = AsyncClient(network, insecure=False)
     market_ids = [

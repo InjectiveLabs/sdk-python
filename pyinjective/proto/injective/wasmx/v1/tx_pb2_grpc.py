@@ -15,10 +15,20 @@ class MsgStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.ExecuteContractCompat = channel.unary_unary(
-                '/injective.wasmx.v1.Msg/ExecuteContractCompat',
-                request_serializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgExecuteContractCompat.SerializeToString,
-                response_deserializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgExecuteContractCompatResponse.FromString,
+        self.UpdateRegistryContractParams = channel.unary_unary(
+                '/injective.wasmx.v1beta1.Msg/UpdateRegistryContractParams',
+                request_serializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgUpdateContract.SerializeToString,
+                response_deserializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgUpdateContractResponse.FromString,
+                )
+        self.ActivateRegistryContract = channel.unary_unary(
+                '/injective.wasmx.v1beta1.Msg/ActivateRegistryContract',
+                request_serializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgActivateContract.SerializeToString,
+                response_deserializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgActivateContractResponse.FromString,
+                )
+        self.DeactivateRegistryContract = channel.unary_unary(
+                '/injective.wasmx.v1beta1.Msg/DeactivateRegistryContract',
+                request_serializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgDeactivateContract.SerializeToString,
+                response_deserializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgDeactivateContractResponse.FromString,
                 )
 
 
@@ -26,7 +36,19 @@ class MsgServicer(object):
     """Msg defines the wasmx Msg service.
     """
 
-    def ExecuteContractCompat(self, request, context):
+    def UpdateRegistryContractParams(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ActivateRegistryContract(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DeactivateRegistryContract(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -35,14 +57,24 @@ class MsgServicer(object):
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'ExecuteContractCompat': grpc.unary_unary_rpc_method_handler(
-                    servicer.ExecuteContractCompat,
-                    request_deserializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgExecuteContractCompat.FromString,
-                    response_serializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgExecuteContractCompatResponse.SerializeToString,
+            'UpdateRegistryContractParams': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateRegistryContractParams,
+                    request_deserializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgUpdateContract.FromString,
+                    response_serializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgUpdateContractResponse.SerializeToString,
+            ),
+            'ActivateRegistryContract': grpc.unary_unary_rpc_method_handler(
+                    servicer.ActivateRegistryContract,
+                    request_deserializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgActivateContract.FromString,
+                    response_serializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgActivateContractResponse.SerializeToString,
+            ),
+            'DeactivateRegistryContract': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeactivateRegistryContract,
+                    request_deserializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgDeactivateContract.FromString,
+                    response_serializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgDeactivateContractResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'injective.wasmx.v1.Msg', rpc_method_handlers)
+            'injective.wasmx.v1beta1.Msg', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -52,7 +84,7 @@ class Msg(object):
     """
 
     @staticmethod
-    def ExecuteContractCompat(request,
+    def UpdateRegistryContractParams(request,
             target,
             options=(),
             channel_credentials=None,
@@ -62,8 +94,42 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.wasmx.v1.Msg/ExecuteContractCompat',
-            injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgExecuteContractCompat.SerializeToString,
-            injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgExecuteContractCompatResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/injective.wasmx.v1beta1.Msg/UpdateRegistryContractParams',
+            injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgUpdateContract.SerializeToString,
+            injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgUpdateContractResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ActivateRegistryContract(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.wasmx.v1beta1.Msg/ActivateRegistryContract',
+            injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgActivateContract.SerializeToString,
+            injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgActivateContractResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DeactivateRegistryContract(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.wasmx.v1beta1.Msg/DeactivateRegistryContract',
+            injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgDeactivateContract.SerializeToString,
+            injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgDeactivateContractResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

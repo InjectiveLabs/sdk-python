@@ -5,6 +5,7 @@ from pyinjective.async_client import AsyncClient
 from pyinjective.constant import Network
 
 async def main() -> None:
+    # select network: local, testnet, mainnet
     network = Network.testnet()
     client = AsyncClient(network, insecure=False)
     subaccount_id = "0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000"
@@ -12,7 +13,7 @@ async def main() -> None:
     execution_type = "market"
     direction = "sell"
     skip = 10
-    limit = 10
+    limit = 2
     trades = await client.get_derivative_subaccount_trades(
         subaccount_id=subaccount_id,
         market_id=market_id,

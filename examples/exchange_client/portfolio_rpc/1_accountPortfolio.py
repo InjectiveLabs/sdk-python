@@ -5,14 +5,14 @@ from pyinjective.async_client import AsyncClient
 from pyinjective.constant import Network
 
 async def main() -> None:
+    # select network: local, testnet, mainnet
     network = Network.testnet()
     client = AsyncClient(network, insecure=False)
-    # account_address = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku"
-    epoch = -1
-    rewards = await client.get_rewards(
-        # account_address=account_address,
-        epoch=epoch)
-    print(rewards)
+    account_address = "inj1clw20s2uxeyxtam6f7m84vgae92s9eh7vygagt"
+    portfolio = await client.get_account_portfolio(
+        account_address=account_address
+    )
+    print(portfolio)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)

@@ -6,10 +6,11 @@ from pyinjective.constant import Network
 
 
 async def main() -> None:
+    # select network: local, testnet, mainnet
     network = Network.testnet()
     client = AsyncClient(network, insecure=False)
-    market_id = "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0"
-    orderbooks = await client.stream_spot_orderbook(market_id=market_id)
+    market_ids = ["0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"]
+    orderbooks = await client.stream_spot_orderbook_snapshot(market_ids=market_ids)
     async for orderbook in orderbooks:
         print(orderbook)
 

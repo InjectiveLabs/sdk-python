@@ -205,10 +205,10 @@ class QueryStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountTierStatisticsRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountTierStatisticsResponse.FromString,
                 )
-        self.NinjaVaultInfos = channel.unary_unary(
-                '/injective.exchange.v1beta1.Query/NinjaVaultInfos',
-                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.NinjaVaultInfosRequest.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.NinjaVaultInfosResponse.FromString,
+        self.MitoVaultInfos = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/MitoVaultInfos',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.MitoVaultInfosRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.MitoVaultInfosResponse.FromString,
                 )
         self.QueryMarketIDFromVault = channel.unary_unary(
                 '/injective.exchange.v1beta1.Query/QueryMarketIDFromVault',
@@ -522,7 +522,7 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def NinjaVaultInfos(self, request, context):
+    def MitoVaultInfos(self, request, context):
         """Retrieves market making pool info
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -777,10 +777,10 @@ def add_QueryServicer_to_server(servicer, server):
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountTierStatisticsRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountTierStatisticsResponse.SerializeToString,
             ),
-            'NinjaVaultInfos': grpc.unary_unary_rpc_method_handler(
-                    servicer.NinjaVaultInfos,
-                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.NinjaVaultInfosRequest.FromString,
-                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.NinjaVaultInfosResponse.SerializeToString,
+            'MitoVaultInfos': grpc.unary_unary_rpc_method_handler(
+                    servicer.MitoVaultInfos,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.MitoVaultInfosRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.MitoVaultInfosResponse.SerializeToString,
             ),
             'QueryMarketIDFromVault': grpc.unary_unary_rpc_method_handler(
                     servicer.QueryMarketIDFromVault,
@@ -1480,7 +1480,7 @@ class Query(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def NinjaVaultInfos(request,
+    def MitoVaultInfos(request,
             target,
             options=(),
             channel_credentials=None,
@@ -1490,9 +1490,9 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/NinjaVaultInfos',
-            injective_dot_exchange_dot_v1beta1_dot_query__pb2.NinjaVaultInfosRequest.SerializeToString,
-            injective_dot_exchange_dot_v1beta1_dot_query__pb2.NinjaVaultInfosResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/MitoVaultInfos',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.MitoVaultInfosRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.MitoVaultInfosResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

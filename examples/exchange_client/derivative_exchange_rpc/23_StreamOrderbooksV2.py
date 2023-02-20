@@ -4,15 +4,15 @@ import logging
 from pyinjective.async_client import AsyncClient
 from pyinjective.constant import Network
 
+
 async def main() -> None:
+    # select network: local, testnet, mainnet
     network = Network.testnet()
     client = AsyncClient(network, insecure=False)
-    # account_address = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku"
-    epoch = -1
-    rewards = await client.get_rewards(
-        # account_address=account_address,
-        epoch=epoch)
-    print(rewards)
+    market_ids = ["0x90e662193fa29a3a7e6c07be4407c94833e762d9ee82136a2cc712d6b87d7de3"]
+    orderbooks = await client.stream_derivative_orderbook_snapshot(market_ids=market_ids)
+    async for orderbook in orderbooks:
+        print(orderbook)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)

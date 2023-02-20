@@ -5,10 +5,11 @@ from pyinjective.async_client import AsyncClient
 from pyinjective.constant import Network
 
 async def main() -> None:
+    # select network: local, testnet, mainnet
     network = Network.testnet()
     client = AsyncClient(network, insecure=False)
-    redeemer = "inj1gxqdj76ul07w4ujsl8403nhhzyvug2h66qk057"
-    redemption_denom = "share2"
+    redeemer = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku"
+    redemption_denom = "share4"
     status = "disbursed"
     insurance_redemptions = await client.get_redemptions(
         redeemer=redeemer,
