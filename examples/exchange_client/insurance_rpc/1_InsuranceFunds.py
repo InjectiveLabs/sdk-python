@@ -6,7 +6,7 @@ from pyinjective.constant import Network
 
 async def main() -> None:
     # select network: local, testnet, mainnet
-    network = Network.mainnet()
+    network = Network.testnet()
     client = AsyncClient(network, insecure=False)
     insurance_funds = await client.get_insurance_funds()
     print(insurance_funds)
