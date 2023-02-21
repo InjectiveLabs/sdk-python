@@ -5,6 +5,7 @@ from pyinjective.async_client import AsyncClient
 from pyinjective.constant import Network
 
 async def main() -> None:
+    # select network: local, testnet, mainnet
     network = Network.testnet()
     client = AsyncClient(network, insecure=False)
     market_id = "0x175513943b8677368d138e57bcd6bef53170a0da192e7eaa8c2cd4509b54f8db"
