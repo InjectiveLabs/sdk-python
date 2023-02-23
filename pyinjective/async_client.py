@@ -56,6 +56,8 @@ from .proto.exchange import (
     injective_explorer_rpc_pb2_grpc as explorer_rpc_grpc,
     injective_auction_rpc_pb2 as auction_rpc_pb,
     injective_auction_rpc_pb2_grpc as auction_rpc_grpc,
+    injective_portfolio_rpc_pb2 as exchange_portfolio_rpc_pb,
+    injective_portfolio_rpc_pb2_grpc as exchange_portfolio_rpc_pb_grpc,
 )
 
 from .proto.injective.types.v1beta1 import (
@@ -139,6 +141,9 @@ class AsyncClient:
             self.exchange_channel
         )
         self.stubExchangeAccount = exchange_accounts_rpc_grpc.InjectiveAccountsRPCStub(
+            self.exchange_channel
+        )
+        self.stubExchangeAccountPortfolio = exchange_portfolio_rpc_pb_grpc.InjectivePortfolioRPCStub(
             self.exchange_channel
         )
         self.stubOracle = oracle_rpc_grpc.InjectiveOracleRPCStub(self.exchange_channel)
@@ -553,6 +558,21 @@ class AsyncClient:
     async def get_portfolio(self, account_address: str):
         req = exchange_accounts_rpc_pb.PortfolioRequest(account_address=account_address)
         return await self.stubExchangeAccount.Portfolio(req)
+
+    async def get_account_portfolio(self, account_address: str):
+        req = exchange_portfolio_rpc_pb.AccountPortfolioRequest(account_address=account_address)
+        return await self.stubExchangeAccountPortfolio.AccountPortfolio(req)
+
+    async def stream_account_portfolio(
+            self, account_address: str = None, subaccount_id: str = None, portfolio_type: str = None
+    ):
+        req = exchange_portfolio_rpc_pb.StreamAccountPortfolioRequest(
+            account_address=account_address,
+            subaccount_id=subaccount_id,
+            type=portfolio_type
+        )
+        metadata = await self.load_cookie(type="exchange")
+        return self.stubExchangeAccountPortfolio.StreamAccountPortfolio.__call__(req, metadata=metadata)
 
     async def get_rewards(self, **kwargs):
         req = exchange_accounts_rpc_pb.RewardsRequest(
