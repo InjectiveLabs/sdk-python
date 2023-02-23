@@ -23,7 +23,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'ZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/wasmx/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x1einjective/wasmx/v1/query.proto\x12\x12injective.wasmx.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x1einjective/wasmx/v1/wasmx.proto\x1a injective/wasmx/v1/genesis.proto\x1a\x14gogoproto/gogo.proto\"\x19\n\x17QueryWasmxParamsRequest\"L\n\x18QueryWasmxParamsResponse\x12\x30\n\x06params\x18\x01 \x01(\x0b\x32\x1a.injective.wasmx.v1.ParamsB\x04\xc8\xde\x1f\x00\"\x19\n\x17QueryModuleStateRequest\"K\n\x18QueryModuleStateResponse\x12/\n\x05state\x18\x01 \x01(\x0b\x32 .injective.wasmx.v1.GenesisState2\xb0\x02\n\x05Query\x12\x8c\x01\n\x0bWasmxParams\x12+.injective.wasmx.v1.QueryWasmxParamsRequest\x1a,.injective.wasmx.v1.QueryWasmxParamsResponse\"\"\x82\xd3\xe4\x93\x02\x1c\x12\x1a/injective/wasmx/v1/params\x12\x97\x01\n\x10WasmxModuleState\x12+.injective.wasmx.v1.QueryModuleStateRequest\x1a,.injective.wasmx.v1.QueryModuleStateResponse\"(\x82\xd3\xe4\x93\x02\"\x12 /injective/wasmx/v1/module_stateBMZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/wasmx/typesb\x06proto3'
+  serialized_pb=b'\n\x1einjective/wasmx/v1/query.proto\x12\x12injective.wasmx.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x1einjective/wasmx/v1/wasmx.proto\x1a injective/wasmx/v1/genesis.proto\x1a\x14gogoproto/gogo.proto\"\x19\n\x17QueryWasmxParamsRequest\"L\n\x18QueryWasmxParamsResponse\x12\x30\n\x06params\x18\x01 \x01(\x0b\x32\x1a.injective.wasmx.v1.ParamsB\x04\xc8\xde\x1f\x00\"\x19\n\x17QueryModuleStateRequest\"K\n\x18QueryModuleStateResponse\x12/\n\x05state\x18\x01 \x01(\x0b\x32 .injective.wasmx.v1.GenesisState\"@\n$QueryContractRegistrationInfoRequest\x12\x18\n\x10\x63ontract_address\x18\x01 \x01(\t\"a\n%QueryContractRegistrationInfoResponse\x12\x38\n\x08\x63ontract\x18\x01 \x01(\x0b\x32&.injective.wasmx.v1.RegisteredContract2\xb0\x02\n\x05Query\x12\x8c\x01\n\x0bWasmxParams\x12+.injective.wasmx.v1.QueryWasmxParamsRequest\x1a,.injective.wasmx.v1.QueryWasmxParamsResponse\"\"\x82\xd3\xe4\x93\x02\x1c\x12\x1a/injective/wasmx/v1/params\x12\x97\x01\n\x10WasmxModuleState\x12+.injective.wasmx.v1.QueryModuleStateRequest\x1a,.injective.wasmx.v1.QueryModuleStateResponse\"(\x82\xd3\xe4\x93\x02\"\x12 /injective/wasmx/v1/module_stateBMZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/wasmx/typesb\x06proto3'
   ,
   dependencies=[google_dot_api_dot_annotations__pb2.DESCRIPTOR,injective_dot_wasmx_dot_v1_dot_wasmx__pb2.DESCRIPTOR,injective_dot_wasmx_dot_v1_dot_genesis__pb2.DESCRIPTOR,gogoproto_dot_gogo__pb2.DESCRIPTOR,])
 
@@ -143,12 +143,79 @@ _QUERYMODULESTATERESPONSE = _descriptor.Descriptor(
   serialized_end=379,
 )
 
+
+_QUERYCONTRACTREGISTRATIONINFOREQUEST = _descriptor.Descriptor(
+  name='QueryContractRegistrationInfoRequest',
+  full_name='injective.wasmx.v1.QueryContractRegistrationInfoRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='contract_address', full_name='injective.wasmx.v1.QueryContractRegistrationInfoRequest.contract_address', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=381,
+  serialized_end=445,
+)
+
+
+_QUERYCONTRACTREGISTRATIONINFORESPONSE = _descriptor.Descriptor(
+  name='QueryContractRegistrationInfoResponse',
+  full_name='injective.wasmx.v1.QueryContractRegistrationInfoResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='contract', full_name='injective.wasmx.v1.QueryContractRegistrationInfoResponse.contract', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=447,
+  serialized_end=544,
+)
+
 _QUERYWASMXPARAMSRESPONSE.fields_by_name['params'].message_type = injective_dot_wasmx_dot_v1_dot_wasmx__pb2._PARAMS
 _QUERYMODULESTATERESPONSE.fields_by_name['state'].message_type = injective_dot_wasmx_dot_v1_dot_genesis__pb2._GENESISSTATE
+_QUERYCONTRACTREGISTRATIONINFORESPONSE.fields_by_name['contract'].message_type = injective_dot_wasmx_dot_v1_dot_wasmx__pb2._REGISTEREDCONTRACT
 DESCRIPTOR.message_types_by_name['QueryWasmxParamsRequest'] = _QUERYWASMXPARAMSREQUEST
 DESCRIPTOR.message_types_by_name['QueryWasmxParamsResponse'] = _QUERYWASMXPARAMSRESPONSE
 DESCRIPTOR.message_types_by_name['QueryModuleStateRequest'] = _QUERYMODULESTATEREQUEST
 DESCRIPTOR.message_types_by_name['QueryModuleStateResponse'] = _QUERYMODULESTATERESPONSE
+DESCRIPTOR.message_types_by_name['QueryContractRegistrationInfoRequest'] = _QUERYCONTRACTREGISTRATIONINFOREQUEST
+DESCRIPTOR.message_types_by_name['QueryContractRegistrationInfoResponse'] = _QUERYCONTRACTREGISTRATIONINFORESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 QueryWasmxParamsRequest = _reflection.GeneratedProtocolMessageType('QueryWasmxParamsRequest', (_message.Message,), {
@@ -179,6 +246,20 @@ QueryModuleStateResponse = _reflection.GeneratedProtocolMessageType('QueryModule
   })
 _sym_db.RegisterMessage(QueryModuleStateResponse)
 
+QueryContractRegistrationInfoRequest = _reflection.GeneratedProtocolMessageType('QueryContractRegistrationInfoRequest', (_message.Message,), {
+  'DESCRIPTOR' : _QUERYCONTRACTREGISTRATIONINFOREQUEST,
+  '__module__' : 'injective.wasmx.v1.query_pb2'
+  # @@protoc_insertion_point(class_scope:injective.wasmx.v1.QueryContractRegistrationInfoRequest)
+  })
+_sym_db.RegisterMessage(QueryContractRegistrationInfoRequest)
+
+QueryContractRegistrationInfoResponse = _reflection.GeneratedProtocolMessageType('QueryContractRegistrationInfoResponse', (_message.Message,), {
+  'DESCRIPTOR' : _QUERYCONTRACTREGISTRATIONINFORESPONSE,
+  '__module__' : 'injective.wasmx.v1.query_pb2'
+  # @@protoc_insertion_point(class_scope:injective.wasmx.v1.QueryContractRegistrationInfoResponse)
+  })
+_sym_db.RegisterMessage(QueryContractRegistrationInfoResponse)
+
 
 DESCRIPTOR._options = None
 _QUERYWASMXPARAMSRESPONSE.fields_by_name['params']._options = None
@@ -190,8 +271,8 @@ _QUERY = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=382,
-  serialized_end=686,
+  serialized_start=547,
+  serialized_end=851,
   methods=[
   _descriptor.MethodDescriptor(
     name='WasmxParams',

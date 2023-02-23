@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'ZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/wasmx/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n!injective/wasmx/v1/proposal.proto\x12\x12injective.wasmx.v1\x1a\x14gogoproto/gogo.proto\x1a\x1f\x63osmwasm/wasm/v1/proposal.proto\"\xb1\x01\n#ContractRegistrationRequestProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\\\n\x1d\x63ontract_registration_request\x18\x03 \x01(\x0b\x32/.injective.wasmx.v1.ContractRegistrationRequestB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\xb7\x01\n(BatchContractRegistrationRequestProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12]\n\x1e\x63ontract_registration_requests\x18\x03 \x03(\x0b\x32/.injective.wasmx.v1.ContractRegistrationRequestB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"l\n#BatchContractDeregistrationProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x17\n\tcontracts\x18\x03 \x03(\tB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"s\n\x1b\x43ontractRegistrationRequest\x12\x18\n\x10\x63ontract_address\x18\x01 \x01(\t\x12\x11\n\tgas_limit\x18\x02 \x01(\x04\x12\x11\n\tgas_price\x18\x03 \x01(\x04\x12\x14\n\x0cpin_contract\x18\x04 \x01(\x08\"\x84\x01\n\x16\x42\x61tchStoreCodeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12<\n\tproposals\x18\x03 \x03(\x0b\x32#.cosmwasm.wasm.v1.StoreCodeProposalB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\x42MZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/wasmx/typesb\x06proto3'
+  serialized_pb=b'\n!injective/wasmx/v1/proposal.proto\x12\x12injective.wasmx.v1\x1a\x14gogoproto/gogo.proto\x1a\x1f\x63osmwasm/wasm/v1/proposal.proto\"\xb1\x01\n#ContractRegistrationRequestProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\\\n\x1d\x63ontract_registration_request\x18\x03 \x01(\x0b\x32/.injective.wasmx.v1.ContractRegistrationRequestB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\xb7\x01\n(BatchContractRegistrationRequestProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12]\n\x1e\x63ontract_registration_requests\x18\x03 \x03(\x0b\x32/.injective.wasmx.v1.ContractRegistrationRequestB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"l\n#BatchContractDeregistrationProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x17\n\tcontracts\x18\x03 \x03(\tB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\xc0\x01\n\x1b\x43ontractRegistrationRequest\x12\x18\n\x10\x63ontract_address\x18\x01 \x01(\t\x12\x11\n\tgas_limit\x18\x02 \x01(\x04\x12\x11\n\tgas_price\x18\x03 \x01(\x04\x12\x1b\n\x13should_pin_contract\x18\x04 \x01(\x08\x12\x1c\n\x14is_migration_allowed\x18\x05 \x01(\x08\x12\x0f\n\x07\x63ode_id\x18\x06 \x01(\x04\x12\x15\n\radmin_address\x18\x07 \x01(\t\"\x84\x01\n\x16\x42\x61tchStoreCodeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12<\n\tproposals\x18\x03 \x03(\x0b\x32#.cosmwasm.wasm.v1.StoreCodeProposalB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\x42MZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/wasmx/typesb\x06proto3'
   ,
   dependencies=[gogoproto_dot_gogo__pb2.DESCRIPTOR,cosmwasm_dot_wasm_dot_v1_dot_proposal__pb2.DESCRIPTOR,])
 
@@ -196,9 +196,30 @@ _CONTRACTREGISTRATIONREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='pin_contract', full_name='injective.wasmx.v1.ContractRegistrationRequest.pin_contract', index=3,
+      name='should_pin_contract', full_name='injective.wasmx.v1.ContractRegistrationRequest.should_pin_contract', index=3,
       number=4, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='is_migration_allowed', full_name='injective.wasmx.v1.ContractRegistrationRequest.is_migration_allowed', index=4,
+      number=5, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='code_id', full_name='injective.wasmx.v1.ContractRegistrationRequest.code_id', index=5,
+      number=6, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='admin_address', full_name='injective.wasmx.v1.ContractRegistrationRequest.admin_address', index=6,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -214,8 +235,8 @@ _CONTRACTREGISTRATIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=588,
-  serialized_end=703,
+  serialized_start=589,
+  serialized_end=781,
 )
 
 
@@ -260,8 +281,8 @@ _BATCHSTORECODEPROPOSAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=706,
-  serialized_end=838,
+  serialized_start=784,
+  serialized_end=916,
 )
 
 _CONTRACTREGISTRATIONREQUESTPROPOSAL.fields_by_name['contract_registration_request'].message_type = _CONTRACTREGISTRATIONREQUEST

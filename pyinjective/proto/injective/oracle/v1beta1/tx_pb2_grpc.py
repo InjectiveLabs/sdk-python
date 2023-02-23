@@ -40,6 +40,11 @@ class MsgStub(object):
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayCoinbaseMessages.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayCoinbaseMessagesResponse.FromString,
                 )
+        self.RelayPythPrices = channel.unary_unary(
+                '/injective.oracle.v1beta1.Msg/RelayPythPrices',
+                request_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPythPrices.SerializeToString,
+                response_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPythPricesResponse.FromString,
+                )
 
 
 class MsgServicer(object):
@@ -81,6 +86,13 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def RelayPythPrices(self, request, context):
+        """RelayPythPrices defines a method for relaying rates from the Pyth contract
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -108,6 +120,11 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.RelayCoinbaseMessages,
                     request_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayCoinbaseMessages.FromString,
                     response_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayCoinbaseMessagesResponse.SerializeToString,
+            ),
+            'RelayPythPrices': grpc.unary_unary_rpc_method_handler(
+                    servicer.RelayPythPrices,
+                    request_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPythPrices.FromString,
+                    response_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPythPricesResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -202,5 +219,22 @@ class Msg(object):
         return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Msg/RelayCoinbaseMessages',
             injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayCoinbaseMessages.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayCoinbaseMessagesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def RelayPythPrices(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Msg/RelayPythPrices',
+            injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPythPrices.SerializeToString,
+            injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPythPricesResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

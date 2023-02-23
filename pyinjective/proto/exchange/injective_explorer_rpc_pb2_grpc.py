@@ -230,7 +230,7 @@ class InjectiveExplorerRPCServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetWasmContractByAddress(self, request, context):
-        """GetWasmContractByAddress list cosmwasm contract infor by its address
+        """GetWasmContractByAddress list cosmwasm contract info by its address
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')

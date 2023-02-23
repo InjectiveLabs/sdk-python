@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z\031/injective_explorer_rpcpb',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n%exchange/injective_explorer_rpc.proto\x12\x16injective_explorer_rpc\"\xa9\x01\n\x14GetAccountTxsRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\x0e\n\x06\x62\x65\x66ore\x18\x02 \x01(\x04\x12\r\n\x05\x61\x66ter\x18\x03 \x01(\x04\x12\r\n\x05limit\x18\x04 \x01(\x11\x12\x0c\n\x04skip\x18\x05 \x01(\x04\x12\x0c\n\x04type\x18\x06 \x01(\t\x12\x0e\n\x06module\x18\x07 \x01(\t\x12\x13\n\x0b\x66rom_number\x18\x08 \x01(\x12\x12\x11\n\tto_number\x18\t \x01(\x12\"{\n\x15GetAccountTxsResponse\x12.\n\x06paging\x18\x01 \x01(\x0b\x32\x1e.injective_explorer_rpc.Paging\x12\x32\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32$.injective_explorer_rpc.TxDetailData\"N\n\x06Paging\x12\r\n\x05total\x18\x01 \x01(\x12\x12\x0c\n\x04\x66rom\x18\x02 \x01(\x11\x12\n\n\x02to\x18\x03 \x01(\x11\x12\x1b\n\x13\x63ount_by_subaccount\x18\x04 \x01(\x12\"\xc6\x03\n\x0cTxDetailData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x14\n\x0c\x62lock_number\x18\x02 \x01(\x04\x12\x17\n\x0f\x62lock_timestamp\x18\x03 \x01(\t\x12\x0c\n\x04hash\x18\x04 \x01(\t\x12\x0c\n\x04\x63ode\x18\x05 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x06 \x01(\x0c\x12\x0c\n\x04info\x18\x08 \x01(\t\x12\x12\n\ngas_wanted\x18\t \x01(\x12\x12\x10\n\x08gas_used\x18\n \x01(\x12\x12/\n\x07gas_fee\x18\x0b \x01(\x0b\x32\x1e.injective_explorer_rpc.GasFee\x12\x11\n\tcodespace\x18\x0c \x01(\t\x12-\n\x06\x65vents\x18\r \x03(\x0b\x32\x1d.injective_explorer_rpc.Event\x12\x0f\n\x07tx_type\x18\x0e \x01(\t\x12\x10\n\x08messages\x18\x0f \x01(\x0c\x12\x35\n\nsignatures\x18\x10 \x03(\x0b\x32!.injective_explorer_rpc.Signature\x12\x0c\n\x04memo\x18\x11 \x01(\t\x12\x11\n\ttx_number\x18\x12 \x01(\x04\x12\x1c\n\x14\x62lock_unix_timestamp\x18\x13 \x01(\x04\x12\x11\n\terror_log\x18\x14 \x01(\t\"o\n\x06GasFee\x12\x32\n\x06\x61mount\x18\x01 \x03(\x0b\x32\".injective_explorer_rpc.CosmosCoin\x12\x11\n\tgas_limit\x18\x02 \x01(\x04\x12\r\n\x05payer\x18\x03 \x01(\t\x12\x0f\n\x07granter\x18\x04 \x01(\t\"+\n\nCosmosCoin\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\t\"\x8b\x01\n\x05\x45vent\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x41\n\nattributes\x18\x02 \x03(\x0b\x32-.injective_explorer_rpc.Event.AttributesEntry\x1a\x31\n\x0f\x41ttributesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"Q\n\tSignature\x12\x0e\n\x06pubkey\x18\x01 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x02 \x01(\t\x12\x10\n\x08sequence\x18\x03 \x01(\x04\x12\x11\n\tsignature\x18\x04 \x01(\t\"m\n\x15GetContractTxsRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\r\n\x05limit\x18\x02 \x01(\x11\x12\x0c\n\x04skip\x18\x03 \x01(\x04\x12\x13\n\x0b\x66rom_number\x18\x04 \x01(\x12\x12\x11\n\tto_number\x18\x05 \x01(\x12\"|\n\x16GetContractTxsResponse\x12.\n\x06paging\x18\x01 \x01(\x0b\x32\x1e.injective_explorer_rpc.Paging\x12\x32\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32$.injective_explorer_rpc.TxDetailData\"@\n\x10GetBlocksRequest\x12\x0e\n\x06\x62\x65\x66ore\x18\x01 \x01(\x04\x12\r\n\x05\x61\x66ter\x18\x02 \x01(\x04\x12\r\n\x05limit\x18\x03 \x01(\x11\"t\n\x11GetBlocksResponse\x12.\n\x06paging\x18\x01 \x01(\x0b\x32\x1e.injective_explorer_rpc.Paging\x12/\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32!.injective_explorer_rpc.BlockInfo\"\xd4\x01\n\tBlockInfo\x12\x0e\n\x06height\x18\x01 \x01(\x04\x12\x10\n\x08proposer\x18\x02 \x01(\t\x12\x0f\n\x07moniker\x18\x03 \x01(\t\x12\x12\n\nblock_hash\x18\x04 \x01(\t\x12\x13\n\x0bparent_hash\x18\x05 \x01(\t\x12\x17\n\x0fnum_pre_commits\x18\x06 \x01(\x12\x12\x0f\n\x07num_txs\x18\x07 \x01(\x12\x12.\n\x03txs\x18\x08 \x03(\x0b\x32!.injective_explorer_rpc.TxDataRPC\x12\x11\n\ttimestamp\x18\t \x01(\t\"\xad\x01\n\tTxDataRPC\x12\n\n\x02id\x18\x01 \x01(\t\x12\x14\n\x0c\x62lock_number\x18\x02 \x01(\x04\x12\x17\n\x0f\x62lock_timestamp\x18\x03 \x01(\t\x12\x0c\n\x04hash\x18\x04 \x01(\t\x12\x11\n\tcodespace\x18\x05 \x01(\t\x12\x10\n\x08messages\x18\x06 \x01(\t\x12\x11\n\ttx_number\x18\x07 \x01(\x04\x12\x11\n\terror_log\x18\x08 \x01(\t\x12\x0c\n\x04\x63ode\x18\t \x01(\r\"\x1d\n\x0fGetBlockRequest\x12\n\n\x02id\x18\x01 \x01(\t\"d\n\x10GetBlockResponse\x12\t\n\x01s\x18\x01 \x01(\t\x12\x0e\n\x06\x65rrmsg\x18\x02 \x01(\t\x12\x35\n\x04\x64\x61ta\x18\x03 \x01(\x0b\x32\'.injective_explorer_rpc.BlockDetailInfo\"\xea\x01\n\x0f\x42lockDetailInfo\x12\x0e\n\x06height\x18\x01 \x01(\x04\x12\x10\n\x08proposer\x18\x02 \x01(\t\x12\x0f\n\x07moniker\x18\x03 \x01(\t\x12\x12\n\nblock_hash\x18\x04 \x01(\t\x12\x13\n\x0bparent_hash\x18\x05 \x01(\t\x12\x17\n\x0fnum_pre_commits\x18\x06 \x01(\x12\x12\x0f\n\x07num_txs\x18\x07 \x01(\x12\x12\x11\n\ttotal_txs\x18\x08 \x01(\x12\x12+\n\x03txs\x18\t \x03(\x0b\x32\x1e.injective_explorer_rpc.TxData\x12\x11\n\ttimestamp\x18\n \x01(\t\"\xaa\x01\n\x06TxData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x14\n\x0c\x62lock_number\x18\x02 \x01(\x04\x12\x17\n\x0f\x62lock_timestamp\x18\x03 \x01(\t\x12\x0c\n\x04hash\x18\x04 \x01(\t\x12\x11\n\tcodespace\x18\x05 \x01(\t\x12\x10\n\x08messages\x18\x06 \x01(\x0c\x12\x11\n\ttx_number\x18\x07 \x01(\x04\x12\x11\n\terror_log\x18\x08 \x01(\t\x12\x0c\n\x04\x63ode\x18\t \x01(\r\"\x16\n\x14GetValidatorsRequest\"c\n\x15GetValidatorsResponse\x12\t\n\x01s\x18\x01 \x01(\t\x12\x0e\n\x06\x65rrmsg\x18\x02 \x01(\t\x12/\n\x04\x64\x61ta\x18\x03 \x03(\x0b\x32!.injective_explorer_rpc.Validator\"\xf0\x04\n\tValidator\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0f\n\x07moniker\x18\x02 \x01(\t\x12\x18\n\x10operator_address\x18\x03 \x01(\t\x12\x19\n\x11\x63onsensus_address\x18\x04 \x01(\t\x12\x0e\n\x06jailed\x18\x05 \x01(\x08\x12\x0e\n\x06status\x18\x06 \x01(\x11\x12\x0e\n\x06tokens\x18\x07 \x01(\t\x12\x18\n\x10\x64\x65legator_shares\x18\x08 \x01(\t\x12\x41\n\x0b\x64\x65scription\x18\t \x01(\x0b\x32,.injective_explorer_rpc.ValidatorDescription\x12\x18\n\x10unbonding_height\x18\n \x01(\x12\x12\x16\n\x0eunbonding_time\x18\x0b \x01(\t\x12\x17\n\x0f\x63ommission_rate\x18\x0c \x01(\t\x12\x1b\n\x13\x63ommission_max_rate\x18\r \x01(\t\x12\"\n\x1a\x63ommission_max_change_rate\x18\x0e \x01(\t\x12\x1e\n\x16\x63ommission_update_time\x18\x0f \x01(\t\x12\x10\n\x08proposed\x18\x10 \x01(\x04\x12\x0e\n\x06signed\x18\x11 \x01(\x04\x12\x0e\n\x06missed\x18\x12 \x01(\x04\x12\x11\n\ttimestamp\x18\x13 \x01(\t\x12\x38\n\x07uptimes\x18\x14 \x03(\x0b\x32\'.injective_explorer_rpc.ValidatorUptime\x12>\n\x0fslashing_events\x18\x15 \x03(\x0b\x32%.injective_explorer_rpc.SlashingEvent\x12\x19\n\x11uptime_percentage\x18\x16 \x01(\x01\"u\n\x14ValidatorDescription\x12\x0f\n\x07moniker\x18\x01 \x01(\t\x12\x10\n\x08identity\x18\x02 \x01(\t\x12\x0f\n\x07website\x18\x03 \x01(\t\x12\x18\n\x10security_contact\x18\x04 \x01(\t\x12\x0f\n\x07\x64\x65tails\x18\x05 \x01(\t\"7\n\x0fValidatorUptime\x12\x14\n\x0c\x62lock_number\x18\x01 \x01(\x04\x12\x0e\n\x06status\x18\x02 \x01(\t\"\x95\x01\n\rSlashingEvent\x12\x14\n\x0c\x62lock_number\x18\x01 \x01(\x04\x12\x17\n\x0f\x62lock_timestamp\x18\x02 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x03 \x01(\t\x12\r\n\x05power\x18\x04 \x01(\x04\x12\x0e\n\x06reason\x18\x05 \x01(\t\x12\x0e\n\x06jailed\x18\x06 \x01(\t\x12\x15\n\rmissed_blocks\x18\x07 \x01(\x04\"&\n\x13GetValidatorRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\"b\n\x14GetValidatorResponse\x12\t\n\x01s\x18\x01 \x01(\t\x12\x0e\n\x06\x65rrmsg\x18\x02 \x01(\t\x12/\n\x04\x64\x61ta\x18\x03 \x01(\x0b\x32!.injective_explorer_rpc.Validator\",\n\x19GetValidatorUptimeRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\"n\n\x1aGetValidatorUptimeResponse\x12\t\n\x01s\x18\x01 \x01(\t\x12\x0e\n\x06\x65rrmsg\x18\x02 \x01(\t\x12\x35\n\x04\x64\x61ta\x18\x03 \x03(\x0b\x32\'.injective_explorer_rpc.ValidatorUptime\"\x91\x01\n\rGetTxsRequest\x12\x0e\n\x06\x62\x65\x66ore\x18\x01 \x01(\x04\x12\r\n\x05\x61\x66ter\x18\x02 \x01(\x04\x12\r\n\x05limit\x18\x03 \x01(\x11\x12\x0c\n\x04skip\x18\x04 \x01(\x04\x12\x0c\n\x04type\x18\x05 \x01(\t\x12\x0e\n\x06module\x18\x06 \x01(\t\x12\x13\n\x0b\x66rom_number\x18\x07 \x01(\x12\x12\x11\n\tto_number\x18\x08 \x01(\x12\"n\n\x0eGetTxsResponse\x12.\n\x06paging\x18\x01 \x01(\x0b\x32\x1e.injective_explorer_rpc.Paging\x12,\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32\x1e.injective_explorer_rpc.TxData\"$\n\x14GetTxByTxHashRequest\x12\x0c\n\x04hash\x18\x01 \x01(\t\"f\n\x15GetTxByTxHashResponse\x12\t\n\x01s\x18\x01 \x01(\t\x12\x0e\n\x06\x65rrmsg\x18\x02 \x01(\t\x12\x32\n\x04\x64\x61ta\x18\x03 \x01(\x0b\x32$.injective_explorer_rpc.TxDetailData\"Z\n\x19GetPeggyDepositTxsRequest\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08receiver\x18\x02 \x01(\t\x12\r\n\x05limit\x18\x03 \x01(\x11\x12\x0c\n\x04skip\x18\x04 \x01(\x04\"S\n\x1aGetPeggyDepositTxsResponse\x12\x35\n\x05\x66ield\x18\x01 \x03(\x0b\x32&.injective_explorer_rpc.PeggyDepositTx\"\xf8\x01\n\x0ePeggyDepositTx\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08receiver\x18\x02 \x01(\t\x12\x13\n\x0b\x65vent_nonce\x18\x03 \x01(\x04\x12\x14\n\x0c\x65vent_height\x18\x04 \x01(\x04\x12\x0e\n\x06\x61mount\x18\x05 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x06 \x01(\t\x12\x1c\n\x14orchestrator_address\x18\x07 \x01(\t\x12\r\n\x05state\x18\x08 \x01(\t\x12\x12\n\nclaim_type\x18\t \x01(\x11\x12\x11\n\ttx_hashes\x18\n \x03(\t\x12\x12\n\ncreated_at\x18\x0b \x01(\t\x12\x12\n\nupdated_at\x18\x0c \x01(\t\"]\n\x1cGetPeggyWithdrawalTxsRequest\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08receiver\x18\x02 \x01(\t\x12\r\n\x05limit\x18\x03 \x01(\x11\x12\x0c\n\x04skip\x18\x04 \x01(\x04\"Y\n\x1dGetPeggyWithdrawalTxsResponse\x12\x38\n\x05\x66ield\x18\x01 \x03(\x0b\x32).injective_explorer_rpc.PeggyWithdrawalTx\"\xd3\x02\n\x11PeggyWithdrawalTx\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08receiver\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x04 \x01(\t\x12\x12\n\nbridge_fee\x18\x05 \x01(\t\x12\x16\n\x0eoutgoing_tx_id\x18\x06 \x01(\x04\x12\x15\n\rbatch_timeout\x18\x07 \x01(\x04\x12\x13\n\x0b\x62\x61tch_nonce\x18\x08 \x01(\x04\x12\x1c\n\x14orchestrator_address\x18\t \x01(\t\x12\x13\n\x0b\x65vent_nonce\x18\n \x01(\x04\x12\x14\n\x0c\x65vent_height\x18\x0b \x01(\x04\x12\r\n\x05state\x18\x0c \x01(\t\x12\x12\n\nclaim_type\x18\r \x01(\x11\x12\x11\n\ttx_hashes\x18\x0e \x03(\t\x12\x12\n\ncreated_at\x18\x0f \x01(\t\x12\x12\n\nupdated_at\x18\x10 \x01(\t\"\xa9\x01\n\x18GetIBCTransferTxsRequest\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08receiver\x18\x02 \x01(\t\x12\x13\n\x0bsrc_channel\x18\x03 \x01(\t\x12\x10\n\x08src_port\x18\x04 \x01(\t\x12\x14\n\x0c\x64\x65st_channel\x18\x05 \x01(\t\x12\x11\n\tdest_port\x18\x06 \x01(\t\x12\r\n\x05limit\x18\x07 \x01(\x11\x12\x0c\n\x04skip\x18\x08 \x01(\x04\"Q\n\x19GetIBCTransferTxsResponse\x12\x34\n\x05\x66ield\x18\x01 \x03(\x0b\x32%.injective_explorer_rpc.IBCTransferTx\"\xdc\x02\n\rIBCTransferTx\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08receiver\x18\x02 \x01(\t\x12\x13\n\x0bsource_port\x18\x03 \x01(\t\x12\x16\n\x0esource_channel\x18\x04 \x01(\t\x12\x18\n\x10\x64\x65stination_port\x18\x05 \x01(\t\x12\x1b\n\x13\x64\x65stination_channel\x18\x06 \x01(\t\x12\x0e\n\x06\x61mount\x18\x07 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x08 \x01(\t\x12\x16\n\x0etimeout_height\x18\t \x01(\t\x12\x19\n\x11timeout_timestamp\x18\n \x01(\x04\x12\x17\n\x0fpacket_sequence\x18\x0b \x01(\x04\x12\x10\n\x08\x64\x61ta_hex\x18\x0c \x01(\x0c\x12\r\n\x05state\x18\r \x01(\t\x12\x11\n\ttx_hashes\x18\x0e \x03(\t\x12\x12\n\ncreated_at\x18\x0f \x01(\t\x12\x12\n\nupdated_at\x18\x10 \x01(\t\"L\n\x13GetWasmCodesRequest\x12\r\n\x05limit\x18\x01 \x01(\x11\x12\x13\n\x0b\x66rom_number\x18\x02 \x01(\x12\x12\x11\n\tto_number\x18\x03 \x01(\x12\"v\n\x14GetWasmCodesResponse\x12.\n\x06paging\x18\x01 \x01(\x0b\x32\x1e.injective_explorer_rpc.Paging\x12.\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32 .injective_explorer_rpc.WasmCode\"\xd5\x02\n\x08WasmCode\x12\x0f\n\x07\x63ode_id\x18\x01 \x01(\x04\x12\x0f\n\x07tx_hash\x18\x02 \x01(\t\x12\x32\n\x08\x63hecksum\x18\x03 \x01(\x0b\x32 .injective_explorer_rpc.Checksum\x12\x12\n\ncreated_at\x18\x04 \x01(\x04\x12\x15\n\rcontract_type\x18\x05 \x01(\t\x12\x0f\n\x07version\x18\x06 \x01(\t\x12>\n\npermission\x18\x07 \x01(\x0b\x32*.injective_explorer_rpc.ContractPermission\x12\x13\n\x0b\x63ode_schema\x18\x08 \x01(\t\x12\x11\n\tcode_view\x18\t \x01(\t\x12\x14\n\x0cinstantiates\x18\n \x01(\x04\x12\x0f\n\x07\x63reator\x18\x0b \x01(\t\x12\x13\n\x0b\x63ode_number\x18\x0c \x01(\x12\x12\x13\n\x0bproposal_id\x18\r \x01(\x12\"+\n\x08\x43hecksum\x12\x11\n\talgorithm\x18\x01 \x01(\t\x12\x0c\n\x04hash\x18\x02 \x01(\t\":\n\x12\x43ontractPermission\x12\x13\n\x0b\x61\x63\x63\x65ss_type\x18\x01 \x01(\x11\x12\x0f\n\x07\x61\x64\x64ress\x18\x02 \x01(\t\")\n\x16GetWasmCodeByIDRequest\x12\x0f\n\x07\x63ode_id\x18\x01 \x01(\x12\"\xe4\x02\n\x17GetWasmCodeByIDResponse\x12\x0f\n\x07\x63ode_id\x18\x01 \x01(\x04\x12\x0f\n\x07tx_hash\x18\x02 \x01(\t\x12\x32\n\x08\x63hecksum\x18\x03 \x01(\x0b\x32 .injective_explorer_rpc.Checksum\x12\x12\n\ncreated_at\x18\x04 \x01(\x04\x12\x15\n\rcontract_type\x18\x05 \x01(\t\x12\x0f\n\x07version\x18\x06 \x01(\t\x12>\n\npermission\x18\x07 \x01(\x0b\x32*.injective_explorer_rpc.ContractPermission\x12\x13\n\x0b\x63ode_schema\x18\x08 \x01(\t\x12\x11\n\tcode_view\x18\t \x01(\t\x12\x14\n\x0cinstantiates\x18\n \x01(\x04\x12\x0f\n\x07\x63reator\x18\x0b \x01(\t\x12\x13\n\x0b\x63ode_number\x18\x0c \x01(\x12\x12\x13\n\x0bproposal_id\x18\r \x01(\x12\"a\n\x17GetWasmContractsRequest\x12\r\n\x05limit\x18\x01 \x01(\x11\x12\x0f\n\x07\x63ode_id\x18\x02 \x01(\x12\x12\x13\n\x0b\x66rom_number\x18\x03 \x01(\x12\x12\x11\n\tto_number\x18\x04 \x01(\x12\"~\n\x18GetWasmContractsResponse\x12.\n\x06paging\x18\x01 \x01(\x0b\x32\x1e.injective_explorer_rpc.Paging\x12\x32\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32$.injective_explorer_rpc.WasmContract\"\xab\x03\n\x0cWasmContract\x12\r\n\x05label\x18\x01 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x02 \x01(\t\x12\x0f\n\x07tx_hash\x18\x03 \x01(\t\x12\x0f\n\x07\x63reator\x18\x04 \x01(\t\x12\x10\n\x08\x65xecutes\x18\x05 \x01(\x04\x12\x17\n\x0finstantiated_at\x18\x06 \x01(\x04\x12\x14\n\x0cinit_message\x18\x07 \x01(\t\x12\x18\n\x10last_executed_at\x18\x08 \x01(\x04\x12\x33\n\x05\x66unds\x18\t \x03(\x0b\x32$.injective_explorer_rpc.ContractFund\x12\x0f\n\x07\x63ode_id\x18\n \x01(\x04\x12\r\n\x05\x61\x64min\x18\x0b \x01(\t\x12\x1f\n\x17\x63urrent_migrate_message\x18\x0c \x01(\t\x12\x17\n\x0f\x63ontract_number\x18\r \x01(\x12\x12\x0f\n\x07version\x18\x0e \x01(\t\x12\x0c\n\x04type\x18\x0f \x01(\t\x12;\n\rcw20_metadata\x18\x10 \x01(\x0b\x32$.injective_explorer_rpc.Cw20Metadata\x12\x13\n\x0bproposal_id\x18\x11 \x01(\x12\"-\n\x0c\x43ontractFund\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\t\"\x8c\x01\n\x0c\x43w20Metadata\x12\x39\n\ntoken_info\x18\x01 \x01(\x0b\x32%.injective_explorer_rpc.Cw20TokenInfo\x12\x41\n\x0emarketing_info\x18\x02 \x01(\x0b\x32).injective_explorer_rpc.Cw20MarketingInfo\"U\n\rCw20TokenInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0e\n\x06symbol\x18\x02 \x01(\t\x12\x10\n\x08\x64\x65\x63imals\x18\x03 \x01(\x12\x12\x14\n\x0ctotal_supply\x18\x04 \x01(\t\"Z\n\x11\x43w20MarketingInfo\x12\x0f\n\x07project\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0c\n\x04logo\x18\x03 \x01(\t\x12\x11\n\tmarketing\x18\x04 \x01(\x0c\";\n\x1fGetWasmContractByAddressRequest\x12\x18\n\x10\x63ontract_address\x18\x01 \x01(\t\"\xbf\x03\n GetWasmContractByAddressResponse\x12\r\n\x05label\x18\x01 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x02 \x01(\t\x12\x0f\n\x07tx_hash\x18\x03 \x01(\t\x12\x0f\n\x07\x63reator\x18\x04 \x01(\t\x12\x10\n\x08\x65xecutes\x18\x05 \x01(\x04\x12\x17\n\x0finstantiated_at\x18\x06 \x01(\x04\x12\x14\n\x0cinit_message\x18\x07 \x01(\t\x12\x18\n\x10last_executed_at\x18\x08 \x01(\x04\x12\x33\n\x05\x66unds\x18\t \x03(\x0b\x32$.injective_explorer_rpc.ContractFund\x12\x0f\n\x07\x63ode_id\x18\n \x01(\x04\x12\r\n\x05\x61\x64min\x18\x0b \x01(\t\x12\x1f\n\x17\x63urrent_migrate_message\x18\x0c \x01(\t\x12\x17\n\x0f\x63ontract_number\x18\r \x01(\x12\x12\x0f\n\x07version\x18\x0e \x01(\t\x12\x0c\n\x04type\x18\x0f \x01(\t\x12;\n\rcw20_metadata\x18\x10 \x01(\x0b\x32$.injective_explorer_rpc.Cw20Metadata\x12\x13\n\x0bproposal_id\x18\x11 \x01(\x12\"7\n\x15GetCw20BalanceRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\r\n\x05limit\x18\x02 \x01(\x11\"P\n\x16GetCw20BalanceResponse\x12\x36\n\x05\x66ield\x18\x01 \x03(\x0b\x32\'.injective_explorer_rpc.WasmCw20Balance\"\x9e\x01\n\x0fWasmCw20Balance\x12\x18\n\x10\x63ontract_address\x18\x01 \x01(\t\x12\x0f\n\x07\x61\x63\x63ount\x18\x02 \x01(\t\x12\x0f\n\x07\x62\x61lance\x18\x03 \x01(\t\x12\x12\n\nupdated_at\x18\x04 \x01(\x12\x12;\n\rcw20_metadata\x18\x05 \x01(\x0b\x32$.injective_explorer_rpc.Cw20Metadata\"&\n\x0fRelayersRequest\x12\x13\n\x0bmarket_i_ds\x18\x01 \x03(\t\"I\n\x10RelayersResponse\x12\x35\n\x05\x66ield\x18\x01 \x03(\x0b\x32&.injective_explorer_rpc.RelayerMarkets\"V\n\x0eRelayerMarkets\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x31\n\x08relayers\x18\x02 \x03(\x0b\x32\x1f.injective_explorer_rpc.Relayer\"$\n\x07Relayer\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0b\n\x03\x63ta\x18\x02 \x01(\t\"\x12\n\x10StreamTxsRequest\"\xb5\x01\n\x11StreamTxsResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\x14\n\x0c\x62lock_number\x18\x02 \x01(\x04\x12\x17\n\x0f\x62lock_timestamp\x18\x03 \x01(\t\x12\x0c\n\x04hash\x18\x04 \x01(\t\x12\x11\n\tcodespace\x18\x05 \x01(\t\x12\x10\n\x08messages\x18\x06 \x01(\t\x12\x11\n\ttx_number\x18\x07 \x01(\x04\x12\x11\n\terror_log\x18\x08 \x01(\t\x12\x0c\n\x04\x63ode\x18\t \x01(\r\"\x15\n\x13StreamBlocksRequest\"\xdf\x01\n\x14StreamBlocksResponse\x12\x0e\n\x06height\x18\x01 \x01(\x04\x12\x10\n\x08proposer\x18\x02 \x01(\t\x12\x0f\n\x07moniker\x18\x03 \x01(\t\x12\x12\n\nblock_hash\x18\x04 \x01(\t\x12\x13\n\x0bparent_hash\x18\x05 \x01(\t\x12\x17\n\x0fnum_pre_commits\x18\x06 \x01(\x12\x12\x0f\n\x07num_txs\x18\x07 \x01(\x12\x12.\n\x03txs\x18\x08 \x03(\x0b\x32!.injective_explorer_rpc.TxDataRPC\x12\x11\n\ttimestamp\x18\t \x01(\t2\xd8\x11\n\x14InjectiveExplorerRPC\x12l\n\rGetAccountTxs\x12,.injective_explorer_rpc.GetAccountTxsRequest\x1a-.injective_explorer_rpc.GetAccountTxsResponse\x12o\n\x0eGetContractTxs\x12-.injective_explorer_rpc.GetContractTxsRequest\x1a..injective_explorer_rpc.GetContractTxsResponse\x12`\n\tGetBlocks\x12(.injective_explorer_rpc.GetBlocksRequest\x1a).injective_explorer_rpc.GetBlocksResponse\x12]\n\x08GetBlock\x12\'.injective_explorer_rpc.GetBlockRequest\x1a(.injective_explorer_rpc.GetBlockResponse\x12l\n\rGetValidators\x12,.injective_explorer_rpc.GetValidatorsRequest\x1a-.injective_explorer_rpc.GetValidatorsResponse\x12i\n\x0cGetValidator\x12+.injective_explorer_rpc.GetValidatorRequest\x1a,.injective_explorer_rpc.GetValidatorResponse\x12{\n\x12GetValidatorUptime\x12\x31.injective_explorer_rpc.GetValidatorUptimeRequest\x1a\x32.injective_explorer_rpc.GetValidatorUptimeResponse\x12W\n\x06GetTxs\x12%.injective_explorer_rpc.GetTxsRequest\x1a&.injective_explorer_rpc.GetTxsResponse\x12l\n\rGetTxByTxHash\x12,.injective_explorer_rpc.GetTxByTxHashRequest\x1a-.injective_explorer_rpc.GetTxByTxHashResponse\x12{\n\x12GetPeggyDepositTxs\x12\x31.injective_explorer_rpc.GetPeggyDepositTxsRequest\x1a\x32.injective_explorer_rpc.GetPeggyDepositTxsResponse\x12\x84\x01\n\x15GetPeggyWithdrawalTxs\x12\x34.injective_explorer_rpc.GetPeggyWithdrawalTxsRequest\x1a\x35.injective_explorer_rpc.GetPeggyWithdrawalTxsResponse\x12x\n\x11GetIBCTransferTxs\x12\x30.injective_explorer_rpc.GetIBCTransferTxsRequest\x1a\x31.injective_explorer_rpc.GetIBCTransferTxsResponse\x12i\n\x0cGetWasmCodes\x12+.injective_explorer_rpc.GetWasmCodesRequest\x1a,.injective_explorer_rpc.GetWasmCodesResponse\x12r\n\x0fGetWasmCodeByID\x12..injective_explorer_rpc.GetWasmCodeByIDRequest\x1a/.injective_explorer_rpc.GetWasmCodeByIDResponse\x12u\n\x10GetWasmContracts\x12/.injective_explorer_rpc.GetWasmContractsRequest\x1a\x30.injective_explorer_rpc.GetWasmContractsResponse\x12\x8d\x01\n\x18GetWasmContractByAddress\x12\x37.injective_explorer_rpc.GetWasmContractByAddressRequest\x1a\x38.injective_explorer_rpc.GetWasmContractByAddressResponse\x12o\n\x0eGetCw20Balance\x12-.injective_explorer_rpc.GetCw20BalanceRequest\x1a..injective_explorer_rpc.GetCw20BalanceResponse\x12]\n\x08Relayers\x12\'.injective_explorer_rpc.RelayersRequest\x1a(.injective_explorer_rpc.RelayersResponse\x12\x62\n\tStreamTxs\x12(.injective_explorer_rpc.StreamTxsRequest\x1a).injective_explorer_rpc.StreamTxsResponse0\x01\x12k\n\x0cStreamBlocks\x12+.injective_explorer_rpc.StreamBlocksRequest\x1a,.injective_explorer_rpc.StreamBlocksResponse0\x01\x42\x1bZ\x19/injective_explorer_rpcpbb\x06proto3'
+  serialized_pb=b'\n%exchange/injective_explorer_rpc.proto\x12\x16injective_explorer_rpc\"\xa9\x01\n\x14GetAccountTxsRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\x0e\n\x06\x62\x65\x66ore\x18\x02 \x01(\x04\x12\r\n\x05\x61\x66ter\x18\x03 \x01(\x04\x12\r\n\x05limit\x18\x04 \x01(\x11\x12\x0c\n\x04skip\x18\x05 \x01(\x04\x12\x0c\n\x04type\x18\x06 \x01(\t\x12\x0e\n\x06module\x18\x07 \x01(\t\x12\x13\n\x0b\x66rom_number\x18\x08 \x01(\x12\x12\x11\n\tto_number\x18\t \x01(\x12\"{\n\x15GetAccountTxsResponse\x12.\n\x06paging\x18\x01 \x01(\x0b\x32\x1e.injective_explorer_rpc.Paging\x12\x32\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32$.injective_explorer_rpc.TxDetailData\"N\n\x06Paging\x12\r\n\x05total\x18\x01 \x01(\x12\x12\x0c\n\x04\x66rom\x18\x02 \x01(\x11\x12\n\n\x02to\x18\x03 \x01(\x11\x12\x1b\n\x13\x63ount_by_subaccount\x18\x04 \x01(\x12\"\xc6\x03\n\x0cTxDetailData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x14\n\x0c\x62lock_number\x18\x02 \x01(\x04\x12\x17\n\x0f\x62lock_timestamp\x18\x03 \x01(\t\x12\x0c\n\x04hash\x18\x04 \x01(\t\x12\x0c\n\x04\x63ode\x18\x05 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x06 \x01(\x0c\x12\x0c\n\x04info\x18\x08 \x01(\t\x12\x12\n\ngas_wanted\x18\t \x01(\x12\x12\x10\n\x08gas_used\x18\n \x01(\x12\x12/\n\x07gas_fee\x18\x0b \x01(\x0b\x32\x1e.injective_explorer_rpc.GasFee\x12\x11\n\tcodespace\x18\x0c \x01(\t\x12-\n\x06\x65vents\x18\r \x03(\x0b\x32\x1d.injective_explorer_rpc.Event\x12\x0f\n\x07tx_type\x18\x0e \x01(\t\x12\x10\n\x08messages\x18\x0f \x01(\x0c\x12\x35\n\nsignatures\x18\x10 \x03(\x0b\x32!.injective_explorer_rpc.Signature\x12\x0c\n\x04memo\x18\x11 \x01(\t\x12\x11\n\ttx_number\x18\x12 \x01(\x04\x12\x1c\n\x14\x62lock_unix_timestamp\x18\x13 \x01(\x04\x12\x11\n\terror_log\x18\x14 \x01(\t\"o\n\x06GasFee\x12\x32\n\x06\x61mount\x18\x01 \x03(\x0b\x32\".injective_explorer_rpc.CosmosCoin\x12\x11\n\tgas_limit\x18\x02 \x01(\x04\x12\r\n\x05payer\x18\x03 \x01(\t\x12\x0f\n\x07granter\x18\x04 \x01(\t\"+\n\nCosmosCoin\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\t\"\x8b\x01\n\x05\x45vent\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x41\n\nattributes\x18\x02 \x03(\x0b\x32-.injective_explorer_rpc.Event.AttributesEntry\x1a\x31\n\x0f\x41ttributesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"Q\n\tSignature\x12\x0e\n\x06pubkey\x18\x01 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x02 \x01(\t\x12\x10\n\x08sequence\x18\x03 \x01(\x04\x12\x11\n\tsignature\x18\x04 \x01(\t\"m\n\x15GetContractTxsRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\r\n\x05limit\x18\x02 \x01(\x11\x12\x0c\n\x04skip\x18\x03 \x01(\x04\x12\x13\n\x0b\x66rom_number\x18\x04 \x01(\x12\x12\x11\n\tto_number\x18\x05 \x01(\x12\"|\n\x16GetContractTxsResponse\x12.\n\x06paging\x18\x01 \x01(\x0b\x32\x1e.injective_explorer_rpc.Paging\x12\x32\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32$.injective_explorer_rpc.TxDetailData\"@\n\x10GetBlocksRequest\x12\x0e\n\x06\x62\x65\x66ore\x18\x01 \x01(\x04\x12\r\n\x05\x61\x66ter\x18\x02 \x01(\x04\x12\r\n\x05limit\x18\x03 \x01(\x11\"t\n\x11GetBlocksResponse\x12.\n\x06paging\x18\x01 \x01(\x0b\x32\x1e.injective_explorer_rpc.Paging\x12/\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32!.injective_explorer_rpc.BlockInfo\"\xd4\x01\n\tBlockInfo\x12\x0e\n\x06height\x18\x01 \x01(\x04\x12\x10\n\x08proposer\x18\x02 \x01(\t\x12\x0f\n\x07moniker\x18\x03 \x01(\t\x12\x12\n\nblock_hash\x18\x04 \x01(\t\x12\x13\n\x0bparent_hash\x18\x05 \x01(\t\x12\x17\n\x0fnum_pre_commits\x18\x06 \x01(\x12\x12\x0f\n\x07num_txs\x18\x07 \x01(\x12\x12.\n\x03txs\x18\x08 \x03(\x0b\x32!.injective_explorer_rpc.TxDataRPC\x12\x11\n\ttimestamp\x18\t \x01(\t\"\xad\x01\n\tTxDataRPC\x12\n\n\x02id\x18\x01 \x01(\t\x12\x14\n\x0c\x62lock_number\x18\x02 \x01(\x04\x12\x17\n\x0f\x62lock_timestamp\x18\x03 \x01(\t\x12\x0c\n\x04hash\x18\x04 \x01(\t\x12\x11\n\tcodespace\x18\x05 \x01(\t\x12\x10\n\x08messages\x18\x06 \x01(\t\x12\x11\n\ttx_number\x18\x07 \x01(\x04\x12\x11\n\terror_log\x18\x08 \x01(\t\x12\x0c\n\x04\x63ode\x18\t \x01(\r\"\x1d\n\x0fGetBlockRequest\x12\n\n\x02id\x18\x01 \x01(\t\"d\n\x10GetBlockResponse\x12\t\n\x01s\x18\x01 \x01(\t\x12\x0e\n\x06\x65rrmsg\x18\x02 \x01(\t\x12\x35\n\x04\x64\x61ta\x18\x03 \x01(\x0b\x32\'.injective_explorer_rpc.BlockDetailInfo\"\xea\x01\n\x0f\x42lockDetailInfo\x12\x0e\n\x06height\x18\x01 \x01(\x04\x12\x10\n\x08proposer\x18\x02 \x01(\t\x12\x0f\n\x07moniker\x18\x03 \x01(\t\x12\x12\n\nblock_hash\x18\x04 \x01(\t\x12\x13\n\x0bparent_hash\x18\x05 \x01(\t\x12\x17\n\x0fnum_pre_commits\x18\x06 \x01(\x12\x12\x0f\n\x07num_txs\x18\x07 \x01(\x12\x12\x11\n\ttotal_txs\x18\x08 \x01(\x12\x12+\n\x03txs\x18\t \x03(\x0b\x32\x1e.injective_explorer_rpc.TxData\x12\x11\n\ttimestamp\x18\n \x01(\t\"\xc0\x01\n\x06TxData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x14\n\x0c\x62lock_number\x18\x02 \x01(\x04\x12\x17\n\x0f\x62lock_timestamp\x18\x03 \x01(\t\x12\x0c\n\x04hash\x18\x04 \x01(\t\x12\x11\n\tcodespace\x18\x05 \x01(\t\x12\x10\n\x08messages\x18\x06 \x01(\x0c\x12\x11\n\ttx_number\x18\x07 \x01(\x04\x12\x11\n\terror_log\x18\x08 \x01(\t\x12\x0c\n\x04\x63ode\x18\t \x01(\r\x12\x14\n\x0ctx_msg_types\x18\n \x01(\x0c\"\x16\n\x14GetValidatorsRequest\"c\n\x15GetValidatorsResponse\x12\t\n\x01s\x18\x01 \x01(\t\x12\x0e\n\x06\x65rrmsg\x18\x02 \x01(\t\x12/\n\x04\x64\x61ta\x18\x03 \x03(\x0b\x32!.injective_explorer_rpc.Validator\"\xf0\x04\n\tValidator\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0f\n\x07moniker\x18\x02 \x01(\t\x12\x18\n\x10operator_address\x18\x03 \x01(\t\x12\x19\n\x11\x63onsensus_address\x18\x04 \x01(\t\x12\x0e\n\x06jailed\x18\x05 \x01(\x08\x12\x0e\n\x06status\x18\x06 \x01(\x11\x12\x0e\n\x06tokens\x18\x07 \x01(\t\x12\x18\n\x10\x64\x65legator_shares\x18\x08 \x01(\t\x12\x41\n\x0b\x64\x65scription\x18\t \x01(\x0b\x32,.injective_explorer_rpc.ValidatorDescription\x12\x18\n\x10unbonding_height\x18\n \x01(\x12\x12\x16\n\x0eunbonding_time\x18\x0b \x01(\t\x12\x17\n\x0f\x63ommission_rate\x18\x0c \x01(\t\x12\x1b\n\x13\x63ommission_max_rate\x18\r \x01(\t\x12\"\n\x1a\x63ommission_max_change_rate\x18\x0e \x01(\t\x12\x1e\n\x16\x63ommission_update_time\x18\x0f \x01(\t\x12\x10\n\x08proposed\x18\x10 \x01(\x04\x12\x0e\n\x06signed\x18\x11 \x01(\x04\x12\x0e\n\x06missed\x18\x12 \x01(\x04\x12\x11\n\ttimestamp\x18\x13 \x01(\t\x12\x38\n\x07uptimes\x18\x14 \x03(\x0b\x32\'.injective_explorer_rpc.ValidatorUptime\x12>\n\x0fslashing_events\x18\x15 \x03(\x0b\x32%.injective_explorer_rpc.SlashingEvent\x12\x19\n\x11uptime_percentage\x18\x16 \x01(\x01\"u\n\x14ValidatorDescription\x12\x0f\n\x07moniker\x18\x01 \x01(\t\x12\x10\n\x08identity\x18\x02 \x01(\t\x12\x0f\n\x07website\x18\x03 \x01(\t\x12\x18\n\x10security_contact\x18\x04 \x01(\t\x12\x0f\n\x07\x64\x65tails\x18\x05 \x01(\t\"7\n\x0fValidatorUptime\x12\x14\n\x0c\x62lock_number\x18\x01 \x01(\x04\x12\x0e\n\x06status\x18\x02 \x01(\t\"\x95\x01\n\rSlashingEvent\x12\x14\n\x0c\x62lock_number\x18\x01 \x01(\x04\x12\x17\n\x0f\x62lock_timestamp\x18\x02 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x03 \x01(\t\x12\r\n\x05power\x18\x04 \x01(\x04\x12\x0e\n\x06reason\x18\x05 \x01(\t\x12\x0e\n\x06jailed\x18\x06 \x01(\t\x12\x15\n\rmissed_blocks\x18\x07 \x01(\x04\"&\n\x13GetValidatorRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\"b\n\x14GetValidatorResponse\x12\t\n\x01s\x18\x01 \x01(\t\x12\x0e\n\x06\x65rrmsg\x18\x02 \x01(\t\x12/\n\x04\x64\x61ta\x18\x03 \x01(\x0b\x32!.injective_explorer_rpc.Validator\",\n\x19GetValidatorUptimeRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\"n\n\x1aGetValidatorUptimeResponse\x12\t\n\x01s\x18\x01 \x01(\t\x12\x0e\n\x06\x65rrmsg\x18\x02 \x01(\t\x12\x35\n\x04\x64\x61ta\x18\x03 \x03(\x0b\x32\'.injective_explorer_rpc.ValidatorUptime\"\x91\x01\n\rGetTxsRequest\x12\x0e\n\x06\x62\x65\x66ore\x18\x01 \x01(\x04\x12\r\n\x05\x61\x66ter\x18\x02 \x01(\x04\x12\r\n\x05limit\x18\x03 \x01(\x11\x12\x0c\n\x04skip\x18\x04 \x01(\x04\x12\x0c\n\x04type\x18\x05 \x01(\t\x12\x0e\n\x06module\x18\x06 \x01(\t\x12\x13\n\x0b\x66rom_number\x18\x07 \x01(\x12\x12\x11\n\tto_number\x18\x08 \x01(\x12\"n\n\x0eGetTxsResponse\x12.\n\x06paging\x18\x01 \x01(\x0b\x32\x1e.injective_explorer_rpc.Paging\x12,\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32\x1e.injective_explorer_rpc.TxData\"$\n\x14GetTxByTxHashRequest\x12\x0c\n\x04hash\x18\x01 \x01(\t\"f\n\x15GetTxByTxHashResponse\x12\t\n\x01s\x18\x01 \x01(\t\x12\x0e\n\x06\x65rrmsg\x18\x02 \x01(\t\x12\x32\n\x04\x64\x61ta\x18\x03 \x01(\x0b\x32$.injective_explorer_rpc.TxDetailData\"Z\n\x19GetPeggyDepositTxsRequest\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08receiver\x18\x02 \x01(\t\x12\r\n\x05limit\x18\x03 \x01(\x11\x12\x0c\n\x04skip\x18\x04 \x01(\x04\"S\n\x1aGetPeggyDepositTxsResponse\x12\x35\n\x05\x66ield\x18\x01 \x03(\x0b\x32&.injective_explorer_rpc.PeggyDepositTx\"\xf8\x01\n\x0ePeggyDepositTx\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08receiver\x18\x02 \x01(\t\x12\x13\n\x0b\x65vent_nonce\x18\x03 \x01(\x04\x12\x14\n\x0c\x65vent_height\x18\x04 \x01(\x04\x12\x0e\n\x06\x61mount\x18\x05 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x06 \x01(\t\x12\x1c\n\x14orchestrator_address\x18\x07 \x01(\t\x12\r\n\x05state\x18\x08 \x01(\t\x12\x12\n\nclaim_type\x18\t \x01(\x11\x12\x11\n\ttx_hashes\x18\n \x03(\t\x12\x12\n\ncreated_at\x18\x0b \x01(\t\x12\x12\n\nupdated_at\x18\x0c \x01(\t\"]\n\x1cGetPeggyWithdrawalTxsRequest\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08receiver\x18\x02 \x01(\t\x12\r\n\x05limit\x18\x03 \x01(\x11\x12\x0c\n\x04skip\x18\x04 \x01(\x04\"Y\n\x1dGetPeggyWithdrawalTxsResponse\x12\x38\n\x05\x66ield\x18\x01 \x03(\x0b\x32).injective_explorer_rpc.PeggyWithdrawalTx\"\xd3\x02\n\x11PeggyWithdrawalTx\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08receiver\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x04 \x01(\t\x12\x12\n\nbridge_fee\x18\x05 \x01(\t\x12\x16\n\x0eoutgoing_tx_id\x18\x06 \x01(\x04\x12\x15\n\rbatch_timeout\x18\x07 \x01(\x04\x12\x13\n\x0b\x62\x61tch_nonce\x18\x08 \x01(\x04\x12\x1c\n\x14orchestrator_address\x18\t \x01(\t\x12\x13\n\x0b\x65vent_nonce\x18\n \x01(\x04\x12\x14\n\x0c\x65vent_height\x18\x0b \x01(\x04\x12\r\n\x05state\x18\x0c \x01(\t\x12\x12\n\nclaim_type\x18\r \x01(\x11\x12\x11\n\ttx_hashes\x18\x0e \x03(\t\x12\x12\n\ncreated_at\x18\x0f \x01(\t\x12\x12\n\nupdated_at\x18\x10 \x01(\t\"\xa9\x01\n\x18GetIBCTransferTxsRequest\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08receiver\x18\x02 \x01(\t\x12\x13\n\x0bsrc_channel\x18\x03 \x01(\t\x12\x10\n\x08src_port\x18\x04 \x01(\t\x12\x14\n\x0c\x64\x65st_channel\x18\x05 \x01(\t\x12\x11\n\tdest_port\x18\x06 \x01(\t\x12\r\n\x05limit\x18\x07 \x01(\x11\x12\x0c\n\x04skip\x18\x08 \x01(\x04\"Q\n\x19GetIBCTransferTxsResponse\x12\x34\n\x05\x66ield\x18\x01 \x03(\x0b\x32%.injective_explorer_rpc.IBCTransferTx\"\xdc\x02\n\rIBCTransferTx\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08receiver\x18\x02 \x01(\t\x12\x13\n\x0bsource_port\x18\x03 \x01(\t\x12\x16\n\x0esource_channel\x18\x04 \x01(\t\x12\x18\n\x10\x64\x65stination_port\x18\x05 \x01(\t\x12\x1b\n\x13\x64\x65stination_channel\x18\x06 \x01(\t\x12\x0e\n\x06\x61mount\x18\x07 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x08 \x01(\t\x12\x16\n\x0etimeout_height\x18\t \x01(\t\x12\x19\n\x11timeout_timestamp\x18\n \x01(\x04\x12\x17\n\x0fpacket_sequence\x18\x0b \x01(\x04\x12\x10\n\x08\x64\x61ta_hex\x18\x0c \x01(\x0c\x12\r\n\x05state\x18\r \x01(\t\x12\x11\n\ttx_hashes\x18\x0e \x03(\t\x12\x12\n\ncreated_at\x18\x0f \x01(\t\x12\x12\n\nupdated_at\x18\x10 \x01(\t\"L\n\x13GetWasmCodesRequest\x12\r\n\x05limit\x18\x01 \x01(\x11\x12\x13\n\x0b\x66rom_number\x18\x02 \x01(\x12\x12\x11\n\tto_number\x18\x03 \x01(\x12\"v\n\x14GetWasmCodesResponse\x12.\n\x06paging\x18\x01 \x01(\x0b\x32\x1e.injective_explorer_rpc.Paging\x12.\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32 .injective_explorer_rpc.WasmCode\"\xd5\x02\n\x08WasmCode\x12\x0f\n\x07\x63ode_id\x18\x01 \x01(\x04\x12\x0f\n\x07tx_hash\x18\x02 \x01(\t\x12\x32\n\x08\x63hecksum\x18\x03 \x01(\x0b\x32 .injective_explorer_rpc.Checksum\x12\x12\n\ncreated_at\x18\x04 \x01(\x04\x12\x15\n\rcontract_type\x18\x05 \x01(\t\x12\x0f\n\x07version\x18\x06 \x01(\t\x12>\n\npermission\x18\x07 \x01(\x0b\x32*.injective_explorer_rpc.ContractPermission\x12\x13\n\x0b\x63ode_schema\x18\x08 \x01(\t\x12\x11\n\tcode_view\x18\t \x01(\t\x12\x14\n\x0cinstantiates\x18\n \x01(\x04\x12\x0f\n\x07\x63reator\x18\x0b \x01(\t\x12\x13\n\x0b\x63ode_number\x18\x0c \x01(\x12\x12\x13\n\x0bproposal_id\x18\r \x01(\x12\"+\n\x08\x43hecksum\x12\x11\n\talgorithm\x18\x01 \x01(\t\x12\x0c\n\x04hash\x18\x02 \x01(\t\":\n\x12\x43ontractPermission\x12\x13\n\x0b\x61\x63\x63\x65ss_type\x18\x01 \x01(\x11\x12\x0f\n\x07\x61\x64\x64ress\x18\x02 \x01(\t\")\n\x16GetWasmCodeByIDRequest\x12\x0f\n\x07\x63ode_id\x18\x01 \x01(\x12\"\xe4\x02\n\x17GetWasmCodeByIDResponse\x12\x0f\n\x07\x63ode_id\x18\x01 \x01(\x04\x12\x0f\n\x07tx_hash\x18\x02 \x01(\t\x12\x32\n\x08\x63hecksum\x18\x03 \x01(\x0b\x32 .injective_explorer_rpc.Checksum\x12\x12\n\ncreated_at\x18\x04 \x01(\x04\x12\x15\n\rcontract_type\x18\x05 \x01(\t\x12\x0f\n\x07version\x18\x06 \x01(\t\x12>\n\npermission\x18\x07 \x01(\x0b\x32*.injective_explorer_rpc.ContractPermission\x12\x13\n\x0b\x63ode_schema\x18\x08 \x01(\t\x12\x11\n\tcode_view\x18\t \x01(\t\x12\x14\n\x0cinstantiates\x18\n \x01(\x04\x12\x0f\n\x07\x63reator\x18\x0b \x01(\t\x12\x13\n\x0b\x63ode_number\x18\x0c \x01(\x12\x12\x13\n\x0bproposal_id\x18\r \x01(\x12\"\x84\x01\n\x17GetWasmContractsRequest\x12\r\n\x05limit\x18\x01 \x01(\x11\x12\x0f\n\x07\x63ode_id\x18\x02 \x01(\x12\x12\x13\n\x0b\x66rom_number\x18\x03 \x01(\x12\x12\x11\n\tto_number\x18\x04 \x01(\x12\x12\x13\n\x0b\x61ssets_only\x18\x05 \x01(\x08\x12\x0c\n\x04skip\x18\x06 \x01(\x12\"~\n\x18GetWasmContractsResponse\x12.\n\x06paging\x18\x01 \x01(\x0b\x32\x1e.injective_explorer_rpc.Paging\x12\x32\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32$.injective_explorer_rpc.WasmContract\"\xab\x03\n\x0cWasmContract\x12\r\n\x05label\x18\x01 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x02 \x01(\t\x12\x0f\n\x07tx_hash\x18\x03 \x01(\t\x12\x0f\n\x07\x63reator\x18\x04 \x01(\t\x12\x10\n\x08\x65xecutes\x18\x05 \x01(\x04\x12\x17\n\x0finstantiated_at\x18\x06 \x01(\x04\x12\x14\n\x0cinit_message\x18\x07 \x01(\t\x12\x18\n\x10last_executed_at\x18\x08 \x01(\x04\x12\x33\n\x05\x66unds\x18\t \x03(\x0b\x32$.injective_explorer_rpc.ContractFund\x12\x0f\n\x07\x63ode_id\x18\n \x01(\x04\x12\r\n\x05\x61\x64min\x18\x0b \x01(\t\x12\x1f\n\x17\x63urrent_migrate_message\x18\x0c \x01(\t\x12\x17\n\x0f\x63ontract_number\x18\r \x01(\x12\x12\x0f\n\x07version\x18\x0e \x01(\t\x12\x0c\n\x04type\x18\x0f \x01(\t\x12;\n\rcw20_metadata\x18\x10 \x01(\x0b\x32$.injective_explorer_rpc.Cw20Metadata\x12\x13\n\x0bproposal_id\x18\x11 \x01(\x12\"-\n\x0c\x43ontractFund\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\t\"\x8c\x01\n\x0c\x43w20Metadata\x12\x39\n\ntoken_info\x18\x01 \x01(\x0b\x32%.injective_explorer_rpc.Cw20TokenInfo\x12\x41\n\x0emarketing_info\x18\x02 \x01(\x0b\x32).injective_explorer_rpc.Cw20MarketingInfo\"U\n\rCw20TokenInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0e\n\x06symbol\x18\x02 \x01(\t\x12\x10\n\x08\x64\x65\x63imals\x18\x03 \x01(\x12\x12\x14\n\x0ctotal_supply\x18\x04 \x01(\t\"Z\n\x11\x43w20MarketingInfo\x12\x0f\n\x07project\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0c\n\x04logo\x18\x03 \x01(\t\x12\x11\n\tmarketing\x18\x04 \x01(\x0c\";\n\x1fGetWasmContractByAddressRequest\x12\x18\n\x10\x63ontract_address\x18\x01 \x01(\t\"\xbf\x03\n GetWasmContractByAddressResponse\x12\r\n\x05label\x18\x01 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x02 \x01(\t\x12\x0f\n\x07tx_hash\x18\x03 \x01(\t\x12\x0f\n\x07\x63reator\x18\x04 \x01(\t\x12\x10\n\x08\x65xecutes\x18\x05 \x01(\x04\x12\x17\n\x0finstantiated_at\x18\x06 \x01(\x04\x12\x14\n\x0cinit_message\x18\x07 \x01(\t\x12\x18\n\x10last_executed_at\x18\x08 \x01(\x04\x12\x33\n\x05\x66unds\x18\t \x03(\x0b\x32$.injective_explorer_rpc.ContractFund\x12\x0f\n\x07\x63ode_id\x18\n \x01(\x04\x12\r\n\x05\x61\x64min\x18\x0b \x01(\t\x12\x1f\n\x17\x63urrent_migrate_message\x18\x0c \x01(\t\x12\x17\n\x0f\x63ontract_number\x18\r \x01(\x12\x12\x0f\n\x07version\x18\x0e \x01(\t\x12\x0c\n\x04type\x18\x0f \x01(\t\x12;\n\rcw20_metadata\x18\x10 \x01(\x0b\x32$.injective_explorer_rpc.Cw20Metadata\x12\x13\n\x0bproposal_id\x18\x11 \x01(\x12\"7\n\x15GetCw20BalanceRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\r\n\x05limit\x18\x02 \x01(\x11\"P\n\x16GetCw20BalanceResponse\x12\x36\n\x05\x66ield\x18\x01 \x03(\x0b\x32\'.injective_explorer_rpc.WasmCw20Balance\"\x9e\x01\n\x0fWasmCw20Balance\x12\x18\n\x10\x63ontract_address\x18\x01 \x01(\t\x12\x0f\n\x07\x61\x63\x63ount\x18\x02 \x01(\t\x12\x0f\n\x07\x62\x61lance\x18\x03 \x01(\t\x12\x12\n\nupdated_at\x18\x04 \x01(\x12\x12;\n\rcw20_metadata\x18\x05 \x01(\x0b\x32$.injective_explorer_rpc.Cw20Metadata\"&\n\x0fRelayersRequest\x12\x13\n\x0bmarket_i_ds\x18\x01 \x03(\t\"I\n\x10RelayersResponse\x12\x35\n\x05\x66ield\x18\x01 \x03(\x0b\x32&.injective_explorer_rpc.RelayerMarkets\"V\n\x0eRelayerMarkets\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x31\n\x08relayers\x18\x02 \x03(\x0b\x32\x1f.injective_explorer_rpc.Relayer\"$\n\x07Relayer\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0b\n\x03\x63ta\x18\x02 \x01(\t\"\x12\n\x10StreamTxsRequest\"\xb5\x01\n\x11StreamTxsResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\x14\n\x0c\x62lock_number\x18\x02 \x01(\x04\x12\x17\n\x0f\x62lock_timestamp\x18\x03 \x01(\t\x12\x0c\n\x04hash\x18\x04 \x01(\t\x12\x11\n\tcodespace\x18\x05 \x01(\t\x12\x10\n\x08messages\x18\x06 \x01(\t\x12\x11\n\ttx_number\x18\x07 \x01(\x04\x12\x11\n\terror_log\x18\x08 \x01(\t\x12\x0c\n\x04\x63ode\x18\t \x01(\r\"\x15\n\x13StreamBlocksRequest\"\xdf\x01\n\x14StreamBlocksResponse\x12\x0e\n\x06height\x18\x01 \x01(\x04\x12\x10\n\x08proposer\x18\x02 \x01(\t\x12\x0f\n\x07moniker\x18\x03 \x01(\t\x12\x12\n\nblock_hash\x18\x04 \x01(\t\x12\x13\n\x0bparent_hash\x18\x05 \x01(\t\x12\x17\n\x0fnum_pre_commits\x18\x06 \x01(\x12\x12\x0f\n\x07num_txs\x18\x07 \x01(\x12\x12.\n\x03txs\x18\x08 \x03(\x0b\x32!.injective_explorer_rpc.TxDataRPC\x12\x11\n\ttimestamp\x18\t \x01(\t2\xd8\x11\n\x14InjectiveExplorerRPC\x12l\n\rGetAccountTxs\x12,.injective_explorer_rpc.GetAccountTxsRequest\x1a-.injective_explorer_rpc.GetAccountTxsResponse\x12o\n\x0eGetContractTxs\x12-.injective_explorer_rpc.GetContractTxsRequest\x1a..injective_explorer_rpc.GetContractTxsResponse\x12`\n\tGetBlocks\x12(.injective_explorer_rpc.GetBlocksRequest\x1a).injective_explorer_rpc.GetBlocksResponse\x12]\n\x08GetBlock\x12\'.injective_explorer_rpc.GetBlockRequest\x1a(.injective_explorer_rpc.GetBlockResponse\x12l\n\rGetValidators\x12,.injective_explorer_rpc.GetValidatorsRequest\x1a-.injective_explorer_rpc.GetValidatorsResponse\x12i\n\x0cGetValidator\x12+.injective_explorer_rpc.GetValidatorRequest\x1a,.injective_explorer_rpc.GetValidatorResponse\x12{\n\x12GetValidatorUptime\x12\x31.injective_explorer_rpc.GetValidatorUptimeRequest\x1a\x32.injective_explorer_rpc.GetValidatorUptimeResponse\x12W\n\x06GetTxs\x12%.injective_explorer_rpc.GetTxsRequest\x1a&.injective_explorer_rpc.GetTxsResponse\x12l\n\rGetTxByTxHash\x12,.injective_explorer_rpc.GetTxByTxHashRequest\x1a-.injective_explorer_rpc.GetTxByTxHashResponse\x12{\n\x12GetPeggyDepositTxs\x12\x31.injective_explorer_rpc.GetPeggyDepositTxsRequest\x1a\x32.injective_explorer_rpc.GetPeggyDepositTxsResponse\x12\x84\x01\n\x15GetPeggyWithdrawalTxs\x12\x34.injective_explorer_rpc.GetPeggyWithdrawalTxsRequest\x1a\x35.injective_explorer_rpc.GetPeggyWithdrawalTxsResponse\x12x\n\x11GetIBCTransferTxs\x12\x30.injective_explorer_rpc.GetIBCTransferTxsRequest\x1a\x31.injective_explorer_rpc.GetIBCTransferTxsResponse\x12i\n\x0cGetWasmCodes\x12+.injective_explorer_rpc.GetWasmCodesRequest\x1a,.injective_explorer_rpc.GetWasmCodesResponse\x12r\n\x0fGetWasmCodeByID\x12..injective_explorer_rpc.GetWasmCodeByIDRequest\x1a/.injective_explorer_rpc.GetWasmCodeByIDResponse\x12u\n\x10GetWasmContracts\x12/.injective_explorer_rpc.GetWasmContractsRequest\x1a\x30.injective_explorer_rpc.GetWasmContractsResponse\x12\x8d\x01\n\x18GetWasmContractByAddress\x12\x37.injective_explorer_rpc.GetWasmContractByAddressRequest\x1a\x38.injective_explorer_rpc.GetWasmContractByAddressResponse\x12o\n\x0eGetCw20Balance\x12-.injective_explorer_rpc.GetCw20BalanceRequest\x1a..injective_explorer_rpc.GetCw20BalanceResponse\x12]\n\x08Relayers\x12\'.injective_explorer_rpc.RelayersRequest\x1a(.injective_explorer_rpc.RelayersResponse\x12\x62\n\tStreamTxs\x12(.injective_explorer_rpc.StreamTxsRequest\x1a).injective_explorer_rpc.StreamTxsResponse0\x01\x12k\n\x0cStreamBlocks\x12+.injective_explorer_rpc.StreamBlocksRequest\x1a,.injective_explorer_rpc.StreamBlocksResponse0\x01\x42\x1bZ\x19/injective_explorer_rpcpbb\x06proto3'
 )
 
 
@@ -1189,6 +1189,13 @@ _TXDATA = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='tx_msg_types', full_name='injective_explorer_rpc.TxData.tx_msg_types', index=9,
+      number=10, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"",
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -1202,7 +1209,7 @@ _TXDATA = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=2465,
-  serialized_end=2635,
+  serialized_end=2657,
 )
 
 
@@ -1226,8 +1233,8 @@ _GETVALIDATORSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2637,
-  serialized_end=2659,
+  serialized_start=2659,
+  serialized_end=2681,
 )
 
 
@@ -1272,8 +1279,8 @@ _GETVALIDATORSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2661,
-  serialized_end=2760,
+  serialized_start=2683,
+  serialized_end=2782,
 )
 
 
@@ -1451,8 +1458,8 @@ _VALIDATOR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2763,
-  serialized_end=3387,
+  serialized_start=2785,
+  serialized_end=3409,
 )
 
 
@@ -1511,8 +1518,8 @@ _VALIDATORDESCRIPTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3389,
-  serialized_end=3506,
+  serialized_start=3411,
+  serialized_end=3528,
 )
 
 
@@ -1550,8 +1557,8 @@ _VALIDATORUPTIME = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3508,
-  serialized_end=3563,
+  serialized_start=3530,
+  serialized_end=3585,
 )
 
 
@@ -1624,8 +1631,8 @@ _SLASHINGEVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3566,
-  serialized_end=3715,
+  serialized_start=3588,
+  serialized_end=3737,
 )
 
 
@@ -1656,8 +1663,8 @@ _GETVALIDATORREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3717,
-  serialized_end=3755,
+  serialized_start=3739,
+  serialized_end=3777,
 )
 
 
@@ -1702,8 +1709,8 @@ _GETVALIDATORRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3757,
-  serialized_end=3855,
+  serialized_start=3779,
+  serialized_end=3877,
 )
 
 
@@ -1734,8 +1741,8 @@ _GETVALIDATORUPTIMEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3857,
-  serialized_end=3901,
+  serialized_start=3879,
+  serialized_end=3923,
 )
 
 
@@ -1780,8 +1787,8 @@ _GETVALIDATORUPTIMERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3903,
-  serialized_end=4013,
+  serialized_start=3925,
+  serialized_end=4035,
 )
 
 
@@ -1861,8 +1868,8 @@ _GETTXSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4016,
-  serialized_end=4161,
+  serialized_start=4038,
+  serialized_end=4183,
 )
 
 
@@ -1900,8 +1907,8 @@ _GETTXSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4163,
-  serialized_end=4273,
+  serialized_start=4185,
+  serialized_end=4295,
 )
 
 
@@ -1932,8 +1939,8 @@ _GETTXBYTXHASHREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4275,
-  serialized_end=4311,
+  serialized_start=4297,
+  serialized_end=4333,
 )
 
 
@@ -1978,8 +1985,8 @@ _GETTXBYTXHASHRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4313,
-  serialized_end=4415,
+  serialized_start=4335,
+  serialized_end=4437,
 )
 
 
@@ -2031,8 +2038,8 @@ _GETPEGGYDEPOSITTXSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4417,
-  serialized_end=4507,
+  serialized_start=4439,
+  serialized_end=4529,
 )
 
 
@@ -2063,8 +2070,8 @@ _GETPEGGYDEPOSITTXSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4509,
-  serialized_end=4592,
+  serialized_start=4531,
+  serialized_end=4614,
 )
 
 
@@ -2172,8 +2179,8 @@ _PEGGYDEPOSITTX = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4595,
-  serialized_end=4843,
+  serialized_start=4617,
+  serialized_end=4865,
 )
 
 
@@ -2225,8 +2232,8 @@ _GETPEGGYWITHDRAWALTXSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4845,
-  serialized_end=4938,
+  serialized_start=4867,
+  serialized_end=4960,
 )
 
 
@@ -2257,8 +2264,8 @@ _GETPEGGYWITHDRAWALTXSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4940,
-  serialized_end=5029,
+  serialized_start=4962,
+  serialized_end=5051,
 )
 
 
@@ -2394,8 +2401,8 @@ _PEGGYWITHDRAWALTX = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5032,
-  serialized_end=5371,
+  serialized_start=5054,
+  serialized_end=5393,
 )
 
 
@@ -2475,8 +2482,8 @@ _GETIBCTRANSFERTXSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5374,
-  serialized_end=5543,
+  serialized_start=5396,
+  serialized_end=5565,
 )
 
 
@@ -2507,8 +2514,8 @@ _GETIBCTRANSFERTXSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5545,
-  serialized_end=5626,
+  serialized_start=5567,
+  serialized_end=5648,
 )
 
 
@@ -2644,8 +2651,8 @@ _IBCTRANSFERTX = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5629,
-  serialized_end=5977,
+  serialized_start=5651,
+  serialized_end=5999,
 )
 
 
@@ -2690,8 +2697,8 @@ _GETWASMCODESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5979,
-  serialized_end=6055,
+  serialized_start=6001,
+  serialized_end=6077,
 )
 
 
@@ -2729,8 +2736,8 @@ _GETWASMCODESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6057,
-  serialized_end=6175,
+  serialized_start=6079,
+  serialized_end=6197,
 )
 
 
@@ -2845,8 +2852,8 @@ _WASMCODE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6178,
-  serialized_end=6519,
+  serialized_start=6200,
+  serialized_end=6541,
 )
 
 
@@ -2884,8 +2891,8 @@ _CHECKSUM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6521,
-  serialized_end=6564,
+  serialized_start=6543,
+  serialized_end=6586,
 )
 
 
@@ -2923,8 +2930,8 @@ _CONTRACTPERMISSION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6566,
-  serialized_end=6624,
+  serialized_start=6588,
+  serialized_end=6646,
 )
 
 
@@ -2955,8 +2962,8 @@ _GETWASMCODEBYIDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6626,
-  serialized_end=6667,
+  serialized_start=6648,
+  serialized_end=6689,
 )
 
 
@@ -3071,8 +3078,8 @@ _GETWASMCODEBYIDRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6670,
-  serialized_end=7026,
+  serialized_start=6692,
+  serialized_end=7048,
 )
 
 
@@ -3112,6 +3119,20 @@ _GETWASMCONTRACTSREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='assets_only', full_name='injective_explorer_rpc.GetWasmContractsRequest.assets_only', index=4,
+      number=5, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='skip', full_name='injective_explorer_rpc.GetWasmContractsRequest.skip', index=5,
+      number=6, type=18, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -3124,8 +3145,8 @@ _GETWASMCONTRACTSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7028,
-  serialized_end=7125,
+  serialized_start=7051,
+  serialized_end=7183,
 )
 
 
@@ -3163,8 +3184,8 @@ _GETWASMCONTRACTSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7127,
-  serialized_end=7253,
+  serialized_start=7185,
+  serialized_end=7311,
 )
 
 
@@ -3307,8 +3328,8 @@ _WASMCONTRACT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7256,
-  serialized_end=7683,
+  serialized_start=7314,
+  serialized_end=7741,
 )
 
 
@@ -3346,8 +3367,8 @@ _CONTRACTFUND = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7685,
-  serialized_end=7730,
+  serialized_start=7743,
+  serialized_end=7788,
 )
 
 
@@ -3385,8 +3406,8 @@ _CW20METADATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7733,
-  serialized_end=7873,
+  serialized_start=7791,
+  serialized_end=7931,
 )
 
 
@@ -3438,8 +3459,8 @@ _CW20TOKENINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7875,
-  serialized_end=7960,
+  serialized_start=7933,
+  serialized_end=8018,
 )
 
 
@@ -3491,8 +3512,8 @@ _CW20MARKETINGINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7962,
-  serialized_end=8052,
+  serialized_start=8020,
+  serialized_end=8110,
 )
 
 
@@ -3523,8 +3544,8 @@ _GETWASMCONTRACTBYADDRESSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=8054,
-  serialized_end=8113,
+  serialized_start=8112,
+  serialized_end=8171,
 )
 
 
@@ -3667,8 +3688,8 @@ _GETWASMCONTRACTBYADDRESSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=8116,
-  serialized_end=8563,
+  serialized_start=8174,
+  serialized_end=8621,
 )
 
 
@@ -3706,8 +3727,8 @@ _GETCW20BALANCEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=8565,
-  serialized_end=8620,
+  serialized_start=8623,
+  serialized_end=8678,
 )
 
 
@@ -3738,8 +3759,8 @@ _GETCW20BALANCERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=8622,
-  serialized_end=8702,
+  serialized_start=8680,
+  serialized_end=8760,
 )
 
 
@@ -3798,8 +3819,8 @@ _WASMCW20BALANCE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=8705,
-  serialized_end=8863,
+  serialized_start=8763,
+  serialized_end=8921,
 )
 
 
@@ -3830,8 +3851,8 @@ _RELAYERSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=8865,
-  serialized_end=8903,
+  serialized_start=8923,
+  serialized_end=8961,
 )
 
 
@@ -3862,8 +3883,8 @@ _RELAYERSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=8905,
-  serialized_end=8978,
+  serialized_start=8963,
+  serialized_end=9036,
 )
 
 
@@ -3901,8 +3922,8 @@ _RELAYERMARKETS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=8980,
-  serialized_end=9066,
+  serialized_start=9038,
+  serialized_end=9124,
 )
 
 
@@ -3940,8 +3961,8 @@ _RELAYER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=9068,
-  serialized_end=9104,
+  serialized_start=9126,
+  serialized_end=9162,
 )
 
 
@@ -3965,8 +3986,8 @@ _STREAMTXSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=9106,
-  serialized_end=9124,
+  serialized_start=9164,
+  serialized_end=9182,
 )
 
 
@@ -4053,8 +4074,8 @@ _STREAMTXSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=9127,
-  serialized_end=9308,
+  serialized_start=9185,
+  serialized_end=9366,
 )
 
 
@@ -4078,8 +4099,8 @@ _STREAMBLOCKSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=9310,
-  serialized_end=9331,
+  serialized_start=9368,
+  serialized_end=9389,
 )
 
 
@@ -4166,8 +4187,8 @@ _STREAMBLOCKSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=9334,
-  serialized_end=9557,
+  serialized_start=9392,
+  serialized_end=9615,
 )
 
 _GETACCOUNTTXSRESPONSE.fields_by_name['paging'].message_type = _PAGING
@@ -4781,8 +4802,8 @@ _INJECTIVEEXPLORERRPC = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=9560,
-  serialized_end=11824,
+  serialized_start=9618,
+  serialized_end=11882,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetAccountTxs',

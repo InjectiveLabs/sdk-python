@@ -35,6 +35,26 @@ class QueryStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryExchangeBalancesRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryExchangeBalancesResponse.FromString,
                 )
+        self.AggregateVolume = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/AggregateVolume',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateVolumeRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateVolumeResponse.FromString,
+                )
+        self.AggregateVolumes = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/AggregateVolumes',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateVolumesRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateVolumesResponse.FromString,
+                )
+        self.AggregateMarketVolume = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/AggregateMarketVolume',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateMarketVolumeRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateMarketVolumeResponse.FromString,
+                )
+        self.AggregateMarketVolumes = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/AggregateMarketVolumes',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateMarketVolumesRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateMarketVolumesResponse.FromString,
+                )
         self.SpotMarkets = channel.unary_unary(
                 '/injective.exchange.v1beta1.Query/SpotMarkets',
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySpotMarketsRequest.SerializeToString,
@@ -205,10 +225,10 @@ class QueryStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountTierStatisticsRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountTierStatisticsResponse.FromString,
                 )
-        self.NinjaVaultInfos = channel.unary_unary(
-                '/injective.exchange.v1beta1.Query/NinjaVaultInfos',
-                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.NinjaVaultInfosRequest.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.NinjaVaultInfosResponse.FromString,
+        self.MitoVaultInfos = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/MitoVaultInfos',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.MitoVaultInfosRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.MitoVaultInfosResponse.FromString,
                 )
         self.QueryMarketIDFromVault = channel.unary_unary(
                 '/injective.exchange.v1beta1.Query/QueryMarketIDFromVault',
@@ -279,6 +299,34 @@ class QueryServicer(object):
 
     def ExchangeBalances(self, request, context):
         """Retrieves all of the balances of all users on the exchange.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AggregateVolume(self, request, context):
+        """Retrieves the aggregate volumes for the specified account or subaccount
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AggregateVolumes(self, request, context):
+        """Retrieves the aggregate volumes for specified accounts
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AggregateMarketVolume(self, request, context):
+        """Retrieves the aggregate volume for the specified market
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AggregateMarketVolumes(self, request, context):
+        """Retrieves the aggregate market volumes for specified markets
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -522,7 +570,7 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def NinjaVaultInfos(self, request, context):
+    def MitoVaultInfos(self, request, context):
         """Retrieves market making pool info
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -606,6 +654,26 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.ExchangeBalances,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryExchangeBalancesRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryExchangeBalancesResponse.SerializeToString,
+            ),
+            'AggregateVolume': grpc.unary_unary_rpc_method_handler(
+                    servicer.AggregateVolume,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateVolumeRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateVolumeResponse.SerializeToString,
+            ),
+            'AggregateVolumes': grpc.unary_unary_rpc_method_handler(
+                    servicer.AggregateVolumes,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateVolumesRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateVolumesResponse.SerializeToString,
+            ),
+            'AggregateMarketVolume': grpc.unary_unary_rpc_method_handler(
+                    servicer.AggregateMarketVolume,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateMarketVolumeRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateMarketVolumeResponse.SerializeToString,
+            ),
+            'AggregateMarketVolumes': grpc.unary_unary_rpc_method_handler(
+                    servicer.AggregateMarketVolumes,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateMarketVolumesRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateMarketVolumesResponse.SerializeToString,
             ),
             'SpotMarkets': grpc.unary_unary_rpc_method_handler(
                     servicer.SpotMarkets,
@@ -777,10 +845,10 @@ def add_QueryServicer_to_server(servicer, server):
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountTierStatisticsRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFeeDiscountTierStatisticsResponse.SerializeToString,
             ),
-            'NinjaVaultInfos': grpc.unary_unary_rpc_method_handler(
-                    servicer.NinjaVaultInfos,
-                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.NinjaVaultInfosRequest.FromString,
-                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.NinjaVaultInfosResponse.SerializeToString,
+            'MitoVaultInfos': grpc.unary_unary_rpc_method_handler(
+                    servicer.MitoVaultInfos,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.MitoVaultInfosRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.MitoVaultInfosResponse.SerializeToString,
             ),
             'QueryMarketIDFromVault': grpc.unary_unary_rpc_method_handler(
                     servicer.QueryMarketIDFromVault,
@@ -898,6 +966,74 @@ class Query(object):
         return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/ExchangeBalances',
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryExchangeBalancesRequest.SerializeToString,
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryExchangeBalancesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def AggregateVolume(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/AggregateVolume',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateVolumeRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateVolumeResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def AggregateVolumes(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/AggregateVolumes',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateVolumesRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateVolumesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def AggregateMarketVolume(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/AggregateMarketVolume',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateMarketVolumeRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateMarketVolumeResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def AggregateMarketVolumes(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/AggregateMarketVolumes',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateMarketVolumesRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateMarketVolumesResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -1480,7 +1616,7 @@ class Query(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def NinjaVaultInfos(request,
+    def MitoVaultInfos(request,
             target,
             options=(),
             channel_credentials=None,
@@ -1490,9 +1626,9 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/NinjaVaultInfos',
-            injective_dot_exchange_dot_v1beta1_dot_query__pb2.NinjaVaultInfosRequest.SerializeToString,
-            injective_dot_exchange_dot_v1beta1_dot_query__pb2.NinjaVaultInfosResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/MitoVaultInfos',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.MitoVaultInfosRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.MitoVaultInfosResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

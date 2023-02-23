@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z\027/injective_oracle_rpcpb',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n#exchange/injective_oracle_rpc.proto\x12\x14injective_oracle_rpc\"\x13\n\x11OracleListRequest\"C\n\x12OracleListResponse\x12-\n\x07oracles\x18\x01 \x03(\x0b\x32\x1c.injective_oracle_rpc.Oracle\"g\n\x06Oracle\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x13\n\x0b\x62\x61se_symbol\x18\x02 \x01(\t\x12\x14\n\x0cquote_symbol\x18\x03 \x01(\t\x12\x13\n\x0boracle_type\x18\x04 \x01(\t\x12\r\n\x05price\x18\x05 \x01(\t\"k\n\x0cPriceRequest\x12\x13\n\x0b\x62\x61se_symbol\x18\x01 \x01(\t\x12\x14\n\x0cquote_symbol\x18\x02 \x01(\t\x12\x13\n\x0boracle_type\x18\x03 \x01(\t\x12\x1b\n\x13oracle_scale_factor\x18\x04 \x01(\r\"\x1e\n\rPriceResponse\x12\r\n\x05price\x18\x01 \x01(\t\"U\n\x13StreamPricesRequest\x12\x13\n\x0b\x62\x61se_symbol\x18\x01 \x01(\t\x12\x14\n\x0cquote_symbol\x18\x02 \x01(\t\x12\x13\n\x0boracle_type\x18\x03 \x01(\t\"8\n\x14StreamPricesResponse\x12\r\n\x05price\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x12\x32\xb0\x02\n\x12InjectiveOracleRPC\x12_\n\nOracleList\x12\'.injective_oracle_rpc.OracleListRequest\x1a(.injective_oracle_rpc.OracleListResponse\x12P\n\x05Price\x12\".injective_oracle_rpc.PriceRequest\x1a#.injective_oracle_rpc.PriceResponse\x12g\n\x0cStreamPrices\x12).injective_oracle_rpc.StreamPricesRequest\x1a*.injective_oracle_rpc.StreamPricesResponse0\x01\x42\x19Z\x17/injective_oracle_rpcpbb\x06proto3'
+  serialized_pb=b'\n#exchange/injective_oracle_rpc.proto\x12\x14injective_oracle_rpc\"\x13\n\x11OracleListRequest\"C\n\x12OracleListResponse\x12-\n\x07oracles\x18\x01 \x03(\x0b\x32\x1c.injective_oracle_rpc.Oracle\"g\n\x06Oracle\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x13\n\x0b\x62\x61se_symbol\x18\x02 \x01(\t\x12\x14\n\x0cquote_symbol\x18\x03 \x01(\t\x12\x13\n\x0boracle_type\x18\x04 \x01(\t\x12\r\n\x05price\x18\x05 \x01(\t\"k\n\x0cPriceRequest\x12\x13\n\x0b\x62\x61se_symbol\x18\x01 \x01(\t\x12\x14\n\x0cquote_symbol\x18\x02 \x01(\t\x12\x13\n\x0boracle_type\x18\x03 \x01(\t\x12\x1b\n\x13oracle_scale_factor\x18\x04 \x01(\r\"\x1e\n\rPriceResponse\x12\r\n\x05price\x18\x01 \x01(\t\"U\n\x13StreamPricesRequest\x12\x13\n\x0b\x62\x61se_symbol\x18\x01 \x01(\t\x12\x14\n\x0cquote_symbol\x18\x02 \x01(\t\x12\x13\n\x0boracle_type\x18\x03 \x01(\t\"8\n\x14StreamPricesResponse\x12\r\n\x05price\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x12\"2\n\x1cStreamPricesByMarketsRequest\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"T\n\x1dStreamPricesByMarketsResponse\x12\r\n\x05price\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x12\x12\x11\n\tmarket_id\x18\x03 \x01(\t2\xb5\x03\n\x12InjectiveOracleRPC\x12_\n\nOracleList\x12\'.injective_oracle_rpc.OracleListRequest\x1a(.injective_oracle_rpc.OracleListResponse\x12P\n\x05Price\x12\".injective_oracle_rpc.PriceRequest\x1a#.injective_oracle_rpc.PriceResponse\x12g\n\x0cStreamPrices\x12).injective_oracle_rpc.StreamPricesRequest\x1a*.injective_oracle_rpc.StreamPricesResponse0\x01\x12\x82\x01\n\x15StreamPricesByMarkets\x12\x32.injective_oracle_rpc.StreamPricesByMarketsRequest\x1a\x33.injective_oracle_rpc.StreamPricesByMarketsResponse0\x01\x42\x19Z\x17/injective_oracle_rpcpbb\x06proto3'
 )
 
 
@@ -311,6 +311,84 @@ _STREAMPRICESRESPONSE = _descriptor.Descriptor(
   serialized_end=540,
 )
 
+
+_STREAMPRICESBYMARKETSREQUEST = _descriptor.Descriptor(
+  name='StreamPricesByMarketsRequest',
+  full_name='injective_oracle_rpc.StreamPricesByMarketsRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='market_ids', full_name='injective_oracle_rpc.StreamPricesByMarketsRequest.market_ids', index=0,
+      number=1, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=542,
+  serialized_end=592,
+)
+
+
+_STREAMPRICESBYMARKETSRESPONSE = _descriptor.Descriptor(
+  name='StreamPricesByMarketsResponse',
+  full_name='injective_oracle_rpc.StreamPricesByMarketsResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='price', full_name='injective_oracle_rpc.StreamPricesByMarketsResponse.price', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='timestamp', full_name='injective_oracle_rpc.StreamPricesByMarketsResponse.timestamp', index=1,
+      number=2, type=18, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='market_id', full_name='injective_oracle_rpc.StreamPricesByMarketsResponse.market_id', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=594,
+  serialized_end=678,
+)
+
 _ORACLELISTRESPONSE.fields_by_name['oracles'].message_type = _ORACLE
 DESCRIPTOR.message_types_by_name['OracleListRequest'] = _ORACLELISTREQUEST
 DESCRIPTOR.message_types_by_name['OracleListResponse'] = _ORACLELISTRESPONSE
@@ -319,6 +397,8 @@ DESCRIPTOR.message_types_by_name['PriceRequest'] = _PRICEREQUEST
 DESCRIPTOR.message_types_by_name['PriceResponse'] = _PRICERESPONSE
 DESCRIPTOR.message_types_by_name['StreamPricesRequest'] = _STREAMPRICESREQUEST
 DESCRIPTOR.message_types_by_name['StreamPricesResponse'] = _STREAMPRICESRESPONSE
+DESCRIPTOR.message_types_by_name['StreamPricesByMarketsRequest'] = _STREAMPRICESBYMARKETSREQUEST
+DESCRIPTOR.message_types_by_name['StreamPricesByMarketsResponse'] = _STREAMPRICESBYMARKETSRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 OracleListRequest = _reflection.GeneratedProtocolMessageType('OracleListRequest', (_message.Message,), {
@@ -370,6 +450,20 @@ StreamPricesResponse = _reflection.GeneratedProtocolMessageType('StreamPricesRes
   })
 _sym_db.RegisterMessage(StreamPricesResponse)
 
+StreamPricesByMarketsRequest = _reflection.GeneratedProtocolMessageType('StreamPricesByMarketsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _STREAMPRICESBYMARKETSREQUEST,
+  '__module__' : 'exchange.injective_oracle_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_oracle_rpc.StreamPricesByMarketsRequest)
+  })
+_sym_db.RegisterMessage(StreamPricesByMarketsRequest)
+
+StreamPricesByMarketsResponse = _reflection.GeneratedProtocolMessageType('StreamPricesByMarketsResponse', (_message.Message,), {
+  'DESCRIPTOR' : _STREAMPRICESBYMARKETSRESPONSE,
+  '__module__' : 'exchange.injective_oracle_rpc_pb2'
+  # @@protoc_insertion_point(class_scope:injective_oracle_rpc.StreamPricesByMarketsResponse)
+  })
+_sym_db.RegisterMessage(StreamPricesByMarketsResponse)
+
 
 DESCRIPTOR._options = None
 
@@ -380,8 +474,8 @@ _INJECTIVEORACLERPC = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=543,
-  serialized_end=847,
+  serialized_start=681,
+  serialized_end=1118,
   methods=[
   _descriptor.MethodDescriptor(
     name='OracleList',
@@ -410,6 +504,16 @@ _INJECTIVEORACLERPC = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_STREAMPRICESREQUEST,
     output_type=_STREAMPRICESRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='StreamPricesByMarkets',
+    full_name='injective_oracle_rpc.InjectiveOracleRPC.StreamPricesByMarkets',
+    index=3,
+    containing_service=None,
+    input_type=_STREAMPRICESBYMARKETSREQUEST,
+    output_type=_STREAMPRICESBYMARKETSRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

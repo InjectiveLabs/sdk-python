@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'ZLgithub.com/InjectiveLabs/injective-core/injective-chain/modules/oracle/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n%injective/oracle/v1beta1/oracle.proto\x12\x18injective.oracle.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\"\x0e\n\x06Params:\x04\xe8\xa0\x1f\x01\"m\n\nOracleInfo\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x39\n\x0boracle_type\x18\x02 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x14\n\x0cscale_factor\x18\x03 \x01(\r\"\xba\x01\n\x13\x43hainlinkPriceState\x12\x0f\n\x07\x66\x65\x65\x64_id\x18\x01 \x01(\t\x12>\n\x06\x61nswer\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x11\n\ttimestamp\x18\x03 \x01(\x04\x12?\n\x0bprice_state\x18\x04 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceStateB\x04\xc8\xde\x1f\x00\"\xc9\x01\n\x0e\x42\x61ndPriceState\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12<\n\x04rate\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x14\n\x0cresolve_time\x18\x03 \x01(\x04\x12\x12\n\nrequest_ID\x18\x04 \x01(\x04\x12?\n\x0bprice_state\x18\x05 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceStateB\x04\xc8\xde\x1f\x00\"z\n\x0ePriceFeedState\x12\x0c\n\x04\x62\x61se\x18\x01 \x01(\t\x12\r\n\x05quote\x18\x02 \x01(\t\x12\x39\n\x0bprice_state\x18\x03 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceState\x12\x10\n\x08relayers\x18\x04 \x03(\t\"2\n\x0cProviderInfo\x12\x10\n\x08provider\x18\x01 \x01(\t\x12\x10\n\x08relayers\x18\x02 \x03(\t\"\x9b\x01\n\rProviderState\x12=\n\rprovider_info\x18\x01 \x01(\x0b\x32&.injective.oracle.v1beta1.ProviderInfo\x12K\n\x15provider_price_states\x18\x02 \x03(\x0b\x32,.injective.oracle.v1beta1.ProviderPriceState\"Y\n\x12ProviderPriceState\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x33\n\x05state\x18\x02 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceState\",\n\rPriceFeedInfo\x12\x0c\n\x04\x62\x61se\x18\x01 \x01(\t\x12\r\n\x05quote\x18\x02 \x01(\t\"O\n\x0ePriceFeedPrice\x12=\n\x05price\x18\x01 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"\x92\x01\n\x12\x43oinbasePriceState\x12\x0c\n\x04kind\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x04\x12\x0b\n\x03key\x18\x03 \x01(\t\x12\r\n\x05value\x18\x04 \x01(\x04\x12?\n\x0bprice_state\x18\x05 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceStateB\x04\xc8\xde\x1f\x00\"\xa8\x01\n\nPriceState\x12=\n\x05price\x18\x01 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12H\n\x10\x63umulative_price\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x11\n\ttimestamp\x18\x03 \x01(\x03\"\x82\x02\n\x11\x42\x61ndOracleRequest\x12\x12\n\nrequest_id\x18\x01 \x01(\x04\x12\x18\n\x10oracle_script_id\x18\x02 \x01(\x03\x12\x0f\n\x07symbols\x18\x03 \x03(\t\x12\x11\n\task_count\x18\x04 \x01(\x04\x12\x11\n\tmin_count\x18\x05 \x01(\x04\x12^\n\tfee_limit\x18\x06 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins\x12\x13\n\x0bprepare_gas\x18\x07 \x01(\x04\x12\x13\n\x0b\x65xecute_gas\x18\x08 \x01(\x04\"\x8d\x01\n\rBandIBCParams\x12\x18\n\x10\x62\x61nd_ibc_enabled\x18\x01 \x01(\x08\x12\x1c\n\x14ibc_request_interval\x18\x02 \x01(\x03\x12\x1a\n\x12ibc_source_channel\x18\x03 \x01(\t\x12\x13\n\x0bibc_version\x18\x04 \x01(\t\x12\x13\n\x0bibc_port_id\x18\x05 \x01(\t\"r\n\x14SymbolPriceTimestamp\x12\x34\n\x06oracle\x18\x01 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x11\n\tsymbol_id\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x03\"d\n\x13LastPriceTimestamps\x12M\n\x15last_price_timestamps\x18\x01 \x03(\x0b\x32..injective.oracle.v1beta1.SymbolPriceTimestamp\"\x9c\x01\n\x0cPriceRecords\x12\x34\n\x06oracle\x18\x01 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x11\n\tsymbol_id\x18\x02 \x01(\t\x12\x43\n\x14latest_price_records\x18\x03 \x03(\x0b\x32%.injective.oracle.v1beta1.PriceRecord\"_\n\x0bPriceRecord\x12\x11\n\ttimestamp\x18\x01 \x01(\x03\x12=\n\x05price\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"\xbf\x03\n\x12MetadataStatistics\x12\x13\n\x0bgroup_count\x18\x01 \x01(\r\x12\x1b\n\x13records_sample_size\x18\x02 \x01(\r\x12<\n\x04mean\x18\x03 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12<\n\x04twap\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x17\n\x0f\x66irst_timestamp\x18\x05 \x01(\x03\x12\x16\n\x0elast_timestamp\x18\x06 \x01(\x03\x12\x41\n\tmin_price\x18\x07 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x41\n\tmax_price\x18\x08 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x44\n\x0cmedian_price\x18\t \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00*\x9f\x01\n\nOracleType\x12\x0f\n\x0bUnspecified\x10\x00\x12\x08\n\x04\x42\x61nd\x10\x01\x12\r\n\tPriceFeed\x10\x02\x12\x0c\n\x08\x43oinbase\x10\x03\x12\r\n\tChainlink\x10\x04\x12\t\n\x05Razor\x10\x05\x12\x07\n\x03\x44ia\x10\x06\x12\x08\n\x04\x41PI3\x10\x07\x12\x07\n\x03Uma\x10\x08\x12\x08\n\x04Pyth\x10\t\x12\x0b\n\x07\x42\x61ndIBC\x10\n\x12\x0c\n\x08Provider\x10\x0b\x42NZLgithub.com/InjectiveLabs/injective-core/injective-chain/modules/oracle/typesb\x06proto3'
+  serialized_pb=b'\n%injective/oracle/v1beta1/oracle.proto\x12\x18injective.oracle.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\"%\n\x06Params\x12\x15\n\rpyth_contract\x18\x01 \x01(\t:\x04\xe8\xa0\x1f\x01\"m\n\nOracleInfo\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x39\n\x0boracle_type\x18\x02 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x14\n\x0cscale_factor\x18\x03 \x01(\r\"\xba\x01\n\x13\x43hainlinkPriceState\x12\x0f\n\x07\x66\x65\x65\x64_id\x18\x01 \x01(\t\x12>\n\x06\x61nswer\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x11\n\ttimestamp\x18\x03 \x01(\x04\x12?\n\x0bprice_state\x18\x04 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceStateB\x04\xc8\xde\x1f\x00\"\xc9\x01\n\x0e\x42\x61ndPriceState\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12<\n\x04rate\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xc8\xde\x1f\x00\x12\x14\n\x0cresolve_time\x18\x03 \x01(\x04\x12\x12\n\nrequest_ID\x18\x04 \x01(\x04\x12?\n\x0bprice_state\x18\x05 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceStateB\x04\xc8\xde\x1f\x00\"z\n\x0ePriceFeedState\x12\x0c\n\x04\x62\x61se\x18\x01 \x01(\t\x12\r\n\x05quote\x18\x02 \x01(\t\x12\x39\n\x0bprice_state\x18\x03 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceState\x12\x10\n\x08relayers\x18\x04 \x03(\t\"2\n\x0cProviderInfo\x12\x10\n\x08provider\x18\x01 \x01(\t\x12\x10\n\x08relayers\x18\x02 \x03(\t\"\x9b\x01\n\rProviderState\x12=\n\rprovider_info\x18\x01 \x01(\x0b\x32&.injective.oracle.v1beta1.ProviderInfo\x12K\n\x15provider_price_states\x18\x02 \x03(\x0b\x32,.injective.oracle.v1beta1.ProviderPriceState\"Y\n\x12ProviderPriceState\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x33\n\x05state\x18\x02 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceState\",\n\rPriceFeedInfo\x12\x0c\n\x04\x62\x61se\x18\x01 \x01(\t\x12\r\n\x05quote\x18\x02 \x01(\t\"O\n\x0ePriceFeedPrice\x12=\n\x05price\x18\x01 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"\x92\x01\n\x12\x43oinbasePriceState\x12\x0c\n\x04kind\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x04\x12\x0b\n\x03key\x18\x03 \x01(\t\x12\r\n\x05value\x18\x04 \x01(\x04\x12?\n\x0bprice_state\x18\x05 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceStateB\x04\xc8\xde\x1f\x00\"\xa8\x01\n\nPriceState\x12=\n\x05price\x18\x01 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12H\n\x10\x63umulative_price\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x11\n\ttimestamp\x18\x03 \x01(\x03\"\xbc\x02\n\x0ePythPriceState\x12\x10\n\x08price_id\x18\x01 \x01(\x0c\x12\x41\n\tema_price\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12@\n\x08\x65ma_conf\x18\x03 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12<\n\x04\x63onf\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x14\n\x0cpublish_time\x18\x05 \x01(\x04\x12?\n\x0bprice_state\x18\x06 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceStateB\x04\xc8\xde\x1f\x00\"\x82\x02\n\x11\x42\x61ndOracleRequest\x12\x12\n\nrequest_id\x18\x01 \x01(\x04\x12\x18\n\x10oracle_script_id\x18\x02 \x01(\x03\x12\x0f\n\x07symbols\x18\x03 \x03(\t\x12\x11\n\task_count\x18\x04 \x01(\x04\x12\x11\n\tmin_count\x18\x05 \x01(\x04\x12^\n\tfee_limit\x18\x06 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins\x12\x13\n\x0bprepare_gas\x18\x07 \x01(\x04\x12\x13\n\x0b\x65xecute_gas\x18\x08 \x01(\x04\"\x8d\x01\n\rBandIBCParams\x12\x18\n\x10\x62\x61nd_ibc_enabled\x18\x01 \x01(\x08\x12\x1c\n\x14ibc_request_interval\x18\x02 \x01(\x03\x12\x1a\n\x12ibc_source_channel\x18\x03 \x01(\t\x12\x13\n\x0bibc_version\x18\x04 \x01(\t\x12\x13\n\x0bibc_port_id\x18\x05 \x01(\t\"r\n\x14SymbolPriceTimestamp\x12\x34\n\x06oracle\x18\x01 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x11\n\tsymbol_id\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x03\"d\n\x13LastPriceTimestamps\x12M\n\x15last_price_timestamps\x18\x01 \x03(\x0b\x32..injective.oracle.v1beta1.SymbolPriceTimestamp\"\x9c\x01\n\x0cPriceRecords\x12\x34\n\x06oracle\x18\x01 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x11\n\tsymbol_id\x18\x02 \x01(\t\x12\x43\n\x14latest_price_records\x18\x03 \x03(\x0b\x32%.injective.oracle.v1beta1.PriceRecord\"_\n\x0bPriceRecord\x12\x11\n\ttimestamp\x18\x01 \x01(\x03\x12=\n\x05price\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"\xbf\x03\n\x12MetadataStatistics\x12\x13\n\x0bgroup_count\x18\x01 \x01(\r\x12\x1b\n\x13records_sample_size\x18\x02 \x01(\r\x12<\n\x04mean\x18\x03 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12<\n\x04twap\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x17\n\x0f\x66irst_timestamp\x18\x05 \x01(\x03\x12\x16\n\x0elast_timestamp\x18\x06 \x01(\x03\x12\x41\n\tmin_price\x18\x07 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x41\n\tmax_price\x18\x08 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x44\n\x0cmedian_price\x18\t \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"\xa2\x02\n\x10PriceAttestation\x12\x12\n\nproduct_id\x18\x01 \x01(\t\x12\x10\n\x08price_id\x18\x02 \x01(\x0c\x12\r\n\x05price\x18\x03 \x01(\x03\x12\x0c\n\x04\x63onf\x18\x04 \x01(\x04\x12\x0c\n\x04\x65xpo\x18\x05 \x01(\x05\x12\x11\n\tema_price\x18\x06 \x01(\x03\x12\x10\n\x08\x65ma_conf\x18\x07 \x01(\x04\x12\x34\n\x06status\x18\x08 \x01(\x0e\x32$.injective.oracle.v1beta1.PythStatus\x12\x16\n\x0enum_publishers\x18\t \x01(\r\x12\x1a\n\x12max_num_publishers\x18\n \x01(\r\x12\x18\n\x10\x61ttestation_time\x18\x0b \x01(\x03\x12\x14\n\x0cpublish_time\x18\x0c \x01(\x03*\x9f\x01\n\nOracleType\x12\x0f\n\x0bUnspecified\x10\x00\x12\x08\n\x04\x42\x61nd\x10\x01\x12\r\n\tPriceFeed\x10\x02\x12\x0c\n\x08\x43oinbase\x10\x03\x12\r\n\tChainlink\x10\x04\x12\t\n\x05Razor\x10\x05\x12\x07\n\x03\x44ia\x10\x06\x12\x08\n\x04\x41PI3\x10\x07\x12\x07\n\x03Uma\x10\x08\x12\x08\n\x04Pyth\x10\t\x12\x0b\n\x07\x42\x61ndIBC\x10\n\x12\x0c\n\x08Provider\x10\x0b*?\n\nPythStatus\x12\x0b\n\x07Unknown\x10\x00\x12\x0b\n\x07Trading\x10\x01\x12\n\n\x06Halted\x10\x02\x12\x0b\n\x07\x41uction\x10\x03\x42NZLgithub.com/InjectiveLabs/injective-core/injective-chain/modules/oracle/typesb\x06proto3'
   ,
   dependencies=[gogoproto_dot_gogo__pb2.DESCRIPTOR,cosmos_dot_base_dot_v1beta1_dot_coin__pb2.DESCRIPTOR,])
 
@@ -96,12 +96,48 @@ _ORACLETYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=2843,
-  serialized_end=3002,
+  serialized_start=3478,
+  serialized_end=3637,
 )
 _sym_db.RegisterEnumDescriptor(_ORACLETYPE)
 
 OracleType = enum_type_wrapper.EnumTypeWrapper(_ORACLETYPE)
+_PYTHSTATUS = _descriptor.EnumDescriptor(
+  name='PythStatus',
+  full_name='injective.oracle.v1beta1.PythStatus',
+  filename=None,
+  file=DESCRIPTOR,
+  create_key=_descriptor._internal_create_key,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='Unknown', index=0, number=0,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='Trading', index=1, number=1,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='Halted', index=2, number=2,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='Auction', index=3, number=3,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+  ],
+  containing_type=None,
+  serialized_options=None,
+  serialized_start=3639,
+  serialized_end=3702,
+)
+_sym_db.RegisterEnumDescriptor(_PYTHSTATUS)
+
+PythStatus = enum_type_wrapper.EnumTypeWrapper(_PYTHSTATUS)
 Unspecified = 0
 Band = 1
 PriceFeed = 2
@@ -114,6 +150,10 @@ Uma = 8
 Pyth = 9
 BandIBC = 10
 Provider = 11
+Unknown = 0
+Trading = 1
+Halted = 2
+Auction = 3
 
 
 
@@ -125,6 +165,13 @@ _PARAMS = _descriptor.Descriptor(
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
+    _descriptor.FieldDescriptor(
+      name='pyth_contract', full_name='injective.oracle.v1beta1.Params.pyth_contract', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -138,7 +185,7 @@ _PARAMS = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=121,
-  serialized_end=135,
+  serialized_end=158,
 )
 
 
@@ -183,8 +230,8 @@ _ORACLEINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=137,
-  serialized_end=246,
+  serialized_start=160,
+  serialized_end=269,
 )
 
 
@@ -236,8 +283,8 @@ _CHAINLINKPRICESTATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=249,
-  serialized_end=435,
+  serialized_start=272,
+  serialized_end=458,
 )
 
 
@@ -296,8 +343,8 @@ _BANDPRICESTATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=438,
-  serialized_end=639,
+  serialized_start=461,
+  serialized_end=662,
 )
 
 
@@ -349,8 +396,8 @@ _PRICEFEEDSTATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=641,
-  serialized_end=763,
+  serialized_start=664,
+  serialized_end=786,
 )
 
 
@@ -388,8 +435,8 @@ _PROVIDERINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=765,
-  serialized_end=815,
+  serialized_start=788,
+  serialized_end=838,
 )
 
 
@@ -427,8 +474,8 @@ _PROVIDERSTATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=818,
-  serialized_end=973,
+  serialized_start=841,
+  serialized_end=996,
 )
 
 
@@ -466,8 +513,8 @@ _PROVIDERPRICESTATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=975,
-  serialized_end=1064,
+  serialized_start=998,
+  serialized_end=1087,
 )
 
 
@@ -505,8 +552,8 @@ _PRICEFEEDINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1066,
-  serialized_end=1110,
+  serialized_start=1089,
+  serialized_end=1133,
 )
 
 
@@ -537,8 +584,8 @@ _PRICEFEEDPRICE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1112,
-  serialized_end=1191,
+  serialized_start=1135,
+  serialized_end=1214,
 )
 
 
@@ -597,8 +644,8 @@ _COINBASEPRICESTATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1194,
-  serialized_end=1340,
+  serialized_start=1217,
+  serialized_end=1363,
 )
 
 
@@ -643,8 +690,75 @@ _PRICESTATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1343,
-  serialized_end=1511,
+  serialized_start=1366,
+  serialized_end=1534,
+)
+
+
+_PYTHPRICESTATE = _descriptor.Descriptor(
+  name='PythPriceState',
+  full_name='injective.oracle.v1beta1.PythPriceState',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='price_id', full_name='injective.oracle.v1beta1.PythPriceState.price_id', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"",
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='ema_price', full_name='injective.oracle.v1beta1.PythPriceState.ema_price', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='ema_conf', full_name='injective.oracle.v1beta1.PythPriceState.ema_conf', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='conf', full_name='injective.oracle.v1beta1.PythPriceState.conf', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='publish_time', full_name='injective.oracle.v1beta1.PythPriceState.publish_time', index=4,
+      number=5, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='price_state', full_name='injective.oracle.v1beta1.PythPriceState.price_state', index=5,
+      number=6, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\310\336\037\000', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1537,
+  serialized_end=1853,
 )
 
 
@@ -724,8 +838,8 @@ _BANDORACLEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1514,
-  serialized_end=1772,
+  serialized_start=1856,
+  serialized_end=2114,
 )
 
 
@@ -784,8 +898,8 @@ _BANDIBCPARAMS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1775,
-  serialized_end=1916,
+  serialized_start=2117,
+  serialized_end=2258,
 )
 
 
@@ -830,8 +944,8 @@ _SYMBOLPRICETIMESTAMP = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1918,
-  serialized_end=2032,
+  serialized_start=2260,
+  serialized_end=2374,
 )
 
 
@@ -862,8 +976,8 @@ _LASTPRICETIMESTAMPS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2034,
-  serialized_end=2134,
+  serialized_start=2376,
+  serialized_end=2476,
 )
 
 
@@ -908,8 +1022,8 @@ _PRICERECORDS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2137,
-  serialized_end=2293,
+  serialized_start=2479,
+  serialized_end=2635,
 )
 
 
@@ -947,8 +1061,8 @@ _PRICERECORD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2295,
-  serialized_end=2390,
+  serialized_start=2637,
+  serialized_end=2732,
 )
 
 
@@ -1035,8 +1149,117 @@ _METADATASTATISTICS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2393,
-  serialized_end=2840,
+  serialized_start=2735,
+  serialized_end=3182,
+)
+
+
+_PRICEATTESTATION = _descriptor.Descriptor(
+  name='PriceAttestation',
+  full_name='injective.oracle.v1beta1.PriceAttestation',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='product_id', full_name='injective.oracle.v1beta1.PriceAttestation.product_id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='price_id', full_name='injective.oracle.v1beta1.PriceAttestation.price_id', index=1,
+      number=2, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"",
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='price', full_name='injective.oracle.v1beta1.PriceAttestation.price', index=2,
+      number=3, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='conf', full_name='injective.oracle.v1beta1.PriceAttestation.conf', index=3,
+      number=4, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='expo', full_name='injective.oracle.v1beta1.PriceAttestation.expo', index=4,
+      number=5, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='ema_price', full_name='injective.oracle.v1beta1.PriceAttestation.ema_price', index=5,
+      number=6, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='ema_conf', full_name='injective.oracle.v1beta1.PriceAttestation.ema_conf', index=6,
+      number=7, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='status', full_name='injective.oracle.v1beta1.PriceAttestation.status', index=7,
+      number=8, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='num_publishers', full_name='injective.oracle.v1beta1.PriceAttestation.num_publishers', index=8,
+      number=9, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='max_num_publishers', full_name='injective.oracle.v1beta1.PriceAttestation.max_num_publishers', index=9,
+      number=10, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='attestation_time', full_name='injective.oracle.v1beta1.PriceAttestation.attestation_time', index=10,
+      number=11, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='publish_time', full_name='injective.oracle.v1beta1.PriceAttestation.publish_time', index=11,
+      number=12, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=3185,
+  serialized_end=3475,
 )
 
 _ORACLEINFO.fields_by_name['oracle_type'].enum_type = _ORACLETYPE
@@ -1047,11 +1270,13 @@ _PROVIDERSTATE.fields_by_name['provider_info'].message_type = _PROVIDERINFO
 _PROVIDERSTATE.fields_by_name['provider_price_states'].message_type = _PROVIDERPRICESTATE
 _PROVIDERPRICESTATE.fields_by_name['state'].message_type = _PRICESTATE
 _COINBASEPRICESTATE.fields_by_name['price_state'].message_type = _PRICESTATE
+_PYTHPRICESTATE.fields_by_name['price_state'].message_type = _PRICESTATE
 _BANDORACLEREQUEST.fields_by_name['fee_limit'].message_type = cosmos_dot_base_dot_v1beta1_dot_coin__pb2._COIN
 _SYMBOLPRICETIMESTAMP.fields_by_name['oracle'].enum_type = _ORACLETYPE
 _LASTPRICETIMESTAMPS.fields_by_name['last_price_timestamps'].message_type = _SYMBOLPRICETIMESTAMP
 _PRICERECORDS.fields_by_name['oracle'].enum_type = _ORACLETYPE
 _PRICERECORDS.fields_by_name['latest_price_records'].message_type = _PRICERECORD
+_PRICEATTESTATION.fields_by_name['status'].enum_type = _PYTHSTATUS
 DESCRIPTOR.message_types_by_name['Params'] = _PARAMS
 DESCRIPTOR.message_types_by_name['OracleInfo'] = _ORACLEINFO
 DESCRIPTOR.message_types_by_name['ChainlinkPriceState'] = _CHAINLINKPRICESTATE
@@ -1064,6 +1289,7 @@ DESCRIPTOR.message_types_by_name['PriceFeedInfo'] = _PRICEFEEDINFO
 DESCRIPTOR.message_types_by_name['PriceFeedPrice'] = _PRICEFEEDPRICE
 DESCRIPTOR.message_types_by_name['CoinbasePriceState'] = _COINBASEPRICESTATE
 DESCRIPTOR.message_types_by_name['PriceState'] = _PRICESTATE
+DESCRIPTOR.message_types_by_name['PythPriceState'] = _PYTHPRICESTATE
 DESCRIPTOR.message_types_by_name['BandOracleRequest'] = _BANDORACLEREQUEST
 DESCRIPTOR.message_types_by_name['BandIBCParams'] = _BANDIBCPARAMS
 DESCRIPTOR.message_types_by_name['SymbolPriceTimestamp'] = _SYMBOLPRICETIMESTAMP
@@ -1071,7 +1297,9 @@ DESCRIPTOR.message_types_by_name['LastPriceTimestamps'] = _LASTPRICETIMESTAMPS
 DESCRIPTOR.message_types_by_name['PriceRecords'] = _PRICERECORDS
 DESCRIPTOR.message_types_by_name['PriceRecord'] = _PRICERECORD
 DESCRIPTOR.message_types_by_name['MetadataStatistics'] = _METADATASTATISTICS
+DESCRIPTOR.message_types_by_name['PriceAttestation'] = _PRICEATTESTATION
 DESCRIPTOR.enum_types_by_name['OracleType'] = _ORACLETYPE
+DESCRIPTOR.enum_types_by_name['PythStatus'] = _PYTHSTATUS
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Params = _reflection.GeneratedProtocolMessageType('Params', (_message.Message,), {
@@ -1158,6 +1386,13 @@ PriceState = _reflection.GeneratedProtocolMessageType('PriceState', (_message.Me
   })
 _sym_db.RegisterMessage(PriceState)
 
+PythPriceState = _reflection.GeneratedProtocolMessageType('PythPriceState', (_message.Message,), {
+  'DESCRIPTOR' : _PYTHPRICESTATE,
+  '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
+  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.PythPriceState)
+  })
+_sym_db.RegisterMessage(PythPriceState)
+
 BandOracleRequest = _reflection.GeneratedProtocolMessageType('BandOracleRequest', (_message.Message,), {
   'DESCRIPTOR' : _BANDORACLEREQUEST,
   '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
@@ -1207,6 +1442,13 @@ MetadataStatistics = _reflection.GeneratedProtocolMessageType('MetadataStatistic
   })
 _sym_db.RegisterMessage(MetadataStatistics)
 
+PriceAttestation = _reflection.GeneratedProtocolMessageType('PriceAttestation', (_message.Message,), {
+  'DESCRIPTOR' : _PRICEATTESTATION,
+  '__module__' : 'injective.oracle.v1beta1.oracle_pb2'
+  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.PriceAttestation)
+  })
+_sym_db.RegisterMessage(PriceAttestation)
+
 
 DESCRIPTOR._options = None
 _PARAMS._options = None
@@ -1218,6 +1460,10 @@ _PRICEFEEDPRICE.fields_by_name['price']._options = None
 _COINBASEPRICESTATE.fields_by_name['price_state']._options = None
 _PRICESTATE.fields_by_name['price']._options = None
 _PRICESTATE.fields_by_name['cumulative_price']._options = None
+_PYTHPRICESTATE.fields_by_name['ema_price']._options = None
+_PYTHPRICESTATE.fields_by_name['ema_conf']._options = None
+_PYTHPRICESTATE.fields_by_name['conf']._options = None
+_PYTHPRICESTATE.fields_by_name['price_state']._options = None
 _BANDORACLEREQUEST.fields_by_name['fee_limit']._options = None
 _PRICERECORD.fields_by_name['price']._options = None
 _METADATASTATISTICS.fields_by_name['mean']._options = None
