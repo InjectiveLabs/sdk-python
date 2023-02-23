@@ -45,6 +45,11 @@ class QueryStub(object):
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryCoinbasePriceStatesRequest.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryCoinbasePriceStatesResponse.FromString,
                 )
+        self.PythPriceStates = channel.unary_unary(
+                '/injective.oracle.v1beta1.Query/PythPriceStates',
+                request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythPriceStatesRequest.SerializeToString,
+                response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythPriceStatesResponse.FromString,
+                )
         self.ProviderPriceState = channel.unary_unary(
                 '/injective.oracle.v1beta1.Query/ProviderPriceState',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStateRequest.SerializeToString,
@@ -79,6 +84,11 @@ class QueryStub(object):
                 '/injective.oracle.v1beta1.Query/OraclePrice',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOraclePriceRequest.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOraclePriceResponse.FromString,
+                )
+        self.PythPrice = channel.unary_unary(
+                '/injective.oracle.v1beta1.Query/PythPrice',
+                request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythPriceRequest.SerializeToString,
+                response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythPriceResponse.FromString,
                 )
 
 
@@ -123,6 +133,13 @@ class QueryServicer(object):
 
     def CoinbasePriceStates(self, request, context):
         """Retrieves the state for all coinbase price feeds
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def PythPriceStates(self, request, context):
+        """Retrieves the state for all pyth price feeds
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -174,6 +191,12 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def PythPrice(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_QueryServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -206,6 +229,11 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.CoinbasePriceStates,
                     request_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryCoinbasePriceStatesRequest.FromString,
                     response_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryCoinbasePriceStatesResponse.SerializeToString,
+            ),
+            'PythPriceStates': grpc.unary_unary_rpc_method_handler(
+                    servicer.PythPriceStates,
+                    request_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythPriceStatesRequest.FromString,
+                    response_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythPriceStatesResponse.SerializeToString,
             ),
             'ProviderPriceState': grpc.unary_unary_rpc_method_handler(
                     servicer.ProviderPriceState,
@@ -241,6 +269,11 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.OraclePrice,
                     request_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOraclePriceRequest.FromString,
                     response_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOraclePriceResponse.SerializeToString,
+            ),
+            'PythPrice': grpc.unary_unary_rpc_method_handler(
+                    servicer.PythPrice,
+                    request_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythPriceRequest.FromString,
+                    response_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythPriceResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -352,6 +385,23 @@ class Query(object):
         return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/CoinbasePriceStates',
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryCoinbasePriceStatesRequest.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryCoinbasePriceStatesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def PythPriceStates(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/PythPriceStates',
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythPriceStatesRequest.SerializeToString,
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythPriceStatesResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -471,5 +521,22 @@ class Query(object):
         return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/OraclePrice',
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOraclePriceRequest.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOraclePriceResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def PythPrice(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/PythPrice',
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythPriceRequest.SerializeToString,
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythPriceResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

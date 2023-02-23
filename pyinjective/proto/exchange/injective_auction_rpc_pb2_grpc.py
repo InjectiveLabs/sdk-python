@@ -17,8 +17,8 @@ class InjectiveAuctionRPCStub(object):
         """
         self.AuctionEndpoint = channel.unary_unary(
                 '/injective_auction_rpc.InjectiveAuctionRPC/AuctionEndpoint',
-                request_serializer=exchange_dot_injective__auction__rpc__pb2.AuctionRequest.SerializeToString,
-                response_deserializer=exchange_dot_injective__auction__rpc__pb2.AuctionResponse.FromString,
+                request_serializer=exchange_dot_injective__auction__rpc__pb2.AuctionEndpointRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__auction__rpc__pb2.AuctionEndpointResponse.FromString,
                 )
         self.Auctions = channel.unary_unary(
                 '/injective_auction_rpc.InjectiveAuctionRPC/Auctions',
@@ -62,8 +62,8 @@ def add_InjectiveAuctionRPCServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'AuctionEndpoint': grpc.unary_unary_rpc_method_handler(
                     servicer.AuctionEndpoint,
-                    request_deserializer=exchange_dot_injective__auction__rpc__pb2.AuctionRequest.FromString,
-                    response_serializer=exchange_dot_injective__auction__rpc__pb2.AuctionResponse.SerializeToString,
+                    request_deserializer=exchange_dot_injective__auction__rpc__pb2.AuctionEndpointRequest.FromString,
+                    response_serializer=exchange_dot_injective__auction__rpc__pb2.AuctionEndpointResponse.SerializeToString,
             ),
             'Auctions': grpc.unary_unary_rpc_method_handler(
                     servicer.Auctions,
@@ -98,8 +98,8 @@ class InjectiveAuctionRPC(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/injective_auction_rpc.InjectiveAuctionRPC/AuctionEndpoint',
-            exchange_dot_injective__auction__rpc__pb2.AuctionRequest.SerializeToString,
-            exchange_dot_injective__auction__rpc__pb2.AuctionResponse.FromString,
+            exchange_dot_injective__auction__rpc__pb2.AuctionEndpointRequest.SerializeToString,
+            exchange_dot_injective__auction__rpc__pb2.AuctionEndpointResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

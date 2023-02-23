@@ -20,6 +20,11 @@ class InjectivePortfolioRPCStub(object):
                 request_serializer=exchange_dot_injective__portfolio__rpc__pb2.AccountPortfolioRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__portfolio__rpc__pb2.AccountPortfolioResponse.FromString,
                 )
+        self.StreamAccountPortfolio = channel.unary_stream(
+                '/injective_portfolio_rpc.InjectivePortfolioRPC/StreamAccountPortfolio',
+                request_serializer=exchange_dot_injective__portfolio__rpc__pb2.StreamAccountPortfolioRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__portfolio__rpc__pb2.StreamAccountPortfolioResponse.FromString,
+                )
 
 
 class InjectivePortfolioRPCServicer(object):
@@ -33,6 +38,13 @@ class InjectivePortfolioRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def StreamAccountPortfolio(self, request, context):
+        """Stream the account's portfolio
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_InjectivePortfolioRPCServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -40,6 +52,11 @@ def add_InjectivePortfolioRPCServicer_to_server(servicer, server):
                     servicer.AccountPortfolio,
                     request_deserializer=exchange_dot_injective__portfolio__rpc__pb2.AccountPortfolioRequest.FromString,
                     response_serializer=exchange_dot_injective__portfolio__rpc__pb2.AccountPortfolioResponse.SerializeToString,
+            ),
+            'StreamAccountPortfolio': grpc.unary_stream_rpc_method_handler(
+                    servicer.StreamAccountPortfolio,
+                    request_deserializer=exchange_dot_injective__portfolio__rpc__pb2.StreamAccountPortfolioRequest.FromString,
+                    response_serializer=exchange_dot_injective__portfolio__rpc__pb2.StreamAccountPortfolioResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -66,5 +83,22 @@ class InjectivePortfolioRPC(object):
         return grpc.experimental.unary_unary(request, target, '/injective_portfolio_rpc.InjectivePortfolioRPC/AccountPortfolio',
             exchange_dot_injective__portfolio__rpc__pb2.AccountPortfolioRequest.SerializeToString,
             exchange_dot_injective__portfolio__rpc__pb2.AccountPortfolioResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def StreamAccountPortfolio(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/injective_portfolio_rpc.InjectivePortfolioRPC/StreamAccountPortfolio',
+            exchange_dot_injective__portfolio__rpc__pb2.StreamAccountPortfolioRequest.SerializeToString,
+            exchange_dot_injective__portfolio__rpc__pb2.StreamAccountPortfolioResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

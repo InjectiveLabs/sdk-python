@@ -13,6 +13,7 @@ _sym_db = _symbol_database.Default()
 
 from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
+from injective.oracle.v1beta1 import oracle_pb2 as injective_dot_oracle_dot_v1beta1_dot_oracle__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -21,9 +22,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'ZLgithub.com/InjectiveLabs/injective-core/injective-chain/modules/oracle/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n%injective/oracle/v1beta1/events.proto\x12\x18injective.oracle.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\"|\n\x16SetChainlinkPriceEvent\x12\x0f\n\x07\x66\x65\x65\x64_id\x18\x01 \x01(\t\x12>\n\x06\x61nswer\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x11\n\ttimestamp\x18\x03 \x01(\x04\"\x9d\x01\n\x11SetBandPriceEvent\x12\x0f\n\x07relayer\x18\x01 \x01(\t\x12\x0e\n\x06symbol\x18\x02 \x01(\t\x12=\n\x05price\x18\x03 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x14\n\x0cresolve_time\x18\x04 \x01(\x04\x12\x12\n\nrequest_id\x18\x05 \x01(\x04\"\xb5\x01\n\x14SetBandIBCPriceEvent\x12\x0f\n\x07relayer\x18\x01 \x01(\t\x12\x0f\n\x07symbols\x18\x02 \x03(\t\x12>\n\x06prices\x18\x03 \x03(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x14\n\x0cresolve_time\x18\x04 \x01(\x04\x12\x12\n\nrequest_id\x18\x05 \x01(\x04\x12\x11\n\tclient_id\x18\x06 \x01(\x03\"?\n\x16\x45ventBandIBCAckSuccess\x12\x12\n\nack_result\x18\x01 \x01(\t\x12\x11\n\tclient_id\x18\x02 \x01(\x03\"<\n\x14\x45ventBandIBCAckError\x12\x11\n\tack_error\x18\x01 \x01(\t\x12\x11\n\tclient_id\x18\x02 \x01(\x03\"0\n\x1b\x45ventBandIBCResponseTimeout\x12\x11\n\tclient_id\x18\x01 \x01(\x03\"\x85\x01\n\x16SetPriceFeedPriceEvent\x12\x0f\n\x07relayer\x18\x01 \x01(\t\x12\x0c\n\x04\x62\x61se\x18\x02 \x01(\t\x12\r\n\x05quote\x18\x03 \x01(\t\x12=\n\x05price\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"\x89\x01\n\x15SetProviderPriceEvent\x12\x10\n\x08provider\x18\x01 \x01(\t\x12\x0f\n\x07relayer\x18\x02 \x01(\t\x12\x0e\n\x06symbol\x18\x03 \x01(\t\x12=\n\x05price\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"y\n\x15SetCoinbasePriceEvent\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12=\n\x05price\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x11\n\ttimestamp\x18\x03 \x01(\x04\x42NZLgithub.com/InjectiveLabs/injective-core/injective-chain/modules/oracle/typesb\x06proto3'
+  serialized_pb=b'\n%injective/oracle/v1beta1/events.proto\x12\x18injective.oracle.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a%injective/oracle/v1beta1/oracle.proto\"|\n\x16SetChainlinkPriceEvent\x12\x0f\n\x07\x66\x65\x65\x64_id\x18\x01 \x01(\t\x12>\n\x06\x61nswer\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x11\n\ttimestamp\x18\x03 \x01(\x04\"\x9d\x01\n\x11SetBandPriceEvent\x12\x0f\n\x07relayer\x18\x01 \x01(\t\x12\x0e\n\x06symbol\x18\x02 \x01(\t\x12=\n\x05price\x18\x03 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x14\n\x0cresolve_time\x18\x04 \x01(\x04\x12\x12\n\nrequest_id\x18\x05 \x01(\x04\"\xb5\x01\n\x14SetBandIBCPriceEvent\x12\x0f\n\x07relayer\x18\x01 \x01(\t\x12\x0f\n\x07symbols\x18\x02 \x03(\t\x12>\n\x06prices\x18\x03 \x03(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x14\n\x0cresolve_time\x18\x04 \x01(\x04\x12\x12\n\nrequest_id\x18\x05 \x01(\x04\x12\x11\n\tclient_id\x18\x06 \x01(\x03\"?\n\x16\x45ventBandIBCAckSuccess\x12\x12\n\nack_result\x18\x01 \x01(\t\x12\x11\n\tclient_id\x18\x02 \x01(\x03\"<\n\x14\x45ventBandIBCAckError\x12\x11\n\tack_error\x18\x01 \x01(\t\x12\x11\n\tclient_id\x18\x02 \x01(\x03\"0\n\x1b\x45ventBandIBCResponseTimeout\x12\x11\n\tclient_id\x18\x01 \x01(\x03\"\x85\x01\n\x16SetPriceFeedPriceEvent\x12\x0f\n\x07relayer\x18\x01 \x01(\t\x12\x0c\n\x04\x62\x61se\x18\x02 \x01(\t\x12\r\n\x05quote\x18\x03 \x01(\t\x12=\n\x05price\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"\x89\x01\n\x15SetProviderPriceEvent\x12\x10\n\x08provider\x18\x01 \x01(\t\x12\x0f\n\x07relayer\x18\x02 \x01(\t\x12\x0e\n\x06symbol\x18\x03 \x01(\t\x12=\n\x05price\x18\x04 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\"y\n\x15SetCoinbasePriceEvent\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12=\n\x05price\x18\x02 \x01(\tB.\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xc8\xde\x1f\x00\x12\x11\n\ttimestamp\x18\x03 \x01(\x04\"N\n\x12\x45ventSetPythPrices\x12\x38\n\x06prices\x18\x01 \x03(\x0b\x32(.injective.oracle.v1beta1.PythPriceStateBNZLgithub.com/InjectiveLabs/injective-core/injective-chain/modules/oracle/typesb\x06proto3'
   ,
-  dependencies=[gogoproto_dot_gogo__pb2.DESCRIPTOR,cosmos_dot_base_dot_v1beta1_dot_coin__pb2.DESCRIPTOR,])
+  dependencies=[gogoproto_dot_gogo__pb2.DESCRIPTOR,cosmos_dot_base_dot_v1beta1_dot_coin__pb2.DESCRIPTOR,injective_dot_oracle_dot_v1beta1_dot_oracle__pb2.DESCRIPTOR,])
 
 
 
@@ -69,8 +70,8 @@ _SETCHAINLINKPRICEEVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=121,
-  serialized_end=245,
+  serialized_start=160,
+  serialized_end=284,
 )
 
 
@@ -129,8 +130,8 @@ _SETBANDPRICEEVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=248,
-  serialized_end=405,
+  serialized_start=287,
+  serialized_end=444,
 )
 
 
@@ -196,8 +197,8 @@ _SETBANDIBCPRICEEVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=408,
-  serialized_end=589,
+  serialized_start=447,
+  serialized_end=628,
 )
 
 
@@ -235,8 +236,8 @@ _EVENTBANDIBCACKSUCCESS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=591,
-  serialized_end=654,
+  serialized_start=630,
+  serialized_end=693,
 )
 
 
@@ -274,8 +275,8 @@ _EVENTBANDIBCACKERROR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=656,
-  serialized_end=716,
+  serialized_start=695,
+  serialized_end=755,
 )
 
 
@@ -306,8 +307,8 @@ _EVENTBANDIBCRESPONSETIMEOUT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=718,
-  serialized_end=766,
+  serialized_start=757,
+  serialized_end=805,
 )
 
 
@@ -359,8 +360,8 @@ _SETPRICEFEEDPRICEEVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=769,
-  serialized_end=902,
+  serialized_start=808,
+  serialized_end=941,
 )
 
 
@@ -412,8 +413,8 @@ _SETPROVIDERPRICEEVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=905,
-  serialized_end=1042,
+  serialized_start=944,
+  serialized_end=1081,
 )
 
 
@@ -458,10 +459,43 @@ _SETCOINBASEPRICEEVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1044,
-  serialized_end=1165,
+  serialized_start=1083,
+  serialized_end=1204,
 )
 
+
+_EVENTSETPYTHPRICES = _descriptor.Descriptor(
+  name='EventSetPythPrices',
+  full_name='injective.oracle.v1beta1.EventSetPythPrices',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='prices', full_name='injective.oracle.v1beta1.EventSetPythPrices.prices', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1206,
+  serialized_end=1284,
+)
+
+_EVENTSETPYTHPRICES.fields_by_name['prices'].message_type = injective_dot_oracle_dot_v1beta1_dot_oracle__pb2._PYTHPRICESTATE
 DESCRIPTOR.message_types_by_name['SetChainlinkPriceEvent'] = _SETCHAINLINKPRICEEVENT
 DESCRIPTOR.message_types_by_name['SetBandPriceEvent'] = _SETBANDPRICEEVENT
 DESCRIPTOR.message_types_by_name['SetBandIBCPriceEvent'] = _SETBANDIBCPRICEEVENT
@@ -471,6 +505,7 @@ DESCRIPTOR.message_types_by_name['EventBandIBCResponseTimeout'] = _EVENTBANDIBCR
 DESCRIPTOR.message_types_by_name['SetPriceFeedPriceEvent'] = _SETPRICEFEEDPRICEEVENT
 DESCRIPTOR.message_types_by_name['SetProviderPriceEvent'] = _SETPROVIDERPRICEEVENT
 DESCRIPTOR.message_types_by_name['SetCoinbasePriceEvent'] = _SETCOINBASEPRICEEVENT
+DESCRIPTOR.message_types_by_name['EventSetPythPrices'] = _EVENTSETPYTHPRICES
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 SetChainlinkPriceEvent = _reflection.GeneratedProtocolMessageType('SetChainlinkPriceEvent', (_message.Message,), {
@@ -535,6 +570,13 @@ SetCoinbasePriceEvent = _reflection.GeneratedProtocolMessageType('SetCoinbasePri
   # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.SetCoinbasePriceEvent)
   })
 _sym_db.RegisterMessage(SetCoinbasePriceEvent)
+
+EventSetPythPrices = _reflection.GeneratedProtocolMessageType('EventSetPythPrices', (_message.Message,), {
+  'DESCRIPTOR' : _EVENTSETPYTHPRICES,
+  '__module__' : 'injective.oracle.v1beta1.events_pb2'
+  # @@protoc_insertion_point(class_scope:injective.oracle.v1beta1.EventSetPythPrices)
+  })
+_sym_db.RegisterMessage(EventSetPythPrices)
 
 
 DESCRIPTOR._options = None
