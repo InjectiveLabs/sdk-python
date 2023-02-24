@@ -992,13 +992,11 @@ class AsyncClient:
         req = portfolio_rpc_pb.AccountPortfolioRequest(account_address=account_address)
         return await self.stubPortfolio.AccountPortfolio(req)
 
-    async def stream_account_portfolio(
-            self, account_address: str = None, subaccount_id: str = None, portfolio_type: str = None
-    ):
+    async def stream_account_portfolio(self, account_address: str, **kwargs):
         req = portfolio_rpc_pb.StreamAccountPortfolioRequest(
             account_address=account_address,
-            subaccount_id=subaccount_id,
-            type=portfolio_type
+            subaccount_id=kwargs.get("subaccount_id"),
+            type=kwargs.get("type")
         )
         metadata = await self.load_cookie(type="exchange")
         return self.stubPortfolio.StreamAccountPortfolio.__call__(req, metadata=metadata)
