@@ -10,7 +10,6 @@ from .proto.cosmos.authz.v1beta1 import tx_pb2 as cosmos_authz_tx_pb
 from .proto.injective.exchange.v1beta1 import authz_pb2 as injective_authz_pb
 
 from .proto.cosmos.bank.v1beta1 import tx_pb2 as cosmos_bank_tx_pb
-from .proto.cosmos.base.v1beta1 import coin_pb2 as cosmos_base_coin_pb
 
 from .proto.injective.exchange.v1beta1 import tx_pb2 as injective_exchange_tx_pb
 from .proto.injective.exchange.v1beta1 import exchange_pb2 as injective_exchange_pb
@@ -28,6 +27,8 @@ from .proto.cosmos.distribution.v1beta1 import tx_pb2 as cosmos_distribution_tx_
 
 from .proto.cosmos.gov.v1beta1 import tx_pb2 as cosmos_gov_tx_pb
 
+from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
+
 from .constant import Denom
 from .utils import *
 from typing import List
@@ -40,7 +41,7 @@ class Composer:
         self.network = network
 
     def Coin(self, amount: int, denom: str):
-        return cosmos_base_coin_pb.Coin(amount=str(amount), denom=denom)
+        return cosmos_dot_base_dot_v1beta1_dot_coin__pb2.Coin(amount=str(amount), denom=denom)
 
     def get_order_mask(self, **kwargs):
         order_mask = 0
