@@ -12,7 +12,7 @@ from .proto.injective.exchange.v1beta1 import authz_pb2 as injective_authz_pb
 from .proto.cosmos.bank.v1beta1 import tx_pb2 as cosmos_bank_tx_pb
 
 from .proto.injective.exchange.v1beta1 import tx_pb2 as injective_exchange_tx_pb
-from .proto.injective.exchange.v1beta1 import exchange_pb2 as injective_exchange_pb
+from pyinjective.proto.injective.exchange.v1beta1 import exchange_pb2 as injective_dot_exchange_dot_v1beta1_dot_exchange__pb2
 from .proto.injective.types.v1beta1 import tx_response_pb2 as tx_response_pb
 
 from .proto.injective.auction.v1beta1 import tx_pb2 as injective_auction_tx_pb
@@ -47,21 +47,21 @@ class Composer:
         order_mask = 0
 
         if kwargs.get("is_conditional"):
-            order_mask += injective_exchange_pb.OrderMask.CONDITIONAL
+            order_mask += injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderMask.CONDITIONAL
         else:
-            order_mask += injective_exchange_pb.OrderMask.REGULAR
+            order_mask += injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderMask.REGULAR
 
         if kwargs.get("order_direction") == "buy":
-            order_mask += injective_exchange_pb.OrderMask.DIRECTION_BUY_OR_HIGHER
+            order_mask += injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderMask.DIRECTION_BUY_OR_HIGHER
 
         elif kwargs.get("order_direction") == "sell":
-            order_mask += injective_exchange_pb.OrderMask.DIRECTION_SELL_OR_LOWER
+            order_mask += injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderMask.DIRECTION_SELL_OR_LOWER
 
         if kwargs.get("order_type") == "market":
-            order_mask += injective_exchange_pb.OrderMask.TYPE_MARKET
+            order_mask += injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderMask.TYPE_MARKET
 
         elif kwargs.get("order_type") == "limit":
-            order_mask += injective_exchange_pb.OrderMask.TYPE_LIMIT
+            order_mask += injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderMask.TYPE_LIMIT
 
         if order_mask == 0:
             order_mask = 1
@@ -98,20 +98,20 @@ class Composer:
         trigger_price = spot_price_to_backend(0, denom)
 
         if kwargs.get("is_buy") and not kwargs.get("is_po"):
-            order_type = injective_exchange_pb.OrderType.BUY
+            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.BUY
 
         elif not kwargs.get("is_buy") and not kwargs.get("is_po"):
-            order_type = injective_exchange_pb.OrderType.SELL
+            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.SELL
 
         elif kwargs.get("is_buy") and kwargs.get("is_po"):
-            order_type = injective_exchange_pb.OrderType.BUY_PO
+            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.BUY_PO
 
         elif not kwargs.get("is_buy") and kwargs.get("is_po"):
-            order_type = injective_exchange_pb.OrderType.SELL_PO
+            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.SELL_PO
 
-        return injective_exchange_pb.SpotOrder(
+        return injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.SpotOrder(
             market_id=market_id,
-            order_info=injective_exchange_pb.OrderInfo(
+            order_info=injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderInfo(
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,
                 price=str(price),
@@ -152,32 +152,32 @@ class Composer:
         quantity = derivative_quantity_to_backend(quantity, denom)
 
         if kwargs.get("is_buy") and not kwargs.get("is_po"):
-            order_type = injective_exchange_pb.OrderType.BUY
+            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.BUY
 
         elif not kwargs.get("is_buy") and not kwargs.get("is_po"):
-            order_type = injective_exchange_pb.OrderType.SELL
+            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.SELL
 
         elif kwargs.get("is_buy") and kwargs.get("is_po"):
-            order_type = injective_exchange_pb.OrderType.BUY_PO
+            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.BUY_PO
 
         elif not kwargs.get("is_buy") and kwargs.get("is_po"):
-            order_type = injective_exchange_pb.OrderType.SELL_PO
+            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.SELL_PO
 
         elif kwargs.get("stop_buy"):
-            order_type = injective_exchange_pb.OrderType.STOP_BUY
+            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.STOP_BUY
 
         elif kwargs.get("stop_sell"):
-            order_type = injective_exchange_pb.OrderType.STOP_SEll
+            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.STOP_SEll
 
         elif kwargs.get("take_buy"):
-            order_type = injective_exchange_pb.OrderType.TAKE_BUY
+            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.TAKE_BUY
 
         elif kwargs.get("take_sell"):
-            order_type = injective_exchange_pb.OrderType.TAKE_SELL
+            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.TAKE_SELL
 
-        return injective_exchange_pb.DerivativeOrder(
+        return injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.DerivativeOrder(
             market_id=market_id,
-            order_info=injective_exchange_pb.OrderInfo(
+            order_info=injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderInfo(
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,
                 price=str(price),
@@ -223,20 +223,20 @@ class Composer:
         quantity = binary_options_quantity_to_backend(quantity, denom)
 
         if kwargs.get("is_buy") and not kwargs.get("is_po"):
-            order_type = injective_exchange_pb.OrderType.BUY
+            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.BUY
 
         elif not kwargs.get("is_buy") and not kwargs.get("is_po"):
-            order_type = injective_exchange_pb.OrderType.SELL
+            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.SELL
 
         elif kwargs.get("is_buy") and kwargs.get("is_po"):
-            order_type = injective_exchange_pb.OrderType.BUY_PO
+            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.BUY_PO
 
         elif not kwargs.get("is_buy") and kwargs.get("is_po"):
-            order_type = injective_exchange_pb.OrderType.SELL_PO
+            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.SELL_PO
 
-        return injective_exchange_pb.DerivativeOrder(
+        return injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.DerivativeOrder(
             market_id=market_id,
-            order_info=injective_exchange_pb.OrderInfo(
+            order_info=injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderInfo(
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,
                 price=str(price),
