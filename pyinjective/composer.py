@@ -41,7 +41,7 @@ class Composer:
         self.network = network
 
     def Coin(self, amount: int, denom: str):
-        return cosmos_base_coin_pb.Coin(amount=str(amount), denom=denom)
+        return cosmos_dot_base_dot_v1beta1_dot_coin__pb2.Coin(amount=str(amount), denom=denom)
 
     def get_order_mask(self, **kwargs):
         order_mask = 0
