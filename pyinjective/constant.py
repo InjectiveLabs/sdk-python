@@ -109,12 +109,11 @@ class Network:
     @classmethod
     def mainnet(cls, node='lb'):
         nodes = [
-            'k8s',
-            'lb',
-            'sentry0',  # us, prod
-            'sentry1',  # us, prod
-            'sentry2',  # us, staging
-            'sentry3',  # tokyo, prod
+            'k8s', # us, prod
+            'lb', # us, asia, prod
+            'sentry0',  # ca, prod
+            'sentry1',  # ca, prod
+            'sentry3',  # us, prod
         ]
         if node not in nodes:
             raise ValueError('Must be one of {}'.format(nodes))
