@@ -96,6 +96,10 @@ class AsyncClient:
         self.cookie_type = None
         self.expiration_format = None
         self.load_balancer = load_balancer
+        self.network = network
+
+        if self.network.string() == "testnet":
+            self.load_balancer = False
 
         if self.load_balancer is False:
             self.cookie_type = "grpc-cookie"

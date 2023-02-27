@@ -78,6 +78,12 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.6.0.6**
+* Set default testnet endpoints to K8S
+* Remove LB config for testnet
+* Fix relative imports in composer
+* Add AccountPortfolio & StreamAccountPortfolio
+
 **0.6.0.5**
 * Add new testnet endpoints
 * Re-gen mainnet denoms
