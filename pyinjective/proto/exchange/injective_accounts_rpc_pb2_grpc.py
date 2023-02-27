@@ -6,7 +6,7 @@ from exchange import injective_accounts_rpc_pb2 as exchange_dot_injective__accou
 
 
 class InjectiveAccountsRPCStub(object):
-    """InjectiveAccountsRPC defines gRPC API of Exchange Accounts provider.
+    """InjectiveAccountsRPC defines API of Exchange Accounts provider.
     """
 
     def __init__(self, channel):
@@ -37,8 +37,8 @@ class InjectiveAccountsRPCStub(object):
                 )
         self.SubaccountBalanceEndpoint = channel.unary_unary(
                 '/injective_accounts_rpc.InjectiveAccountsRPC/SubaccountBalanceEndpoint',
-                request_serializer=exchange_dot_injective__accounts__rpc__pb2.SubaccountBalanceRequest.SerializeToString,
-                response_deserializer=exchange_dot_injective__accounts__rpc__pb2.SubaccountBalanceResponse.FromString,
+                request_serializer=exchange_dot_injective__accounts__rpc__pb2.SubaccountBalanceEndpointRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__accounts__rpc__pb2.SubaccountBalanceEndpointResponse.FromString,
                 )
         self.StreamSubaccountBalance = channel.unary_stream(
                 '/injective_accounts_rpc.InjectiveAccountsRPC/StreamSubaccountBalance',
@@ -63,7 +63,7 @@ class InjectiveAccountsRPCStub(object):
 
 
 class InjectiveAccountsRPCServicer(object):
-    """InjectiveAccountsRPC defines gRPC API of Exchange Accounts provider.
+    """InjectiveAccountsRPC defines API of Exchange Accounts provider.
     """
 
     def Portfolio(self, request, context):
@@ -156,8 +156,8 @@ def add_InjectiveAccountsRPCServicer_to_server(servicer, server):
             ),
             'SubaccountBalanceEndpoint': grpc.unary_unary_rpc_method_handler(
                     servicer.SubaccountBalanceEndpoint,
-                    request_deserializer=exchange_dot_injective__accounts__rpc__pb2.SubaccountBalanceRequest.FromString,
-                    response_serializer=exchange_dot_injective__accounts__rpc__pb2.SubaccountBalanceResponse.SerializeToString,
+                    request_deserializer=exchange_dot_injective__accounts__rpc__pb2.SubaccountBalanceEndpointRequest.FromString,
+                    response_serializer=exchange_dot_injective__accounts__rpc__pb2.SubaccountBalanceEndpointResponse.SerializeToString,
             ),
             'StreamSubaccountBalance': grpc.unary_stream_rpc_method_handler(
                     servicer.StreamSubaccountBalance,
@@ -187,7 +187,7 @@ def add_InjectiveAccountsRPCServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class InjectiveAccountsRPC(object):
-    """InjectiveAccountsRPC defines gRPC API of Exchange Accounts provider.
+    """InjectiveAccountsRPC defines API of Exchange Accounts provider.
     """
 
     @staticmethod
@@ -270,8 +270,8 @@ class InjectiveAccountsRPC(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/injective_accounts_rpc.InjectiveAccountsRPC/SubaccountBalanceEndpoint',
-            exchange_dot_injective__accounts__rpc__pb2.SubaccountBalanceRequest.SerializeToString,
-            exchange_dot_injective__accounts__rpc__pb2.SubaccountBalanceResponse.FromString,
+            exchange_dot_injective__accounts__rpc__pb2.SubaccountBalanceEndpointRequest.SerializeToString,
+            exchange_dot_injective__accounts__rpc__pb2.SubaccountBalanceEndpointResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

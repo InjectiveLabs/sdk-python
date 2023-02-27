@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z\036/injective_spot_exchange_rpcpb',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n*exchange/injective_spot_exchange_rpc.proto\x12\x1binjective_spot_exchange_rpc\"P\n\x0eMarketsRequest\x12\x15\n\rmarket_status\x18\x01 \x01(\t\x12\x12\n\nbase_denom\x18\x02 \x01(\t\x12\x13\n\x0bquote_denom\x18\x03 \x01(\t\"O\n\x0fMarketsResponse\x12<\n\x07markets\x18\x01 \x03(\x0b\x32+.injective_spot_exchange_rpc.SpotMarketInfo\"\x81\x03\n\x0eSpotMarketInfo\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x15\n\rmarket_status\x18\x02 \x01(\t\x12\x0e\n\x06ticker\x18\x03 \x01(\t\x12\x12\n\nbase_denom\x18\x04 \x01(\t\x12?\n\x0f\x62\x61se_token_meta\x18\x05 \x01(\x0b\x32&.injective_spot_exchange_rpc.TokenMeta\x12\x13\n\x0bquote_denom\x18\x06 \x01(\t\x12@\n\x10quote_token_meta\x18\x07 \x01(\x0b\x32&.injective_spot_exchange_rpc.TokenMeta\x12\x16\n\x0emaker_fee_rate\x18\x08 \x01(\t\x12\x16\n\x0etaker_fee_rate\x18\t \x01(\t\x12\x1c\n\x14service_provider_fee\x18\n \x01(\t\x12\x1b\n\x13min_price_tick_size\x18\x0b \x01(\t\x12\x1e\n\x16min_quantity_tick_size\x18\x0c \x01(\t\"n\n\tTokenMeta\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x02 \x01(\t\x12\x0e\n\x06symbol\x18\x03 \x01(\t\x12\x0c\n\x04logo\x18\x04 \x01(\t\x12\x10\n\x08\x64\x65\x63imals\x18\x05 \x01(\x11\x12\x12\n\nupdated_at\x18\x06 \x01(\x12\"\"\n\rMarketRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\"M\n\x0eMarketResponse\x12;\n\x06market\x18\x01 \x01(\x0b\x32+.injective_spot_exchange_rpc.SpotMarketInfo\"*\n\x14StreamMarketsRequest\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"\x7f\n\x15StreamMarketsResponse\x12;\n\x06market\x18\x01 \x01(\x0b\x32+.injective_spot_exchange_rpc.SpotMarketInfo\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"%\n\x10OrderbookRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\"W\n\x11OrderbookResponse\x12\x42\n\torderbook\x18\x01 \x01(\x0b\x32/.injective_spot_exchange_rpc.SpotLimitOrderbook\"\x83\x01\n\x12SpotLimitOrderbook\x12\x35\n\x04\x62uys\x18\x01 \x03(\x0b\x32\'.injective_spot_exchange_rpc.PriceLevel\x12\x36\n\x05sells\x18\x02 \x03(\x0b\x32\'.injective_spot_exchange_rpc.PriceLevel\"@\n\nPriceLevel\x12\r\n\x05price\x18\x01 \x01(\t\x12\x10\n\x08quantity\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"\'\n\x12OrderbookV2Request\x12\x11\n\tmarket_id\x18\x01 \x01(\t\"[\n\x13OrderbookV2Response\x12\x44\n\torderbook\x18\x01 \x01(\x0b\x32\x31.injective_spot_exchange_rpc.SpotLimitOrderbookV2\"\x97\x01\n\x14SpotLimitOrderbookV2\x12\x35\n\x04\x62uys\x18\x01 \x03(\x0b\x32\'.injective_spot_exchange_rpc.PriceLevel\x12\x36\n\x05sells\x18\x02 \x03(\x0b\x32\'.injective_spot_exchange_rpc.PriceLevel\x12\x10\n\x08sequence\x18\x03 \x01(\x04\"\'\n\x11OrderbooksRequest\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"_\n\x12OrderbooksResponse\x12I\n\norderbooks\x18\x01 \x03(\x0b\x32\x35.injective_spot_exchange_rpc.SingleSpotLimitOrderbook\"q\n\x18SingleSpotLimitOrderbook\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x42\n\torderbook\x18\x02 \x01(\x0b\x32/.injective_spot_exchange_rpc.SpotLimitOrderbook\")\n\x13OrderbooksV2Request\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"c\n\x14OrderbooksV2Response\x12K\n\norderbooks\x18\x01 \x03(\x0b\x32\x37.injective_spot_exchange_rpc.SingleSpotLimitOrderbookV2\"u\n\x1aSingleSpotLimitOrderbookV2\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x44\n\torderbook\x18\x02 \x01(\x0b\x32\x31.injective_spot_exchange_rpc.SpotLimitOrderbookV2\",\n\x16StreamOrderbookRequest\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"\x9b\x01\n\x17StreamOrderbookResponse\x12\x42\n\torderbook\x18\x01 \x01(\x0b\x32/.injective_spot_exchange_rpc.SpotLimitOrderbook\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\x12\x11\n\tmarket_id\x18\x04 \x01(\t\".\n\x18StreamOrderbookV2Request\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"\x9f\x01\n\x19StreamOrderbookV2Response\x12\x44\n\torderbook\x18\x01 \x01(\x0b\x32\x31.injective_spot_exchange_rpc.SpotLimitOrderbookV2\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\x12\x11\n\tmarket_id\x18\x04 \x01(\t\"2\n\x1cStreamOrderbookUpdateRequest\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"\xb2\x01\n\x1dStreamOrderbookUpdateResponse\x12S\n\x17orderbook_level_updates\x18\x01 \x01(\x0b\x32\x32.injective_spot_exchange_rpc.OrderbookLevelUpdates\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\x12\x11\n\tmarket_id\x18\x04 \x01(\t\"\xcb\x01\n\x15OrderbookLevelUpdates\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x10\n\x08sequence\x18\x02 \x01(\x04\x12;\n\x04\x62uys\x18\x03 \x03(\x0b\x32-.injective_spot_exchange_rpc.PriceLevelUpdate\x12<\n\x05sells\x18\x04 \x03(\x0b\x32-.injective_spot_exchange_rpc.PriceLevelUpdate\x12\x12\n\nupdated_at\x18\x05 \x01(\x12\"Y\n\x10PriceLevelUpdate\x12\r\n\x05price\x18\x01 \x01(\t\x12\x10\n\x08quantity\x18\x02 \x01(\t\x12\x11\n\tis_active\x18\x03 \x01(\x08\x12\x11\n\ttimestamp\x18\x04 \x01(\x12\"\xdf\x01\n\rOrdersRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x12\n\norder_side\x18\x02 \x01(\t\x12\x15\n\rsubaccount_id\x18\x03 \x01(\t\x12\x0c\n\x04skip\x18\x04 \x01(\x04\x12\r\n\x05limit\x18\x05 \x01(\x11\x12\x12\n\nstart_time\x18\x06 \x01(\x12\x12\x10\n\x08\x65nd_time\x18\x07 \x01(\x12\x12\x12\n\nmarket_ids\x18\x08 \x03(\t\x12\x18\n\x10include_inactive\x18\t \x01(\x08\x12\x1f\n\x17subaccount_total_orders\x18\n \x01(\x08\"\x82\x01\n\x0eOrdersResponse\x12;\n\x06orders\x18\x01 \x03(\x0b\x32+.injective_spot_exchange_rpc.SpotLimitOrder\x12\x33\n\x06paging\x18\x02 \x01(\x0b\x32#.injective_spot_exchange_rpc.Paging\"\x83\x02\n\x0eSpotLimitOrder\x12\x12\n\norder_hash\x18\x01 \x01(\t\x12\x12\n\norder_side\x18\x02 \x01(\t\x12\x11\n\tmarket_id\x18\x03 \x01(\t\x12\x15\n\rsubaccount_id\x18\x04 \x01(\t\x12\r\n\x05price\x18\x05 \x01(\t\x12\x10\n\x08quantity\x18\x06 \x01(\t\x12\x19\n\x11unfilled_quantity\x18\x07 \x01(\t\x12\x15\n\rtrigger_price\x18\x08 \x01(\t\x12\x15\n\rfee_recipient\x18\t \x01(\t\x12\r\n\x05state\x18\n \x01(\t\x12\x12\n\ncreated_at\x18\x0b \x01(\x12\x12\x12\n\nupdated_at\x18\x0c \x01(\x12\"N\n\x06Paging\x12\r\n\x05total\x18\x01 \x01(\x12\x12\x0c\n\x04\x66rom\x18\x02 \x01(\x11\x12\n\n\x02to\x18\x03 \x01(\x11\x12\x1b\n\x13\x63ount_by_subaccount\x18\x04 \x01(\x12\"\xe5\x01\n\x13StreamOrdersRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x12\n\norder_side\x18\x02 \x01(\t\x12\x15\n\rsubaccount_id\x18\x03 \x01(\t\x12\x0c\n\x04skip\x18\x04 \x01(\x04\x12\r\n\x05limit\x18\x05 \x01(\x11\x12\x12\n\nstart_time\x18\x06 \x01(\x12\x12\x10\n\x08\x65nd_time\x18\x07 \x01(\x12\x12\x12\n\nmarket_ids\x18\x08 \x03(\t\x12\x18\n\x10include_inactive\x18\t \x01(\x08\x12\x1f\n\x17subaccount_total_orders\x18\n \x01(\x08\"}\n\x14StreamOrdersResponse\x12:\n\x05order\x18\x01 \x01(\x0b\x32+.injective_spot_exchange_rpc.SpotLimitOrder\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"\xec\x01\n\rTradesRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x16\n\x0e\x65xecution_side\x18\x02 \x01(\t\x12\x11\n\tdirection\x18\x03 \x01(\t\x12\x15\n\rsubaccount_id\x18\x04 \x01(\t\x12\x0c\n\x04skip\x18\x05 \x01(\x04\x12\r\n\x05limit\x18\x06 \x01(\x11\x12\x12\n\nstart_time\x18\x07 \x01(\x12\x12\x10\n\x08\x65nd_time\x18\x08 \x01(\x12\x12\x12\n\nmarket_ids\x18\t \x03(\t\x12\x16\n\x0esubaccount_ids\x18\n \x03(\t\x12\x17\n\x0f\x65xecution_types\x18\x0b \x03(\t\"}\n\x0eTradesResponse\x12\x36\n\x06trades\x18\x01 \x03(\x0b\x32&.injective_spot_exchange_rpc.SpotTrade\x12\x33\n\x06paging\x18\x02 \x01(\x0b\x32#.injective_spot_exchange_rpc.Paging\"\x9b\x02\n\tSpotTrade\x12\x12\n\norder_hash\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\x12\x11\n\tmarket_id\x18\x03 \x01(\t\x12\x1c\n\x14trade_execution_type\x18\x04 \x01(\t\x12\x17\n\x0ftrade_direction\x18\x05 \x01(\t\x12\x36\n\x05price\x18\x06 \x01(\x0b\x32\'.injective_spot_exchange_rpc.PriceLevel\x12\x0b\n\x03\x66\x65\x65\x18\x07 \x01(\t\x12\x13\n\x0b\x65xecuted_at\x18\x08 \x01(\x12\x12\x15\n\rfee_recipient\x18\t \x01(\t\x12\x10\n\x08trade_id\x18\n \x01(\t\x12\x16\n\x0e\x65xecution_side\x18\x0b \x01(\t\"\xf2\x01\n\x13StreamTradesRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x16\n\x0e\x65xecution_side\x18\x02 \x01(\t\x12\x11\n\tdirection\x18\x03 \x01(\t\x12\x15\n\rsubaccount_id\x18\x04 \x01(\t\x12\x0c\n\x04skip\x18\x05 \x01(\x04\x12\r\n\x05limit\x18\x06 \x01(\x11\x12\x12\n\nstart_time\x18\x07 \x01(\x12\x12\x10\n\x08\x65nd_time\x18\x08 \x01(\x12\x12\x12\n\nmarket_ids\x18\t \x03(\t\x12\x16\n\x0esubaccount_ids\x18\n \x03(\t\x12\x17\n\x0f\x65xecution_types\x18\x0b \x03(\t\"x\n\x14StreamTradesResponse\x12\x35\n\x05trade\x18\x01 \x01(\x0b\x32&.injective_spot_exchange_rpc.SpotTrade\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"d\n\x1bSubaccountOrdersListRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x0c\n\x04skip\x18\x03 \x01(\x04\x12\r\n\x05limit\x18\x04 \x01(\x11\"\x90\x01\n\x1cSubaccountOrdersListResponse\x12;\n\x06orders\x18\x01 \x03(\x0b\x32+.injective_spot_exchange_rpc.SpotLimitOrder\x12\x33\n\x06paging\x18\x02 \x01(\x0b\x32#.injective_spot_exchange_rpc.Paging\"\x8f\x01\n\x1bSubaccountTradesListRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x16\n\x0e\x65xecution_type\x18\x03 \x01(\t\x12\x11\n\tdirection\x18\x04 \x01(\t\x12\x0c\n\x04skip\x18\x05 \x01(\x04\x12\r\n\x05limit\x18\x06 \x01(\x11\"V\n\x1cSubaccountTradesListResponse\x12\x36\n\x06trades\x18\x01 \x03(\x0b\x32&.injective_spot_exchange_rpc.SpotTrade\"\xe7\x01\n\x14OrdersHistoryRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x0c\n\x04skip\x18\x03 \x01(\x04\x12\r\n\x05limit\x18\x04 \x01(\x11\x12\x13\n\x0border_types\x18\x05 \x03(\t\x12\x11\n\tdirection\x18\x06 \x01(\t\x12\x12\n\nstart_time\x18\x07 \x01(\x12\x12\x10\n\x08\x65nd_time\x18\x08 \x01(\x12\x12\r\n\x05state\x18\t \x01(\t\x12\x17\n\x0f\x65xecution_types\x18\n \x03(\t\x12\x12\n\nmarket_ids\x18\x0b \x03(\t\"\x8b\x01\n\x15OrdersHistoryResponse\x12=\n\x06orders\x18\x01 \x03(\x0b\x32-.injective_spot_exchange_rpc.SpotOrderHistory\x12\x33\n\x06paging\x18\x02 \x01(\x0b\x32#.injective_spot_exchange_rpc.Paging\"\xaa\x02\n\x10SpotOrderHistory\x12\x12\n\norder_hash\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x11\n\tis_active\x18\x03 \x01(\x08\x12\x15\n\rsubaccount_id\x18\x04 \x01(\t\x12\x16\n\x0e\x65xecution_type\x18\x05 \x01(\t\x12\x12\n\norder_type\x18\x06 \x01(\t\x12\r\n\x05price\x18\x07 \x01(\t\x12\x15\n\rtrigger_price\x18\x08 \x01(\t\x12\x10\n\x08quantity\x18\t \x01(\t\x12\x17\n\x0f\x66illed_quantity\x18\n \x01(\t\x12\r\n\x05state\x18\x0b \x01(\t\x12\x12\n\ncreated_at\x18\x0c \x01(\x12\x12\x12\n\nupdated_at\x18\r \x01(\x12\x12\x11\n\tdirection\x18\x0e \x01(\t\"\x96\x01\n\x1aStreamOrdersHistoryRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x13\n\x0border_types\x18\x03 \x03(\t\x12\x11\n\tdirection\x18\x04 \x01(\t\x12\r\n\x05state\x18\x05 \x01(\t\x12\x17\n\x0f\x65xecution_types\x18\x06 \x03(\t\"\x86\x01\n\x1bStreamOrdersHistoryResponse\x12<\n\x05order\x18\x01 \x01(\x0b\x32-.injective_spot_exchange_rpc.SpotOrderHistory\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\x32\x8e\x11\n\x18InjectiveSpotExchangeRPC\x12\x64\n\x07Markets\x12+.injective_spot_exchange_rpc.MarketsRequest\x1a,.injective_spot_exchange_rpc.MarketsResponse\x12\x61\n\x06Market\x12*.injective_spot_exchange_rpc.MarketRequest\x1a+.injective_spot_exchange_rpc.MarketResponse\x12x\n\rStreamMarkets\x12\x31.injective_spot_exchange_rpc.StreamMarketsRequest\x1a\x32.injective_spot_exchange_rpc.StreamMarketsResponse0\x01\x12j\n\tOrderbook\x12-.injective_spot_exchange_rpc.OrderbookRequest\x1a..injective_spot_exchange_rpc.OrderbookResponse\x12p\n\x0bOrderbookV2\x12/.injective_spot_exchange_rpc.OrderbookV2Request\x1a\x30.injective_spot_exchange_rpc.OrderbookV2Response\x12m\n\nOrderbooks\x12..injective_spot_exchange_rpc.OrderbooksRequest\x1a/.injective_spot_exchange_rpc.OrderbooksResponse\x12s\n\x0cOrderbooksV2\x12\x30.injective_spot_exchange_rpc.OrderbooksV2Request\x1a\x31.injective_spot_exchange_rpc.OrderbooksV2Response\x12~\n\x0fStreamOrderbook\x12\x33.injective_spot_exchange_rpc.StreamOrderbookRequest\x1a\x34.injective_spot_exchange_rpc.StreamOrderbookResponse0\x01\x12\x84\x01\n\x11StreamOrderbookV2\x12\x35.injective_spot_exchange_rpc.StreamOrderbookV2Request\x1a\x36.injective_spot_exchange_rpc.StreamOrderbookV2Response0\x01\x12\x90\x01\n\x15StreamOrderbookUpdate\x12\x39.injective_spot_exchange_rpc.StreamOrderbookUpdateRequest\x1a:.injective_spot_exchange_rpc.StreamOrderbookUpdateResponse0\x01\x12\x61\n\x06Orders\x12*.injective_spot_exchange_rpc.OrdersRequest\x1a+.injective_spot_exchange_rpc.OrdersResponse\x12u\n\x0cStreamOrders\x12\x30.injective_spot_exchange_rpc.StreamOrdersRequest\x1a\x31.injective_spot_exchange_rpc.StreamOrdersResponse0\x01\x12\x61\n\x06Trades\x12*.injective_spot_exchange_rpc.TradesRequest\x1a+.injective_spot_exchange_rpc.TradesResponse\x12u\n\x0cStreamTrades\x12\x30.injective_spot_exchange_rpc.StreamTradesRequest\x1a\x31.injective_spot_exchange_rpc.StreamTradesResponse0\x01\x12\x8b\x01\n\x14SubaccountOrdersList\x12\x38.injective_spot_exchange_rpc.SubaccountOrdersListRequest\x1a\x39.injective_spot_exchange_rpc.SubaccountOrdersListResponse\x12\x8b\x01\n\x14SubaccountTradesList\x12\x38.injective_spot_exchange_rpc.SubaccountTradesListRequest\x1a\x39.injective_spot_exchange_rpc.SubaccountTradesListResponse\x12v\n\rOrdersHistory\x12\x31.injective_spot_exchange_rpc.OrdersHistoryRequest\x1a\x32.injective_spot_exchange_rpc.OrdersHistoryResponse\x12\x8a\x01\n\x13StreamOrdersHistory\x12\x37.injective_spot_exchange_rpc.StreamOrdersHistoryRequest\x1a\x38.injective_spot_exchange_rpc.StreamOrdersHistoryResponse0\x01\x42 Z\x1e/injective_spot_exchange_rpcpbb\x06proto3'
+  serialized_pb=b'\n*exchange/injective_spot_exchange_rpc.proto\x12\x1binjective_spot_exchange_rpc\"P\n\x0eMarketsRequest\x12\x15\n\rmarket_status\x18\x01 \x01(\t\x12\x12\n\nbase_denom\x18\x02 \x01(\t\x12\x13\n\x0bquote_denom\x18\x03 \x01(\t\"O\n\x0fMarketsResponse\x12<\n\x07markets\x18\x01 \x03(\x0b\x32+.injective_spot_exchange_rpc.SpotMarketInfo\"\x81\x03\n\x0eSpotMarketInfo\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x15\n\rmarket_status\x18\x02 \x01(\t\x12\x0e\n\x06ticker\x18\x03 \x01(\t\x12\x12\n\nbase_denom\x18\x04 \x01(\t\x12?\n\x0f\x62\x61se_token_meta\x18\x05 \x01(\x0b\x32&.injective_spot_exchange_rpc.TokenMeta\x12\x13\n\x0bquote_denom\x18\x06 \x01(\t\x12@\n\x10quote_token_meta\x18\x07 \x01(\x0b\x32&.injective_spot_exchange_rpc.TokenMeta\x12\x16\n\x0emaker_fee_rate\x18\x08 \x01(\t\x12\x16\n\x0etaker_fee_rate\x18\t \x01(\t\x12\x1c\n\x14service_provider_fee\x18\n \x01(\t\x12\x1b\n\x13min_price_tick_size\x18\x0b \x01(\t\x12\x1e\n\x16min_quantity_tick_size\x18\x0c \x01(\t\"n\n\tTokenMeta\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x02 \x01(\t\x12\x0e\n\x06symbol\x18\x03 \x01(\t\x12\x0c\n\x04logo\x18\x04 \x01(\t\x12\x10\n\x08\x64\x65\x63imals\x18\x05 \x01(\x11\x12\x12\n\nupdated_at\x18\x06 \x01(\x12\"\"\n\rMarketRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\"M\n\x0eMarketResponse\x12;\n\x06market\x18\x01 \x01(\x0b\x32+.injective_spot_exchange_rpc.SpotMarketInfo\"*\n\x14StreamMarketsRequest\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"\x7f\n\x15StreamMarketsResponse\x12;\n\x06market\x18\x01 \x01(\x0b\x32+.injective_spot_exchange_rpc.SpotMarketInfo\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"%\n\x10OrderbookRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\"W\n\x11OrderbookResponse\x12\x42\n\torderbook\x18\x01 \x01(\x0b\x32/.injective_spot_exchange_rpc.SpotLimitOrderbook\"\x96\x01\n\x12SpotLimitOrderbook\x12\x35\n\x04\x62uys\x18\x01 \x03(\x0b\x32\'.injective_spot_exchange_rpc.PriceLevel\x12\x36\n\x05sells\x18\x02 \x03(\x0b\x32\'.injective_spot_exchange_rpc.PriceLevel\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"@\n\nPriceLevel\x12\r\n\x05price\x18\x01 \x01(\t\x12\x10\n\x08quantity\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"\'\n\x12OrderbookV2Request\x12\x11\n\tmarket_id\x18\x01 \x01(\t\"[\n\x13OrderbookV2Response\x12\x44\n\torderbook\x18\x01 \x01(\x0b\x32\x31.injective_spot_exchange_rpc.SpotLimitOrderbookV2\"\xaa\x01\n\x14SpotLimitOrderbookV2\x12\x35\n\x04\x62uys\x18\x01 \x03(\x0b\x32\'.injective_spot_exchange_rpc.PriceLevel\x12\x36\n\x05sells\x18\x02 \x03(\x0b\x32\'.injective_spot_exchange_rpc.PriceLevel\x12\x10\n\x08sequence\x18\x03 \x01(\x04\x12\x11\n\ttimestamp\x18\x04 \x01(\x12\"\'\n\x11OrderbooksRequest\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"_\n\x12OrderbooksResponse\x12I\n\norderbooks\x18\x01 \x03(\x0b\x32\x35.injective_spot_exchange_rpc.SingleSpotLimitOrderbook\"q\n\x18SingleSpotLimitOrderbook\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x42\n\torderbook\x18\x02 \x01(\x0b\x32/.injective_spot_exchange_rpc.SpotLimitOrderbook\")\n\x13OrderbooksV2Request\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"c\n\x14OrderbooksV2Response\x12K\n\norderbooks\x18\x01 \x03(\x0b\x32\x37.injective_spot_exchange_rpc.SingleSpotLimitOrderbookV2\"u\n\x1aSingleSpotLimitOrderbookV2\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x44\n\torderbook\x18\x02 \x01(\x0b\x32\x31.injective_spot_exchange_rpc.SpotLimitOrderbookV2\",\n\x16StreamOrderbookRequest\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"\x9b\x01\n\x17StreamOrderbookResponse\x12\x42\n\torderbook\x18\x01 \x01(\x0b\x32/.injective_spot_exchange_rpc.SpotLimitOrderbook\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\x12\x11\n\tmarket_id\x18\x04 \x01(\t\".\n\x18StreamOrderbookV2Request\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"\x9f\x01\n\x19StreamOrderbookV2Response\x12\x44\n\torderbook\x18\x01 \x01(\x0b\x32\x31.injective_spot_exchange_rpc.SpotLimitOrderbookV2\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\x12\x11\n\tmarket_id\x18\x04 \x01(\t\"2\n\x1cStreamOrderbookUpdateRequest\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"\xb2\x01\n\x1dStreamOrderbookUpdateResponse\x12S\n\x17orderbook_level_updates\x18\x01 \x01(\x0b\x32\x32.injective_spot_exchange_rpc.OrderbookLevelUpdates\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\x12\x11\n\tmarket_id\x18\x04 \x01(\t\"\xcb\x01\n\x15OrderbookLevelUpdates\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x10\n\x08sequence\x18\x02 \x01(\x04\x12;\n\x04\x62uys\x18\x03 \x03(\x0b\x32-.injective_spot_exchange_rpc.PriceLevelUpdate\x12<\n\x05sells\x18\x04 \x03(\x0b\x32-.injective_spot_exchange_rpc.PriceLevelUpdate\x12\x12\n\nupdated_at\x18\x05 \x01(\x12\"Y\n\x10PriceLevelUpdate\x12\r\n\x05price\x18\x01 \x01(\t\x12\x10\n\x08quantity\x18\x02 \x01(\t\x12\x11\n\tis_active\x18\x03 \x01(\x08\x12\x11\n\ttimestamp\x18\x04 \x01(\x12\"\xdf\x01\n\rOrdersRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x12\n\norder_side\x18\x02 \x01(\t\x12\x15\n\rsubaccount_id\x18\x03 \x01(\t\x12\x0c\n\x04skip\x18\x04 \x01(\x04\x12\r\n\x05limit\x18\x05 \x01(\x11\x12\x12\n\nstart_time\x18\x06 \x01(\x12\x12\x10\n\x08\x65nd_time\x18\x07 \x01(\x12\x12\x12\n\nmarket_ids\x18\x08 \x03(\t\x12\x18\n\x10include_inactive\x18\t \x01(\x08\x12\x1f\n\x17subaccount_total_orders\x18\n \x01(\x08\"\x82\x01\n\x0eOrdersResponse\x12;\n\x06orders\x18\x01 \x03(\x0b\x32+.injective_spot_exchange_rpc.SpotLimitOrder\x12\x33\n\x06paging\x18\x02 \x01(\x0b\x32#.injective_spot_exchange_rpc.Paging\"\x83\x02\n\x0eSpotLimitOrder\x12\x12\n\norder_hash\x18\x01 \x01(\t\x12\x12\n\norder_side\x18\x02 \x01(\t\x12\x11\n\tmarket_id\x18\x03 \x01(\t\x12\x15\n\rsubaccount_id\x18\x04 \x01(\t\x12\r\n\x05price\x18\x05 \x01(\t\x12\x10\n\x08quantity\x18\x06 \x01(\t\x12\x19\n\x11unfilled_quantity\x18\x07 \x01(\t\x12\x15\n\rtrigger_price\x18\x08 \x01(\t\x12\x15\n\rfee_recipient\x18\t \x01(\t\x12\r\n\x05state\x18\n \x01(\t\x12\x12\n\ncreated_at\x18\x0b \x01(\x12\x12\x12\n\nupdated_at\x18\x0c \x01(\x12\"N\n\x06Paging\x12\r\n\x05total\x18\x01 \x01(\x12\x12\x0c\n\x04\x66rom\x18\x02 \x01(\x11\x12\n\n\x02to\x18\x03 \x01(\x11\x12\x1b\n\x13\x63ount_by_subaccount\x18\x04 \x01(\x12\"\xe5\x01\n\x13StreamOrdersRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x12\n\norder_side\x18\x02 \x01(\t\x12\x15\n\rsubaccount_id\x18\x03 \x01(\t\x12\x0c\n\x04skip\x18\x04 \x01(\x04\x12\r\n\x05limit\x18\x05 \x01(\x11\x12\x12\n\nstart_time\x18\x06 \x01(\x12\x12\x10\n\x08\x65nd_time\x18\x07 \x01(\x12\x12\x12\n\nmarket_ids\x18\x08 \x03(\t\x12\x18\n\x10include_inactive\x18\t \x01(\x08\x12\x1f\n\x17subaccount_total_orders\x18\n \x01(\x08\"}\n\x14StreamOrdersResponse\x12:\n\x05order\x18\x01 \x01(\x0b\x32+.injective_spot_exchange_rpc.SpotLimitOrder\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"\xec\x01\n\rTradesRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x16\n\x0e\x65xecution_side\x18\x02 \x01(\t\x12\x11\n\tdirection\x18\x03 \x01(\t\x12\x15\n\rsubaccount_id\x18\x04 \x01(\t\x12\x0c\n\x04skip\x18\x05 \x01(\x04\x12\r\n\x05limit\x18\x06 \x01(\x11\x12\x12\n\nstart_time\x18\x07 \x01(\x12\x12\x10\n\x08\x65nd_time\x18\x08 \x01(\x12\x12\x12\n\nmarket_ids\x18\t \x03(\t\x12\x16\n\x0esubaccount_ids\x18\n \x03(\t\x12\x17\n\x0f\x65xecution_types\x18\x0b \x03(\t\"}\n\x0eTradesResponse\x12\x36\n\x06trades\x18\x01 \x03(\x0b\x32&.injective_spot_exchange_rpc.SpotTrade\x12\x33\n\x06paging\x18\x02 \x01(\x0b\x32#.injective_spot_exchange_rpc.Paging\"\x9b\x02\n\tSpotTrade\x12\x12\n\norder_hash\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\x12\x11\n\tmarket_id\x18\x03 \x01(\t\x12\x1c\n\x14trade_execution_type\x18\x04 \x01(\t\x12\x17\n\x0ftrade_direction\x18\x05 \x01(\t\x12\x36\n\x05price\x18\x06 \x01(\x0b\x32\'.injective_spot_exchange_rpc.PriceLevel\x12\x0b\n\x03\x66\x65\x65\x18\x07 \x01(\t\x12\x13\n\x0b\x65xecuted_at\x18\x08 \x01(\x12\x12\x15\n\rfee_recipient\x18\t \x01(\t\x12\x10\n\x08trade_id\x18\n \x01(\t\x12\x16\n\x0e\x65xecution_side\x18\x0b \x01(\t\"\xf2\x01\n\x13StreamTradesRequest\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x16\n\x0e\x65xecution_side\x18\x02 \x01(\t\x12\x11\n\tdirection\x18\x03 \x01(\t\x12\x15\n\rsubaccount_id\x18\x04 \x01(\t\x12\x0c\n\x04skip\x18\x05 \x01(\x04\x12\r\n\x05limit\x18\x06 \x01(\x11\x12\x12\n\nstart_time\x18\x07 \x01(\x12\x12\x10\n\x08\x65nd_time\x18\x08 \x01(\x12\x12\x12\n\nmarket_ids\x18\t \x03(\t\x12\x16\n\x0esubaccount_ids\x18\n \x03(\t\x12\x17\n\x0f\x65xecution_types\x18\x0b \x03(\t\"x\n\x14StreamTradesResponse\x12\x35\n\x05trade\x18\x01 \x01(\x0b\x32&.injective_spot_exchange_rpc.SpotTrade\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"d\n\x1bSubaccountOrdersListRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x0c\n\x04skip\x18\x03 \x01(\x04\x12\r\n\x05limit\x18\x04 \x01(\x11\"\x90\x01\n\x1cSubaccountOrdersListResponse\x12;\n\x06orders\x18\x01 \x03(\x0b\x32+.injective_spot_exchange_rpc.SpotLimitOrder\x12\x33\n\x06paging\x18\x02 \x01(\x0b\x32#.injective_spot_exchange_rpc.Paging\"\x8f\x01\n\x1bSubaccountTradesListRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x16\n\x0e\x65xecution_type\x18\x03 \x01(\t\x12\x11\n\tdirection\x18\x04 \x01(\t\x12\x0c\n\x04skip\x18\x05 \x01(\x04\x12\r\n\x05limit\x18\x06 \x01(\x11\"V\n\x1cSubaccountTradesListResponse\x12\x36\n\x06trades\x18\x01 \x03(\x0b\x32&.injective_spot_exchange_rpc.SpotTrade\"\xe7\x01\n\x14OrdersHistoryRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x0c\n\x04skip\x18\x03 \x01(\x04\x12\r\n\x05limit\x18\x04 \x01(\x11\x12\x13\n\x0border_types\x18\x05 \x03(\t\x12\x11\n\tdirection\x18\x06 \x01(\t\x12\x12\n\nstart_time\x18\x07 \x01(\x12\x12\x10\n\x08\x65nd_time\x18\x08 \x01(\x12\x12\r\n\x05state\x18\t \x01(\t\x12\x17\n\x0f\x65xecution_types\x18\n \x03(\t\x12\x12\n\nmarket_ids\x18\x0b \x03(\t\"\x8b\x01\n\x15OrdersHistoryResponse\x12=\n\x06orders\x18\x01 \x03(\x0b\x32-.injective_spot_exchange_rpc.SpotOrderHistory\x12\x33\n\x06paging\x18\x02 \x01(\x0b\x32#.injective_spot_exchange_rpc.Paging\"\xaa\x02\n\x10SpotOrderHistory\x12\x12\n\norder_hash\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x11\n\tis_active\x18\x03 \x01(\x08\x12\x15\n\rsubaccount_id\x18\x04 \x01(\t\x12\x16\n\x0e\x65xecution_type\x18\x05 \x01(\t\x12\x12\n\norder_type\x18\x06 \x01(\t\x12\r\n\x05price\x18\x07 \x01(\t\x12\x15\n\rtrigger_price\x18\x08 \x01(\t\x12\x10\n\x08quantity\x18\t \x01(\t\x12\x17\n\x0f\x66illed_quantity\x18\n \x01(\t\x12\r\n\x05state\x18\x0b \x01(\t\x12\x12\n\ncreated_at\x18\x0c \x01(\x12\x12\x12\n\nupdated_at\x18\r \x01(\x12\x12\x11\n\tdirection\x18\x0e \x01(\t\"\x96\x01\n\x1aStreamOrdersHistoryRequest\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x13\n\x0border_types\x18\x03 \x03(\t\x12\x11\n\tdirection\x18\x04 \x01(\t\x12\r\n\x05state\x18\x05 \x01(\t\x12\x17\n\x0f\x65xecution_types\x18\x06 \x03(\t\"\x86\x01\n\x1bStreamOrdersHistoryResponse\x12<\n\x05order\x18\x01 \x01(\x0b\x32-.injective_spot_exchange_rpc.SpotOrderHistory\x12\x16\n\x0eoperation_type\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\x32\x8e\x11\n\x18InjectiveSpotExchangeRPC\x12\x64\n\x07Markets\x12+.injective_spot_exchange_rpc.MarketsRequest\x1a,.injective_spot_exchange_rpc.MarketsResponse\x12\x61\n\x06Market\x12*.injective_spot_exchange_rpc.MarketRequest\x1a+.injective_spot_exchange_rpc.MarketResponse\x12x\n\rStreamMarkets\x12\x31.injective_spot_exchange_rpc.StreamMarketsRequest\x1a\x32.injective_spot_exchange_rpc.StreamMarketsResponse0\x01\x12j\n\tOrderbook\x12-.injective_spot_exchange_rpc.OrderbookRequest\x1a..injective_spot_exchange_rpc.OrderbookResponse\x12p\n\x0bOrderbookV2\x12/.injective_spot_exchange_rpc.OrderbookV2Request\x1a\x30.injective_spot_exchange_rpc.OrderbookV2Response\x12m\n\nOrderbooks\x12..injective_spot_exchange_rpc.OrderbooksRequest\x1a/.injective_spot_exchange_rpc.OrderbooksResponse\x12s\n\x0cOrderbooksV2\x12\x30.injective_spot_exchange_rpc.OrderbooksV2Request\x1a\x31.injective_spot_exchange_rpc.OrderbooksV2Response\x12~\n\x0fStreamOrderbook\x12\x33.injective_spot_exchange_rpc.StreamOrderbookRequest\x1a\x34.injective_spot_exchange_rpc.StreamOrderbookResponse0\x01\x12\x84\x01\n\x11StreamOrderbookV2\x12\x35.injective_spot_exchange_rpc.StreamOrderbookV2Request\x1a\x36.injective_spot_exchange_rpc.StreamOrderbookV2Response0\x01\x12\x90\x01\n\x15StreamOrderbookUpdate\x12\x39.injective_spot_exchange_rpc.StreamOrderbookUpdateRequest\x1a:.injective_spot_exchange_rpc.StreamOrderbookUpdateResponse0\x01\x12\x61\n\x06Orders\x12*.injective_spot_exchange_rpc.OrdersRequest\x1a+.injective_spot_exchange_rpc.OrdersResponse\x12u\n\x0cStreamOrders\x12\x30.injective_spot_exchange_rpc.StreamOrdersRequest\x1a\x31.injective_spot_exchange_rpc.StreamOrdersResponse0\x01\x12\x61\n\x06Trades\x12*.injective_spot_exchange_rpc.TradesRequest\x1a+.injective_spot_exchange_rpc.TradesResponse\x12u\n\x0cStreamTrades\x12\x30.injective_spot_exchange_rpc.StreamTradesRequest\x1a\x31.injective_spot_exchange_rpc.StreamTradesResponse0\x01\x12\x8b\x01\n\x14SubaccountOrdersList\x12\x38.injective_spot_exchange_rpc.SubaccountOrdersListRequest\x1a\x39.injective_spot_exchange_rpc.SubaccountOrdersListResponse\x12\x8b\x01\n\x14SubaccountTradesList\x12\x38.injective_spot_exchange_rpc.SubaccountTradesListRequest\x1a\x39.injective_spot_exchange_rpc.SubaccountTradesListResponse\x12v\n\rOrdersHistory\x12\x31.injective_spot_exchange_rpc.OrdersHistoryRequest\x1a\x32.injective_spot_exchange_rpc.OrdersHistoryResponse\x12\x8a\x01\n\x13StreamOrdersHistory\x12\x37.injective_spot_exchange_rpc.StreamOrdersHistoryRequest\x1a\x38.injective_spot_exchange_rpc.StreamOrdersHistoryResponse0\x01\x42 Z\x1e/injective_spot_exchange_rpcpbb\x06proto3'
 )
 
 
@@ -507,6 +507,13 @@ _SPOTLIMITORDERBOOK = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='timestamp', full_name='injective_spot_exchange_rpc.SpotLimitOrderbook.timestamp', index=2,
+      number=3, type=18, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -520,7 +527,7 @@ _SPOTLIMITORDERBOOK = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=1155,
-  serialized_end=1286,
+  serialized_end=1305,
 )
 
 
@@ -565,8 +572,8 @@ _PRICELEVEL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1288,
-  serialized_end=1352,
+  serialized_start=1307,
+  serialized_end=1371,
 )
 
 
@@ -597,8 +604,8 @@ _ORDERBOOKV2REQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1354,
-  serialized_end=1393,
+  serialized_start=1373,
+  serialized_end=1412,
 )
 
 
@@ -629,8 +636,8 @@ _ORDERBOOKV2RESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1395,
-  serialized_end=1486,
+  serialized_start=1414,
+  serialized_end=1505,
 )
 
 
@@ -663,6 +670,13 @@ _SPOTLIMITORDERBOOKV2 = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='timestamp', full_name='injective_spot_exchange_rpc.SpotLimitOrderbookV2.timestamp', index=3,
+      number=4, type=18, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -675,8 +689,8 @@ _SPOTLIMITORDERBOOKV2 = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1489,
-  serialized_end=1640,
+  serialized_start=1508,
+  serialized_end=1678,
 )
 
 
@@ -707,8 +721,8 @@ _ORDERBOOKSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1642,
-  serialized_end=1681,
+  serialized_start=1680,
+  serialized_end=1719,
 )
 
 
@@ -739,8 +753,8 @@ _ORDERBOOKSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1683,
-  serialized_end=1778,
+  serialized_start=1721,
+  serialized_end=1816,
 )
 
 
@@ -778,8 +792,8 @@ _SINGLESPOTLIMITORDERBOOK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1780,
-  serialized_end=1893,
+  serialized_start=1818,
+  serialized_end=1931,
 )
 
 
@@ -810,8 +824,8 @@ _ORDERBOOKSV2REQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1895,
-  serialized_end=1936,
+  serialized_start=1933,
+  serialized_end=1974,
 )
 
 
@@ -842,8 +856,8 @@ _ORDERBOOKSV2RESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1938,
-  serialized_end=2037,
+  serialized_start=1976,
+  serialized_end=2075,
 )
 
 
@@ -881,8 +895,8 @@ _SINGLESPOTLIMITORDERBOOKV2 = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2039,
-  serialized_end=2156,
+  serialized_start=2077,
+  serialized_end=2194,
 )
 
 
@@ -913,8 +927,8 @@ _STREAMORDERBOOKREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2158,
-  serialized_end=2202,
+  serialized_start=2196,
+  serialized_end=2240,
 )
 
 
@@ -966,8 +980,8 @@ _STREAMORDERBOOKRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2205,
-  serialized_end=2360,
+  serialized_start=2243,
+  serialized_end=2398,
 )
 
 
@@ -998,8 +1012,8 @@ _STREAMORDERBOOKV2REQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2362,
-  serialized_end=2408,
+  serialized_start=2400,
+  serialized_end=2446,
 )
 
 
@@ -1051,8 +1065,8 @@ _STREAMORDERBOOKV2RESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2411,
-  serialized_end=2570,
+  serialized_start=2449,
+  serialized_end=2608,
 )
 
 
@@ -1083,8 +1097,8 @@ _STREAMORDERBOOKUPDATEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2572,
-  serialized_end=2622,
+  serialized_start=2610,
+  serialized_end=2660,
 )
 
 
@@ -1136,8 +1150,8 @@ _STREAMORDERBOOKUPDATERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2625,
-  serialized_end=2803,
+  serialized_start=2663,
+  serialized_end=2841,
 )
 
 
@@ -1196,8 +1210,8 @@ _ORDERBOOKLEVELUPDATES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2806,
-  serialized_end=3009,
+  serialized_start=2844,
+  serialized_end=3047,
 )
 
 
@@ -1249,8 +1263,8 @@ _PRICELEVELUPDATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3011,
-  serialized_end=3100,
+  serialized_start=3049,
+  serialized_end=3138,
 )
 
 
@@ -1344,8 +1358,8 @@ _ORDERSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3103,
-  serialized_end=3326,
+  serialized_start=3141,
+  serialized_end=3364,
 )
 
 
@@ -1383,8 +1397,8 @@ _ORDERSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3329,
-  serialized_end=3459,
+  serialized_start=3367,
+  serialized_end=3497,
 )
 
 
@@ -1492,8 +1506,8 @@ _SPOTLIMITORDER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3462,
-  serialized_end=3721,
+  serialized_start=3500,
+  serialized_end=3759,
 )
 
 
@@ -1545,8 +1559,8 @@ _PAGING = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3723,
-  serialized_end=3801,
+  serialized_start=3761,
+  serialized_end=3839,
 )
 
 
@@ -1640,8 +1654,8 @@ _STREAMORDERSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3804,
-  serialized_end=4033,
+  serialized_start=3842,
+  serialized_end=4071,
 )
 
 
@@ -1686,8 +1700,8 @@ _STREAMORDERSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4035,
-  serialized_end=4160,
+  serialized_start=4073,
+  serialized_end=4198,
 )
 
 
@@ -1788,8 +1802,8 @@ _TRADESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4163,
-  serialized_end=4399,
+  serialized_start=4201,
+  serialized_end=4437,
 )
 
 
@@ -1827,8 +1841,8 @@ _TRADESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4401,
-  serialized_end=4526,
+  serialized_start=4439,
+  serialized_end=4564,
 )
 
 
@@ -1929,8 +1943,8 @@ _SPOTTRADE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4529,
-  serialized_end=4812,
+  serialized_start=4567,
+  serialized_end=4850,
 )
 
 
@@ -2031,8 +2045,8 @@ _STREAMTRADESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4815,
-  serialized_end=5057,
+  serialized_start=4853,
+  serialized_end=5095,
 )
 
 
@@ -2077,8 +2091,8 @@ _STREAMTRADESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5059,
-  serialized_end=5179,
+  serialized_start=5097,
+  serialized_end=5217,
 )
 
 
@@ -2130,8 +2144,8 @@ _SUBACCOUNTORDERSLISTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5181,
-  serialized_end=5281,
+  serialized_start=5219,
+  serialized_end=5319,
 )
 
 
@@ -2169,8 +2183,8 @@ _SUBACCOUNTORDERSLISTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5284,
-  serialized_end=5428,
+  serialized_start=5322,
+  serialized_end=5466,
 )
 
 
@@ -2236,8 +2250,8 @@ _SUBACCOUNTTRADESLISTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5431,
-  serialized_end=5574,
+  serialized_start=5469,
+  serialized_end=5612,
 )
 
 
@@ -2268,8 +2282,8 @@ _SUBACCOUNTTRADESLISTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5576,
-  serialized_end=5662,
+  serialized_start=5614,
+  serialized_end=5700,
 )
 
 
@@ -2370,8 +2384,8 @@ _ORDERSHISTORYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5665,
-  serialized_end=5896,
+  serialized_start=5703,
+  serialized_end=5934,
 )
 
 
@@ -2409,8 +2423,8 @@ _ORDERSHISTORYRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5899,
-  serialized_end=6038,
+  serialized_start=5937,
+  serialized_end=6076,
 )
 
 
@@ -2532,8 +2546,8 @@ _SPOTORDERHISTORY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6041,
-  serialized_end=6339,
+  serialized_start=6079,
+  serialized_end=6377,
 )
 
 
@@ -2599,8 +2613,8 @@ _STREAMORDERSHISTORYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6342,
-  serialized_end=6492,
+  serialized_start=6380,
+  serialized_end=6530,
 )
 
 
@@ -2645,8 +2659,8 @@ _STREAMORDERSHISTORYRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6495,
-  serialized_end=6629,
+  serialized_start=6533,
+  serialized_end=6667,
 )
 
 _MARKETSRESPONSE.fields_by_name['markets'].message_type = _SPOTMARKETINFO
@@ -3086,8 +3100,8 @@ _INJECTIVESPOTEXCHANGERPC = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=6632,
-  serialized_end=8822,
+  serialized_start=6670,
+  serialized_end=8860,
   methods=[
   _descriptor.MethodDescriptor(
     name='Markets',

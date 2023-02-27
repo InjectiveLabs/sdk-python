@@ -233,7 +233,7 @@ class InjectiveDerivativeExchangeRPCServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def Orders(self, request, context):
-        """DerivativeLimitOrders gets the limit orders of a Derivative Market.
+        """DerivativeLimitOrders gets the limit orders of a derivative Market.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
