@@ -78,6 +78,9 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.6.0.7**
+* Add LDO
+
 **0.6.0.6**
 * Set default testnet endpoints to K8S
 * Remove LB config for testnet
