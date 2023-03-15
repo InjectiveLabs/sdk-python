@@ -55,6 +55,16 @@ class QueryStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateMarketVolumesRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateMarketVolumesResponse.FromString,
                 )
+        self.DenomDecimal = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/DenomDecimal',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDenomDecimalRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDenomDecimalResponse.FromString,
+                )
+        self.DenomDecimals = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/DenomDecimals',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDenomDecimalsRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDenomDecimalsResponse.FromString,
+                )
         self.SpotMarkets = channel.unary_unary(
                 '/injective.exchange.v1beta1.Query/SpotMarkets',
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySpotMarketsRequest.SerializeToString,
@@ -327,6 +337,20 @@ class QueryServicer(object):
 
     def AggregateMarketVolumes(self, request, context):
         """Retrieves the aggregate market volumes for specified markets
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DenomDecimal(self, request, context):
+        """Retrieves the denom decimals for a denom.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DenomDecimals(self, request, context):
+        """Retrieves the denom decimals for multiple denoms. Returns all denom decimals if unspecified.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -674,6 +698,16 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.AggregateMarketVolumes,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateMarketVolumesRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateMarketVolumesResponse.SerializeToString,
+            ),
+            'DenomDecimal': grpc.unary_unary_rpc_method_handler(
+                    servicer.DenomDecimal,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDenomDecimalRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDenomDecimalResponse.SerializeToString,
+            ),
+            'DenomDecimals': grpc.unary_unary_rpc_method_handler(
+                    servicer.DenomDecimals,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDenomDecimalsRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDenomDecimalsResponse.SerializeToString,
             ),
             'SpotMarkets': grpc.unary_unary_rpc_method_handler(
                     servicer.SpotMarkets,
@@ -1034,6 +1068,40 @@ class Query(object):
         return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/AggregateMarketVolumes',
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateMarketVolumesRequest.SerializeToString,
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAggregateMarketVolumesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DenomDecimal(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/DenomDecimal',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDenomDecimalRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDenomDecimalResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DenomDecimals(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/DenomDecimals',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDenomDecimalsRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryDenomDecimalsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

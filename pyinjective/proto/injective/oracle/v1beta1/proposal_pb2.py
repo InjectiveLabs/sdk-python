@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'ZLgithub.com/InjectiveLabs/injective-core/injective-chain/modules/oracle/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\'injective/oracle/v1beta1/proposal.proto\x12\x18injective.oracle.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a%injective/oracle/v1beta1/oracle.proto\"b\n GrantBandOraclePrivilegeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x10\n\x08relayers\x18\x03 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"c\n!RevokeBandOraclePrivilegeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x10\n\x08relayers\x18\x03 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x80\x01\n!GrantPriceFeederPrivilegeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0c\n\x04\x62\x61se\x18\x03 \x01(\t\x12\r\n\x05quote\x18\x04 \x01(\t\x12\x10\n\x08relayers\x18\x05 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"r\n\x1eGrantProviderPrivilegeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x10\n\x08provider\x18\x03 \x01(\t\x12\x10\n\x08relayers\x18\x04 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"s\n\x1fRevokeProviderPrivilegeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x10\n\x08provider\x18\x03 \x01(\t\x12\x10\n\x08relayers\x18\x05 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x81\x01\n\"RevokePriceFeederPrivilegeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0c\n\x04\x62\x61se\x18\x03 \x01(\t\x12\r\n\x05quote\x18\x04 \x01(\t\x12\x10\n\x08relayers\x18\x05 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x96\x01\n\"AuthorizeBandOracleRequestProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x42\n\x07request\x18\x03 \x01(\x0b\x32+.injective.oracle.v1beta1.BandOracleRequestB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\xb6\x01\n\x1fUpdateBandOracleRequestProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x19\n\x11\x64\x65lete_request_id\x18\x03 \x01(\x04\x12J\n\x15update_oracle_request\x18\x04 \x01(\x0b\x32+.injective.oracle.v1beta1.BandOracleRequest:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x8d\x01\n\x15\x45nableBandIBCProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x46\n\x0f\x62\x61nd_ibc_params\x18\x03 \x01(\x0b\x32\'.injective.oracle.v1beta1.BandIBCParamsB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\x42NZLgithub.com/InjectiveLabs/injective-core/injective-chain/modules/oracle/typesb\x06proto3'
+  serialized_pb=b'\n\'injective/oracle/v1beta1/proposal.proto\x12\x18injective.oracle.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a%injective/oracle/v1beta1/oracle.proto\"b\n GrantBandOraclePrivilegeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x10\n\x08relayers\x18\x03 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"c\n!RevokeBandOraclePrivilegeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x10\n\x08relayers\x18\x03 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x80\x01\n!GrantPriceFeederPrivilegeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0c\n\x04\x62\x61se\x18\x03 \x01(\t\x12\r\n\x05quote\x18\x04 \x01(\t\x12\x10\n\x08relayers\x18\x05 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"r\n\x1eGrantProviderPrivilegeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x10\n\x08provider\x18\x03 \x01(\t\x12\x10\n\x08relayers\x18\x04 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"s\n\x1fRevokeProviderPrivilegeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x10\n\x08provider\x18\x03 \x01(\t\x12\x10\n\x08relayers\x18\x05 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x81\x01\n\"RevokePriceFeederPrivilegeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0c\n\x04\x62\x61se\x18\x03 \x01(\t\x12\r\n\x05quote\x18\x04 \x01(\t\x12\x10\n\x08relayers\x18\x05 \x03(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x96\x01\n\"AuthorizeBandOracleRequestProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x42\n\x07request\x18\x03 \x01(\x0b\x32+.injective.oracle.v1beta1.BandOracleRequestB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\xb7\x01\n\x1fUpdateBandOracleRequestProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x1a\n\x12\x64\x65lete_request_ids\x18\x03 \x03(\x04\x12J\n\x15update_oracle_request\x18\x04 \x01(\x0b\x32+.injective.oracle.v1beta1.BandOracleRequest:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x8d\x01\n\x15\x45nableBandIBCProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x46\n\x0f\x62\x61nd_ibc_params\x18\x03 \x01(\x0b\x32\'.injective.oracle.v1beta1.BandIBCParamsB\x04\xc8\xde\x1f\x00:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\x42NZLgithub.com/InjectiveLabs/injective-core/injective-chain/modules/oracle/typesb\x06proto3'
   ,
   dependencies=[gogoproto_dot_gogo__pb2.DESCRIPTOR,cosmos_dot_base_dot_v1beta1_dot_coin__pb2.DESCRIPTOR,injective_dot_oracle_dot_v1beta1_dot_oracle__pb2.DESCRIPTOR,])
 
@@ -416,9 +416,9 @@ _UPDATEBANDORACLEREQUESTPROPOSAL = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='delete_request_id', full_name='injective.oracle.v1beta1.UpdateBandOracleRequestProposal.delete_request_id', index=2,
-      number=3, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
+      name='delete_request_ids', full_name='injective.oracle.v1beta1.UpdateBandOracleRequestProposal.delete_request_ids', index=2,
+      number=3, type=4, cpp_type=4, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -442,7 +442,7 @@ _UPDATEBANDORACLEREQUESTPROPOSAL = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=1013,
-  serialized_end=1195,
+  serialized_end=1196,
 )
 
 
@@ -487,8 +487,8 @@ _ENABLEBANDIBCPROPOSAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1198,
-  serialized_end=1339,
+  serialized_start=1199,
+  serialized_end=1340,
 )
 
 _AUTHORIZEBANDORACLEREQUESTPROPOSAL.fields_by_name['request'].message_type = injective_dot_oracle_dot_v1beta1_dot_oracle__pb2._BANDORACLEREQUEST
