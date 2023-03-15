@@ -78,6 +78,9 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.6.0.9**
+* Proto re-gen
+
 **0.6.0.8**
 * Add USDCfr
 
