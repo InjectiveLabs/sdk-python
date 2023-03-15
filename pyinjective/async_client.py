@@ -393,7 +393,7 @@ class AsyncClient:
     # Auction RPC
 
     async def get_auction(self, bid_round: int):
-        req = auction_rpc_pb.AuctionRequest(round=bid_round)
+        req = auction_rpc_pb.AuctionEndpointRequest(round=bid_round)
         return await self.stubAuction.AuctionEndpoint(req)
 
     async def get_auctions(self):
@@ -514,7 +514,7 @@ class AsyncClient:
         return self.stubExchangeAccount.StreamSubaccountBalance(req)
 
     async def get_subaccount_balance(self, subaccount_id: str, denom: str):
-        req = exchange_accounts_rpc_pb.SubaccountBalanceRequest(
+        req = exchange_accounts_rpc_pb.SubaccountBalanceEndpointRequest(
             subaccount_id=subaccount_id, denom=denom
         )
         return await self.stubExchangeAccount.SubaccountBalanceEndpoint(req)
