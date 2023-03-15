@@ -18,11 +18,11 @@ from cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='injective/wasmx/v1/tx.proto',
-  package='injective.wasmx.v1beta1',
+  package='injective.wasmx.v1',
   syntax='proto3',
   serialized_options=b'ZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/wasmx/types',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x1binjective/wasmx/v1/tx.proto\x12\x17injective.wasmx.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x19google/protobuf/any.proto\x1a\x19\x63osmos_proto/cosmos.proto\"X\n\x18MsgExecuteContractCompat\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08\x63ontract\x18\x02 \x01(\t\x12\x0b\n\x03msg\x18\x03 \x01(\t\x12\r\n\x05\x66unds\x18\x04 \x01(\t\"0\n MsgExecuteContractCompatResponse\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\"\x80\x01\n\x11MsgUpdateContract\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x18\n\x10\x63ontract_address\x18\x02 \x01(\t\x12\x11\n\tgas_limit\x18\x03 \x01(\x04\x12\x11\n\tgas_price\x18\x04 \x01(\x04\x12\x1b\n\radmin_address\x18\x05 \x01(\tB\x04\xc8\xde\x1f\x01\"\x1b\n\x19MsgUpdateContractResponse\"?\n\x13MsgActivateContract\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x18\n\x10\x63ontract_address\x18\x02 \x01(\t\"\x1d\n\x1bMsgActivateContractResponse\"A\n\x15MsgDeactivateContract\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x18\n\x10\x63ontract_address\x18\x02 \x01(\t\"\x1f\n\x1dMsgDeactivateContractResponse2\x94\x04\n\x03Msg\x12~\n\x1cUpdateRegistryContractParams\x12*.injective.wasmx.v1beta1.MsgUpdateContract\x1a\x32.injective.wasmx.v1beta1.MsgUpdateContractResponse\x12~\n\x18\x41\x63tivateRegistryContract\x12,.injective.wasmx.v1beta1.MsgActivateContract\x1a\x34.injective.wasmx.v1beta1.MsgActivateContractResponse\x12\x84\x01\n\x1a\x44\x65\x61\x63tivateRegistryContract\x12..injective.wasmx.v1beta1.MsgDeactivateContract\x1a\x36.injective.wasmx.v1beta1.MsgDeactivateContractResponse\x12\x85\x01\n\x15\x45xecuteContractCompat\x12\x31.injective.wasmx.v1beta1.MsgExecuteContractCompat\x1a\x39.injective.wasmx.v1beta1.MsgExecuteContractCompatResponseBMZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/wasmx/typesb\x06proto3'
+  serialized_pb=b'\n\x1binjective/wasmx/v1/tx.proto\x12\x12injective.wasmx.v1\x1a\x14gogoproto/gogo.proto\x1a\x19google/protobuf/any.proto\x1a\x19\x63osmos_proto/cosmos.proto\"X\n\x18MsgExecuteContractCompat\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08\x63ontract\x18\x02 \x01(\t\x12\x0b\n\x03msg\x18\x03 \x01(\t\x12\r\n\x05\x66unds\x18\x04 \x01(\t\"0\n MsgExecuteContractCompatResponse\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\"\x80\x01\n\x11MsgUpdateContract\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x18\n\x10\x63ontract_address\x18\x02 \x01(\t\x12\x11\n\tgas_limit\x18\x03 \x01(\x04\x12\x11\n\tgas_price\x18\x04 \x01(\x04\x12\x1b\n\radmin_address\x18\x05 \x01(\tB\x04\xc8\xde\x1f\x01\"\x1b\n\x19MsgUpdateContractResponse\"?\n\x13MsgActivateContract\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x18\n\x10\x63ontract_address\x18\x02 \x01(\t\"\x1d\n\x1bMsgActivateContractResponse\"A\n\x15MsgDeactivateContract\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x18\n\x10\x63ontract_address\x18\x02 \x01(\t\"\x1f\n\x1dMsgDeactivateContractResponse2\xea\x03\n\x03Msg\x12t\n\x1cUpdateRegistryContractParams\x12%.injective.wasmx.v1.MsgUpdateContract\x1a-.injective.wasmx.v1.MsgUpdateContractResponse\x12t\n\x18\x41\x63tivateRegistryContract\x12\'.injective.wasmx.v1.MsgActivateContract\x1a/.injective.wasmx.v1.MsgActivateContractResponse\x12z\n\x1a\x44\x65\x61\x63tivateRegistryContract\x12).injective.wasmx.v1.MsgDeactivateContract\x1a\x31.injective.wasmx.v1.MsgDeactivateContractResponse\x12{\n\x15\x45xecuteContractCompat\x12,.injective.wasmx.v1.MsgExecuteContractCompat\x1a\x34.injective.wasmx.v1.MsgExecuteContractCompatResponseBMZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/wasmx/typesb\x06proto3'
   ,
   dependencies=[gogoproto_dot_gogo__pb2.DESCRIPTOR,google_dot_protobuf_dot_any__pb2.DESCRIPTOR,cosmos__proto_dot_cosmos__pb2.DESCRIPTOR,])
 
@@ -31,35 +31,35 @@ DESCRIPTOR = _descriptor.FileDescriptor(
 
 _MSGEXECUTECONTRACTCOMPAT = _descriptor.Descriptor(
   name='MsgExecuteContractCompat',
-  full_name='injective.wasmx.v1beta1.MsgExecuteContractCompat',
+  full_name='injective.wasmx.v1.MsgExecuteContractCompat',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='sender', full_name='injective.wasmx.v1beta1.MsgExecuteContractCompat.sender', index=0,
+      name='sender', full_name='injective.wasmx.v1.MsgExecuteContractCompat.sender', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='contract', full_name='injective.wasmx.v1beta1.MsgExecuteContractCompat.contract', index=1,
+      name='contract', full_name='injective.wasmx.v1.MsgExecuteContractCompat.contract', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='msg', full_name='injective.wasmx.v1beta1.MsgExecuteContractCompat.msg', index=2,
+      name='msg', full_name='injective.wasmx.v1.MsgExecuteContractCompat.msg', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='funds', full_name='injective.wasmx.v1beta1.MsgExecuteContractCompat.funds', index=3,
+      name='funds', full_name='injective.wasmx.v1.MsgExecuteContractCompat.funds', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -77,21 +77,21 @@ _MSGEXECUTECONTRACTCOMPAT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=132,
-  serialized_end=220,
+  serialized_start=127,
+  serialized_end=215,
 )
 
 
 _MSGEXECUTECONTRACTCOMPATRESPONSE = _descriptor.Descriptor(
   name='MsgExecuteContractCompatResponse',
-  full_name='injective.wasmx.v1beta1.MsgExecuteContractCompatResponse',
+  full_name='injective.wasmx.v1.MsgExecuteContractCompatResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='data', full_name='injective.wasmx.v1beta1.MsgExecuteContractCompatResponse.data', index=0,
+      name='data', full_name='injective.wasmx.v1.MsgExecuteContractCompatResponse.data', index=0,
       number=1, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
@@ -109,49 +109,49 @@ _MSGEXECUTECONTRACTCOMPATRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=222,
-  serialized_end=270,
+  serialized_start=217,
+  serialized_end=265,
 )
 
 
 _MSGUPDATECONTRACT = _descriptor.Descriptor(
   name='MsgUpdateContract',
-  full_name='injective.wasmx.v1beta1.MsgUpdateContract',
+  full_name='injective.wasmx.v1.MsgUpdateContract',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='sender', full_name='injective.wasmx.v1beta1.MsgUpdateContract.sender', index=0,
+      name='sender', full_name='injective.wasmx.v1.MsgUpdateContract.sender', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='contract_address', full_name='injective.wasmx.v1beta1.MsgUpdateContract.contract_address', index=1,
+      name='contract_address', full_name='injective.wasmx.v1.MsgUpdateContract.contract_address', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='gas_limit', full_name='injective.wasmx.v1beta1.MsgUpdateContract.gas_limit', index=2,
+      name='gas_limit', full_name='injective.wasmx.v1.MsgUpdateContract.gas_limit', index=2,
       number=3, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='gas_price', full_name='injective.wasmx.v1beta1.MsgUpdateContract.gas_price', index=3,
+      name='gas_price', full_name='injective.wasmx.v1.MsgUpdateContract.gas_price', index=3,
       number=4, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='admin_address', full_name='injective.wasmx.v1beta1.MsgUpdateContract.admin_address', index=4,
+      name='admin_address', full_name='injective.wasmx.v1.MsgUpdateContract.admin_address', index=4,
       number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -169,14 +169,14 @@ _MSGUPDATECONTRACT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=273,
-  serialized_end=401,
+  serialized_start=268,
+  serialized_end=396,
 )
 
 
 _MSGUPDATECONTRACTRESPONSE = _descriptor.Descriptor(
   name='MsgUpdateContractResponse',
-  full_name='injective.wasmx.v1beta1.MsgUpdateContractResponse',
+  full_name='injective.wasmx.v1.MsgUpdateContractResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
@@ -194,28 +194,28 @@ _MSGUPDATECONTRACTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=403,
-  serialized_end=430,
+  serialized_start=398,
+  serialized_end=425,
 )
 
 
 _MSGACTIVATECONTRACT = _descriptor.Descriptor(
   name='MsgActivateContract',
-  full_name='injective.wasmx.v1beta1.MsgActivateContract',
+  full_name='injective.wasmx.v1.MsgActivateContract',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='sender', full_name='injective.wasmx.v1beta1.MsgActivateContract.sender', index=0,
+      name='sender', full_name='injective.wasmx.v1.MsgActivateContract.sender', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='contract_address', full_name='injective.wasmx.v1beta1.MsgActivateContract.contract_address', index=1,
+      name='contract_address', full_name='injective.wasmx.v1.MsgActivateContract.contract_address', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -233,14 +233,14 @@ _MSGACTIVATECONTRACT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=432,
-  serialized_end=495,
+  serialized_start=427,
+  serialized_end=490,
 )
 
 
 _MSGACTIVATECONTRACTRESPONSE = _descriptor.Descriptor(
   name='MsgActivateContractResponse',
-  full_name='injective.wasmx.v1beta1.MsgActivateContractResponse',
+  full_name='injective.wasmx.v1.MsgActivateContractResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
@@ -258,28 +258,28 @@ _MSGACTIVATECONTRACTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=497,
-  serialized_end=526,
+  serialized_start=492,
+  serialized_end=521,
 )
 
 
 _MSGDEACTIVATECONTRACT = _descriptor.Descriptor(
   name='MsgDeactivateContract',
-  full_name='injective.wasmx.v1beta1.MsgDeactivateContract',
+  full_name='injective.wasmx.v1.MsgDeactivateContract',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='sender', full_name='injective.wasmx.v1beta1.MsgDeactivateContract.sender', index=0,
+      name='sender', full_name='injective.wasmx.v1.MsgDeactivateContract.sender', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='contract_address', full_name='injective.wasmx.v1beta1.MsgDeactivateContract.contract_address', index=1,
+      name='contract_address', full_name='injective.wasmx.v1.MsgDeactivateContract.contract_address', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -297,14 +297,14 @@ _MSGDEACTIVATECONTRACT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=528,
-  serialized_end=593,
+  serialized_start=523,
+  serialized_end=588,
 )
 
 
 _MSGDEACTIVATECONTRACTRESPONSE = _descriptor.Descriptor(
   name='MsgDeactivateContractResponse',
-  full_name='injective.wasmx.v1beta1.MsgDeactivateContractResponse',
+  full_name='injective.wasmx.v1.MsgDeactivateContractResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
@@ -322,8 +322,8 @@ _MSGDEACTIVATECONTRACTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=595,
-  serialized_end=626,
+  serialized_start=590,
+  serialized_end=621,
 )
 
 DESCRIPTOR.message_types_by_name['MsgExecuteContractCompat'] = _MSGEXECUTECONTRACTCOMPAT
@@ -339,56 +339,56 @@ _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 MsgExecuteContractCompat = _reflection.GeneratedProtocolMessageType('MsgExecuteContractCompat', (_message.Message,), {
   'DESCRIPTOR' : _MSGEXECUTECONTRACTCOMPAT,
   '__module__' : 'injective.wasmx.v1.tx_pb2'
-  # @@protoc_insertion_point(class_scope:injective.wasmx.v1beta1.MsgExecuteContractCompat)
+  # @@protoc_insertion_point(class_scope:injective.wasmx.v1.MsgExecuteContractCompat)
   })
 _sym_db.RegisterMessage(MsgExecuteContractCompat)
 
 MsgExecuteContractCompatResponse = _reflection.GeneratedProtocolMessageType('MsgExecuteContractCompatResponse', (_message.Message,), {
   'DESCRIPTOR' : _MSGEXECUTECONTRACTCOMPATRESPONSE,
   '__module__' : 'injective.wasmx.v1.tx_pb2'
-  # @@protoc_insertion_point(class_scope:injective.wasmx.v1beta1.MsgExecuteContractCompatResponse)
+  # @@protoc_insertion_point(class_scope:injective.wasmx.v1.MsgExecuteContractCompatResponse)
   })
 _sym_db.RegisterMessage(MsgExecuteContractCompatResponse)
 
 MsgUpdateContract = _reflection.GeneratedProtocolMessageType('MsgUpdateContract', (_message.Message,), {
   'DESCRIPTOR' : _MSGUPDATECONTRACT,
   '__module__' : 'injective.wasmx.v1.tx_pb2'
-  # @@protoc_insertion_point(class_scope:injective.wasmx.v1beta1.MsgUpdateContract)
+  # @@protoc_insertion_point(class_scope:injective.wasmx.v1.MsgUpdateContract)
   })
 _sym_db.RegisterMessage(MsgUpdateContract)
 
 MsgUpdateContractResponse = _reflection.GeneratedProtocolMessageType('MsgUpdateContractResponse', (_message.Message,), {
   'DESCRIPTOR' : _MSGUPDATECONTRACTRESPONSE,
   '__module__' : 'injective.wasmx.v1.tx_pb2'
-  # @@protoc_insertion_point(class_scope:injective.wasmx.v1beta1.MsgUpdateContractResponse)
+  # @@protoc_insertion_point(class_scope:injective.wasmx.v1.MsgUpdateContractResponse)
   })
 _sym_db.RegisterMessage(MsgUpdateContractResponse)
 
 MsgActivateContract = _reflection.GeneratedProtocolMessageType('MsgActivateContract', (_message.Message,), {
   'DESCRIPTOR' : _MSGACTIVATECONTRACT,
   '__module__' : 'injective.wasmx.v1.tx_pb2'
-  # @@protoc_insertion_point(class_scope:injective.wasmx.v1beta1.MsgActivateContract)
+  # @@protoc_insertion_point(class_scope:injective.wasmx.v1.MsgActivateContract)
   })
 _sym_db.RegisterMessage(MsgActivateContract)
 
 MsgActivateContractResponse = _reflection.GeneratedProtocolMessageType('MsgActivateContractResponse', (_message.Message,), {
   'DESCRIPTOR' : _MSGACTIVATECONTRACTRESPONSE,
   '__module__' : 'injective.wasmx.v1.tx_pb2'
-  # @@protoc_insertion_point(class_scope:injective.wasmx.v1beta1.MsgActivateContractResponse)
+  # @@protoc_insertion_point(class_scope:injective.wasmx.v1.MsgActivateContractResponse)
   })
 _sym_db.RegisterMessage(MsgActivateContractResponse)
 
 MsgDeactivateContract = _reflection.GeneratedProtocolMessageType('MsgDeactivateContract', (_message.Message,), {
   'DESCRIPTOR' : _MSGDEACTIVATECONTRACT,
   '__module__' : 'injective.wasmx.v1.tx_pb2'
-  # @@protoc_insertion_point(class_scope:injective.wasmx.v1beta1.MsgDeactivateContract)
+  # @@protoc_insertion_point(class_scope:injective.wasmx.v1.MsgDeactivateContract)
   })
 _sym_db.RegisterMessage(MsgDeactivateContract)
 
 MsgDeactivateContractResponse = _reflection.GeneratedProtocolMessageType('MsgDeactivateContractResponse', (_message.Message,), {
   'DESCRIPTOR' : _MSGDEACTIVATECONTRACTRESPONSE,
   '__module__' : 'injective.wasmx.v1.tx_pb2'
-  # @@protoc_insertion_point(class_scope:injective.wasmx.v1beta1.MsgDeactivateContractResponse)
+  # @@protoc_insertion_point(class_scope:injective.wasmx.v1.MsgDeactivateContractResponse)
   })
 _sym_db.RegisterMessage(MsgDeactivateContractResponse)
 
@@ -398,17 +398,17 @@ _MSGUPDATECONTRACT.fields_by_name['admin_address']._options = None
 
 _MSG = _descriptor.ServiceDescriptor(
   name='Msg',
-  full_name='injective.wasmx.v1beta1.Msg',
+  full_name='injective.wasmx.v1.Msg',
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=629,
-  serialized_end=1161,
+  serialized_start=624,
+  serialized_end=1114,
   methods=[
   _descriptor.MethodDescriptor(
     name='UpdateRegistryContractParams',
-    full_name='injective.wasmx.v1beta1.Msg.UpdateRegistryContractParams',
+    full_name='injective.wasmx.v1.Msg.UpdateRegistryContractParams',
     index=0,
     containing_service=None,
     input_type=_MSGUPDATECONTRACT,
@@ -418,7 +418,7 @@ _MSG = _descriptor.ServiceDescriptor(
   ),
   _descriptor.MethodDescriptor(
     name='ActivateRegistryContract',
-    full_name='injective.wasmx.v1beta1.Msg.ActivateRegistryContract',
+    full_name='injective.wasmx.v1.Msg.ActivateRegistryContract',
     index=1,
     containing_service=None,
     input_type=_MSGACTIVATECONTRACT,
@@ -428,7 +428,7 @@ _MSG = _descriptor.ServiceDescriptor(
   ),
   _descriptor.MethodDescriptor(
     name='DeactivateRegistryContract',
-    full_name='injective.wasmx.v1beta1.Msg.DeactivateRegistryContract',
+    full_name='injective.wasmx.v1.Msg.DeactivateRegistryContract',
     index=2,
     containing_service=None,
     input_type=_MSGDEACTIVATECONTRACT,
@@ -438,7 +438,7 @@ _MSG = _descriptor.ServiceDescriptor(
   ),
   _descriptor.MethodDescriptor(
     name='ExecuteContractCompat',
-    full_name='injective.wasmx.v1beta1.Msg.ExecuteContractCompat',
+    full_name='injective.wasmx.v1.Msg.ExecuteContractCompat',
     index=3,
     containing_service=None,
     input_type=_MSGEXECUTECONTRACTCOMPAT,

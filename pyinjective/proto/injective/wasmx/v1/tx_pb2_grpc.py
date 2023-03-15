@@ -16,22 +16,22 @@ class MsgStub(object):
             channel: A grpc.Channel.
         """
         self.UpdateRegistryContractParams = channel.unary_unary(
-                '/injective.wasmx.v1beta1.Msg/UpdateRegistryContractParams',
+                '/injective.wasmx.v1.Msg/UpdateRegistryContractParams',
                 request_serializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgUpdateContract.SerializeToString,
                 response_deserializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgUpdateContractResponse.FromString,
                 )
         self.ActivateRegistryContract = channel.unary_unary(
-                '/injective.wasmx.v1beta1.Msg/ActivateRegistryContract',
+                '/injective.wasmx.v1.Msg/ActivateRegistryContract',
                 request_serializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgActivateContract.SerializeToString,
                 response_deserializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgActivateContractResponse.FromString,
                 )
         self.DeactivateRegistryContract = channel.unary_unary(
-                '/injective.wasmx.v1beta1.Msg/DeactivateRegistryContract',
+                '/injective.wasmx.v1.Msg/DeactivateRegistryContract',
                 request_serializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgDeactivateContract.SerializeToString,
                 response_deserializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgDeactivateContractResponse.FromString,
                 )
         self.ExecuteContractCompat = channel.unary_unary(
-                '/injective.wasmx.v1beta1.Msg/ExecuteContractCompat',
+                '/injective.wasmx.v1.Msg/ExecuteContractCompat',
                 request_serializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgExecuteContractCompat.SerializeToString,
                 response_deserializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgExecuteContractCompatResponse.FromString,
                 )
@@ -90,7 +90,7 @@ def add_MsgServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'injective.wasmx.v1beta1.Msg', rpc_method_handlers)
+            'injective.wasmx.v1.Msg', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -110,7 +110,7 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.wasmx.v1beta1.Msg/UpdateRegistryContractParams',
+        return grpc.experimental.unary_unary(request, target, '/injective.wasmx.v1.Msg/UpdateRegistryContractParams',
             injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgUpdateContract.SerializeToString,
             injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgUpdateContractResponse.FromString,
             options, channel_credentials,
@@ -127,7 +127,7 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.wasmx.v1beta1.Msg/ActivateRegistryContract',
+        return grpc.experimental.unary_unary(request, target, '/injective.wasmx.v1.Msg/ActivateRegistryContract',
             injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgActivateContract.SerializeToString,
             injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgActivateContractResponse.FromString,
             options, channel_credentials,
@@ -144,7 +144,7 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.wasmx.v1beta1.Msg/DeactivateRegistryContract',
+        return grpc.experimental.unary_unary(request, target, '/injective.wasmx.v1.Msg/DeactivateRegistryContract',
             injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgDeactivateContract.SerializeToString,
             injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgDeactivateContractResponse.FromString,
             options, channel_credentials,
@@ -161,7 +161,7 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.wasmx.v1beta1.Msg/ExecuteContractCompat',
+        return grpc.experimental.unary_unary(request, target, '/injective.wasmx.v1.Msg/ExecuteContractCompat',
             injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgExecuteContractCompat.SerializeToString,
             injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgExecuteContractCompatResponse.FromString,
             options, channel_credentials,

@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z\025/event_provider_apipb',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n!exchange/event_provider_api.proto\x12\x12\x65vent_provider_api\"\x18\n\x16GetLatestHeightRequest\"i\n\x17GetLatestHeightResponse\x12\t\n\x01s\x18\x01 \x01(\t\x12\x0e\n\x06\x65rrmsg\x18\x02 \x01(\t\x12\x33\n\x04\x64\x61ta\x18\x03 \x01(\x0b\x32%.event_provider_api.LatestBlockHeight\"#\n\x11LatestBlockHeight\x12\x0e\n\x06height\x18\x01 \x01(\x04\";\n\x18GetBlockEventsRPCRequest\x12\x0f\n\x07\x62\x61\x63kend\x18\x01 \x01(\t\x12\x0e\n\x06height\x18\x02 \x01(\x11\"h\n\x19GetBlockEventsRPCResponse\x12\t\n\x01s\x18\x01 \x01(\t\x12\x0e\n\x06\x65rrmsg\x18\x02 \x01(\t\x12\x30\n\x04\x64\x61ta\x18\x03 \x01(\x0b\x32\".event_provider_api.BlockEventsRPC\"/\n\x0e\x42lockEventsRPC\x12\r\n\x05types\x18\x01 \x03(\t\x12\x0e\n\x06\x65vents\x18\x02 \x03(\x0c\"L\n\x19GetCustomEventsRPCRequest\x12\x0f\n\x07\x62\x61\x63kend\x18\x01 \x01(\t\x12\x0e\n\x06height\x18\x02 \x01(\x11\x12\x0e\n\x06\x65vents\x18\x03 \x01(\t\"i\n\x1aGetCustomEventsRPCResponse\x12\t\n\x01s\x18\x01 \x01(\t\x12\x0e\n\x06\x65rrmsg\x18\x02 \x01(\t\x12\x30\n\x04\x64\x61ta\x18\x03 \x01(\x0b\x32\".event_provider_api.BlockEventsRPC2\xe5\x02\n\x10\x45ventProviderAPI\x12j\n\x0fGetLatestHeight\x12*.event_provider_api.GetLatestHeightRequest\x1a+.event_provider_api.GetLatestHeightResponse\x12p\n\x11GetBlockEventsRPC\x12,.event_provider_api.GetBlockEventsRPCRequest\x1a-.event_provider_api.GetBlockEventsRPCResponse\x12s\n\x12GetCustomEventsRPC\x12-.event_provider_api.GetCustomEventsRPCRequest\x1a..event_provider_api.GetCustomEventsRPCResponseB\x17Z\x15/event_provider_apipbb\x06proto3'
+  serialized_pb=b'\n!exchange/event_provider_api.proto\x12\x12\x65vent_provider_api\"\x18\n\x16GetLatestHeightRequest\"o\n\x17GetLatestHeightResponse\x12\t\n\x01v\x18\x01 \x01(\t\x12\t\n\x01s\x18\x02 \x01(\t\x12\t\n\x01\x65\x18\x03 \x01(\t\x12\x33\n\x04\x64\x61ta\x18\x04 \x01(\x0b\x32%.event_provider_api.LatestBlockHeight\"#\n\x11LatestBlockHeight\x12\x0e\n\x06height\x18\x01 \x01(\x04\";\n\x18GetBlockEventsRPCRequest\x12\x0f\n\x07\x62\x61\x63kend\x18\x01 \x01(\t\x12\x0e\n\x06height\x18\x02 \x01(\x11\"n\n\x19GetBlockEventsRPCResponse\x12\t\n\x01v\x18\x01 \x01(\t\x12\t\n\x01s\x18\x02 \x01(\t\x12\t\n\x01\x65\x18\x03 \x01(\t\x12\x30\n\x04\x64\x61ta\x18\x04 \x01(\x0b\x32\".event_provider_api.BlockEventsRPC\"/\n\x0e\x42lockEventsRPC\x12\r\n\x05types\x18\x01 \x03(\t\x12\x0e\n\x06\x65vents\x18\x02 \x03(\x0c\"L\n\x19GetCustomEventsRPCRequest\x12\x0f\n\x07\x62\x61\x63kend\x18\x01 \x01(\t\x12\x0e\n\x06height\x18\x02 \x01(\x11\x12\x0e\n\x06\x65vents\x18\x03 \x01(\t\"o\n\x1aGetCustomEventsRPCResponse\x12\t\n\x01v\x18\x01 \x01(\t\x12\t\n\x01s\x18\x02 \x01(\t\x12\t\n\x01\x65\x18\x03 \x01(\t\x12\x30\n\x04\x64\x61ta\x18\x04 \x01(\x0b\x32\".event_provider_api.BlockEventsRPC2\xe5\x02\n\x10\x45ventProviderAPI\x12j\n\x0fGetLatestHeight\x12*.event_provider_api.GetLatestHeightRequest\x1a+.event_provider_api.GetLatestHeightResponse\x12p\n\x11GetBlockEventsRPC\x12,.event_provider_api.GetBlockEventsRPCRequest\x1a-.event_provider_api.GetBlockEventsRPCResponse\x12s\n\x12GetCustomEventsRPC\x12-.event_provider_api.GetCustomEventsRPCRequest\x1a..event_provider_api.GetCustomEventsRPCResponseB\x17Z\x15/event_provider_apipbb\x06proto3'
 )
 
 
@@ -59,22 +59,29 @@ _GETLATESTHEIGHTRESPONSE = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='s', full_name='event_provider_api.GetLatestHeightResponse.s', index=0,
+      name='v', full_name='event_provider_api.GetLatestHeightResponse.v', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='errmsg', full_name='event_provider_api.GetLatestHeightResponse.errmsg', index=1,
+      name='s', full_name='event_provider_api.GetLatestHeightResponse.s', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='data', full_name='event_provider_api.GetLatestHeightResponse.data', index=2,
-      number=3, type=11, cpp_type=10, label=1,
+      name='e', full_name='event_provider_api.GetLatestHeightResponse.e', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='data', full_name='event_provider_api.GetLatestHeightResponse.data', index=3,
+      number=4, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -92,7 +99,7 @@ _GETLATESTHEIGHTRESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=83,
-  serialized_end=188,
+  serialized_end=194,
 )
 
 
@@ -123,8 +130,8 @@ _LATESTBLOCKHEIGHT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=190,
-  serialized_end=225,
+  serialized_start=196,
+  serialized_end=231,
 )
 
 
@@ -162,8 +169,8 @@ _GETBLOCKEVENTSRPCREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=227,
-  serialized_end=286,
+  serialized_start=233,
+  serialized_end=292,
 )
 
 
@@ -176,22 +183,29 @@ _GETBLOCKEVENTSRPCRESPONSE = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='s', full_name='event_provider_api.GetBlockEventsRPCResponse.s', index=0,
+      name='v', full_name='event_provider_api.GetBlockEventsRPCResponse.v', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='errmsg', full_name='event_provider_api.GetBlockEventsRPCResponse.errmsg', index=1,
+      name='s', full_name='event_provider_api.GetBlockEventsRPCResponse.s', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='data', full_name='event_provider_api.GetBlockEventsRPCResponse.data', index=2,
-      number=3, type=11, cpp_type=10, label=1,
+      name='e', full_name='event_provider_api.GetBlockEventsRPCResponse.e', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='data', full_name='event_provider_api.GetBlockEventsRPCResponse.data', index=3,
+      number=4, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -208,8 +222,8 @@ _GETBLOCKEVENTSRPCRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=288,
-  serialized_end=392,
+  serialized_start=294,
+  serialized_end=404,
 )
 
 
@@ -247,8 +261,8 @@ _BLOCKEVENTSRPC = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=394,
-  serialized_end=441,
+  serialized_start=406,
+  serialized_end=453,
 )
 
 
@@ -293,8 +307,8 @@ _GETCUSTOMEVENTSRPCREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=443,
-  serialized_end=519,
+  serialized_start=455,
+  serialized_end=531,
 )
 
 
@@ -307,22 +321,29 @@ _GETCUSTOMEVENTSRPCRESPONSE = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='s', full_name='event_provider_api.GetCustomEventsRPCResponse.s', index=0,
+      name='v', full_name='event_provider_api.GetCustomEventsRPCResponse.v', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='errmsg', full_name='event_provider_api.GetCustomEventsRPCResponse.errmsg', index=1,
+      name='s', full_name='event_provider_api.GetCustomEventsRPCResponse.s', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='data', full_name='event_provider_api.GetCustomEventsRPCResponse.data', index=2,
-      number=3, type=11, cpp_type=10, label=1,
+      name='e', full_name='event_provider_api.GetCustomEventsRPCResponse.e', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='data', full_name='event_provider_api.GetCustomEventsRPCResponse.data', index=3,
+      number=4, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -339,8 +360,8 @@ _GETCUSTOMEVENTSRPCRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=521,
-  serialized_end=626,
+  serialized_start=533,
+  serialized_end=644,
 )
 
 _GETLATESTHEIGHTRESPONSE.fields_by_name['data'].message_type = _LATESTBLOCKHEIGHT
@@ -422,8 +443,8 @@ _EVENTPROVIDERAPI = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=629,
-  serialized_end=986,
+  serialized_start=647,
+  serialized_end=1004,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetLatestHeight',
