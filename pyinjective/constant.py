@@ -118,13 +118,7 @@ class Network:
         if node not in nodes:
             raise ValueError('Must be one of {}'.format(nodes))
 
-        if node == 'k8s':
-            lcd_endpoint='https://k8s.mainnet.lcd.injective.network:443'
-            tm_websocket_endpoint='wss://k8s.mainnet.tm.injective.network:443/websocket'
-            grpc_endpoint='k8s.mainnet.chain.grpc.injective.network:443'
-            grpc_exchange_endpoint='k8s.mainnet.exchange.grpc.injective.network:443'
-            grpc_explorer_endpoint='k8s.mainnet.explorer.grpc.injective.network:443'
-        elif node == 'lb':
+        if node == 'lb':
             lcd_endpoint = 'https://k8s.global.mainnet.lcd.injective.network:443'
             tm_websocket_endpoint = 'wss://k8s.global.mainnet.tm.injective.network:443/websocket'
             grpc_endpoint = 'k8s.global.mainnet.chain.grpc.injective.network:443'
