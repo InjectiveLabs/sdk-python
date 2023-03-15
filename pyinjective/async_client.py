@@ -97,17 +97,11 @@ class AsyncClient:
         self.expiration_format = None
         self.load_balancer = load_balancer
         self.network = network
+        self.cookie_type = "GCLB"
+        self.expiration_format = "{}"
 
         if self.network.string() == "testnet":
             self.load_balancer = False
-
-        if self.load_balancer is False:
-            self.cookie_type = "grpc-cookie"
-            self.expiration_format = "20{}"
-
-        else:
-            self.cookie_type = "GCLB"
-            self.expiration_format = "{}"
 
         # chain stubs
         self.chain_channel = (
