@@ -35,6 +35,11 @@ class InjectiveMetaRPCStub(object):
                 request_serializer=exchange_dot_injective__meta__rpc__pb2.StreamKeepaliveRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__meta__rpc__pb2.StreamKeepaliveResponse.FromString,
                 )
+        self.TokenMetadata = channel.unary_unary(
+                '/injective_meta_rpc.InjectiveMetaRPC/TokenMetadata',
+                request_serializer=exchange_dot_injective__meta__rpc__pb2.TokenMetadataRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__meta__rpc__pb2.TokenMetadataResponse.FromString,
+                )
 
 
 class InjectiveMetaRPCServicer(object):
@@ -70,6 +75,13 @@ class InjectiveMetaRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def TokenMetadata(self, request, context):
+        """Get tokens metadata. Can be filtered by denom
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_InjectiveMetaRPCServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -92,6 +104,11 @@ def add_InjectiveMetaRPCServicer_to_server(servicer, server):
                     servicer.StreamKeepalive,
                     request_deserializer=exchange_dot_injective__meta__rpc__pb2.StreamKeepaliveRequest.FromString,
                     response_serializer=exchange_dot_injective__meta__rpc__pb2.StreamKeepaliveResponse.SerializeToString,
+            ),
+            'TokenMetadata': grpc.unary_unary_rpc_method_handler(
+                    servicer.TokenMetadata,
+                    request_deserializer=exchange_dot_injective__meta__rpc__pb2.TokenMetadataRequest.FromString,
+                    response_serializer=exchange_dot_injective__meta__rpc__pb2.TokenMetadataResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -169,5 +186,22 @@ class InjectiveMetaRPC(object):
         return grpc.experimental.unary_stream(request, target, '/injective_meta_rpc.InjectiveMetaRPC/StreamKeepalive',
             exchange_dot_injective__meta__rpc__pb2.StreamKeepaliveRequest.SerializeToString,
             exchange_dot_injective__meta__rpc__pb2.StreamKeepaliveResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def TokenMetadata(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective_meta_rpc.InjectiveMetaRPC/TokenMetadata',
+            exchange_dot_injective__meta__rpc__pb2.TokenMetadataRequest.SerializeToString,
+            exchange_dot_injective__meta__rpc__pb2.TokenMetadataResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
