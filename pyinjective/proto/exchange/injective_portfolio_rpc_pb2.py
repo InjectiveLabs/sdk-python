@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z\032/injective_portfolio_rpcpb',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n&exchange/injective_portfolio_rpc.proto\x12\x17injective_portfolio_rpc\"2\n\x17\x41\x63\x63ountPortfolioRequest\x12\x17\n\x0f\x61\x63\x63ount_address\x18\x01 \x01(\t\"Q\n\x18\x41\x63\x63ountPortfolioResponse\x12\x35\n\tportfolio\x18\x01 \x01(\x0b\x32\".injective_portfolio_rpc.Portfolio\"\xe6\x01\n\tPortfolio\x12\x17\n\x0f\x61\x63\x63ount_address\x18\x01 \x01(\t\x12\x34\n\rbank_balances\x18\x02 \x03(\x0b\x32\x1d.injective_portfolio_rpc.Coin\x12\x41\n\x0bsubaccounts\x18\x03 \x03(\x0b\x32,.injective_portfolio_rpc.SubaccountBalanceV2\x12G\n\x13positions_with_upnl\x18\x04 \x03(\x0b\x32*.injective_portfolio_rpc.PositionsWithUPNL\"%\n\x04\x43oin\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\t\"x\n\x13SubaccountBalanceV2\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\t\x12;\n\x07\x64\x65posit\x18\x03 \x01(\x0b\x32*.injective_portfolio_rpc.SubaccountDeposit\"E\n\x11SubaccountDeposit\x12\x15\n\rtotal_balance\x18\x01 \x01(\t\x12\x19\n\x11\x61vailable_balance\x18\x02 \x01(\t\"j\n\x11PositionsWithUPNL\x12=\n\x08position\x18\x01 \x01(\x0b\x32+.injective_portfolio_rpc.DerivativePosition\x12\x16\n\x0eunrealized_pnl\x18\x02 \x01(\t\"\x97\x02\n\x12\x44\x65rivativePosition\x12\x0e\n\x06ticker\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x15\n\rsubaccount_id\x18\x03 \x01(\t\x12\x11\n\tdirection\x18\x04 \x01(\t\x12\x10\n\x08quantity\x18\x05 \x01(\t\x12\x13\n\x0b\x65ntry_price\x18\x06 \x01(\t\x12\x0e\n\x06margin\x18\x07 \x01(\t\x12\x19\n\x11liquidation_price\x18\x08 \x01(\t\x12\x12\n\nmark_price\x18\t \x01(\t\x12&\n\x1e\x61ggregate_reduce_only_quantity\x18\x0b \x01(\t\x12\x12\n\nupdated_at\x18\x0c \x01(\x12\x12\x12\n\ncreated_at\x18\r \x01(\x12\"]\n\x1dStreamAccountPortfolioRequest\x12\x17\n\x0f\x61\x63\x63ount_address\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\"d\n\x1eStreamAccountPortfolioResponse\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\t\x12\x15\n\rsubaccount_id\x18\x04 \x01(\t2\x9e\x02\n\x15InjectivePortfolioRPC\x12w\n\x10\x41\x63\x63ountPortfolio\x12\x30.injective_portfolio_rpc.AccountPortfolioRequest\x1a\x31.injective_portfolio_rpc.AccountPortfolioResponse\x12\x8b\x01\n\x16StreamAccountPortfolio\x12\x36.injective_portfolio_rpc.StreamAccountPortfolioRequest\x1a\x37.injective_portfolio_rpc.StreamAccountPortfolioResponse0\x01\x42\x1cZ\x1a/injective_portfolio_rpcpbb\x06proto3'
+  serialized_pb=b'\n&exchange/injective_portfolio_rpc.proto\x12\x17injective_portfolio_rpc\"2\n\x17\x41\x63\x63ountPortfolioRequest\x12\x17\n\x0f\x61\x63\x63ount_address\x18\x01 \x01(\t\"Q\n\x18\x41\x63\x63ountPortfolioResponse\x12\x35\n\tportfolio\x18\x01 \x01(\x0b\x32\".injective_portfolio_rpc.Portfolio\"\xe6\x01\n\tPortfolio\x12\x17\n\x0f\x61\x63\x63ount_address\x18\x01 \x01(\t\x12\x34\n\rbank_balances\x18\x02 \x03(\x0b\x32\x1d.injective_portfolio_rpc.Coin\x12\x41\n\x0bsubaccounts\x18\x03 \x03(\x0b\x32,.injective_portfolio_rpc.SubaccountBalanceV2\x12G\n\x13positions_with_upnl\x18\x04 \x03(\x0b\x32*.injective_portfolio_rpc.PositionsWithUPNL\"%\n\x04\x43oin\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\t\"x\n\x13SubaccountBalanceV2\x12\x15\n\rsubaccount_id\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\t\x12;\n\x07\x64\x65posit\x18\x03 \x01(\x0b\x32*.injective_portfolio_rpc.SubaccountDeposit\"E\n\x11SubaccountDeposit\x12\x15\n\rtotal_balance\x18\x01 \x01(\t\x12\x19\n\x11\x61vailable_balance\x18\x02 \x01(\t\"j\n\x11PositionsWithUPNL\x12=\n\x08position\x18\x01 \x01(\x0b\x32+.injective_portfolio_rpc.DerivativePosition\x12\x16\n\x0eunrealized_pnl\x18\x02 \x01(\t\"\x97\x02\n\x12\x44\x65rivativePosition\x12\x0e\n\x06ticker\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x15\n\rsubaccount_id\x18\x03 \x01(\t\x12\x11\n\tdirection\x18\x04 \x01(\t\x12\x10\n\x08quantity\x18\x05 \x01(\t\x12\x13\n\x0b\x65ntry_price\x18\x06 \x01(\t\x12\x0e\n\x06margin\x18\x07 \x01(\t\x12\x19\n\x11liquidation_price\x18\x08 \x01(\t\x12\x12\n\nmark_price\x18\t \x01(\t\x12&\n\x1e\x61ggregate_reduce_only_quantity\x18\x0b \x01(\t\x12\x12\n\nupdated_at\x18\x0c \x01(\x12\x12\x12\n\ncreated_at\x18\r \x01(\x12\"]\n\x1dStreamAccountPortfolioRequest\x12\x17\n\x0f\x61\x63\x63ount_address\x18\x01 \x01(\t\x12\x15\n\rsubaccount_id\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\"w\n\x1eStreamAccountPortfolioResponse\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\t\x12\x15\n\rsubaccount_id\x18\x04 \x01(\t\x12\x11\n\ttimestamp\x18\x05 \x01(\x12\x32\x9e\x02\n\x15InjectivePortfolioRPC\x12w\n\x10\x41\x63\x63ountPortfolio\x12\x30.injective_portfolio_rpc.AccountPortfolioRequest\x1a\x31.injective_portfolio_rpc.AccountPortfolioResponse\x12\x8b\x01\n\x16StreamAccountPortfolio\x12\x36.injective_portfolio_rpc.StreamAccountPortfolioRequest\x1a\x37.injective_portfolio_rpc.StreamAccountPortfolioResponse0\x01\x42\x1cZ\x1a/injective_portfolio_rpcpbb\x06proto3'
 )
 
 
@@ -496,6 +496,13 @@ _STREAMACCOUNTPORTFOLIORESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='timestamp', full_name='injective_portfolio_rpc.StreamAccountPortfolioResponse.timestamp', index=4,
+      number=5, type=18, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -509,7 +516,7 @@ _STREAMACCOUNTPORTFOLIORESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=1152,
-  serialized_end=1252,
+  serialized_end=1271,
 )
 
 _ACCOUNTPORTFOLIORESPONSE.fields_by_name['portfolio'].message_type = _PORTFOLIO
@@ -610,8 +617,8 @@ _INJECTIVEPORTFOLIORPC = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1255,
-  serialized_end=1541,
+  serialized_start=1274,
+  serialized_end=1560,
   methods=[
   _descriptor.MethodDescriptor(
     name='AccountPortfolio',
