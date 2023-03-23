@@ -78,6 +78,9 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.6.1.1**
+* Add ARB/USDT
+
 **0.6.0.9**
 * Deprecate K8S and set LB as default
 * Proto re-gen
