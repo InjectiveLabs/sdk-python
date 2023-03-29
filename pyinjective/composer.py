@@ -29,7 +29,7 @@ from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_do
 
 from pyinjective.proto.injective.exchange.v1beta1 import tx_pb2 as injective_dot_exchange_dot_v1beta1_dot_tx_pb2
 
-from pyinjective.proto.injective.exchange.v1beta1 import exchange_pb2 as injective_dot_exchange_dot_v1beta1_dot_exchange__pb2
+injective_dot_exchange_dot_v1beta1_dot_exchange__pb2 = injective_dot_exchange_dot_v1beta1_dot_tx_pb2.injective_dot_exchange_dot_v1beta1_dot_exchange__pb2
 
 from .constant import Denom
 from .utils import *
