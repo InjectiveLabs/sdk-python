@@ -78,6 +78,9 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.6.1.2**
+* Add OrderbookV2 method in async client
+
 **0.6.1.1**
 * Add ARB/USDT
 
