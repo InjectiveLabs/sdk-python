@@ -146,7 +146,7 @@ class Network:
     def local(cls):
         return cls(
             lcd_endpoint='http://localhost:10337',
-            tm_websocket_endpoint='ws://localost:26657/websocket',
+            tm_websocket_endpoint='ws://localhost:26657/websocket',
             grpc_endpoint='localhost:9900',
             grpc_exchange_endpoint='localhost:9910',
             grpc_explorer_endpoint='localhost:9911',
