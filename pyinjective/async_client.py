@@ -641,8 +641,8 @@ class AsyncClient:
         return await self.stubSpotExchange.Orderbooks(req)
 
     async def get_spot_orderbookV2(self, market_id: str):
-        req = spot_exchange_rpc_pb.OrderbooksV2Request(market_id=market_id)
-        return await self.stubSpotExchange.OrderbooksV2(req)
+        req = spot_exchange_rpc_pb.OrderbookV2Request(market_id=market_id)
+        return await self.stubSpotExchange.OrderbookV2(req)
 
     async def get_spot_orderbooksV2(self, market_ids: List):
         req = spot_exchange_rpc_pb.OrderbooksV2Request(market_ids=market_ids)
