@@ -25,7 +25,7 @@ async def main() -> None:
     account = await client.get_account(address.to_acc_bech32())
 
     # prepare tx msg
-    # NOTE: COIN DENOMS MUST BE SORTED IN ALPHABETICAL ORDER
+    # NOTE: COIN MUST BE SORTED IN ALPHABETICAL ORDER BY DENOMS
     funds = [
         composer.Coin(amount=69, denom='factory/inj1hdvy6tl89llqy3ze8lv6mz5qh66sx9enn0jxg6/inj12ngevx045zpvacus9s6anr258gkwpmthnz80e9'),
         composer.Coin(amount=420, denom='peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7'),

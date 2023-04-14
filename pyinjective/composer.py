@@ -269,7 +269,7 @@ class Composer:
             sender=sender,
             contract=contract,
             msg=bytes(msg, "utf-8"),
-            funds=kwargs.get('funds') # funds is a list of cosmos_dot_base_dot_v1beta1_dot_coin__pb2.Coin. The denoms in the list must be in alphabetical order.
+            funds=kwargs.get('funds') # funds is a list of cosmos_dot_base_dot_v1beta1_dot_coin__pb2.Coin. The coins in the list must be sorted in alphabetical order by denoms.
         )
 
     def MsgDeposit(self, sender: str, subaccount_id: str, amount: float, denom: str):
