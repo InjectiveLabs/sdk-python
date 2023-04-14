@@ -29,6 +29,8 @@ from .proto.cosmos.gov.v1beta1 import tx_pb2 as cosmos_gov_tx_pb
 
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
 
+from .proto.cosmwasm.wasm.v1 import tx_pb2 as wasm_tx_pb
+
 from .constant import Denom
 from .utils import *
 from typing import List
@@ -260,6 +262,14 @@ class Composer:
             from_address=from_address,
             to_address=to_address,
             amount=[self.Coin(amount=be_amount, denom=peggy_denom)],
+        )
+
+    def MsgExecuteContract(self, sender: str, contract: str, msg: str, **kwargs):
+        return wasm_tx_pb.MsgExecuteContract(
+            sender=sender,
+            contract=contract,
+            msg=bytes(msg, "utf-8"),
+            funds=kwargs.get('funds') # funds is a list of cosmos_dot_base_dot_v1beta1_dot_coin__pb2.Coin. The denoms in the list must be in alphabetical order.
         )
 
     def MsgDeposit(self, sender: str, subaccount_id: str, amount: float, denom: str):
