@@ -78,6 +78,9 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.6.1.5**
+* Add MsgExecuteContract in Composer
+
 **0.6.1.4**
 * Add wMATIC
 
