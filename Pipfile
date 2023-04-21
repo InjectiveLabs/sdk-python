@@ -4,8 +4,8 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-protobuf = "==3.19.1"
-grpcio-tools = "==1.42.0"
+protobuf = "*"
+grpcio-tools = "*"
 grpcio = "*"
 asyncio = "*"
 aiohttp = "*"
