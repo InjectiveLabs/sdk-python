@@ -632,14 +632,6 @@ class AsyncClient:
         metadata = await self.load_cookie(type="exchange")
         return self.stubSpotExchange.StreamMarkets.__call__(req, metadata=metadata)
 
-    async def get_spot_orderbook(self, market_id: str):
-        req = spot_exchange_rpc_pb.OrderbookRequest(market_id=market_id)
-        return await self.stubSpotExchange.Orderbook(req)
-
-    async def get_spot_orderbooks(self, market_ids: List):
-        req = spot_exchange_rpc_pb.OrderbooksRequest(market_ids=market_ids)
-        return await self.stubSpotExchange.Orderbooks(req)
-
     async def get_spot_orderbookV2(self, market_id: str):
         req = spot_exchange_rpc_pb.OrderbookV2Request(market_id=market_id)
         return await self.stubSpotExchange.OrderbookV2(req)
@@ -796,13 +788,9 @@ class AsyncClient:
         metadata = await self.load_cookie(type="exchange")
         return self.stubDerivativeExchange.StreamMarket.__call__(req, metadata=metadata)
 
-    async def get_derivative_orderbook(self, market_id: str):
-        req = derivative_exchange_rpc_pb.OrderbookRequest(market_id=market_id)
-        return await self.stubDerivativeExchange.Orderbook(req)
-
-    async def get_derivative_orderbooks(self, market_ids: List):
-        req = derivative_exchange_rpc_pb.OrderbooksRequest(market_ids=market_ids)
-        return await self.stubDerivativeExchange.Orderbooks(req)
+    async def get_derivative_orderbookV2(self, market_id: str):
+        req = derivative_exchange_rpc_pb.OrderbookV2Request(market_id=market_id)
+        return await self.stubDerivativeExchange.OrderbookV2(req)
 
     async def get_derivative_orderbooksV2(self, market_ids: List):
         req = derivative_exchange_rpc_pb.OrderbooksV2Request(market_ids=market_ids)
