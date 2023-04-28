@@ -820,6 +820,30 @@ class Composer:
             amount=self.Coin(amount=be_amount, denom="inj"),
         )
 
+    def MsgCreateInsuranceFund(
+        self,
+        sender: str,
+        ticker: str,
+        quote_denom: str,
+        oracle_base: str,
+        oracle_quote: str,
+        oracle_type: int,
+        expiry: int,
+        initial_deposit: int
+    ):
+        peggy_denom, decimals = Denom.load_peggy_denom(self.network, quote_denom)
+        be_amount = amount_to_backend(initial_deposit, decimals)
+        logging.info(
+            "Loaded send symbol {} ({}) with decimals = {}".format(
+                quote_denom, peggy_denom, decimals
+            )
+        )
+
+        return injective_insurance_tx_pb.MsgCreateInsuranceFund(
+            sender=sender, ticker=ticker, quote_denom=peggy_denom, oracle_base=oracle_base, oracle_quote=oracle_quote,
+            oracle_type=oracle_type, expiry=expiry, initial_deposit=self.Coin(amount=be_amount, denom=peggy_denom),
+        )
+
     def MsgWithdrawDelegatorReward(
         self, delegator_address: str, validator_address: str
     ):
