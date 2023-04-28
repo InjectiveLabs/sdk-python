@@ -78,6 +78,10 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.6.1.8**
+* Add MsgCreateInsuranceFund in Composer
+* Re-gen mainnet denoms
+
 **0.6.1.5**
 * Add MsgExecuteContract in Composer
 
