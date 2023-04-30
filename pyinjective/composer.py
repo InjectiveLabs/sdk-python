@@ -27,6 +27,8 @@ from .proto.cosmos.distribution.v1beta1 import tx_pb2 as cosmos_distribution_tx_
 
 from .proto.cosmos.gov.v1beta1 import tx_pb2 as cosmos_gov_tx_pb
 
+from .proto.injective.insurance.v1beta1 import tx_pb2 as injective_insurance_tx_pb
+
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
 
 from .proto.cosmwasm.wasm.v1 import tx_pb2 as wasm_tx_pb
@@ -842,6 +844,37 @@ class Composer:
         return injective_insurance_tx_pb.MsgCreateInsuranceFund(
             sender=sender, ticker=ticker, quote_denom=peggy_denom, oracle_base=oracle_base, oracle_quote=oracle_quote,
             oracle_type=oracle_type, expiry=expiry, initial_deposit=self.Coin(amount=be_amount, denom=peggy_denom),
+        )
+
+    def MsgUnderwrite(
+        self,
+        sender: str,
+        market_id: str,
+        quote_denom: str,
+        amount: int,
+    ):
+        peggy_denom, decimals = Denom.load_peggy_denom(self.network, quote_denom)
+        be_amount = amount_to_backend(amount, decimals)
+        logging.info(
+            "Loaded send symbol {} ({}) with decimals = {}".format(
+                quote_denom, peggy_denom, decimals
+            )
+        )
+
+        return injective_insurance_tx_pb.MsgUnderwrite(
+            sender=sender, market_id=market_id, deposit=self.Coin(amount=be_amount, denom=peggy_denom),
+        )
+
+    def MsgRequestRedemption(
+        self,
+        sender: str,
+        market_id: str,
+        share_denom: str,
+        amount: int,
+    ):
+
+        return injective_insurance_tx_pb.MsgRequestRedemption(
+            sender=sender, market_id=market_id, amount=self.Coin(amount=amount, denom=share_denom),
         )
 
     def MsgWithdrawDelegatorReward(
