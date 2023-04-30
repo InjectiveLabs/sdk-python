@@ -78,6 +78,9 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.6.2.0**
+* Add MsgUnderwrite, MsgRequestRedemption in Composer
+
 **0.6.1.8**
 * Add MsgCreateInsuranceFund in Composer
 * Re-gen mainnet denoms
