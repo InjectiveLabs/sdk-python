@@ -28,22 +28,22 @@ async def main() -> None:
     # prepare tx msg
 
     #GENERIC AUTHZ
-    # msg = composer.MsgGrantGeneric(
-    #     granter = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku",
-    #     grantee = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
-    #     msg_type = "/injective.exchange.v1beta1.MsgCreateSpotLimitOrder",
-    #     expire_in=31536000 # 1 year
-    # )
+    msg = composer.MsgGrantGeneric(
+        granter = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
+        grantee = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku",
+        msg_type = "/injective.exchange.v1beta1.MsgCreateSpotLimitOrder",
+        expire_in=31536000 # 1 year
+    )
 
     #TYPED AUTHZ
-    msg = composer.MsgGrantTyped(
-        granter = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku",
-        grantee = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
-        msg_type = "CreateSpotLimitOrderAuthz",
-        expire_in=31536000, # 1 year
-        subaccount_id=subaccount_id,
-        market_ids=market_ids
-    )
+    # msg = composer.MsgGrantTyped(
+    #     granter = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku",
+    #     grantee = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
+    #     msg_type = "CreateSpotLimitOrderAuthz",
+    #     expire_in=31536000, # 1 year
+    #     subaccount_id=subaccount_id,
+    #     market_ids=market_ids
+    # )
 
     # build sim tx
     tx = (

@@ -18,15 +18,15 @@ async def main() -> None:
     await client.sync_timeout_height()
 
     # load account
-    priv_key = PrivateKey.from_hex("f9db9bf330e23cb7839039e944adef6e9df447b90b503d5b4464c90bea9022f3")
+    priv_key = PrivateKey.from_hex("5d386fbdbf11f1141010f81a46b40f94887367562bd33b452bbaa6ce1cd1381e")
     pub_key = priv_key.to_public_key()
     address = pub_key.to_address()
     account = await client.get_account(address.to_acc_bech32())
 
     # prepare tx msg
-    market_id = "0x0511ddc4e6586f3bfe1acb2dd905f8b8a82c97e1edaef654b12ca7e6031ca0fa"
-    grantee = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
-    granter_inj_address = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku"
+    market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
+    grantee = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku"
+    granter_inj_address = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
     granter_address = Address.from_acc_bech32(granter_inj_address)
     granter_subaccount_id = granter_address.get_subaccount_id(index=0)
     msg0 = composer.MsgCreateSpotLimitOrder(
@@ -64,10 +64,10 @@ async def main() -> None:
         return
 
     sim_res_msg = ProtoMsgComposer.MsgResponses(sim_res.result.data, simulation=True)
-    print(sim_res_msg)
+    data=(str(sim_res_msg[0]).replace("results:", ''))
     unpacked_msg_res = ProtoMsgComposer.UnpackMsgExecResponse(
         msg_type=msg0.__class__.__name__,
-        data=sim_res_msg[0]
+        data=data
     )
     print("simulation msg response")
     print(unpacked_msg_res)
