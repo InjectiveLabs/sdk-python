@@ -12,6 +12,7 @@ _sym_db = _symbol_database.Default()
 
 
 from injective.peggy.v1 import genesis_pb2 as injective_dot_peggy_dot_v1_dot_genesis__pb2
+from injective.peggy.v1 import params_pb2 as injective_dot_peggy_dot_v1_dot_params__pb2
 from injective.peggy.v1 import types_pb2 as injective_dot_peggy_dot_v1_dot_types__pb2
 from injective.peggy.v1 import msgs_pb2 as injective_dot_peggy_dot_v1_dot_msgs__pb2
 from injective.peggy.v1 import pool_pb2 as injective_dot_peggy_dot_v1_dot_pool__pb2
@@ -20,7 +21,7 @@ from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
 from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1einjective/peggy/v1/query.proto\x12\x12injective.peggy.v1\x1a injective/peggy/v1/genesis.proto\x1a\x1einjective/peggy/v1/types.proto\x1a\x1dinjective/peggy/v1/msgs.proto\x1a\x1dinjective/peggy/v1/pool.proto\x1a\x1einjective/peggy/v1/batch.proto\x1a\x1cgoogle/api/annotations.proto\x1a\x14gogoproto/gogo.proto\"\x14\n\x12QueryParamsRequest\"G\n\x13QueryParamsResponse\x12\x30\n\x06params\x18\x01 \x01(\x0b\x32\x1a.injective.peggy.v1.ParamsB\x04\xc8\xde\x1f\x00\"\x1b\n\x19QueryCurrentValsetRequest\"H\n\x1aQueryCurrentValsetResponse\x12*\n\x06valset\x18\x01 \x01(\x0b\x32\x1a.injective.peggy.v1.Valset\"*\n\x19QueryValsetRequestRequest\x12\r\n\x05nonce\x18\x01 \x01(\x04\"H\n\x1aQueryValsetRequestResponse\x12*\n\x06valset\x18\x01 \x01(\x0b\x32\x1a.injective.peggy.v1.Valset\";\n\x19QueryValsetConfirmRequest\x12\r\n\x05nonce\x18\x01 \x01(\x04\x12\x0f\n\x07\x61\x64\x64ress\x18\x02 \x01(\t\"S\n\x1aQueryValsetConfirmResponse\x12\x35\n\x07\x63onfirm\x18\x01 \x01(\x0b\x32$.injective.peggy.v1.MsgValsetConfirm\"2\n!QueryValsetConfirmsByNonceRequest\x12\r\n\x05nonce\x18\x01 \x01(\x04\"\\\n\"QueryValsetConfirmsByNonceResponse\x12\x36\n\x08\x63onfirms\x18\x01 \x03(\x0b\x32$.injective.peggy.v1.MsgValsetConfirm\" \n\x1eQueryLastValsetRequestsRequest\"N\n\x1fQueryLastValsetRequestsResponse\x12+\n\x07valsets\x18\x01 \x03(\x0b\x32\x1a.injective.peggy.v1.Valset\"=\n*QueryLastPendingValsetRequestByAddrRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\"Z\n+QueryLastPendingValsetRequestByAddrResponse\x12+\n\x07valsets\x18\x01 \x03(\x0b\x32\x1a.injective.peggy.v1.Valset\"\x16\n\x14QueryBatchFeeRequest\"I\n\x15QueryBatchFeeResponse\x12\x30\n\tbatchFees\x18\x01 \x03(\x0b\x32\x1d.injective.peggy.v1.BatchFees\"<\n)QueryLastPendingBatchRequestByAddrRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\"`\n*QueryLastPendingBatchRequestByAddrResponse\x12\x32\n\x05\x62\x61tch\x18\x01 \x01(\x0b\x32#.injective.peggy.v1.OutgoingTxBatch\"\x1f\n\x1dQueryOutgoingTxBatchesRequest\"V\n\x1eQueryOutgoingTxBatchesResponse\x12\x34\n\x07\x62\x61tches\x18\x01 \x03(\x0b\x32#.injective.peggy.v1.OutgoingTxBatch\"J\n\x1fQueryBatchRequestByNonceRequest\x12\r\n\x05nonce\x18\x01 \x01(\x04\x12\x18\n\x10\x63ontract_address\x18\x02 \x01(\t\"V\n QueryBatchRequestByNonceResponse\x12\x32\n\x05\x62\x61tch\x18\x01 \x01(\x0b\x32#.injective.peggy.v1.OutgoingTxBatch\"D\n\x19QueryBatchConfirmsRequest\x12\r\n\x05nonce\x18\x01 \x01(\x04\x12\x18\n\x10\x63ontract_address\x18\x02 \x01(\t\"S\n\x1aQueryBatchConfirmsResponse\x12\x35\n\x08\x63onfirms\x18\x01 \x03(\x0b\x32#.injective.peggy.v1.MsgConfirmBatch\".\n\x1bQueryLastEventByAddrRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\"\\\n\x1cQueryLastEventByAddrResponse\x12<\n\x10last_claim_event\x18\x01 \x01(\x0b\x32\".injective.peggy.v1.LastClaimEvent\")\n\x18QueryERC20ToDenomRequest\x12\r\n\x05\x65rc20\x18\x01 \x01(\t\"E\n\x19QueryERC20ToDenomResponse\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x19\n\x11\x63osmos_originated\x18\x02 \x01(\x08\")\n\x18QueryDenomToERC20Request\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\"E\n\x19QueryDenomToERC20Response\x12\r\n\x05\x65rc20\x18\x01 \x01(\t\x12\x19\n\x11\x63osmos_originated\x18\x02 \x01(\x08\"@\n#QueryDelegateKeysByValidatorAddress\x12\x19\n\x11validator_address\x18\x01 \x01(\t\"`\n+QueryDelegateKeysByValidatorAddressResponse\x12\x13\n\x0b\x65th_address\x18\x01 \x01(\t\x12\x1c\n\x14orchestrator_address\x18\x02 \x01(\t\"4\n\x1dQueryDelegateKeysByEthAddress\x12\x13\n\x0b\x65th_address\x18\x01 \x01(\t\"`\n%QueryDelegateKeysByEthAddressResponse\x12\x19\n\x11validator_address\x18\x01 \x01(\t\x12\x1c\n\x14orchestrator_address\x18\x02 \x01(\t\"F\n&QueryDelegateKeysByOrchestratorAddress\x12\x1c\n\x14orchestrator_address\x18\x01 \x01(\t\"`\n.QueryDelegateKeysByOrchestratorAddressResponse\x12\x19\n\x11validator_address\x18\x01 \x01(\t\x12\x13\n\x0b\x65th_address\x18\x02 \x01(\t\"/\n\x15QueryPendingSendToEth\x12\x16\n\x0esender_address\x18\x01 \x01(\t\"\xaa\x01\n\x1dQueryPendingSendToEthResponse\x12\x44\n\x14transfers_in_batches\x18\x01 \x03(\x0b\x32&.injective.peggy.v1.OutgoingTransferTx\x12\x43\n\x13unbatched_transfers\x18\x02 \x03(\x0b\x32&.injective.peggy.v1.OutgoingTransferTx\"\x19\n\x17QueryModuleStateRequest\"K\n\x18QueryModuleStateResponse\x12/\n\x05state\x18\x01 \x01(\x0b\x32 .injective.peggy.v1.GenesisState2\xb8\x19\n\x05Query\x12s\n\x06Params\x12&.injective.peggy.v1.QueryParamsRequest\x1a\'.injective.peggy.v1.QueryParamsResponse\"\x18\x82\xd3\xe4\x93\x02\x12\x12\x10/peggy/v1/params\x12\x90\x01\n\rCurrentValset\x12-.injective.peggy.v1.QueryCurrentValsetRequest\x1a..injective.peggy.v1.QueryCurrentValsetResponse\" \x82\xd3\xe4\x93\x02\x1a\x12\x18/peggy/v1/valset/current\x12\x88\x01\n\rValsetRequest\x12-.injective.peggy.v1.QueryValsetRequestRequest\x1a..injective.peggy.v1.QueryValsetRequestResponse\"\x18\x82\xd3\xe4\x93\x02\x12\x12\x10/peggy/v1/valset\x12\x90\x01\n\rValsetConfirm\x12-.injective.peggy.v1.QueryValsetConfirmRequest\x1a..injective.peggy.v1.QueryValsetConfirmResponse\" \x82\xd3\xe4\x93\x02\x1a\x12\x18/peggy/v1/valset/confirm\x12\xaa\x01\n\x15ValsetConfirmsByNonce\x12\x35.injective.peggy.v1.QueryValsetConfirmsByNonceRequest\x1a\x36.injective.peggy.v1.QueryValsetConfirmsByNonceResponse\"\"\x82\xd3\xe4\x93\x02\x1c\x12\x1a/peggy/v1/confirms/{nonce}\x12\xa0\x01\n\x12LastValsetRequests\x12\x32.injective.peggy.v1.QueryLastValsetRequestsRequest\x1a\x33.injective.peggy.v1.QueryLastValsetRequestsResponse\"!\x82\xd3\xe4\x93\x02\x1b\x12\x19/peggy/v1/valset/requests\x12\xc0\x01\n\x1eLastPendingValsetRequestByAddr\x12>.injective.peggy.v1.QueryLastPendingValsetRequestByAddrRequest\x1a?.injective.peggy.v1.QueryLastPendingValsetRequestByAddrResponse\"\x1d\x82\xd3\xe4\x93\x02\x17\x12\x15/peggy/v1/valset/last\x12\x9e\x01\n\x0fLastEventByAddr\x12/.injective.peggy.v1.QueryLastEventByAddrRequest\x1a\x30.injective.peggy.v1.QueryLastEventByAddrResponse\"(\x82\xd3\xe4\x93\x02\"\x12 /peggy/v1/oracle/event/{address}\x12\x9a\x01\n\x13GetPendingSendToEth\x12).injective.peggy.v1.QueryPendingSendToEth\x1a\x31.injective.peggy.v1.QueryPendingSendToEthResponse\"%\x82\xd3\xe4\x93\x02\x1f\x12\x1d/peggy/v1/pending_send_to_eth\x12}\n\tBatchFees\x12(.injective.peggy.v1.QueryBatchFeeRequest\x1a).injective.peggy.v1.QueryBatchFeeResponse\"\x1b\x82\xd3\xe4\x93\x02\x15\x12\x13/peggy/v1/batchfees\x12\x9e\x01\n\x11OutgoingTxBatches\x12\x31.injective.peggy.v1.QueryOutgoingTxBatchesRequest\x1a\x32.injective.peggy.v1.QueryOutgoingTxBatchesResponse\"\"\x82\xd3\xe4\x93\x02\x1c\x12\x1a/peggy/v1/batch/outgoingtx\x12\xbc\x01\n\x1dLastPendingBatchRequestByAddr\x12=.injective.peggy.v1.QueryLastPendingBatchRequestByAddrRequest\x1a>.injective.peggy.v1.QueryLastPendingBatchRequestByAddrResponse\"\x1c\x82\xd3\xe4\x93\x02\x16\x12\x14/peggy/v1/batch/last\x12\x99\x01\n\x13\x42\x61tchRequestByNonce\x12\x33.injective.peggy.v1.QueryBatchRequestByNonceRequest\x1a\x34.injective.peggy.v1.QueryBatchRequestByNonceResponse\"\x17\x82\xd3\xe4\x93\x02\x11\x12\x0f/peggy/v1/batch\x12\x90\x01\n\rBatchConfirms\x12-.injective.peggy.v1.QueryBatchConfirmsRequest\x1a..injective.peggy.v1.QueryBatchConfirmsResponse\" \x82\xd3\xe4\x93\x02\x1a\x12\x18/peggy/v1/batch/confirms\x12\x9f\x01\n\x0c\x45RC20ToDenom\x12,.injective.peggy.v1.QueryERC20ToDenomRequest\x1a-.injective.peggy.v1.QueryERC20ToDenomResponse\"2\x82\xd3\xe4\x93\x02,\x12*/peggy/v1/cosmos_originated/erc20_to_denom\x12\x9f\x01\n\x0c\x44\x65nomToERC20\x12,.injective.peggy.v1.QueryDenomToERC20Request\x1a-.injective.peggy.v1.QueryDenomToERC20Response\"2\x82\xd3\xe4\x93\x02,\x12*/peggy/v1/cosmos_originated/denom_to_erc20\x12\xc9\x01\n\x19GetDelegateKeyByValidator\x12\x37.injective.peggy.v1.QueryDelegateKeysByValidatorAddress\x1a?.injective.peggy.v1.QueryDelegateKeysByValidatorAddressResponse\"2\x82\xd3\xe4\x93\x02,\x12*/peggy/v1/query_delegate_keys_by_validator\x12\xb1\x01\n\x13GetDelegateKeyByEth\x12\x31.injective.peggy.v1.QueryDelegateKeysByEthAddress\x1a\x39.injective.peggy.v1.QueryDelegateKeysByEthAddressResponse\",\x82\xd3\xe4\x93\x02&\x12$/peggy/v1/query_delegate_keys_by_eth\x12\xd5\x01\n\x1cGetDelegateKeyByOrchestrator\x12:.injective.peggy.v1.QueryDelegateKeysByOrchestratorAddress\x1a\x42.injective.peggy.v1.QueryDelegateKeysByOrchestratorAddressResponse\"5\x82\xd3\xe4\x93\x02/\x12-/peggy/v1/query_delegate_keys_by_orchestrator\x12\x8d\x01\n\x10PeggyModuleState\x12+.injective.peggy.v1.QueryModuleStateRequest\x1a,.injective.peggy.v1.QueryModuleStateResponse\"\x1e\x82\xd3\xe4\x93\x02\x18\x12\x16/peggy/v1/module_stateBMZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/peggy/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1einjective/peggy/v1/query.proto\x12\x12injective.peggy.v1\x1a injective/peggy/v1/genesis.proto\x1a\x1finjective/peggy/v1/params.proto\x1a\x1einjective/peggy/v1/types.proto\x1a\x1dinjective/peggy/v1/msgs.proto\x1a\x1dinjective/peggy/v1/pool.proto\x1a\x1einjective/peggy/v1/batch.proto\x1a\x1cgoogle/api/annotations.proto\x1a\x14gogoproto/gogo.proto\"\x14\n\x12QueryParamsRequest\"G\n\x13QueryParamsResponse\x12\x30\n\x06params\x18\x01 \x01(\x0b\x32\x1a.injective.peggy.v1.ParamsB\x04\xc8\xde\x1f\x00\"\x1b\n\x19QueryCurrentValsetRequest\"H\n\x1aQueryCurrentValsetResponse\x12*\n\x06valset\x18\x01 \x01(\x0b\x32\x1a.injective.peggy.v1.Valset\"*\n\x19QueryValsetRequestRequest\x12\r\n\x05nonce\x18\x01 \x01(\x04\"H\n\x1aQueryValsetRequestResponse\x12*\n\x06valset\x18\x01 \x01(\x0b\x32\x1a.injective.peggy.v1.Valset\";\n\x19QueryValsetConfirmRequest\x12\r\n\x05nonce\x18\x01 \x01(\x04\x12\x0f\n\x07\x61\x64\x64ress\x18\x02 \x01(\t\"S\n\x1aQueryValsetConfirmResponse\x12\x35\n\x07\x63onfirm\x18\x01 \x01(\x0b\x32$.injective.peggy.v1.MsgValsetConfirm\"2\n!QueryValsetConfirmsByNonceRequest\x12\r\n\x05nonce\x18\x01 \x01(\x04\"\\\n\"QueryValsetConfirmsByNonceResponse\x12\x36\n\x08\x63onfirms\x18\x01 \x03(\x0b\x32$.injective.peggy.v1.MsgValsetConfirm\" \n\x1eQueryLastValsetRequestsRequest\"N\n\x1fQueryLastValsetRequestsResponse\x12+\n\x07valsets\x18\x01 \x03(\x0b\x32\x1a.injective.peggy.v1.Valset\"=\n*QueryLastPendingValsetRequestByAddrRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\"Z\n+QueryLastPendingValsetRequestByAddrResponse\x12+\n\x07valsets\x18\x01 \x03(\x0b\x32\x1a.injective.peggy.v1.Valset\"\x16\n\x14QueryBatchFeeRequest\"I\n\x15QueryBatchFeeResponse\x12\x30\n\tbatchFees\x18\x01 \x03(\x0b\x32\x1d.injective.peggy.v1.BatchFees\"<\n)QueryLastPendingBatchRequestByAddrRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\"`\n*QueryLastPendingBatchRequestByAddrResponse\x12\x32\n\x05\x62\x61tch\x18\x01 \x01(\x0b\x32#.injective.peggy.v1.OutgoingTxBatch\"\x1f\n\x1dQueryOutgoingTxBatchesRequest\"V\n\x1eQueryOutgoingTxBatchesResponse\x12\x34\n\x07\x62\x61tches\x18\x01 \x03(\x0b\x32#.injective.peggy.v1.OutgoingTxBatch\"J\n\x1fQueryBatchRequestByNonceRequest\x12\r\n\x05nonce\x18\x01 \x01(\x04\x12\x18\n\x10\x63ontract_address\x18\x02 \x01(\t\"V\n QueryBatchRequestByNonceResponse\x12\x32\n\x05\x62\x61tch\x18\x01 \x01(\x0b\x32#.injective.peggy.v1.OutgoingTxBatch\"D\n\x19QueryBatchConfirmsRequest\x12\r\n\x05nonce\x18\x01 \x01(\x04\x12\x18\n\x10\x63ontract_address\x18\x02 \x01(\t\"S\n\x1aQueryBatchConfirmsResponse\x12\x35\n\x08\x63onfirms\x18\x01 \x03(\x0b\x32#.injective.peggy.v1.MsgConfirmBatch\".\n\x1bQueryLastEventByAddrRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\"\\\n\x1cQueryLastEventByAddrResponse\x12<\n\x10last_claim_event\x18\x01 \x01(\x0b\x32\".injective.peggy.v1.LastClaimEvent\")\n\x18QueryERC20ToDenomRequest\x12\r\n\x05\x65rc20\x18\x01 \x01(\t\"E\n\x19QueryERC20ToDenomResponse\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x19\n\x11\x63osmos_originated\x18\x02 \x01(\x08\")\n\x18QueryDenomToERC20Request\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\"E\n\x19QueryDenomToERC20Response\x12\r\n\x05\x65rc20\x18\x01 \x01(\t\x12\x19\n\x11\x63osmos_originated\x18\x02 \x01(\x08\"@\n#QueryDelegateKeysByValidatorAddress\x12\x19\n\x11validator_address\x18\x01 \x01(\t\"`\n+QueryDelegateKeysByValidatorAddressResponse\x12\x13\n\x0b\x65th_address\x18\x01 \x01(\t\x12\x1c\n\x14orchestrator_address\x18\x02 \x01(\t\"4\n\x1dQueryDelegateKeysByEthAddress\x12\x13\n\x0b\x65th_address\x18\x01 \x01(\t\"`\n%QueryDelegateKeysByEthAddressResponse\x12\x19\n\x11validator_address\x18\x01 \x01(\t\x12\x1c\n\x14orchestrator_address\x18\x02 \x01(\t\"F\n&QueryDelegateKeysByOrchestratorAddress\x12\x1c\n\x14orchestrator_address\x18\x01 \x01(\t\"`\n.QueryDelegateKeysByOrchestratorAddressResponse\x12\x19\n\x11validator_address\x18\x01 \x01(\t\x12\x13\n\x0b\x65th_address\x18\x02 \x01(\t\"/\n\x15QueryPendingSendToEth\x12\x16\n\x0esender_address\x18\x01 \x01(\t\"\xaa\x01\n\x1dQueryPendingSendToEthResponse\x12\x44\n\x14transfers_in_batches\x18\x01 \x03(\x0b\x32&.injective.peggy.v1.OutgoingTransferTx\x12\x43\n\x13unbatched_transfers\x18\x02 \x03(\x0b\x32&.injective.peggy.v1.OutgoingTransferTx\"\x19\n\x17QueryModuleStateRequest\"K\n\x18QueryModuleStateResponse\x12/\n\x05state\x18\x01 \x01(\x0b\x32 .injective.peggy.v1.GenesisState2\xb8\x19\n\x05Query\x12s\n\x06Params\x12&.injective.peggy.v1.QueryParamsRequest\x1a\'.injective.peggy.v1.QueryParamsResponse\"\x18\x82\xd3\xe4\x93\x02\x12\x12\x10/peggy/v1/params\x12\x90\x01\n\rCurrentValset\x12-.injective.peggy.v1.QueryCurrentValsetRequest\x1a..injective.peggy.v1.QueryCurrentValsetResponse\" \x82\xd3\xe4\x93\x02\x1a\x12\x18/peggy/v1/valset/current\x12\x88\x01\n\rValsetRequest\x12-.injective.peggy.v1.QueryValsetRequestRequest\x1a..injective.peggy.v1.QueryValsetRequestResponse\"\x18\x82\xd3\xe4\x93\x02\x12\x12\x10/peggy/v1/valset\x12\x90\x01\n\rValsetConfirm\x12-.injective.peggy.v1.QueryValsetConfirmRequest\x1a..injective.peggy.v1.QueryValsetConfirmResponse\" \x82\xd3\xe4\x93\x02\x1a\x12\x18/peggy/v1/valset/confirm\x12\xaa\x01\n\x15ValsetConfirmsByNonce\x12\x35.injective.peggy.v1.QueryValsetConfirmsByNonceRequest\x1a\x36.injective.peggy.v1.QueryValsetConfirmsByNonceResponse\"\"\x82\xd3\xe4\x93\x02\x1c\x12\x1a/peggy/v1/confirms/{nonce}\x12\xa0\x01\n\x12LastValsetRequests\x12\x32.injective.peggy.v1.QueryLastValsetRequestsRequest\x1a\x33.injective.peggy.v1.QueryLastValsetRequestsResponse\"!\x82\xd3\xe4\x93\x02\x1b\x12\x19/peggy/v1/valset/requests\x12\xc0\x01\n\x1eLastPendingValsetRequestByAddr\x12>.injective.peggy.v1.QueryLastPendingValsetRequestByAddrRequest\x1a?.injective.peggy.v1.QueryLastPendingValsetRequestByAddrResponse\"\x1d\x82\xd3\xe4\x93\x02\x17\x12\x15/peggy/v1/valset/last\x12\x9e\x01\n\x0fLastEventByAddr\x12/.injective.peggy.v1.QueryLastEventByAddrRequest\x1a\x30.injective.peggy.v1.QueryLastEventByAddrResponse\"(\x82\xd3\xe4\x93\x02\"\x12 /peggy/v1/oracle/event/{address}\x12\x9a\x01\n\x13GetPendingSendToEth\x12).injective.peggy.v1.QueryPendingSendToEth\x1a\x31.injective.peggy.v1.QueryPendingSendToEthResponse\"%\x82\xd3\xe4\x93\x02\x1f\x12\x1d/peggy/v1/pending_send_to_eth\x12}\n\tBatchFees\x12(.injective.peggy.v1.QueryBatchFeeRequest\x1a).injective.peggy.v1.QueryBatchFeeResponse\"\x1b\x82\xd3\xe4\x93\x02\x15\x12\x13/peggy/v1/batchfees\x12\x9e\x01\n\x11OutgoingTxBatches\x12\x31.injective.peggy.v1.QueryOutgoingTxBatchesRequest\x1a\x32.injective.peggy.v1.QueryOutgoingTxBatchesResponse\"\"\x82\xd3\xe4\x93\x02\x1c\x12\x1a/peggy/v1/batch/outgoingtx\x12\xbc\x01\n\x1dLastPendingBatchRequestByAddr\x12=.injective.peggy.v1.QueryLastPendingBatchRequestByAddrRequest\x1a>.injective.peggy.v1.QueryLastPendingBatchRequestByAddrResponse\"\x1c\x82\xd3\xe4\x93\x02\x16\x12\x14/peggy/v1/batch/last\x12\x99\x01\n\x13\x42\x61tchRequestByNonce\x12\x33.injective.peggy.v1.QueryBatchRequestByNonceRequest\x1a\x34.injective.peggy.v1.QueryBatchRequestByNonceResponse\"\x17\x82\xd3\xe4\x93\x02\x11\x12\x0f/peggy/v1/batch\x12\x90\x01\n\rBatchConfirms\x12-.injective.peggy.v1.QueryBatchConfirmsRequest\x1a..injective.peggy.v1.QueryBatchConfirmsResponse\" \x82\xd3\xe4\x93\x02\x1a\x12\x18/peggy/v1/batch/confirms\x12\x9f\x01\n\x0c\x45RC20ToDenom\x12,.injective.peggy.v1.QueryERC20ToDenomRequest\x1a-.injective.peggy.v1.QueryERC20ToDenomResponse\"2\x82\xd3\xe4\x93\x02,\x12*/peggy/v1/cosmos_originated/erc20_to_denom\x12\x9f\x01\n\x0c\x44\x65nomToERC20\x12,.injective.peggy.v1.QueryDenomToERC20Request\x1a-.injective.peggy.v1.QueryDenomToERC20Response\"2\x82\xd3\xe4\x93\x02,\x12*/peggy/v1/cosmos_originated/denom_to_erc20\x12\xc9\x01\n\x19GetDelegateKeyByValidator\x12\x37.injective.peggy.v1.QueryDelegateKeysByValidatorAddress\x1a?.injective.peggy.v1.QueryDelegateKeysByValidatorAddressResponse\"2\x82\xd3\xe4\x93\x02,\x12*/peggy/v1/query_delegate_keys_by_validator\x12\xb1\x01\n\x13GetDelegateKeyByEth\x12\x31.injective.peggy.v1.QueryDelegateKeysByEthAddress\x1a\x39.injective.peggy.v1.QueryDelegateKeysByEthAddressResponse\",\x82\xd3\xe4\x93\x02&\x12$/peggy/v1/query_delegate_keys_by_eth\x12\xd5\x01\n\x1cGetDelegateKeyByOrchestrator\x12:.injective.peggy.v1.QueryDelegateKeysByOrchestratorAddress\x1a\x42.injective.peggy.v1.QueryDelegateKeysByOrchestratorAddressResponse\"5\x82\xd3\xe4\x93\x02/\x12-/peggy/v1/query_delegate_keys_by_orchestrator\x12\x8d\x01\n\x10PeggyModuleState\x12+.injective.peggy.v1.QueryModuleStateRequest\x1a,.injective.peggy.v1.QueryModuleStateResponse\"\x1e\x82\xd3\xe4\x93\x02\x18\x12\x16/peggy/v1/module_stateBMZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/peggy/typesb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'injective.peggy.v1.query_pb2', globals())
@@ -70,86 +71,86 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _QUERY.methods_by_name['GetDelegateKeyByOrchestrator']._serialized_options = b'\202\323\344\223\002/\022-/peggy/v1/query_delegate_keys_by_orchestrator'
   _QUERY.methods_by_name['PeggyModuleState']._options = None
   _QUERY.methods_by_name['PeggyModuleState']._serialized_options = b'\202\323\344\223\002\030\022\026/peggy/v1/module_state'
-  _QUERYPARAMSREQUEST._serialized_start=266
-  _QUERYPARAMSREQUEST._serialized_end=286
-  _QUERYPARAMSRESPONSE._serialized_start=288
-  _QUERYPARAMSRESPONSE._serialized_end=359
-  _QUERYCURRENTVALSETREQUEST._serialized_start=361
-  _QUERYCURRENTVALSETREQUEST._serialized_end=388
-  _QUERYCURRENTVALSETRESPONSE._serialized_start=390
-  _QUERYCURRENTVALSETRESPONSE._serialized_end=462
-  _QUERYVALSETREQUESTREQUEST._serialized_start=464
-  _QUERYVALSETREQUESTREQUEST._serialized_end=506
-  _QUERYVALSETREQUESTRESPONSE._serialized_start=508
-  _QUERYVALSETREQUESTRESPONSE._serialized_end=580
-  _QUERYVALSETCONFIRMREQUEST._serialized_start=582
-  _QUERYVALSETCONFIRMREQUEST._serialized_end=641
-  _QUERYVALSETCONFIRMRESPONSE._serialized_start=643
-  _QUERYVALSETCONFIRMRESPONSE._serialized_end=726
-  _QUERYVALSETCONFIRMSBYNONCEREQUEST._serialized_start=728
-  _QUERYVALSETCONFIRMSBYNONCEREQUEST._serialized_end=778
-  _QUERYVALSETCONFIRMSBYNONCERESPONSE._serialized_start=780
-  _QUERYVALSETCONFIRMSBYNONCERESPONSE._serialized_end=872
-  _QUERYLASTVALSETREQUESTSREQUEST._serialized_start=874
-  _QUERYLASTVALSETREQUESTSREQUEST._serialized_end=906
-  _QUERYLASTVALSETREQUESTSRESPONSE._serialized_start=908
-  _QUERYLASTVALSETREQUESTSRESPONSE._serialized_end=986
-  _QUERYLASTPENDINGVALSETREQUESTBYADDRREQUEST._serialized_start=988
-  _QUERYLASTPENDINGVALSETREQUESTBYADDRREQUEST._serialized_end=1049
-  _QUERYLASTPENDINGVALSETREQUESTBYADDRRESPONSE._serialized_start=1051
-  _QUERYLASTPENDINGVALSETREQUESTBYADDRRESPONSE._serialized_end=1141
-  _QUERYBATCHFEEREQUEST._serialized_start=1143
-  _QUERYBATCHFEEREQUEST._serialized_end=1165
-  _QUERYBATCHFEERESPONSE._serialized_start=1167
-  _QUERYBATCHFEERESPONSE._serialized_end=1240
-  _QUERYLASTPENDINGBATCHREQUESTBYADDRREQUEST._serialized_start=1242
-  _QUERYLASTPENDINGBATCHREQUESTBYADDRREQUEST._serialized_end=1302
-  _QUERYLASTPENDINGBATCHREQUESTBYADDRRESPONSE._serialized_start=1304
-  _QUERYLASTPENDINGBATCHREQUESTBYADDRRESPONSE._serialized_end=1400
-  _QUERYOUTGOINGTXBATCHESREQUEST._serialized_start=1402
-  _QUERYOUTGOINGTXBATCHESREQUEST._serialized_end=1433
-  _QUERYOUTGOINGTXBATCHESRESPONSE._serialized_start=1435
-  _QUERYOUTGOINGTXBATCHESRESPONSE._serialized_end=1521
-  _QUERYBATCHREQUESTBYNONCEREQUEST._serialized_start=1523
-  _QUERYBATCHREQUESTBYNONCEREQUEST._serialized_end=1597
-  _QUERYBATCHREQUESTBYNONCERESPONSE._serialized_start=1599
-  _QUERYBATCHREQUESTBYNONCERESPONSE._serialized_end=1685
-  _QUERYBATCHCONFIRMSREQUEST._serialized_start=1687
-  _QUERYBATCHCONFIRMSREQUEST._serialized_end=1755
-  _QUERYBATCHCONFIRMSRESPONSE._serialized_start=1757
-  _QUERYBATCHCONFIRMSRESPONSE._serialized_end=1840
-  _QUERYLASTEVENTBYADDRREQUEST._serialized_start=1842
-  _QUERYLASTEVENTBYADDRREQUEST._serialized_end=1888
-  _QUERYLASTEVENTBYADDRRESPONSE._serialized_start=1890
-  _QUERYLASTEVENTBYADDRRESPONSE._serialized_end=1982
-  _QUERYERC20TODENOMREQUEST._serialized_start=1984
-  _QUERYERC20TODENOMREQUEST._serialized_end=2025
-  _QUERYERC20TODENOMRESPONSE._serialized_start=2027
-  _QUERYERC20TODENOMRESPONSE._serialized_end=2096
-  _QUERYDENOMTOERC20REQUEST._serialized_start=2098
-  _QUERYDENOMTOERC20REQUEST._serialized_end=2139
-  _QUERYDENOMTOERC20RESPONSE._serialized_start=2141
-  _QUERYDENOMTOERC20RESPONSE._serialized_end=2210
-  _QUERYDELEGATEKEYSBYVALIDATORADDRESS._serialized_start=2212
-  _QUERYDELEGATEKEYSBYVALIDATORADDRESS._serialized_end=2276
-  _QUERYDELEGATEKEYSBYVALIDATORADDRESSRESPONSE._serialized_start=2278
-  _QUERYDELEGATEKEYSBYVALIDATORADDRESSRESPONSE._serialized_end=2374
-  _QUERYDELEGATEKEYSBYETHADDRESS._serialized_start=2376
-  _QUERYDELEGATEKEYSBYETHADDRESS._serialized_end=2428
-  _QUERYDELEGATEKEYSBYETHADDRESSRESPONSE._serialized_start=2430
-  _QUERYDELEGATEKEYSBYETHADDRESSRESPONSE._serialized_end=2526
-  _QUERYDELEGATEKEYSBYORCHESTRATORADDRESS._serialized_start=2528
-  _QUERYDELEGATEKEYSBYORCHESTRATORADDRESS._serialized_end=2598
-  _QUERYDELEGATEKEYSBYORCHESTRATORADDRESSRESPONSE._serialized_start=2600
-  _QUERYDELEGATEKEYSBYORCHESTRATORADDRESSRESPONSE._serialized_end=2696
-  _QUERYPENDINGSENDTOETH._serialized_start=2698
-  _QUERYPENDINGSENDTOETH._serialized_end=2745
-  _QUERYPENDINGSENDTOETHRESPONSE._serialized_start=2748
-  _QUERYPENDINGSENDTOETHRESPONSE._serialized_end=2918
-  _QUERYMODULESTATEREQUEST._serialized_start=2920
-  _QUERYMODULESTATEREQUEST._serialized_end=2945
-  _QUERYMODULESTATERESPONSE._serialized_start=2947
-  _QUERYMODULESTATERESPONSE._serialized_end=3022
-  _QUERY._serialized_start=3025
-  _QUERY._serialized_end=6281
+  _QUERYPARAMSREQUEST._serialized_start=299
+  _QUERYPARAMSREQUEST._serialized_end=319
+  _QUERYPARAMSRESPONSE._serialized_start=321
+  _QUERYPARAMSRESPONSE._serialized_end=392
+  _QUERYCURRENTVALSETREQUEST._serialized_start=394
+  _QUERYCURRENTVALSETREQUEST._serialized_end=421
+  _QUERYCURRENTVALSETRESPONSE._serialized_start=423
+  _QUERYCURRENTVALSETRESPONSE._serialized_end=495
+  _QUERYVALSETREQUESTREQUEST._serialized_start=497
+  _QUERYVALSETREQUESTREQUEST._serialized_end=539
+  _QUERYVALSETREQUESTRESPONSE._serialized_start=541
+  _QUERYVALSETREQUESTRESPONSE._serialized_end=613
+  _QUERYVALSETCONFIRMREQUEST._serialized_start=615
+  _QUERYVALSETCONFIRMREQUEST._serialized_end=674
+  _QUERYVALSETCONFIRMRESPONSE._serialized_start=676
+  _QUERYVALSETCONFIRMRESPONSE._serialized_end=759
+  _QUERYVALSETCONFIRMSBYNONCEREQUEST._serialized_start=761
+  _QUERYVALSETCONFIRMSBYNONCEREQUEST._serialized_end=811
+  _QUERYVALSETCONFIRMSBYNONCERESPONSE._serialized_start=813
+  _QUERYVALSETCONFIRMSBYNONCERESPONSE._serialized_end=905
+  _QUERYLASTVALSETREQUESTSREQUEST._serialized_start=907
+  _QUERYLASTVALSETREQUESTSREQUEST._serialized_end=939
+  _QUERYLASTVALSETREQUESTSRESPONSE._serialized_start=941
+  _QUERYLASTVALSETREQUESTSRESPONSE._serialized_end=1019
+  _QUERYLASTPENDINGVALSETREQUESTBYADDRREQUEST._serialized_start=1021
+  _QUERYLASTPENDINGVALSETREQUESTBYADDRREQUEST._serialized_end=1082
+  _QUERYLASTPENDINGVALSETREQUESTBYADDRRESPONSE._serialized_start=1084
+  _QUERYLASTPENDINGVALSETREQUESTBYADDRRESPONSE._serialized_end=1174
+  _QUERYBATCHFEEREQUEST._serialized_start=1176
+  _QUERYBATCHFEEREQUEST._serialized_end=1198
+  _QUERYBATCHFEERESPONSE._serialized_start=1200
+  _QUERYBATCHFEERESPONSE._serialized_end=1273
+  _QUERYLASTPENDINGBATCHREQUESTBYADDRREQUEST._serialized_start=1275
+  _QUERYLASTPENDINGBATCHREQUESTBYADDRREQUEST._serialized_end=1335
+  _QUERYLASTPENDINGBATCHREQUESTBYADDRRESPONSE._serialized_start=1337
+  _QUERYLASTPENDINGBATCHREQUESTBYADDRRESPONSE._serialized_end=1433
+  _QUERYOUTGOINGTXBATCHESREQUEST._serialized_start=1435
+  _QUERYOUTGOINGTXBATCHESREQUEST._serialized_end=1466
+  _QUERYOUTGOINGTXBATCHESRESPONSE._serialized_start=1468
+  _QUERYOUTGOINGTXBATCHESRESPONSE._serialized_end=1554
+  _QUERYBATCHREQUESTBYNONCEREQUEST._serialized_start=1556
+  _QUERYBATCHREQUESTBYNONCEREQUEST._serialized_end=1630
+  _QUERYBATCHREQUESTBYNONCERESPONSE._serialized_start=1632
+  _QUERYBATCHREQUESTBYNONCERESPONSE._serialized_end=1718
+  _QUERYBATCHCONFIRMSREQUEST._serialized_start=1720
+  _QUERYBATCHCONFIRMSREQUEST._serialized_end=1788
+  _QUERYBATCHCONFIRMSRESPONSE._serialized_start=1790
+  _QUERYBATCHCONFIRMSRESPONSE._serialized_end=1873
+  _QUERYLASTEVENTBYADDRREQUEST._serialized_start=1875
+  _QUERYLASTEVENTBYADDRREQUEST._serialized_end=1921
+  _QUERYLASTEVENTBYADDRRESPONSE._serialized_start=1923
+  _QUERYLASTEVENTBYADDRRESPONSE._serialized_end=2015
+  _QUERYERC20TODENOMREQUEST._serialized_start=2017
+  _QUERYERC20TODENOMREQUEST._serialized_end=2058
+  _QUERYERC20TODENOMRESPONSE._serialized_start=2060
+  _QUERYERC20TODENOMRESPONSE._serialized_end=2129
+  _QUERYDENOMTOERC20REQUEST._serialized_start=2131
+  _QUERYDENOMTOERC20REQUEST._serialized_end=2172
+  _QUERYDENOMTOERC20RESPONSE._serialized_start=2174
+  _QUERYDENOMTOERC20RESPONSE._serialized_end=2243
+  _QUERYDELEGATEKEYSBYVALIDATORADDRESS._serialized_start=2245
+  _QUERYDELEGATEKEYSBYVALIDATORADDRESS._serialized_end=2309
+  _QUERYDELEGATEKEYSBYVALIDATORADDRESSRESPONSE._serialized_start=2311
+  _QUERYDELEGATEKEYSBYVALIDATORADDRESSRESPONSE._serialized_end=2407
+  _QUERYDELEGATEKEYSBYETHADDRESS._serialized_start=2409
+  _QUERYDELEGATEKEYSBYETHADDRESS._serialized_end=2461
+  _QUERYDELEGATEKEYSBYETHADDRESSRESPONSE._serialized_start=2463
+  _QUERYDELEGATEKEYSBYETHADDRESSRESPONSE._serialized_end=2559
+  _QUERYDELEGATEKEYSBYORCHESTRATORADDRESS._serialized_start=2561
+  _QUERYDELEGATEKEYSBYORCHESTRATORADDRESS._serialized_end=2631
+  _QUERYDELEGATEKEYSBYORCHESTRATORADDRESSRESPONSE._serialized_start=2633
+  _QUERYDELEGATEKEYSBYORCHESTRATORADDRESSRESPONSE._serialized_end=2729
+  _QUERYPENDINGSENDTOETH._serialized_start=2731
+  _QUERYPENDINGSENDTOETH._serialized_end=2778
+  _QUERYPENDINGSENDTOETHRESPONSE._serialized_start=2781
+  _QUERYPENDINGSENDTOETHRESPONSE._serialized_end=2951
+  _QUERYMODULESTATEREQUEST._serialized_start=2953
+  _QUERYMODULESTATEREQUEST._serialized_end=2978
+  _QUERYMODULESTATERESPONSE._serialized_start=2980
+  _QUERYMODULESTATERESPONSE._serialized_end=3055
+  _QUERY._serialized_start=3058
+  _QUERY._serialized_end=6314
 # @@protoc_insertion_point(module_scope)

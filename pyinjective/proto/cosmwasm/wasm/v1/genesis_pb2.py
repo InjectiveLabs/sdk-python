@@ -13,10 +13,10 @@ _sym_db = _symbol_database.Default()
 
 from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from cosmwasm.wasm.v1 import types_pb2 as cosmwasm_dot_wasm_dot_v1_dot_types__pb2
-from cosmwasm.wasm.v1 import tx_pb2 as cosmwasm_dot_wasm_dot_v1_dot_tx__pb2
+from amino import amino_pb2 as amino_dot_amino__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1e\x63osmwasm/wasm/v1/genesis.proto\x12\x10\x63osmwasm.wasm.v1\x1a\x14gogoproto/gogo.proto\x1a\x1c\x63osmwasm/wasm/v1/types.proto\x1a\x19\x63osmwasm/wasm/v1/tx.proto\"\xc1\x04\n\x0cGenesisState\x12.\n\x06params\x18\x01 \x01(\x0b\x32\x18.cosmwasm.wasm.v1.ParamsB\x04\xc8\xde\x1f\x00\x12>\n\x05\x63odes\x18\x02 \x03(\x0b\x32\x16.cosmwasm.wasm.v1.CodeB\x17\xc8\xde\x1f\x00\xea\xde\x1f\x0f\x63odes,omitempty\x12J\n\tcontracts\x18\x03 \x03(\x0b\x32\x1a.cosmwasm.wasm.v1.ContractB\x1b\xc8\xde\x1f\x00\xea\xde\x1f\x13\x63ontracts,omitempty\x12J\n\tsequences\x18\x04 \x03(\x0b\x32\x1a.cosmwasm.wasm.v1.SequenceB\x1b\xc8\xde\x1f\x00\xea\xde\x1f\x13sequences,omitempty\x12T\n\x08gen_msgs\x18\x05 \x03(\x0b\x32&.cosmwasm.wasm.v1.GenesisState.GenMsgsB\x1a\xc8\xde\x1f\x00\xea\xde\x1f\x12gen_msgs,omitempty\x1a\xd2\x01\n\x07GenMsgs\x12\x34\n\nstore_code\x18\x01 \x01(\x0b\x32\x1e.cosmwasm.wasm.v1.MsgStoreCodeH\x00\x12H\n\x14instantiate_contract\x18\x02 \x01(\x0b\x32(.cosmwasm.wasm.v1.MsgInstantiateContractH\x00\x12@\n\x10\x65xecute_contract\x18\x03 \x01(\x0b\x32$.cosmwasm.wasm.v1.MsgExecuteContractH\x00\x42\x05\n\x03sum\"|\n\x04\x43ode\x12\x1b\n\x07\x63ode_id\x18\x01 \x01(\x04\x42\n\xe2\xde\x1f\x06\x43odeID\x12\x33\n\tcode_info\x18\x02 \x01(\x0b\x32\x1a.cosmwasm.wasm.v1.CodeInfoB\x04\xc8\xde\x1f\x00\x12\x12\n\ncode_bytes\x18\x03 \x01(\x0c\x12\x0e\n\x06pinned\x18\x04 \x01(\x08\"\x98\x01\n\x08\x43ontract\x12\x18\n\x10\x63ontract_address\x18\x01 \x01(\t\x12;\n\rcontract_info\x18\x02 \x01(\x0b\x32\x1e.cosmwasm.wasm.v1.ContractInfoB\x04\xc8\xde\x1f\x00\x12\x35\n\x0e\x63ontract_state\x18\x03 \x03(\x0b\x32\x17.cosmwasm.wasm.v1.ModelB\x04\xc8\xde\x1f\x00\"4\n\x08Sequence\x12\x19\n\x06id_key\x18\x01 \x01(\x0c\x42\t\xe2\xde\x1f\x05IDKey\x12\r\n\x05value\x18\x02 \x01(\x04\x42(Z&github.com/CosmWasm/wasmd/x/wasm/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1e\x63osmwasm/wasm/v1/genesis.proto\x12\x10\x63osmwasm.wasm.v1\x1a\x14gogoproto/gogo.proto\x1a\x1c\x63osmwasm/wasm/v1/types.proto\x1a\x11\x61mino/amino.proto\"\xaa\x02\n\x0cGenesisState\x12\x33\n\x06params\x18\x01 \x01(\x0b\x32\x18.cosmwasm.wasm.v1.ParamsB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12\x43\n\x05\x63odes\x18\x02 \x03(\x0b\x32\x16.cosmwasm.wasm.v1.CodeB\x1c\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\xea\xde\x1f\x0f\x63odes,omitempty\x12O\n\tcontracts\x18\x03 \x03(\x0b\x32\x1a.cosmwasm.wasm.v1.ContractB \xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\xea\xde\x1f\x13\x63ontracts,omitempty\x12O\n\tsequences\x18\x04 \x03(\x0b\x32\x1a.cosmwasm.wasm.v1.SequenceB \xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\xea\xde\x1f\x13sequences,omitempty\"\x81\x01\n\x04\x43ode\x12\x1b\n\x07\x63ode_id\x18\x01 \x01(\x04\x42\n\xe2\xde\x1f\x06\x43odeID\x12\x38\n\tcode_info\x18\x02 \x01(\x0b\x32\x1a.cosmwasm.wasm.v1.CodeInfoB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12\x12\n\ncode_bytes\x18\x03 \x01(\x0c\x12\x0e\n\x06pinned\x18\x04 \x01(\x08\"\xf8\x01\n\x08\x43ontract\x12\x18\n\x10\x63ontract_address\x18\x01 \x01(\t\x12@\n\rcontract_info\x18\x02 \x01(\x0b\x32\x1e.cosmwasm.wasm.v1.ContractInfoB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12:\n\x0e\x63ontract_state\x18\x03 \x03(\x0b\x32\x17.cosmwasm.wasm.v1.ModelB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12T\n\x15\x63ontract_code_history\x18\x04 \x03(\x0b\x32*.cosmwasm.wasm.v1.ContractCodeHistoryEntryB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\"4\n\x08Sequence\x12\x19\n\x06id_key\x18\x01 \x01(\x0c\x42\t\xe2\xde\x1f\x05IDKey\x12\r\n\x05value\x18\x02 \x01(\x04\x42(Z&github.com/CosmWasm/wasmd/x/wasm/typesb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'cosmwasm.wasm.v1.genesis_pb2', globals())
@@ -25,33 +25,31 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z&github.com/CosmWasm/wasmd/x/wasm/types'
   _GENESISSTATE.fields_by_name['params']._options = None
-  _GENESISSTATE.fields_by_name['params']._serialized_options = b'\310\336\037\000'
+  _GENESISSTATE.fields_by_name['params']._serialized_options = b'\310\336\037\000\250\347\260*\001'
   _GENESISSTATE.fields_by_name['codes']._options = None
-  _GENESISSTATE.fields_by_name['codes']._serialized_options = b'\310\336\037\000\352\336\037\017codes,omitempty'
+  _GENESISSTATE.fields_by_name['codes']._serialized_options = b'\310\336\037\000\250\347\260*\001\352\336\037\017codes,omitempty'
   _GENESISSTATE.fields_by_name['contracts']._options = None
-  _GENESISSTATE.fields_by_name['contracts']._serialized_options = b'\310\336\037\000\352\336\037\023contracts,omitempty'
+  _GENESISSTATE.fields_by_name['contracts']._serialized_options = b'\310\336\037\000\250\347\260*\001\352\336\037\023contracts,omitempty'
   _GENESISSTATE.fields_by_name['sequences']._options = None
-  _GENESISSTATE.fields_by_name['sequences']._serialized_options = b'\310\336\037\000\352\336\037\023sequences,omitempty'
-  _GENESISSTATE.fields_by_name['gen_msgs']._options = None
-  _GENESISSTATE.fields_by_name['gen_msgs']._serialized_options = b'\310\336\037\000\352\336\037\022gen_msgs,omitempty'
+  _GENESISSTATE.fields_by_name['sequences']._serialized_options = b'\310\336\037\000\250\347\260*\001\352\336\037\023sequences,omitempty'
   _CODE.fields_by_name['code_id']._options = None
   _CODE.fields_by_name['code_id']._serialized_options = b'\342\336\037\006CodeID'
   _CODE.fields_by_name['code_info']._options = None
-  _CODE.fields_by_name['code_info']._serialized_options = b'\310\336\037\000'
+  _CODE.fields_by_name['code_info']._serialized_options = b'\310\336\037\000\250\347\260*\001'
   _CONTRACT.fields_by_name['contract_info']._options = None
-  _CONTRACT.fields_by_name['contract_info']._serialized_options = b'\310\336\037\000'
+  _CONTRACT.fields_by_name['contract_info']._serialized_options = b'\310\336\037\000\250\347\260*\001'
   _CONTRACT.fields_by_name['contract_state']._options = None
-  _CONTRACT.fields_by_name['contract_state']._serialized_options = b'\310\336\037\000'
+  _CONTRACT.fields_by_name['contract_state']._serialized_options = b'\310\336\037\000\250\347\260*\001'
+  _CONTRACT.fields_by_name['contract_code_history']._options = None
+  _CONTRACT.fields_by_name['contract_code_history']._serialized_options = b'\310\336\037\000\250\347\260*\001'
   _SEQUENCE.fields_by_name['id_key']._options = None
   _SEQUENCE.fields_by_name['id_key']._serialized_options = b'\342\336\037\005IDKey'
-  _GENESISSTATE._serialized_start=132
-  _GENESISSTATE._serialized_end=709
-  _GENESISSTATE_GENMSGS._serialized_start=499
-  _GENESISSTATE_GENMSGS._serialized_end=709
-  _CODE._serialized_start=711
-  _CODE._serialized_end=835
-  _CONTRACT._serialized_start=838
-  _CONTRACT._serialized_end=990
-  _SEQUENCE._serialized_start=992
-  _SEQUENCE._serialized_end=1044
+  _GENESISSTATE._serialized_start=124
+  _GENESISSTATE._serialized_end=422
+  _CODE._serialized_start=425
+  _CODE._serialized_end=554
+  _CONTRACT._serialized_start=557
+  _CONTRACT._serialized_end=805
+  _SEQUENCE._serialized_start=807
+  _SEQUENCE._serialized_end=859
 # @@protoc_insertion_point(module_scope)

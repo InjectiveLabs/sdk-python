@@ -20,6 +20,11 @@ class QueryStub(object):
                 request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryParamsRequest.SerializeToString,
                 response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryParamsResponse.FromString,
                 )
+        self.ValidatorDistributionInfo = channel.unary_unary(
+                '/cosmos.distribution.v1beta1.Query/ValidatorDistributionInfo',
+                request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryValidatorDistributionInfoRequest.SerializeToString,
+                response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryValidatorDistributionInfoResponse.FromString,
+                )
         self.ValidatorOutstandingRewards = channel.unary_unary(
                 '/cosmos.distribution.v1beta1.Query/ValidatorOutstandingRewards',
                 request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryValidatorOutstandingRewardsRequest.SerializeToString,
@@ -68,6 +73,13 @@ class QueryServicer(object):
 
     def Params(self, request, context):
         """Params queries params of the distribution module.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ValidatorDistributionInfo(self, request, context):
+        """ValidatorDistributionInfo queries validator commission and self-delegation rewards for validator
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -138,6 +150,11 @@ def add_QueryServicer_to_server(servicer, server):
                     request_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryParamsRequest.FromString,
                     response_serializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryParamsResponse.SerializeToString,
             ),
+            'ValidatorDistributionInfo': grpc.unary_unary_rpc_method_handler(
+                    servicer.ValidatorDistributionInfo,
+                    request_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryValidatorDistributionInfoRequest.FromString,
+                    response_serializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryValidatorDistributionInfoResponse.SerializeToString,
+            ),
             'ValidatorOutstandingRewards': grpc.unary_unary_rpc_method_handler(
                     servicer.ValidatorOutstandingRewards,
                     request_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryValidatorOutstandingRewardsRequest.FromString,
@@ -203,6 +220,23 @@ class Query(object):
         return grpc.experimental.unary_unary(request, target, '/cosmos.distribution.v1beta1.Query/Params',
             cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryParamsRequest.SerializeToString,
             cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryParamsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ValidatorDistributionInfo(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/cosmos.distribution.v1beta1.Query/ValidatorDistributionInfo',
+            cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryValidatorDistributionInfoRequest.SerializeToString,
+            cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryValidatorDistributionInfoResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

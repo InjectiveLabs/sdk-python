@@ -15,36 +15,30 @@ from ibc.core.client.v1 import client_pb2 as ibc_dot_core_dot_client_dot_v1_dot_
 from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n ibc/core/client/v1/genesis.proto\x12\x12ibc.core.client.v1\x1a\x1fibc/core/client/v1/client.proto\x1a\x14gogoproto/gogo.proto\"\xff\x03\n\x0cGenesisState\x12Z\n\x07\x63lients\x18\x01 \x03(\x0b\x32).ibc.core.client.v1.IdentifiedClientStateB\x1e\xc8\xde\x1f\x00\xaa\xdf\x1f\x16IdentifiedClientStates\x12\x80\x01\n\x11\x63lients_consensus\x18\x02 \x03(\x0b\x32).ibc.core.client.v1.ClientConsensusStatesB:\xc8\xde\x1f\x00\xaa\xdf\x1f\x16\x43lientsConsensusStates\xf2\xde\x1f\x18yaml:\"clients_consensus\"\x12h\n\x10\x63lients_metadata\x18\x03 \x03(\x0b\x32-.ibc.core.client.v1.IdentifiedGenesisMetadataB\x1f\xc8\xde\x1f\x00\xf2\xde\x1f\x17yaml:\"clients_metadata\"\x12\x30\n\x06params\x18\x04 \x01(\x0b\x32\x1a.ibc.core.client.v1.ParamsB\x04\xc8\xde\x1f\x00\x12\x35\n\x10\x63reate_localhost\x18\x05 \x01(\x08\x42\x1b\xf2\xde\x1f\x17yaml:\"create_localhost\"\x12=\n\x14next_client_sequence\x18\x06 \x01(\x04\x42\x1f\xf2\xde\x1f\x1byaml:\"next_client_sequence\"\"3\n\x0fGenesisMetadata\x12\x0b\n\x03key\x18\x01 \x01(\x0c\x12\r\n\x05value\x18\x02 \x01(\x0c:\x04\x88\xa0\x1f\x00\"\xa2\x01\n\x19IdentifiedGenesisMetadata\x12\'\n\tclient_id\x18\x01 \x01(\tB\x14\xf2\xde\x1f\x10yaml:\"client_id\"\x12\\\n\x0f\x63lient_metadata\x18\x02 \x03(\x0b\x32#.ibc.core.client.v1.GenesisMetadataB\x1e\xc8\xde\x1f\x00\xf2\xde\x1f\x16yaml:\"client_metadata\"B:Z8github.com/cosmos/ibc-go/v2/modules/core/02-client/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n ibc/core/client/v1/genesis.proto\x12\x12ibc.core.client.v1\x1a\x1fibc/core/client/v1/client.proto\x1a\x14gogoproto/gogo.proto\"\x89\x03\n\x0cGenesisState\x12Z\n\x07\x63lients\x18\x01 \x03(\x0b\x32).ibc.core.client.v1.IdentifiedClientStateB\x1e\xc8\xde\x1f\x00\xaa\xdf\x1f\x16IdentifiedClientStates\x12\x64\n\x11\x63lients_consensus\x18\x02 \x03(\x0b\x32).ibc.core.client.v1.ClientConsensusStatesB\x1e\xc8\xde\x1f\x00\xaa\xdf\x1f\x16\x43lientsConsensusStates\x12M\n\x10\x63lients_metadata\x18\x03 \x03(\x0b\x32-.ibc.core.client.v1.IdentifiedGenesisMetadataB\x04\xc8\xde\x1f\x00\x12\x30\n\x06params\x18\x04 \x01(\x0b\x32\x1a.ibc.core.client.v1.ParamsB\x04\xc8\xde\x1f\x00\x12\x18\n\x10\x63reate_localhost\x18\x05 \x01(\x08\x12\x1c\n\x14next_client_sequence\x18\x06 \x01(\x04\"3\n\x0fGenesisMetadata\x12\x0b\n\x03key\x18\x01 \x01(\x0c\x12\r\n\x05value\x18\x02 \x01(\x0c:\x04\x88\xa0\x1f\x00\"r\n\x19IdentifiedGenesisMetadata\x12\x11\n\tclient_id\x18\x01 \x01(\t\x12\x42\n\x0f\x63lient_metadata\x18\x02 \x03(\x0b\x32#.ibc.core.client.v1.GenesisMetadataB\x04\xc8\xde\x1f\x00\x42:Z8github.com/cosmos/ibc-go/v7/modules/core/02-client/typesb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'ibc.core.client.v1.genesis_pb2', globals())
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  DESCRIPTOR._serialized_options = b'Z8github.com/cosmos/ibc-go/v2/modules/core/02-client/types'
+  DESCRIPTOR._serialized_options = b'Z8github.com/cosmos/ibc-go/v7/modules/core/02-client/types'
   _GENESISSTATE.fields_by_name['clients']._options = None
   _GENESISSTATE.fields_by_name['clients']._serialized_options = b'\310\336\037\000\252\337\037\026IdentifiedClientStates'
   _GENESISSTATE.fields_by_name['clients_consensus']._options = None
-  _GENESISSTATE.fields_by_name['clients_consensus']._serialized_options = b'\310\336\037\000\252\337\037\026ClientsConsensusStates\362\336\037\030yaml:\"clients_consensus\"'
+  _GENESISSTATE.fields_by_name['clients_consensus']._serialized_options = b'\310\336\037\000\252\337\037\026ClientsConsensusStates'
   _GENESISSTATE.fields_by_name['clients_metadata']._options = None
-  _GENESISSTATE.fields_by_name['clients_metadata']._serialized_options = b'\310\336\037\000\362\336\037\027yaml:\"clients_metadata\"'
+  _GENESISSTATE.fields_by_name['clients_metadata']._serialized_options = b'\310\336\037\000'
   _GENESISSTATE.fields_by_name['params']._options = None
   _GENESISSTATE.fields_by_name['params']._serialized_options = b'\310\336\037\000'
-  _GENESISSTATE.fields_by_name['create_localhost']._options = None
-  _GENESISSTATE.fields_by_name['create_localhost']._serialized_options = b'\362\336\037\027yaml:\"create_localhost\"'
-  _GENESISSTATE.fields_by_name['next_client_sequence']._options = None
-  _GENESISSTATE.fields_by_name['next_client_sequence']._serialized_options = b'\362\336\037\033yaml:\"next_client_sequence\"'
   _GENESISMETADATA._options = None
   _GENESISMETADATA._serialized_options = b'\210\240\037\000'
-  _IDENTIFIEDGENESISMETADATA.fields_by_name['client_id']._options = None
-  _IDENTIFIEDGENESISMETADATA.fields_by_name['client_id']._serialized_options = b'\362\336\037\020yaml:\"client_id\"'
   _IDENTIFIEDGENESISMETADATA.fields_by_name['client_metadata']._options = None
-  _IDENTIFIEDGENESISMETADATA.fields_by_name['client_metadata']._serialized_options = b'\310\336\037\000\362\336\037\026yaml:\"client_metadata\"'
+  _IDENTIFIEDGENESISMETADATA.fields_by_name['client_metadata']._serialized_options = b'\310\336\037\000'
   _GENESISSTATE._serialized_start=112
-  _GENESISSTATE._serialized_end=623
-  _GENESISMETADATA._serialized_start=625
-  _GENESISMETADATA._serialized_end=676
-  _IDENTIFIEDGENESISMETADATA._serialized_start=679
-  _IDENTIFIEDGENESISMETADATA._serialized_end=841
+  _GENESISSTATE._serialized_end=505
+  _GENESISMETADATA._serialized_start=507
+  _GENESISMETADATA._serialized_end=558
+  _IDENTIFIEDGENESISMETADATA._serialized_start=560
+  _IDENTIFIEDGENESISMETADATA._serialized_end=674
 # @@protoc_insertion_point(module_scope)
