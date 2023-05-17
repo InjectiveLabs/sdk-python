@@ -57,12 +57,13 @@ def binary_options_quantity_to_backend(quantity, denom) -> int:
     return int(exchange_quantity)
 
 def derivative_margin_to_backend(price, quantity, leverage, denom) -> int:
-    price_tick_size = Decimal(str(denom.min_price_tick_size)) / Decimal(f"1e{denom.quote}")
-    decimal_price = Decimal(str(price))
-    decimal_quantity = Decimal(str(quantity))
+    chain_format_price = Decimal(str(price)) * Decimal(f"1e{denom.quote}")
+    chain_format_quantity = Decimal(str(quantity)) * Decimal(f"1e{denom.base}")
     decimal_leverage = Decimal(str(leverage))
-    margin = (decimal_price * decimal_quantity) / decimal_leverage
-    exchange_margin = floor_to(margin, price_tick_size) * Decimal(f"1e{18 + denom.quote}")
+    margin = (chain_format_price * chain_format_quantity) / decimal_leverage
+    # We are using the min_quantity_tick_size to quantize the margin because that is the way margin is validated
+    # in the chain (it might be changed to a min_notional in the future)
+    exchange_margin = floor_to(margin, denom.min_quantity_tick_size) * Decimal(f"1e18")
     return int(exchange_margin)
 
 def binary_options_buy_margin_to_backend(price, quantity, denom) -> int:
