@@ -1,5 +1,6 @@
 from decimal import Decimal
 from math import floor
+from typing import Union
 
 """
 One thing you may need to pay more attention to is how to deal with decimals on the Injective Exchange.
@@ -56,9 +57,12 @@ def binary_options_quantity_to_backend(quantity, denom) -> int:
     return int(exchange_quantity)
 
 def derivative_margin_to_backend(price, quantity, leverage, denom) -> int:
-    price_tick_size = Decimal(denom.min_price_tick_size) / pow(10, denom.quote)
-    margin = (price * quantity) / leverage
-    exchange_margin = floor_to(margin, float(price_tick_size)) * pow(10, 18 + denom.quote)
+    price_tick_size = Decimal(str(denom.min_price_tick_size)) / Decimal(f"1e{denom.quote}")
+    decimal_price = Decimal(str(price))
+    decimal_quantity = Decimal(str(quantity))
+    decimal_leverage = Decimal(str(leverage))
+    margin = (decimal_price * decimal_quantity) / decimal_leverage
+    exchange_margin = floor_to(margin, price_tick_size) * Decimal(f"1e{18 + denom.quote}")
     return int(exchange_margin)
 
 def binary_options_buy_margin_to_backend(price, quantity, denom) -> int:
@@ -82,7 +86,7 @@ def amount_to_backend(amount, decimals) -> int:
     be_amount = amount * pow(10, decimals)
     return int(be_amount)
 
-def floor_to(value: float, target: float) -> Decimal:
+def floor_to(value: Union[float, Decimal], target: Union[float, Decimal]) -> Decimal:
     value_tmp = Decimal(str(value))
     target_tmp = Decimal(str(target))
     result = int(floor(value_tmp / target_tmp)) * target_tmp
