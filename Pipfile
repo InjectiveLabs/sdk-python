@@ -21,6 +21,8 @@ aiocron = "*"
 websockets = "*"
 
 [dev-packages]
+pytest = "*"
+pytest-asyncio = "*"
 
 [requires]
 python_version = "3"

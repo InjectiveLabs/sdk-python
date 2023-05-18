@@ -34,5 +34,4 @@ async def main() -> None:
                  receiver=receiver, amount=amount, maxFeePerGas=maxFeePerGas_Gwei, maxPriorityFeePerGas=maxPriorityFeePerGas_Gwei, data=data, peggo_abi=peggo_abi)
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
     asyncio.get_event_loop().run_until_complete(main())

@@ -37,6 +37,11 @@ REQUIRED = [
     "websockets"
 ]
 
+DEV_REQUIRED = [
+    "pytest",
+    "pytest-asyncio",
+]
+
 # The rest you shouldn't have to touch too much :)
 # ------------------------------------------------
 # Except, perhaps the License and Trove Classifiers!
@@ -114,6 +119,9 @@ setup(
     python_requires=REQUIRES_PYTHON,
     url=URL,
     install_requires=REQUIRED,
+    extras_require={
+        "dev": DEV_REQUIRED,
+    },
     classifiers=[
         # Trove classifiers
         # Full list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
