@@ -76,8 +76,21 @@ python pyinjective/fetch_metadata.py
 
 Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/master/pyinjective/client.py) has been deprecated as of April 18, 2022. If you are using the sync client please make sure to transition to the [async client](https://github.com/InjectiveLabs/sdk-python/blob/master/pyinjective/async_client.py), for more information read [here](https://github.com/InjectiveLabs/sdk-python/issues/101)
 
+5. Install the development environment (requires `pipenv`)
+```
+pipenv install -d
+```
+
+6. Run all unit tests in a development environment
+```
+make tests
+```
 
 ### Changelogs
+**0.6.3**(change before release)
+* Change logging logic to use different loggers for each module and class
+* Add `pytest` as a development dependency to implement and run unit tests
+
 **0.6.2.7**
 * Fix margin calculation in utils
 

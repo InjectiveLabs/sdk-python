@@ -25,4 +25,7 @@ copy-proto:
 		cp "$${file}" proto/exchange/; \
   done
 
-.PHONY: all gen gen-client copy-proto
+tests:
+	pytest -v tests/**
+
+.PHONY: all gen gen-client copy-proto tests

@@ -17,7 +17,7 @@ URL = "https://github.com/InjectiveLabs/sdk-python"
 EMAIL = "achilleas@injectivelabs.com"
 AUTHOR = "Injective Labs"
 REQUIRES_PYTHON = ">=3.7.0"
-VERSION = "0.6.2.7"
+VERSION = "0.6.3-pre"
 
 REQUIRED = [
     "protobuf",
@@ -35,6 +35,11 @@ REQUIRED = [
     "coincurve",
     "aiocron",
     "websockets"
+]
+
+DEV_REQUIRED = [
+    "pytest",
+    "pytest-asyncio",
 ]
 
 # The rest you shouldn't have to touch too much :)
@@ -114,6 +119,9 @@ setup(
     python_requires=REQUIRES_PYTHON,
     url=URL,
     install_requires=REQUIRED,
+    extras_require={
+        "dev": DEV_REQUIRED,
+    },
     classifiers=[
         # Trove classifiers
         # Full list: https://pypi.python.org/pypi?%3Aaction=list_classifiers

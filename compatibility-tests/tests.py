@@ -204,5 +204,4 @@ async def post_tx(tx_json: str):
             return resp['txhash']
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
     asyncio.get_event_loop().run_until_complete(main())

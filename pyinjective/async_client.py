@@ -65,13 +65,12 @@ from .proto.injective.types.v1beta1 import (
 )
 
 from .constant import Network
+from .utils.logger import LoggerProvider
 
 DEFAULT_TIMEOUTHEIGHT_SYNC_INTERVAL = 20  # seconds
 DEFAULT_TIMEOUTHEIGHT = 30  # blocks
 DEFAULT_SESSION_RENEWAL_OFFSET = 120  # seconds
 DEFAULT_BLOCK_TIME = 2  # seconds
-
-logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.INFO)
 
 
 class AsyncClient:
@@ -124,8 +123,8 @@ class AsyncClient:
         cookie_file = open(chain_cookie_location, "r+")
         self.chain_cookie = cookie_file.read()
         cookie_file.close()
-        logging.info(
-            "chain session cookie loaded from disk:{}".format(self.chain_cookie)
+        LoggerProvider().logger_for_class(logging_class=self.__class__).info(
+            f"chain session cookie loaded from disk: {self.chain_cookie}"
         )
 
         self.exchange_cookie = ""
@@ -204,7 +203,9 @@ class AsyncClient:
             block = await self.get_latest_block()
             self.timeout_height = block.block.header.height + DEFAULT_TIMEOUTHEIGHT
         except Exception as e:
-            logging.debug("error while fetching latest block, setting timeout height to 0:{}".format(e))
+            LoggerProvider().logger_for_class(logging_class=self.__class__).debug(
+                f"error while fetching latest block, setting timeout height to 0: {e}"
+            )
             self.timeout_height = 0
 
     # cookie helper methods
@@ -287,7 +288,7 @@ class AsyncClient:
             cookie_file = open(self.chain_cookie_location, "w")
             cookie_file.write(new_cookie)
             cookie_file.close()
-            logging.info("chain session cookie saved to disk")
+            LoggerProvider().logger_for_class(logging_class=self.__class__).info("chain session cookie saved to disk")
 
         if type == "exchange":
             self.exchange_cookie = new_cookie
@@ -309,7 +310,8 @@ class AsyncClient:
                 self.number = int(account.base_account.account_number)
                 self.sequence = int(account.base_account.sequence)
         except Exception as e:
-            logging.debug("error while fetching sequence and number{}".format(e))
+            LoggerProvider().logger_for_class(logging_class=self.__class__).debug(
+                f"error while fetching sequence and number {e}")
             return None
 
     async def get_request_id_by_tx_hash(self, tx_hash: bytes) -> List[int]:

@@ -34,10 +34,10 @@ from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_do
 from .proto.cosmwasm.wasm.v1 import tx_pb2 as wasm_tx_pb
 
 from .constant import Denom
-from .utils import *
+from .utils.utils import *
 from typing import List
 
-logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.INFO)
+from pyinjective.utils.logger import LoggerProvider
 
 
 class Composer:
@@ -94,7 +94,8 @@ class Composer:
     ):
         # load denom metadata
         denom = Denom.load_market(self.network, market_id)
-        logging.info("Loaded market metadata for:{}".format(denom.description))
+        LoggerProvider().logger_for_class(logging_class=self.__class__).info(
+            f"Loaded market metadata for: {denom.description}")
 
         # prepare values
         quantity = spot_quantity_to_backend(quantity, denom)
@@ -137,7 +138,8 @@ class Composer:
     ):
         # load denom metadata
         denom = Denom.load_market(self.network, market_id)
-        logging.info("Loaded market metadata for:{}".format(denom.description))
+        LoggerProvider().logger_for_class(logging_class=self.__class__).info(
+            f"Loaded market metadata for: {denom.description}")
 
         if kwargs.get("is_reduce_only") is None:
             margin = derivative_margin_to_backend(
@@ -208,7 +210,8 @@ class Composer:
             denom = Denom.load_market(self.network, market_id)
 
         # load denom metadata
-        logging.info("Loaded market metadata for:{}".format(denom.description))
+        LoggerProvider().logger_for_class(logging_class=self.__class__).info(
+            f"Loaded market metadata for: {denom.description}")
 
         if kwargs.get("is_reduce_only") is None and kwargs.get("is_buy"):
             margin = binary_options_buy_margin_to_backend(price, quantity, denom)
@@ -254,10 +257,8 @@ class Composer:
     def MsgSend(self, from_address: str, to_address: str, amount: float, denom: str):
         peggy_denom, decimals = Denom.load_peggy_denom(self.network, denom)
         be_amount = amount_to_backend(amount, decimals)
-        logging.info(
-            "Loaded send symbol {} ({}) with decimals = {}".format(
-                denom, peggy_denom, decimals
-            )
+        LoggerProvider().logger_for_class(logging_class=self.__class__).info(
+            f"Loaded send symbol {denom} ({peggy_denom}) with decimals = {decimals}"
         )
 
         return cosmos_bank_tx_pb.MsgSend(
@@ -277,10 +278,8 @@ class Composer:
     def MsgDeposit(self, sender: str, subaccount_id: str, amount: float, denom: str):
         peggy_denom, decimals = Denom.load_peggy_denom(self.network, denom)
         be_amount = amount_to_backend(amount, decimals)
-        logging.info(
-            "Loaded deposit symbol {} ({}) with decimals = {}".format(
-                denom, peggy_denom, decimals
-            )
+        LoggerProvider().logger_for_class(logging_class=self.__class__).info(
+            f"Loaded deposit symbol {denom} ({peggy_denom}) with decimals = {decimals}"
         )
 
         return injective_exchange_tx_pb.MsgDeposit(
@@ -638,10 +637,8 @@ class Composer:
     def MsgWithdraw(self, sender: str, subaccount_id: str, amount: float, denom: str):
         peggy_denom, decimals = Denom.load_peggy_denom(self.network, denom)
         be_amount = amount_to_backend(amount, decimals)
-        logging.info(
-            "Loaded withdrawal symbol {} ({}) with decimals = {}".format(
-                denom, peggy_denom, decimals
-            )
+        LoggerProvider().logger_for_class(logging_class=self.__class__).info(
+            f"Loaded withdrawal symbol {denom} ({peggy_denom}) with decimals = {decimals}"
         )
 
         return injective_exchange_tx_pb.MsgWithdraw(
@@ -660,10 +657,8 @@ class Composer:
     ):
         peggy_denom, decimals = Denom.load_peggy_denom(self.network, denom)
         be_amount = amount_to_backend(amount, decimals)
-        logging.debug(
-            "Loaded send symbol {} ({}) with decimals = {}".format(
-                denom, peggy_denom, decimals
-            )
+        LoggerProvider().logger_for_class(logging_class=self.__class__).info(
+            f"Loaded send symbol {denom} ({peggy_denom}) with decimals = {decimals}"
         )
 
         return injective_exchange_tx_pb.MsgExternalTransfer(
@@ -797,10 +792,8 @@ class Composer:
         peggy_denom, decimals = Denom.load_peggy_denom(self.network, denom)
         be_amount = amount_to_backend(amount, decimals)
         be_bridge_fee = amount_to_backend(bridge_fee, decimals)
-        logging.info(
-            "Loaded withdrawal symbol {} ({}) with decimals = {}".format(
-                denom, peggy_denom, decimals
-            )
+        LoggerProvider().logger_for_class(logging_class=self.__class__).info(
+            f"Loaded withdrawal symbol {denom} ({peggy_denom}) with decimals = {decimals}"
         )
 
         return injective_peggy_tx_pb.MsgSendToEth(
@@ -835,10 +828,8 @@ class Composer:
     ):
         peggy_denom, decimals = Denom.load_peggy_denom(self.network, quote_denom)
         be_amount = amount_to_backend(initial_deposit, decimals)
-        logging.info(
-            "Loaded send symbol {} ({}) with decimals = {}".format(
-                quote_denom, peggy_denom, decimals
-            )
+        LoggerProvider().logger_for_class(logging_class=self.__class__).info(
+            f"Loaded send symbol {quote_denom} ({peggy_denom}) with decimals = {decimals}"
         )
 
         return injective_insurance_tx_pb.MsgCreateInsuranceFund(
@@ -855,10 +846,8 @@ class Composer:
     ):
         peggy_denom, decimals = Denom.load_peggy_denom(self.network, quote_denom)
         be_amount = amount_to_backend(amount, decimals)
-        logging.info(
-            "Loaded send symbol {} ({}) with decimals = {}".format(
-                quote_denom, peggy_denom, decimals
-            )
+        LoggerProvider().logger_for_class(logging_class=self.__class__).info(
+            f"Loaded send symbol {quote_denom} ({peggy_denom}) with decimals = {decimals}"
         )
 
         return injective_insurance_tx_pb.MsgUnderwrite(
