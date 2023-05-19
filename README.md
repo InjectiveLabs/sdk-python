@@ -87,7 +87,7 @@ make tests
 ```
 
 ### Changelogs
-**dev**(change before release)
+**0.6.3**(change before release)
 * Change logging logic to use different loggers for each module and class
 * Add `pytest` as a development dependency to implement and run unit tests
 
