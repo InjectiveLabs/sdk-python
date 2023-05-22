@@ -1,12 +1,14 @@
-import os
+import asyncio
 import time
 import grpc
 import aiocron
-import logging
 import datetime
+from decimal import Decimal
 from http.cookies import SimpleCookie
-from typing import List, Optional, Tuple, Union
+from typing import Dict, List, Optional, Tuple, Union
 
+from .core.market import Market
+from .core.token import Token
 from .exceptions import NotFoundError, EmptyMsgError
 
 from .proto.cosmos.base.abci.v1beta1 import abci_pb2 as abci_type
@@ -178,6 +180,11 @@ class AsyncClient:
             args=(),
             start=True,
         )
+
+        self._tokens_and_markets_initialization_lock = asyncio.Lock()
+        self._tokens: Optional[Dict[str, Token]] = None
+        self._spot_markets: Optional[Dict[str, Market]] = None
+        self._derivative_markets: Optional[Dict]
 
     def get_sequence(self):
         current_seq = self.sequence
@@ -976,7 +983,7 @@ class AsyncClient:
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
             end_time=kwargs.get("end_time"),
-)
+        )
         return await self.stubDerivativeExchange.FundingRates(req)
 
     async def get_binary_options_markets(self, **kwargs):
@@ -1006,3 +1013,57 @@ class AsyncClient:
         )
         metadata = await self.load_cookie(type="exchange")
         return self.stubPortfolio.StreamAccountPortfolio.__call__(req, metadata=metadata)
+
+    async def _initialize_tokens_and_markets(self):
+        markets = dict()
+        tokens = dict()
+        markets_info = (await self.get_spot_markets()).markets
+
+        for market_info in markets_info:
+            base_token = tokens.get(market_info.base_token.symbol)
+            if base_token is None:
+                base_token = Token(
+                    name=market_info.base_token.name,
+                    symbol=market_info.base_token.symbol,
+                    decimals=market_info.base_token.decimals,
+                    logo=market_info.base_token.logo,
+                )
+                tokens[base_token.symbol] = base_token
+            base_token.add_source(
+                denom=market_info.base_denom,
+                symbol=market_info.base_token.symbol,
+                address=market_info.base_token.address,
+                decimals=market_info.base_token.decimals,
+                updated=market_info.base_token.updated_at,
+            )
+
+            quote_token = tokens.get(market_info.base_token.symbol)
+            if quote_token is None:
+                quote_token = Token(
+                    name=market_info.quote_token.name,
+                    symbol=market_info.quote_token.symbol,
+                    decimals=market_info.quote_token.decimals,
+                    logo=market_info.quote_token.logo,
+                )
+            quote_token.add_source(
+                denom=market_info.quote_denom,
+                symbol=market_info.quote_token.symbol,
+                address=market_info.quote_token.address,
+                decimals=market_info.quote_token.decimals,
+                updated=market_info.quote_token.updated_at,
+            )
+
+            market = Market(
+                id=market_info.market_id,
+                status=market_info.market_status,
+                ticker=market_info.ticker,
+                base_token=base_token,
+                quote_token=quote_token,
+                maker_fee_rate=Decimal(market_info.maker_fee_rate),
+                taker_fee_rate=Decimal(market_info.taker_fee_rate),
+                service_provider_fee=Decimal(market_info.service_provider_fee),
+                min_price_tick_size=Decimal(market_info.min_price_tick_size),
+                min_quantity_tick_size=Decimal(market_info.min_quantity_tick_size),
+            )
+
+            markets[market.id] = market
