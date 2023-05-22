@@ -41,6 +41,7 @@ REQUIRED = [
 DEV_REQUIRED = [
     "pytest",
     "pytest-asyncio",
+    "pytest-grpc",
     "request-mock",
 ]
 
