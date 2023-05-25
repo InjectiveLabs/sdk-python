@@ -1,7 +1,5 @@
 import asyncio
-import logging
 
-from pyinjective.composer import Composer as ProtoMsgComposer
 from pyinjective.async_client import AsyncClient
 from pyinjective.transaction import Transaction
 from pyinjective.constant import Network
@@ -11,10 +9,10 @@ from pyinjective.wallet import PrivateKey, Address
 async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
-    composer = ProtoMsgComposer(network=network.string())
 
     # initialize grpc client
     client = AsyncClient(network, insecure=False)
+    composer = await client.composer()
     await client.sync_timeout_height()
 
     # load account
@@ -63,9 +61,9 @@ async def main() -> None:
         print(sim_res)
         return
 
-    sim_res_msg = ProtoMsgComposer.MsgResponses(sim_res, simulation=True)
+    sim_res_msg = composer.MsgResponses(sim_res, simulation=True)
     data=sim_res_msg[0]
-    unpacked_msg_res = ProtoMsgComposer.UnpackMsgExecResponse(
+    unpacked_msg_res = composer.UnpackMsgExecResponse(
         msg_type=msg0.__class__.__name__,
         data=data
     )

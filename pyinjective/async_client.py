@@ -1,5 +1,7 @@
 import asyncio
 import time
+from copy import deepcopy
+
 import grpc
 import aiocron
 import datetime
@@ -7,9 +9,12 @@ from decimal import Decimal
 from http.cookies import SimpleCookie
 from typing import Dict, List, Optional, Tuple, Union
 
-from .core.market import Market
+from pyinjective.composer import Composer
+
+from . import constant
+from .core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from .core.token import Token
-from .exceptions import NotFoundError, EmptyMsgError
+from .exceptions import NotFoundError
 
 from .proto.cosmos.base.abci.v1beta1 import abci_pb2 as abci_type
 
@@ -183,8 +188,37 @@ class AsyncClient:
 
         self._tokens_and_markets_initialization_lock = asyncio.Lock()
         self._tokens: Optional[Dict[str, Token]] = None
-        self._spot_markets: Optional[Dict[str, Market]] = None
-        self._derivative_markets: Optional[Dict]
+        self._spot_markets: Optional[Dict[str, SpotMarket]] = None
+        self._derivative_markets: Optional[Dict[str, DerivativeMarket]] = None
+        self._binary_option_markets: Optional[Dict[str, BinaryOptionMarket]] = None
+
+    async def all_tokens(self) -> Dict[str, Token]:
+        if self._tokens is None:
+            async with self._tokens_and_markets_initialization_lock:
+                if self._tokens is None:
+                    await self._initialize_tokens_and_markets()
+        return deepcopy(self._tokens)
+
+    async def all_spot_markets(self) -> Dict[str, SpotMarket]:
+        if self._spot_markets is None:
+            async with self._tokens_and_markets_initialization_lock:
+                if self._spot_markets is None:
+                    await self._initialize_tokens_and_markets()
+        return deepcopy(self._spot_markets)
+
+    async def all_derivative_markets(self) -> Dict[str, DerivativeMarket]:
+        if self._derivative_markets is None:
+            async with self._tokens_and_markets_initialization_lock:
+                if self._derivative_markets is None:
+                    await self._initialize_tokens_and_markets()
+        return deepcopy(self._derivative_markets)
+
+    async def all_binary_option_markets(self) -> Dict[str, BinaryOptionMarket]:
+        if self._binary_option_markets is None:
+            async with self._tokens_and_markets_initialization_lock:
+                if self._binary_option_markets is None:
+                    await self._initialize_tokens_and_markets()
+        return deepcopy(self._binary_option_markets)
 
     def get_sequence(self):
         current_seq = self.sequence
@@ -1022,46 +1056,54 @@ class AsyncClient:
         metadata = await self.load_cookie(type="exchange")
         return self.stubPortfolio.StreamAccountPortfolio.__call__(req, metadata=metadata)
 
+    async def composer(self):
+        return Composer(
+            network=self.network.string(),
+            spot_markets=await self.all_spot_markets(),
+            derivative_markets=await self.all_derivative_markets(),
+            binary_option_markets=await self.all_binary_option_markets(),
+            tokens=await self.all_tokens(),
+        )
+
     async def _initialize_tokens_and_markets(self):
-        markets = dict()
+        spot_markets = dict()
+        derivative_markets = dict()
+        binary_option_markets = dict()
         tokens = dict()
+        tokens_by_denom = dict()
         markets_info = (await self.get_spot_markets()).markets
 
         for market_info in markets_info:
-            base_token = tokens.get(market_info.base_token.symbol)
+            base_token_symbol, quote_token_symbol = market_info.ticker.split(constant.TICKER_TOKENS_SEPARATOR)
+            base_token = tokens.get(base_token_symbol, None)
             if base_token is None:
                 base_token = Token(
-                    name=market_info.base_token.name,
-                    symbol=market_info.base_token.symbol,
-                    decimals=market_info.base_token.decimals,
-                    logo=market_info.base_token.logo,
+                    name=market_info.base_token_meta.name,
+                    symbol=base_token_symbol,
+                    denom=market_info.base_denom,
+                    address=market_info.base_token_meta.address,
+                    decimals=market_info.base_token_meta.decimals,
+                    logo=market_info.base_token_meta.logo,
+                    updated=market_info.base_token_meta.updated_at,
                 )
-                tokens[base_token.symbol] = base_token
-            base_token.add_source(
-                denom=market_info.base_denom,
-                symbol=market_info.base_token.symbol,
-                address=market_info.base_token.address,
-                decimals=market_info.base_token.decimals,
-                updated=market_info.base_token.updated_at,
-            )
+                tokens[base_token_symbol] = base_token
+                tokens_by_denom[base_token.denom] = base_token
 
-            quote_token = tokens.get(market_info.base_token.symbol)
+            quote_token = tokens.get(quote_token_symbol, None)
             if quote_token is None:
                 quote_token = Token(
-                    name=market_info.quote_token.name,
-                    symbol=market_info.quote_token.symbol,
-                    decimals=market_info.quote_token.decimals,
-                    logo=market_info.quote_token.logo,
+                    name=market_info.quote_token_meta.name,
+                    symbol=quote_token_symbol,
+                    denom=market_info.quote_denom,
+                    address=market_info.quote_token_meta.address,
+                    decimals=market_info.quote_token_meta.decimals,
+                    logo=market_info.quote_token_meta.logo,
+                    updated=market_info.quote_token_meta.updated_at,
                 )
-            quote_token.add_source(
-                denom=market_info.quote_denom,
-                symbol=market_info.quote_token.symbol,
-                address=market_info.quote_token.address,
-                decimals=market_info.quote_token.decimals,
-                updated=market_info.quote_token.updated_at,
-            )
+                tokens[quote_token_symbol] = quote_token
+                tokens_by_denom[quote_token.denom] = quote_token
 
-            market = Market(
+            market = SpotMarket(
                 id=market_info.market_id,
                 status=market_info.market_status,
                 ticker=market_info.ticker,
@@ -1074,4 +1116,71 @@ class AsyncClient:
                 min_quantity_tick_size=Decimal(market_info.min_quantity_tick_size),
             )
 
-            markets[market.id] = market
+            spot_markets[market.id] = market
+
+        markets_info = (await self.get_derivative_markets()).markets
+        for market_info in markets_info:
+            quote_token_symbol = market_info.quote_token_meta.symbol
+
+            quote_token = tokens.get(quote_token_symbol, None)
+            if quote_token is None:
+                quote_token = Token(
+                    name=market_info.quote_token_meta.name,
+                    symbol=quote_token_symbol,
+                    denom=market_info.quote_denom,
+                    address=market_info.quote_token_meta.address,
+                    decimals=market_info.quote_token_meta.decimals,
+                    logo=market_info.quote_token_meta.logo,
+                    updated=market_info.quote_token_meta.updated_at,
+                )
+                tokens[quote_token_symbol] = quote_token
+                tokens_by_denom[quote_token.denom] = quote_token
+
+            market = DerivativeMarket(
+                id=market_info.market_id,
+                status=market_info.market_status,
+                ticker=market_info.ticker,
+                oracle_base=market_info.oracle_base,
+                oracle_quote=market_info.oracle_quote,
+                oracle_type=market_info.oracle_type,
+                oracle_scale_factor=market_info.oracle_scale_factor,
+                initial_margin_ratio=Decimal(market_info.initial_margin_ratio),
+                maintenance_margin_ratio=Decimal(market_info.maintenance_margin_ratio),
+                quote_token=quote_token,
+                maker_fee_rate=Decimal(market_info.maker_fee_rate),
+                taker_fee_rate = Decimal(market_info.taker_fee_rate),
+                service_provider_fee = Decimal(market_info.service_provider_fee),
+                min_price_tick_size = Decimal(market_info.min_price_tick_size),
+                min_quantity_tick_size = Decimal(market_info.min_quantity_tick_size),
+            )
+
+            derivative_markets[market.id] = market
+
+        markets_info = (await self.get_binary_options_markets()).markets
+        for market_info in markets_info:
+            quote_token = tokens_by_denom.get(market_info.quote_denom, None)
+
+            market = BinaryOptionMarket(
+                id=market_info.market_id,
+                status=market_info.market_status,
+                ticker=market_info.ticker,
+                oracle_symbol=market_info.oracle_symbol,
+                oracle_provider=market_info.oracle_provider,
+                oracle_type=market_info.oracle_type,
+                oracle_scale_factor=market_info.oracle_scale_factor,
+                expiration_timestamp=market_info.expiration_timestamp,
+                settlement_timestamp=market_info.settlement_timestamp,
+                quote_token=quote_token,
+                maker_fee_rate=Decimal(market_info.maker_fee_rate),
+                taker_fee_rate=Decimal(market_info.taker_fee_rate),
+                service_provider_fee=Decimal(market_info.service_provider_fee),
+                min_price_tick_size=Decimal(market_info.min_price_tick_size),
+                min_quantity_tick_size=Decimal(market_info.min_quantity_tick_size),
+            )
+
+            binary_option_markets[market.id] = market
+
+        self._tokens = tokens
+        self._spot_markets = spot_markets
+        self._derivative_markets = derivative_markets
+        self._binary_option_markets = binary_option_markets

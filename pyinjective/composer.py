@@ -1,9 +1,11 @@
+from configparser import ConfigParser
+from decimal import Decimal
 from time import time
-import json
-import logging
 
-from google.protobuf import any_pb2, message, timestamp_pb2
+from google.protobuf import any_pb2, timestamp_pb2
 
+from .core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
+from .core.token import Token
 from .proto.cosmos.authz.v1beta1 import authz_pb2 as cosmos_authz_pb
 from .proto.cosmos.authz.v1beta1 import tx_pb2 as cosmos_authz_tx_pb
 
@@ -33,16 +35,47 @@ from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_do
 
 from .proto.cosmwasm.wasm.v1 import tx_pb2 as wasm_tx_pb
 
-from .constant import Denom
-from .utils.utils import *
-from typing import List
+from .constant import ADDITIONAL_CHAIN_FORMAT_DECIMALS, INJ_DENOM
+from typing import Dict, List, Optional
 
-from pyinjective.utils.logger import LoggerProvider
+from pyinjective import constant
 
 
 class Composer:
-    def __init__(self, network: str):
+    def __init__(
+            self,
+            network: str,
+            spot_markets: Optional[Dict[str, SpotMarket]] = None,
+            derivative_markets: Optional[Dict[str, DerivativeMarket]] = None,
+            binary_option_markets: Optional[Dict[str, BinaryOptionMarket]] = None,
+            tokens: Optional[Dict[str, Token]] = None):
+        """ Composer is used to create the requests to send to the nodes using the Client
+
+        :param network: the name of the network to use (mainnet, testnet, devnet)
+        :type network: str
+
+        :param spot_markets: a dictionary containing all spot markets
+        :type spot_markets: Dictionary
+
+        :param derivative_markets: a dictionary containing all derivative markets
+        :type derivative_markets: Dictionary
+
+        :param binary_option_markets: a dictionary containing all derivative markets
+        :type binary_option_markets: Dictionary
+
+        :param tokens: a dictionary with all the possible tokens
+        :type tokens: Dictionary
+
+
+        """
         self.network = network
+        if spot_markets is None or derivative_markets is None or binary_option_markets is None or tokens is None:
+            self._initialize_markets_and_tokens_from_files()
+        else:
+            self.spot_markets = spot_markets
+            self.derivative_markets = derivative_markets
+            self.binary_option_markets = binary_option_markets
+            self.tokens = tokens
 
     def Coin(self, amount: int, denom: str):
         return cosmos_dot_base_dot_v1beta1_dot_coin__pb2.Coin(amount=str(amount), denom=denom)
@@ -92,15 +125,12 @@ class Composer:
         quantity: float,
         **kwargs,
     ):
-        # load denom metadata
-        denom = Denom.load_market(self.network, market_id)
-        LoggerProvider().logger_for_class(logging_class=self.__class__).info(
-            f"Loaded market metadata for: {denom.description}")
+        market = self.spot_markets[market_id]
 
         # prepare values
-        quantity = spot_quantity_to_backend(quantity, denom)
-        price = spot_price_to_backend(price, denom)
-        trigger_price = spot_price_to_backend(0, denom)
+        quantity = market.quantity_to_chain_format(human_readable_value=Decimal(str(quantity)))
+        price = market.price_to_chain_format(human_readable_value=Decimal(str(price)))
+        trigger_price = market.price_to_chain_format(human_readable_value=Decimal(0))
 
         if kwargs.get("is_buy") and not kwargs.get("is_po"):
             order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.BUY
@@ -119,11 +149,11 @@ class Composer:
             order_info=injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderInfo(
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,
-                price=str(price),
-                quantity=str(quantity),
+                price=str(int(price)),
+                quantity=str(int(quantity)),
             ),
             order_type=order_type,
-            trigger_price=str(trigger_price),
+            trigger_price=str(int(trigger_price)),
         )
 
     def DerivativeOrder(
@@ -136,26 +166,21 @@ class Composer:
         trigger_price: float = 0,
         **kwargs,
     ):
-        # load denom metadata
-        denom = Denom.load_market(self.network, market_id)
-        LoggerProvider().logger_for_class(logging_class=self.__class__).info(
-            f"Loaded market metadata for: {denom.description}")
+        market = self.derivative_markets[market_id]
 
-        if kwargs.get("is_reduce_only") is None:
-            margin = derivative_margin_to_backend(
-                price, quantity, kwargs.get("leverage"), denom
-            )
-        elif kwargs.get("is_reduce_only", True):
+        if kwargs.get("is_reduce_only", False):
             margin = 0
         else:
-            margin = derivative_margin_to_backend(
-                price, quantity, kwargs.get("leverage"), denom
+            margin = market.calculate_margin_in_chain_format(
+                human_readable_quantity=Decimal(str(quantity)),
+                human_readable_price=Decimal(str(price)),
+                leverage=Decimal(str(kwargs["leverage"])),
             )
 
         # prepare values
-        price = derivative_price_to_backend(price, denom)
-        trigger_price = derivative_price_to_backend(trigger_price, denom)
-        quantity = derivative_quantity_to_backend(quantity, denom)
+        quantity = market.quantity_to_chain_format(human_readable_value=Decimal(str(quantity)))
+        price = market.price_to_chain_format(human_readable_value=Decimal(str(price)))
+        trigger_price = market.price_to_chain_format(human_readable_value=Decimal(str(trigger_price)))
 
         if kwargs.get("is_buy") and not kwargs.get("is_po"):
             order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.BUY
@@ -186,12 +211,12 @@ class Composer:
             order_info=injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderInfo(
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,
-                price=str(price),
-                quantity=str(quantity),
+                price=str(int(price)),
+                quantity=str(int(quantity)),
             ),
-            margin=str(margin),
+            margin=str(int(margin)),
             order_type=order_type,
-            trigger_price=str(trigger_price),
+            trigger_price=str(int(trigger_price)),
         )
 
     def BinaryOptionsOrder(
@@ -204,30 +229,23 @@ class Composer:
         **kwargs,
     ):
 
-        if "denom" in kwargs:
-            denom = kwargs.get("denom")
-        else:
-            denom = Denom.load_market(self.network, market_id)
+        market = self.binary_option_markets[market_id]
+        denom = kwargs.get("denom", None)
 
-        # load denom metadata
-        LoggerProvider().logger_for_class(logging_class=self.__class__).info(
-            f"Loaded market metadata for: {denom.description}")
-
-        if kwargs.get("is_reduce_only") is None and kwargs.get("is_buy"):
-            margin = binary_options_buy_margin_to_backend(price, quantity, denom)
-        elif kwargs.get("is_reduce_only") is None and not kwargs.get("is_buy"):
-            margin = binary_options_sell_margin_to_backend(price, quantity, denom)
-        elif kwargs.get("is_reduce_only") is False and kwargs.get("is_buy"):
-            margin = binary_options_buy_margin_to_backend(price, quantity, denom)
-        elif kwargs.get("is_reduce_only") is False and not kwargs.get("is_buy"):
-            margin = binary_options_sell_margin_to_backend(price, quantity, denom)
-        elif kwargs.get("is_reduce_only", True):
+        if kwargs.get("is_reduce_only", False):
             margin = 0
+        else:
+            margin = market.calculate_margin_in_chain_format(
+                human_readable_quantity=Decimal(str(quantity)),
+                human_readable_price=Decimal(str(price)),
+                is_buy=kwargs["is_buy"],
+                special_denom=denom,
+            )
 
         # prepare values
-        price = binary_options_price_to_backend(price, denom)
-        trigger_price = binary_options_price_to_backend(0, denom)
-        quantity = binary_options_quantity_to_backend(quantity, denom)
+        price = market.price_to_chain_format(human_readable_value=Decimal(str(price)), special_denom=denom)
+        trigger_price = market.price_to_chain_format(human_readable_value=Decimal(str(0)), special_denom=denom)
+        quantity = market.quantity_to_chain_format(human_readable_value=Decimal(str(quantity)), special_denom=denom)
 
         if kwargs.get("is_buy") and not kwargs.get("is_po"):
             order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.BUY
@@ -246,25 +264,22 @@ class Composer:
             order_info=injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderInfo(
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,
-                price=str(price),
-                quantity=str(quantity),
+                price=str(int(price)),
+                quantity=str(int(quantity)),
             ),
-            margin=str(margin),
+            margin=str(int(margin)),
             order_type=order_type,
-            trigger_price=str(trigger_price),
+            trigger_price=str(int(trigger_price)),
         )
 
     def MsgSend(self, from_address: str, to_address: str, amount: float, denom: str):
-        peggy_denom, decimals = Denom.load_peggy_denom(self.network, denom)
-        be_amount = amount_to_backend(amount, decimals)
-        LoggerProvider().logger_for_class(logging_class=self.__class__).info(
-            f"Loaded send symbol {denom} ({peggy_denom}) with decimals = {decimals}"
-        )
+        token = self.tokens[denom]
+        be_amount = token.chain_formatted_value(human_readable_value=Decimal(str(amount)))
 
         return cosmos_bank_tx_pb.MsgSend(
             from_address=from_address,
             to_address=to_address,
-            amount=[self.Coin(amount=be_amount, denom=peggy_denom)],
+            amount=[self.Coin(amount=int(be_amount), denom=token.denom)],
         )
 
     def MsgExecuteContract(self, sender: str, contract: str, msg: str, **kwargs):
@@ -276,16 +291,13 @@ class Composer:
         )
 
     def MsgDeposit(self, sender: str, subaccount_id: str, amount: float, denom: str):
-        peggy_denom, decimals = Denom.load_peggy_denom(self.network, denom)
-        be_amount = amount_to_backend(amount, decimals)
-        LoggerProvider().logger_for_class(logging_class=self.__class__).info(
-            f"Loaded deposit symbol {denom} ({peggy_denom}) with decimals = {decimals}"
-        )
+        token = self.tokens[denom]
+        be_amount = token.chain_formatted_value(human_readable_value=Decimal(str(amount)))
 
         return injective_exchange_tx_pb.MsgDeposit(
             sender=sender,
             subaccount_id=subaccount_id,
-            amount=self.Coin(amount=be_amount, denom=peggy_denom),
+            amount=self.Coin(amount=int(be_amount), denom=token.denom),
         )
 
     def MsgCreateSpotLimitOrder(
@@ -608,14 +620,15 @@ class Composer:
         market_id: str,
         amount: float,
     ):
-        denom = Denom.load_market(self.network, market_id)
-        additional_margin = derivative_additional_margin_to_backend(amount, denom)
+        market = self.derivative_markets[market_id]
+
+        additional_margin = market.margin_to_chain_format(human_readable_value=Decimal(str(amount)))
         return injective_exchange_tx_pb.MsgIncreasePositionMargin(
             sender=sender,
             source_subaccount_id=source_subaccount_id,
             destination_subaccount_id=destination_subaccount_id,
             market_id=market_id,
-            amount=str(additional_margin),
+            amount=str(int(additional_margin)),
         )
 
     def MsgSubaccountTransfer(
@@ -635,16 +648,13 @@ class Composer:
         )
 
     def MsgWithdraw(self, sender: str, subaccount_id: str, amount: float, denom: str):
-        peggy_denom, decimals = Denom.load_peggy_denom(self.network, denom)
-        be_amount = amount_to_backend(amount, decimals)
-        LoggerProvider().logger_for_class(logging_class=self.__class__).info(
-            f"Loaded withdrawal symbol {denom} ({peggy_denom}) with decimals = {decimals}"
-        )
+        token = self.tokens[denom]
+        be_amount = token.chain_formatted_value(human_readable_value=Decimal(str(amount)))
 
         return injective_exchange_tx_pb.MsgWithdraw(
             sender=sender,
             subaccount_id=subaccount_id,
-            amount=self.Coin(amount=be_amount, denom=peggy_denom),
+            amount=self.Coin(amount=int(be_amount), denom=token.denom),
         )
 
     def MsgExternalTransfer(
@@ -655,27 +665,24 @@ class Composer:
         amount: int,
         denom: str,
     ):
-        peggy_denom, decimals = Denom.load_peggy_denom(self.network, denom)
-        be_amount = amount_to_backend(amount, decimals)
-        LoggerProvider().logger_for_class(logging_class=self.__class__).info(
-            f"Loaded send symbol {denom} ({peggy_denom}) with decimals = {decimals}"
-        )
+        token = self.tokens[denom]
+        be_amount = token.chain_formatted_value(human_readable_value=Decimal(str(amount)))
 
         return injective_exchange_tx_pb.MsgExternalTransfer(
             sender=sender,
             source_subaccount_id=source_subaccount_id,
             destination_subaccount_id=destination_subaccount_id,
-            amount=self.Coin(amount=be_amount, denom=peggy_denom),
+            amount=self.Coin(amount=int(be_amount), denom=token.denom),
         )
 
     def MsgBid(self, sender: str, bid_amount: float, round: float):
 
-        be_amount = amount_to_backend(bid_amount, 18)
+        be_amount = Decimal(str(bid_amount)) * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         return injective_auction_tx_pb.MsgBid(
             sender=sender,
             round=round,
-            bid_amount=self.Coin(amount=be_amount, denom="inj"),
+            bid_amount=self.Coin(amount=int(be_amount), denom=INJ_DENOM),
         )
 
     def MsgGrantGeneric(
@@ -788,31 +795,27 @@ class Composer:
     def MsgSendToEth(
         self, denom: str, sender: str, eth_dest: str, amount: float, bridge_fee: float
     ):
-
-        peggy_denom, decimals = Denom.load_peggy_denom(self.network, denom)
-        be_amount = amount_to_backend(amount, decimals)
-        be_bridge_fee = amount_to_backend(bridge_fee, decimals)
-        LoggerProvider().logger_for_class(logging_class=self.__class__).info(
-            f"Loaded withdrawal symbol {denom} ({peggy_denom}) with decimals = {decimals}"
-        )
+        token = self.tokens[denom]
+        be_amount = token.chain_formatted_value(human_readable_value=Decimal(str(amount)))
+        be_bridge_fee = token.chain_formatted_value(human_readable_value=Decimal(str(bridge_fee)))
 
         return injective_peggy_tx_pb.MsgSendToEth(
             sender=sender,
             eth_dest=eth_dest,
-            amount=self.Coin(amount=be_amount, denom=peggy_denom),
-            bridge_fee=self.Coin(amount=be_bridge_fee, denom=peggy_denom),
+            amount=self.Coin(amount=int(be_amount), denom=token.denom),
+            bridge_fee=self.Coin(amount=int(be_bridge_fee), denom=token.denom),
         )
 
     def MsgDelegate(
         self, delegator_address: str, validator_address: str, amount: float
     ):
 
-        be_amount = amount_to_backend(amount, 18)
+        be_amount = Decimal(str(amount)) * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         return cosmos_staking_tx_pb.MsgDelegate(
             delegator_address=delegator_address,
             validator_address=validator_address,
-            amount=self.Coin(amount=be_amount, denom="inj"),
+            amount=self.Coin(amount=int(be_amount), denom=INJ_DENOM),
         )
 
     def MsgCreateInsuranceFund(
@@ -826,15 +829,18 @@ class Composer:
         expiry: int,
         initial_deposit: int
     ):
-        peggy_denom, decimals = Denom.load_peggy_denom(self.network, quote_denom)
-        be_amount = amount_to_backend(initial_deposit, decimals)
-        LoggerProvider().logger_for_class(logging_class=self.__class__).info(
-            f"Loaded send symbol {quote_denom} ({peggy_denom}) with decimals = {decimals}"
-        )
+        token = self.tokens[quote_denom]
+        be_amount = token.chain_formatted_value(human_readable_value=Decimal(str(initial_deposit)))
 
         return injective_insurance_tx_pb.MsgCreateInsuranceFund(
-            sender=sender, ticker=ticker, quote_denom=peggy_denom, oracle_base=oracle_base, oracle_quote=oracle_quote,
-            oracle_type=oracle_type, expiry=expiry, initial_deposit=self.Coin(amount=be_amount, denom=peggy_denom),
+            sender=sender,
+            ticker=ticker,
+            quote_denom=token.denom,
+            oracle_base=oracle_base,
+            oracle_quote=oracle_quote,
+            oracle_type=oracle_type,
+            expiry=expiry,
+            initial_deposit=self.Coin(amount=int(be_amount), denom=token.denom),
         )
 
     def MsgUnderwrite(
@@ -844,14 +850,11 @@ class Composer:
         quote_denom: str,
         amount: int,
     ):
-        peggy_denom, decimals = Denom.load_peggy_denom(self.network, quote_denom)
-        be_amount = amount_to_backend(amount, decimals)
-        LoggerProvider().logger_for_class(logging_class=self.__class__).info(
-            f"Loaded send symbol {quote_denom} ({peggy_denom}) with decimals = {decimals}"
-        )
+        token = self.tokens[quote_denom]
+        be_amount = token.chain_formatted_value(human_readable_value=Decimal(str(amount)))
 
         return injective_insurance_tx_pb.MsgUnderwrite(
-            sender=sender, market_id=market_id, deposit=self.Coin(amount=be_amount, denom=peggy_denom),
+            sender=sender, market_id=market_id, deposit=self.Coin(amount=int(be_amount), denom=token.denom),
         )
 
     def MsgRequestRedemption(
@@ -958,3 +961,85 @@ class Composer:
 
         responses = [header_map[msg_type].FromString(result) for result in data.results]
         return responses
+
+    def _initialize_markets_and_tokens_from_files(self):
+        config: ConfigParser = constant.CONFIGS[self.network]
+        spot_markets = dict()
+        derivative_markets = dict()
+        tokens = dict()
+
+        for section_name, configuration_section in config.items():
+            if section_name.startswith("0x"):
+                description = configuration_section["description"]
+
+                quote_token = Token(
+                    name="",
+                    symbol="",
+                    denom="",
+                    address="",
+                    decimals=int(configuration_section["quote"]),
+                    logo="",
+                    updated=-1,
+                )
+
+                if "Spot" in description:
+                    base_token = Token(
+                        name="",
+                        symbol="",
+                        denom="",
+                        address="",
+                        decimals=int(configuration_section["base"]),
+                        logo="",
+                        updated=-1,
+                    )
+
+                    market = SpotMarket(
+                        id=section_name,
+                        status="",
+                        ticker=description,
+                        base_token=base_token,
+                        quote_token=quote_token,
+                        maker_fee_rate=None,
+                        taker_fee_rate=None,
+                        service_provider_fee=None,
+                        min_price_tick_size=Decimal(str(configuration_section["min_price_tick_size"])),
+                        min_quantity_tick_size=Decimal(str(configuration_section["min_quantity_tick_size"]))
+                    )
+                    spot_markets[description] = market
+                else:
+                    market = DerivativeMarket(
+                        id=section_name,
+                        status="",
+                        ticker=description,
+                        oracle_base="",
+                        oracle_quote="",
+                        oracle_type="",
+                        oracle_scale_factor=1,
+                        initial_margin_ratio=None,
+                        maintenance_margin_ratio=None,
+                        quote_token=quote_token,
+                        maker_fee_rate=None,
+                        taker_fee_rate=None,
+                        service_provider_fee=None,
+                        min_price_tick_size=Decimal(str(configuration_section["min_price_tick_size"])),
+                        min_quantity_tick_size=Decimal(str(configuration_section["min_quantity_tick_size"])),
+                    )
+
+                    derivative_markets[description] = market
+
+            elif section_name != "DEFAULT":
+                token = Token(
+                    name=section_name,
+                    symbol=section_name,
+                    denom=configuration_section["peggy_denom"],
+                    address="",
+                    decimals=int(configuration_section["decimals"]),
+                    logo="",
+                    updated=-1,
+                )
+
+                tokens[token.symbol] = Token
+
+        self.tokens = tokens
+        self.spot_markets = spot_markets
+        self.derivative_markets = derivative_markets
