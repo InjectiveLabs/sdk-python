@@ -22,7 +22,7 @@ class InjectiveDerivativeExchangeRPCStub(object):
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.MarketsResponse.FromString,
                 )
         self.Market = channel.unary_unary(
-                '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/Market',
+                '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/SpotMarket',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.MarketRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.MarketResponse.FromString,
                 )
@@ -156,7 +156,7 @@ class InjectiveDerivativeExchangeRPCServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def Market(self, request, context):
-        """Market gets details of a single derivative market
+        """SpotMarket gets details of a single derivative market
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -184,14 +184,14 @@ class InjectiveDerivativeExchangeRPCServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def Orderbook(self, request, context):
-        """Orderbook gets the Orderbook of a Derivative Market
+        """Orderbook gets the Orderbook of a Derivative SpotMarket
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def OrderbookV2(self, request, context):
-        """Orderbook gets the Orderbook of a Derivative Market
+        """Orderbook gets the Orderbook of a Derivative SpotMarket
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -233,7 +233,7 @@ class InjectiveDerivativeExchangeRPCServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def Orders(self, request, context):
-        """DerivativeLimitOrders gets the limit orders of a derivative Market.
+        """DerivativeLimitOrders gets the limit orders of a derivative SpotMarket.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -275,21 +275,21 @@ class InjectiveDerivativeExchangeRPCServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def StreamOrders(self, request, context):
-        """StreamOrders streams updates to individual orders of a Derivative Market.
+        """StreamOrders streams updates to individual orders of a Derivative SpotMarket.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def Trades(self, request, context):
-        """Trades gets the trades of a Derivative Market.
+        """Trades gets the trades of a Derivative SpotMarket.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def StreamTrades(self, request, context):
-        """StreamTrades streams newly executed trades from Derivative Market.
+        """StreamTrades streams newly executed trades from Derivative SpotMarket.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -318,7 +318,7 @@ class InjectiveDerivativeExchangeRPCServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def StreamOrdersHistory(self, request, context):
-        """Stream updates to historical orders of a derivative Market
+        """Stream updates to historical orders of a derivative SpotMarket
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -332,8 +332,8 @@ def add_InjectiveDerivativeExchangeRPCServicer_to_server(servicer, server):
                     request_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.MarketsRequest.FromString,
                     response_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.MarketsResponse.SerializeToString,
             ),
-            'Market': grpc.unary_unary_rpc_method_handler(
-                    servicer.Market,
+            'SpotMarket': grpc.unary_unary_rpc_method_handler(
+                    servicer.SpotMarket,
                     request_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.MarketRequest.FromString,
                     response_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.MarketResponse.SerializeToString,
             ),
@@ -492,7 +492,7 @@ class InjectiveDerivativeExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/Market',
+        return grpc.experimental.unary_unary(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/SpotMarket',
             exchange_dot_injective__derivative__exchange__rpc__pb2.MarketRequest.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.MarketResponse.FromString,
             options, channel_credentials,
