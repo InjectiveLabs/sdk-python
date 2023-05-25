@@ -4,33 +4,33 @@ import pytest
 from pyinjective.constant import Network
 
 from pyinjective.async_client import AsyncClient
-from pyinjective.proto.exchange.injective_spot_exchange_rpc_pb2 import (
-    MarketRequest,
-    MarketsRequest,
-    MarketResponse,
-    MarketsResponse,
+from pyinjective.proto.exchange import (
+    injective_spot_exchange_rpc_pb2,
+    injective_derivative_exchange_rpc_pb2,
 )
-from tests.rpc_fixtures.markets_fixtures import inj_token_meta, ape_token_meta, usdt_token_meta, inj_usdt_spot_market, ape_usdt_spot_market
+from tests.rpc_fixtures.markets_fixtures import (
+    inj_token_meta,
+    ape_token_meta,
+    usdt_token_meta,
+    usdt_perp_token_meta,
+    inj_usdt_spot_market,
+    ape_usdt_spot_market,
+    btc_usdt_perp_market,
+    first_match_bet_market,
+)
+from tests.rpc_fixtures.configurable_servicers import ConfigurableInjectiveDerivativeExchangeRPCServicer, \
+    ConfigurableInjectiveSpotExchangeRPCServicer
 
-@pytest.fixture(scope='module')
-def grpc_add_to_server():
-    from pyinjective.proto.exchange.injective_spot_exchange_rpc_pb2_grpc import add_InjectiveSpotExchangeRPCServicer_to_server
 
-    return add_InjectiveSpotExchangeRPCServicer_to_server
-
-
-@pytest.fixture(scope='module')
-def grpc_servicer():
-    from tests.rpc_fixtures.configurable_servicers import ConfigurableInjectiveSpotExchangeRPCServicer
-
+@pytest.fixture
+def spot_servicer():
     return ConfigurableInjectiveSpotExchangeRPCServicer()
 
 
-@pytest.fixture(scope='module')
-def grpc_stub_cls(grpc_channel):
-    from pyinjective.proto.exchange.injective_spot_exchange_rpc_pb2_grpc import InjectiveSpotExchangeRPCStub
+@pytest.fixture
+def derivative_servicer():
+    return ConfigurableInjectiveDerivativeExchangeRPCServicer()
 
-    return InjectiveSpotExchangeRPCStub
 
 class TestAsyncClient:
 
@@ -112,13 +112,22 @@ class TestAsyncClient:
     @pytest.mark.asyncio
     async def test_initialize_tokens_and_markets(
             self,
-            grpc_stub,
-            grpc_servicer,
+            spot_servicer,
+            derivative_servicer,
             inj_usdt_spot_market,
-            ape_usdt_spot_market
+            ape_usdt_spot_market,
+            btc_usdt_perp_market,
+            first_match_bet_market,
     ):
-        grpc_servicer.markets_queue.append(MarketsResponse(
+        spot_servicer.markets_queue.append(injective_spot_exchange_rpc_pb2.MarketsResponse(
             markets=[inj_usdt_spot_market, ape_usdt_spot_market]
+        ))
+        derivative_servicer.markets_queue.append(injective_derivative_exchange_rpc_pb2.MarketsResponse(
+            markets=[btc_usdt_perp_market]
+        ))
+        derivative_servicer.binary_option_markets_queue.append(
+            injective_derivative_exchange_rpc_pb2.BinaryOptionsMarketsResponse(
+                markets=[first_match_bet_market]
         ))
 
         client = AsyncClient(
@@ -126,15 +135,30 @@ class TestAsyncClient:
             insecure=False,
         )
 
-        client.stubSpotExchange = grpc_stub
+        client.stubSpotExchange = spot_servicer
+        client.stubDerivativeExchange = derivative_servicer
 
         await client._initialize_tokens_and_markets()
 
-        assert(3 == len(client.tokens))
-        assert(any((inj_usdt_spot_market.base_token_meta.symbol == token.symbol for token in client.tokens)))
-        assert (any((inj_usdt_spot_market.quote_token_meta.symbol == token.symbol for token in client.tokens)))
-        assert (any((ape_usdt_spot_market.base_token_meta.symbol == token.symbol for token in client.tokens)))
+        all_tokens = await client.all_tokens()
+        assert(4 == len(all_tokens))
+        inj_symbol, usdt_symbol = inj_usdt_spot_market.ticker.split("/")
+        ape_symbol, _ = ape_usdt_spot_market.ticker.split("/")
+        usdt_perp_symbol = btc_usdt_perp_market.quote_token_meta.symbol
+        assert(any((inj_symbol == token.symbol for _, token in all_tokens.items())))
+        assert (any((usdt_symbol == token.symbol for _, token in all_tokens.items())))
+        assert (any((ape_symbol == token.symbol for _, token in all_tokens.items())))
+        assert (any((usdt_perp_symbol == token.symbol for _, token in all_tokens.items())))
 
-        assert (2 == len(client.markets))
-        assert (any((inj_usdt_spot_market.market_id == market.id for market in client.markets)))
-        assert (any((ape_usdt_spot_market.market_id == market.id for market in client.markets)))
+        all_spot_markets = await client.all_spot_markets()
+        assert (2 == len(all_spot_markets))
+        assert (any((inj_usdt_spot_market.market_id == market.id for market in all_spot_markets.values())))
+        assert (any((ape_usdt_spot_market.market_id == market.id for market in all_spot_markets.values())))
+
+        all_derivative_markets = await client.all_derivative_markets()
+        assert (1 == len(all_derivative_markets))
+        assert (any((btc_usdt_perp_market.market_id == market.id for market in all_derivative_markets.values())))
+
+        all_binary_option_markets = await client.all_binary_option_markets()
+        assert (1 == len(all_binary_option_markets))
+        assert (any((first_match_bet_market.market_id == market.id for market in all_binary_option_markets.values())))

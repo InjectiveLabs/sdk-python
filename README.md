@@ -87,8 +87,12 @@ make tests
 ```
 
 ### Changelogs
-**0.6.3**(change before release)
+**0.7**(change before release)
 * Change logging logic to use different loggers for each module and class
+* Refactor Composer to be created with all the markets and tokens. The Composer now uses the real markets and tokens to convert human-readable values to chain format
+* The Composer can still be instantiated without markets and tokens. When markets and tokens are not provided the Composer loads the required information from the Denoms used in previous versions
+* Change in AsyncClient to be able to create Composer instances for the client network, markets and tokens
+* Examples have been adapted to create Composer instances using the AsyncClient
 * Add `pytest` as a development dependency to implement and run unit tests
 
 **0.6.2.7**

@@ -40,7 +40,6 @@ REQUIRED = [
 DEV_REQUIRED = [
     "pytest",
     "pytest-asyncio",
-    "pytest-grpc",
 ]
 
 # The rest you shouldn't have to touch too much :)

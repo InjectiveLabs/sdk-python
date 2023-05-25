@@ -23,7 +23,6 @@ websockets = "*"
 [dev-packages]
 pytest = "*"
 pytest-asyncio = "*"
-pytest-grpc = "*"
 
 [requires]
 python_version = "3"
