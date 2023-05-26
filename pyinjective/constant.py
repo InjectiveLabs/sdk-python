@@ -1,6 +1,5 @@
 import os
 from configparser import ConfigParser
-from warnings import warn
 
 MAX_CLIENT_ID_LENGTH = 128
 MAX_DATA_SIZE = 256
@@ -34,8 +33,6 @@ class Denom:
         min_price_tick_size: float,
         min_quantity_tick_size: float
     ):
-        """This throws a deprecation warning on initialization."""
-        warn(f'{self.__class__.__name__} will be deprecated.', DeprecationWarning, stacklevel=2)
 
         self.description = description
         self.base = base
