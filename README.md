@@ -89,6 +89,7 @@ make tests
 ### Changelogs
 **0.7**(change before release)
 * Change logging logic to use different loggers for each module and class
+* Solved issue preventing requesting spot and derivative historical orders for more than one market_id
 * Refactor Composer to be created with all the markets and tokens. The Composer now uses the real markets and tokens to convert human-readable values to chain format
 * The Composer can still be instantiated without markets and tokens. When markets and tokens are not provided the Composer loads the required information from the Denoms used in previous versions
 * Change in AsyncClient to be able to create Composer instances for the client network, markets and tokens
