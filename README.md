@@ -89,6 +89,7 @@ make tests
 ### Changelogs
 **0.6.3**(change before release)
 * Change logging logic to use different loggers for each module and class
+* Solved issue preventing requesting spot and derivative historical orders for more than one market_id
 * Add `pytest` as a development dependency to implement and run unit tests
 
 **0.6.2.7**

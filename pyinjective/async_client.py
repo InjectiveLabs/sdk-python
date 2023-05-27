@@ -660,12 +660,15 @@ class AsyncClient:
         )
         return await self.stubSpotExchange.Orders(req)
 
-    async def get_historical_spot_orders(self, market_id: str, **kwargs):
+    async def get_historical_spot_orders(self, market_id: Optional[str] = None, **kwargs):
+        market_ids = kwargs.get("market_ids", [])
+        if market_id is not None:
+            market_ids.append(market_id)
         req = spot_exchange_rpc_pb.OrdersHistoryRequest(
-            market_id=market_id,
+            market_ids=kwargs.get("market_ids", []),
             direction=kwargs.get("direction"),
-            order_types=kwargs.get("order_types"),
-            execution_types=kwargs.get("execution_types"),
+            order_types=kwargs.get("order_types", []),
+            execution_types=kwargs.get("execution_types", []),
             subaccount_id=kwargs.get("subaccount_id"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
@@ -820,14 +823,19 @@ class AsyncClient:
         )
         return await self.stubDerivativeExchange.Orders(req)
 
-    async def get_historical_derivative_orders(self, market_id: str, **kwargs):
+    async def get_historical_derivative_orders(self, market_id: Optional[str] = None, **kwargs):
+        market_ids = kwargs.get("market_ids", [])
+        if market_id is not None:
+            market_ids.append(market_id)
+        order_types = kwargs.get("order_types", [])
+        order_type = kwargs.get("order_type")
+        if order_type is not None:
+            order_types.append(market_id)
         req = derivative_exchange_rpc_pb.OrdersHistoryRequest(
-            market_id=market_id,
-            market_ids=kwargs.get("market_ids"),
+            market_ids=market_ids,
             direction=kwargs.get("direction"),
-            order_type=kwargs.get("order_type"),
-            order_types=kwargs.get("order_types"),
-            execution_types=kwargs.get("execution_types"),
+            order_types=order_types,
+            execution_types=kwargs.get("execution_types", []),
             subaccount_id=kwargs.get("subaccount_id"),
             is_conditional=kwargs.get("is_conditional"),
             skip=kwargs.get("skip"),
