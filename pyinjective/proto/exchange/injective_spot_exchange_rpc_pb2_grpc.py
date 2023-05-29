@@ -21,7 +21,7 @@ class InjectiveSpotExchangeRPCStub(object):
                 response_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.MarketsResponse.FromString,
                 )
         self.Market = channel.unary_unary(
-                '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/SpotMarket',
+                '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/Market',
                 request_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.MarketRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.MarketResponse.FromString,
                 )
@@ -133,14 +133,14 @@ class InjectiveSpotExchangeRPCServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def Orderbook(self, request, context):
-        """Orderbook of a Spot SpotMarket
+        """Orderbook of a Spot Market
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def OrderbookV2(self, request, context):
-        """Orderbook of a Spot SpotMarket
+        """Orderbook of a Spot Market
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -182,28 +182,28 @@ class InjectiveSpotExchangeRPCServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def Orders(self, request, context):
-        """Orders of a Spot SpotMarket
+        """Orders of a Spot Market
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def StreamOrders(self, request, context):
-        """Stream updates to individual orders of a Spot SpotMarket
+        """Stream updates to individual orders of a Spot Market
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def Trades(self, request, context):
-        """Trades of a Spot SpotMarket
+        """Trades of a Spot Market
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def StreamTrades(self, request, context):
-        """Stream newly executed trades from Spot SpotMarket
+        """Stream newly executed trades from Spot Market
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -231,7 +231,7 @@ class InjectiveSpotExchangeRPCServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def StreamOrdersHistory(self, request, context):
-        """Stream updates to historical orders of a spot SpotMarket
+        """Stream updates to historical orders of a spot Market
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -245,8 +245,8 @@ def add_InjectiveSpotExchangeRPCServicer_to_server(servicer, server):
                     request_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.MarketsRequest.FromString,
                     response_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.MarketsResponse.SerializeToString,
             ),
-            'SpotMarket': grpc.unary_unary_rpc_method_handler(
-                    servicer.SpotMarket,
+            'Market': grpc.unary_unary_rpc_method_handler(
+                    servicer.Market,
                     request_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.MarketRequest.FromString,
                     response_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.MarketResponse.SerializeToString,
             ),
@@ -369,7 +369,7 @@ class InjectiveSpotExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/SpotMarket',
+        return grpc.experimental.unary_unary(request, target, '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/Market',
             exchange_dot_injective__spot__exchange__rpc__pb2.MarketRequest.SerializeToString,
             exchange_dot_injective__spot__exchange__rpc__pb2.MarketResponse.FromString,
             options, channel_credentials,
