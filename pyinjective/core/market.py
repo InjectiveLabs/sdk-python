@@ -2,11 +2,11 @@ from dataclasses import dataclass
 from decimal import Decimal
 from typing import Optional
 
-from constant import ADDITIONAL_CHAIN_FORMAT_DECIMALS, Denom
+from pyinjective.constant import ADDITIONAL_CHAIN_FORMAT_DECIMALS, Denom
 from pyinjective.core.token import Token
 
 
-@dataclass
+@dataclass(eq=True, frozen=True)
 class SpotMarket:
     id: str
     status: str
@@ -34,7 +34,7 @@ class SpotMarket:
 
         return extended_chain_formatted_value
 
-@dataclass
+@dataclass(eq=True, frozen=True)
 class DerivativeMarket:
     id: str
     status: str
@@ -92,7 +92,7 @@ class DerivativeMarket:
 
         return extended_chain_formatted_margin
 
-@dataclass
+@dataclass(eq=True, frozen=True)
 class BinaryOptionMarket:
     id: str
     status: str
