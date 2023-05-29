@@ -96,12 +96,12 @@ async def fetch_denom(network) -> str:
 async def main() -> None:
     testnet = Network.testnet()
     data = await fetch_denom(testnet)
-    with open("denoms_testnet.ini", "w") as text_file:
+    with open("../denoms_testnet.ini", "w") as text_file:
         text_file.write(data)
 
     mainnet = Network.mainnet()
     data = await fetch_denom(mainnet)
-    with open("denoms_mainnet.ini", "w") as text_file:
+    with open("../denoms_mainnet.ini", "w") as text_file:
         text_file.write(data)
 
 if __name__ == '__main__':
