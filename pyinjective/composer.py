@@ -69,6 +69,10 @@ class Composer:
 
         """
         self.network = network
+        self.spot_markets = dict()
+        self.derivative_markets = dict()
+        self.binary_option_markets = dict()
+        self.tokens = dict()
         if spot_markets is None or derivative_markets is None or binary_option_markets is None or tokens is None:
             self._initialize_markets_and_tokens_from_files()
         else:
@@ -1005,7 +1009,7 @@ class Composer:
                         min_price_tick_size=Decimal(str(configuration_section["min_price_tick_size"])),
                         min_quantity_tick_size=Decimal(str(configuration_section["min_quantity_tick_size"]))
                     )
-                    spot_markets[description] = market
+                    spot_markets[market.id] = market
                 else:
                     market = DerivativeMarket(
                         id=section_name,
@@ -1025,7 +1029,7 @@ class Composer:
                         min_quantity_tick_size=Decimal(str(configuration_section["min_quantity_tick_size"])),
                     )
 
-                    derivative_markets[description] = market
+                    derivative_markets[market.id] = market
 
             elif section_name != "DEFAULT":
                 token = Token(
@@ -1038,8 +1042,9 @@ class Composer:
                     updated=-1,
                 )
 
-                tokens[token.symbol] = Token
+                tokens[token.symbol] = token
 
         self.tokens = tokens
         self.spot_markets = spot_markets
         self.derivative_markets = derivative_markets
+        self.binary_option_markets = dict()
