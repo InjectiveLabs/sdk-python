@@ -38,6 +38,19 @@ class TestComposer:
 
         return composer
 
+    def test_composer_initialization_from_ini_files(self):
+        composer = Composer(network=Network.devnet().string())
+
+        inj_token = composer.tokens["INJ"]
+        inj_usdt_spot_market = next((market for market in composer.spot_markets.values() if market.ticker == "'Devnet Spot INJ/USDT'"))
+        inj_usdt_perp_market = next((market for market in composer.derivative_markets.values() if market.ticker == "'Devnet Derivative INJ/USDT PERP'"))
+
+        assert (18 == inj_token.decimals)
+        assert (18 == inj_usdt_spot_market.base_token.decimals)
+        assert (6 == inj_usdt_spot_market.quote_token.decimals)
+        assert (6 == inj_usdt_perp_market.quote_token.decimals)
+
+
     def test_buy_spot_order_creation(self, basic_composer: Composer, inj_usdt_spot_market: SpotMarket):
         fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
         price = 6.869
