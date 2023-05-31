@@ -115,6 +115,11 @@ class QueryStub(object):
                 request_serializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryModuleStateRequest.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryModuleStateResponse.FromString,
                 )
+        self.MissingPeggoNonces = channel.unary_unary(
+                '/injective.peggy.v1.Query/MissingPeggoNonces',
+                request_serializer=injective_dot_peggy_dot_v1_dot_query__pb2.MissingNoncesRequest.SerializeToString,
+                response_deserializer=injective_dot_peggy_dot_v1_dot_query__pb2.MissingNoncesResponse.FromString,
+                )
 
 
 class QueryServicer(object):
@@ -246,6 +251,12 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def MissingPeggoNonces(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_QueryServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -348,6 +359,11 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.PeggyModuleState,
                     request_deserializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryModuleStateRequest.FromString,
                     response_serializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryModuleStateResponse.SerializeToString,
+            ),
+            'MissingPeggoNonces': grpc.unary_unary_rpc_method_handler(
+                    servicer.MissingPeggoNonces,
+                    request_deserializer=injective_dot_peggy_dot_v1_dot_query__pb2.MissingNoncesRequest.FromString,
+                    response_serializer=injective_dot_peggy_dot_v1_dot_query__pb2.MissingNoncesResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -697,5 +713,22 @@ class Query(object):
         return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Query/PeggyModuleState',
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryModuleStateRequest.SerializeToString,
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryModuleStateResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def MissingPeggoNonces(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Query/MissingPeggoNonces',
+            injective_dot_peggy_dot_v1_dot_query__pb2.MissingNoncesRequest.SerializeToString,
+            injective_dot_peggy_dot_v1_dot_query__pb2.MissingNoncesResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -11,11 +11,13 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+from cosmos.msg.v1 import msg_pb2 as cosmos_dot_msg_dot_v1_dot_msg__pb2
 from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from google.protobuf import any_pb2 as google_dot_protobuf_dot_any__pb2
+from ibc.core.client.v1 import client_pb2 as ibc_dot_core_dot_client_dot_v1_dot_client__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1bibc/core/client/v1/tx.proto\x12\x12ibc.core.client.v1\x1a\x14gogoproto/gogo.proto\x1a\x19google/protobuf/any.proto\"\x86\x01\n\x0fMsgCreateClient\x12*\n\x0c\x63lient_state\x18\x01 \x01(\x0b\x32\x14.google.protobuf.Any\x12-\n\x0f\x63onsensus_state\x18\x02 \x01(\x0b\x32\x14.google.protobuf.Any\x12\x0e\n\x06signer\x18\x03 \x01(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x19\n\x17MsgCreateClientResponse\"l\n\x0fMsgUpdateClient\x12\x11\n\tclient_id\x18\x01 \x01(\t\x12,\n\x0e\x63lient_message\x18\x02 \x01(\x0b\x32\x14.google.protobuf.Any\x12\x0e\n\x06signer\x18\x03 \x01(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x19\n\x17MsgUpdateClientResponse\"\xdf\x01\n\x10MsgUpgradeClient\x12\x11\n\tclient_id\x18\x01 \x01(\t\x12*\n\x0c\x63lient_state\x18\x02 \x01(\x0b\x32\x14.google.protobuf.Any\x12-\n\x0f\x63onsensus_state\x18\x03 \x01(\x0b\x32\x14.google.protobuf.Any\x12\x1c\n\x14proof_upgrade_client\x18\x04 \x01(\x0c\x12%\n\x1dproof_upgrade_consensus_state\x18\x05 \x01(\x0c\x12\x0e\n\x06signer\x18\x06 \x01(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x1a\n\x18MsgUpgradeClientResponse\"|\n\x15MsgSubmitMisbehaviour\x12\x15\n\tclient_id\x18\x01 \x01(\tB\x02\x18\x01\x12.\n\x0cmisbehaviour\x18\x02 \x01(\x0b\x32\x14.google.protobuf.AnyB\x02\x18\x01\x12\x12\n\x06signer\x18\x03 \x01(\tB\x02\x18\x01:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x1f\n\x1dMsgSubmitMisbehaviourResponse2\xa2\x03\n\x03Msg\x12`\n\x0c\x43reateClient\x12#.ibc.core.client.v1.MsgCreateClient\x1a+.ibc.core.client.v1.MsgCreateClientResponse\x12`\n\x0cUpdateClient\x12#.ibc.core.client.v1.MsgUpdateClient\x1a+.ibc.core.client.v1.MsgUpdateClientResponse\x12\x63\n\rUpgradeClient\x12$.ibc.core.client.v1.MsgUpgradeClient\x1a,.ibc.core.client.v1.MsgUpgradeClientResponse\x12r\n\x12SubmitMisbehaviour\x12).ibc.core.client.v1.MsgSubmitMisbehaviour\x1a\x31.ibc.core.client.v1.MsgSubmitMisbehaviourResponseB:Z8github.com/cosmos/ibc-go/v7/modules/core/02-client/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1bibc/core/client/v1/tx.proto\x12\x12ibc.core.client.v1\x1a\x17\x63osmos/msg/v1/msg.proto\x1a\x14gogoproto/gogo.proto\x1a\x19google/protobuf/any.proto\x1a\x1fibc/core/client/v1/client.proto\"\x86\x01\n\x0fMsgCreateClient\x12*\n\x0c\x63lient_state\x18\x01 \x01(\x0b\x32\x14.google.protobuf.Any\x12-\n\x0f\x63onsensus_state\x18\x02 \x01(\x0b\x32\x14.google.protobuf.Any\x12\x0e\n\x06signer\x18\x03 \x01(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x19\n\x17MsgCreateClientResponse\"l\n\x0fMsgUpdateClient\x12\x11\n\tclient_id\x18\x01 \x01(\t\x12,\n\x0e\x63lient_message\x18\x02 \x01(\x0b\x32\x14.google.protobuf.Any\x12\x0e\n\x06signer\x18\x03 \x01(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x19\n\x17MsgUpdateClientResponse\"\xdf\x01\n\x10MsgUpgradeClient\x12\x11\n\tclient_id\x18\x01 \x01(\t\x12*\n\x0c\x63lient_state\x18\x02 \x01(\x0b\x32\x14.google.protobuf.Any\x12-\n\x0f\x63onsensus_state\x18\x03 \x01(\x0b\x32\x14.google.protobuf.Any\x12\x1c\n\x14proof_upgrade_client\x18\x04 \x01(\x0c\x12%\n\x1dproof_upgrade_consensus_state\x18\x05 \x01(\x0c\x12\x0e\n\x06signer\x18\x06 \x01(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x1a\n\x18MsgUpgradeClientResponse\"|\n\x15MsgSubmitMisbehaviour\x12\x15\n\tclient_id\x18\x01 \x01(\tB\x02\x18\x01\x12.\n\x0cmisbehaviour\x18\x02 \x01(\x0b\x32\x14.google.protobuf.AnyB\x02\x18\x01\x12\x12\n\x06signer\x18\x03 \x01(\tB\x02\x18\x01:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x1f\n\x1dMsgSubmitMisbehaviourResponse\"l\n\x15MsgUpdateClientParams\x12\x11\n\tauthority\x18\x01 \x01(\t\x12\x30\n\x06params\x18\x02 \x01(\x0b\x32\x1a.ibc.core.client.v1.ParamsB\x04\xc8\xde\x1f\x00:\x0e\x82\xe7\xb0*\tauthority\"\x1f\n\x1dMsgUpdateClientParamsResponse2\x96\x04\n\x03Msg\x12`\n\x0c\x43reateClient\x12#.ibc.core.client.v1.MsgCreateClient\x1a+.ibc.core.client.v1.MsgCreateClientResponse\x12`\n\x0cUpdateClient\x12#.ibc.core.client.v1.MsgUpdateClient\x1a+.ibc.core.client.v1.MsgUpdateClientResponse\x12\x63\n\rUpgradeClient\x12$.ibc.core.client.v1.MsgUpgradeClient\x1a,.ibc.core.client.v1.MsgUpgradeClientResponse\x12r\n\x12SubmitMisbehaviour\x12).ibc.core.client.v1.MsgSubmitMisbehaviour\x1a\x31.ibc.core.client.v1.MsgSubmitMisbehaviourResponse\x12r\n\x12UpdateClientParams\x12).ibc.core.client.v1.MsgUpdateClientParams\x1a\x31.ibc.core.client.v1.MsgUpdateClientParamsResponseB:Z8github.com/cosmos/ibc-go/v7/modules/core/02-client/typesb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'ibc.core.client.v1.tx_pb2', globals())
@@ -37,22 +39,30 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _MSGSUBMITMISBEHAVIOUR.fields_by_name['signer']._serialized_options = b'\030\001'
   _MSGSUBMITMISBEHAVIOUR._options = None
   _MSGSUBMITMISBEHAVIOUR._serialized_options = b'\350\240\037\000\210\240\037\000'
-  _MSGCREATECLIENT._serialized_start=101
-  _MSGCREATECLIENT._serialized_end=235
-  _MSGCREATECLIENTRESPONSE._serialized_start=237
-  _MSGCREATECLIENTRESPONSE._serialized_end=262
-  _MSGUPDATECLIENT._serialized_start=264
-  _MSGUPDATECLIENT._serialized_end=372
-  _MSGUPDATECLIENTRESPONSE._serialized_start=374
-  _MSGUPDATECLIENTRESPONSE._serialized_end=399
-  _MSGUPGRADECLIENT._serialized_start=402
-  _MSGUPGRADECLIENT._serialized_end=625
-  _MSGUPGRADECLIENTRESPONSE._serialized_start=627
-  _MSGUPGRADECLIENTRESPONSE._serialized_end=653
-  _MSGSUBMITMISBEHAVIOUR._serialized_start=655
-  _MSGSUBMITMISBEHAVIOUR._serialized_end=779
-  _MSGSUBMITMISBEHAVIOURRESPONSE._serialized_start=781
-  _MSGSUBMITMISBEHAVIOURRESPONSE._serialized_end=812
-  _MSG._serialized_start=815
-  _MSG._serialized_end=1233
+  _MSGUPDATECLIENTPARAMS.fields_by_name['params']._options = None
+  _MSGUPDATECLIENTPARAMS.fields_by_name['params']._serialized_options = b'\310\336\037\000'
+  _MSGUPDATECLIENTPARAMS._options = None
+  _MSGUPDATECLIENTPARAMS._serialized_options = b'\202\347\260*\tauthority'
+  _MSGCREATECLIENT._serialized_start=159
+  _MSGCREATECLIENT._serialized_end=293
+  _MSGCREATECLIENTRESPONSE._serialized_start=295
+  _MSGCREATECLIENTRESPONSE._serialized_end=320
+  _MSGUPDATECLIENT._serialized_start=322
+  _MSGUPDATECLIENT._serialized_end=430
+  _MSGUPDATECLIENTRESPONSE._serialized_start=432
+  _MSGUPDATECLIENTRESPONSE._serialized_end=457
+  _MSGUPGRADECLIENT._serialized_start=460
+  _MSGUPGRADECLIENT._serialized_end=683
+  _MSGUPGRADECLIENTRESPONSE._serialized_start=685
+  _MSGUPGRADECLIENTRESPONSE._serialized_end=711
+  _MSGSUBMITMISBEHAVIOUR._serialized_start=713
+  _MSGSUBMITMISBEHAVIOUR._serialized_end=837
+  _MSGSUBMITMISBEHAVIOURRESPONSE._serialized_start=839
+  _MSGSUBMITMISBEHAVIOURRESPONSE._serialized_end=870
+  _MSGUPDATECLIENTPARAMS._serialized_start=872
+  _MSGUPDATECLIENTPARAMS._serialized_end=980
+  _MSGUPDATECLIENTPARAMSRESPONSE._serialized_start=982
+  _MSGUPDATECLIENTPARAMSRESPONSE._serialized_end=1013
+  _MSG._serialized_start=1016
+  _MSG._serialized_end=1550
 # @@protoc_insertion_point(module_scope)
