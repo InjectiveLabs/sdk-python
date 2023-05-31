@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n,cosmos/base/snapshots/v1beta1/snapshot.proto\x12\x1d\x63osmos.base.snapshots.v1beta1\x1a\x14gogoproto/gogo.proto\"\x89\x01\n\x08Snapshot\x12\x0e\n\x06height\x18\x01 \x01(\x04\x12\x0e\n\x06\x66ormat\x18\x02 \x01(\r\x12\x0e\n\x06\x63hunks\x18\x03 \x01(\r\x12\x0c\n\x04hash\x18\x04 \x01(\x0c\x12?\n\x08metadata\x18\x05 \x01(\x0b\x32\'.cosmos.base.snapshots.v1beta1.MetadataB\x04\xc8\xde\x1f\x00\" \n\x08Metadata\x12\x14\n\x0c\x63hunk_hashes\x18\x01 \x03(\x0c\"\xc5\x02\n\x0cSnapshotItem\x12\x41\n\x05store\x18\x01 \x01(\x0b\x32\x30.cosmos.base.snapshots.v1beta1.SnapshotStoreItemH\x00\x12I\n\x04iavl\x18\x02 \x01(\x0b\x32/.cosmos.base.snapshots.v1beta1.SnapshotIAVLItemB\x08\xe2\xde\x1f\x04IAVLH\x00\x12I\n\textension\x18\x03 \x01(\x0b\x32\x34.cosmos.base.snapshots.v1beta1.SnapshotExtensionMetaH\x00\x12T\n\x11\x65xtension_payload\x18\x04 \x01(\x0b\x32\x37.cosmos.base.snapshots.v1beta1.SnapshotExtensionPayloadH\x00\x42\x06\n\x04item\"!\n\x11SnapshotStoreItem\x12\x0c\n\x04name\x18\x01 \x01(\t\"O\n\x10SnapshotIAVLItem\x12\x0b\n\x03key\x18\x01 \x01(\x0c\x12\r\n\x05value\x18\x02 \x01(\x0c\x12\x0f\n\x07version\x18\x03 \x01(\x03\x12\x0e\n\x06height\x18\x04 \x01(\x05\"5\n\x15SnapshotExtensionMeta\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0e\n\x06\x66ormat\x18\x02 \x01(\r\"+\n\x18SnapshotExtensionPayload\x12\x0f\n\x07payload\x18\x01 \x01(\x0c\x42.Z,github.com/cosmos/cosmos-sdk/snapshots/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n,cosmos/base/snapshots/v1beta1/snapshot.proto\x12\x1d\x63osmos.base.snapshots.v1beta1\x1a\x14gogoproto/gogo.proto\"\x89\x01\n\x08Snapshot\x12\x0e\n\x06height\x18\x01 \x01(\x04\x12\x0e\n\x06\x66ormat\x18\x02 \x01(\r\x12\x0e\n\x06\x63hunks\x18\x03 \x01(\r\x12\x0c\n\x04hash\x18\x04 \x01(\x0c\x12?\n\x08metadata\x18\x05 \x01(\x0b\x32\'.cosmos.base.snapshots.v1beta1.MetadataB\x04\xc8\xde\x1f\x00\" \n\x08Metadata\x12\x14\n\x0c\x63hunk_hashes\x18\x01 \x03(\x0c\"\xd1\x03\n\x0cSnapshotItem\x12\x41\n\x05store\x18\x01 \x01(\x0b\x32\x30.cosmos.base.snapshots.v1beta1.SnapshotStoreItemH\x00\x12I\n\x04iavl\x18\x02 \x01(\x0b\x32/.cosmos.base.snapshots.v1beta1.SnapshotIAVLItemB\x08\xe2\xde\x1f\x04IAVLH\x00\x12I\n\textension\x18\x03 \x01(\x0b\x32\x34.cosmos.base.snapshots.v1beta1.SnapshotExtensionMetaH\x00\x12T\n\x11\x65xtension_payload\x18\x04 \x01(\x0b\x32\x37.cosmos.base.snapshots.v1beta1.SnapshotExtensionPayloadH\x00\x12\x45\n\x02kv\x18\x05 \x01(\x0b\x32-.cosmos.base.snapshots.v1beta1.SnapshotKVItemB\x08\x18\x01\xe2\xde\x1f\x02KVH\x00\x12\x43\n\x06schema\x18\x06 \x01(\x0b\x32-.cosmos.base.snapshots.v1beta1.SnapshotSchemaB\x02\x18\x01H\x00\x42\x06\n\x04item\"!\n\x11SnapshotStoreItem\x12\x0c\n\x04name\x18\x01 \x01(\t\"O\n\x10SnapshotIAVLItem\x12\x0b\n\x03key\x18\x01 \x01(\x0c\x12\r\n\x05value\x18\x02 \x01(\x0c\x12\x0f\n\x07version\x18\x03 \x01(\x03\x12\x0e\n\x06height\x18\x04 \x01(\x05\"5\n\x15SnapshotExtensionMeta\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0e\n\x06\x66ormat\x18\x02 \x01(\r\"+\n\x18SnapshotExtensionPayload\x12\x0f\n\x07payload\x18\x01 \x01(\x0c\"0\n\x0eSnapshotKVItem\x12\x0b\n\x03key\x18\x01 \x01(\x0c\x12\r\n\x05value\x18\x02 \x01(\x0c:\x02\x18\x01\"\"\n\x0eSnapshotSchema\x12\x0c\n\x04keys\x18\x01 \x03(\x0c:\x02\x18\x01\x42.Z,github.com/cosmos/cosmos-sdk/snapshots/typesb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'cosmos.base.snapshots.v1beta1.snapshot_pb2', globals())
@@ -26,18 +26,30 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _SNAPSHOT.fields_by_name['metadata']._serialized_options = b'\310\336\037\000'
   _SNAPSHOTITEM.fields_by_name['iavl']._options = None
   _SNAPSHOTITEM.fields_by_name['iavl']._serialized_options = b'\342\336\037\004IAVL'
+  _SNAPSHOTITEM.fields_by_name['kv']._options = None
+  _SNAPSHOTITEM.fields_by_name['kv']._serialized_options = b'\030\001\342\336\037\002KV'
+  _SNAPSHOTITEM.fields_by_name['schema']._options = None
+  _SNAPSHOTITEM.fields_by_name['schema']._serialized_options = b'\030\001'
+  _SNAPSHOTKVITEM._options = None
+  _SNAPSHOTKVITEM._serialized_options = b'\030\001'
+  _SNAPSHOTSCHEMA._options = None
+  _SNAPSHOTSCHEMA._serialized_options = b'\030\001'
   _SNAPSHOT._serialized_start=102
   _SNAPSHOT._serialized_end=239
   _METADATA._serialized_start=241
   _METADATA._serialized_end=273
   _SNAPSHOTITEM._serialized_start=276
-  _SNAPSHOTITEM._serialized_end=601
-  _SNAPSHOTSTOREITEM._serialized_start=603
-  _SNAPSHOTSTOREITEM._serialized_end=636
-  _SNAPSHOTIAVLITEM._serialized_start=638
-  _SNAPSHOTIAVLITEM._serialized_end=717
-  _SNAPSHOTEXTENSIONMETA._serialized_start=719
-  _SNAPSHOTEXTENSIONMETA._serialized_end=772
-  _SNAPSHOTEXTENSIONPAYLOAD._serialized_start=774
-  _SNAPSHOTEXTENSIONPAYLOAD._serialized_end=817
+  _SNAPSHOTITEM._serialized_end=741
+  _SNAPSHOTSTOREITEM._serialized_start=743
+  _SNAPSHOTSTOREITEM._serialized_end=776
+  _SNAPSHOTIAVLITEM._serialized_start=778
+  _SNAPSHOTIAVLITEM._serialized_end=857
+  _SNAPSHOTEXTENSIONMETA._serialized_start=859
+  _SNAPSHOTEXTENSIONMETA._serialized_end=912
+  _SNAPSHOTEXTENSIONPAYLOAD._serialized_start=914
+  _SNAPSHOTEXTENSIONPAYLOAD._serialized_end=957
+  _SNAPSHOTKVITEM._serialized_start=959
+  _SNAPSHOTKVITEM._serialized_end=1007
+  _SNAPSHOTSCHEMA._serialized_start=1009
+  _SNAPSHOTSCHEMA._serialized_end=1043
 # @@protoc_insertion_point(module_scope)

@@ -52,7 +52,8 @@ class QueryServicer(object):
 
     def AllowancesByGranter(self, request, context):
         """AllowancesByGranter returns all the grants given by an address
-        Since v0.46
+
+        Since: cosmos-sdk 0.46
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')

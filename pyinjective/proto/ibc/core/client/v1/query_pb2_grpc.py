@@ -35,6 +35,11 @@ class QueryStub(object):
                 request_serializer=ibc_dot_core_dot_client_dot_v1_dot_query__pb2.QueryConsensusStatesRequest.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_client_dot_v1_dot_query__pb2.QueryConsensusStatesResponse.FromString,
                 )
+        self.ConsensusStateHeights = channel.unary_unary(
+                '/ibc.core.client.v1.Query/ConsensusStateHeights',
+                request_serializer=ibc_dot_core_dot_client_dot_v1_dot_query__pb2.QueryConsensusStateHeightsRequest.SerializeToString,
+                response_deserializer=ibc_dot_core_dot_client_dot_v1_dot_query__pb2.QueryConsensusStateHeightsResponse.FromString,
+                )
         self.ClientStatus = channel.unary_unary(
                 '/ibc.core.client.v1.Query/ClientStatus',
                 request_serializer=ibc_dot_core_dot_client_dot_v1_dot_query__pb2.QueryClientStatusRequest.SerializeToString,
@@ -91,6 +96,13 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ConsensusStateHeights(self, request, context):
+        """ConsensusStateHeights queries the height of every consensus states associated with a given client.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def ClientStatus(self, request, context):
         """Status queries the status of an IBC client.
         """
@@ -99,7 +111,7 @@ class QueryServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def ClientParams(self, request, context):
-        """ClientParams queries all parameters of the ibc client.
+        """ClientParams queries all parameters of the ibc client submodule.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -141,6 +153,11 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.ConsensusStates,
                     request_deserializer=ibc_dot_core_dot_client_dot_v1_dot_query__pb2.QueryConsensusStatesRequest.FromString,
                     response_serializer=ibc_dot_core_dot_client_dot_v1_dot_query__pb2.QueryConsensusStatesResponse.SerializeToString,
+            ),
+            'ConsensusStateHeights': grpc.unary_unary_rpc_method_handler(
+                    servicer.ConsensusStateHeights,
+                    request_deserializer=ibc_dot_core_dot_client_dot_v1_dot_query__pb2.QueryConsensusStateHeightsRequest.FromString,
+                    response_serializer=ibc_dot_core_dot_client_dot_v1_dot_query__pb2.QueryConsensusStateHeightsResponse.SerializeToString,
             ),
             'ClientStatus': grpc.unary_unary_rpc_method_handler(
                     servicer.ClientStatus,
@@ -238,6 +255,23 @@ class Query(object):
         return grpc.experimental.unary_unary(request, target, '/ibc.core.client.v1.Query/ConsensusStates',
             ibc_dot_core_dot_client_dot_v1_dot_query__pb2.QueryConsensusStatesRequest.SerializeToString,
             ibc_dot_core_dot_client_dot_v1_dot_query__pb2.QueryConsensusStatesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ConsensusStateHeights(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ibc.core.client.v1.Query/ConsensusStateHeights',
+            ibc_dot_core_dot_client_dot_v1_dot_query__pb2.QueryConsensusStateHeightsRequest.SerializeToString,
+            ibc_dot_core_dot_client_dot_v1_dot_query__pb2.QueryConsensusStateHeightsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

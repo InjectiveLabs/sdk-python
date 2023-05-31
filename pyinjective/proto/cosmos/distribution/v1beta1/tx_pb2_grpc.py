@@ -35,6 +35,16 @@ class MsgStub(object):
                 request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgFundCommunityPool.SerializeToString,
                 response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgFundCommunityPoolResponse.FromString,
                 )
+        self.UpdateParams = channel.unary_unary(
+                '/cosmos.distribution.v1beta1.Msg/UpdateParams',
+                request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
+                response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
+                )
+        self.CommunityPoolSpend = channel.unary_unary(
+                '/cosmos.distribution.v1beta1.Msg/CommunityPoolSpend',
+                request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgCommunityPoolSpend.SerializeToString,
+                response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgCommunityPoolSpendResponse.FromString,
+                )
 
 
 class MsgServicer(object):
@@ -73,6 +83,28 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def UpdateParams(self, request, context):
+        """UpdateParams defines a governance operation for updating the x/distribution
+        module parameters. The authority is defined in the keeper.
+
+        Since: cosmos-sdk 0.47
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CommunityPoolSpend(self, request, context):
+        """CommunityPoolSpend defines a governance operation for sending tokens from
+        the community pool in the x/distribution module to another account, which
+        could be the governance module itself. The authority is defined in the
+        keeper.
+
+        Since: cosmos-sdk 0.47
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -95,6 +127,16 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.FundCommunityPool,
                     request_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgFundCommunityPool.FromString,
                     response_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgFundCommunityPoolResponse.SerializeToString,
+            ),
+            'UpdateParams': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateParams,
+                    request_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.FromString,
+                    response_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.SerializeToString,
+            ),
+            'CommunityPoolSpend': grpc.unary_unary_rpc_method_handler(
+                    servicer.CommunityPoolSpend,
+                    request_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgCommunityPoolSpend.FromString,
+                    response_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgCommunityPoolSpendResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -172,5 +214,39 @@ class Msg(object):
         return grpc.experimental.unary_unary(request, target, '/cosmos.distribution.v1beta1.Msg/FundCommunityPool',
             cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgFundCommunityPool.SerializeToString,
             cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgFundCommunityPoolResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def UpdateParams(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/cosmos.distribution.v1beta1.Msg/UpdateParams',
+            cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
+            cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def CommunityPoolSpend(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/cosmos.distribution.v1beta1.Msg/CommunityPoolSpend',
+            cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgCommunityPoolSpend.SerializeToString,
+            cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgCommunityPoolSpendResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

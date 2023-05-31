@@ -14,9 +14,12 @@ _sym_db = _symbol_database.Default()
 from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
 from cosmos.bank.v1beta1 import bank_pb2 as cosmos_dot_bank_dot_v1beta1_dot_bank__pb2
+from cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
+from cosmos.msg.v1 import msg_pb2 as cosmos_dot_msg_dot_v1_dot_msg__pb2
+from amino import amino_pb2 as amino_dot_amino__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1c\x63osmos/bank/v1beta1/tx.proto\x12\x13\x63osmos.bank.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a\x1e\x63osmos/bank/v1beta1/bank.proto\"\xca\x01\n\x07MsgSend\x12-\n\x0c\x66rom_address\x18\x01 \x01(\tB\x17\xf2\xde\x1f\x13yaml:\"from_address\"\x12)\n\nto_address\x18\x02 \x01(\tB\x15\xf2\xde\x1f\x11yaml:\"to_address\"\x12[\n\x06\x61mount\x18\x03 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x11\n\x0fMsgSendResponse\"z\n\x0cMsgMultiSend\x12\x30\n\x06inputs\x18\x01 \x03(\x0b\x32\x1a.cosmos.bank.v1beta1.InputB\x04\xc8\xde\x1f\x00\x12\x32\n\x07outputs\x18\x02 \x03(\x0b\x32\x1b.cosmos.bank.v1beta1.OutputB\x04\xc8\xde\x1f\x00:\x04\xe8\xa0\x1f\x00\"\x16\n\x14MsgMultiSendResponse2\xac\x01\n\x03Msg\x12J\n\x04Send\x12\x1c.cosmos.bank.v1beta1.MsgSend\x1a$.cosmos.bank.v1beta1.MsgSendResponse\x12Y\n\tMultiSend\x12!.cosmos.bank.v1beta1.MsgMultiSend\x1a).cosmos.bank.v1beta1.MsgMultiSendResponseB+Z)github.com/cosmos/cosmos-sdk/x/bank/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1c\x63osmos/bank/v1beta1/tx.proto\x12\x13\x63osmos.bank.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a\x1e\x63osmos/bank/v1beta1/bank.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x17\x63osmos/msg/v1/msg.proto\x1a\x11\x61mino/amino.proto\"\xfb\x01\n\x07MsgSend\x12.\n\x0c\x66rom_address\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12,\n\nto_address\x18\x02 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12`\n\x06\x61mount\x18\x03 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB5\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins:0\x82\xe7\xb0*\x0c\x66rom_address\x8a\xe7\xb0*\x12\x63osmos-sdk/MsgSend\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x11\n\x0fMsgSendResponse\"\xab\x01\n\x0cMsgMultiSend\x12\x35\n\x06inputs\x18\x01 \x03(\x0b\x32\x1a.cosmos.bank.v1beta1.InputB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12\x37\n\x07outputs\x18\x02 \x03(\x0b\x32\x1b.cosmos.bank.v1beta1.OutputB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01:+\x82\xe7\xb0*\x06inputs\x8a\xe7\xb0*\x17\x63osmos-sdk/MsgMultiSend\xe8\xa0\x1f\x00\"\x16\n\x14MsgMultiSendResponse\"\xac\x01\n\x0fMsgUpdateParams\x12+\n\tauthority\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12\x36\n\x06params\x18\x02 \x01(\x0b\x32\x1b.cosmos.bank.v1beta1.ParamsB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01:4\x82\xe7\xb0*\tauthority\x8a\xe7\xb0*!cosmos-sdk/x/bank/MsgUpdateParams\"\x19\n\x17MsgUpdateParamsResponse\"\xc2\x01\n\x11MsgSetSendEnabled\x12+\n\tauthority\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12\x36\n\x0csend_enabled\x18\x02 \x03(\x0b\x32 .cosmos.bank.v1beta1.SendEnabled\x12\x17\n\x0fuse_default_for\x18\x03 \x03(\t:/\x82\xe7\xb0*\tauthority\x8a\xe7\xb0*\x1c\x63osmos-sdk/MsgSetSendEnabled\"\x1b\n\x19MsgSetSendEnabledResponse2\x81\x03\n\x03Msg\x12J\n\x04Send\x12\x1c.cosmos.bank.v1beta1.MsgSend\x1a$.cosmos.bank.v1beta1.MsgSendResponse\x12Y\n\tMultiSend\x12!.cosmos.bank.v1beta1.MsgMultiSend\x1a).cosmos.bank.v1beta1.MsgMultiSendResponse\x12\x62\n\x0cUpdateParams\x12$.cosmos.bank.v1beta1.MsgUpdateParams\x1a,.cosmos.bank.v1beta1.MsgUpdateParamsResponse\x12h\n\x0eSetSendEnabled\x12&.cosmos.bank.v1beta1.MsgSetSendEnabled\x1a..cosmos.bank.v1beta1.MsgSetSendEnabledResponse\x1a\x05\x80\xe7\xb0*\x01\x42+Z)github.com/cosmos/cosmos-sdk/x/bank/typesb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'cosmos.bank.v1beta1.tx_pb2', globals())
@@ -25,27 +28,47 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z)github.com/cosmos/cosmos-sdk/x/bank/types'
   _MSGSEND.fields_by_name['from_address']._options = None
-  _MSGSEND.fields_by_name['from_address']._serialized_options = b'\362\336\037\023yaml:\"from_address\"'
+  _MSGSEND.fields_by_name['from_address']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _MSGSEND.fields_by_name['to_address']._options = None
-  _MSGSEND.fields_by_name['to_address']._serialized_options = b'\362\336\037\021yaml:\"to_address\"'
+  _MSGSEND.fields_by_name['to_address']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _MSGSEND.fields_by_name['amount']._options = None
-  _MSGSEND.fields_by_name['amount']._serialized_options = b'\310\336\037\000\252\337\037(github.com/cosmos/cosmos-sdk/types.Coins'
+  _MSGSEND.fields_by_name['amount']._serialized_options = b'\310\336\037\000\250\347\260*\001\252\337\037(github.com/cosmos/cosmos-sdk/types.Coins'
   _MSGSEND._options = None
-  _MSGSEND._serialized_options = b'\350\240\037\000\210\240\037\000'
+  _MSGSEND._serialized_options = b'\202\347\260*\014from_address\212\347\260*\022cosmos-sdk/MsgSend\350\240\037\000\210\240\037\000'
   _MSGMULTISEND.fields_by_name['inputs']._options = None
-  _MSGMULTISEND.fields_by_name['inputs']._serialized_options = b'\310\336\037\000'
+  _MSGMULTISEND.fields_by_name['inputs']._serialized_options = b'\310\336\037\000\250\347\260*\001'
   _MSGMULTISEND.fields_by_name['outputs']._options = None
-  _MSGMULTISEND.fields_by_name['outputs']._serialized_options = b'\310\336\037\000'
+  _MSGMULTISEND.fields_by_name['outputs']._serialized_options = b'\310\336\037\000\250\347\260*\001'
   _MSGMULTISEND._options = None
-  _MSGMULTISEND._serialized_options = b'\350\240\037\000'
-  _MSGSEND._serialized_start=140
-  _MSGSEND._serialized_end=342
-  _MSGSENDRESPONSE._serialized_start=344
-  _MSGSENDRESPONSE._serialized_end=361
-  _MSGMULTISEND._serialized_start=363
-  _MSGMULTISEND._serialized_end=485
-  _MSGMULTISENDRESPONSE._serialized_start=487
-  _MSGMULTISENDRESPONSE._serialized_end=509
-  _MSG._serialized_start=512
-  _MSG._serialized_end=684
+  _MSGMULTISEND._serialized_options = b'\202\347\260*\006inputs\212\347\260*\027cosmos-sdk/MsgMultiSend\350\240\037\000'
+  _MSGUPDATEPARAMS.fields_by_name['authority']._options = None
+  _MSGUPDATEPARAMS.fields_by_name['authority']._serialized_options = b'\322\264-\024cosmos.AddressString'
+  _MSGUPDATEPARAMS.fields_by_name['params']._options = None
+  _MSGUPDATEPARAMS.fields_by_name['params']._serialized_options = b'\310\336\037\000\250\347\260*\001'
+  _MSGUPDATEPARAMS._options = None
+  _MSGUPDATEPARAMS._serialized_options = b'\202\347\260*\tauthority\212\347\260*!cosmos-sdk/x/bank/MsgUpdateParams'
+  _MSGSETSENDENABLED.fields_by_name['authority']._options = None
+  _MSGSETSENDENABLED.fields_by_name['authority']._serialized_options = b'\322\264-\024cosmos.AddressString'
+  _MSGSETSENDENABLED._options = None
+  _MSGSETSENDENABLED._serialized_options = b'\202\347\260*\tauthority\212\347\260*\034cosmos-sdk/MsgSetSendEnabled'
+  _MSG._options = None
+  _MSG._serialized_options = b'\200\347\260*\001'
+  _MSGSEND._serialized_start=211
+  _MSGSEND._serialized_end=462
+  _MSGSENDRESPONSE._serialized_start=464
+  _MSGSENDRESPONSE._serialized_end=481
+  _MSGMULTISEND._serialized_start=484
+  _MSGMULTISEND._serialized_end=655
+  _MSGMULTISENDRESPONSE._serialized_start=657
+  _MSGMULTISENDRESPONSE._serialized_end=679
+  _MSGUPDATEPARAMS._serialized_start=682
+  _MSGUPDATEPARAMS._serialized_end=854
+  _MSGUPDATEPARAMSRESPONSE._serialized_start=856
+  _MSGUPDATEPARAMSRESPONSE._serialized_end=881
+  _MSGSETSENDENABLED._serialized_start=884
+  _MSGSETSENDENABLED._serialized_end=1078
+  _MSGSETSENDENABLEDRESPONSE._serialized_start=1080
+  _MSGSETSENDENABLEDRESPONSE._serialized_end=1107
+  _MSG._serialized_start=1110
+  _MSG._serialized_end=1495
 # @@protoc_insertion_point(module_scope)

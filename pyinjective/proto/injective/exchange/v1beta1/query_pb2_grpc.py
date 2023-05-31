@@ -75,6 +75,16 @@ class QueryStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySpotMarketRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySpotMarketResponse.FromString,
                 )
+        self.FullSpotMarkets = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/FullSpotMarkets',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFullSpotMarketsRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFullSpotMarketsResponse.FromString,
+                )
+        self.FullSpotMarket = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/FullSpotMarket',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFullSpotMarketRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFullSpotMarketResponse.FromString,
+                )
         self.SpotOrderbook = channel.unary_unary(
                 '/injective.exchange.v1beta1.Query/SpotOrderbook',
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySpotOrderbookRequest.SerializeToString,
@@ -84,6 +94,11 @@ class QueryStub(object):
                 '/injective.exchange.v1beta1.Query/TraderSpotOrders',
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderSpotOrdersRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderSpotOrdersResponse.FromString,
+                )
+        self.AccountAddressSpotOrders = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/AccountAddressSpotOrders',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAccountAddressSpotOrdersRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAccountAddressSpotOrdersResponse.FromString,
                 )
         self.SpotOrdersByHashes = channel.unary_unary(
                 '/injective.exchange.v1beta1.Query/SpotOrdersByHashes',
@@ -119,6 +134,11 @@ class QueryStub(object):
                 '/injective.exchange.v1beta1.Query/TraderDerivativeOrders',
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeOrdersRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeOrdersResponse.FromString,
+                )
+        self.AccountAddressDerivativeOrders = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/AccountAddressDerivativeOrders',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAccountAddressDerivativeOrdersRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAccountAddressDerivativeOrdersResponse.FromString,
                 )
         self.DerivativeOrdersByHashes = channel.unary_unary(
                 '/injective.exchange.v1beta1.Query/DerivativeOrdersByHashes',
@@ -350,7 +370,8 @@ class QueryServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def DenomDecimals(self, request, context):
-        """Retrieves the denom decimals for multiple denoms. Returns all denom decimals if unspecified.
+        """Retrieves the denom decimals for multiple denoms. Returns all denom
+        decimals if unspecified.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -370,6 +391,20 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def FullSpotMarkets(self, request, context):
+        """Retrieves a list of spot markets with extra information.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def FullSpotMarket(self, request, context):
+        """Retrieves a spot market with extra information.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def SpotOrderbook(self, request, context):
         """Retrieves a spot market's orderbook by marketID
         """
@@ -384,8 +419,16 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def AccountAddressSpotOrders(self, request, context):
+        """Retrieves all account address spot orders
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def SpotOrdersByHashes(self, request, context):
-        """Retrieves spot orders corresponding to specified order hashes for a given subaccountID and marketID
+        """Retrieves spot orders corresponding to specified order hashes for a given
+        subaccountID and marketID
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -433,6 +476,13 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def AccountAddressDerivativeOrders(self, request, context):
+        """Retrieves all account address derivative orders
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def DerivativeOrdersByHashes(self, request, context):
         """Retrieves a trader's derivative orders
         """
@@ -462,7 +512,8 @@ class QueryServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def DerivativeMarketAddress(self, request, context):
-        """Retrieves a derivative market's corresponding address for fees that contribute to the market's insurance fund
+        """Retrieves a derivative market's corresponding address for fees that
+        contribute to the market's insurance fund
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -630,7 +681,8 @@ class QueryServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def MarketVolatility(self, request, context):
-        """MarketVolatility computes the volatility for spot and derivative markets trading history.
+        """MarketVolatility computes the volatility for spot and derivative markets
+        trading history.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -719,6 +771,16 @@ def add_QueryServicer_to_server(servicer, server):
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySpotMarketRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySpotMarketResponse.SerializeToString,
             ),
+            'FullSpotMarkets': grpc.unary_unary_rpc_method_handler(
+                    servicer.FullSpotMarkets,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFullSpotMarketsRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFullSpotMarketsResponse.SerializeToString,
+            ),
+            'FullSpotMarket': grpc.unary_unary_rpc_method_handler(
+                    servicer.FullSpotMarket,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFullSpotMarketRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFullSpotMarketResponse.SerializeToString,
+            ),
             'SpotOrderbook': grpc.unary_unary_rpc_method_handler(
                     servicer.SpotOrderbook,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QuerySpotOrderbookRequest.FromString,
@@ -728,6 +790,11 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.TraderSpotOrders,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderSpotOrdersRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderSpotOrdersResponse.SerializeToString,
+            ),
+            'AccountAddressSpotOrders': grpc.unary_unary_rpc_method_handler(
+                    servicer.AccountAddressSpotOrders,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAccountAddressSpotOrdersRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAccountAddressSpotOrdersResponse.SerializeToString,
             ),
             'SpotOrdersByHashes': grpc.unary_unary_rpc_method_handler(
                     servicer.SpotOrdersByHashes,
@@ -763,6 +830,11 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.TraderDerivativeOrders,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeOrdersRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeOrdersResponse.SerializeToString,
+            ),
+            'AccountAddressDerivativeOrders': grpc.unary_unary_rpc_method_handler(
+                    servicer.AccountAddressDerivativeOrders,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAccountAddressDerivativeOrdersRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAccountAddressDerivativeOrdersResponse.SerializeToString,
             ),
             'DerivativeOrdersByHashes': grpc.unary_unary_rpc_method_handler(
                     servicer.DerivativeOrdersByHashes,
@@ -1140,6 +1212,40 @@ class Query(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def FullSpotMarkets(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/FullSpotMarkets',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFullSpotMarketsRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFullSpotMarketsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def FullSpotMarket(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/FullSpotMarket',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFullSpotMarketRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFullSpotMarketResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def SpotOrderbook(request,
             target,
             options=(),
@@ -1170,6 +1276,23 @@ class Query(object):
         return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/TraderSpotOrders',
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderSpotOrdersRequest.SerializeToString,
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderSpotOrdersResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def AccountAddressSpotOrders(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/AccountAddressSpotOrders',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAccountAddressSpotOrdersRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAccountAddressSpotOrdersResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -1289,6 +1412,23 @@ class Query(object):
         return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/TraderDerivativeOrders',
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeOrdersRequest.SerializeToString,
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryTraderDerivativeOrdersResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def AccountAddressDerivativeOrders(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Query/AccountAddressDerivativeOrders',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAccountAddressDerivativeOrdersRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryAccountAddressDerivativeOrdersResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

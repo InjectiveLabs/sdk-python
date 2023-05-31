@@ -73,7 +73,8 @@ class QueryServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def EstimatedRedemptions(self, request, context):
-        """Retrives the value of insurance fund share token at current price (not pending redemption)
+        """Retrives the value of insurance fund share token at current price (not
+        pending redemption)
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')

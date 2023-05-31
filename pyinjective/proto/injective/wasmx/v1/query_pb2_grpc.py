@@ -20,6 +20,11 @@ class QueryStub(object):
                 request_serializer=injective_dot_wasmx_dot_v1_dot_query__pb2.QueryWasmxParamsRequest.SerializeToString,
                 response_deserializer=injective_dot_wasmx_dot_v1_dot_query__pb2.QueryWasmxParamsResponse.FromString,
                 )
+        self.ContractRegistrationInfo = channel.unary_unary(
+                '/injective.wasmx.v1.Query/ContractRegistrationInfo',
+                request_serializer=injective_dot_wasmx_dot_v1_dot_query__pb2.QueryContractRegistrationInfoRequest.SerializeToString,
+                response_deserializer=injective_dot_wasmx_dot_v1_dot_query__pb2.QueryContractRegistrationInfoResponse.FromString,
+                )
         self.WasmxModuleState = channel.unary_unary(
                 '/injective.wasmx.v1.Query/WasmxModuleState',
                 request_serializer=injective_dot_wasmx_dot_v1_dot_query__pb2.QueryModuleStateRequest.SerializeToString,
@@ -33,6 +38,13 @@ class QueryServicer(object):
 
     def WasmxParams(self, request, context):
         """Retrieves wasmx params
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ContractRegistrationInfo(self, request, context):
+        """Retrieves contract registration info
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -52,6 +64,11 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.WasmxParams,
                     request_deserializer=injective_dot_wasmx_dot_v1_dot_query__pb2.QueryWasmxParamsRequest.FromString,
                     response_serializer=injective_dot_wasmx_dot_v1_dot_query__pb2.QueryWasmxParamsResponse.SerializeToString,
+            ),
+            'ContractRegistrationInfo': grpc.unary_unary_rpc_method_handler(
+                    servicer.ContractRegistrationInfo,
+                    request_deserializer=injective_dot_wasmx_dot_v1_dot_query__pb2.QueryContractRegistrationInfoRequest.FromString,
+                    response_serializer=injective_dot_wasmx_dot_v1_dot_query__pb2.QueryContractRegistrationInfoResponse.SerializeToString,
             ),
             'WasmxModuleState': grpc.unary_unary_rpc_method_handler(
                     servicer.WasmxModuleState,
@@ -83,6 +100,23 @@ class Query(object):
         return grpc.experimental.unary_unary(request, target, '/injective.wasmx.v1.Query/WasmxParams',
             injective_dot_wasmx_dot_v1_dot_query__pb2.QueryWasmxParamsRequest.SerializeToString,
             injective_dot_wasmx_dot_v1_dot_query__pb2.QueryWasmxParamsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ContractRegistrationInfo(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.wasmx.v1.Query/ContractRegistrationInfo',
+            injective_dot_wasmx_dot_v1_dot_query__pb2.QueryContractRegistrationInfoRequest.SerializeToString,
+            injective_dot_wasmx_dot_v1_dot_query__pb2.QueryContractRegistrationInfoResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

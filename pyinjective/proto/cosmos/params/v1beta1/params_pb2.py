@@ -12,9 +12,11 @@ _sym_db = _symbol_database.Default()
 
 
 from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
+from amino import amino_pb2 as amino_dot_amino__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\"cosmos/params/v1beta1/params.proto\x12\x15\x63osmos.params.v1beta1\x1a\x14gogoproto/gogo.proto\"\x82\x01\n\x17ParameterChangeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x39\n\x07\x63hanges\x18\x03 \x03(\x0b\x32\".cosmos.params.v1beta1.ParamChangeB\x04\xc8\xde\x1f\x00:\x08\x88\xa0\x1f\x00\x98\xa0\x1f\x00\"A\n\x0bParamChange\x12\x10\n\x08subspace\x18\x01 \x01(\t\x12\x0b\n\x03key\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\t:\x04\x98\xa0\x1f\x00\x42:Z4github.com/cosmos/cosmos-sdk/x/params/types/proposal\xa8\xe2\x1e\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\"cosmos/params/v1beta1/params.proto\x12\x15\x63osmos.params.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x11\x61mino/amino.proto\"\xcc\x01\n\x17ParameterChangeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12>\n\x07\x63hanges\x18\x03 \x03(\x0b\x32\".cosmos.params.v1beta1.ParamChangeB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01:M\x88\xa0\x1f\x00\x98\xa0\x1f\x00\xca\xb4-\x1a\x63osmos.gov.v1beta1.Content\x8a\xe7\xb0*\"cosmos-sdk/ParameterChangeProposal\"A\n\x0bParamChange\x12\x10\n\x08subspace\x18\x01 \x01(\t\x12\x0b\n\x03key\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\t:\x04\x98\xa0\x1f\x00\x42:Z4github.com/cosmos/cosmos-sdk/x/params/types/proposal\xa8\xe2\x1e\x01\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'cosmos.params.v1beta1.params_pb2', globals())
@@ -23,13 +25,13 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z4github.com/cosmos/cosmos-sdk/x/params/types/proposal\250\342\036\001'
   _PARAMETERCHANGEPROPOSAL.fields_by_name['changes']._options = None
-  _PARAMETERCHANGEPROPOSAL.fields_by_name['changes']._serialized_options = b'\310\336\037\000'
+  _PARAMETERCHANGEPROPOSAL.fields_by_name['changes']._serialized_options = b'\310\336\037\000\250\347\260*\001'
   _PARAMETERCHANGEPROPOSAL._options = None
-  _PARAMETERCHANGEPROPOSAL._serialized_options = b'\210\240\037\000\230\240\037\000'
+  _PARAMETERCHANGEPROPOSAL._serialized_options = b'\210\240\037\000\230\240\037\000\312\264-\032cosmos.gov.v1beta1.Content\212\347\260*\"cosmos-sdk/ParameterChangeProposal'
   _PARAMCHANGE._options = None
   _PARAMCHANGE._serialized_options = b'\230\240\037\000'
-  _PARAMETERCHANGEPROPOSAL._serialized_start=84
-  _PARAMETERCHANGEPROPOSAL._serialized_end=214
-  _PARAMCHANGE._serialized_start=216
-  _PARAMCHANGE._serialized_end=281
+  _PARAMETERCHANGEPROPOSAL._serialized_start=130
+  _PARAMETERCHANGEPROPOSAL._serialized_end=334
+  _PARAMCHANGE._serialized_start=336
+  _PARAMCHANGE._serialized_end=401
 # @@protoc_insertion_point(module_scope)
