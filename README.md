@@ -78,6 +78,12 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.6.2.7**
+* Fix margin calculation in utils
+
+**0.6.2.1**
+* Remove version deps from Pipfile
+
 **0.6.2.0**
 * Add MsgUnderwrite, MsgRequestRedemption in Composer
 
