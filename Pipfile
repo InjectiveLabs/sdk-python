@@ -19,8 +19,9 @@ eip712_structs = "*"
 coincurve = "*"
 aiocron = "*"
 websockets = "*"
+urllib3 = "<2"
 
 [dev-packages]
 
 [requires]
-python_version = "3"
+python_version = "3.8"
