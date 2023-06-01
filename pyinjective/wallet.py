@@ -1,13 +1,20 @@
-import sys
+import copy
+import functools
+
+import eth_hash.auto
 import sha3
 import hashlib
-import bech32
 import aiohttp
 import json
 import requests
 from typing import Tuple
+
+from eth_hash.backends import pysha3
+from eth_hash import Keccak256
+from Crypto.Hash.keccak import Keccak_Hash
 from bech32 import bech32_encode, bech32_decode, convertbits
 from bip32 import BIP32
+from Crypto.Hash import keccak
 from ecdsa import SigningKey, VerifyingKey, SECP256k1, BadSignatureError
 from ecdsa.util import sigencode_string_canonize
 from mnemonic import Mnemonic
@@ -24,6 +31,14 @@ BECH32_ADDR_VAL_PREFIX = "injvaloper"
 BECH32_ADDR_CONS_PREFIX = "injvalcons"
 
 DEFAULT_DERIVATION_PATH = "m/44'/60'/0'/0/0"
+
+class Keccak_Hash_With_Copy(Keccak_Hash):
+    # We need to create a version of Keccak_Hash that responds to `copy`
+    # This is a requirement from the ecdsa library
+
+    def copy(self):
+        return self.new(data=self.digest())
+
 
 class PrivateKey:
     """
@@ -100,7 +115,16 @@ class PrivateKey:
         :return: a signature of this private key over the given message
         """
         # return self.signing_key.sign_deterministic(msg, hashfunc=hashlib.sha256, sigencode=sigencode_string_canonize)
-        return self.signing_key.sign_deterministic(msg, hashfunc=sha3.keccak_256, sigencode=sigencode_string_canonize)
+        # keccak_function = functools.partial(keccak.new, digest_bits=256)
+        def keccak_creation(data=None):
+            # Create a 256 bits keccak hash
+            keccak_hash = Keccak_Hash_With_Copy(data=data, digest_bytes=32, update_after_digest=False)
+            return keccak_hash
+
+        #return self.signing_key.sign_deterministic(msg, hashfunc=sha3.keccak_256, sigencode=sigencode_string_canonize)
+        hash = eth_hash.auto.keccak
+        digest = eth_hash.auto.keccak(msg)
+        return self.signing_key.sign_digest_deterministic(digest, hashfunc=hash, sigencode=sigencode_string_canonize)
 
 
 class PublicKey:
@@ -180,9 +204,9 @@ class PublicKey:
         # return Address(r)
 
         pubkey = self.verify_key.to_string("uncompressed")
-        k = sha3.keccak_256()
-        k.update(pubkey[1:])
-        addr = k.digest()[12:]
+        keccak_hash = keccak.new(digest_bits=256)
+        keccak_hash.update(pubkey[1:])
+        addr = keccak_hash.digest()[12:]
         return Address(addr)
 
     def verify(self, msg: bytes, sig: bytes) -> bool:
