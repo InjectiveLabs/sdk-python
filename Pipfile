@@ -20,6 +20,8 @@ coincurve = "*"
 aiocron = "*"
 websockets = "*"
 urllib3 = "<2"
+pycryptodome = "*"
+pycryptodomex = "*"
 
 [dev-packages]
 pytest = "*"
