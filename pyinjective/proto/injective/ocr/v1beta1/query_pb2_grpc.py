@@ -84,7 +84,8 @@ class QueryServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def LatestTransmissionDetails(self, request, context):
-        """LatestTransmissionDetails returns details about the latest trasmission recorded on chain for the given feed ID.
+        """LatestTransmissionDetails returns details about the latest trasmission
+        recorded on chain for the given feed ID.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')

@@ -30,6 +30,11 @@ class MsgStub(object):
                 request_serializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgRequestRedemption.SerializeToString,
                 response_deserializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgRequestRedemptionResponse.FromString,
                 )
+        self.UpdateParams = channel.unary_unary(
+                '/injective.insurance.v1beta1.Msg/UpdateParams',
+                request_serializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
+                response_deserializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
+                )
 
 
 class MsgServicer(object):
@@ -44,15 +49,23 @@ class MsgServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def Underwrite(self, request, context):
-        """Underwrite defines a method for depositing tokens to underwrite an insurance fund
+        """Underwrite defines a method for depositing tokens to underwrite an
+        insurance fund
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def RequestRedemption(self, request, context):
-        """RequestRedemption defines a method for requesting a redemption of the sender's insurance fund tokens
+        """RequestRedemption defines a method for requesting a redemption of the
+        sender's insurance fund tokens
         """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateParams(self, request, context):
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -74,6 +87,11 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.RequestRedemption,
                     request_deserializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgRequestRedemption.FromString,
                     response_serializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgRequestRedemptionResponse.SerializeToString,
+            ),
+            'UpdateParams': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateParams,
+                    request_deserializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.FromString,
+                    response_serializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -134,5 +152,22 @@ class Msg(object):
         return grpc.experimental.unary_unary(request, target, '/injective.insurance.v1beta1.Msg/RequestRedemption',
             injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgRequestRedemption.SerializeToString,
             injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgRequestRedemptionResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def UpdateParams(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.insurance.v1beta1.Msg/UpdateParams',
+            injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
+            injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -160,6 +160,11 @@ class MsgStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgReclaimLockedFunds.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgReclaimLockedFundsResponse.FromString,
                 )
+        self.UpdateParams = channel.unary_unary(
+                '/injective.exchange.v1beta1.Msg/UpdateParams',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
+                )
 
 
 class MsgServicer(object):
@@ -167,35 +172,40 @@ class MsgServicer(object):
     """
 
     def Deposit(self, request, context):
-        """Deposit defines a method for transferring coins from the sender's bank balance into the subaccount's exchange deposits
+        """Deposit defines a method for transferring coins from the sender's bank
+        balance into the subaccount's exchange deposits
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def Withdraw(self, request, context):
-        """Withdraw defines a method for withdrawing coins from a subaccount's deposits to the user's bank balance
+        """Withdraw defines a method for withdrawing coins from a subaccount's
+        deposits to the user's bank balance
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def InstantSpotMarketLaunch(self, request, context):
-        """InstantSpotMarketLaunch defines method for creating a spot market by paying listing fee without governance
+        """InstantSpotMarketLaunch defines method for creating a spot market by paying
+        listing fee without governance
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def InstantPerpetualMarketLaunch(self, request, context):
-        """InstantPerpetualMarketLaunch defines a method for creating a new perpetual futures market by paying listing fee without governance
+        """InstantPerpetualMarketLaunch defines a method for creating a new perpetual
+        futures market by paying listing fee without governance
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def InstantExpiryFuturesMarketLaunch(self, request, context):
-        """InstantExpiryFuturesMarketLaunch defines a method for creating a new expiry futures market by paying listing fee without governance
+        """InstantExpiryFuturesMarketLaunch defines a method for creating a new expiry
+        futures market by paying listing fee without governance
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -209,14 +219,16 @@ class MsgServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def BatchCreateSpotLimitOrders(self, request, context):
-        """BatchCreateSpotLimitOrder defines a method for creating a new batch of spot limit orders.
+        """BatchCreateSpotLimitOrder defines a method for creating a new batch of spot
+        limit orders.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def CreateSpotMarketOrder(self, request, context):
-        """CreateSpotMarketOrder defines a method for creating a new spot market order.
+        """CreateSpotMarketOrder defines a method for creating a new spot market
+        order.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -230,7 +242,8 @@ class MsgServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def BatchCancelSpotOrders(self, request, context):
-        """BatchCancelSpotOrders defines a method for cancelling a batch of spot orders in a given market.
+        """BatchCancelSpotOrders defines a method for cancelling a batch of spot
+        orders in a given market.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -244,77 +257,88 @@ class MsgServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def PrivilegedExecuteContract(self, request, context):
-        """PrivilegedExecuteContract defines a method for executing a Cosmwasm contract from the exchange module with privileged capabilities.
+        """PrivilegedExecuteContract defines a method for executing a Cosmwasm
+        contract from the exchange module with privileged capabilities.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def CreateDerivativeLimitOrder(self, request, context):
-        """CreateDerivativeLimitOrder defines a method for creating a new derivative limit order.
+        """CreateDerivativeLimitOrder defines a method for creating a new derivative
+        limit order.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def BatchCreateDerivativeLimitOrders(self, request, context):
-        """BatchCreateDerivativeLimitOrders defines a method for creating a new batch of derivative limit orders.
+        """BatchCreateDerivativeLimitOrders defines a method for creating a new batch
+        of derivative limit orders.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def CreateDerivativeMarketOrder(self, request, context):
-        """MsgCreateDerivativeLimitOrder defines a method for creating a new derivative market order.
+        """MsgCreateDerivativeLimitOrder defines a method for creating a new
+        derivative market order.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def CancelDerivativeOrder(self, request, context):
-        """MsgCancelDerivativeOrder defines a method for cancelling a derivative order.
+        """MsgCancelDerivativeOrder defines a method for cancelling a derivative
+        order.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def BatchCancelDerivativeOrders(self, request, context):
-        """MsgBatchCancelDerivativeOrders defines a method for cancelling a batch of derivative limit orders.
+        """MsgBatchCancelDerivativeOrders defines a method for cancelling a batch of
+        derivative limit orders.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def InstantBinaryOptionsMarketLaunch(self, request, context):
-        """InstantBinaryOptionsMarketLaunch defines method for creating a binary options market by paying listing fee without governance
+        """InstantBinaryOptionsMarketLaunch defines method for creating a binary
+        options market by paying listing fee without governance
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def CreateBinaryOptionsLimitOrder(self, request, context):
-        """CreateBinaryOptionsLimitOrder defines a method for creating a new binary options limit order.
+        """CreateBinaryOptionsLimitOrder defines a method for creating a new binary
+        options limit order.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def CreateBinaryOptionsMarketOrder(self, request, context):
-        """CreateBinaryOptionsMarketOrder defines a method for creating a new binary options market order.
+        """CreateBinaryOptionsMarketOrder defines a method for creating a new binary
+        options market order.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def CancelBinaryOptionsOrder(self, request, context):
-        """MsgCancelBinaryOptionsOrder defines a method for cancelling a binary options order.
+        """MsgCancelBinaryOptionsOrder defines a method for cancelling a binary
+        options order.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def BatchCancelBinaryOptionsOrders(self, request, context):
-        """BatchCancelBinaryOptionsOrders defines a method for cancelling a batch of binary options limit orders.
+        """BatchCancelBinaryOptionsOrders defines a method for cancelling a batch of
+        binary options limit orders.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -356,7 +380,8 @@ class MsgServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def AdminUpdateBinaryOptionsMarket(self, request, context):
-        """AdminUpdateBinaryOptionsMarket defines method for updating a binary options market by admin
+        """AdminUpdateBinaryOptionsMarket defines method for updating a binary options
+        market by admin
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -365,6 +390,12 @@ class MsgServicer(object):
     def ReclaimLockedFunds(self, request, context):
         """
         """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateParams(self, request, context):
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -516,6 +547,11 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.ReclaimLockedFunds,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgReclaimLockedFunds.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgReclaimLockedFundsResponse.SerializeToString,
+            ),
+            'UpdateParams': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateParams,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -1018,5 +1054,22 @@ class Msg(object):
         return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Msg/ReclaimLockedFunds',
             injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgReclaimLockedFunds.SerializeToString,
             injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgReclaimLockedFundsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def UpdateParams(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Msg/UpdateParams',
+            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

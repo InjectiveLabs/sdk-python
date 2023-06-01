@@ -45,6 +45,11 @@ class MsgStub(object):
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPythPrices.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPythPricesResponse.FromString,
                 )
+        self.UpdateParams = channel.unary_unary(
+                '/injective.oracle.v1beta1.Msg/UpdateParams',
+                request_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
+                response_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
+                )
 
 
 class MsgServicer(object):
@@ -52,14 +57,16 @@ class MsgServicer(object):
     """
 
     def RelayProviderPrices(self, request, context):
-        """RelayProviderPrice defines a method for relaying a price for a provider-based oracle
+        """RelayProviderPrice defines a method for relaying a price for a
+        provider-based oracle
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def RelayPriceFeedPrice(self, request, context):
-        """RelayPriceFeedPrice defines a method for relaying a price for a price feeder-based oracle
+        """RelayPriceFeedPrice defines a method for relaying a price for a price
+        feeder-based oracle
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -80,7 +87,8 @@ class MsgServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def RelayCoinbaseMessages(self, request, context):
-        """RelayCoinbaseMessages defines a method for relaying price messages from Coinbase API
+        """RelayCoinbaseMessages defines a method for relaying price messages from
+        Coinbase API
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -88,6 +96,13 @@ class MsgServicer(object):
 
     def RelayPythPrices(self, request, context):
         """RelayPythPrices defines a method for relaying rates from the Pyth contract
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateParams(self, request, context):
+        """UpdateParams enables updating oracle module's params via governance
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -125,6 +140,11 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.RelayPythPrices,
                     request_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPythPrices.FromString,
                     response_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPythPricesResponse.SerializeToString,
+            ),
+            'UpdateParams': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateParams,
+                    request_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.FromString,
+                    response_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -236,5 +256,22 @@ class Msg(object):
         return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Msg/RelayPythPrices',
             injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPythPrices.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPythPricesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def UpdateParams(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Msg/UpdateParams',
+            injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
+            injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

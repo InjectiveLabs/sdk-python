@@ -46,7 +46,7 @@ class QueryServicer(object):
     def GranterGrants(self, request, context):
         """GranterGrants returns list of `GrantAuthorization`, granted by granter.
 
-        Since: cosmos-sdk 0.45.2
+        Since: cosmos-sdk 0.46
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -55,7 +55,7 @@ class QueryServicer(object):
     def GranteeGrants(self, request, context):
         """GranteeGrants returns a list of `GrantAuthorization` by grantee.
 
-        Since: cosmos-sdk 0.45.2
+        Since: cosmos-sdk 0.46
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
