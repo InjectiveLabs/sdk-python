@@ -78,6 +78,9 @@ Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/mas
 
 
 ### Changelogs
+**0.6.3.1**
+* Update the code to the new structure of transaction simulation responses
+
 **0.6.2.7**
 * Fix margin calculation in utils
 
