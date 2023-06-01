@@ -934,7 +934,7 @@ class Composer:
             "/injective.oracle.v1beta1.MsgRelayProviderPrices": injective_oracle_tx_pb.MsgRelayProviderPrices,
         }
 
-        response = tx_response_pb.TxResponseData.FromString(data)
+        response = injective_exchange_tx_pb.MsgBatchUpdateOrdersResponse.FromString(data)
         msgs = []
         for msg in response.messages:
             msgs.append(header_map[msg.header].FromString(msg.data))

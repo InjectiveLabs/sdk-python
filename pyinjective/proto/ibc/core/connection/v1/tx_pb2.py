@@ -15,9 +15,10 @@ from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from google.protobuf import any_pb2 as google_dot_protobuf_dot_any__pb2
 from ibc.core.client.v1 import client_pb2 as ibc_dot_core_dot_client_dot_v1_dot_client__pb2
 from ibc.core.connection.v1 import connection_pb2 as ibc_dot_core_dot_connection_dot_v1_dot_connection__pb2
+from cosmos.msg.v1 import msg_pb2 as cosmos_dot_msg_dot_v1_dot_msg__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1fibc/core/connection/v1/tx.proto\x12\x16ibc.core.connection.v1\x1a\x14gogoproto/gogo.proto\x1a\x19google/protobuf/any.proto\x1a\x1fibc/core/client/v1/client.proto\x1a\'ibc/core/connection/v1/connection.proto\"\xce\x01\n\x15MsgConnectionOpenInit\x12\x11\n\tclient_id\x18\x01 \x01(\t\x12@\n\x0c\x63ounterparty\x18\x02 \x01(\x0b\x32$.ibc.core.connection.v1.CounterpartyB\x04\xc8\xde\x1f\x00\x12\x30\n\x07version\x18\x03 \x01(\x0b\x32\x1f.ibc.core.connection.v1.Version\x12\x14\n\x0c\x64\x65lay_period\x18\x04 \x01(\x04\x12\x0e\n\x06signer\x18\x05 \x01(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x1f\n\x1dMsgConnectionOpenInitResponse\"\x86\x04\n\x14MsgConnectionOpenTry\x12\x11\n\tclient_id\x18\x01 \x01(\t\x12\"\n\x16previous_connection_id\x18\x02 \x01(\tB\x02\x18\x01\x12*\n\x0c\x63lient_state\x18\x03 \x01(\x0b\x32\x14.google.protobuf.Any\x12@\n\x0c\x63ounterparty\x18\x04 \x01(\x0b\x32$.ibc.core.connection.v1.CounterpartyB\x04\xc8\xde\x1f\x00\x12\x14\n\x0c\x64\x65lay_period\x18\x05 \x01(\x04\x12>\n\x15\x63ounterparty_versions\x18\x06 \x03(\x0b\x32\x1f.ibc.core.connection.v1.Version\x12\x36\n\x0cproof_height\x18\x07 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\x12\x12\n\nproof_init\x18\x08 \x01(\x0c\x12\x14\n\x0cproof_client\x18\t \x01(\x0c\x12\x17\n\x0fproof_consensus\x18\n \x01(\x0c\x12:\n\x10\x63onsensus_height\x18\x0b \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\x12\x0e\n\x06signer\x18\x0c \x01(\t\x12\"\n\x1ahost_consensus_state_proof\x18\r \x01(\x0c:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x1e\n\x1cMsgConnectionOpenTryResponse\"\xa3\x03\n\x14MsgConnectionOpenAck\x12\x15\n\rconnection_id\x18\x01 \x01(\t\x12\"\n\x1a\x63ounterparty_connection_id\x18\x02 \x01(\t\x12\x30\n\x07version\x18\x03 \x01(\x0b\x32\x1f.ibc.core.connection.v1.Version\x12*\n\x0c\x63lient_state\x18\x04 \x01(\x0b\x32\x14.google.protobuf.Any\x12\x36\n\x0cproof_height\x18\x05 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\x12\x11\n\tproof_try\x18\x06 \x01(\x0c\x12\x14\n\x0cproof_client\x18\x07 \x01(\x0c\x12\x17\n\x0fproof_consensus\x18\x08 \x01(\x0c\x12:\n\x10\x63onsensus_height\x18\t \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\x12\x0e\n\x06signer\x18\n \x01(\t\x12\"\n\x1ahost_consensus_state_proof\x18\x0b \x01(\x0c:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x1e\n\x1cMsgConnectionOpenAckResponse\"\x96\x01\n\x18MsgConnectionOpenConfirm\x12\x15\n\rconnection_id\x18\x01 \x01(\t\x12\x11\n\tproof_ack\x18\x02 \x01(\x0c\x12\x36\n\x0cproof_height\x18\x03 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\x12\x0e\n\x06signer\x18\x04 \x01(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\"\n MsgConnectionOpenConfirmResponse2\xf9\x03\n\x03Msg\x12z\n\x12\x43onnectionOpenInit\x12-.ibc.core.connection.v1.MsgConnectionOpenInit\x1a\x35.ibc.core.connection.v1.MsgConnectionOpenInitResponse\x12w\n\x11\x43onnectionOpenTry\x12,.ibc.core.connection.v1.MsgConnectionOpenTry\x1a\x34.ibc.core.connection.v1.MsgConnectionOpenTryResponse\x12w\n\x11\x43onnectionOpenAck\x12,.ibc.core.connection.v1.MsgConnectionOpenAck\x1a\x34.ibc.core.connection.v1.MsgConnectionOpenAckResponse\x12\x83\x01\n\x15\x43onnectionOpenConfirm\x12\x30.ibc.core.connection.v1.MsgConnectionOpenConfirm\x1a\x38.ibc.core.connection.v1.MsgConnectionOpenConfirmResponseB>Z<github.com/cosmos/ibc-go/v7/modules/core/03-connection/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1fibc/core/connection/v1/tx.proto\x12\x16ibc.core.connection.v1\x1a\x14gogoproto/gogo.proto\x1a\x19google/protobuf/any.proto\x1a\x1fibc/core/client/v1/client.proto\x1a\'ibc/core/connection/v1/connection.proto\x1a\x17\x63osmos/msg/v1/msg.proto\"\xd9\x01\n\x15MsgConnectionOpenInit\x12\x11\n\tclient_id\x18\x01 \x01(\t\x12@\n\x0c\x63ounterparty\x18\x02 \x01(\x0b\x32$.ibc.core.connection.v1.CounterpartyB\x04\xc8\xde\x1f\x00\x12\x30\n\x07version\x18\x03 \x01(\x0b\x32\x1f.ibc.core.connection.v1.Version\x12\x14\n\x0c\x64\x65lay_period\x18\x04 \x01(\x04\x12\x0e\n\x06signer\x18\x05 \x01(\t:\x13\x82\xe7\xb0*\x06signer\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x1f\n\x1dMsgConnectionOpenInitResponse\"\x91\x04\n\x14MsgConnectionOpenTry\x12\x11\n\tclient_id\x18\x01 \x01(\t\x12\"\n\x16previous_connection_id\x18\x02 \x01(\tB\x02\x18\x01\x12*\n\x0c\x63lient_state\x18\x03 \x01(\x0b\x32\x14.google.protobuf.Any\x12@\n\x0c\x63ounterparty\x18\x04 \x01(\x0b\x32$.ibc.core.connection.v1.CounterpartyB\x04\xc8\xde\x1f\x00\x12\x14\n\x0c\x64\x65lay_period\x18\x05 \x01(\x04\x12>\n\x15\x63ounterparty_versions\x18\x06 \x03(\x0b\x32\x1f.ibc.core.connection.v1.Version\x12\x36\n\x0cproof_height\x18\x07 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\x12\x12\n\nproof_init\x18\x08 \x01(\x0c\x12\x14\n\x0cproof_client\x18\t \x01(\x0c\x12\x17\n\x0fproof_consensus\x18\n \x01(\x0c\x12:\n\x10\x63onsensus_height\x18\x0b \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\x12\x0e\n\x06signer\x18\x0c \x01(\t\x12\"\n\x1ahost_consensus_state_proof\x18\r \x01(\x0c:\x13\x82\xe7\xb0*\x06signer\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x1e\n\x1cMsgConnectionOpenTryResponse\"\xae\x03\n\x14MsgConnectionOpenAck\x12\x15\n\rconnection_id\x18\x01 \x01(\t\x12\"\n\x1a\x63ounterparty_connection_id\x18\x02 \x01(\t\x12\x30\n\x07version\x18\x03 \x01(\x0b\x32\x1f.ibc.core.connection.v1.Version\x12*\n\x0c\x63lient_state\x18\x04 \x01(\x0b\x32\x14.google.protobuf.Any\x12\x36\n\x0cproof_height\x18\x05 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\x12\x11\n\tproof_try\x18\x06 \x01(\x0c\x12\x14\n\x0cproof_client\x18\x07 \x01(\x0c\x12\x17\n\x0fproof_consensus\x18\x08 \x01(\x0c\x12:\n\x10\x63onsensus_height\x18\t \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\x12\x0e\n\x06signer\x18\n \x01(\t\x12\"\n\x1ahost_consensus_state_proof\x18\x0b \x01(\x0c:\x13\x82\xe7\xb0*\x06signer\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x1e\n\x1cMsgConnectionOpenAckResponse\"\xa1\x01\n\x18MsgConnectionOpenConfirm\x12\x15\n\rconnection_id\x18\x01 \x01(\t\x12\x11\n\tproof_ack\x18\x02 \x01(\x0c\x12\x36\n\x0cproof_height\x18\x03 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\x12\x0e\n\x06signer\x18\x04 \x01(\t:\x13\x82\xe7\xb0*\x06signer\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\"\n MsgConnectionOpenConfirmResponse2\xf9\x03\n\x03Msg\x12z\n\x12\x43onnectionOpenInit\x12-.ibc.core.connection.v1.MsgConnectionOpenInit\x1a\x35.ibc.core.connection.v1.MsgConnectionOpenInitResponse\x12w\n\x11\x43onnectionOpenTry\x12,.ibc.core.connection.v1.MsgConnectionOpenTry\x1a\x34.ibc.core.connection.v1.MsgConnectionOpenTryResponse\x12w\n\x11\x43onnectionOpenAck\x12,.ibc.core.connection.v1.MsgConnectionOpenAck\x1a\x34.ibc.core.connection.v1.MsgConnectionOpenAckResponse\x12\x83\x01\n\x15\x43onnectionOpenConfirm\x12\x30.ibc.core.connection.v1.MsgConnectionOpenConfirm\x1a\x38.ibc.core.connection.v1.MsgConnectionOpenConfirmResponseB>Z<github.com/cosmos/ibc-go/v7/modules/core/03-connection/typesb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'ibc.core.connection.v1.tx_pb2', globals())
@@ -28,7 +29,7 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _MSGCONNECTIONOPENINIT.fields_by_name['counterparty']._options = None
   _MSGCONNECTIONOPENINIT.fields_by_name['counterparty']._serialized_options = b'\310\336\037\000'
   _MSGCONNECTIONOPENINIT._options = None
-  _MSGCONNECTIONOPENINIT._serialized_options = b'\350\240\037\000\210\240\037\000'
+  _MSGCONNECTIONOPENINIT._serialized_options = b'\202\347\260*\006signer\350\240\037\000\210\240\037\000'
   _MSGCONNECTIONOPENTRY.fields_by_name['previous_connection_id']._options = None
   _MSGCONNECTIONOPENTRY.fields_by_name['previous_connection_id']._serialized_options = b'\030\001'
   _MSGCONNECTIONOPENTRY.fields_by_name['counterparty']._options = None
@@ -38,33 +39,33 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _MSGCONNECTIONOPENTRY.fields_by_name['consensus_height']._options = None
   _MSGCONNECTIONOPENTRY.fields_by_name['consensus_height']._serialized_options = b'\310\336\037\000'
   _MSGCONNECTIONOPENTRY._options = None
-  _MSGCONNECTIONOPENTRY._serialized_options = b'\350\240\037\000\210\240\037\000'
+  _MSGCONNECTIONOPENTRY._serialized_options = b'\202\347\260*\006signer\350\240\037\000\210\240\037\000'
   _MSGCONNECTIONOPENACK.fields_by_name['proof_height']._options = None
   _MSGCONNECTIONOPENACK.fields_by_name['proof_height']._serialized_options = b'\310\336\037\000'
   _MSGCONNECTIONOPENACK.fields_by_name['consensus_height']._options = None
   _MSGCONNECTIONOPENACK.fields_by_name['consensus_height']._serialized_options = b'\310\336\037\000'
   _MSGCONNECTIONOPENACK._options = None
-  _MSGCONNECTIONOPENACK._serialized_options = b'\350\240\037\000\210\240\037\000'
+  _MSGCONNECTIONOPENACK._serialized_options = b'\202\347\260*\006signer\350\240\037\000\210\240\037\000'
   _MSGCONNECTIONOPENCONFIRM.fields_by_name['proof_height']._options = None
   _MSGCONNECTIONOPENCONFIRM.fields_by_name['proof_height']._serialized_options = b'\310\336\037\000'
   _MSGCONNECTIONOPENCONFIRM._options = None
-  _MSGCONNECTIONOPENCONFIRM._serialized_options = b'\350\240\037\000\210\240\037\000'
-  _MSGCONNECTIONOPENINIT._serialized_start=183
-  _MSGCONNECTIONOPENINIT._serialized_end=389
-  _MSGCONNECTIONOPENINITRESPONSE._serialized_start=391
-  _MSGCONNECTIONOPENINITRESPONSE._serialized_end=422
-  _MSGCONNECTIONOPENTRY._serialized_start=425
-  _MSGCONNECTIONOPENTRY._serialized_end=943
-  _MSGCONNECTIONOPENTRYRESPONSE._serialized_start=945
-  _MSGCONNECTIONOPENTRYRESPONSE._serialized_end=975
-  _MSGCONNECTIONOPENACK._serialized_start=978
-  _MSGCONNECTIONOPENACK._serialized_end=1397
-  _MSGCONNECTIONOPENACKRESPONSE._serialized_start=1399
-  _MSGCONNECTIONOPENACKRESPONSE._serialized_end=1429
-  _MSGCONNECTIONOPENCONFIRM._serialized_start=1432
-  _MSGCONNECTIONOPENCONFIRM._serialized_end=1582
-  _MSGCONNECTIONOPENCONFIRMRESPONSE._serialized_start=1584
-  _MSGCONNECTIONOPENCONFIRMRESPONSE._serialized_end=1618
-  _MSG._serialized_start=1621
-  _MSG._serialized_end=2126
+  _MSGCONNECTIONOPENCONFIRM._serialized_options = b'\202\347\260*\006signer\350\240\037\000\210\240\037\000'
+  _MSGCONNECTIONOPENINIT._serialized_start=208
+  _MSGCONNECTIONOPENINIT._serialized_end=425
+  _MSGCONNECTIONOPENINITRESPONSE._serialized_start=427
+  _MSGCONNECTIONOPENINITRESPONSE._serialized_end=458
+  _MSGCONNECTIONOPENTRY._serialized_start=461
+  _MSGCONNECTIONOPENTRY._serialized_end=990
+  _MSGCONNECTIONOPENTRYRESPONSE._serialized_start=992
+  _MSGCONNECTIONOPENTRYRESPONSE._serialized_end=1022
+  _MSGCONNECTIONOPENACK._serialized_start=1025
+  _MSGCONNECTIONOPENACK._serialized_end=1455
+  _MSGCONNECTIONOPENACKRESPONSE._serialized_start=1457
+  _MSGCONNECTIONOPENACKRESPONSE._serialized_end=1487
+  _MSGCONNECTIONOPENCONFIRM._serialized_start=1490
+  _MSGCONNECTIONOPENCONFIRM._serialized_end=1651
+  _MSGCONNECTIONOPENCONFIRMRESPONSE._serialized_start=1653
+  _MSGCONNECTIONOPENCONFIRMRESPONSE._serialized_end=1687
+  _MSG._serialized_start=1690
+  _MSG._serialized_end=2195
 # @@protoc_insertion_point(module_scope)
