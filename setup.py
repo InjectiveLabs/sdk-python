@@ -20,26 +20,28 @@ REQUIRES_PYTHON = ">=3.7, <3.11"
 VERSION = "0.6.5"
 
 REQUIRED = [
-    "protobuf",
-    "grpcio-tools",
-    "grpcio",
-    "asyncio",
     "aiohttp",
-    "ecdsa",
-    "bech32",
-    "mnemonic",
-    "hdwallets",
-    "bip32",
-    "requests",
-    "eip712_structs",
-    "coincurve",
     "aiocron",
-    "websockets"
+    "asyncio",
+    "bech32",
+    "bip32",
+    "coincurve",
+    "ecdsa",
+    "eip712",
+    "grpcio",
+    "grpcio-tools",
+    "hdwallets",
+    "mnemonic",
+    "protobuf",
+    "requests",
+    "safe-pysha3",
+    "websockets",
 ]
 
 DEV_REQUIRED = [
     "pytest",
     "pytest-asyncio",
+    "request-mock",
 ]
 
 # The rest you shouldn't have to touch too much :)

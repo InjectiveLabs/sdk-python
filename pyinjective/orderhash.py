@@ -1,38 +1,48 @@
-import sha3
 import requests
 from decimal import Decimal
-from eip712_structs import make_domain, EIP712Struct, String
 
-class OrderInfo(EIP712Struct):
-    SubaccountId = String()
-    FeeRecipient = String()
-    Price = String()
-    Quantity = String()
+from eip712.messages import EIP712Message, EIP712Type
+from eth_account.messages import _hash_eip191_message as hash_eip191_message
+from hexbytes import HexBytes
 
-class SpotOrder(EIP712Struct):
-    MarketId = String()
-    OrderInfo = OrderInfo
-    Salt = String()
-    OrderType = String()
-    TriggerPrice = String()
 
-class DerivativeOrder(EIP712Struct):
-    MarketId = String()
-    OrderInfo = OrderInfo
-    OrderType = String()
-    Margin = String()
-    TriggerPrice = String()
-    Salt = String()
+class OrderInfo(EIP712Type):
+    SubaccountId: "string"
+    FeeRecipient: "string"
+    Price: "string"
+    Quantity: "string"
 
-EIP712_domain = make_domain(
-    name='Injective Protocol',
-    version='2.0.0',
-    chainId=888,
-    verifyingContract='0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC',
-    salt='0x0000000000000000000000000000000000000000000000000000000000000000'
-)
 
-domain_separator = EIP712_domain.hash_struct()
+class SpotOrder(EIP712Message):
+    _name_ = "Injective Protocol"
+    _version_ = "2.0.0"
+    _chainId_ = 888
+    _verifyingContract_ = "0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC"
+    _salt_ = HexBytes("0x0000000000000000000000000000000000000000000000000000000000000000")
+
+    MarketId: "string"
+    OrderInfo: OrderInfo
+    Salt: "string"
+    OrderType: "string"
+    TriggerPrice: "string"
+
+
+class DerivativeOrder(EIP712Message):
+    _name_ = "Injective Protocol"
+    _version_ = "2.0.0"
+    _chainId_ = 888
+    _verifyingContract_ = "0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC"
+    _salt_ = HexBytes("0x0000000000000000000000000000000000000000000000000000000000000000")
+
+    MarketId: "string"
+    OrderInfo: OrderInfo
+    OrderType: "string"
+    Margin: "string"
+    TriggerPrice: "string"
+    Salt: "string"
+
+
+# domain_separator = EIP712_domain.hash_struct()
 order_type_dict = {0: '\x00', 1: '\x01', 2: '\x02', 3: '\x03', 4: '\x04', 5: '\x05', 6: '\x06', 7: '\x07', 8: '\x08'}
 
 class OrderHashResponse:
@@ -127,8 +137,6 @@ def build_eip712_msg(order, nonce):
         )
 
 def hash_order(msg):
-    typed_data_hash = msg.hash_struct()
-    typed_bytes = b'\x19\x01' + domain_separator + typed_data_hash
-    keccak256 = sha3.keccak_256()
-    keccak256.update(typed_bytes)
-    return '0x' + keccak256.hexdigest()
+    signable_message = msg.signable_message
+    hex_digest = hash_eip191_message(signable_message=signable_message).hex()
+    return "0x" + hex_digest
