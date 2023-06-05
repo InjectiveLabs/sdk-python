@@ -63,8 +63,8 @@ async def main() -> None:
         print(sim_res)
         return
 
-    sim_res_msg = ProtoMsgComposer.MsgResponses(sim_res.result.data, simulation=True)
-    data=(str(sim_res_msg[0]).replace("results:", ''))
+    sim_res_msg = ProtoMsgComposer.MsgResponses(sim_res, simulation=True)
+    data=sim_res_msg[0]
     unpacked_msg_res = ProtoMsgComposer.UnpackMsgExecResponse(
         msg_type=msg0.__class__.__name__,
         data=data
