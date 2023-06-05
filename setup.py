@@ -16,7 +16,7 @@ DESCRIPTION = "Injective Python SDK, with Exchange API client"
 URL = "https://github.com/InjectiveLabs/sdk-python"
 EMAIL = "achilleas@injectivelabs.com"
 AUTHOR = "Injective Labs"
-REQUIRES_PYTHON = ">=3.7, <3.11"
+REQUIRES_PYTHON = ">=3.9"
 VERSION = "0.6.4"
 
 REQUIRED = [
