@@ -15,9 +15,10 @@ from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from cosmwasm.wasm.v1 import types_pb2 as cosmwasm_dot_wasm_dot_v1_dot_types__pb2
 from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
 from cosmos.base.query.v1beta1 import pagination_pb2 as cosmos_dot_base_dot_query_dot_v1beta1_dot_pagination__pb2
+from amino import amino_pb2 as amino_dot_amino__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1c\x63osmwasm/wasm/v1/query.proto\x12\x10\x63osmwasm.wasm.v1\x1a\x14gogoproto/gogo.proto\x1a\x1c\x63osmwasm/wasm/v1/types.proto\x1a\x1cgoogle/api/annotations.proto\x1a*cosmos/base/query/v1beta1/pagination.proto\"+\n\x18QueryContractInfoRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\"w\n\x19QueryContractInfoResponse\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\x43\n\rcontract_info\x18\x02 \x01(\x0b\x32\x1e.cosmwasm.wasm.v1.ContractInfoB\x0c\xd0\xde\x1f\x01\xc8\xde\x1f\x00\xea\xde\x1f\x00:\x04\xe8\xa0\x1f\x01\"j\n\x1bQueryContractHistoryRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12:\n\npagination\x18\x02 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequest\"\x9e\x01\n\x1cQueryContractHistoryResponse\x12\x41\n\x07\x65ntries\x18\x01 \x03(\x0b\x32*.cosmwasm.wasm.v1.ContractCodeHistoryEntryB\x04\xc8\xde\x1f\x00\x12;\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponse\"j\n\x1bQueryContractsByCodeRequest\x12\x0f\n\x07\x63ode_id\x18\x01 \x01(\x04\x12:\n\npagination\x18\x02 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequest\"n\n\x1cQueryContractsByCodeResponse\x12\x11\n\tcontracts\x18\x01 \x03(\t\x12;\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponse\"k\n\x1cQueryAllContractStateRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12:\n\npagination\x18\x02 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequest\"\x8b\x01\n\x1dQueryAllContractStateResponse\x12-\n\x06models\x18\x01 \x03(\x0b\x32\x17.cosmwasm.wasm.v1.ModelB\x04\xc8\xde\x1f\x00\x12;\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponse\"C\n\x1cQueryRawContractStateRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\x12\n\nquery_data\x18\x02 \x01(\x0c\"-\n\x1dQueryRawContractStateResponse\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\"]\n\x1eQuerySmartContractStateRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12*\n\nquery_data\x18\x02 \x01(\x0c\x42\x16\xfa\xde\x1f\x12RawContractMessage\"G\n\x1fQuerySmartContractStateResponse\x12$\n\x04\x64\x61ta\x18\x01 \x01(\x0c\x42\x16\xfa\xde\x1f\x12RawContractMessage\"#\n\x10QueryCodeRequest\x12\x0f\n\x07\x63ode_id\x18\x01 \x01(\x04\"\xeb\x01\n\x10\x43odeInfoResponse\x12!\n\x07\x63ode_id\x18\x01 \x01(\x04\x42\x10\xe2\xde\x1f\x06\x43odeID\xea\xde\x1f\x02id\x12\x0f\n\x07\x63reator\x18\x02 \x01(\t\x12K\n\tdata_hash\x18\x03 \x01(\x0c\x42\x38\xfa\xde\x1f\x34github.com/tendermint/tendermint/libs/bytes.HexBytes\x12\x44\n\x16instantiate_permission\x18\x06 \x01(\x0b\x32\x1e.cosmwasm.wasm.v1.AccessConfigB\x04\xc8\xde\x1f\x00:\x04\xe8\xa0\x1f\x01J\x04\x08\x04\x10\x05J\x04\x08\x05\x10\x06\"r\n\x11QueryCodeResponse\x12?\n\tcode_info\x18\x01 \x01(\x0b\x32\".cosmwasm.wasm.v1.CodeInfoResponseB\x08\xd0\xde\x1f\x01\xea\xde\x1f\x00\x12\x16\n\x04\x64\x61ta\x18\x02 \x01(\x0c\x42\x08\xea\xde\x1f\x04\x64\x61ta:\x04\xe8\xa0\x1f\x01\"O\n\x11QueryCodesRequest\x12:\n\npagination\x18\x01 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequest\"\x8f\x01\n\x12QueryCodesResponse\x12<\n\ncode_infos\x18\x01 \x03(\x0b\x32\".cosmwasm.wasm.v1.CodeInfoResponseB\x04\xc8\xde\x1f\x00\x12;\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponse\"U\n\x17QueryPinnedCodesRequest\x12:\n\npagination\x18\x02 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequest\"z\n\x18QueryPinnedCodesResponse\x12!\n\x08\x63ode_ids\x18\x01 \x03(\x04\x42\x0f\xc8\xde\x1f\x00\xe2\xde\x1f\x07\x43odeIDs\x12;\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponse2\x89\x0b\n\x05Query\x12\x95\x01\n\x0c\x43ontractInfo\x12*.cosmwasm.wasm.v1.QueryContractInfoRequest\x1a+.cosmwasm.wasm.v1.QueryContractInfoResponse\",\x82\xd3\xe4\x93\x02&\x12$/cosmwasm/wasm/v1/contract/{address}\x12\xa6\x01\n\x0f\x43ontractHistory\x12-.cosmwasm.wasm.v1.QueryContractHistoryRequest\x1a..cosmwasm.wasm.v1.QueryContractHistoryResponse\"4\x82\xd3\xe4\x93\x02.\x12,/cosmwasm/wasm/v1/contract/{address}/history\x12\xa4\x01\n\x0f\x43ontractsByCode\x12-.cosmwasm.wasm.v1.QueryContractsByCodeRequest\x1a..cosmwasm.wasm.v1.QueryContractsByCodeResponse\"2\x82\xd3\xe4\x93\x02,\x12*/cosmwasm/wasm/v1/code/{code_id}/contracts\x12\xa7\x01\n\x10\x41llContractState\x12..cosmwasm.wasm.v1.QueryAllContractStateRequest\x1a/.cosmwasm.wasm.v1.QueryAllContractStateResponse\"2\x82\xd3\xe4\x93\x02,\x12*/cosmwasm/wasm/v1/contract/{address}/state\x12\xb2\x01\n\x10RawContractState\x12..cosmwasm.wasm.v1.QueryRawContractStateRequest\x1a/.cosmwasm.wasm.v1.QueryRawContractStateResponse\"=\x82\xd3\xe4\x93\x02\x37\x12\x35/cosmwasm/wasm/v1/contract/{address}/raw/{query_data}\x12\xba\x01\n\x12SmartContractState\x12\x30.cosmwasm.wasm.v1.QuerySmartContractStateRequest\x1a\x31.cosmwasm.wasm.v1.QuerySmartContractStateResponse\"?\x82\xd3\xe4\x93\x02\x39\x12\x37/cosmwasm/wasm/v1/contract/{address}/smart/{query_data}\x12y\n\x04\x43ode\x12\".cosmwasm.wasm.v1.QueryCodeRequest\x1a#.cosmwasm.wasm.v1.QueryCodeResponse\"(\x82\xd3\xe4\x93\x02\"\x12 /cosmwasm/wasm/v1/code/{code_id}\x12r\n\x05\x43odes\x12#.cosmwasm.wasm.v1.QueryCodesRequest\x1a$.cosmwasm.wasm.v1.QueryCodesResponse\"\x1e\x82\xd3\xe4\x93\x02\x18\x12\x16/cosmwasm/wasm/v1/code\x12\x8c\x01\n\x0bPinnedCodes\x12).cosmwasm.wasm.v1.QueryPinnedCodesRequest\x1a*.cosmwasm.wasm.v1.QueryPinnedCodesResponse\"&\x82\xd3\xe4\x93\x02 \x12\x1e/cosmwasm/wasm/v1/codes/pinnedB0Z&github.com/CosmWasm/wasmd/x/wasm/types\xc8\xe1\x1e\x00\xa8\xe2\x1e\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1c\x63osmwasm/wasm/v1/query.proto\x12\x10\x63osmwasm.wasm.v1\x1a\x14gogoproto/gogo.proto\x1a\x1c\x63osmwasm/wasm/v1/types.proto\x1a\x1cgoogle/api/annotations.proto\x1a*cosmos/base/query/v1beta1/pagination.proto\x1a\x11\x61mino/amino.proto\"+\n\x18QueryContractInfoRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\"|\n\x19QueryContractInfoResponse\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12H\n\rcontract_info\x18\x02 \x01(\x0b\x32\x1e.cosmwasm.wasm.v1.ContractInfoB\x11\xd0\xde\x1f\x01\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\xea\xde\x1f\x00:\x04\xe8\xa0\x1f\x01\"j\n\x1bQueryContractHistoryRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12:\n\npagination\x18\x02 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequest\"\xa3\x01\n\x1cQueryContractHistoryResponse\x12\x46\n\x07\x65ntries\x18\x01 \x03(\x0b\x32*.cosmwasm.wasm.v1.ContractCodeHistoryEntryB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12;\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponse\"j\n\x1bQueryContractsByCodeRequest\x12\x0f\n\x07\x63ode_id\x18\x01 \x01(\x04\x12:\n\npagination\x18\x02 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequest\"n\n\x1cQueryContractsByCodeResponse\x12\x11\n\tcontracts\x18\x01 \x03(\t\x12;\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponse\"k\n\x1cQueryAllContractStateRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12:\n\npagination\x18\x02 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequest\"\x90\x01\n\x1dQueryAllContractStateResponse\x12\x32\n\x06models\x18\x01 \x03(\x0b\x32\x17.cosmwasm.wasm.v1.ModelB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12;\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponse\"C\n\x1cQueryRawContractStateRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\x12\n\nquery_data\x18\x02 \x01(\x0c\"-\n\x1dQueryRawContractStateResponse\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\"]\n\x1eQuerySmartContractStateRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12*\n\nquery_data\x18\x02 \x01(\x0c\x42\x16\xfa\xde\x1f\x12RawContractMessage\"G\n\x1fQuerySmartContractStateResponse\x12$\n\x04\x64\x61ta\x18\x01 \x01(\x0c\x42\x16\xfa\xde\x1f\x12RawContractMessage\"#\n\x10QueryCodeRequest\x12\x0f\n\x07\x63ode_id\x18\x01 \x01(\x04\"\xec\x01\n\x10\x43odeInfoResponse\x12!\n\x07\x63ode_id\x18\x01 \x01(\x04\x42\x10\xe2\xde\x1f\x06\x43odeID\xea\xde\x1f\x02id\x12\x0f\n\x07\x63reator\x18\x02 \x01(\t\x12G\n\tdata_hash\x18\x03 \x01(\x0c\x42\x34\xfa\xde\x1f\x30github.com/cometbft/cometbft/libs/bytes.HexBytes\x12I\n\x16instantiate_permission\x18\x06 \x01(\x0b\x32\x1e.cosmwasm.wasm.v1.AccessConfigB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01:\x04\xe8\xa0\x1f\x01J\x04\x08\x04\x10\x05J\x04\x08\x05\x10\x06\"r\n\x11QueryCodeResponse\x12?\n\tcode_info\x18\x01 \x01(\x0b\x32\".cosmwasm.wasm.v1.CodeInfoResponseB\x08\xd0\xde\x1f\x01\xea\xde\x1f\x00\x12\x16\n\x04\x64\x61ta\x18\x02 \x01(\x0c\x42\x08\xea\xde\x1f\x04\x64\x61ta:\x04\xe8\xa0\x1f\x01\"O\n\x11QueryCodesRequest\x12:\n\npagination\x18\x01 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequest\"\x94\x01\n\x12QueryCodesResponse\x12\x41\n\ncode_infos\x18\x01 \x03(\x0b\x32\".cosmwasm.wasm.v1.CodeInfoResponseB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12;\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponse\"U\n\x17QueryPinnedCodesRequest\x12:\n\npagination\x18\x02 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequest\"v\n\x18QueryPinnedCodesResponse\x12\x1d\n\x08\x63ode_ids\x18\x01 \x03(\x04\x42\x0b\xe2\xde\x1f\x07\x43odeIDs\x12;\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponse\"\x14\n\x12QueryParamsRequest\"J\n\x13QueryParamsResponse\x12\x33\n\x06params\x18\x01 \x01(\x0b\x32\x18.cosmwasm.wasm.v1.ParamsB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\"u\n\x1eQueryContractsByCreatorRequest\x12\x17\n\x0f\x63reator_address\x18\x01 \x01(\t\x12:\n\npagination\x18\x02 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequest\"z\n\x1fQueryContractsByCreatorResponse\x12\x1a\n\x12\x63ontract_addresses\x18\x01 \x03(\t\x12;\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponse2\xc3\r\n\x05Query\x12\x95\x01\n\x0c\x43ontractInfo\x12*.cosmwasm.wasm.v1.QueryContractInfoRequest\x1a+.cosmwasm.wasm.v1.QueryContractInfoResponse\",\x82\xd3\xe4\x93\x02&\x12$/cosmwasm/wasm/v1/contract/{address}\x12\xa6\x01\n\x0f\x43ontractHistory\x12-.cosmwasm.wasm.v1.QueryContractHistoryRequest\x1a..cosmwasm.wasm.v1.QueryContractHistoryResponse\"4\x82\xd3\xe4\x93\x02.\x12,/cosmwasm/wasm/v1/contract/{address}/history\x12\xa4\x01\n\x0f\x43ontractsByCode\x12-.cosmwasm.wasm.v1.QueryContractsByCodeRequest\x1a..cosmwasm.wasm.v1.QueryContractsByCodeResponse\"2\x82\xd3\xe4\x93\x02,\x12*/cosmwasm/wasm/v1/code/{code_id}/contracts\x12\xa7\x01\n\x10\x41llContractState\x12..cosmwasm.wasm.v1.QueryAllContractStateRequest\x1a/.cosmwasm.wasm.v1.QueryAllContractStateResponse\"2\x82\xd3\xe4\x93\x02,\x12*/cosmwasm/wasm/v1/contract/{address}/state\x12\xb2\x01\n\x10RawContractState\x12..cosmwasm.wasm.v1.QueryRawContractStateRequest\x1a/.cosmwasm.wasm.v1.QueryRawContractStateResponse\"=\x82\xd3\xe4\x93\x02\x37\x12\x35/cosmwasm/wasm/v1/contract/{address}/raw/{query_data}\x12\xba\x01\n\x12SmartContractState\x12\x30.cosmwasm.wasm.v1.QuerySmartContractStateRequest\x1a\x31.cosmwasm.wasm.v1.QuerySmartContractStateResponse\"?\x82\xd3\xe4\x93\x02\x39\x12\x37/cosmwasm/wasm/v1/contract/{address}/smart/{query_data}\x12y\n\x04\x43ode\x12\".cosmwasm.wasm.v1.QueryCodeRequest\x1a#.cosmwasm.wasm.v1.QueryCodeResponse\"(\x82\xd3\xe4\x93\x02\"\x12 /cosmwasm/wasm/v1/code/{code_id}\x12r\n\x05\x43odes\x12#.cosmwasm.wasm.v1.QueryCodesRequest\x1a$.cosmwasm.wasm.v1.QueryCodesResponse\"\x1e\x82\xd3\xe4\x93\x02\x18\x12\x16/cosmwasm/wasm/v1/code\x12\x8c\x01\n\x0bPinnedCodes\x12).cosmwasm.wasm.v1.QueryPinnedCodesRequest\x1a*.cosmwasm.wasm.v1.QueryPinnedCodesResponse\"&\x82\xd3\xe4\x93\x02 \x12\x1e/cosmwasm/wasm/v1/codes/pinned\x12}\n\x06Params\x12$.cosmwasm.wasm.v1.QueryParamsRequest\x1a%.cosmwasm.wasm.v1.QueryParamsResponse\"&\x82\xd3\xe4\x93\x02 \x12\x1e/cosmwasm/wasm/v1/codes/params\x12\xb8\x01\n\x12\x43ontractsByCreator\x12\x30.cosmwasm.wasm.v1.QueryContractsByCreatorRequest\x1a\x31.cosmwasm.wasm.v1.QueryContractsByCreatorResponse\"=\x82\xd3\xe4\x93\x02\x37\x12\x35/cosmwasm/wasm/v1/contracts/creator/{creator_address}B0Z&github.com/CosmWasm/wasmd/x/wasm/types\xc8\xe1\x1e\x00\xa8\xe2\x1e\x00\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'cosmwasm.wasm.v1.query_pb2', globals())
@@ -26,13 +27,13 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z&github.com/CosmWasm/wasmd/x/wasm/types\310\341\036\000\250\342\036\000'
   _QUERYCONTRACTINFORESPONSE.fields_by_name['contract_info']._options = None
-  _QUERYCONTRACTINFORESPONSE.fields_by_name['contract_info']._serialized_options = b'\320\336\037\001\310\336\037\000\352\336\037\000'
+  _QUERYCONTRACTINFORESPONSE.fields_by_name['contract_info']._serialized_options = b'\320\336\037\001\310\336\037\000\250\347\260*\001\352\336\037\000'
   _QUERYCONTRACTINFORESPONSE._options = None
   _QUERYCONTRACTINFORESPONSE._serialized_options = b'\350\240\037\001'
   _QUERYCONTRACTHISTORYRESPONSE.fields_by_name['entries']._options = None
-  _QUERYCONTRACTHISTORYRESPONSE.fields_by_name['entries']._serialized_options = b'\310\336\037\000'
+  _QUERYCONTRACTHISTORYRESPONSE.fields_by_name['entries']._serialized_options = b'\310\336\037\000\250\347\260*\001'
   _QUERYALLCONTRACTSTATERESPONSE.fields_by_name['models']._options = None
-  _QUERYALLCONTRACTSTATERESPONSE.fields_by_name['models']._serialized_options = b'\310\336\037\000'
+  _QUERYALLCONTRACTSTATERESPONSE.fields_by_name['models']._serialized_options = b'\310\336\037\000\250\347\260*\001'
   _QUERYSMARTCONTRACTSTATEREQUEST.fields_by_name['query_data']._options = None
   _QUERYSMARTCONTRACTSTATEREQUEST.fields_by_name['query_data']._serialized_options = b'\372\336\037\022RawContractMessage'
   _QUERYSMARTCONTRACTSTATERESPONSE.fields_by_name['data']._options = None
@@ -40,9 +41,9 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _CODEINFORESPONSE.fields_by_name['code_id']._options = None
   _CODEINFORESPONSE.fields_by_name['code_id']._serialized_options = b'\342\336\037\006CodeID\352\336\037\002id'
   _CODEINFORESPONSE.fields_by_name['data_hash']._options = None
-  _CODEINFORESPONSE.fields_by_name['data_hash']._serialized_options = b'\372\336\0374github.com/tendermint/tendermint/libs/bytes.HexBytes'
+  _CODEINFORESPONSE.fields_by_name['data_hash']._serialized_options = b'\372\336\0370github.com/cometbft/cometbft/libs/bytes.HexBytes'
   _CODEINFORESPONSE.fields_by_name['instantiate_permission']._options = None
-  _CODEINFORESPONSE.fields_by_name['instantiate_permission']._serialized_options = b'\310\336\037\000'
+  _CODEINFORESPONSE.fields_by_name['instantiate_permission']._serialized_options = b'\310\336\037\000\250\347\260*\001'
   _CODEINFORESPONSE._options = None
   _CODEINFORESPONSE._serialized_options = b'\350\240\037\001'
   _QUERYCODERESPONSE.fields_by_name['code_info']._options = None
@@ -52,9 +53,11 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _QUERYCODERESPONSE._options = None
   _QUERYCODERESPONSE._serialized_options = b'\350\240\037\001'
   _QUERYCODESRESPONSE.fields_by_name['code_infos']._options = None
-  _QUERYCODESRESPONSE.fields_by_name['code_infos']._serialized_options = b'\310\336\037\000'
+  _QUERYCODESRESPONSE.fields_by_name['code_infos']._serialized_options = b'\310\336\037\000\250\347\260*\001'
   _QUERYPINNEDCODESRESPONSE.fields_by_name['code_ids']._options = None
-  _QUERYPINNEDCODESRESPONSE.fields_by_name['code_ids']._serialized_options = b'\310\336\037\000\342\336\037\007CodeIDs'
+  _QUERYPINNEDCODESRESPONSE.fields_by_name['code_ids']._serialized_options = b'\342\336\037\007CodeIDs'
+  _QUERYPARAMSRESPONSE.fields_by_name['params']._options = None
+  _QUERYPARAMSRESPONSE.fields_by_name['params']._serialized_options = b'\310\336\037\000\250\347\260*\001'
   _QUERY.methods_by_name['ContractInfo']._options = None
   _QUERY.methods_by_name['ContractInfo']._serialized_options = b'\202\323\344\223\002&\022$/cosmwasm/wasm/v1/contract/{address}'
   _QUERY.methods_by_name['ContractHistory']._options = None
@@ -73,44 +76,56 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _QUERY.methods_by_name['Codes']._serialized_options = b'\202\323\344\223\002\030\022\026/cosmwasm/wasm/v1/code'
   _QUERY.methods_by_name['PinnedCodes']._options = None
   _QUERY.methods_by_name['PinnedCodes']._serialized_options = b'\202\323\344\223\002 \022\036/cosmwasm/wasm/v1/codes/pinned'
-  _QUERYCONTRACTINFOREQUEST._serialized_start=176
-  _QUERYCONTRACTINFOREQUEST._serialized_end=219
-  _QUERYCONTRACTINFORESPONSE._serialized_start=221
-  _QUERYCONTRACTINFORESPONSE._serialized_end=340
-  _QUERYCONTRACTHISTORYREQUEST._serialized_start=342
-  _QUERYCONTRACTHISTORYREQUEST._serialized_end=448
-  _QUERYCONTRACTHISTORYRESPONSE._serialized_start=451
-  _QUERYCONTRACTHISTORYRESPONSE._serialized_end=609
-  _QUERYCONTRACTSBYCODEREQUEST._serialized_start=611
-  _QUERYCONTRACTSBYCODEREQUEST._serialized_end=717
-  _QUERYCONTRACTSBYCODERESPONSE._serialized_start=719
-  _QUERYCONTRACTSBYCODERESPONSE._serialized_end=829
-  _QUERYALLCONTRACTSTATEREQUEST._serialized_start=831
-  _QUERYALLCONTRACTSTATEREQUEST._serialized_end=938
-  _QUERYALLCONTRACTSTATERESPONSE._serialized_start=941
-  _QUERYALLCONTRACTSTATERESPONSE._serialized_end=1080
-  _QUERYRAWCONTRACTSTATEREQUEST._serialized_start=1082
-  _QUERYRAWCONTRACTSTATEREQUEST._serialized_end=1149
-  _QUERYRAWCONTRACTSTATERESPONSE._serialized_start=1151
-  _QUERYRAWCONTRACTSTATERESPONSE._serialized_end=1196
-  _QUERYSMARTCONTRACTSTATEREQUEST._serialized_start=1198
-  _QUERYSMARTCONTRACTSTATEREQUEST._serialized_end=1291
-  _QUERYSMARTCONTRACTSTATERESPONSE._serialized_start=1293
-  _QUERYSMARTCONTRACTSTATERESPONSE._serialized_end=1364
-  _QUERYCODEREQUEST._serialized_start=1366
-  _QUERYCODEREQUEST._serialized_end=1401
-  _CODEINFORESPONSE._serialized_start=1404
-  _CODEINFORESPONSE._serialized_end=1639
-  _QUERYCODERESPONSE._serialized_start=1641
-  _QUERYCODERESPONSE._serialized_end=1755
-  _QUERYCODESREQUEST._serialized_start=1757
-  _QUERYCODESREQUEST._serialized_end=1836
-  _QUERYCODESRESPONSE._serialized_start=1839
-  _QUERYCODESRESPONSE._serialized_end=1982
-  _QUERYPINNEDCODESREQUEST._serialized_start=1984
-  _QUERYPINNEDCODESREQUEST._serialized_end=2069
-  _QUERYPINNEDCODESRESPONSE._serialized_start=2071
-  _QUERYPINNEDCODESRESPONSE._serialized_end=2193
-  _QUERY._serialized_start=2196
-  _QUERY._serialized_end=3613
+  _QUERY.methods_by_name['Params']._options = None
+  _QUERY.methods_by_name['Params']._serialized_options = b'\202\323\344\223\002 \022\036/cosmwasm/wasm/v1/codes/params'
+  _QUERY.methods_by_name['ContractsByCreator']._options = None
+  _QUERY.methods_by_name['ContractsByCreator']._serialized_options = b'\202\323\344\223\0027\0225/cosmwasm/wasm/v1/contracts/creator/{creator_address}'
+  _QUERYCONTRACTINFOREQUEST._serialized_start=195
+  _QUERYCONTRACTINFOREQUEST._serialized_end=238
+  _QUERYCONTRACTINFORESPONSE._serialized_start=240
+  _QUERYCONTRACTINFORESPONSE._serialized_end=364
+  _QUERYCONTRACTHISTORYREQUEST._serialized_start=366
+  _QUERYCONTRACTHISTORYREQUEST._serialized_end=472
+  _QUERYCONTRACTHISTORYRESPONSE._serialized_start=475
+  _QUERYCONTRACTHISTORYRESPONSE._serialized_end=638
+  _QUERYCONTRACTSBYCODEREQUEST._serialized_start=640
+  _QUERYCONTRACTSBYCODEREQUEST._serialized_end=746
+  _QUERYCONTRACTSBYCODERESPONSE._serialized_start=748
+  _QUERYCONTRACTSBYCODERESPONSE._serialized_end=858
+  _QUERYALLCONTRACTSTATEREQUEST._serialized_start=860
+  _QUERYALLCONTRACTSTATEREQUEST._serialized_end=967
+  _QUERYALLCONTRACTSTATERESPONSE._serialized_start=970
+  _QUERYALLCONTRACTSTATERESPONSE._serialized_end=1114
+  _QUERYRAWCONTRACTSTATEREQUEST._serialized_start=1116
+  _QUERYRAWCONTRACTSTATEREQUEST._serialized_end=1183
+  _QUERYRAWCONTRACTSTATERESPONSE._serialized_start=1185
+  _QUERYRAWCONTRACTSTATERESPONSE._serialized_end=1230
+  _QUERYSMARTCONTRACTSTATEREQUEST._serialized_start=1232
+  _QUERYSMARTCONTRACTSTATEREQUEST._serialized_end=1325
+  _QUERYSMARTCONTRACTSTATERESPONSE._serialized_start=1327
+  _QUERYSMARTCONTRACTSTATERESPONSE._serialized_end=1398
+  _QUERYCODEREQUEST._serialized_start=1400
+  _QUERYCODEREQUEST._serialized_end=1435
+  _CODEINFORESPONSE._serialized_start=1438
+  _CODEINFORESPONSE._serialized_end=1674
+  _QUERYCODERESPONSE._serialized_start=1676
+  _QUERYCODERESPONSE._serialized_end=1790
+  _QUERYCODESREQUEST._serialized_start=1792
+  _QUERYCODESREQUEST._serialized_end=1871
+  _QUERYCODESRESPONSE._serialized_start=1874
+  _QUERYCODESRESPONSE._serialized_end=2022
+  _QUERYPINNEDCODESREQUEST._serialized_start=2024
+  _QUERYPINNEDCODESREQUEST._serialized_end=2109
+  _QUERYPINNEDCODESRESPONSE._serialized_start=2111
+  _QUERYPINNEDCODESRESPONSE._serialized_end=2229
+  _QUERYPARAMSREQUEST._serialized_start=2231
+  _QUERYPARAMSREQUEST._serialized_end=2251
+  _QUERYPARAMSRESPONSE._serialized_start=2253
+  _QUERYPARAMSRESPONSE._serialized_end=2327
+  _QUERYCONTRACTSBYCREATORREQUEST._serialized_start=2329
+  _QUERYCONTRACTSBYCREATORREQUEST._serialized_end=2446
+  _QUERYCONTRACTSBYCREATORRESPONSE._serialized_start=2448
+  _QUERYCONTRACTSBYCREATORRESPONSE._serialized_end=2570
+  _QUERY._serialized_start=2573
+  _QUERY._serialized_end=4304
 # @@protoc_insertion_point(module_scope)

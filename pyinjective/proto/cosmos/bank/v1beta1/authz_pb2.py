@@ -11,12 +11,13 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+from amino import amino_pb2 as amino_dot_amino__pb2
 from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
 from cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1f\x63osmos/bank/v1beta1/authz.proto\x12\x13\x63osmos.bank.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\"\x88\x01\n\x11SendAuthorization\x12`\n\x0bspend_limit\x18\x01 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins:\x11\xd2\xb4-\rAuthorizationB+Z)github.com/cosmos/cosmos-sdk/x/bank/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1f\x63osmos/bank/v1beta1/authz.proto\x12\x13\x63osmos.bank.v1beta1\x1a\x11\x61mino/amino.proto\x1a\x14gogoproto/gogo.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\"\xf1\x01\n\x11SendAuthorization\x12\x65\n\x0bspend_limit\x18\x01 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB5\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins\x12,\n\nallow_list\x18\x02 \x03(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString:G\xca\xb4-\"cosmos.authz.v1beta1.Authorization\x8a\xe7\xb0*\x1c\x63osmos-sdk/SendAuthorizationB+Z)github.com/cosmos/cosmos-sdk/x/bank/typesb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'cosmos.bank.v1beta1.authz_pb2', globals())
@@ -25,9 +26,11 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z)github.com/cosmos/cosmos-sdk/x/bank/types'
   _SENDAUTHORIZATION.fields_by_name['spend_limit']._options = None
-  _SENDAUTHORIZATION.fields_by_name['spend_limit']._serialized_options = b'\310\336\037\000\252\337\037(github.com/cosmos/cosmos-sdk/types.Coins'
+  _SENDAUTHORIZATION.fields_by_name['spend_limit']._serialized_options = b'\310\336\037\000\250\347\260*\001\252\337\037(github.com/cosmos/cosmos-sdk/types.Coins'
+  _SENDAUTHORIZATION.fields_by_name['allow_list']._options = None
+  _SENDAUTHORIZATION.fields_by_name['allow_list']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _SENDAUTHORIZATION._options = None
-  _SENDAUTHORIZATION._serialized_options = b'\322\264-\rAuthorization'
-  _SENDAUTHORIZATION._serialized_start=138
-  _SENDAUTHORIZATION._serialized_end=274
+  _SENDAUTHORIZATION._serialized_options = b'\312\264-\"cosmos.authz.v1beta1.Authorization\212\347\260*\034cosmos-sdk/SendAuthorization'
+  _SENDAUTHORIZATION._serialized_start=157
+  _SENDAUTHORIZATION._serialized_end=398
 # @@protoc_insertion_point(module_scope)

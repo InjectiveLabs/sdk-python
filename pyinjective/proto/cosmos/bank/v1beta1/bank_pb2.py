@@ -14,9 +14,11 @@ _sym_db = _symbol_database.Default()
 from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
 from cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
+from cosmos.msg.v1 import msg_pb2 as cosmos_dot_msg_dot_v1_dot_msg__pb2
+from amino import amino_pb2 as amino_dot_amino__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1e\x63osmos/bank/v1beta1/bank.proto\x12\x13\x63osmos.bank.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\"\xb2\x01\n\x06Params\x12Y\n\x0csend_enabled\x18\x01 \x03(\x0b\x32 .cosmos.bank.v1beta1.SendEnabledB!\xf2\xde\x1f\x1dyaml:\"send_enabled,omitempty\"\x12G\n\x14\x64\x65\x66\x61ult_send_enabled\x18\x02 \x01(\x08\x42)\xf2\xde\x1f%yaml:\"default_send_enabled,omitempty\":\x04\x98\xa0\x1f\x00\"7\n\x0bSendEnabled\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x0f\n\x07\x65nabled\x18\x02 \x01(\x08:\x08\xe8\xa0\x1f\x01\x98\xa0\x1f\x00\"~\n\x05Input\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12Z\n\x05\x63oins\x18\x02 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x7f\n\x06Output\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12Z\n\x05\x63oins\x18\x02 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\xac\x01\n\x06Supply\x12Z\n\x05total\x18\x01 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins:F\x18\x01\xe8\xa0\x1f\x01\x88\xa0\x1f\x00\xd2\xb4-8*github.com/cosmos/cosmos-sdk/x/bank/legacy/v040.SupplyI\"=\n\tDenomUnit\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x10\n\x08\x65xponent\x18\x02 \x01(\r\x12\x0f\n\x07\x61liases\x18\x03 \x03(\t\"\x91\x01\n\x08Metadata\x12\x13\n\x0b\x64\x65scription\x18\x01 \x01(\t\x12\x33\n\x0b\x64\x65nom_units\x18\x02 \x03(\x0b\x32\x1e.cosmos.bank.v1beta1.DenomUnit\x12\x0c\n\x04\x62\x61se\x18\x03 \x01(\t\x12\x0f\n\x07\x64isplay\x18\x04 \x01(\t\x12\x0c\n\x04name\x18\x05 \x01(\t\x12\x0e\n\x06symbol\x18\x06 \x01(\tB+Z)github.com/cosmos/cosmos-sdk/x/bank/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1e\x63osmos/bank/v1beta1/bank.proto\x12\x13\x63osmos.bank.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a\x17\x63osmos/msg/v1/msg.proto\x1a\x11\x61mino/amino.proto\"\x85\x01\n\x06Params\x12:\n\x0csend_enabled\x18\x01 \x03(\x0b\x32 .cosmos.bank.v1beta1.SendEnabledB\x02\x18\x01\x12\x1c\n\x14\x64\x65\x66\x61ult_send_enabled\x18\x02 \x01(\x08:!\x8a\xe7\xb0*\x18\x63osmos-sdk/x/bank/Params\x98\xa0\x1f\x00\"7\n\x0bSendEnabled\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x0f\n\x07\x65nabled\x18\x02 \x01(\x08:\x08\xe8\xa0\x1f\x01\x98\xa0\x1f\x00\"\xa9\x01\n\x05Input\x12)\n\x07\x61\x64\x64ress\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12_\n\x05\x63oins\x18\x02 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB5\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins:\x14\x82\xe7\xb0*\x07\x61\x64\x64ress\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x9e\x01\n\x06Output\x12)\n\x07\x61\x64\x64ress\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12_\n\x05\x63oins\x18\x02 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB5\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\x94\x01\n\x06Supply\x12_\n\x05total\x18\x01 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB5\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins:)\x18\x01\xe8\xa0\x1f\x01\x88\xa0\x1f\x00\xca\xb4-\x1b\x63osmos.bank.v1beta1.SupplyI\"=\n\tDenomUnit\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x10\n\x08\x65xponent\x18\x02 \x01(\r\x12\x0f\n\x07\x61liases\x18\x03 \x03(\t\"\xc6\x01\n\x08Metadata\x12\x13\n\x0b\x64\x65scription\x18\x01 \x01(\t\x12\x33\n\x0b\x64\x65nom_units\x18\x02 \x03(\x0b\x32\x1e.cosmos.bank.v1beta1.DenomUnit\x12\x0c\n\x04\x62\x61se\x18\x03 \x01(\t\x12\x0f\n\x07\x64isplay\x18\x04 \x01(\t\x12\x0c\n\x04name\x18\x05 \x01(\t\x12\x0e\n\x06symbol\x18\x06 \x01(\t\x12\x14\n\x03uri\x18\x07 \x01(\tB\x07\xe2\xde\x1f\x03URI\x12\x1d\n\x08uri_hash\x18\x08 \x01(\tB\x0b\xe2\xde\x1f\x07URIHashB+Z)github.com/cosmos/cosmos-sdk/x/bank/typesb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'cosmos.bank.v1beta1.bank_pb2', globals())
@@ -25,37 +27,43 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z)github.com/cosmos/cosmos-sdk/x/bank/types'
   _PARAMS.fields_by_name['send_enabled']._options = None
-  _PARAMS.fields_by_name['send_enabled']._serialized_options = b'\362\336\037\035yaml:\"send_enabled,omitempty\"'
-  _PARAMS.fields_by_name['default_send_enabled']._options = None
-  _PARAMS.fields_by_name['default_send_enabled']._serialized_options = b'\362\336\037%yaml:\"default_send_enabled,omitempty\"'
+  _PARAMS.fields_by_name['send_enabled']._serialized_options = b'\030\001'
   _PARAMS._options = None
-  _PARAMS._serialized_options = b'\230\240\037\000'
+  _PARAMS._serialized_options = b'\212\347\260*\030cosmos-sdk/x/bank/Params\230\240\037\000'
   _SENDENABLED._options = None
   _SENDENABLED._serialized_options = b'\350\240\037\001\230\240\037\000'
+  _INPUT.fields_by_name['address']._options = None
+  _INPUT.fields_by_name['address']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _INPUT.fields_by_name['coins']._options = None
-  _INPUT.fields_by_name['coins']._serialized_options = b'\310\336\037\000\252\337\037(github.com/cosmos/cosmos-sdk/types.Coins'
+  _INPUT.fields_by_name['coins']._serialized_options = b'\310\336\037\000\250\347\260*\001\252\337\037(github.com/cosmos/cosmos-sdk/types.Coins'
   _INPUT._options = None
-  _INPUT._serialized_options = b'\350\240\037\000\210\240\037\000'
+  _INPUT._serialized_options = b'\202\347\260*\007address\350\240\037\000\210\240\037\000'
+  _OUTPUT.fields_by_name['address']._options = None
+  _OUTPUT.fields_by_name['address']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _OUTPUT.fields_by_name['coins']._options = None
-  _OUTPUT.fields_by_name['coins']._serialized_options = b'\310\336\037\000\252\337\037(github.com/cosmos/cosmos-sdk/types.Coins'
+  _OUTPUT.fields_by_name['coins']._serialized_options = b'\310\336\037\000\250\347\260*\001\252\337\037(github.com/cosmos/cosmos-sdk/types.Coins'
   _OUTPUT._options = None
   _OUTPUT._serialized_options = b'\350\240\037\000\210\240\037\000'
   _SUPPLY.fields_by_name['total']._options = None
-  _SUPPLY.fields_by_name['total']._serialized_options = b'\310\336\037\000\252\337\037(github.com/cosmos/cosmos-sdk/types.Coins'
+  _SUPPLY.fields_by_name['total']._serialized_options = b'\310\336\037\000\250\347\260*\001\252\337\037(github.com/cosmos/cosmos-sdk/types.Coins'
   _SUPPLY._options = None
-  _SUPPLY._serialized_options = b'\030\001\350\240\037\001\210\240\037\000\322\264-8*github.com/cosmos/cosmos-sdk/x/bank/legacy/v040.SupplyI'
-  _PARAMS._serialized_start=137
-  _PARAMS._serialized_end=315
-  _SENDENABLED._serialized_start=317
-  _SENDENABLED._serialized_end=372
+  _SUPPLY._serialized_options = b'\030\001\350\240\037\001\210\240\037\000\312\264-\033cosmos.bank.v1beta1.SupplyI'
+  _METADATA.fields_by_name['uri']._options = None
+  _METADATA.fields_by_name['uri']._serialized_options = b'\342\336\037\003URI'
+  _METADATA.fields_by_name['uri_hash']._options = None
+  _METADATA.fields_by_name['uri_hash']._serialized_options = b'\342\336\037\007URIHash'
+  _PARAMS._serialized_start=181
+  _PARAMS._serialized_end=314
+  _SENDENABLED._serialized_start=316
+  _SENDENABLED._serialized_end=371
   _INPUT._serialized_start=374
-  _INPUT._serialized_end=500
-  _OUTPUT._serialized_start=502
-  _OUTPUT._serialized_end=629
-  _SUPPLY._serialized_start=632
-  _SUPPLY._serialized_end=804
-  _DENOMUNIT._serialized_start=806
-  _DENOMUNIT._serialized_end=867
-  _METADATA._serialized_start=870
-  _METADATA._serialized_end=1015
+  _INPUT._serialized_end=543
+  _OUTPUT._serialized_start=546
+  _OUTPUT._serialized_end=704
+  _SUPPLY._serialized_start=707
+  _SUPPLY._serialized_end=855
+  _DENOMUNIT._serialized_start=857
+  _DENOMUNIT._serialized_end=918
+  _METADATA._serialized_start=921
+  _METADATA._serialized_end=1119
 # @@protoc_insertion_point(module_scope)

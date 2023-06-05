@@ -19,8 +19,17 @@ gen-client: copy-proto
 copy-proto:
 	rm -rf pyinjective/proto
 	mkdir -p proto/exchange
+	buf export buf.build/cosmos/cosmos-sdk:v0.47.0 --output=third_party
+	buf export https://github.com/cosmos/ibc-go.git --exclude-imports --output=third_party
+	buf export https://github.com/tendermint/tendermint.git --exclude-imports --output=third_party
+	buf export https://github.com/CosmWasm/wasmd.git --exclude-imports --output=./third_party
+	buf export https://github.com/cosmos/ics23.git --exclude-imports --output=./third_party
+
 	cp -r ../injective-core/proto/injective proto/
-	cp -r ../injective-core/third_party/proto/* proto/
+	cp -r ./third_party/* proto/
+
+	rm -rf ./third_party
+
 	@for file in $(EXCHANGE_PROTO_FILES); do \
 		cp "$${file}" proto/exchange/; \
   done

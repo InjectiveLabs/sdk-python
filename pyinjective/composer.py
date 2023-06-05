@@ -889,44 +889,44 @@ class Composer:
     # you need to figure out this magic prefix number to trim request-msg-header off the data
     # this method handles only exchange responses
     @staticmethod
-    def MsgResponses(data, simulation=False):
+    def MsgResponses(response, simulation=False):
+        data = response.result
         if not simulation:
             data = bytes.fromhex(data)
         header_map = {
-            "/injective.exchange.v1beta1.MsgCreateSpotLimitOrder": injective_exchange_tx_pb.MsgCreateSpotLimitOrderResponse,
-            "/injective.exchange.v1beta1.MsgCreateSpotMarketOrder": injective_exchange_tx_pb.MsgCreateSpotMarketOrderResponse,
-            "/injective.exchange.v1beta1.MsgCreateDerivativeLimitOrder": injective_exchange_tx_pb.MsgCreateDerivativeLimitOrderResponse,
-            "/injective.exchange.v1beta1.MsgCreateDerivativeMarketOrder": injective_exchange_tx_pb.MsgCreateDerivativeMarketOrderResponse,
-            "/injective.exchange.v1beta1.MsgCancelSpotOrder": injective_exchange_tx_pb.MsgCancelSpotOrderResponse,
-            "/injective.exchange.v1beta1.MsgCancelDerivativeOrder": injective_exchange_tx_pb.MsgCancelDerivativeOrderResponse,
-            "/injective.exchange.v1beta1.MsgBatchCancelSpotOrders": injective_exchange_tx_pb.MsgBatchCancelSpotOrdersResponse,
-            "/injective.exchange.v1beta1.MsgBatchCancelDerivativeOrders": injective_exchange_tx_pb.MsgBatchCancelDerivativeOrdersResponse,
-            "/injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrders": injective_exchange_tx_pb.MsgBatchCreateSpotLimitOrdersResponse,
-            "/injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrders": injective_exchange_tx_pb.MsgBatchCreateDerivativeLimitOrdersResponse,
-            "/injective.exchange.v1beta1.MsgBatchUpdateOrders": injective_exchange_tx_pb.MsgBatchUpdateOrdersResponse,
-            "/injective.exchange.v1beta1.MsgDeposit": injective_exchange_tx_pb.MsgDepositResponse,
-            "/injective.exchange.v1beta1.MsgWithdraw": injective_exchange_tx_pb.MsgWithdrawResponse,
-            "/injective.exchange.v1beta1.MsgSubaccountTransfer": injective_exchange_tx_pb.MsgSubaccountTransferResponse,
-            "/injective.exchange.v1beta1.MsgLiquidatePosition": injective_exchange_tx_pb.MsgLiquidatePositionResponse,
-            "/injective.exchange.v1beta1.MsgIncreasePositionMargin": injective_exchange_tx_pb.MsgIncreasePositionMarginResponse,
-            "/injective.auction.v1beta1.MsgBid": injective_auction_tx_pb.MsgBidResponse,
-            "/injective.exchange.v1beta1.MsgCreateBinaryOptionsLimitOrder": injective_exchange_tx_pb.MsgCreateBinaryOptionsLimitOrderResponse,
-            "/injective.exchange.v1beta1.MsgCreateBinaryOptionsMarketOrder": injective_exchange_tx_pb.MsgCreateBinaryOptionsMarketOrderResponse,
-            "/injective.exchange.v1beta1.MsgCancelBinaryOptionsOrder": injective_exchange_tx_pb.MsgCancelBinaryOptionsOrderResponse,
-            "/injective.exchange.v1beta1.MsgAdminUpdateBinaryOptionsMarket": injective_exchange_tx_pb.MsgAdminUpdateBinaryOptionsMarketResponse,
-            "/injective.exchange.v1beta1.MsgInstantBinaryOptionsMarketLaunch": injective_exchange_tx_pb.MsgInstantBinaryOptionsMarketLaunchResponse,
-            "/cosmos.bank.v1beta1.MsgSend": cosmos_bank_tx_pb.MsgSendResponse,
-            "/cosmos.authz.v1beta1.MsgGrant": cosmos_authz_tx_pb.MsgGrantResponse,
-            "/cosmos.authz.v1beta1.MsgExec": cosmos_authz_tx_pb.MsgExecResponse,
-            "/cosmos.authz.v1beta1.MsgRevoke": cosmos_authz_tx_pb.MsgRevokeResponse,
-            "/injective.oracle.v1beta1.MsgRelayPriceFeedPrice": injective_oracle_tx_pb.MsgRelayPriceFeedPriceResponse,
-            "/injective.oracle.v1beta1.MsgRelayProviderPrices": injective_oracle_tx_pb.MsgRelayProviderPrices,
+            "/injective.exchange.v1beta1.MsgCreateSpotLimitOrderResponse": injective_exchange_tx_pb.MsgCreateSpotLimitOrderResponse,
+            "/injective.exchange.v1beta1.MsgCreateSpotMarketOrderResponse": injective_exchange_tx_pb.MsgCreateSpotMarketOrderResponse,
+            "/injective.exchange.v1beta1.MsgCreateDerivativeLimitOrderResponse": injective_exchange_tx_pb.MsgCreateDerivativeLimitOrderResponse,
+            "/injective.exchange.v1beta1.MsgCreateDerivativeMarketOrderResponse": injective_exchange_tx_pb.MsgCreateDerivativeMarketOrderResponse,
+            "/injective.exchange.v1beta1.MsgCancelSpotOrderResponse": injective_exchange_tx_pb.MsgCancelSpotOrderResponse,
+            "/injective.exchange.v1beta1.MsgCancelDerivativeOrderResponse": injective_exchange_tx_pb.MsgCancelDerivativeOrderResponse,
+            "/injective.exchange.v1beta1.MsgBatchCancelSpotOrdersResponse": injective_exchange_tx_pb.MsgBatchCancelSpotOrdersResponse,
+            "/injective.exchange.v1beta1.MsgBatchCancelDerivativeOrdersResponse": injective_exchange_tx_pb.MsgBatchCancelDerivativeOrdersResponse,
+            "/injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrdersResponse": injective_exchange_tx_pb.MsgBatchCreateSpotLimitOrdersResponse,
+            "/injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrdersResponse": injective_exchange_tx_pb.MsgBatchCreateDerivativeLimitOrdersResponse,
+            "/injective.exchange.v1beta1.MsgBatchUpdateOrdersResponse": injective_exchange_tx_pb.MsgBatchUpdateOrdersResponse,
+            "/injective.exchange.v1beta1.MsgDepositResponse": injective_exchange_tx_pb.MsgDepositResponse,
+            "/injective.exchange.v1beta1.MsgWithdrawResponse": injective_exchange_tx_pb.MsgWithdrawResponse,
+            "/injective.exchange.v1beta1.MsgSubaccountTransferResponse": injective_exchange_tx_pb.MsgSubaccountTransferResponse,
+            "/injective.exchange.v1beta1.MsgLiquidatePositionResponse": injective_exchange_tx_pb.MsgLiquidatePositionResponse,
+            "/injective.exchange.v1beta1.MsgIncreasePositionMarginResponse": injective_exchange_tx_pb.MsgIncreasePositionMarginResponse,
+            "/injective.auction.v1beta1.MsgBidResponse": injective_auction_tx_pb.MsgBidResponse,
+            "/injective.exchange.v1beta1.MsgCreateBinaryOptionsLimitOrderResponse": injective_exchange_tx_pb.MsgCreateBinaryOptionsLimitOrderResponse,
+            "/injective.exchange.v1beta1.MsgCreateBinaryOptionsMarketOrderResponse": injective_exchange_tx_pb.MsgCreateBinaryOptionsMarketOrderResponse,
+            "/injective.exchange.v1beta1.MsgCancelBinaryOptionsOrderResponse": injective_exchange_tx_pb.MsgCancelBinaryOptionsOrderResponse,
+            "/injective.exchange.v1beta1.MsgAdminUpdateBinaryOptionsMarketResponse": injective_exchange_tx_pb.MsgAdminUpdateBinaryOptionsMarketResponse,
+            "/injective.exchange.v1beta1.MsgInstantBinaryOptionsMarketLaunchResponse": injective_exchange_tx_pb.MsgInstantBinaryOptionsMarketLaunchResponse,
+            "/cosmos.bank.v1beta1.MsgSendResponse": cosmos_bank_tx_pb.MsgSendResponse,
+            "/cosmos.authz.v1beta1.MsgGrantResponse": cosmos_authz_tx_pb.MsgGrantResponse,
+            "/cosmos.authz.v1beta1.MsgExecResponse": cosmos_authz_tx_pb.MsgExecResponse,
+            "/cosmos.authz.v1beta1.MsgRevokeResponse": cosmos_authz_tx_pb.MsgRevokeResponse,
+            "/injective.oracle.v1beta1.MsgRelayPriceFeedPriceResponse": injective_oracle_tx_pb.MsgRelayPriceFeedPriceResponse,
+            "/injective.oracle.v1beta1.MsgRelayProviderPricesResponse": injective_oracle_tx_pb.MsgRelayProviderPrices,
         }
 
-        response = tx_response_pb.TxResponseData.FromString(data)
         msgs = []
-        for msg in response.messages:
-            msgs.append(header_map[msg.header].FromString(msg.data))
+        for msg in data.msg_responses:
+            msgs.append(header_map[msg.type_url].FromString(msg.value))
 
         return msgs
 
@@ -956,4 +956,5 @@ class Composer:
             "MsgInstantBinaryOptionsMarketLaunch": injective_exchange_tx_pb.MsgInstantBinaryOptionsMarketLaunchResponse,
         }
 
-        return header_map[msg_type].FromString(bytes(data, "utf-8"))
+        responses = [header_map[msg_type].FromString(result) for result in data.results]
+        return responses

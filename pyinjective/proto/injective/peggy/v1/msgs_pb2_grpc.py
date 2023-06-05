@@ -69,6 +69,11 @@ class MsgStub(object):
                 request_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgSubmitBadSignatureEvidence.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgSubmitBadSignatureEvidenceResponse.FromString,
                 )
+        self.UpdateParams = channel.unary_unary(
+                '/injective.peggy.v1.Msg/UpdateParams',
+                request_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgUpdateParams.SerializeToString,
+                response_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgUpdateParamsResponse.FromString,
+                )
 
 
 class MsgServicer(object):
@@ -140,6 +145,12 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def UpdateParams(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -197,6 +208,11 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.SubmitBadSignatureEvidence,
                     request_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgSubmitBadSignatureEvidence.FromString,
                     response_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgSubmitBadSignatureEvidenceResponse.SerializeToString,
+            ),
+            'UpdateParams': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateParams,
+                    request_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgUpdateParams.FromString,
+                    response_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgUpdateParamsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -392,5 +408,22 @@ class Msg(object):
         return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Msg/SubmitBadSignatureEvidence',
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgSubmitBadSignatureEvidence.SerializeToString,
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgSubmitBadSignatureEvidenceResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def UpdateParams(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Msg/UpdateParams',
+            injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgUpdateParams.SerializeToString,
+            injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgUpdateParamsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
