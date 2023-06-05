@@ -87,9 +87,10 @@ make tests
 ```
 
 ### Changelogs
-**0.6.4**(change before release)
+**0.6.4**
 * Change logging logic to use different loggers for each module and class
 * Solved issue preventing requesting spot and derivative historical orders for more than one market_id
+* Removed references to pysha3 library (and also eip712-struct that required it) and replaced it with other implementation to allow the project to work with Python 3.11
 * Add `pytest` as a development dependency to implement and run unit tests
 
 **0.6.3.1**

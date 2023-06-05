@@ -15,17 +15,17 @@ mnemonic = "*"
 hdwallets = "*"
 bip32 = "*"
 requests = "*"
-eip712_structs = "*"
 coincurve = "*"
 aiocron = "*"
 websockets = "*"
 urllib3 = "<2"
-pycryptodome = "*"
-pycryptodomex = "*"
+safe-pysha3 = "*"
+eip712 = "*"
 
 [dev-packages]
 pytest = "*"
 pytest-asyncio = "*"
+requests-mock = "*"
 
 [requires]
-python_version = "3.9"
+python_version = "3"
