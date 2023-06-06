@@ -35,6 +35,6 @@ copy-proto:
   done
 
 tests:
-	pytest -v tests/**
+	pytest -v
 
 .PHONY: all gen gen-client copy-proto tests
