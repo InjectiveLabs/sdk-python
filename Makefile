@@ -7,7 +7,7 @@ gen: gen-client
 gen-client: copy-proto
 	@for dir in $(PROTO_DIRS); do \
 		mkdir -p ./pyinjective/$${dir}; \
-		python3.10 -m grpc_tools.protoc \
+		python3 -m grpc_tools.protoc \
 		-I proto \
 		--python_out=./pyinjective/proto \
 		--grpc_python_out=./pyinjective/proto \
@@ -21,7 +21,7 @@ copy-proto:
 	mkdir -p proto/exchange
 	buf export buf.build/cosmos/cosmos-sdk:v0.47.0 --output=third_party
 	buf export https://github.com/cosmos/ibc-go.git --exclude-imports --output=third_party
-	buf export https://github.com/tendermint/tendermint.git --exclude-imports --output=third_party
+	buf export https://github.com/cometbft/cometbft.git --exclude-imports --output=third_party
 	buf export https://github.com/CosmWasm/wasmd.git --exclude-imports --output=./third_party
 	buf export https://github.com/cosmos/ics23.git --exclude-imports --output=./third_party
 
