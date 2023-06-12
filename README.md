@@ -92,6 +92,9 @@ make tests
 * Solved issue preventing requesting spot and derivative historical orders for more than one market_id
 * Add `pytest` as a development dependency to implement and run unit tests
 
+**0.6.3.3**
+* Update the code to the new structure of transaction responses
+
 **0.6.3.1**
 * Update the code to the new structure of transaction simulation responses
 

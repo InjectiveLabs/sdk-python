@@ -517,27 +517,27 @@
         },
         "eth-hash": {
             "hashes": [
-                "sha256:4d992e885f3ae3901abbe98bd776ba62d0f6335f98c6e9fc60a39b9d114dfb5a",
-                "sha256:9805075f653e114a31a99678e93b257fb4082337696f4eff7b4371fe65158409"
+                "sha256:1b5f10eca7765cc385e1430eefc5ced6e2e463bb18d1365510e2e539c1a6fe4e",
+                "sha256:251f62f6579a1e247561679d78df37548bd5f59908da0b159982bf8293ad32f0"
             ],
             "markers": "python_version >= '3.7' and python_version < '4'",
-            "version": "==0.5.1"
+            "version": "==0.5.2"
         },
         "eth-typing": {
             "hashes": [
-                "sha256:323111b3b76c8ceaff01619367aa52806f0264ca0ec1a70d4b9a42e44360f554",
-                "sha256:e9535e9d524d4c7a0cbd3d9832093cc5001a3e31869e72645674d24c6376d196"
+                "sha256:347d50713dd58ab50063b228d8271624ab2de3071bfa32d467b05f0ea31ab4c5",
+                "sha256:7f49610469811ee97ac43eaf6baa294778ce74042d41e61ecf22e5ebe385590f"
             ],
             "markers": "python_version < '4' and python_full_version >= '3.7.2'",
-            "version": "==3.3.0"
+            "version": "==3.4.0"
         },
         "eth-utils": {
             "hashes": [
-                "sha256:63901e54ec9e4ac16ae0a0d28e1dc48b968c20184d22f2727e5f3ca24b6250bc",
-                "sha256:fcb4c3c1b32947ba92970963f9aaf40da73b04ea1034964ff8c0e70595127138"
+                "sha256:4938ab742f91cdf19bae024261af090664f63ccf83bdb1213e7146c14209e899",
+                "sha256:7cccfb0b0749431d0d001e327e9a7289bf07308316a73850ae3895020e5682f4"
             ],
             "markers": "python_version >= '3.7' and python_version < '4'",
-            "version": "==2.1.0"
+            "version": "==2.1.1"
         },
         "frozenlist": {
             "hashes": [

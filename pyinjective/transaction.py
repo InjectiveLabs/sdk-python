@@ -46,7 +46,7 @@ class Transaction:
 
     def with_sender(self, client: Client, sender: str) -> "Transaction":
         if len(self.msgs) == 0:
-            raise EmptyMsgError("messsage is empty, please use with_messages at least 1 message")
+            raise EmptyMsgError("message is empty, please use with_messages at least 1 message")
         account = client.get_account(sender)
         if account:
             self.account_num = account.account_number
