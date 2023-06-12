@@ -2,7 +2,7 @@ from time import time
 import json
 import logging
 
-from google.protobuf import any_pb2, message, timestamp_pb2
+from google.protobuf import any_pb2, timestamp_pb2, json_format
 
 from .proto.cosmos.authz.v1beta1 import authz_pb2 as cosmos_authz_pb
 from .proto.cosmos.authz.v1beta1 import tx_pb2 as cosmos_authz_tx_pb
@@ -13,7 +13,6 @@ from .proto.cosmos.bank.v1beta1 import tx_pb2 as cosmos_bank_tx_pb
 
 from .proto.injective.exchange.v1beta1 import tx_pb2 as injective_exchange_tx_pb
 from pyinjective.proto.injective.exchange.v1beta1 import exchange_pb2 as injective_dot_exchange_dot_v1beta1_dot_exchange__pb2
-from .proto.injective.types.v1beta1 import tx_response_pb2 as tx_response_pb
 
 from .proto.injective.auction.v1beta1 import tx_pb2 as injective_auction_tx_pb
 
@@ -969,3 +968,45 @@ class Composer:
 
         responses = [header_map[msg_type].FromString(result) for result in data.results]
         return responses
+
+    @staticmethod
+    def UnpackTransactionMessages(transaction):
+        meta_messages = json.loads(transaction.messages.decode())
+
+        header_map = {
+            "/injective.exchange.v1beta1.MsgCreateSpotLimitOrder": injective_exchange_tx_pb.MsgCreateSpotLimitOrderResponse,
+            "/injective.exchange.v1beta1.MsgCreateSpotMarketOrder": injective_exchange_tx_pb.MsgCreateSpotMarketOrderResponse,
+            "/injective.exchange.v1beta1.MsgCreateDerivativeLimitOrder": injective_exchange_tx_pb.MsgCreateDerivativeLimitOrderResponse,
+            "/injective.exchange.v1beta1.MsgCreateDerivativeMarketOrder": injective_exchange_tx_pb.MsgCreateDerivativeMarketOrderResponse,
+            "/injective.exchange.v1beta1.MsgCancelSpotOrder": injective_exchange_tx_pb.MsgCancelSpotOrderResponse,
+            "/injective.exchange.v1beta1.MsgCancelDerivativeOrder": injective_exchange_tx_pb.MsgCancelDerivativeOrderResponse,
+            "/injective.exchange.v1beta1.MsgBatchCancelSpotOrders": injective_exchange_tx_pb.MsgBatchCancelSpotOrdersResponse,
+            "/injective.exchange.v1beta1.MsgBatchCancelDerivativeOrders": injective_exchange_tx_pb.MsgBatchCancelDerivativeOrdersResponse,
+            "/injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrders": injective_exchange_tx_pb.MsgBatchCreateSpotLimitOrders,
+            "/injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrders": injective_exchange_tx_pb.MsgBatchCreateDerivativeLimitOrders,
+            "/injective.exchange.v1beta1.MsgBatchUpdateOrders": injective_exchange_tx_pb.MsgBatchUpdateOrders,
+            "/injective.exchange.v1beta1.MsgDeposit": injective_exchange_tx_pb.MsgDeposit,
+            "/injective.exchange.v1beta1.MsgWithdraw": injective_exchange_tx_pb.MsgWithdraw,
+            "/injective.exchange.v1beta1.MsgSubaccountTransfer": injective_exchange_tx_pb.MsgSubaccountTransfer,
+            "/injective.exchange.v1beta1.MsgLiquidatePosition": injective_exchange_tx_pb.MsgLiquidatePosition,
+            "/injective.exchange.v1beta1.MsgIncreasePositionMargin": injective_exchange_tx_pb.MsgIncreasePositionMargin,
+            "/injective.auction.v1beta1.MsgBid": injective_auction_tx_pb.MsgBid,
+            "/injective.exchange.v1beta1.MsgCreateBinaryOptionsLimitOrder": injective_exchange_tx_pb.MsgCreateBinaryOptionsLimitOrder,
+            "/injective.exchange.v1beta1.MsgCreateBinaryOptionsMarketOrder": injective_exchange_tx_pb.MsgCreateBinaryOptionsMarketOrder,
+            "/injective.exchange.v1beta1.MsgCancelBinaryOptionsOrder": injective_exchange_tx_pb.MsgCancelBinaryOptionsOrder,
+            "/injective.exchange.v1beta1.MsgAdminUpdateBinaryOptionsMarket": injective_exchange_tx_pb.MsgAdminUpdateBinaryOptionsMarket,
+            "/injective.exchange.v1beta1.MsgInstantBinaryOptionsMarketLaunch": injective_exchange_tx_pb.MsgInstantBinaryOptionsMarketLaunch,
+            "/cosmos.bank.v1beta1.MsgSend": cosmos_bank_tx_pb.MsgSend,
+            "/cosmos.authz.v1beta1.MsgGrant": cosmos_authz_tx_pb.MsgGrant,
+            "/cosmos.authz.v1beta1.MsgExec": cosmos_authz_tx_pb.MsgExec,
+            "/cosmos.authz.v1beta1.MsgRevoke": cosmos_authz_tx_pb.MsgRevoke,
+            "/injective.oracle.v1beta1.MsgRelayPriceFeedPrice": injective_oracle_tx_pb.MsgRelayPriceFeedPrice,
+            "/injective.oracle.v1beta1.MsgRelayProviderPrices": injective_oracle_tx_pb.MsgRelayProviderPrices,
+        }
+
+        msgs = []
+        for msg in meta_messages:
+            msg_as_string_dict = json.dumps(msg["value"])
+            msgs.append(json_format.Parse(msg_as_string_dict, header_map[msg["type"]]()))
+
+        return msgs
