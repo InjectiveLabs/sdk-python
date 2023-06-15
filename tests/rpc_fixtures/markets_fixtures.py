@@ -46,6 +46,21 @@ def usdt_token_meta():
 
     return token
 
+@pytest.fixture
+def usdt_token_meta_second_denom():
+    from pyinjective.proto.exchange.injective_spot_exchange_rpc_pb2 import TokenMeta
+
+    token = TokenMeta(
+        name="USDT Second Denom",
+        address="0x0000000000000000000000000000000000000000",
+        symbol="USDT",
+        logo="https://static.alchemyapi.io/images/assets/826.png",
+        decimals=6,
+        updated_at=1691739137645
+    )
+
+    return token
+
 
 @pytest.fixture
 def usdt_perp_token_meta():
@@ -64,7 +79,7 @@ def usdt_perp_token_meta():
 
 
 @pytest.fixture
-def ape_usdt_spot_market(ape_token_meta, usdt_token_meta):
+def ape_usdt_spot_market_meta(ape_token_meta, usdt_token_meta_second_denom):
     from pyinjective.proto.exchange.injective_spot_exchange_rpc_pb2 import SpotMarketInfo
 
     market = SpotMarketInfo(
@@ -73,8 +88,8 @@ def ape_usdt_spot_market(ape_token_meta, usdt_token_meta):
         ticker="APE/USDT",
         base_denom="peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7",
         base_token_meta=ape_token_meta,
-        quote_denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
-        quote_token_meta=usdt_token_meta,
+        quote_denom="factory/peggy0x87aB3B4C8661e07D6372361211B96ed4Dc300000",
+        quote_token_meta=usdt_token_meta_second_denom,
         maker_fee_rate="-0.0001",
         taker_fee_rate="0.001",
         service_provider_fee="0.4",
@@ -85,7 +100,7 @@ def ape_usdt_spot_market(ape_token_meta, usdt_token_meta):
     return market
 
 @pytest.fixture
-def inj_usdt_spot_market(inj_token_meta, usdt_token_meta):
+def inj_usdt_spot_market_meta(inj_token_meta, usdt_token_meta):
     from pyinjective.proto.exchange.injective_spot_exchange_rpc_pb2 import SpotMarketInfo
 
     market = SpotMarketInfo(
@@ -106,7 +121,7 @@ def inj_usdt_spot_market(inj_token_meta, usdt_token_meta):
     return market
 
 @pytest.fixture
-def btc_usdt_perp_market(usdt_perp_token_meta):
+def btc_usdt_perp_market_meta(usdt_perp_token_meta):
     from pyinjective.proto.exchange.injective_derivative_exchange_rpc_pb2 import (
         DerivativeMarketInfo,
         PerpetualMarketInfo,
@@ -150,7 +165,7 @@ def btc_usdt_perp_market(usdt_perp_token_meta):
     return market
 
 @pytest.fixture
-def first_match_bet_market(inj_usdt_spot_market):
+def first_match_bet_market_meta(inj_usdt_spot_market_meta):
     from pyinjective.proto.exchange.injective_derivative_exchange_rpc_pb2 import BinaryOptionsMarketInfo
 
     market = BinaryOptionsMarketInfo(
@@ -163,7 +178,7 @@ def first_match_bet_market(inj_usdt_spot_market):
         oracle_scale_factor=6,
         expiration_timestamp=1707800399,
         settlement_timestamp=1707843599,
-        quote_denom=inj_usdt_spot_market.quote_denom,
+        quote_denom=inj_usdt_spot_market_meta.quote_denom,
         maker_fee_rate="0",
         taker_fee_rate="0",
         service_provider_fee="0.4",

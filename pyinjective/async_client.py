@@ -1067,32 +1067,22 @@ class AsyncClient:
 
         for market_info in markets_info:
             base_token_symbol, quote_token_symbol = market_info.ticker.split(constant.TICKER_TOKENS_SEPARATOR)
-            base_token = tokens.get(base_token_symbol, None)
-            if base_token is None:
-                base_token = Token(
-                    name=market_info.base_token_meta.name,
-                    symbol=base_token_symbol,
-                    denom=market_info.base_denom,
-                    address=market_info.base_token_meta.address,
-                    decimals=market_info.base_token_meta.decimals,
-                    logo=market_info.base_token_meta.logo,
-                    updated=market_info.base_token_meta.updated_at,
-                )
-                tokens[base_token_symbol] = base_token
+            base_token = self._token_representation(
+                symbol=base_token_symbol,
+                token_meta=market_info.base_token_meta,
+                denom=market_info.base_denom,
+                all_tokens=tokens,
+            )
+            if base_token.denom not in tokens_by_denom:
                 tokens_by_denom[base_token.denom] = base_token
 
-            quote_token = tokens.get(quote_token_symbol, None)
-            if quote_token is None:
-                quote_token = Token(
-                    name=market_info.quote_token_meta.name,
-                    symbol=quote_token_symbol,
-                    denom=market_info.quote_denom,
-                    address=market_info.quote_token_meta.address,
-                    decimals=market_info.quote_token_meta.decimals,
-                    logo=market_info.quote_token_meta.logo,
-                    updated=market_info.quote_token_meta.updated_at,
-                )
-                tokens[quote_token_symbol] = quote_token
+            quote_token = self._token_representation(
+                symbol=quote_token_symbol,
+                token_meta=market_info.quote_token_meta,
+                denom=market_info.quote_denom,
+                all_tokens=tokens,
+            )
+            if quote_token.denom not in tokens_by_denom:
                 tokens_by_denom[quote_token.denom] = quote_token
 
             market = SpotMarket(
@@ -1114,18 +1104,13 @@ class AsyncClient:
         for market_info in markets_info:
             quote_token_symbol = market_info.quote_token_meta.symbol
 
-            quote_token = tokens.get(quote_token_symbol, None)
-            if quote_token is None:
-                quote_token = Token(
-                    name=market_info.quote_token_meta.name,
-                    symbol=quote_token_symbol,
-                    denom=market_info.quote_denom,
-                    address=market_info.quote_token_meta.address,
-                    decimals=market_info.quote_token_meta.decimals,
-                    logo=market_info.quote_token_meta.logo,
-                    updated=market_info.quote_token_meta.updated_at,
-                )
-                tokens[quote_token_symbol] = quote_token
+            quote_token = self._token_representation(
+                symbol=quote_token_symbol,
+                token_meta=market_info.quote_token_meta,
+                denom=market_info.quote_denom,
+                all_tokens=tokens,
+            )
+            if quote_token.denom not in tokens_by_denom:
                 tokens_by_denom[quote_token.denom] = quote_token
 
             market = DerivativeMarket(
@@ -1176,3 +1161,26 @@ class AsyncClient:
         self._spot_markets = spot_markets
         self._derivative_markets = derivative_markets
         self._binary_option_markets = binary_option_markets
+
+    def _token_representation(self, symbol: str, token_meta, denom: str, all_tokens: Dict[str, Token]) -> Token:
+        token = Token(
+            name=token_meta.name,
+            symbol=symbol,
+            denom=denom,
+            address=token_meta.address,
+            decimals=token_meta.decimals,
+            logo=token_meta.logo,
+            updated=token_meta.updated_at,
+        )
+
+        existing_token = all_tokens.get(token.symbol, None)
+        if existing_token is None:
+            all_tokens[token.symbol] = token
+            existing_token = token
+        elif existing_token.denom != denom:
+            existing_token = all_tokens.get(token.name, None)
+            if existing_token is None:
+                all_tokens[token.name] = token
+                existing_token = token
+
+        return existing_token

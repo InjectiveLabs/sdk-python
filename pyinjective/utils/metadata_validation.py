@@ -10,6 +10,7 @@ from pyinjective.core.market import SpotMarket, DerivativeMarket, BinaryOptionMa
 
 def find_metadata_inconsistencies(network: Network) -> Tuple[List[Any]]:
     client = AsyncClient(network, insecure=False)
+    ini_config = constant.CONFIGS[network.string()]
 
     spot_markets = asyncio.get_event_loop().run_until_complete(client.all_spot_markets())
     derivative_markets = asyncio.get_event_loop().run_until_complete(client.all_derivative_markets())
@@ -21,7 +22,7 @@ def find_metadata_inconsistencies(network: Network) -> Tuple[List[Any]]:
     peggy_denoms_not_found = []
     peggy_denoms_with_diffs = []
 
-    for config_key in constant.mainnet_config:
+    for config_key in ini_config:
         if config_key.startswith("0x"):
             denom = constant.Denom.load_market(network=network.string(), market_id=config_key)
             if config_key in spot_markets:
