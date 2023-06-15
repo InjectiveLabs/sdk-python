@@ -109,7 +109,6 @@ class Network:
     @classmethod
     def mainnet(cls, node='lb'):
         nodes = [
-            'k8s', # us, prod
             'lb', # us, asia, prod
             'sentry0',  # ca, prod
             'sentry1',  # ca, prod
