@@ -1,9 +1,7 @@
 from web3 import Web3
-import logging
 
+from .utils.logger import LoggerProvider
 from .wallet import Address
-
-logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 
 class Peggo:
     def __init__(self, network: str):
@@ -17,7 +15,7 @@ class Peggo:
         elif self.network == 'devnet':
             peggy_proxy_address = "0x4F38F75606d046819638f909b66B112aF1095e8d"
         else:
-            logging.info("Network is not supported")
+            LoggerProvider().logger_for_class(logging_class=self.__class__).info("Network is not supported")
         web3 = Web3(Web3.HTTPProvider(ethereum_endpoint))
         contract = web3.eth.contract(address=peggy_proxy_address, abi=peggo_abi)
 
@@ -62,7 +60,9 @@ class Peggo:
 
         try:
             tx_hash = web3.eth.send_raw_transaction(signed_tx.rawTransaction)
-            logging.info("Transferred {} {} from {} to {}".format(amount, token_contract, sender_ethereum_address, receiver))
-            logging.info("Transaction hash:".format(web3.toHex(tx_hash)))
+            LoggerProvider().logger_for_class(logging_class=self.__class__).info(
+                f"Transferred {amount} {token_contract} from {sender_ethereum_address} to {receiver}")
+            LoggerProvider().logger_for_class(logging_class=self.__class__).info(
+                "Transaction hash:".format(Web3.to_hex(tx_hash)))
         except Exception as e:
-            logging.info("Transaction failed".format(e))
+            LoggerProvider().logger_for_class(logging_class=self.__class__).info("Transaction failed".format(e))

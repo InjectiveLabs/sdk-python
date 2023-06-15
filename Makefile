@@ -7,7 +7,7 @@ gen: gen-client
 gen-client: copy-proto
 	@for dir in $(PROTO_DIRS); do \
 		mkdir -p ./pyinjective/$${dir}; \
-		python3.10 -m grpc_tools.protoc \
+		python3 -m grpc_tools.protoc \
 		-I proto \
 		--python_out=./pyinjective/proto \
 		--grpc_python_out=./pyinjective/proto \
@@ -34,4 +34,7 @@ copy-proto:
 		cp "$${file}" proto/exchange/; \
   done
 
-.PHONY: all gen gen-client copy-proto
+tests:
+	pytest -v tests/**
+
+.PHONY: all gen gen-client copy-proto tests
