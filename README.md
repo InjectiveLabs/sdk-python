@@ -87,6 +87,9 @@ make tests
 ```
 
 ### Changelogs
+**0.6.5**
+* Removed `k8s` from the list of supported mainnet nodes (`lb` should be used instead)
+
 **0.6.4**
 * Change logging logic to use different loggers for each module and class
 * Solved issue preventing requesting spot and derivative historical orders for more than one market_id
