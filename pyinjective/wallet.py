@@ -1,11 +1,10 @@
-import sys
 import sha3
 import hashlib
-import bech32
 import aiohttp
 import json
 import requests
 from typing import Tuple
+
 from bech32 import bech32_encode, bech32_decode, convertbits
 from bip32 import BIP32
 from ecdsa import SigningKey, VerifyingKey, SECP256k1, BadSignatureError
@@ -24,6 +23,7 @@ BECH32_ADDR_VAL_PREFIX = "injvaloper"
 BECH32_ADDR_CONS_PREFIX = "injvalcons"
 
 DEFAULT_DERIVATION_PATH = "m/44'/60'/0'/0/0"
+
 
 class PrivateKey:
     """
@@ -99,9 +99,8 @@ class PrivateKey:
 
         :return: a signature of this private key over the given message
         """
-        # return self.signing_key.sign_deterministic(msg, hashfunc=hashlib.sha256, sigencode=sigencode_string_canonize)
-        return self.signing_key.sign_deterministic(msg, hashfunc=sha3.keccak_256, sigencode=sigencode_string_canonize)
 
+        return self.signing_key.sign_deterministic(msg, hashfunc=sha3.keccak_256, sigencode=sigencode_string_canonize)
 
 class PublicKey:
     """
@@ -174,15 +173,10 @@ class PublicKey:
 
     def to_address(self) -> "Address":
         """Return address instance from this public key"""
-        # pubkey = self.verify_key.to_string("compressed")
-        # s = hashlib.new("sha256", pubkey).digest()
-        # r = hashlib.new("ripemd160", s).digest()
-        # return Address(r)
-
         pubkey = self.verify_key.to_string("uncompressed")
-        k = sha3.keccak_256()
-        k.update(pubkey[1:])
-        addr = k.digest()[12:]
+        keccak_hash = sha3.keccak_256()
+        keccak_hash.update(pubkey[1:])
+        addr = keccak_hash.digest()[12:]
         return Address(addr)
 
     def verify(self, msg: bytes, sig: bytes) -> bool:

@@ -16,30 +16,33 @@ DESCRIPTION = "Injective Python SDK, with Exchange API client"
 URL = "https://github.com/InjectiveLabs/sdk-python"
 EMAIL = "achilleas@injectivelabs.com"
 AUTHOR = "Injective Labs"
-REQUIRES_PYTHON = ">=3.7, <3.11"
-VERSION = "0.6.5"
+REQUIRES_PYTHON = ">=3.9"
+VERSION = "0.7"
 
 REQUIRED = [
-    "protobuf",
-    "grpcio-tools",
-    "grpcio",
-    "asyncio",
     "aiohttp",
-    "ecdsa",
-    "bech32",
-    "mnemonic",
-    "hdwallets",
-    "bip32",
-    "requests",
-    "eip712_structs",
-    "coincurve",
     "aiocron",
-    "websockets"
+    "asyncio",
+    "bech32",
+    "bip32",
+    "coincurve",
+    "ecdsa",
+    "eip712",
+    "grpcio",
+    "grpcio-tools",
+    "hdwallets",
+    "mnemonic",
+    "protobuf",
+    "requests",
+    "safe-pysha3",
+    "urllib3",
+    "websockets",
 ]
 
 DEV_REQUIRED = [
     "pytest",
     "pytest-asyncio",
+    "request-mock",
 ]
 
 # The rest you shouldn't have to touch too much :)
