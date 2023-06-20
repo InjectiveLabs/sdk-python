@@ -21,7 +21,7 @@ copy-proto:
 	mkdir -p proto/exchange
 	buf export buf.build/cosmos/cosmos-sdk:v0.47.0 --output=third_party
 	buf export https://github.com/cosmos/ibc-go.git --exclude-imports --output=third_party
-	buf export https://github.com/tendermint/tendermint.git --exclude-imports --output=third_party
+	buf export https://github.com/cometbft/cometbft.git --exclude-imports --output=third_party
 	buf export https://github.com/CosmWasm/wasmd.git --exclude-imports --output=./third_party
 	buf export https://github.com/cosmos/ics23.git --exclude-imports --output=./third_party
 

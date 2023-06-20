@@ -13,14 +13,14 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1etendermint/mempool/types.proto\x12\x12tendermint.mempool\"\x12\n\x03Txs\x12\x0b\n\x03txs\x18\x01 \x03(\x0c\"8\n\x07Message\x12&\n\x03txs\x18\x01 \x01(\x0b\x32\x17.tendermint.mempool.TxsH\x00\x42\x05\n\x03sumB;Z9github.com/tendermint/tendermint/proto/tendermint/mempoolb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1etendermint/mempool/types.proto\x12\x12tendermint.mempool\"\x12\n\x03Txs\x12\x0b\n\x03txs\x18\x01 \x03(\x0c\"8\n\x07Message\x12&\n\x03txs\x18\x01 \x01(\x0b\x32\x17.tendermint.mempool.TxsH\x00\x42\x05\n\x03sumB7Z5github.com/cometbft/cometbft/proto/tendermint/mempoolb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'tendermint.mempool.types_pb2', globals())
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  DESCRIPTOR._serialized_options = b'Z9github.com/tendermint/tendermint/proto/tendermint/mempool'
+  DESCRIPTOR._serialized_options = b'Z5github.com/cometbft/cometbft/proto/tendermint/mempool'
   _TXS._serialized_start=54
   _TXS._serialized_end=72
   _MESSAGE._serialized_start=74
