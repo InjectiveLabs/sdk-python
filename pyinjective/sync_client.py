@@ -54,7 +54,7 @@ DEFAULT_TIMEOUTHEIGHT = 20 # blocks
 DEFAULT_SESSION_RENEWAL_OFFSET = 120 # seconds
 DEFAULT_BLOCK_TIME = 3 # seconds
 
-class Client:
+class SyncClient:
     def __init__(
         self,
         network: Network,

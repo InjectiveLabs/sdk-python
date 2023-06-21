@@ -5,7 +5,7 @@ from .proto.cosmos.base.v1beta1.coin_pb2 import Coin
 from .proto.cosmos.tx.v1beta1 import tx_pb2 as cosmos_tx_type
 from .proto.cosmos.tx.signing.v1beta1 import signing_pb2 as tx_sign
 
-from .client import Client
+from .sync_client import SyncClient
 from .constant import MAX_MEMO_CHARACTERS
 from .exceptions import EmptyMsgError, NotFoundError, UndefinedError, ValueTooLargeError
 from .wallet import PublicKey
@@ -44,7 +44,7 @@ class Transaction:
         self.msgs.extend(self.__convert_msgs(msgs))
         return self
 
-    def with_sender(self, client: Client, sender: str) -> "Transaction":
+    def with_sender(self, client: SyncClient, sender: str) -> "Transaction":
         if len(self.msgs) == 0:
             raise EmptyMsgError("messsage is empty, please use with_messages at least 1 message")
         account = client.get_account(sender)
