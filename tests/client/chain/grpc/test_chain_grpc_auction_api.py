@@ -92,6 +92,46 @@ class TestChainGrpcAuctionApi:
         assert (expected_state == module_state)
 
     @pytest.mark.asyncio
+    async def test_fetch_module_state_when_no_highest_bid_present(
+            self,
+            auction_servicer,
+    ):
+        params = auction_pb.Params(
+            auction_period=604800,
+            min_next_bid_increment_rate="2500000000000000"
+        )
+        state = genesis_pb.GenesisState(
+            params=params,
+            auction_round=50,
+            auction_ending_timestamp=1687504387,
+        )
+        auction_servicer.module_states.append(auction_query_pb.QueryModuleStateResponse(
+            state=state
+        ))
+
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
+
+        api = ChainGrpcAuctionApi(channel=channel)
+        api._stub = auction_servicer
+
+        module_state = await api.fetch_module_state()
+        expected_state = {
+            "params": {
+                "auction_period": 604800,
+                "min_next_bid_increment_rate": "2500000000000000",
+            },
+            "auction_round": 50,
+            "highest_bid": {
+                "bidder": "",
+                "amount": "",
+            },
+            "auction_ending_timestamp": 1687504387,
+        }
+
+        assert (expected_state == module_state)
+
+    @pytest.mark.asyncio
     async def test_fetch_current_basket(
             self,
             auction_servicer,

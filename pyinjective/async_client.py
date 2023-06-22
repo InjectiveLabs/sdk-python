@@ -10,6 +10,7 @@ import grpc
 from pyinjective.composer import Composer
 
 from . import constant
+from .client.chain.grpc.chain_grpc_bank_api import ChainGrpcBankApi
 from .core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from .core.network import Network
 from .core.token import Token
@@ -77,7 +78,7 @@ class AsyncClient:
         self.stubCosmosTendermint = tendermint_query_grpc.ServiceStub(self.chain_channel)
         self.stubAuth = auth_query_grpc.QueryStub(self.chain_channel)
         self.stubAuthz = authz_query_grpc.QueryStub(self.chain_channel)
-        self.stubBank = bank_query_grpc.QueryStub(self.chain_channel)
+        self.bank_api = ChainGrpcBankApi(channel=self.chain_channel)
         self.stubTx = tx_service_grpc.ServiceStub(self.chain_channel)
 
         self.exchange_cookie = ""
@@ -256,10 +257,10 @@ class AsyncClient:
         )
 
     async def get_bank_balances(self, address: str):
-        return await self.stubBank.AllBalances(bank_query.QueryAllBalancesRequest(address=address))
+        return await self.bank_api.fetch_balances(account_address=address)
 
     async def get_bank_balance(self, address: str, denom: str):
-        return await self.stubBank.Balance(bank_query.QueryBalanceRequest(address=address, denom=denom))
+        return await self.bank_api.fetch_balance(account_address=address, denom=denom)
 
     # Injective Exchange client methods
 
