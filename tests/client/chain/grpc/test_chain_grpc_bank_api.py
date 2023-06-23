@@ -5,7 +5,6 @@ from pyinjective.client.chain.grpc.chain_grpc_bank_api import ChainGrpcBankApi
 from pyinjective.constant import Network
 from pyinjective.proto.cosmos.bank.v1beta1 import (
     bank_pb2 as bank_pb,
-    query_pb2_grpc as bank_query_grpc,
     query_pb2 as bank_query_pb,
 )
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb

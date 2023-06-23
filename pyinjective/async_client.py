@@ -12,6 +12,7 @@ from typing import Dict, List, Optional, Tuple, Union
 from pyinjective.composer import Composer
 
 from . import constant
+from .client.chain.grpc.chain_grpc_auth_api import ChainGrpcAuthApi
 from .client.chain.grpc.chain_grpc_bank_api import ChainGrpcBankApi
 from .core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from .core.token import Token
@@ -23,12 +24,6 @@ from .proto.cosmos.base.tendermint.v1beta1 import (
     query_pb2_grpc as tendermint_query_grpc,
     query_pb2 as tendermint_query,
 )
-
-from .proto.cosmos.auth.v1beta1 import (
-    query_pb2_grpc as auth_query_grpc,
-    query_pb2 as auth_query,
-    auth_pb2 as auth_type,
-)
 from .proto.cosmos.authz.v1beta1 import (
     query_pb2_grpc as authz_query_grpc,
     query_pb2 as authz_query,
@@ -38,10 +33,6 @@ from .proto.cosmos.authz.v1beta1 import (
     query_pb2_grpc as authz_query_grpc,
     query_pb2 as authz_query,
     authz_pb2 as authz_type,
-)
-from .proto.cosmos.bank.v1beta1 import (
-    query_pb2_grpc as bank_query_grpc,
-    query_pb2 as bank_query,
 )
 from .proto.cosmos.tx.v1beta1 import (
     service_pb2_grpc as tx_service_grpc,
@@ -122,9 +113,7 @@ class AsyncClient:
         self.stubCosmosTendermint = tendermint_query_grpc.ServiceStub(
             self.chain_channel
         )
-        self.stubAuth = auth_query_grpc.QueryStub(self.chain_channel)
         self.stubAuthz = authz_query_grpc.QueryStub(self.chain_channel)
-        self.bank_api = ChainGrpcBankApi(channel=self.chain_channel)
         self.stubTx = tx_service_grpc.ServiceStub(self.chain_channel)
 
         # attempt to load from disk
@@ -192,6 +181,9 @@ class AsyncClient:
         self._spot_markets: Optional[Dict[str, SpotMarket]] = None
         self._derivative_markets: Optional[Dict[str, DerivativeMarket]] = None
         self._binary_option_markets: Optional[Dict[str, BinaryOptionMarket]] = None
+
+        self.bank_api = ChainGrpcBankApi(channel=self.chain_channel)
+        self.auth_api = ChainGrpcAuthApi(channel=self.chain_channel)
 
     async def all_tokens(self) -> Dict[str, Token]:
         if self._tokens is None:
@@ -342,15 +334,10 @@ class AsyncClient:
 
     async def get_account(self, address: str) -> Optional[account_pb2.EthAccount]:
         try:
-            metadata = await self.load_cookie(type="chain")
-            account_any = (await self.stubAuth.Account(
-                auth_query.QueryAccountRequest.__call__(address=address), metadata=metadata
-            )).account
-            account = account_pb2.EthAccount()
-            if account_any.Is(account.DESCRIPTOR):
-                account_any.Unpack(account)
-                self.number = int(account.base_account.account_number)
-                self.sequence = int(account.base_account.sequence)
+            await self.load_cookie(type="chain")
+            account = await self.auth_api.fetch_account(address=address)
+            self.number = account.account_number
+            self.sequence = account.sequence
         except Exception as e:
             LoggerProvider().logger_for_class(logging_class=self.__class__).debug(
                 f"error while fetching sequence and number {e}")
