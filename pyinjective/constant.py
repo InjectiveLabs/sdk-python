@@ -124,7 +124,7 @@ class Network:
             grpc_exchange_endpoint = 'k8s.global.mainnet.exchange.grpc.injective.network:443'
             grpc_explorer_endpoint = 'k8s.global.mainnet.explorer.grpc.injective.network:443'
         else:
-            lcd_endpoint='https://lcd.injective.network'
+            lcd_endpoint=f'http://{node}.injective.network:10337'
             tm_websocket_endpoint=f'ws://{node}.injective.network:26657/websocket'
             grpc_endpoint=f'{node}.injective.network:9900'
             grpc_exchange_endpoint=f'{node}.injective.network:9910'
