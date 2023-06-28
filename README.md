@@ -89,6 +89,7 @@ make tests
 ### Changelogs
 **0.7**
 * Removed references to pysha3 library (and also eip712-struct that required it) and replaced it with other implementation to allow the project to work with Python 3.11
+* Updated sentry nodes LCD URL, for each sentry node to use its own service
 
 **0.6.5**
 * Removed `k8s` from the list of supported mainnet nodes (`lb` should be used instead)
