@@ -87,6 +87,12 @@ make tests
 ```
 
 ### Changelogs
+**0.7.1**(change before release)
+* Refactor Composer to be created with all the markets and tokens. The Composer now uses the real markets and tokens to convert human-readable values to chain format
+* The Composer can still be instantiated without markets and tokens. When markets and tokens are not provided the Composer loads the required information from the Denoms used in previous versions
+* Change in AsyncClient to be able to create Composer instances for the client network, markets and tokens
+* Examples have been adapted to create Composer instances using the AsyncClient
+
 **0.7**
 * Removed references to pysha3 library (and also eip712-struct that required it) and replaced it with other implementation to allow the project to work with Python 3.11
 * Updated sentry nodes LCD URL, for each sentry node to use its own service

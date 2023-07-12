@@ -6,7 +6,7 @@ import threading
 from http.cookies import SimpleCookie
 from typing import List, Optional, Tuple, Union
 
-from .exceptions import NotFoundError, EmptyMsgError
+from .exceptions import NotFoundError
 
 from .proto.cosmos.base.abci.v1beta1 import abci_pb2 as abci_type
 

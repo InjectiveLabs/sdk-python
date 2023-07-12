@@ -1,9 +1,13 @@
 import os
 from configparser import ConfigParser
+from warnings import warn
 
 MAX_CLIENT_ID_LENGTH = 128
 MAX_DATA_SIZE = 256
 MAX_MEMO_CHARACTERS = 256
+ADDITIONAL_CHAIN_FORMAT_DECIMALS = 18
+TICKER_TOKENS_SEPARATOR = "/"
+INJ_DENOM = "inj"
 
 devnet_config = ConfigParser()
 devnet_config.read(os.path.join(os.path.dirname(__file__), 'denoms_devnet.ini'))
@@ -14,6 +18,13 @@ testnet_config.read(os.path.join(os.path.dirname(__file__), 'denoms_testnet.ini'
 mainnet_config = ConfigParser()
 mainnet_config.read(os.path.join(os.path.dirname(__file__), 'denoms_mainnet.ini'))
 
+CONFIGS = {
+    "devnet": devnet_config,
+    "testnet": testnet_config,
+    "mainnet": mainnet_config,
+}
+
+
 class Denom:
     def __init__(
         self,
@@ -23,6 +34,7 @@ class Denom:
         min_price_tick_size: float,
         min_quantity_tick_size: float
     ):
+
         self.description = description
         self.base = base
         self.quote = quote

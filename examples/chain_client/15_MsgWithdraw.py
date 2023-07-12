@@ -13,9 +13,7 @@
 # limitations under the License.
 
 import asyncio
-import logging
 
-from pyinjective.composer import Composer as ProtoMsgComposer
 from pyinjective.async_client import AsyncClient
 from pyinjective.transaction import Transaction
 from pyinjective.constant import Network
@@ -25,10 +23,10 @@ from pyinjective.wallet import PrivateKey
 async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
-    composer = ProtoMsgComposer(network=network.string())
 
     # initialize grpc client
     client = AsyncClient(network, insecure=False)
+    composer = await client.composer()
     await client.sync_timeout_height()
 
     # load account

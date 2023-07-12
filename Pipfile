@@ -25,6 +25,7 @@ websockets = "*"
 [dev-packages]
 pytest = "*"
 pytest-asyncio = "*"
+pytest-grpc = "*"
 requests-mock = "*"
 
 [requires]
