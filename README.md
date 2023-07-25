@@ -87,6 +87,9 @@ make tests
 ```
 
 ### Changelogs
+** 0.7.0.3**
+* Add FRCOIN testnet
+
 ** 0.7.0.2**
 * Removed from AsyncClient all references to the deprecated OrderBook RPC endpoints (replaced them with OrderBookV2)
 * Updated all orderbook examples
