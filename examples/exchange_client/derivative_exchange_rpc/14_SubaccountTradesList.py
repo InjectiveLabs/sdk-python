@@ -9,7 +9,7 @@ async def main() -> None:
     network = Network.testnet()
     client = AsyncClient(network, insecure=False)
     subaccount_id = "0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000"
-    market_id = "0x90e662193fa29a3a7e6c07be4407c94833e762d9ee82136a2cc712d6b87d7de3"
+    market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
     execution_type = "market"
     direction = "sell"
     skip = 10
