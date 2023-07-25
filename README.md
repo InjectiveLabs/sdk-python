@@ -87,6 +87,10 @@ make tests
 ```
 
 ### Changelogs
+** 0.7.0.2**
+* Removed from AsyncClient all references to the deprecated OrderBook RPC endpoints (replaced them with OrderBookV2)
+* Updated all orderbook examples
+
 **0.7**
 * Removed references to pysha3 library (and also eip712-struct that required it) and replaced it with other implementation to allow the project to work with Python 3.11
 * Updated sentry nodes LCD URL, for each sentry node to use its own service

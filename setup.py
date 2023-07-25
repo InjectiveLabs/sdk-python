@@ -17,7 +17,7 @@ URL = "https://github.com/InjectiveLabs/sdk-python"
 EMAIL = "achilleas@injectivelabs.com"
 AUTHOR = "Injective Labs"
 REQUIRES_PYTHON = ">=3.9"
-VERSION = "0.7.0.1"
+VERSION = "0.7.0.2"
 
 REQUIRED = [
     "aiohttp",
