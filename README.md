@@ -87,6 +87,9 @@ make tests
 ```
 
 ### Changelogs
+** 0.7.0.4**
+* Synchronized decimals for ATOM and WETH in Testnet with the configuration provided by the indexer
+
 ** 0.7.0.3**
 * Add FRCOIN testnet
 
