@@ -87,6 +87,9 @@ make tests
 ```
 
 ### Changelogs
+** 0.7.0.5 **
+* Added the required logic in the MsgSubaccountTransfer message to translate amounts and token into the correct amount and token name representation for the chain
+
 ** 0.7.0.4**
 * Synchronized decimals for ATOM and WETH in Testnet with the configuration provided by the indexer
 
