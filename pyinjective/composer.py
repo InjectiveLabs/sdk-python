@@ -625,12 +625,13 @@ class Composer:
         amount: int,
         denom: str,
     ):
-
+        peggy_denom, decimals = Denom.load_peggy_denom(self.network, denom)
+        be_amount = amount_to_backend(amount, decimals)
         return injective_exchange_tx_pb.MsgSubaccountTransfer(
             sender=sender,
             source_subaccount_id=source_subaccount_id,
             destination_subaccount_id=destination_subaccount_id,
-            amount=self.Coin(amount=amount, denom=denom),
+            amount=self.Coin(amount=be_amount, denom=peggy_denom),
         )
 
     def MsgWithdraw(self, sender: str, subaccount_id: str, amount: float, denom: str):
