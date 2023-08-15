@@ -87,16 +87,19 @@ make tests
 ```
 
 ### Changelogs
-** 0.7.0.5 **
+**0.7.0.6**
+* ADD SEI/USDT in metadata
+
+**0.7.0.5**
 * Added the required logic in the MsgSubaccountTransfer message to translate amounts and token into the correct amount and token name representation for the chain
 
-** 0.7.0.4**
+**0.7.0.4**
 * Synchronized decimals for ATOM and WETH in Testnet with the configuration provided by the indexer
 
-** 0.7.0.3**
+**0.7.0.3**
 * Add FRCOIN testnet
 
-** 0.7.0.2**
+**0.7.0.2**
 * Removed from AsyncClient all references to the deprecated OrderBook RPC endpoints (replaced them with OrderBookV2)
 * Updated all orderbook examples
 
