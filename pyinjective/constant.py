@@ -94,13 +94,33 @@ class Network:
         )
 
     @classmethod
-    def testnet(cls):
+    def testnet(cls, node="lb"):
+        nodes = [
+            "lb",
+            "sentry",
+        ]
+        if node not in nodes:
+            raise ValueError('Must be one of {}'.format(nodes))
+
+        if node == 'lb':
+            lcd_endpoint = 'https://k8s.testnet.lcd.injective.network',
+            tm_websocket_endpoint = 'wss://k8s.testnet.tm.injective.network/websocket',
+            grpc_endpoint = 'k8s.testnet.chain.grpc.injective.network:443',
+            grpc_exchange_endpoint = 'k8s.testnet.exchange.grpc.injective.network:443',
+            grpc_explorer_endpoint = 'k8s.testnet.explorer.grpc.injective.network:443',
+        else:
+            lcd_endpoint = 'https://testnet.lcd.injective.network'
+            tm_websocket_endpoint = 'wss://testnet.tm.injective.network/websocket'
+            grpc_endpoint = 'testnet.chain.grpc.injective.network'
+            grpc_exchange_endpoint = 'testnet.exchange.grpc.injective.network'
+            grpc_explorer_endpoint = 'testnet.explorer.grpc.injective.network'
+
         return cls(
-            lcd_endpoint='https://k8s.testnet.lcd.injective.network',
-            tm_websocket_endpoint='wss://k8s.testnet.tm.injective.network/websocket',
-            grpc_endpoint='k8s.testnet.chain.grpc.injective.network:443',
-            grpc_exchange_endpoint='k8s.testnet.exchange.grpc.injective.network:443',
-            grpc_explorer_endpoint='k8s.testnet.explorer.grpc.injective.network:443',
+            lcd_endpoint=lcd_endpoint,
+            tm_websocket_endpoint=tm_websocket_endpoint,
+            grpc_endpoint=grpc_endpoint,
+            grpc_exchange_endpoint=grpc_exchange_endpoint,
+            grpc_explorer_endpoint=grpc_explorer_endpoint,
             chain_id='injective-888',
             fee_denom='inj',
             env='testnet'
