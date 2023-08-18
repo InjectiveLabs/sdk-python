@@ -97,7 +97,7 @@ make tests
 * Fixed Testnet network URLs
 
 **0.7.1**
-* Include implementation of the MessageBroadcaster, to simplify the transaction creation and broadcasting process.
+* Include implementation of the TransactionBroadcaster, to simplify the transaction creation and broadcasting process.
 
 **0.7.0.6**
 * ADD SEI/USDT in metadata
