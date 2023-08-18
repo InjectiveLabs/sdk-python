@@ -287,8 +287,8 @@ class SimulatedTransactionFeeCalculator(TransactionFeeCalculator):
 
 
 class MessageBasedTransactionFeeCalculator(TransactionFeeCalculator):
-    DEFAULT_GAS_LIMIT = 400_000
-    DEFAULT_EXCHANGE_GAS_LIMIT = 200_000
+    DEFAULT_GAS_LIMIT = 150_000
+    DEFAULT_EXCHANGE_GAS_LIMIT = 100_000
 
     def __init__(
             self,
@@ -313,11 +313,11 @@ class MessageBasedTransactionFeeCalculator(TransactionFeeCalculator):
                 Decimal("2.5") * self._base_gas_limit
             ),
             (
-                lambda message: "wasm" in self._message_type(message=message),
+                lambda message: "wasm." in self._message_type(message=message),
                 Decimal("1.5") * self._base_gas_limit
             ),
             (
-                lambda message: "exchange" in self._message_type(message=message),
+                lambda message: "exchange." in self._message_type(message=message),
                 Decimal("1") * self._base_exchange_gas_limit
             ),
             (
@@ -353,7 +353,7 @@ class MessageBasedTransactionFeeCalculator(TransactionFeeCalculator):
 
     def _is_governance_message(self, message: any_pb2.Any) -> bool:
         message_type = self._message_type(message=message)
-        return "gov" in message_type and ("MsgDeposit" in message_type or "MsgSubmitProposal" in message_type)
+        return "gov." in message_type and ("MsgDeposit" in message_type or "MsgSubmitProposal" in message_type)
 
     def _calculate_gas_limit(self, messages: List[any_pb2.Any]) -> int:
         total_gas_limit = Decimal("0")

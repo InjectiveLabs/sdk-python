@@ -343,7 +343,7 @@ class AsyncClient:
         try:
             metadata = await self.load_cookie(type="chain")
             account_any = (await self.stubAuth.Account(
-                auth_query.QueryAccountRequest.__call__(address=address), metadata=metadata
+                auth_query.QueryAccountRequest(address=address), metadata=metadata
             )).account
             account = account_pb2.EthAccount()
             if account_any.Is(account.DESCRIPTOR):
@@ -380,7 +380,7 @@ class AsyncClient:
         try:
             req = tx_service.SimulateRequest(tx_bytes=tx_byte)
             metadata = await self.load_cookie(type="chain")
-            return await self.stubTx.Simulate.__call__(req, metadata=metadata), True
+            return await self.stubTx.Simulate(request=req, metadata=metadata), True
         except grpc.RpcError as err:
             return err, False
 
@@ -389,7 +389,7 @@ class AsyncClient:
             tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_SYNC
         )
         metadata = await self.load_cookie(type="chain")
-        result = await self.stubTx.BroadcastTx.__call__(req, metadata=metadata)
+        result = await self.stubTx.BroadcastTx(request=req, metadata=metadata)
         return result.tx_response
 
     async def send_tx_async_mode(self, tx_byte: bytes) -> abci_type.TxResponse:
@@ -397,7 +397,7 @@ class AsyncClient:
             tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_ASYNC
         )
         metadata = await self.load_cookie(type="chain")
-        result = await self.stubTx.BroadcastTx.__call__(req, metadata=metadata)
+        result = await self.stubTx.BroadcastTx(request=req, metadata=metadata)
         return result.tx_response
 
     async def send_tx_block_mode(self, tx_byte: bytes) -> abci_type.TxResponse:
@@ -405,7 +405,7 @@ class AsyncClient:
             tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_BLOCK
         )
         metadata = await self.load_cookie(type="chain")
-        result = await self.stubTx.BroadcastTx.__call__(req, metadata=metadata)
+        result = await self.stubTx.BroadcastTx(request=req, metadata=metadata)
         return result.tx_response
 
     async def get_chain_id(self) -> str:
@@ -673,7 +673,7 @@ class AsyncClient:
             market_ids=kwargs.get("market_ids")
         )
         metadata = await self.load_cookie(type="exchange")
-        return self.stubSpotExchange.StreamMarkets.__call__(req, metadata=metadata)
+        return self.stubSpotExchange.StreamMarkets(request=req, metadata=metadata)
 
     async def get_spot_orderbookV2(self, market_id: str):
         req = spot_exchange_rpc_pb.OrderbookV2Request(market_id=market_id)
@@ -730,12 +730,12 @@ class AsyncClient:
     async def stream_spot_orderbook_snapshot(self, market_ids: List[str]):
         req = spot_exchange_rpc_pb.StreamOrderbookV2Request(market_ids=market_ids)
         metadata = await self.load_cookie(type="exchange")
-        return self.stubSpotExchange.StreamOrderbookV2.__call__(req, metadata=metadata)
+        return self.stubSpotExchange.StreamOrderbookV2(request=req, metadata=metadata)
 
     async def stream_spot_orderbook_update(self, market_ids: List[str]):
         req = spot_exchange_rpc_pb.StreamOrderbookUpdateRequest(market_ids=market_ids)
         metadata = await self.load_cookie(type="exchange")
-        return self.stubSpotExchange.StreamOrderbookUpdate.__call__(req, metadata=metadata)
+        return self.stubSpotExchange.StreamOrderbookUpdate(request=req, metadata=metadata)
 
     async def stream_spot_orders(self, market_id: str, **kwargs):
         req = spot_exchange_rpc_pb.StreamOrdersRequest(
@@ -744,7 +744,7 @@ class AsyncClient:
             subaccount_id=kwargs.get("subaccount_id"),
         )
         metadata = await self.load_cookie(type="exchange")
-        return self.stubSpotExchange.StreamOrders.__call__(req, metadata=metadata)
+        return self.stubSpotExchange.StreamOrders(request=req, metadata=metadata)
 
     async def stream_historical_spot_orders(self, market_id: str, **kwargs):
         req = spot_exchange_rpc_pb.StreamOrdersHistoryRequest(
@@ -756,7 +756,7 @@ class AsyncClient:
             execution_types=kwargs.get("execution_types")
         )
         metadata = await self.load_cookie(type="exchange")
-        return self.stubSpotExchange.StreamOrdersHistory.__call__(req, metadata=metadata)
+        return self.stubSpotExchange.StreamOrdersHistory(request=req, metadata=metadata)
 
     async def stream_historical_derivative_orders(self, market_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.StreamOrdersHistoryRequest(
@@ -768,7 +768,7 @@ class AsyncClient:
             execution_types=kwargs.get("execution_types")
         )
         metadata = await self.load_cookie(type="exchange")
-        return self.stubDerivativeExchange.StreamOrdersHistory.__call__(req, metadata=metadata)
+        return self.stubDerivativeExchange.StreamOrdersHistory(request=req, metadata=metadata)
 
     async def stream_spot_trades(self, **kwargs):
         req = spot_exchange_rpc_pb.StreamTradesRequest(
@@ -781,7 +781,7 @@ class AsyncClient:
             execution_types=kwargs.get("execution_types"),
         )
         metadata = await self.load_cookie(type="exchange")
-        return self.stubSpotExchange.StreamTrades.__call__(req, metadata=metadata)
+        return self.stubSpotExchange.StreamTrades(request=req, metadata=metadata)
 
     async def get_spot_subaccount_orders(self, subaccount_id: str, **kwargs):
         req = spot_exchange_rpc_pb.SubaccountOrdersListRequest(
@@ -821,7 +821,7 @@ class AsyncClient:
             market_ids=kwargs.get("market_ids")
         )
         metadata = await self.load_cookie(type="exchange")
-        return self.stubDerivativeExchange.StreamMarket.__call__(req, metadata=metadata)
+        return self.stubDerivativeExchange.StreamMarket(request=req, metadata=metadata)
 
     async def get_derivative_orderbook(self, market_id: str):
         req = derivative_exchange_rpc_pb.OrderbookV2Request(market_id=market_id)
@@ -887,16 +887,12 @@ class AsyncClient:
     async def stream_derivative_orderbook_snapshot(self, market_ids: List[str]):
         req = derivative_exchange_rpc_pb.StreamOrderbookV2Request(market_ids=market_ids)
         metadata = await self.load_cookie(type="exchange")
-        return self.stubDerivativeExchange.StreamOrderbookV2.__call__(
-            req, metadata=metadata
-        )
+        return self.stubDerivativeExchange.StreamOrderbookV2(request=req, metadata=metadata)
 
     async def stream_derivative_orderbook_update(self, market_ids: List[str]):
         req = derivative_exchange_rpc_pb.StreamOrderbookUpdateRequest(market_ids=market_ids)
         metadata = await self.load_cookie(type="exchange")
-        return self.stubDerivativeExchange.StreamOrderbookUpdate.__call__(
-            req, metadata=metadata
-        )
+        return self.stubDerivativeExchange.StreamOrderbookUpdate(request=req, metadata=metadata)
 
     async def stream_derivative_orders(self, market_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.StreamOrdersRequest(
@@ -905,7 +901,7 @@ class AsyncClient:
             subaccount_id=kwargs.get("subaccount_id"),
         )
         metadata = await self.load_cookie(type="exchange")
-        return self.stubDerivativeExchange.StreamOrders.__call__(req, metadata=metadata)
+        return self.stubDerivativeExchange.StreamOrders(request=req, metadata=metadata)
 
     async def stream_derivative_trades(self, **kwargs):
         req = derivative_exchange_rpc_pb.StreamTradesRequest(
@@ -920,7 +916,7 @@ class AsyncClient:
             execution_types=kwargs.get("execution_types"),
         )
         metadata = await self.load_cookie(type="exchange")
-        return self.stubDerivativeExchange.StreamTrades.__call__(req, metadata=metadata)
+        return self.stubDerivativeExchange.StreamTrades(request=req, metadata=metadata)
 
     async def get_derivative_positions(self, **kwargs):
         req = derivative_exchange_rpc_pb.PositionsRequest(
@@ -942,9 +938,7 @@ class AsyncClient:
             subaccount_ids=kwargs.get("subaccount_ids"),
         )
         metadata = await self.load_cookie(type="exchange")
-        return self.stubDerivativeExchange.StreamPositions.__call__(
-            req, metadata=metadata
-        )
+        return self.stubDerivativeExchange.StreamPositions(request=req, metadata=metadata)
 
     async def get_derivative_liquidable_positions(self, **kwargs):
         req = derivative_exchange_rpc_pb.LiquidablePositionsRequest(
@@ -1020,7 +1014,7 @@ class AsyncClient:
             type=kwargs.get("type")
         )
         metadata = await self.load_cookie(type="exchange")
-        return self.stubPortfolio.StreamAccountPortfolio.__call__(req, metadata=metadata)
+        return self.stubPortfolio.StreamAccountPortfolio(request=req, metadata=metadata)
 
     async def composer(self):
         return Composer(
