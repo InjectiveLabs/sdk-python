@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from decimal import Decimal
-from typing import List, Optional
+from typing import Callable, List, Optional, Tuple
 
 import math
 from google.protobuf import any_pb2
@@ -9,6 +9,7 @@ from pyinjective import PrivateKey, Transaction, PublicKey
 from pyinjective.async_client import AsyncClient
 from pyinjective.composer import Composer
 from pyinjective.constant import Network
+from pyinjective.proto.cosmos.authz.v1beta1 import tx_pb2 as cosmos_authz_tx_pb
 
 
 class BroadcasterAccountConfig(ABC):
@@ -87,6 +88,31 @@ class MsgBroadcasterWithPk:
         return instance
 
     @classmethod
+    def new_without_simulation(
+            cls,
+            network: Network,
+            private_key: str,
+            use_secure_connection: bool = True,
+            client: Optional[AsyncClient] = None,
+            composer: Optional[Composer] = None,
+    ):
+        client = client or AsyncClient(network=network, insecure=not (use_secure_connection))
+        composer = composer or Composer(network=client.network.string())
+        account_config = StandardAccountBroadcasterConfig(private_key=private_key)
+        fee_calculator = MessageBasedTransactionFeeCalculator(
+            client=client,
+            composer=composer
+        )
+        instance = cls(
+            network=network,
+            account_config=account_config,
+            client=client,
+            composer=composer,
+            fee_calculator=fee_calculator,
+        )
+        return instance
+
+    @classmethod
     def new_for_grantee_account_using_simulation(
             cls,
             network: Network,
@@ -99,6 +125,31 @@ class MsgBroadcasterWithPk:
         composer = composer or Composer(network=client.network.string())
         account_config = GranteeAccountBroadcasterConfig(grantee_private_key=grantee_private_key, composer=composer)
         fee_calculator = SimulatedTransactionFeeCalculator(
+            client=client,
+            composer=composer
+        )
+        instance = cls(
+            network=network,
+            account_config=account_config,
+            client=client,
+            composer=composer,
+            fee_calculator=fee_calculator,
+        )
+        return instance
+
+    @classmethod
+    def new_for_grantee_account_without_simulation(
+            cls,
+            network: Network,
+            grantee_private_key: str,
+            use_secure_connection: bool = True,
+            client: Optional[AsyncClient] = None,
+            composer: Optional[Composer] = None,
+    ):
+        client = client or AsyncClient(network=network, insecure=not (use_secure_connection))
+        composer = composer or Composer(network=client.network.string())
+        account_config = GranteeAccountBroadcasterConfig(grantee_private_key=grantee_private_key, composer=composer)
+        fee_calculator = MessageBasedTransactionFeeCalculator(
             client=client,
             composer=composer
         )
@@ -196,10 +247,16 @@ class GranteeAccountBroadcasterConfig(BroadcasterAccountConfig):
 
 class SimulatedTransactionFeeCalculator(TransactionFeeCalculator):
 
-    def __init__(self, client: AsyncClient, composer: Composer, gas_price: Optional[int] = None):
+    def __init__(
+            self,
+            client: AsyncClient,
+            composer: Composer,
+            gas_price: Optional[int] = None,
+            gas_limit_adjustment_multiplier: Optional[Decimal] = None):
         self._client = client
         self._composer = composer
         self._gas_price = gas_price or self.DEFAULT_GAS_PRICE
+        self._gas_limit_adjustment_multiplier = gas_limit_adjustment_multiplier or Decimal("1.3")
 
     async def configure_gas_fee_for_transaction(
             self,
@@ -216,7 +273,7 @@ class SimulatedTransactionFeeCalculator(TransactionFeeCalculator):
         if not success:
             raise RuntimeError(f"Transaction simulation error: {sim_res}")
 
-        gas_limit = math.ceil(Decimal(str(sim_res.gas_info.gas_used)) * Decimal("1.1"))
+        gas_limit = math.ceil(Decimal(str(sim_res.gas_info.gas_used)) * self._gas_limit_adjustment_multiplier)
 
         fee = [
             self._composer.Coin(
@@ -227,3 +284,95 @@ class SimulatedTransactionFeeCalculator(TransactionFeeCalculator):
 
         transaction.with_gas(gas=gas_limit)
         transaction.with_fee(fee=fee)
+
+
+class MessageBasedTransactionFeeCalculator(TransactionFeeCalculator):
+    DEFAULT_GAS_LIMIT = 400_000
+    DEFAULT_EXCHANGE_GAS_LIMIT = 200_000
+
+    def __init__(
+            self,
+            client: AsyncClient,
+            composer: Composer,
+            gas_price: Optional[int] = None,
+            base_gas_limit: Optional[int] = None,
+            base_exchange_gas_limit: Optional[int] = None):
+        self._client = client
+        self._composer = composer
+        self._gas_price = gas_price or self.DEFAULT_GAS_PRICE
+        self._base_gas_limit = base_gas_limit or self.DEFAULT_GAS_LIMIT
+        self._base_exchange_gas_limit = base_exchange_gas_limit or self.DEFAULT_EXCHANGE_GAS_LIMIT
+
+        self._gas_limit_per_message_type_rules: List[Tuple[Callable, Decimal]] = [
+            (
+                lambda message: "MsgPrivilegedExecuteContract" in self._message_type(message=message),
+                Decimal("6") * self._base_gas_limit
+            ),
+            (
+                lambda message: "MsgExecuteContract" in self._message_type(message=message),
+                Decimal("2.5") * self._base_gas_limit
+            ),
+            (
+                lambda message: "wasm" in self._message_type(message=message),
+                Decimal("1.5") * self._base_gas_limit
+            ),
+            (
+                lambda message: "exchange" in self._message_type(message=message),
+                Decimal("1") * self._base_exchange_gas_limit
+            ),
+            (
+                lambda message: self._is_governance_message(message=message),
+                Decimal("15") * self._base_gas_limit
+            ),
+        ]
+
+    async def configure_gas_fee_for_transaction(
+            self,
+            transaction: Transaction,
+            private_key: PrivateKey,
+            public_key: PublicKey,
+    ):
+        transaction_gas_limit = math.ceil(self._calculate_gas_limit(messages=transaction.msgs))
+
+        fee = [
+            self._composer.Coin(
+                amount=math.ceil(self._gas_price * transaction_gas_limit),
+                denom=self._client.network.fee_denom,
+            )
+        ]
+
+        transaction.with_gas(gas=transaction_gas_limit)
+        transaction.with_fee(fee=fee)
+
+    def _message_type(self, message: any_pb2.Any) -> str:
+        if isinstance(message, any_pb2.Any):
+            message_type = message.type_url
+        else:
+            message_type = message.DESCRIPTOR.full_name
+        return message_type
+
+    def _is_governance_message(self, message: any_pb2.Any) -> bool:
+        message_type = self._message_type(message=message)
+        return "gov" in message_type and ("MsgDeposit" in message_type or "MsgSubmitProposal" in message_type)
+
+    def _calculate_gas_limit(self, messages: List[any_pb2.Any]) -> int:
+        total_gas_limit = Decimal("0")
+
+        for message in messages:
+            applying_rule = next(
+                (rule_tuple for rule_tuple in self._gas_limit_per_message_type_rules
+                 if rule_tuple[0](message)),
+                None
+            )
+
+            if applying_rule is None:
+                total_gas_limit += self._base_gas_limit
+            else:
+                total_gas_limit += applying_rule[1]
+
+            if self._message_type(message=message).endswith("MsgExec"):
+                exec_message = cosmos_authz_tx_pb.MsgExec.FromString(message.value)
+                sub_messages_limit = self._calculate_gas_limit(messages=exec_message.msgs)
+                total_gas_limit += sub_messages_limit
+
+        return math.ceil(total_gas_limit)
