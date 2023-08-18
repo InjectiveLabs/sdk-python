@@ -87,8 +87,11 @@ make tests
 ```
 
 ### Changelogs
+**0.7.2**
+* Added a new gas limit calculation for the TransactionBroadcaster that estimates the value based on the messages in the transaction (without running the transaction simulation).
+
 **0.7.1**
-* Include implementation of the MessageBroadcaster, to simplify the transaction creation and broadcasting process.
+* Include implementation of the TransactionBroadcaster, to simplify the transaction creation and broadcasting process.
 
 **0.7.0.6**
 * ADD SEI/USDT in metadata
