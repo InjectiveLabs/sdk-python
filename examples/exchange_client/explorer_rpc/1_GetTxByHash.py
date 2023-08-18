@@ -7,10 +7,10 @@ from pyinjective.constant import Network
 
 async def main() -> None:
     # select network: local, testnet, mainnet
-    network = Network.mainnet()
+    network = Network.testnet()
     client = AsyncClient(network, insecure=False)
     composer = Composer(network=network.string())
-    tx_hash = "50DD80270052D85835939A393127B5626917007E71A7ABD5205F1A094B976C1B"
+    tx_hash = "0F3EBEC1882E1EEAC5B7BDD836E976250F1CD072B79485877CEACCB92ACDDF52"
     transaction_response = await client.get_tx_by_hash(tx_hash=tx_hash)
     print(transaction_response)
 
