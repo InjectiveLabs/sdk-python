@@ -103,11 +103,11 @@ class Network:
             raise ValueError('Must be one of {}'.format(nodes))
 
         if node == 'lb':
-            lcd_endpoint = 'https://k8s.testnet.lcd.injective.network',
-            tm_websocket_endpoint = 'wss://k8s.testnet.tm.injective.network/websocket',
-            grpc_endpoint = 'k8s.testnet.chain.grpc.injective.network:443',
-            grpc_exchange_endpoint = 'k8s.testnet.exchange.grpc.injective.network:443',
-            grpc_explorer_endpoint = 'k8s.testnet.explorer.grpc.injective.network:443',
+            lcd_endpoint = 'https://k8s.testnet.lcd.injective.network'
+            tm_websocket_endpoint = 'wss://k8s.testnet.tm.injective.network/websocket'
+            grpc_endpoint = 'k8s.testnet.chain.grpc.injective.network:443'
+            grpc_exchange_endpoint = 'k8s.testnet.exchange.grpc.injective.network:443'
+            grpc_explorer_endpoint = 'k8s.testnet.explorer.grpc.injective.network:443'
         else:
             lcd_endpoint = 'https://testnet.lcd.injective.network'
             tm_websocket_endpoint = 'wss://testnet.tm.injective.network/websocket'
