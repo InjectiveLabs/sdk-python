@@ -24,8 +24,6 @@ class TestMessageBasedTransactionFeeCalculator:
             client=client,
             composer=composer,
             gas_price=5_000_000,
-            base_gas_limit=400_000,
-            base_exchange_gas_limit=150_000,
         )
 
         message = tx_pb2.MsgPrivilegedExecuteContract()
@@ -34,7 +32,8 @@ class TestMessageBasedTransactionFeeCalculator:
 
         await calculator.configure_gas_fee_for_transaction(transaction=transaction, private_key=None, public_key=None)
 
-        expected_gas_limit = math.ceil(Decimal(6) * 400_000)
+        expected_transaction_gas_limit = 60_000
+        expected_gas_limit = math.ceil(Decimal(6) * 150_000 + expected_transaction_gas_limit)
         assert(expected_gas_limit == transaction.fee.gas_limit)
         assert(str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount)
 
@@ -47,8 +46,6 @@ class TestMessageBasedTransactionFeeCalculator:
             client=client,
             composer=composer,
             gas_price=5_000_000,
-            base_gas_limit=400_000,
-            base_exchange_gas_limit=150_000,
         )
 
         message = composer.MsgExecuteContract(
@@ -61,7 +58,8 @@ class TestMessageBasedTransactionFeeCalculator:
 
         await calculator.configure_gas_fee_for_transaction(transaction=transaction, private_key=None, public_key=None)
 
-        expected_gas_limit = math.ceil(Decimal(2.5) * 400_000)
+        expected_transaction_gas_limit = 60_000
+        expected_gas_limit = math.ceil(Decimal(2.5) * 150_000 + expected_transaction_gas_limit)
         assert (expected_gas_limit == transaction.fee.gas_limit)
         assert (str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount)
 
@@ -74,8 +72,6 @@ class TestMessageBasedTransactionFeeCalculator:
             client=client,
             composer=composer,
             gas_price=5_000_000,
-            base_gas_limit=400_000,
-            base_exchange_gas_limit=150_000,
         )
 
         message = wasm_tx_pb2.MsgInstantiateContract2()
@@ -84,7 +80,8 @@ class TestMessageBasedTransactionFeeCalculator:
 
         await calculator.configure_gas_fee_for_transaction(transaction=transaction, private_key=None, public_key=None)
 
-        expected_gas_limit = math.ceil(Decimal(1.5) * 400_000)
+        expected_transaction_gas_limit = 60_000
+        expected_gas_limit = math.ceil(Decimal(1.5) * 150_000 + expected_transaction_gas_limit)
         assert (expected_gas_limit == transaction.fee.gas_limit)
         assert (str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount)
 
@@ -97,8 +94,6 @@ class TestMessageBasedTransactionFeeCalculator:
             client=client,
             composer=composer,
             gas_price=5_000_000,
-            base_gas_limit=400_000,
-            base_exchange_gas_limit=150_000,
         )
 
         message = gov_tx_pb2.MsgDeposit()
@@ -107,7 +102,8 @@ class TestMessageBasedTransactionFeeCalculator:
 
         await calculator.configure_gas_fee_for_transaction(transaction=transaction, private_key=None, public_key=None)
 
-        expected_gas_limit = math.ceil(Decimal(15) * 400_000)
+        expected_transaction_gas_limit = 60_000
+        expected_gas_limit = math.ceil(Decimal(15) * 150_000 + expected_transaction_gas_limit)
         assert (expected_gas_limit == transaction.fee.gas_limit)
         assert (str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount)
 
@@ -120,8 +116,6 @@ class TestMessageBasedTransactionFeeCalculator:
             client=client,
             composer=composer,
             gas_price=5_000_000,
-            base_gas_limit=400_000,
-            base_exchange_gas_limit=150_000,
         )
 
         message = composer.MsgCreateSpotLimitOrder(
@@ -139,7 +133,8 @@ class TestMessageBasedTransactionFeeCalculator:
 
         await calculator.configure_gas_fee_for_transaction(transaction=transaction, private_key=None, public_key=None)
 
-        expected_gas_limit = math.ceil(Decimal(1) * 150_000)
+        expected_transaction_gas_limit = 60_000
+        expected_gas_limit = math.ceil(Decimal(1) * 100_000 + expected_transaction_gas_limit)
         assert (expected_gas_limit == transaction.fee.gas_limit)
         assert (str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount)
 
@@ -152,8 +147,6 @@ class TestMessageBasedTransactionFeeCalculator:
             client=client,
             composer=composer,
             gas_price=5_000_000,
-            base_gas_limit=400_000,
-            base_exchange_gas_limit=150_000,
         )
 
         inner_message = composer.MsgCreateSpotLimitOrder(
@@ -175,9 +168,12 @@ class TestMessageBasedTransactionFeeCalculator:
 
         await calculator.configure_gas_fee_for_transaction(transaction=transaction, private_key=None, public_key=None)
 
-        expected_inner_message_gas_limit = Decimal(1) * 150_000
-        expected_exec_message_gas_limit = 400_000
-        expected_gas_limit = math.ceil(expected_exec_message_gas_limit + expected_inner_message_gas_limit)
+        expected_transaction_gas_limit = 60_000
+        expected_inner_message_gas_limit = Decimal(1) * 100_000
+        expected_exec_message_gas_limit = 5_000
+        expected_gas_limit = math.ceil(
+            expected_exec_message_gas_limit + expected_inner_message_gas_limit + expected_transaction_gas_limit
+        )
         assert (expected_gas_limit == transaction.fee.gas_limit)
         assert (str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount)
 
@@ -190,8 +186,6 @@ class TestMessageBasedTransactionFeeCalculator:
             client=client,
             composer=composer,
             gas_price=5_000_000,
-            base_gas_limit=400_000,
-            base_exchange_gas_limit=150_000,
         )
 
         inner_message = composer.MsgCreateSpotLimitOrder(
@@ -221,11 +215,15 @@ class TestMessageBasedTransactionFeeCalculator:
 
         await calculator.configure_gas_fee_for_transaction(transaction=transaction, private_key=None, public_key=None)
 
-        expected_inner_message_gas_limit = Decimal(1) * 150_000
-        expected_exec_message_gas_limit = 400_000
-        expected_send_message_gas_limit = 400_000
+        expected_transaction_gas_limit = 60_000
+        expected_inner_message_gas_limit = Decimal(1) * 100_000
+        expected_exec_message_gas_limit = 5_000
+        expected_send_message_gas_limit = 150_000
         expected_gas_limit = math.ceil(
-            expected_exec_message_gas_limit + expected_inner_message_gas_limit + expected_send_message_gas_limit
+            expected_exec_message_gas_limit
+            + expected_inner_message_gas_limit
+            + expected_send_message_gas_limit
+            + expected_transaction_gas_limit
         )
         assert (expected_gas_limit == transaction.fee.gas_limit)
         assert (str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount)
