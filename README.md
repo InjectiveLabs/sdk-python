@@ -87,6 +87,9 @@ make tests
 ```
 
 ### Changelogs
+**0.7.1.1**
+* Fixed Testnet network URLs
+
 **0.7.1**
 * Include implementation of the MessageBroadcaster, to simplify the transaction creation and broadcasting process.
 
