@@ -3,7 +3,8 @@ import logging
 import time
 
 from pyinjective.async_client import AsyncClient
-from pyinjective.constant import Network
+from pyinjective.core.network import Network
+
 
 async def main() -> None:
     # select network: local, testnet, mainnet

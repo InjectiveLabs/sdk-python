@@ -4,7 +4,8 @@ import json
 import websockets
 import base64
 
-from pyinjective.constant import Network
+from pyinjective.core.network import Network
+
 
 async def main() -> None:
     network = Network.mainnet()

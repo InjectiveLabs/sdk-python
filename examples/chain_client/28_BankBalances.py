@@ -2,7 +2,8 @@ import asyncio
 import logging
 
 from pyinjective.async_client import AsyncClient
-from pyinjective.constant import Network
+from pyinjective.core.network import Network
+
 
 async def main() -> None:
     network = Network.testnet()

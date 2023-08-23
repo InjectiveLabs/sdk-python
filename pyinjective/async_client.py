@@ -71,7 +71,7 @@ from .proto.injective.types.v1beta1 import (
     account_pb2
 )
 
-from .constant import Network
+from .core.network import Network
 from .utils.logger import LoggerProvider
 
 DEFAULT_TIMEOUTHEIGHT_SYNC_INTERVAL = 20  # seconds

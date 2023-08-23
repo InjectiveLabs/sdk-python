@@ -8,7 +8,7 @@ from google.protobuf import any_pb2
 from pyinjective import PrivateKey, Transaction, PublicKey
 from pyinjective.async_client import AsyncClient
 from pyinjective.composer import Composer
-from pyinjective.constant import Network
+from pyinjective.core.network import Network
 from pyinjective.core.gas_limit_estimator import GasLimitEstimator
 
 
