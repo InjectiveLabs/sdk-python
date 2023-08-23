@@ -11,8 +11,7 @@ async def main() -> None:
     network = Network.testnet()
 
     # initialize grpc client
-    # set custom cookie location (optional) - defaults to current dir
-    client = AsyncClient(network, insecure=False, chain_cookie_location="/tmp/.chain_cookie")
+    client = AsyncClient(network, insecure=False)
     composer = await client.composer()
     await client.sync_timeout_height()
 
