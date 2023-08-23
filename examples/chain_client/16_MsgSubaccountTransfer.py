@@ -29,7 +29,7 @@ async def main() -> None:
         source_subaccount_id=subaccount_id,
         destination_subaccount_id=dest_subaccount_id,
         amount=100,
-        denom="inj"
+        denom="INJ"
     )
 
     # build sim tx

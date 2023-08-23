@@ -87,11 +87,33 @@ make tests
 ```
 
 ### Changelogs
-**0.7.1**(change before release)
+**0.8**(change before release)
 * Refactor Composer to be created with all the markets and tokens. The Composer now uses the real markets and tokens to convert human-readable values to chain format
 * The Composer can still be instantiated without markets and tokens. When markets and tokens are not provided the Composer loads the required information from the Denoms used in previous versions
 * Change in AsyncClient to be able to create Composer instances for the client network, markets and tokens
 * Examples have been adapted to create Composer instances using the AsyncClient
+
+**0.7.1.1**
+* Fixed Testnet network URLs
+
+**0.7.1**
+* Include implementation of the MessageBroadcaster, to simplify the transaction creation and broadcasting process.
+
+**0.7.0.6**
+* ADD SEI/USDT in metadata
+
+**0.7.0.5**
+* Added the required logic in the MsgSubaccountTransfer message to translate amounts and token into the correct amount and token name representation for the chain
+
+**0.7.0.4**
+* Synchronized decimals for ATOM and WETH in Testnet with the configuration provided by the indexer
+
+**0.7.0.3**
+* Add FRCOIN testnet
+
+**0.7.0.2**
+* Removed from AsyncClient all references to the deprecated OrderBook RPC endpoints (replaced them with OrderBookV2)
+* Updated all orderbook examples
 
 **0.7**
 * Removed references to pysha3 library (and also eip712-struct that required it) and replaced it with other implementation to allow the project to work with Python 3.11
