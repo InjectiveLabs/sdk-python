@@ -90,6 +90,9 @@ make tests
 **0.7.2**
 * Added a new gas limit calculation for the TransactionBroadcaster that estimates the value based on the messages in the transaction (without running the transaction simulation).
 
+**0.7.1.2**
+* Add NBLA
+
 **0.7.1.1**
 * Fixed Testnet network URLs
 
