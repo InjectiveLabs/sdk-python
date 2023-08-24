@@ -3,7 +3,7 @@ import logging
 from decimal import *
 
 from pyinjective.async_client import AsyncClient
-from pyinjective.constant import Network
+from pyinjective.core.network import Network
 
 
 class PriceLevel:

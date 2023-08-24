@@ -1,9 +1,9 @@
-import logging
 import pytest
 from decimal import Decimal
 
 from pyinjective.composer import Composer
-from pyinjective.constant import Denom, Network
+from pyinjective.core.network import Network
+from pyinjective.constant import Denom
 from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from pyinjective.proto.injective.exchange.v1beta1 import exchange_pb2
 from tests.model_fixtures.markets_fixtures import (

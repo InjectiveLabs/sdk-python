@@ -12,7 +12,7 @@ async def main() -> None:
     composer = ProtoMsgComposer(network=network.string())
     private_key_in_hexa = "f9db9bf330e23cb7839039e944adef6e9df447b90b503d5b4464c90bea9022f3"
 
-    message_broadcaster = MsgBroadcasterWithPk.new_using_simulation(
+    message_broadcaster = MsgBroadcasterWithPk.new_without_simulation(
         network=network,
         private_key=private_key_in_hexa,
         use_secure_connection=True

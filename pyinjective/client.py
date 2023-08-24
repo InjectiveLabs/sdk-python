@@ -47,7 +47,7 @@ from .proto.exchange import (
     injective_auction_rpc_pb2_grpc as auction_rpc_grpc,
 )
 
-from .constant import Network
+from .core.network import Network
 
 DEFAULT_TIMEOUTHEIGHT_SYNC_INTERVAL = 10 # seconds
 DEFAULT_TIMEOUTHEIGHT = 20 # blocks

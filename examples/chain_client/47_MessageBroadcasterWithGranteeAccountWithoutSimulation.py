@@ -22,7 +22,7 @@ async def main() -> None:
     pub_key = priv_key.to_public_key()
     address = pub_key.to_address()
 
-    message_broadcaster = MsgBroadcasterWithPk.new_for_grantee_account_using_simulation(
+    message_broadcaster = MsgBroadcasterWithPk.new_for_grantee_account_without_simulation(
         network=network,
         grantee_private_key=private_key_in_hexa,
         use_secure_connection=True
