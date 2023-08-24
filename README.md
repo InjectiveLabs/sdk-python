@@ -87,6 +87,9 @@ make tests
 ```
 
 ### Changelogs
+**0.7.1.2**
+* Add NBLA
+
 **0.7.1.1**
 * Fixed Testnet network URLs
 
