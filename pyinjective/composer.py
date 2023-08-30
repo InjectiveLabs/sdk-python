@@ -881,6 +881,14 @@ class Composer:
             delegator_address=delegator_address, validator_address=validator_address
         )
 
+    def MsgWithdrawValidatorCommission(
+        self, validator_address: str
+    ):      
+
+        return cosmos_distribution_tx_pb.MsgWithdrawValidatorCommission(
+            validator_address=validator_address
+        )
+
     def MsgVote(
         self,
         proposal_id: str,
