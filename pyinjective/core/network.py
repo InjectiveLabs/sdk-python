@@ -370,8 +370,9 @@ class Network:
             grpc_explorer_endpoint,
             chain_id,
             env,
-            cookie_assistant: CookieAssistant,
+            cookie_assistant: Optional[CookieAssistant] = None,
     ):
+        assistant = cookie_assistant or DisabledCookieAssistant()
         return cls(
             lcd_endpoint=lcd_endpoint,
             tm_websocket_endpoint=tm_websocket_endpoint,
@@ -381,7 +382,7 @@ class Network:
             chain_id=chain_id,
             fee_denom="inj",
             env=env,
-            cookie_assistant=cookie_assistant
+            cookie_assistant=assistant
         )
 
     def string(self):
