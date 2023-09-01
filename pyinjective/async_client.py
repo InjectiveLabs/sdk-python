@@ -945,7 +945,12 @@ class AsyncClient:
         markets_info = (await self.get_spot_markets()).markets
 
         for market_info in markets_info:
-            base_token_symbol, quote_token_symbol = market_info.ticker.split(constant.TICKER_TOKENS_SEPARATOR)
+            if "/" in market_info.ticker:
+                base_token_symbol, quote_token_symbol = market_info.ticker.split(constant.TICKER_TOKENS_SEPARATOR)
+            else:
+                base_token_symbol = market_info.base_token_meta.symbol
+                quote_token_symbol = market_info.quote_token_meta.symbol
+
             base_token = self._token_representation(
                 symbol=base_token_symbol,
                 token_meta=market_info.base_token_meta,
