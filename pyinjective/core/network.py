@@ -26,7 +26,7 @@ class CookieAssistant(ABC):
         return (("cookie", cookie),)
 
 
-class MainnetKubernetesCookieAssistant(CookieAssistant):
+class KubernetesLoadBalancedCookieAssistant(CookieAssistant):
 
     def __init__(self):
         self._chain_cookie: Optional[str] = None
@@ -91,7 +91,7 @@ class MainnetKubernetesCookieAssistant(CookieAssistant):
         return timestamp_diff < self.SESSION_RENEWAL_OFFSET
 
 
-class MainnetBareMetalCookieAssistant(CookieAssistant):
+class BareMetalLoadBalancedCookieAssistant(CookieAssistant):
 
     def __init__(self):
         self._chain_cookie: Optional[str] = None
@@ -150,7 +150,7 @@ class MainnetBareMetalCookieAssistant(CookieAssistant):
         return False
 
 
-class TestnetCookieAssistant(CookieAssistant):
+class TestnetLegacyCookieAssistant(CookieAssistant):
 
     def __init__(self):
         self._chain_cookie: Optional[str] = None
@@ -276,17 +276,19 @@ class Network:
             raise ValueError("Must be one of {}".format(nodes))
 
         if node == "lb":
-            lcd_endpoint = "https://k8s.testnet.lcd.injective.network"
-            tm_websocket_endpoint = "wss://k8s.testnet.tm.injective.network/websocket"
-            grpc_endpoint = "k8s.testnet.chain.grpc.injective.network:443"
-            grpc_exchange_endpoint = "k8s.testnet.exchange.grpc.injective.network:443"
-            grpc_explorer_endpoint = "k8s.testnet.explorer.grpc.injective.network:443"
+            lcd_endpoint = "https://testnet.sentry.lcd.injective.network:443"
+            tm_websocket_endpoint = "wss://testnet.sentry.tm.injective.network:443/websocket"
+            grpc_endpoint = "testnet.sentry.chain.grpc.injective.network:443"
+            grpc_exchange_endpoint = "testnet.sentry.exchange.grpc.injective.network:443"
+            grpc_explorer_endpoint = "testnet.sentry.explorer.grpc.injective.network:443"
+            cookie_assistant = BareMetalLoadBalancedCookieAssistant()
         else:
             lcd_endpoint = "https://testnet.lcd.injective.network"
             tm_websocket_endpoint = "wss://testnet.tm.injective.network/websocket"
             grpc_endpoint = "testnet.chain.grpc.injective.network"
             grpc_exchange_endpoint = "testnet.exchange.grpc.injective.network"
             grpc_explorer_endpoint = "testnet.explorer.grpc.injective.network"
+            cookie_assistant = TestnetLegacyCookieAssistant()
 
         return cls(
             lcd_endpoint=lcd_endpoint,
@@ -297,7 +299,7 @@ class Network:
             chain_id="injective-888",
             fee_denom="inj",
             env="testnet",
-            cookie_assistant=TestnetCookieAssistant()
+            cookie_assistant=cookie_assistant
         )
 
     @classmethod
@@ -318,14 +320,14 @@ class Network:
             grpc_endpoint = "k8s.global.mainnet.chain.grpc.injective.network:443"
             grpc_exchange_endpoint = "k8s.global.mainnet.exchange.grpc.injective.network:443"
             grpc_explorer_endpoint = "k8s.global.mainnet.explorer.grpc.injective.network:443"
-            cookie_assistant = MainnetKubernetesCookieAssistant()
+            cookie_assistant = KubernetesLoadBalancedCookieAssistant()
         elif node == "lb_bare_metal":
             lcd_endpoint = "https://sentry.lcd.injective.network:443"
             tm_websocket_endpoint = "wss://sentry.tm.injective.network:443/websocket"
             grpc_endpoint = "sentry.chain.grpc.injective.network:443"
             grpc_exchange_endpoint = "sentry.exchange.grpc.injective.network:443"
             grpc_explorer_endpoint = "sentry.explorer.grpc.injective.network:443"
-            cookie_assistant = MainnetBareMetalCookieAssistant()
+            cookie_assistant = BareMetalLoadBalancedCookieAssistant()
         else:
             lcd_endpoint = f"http://{node}.injective.network:10337"
             tm_websocket_endpoint = f"ws://{node}.injective.network:26657/websocket"

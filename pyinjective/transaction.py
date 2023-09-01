@@ -5,9 +5,8 @@ from .proto.cosmos.base.v1beta1.coin_pb2 import Coin
 from .proto.cosmos.tx.v1beta1 import tx_pb2 as cosmos_tx_type
 from .proto.cosmos.tx.signing.v1beta1 import signing_pb2 as tx_sign
 
-from .client import Client
 from .constant import MAX_MEMO_CHARACTERS
-from .exceptions import EmptyMsgError, NotFoundError, UndefinedError, ValueTooLargeError
+from .exceptions import EmptyMsgError, UndefinedError, ValueTooLargeError
 from .wallet import PublicKey
 
 class Transaction:
@@ -43,16 +42,6 @@ class Transaction:
     def with_messages(self, *msgs: message.Message) -> "Transaction":
         self.msgs.extend(self.__convert_msgs(msgs))
         return self
-
-    def with_sender(self, client: Client, sender: str) -> "Transaction":
-        if len(self.msgs) == 0:
-            raise EmptyMsgError("message is empty, please use with_messages at least 1 message")
-        account = client.get_account(sender)
-        if account:
-            self.account_num = account.account_number
-            self.sequence = account.sequence
-            return self
-        raise NotFoundError("Account doesn't exist")
 
     def with_account_num(self, account_num: int) -> "Transaction":
         self.account_num = account_num

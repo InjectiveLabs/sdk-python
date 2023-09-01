@@ -92,8 +92,10 @@ make tests
 * The Composer can still be instantiated without markets and tokens. When markets and tokens are not provided the Composer loads the required information from the Denoms used in previous versions
 * Change in AsyncClient to be able to create Composer instances for the client network, markets and tokens
 * Examples have been adapted to create Composer instances using the AsyncClient
-* Added new nodes (bare-metal load balancing nodes) for mainnet
+* Added new nodes (bare-metal load balancing nodes) for mainnet and testnet
+* Deprecated the kubernetes load balanced nodes for testnet
 * Refactored the cookies management logic into a cookie assistant. Added the required logic to support the new cookies format for bare-metal load balanced nodes
+* Removed class Client. The only supported now is the async version called AsyncClient.
 
 **0.7.1.1**
 * Fixed Testnet network URLs
