@@ -11,7 +11,7 @@ async def main() -> None:
 
     # initialize grpc client
     # set custom cookie location (optional) - defaults to current dir
-    client = AsyncClient(network, insecure=False)
+    client = AsyncClient(network)
     composer = await client.composer()
     await client.sync_timeout_height()
 

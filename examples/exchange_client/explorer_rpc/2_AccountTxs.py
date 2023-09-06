@@ -9,7 +9,7 @@ from pyinjective.core.network import Network
 async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
-    client = AsyncClient(network, insecure=False)
+    client = AsyncClient(network)
     composer = Composer(network=network.string())
     address = "inj1phd706jqzd9wznkk5hgsfkrc8jqxv0kmlj0kex"
     message_type = "cosmos.bank.v1beta1.MsgSend"

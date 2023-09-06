@@ -150,71 +150,6 @@ class BareMetalLoadBalancedCookieAssistant(CookieAssistant):
         return False
 
 
-class TestnetLegacyCookieAssistant(CookieAssistant):
-
-    def __init__(self):
-        self._chain_cookie: Optional[str] = None
-        self._exchange_cookie: Optional[str] = None
-        self._chain_cookie_initialization_lock = asyncio.Lock()
-        self._exchange_cookie_initialization_lock = asyncio.Lock()
-
-    async def chain_cookie(self, metadata_query_provider: Callable) -> str:
-        if self._chain_cookie == None:
-            async with self._chain_cookie_initialization_lock:
-                if self._chain_cookie == None:
-                    await self._fetch_chain_cookie(metadata_query_provider=metadata_query_provider)
-        cookie = self._chain_cookie
-        self._check_chain_cookie_expiration()
-
-        return cookie
-
-    async def exchange_cookie(self, metadata_query_provider: Callable) -> str:
-        if self._exchange_cookie == None:
-            async with self._exchange_cookie_initialization_lock:
-                if self._exchange_cookie == None:
-                    await self._fetch_exchange_cookie(metadata_query_provider=metadata_query_provider)
-        cookie = self._exchange_cookie
-        self._check_exchange_cookie_expiration()
-
-        return cookie
-
-    async def _fetch_chain_cookie(self, metadata_query_provider: Callable):
-        metadata = await metadata_query_provider()
-        cookie_info = next((value for key, value in metadata if key == "set-cookie"), None)
-
-        if cookie_info is None:
-            raise RuntimeError(f"Error fetching chain cookie ({metadata})")
-
-        self._chain_cookie = cookie_info
-
-    async def _fetch_exchange_cookie(self, metadata_query_provider: Callable):
-        metadata = await metadata_query_provider()
-        cookie_info = next((value for key, value in metadata if key == "set-cookie"), None)
-
-        if cookie_info is None:
-            raise RuntimeError(f"Error fetching exchange cookie ({metadata})")
-
-        self._exchange_cookie = cookie_info
-
-    def _check_chain_cookie_expiration(self):
-        if self._is_cookie_expired(cookie_data=self._chain_cookie):
-            self._chain_cookie = None
-
-    def _check_exchange_cookie_expiration(self):
-        if self._is_cookie_expired(cookie_data=self._exchange_cookie):
-            self._exchange_cookie = None
-
-    def _is_cookie_expired(self, cookie_data: str) -> bool:
-        cookie = SimpleCookie()
-        cookie.load(cookie_data)
-
-        expiration_time = datetime.datetime.strptime(cookie["grpc-cookie"]["expires"],
-                                                     "%a, %d-%b-%y %H:%M:%S %Z").timestamp()
-
-        timestamp_diff = expiration_time - time.time()
-        return timestamp_diff < self.SESSION_RENEWAL_OFFSET
-
-
 class DisabledCookieAssistant(CookieAssistant):
     async def chain_cookie(self, metadata_query_provider: Callable) -> str:
         pass
@@ -241,6 +176,7 @@ class Network:
         fee_denom: str,
         env: str,
         cookie_assistant: CookieAssistant,
+        use_secure_connection: bool = False,
     ):
         self.lcd_endpoint = lcd_endpoint
         self.tm_websocket_endpoint = tm_websocket_endpoint
@@ -251,6 +187,7 @@ class Network:
         self.fee_denom = fee_denom
         self.env = env
         self.cookie_assistant = cookie_assistant
+        self.use_secure_connection = use_secure_connection
 
     @classmethod
     def devnet(cls):
@@ -282,13 +219,15 @@ class Network:
             grpc_exchange_endpoint = "testnet.sentry.exchange.grpc.injective.network:443"
             grpc_explorer_endpoint = "testnet.sentry.explorer.grpc.injective.network:443"
             cookie_assistant = BareMetalLoadBalancedCookieAssistant()
+            use_secure_connection = True
         else:
             lcd_endpoint = "https://testnet.lcd.injective.network"
             tm_websocket_endpoint = "wss://testnet.tm.injective.network/websocket"
             grpc_endpoint = "testnet.chain.grpc.injective.network"
             grpc_exchange_endpoint = "testnet.exchange.grpc.injective.network"
             grpc_explorer_endpoint = "testnet.explorer.grpc.injective.network"
-            cookie_assistant = TestnetLegacyCookieAssistant()
+            cookie_assistant = DisabledCookieAssistant()
+            use_secure_connection = True
 
         return cls(
             lcd_endpoint=lcd_endpoint,
@@ -299,14 +238,15 @@ class Network:
             chain_id="injective-888",
             fee_denom="inj",
             env="testnet",
-            cookie_assistant=cookie_assistant
+            cookie_assistant=cookie_assistant,
+            use_secure_connection=use_secure_connection
         )
 
     @classmethod
     def mainnet(cls, node="lb"):
         nodes = [
             "lb", # us, asia, prod
-            "lb_bare_metal",
+            "lb_k8s",
             "sentry0",  # ca, prod
             "sentry1",  # ca, prod
             "sentry3",  # us, prod
@@ -315,19 +255,21 @@ class Network:
             raise ValueError("Must be one of {}".format(nodes))
 
         if node == "lb":
-            lcd_endpoint = "https://k8s.global.mainnet.lcd.injective.network:443"
-            tm_websocket_endpoint = "wss://k8s.global.mainnet.tm.injective.network:443/websocket"
-            grpc_endpoint = "k8s.global.mainnet.chain.grpc.injective.network:443"
-            grpc_exchange_endpoint = "k8s.global.mainnet.exchange.grpc.injective.network:443"
-            grpc_explorer_endpoint = "k8s.global.mainnet.explorer.grpc.injective.network:443"
-            cookie_assistant = KubernetesLoadBalancedCookieAssistant()
-        elif node == "lb_bare_metal":
             lcd_endpoint = "https://sentry.lcd.injective.network:443"
             tm_websocket_endpoint = "wss://sentry.tm.injective.network:443/websocket"
             grpc_endpoint = "sentry.chain.grpc.injective.network:443"
             grpc_exchange_endpoint = "sentry.exchange.grpc.injective.network:443"
             grpc_explorer_endpoint = "sentry.explorer.grpc.injective.network:443"
             cookie_assistant = BareMetalLoadBalancedCookieAssistant()
+            use_secure_connection = True
+        elif node == "lb_k8s":
+            lcd_endpoint = "https://k8s.global.mainnet.lcd.injective.network:443"
+            tm_websocket_endpoint = "wss://k8s.global.mainnet.tm.injective.network:443/websocket"
+            grpc_endpoint = "k8s.global.mainnet.chain.grpc.injective.network:443"
+            grpc_exchange_endpoint = "k8s.global.mainnet.exchange.grpc.injective.network:443"
+            grpc_explorer_endpoint = "k8s.global.mainnet.explorer.grpc.injective.network:443"
+            cookie_assistant = KubernetesLoadBalancedCookieAssistant()
+            use_secure_connection = True
         else:
             lcd_endpoint = f"http://{node}.injective.network:10337"
             tm_websocket_endpoint = f"ws://{node}.injective.network:26657/websocket"
@@ -335,6 +277,7 @@ class Network:
             grpc_exchange_endpoint = f"{node}.injective.network:9910"
             grpc_explorer_endpoint = f"{node}.injective.network:9911"
             cookie_assistant = DisabledCookieAssistant()
+            use_secure_connection = False
 
         return cls(
             lcd_endpoint=lcd_endpoint,
@@ -346,6 +289,7 @@ class Network:
             fee_denom="inj",
             env="mainnet",
             cookie_assistant=cookie_assistant,
+            use_secure_connection=use_secure_connection,
         )
 
     @classmethod
@@ -360,6 +304,7 @@ class Network:
             fee_denom="inj",
             env="local",
             cookie_assistant=DisabledCookieAssistant(),
+            use_secure_connection=False,
         )
 
     @classmethod
@@ -373,6 +318,7 @@ class Network:
             chain_id,
             env,
             cookie_assistant: Optional[CookieAssistant] = None,
+            use_secure_connection: bool = False,
     ):
         assistant = cookie_assistant or DisabledCookieAssistant()
         return cls(
@@ -384,7 +330,8 @@ class Network:
             chain_id=chain_id,
             fee_denom="inj",
             env=env,
-            cookie_assistant=assistant
+            cookie_assistant=assistant,
+            use_secure_connection=use_secure_connection
         )
 
     def string(self):

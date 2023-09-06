@@ -4,12 +4,12 @@ from typing import Any, List, Tuple
 
 import pyinjective.constant as constant
 from pyinjective.async_client import AsyncClient
-from pyinjective.constant import Network
+from pyinjective.core.network import Network
 from pyinjective.core.market import SpotMarket, DerivativeMarket, BinaryOptionMarket
 
 
 def find_metadata_inconsistencies(network: Network) -> Tuple[List[Any]]:
-    client = AsyncClient(network, insecure=False)
+    client = AsyncClient(network)
     ini_config = constant.CONFIGS[network.string()]
 
     spot_markets = asyncio.get_event_loop().run_until_complete(client.all_spot_markets())

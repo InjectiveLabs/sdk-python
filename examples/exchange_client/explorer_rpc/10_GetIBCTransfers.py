@@ -8,7 +8,7 @@ from pyinjective.core.network import Network
 async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
-    client = AsyncClient(network, insecure=False)
+    client = AsyncClient(network)
     sender = "inj1cll5cv3ezgal30gagkhnq2um6zf6qrmhw4r6c8"
     receiver = "cosmos1usr9g5a4s2qrwl63sdjtrs2qd4a7huh622pg82"
     src_channel = "channel-2"

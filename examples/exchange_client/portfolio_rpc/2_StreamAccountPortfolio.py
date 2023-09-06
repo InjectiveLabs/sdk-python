@@ -7,7 +7,7 @@ from pyinjective.core.network import Network
 
 async def main() -> None:
     network = Network.testnet()
-    client = AsyncClient(network, insecure=False)
+    client = AsyncClient(network)
     account_address = "inj1clw20s2uxeyxtam6f7m84vgae92s9eh7vygagt"
     updates = await client.stream_account_portfolio(account_address=account_address)
     async for update in updates:

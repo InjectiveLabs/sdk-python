@@ -7,7 +7,7 @@ from pyinjective.core.network import Network
 
 async def main() -> None:
     network = Network.testnet()
-    client = AsyncClient(network, insecure=False)
+    client = AsyncClient(network)
     market_status = "active"
     quote_denom = "peggy0xdAC17F958D2ee523a2206206994597C13D831ec7"
     market = await client.get_binary_options_markets(

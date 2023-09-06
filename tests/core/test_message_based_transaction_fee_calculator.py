@@ -18,7 +18,7 @@ class TestMessageBasedTransactionFeeCalculator:
     @pytest.mark.asyncio
     async def test_gas_fee_for_privileged_execute_contract_message(self):
         network = Network.testnet(node="sentry")
-        client = AsyncClient(network=network, insecure=False)
+        client = AsyncClient(network=network)
         composer = Composer(network=network.string())
         calculator = MessageBasedTransactionFeeCalculator(
             client=client,
@@ -40,7 +40,7 @@ class TestMessageBasedTransactionFeeCalculator:
     @pytest.mark.asyncio
     async def test_gas_fee_for_execute_contract_message(self):
         network = Network.testnet(node="sentry")
-        client = AsyncClient(network=network, insecure=False)
+        client = AsyncClient(network=network)
         composer = Composer(network=network.string())
         calculator = MessageBasedTransactionFeeCalculator(
             client=client,
@@ -66,7 +66,7 @@ class TestMessageBasedTransactionFeeCalculator:
     @pytest.mark.asyncio
     async def test_gas_fee_for_wasm_message(self):
         network = Network.testnet(node="sentry")
-        client = AsyncClient(network=network, insecure=False)
+        client = AsyncClient(network=network)
         composer = Composer(network=network.string())
         calculator = MessageBasedTransactionFeeCalculator(
             client=client,
@@ -88,7 +88,7 @@ class TestMessageBasedTransactionFeeCalculator:
     @pytest.mark.asyncio
     async def test_gas_fee_for_governance_message(self):
         network = Network.testnet(node="sentry")
-        client = AsyncClient(network=network, insecure=False)
+        client = AsyncClient(network=network)
         composer = Composer(network=network.string())
         calculator = MessageBasedTransactionFeeCalculator(
             client=client,
@@ -110,7 +110,7 @@ class TestMessageBasedTransactionFeeCalculator:
     @pytest.mark.asyncio
     async def test_gas_fee_for_exchange_message(self):
         network = Network.testnet(node="sentry")
-        client = AsyncClient(network=network, insecure=False)
+        client = AsyncClient(network=network)
         composer = Composer(network=network.string())
         calculator = MessageBasedTransactionFeeCalculator(
             client=client,
@@ -141,7 +141,7 @@ class TestMessageBasedTransactionFeeCalculator:
     @pytest.mark.asyncio
     async def test_gas_fee_for_msg_exec_message(self):
         network = Network.testnet(node="sentry")
-        client = AsyncClient(network=network, insecure=False)
+        client = AsyncClient(network=network)
         composer = Composer(network=network.string())
         calculator = MessageBasedTransactionFeeCalculator(
             client=client,
@@ -180,7 +180,7 @@ class TestMessageBasedTransactionFeeCalculator:
     @pytest.mark.asyncio
     async def test_gas_fee_for_two_messages_in_one_transaction(self):
         network = Network.testnet(node="sentry")
-        client = AsyncClient(network=network, insecure=False)
+        client = AsyncClient(network=network)
         composer = Composer(network=network.string())
         calculator = MessageBasedTransactionFeeCalculator(
             client=client,
