@@ -7,7 +7,7 @@ from pyinjective.core.network import Network
 
 async def main() -> None:
     network = Network.testnet()
-    client = AsyncClient(network, insecure=False)
+    client = AsyncClient(network)
     market_status = "active"
     base_denom = "inj"
     quote_denom = "peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5"

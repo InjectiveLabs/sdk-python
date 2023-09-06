@@ -67,11 +67,10 @@ class MsgBroadcasterWithPk:
             cls,
             network: Network,
             private_key: str,
-            use_secure_connection: bool = True,
             client: Optional[AsyncClient] = None,
             composer: Optional[Composer] = None,
     ):
-        client = client or AsyncClient(network=network, insecure=not(use_secure_connection))
+        client = client or AsyncClient(network=network)
         composer = composer or Composer(network=client.network.string())
         account_config = StandardAccountBroadcasterConfig(private_key=private_key)
         fee_calculator = SimulatedTransactionFeeCalculator(
@@ -92,11 +91,10 @@ class MsgBroadcasterWithPk:
             cls,
             network: Network,
             private_key: str,
-            use_secure_connection: bool = True,
             client: Optional[AsyncClient] = None,
             composer: Optional[Composer] = None,
     ):
-        client = client or AsyncClient(network=network, insecure=not (use_secure_connection))
+        client = client or AsyncClient(network=network)
         composer = composer or Composer(network=client.network.string())
         account_config = StandardAccountBroadcasterConfig(private_key=private_key)
         fee_calculator = MessageBasedTransactionFeeCalculator(
@@ -117,11 +115,10 @@ class MsgBroadcasterWithPk:
             cls,
             network: Network,
             grantee_private_key: str,
-            use_secure_connection: bool = True,
             client: Optional[AsyncClient] = None,
             composer: Optional[Composer] = None,
     ):
-        client = client or AsyncClient(network=network, insecure=not (use_secure_connection))
+        client = client or AsyncClient(network=network)
         composer = composer or Composer(network=client.network.string())
         account_config = GranteeAccountBroadcasterConfig(grantee_private_key=grantee_private_key, composer=composer)
         fee_calculator = SimulatedTransactionFeeCalculator(
@@ -142,11 +139,10 @@ class MsgBroadcasterWithPk:
             cls,
             network: Network,
             grantee_private_key: str,
-            use_secure_connection: bool = True,
             client: Optional[AsyncClient] = None,
             composer: Optional[Composer] = None,
     ):
-        client = client or AsyncClient(network=network, insecure=not (use_secure_connection))
+        client = client or AsyncClient(network=network)
         composer = composer or Composer(network=client.network.string())
         account_config = GranteeAccountBroadcasterConfig(grantee_private_key=grantee_private_key, composer=composer)
         fee_calculator = MessageBasedTransactionFeeCalculator(

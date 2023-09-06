@@ -8,7 +8,7 @@ from pyinjective.core.network import Network
 async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
-    client = AsyncClient(network, insecure=False)
+    client = AsyncClient(network)
     stream_blocks = await client.stream_blocks(
     )
     async for block in stream_blocks:

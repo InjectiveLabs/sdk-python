@@ -8,10 +8,10 @@ from pyinjective.wallet import PrivateKey
 
 async def main() -> None:
     # select network: local, testnet, mainnet
-    network = Network.testnet()
+    network = Network.testnet(node="sentry")
 
     # initialize grpc client
-    client = AsyncClient(network, insecure=False)
+    client = AsyncClient(network)
     composer = await client.composer()
     await client.sync_timeout_height()
 

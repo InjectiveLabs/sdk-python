@@ -8,7 +8,7 @@ from pyinjective.core.network import Network
 async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
-    client = AsyncClient(network, insecure=False)
+    client = AsyncClient(network)
     account_address = "inj1clw20s2uxeyxtam6f7m84vgae92s9eh7vygagt"
     portfolio = await client.get_account_portfolio(
         account_address=account_address

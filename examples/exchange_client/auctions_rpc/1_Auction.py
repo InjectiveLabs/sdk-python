@@ -8,7 +8,7 @@ from pyinjective.core.network import Network
 async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
-    client = AsyncClient(network, insecure=False)
+    client = AsyncClient(network)
     bid_round = 31
     auction = await client.get_auction(bid_round=bid_round)
     print(auction)

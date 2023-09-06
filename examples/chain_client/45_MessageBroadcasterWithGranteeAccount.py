@@ -13,7 +13,7 @@ async def main() -> None:
     composer = ProtoMsgComposer(network=network.string())
 
     # initialize grpc client
-    client = AsyncClient(network, insecure=False)
+    client = AsyncClient(network)
     await client.sync_timeout_height()
 
     # load account
@@ -25,7 +25,6 @@ async def main() -> None:
     message_broadcaster = MsgBroadcasterWithPk.new_for_grantee_account_using_simulation(
         network=network,
         grantee_private_key=private_key_in_hexa,
-        use_secure_connection=True
     )
 
     # prepare tx msg

@@ -8,7 +8,7 @@ from pyinjective.core.network import Network
 async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
-    client = AsyncClient(network, insecure=False)
+    client = AsyncClient(network)
     limit = 2
     txs = await client.get_txs(limit=limit)
     print(txs)

@@ -8,7 +8,7 @@ from pyinjective.core.network import Network
 async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
-    client = AsyncClient(network, insecure=False)
+    client = AsyncClient(network)
 
     task1 = asyncio.create_task(get_markets(client))
     task2 = asyncio.create_task(keepalive(client, [task1]))

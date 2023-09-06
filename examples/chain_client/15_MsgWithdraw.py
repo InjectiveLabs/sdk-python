@@ -25,7 +25,7 @@ async def main() -> None:
     network = Network.testnet()
 
     # initialize grpc client
-    client = AsyncClient(network, insecure=False)
+    client = AsyncClient(network)
     composer = await client.composer()
     await client.sync_timeout_height()
 

@@ -28,7 +28,7 @@ async def fetch_denom(network) -> str:
     symbols = {}
 
     # fetch meta data for spot markets
-    client = AsyncClient(network, insecure=False)
+    client = AsyncClient(network)
     status = 'active'
     mresp = await client.get_spot_markets(market_status=status)
     for market in mresp.markets:
@@ -55,7 +55,7 @@ async def fetch_denom(network) -> str:
         denom_output += config
 
     # fetch meta data for derivative markets
-    client = AsyncClient(network, insecure=False)
+    client = AsyncClient(network)
     status = 'active'
     mresp = await client.get_derivative_markets(market_status=status)
     for market in mresp.markets:

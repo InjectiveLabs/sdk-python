@@ -1,6 +1,7 @@
 import asyncio
 
 from pyinjective.async_client import AsyncClient
+from pyinjective.composer import Composer
 from pyinjective.transaction import Transaction
 from pyinjective.core.network import Network
 from pyinjective.wallet import PrivateKey
@@ -11,7 +12,7 @@ async def main() -> None:
     network = Network.testnet()
 
     # initialize grpc client
-    client = AsyncClient(network, insecure=False)
+    client = AsyncClient(network)
     composer = await client.composer()
     await client.sync_timeout_height()
 

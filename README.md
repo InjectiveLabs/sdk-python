@@ -87,6 +87,10 @@ make tests
 ```
 
 ### Changelogs
+**0.8.1**
+* Moved the configuration to use a secure or insecure connection inside the Network class. The AsyncClient's `insecure` parameter is no longer used for anything and will be removed in the future.
+* Made the new load balanced bare-metal node the default one for mainnet (it is called `lb`). The legacy one (load balanced k8s node) is called `lb_k8s`
+
 **0.8**(change before release)
 * Refactor Composer to be created with all the markets and tokens. The Composer now uses the real markets and tokens to convert human-readable values to chain format
 * The Composer can still be instantiated without markets and tokens. When markets and tokens are not provided the Composer loads the required information from the Denoms used in previous versions

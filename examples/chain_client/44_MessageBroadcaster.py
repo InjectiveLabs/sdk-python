@@ -15,7 +15,6 @@ async def main() -> None:
     message_broadcaster = MsgBroadcasterWithPk.new_using_simulation(
         network=network,
         private_key=private_key_in_hexa,
-        use_secure_connection=True
     )
 
     priv_key = PrivateKey.from_hex(private_key_in_hexa)
