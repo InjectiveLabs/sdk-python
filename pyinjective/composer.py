@@ -34,6 +34,7 @@ from .proto.injective.insurance.v1beta1 import tx_pb2 as injective_insurance_tx_
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
 
 from .proto.cosmwasm.wasm.v1 import tx_pb2 as wasm_tx_pb
+from pyinjective.proto.injective.stream.v1beta1 import query_pb2 as chain_stream_query
 
 from .constant import ADDITIONAL_CHAIN_FORMAT_DECIMALS, INJ_DENOM
 from typing import Dict, List, Optional
@@ -900,6 +901,14 @@ class Composer:
         return cosmos_gov_tx_pb.MsgVote(
             proposal_id=proposal_id, voter=voter, option=option
         )
+
+    def chain_stream_bank_balances_filter(self, accounts: List[str]) -> chain_stream_query.BankBalancesFilter:
+        return chain_stream_query.BankBalancesFilter(accounts=accounts)
+
+    def chain_stream_subaccount_deposits_filter(
+            self, subaccount_ids: List[str]
+    ) -> chain_stream_query.SubaccountDepositsFilter:
+        return chain_stream_query.SubaccountDepositsFilter(subaccount_ids=subaccount_ids)
 
     # data field format: [request-msg-header][raw-byte-msg-response]
     # you need to figure out this magic prefix number to trim request-msg-header off the data

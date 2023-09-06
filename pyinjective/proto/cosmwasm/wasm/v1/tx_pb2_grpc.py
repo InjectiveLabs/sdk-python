@@ -80,6 +80,16 @@ class MsgStub(object):
                 request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndInstantiateContract.SerializeToString,
                 response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndInstantiateContractResponse.FromString,
                 )
+        self.RemoveCodeUploadParamsAddresses = channel.unary_unary(
+                '/cosmwasm.wasm.v1.Msg/RemoveCodeUploadParamsAddresses',
+                request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgRemoveCodeUploadParamsAddresses.SerializeToString,
+                response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgRemoveCodeUploadParamsAddressesResponse.FromString,
+                )
+        self.AddCodeUploadParamsAddresses = channel.unary_unary(
+                '/cosmwasm.wasm.v1.Msg/AddCodeUploadParamsAddresses',
+                request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgAddCodeUploadParamsAddresses.SerializeToString,
+                response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgAddCodeUploadParamsAddressesResponse.FromString,
+                )
 
 
 class MsgServicer(object):
@@ -194,6 +204,24 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def RemoveCodeUploadParamsAddresses(self, request, context):
+        """RemoveCodeUploadParamsAddresses defines a governance operation for
+        removing addresses from code upload params.
+        The authority is defined in the keeper.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AddCodeUploadParamsAddresses(self, request, context):
+        """AddCodeUploadParamsAddresses defines a governance operation for
+        adding addresses to code upload params.
+        The authority is defined in the keeper.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -261,6 +289,16 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.StoreAndInstantiateContract,
                     request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndInstantiateContract.FromString,
                     response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndInstantiateContractResponse.SerializeToString,
+            ),
+            'RemoveCodeUploadParamsAddresses': grpc.unary_unary_rpc_method_handler(
+                    servicer.RemoveCodeUploadParamsAddresses,
+                    request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgRemoveCodeUploadParamsAddresses.FromString,
+                    response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgRemoveCodeUploadParamsAddressesResponse.SerializeToString,
+            ),
+            'AddCodeUploadParamsAddresses': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddCodeUploadParamsAddresses,
+                    request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgAddCodeUploadParamsAddresses.FromString,
+                    response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgAddCodeUploadParamsAddressesResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -491,5 +529,39 @@ class Msg(object):
         return grpc.experimental.unary_unary(request, target, '/cosmwasm.wasm.v1.Msg/StoreAndInstantiateContract',
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndInstantiateContract.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndInstantiateContractResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def RemoveCodeUploadParamsAddresses(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/cosmwasm.wasm.v1.Msg/RemoveCodeUploadParamsAddresses',
+            cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgRemoveCodeUploadParamsAddresses.SerializeToString,
+            cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgRemoveCodeUploadParamsAddressesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def AddCodeUploadParamsAddresses(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/cosmwasm.wasm.v1.Msg/AddCodeUploadParamsAddresses',
+            cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgAddCodeUploadParamsAddresses.SerializeToString,
+            cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgAddCodeUploadParamsAddressesResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

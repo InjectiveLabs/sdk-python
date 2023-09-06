@@ -57,10 +57,11 @@ from .proto.exchange import (
     injective_portfolio_rpc_pb2 as portfolio_rpc_pb,
     injective_portfolio_rpc_pb2_grpc as portfolio_rpc_grpc,
 )
-
 from .proto.injective.types.v1beta1 import (
     account_pb2
 )
+from pyinjective.proto.injective.stream.v1beta1 import query_pb2 as chain_stream_query
+from pyinjective.proto.injective.stream.v1beta1 import query_pb2_grpc as stream_rpc_grpc
 
 from .core.network import Network
 from .utils.logger import LoggerProvider
@@ -144,6 +145,13 @@ class AsyncClient:
         self.stubExplorer = explorer_rpc_grpc.InjectiveExplorerRPCStub(
             self.explorer_channel
         )
+
+        self.chain_stream_channel = (
+            grpc.aio.secure_channel(network.chain_stream_endpoint, credentials)
+            if (network.use_secure_connection and credentials is not None)
+            else grpc.aio.insecure_channel(network.chain_stream_endpoint)
+        )
+        self.chain_stream_stub = stream_rpc_grpc.StreamStub(channel=self.chain_stream_channel)
 
         # timeout height update routine
         self.cron = aiocron.crontab(
@@ -927,6 +935,20 @@ class AsyncClient:
             metadata_query_provider=self._exchange_cookie_metadata_requestor
         )
         return self.stubPortfolio.StreamAccountPortfolio(request=req, metadata=metadata)
+
+    async def chain_stream(
+        self,
+        bank_balances_filter: Optional[chain_stream_query.BankBalancesFilter] = None,
+        subaccount_deposits_filter: Optional[chain_stream_query.SubaccountDepositsFilter] = None
+    ):
+
+        request = chain_stream_query.StreamRequest(
+            bank_balances_filter=bank_balances_filter,
+            subaccount_deposits_filter=subaccount_deposits_filter)
+        metadata = await self.network.chain_metadata(
+            metadata_query_provider=self._chain_cookie_metadata_requestor
+        )
+        return self.chain_stream_stub.Stream(request=request, metadata=metadata)
 
     async def composer(self):
         return Composer(

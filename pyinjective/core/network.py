@@ -172,6 +172,7 @@ class Network:
         grpc_endpoint: str,
         grpc_exchange_endpoint: str,
         grpc_explorer_endpoint: str,
+        chain_stream_endpoint: str,
         chain_id: str,
         fee_denom: str,
         env: str,
@@ -183,6 +184,7 @@ class Network:
         self.grpc_endpoint = grpc_endpoint
         self.grpc_exchange_endpoint = grpc_exchange_endpoint
         self.grpc_explorer_endpoint = grpc_explorer_endpoint
+        self.chain_stream_endpoint = chain_stream_endpoint
         self.chain_id = chain_id
         self.fee_denom = fee_denom
         self.env = env
@@ -197,6 +199,7 @@ class Network:
             grpc_endpoint="devnet.injective.dev:9900",
             grpc_exchange_endpoint="devnet.injective.dev:9910",
             grpc_explorer_endpoint="devnet.injective.dev:9911",
+            chain_stream_endpoint="devnet.injective.dev:9999",
             chain_id="injective-777",
             fee_denom="inj",
             env="devnet",
@@ -218,6 +221,7 @@ class Network:
             grpc_endpoint = "testnet.sentry.chain.grpc.injective.network:443"
             grpc_exchange_endpoint = "testnet.sentry.exchange.grpc.injective.network:443"
             grpc_explorer_endpoint = "testnet.sentry.explorer.grpc.injective.network:443"
+            chain_stream_endpoint = "testnet.sentry.chain.stream.injective.network:443"
             cookie_assistant = BareMetalLoadBalancedCookieAssistant()
             use_secure_connection = True
         else:
@@ -226,6 +230,7 @@ class Network:
             grpc_endpoint = "testnet.chain.grpc.injective.network"
             grpc_exchange_endpoint = "testnet.exchange.grpc.injective.network"
             grpc_explorer_endpoint = "testnet.explorer.grpc.injective.network"
+            chain_stream_endpoint = "testnet.chain.stream.injective.network"
             cookie_assistant = DisabledCookieAssistant()
             use_secure_connection = True
 
@@ -235,6 +240,7 @@ class Network:
             grpc_endpoint=grpc_endpoint,
             grpc_exchange_endpoint=grpc_exchange_endpoint,
             grpc_explorer_endpoint=grpc_explorer_endpoint,
+            chain_stream_endpoint=chain_stream_endpoint,
             chain_id="injective-888",
             fee_denom="inj",
             env="testnet",
@@ -260,6 +266,7 @@ class Network:
             grpc_endpoint = "sentry.chain.grpc.injective.network:443"
             grpc_exchange_endpoint = "sentry.exchange.grpc.injective.network:443"
             grpc_explorer_endpoint = "sentry.explorer.grpc.injective.network:443"
+            chain_stream_endpoint = "sentry.chain.stream.injective.network:443"
             cookie_assistant = BareMetalLoadBalancedCookieAssistant()
             use_secure_connection = True
         elif node == "lb_k8s":
@@ -268,6 +275,7 @@ class Network:
             grpc_endpoint = "k8s.global.mainnet.chain.grpc.injective.network:443"
             grpc_exchange_endpoint = "k8s.global.mainnet.exchange.grpc.injective.network:443"
             grpc_explorer_endpoint = "k8s.global.mainnet.explorer.grpc.injective.network:443"
+            chain_stream_endpoint = "k8s.global.mainnet.chain.stream.injective.network:443"
             cookie_assistant = KubernetesLoadBalancedCookieAssistant()
             use_secure_connection = True
         else:
@@ -276,6 +284,7 @@ class Network:
             grpc_endpoint = f"{node}.injective.network:9900"
             grpc_exchange_endpoint = f"{node}.injective.network:9910"
             grpc_explorer_endpoint = f"{node}.injective.network:9911"
+            chain_stream_endpoint = f"{node}.injective.network:9999"
             cookie_assistant = DisabledCookieAssistant()
             use_secure_connection = False
 
@@ -285,6 +294,7 @@ class Network:
             grpc_endpoint=grpc_endpoint,
             grpc_exchange_endpoint=grpc_exchange_endpoint,
             grpc_explorer_endpoint=grpc_explorer_endpoint,
+            chain_stream_endpoint=chain_stream_endpoint,
             chain_id="injective-1",
             fee_denom="inj",
             env="mainnet",
@@ -300,6 +310,7 @@ class Network:
             grpc_endpoint="localhost:9900",
             grpc_exchange_endpoint="localhost:9910",
             grpc_explorer_endpoint="localhost:9911",
+            chain_stream_endpoint="localhost:9999",
             chain_id="injective-1",
             fee_denom="inj",
             env="local",
@@ -315,6 +326,7 @@ class Network:
             grpc_endpoint,
             grpc_exchange_endpoint,
             grpc_explorer_endpoint,
+            chain_stream_endpoint,
             chain_id,
             env,
             cookie_assistant: Optional[CookieAssistant] = None,
@@ -327,6 +339,7 @@ class Network:
             grpc_endpoint=grpc_endpoint,
             grpc_exchange_endpoint=grpc_exchange_endpoint,
             grpc_explorer_endpoint=grpc_explorer_endpoint,
+            chain_stream_endpoint=chain_stream_endpoint,
             chain_id=chain_id,
             fee_denom="inj",
             env=env,
