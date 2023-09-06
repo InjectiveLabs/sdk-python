@@ -2,12 +2,13 @@ import asyncio
 import logging
 
 from pyinjective.async_client import AsyncClient
-from pyinjective.constant import Network
+from pyinjective.core.network import Network
+
 
 async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
-    client = AsyncClient(network, insecure=False)
+    client = AsyncClient(network)
     redeemer = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku"
     redemption_denom = "share4"
     status = "disbursed"

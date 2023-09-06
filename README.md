@@ -87,6 +87,23 @@ make tests
 ```
 
 ### Changelogs
+**0.8.1**
+* Moved the configuration to use a secure or insecure connection inside the Network class. The AsyncClient's `insecure` parameter is no longer used for anything and will be removed in the future.
+* Made the new load balanced bare-metal node the default one for mainnet (it is called `lb`). The legacy one (load balanced k8s node) is called `lb_k8s`
+
+**0.8**
+* Refactor Composer to be created with all the markets and tokens. The Composer now uses the real markets and tokens to convert human-readable values to chain format
+* The Composer can still be instantiated without markets and tokens. When markets and tokens are not provided the Composer loads the required information from the Denoms used in previous versions
+* Change in AsyncClient to be able to create Composer instances for the client network, markets and tokens
+* Examples have been adapted to create Composer instances using the AsyncClient
+* Added new nodes (bare-metal load balancing nodes) for mainnet and testnet
+* Deprecated the kubernetes load balanced nodes for testnet
+* Refactored the cookies management logic into a cookie assistant. Added the required logic to support the new cookies format for bare-metal load balanced nodes
+* Removed class Client. The only supported now is the async version called AsyncClient.
+
+**0.7.1.1**
+* Fixed Testnet network URLs
+
 **0.7.2.1**
 * Synchronization of denoms configuration files.
 

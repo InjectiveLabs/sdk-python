@@ -1,9 +1,13 @@
+from decimal import Decimal
+
 from pyinjective.composer import Composer
 from pyinjective.core.gas_limit_estimator import GasLimitEstimator
+from pyinjective.core.market import BinaryOptionMarket
 from pyinjective.proto.cosmos.gov.v1beta1 import tx_pb2 as gov_tx_pb
 from pyinjective.proto.cosmwasm.wasm.v1 import tx_pb2 as wasm_tx_pb
 from pyinjective.proto.injective.exchange.v1beta1 import tx_pb2 as injective_exchange_tx_pb
 
+from tests.model_fixtures.markets_fixtures import usdt_token
 
 class TestGasLimitEstimator:
 
@@ -155,7 +159,7 @@ class TestGasLimitEstimator:
         assert((expected_order_gas_limit * 3) + expected_message_gas_limit == estimator.gas_limit())
 
     def test_estimation_for_batch_update_orders_to_create_spot_orders(self):
-        market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
+        market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
         composer = Composer(network="testnet")
         orders = [
             composer.SpotOrder(
@@ -230,9 +234,27 @@ class TestGasLimitEstimator:
 
         assert((expected_order_gas_limit * 2) + expected_message_gas_limit == estimator.gas_limit())
 
-    def test_estimation_for_batch_update_orders_to_create_binary_orders(self):
-        market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
+    def test_estimation_for_batch_update_orders_to_create_binary_orders(self, usdt_token):
+        market_id = "0x230dcce315364ff6360097838701b14713e2f4007d704df20ed3d81d09eec957"
         composer = Composer(network="testnet")
+        market = BinaryOptionMarket(
+            id=market_id,
+            status="active",
+            ticker="5fdbe0b1-1707800399-WAS",
+            oracle_symbol="Frontrunner",
+            oracle_provider="Frontrunner",
+            oracle_type="provider",
+            oracle_scale_factor=6,
+            expiration_timestamp=1707800399,
+            settlement_timestamp=1707843599,
+            quote_token=usdt_token,
+            maker_fee_rate=Decimal("0"),
+            taker_fee_rate=Decimal("0"),
+            service_provider_fee=Decimal("0.4"),
+            min_price_tick_size=Decimal("10000"),
+            min_quantity_tick_size=Decimal("1"),
+        )
+        composer.binary_option_markets[market.id] = market
         orders = [
             composer.BinaryOptionsOrder(
                 market_id=market_id,
@@ -434,7 +456,7 @@ class TestGasLimitEstimator:
         assert(expected_gas_limit + expected_message_gas_limit == estimator.gas_limit())
 
     def test_estimation_for_exec_message(self):
-        market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
+        market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
         composer = Composer(network="testnet")
         orders = [
             composer.SpotOrder(

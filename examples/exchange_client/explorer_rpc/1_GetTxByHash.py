@@ -3,12 +3,13 @@ import logging
 
 from pyinjective.async_client import AsyncClient
 from pyinjective.composer import Composer
-from pyinjective.constant import Network
+from pyinjective.core.network import Network
+
 
 async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
-    client = AsyncClient(network, insecure=False)
+    client = AsyncClient(network)
     composer = Composer(network=network.string())
     tx_hash = "0F3EBEC1882E1EEAC5B7BDD836E976250F1CD072B79485877CEACCB92ACDDF52"
     transaction_response = await client.get_tx_by_hash(tx_hash=tx_hash)

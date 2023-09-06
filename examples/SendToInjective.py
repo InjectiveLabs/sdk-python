@@ -4,7 +4,7 @@ import requests
 import asyncio
 import logging
 
-from pyinjective.constant import Network
+from pyinjective.core.network import Network
 from pyinjective.sendtocosmos import Peggo
 
 import importlib.resources as pkg_resources

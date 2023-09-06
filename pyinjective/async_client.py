@@ -1,13 +1,18 @@
-import os
+import asyncio
 import time
+from copy import deepcopy
+
 import grpc
 import aiocron
-import logging
-import datetime
-from http.cookies import SimpleCookie
-from typing import List, Optional, Tuple, Union
+from decimal import Decimal
+from typing import Dict, List, Optional, Tuple, Union, Coroutine
 
-from .exceptions import NotFoundError, EmptyMsgError
+from pyinjective.composer import Composer
+
+from . import constant
+from .core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
+from .core.token import Token
+from .exceptions import NotFoundError
 
 from .proto.cosmos.base.abci.v1beta1 import abci_pb2 as abci_type
 
@@ -19,17 +24,10 @@ from .proto.cosmos.base.tendermint.v1beta1 import (
 from .proto.cosmos.auth.v1beta1 import (
     query_pb2_grpc as auth_query_grpc,
     query_pb2 as auth_query,
-    auth_pb2 as auth_type,
 )
 from .proto.cosmos.authz.v1beta1 import (
     query_pb2_grpc as authz_query_grpc,
     query_pb2 as authz_query,
-    authz_pb2 as authz_type,
-)
-from .proto.cosmos.authz.v1beta1 import (
-    query_pb2_grpc as authz_query_grpc,
-    query_pb2 as authz_query,
-    authz_pb2 as authz_type,
 )
 from .proto.cosmos.bank.v1beta1 import (
     query_pb2_grpc as bank_query_grpc,
@@ -64,7 +62,7 @@ from .proto.injective.types.v1beta1 import (
     account_pb2
 )
 
-from .constant import Network
+from .core.network import Network
 from .utils.logger import LoggerProvider
 
 DEFAULT_TIMEOUTHEIGHT_SYNC_INTERVAL = 20  # seconds
@@ -78,39 +76,23 @@ class AsyncClient:
             self,
             network: Network,
             insecure: bool = False,
-            load_balancer: bool = True,
             credentials=grpc.ssl_channel_credentials(),
-            chain_cookie_location=".chain_cookie",
     ):
-
-        # use append mode to create file if not exist
-        self.chain_cookie_location = chain_cookie_location
-        cookie_file = open(chain_cookie_location, "a+")
-        cookie_file.close()
+        # the `insecure` parameter is ignored and will be deprecated soon. The value is taken directly from `network`
 
         self.addr = ""
         self.number = 0
         self.sequence = 0
 
-        self.cookie_type = None
-        self.expiration_format = None
-        self.load_balancer = load_balancer
         self.network = network
-        self.cookie_type = "GCLB"
-        self.expiration_format = "{}"
-
-        if self.network.string() == "testnet":
-            self.load_balancer = False
-            self.cookie_type = "grpc-cookie"
-            self.expiration_format = "20{}"
 
         # chain stubs
         self.chain_channel = (
-            grpc.aio.insecure_channel(network.grpc_endpoint)
-            if (insecure or credentials is None)
-            else grpc.aio.secure_channel(network.grpc_endpoint, credentials)
+            grpc.aio.secure_channel(network.grpc_endpoint, credentials)
+            if (network.use_secure_connection and credentials is not None)
+            else grpc.aio.insecure_channel(network.grpc_endpoint)
         )
-        self.insecure = insecure
+
         self.stubCosmosTendermint = tendermint_query_grpc.ServiceStub(
             self.chain_channel
         )
@@ -119,22 +101,14 @@ class AsyncClient:
         self.stubBank = bank_query_grpc.QueryStub(self.chain_channel)
         self.stubTx = tx_service_grpc.ServiceStub(self.chain_channel)
 
-        # attempt to load from disk
-        cookie_file = open(chain_cookie_location, "r+")
-        self.chain_cookie = cookie_file.read()
-        cookie_file.close()
-        LoggerProvider().logger_for_class(logging_class=self.__class__).info(
-            f"chain session cookie loaded from disk: {self.chain_cookie}"
-        )
-
         self.exchange_cookie = ""
         self.timeout_height = 1
 
         # exchange stubs
         self.exchange_channel = (
-            grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-            if (insecure or credentials is None)
-            else grpc.aio.secure_channel(network.grpc_exchange_endpoint, credentials)
+            grpc.aio.secure_channel(network.grpc_exchange_endpoint, credentials)
+            if (network.use_secure_connection and credentials is not None)
+            else grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
         )
         self.stubMeta = exchange_meta_rpc_grpc.InjectiveMetaRPCStub(
             self.exchange_channel
@@ -163,9 +137,9 @@ class AsyncClient:
 
         # explorer stubs
         self.explorer_channel = (
-            grpc.aio.insecure_channel(network.grpc_explorer_endpoint)
-            if (insecure or credentials is None)
-            else grpc.aio.secure_channel(network.grpc_explorer_endpoint, credentials)
+            grpc.aio.secure_channel(network.grpc_explorer_endpoint, credentials)
+            if (network.use_secure_connection and credentials is not None)
+            else grpc.aio.insecure_channel(network.grpc_explorer_endpoint)
         )
         self.stubExplorer = explorer_rpc_grpc.InjectiveExplorerRPCStub(
             self.explorer_channel
@@ -178,6 +152,40 @@ class AsyncClient:
             args=(),
             start=True,
         )
+
+        self._tokens_and_markets_initialization_lock = asyncio.Lock()
+        self._tokens: Optional[Dict[str, Token]] = None
+        self._spot_markets: Optional[Dict[str, SpotMarket]] = None
+        self._derivative_markets: Optional[Dict[str, DerivativeMarket]] = None
+        self._binary_option_markets: Optional[Dict[str, BinaryOptionMarket]] = None
+
+    async def all_tokens(self) -> Dict[str, Token]:
+        if self._tokens is None:
+            async with self._tokens_and_markets_initialization_lock:
+                if self._tokens is None:
+                    await self._initialize_tokens_and_markets()
+        return deepcopy(self._tokens)
+
+    async def all_spot_markets(self) -> Dict[str, SpotMarket]:
+        if self._spot_markets is None:
+            async with self._tokens_and_markets_initialization_lock:
+                if self._spot_markets is None:
+                    await self._initialize_tokens_and_markets()
+        return deepcopy(self._spot_markets)
+
+    async def all_derivative_markets(self) -> Dict[str, DerivativeMarket]:
+        if self._derivative_markets is None:
+            async with self._tokens_and_markets_initialization_lock:
+                if self._derivative_markets is None:
+                    await self._initialize_tokens_and_markets()
+        return deepcopy(self._derivative_markets)
+
+    async def all_binary_option_markets(self) -> Dict[str, BinaryOptionMarket]:
+        if self._binary_option_markets is None:
+            async with self._tokens_and_markets_initialization_lock:
+                if self._binary_option_markets is None:
+                    await self._initialize_tokens_and_markets()
+        return deepcopy(self._binary_option_markets)
 
     def get_sequence(self):
         current_seq = self.sequence
@@ -208,91 +216,6 @@ class AsyncClient:
             )
             self.timeout_height = 0
 
-    # cookie helper methods
-    async def fetch_cookie(self, type):
-        metadata = None
-        if type == "chain":
-            req = tendermint_query.GetLatestBlockRequest()
-            metadata = await self.stubCosmosTendermint.GetLatestBlock(
-                req
-            ).initial_metadata()
-            time.sleep(DEFAULT_BLOCK_TIME)
-        if type == "exchange":
-            req = exchange_meta_rpc_pb.VersionRequest()
-            metadata = await self.stubMeta.Version(req).initial_metadata()
-        return metadata
-
-    async def renew_cookie(self, existing_cookie, type):
-        metadata = None
-        # format cookie date into RFC1123 standard
-        cookie = SimpleCookie()
-        cookie.load(existing_cookie)
-
-        expires_at = cookie.get(f"{self.cookie_type}").get("expires")
-        expires_at = expires_at.replace("-", " ")
-        yyyy = f"{self.expiration_format}".format(expires_at[12:14])
-        expires_at = expires_at[:12] + yyyy + expires_at[14:]
-
-        # parse expire field to unix timestamp
-        expire_timestamp = datetime.datetime.strptime(
-            expires_at, "%a, %d %b %Y %H:%M:%S GMT"
-        ).timestamp()
-
-        # renew session if timestamp diff < offset
-        timestamp_diff = expire_timestamp - int(time.time())
-        if timestamp_diff < DEFAULT_SESSION_RENEWAL_OFFSET:
-            metadata = await self.fetch_cookie(type)
-        else:
-            metadata = (("cookie", existing_cookie),)
-        return metadata
-
-    async def load_cookie(self, type):
-        metadata = None
-        if self.insecure:
-            return metadata
-
-        if type == "chain":
-            if self.chain_cookie != "":
-                metadata = await self.renew_cookie(self.chain_cookie, type)
-                self.set_cookie(metadata, type)
-            else:
-                metadata = await self.fetch_cookie(type)
-                self.set_cookie(metadata, type)
-
-        if type == "exchange":
-            if self.exchange_cookie != "":
-                metadata = await self.renew_cookie(self.exchange_cookie, type)
-                self.set_cookie(metadata, type)
-            else:
-                metadata = await self.fetch_cookie(type)
-                self.set_cookie(metadata, type)
-
-        return metadata
-
-    def set_cookie(self, metadata, type):
-        new_cookie = None
-        if self.insecure:
-            return new_cookie
-
-        for k, v in metadata:
-            if k == "set-cookie":
-                new_cookie = v
-
-        if new_cookie == None:
-            return
-
-        if type == "chain":
-            # write to client instance
-            self.chain_cookie = new_cookie
-            # write to disk
-            cookie_file = open(self.chain_cookie_location, "w")
-            cookie_file.write(new_cookie)
-            cookie_file.close()
-            LoggerProvider().logger_for_class(logging_class=self.__class__).info("chain session cookie saved to disk")
-
-        if type == "exchange":
-            self.exchange_cookie = new_cookie
-
     # default client methods
     async def get_latest_block(self) -> tendermint_query.GetLatestBlockResponse:
         req = tendermint_query.GetLatestBlockRequest()
@@ -300,7 +223,8 @@ class AsyncClient:
 
     async def get_account(self, address: str) -> Optional[account_pb2.EthAccount]:
         try:
-            metadata = await self.load_cookie(type="chain")
+            metadata = await self.network.chain_metadata(
+                metadata_query_provider=self._chain_cookie_metadata_requestor)
             account_any = (await self.stubAuth.Account(
                 auth_query.QueryAccountRequest(address=address), metadata=metadata
             )).account
@@ -338,7 +262,8 @@ class AsyncClient:
     ) -> Tuple[Union[abci_type.SimulationResponse, grpc.RpcError], bool]:
         try:
             req = tx_service.SimulateRequest(tx_bytes=tx_byte)
-            metadata = await self.load_cookie(type="chain")
+            metadata = await self.network.chain_metadata(
+                metadata_query_provider=self._chain_cookie_metadata_requestor)
             return await self.stubTx.Simulate(request=req, metadata=metadata), True
         except grpc.RpcError as err:
             return err, False
@@ -347,7 +272,7 @@ class AsyncClient:
         req = tx_service.BroadcastTxRequest(
             tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_SYNC
         )
-        metadata = await self.load_cookie(type="chain")
+        metadata = await self.network.chain_metadata(metadata_query_provider=self._chain_cookie_metadata_requestor)
         result = await self.stubTx.BroadcastTx(request=req, metadata=metadata)
         return result.tx_response
 
@@ -355,7 +280,7 @@ class AsyncClient:
         req = tx_service.BroadcastTxRequest(
             tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_ASYNC
         )
-        metadata = await self.load_cookie(type="chain")
+        metadata = await self.network.chain_metadata(metadata_query_provider=self._chain_cookie_metadata_requestor)
         result = await self.stubTx.BroadcastTx(request=req, metadata=metadata)
         return result.tx_response
 
@@ -363,7 +288,7 @@ class AsyncClient:
         req = tx_service.BroadcastTxRequest(
             tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_BLOCK
         )
-        metadata = await self.load_cookie(type="chain")
+        metadata = await self.network.chain_metadata(metadata_query_provider=self._chain_cookie_metadata_requestor)
         result = await self.stubTx.BroadcastTx(request=req, metadata=metadata)
         return result.tx_response
 
@@ -631,7 +556,9 @@ class AsyncClient:
         req = spot_exchange_rpc_pb.StreamMarketsRequest(
             market_ids=kwargs.get("market_ids")
         )
-        metadata = await self.load_cookie(type="exchange")
+        metadata = await self.network.exchange_metadata(
+            metadata_query_provider=self._exchange_cookie_metadata_requestor
+        )
         return self.stubSpotExchange.StreamMarkets(request=req, metadata=metadata)
 
     async def get_spot_orderbookV2(self, market_id: str):
@@ -688,12 +615,16 @@ class AsyncClient:
 
     async def stream_spot_orderbook_snapshot(self, market_ids: List[str]):
         req = spot_exchange_rpc_pb.StreamOrderbookV2Request(market_ids=market_ids)
-        metadata = await self.load_cookie(type="exchange")
+        metadata = await self.network.exchange_metadata(
+            metadata_query_provider=self._exchange_cookie_metadata_requestor
+        )
         return self.stubSpotExchange.StreamOrderbookV2(request=req, metadata=metadata)
 
     async def stream_spot_orderbook_update(self, market_ids: List[str]):
         req = spot_exchange_rpc_pb.StreamOrderbookUpdateRequest(market_ids=market_ids)
-        metadata = await self.load_cookie(type="exchange")
+        metadata = await self.network.exchange_metadata(
+            metadata_query_provider=self._exchange_cookie_metadata_requestor
+        )
         return self.stubSpotExchange.StreamOrderbookUpdate(request=req, metadata=metadata)
 
     async def stream_spot_orders(self, market_id: str, **kwargs):
@@ -702,7 +633,9 @@ class AsyncClient:
             order_side=kwargs.get("order_side"),
             subaccount_id=kwargs.get("subaccount_id"),
         )
-        metadata = await self.load_cookie(type="exchange")
+        metadata = await self.network.exchange_metadata(
+            metadata_query_provider=self._exchange_cookie_metadata_requestor
+        )
         return self.stubSpotExchange.StreamOrders(request=req, metadata=metadata)
 
     async def stream_historical_spot_orders(self, market_id: str, **kwargs):
@@ -714,7 +647,9 @@ class AsyncClient:
             state=kwargs.get("state"),
             execution_types=kwargs.get("execution_types")
         )
-        metadata = await self.load_cookie(type="exchange")
+        metadata = await self.network.exchange_metadata(
+            metadata_query_provider=self._exchange_cookie_metadata_requestor
+        )
         return self.stubSpotExchange.StreamOrdersHistory(request=req, metadata=metadata)
 
     async def stream_historical_derivative_orders(self, market_id: str, **kwargs):
@@ -726,7 +661,9 @@ class AsyncClient:
             state=kwargs.get("state"),
             execution_types=kwargs.get("execution_types")
         )
-        metadata = await self.load_cookie(type="exchange")
+        metadata = await self.network.exchange_metadata(
+            metadata_query_provider=self._exchange_cookie_metadata_requestor
+        )
         return self.stubDerivativeExchange.StreamOrdersHistory(request=req, metadata=metadata)
 
     async def stream_spot_trades(self, **kwargs):
@@ -739,7 +676,9 @@ class AsyncClient:
             subaccount_ids=kwargs.get("subaccount_ids"),
             execution_types=kwargs.get("execution_types"),
         )
-        metadata = await self.load_cookie(type="exchange")
+        metadata = await self.network.exchange_metadata(
+            metadata_query_provider=self._exchange_cookie_metadata_requestor
+        )
         return self.stubSpotExchange.StreamTrades(request=req, metadata=metadata)
 
     async def get_spot_subaccount_orders(self, subaccount_id: str, **kwargs):
@@ -779,7 +718,9 @@ class AsyncClient:
         req = derivative_exchange_rpc_pb.StreamMarketRequest(
             market_ids=kwargs.get("market_ids")
         )
-        metadata = await self.load_cookie(type="exchange")
+        metadata = await self.network.exchange_metadata(
+            metadata_query_provider=self._exchange_cookie_metadata_requestor
+        )
         return self.stubDerivativeExchange.StreamMarket(request=req, metadata=metadata)
 
     async def get_derivative_orderbook(self, market_id: str):
@@ -845,12 +786,16 @@ class AsyncClient:
 
     async def stream_derivative_orderbook_snapshot(self, market_ids: List[str]):
         req = derivative_exchange_rpc_pb.StreamOrderbookV2Request(market_ids=market_ids)
-        metadata = await self.load_cookie(type="exchange")
+        metadata = await self.network.exchange_metadata(
+            metadata_query_provider=self._exchange_cookie_metadata_requestor
+        )
         return self.stubDerivativeExchange.StreamOrderbookV2(request=req, metadata=metadata)
 
     async def stream_derivative_orderbook_update(self, market_ids: List[str]):
         req = derivative_exchange_rpc_pb.StreamOrderbookUpdateRequest(market_ids=market_ids)
-        metadata = await self.load_cookie(type="exchange")
+        metadata = await self.network.exchange_metadata(
+            metadata_query_provider=self._exchange_cookie_metadata_requestor
+        )
         return self.stubDerivativeExchange.StreamOrderbookUpdate(request=req, metadata=metadata)
 
     async def stream_derivative_orders(self, market_id: str, **kwargs):
@@ -859,7 +804,9 @@ class AsyncClient:
             order_side=kwargs.get("order_side"),
             subaccount_id=kwargs.get("subaccount_id"),
         )
-        metadata = await self.load_cookie(type="exchange")
+        metadata = await self.network.exchange_metadata(
+            metadata_query_provider=self._exchange_cookie_metadata_requestor
+        )
         return self.stubDerivativeExchange.StreamOrders(request=req, metadata=metadata)
 
     async def stream_derivative_trades(self, **kwargs):
@@ -874,7 +821,9 @@ class AsyncClient:
             limit=kwargs.get("limit"),
             execution_types=kwargs.get("execution_types"),
         )
-        metadata = await self.load_cookie(type="exchange")
+        metadata = await self.network.exchange_metadata(
+            metadata_query_provider=self._exchange_cookie_metadata_requestor
+        )
         return self.stubDerivativeExchange.StreamTrades(request=req, metadata=metadata)
 
     async def get_derivative_positions(self, **kwargs):
@@ -896,7 +845,9 @@ class AsyncClient:
             subaccount_id=kwargs.get("subaccount_id"),
             subaccount_ids=kwargs.get("subaccount_ids"),
         )
-        metadata = await self.load_cookie(type="exchange")
+        metadata = await self.network.exchange_metadata(
+            metadata_query_provider=self._exchange_cookie_metadata_requestor
+        )
         return self.stubDerivativeExchange.StreamPositions(request=req, metadata=metadata)
 
     async def get_derivative_liquidable_positions(self, **kwargs):
@@ -944,7 +895,7 @@ class AsyncClient:
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
             end_time=kwargs.get("end_time"),
-)
+        )
         return await self.stubDerivativeExchange.FundingRates(req)
 
     async def get_binary_options_markets(self, **kwargs):
@@ -972,5 +923,157 @@ class AsyncClient:
             subaccount_id=kwargs.get("subaccount_id"),
             type=kwargs.get("type")
         )
-        metadata = await self.load_cookie(type="exchange")
+        metadata = await self.network.exchange_metadata(
+            metadata_query_provider=self._exchange_cookie_metadata_requestor
+        )
         return self.stubPortfolio.StreamAccountPortfolio(request=req, metadata=metadata)
+
+    async def composer(self):
+        return Composer(
+            network=self.network.string(),
+            spot_markets=await self.all_spot_markets(),
+            derivative_markets=await self.all_derivative_markets(),
+            binary_option_markets=await self.all_binary_option_markets(),
+            tokens=await self.all_tokens(),
+        )
+
+    async def _initialize_tokens_and_markets(self):
+        spot_markets = dict()
+        derivative_markets = dict()
+        binary_option_markets = dict()
+        tokens = dict()
+        tokens_by_denom = dict()
+        markets_info = (await self.get_spot_markets()).markets
+
+        for market_info in markets_info:
+            if "/" in market_info.ticker:
+                base_token_symbol, quote_token_symbol = market_info.ticker.split(constant.TICKER_TOKENS_SEPARATOR)
+            else:
+                base_token_symbol = market_info.base_token_meta.symbol
+                quote_token_symbol = market_info.quote_token_meta.symbol
+
+            base_token = self._token_representation(
+                symbol=base_token_symbol,
+                token_meta=market_info.base_token_meta,
+                denom=market_info.base_denom,
+                all_tokens=tokens,
+            )
+            if base_token.denom not in tokens_by_denom:
+                tokens_by_denom[base_token.denom] = base_token
+
+            quote_token = self._token_representation(
+                symbol=quote_token_symbol,
+                token_meta=market_info.quote_token_meta,
+                denom=market_info.quote_denom,
+                all_tokens=tokens,
+            )
+            if quote_token.denom not in tokens_by_denom:
+                tokens_by_denom[quote_token.denom] = quote_token
+
+            market = SpotMarket(
+                id=market_info.market_id,
+                status=market_info.market_status,
+                ticker=market_info.ticker,
+                base_token=base_token,
+                quote_token=quote_token,
+                maker_fee_rate=Decimal(market_info.maker_fee_rate),
+                taker_fee_rate=Decimal(market_info.taker_fee_rate),
+                service_provider_fee=Decimal(market_info.service_provider_fee),
+                min_price_tick_size=Decimal(market_info.min_price_tick_size),
+                min_quantity_tick_size=Decimal(market_info.min_quantity_tick_size),
+            )
+
+            spot_markets[market.id] = market
+
+        markets_info = (await self.get_derivative_markets()).markets
+        for market_info in markets_info:
+            quote_token_symbol = market_info.quote_token_meta.symbol
+
+            quote_token = self._token_representation(
+                symbol=quote_token_symbol,
+                token_meta=market_info.quote_token_meta,
+                denom=market_info.quote_denom,
+                all_tokens=tokens,
+            )
+            if quote_token.denom not in tokens_by_denom:
+                tokens_by_denom[quote_token.denom] = quote_token
+
+            market = DerivativeMarket(
+                id=market_info.market_id,
+                status=market_info.market_status,
+                ticker=market_info.ticker,
+                oracle_base=market_info.oracle_base,
+                oracle_quote=market_info.oracle_quote,
+                oracle_type=market_info.oracle_type,
+                oracle_scale_factor=market_info.oracle_scale_factor,
+                initial_margin_ratio=Decimal(market_info.initial_margin_ratio),
+                maintenance_margin_ratio=Decimal(market_info.maintenance_margin_ratio),
+                quote_token=quote_token,
+                maker_fee_rate=Decimal(market_info.maker_fee_rate),
+                taker_fee_rate = Decimal(market_info.taker_fee_rate),
+                service_provider_fee = Decimal(market_info.service_provider_fee),
+                min_price_tick_size = Decimal(market_info.min_price_tick_size),
+                min_quantity_tick_size = Decimal(market_info.min_quantity_tick_size),
+            )
+
+            derivative_markets[market.id] = market
+
+        markets_info = (await self.get_binary_options_markets()).markets
+        for market_info in markets_info:
+            quote_token = tokens_by_denom.get(market_info.quote_denom, None)
+
+            market = BinaryOptionMarket(
+                id=market_info.market_id,
+                status=market_info.market_status,
+                ticker=market_info.ticker,
+                oracle_symbol=market_info.oracle_symbol,
+                oracle_provider=market_info.oracle_provider,
+                oracle_type=market_info.oracle_type,
+                oracle_scale_factor=market_info.oracle_scale_factor,
+                expiration_timestamp=market_info.expiration_timestamp,
+                settlement_timestamp=market_info.settlement_timestamp,
+                quote_token=quote_token,
+                maker_fee_rate=Decimal(market_info.maker_fee_rate),
+                taker_fee_rate=Decimal(market_info.taker_fee_rate),
+                service_provider_fee=Decimal(market_info.service_provider_fee),
+                min_price_tick_size=Decimal(market_info.min_price_tick_size),
+                min_quantity_tick_size=Decimal(market_info.min_quantity_tick_size),
+            )
+
+            binary_option_markets[market.id] = market
+
+        self._tokens = tokens
+        self._spot_markets = spot_markets
+        self._derivative_markets = derivative_markets
+        self._binary_option_markets = binary_option_markets
+
+    def _token_representation(self, symbol: str, token_meta, denom: str, all_tokens: Dict[str, Token]) -> Token:
+        token = Token(
+            name=token_meta.name,
+            symbol=symbol,
+            denom=denom,
+            address=token_meta.address,
+            decimals=token_meta.decimals,
+            logo=token_meta.logo,
+            updated=token_meta.updated_at,
+        )
+
+        existing_token = all_tokens.get(token.symbol, None)
+        if existing_token is None:
+            all_tokens[token.symbol] = token
+            existing_token = token
+        elif existing_token.denom != denom:
+            existing_token = all_tokens.get(token.name, None)
+            if existing_token is None:
+                all_tokens[token.name] = token
+                existing_token = token
+
+        return existing_token
+
+    def _chain_cookie_metadata_requestor(self) -> Coroutine:
+        request = tendermint_query.GetLatestBlockRequest()
+        return self.stubCosmosTendermint.GetLatestBlock(request).initial_metadata()
+
+    def _exchange_cookie_metadata_requestor(self) -> Coroutine:
+        request = exchange_meta_rpc_pb.VersionRequest()
+        return self.stubMeta.Version(request).initial_metadata()

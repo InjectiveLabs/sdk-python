@@ -1,15 +1,7 @@
 import asyncio
-import logging
-import grpc
 
-import pyinjective.proto.exchange.injective_spot_exchange_rpc_pb2 as spot_exchange_rpc_pb
-import pyinjective.proto.exchange.injective_spot_exchange_rpc_pb2_grpc as spot_exchange_rpc_grpc
-import pyinjective.proto.exchange.injective_derivative_exchange_rpc_pb2 as derivative_exchange_rpc_pb
-import pyinjective.proto.exchange.injective_derivative_exchange_rpc_pb2_grpc as derivative_exchange_rpc_grpc
-
-from decimal import *
 from pyinjective.async_client import AsyncClient
-from pyinjective.constant import Network
+from pyinjective.core.network import Network
 
 metadata_template = """[{}]
 description = '{} {} {}'
@@ -36,7 +28,7 @@ async def fetch_denom(network) -> str:
     symbols = {}
 
     # fetch meta data for spot markets
-    client = AsyncClient(network, insecure=False)
+    client = AsyncClient(network)
     status = 'active'
     mresp = await client.get_spot_markets(market_status=status)
     for market in mresp.markets:
@@ -63,7 +55,7 @@ async def fetch_denom(network) -> str:
         denom_output += config
 
     # fetch meta data for derivative markets
-    client = AsyncClient(network, insecure=False)
+    client = AsyncClient(network)
     status = 'active'
     mresp = await client.get_derivative_markets(market_status=status)
     for market in mresp.markets:
@@ -96,12 +88,12 @@ async def fetch_denom(network) -> str:
 async def main() -> None:
     testnet = Network.testnet()
     data = await fetch_denom(testnet)
-    with open("denoms_testnet.ini", "w") as text_file:
+    with open("../denoms_testnet.ini", "w") as text_file:
         text_file.write(data)
 
     mainnet = Network.mainnet()
     data = await fetch_denom(mainnet)
-    with open("denoms_mainnet.ini", "w") as text_file:
+    with open("../denoms_mainnet.ini", "w") as text_file:
         text_file.write(data)
 
 if __name__ == '__main__':

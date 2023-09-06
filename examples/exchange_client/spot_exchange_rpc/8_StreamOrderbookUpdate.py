@@ -3,7 +3,7 @@ import logging
 from decimal import *
 
 from pyinjective.async_client import AsyncClient
-from pyinjective.constant import Network
+from pyinjective.core.network import Network
 
 
 class PriceLevel:
@@ -50,7 +50,7 @@ async def load_orderbook_snapshot(async_client: AsyncClient, orderbook: Orderboo
 async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
-    async_client = AsyncClient(network, insecure=False)
+    async_client = AsyncClient(network)
 
     market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
     orderbook = Orderbook(market_id=market_id)

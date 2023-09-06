@@ -1,6 +1,6 @@
 from pyinjective import PrivateKey
 from pyinjective.composer import Composer
-from pyinjective.constant import Network
+from pyinjective.core.network import Network
 from pyinjective.orderhash import OrderHashManager
 
 
