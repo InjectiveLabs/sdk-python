@@ -17,7 +17,7 @@ URL = "https://github.com/InjectiveLabs/sdk-python"
 EMAIL = "achilleas@injectivelabs.com"
 AUTHOR = "Injective Labs"
 REQUIRES_PYTHON = ">=3.9"
-VERSION = "0.8.1"
+VERSION = "0.8.2"
 
 REQUIRED = [
     "aiohttp",
@@ -36,6 +36,7 @@ REQUIRED = [
     "requests",
     "safe-pysha3",
     "urllib3",
+    "web3"
     "websockets",
 ]
 

@@ -87,6 +87,9 @@ make tests
 ```
 
 ### Changelogs
+**0.8.2**
+* Add web3 library as a dependency for the project.
+
 **0.8.1**
 * Moved the configuration to use a secure or insecure connection inside the Network class. The AsyncClient's `insecure` parameter is no longer used for anything and will be removed in the future.
 * Made the new load balanced bare-metal node the default one for mainnet (it is called `lb`). The legacy one (load balanced k8s node) is called `lb_k8s`
