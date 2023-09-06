@@ -16,21 +16,22 @@ class Peggo:
             peggy_proxy_address = "0x4F38F75606d046819638f909b66B112aF1095e8d"
         else:
             LoggerProvider().logger_for_class(logging_class=self.__class__).info("Network is not supported")
+            raise RuntimeError(f"Network {self.network} not supported")
         web3 = Web3(Web3.HTTPProvider(ethereum_endpoint))
         contract = web3.eth.contract(address=peggy_proxy_address, abi=peggo_abi)
 
-        token_contract_address = web3.toChecksumAddress(token_contract)
+        token_contract_address = web3.to_checksum_address(token_contract)
 
         receiver_address = Address.from_acc_bech32(receiver)
         receiver_ethereum_address = Address.get_ethereum_address(receiver_address)
-        receiver_address_checksum = web3.toChecksumAddress(receiver_ethereum_address)
+        receiver_address_checksum = web3.to_checksum_address(receiver_ethereum_address)
         receiver_slice = receiver_address_checksum[2:]
         receiver_padded_address = '0x' + receiver_slice.zfill(64)
 
-        destination = web3.toBytes(hexstr=receiver_padded_address)
+        destination = web3.to_bytes(hexstr=receiver_padded_address)
 
-        sender_ethereum_address = web3.eth.account.privateKeyToAccount(private_key).address
-        sender_address_checksum = web3.toChecksumAddress(sender_ethereum_address)
+        sender_ethereum_address = web3.eth.account.from_key(private_key).address
+        sender_address_checksum = web3.to_checksum_address(sender_ethereum_address)
         nonce = web3.eth.get_transaction_count(sender_address_checksum)
 
         amount_to_send = int(amount * pow(10, decimals))
@@ -45,8 +46,8 @@ class Peggo:
         transaction_body = {
             'nonce': nonce,
             'gas': gas,
-            'maxFeePerGas': web3.toWei(maxFeePerGas, 'gwei'),
-            'maxPriorityFeePerGas': web3.toWei(maxPriorityFeePerGas, 'gwei'),
+            'maxFeePerGas': web3.to_wei(maxFeePerGas, 'gwei'),
+            'maxPriorityFeePerGas': web3.to_wei(maxPriorityFeePerGas, 'gwei'),
         }
 
         tx = contract.functions.sendToInjective(
