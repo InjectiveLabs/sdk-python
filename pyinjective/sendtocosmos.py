@@ -41,7 +41,7 @@ class Peggo:
             destination,
             amount_to_send,
             data
-        ).estimateGas({'from': sender_address_checksum})
+        ).estimate_gas({'from': sender_address_checksum})
 
         transaction_body = {
             'nonce': nonce,
