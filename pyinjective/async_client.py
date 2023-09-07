@@ -939,12 +939,29 @@ class AsyncClient:
     async def chain_stream(
         self,
         bank_balances_filter: Optional[chain_stream_query.BankBalancesFilter] = None,
-        subaccount_deposits_filter: Optional[chain_stream_query.SubaccountDepositsFilter] = None
+        subaccount_deposits_filter: Optional[chain_stream_query.SubaccountDepositsFilter] = None,
+        spot_trades_filter: Optional[chain_stream_query.TradesFilter] = None,
+        derivative_trades_filter: Optional[chain_stream_query.TradesFilter] = None,
+        spot_orders_filter: Optional[chain_stream_query.OrdersFilter] = None,
+        derivative_orders_filter: Optional[chain_stream_query.OrdersFilter] = None,
+        spot_orderbooks_filter: Optional[chain_stream_query.OrderbookFilter] = None,
+        derivative_orderbooks_filter: Optional[chain_stream_query.OrderbookFilter] = None,
+        positions_filter: Optional[chain_stream_query.PositionsFilter] = None,
+        oracle_price_filter: Optional[chain_stream_query.OraclePriceFilter] = None,
     ):
 
         request = chain_stream_query.StreamRequest(
             bank_balances_filter=bank_balances_filter,
-            subaccount_deposits_filter=subaccount_deposits_filter)
+            subaccount_deposits_filter=subaccount_deposits_filter,
+            spot_trades_filter=spot_trades_filter,
+            derivative_trades_filter=derivative_trades_filter,
+            spot_orders_filter=spot_orders_filter,
+            derivative_orders_filter=derivative_orders_filter,
+            spot_orderbooks_filter=spot_orderbooks_filter,
+            derivative_orderbooks_filter=derivative_orderbooks_filter,
+            positions_filter=positions_filter,
+            oracle_price_filter=oracle_price_filter,
+        )
         metadata = await self.network.chain_metadata(
             metadata_query_provider=self._chain_cookie_metadata_requestor
         )

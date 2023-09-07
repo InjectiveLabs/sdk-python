@@ -902,13 +902,56 @@ class Composer:
             proposal_id=proposal_id, voter=voter, option=option
         )
 
-    def chain_stream_bank_balances_filter(self, accounts: List[str]) -> chain_stream_query.BankBalancesFilter:
+    def chain_stream_bank_balances_filter(self, accounts: Optional[List[str]] = None) -> chain_stream_query.BankBalancesFilter:
+        accounts = accounts or ["*"]
         return chain_stream_query.BankBalancesFilter(accounts=accounts)
 
     def chain_stream_subaccount_deposits_filter(
-            self, subaccount_ids: List[str]
+            self, subaccount_ids: Optional[List[str]] = None,
     ) -> chain_stream_query.SubaccountDepositsFilter:
+        subaccount_ids = ["*"]
         return chain_stream_query.SubaccountDepositsFilter(subaccount_ids=subaccount_ids)
+
+    def chain_stream_trades_filter(
+        self,
+        subaccount_ids: Optional[List[str]] = None,
+        market_ids: Optional[List[str]] = None,
+    ) -> chain_stream_query.TradesFilter:
+        subaccount_ids = subaccount_ids or ["*"]
+        market_ids = market_ids or ["*"]
+        return chain_stream_query.TradesFilter(subaccount_ids=subaccount_ids, market_ids=market_ids)
+
+    def chain_stream_orders_filter(
+        self,
+        subaccount_ids: Optional[List[str]] = None,
+        market_ids: Optional[List[str]] = None,
+    ) -> chain_stream_query.OrdersFilter:
+        subaccount_ids = subaccount_ids or ["*"]
+        market_ids = market_ids or ["*"]
+        return chain_stream_query.OrdersFilter(subaccount_ids=subaccount_ids, market_ids=market_ids)
+
+    def chain_stream_orderbooks_filter(
+        self,
+        market_ids: Optional[List[str]] = None,
+    ) -> chain_stream_query.OrderbookFilter:
+        market_ids = market_ids or ["*"]
+        return chain_stream_query.OrderbookFilter(market_ids=market_ids)
+
+    def chain_stream_positions_filter(
+        self,
+        subaccount_ids: Optional[List[str]] = None,
+        market_ids: Optional[List[str]] = None,
+    ) -> chain_stream_query.PositionsFilter:
+        subaccount_ids = subaccount_ids or ["*"]
+        market_ids = market_ids or ["*"]
+        return chain_stream_query.PositionsFilter(subaccount_ids=subaccount_ids, market_ids=market_ids)
+
+    def chain_stream_oracle_price_filter(
+        self,
+        symbols: Optional[List[str]] = None,
+    ) -> chain_stream_query.PositionsFilter:
+        symbols = symbols or ["*"]
+        return chain_stream_query.OraclePriceFilter(symbol=symbols)
 
     # data field format: [request-msg-header][raw-byte-msg-response]
     # you need to figure out this magic prefix number to trim request-msg-header off the data
