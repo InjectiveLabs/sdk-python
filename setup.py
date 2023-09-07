@@ -35,8 +35,8 @@ REQUIRED = [
     "protobuf",
     "requests",
     "safe-pysha3",
-    "urllib3",
-    "web3"
+    "urllib3 < 2",
+    "web3 >= 6.0.0"
     "websockets",
 ]
 
