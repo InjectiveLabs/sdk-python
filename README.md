@@ -87,6 +87,9 @@ make tests
 ```
 
 ### Changelogs
+**0.8.3**
+* Fix dependency issue in setup.py.
+
 **0.8.2**
 * Add web3 library as a dependency for the project.
 
