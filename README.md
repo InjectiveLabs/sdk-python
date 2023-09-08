@@ -87,6 +87,9 @@ make tests
 ```
 
 ### Changelogs
+**0.8.4**
+* Added keepalive options to gRPC channels.
+
 **0.8.3**
 * Fix dependency issue in setup.py.
 
