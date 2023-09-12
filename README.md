@@ -88,7 +88,7 @@ make tests
 
 ### Changelogs
 **0.8.4**
-* Added keepalive options to gRPC channels.
+* Added methods to SpotMarket, DerivativeMarket and BianaryOptionMarket to translate chain prices and quantities to human-readable format.
 
 **0.8.3**
 * Fix dependency issue in setup.py.

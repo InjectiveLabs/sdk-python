@@ -1,14 +1,8 @@
 import json
-import requests
-
 import asyncio
-import logging
 
 from pyinjective.core.network import Network
 from pyinjective.sendtocosmos import Peggo
-
-import importlib.resources as pkg_resources
-import pyinjective
 
 async def main() -> None:
     # select network: testnet, mainnet

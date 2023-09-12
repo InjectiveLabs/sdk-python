@@ -70,13 +70,6 @@ DEFAULT_TIMEOUTHEIGHT = 30  # blocks
 DEFAULT_SESSION_RENEWAL_OFFSET = 120  # seconds
 DEFAULT_BLOCK_TIME = 2  # seconds
 
-GRPC_CHANNEL_OPTIONS = [
-    ("grpc.keepalive_time_ms", 45000),
-    ("grpc.keepalive_timeout_ms", 5000),
-    ("grpc.http2.max_pings_without_data", 5),
-    ("grpc.keepalive_permit_without_calls", 1),
-]
-
 
 class AsyncClient:
     def __init__(
@@ -95,16 +88,9 @@ class AsyncClient:
 
         # chain stubs
         self.chain_channel = (
-            grpc.aio.secure_channel(
-                target=network.grpc_endpoint,
-                credentials=credentials,
-                options=GRPC_CHANNEL_OPTIONS,
-            )
+            grpc.aio.secure_channel(network.grpc_endpoint, credentials)
             if (network.use_secure_connection and credentials is not None)
-            else grpc.aio.insecure_channel(
-                target=network.grpc_endpoint,
-                options=GRPC_CHANNEL_OPTIONS,
-            )
+            else grpc.aio.insecure_channel(network.grpc_endpoint)
         )
 
         self.stubCosmosTendermint = tendermint_query_grpc.ServiceStub(
@@ -120,16 +106,9 @@ class AsyncClient:
 
         # exchange stubs
         self.exchange_channel = (
-            grpc.aio.secure_channel(
-                target=network.grpc_exchange_endpoint,
-                credentials=credentials,
-                options=GRPC_CHANNEL_OPTIONS,
-            )
+            grpc.aio.secure_channel(network.grpc_exchange_endpoint, credentials)
             if (network.use_secure_connection and credentials is not None)
-            else grpc.aio.insecure_channel(
-                target=network.grpc_exchange_endpoint,
-                options=GRPC_CHANNEL_OPTIONS,
-            )
+            else grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
         )
         self.stubMeta = exchange_meta_rpc_grpc.InjectiveMetaRPCStub(
             self.exchange_channel
@@ -158,16 +137,9 @@ class AsyncClient:
 
         # explorer stubs
         self.explorer_channel = (
-            grpc.aio.secure_channel(
-                target=network.grpc_explorer_endpoint,
-                credentials=credentials,
-                options=GRPC_CHANNEL_OPTIONS,
-            )
+            grpc.aio.secure_channel(network.grpc_explorer_endpoint, credentials)
             if (network.use_secure_connection and credentials is not None)
-            else grpc.aio.insecure_channel(
-                target=network.grpc_explorer_endpoint,
-                options=GRPC_CHANNEL_OPTIONS,
-            )
+            else grpc.aio.insecure_channel(network.grpc_explorer_endpoint)
         )
         self.stubExplorer = explorer_rpc_grpc.InjectiveExplorerRPCStub(
             self.explorer_channel

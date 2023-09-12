@@ -6,7 +6,7 @@ from .wallet import Address
 class Peggo:
     def __init__(self, network: str):
         self.network = network
-    def sendToInjective(self, ethereum_endpoint: str, private_key: str, token_contract: str, receiver: str, amount: int,
+    def sendToInjective(self, ethereum_endpoint: str, private_key: str, token_contract: str, receiver: str, amount: float,
                      maxFeePerGas: int, maxPriorityFeePerGas: int, peggo_abi: str, data: str, decimals=18):
         if self.network == 'testnet':
             peggy_proxy_address = "0xd2C6753F6B1783EF0a3857275e16e79D91b539a3"
