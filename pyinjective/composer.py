@@ -293,6 +293,24 @@ class Composer:
             msg=bytes(msg, "utf-8"),
             funds=kwargs.get('funds') # funds is a list of cosmos_dot_base_dot_v1beta1_dot_coin__pb2.Coin. The coins in the list must be sorted in alphabetical order by denoms.
         )
+    
+    def MsgPrivilegedExecuteContract(self, sender: str, contract: str, msg: str, **kwargs):
+        return injective_exchange_tx_pb.MsgPrivilegedExecuteContract(
+            sender=sender,
+            contract_address=contract,
+            data=msg,
+            funds=kwargs.get('funds') # funds is a list of cosmos_dot_base_dot_v1beta1_dot_coin__pb2.Coin. The coins in the list must be sorted in alphabetical order by denoms.
+        )
+
+    def MsgInstantiateContract(self, sender, admin: str, code_id: int, label: str, message: bytes, **kwargs):
+        return wasm_tx_pb.MsgInstantiateContract(
+            sender=sender,
+            admin=admin,
+            code_id=code_id,
+            label=label,
+            msg=message,
+            funds=kwargs.get('funds'),
+        )
 
     def MsgDeposit(self, sender: str, subaccount_id: str, amount: float, denom: str):
         token = self.tokens[denom]
@@ -938,6 +956,7 @@ class Composer:
             "/cosmos.authz.v1beta1.MsgRevokeResponse": cosmos_authz_tx_pb.MsgRevokeResponse,
             "/injective.oracle.v1beta1.MsgRelayPriceFeedPriceResponse": injective_oracle_tx_pb.MsgRelayPriceFeedPriceResponse,
             "/injective.oracle.v1beta1.MsgRelayProviderPricesResponse": injective_oracle_tx_pb.MsgRelayProviderPrices,
+            "/cosmwasm.wasm.v1.MsgInstantiateContractResponse": wasm_tx_pb.MsgInstantiateContractResponse,
         }
 
         msgs = []

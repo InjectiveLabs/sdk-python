@@ -234,6 +234,7 @@ class AsyncClient:
                 self.number = int(account.base_account.account_number)
                 self.sequence = int(account.base_account.sequence)
         except Exception as e:
+            print('exception:', e)
             LoggerProvider().logger_for_class(logging_class=self.__class__).debug(
                 f"error while fetching sequence and number {e}")
             return None
