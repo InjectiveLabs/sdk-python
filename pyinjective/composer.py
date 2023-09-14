@@ -900,6 +900,24 @@ class Composer:
         return cosmos_gov_tx_pb.MsgVote(
             proposal_id=proposal_id, voter=voter, option=option
         )
+    
+    def MsgPrivilegedExecuteContract(self, sender: str, contract: str, msg: str, **kwargs):
+        return injective_exchange_tx_pb.MsgPrivilegedExecuteContract(
+            sender=sender,
+            contract_address=contract,
+            data=msg,
+            funds=kwargs.get('funds') # funds is a list of cosmos_dot_base_dot_v1beta1_dot_coin__pb2.Coin. The coins in the list must be sorted in alphabetical order by denoms.
+        )
+
+    def MsgInstantiateContract(self, sender, admin: str, code_id: int, label: str, message: bytes, **kwargs):
+        return wasm_tx_pb.MsgInstantiateContract(
+            sender=sender,
+            admin=admin,
+            code_id=code_id,
+            label=label,
+            msg=message,
+            funds=kwargs.get('funds'),
+        )
 
     # data field format: [request-msg-header][raw-byte-msg-response]
     # you need to figure out this magic prefix number to trim request-msg-header off the data
