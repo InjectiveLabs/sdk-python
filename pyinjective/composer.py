@@ -906,7 +906,7 @@ class Composer:
             sender=sender,
             contract_address=contract,
             data=msg,
-            funds=kwargs.get('funds') # funds is a list of cosmos_dot_base_dot_v1beta1_dot_coin__pb2.Coin. The coins in the list must be sorted in alphabetical order by denoms.
+            funds=kwargs.get('funds') # funds is a string of Coin strings, comma separated, e.g 100000inj,20000000000usdt
         )
 
     def MsgInstantiateContract(self, sender, admin: str, code_id: int, label: str, message: bytes, **kwargs):
@@ -916,7 +916,7 @@ class Composer:
             code_id=code_id,
             label=label,
             msg=message,
-            funds=kwargs.get('funds'),
+            funds=kwargs.get('funds'), # funds is a list of cosmos_dot_base_dot_v1beta1_dot_coin__pb2.Coin. The coins in the list must be sorted in alphabetical order by denoms.
         )
 
     # data field format: [request-msg-header][raw-byte-msg-response]
