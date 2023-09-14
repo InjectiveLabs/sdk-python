@@ -901,7 +901,7 @@ class Composer:
             proposal_id=proposal_id, voter=voter, option=option
         )
     
-    def MsgPrivilegedExecuteContract(self, sender: str, contract: str, msg: str, **kwargs):
+    def MsgPrivilegedExecuteContract(self, sender: str, contract: str, msg: str, **kwargs) -> injective_exchange_tx_pb.MsgPrivilegedExecuteContract:
         return injective_exchange_tx_pb.MsgPrivilegedExecuteContract(
             sender=sender,
             contract_address=contract,
@@ -909,7 +909,7 @@ class Composer:
             funds=kwargs.get('funds') # funds is a string of Coin strings, comma separated, e.g 100000inj,20000000000usdt
         )
 
-    def MsgInstantiateContract(self, sender, admin: str, code_id: int, label: str, message: bytes, **kwargs):
+    def MsgInstantiateContract(self, sender: str, admin: str, code_id: int, label: str, message: bytes, **kwargs) -> wasm_tx_pb.MsgInstantiateContract:
         return wasm_tx_pb.MsgInstantiateContract(
             sender=sender,
             admin=admin,
