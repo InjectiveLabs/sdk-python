@@ -87,6 +87,9 @@ make tests
 ```
 
 ### Changelogs
+**0.8.5**
+* Added NEOK/USDT and ORAI/USDT spot markets to the mainnet .ini file
+
 **0.8.4**
 * Added methods to SpotMarket, DerivativeMarket and BianaryOptionMarket to translate chain prices and quantities to human-readable format.
 
