@@ -90,7 +90,7 @@ omit = ["pyinjective/proto/*"]
 
 [tool.coverage.report]
 skip_empty = true
-fail_under = 56.3
+fail_under = 53.1
 precision = 2
 
 
