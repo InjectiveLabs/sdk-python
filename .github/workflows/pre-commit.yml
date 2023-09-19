@@ -31,5 +31,7 @@ jobs:
         run: python -m poetry install
 
       - name: Run pre-commit
-        run: pre-commit run --show-diff-on-failure --color=always --all-files
+        run: |
+          python -m poetry shell
+          pre-commit run --show-diff-on-failure --color=always --all-files
         shell: bash
