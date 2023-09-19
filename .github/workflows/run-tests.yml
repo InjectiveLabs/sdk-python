@@ -1,17 +1,26 @@
-name: pre-commit
+name: run-tests
 on:
   pull_request:
   push:
     branches: [master, dev]
 
 jobs:
-  pre-commit:
-    runs-on: ubuntu-latest
+  run-tests:
+    strategy:
+      matrix:
+        python: ["3.9", "3.10", "3.11"]
+        os: [ubuntu-18.04, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      OS: ${{ matrix.os }}
+      PYTHON: ${{ matrix.python }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Install Python
         uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python }}
 
       - name: Install poetry
         run: python -m pip install poetry
@@ -26,7 +35,12 @@ jobs:
         if: steps.cache-venv.outputs.cache-hit != 'true'
         run: python -m poetry install
 
-      - name: Run pre-commit
+      - name: Run tests and Generate coverage
         run: |
-          python -m poetry run pre-commit run --show-diff-on-failure --color=always --all-files
-        shell: bash
+          poetry run pytest --cov --cov-report=xml
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          env_vars: OS,PYTHON
+          verbose: true

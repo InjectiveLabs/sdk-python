@@ -39,6 +39,7 @@ pytest = "*"
 pytest-asyncio = "*"
 pytest-grpc = "*"
 requests-mock = "*"
+pytest-cov = "^4.1.0"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -71,6 +72,7 @@ skip_glob = ["pyinjective/proto/*", ".idea/*"]
 [tool.black]
 line-length = 120
 target-version = ["py39", "py310", "py311"]
+include = '\.pyi?$'
 # 'extend-exclude' excludes files or directories in addition to the defaults
 extend-exclude = '''
 # A regex preceded with ^/ will apply only to files and directories
@@ -80,6 +82,14 @@ extend-exclude = '''
   | \.idea/.*
 )
 '''
+
+[tool.coverage.run]
+branch = true
+source_pkgs = ["pyinjective"]
+omit = ["pyinjective/proto/*"]
+
+[tool.coverage.report]
+skip_empty = true
 
 
 [build-system]
