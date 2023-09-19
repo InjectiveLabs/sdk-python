@@ -1,6 +1,5 @@
-import json
-
 import asyncio
+import json
 
 from pyinjective.core.network import Network
 from pyinjective.sendtocosmos import Peggo

@@ -4,8 +4,8 @@ from typing import Any, List, Tuple
 
 import pyinjective.constant as constant
 from pyinjective.async_client import AsyncClient
+from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from pyinjective.core.network import Network
-from pyinjective.core.market import SpotMarket, DerivativeMarket, BinaryOptionMarket
 
 
 def find_metadata_inconsistencies(network: Network) -> Tuple[List[Any]]:

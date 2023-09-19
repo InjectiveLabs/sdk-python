@@ -1,9 +1,9 @@
 import asyncio
 
 from pyinjective.async_client import AsyncClient
-from pyinjective.transaction import Transaction
 from pyinjective.core.network import Network
-from pyinjective.wallet import PrivateKey, Address
+from pyinjective.transaction import Transaction
+from pyinjective.wallet import Address, PrivateKey
 
 
 async def main() -> None:

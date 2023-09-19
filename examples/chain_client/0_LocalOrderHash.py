@@ -1,10 +1,10 @@
 import asyncio
 
 from pyinjective.async_client import AsyncClient
-from pyinjective.transaction import Transaction
 from pyinjective.core.network import Network
-from pyinjective.wallet import PrivateKey
 from pyinjective.orderhash import OrderHashManager
+from pyinjective.transaction import Transaction
+from pyinjective.wallet import PrivateKey
 
 
 async def main() -> None:

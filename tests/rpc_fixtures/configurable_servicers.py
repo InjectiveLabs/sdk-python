@@ -1,10 +1,7 @@
 from collections import deque
 
+from pyinjective.proto.exchange import injective_derivative_exchange_rpc_pb2, injective_spot_exchange_rpc_pb2
 from pyinjective.proto.exchange.injective_derivative_exchange_rpc_pb2_grpc import InjectiveDerivativeExchangeRPCServicer
-from pyinjective.proto.exchange import (
-    injective_spot_exchange_rpc_pb2,
-    injective_derivative_exchange_rpc_pb2,
-)
 from pyinjective.proto.exchange.injective_spot_exchange_rpc_pb2_grpc import InjectiveSpotExchangeRPCServicer
 
 

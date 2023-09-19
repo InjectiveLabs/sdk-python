@@ -1,10 +1,10 @@
 import asyncio
 
-from pyinjective.composer import Composer as ProtoMsgComposer
 from pyinjective.async_client import AsyncClient
+from pyinjective.composer import Composer as ProtoMsgComposer
 from pyinjective.core.broadcaster import MsgBroadcasterWithPk
 from pyinjective.core.network import Network
-from pyinjective.wallet import PrivateKey, Address
+from pyinjective.wallet import Address, PrivateKey
 
 
 async def main() -> None:

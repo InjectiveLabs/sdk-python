@@ -44,6 +44,7 @@ requests-mock = "*"
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.4.0"
 flakeheaven = "^3.3.0"
+isort = "^5.12.0"
 
 
 [tool.flakeheaven]
@@ -58,6 +59,12 @@ pyflakes = ["+*"]
 
 [tool.flakeheaven.exceptions."tests/"]
 pyflakes = ["-F811"]           # disable a plugin
+
+
+[tool.isort]
+profile = "black"
+line_length = 120
+skip_glob = ["pyinjective/proto/*", ".idea/*"]
 
 
 [build-system]

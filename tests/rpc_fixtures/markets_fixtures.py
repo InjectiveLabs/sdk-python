@@ -129,8 +129,8 @@ def inj_usdt_spot_market_meta(inj_token_meta, usdt_token_meta):
 def btc_usdt_perp_market_meta(usdt_perp_token_meta):
     from pyinjective.proto.exchange.injective_derivative_exchange_rpc_pb2 import (
         DerivativeMarketInfo,
-        PerpetualMarketInfo,
         PerpetualMarketFunding,
+        PerpetualMarketInfo,
     )
 
     perpetual_market_info = PerpetualMarketInfo(

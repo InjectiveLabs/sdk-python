@@ -1,6 +1,6 @@
-import requests
 from decimal import Decimal
 
+import requests
 from eip712.messages import EIP712Message, EIP712Type
 from eth_account.messages import _hash_eip191_message as hash_eip191_message
 from hexbytes import HexBytes

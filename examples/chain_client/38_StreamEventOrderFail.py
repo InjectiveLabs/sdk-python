@@ -1,7 +1,8 @@
 import asyncio
-import json
-import websockets
 import base64
+import json
+
+import websockets
 
 from pyinjective.core.network import Network
 

@@ -1,13 +1,13 @@
+import math
 from decimal import Decimal
 
-import math
 import pytest
 
 from pyinjective import Transaction
 from pyinjective.async_client import AsyncClient
 from pyinjective.composer import Composer
-from pyinjective.core.network import Network
 from pyinjective.core.broadcaster import MessageBasedTransactionFeeCalculator
+from pyinjective.core.network import Network
 from pyinjective.proto.cosmos.gov.v1beta1 import tx_pb2 as gov_tx_pb2
 from pyinjective.proto.cosmwasm.wasm.v1 import tx_pb2 as wasm_tx_pb2
 from pyinjective.proto.injective.exchange.v1beta1 import tx_pb2

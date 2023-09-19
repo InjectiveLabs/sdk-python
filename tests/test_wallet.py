@@ -1,6 +1,6 @@
 from eth_hash.auto import keccak
 
-from pyinjective import PrivateKey, Address
+from pyinjective import Address, PrivateKey
 
 
 class TestPrivateKey:

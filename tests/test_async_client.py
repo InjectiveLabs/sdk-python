@@ -1,27 +1,24 @@
 import logging
 
 import pytest
-from pyinjective.core.network import Network
 
 from pyinjective.async_client import AsyncClient
-from pyinjective.proto.exchange import (
-    injective_spot_exchange_rpc_pb2,
-    injective_derivative_exchange_rpc_pb2,
-)
-from tests.rpc_fixtures.markets_fixtures import (  # noqa: F401
-    inj_token_meta,  # noqa: F401
-    ape_token_meta,  # noqa: F401
-    usdt_token_meta,  # noqa: F401
-    usdt_token_meta_second_denom,  # noqa: F401
-    usdt_perp_token_meta,  # noqa: F401
-    inj_usdt_spot_market_meta,  # noqa: F401
-    ape_usdt_spot_market_meta,  # noqa: F401
-    btc_usdt_perp_market_meta,  # noqa: F401
-    first_match_bet_market_meta,  # noqa: F401
-)
+from pyinjective.core.network import Network
+from pyinjective.proto.exchange import injective_derivative_exchange_rpc_pb2, injective_spot_exchange_rpc_pb2
 from tests.rpc_fixtures.configurable_servicers import (
     ConfigurableInjectiveDerivativeExchangeRPCServicer,
     ConfigurableInjectiveSpotExchangeRPCServicer,
+)
+from tests.rpc_fixtures.markets_fixtures import ape_token_meta  # noqa: F401
+from tests.rpc_fixtures.markets_fixtures import ape_usdt_spot_market_meta  # noqa: F401
+from tests.rpc_fixtures.markets_fixtures import btc_usdt_perp_market_meta  # noqa: F401
+from tests.rpc_fixtures.markets_fixtures import inj_token_meta  # noqa: F401
+from tests.rpc_fixtures.markets_fixtures import inj_usdt_spot_market_meta  # noqa: F401
+from tests.rpc_fixtures.markets_fixtures import usdt_perp_token_meta  # noqa: F401
+from tests.rpc_fixtures.markets_fixtures import usdt_token_meta  # noqa: F401
+from tests.rpc_fixtures.markets_fixtures import (  # noqa: F401; noqa: F401; noqa: F401
+    first_match_bet_market_meta,
+    usdt_token_meta_second_denom,
 )
 
 

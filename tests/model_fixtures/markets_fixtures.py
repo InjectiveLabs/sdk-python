@@ -1,5 +1,6 @@
-import pytest
 from decimal import Decimal
+
+import pytest
 
 from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from pyinjective.core.token import Token
