@@ -34,6 +34,13 @@ class SpotMarket:
 
         return extended_chain_formatted_value
 
+    def quantity_from_chain_format(self, chain_value: Decimal) -> Decimal:
+        return chain_value / Decimal(f"1e{self.base_token.decimals}")
+
+    def price_from_chain_format(self, chain_value: Decimal) -> Decimal:
+        decimals = self.base_token.decimals - self.quote_token.decimals
+        return chain_value * Decimal(f"1e{decimals}")
+
 
 @dataclass(eq=True, frozen=True)
 class DerivativeMarket:
@@ -92,6 +99,15 @@ class DerivativeMarket:
         extended_chain_formatted_margin = quantized_margin * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         return extended_chain_formatted_margin
+
+    def quantity_from_chain_format(self, chain_value: Decimal) -> Decimal:
+        return chain_value
+
+    def price_from_chain_format(self, chain_value: Decimal) -> Decimal:
+        return chain_value * Decimal(f"1e-{self.quote_token.decimals}")
+
+    def margin_from_chain_format(self, chain_value: Decimal) -> Decimal:
+        return chain_value * Decimal(f"1e-{self.quote_token.decimals}")
 
 
 @dataclass(eq=True, frozen=True)
@@ -155,3 +171,12 @@ class BinaryOptionMarket:
         extended_chain_formatted_margin = quantized_margin * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         return extended_chain_formatted_margin
+
+    def quantity_from_chain_format(self, chain_value: Decimal, special_denom: Optional[Denom] = None) -> Decimal:
+        # Binary option markets do not have a base market to provide the number of decimals
+        decimals = 0 if special_denom is None else special_denom.base
+        return chain_value * Decimal(f"1e-{decimals}")
+
+    def price_from_chain_format(self, chain_value: Decimal, special_denom: Optional[Denom] = None) -> Decimal:
+        decimals = self.quote_token.decimals if special_denom is None else special_denom.quote
+        return chain_value * Decimal(f"1e-{decimals}")

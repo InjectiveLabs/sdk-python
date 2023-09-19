@@ -5,9 +5,6 @@ import asyncio
 from pyinjective.core.network import Network
 from pyinjective.sendtocosmos import Peggo
 
-import importlib.resources as pkg_resources
-import pyinjective
-
 
 async def main() -> None:
     # select network: testnet, mainnet
@@ -30,8 +27,9 @@ async def main() -> None:
             '"amount": {"denom": "inj","amount": "1000000000000000000"}}'
             )
 
-    import_peggo = pkg_resources.read_text(pyinjective, 'Peggo_ABI.json')
-    peggo_abi = json.loads(import_peggo)
+    with open("../pyinjective/Peggo_ABI.json") as pego_file:
+        peggo_data = pego_file.read()
+    peggo_abi = json.loads(peggo_data)
 
     peggo_composer.sendToInjective(
         ethereum_endpoint=ethereum_endpoint,

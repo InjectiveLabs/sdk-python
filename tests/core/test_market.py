@@ -38,6 +38,23 @@ class TestSpotMarket:
 
         assert (quantized_chain_format_value == chain_value)
 
+    def test_convert_quantity_from_chain_format(self, inj_usdt_spot_market: SpotMarket):
+        expected_quantity = Decimal("123.456")
+
+        chain_format_quantity = expected_quantity * Decimal(f"1e{inj_usdt_spot_market.base_token.decimals}")
+        human_readable_quantity = inj_usdt_spot_market.quantity_from_chain_format(chain_value=chain_format_quantity)
+
+        assert (expected_quantity == human_readable_quantity)
+
+    def test_convert_price_from_chain_format(self, inj_usdt_spot_market: SpotMarket):
+        expected_price = Decimal("123.456")
+
+        price_decimals = inj_usdt_spot_market.quote_token.decimals - inj_usdt_spot_market.base_token.decimals
+        chain_format_price = expected_price * Decimal(f"1e{price_decimals}")
+        human_readable_price = inj_usdt_spot_market.price_from_chain_format(chain_value=chain_format_price)
+
+        assert (expected_price == human_readable_price)
+
 
 class TestDerivativeMarket:
 
@@ -74,6 +91,32 @@ class TestDerivativeMarket:
         quantized_chain_format_value = quantized_value * Decimal("1e18")
 
         assert (quantized_chain_format_value == chain_value)
+
+    def test_convert_quantity_from_chain_format(self, btc_usdt_perp_market: DerivativeMarket):
+        expected_quantity = Decimal("123.456")
+
+        chain_format_quantity = expected_quantity
+        human_readable_quantity = btc_usdt_perp_market.quantity_from_chain_format(chain_value=chain_format_quantity)
+
+        assert (expected_quantity == human_readable_quantity)
+
+    def test_convert_price_from_chain_format(self, btc_usdt_perp_market: DerivativeMarket):
+        expected_price = Decimal("123.456")
+
+        price_decimals = btc_usdt_perp_market.quote_token.decimals
+        chain_format_price = expected_price * Decimal(f"1e{price_decimals}")
+        human_readable_price = btc_usdt_perp_market.price_from_chain_format(chain_value=chain_format_price)
+
+        assert (expected_price == human_readable_price)
+
+    def test_convert_margin_from_chain_format(self, btc_usdt_perp_market: DerivativeMarket):
+        expected_margin = Decimal("123.456")
+
+        price_decimals = btc_usdt_perp_market.quote_token.decimals
+        chain_format_margin = expected_margin * Decimal(f"1e{price_decimals}")
+        human_readable_margin = btc_usdt_perp_market.margin_from_chain_format(chain_value=chain_format_margin)
+
+        assert (expected_margin == human_readable_margin)
 
 
 class TestBinaryOptionMarket:
@@ -217,3 +260,58 @@ class TestBinaryOptionMarket:
         quantized_chain_format_margin = quantized_margin * Decimal("1e18")
 
         assert (quantized_chain_format_margin == chain_value)
+
+    def test_convert_quantity_from_chain_format_with_fixed_denom(self, first_match_bet_market: BinaryOptionMarket):
+        original_quantity = Decimal("123.456789")
+        fixed_denom = Denom(
+            description="Fixed denom",
+            base=2,
+            quote=4,
+            min_quantity_tick_size=100,
+            min_price_tick_size=10000,
+        )
+
+        chain_formatted_quantity = original_quantity * Decimal(f"1e{fixed_denom.base}")
+
+        human_readable_quantity = first_match_bet_market.quantity_from_chain_format(
+            chain_value=chain_formatted_quantity, special_denom=fixed_denom
+        )
+
+        assert (original_quantity == human_readable_quantity)
+
+    def test_convert_quantity_from_chain_format_without_fixed_denom(self, first_match_bet_market: BinaryOptionMarket):
+        original_quantity = Decimal("123.456789")
+
+        chain_formatted_quantity = original_quantity
+
+        human_readable_quantity = first_match_bet_market.quantity_from_chain_format(
+            chain_value=chain_formatted_quantity
+        )
+
+        assert (original_quantity == human_readable_quantity)
+
+    def test_convert_price_from_chain_format_with_fixed_denom(self, first_match_bet_market: BinaryOptionMarket):
+        original_price = Decimal("123.456789")
+        fixed_denom = Denom(
+            description="Fixed denom",
+            base=2,
+            quote=4,
+            min_quantity_tick_size=100,
+            min_price_tick_size=10000,
+        )
+
+        chain_formatted_price = original_price * Decimal(f"1e{fixed_denom.quote}")
+
+        human_readable_price = first_match_bet_market.price_from_chain_format(
+            chain_value=chain_formatted_price, special_denom=fixed_denom
+        )
+
+        assert (original_price == human_readable_price)
+
+    def test_convert_price_from_chain_format_without_fixed_denom(self, first_match_bet_market: BinaryOptionMarket):
+        original_price = Decimal("123.456789")
+        chain_formatted_price = original_price * Decimal(f"1e{first_match_bet_market.quote_token.decimals}")
+
+        human_readable_price = first_match_bet_market.price_from_chain_format(chain_value=chain_formatted_price)
+
+        assert (original_price == human_readable_price)

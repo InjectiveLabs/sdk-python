@@ -87,6 +87,22 @@ make tests
 ```
 
 ### Changelogs
+**0.9**
+* Replace Pipenv with Poetry
+* Add pre-commit validations to the project
+
+**0.8.5**
+* Added NEOK/USDT and ORAI/USDT spot markets to the mainnet .ini file
+
+**0.8.4**
+* Added methods to SpotMarket, DerivativeMarket and BianaryOptionMarket to translate chain prices and quantities to human-readable format.
+
+**0.8.3**
+* Fix dependency issue in setup.py.
+
+**0.8.2**
+* Add web3 library as a dependency for the project.
+
 **0.8.1**
 * Moved the configuration to use a secure or insecure connection inside the Network class. The AsyncClient's `insecure` parameter is no longer used for anything and will be removed in the future.
 * Made the new load balanced bare-metal node the default one for mainnet (it is called `lb`). The legacy one (load balanced k8s node) is called `lb_k8s`
