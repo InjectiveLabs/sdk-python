@@ -1,5 +1,4 @@
 import asyncio
-import logging
 
 from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
@@ -20,7 +19,7 @@ async def main() -> None:
     limit = 4
     positions = await client.get_derivative_positions(
         market_ids=market_ids,
-        # subaccount_id=subaccount_id,
+        ubaccount_id=subaccount_id,
         direction=direction,
         subaccount_total_positions=subaccount_total_positions,
         skip=skip,

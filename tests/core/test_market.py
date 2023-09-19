@@ -1,16 +1,15 @@
-import pytest
 from decimal import Decimal
 
 from pyinjective.constant import Denom
 
 from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
-from tests.model_fixtures.markets_fixtures import (
-    first_match_bet_market,
-    inj_token,
-    usdt_token,
-    usdt_perp_token,
-    inj_usdt_spot_market,
-    btc_usdt_perp_market,
+from tests.model_fixtures.markets_fixtures import (  # noqa: F401
+    first_match_bet_market,  # noqa: F401
+    inj_token,  # noqa: F401
+    usdt_token,  # noqa: F401
+    usdt_perp_token,  # noqa: F401
+    inj_usdt_spot_market,  # noqa: F401
+    btc_usdt_perp_market,  # noqa: F401
 )
 
 
@@ -23,7 +22,7 @@ class TestSpotMarket:
         expected_value = original_quantity * Decimal(f"1e{inj_usdt_spot_market.base_token.decimals}")
         quantized_value = ((expected_value // inj_usdt_spot_market.min_quantity_tick_size)
                            * inj_usdt_spot_market.min_quantity_tick_size)
-        quantized_chain_format_value = quantized_value * Decimal(f"1e18")
+        quantized_chain_format_value = quantized_value * Decimal("1e18")
 
         assert (quantized_chain_format_value == chain_value)
 
@@ -35,7 +34,7 @@ class TestSpotMarket:
         expected_value = original_quantity * Decimal(f"1e{price_decimals}")
         quantized_value = ((expected_value // inj_usdt_spot_market.min_price_tick_size)
                            * inj_usdt_spot_market.min_price_tick_size)
-        quantized_chain_format_value = quantized_value * Decimal(f"1e18")
+        quantized_chain_format_value = quantized_value * Decimal("1e18")
 
         assert (quantized_chain_format_value == chain_value)
 
@@ -48,7 +47,7 @@ class TestDerivativeMarket:
         chain_value = btc_usdt_perp_market.quantity_to_chain_format(human_readable_value=original_quantity)
         quantized_value = ((original_quantity // btc_usdt_perp_market.min_quantity_tick_size)
                            * btc_usdt_perp_market.min_quantity_tick_size)
-        quantized_chain_format_value = quantized_value * Decimal(f"1e18")
+        quantized_chain_format_value = quantized_value * Decimal("1e18")
 
         assert (quantized_chain_format_value == chain_value)
 
@@ -60,7 +59,7 @@ class TestDerivativeMarket:
         expected_value = original_quantity * Decimal(f"1e{price_decimals}")
         quantized_value = ((expected_value // btc_usdt_perp_market.min_price_tick_size)
                            * btc_usdt_perp_market.min_price_tick_size)
-        quantized_chain_format_value = quantized_value * Decimal(f"1e18")
+        quantized_chain_format_value = quantized_value * Decimal("1e18")
 
         assert (quantized_chain_format_value == chain_value)
 
@@ -72,9 +71,10 @@ class TestDerivativeMarket:
         expected_value = original_quantity * Decimal(f"1e{margin_decimals}")
         quantized_value = ((expected_value // btc_usdt_perp_market.min_quantity_tick_size)
                            * btc_usdt_perp_market.min_quantity_tick_size)
-        quantized_chain_format_value = quantized_value * Decimal(f"1e18")
+        quantized_chain_format_value = quantized_value * Decimal("1e18")
 
         assert (quantized_chain_format_value == chain_value)
+
 
 class TestBinaryOptionMarket:
 
@@ -95,7 +95,7 @@ class TestBinaryOptionMarket:
         chain_formatted_quantity = original_quantity * Decimal(f"1e{fixed_denom.base}")
         quantized_value = ((chain_formatted_quantity // Decimal(str(fixed_denom.min_quantity_tick_size)))
                            * Decimal(str(fixed_denom.min_quantity_tick_size)))
-        quantized_chain_format_value = quantized_value * Decimal(f"1e18")
+        quantized_chain_format_value = quantized_value * Decimal("1e18")
 
         assert (quantized_chain_format_value == chain_value)
 
@@ -107,7 +107,7 @@ class TestBinaryOptionMarket:
         )
         quantized_value = ((original_quantity // first_match_bet_market.min_quantity_tick_size)
                            * first_match_bet_market.min_quantity_tick_size)
-        quantized_chain_format_value = quantized_value * Decimal(f"1e18")
+        quantized_chain_format_value = quantized_value * Decimal("1e18")
 
         assert (quantized_chain_format_value == chain_value)
 
@@ -129,7 +129,7 @@ class TestBinaryOptionMarket:
         expected_value = original_quantity * Decimal(f"1e{price_decimals}")
         quantized_value = ((expected_value // Decimal(str(fixed_denom.min_price_tick_size)))
                            * Decimal(str(fixed_denom.min_price_tick_size)))
-        quantized_chain_format_value = quantized_value * Decimal(f"1e18")
+        quantized_chain_format_value = quantized_value * Decimal("1e18")
 
         assert (quantized_chain_format_value == chain_value)
 
@@ -141,7 +141,7 @@ class TestBinaryOptionMarket:
         expected_value = original_quantity * Decimal(f"1e{price_decimals}")
         quantized_value = ((expected_value // first_match_bet_market.min_price_tick_size)
                            * first_match_bet_market.min_price_tick_size)
-        quantized_chain_format_value = quantized_value * Decimal(f"1e18")
+        quantized_chain_format_value = quantized_value * Decimal("1e18")
 
         assert (quantized_chain_format_value == chain_value)
 
@@ -168,9 +168,11 @@ class TestBinaryOptionMarket:
         expected_quantity = original_quantity * Decimal(f"1e{quantity_decimals}")
         expected_price = original_price * Decimal(f"1e{price_decimals}")
         expected_margin = expected_quantity * expected_price
-        quantized_margin = ((expected_margin // Decimal(str(fixed_denom.min_quantity_tick_size)))
-                           * Decimal(str(fixed_denom.min_quantity_tick_size)))
-        quantized_chain_format_margin = quantized_margin * Decimal(f"1e18")
+        quantized_margin = (
+            (expected_margin // Decimal(str(fixed_denom.min_quantity_tick_size)))
+            * Decimal(str(fixed_denom.min_quantity_tick_size))
+        )
+        quantized_chain_format_margin = quantized_margin * Decimal("1e18")
 
         assert (quantized_chain_format_margin == chain_value)
 
@@ -187,9 +189,11 @@ class TestBinaryOptionMarket:
         price_decimals = first_match_bet_market.quote_token.decimals
         expected_price = original_price * Decimal(f"1e{price_decimals}")
         expected_margin = original_quantity * expected_price
-        quantized_margin = ((expected_margin // Decimal(str(first_match_bet_market.min_quantity_tick_size)))
-                           * Decimal(str(first_match_bet_market.min_quantity_tick_size)))
-        quantized_chain_format_margin = quantized_margin * Decimal(f"1e18")
+        quantized_margin = (
+            (expected_margin // Decimal(str(first_match_bet_market.min_quantity_tick_size)))
+            * Decimal(str(first_match_bet_market.min_quantity_tick_size))
+        )
+        quantized_chain_format_margin = quantized_margin * Decimal("1e18")
 
         assert (quantized_chain_format_margin == chain_value)
 
@@ -206,8 +210,10 @@ class TestBinaryOptionMarket:
         price_decimals = first_match_bet_market.quote_token.decimals
         expected_price = (Decimal(1) - original_price) * Decimal(f"1e{price_decimals}")
         expected_margin = original_quantity * expected_price
-        quantized_margin = ((expected_margin // Decimal(str(first_match_bet_market.min_quantity_tick_size)))
-                           * Decimal(str(first_match_bet_market.min_quantity_tick_size)))
-        quantized_chain_format_margin = quantized_margin * Decimal(f"1e18")
+        quantized_margin = (
+            (expected_margin // Decimal(str(first_match_bet_market.min_quantity_tick_size)))
+            * Decimal(str(first_match_bet_market.min_quantity_tick_size))
+        )
+        quantized_chain_format_margin = quantized_margin * Decimal("1e18")
 
         assert (quantized_chain_format_margin == chain_value)

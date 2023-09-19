@@ -274,7 +274,7 @@ class GovernanceGasLimitEstimator(GasLimitEstimator):
     def applies_to(cls, message: any_pb2.Any) -> bool:
         message_type = cls.message_type(message=message)
         return "gov." in message_type and (
-                message_type.endswith("MsgDeposit") or message_type.endswith("MsgSubmitProposal")
+            message_type.endswith("MsgDeposit") or message_type.endswith("MsgSubmitProposal")
         )
 
     def gas_limit(self) -> int:

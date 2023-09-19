@@ -6,13 +6,13 @@ from pyinjective.core.network import Network
 from pyinjective.constant import Denom
 from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from pyinjective.proto.injective.exchange.v1beta1 import exchange_pb2
-from tests.model_fixtures.markets_fixtures import (
-    btc_usdt_perp_market,
-    first_match_bet_market,
-    inj_token,
+from tests.model_fixtures.markets_fixtures import (  # noqa: F401
+    btc_usdt_perp_market,  # noqa: F401
+    first_match_bet_market,  # noqa: F401
+    inj_token,  # noqa: F401
     inj_usdt_spot_market,
-    usdt_token,
-    usdt_perp_token
+    usdt_token,  # noqa: F401
+    usdt_perp_token  # noqa: F401
 )
 
 
@@ -42,14 +42,19 @@ class TestComposer:
         composer = Composer(network=Network.devnet().string())
 
         inj_token = composer.tokens["INJ"]
-        inj_usdt_spot_market = next((market for market in composer.spot_markets.values() if market.ticker == "'Devnet Spot INJ/USDT'"))
-        inj_usdt_perp_market = next((market for market in composer.derivative_markets.values() if market.ticker == "'Devnet Derivative INJ/USDT PERP'"))
+        inj_usdt_spot_market = next(
+            (market for market in composer.spot_markets.values()
+             if market.ticker == "'Devnet Spot INJ/USDT'")
+        )
+        inj_usdt_perp_market = next(
+            (market for market in composer.derivative_markets.values()
+             if market.ticker == "'Devnet Derivative INJ/USDT PERP'")
+        )
 
         assert (18 == inj_token.decimals)
         assert (18 == inj_usdt_spot_market.base_token.decimals)
         assert (6 == inj_usdt_spot_market.quote_token.decimals)
         assert (6 == inj_usdt_perp_market.quote_token.decimals)
-
 
     def test_buy_spot_order_creation(self, basic_composer: Composer, inj_usdt_spot_market: SpotMarket):
         fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
@@ -68,11 +73,11 @@ class TestComposer:
         chain_format_price = Decimal(str(price)) * Decimal(f"1e{price_decimals}")
         expected_price = ((chain_format_price // inj_usdt_spot_market.min_price_tick_size)
                           * inj_usdt_spot_market.min_price_tick_size
-                          * Decimal(f"1e18"))
+                          * Decimal("1e18"))
         chain_format_quantity = Decimal(str(quantity)) * Decimal(f"1e{inj_usdt_spot_market.base_token.decimals}")
         expected_quantity = ((chain_format_quantity // inj_usdt_spot_market.min_quantity_tick_size)
                              * inj_usdt_spot_market.min_quantity_tick_size
-                             * Decimal(f"1e18"))
+                             * Decimal("1e18"))
 
         assert (order.market_id == inj_usdt_spot_market.id)
         assert (order.order_info.subaccount_id == "1")
@@ -99,17 +104,23 @@ class TestComposer:
 
         price_decimals = btc_usdt_perp_market.quote_token.decimals
         chain_format_price = Decimal(str(price)) * Decimal(f"1e{price_decimals}")
-        expected_price = ((chain_format_price // btc_usdt_perp_market.min_price_tick_size)
-                          * btc_usdt_perp_market.min_price_tick_size
-                          * Decimal(f"1e18"))
+        expected_price = (
+            (chain_format_price // btc_usdt_perp_market.min_price_tick_size)
+            * btc_usdt_perp_market.min_price_tick_size
+            * Decimal("1e18")
+        )
         chain_format_quantity = Decimal(str(quantity))
-        expected_quantity = ((chain_format_quantity // btc_usdt_perp_market.min_quantity_tick_size)
-                             * btc_usdt_perp_market.min_quantity_tick_size
-                             * Decimal(f"1e18"))
+        expected_quantity = (
+            (chain_format_quantity // btc_usdt_perp_market.min_quantity_tick_size)
+            * btc_usdt_perp_market.min_quantity_tick_size
+            * Decimal("1e18")
+        )
         chain_format_margin = (chain_format_quantity * chain_format_price) / Decimal(leverage)
-        expected_margin = ((chain_format_margin // btc_usdt_perp_market.min_quantity_tick_size)
-                            * btc_usdt_perp_market.min_quantity_tick_size
-                            * Decimal(f"1e18"))
+        expected_margin = (
+            (chain_format_margin // btc_usdt_perp_market.min_quantity_tick_size)
+            * btc_usdt_perp_market.min_quantity_tick_size
+            * Decimal("1e18")
+        )
 
         assert (order.market_id == btc_usdt_perp_market.id)
         assert (order.order_info.subaccount_id == "1")
@@ -133,9 +144,11 @@ class TestComposer:
 
         price_decimals = btc_usdt_perp_market.quote_token.decimals
         chain_format_margin = Decimal(str(amount)) * Decimal(f"1e{price_decimals}")
-        expected_margin = ((chain_format_margin // btc_usdt_perp_market.min_quantity_tick_size)
-                            * btc_usdt_perp_market.min_quantity_tick_size
-                            * Decimal(f"1e18"))
+        expected_margin = (
+            (chain_format_margin // btc_usdt_perp_market.min_quantity_tick_size)
+            * btc_usdt_perp_market.min_quantity_tick_size
+            * Decimal("1e18")
+        )
 
         assert (message.market_id == btc_usdt_perp_market.id)
         assert (message.sender == sender)
@@ -171,18 +184,24 @@ class TestComposer:
 
         price_decimals = fixed_denom.quote
         chain_format_price = Decimal(str(price)) * Decimal(f"1e{price_decimals}")
-        expected_price = ((chain_format_price // Decimal(str(fixed_denom.min_price_tick_size)))
-                          * Decimal(str(fixed_denom.min_price_tick_size))
-                          * Decimal(f"1e18"))
+        expected_price = (
+            (chain_format_price // Decimal(str(fixed_denom.min_price_tick_size)))
+            * Decimal(str(fixed_denom.min_price_tick_size))
+            * Decimal("1e18")
+        )
         quantity_decimals = fixed_denom.base
         chain_format_quantity = Decimal(str(quantity)) * Decimal(f"1e{quantity_decimals}")
-        expected_quantity = ((chain_format_quantity // Decimal(str(fixed_denom.min_quantity_tick_size)))
-                             * Decimal(str(fixed_denom.min_quantity_tick_size))
-                             * Decimal(f"1e18"))
+        expected_quantity = (
+            (chain_format_quantity // Decimal(str(fixed_denom.min_quantity_tick_size)))
+            * Decimal(str(fixed_denom.min_quantity_tick_size))
+            * Decimal("1e18")
+        )
         chain_format_margin = chain_format_quantity * chain_format_price
-        expected_margin = ((chain_format_margin // Decimal(str(fixed_denom.min_quantity_tick_size)))
-                            * Decimal(str(fixed_denom.min_quantity_tick_size))
-                            * Decimal(f"1e18"))
+        expected_margin = (
+            (chain_format_margin // Decimal(str(fixed_denom.min_quantity_tick_size)))
+            * Decimal(str(fixed_denom.min_quantity_tick_size))
+            * Decimal("1e18")
+        )
 
         assert (order.market_id == first_match_bet_market.id)
         assert (order.order_info.subaccount_id == "1")
@@ -215,15 +234,15 @@ class TestComposer:
         chain_format_price = Decimal(str(price)) * Decimal(f"1e{price_decimals}")
         expected_price = ((chain_format_price // first_match_bet_market.min_price_tick_size)
                           * first_match_bet_market.min_price_tick_size
-                          * Decimal(f"1e18"))
+                          * Decimal("1e18"))
         chain_format_quantity = Decimal(str(quantity))
         expected_quantity = ((chain_format_quantity // first_match_bet_market.min_quantity_tick_size)
                              * first_match_bet_market.min_quantity_tick_size
-                             * Decimal(f"1e18"))
+                             * Decimal("1e18"))
         chain_format_margin = (chain_format_quantity * chain_format_price)
         expected_margin = ((chain_format_margin // first_match_bet_market.min_quantity_tick_size)
                            * first_match_bet_market.min_quantity_tick_size
-                           * Decimal(f"1e18"))
+                           * Decimal("1e18"))
 
         assert (order.market_id == first_match_bet_market.id)
         assert (order.order_info.subaccount_id == "1")

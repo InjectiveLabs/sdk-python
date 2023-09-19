@@ -7,10 +7,10 @@ from hexbytes import HexBytes
 
 
 class OrderInfo(EIP712Type):
-    SubaccountId: "string"
-    FeeRecipient: "string"
-    Price: "string"
-    Quantity: "string"
+    SubaccountId: "string"  # noqa: F821
+    FeeRecipient: "string"  # noqa: F821
+    Price: "string"  # noqa: F821
+    Quantity: "string"  # noqa: F821
 
 
 class SpotOrder(EIP712Message):
@@ -20,11 +20,11 @@ class SpotOrder(EIP712Message):
     _verifyingContract_ = "0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC"
     _salt_ = HexBytes("0x0000000000000000000000000000000000000000000000000000000000000000")
 
-    MarketId: "string"
+    MarketId: "string"  # noqa: F821
     OrderInfo: OrderInfo
-    Salt: "string"
-    OrderType: "string"
-    TriggerPrice: "string"
+    Salt: "string"  # noqa: F821
+    OrderType: "string"  # noqa: F821
+    TriggerPrice: "string"  # noqa: F821
 
 
 class DerivativeOrder(EIP712Message):
@@ -34,16 +34,17 @@ class DerivativeOrder(EIP712Message):
     _verifyingContract_ = "0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC"
     _salt_ = HexBytes("0x0000000000000000000000000000000000000000000000000000000000000000")
 
-    MarketId: "string"
+    MarketId: "string"  # noqa: F821
     OrderInfo: OrderInfo
-    OrderType: "string"
-    Margin: "string"
-    TriggerPrice: "string"
-    Salt: "string"
+    OrderType: "string"  # noqa: F821
+    Margin: "string"  # noqa: F821
+    TriggerPrice: "string"  # noqa: F821
+    Salt: "string"  # noqa: F821
 
 
 # domain_separator = EIP712_domain.hash_struct()
 order_type_dict = {0: '\x00', 1: '\x01', 2: '\x02', 3: '\x03', 4: '\x04', 5: '\x05', 6: '\x06', 7: '\x07', 8: '\x08'}
+
 
 class OrderHashResponse:
     def __init__(
@@ -53,6 +54,7 @@ class OrderHashResponse:
     ):
         self.spot = spot
         self.derivative = derivative
+
 
 class OrderHashManager:
     def __init__(
@@ -91,12 +93,15 @@ class OrderHashManager:
 
         return order_hashes
 
+
 def param_to_backend_go(param) -> int:
     go_param = Decimal(param) / pow(10, 18)
     return format(go_param, '.18f')
 
+
 def parse_order_type(order):
     return order_type_dict[order.order_type]
+
 
 def build_eip712_msg(order, nonce):
     if order.__class__.__name__ == 'SpotOrder':
@@ -135,6 +140,7 @@ def build_eip712_msg(order, nonce):
             TriggerPrice=go_trigger_price,
             Margin=go_margin
         )
+
 
 def hash_order(msg):
     signable_message = msg.signable_message

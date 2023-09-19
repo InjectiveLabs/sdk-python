@@ -7,7 +7,8 @@ from pyinjective.proto.cosmos.gov.v1beta1 import tx_pb2 as gov_tx_pb
 from pyinjective.proto.cosmwasm.wasm.v1 import tx_pb2 as wasm_tx_pb
 from pyinjective.proto.injective.exchange.v1beta1 import tx_pb2 as injective_exchange_tx_pb
 
-from tests.model_fixtures.markets_fixtures import usdt_token
+from tests.model_fixtures.markets_fixtures import usdt_token  # noqa: F401
+
 
 class TestGasLimitEstimator:
 
@@ -491,7 +492,7 @@ class TestGasLimitEstimator:
                + expected_inner_message_gas_limit
                + expected_exec_message_gas_limit
                == estimator.gas_limit())
-        
+
     def test_estimation_for_privileged_execute_contract_message(self):
         message = injective_exchange_tx_pb.MsgPrivilegedExecuteContract()
         estimator = GasLimitEstimator.for_message(message=message)
@@ -499,7 +500,6 @@ class TestGasLimitEstimator:
         expected_gas_limit = 900_000
 
         assert(expected_gas_limit == estimator.gas_limit())
-
 
     def test_estimation_for_execute_contract_message(self):
         composer = Composer(network="testnet")

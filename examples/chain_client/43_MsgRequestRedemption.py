@@ -5,6 +5,7 @@ from pyinjective.transaction import Transaction
 from pyinjective.core.network import Network
 from pyinjective.wallet import PrivateKey
 
+
 async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
@@ -19,13 +20,13 @@ async def main() -> None:
     priv_key = PrivateKey.from_hex("f9db9bf330e23cb7839039e944adef6e9df447b90b503d5b4464c90bea9022f3")
     pub_key = priv_key.to_public_key()
     address = pub_key.to_address()
-    account = await client.get_account(address.to_acc_bech32())
+    await client.get_account(address.to_acc_bech32())
 
     msg = composer.MsgRequestRedemption(
         sender=address.to_acc_bech32(),
         market_id="0x141e3c92ed55107067ceb60ee412b86256cedef67b1227d6367b4cdf30c55a74",
         share_denom="share15",
-        amount=100 # raw chain value
+        amount=100  # raw chain value
     )
 
     # build sim tx

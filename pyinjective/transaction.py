@@ -9,10 +9,11 @@ from .constant import MAX_MEMO_CHARACTERS
 from .exceptions import EmptyMsgError, UndefinedError, ValueTooLargeError
 from .wallet import PublicKey
 
+
 class Transaction:
     def __init__(
         self,
-        msgs: Tuple[message.Message,...] = None,
+        msgs: Tuple[message.Message, ...] = None,
         account_num: int = None,
         sequence: int = None,
         chain_id: str = None,
@@ -31,7 +32,7 @@ class Transaction:
         self.timeout_height = timeout_height
 
     @staticmethod
-    def __convert_msgs(msgs: Tuple[message.Message,...]) -> List[any_pb2.Any]:
+    def __convert_msgs(msgs: Tuple[message.Message, ...]) -> List[any_pb2.Any]:
         any_msgs: List[any_pb2.Any] = []
         for msg in msgs:
             any_msg = any_pb2.Any()

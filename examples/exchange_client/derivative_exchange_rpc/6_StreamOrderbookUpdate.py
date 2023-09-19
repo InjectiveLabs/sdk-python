@@ -1,6 +1,5 @@
 import asyncio
-import logging
-from decimal import *
+from decimal import Decimal
 
 from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network

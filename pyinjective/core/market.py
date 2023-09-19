@@ -34,6 +34,7 @@ class SpotMarket:
 
         return extended_chain_formatted_value
 
+
 @dataclass(eq=True, frozen=True)
 class DerivativeMarket:
     id: str
@@ -92,6 +93,7 @@ class DerivativeMarket:
 
         return extended_chain_formatted_margin
 
+
 @dataclass(eq=True, frozen=True)
 class BinaryOptionMarket:
     id: str
@@ -113,7 +115,9 @@ class BinaryOptionMarket:
     def quantity_to_chain_format(self, human_readable_value: Decimal, special_denom: Optional[Denom] = None) -> Decimal:
         # Binary option markets do not have a base market to provide the number of decimals
         decimals = 0 if special_denom is None else special_denom.base
-        min_quantity_tick_size = self.min_quantity_tick_size if special_denom is None else special_denom.min_quantity_tick_size
+        min_quantity_tick_size = (self.min_quantity_tick_size
+                                  if special_denom is None
+                                  else special_denom.min_quantity_tick_size)
         chain_formatted_value = human_readable_value * Decimal(f"1e{decimals}")
         quantized_value = chain_formatted_value // min_quantity_tick_size * min_quantity_tick_size
         extended_chain_formatted_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
@@ -138,7 +142,9 @@ class BinaryOptionMarket:
     ) -> Decimal:
         quantity_decimals = 0 if special_denom is None else special_denom.base
         price_decimals = self.quote_token.decimals if special_denom is None else special_denom.quote
-        min_quantity_tick_size = self.min_quantity_tick_size if special_denom is None else special_denom.min_quantity_tick_size
+        min_quantity_tick_size = (self.min_quantity_tick_size
+                                  if special_denom is None
+                                  else special_denom.min_quantity_tick_size)
         price = human_readable_price if is_buy else 1 - human_readable_price
         chain_formatted_quantity = human_readable_quantity * Decimal(f"1e{quantity_decimals}")
         chain_formatted_price = price * Decimal(f"1e{price_decimals}")

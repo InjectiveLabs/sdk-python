@@ -1,7 +1,6 @@
-import pytest
 from decimal import Decimal
 
-from tests.model_fixtures.markets_fixtures import inj_token
+from tests.model_fixtures.markets_fixtures import inj_token  # noqa: F401
 
 
 class TestToken:

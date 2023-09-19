@@ -19,7 +19,7 @@ async def main() -> None:
     priv_key = PrivateKey.from_hex("f9db9bf330e23cb7839039e944adef6e9df447b90b503d5b4464c90bea9022f3")
     pub_key = priv_key.to_public_key()
     address = pub_key.to_address()
-    account = await client.get_account(address.to_acc_bech32())
+    await client.get_account(address.to_acc_bech32())
 
     # prepare tx msg
     msg = composer.MsgInstantBinaryOptionsMarketLaunch(
@@ -32,8 +32,8 @@ async def main() -> None:
         quote_denom="peggy0xdAC17F958D2ee523a2206206994597C13D831ec7",
         quote_decimals=6,
         oracle_scale_factor=6,
-        maker_fee_rate=0.0005, # 0.05%
-        taker_fee_rate=0.0010, # 0.10%
+        maker_fee_rate=0.0005,  # 0.05%
+        taker_fee_rate=0.0010,  # 0.10%
         expiration_timestamp=1680730982,
         settlement_timestamp=1690730982,
         min_price_tick_size=0.01,

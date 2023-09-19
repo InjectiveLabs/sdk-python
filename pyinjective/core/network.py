@@ -35,9 +35,9 @@ class KubernetesLoadBalancedCookieAssistant(CookieAssistant):
         self._exchange_cookie_initialization_lock = asyncio.Lock()
 
     async def chain_cookie(self, metadata_query_provider: Callable) -> str:
-        if self._chain_cookie == None:
+        if self._chain_cookie is None:
             async with self._chain_cookie_initialization_lock:
-                if self._chain_cookie == None:
+                if self._chain_cookie is None:
                     await self._fetch_chain_cookie(metadata_query_provider=metadata_query_provider)
         cookie = self._chain_cookie
         self._check_chain_cookie_expiration()
@@ -45,9 +45,9 @@ class KubernetesLoadBalancedCookieAssistant(CookieAssistant):
         return cookie
 
     async def exchange_cookie(self, metadata_query_provider: Callable) -> str:
-        if self._exchange_cookie == None:
+        if self._exchange_cookie is None:
             async with self._exchange_cookie_initialization_lock:
-                if self._exchange_cookie == None:
+                if self._exchange_cookie is None:
                     await self._fetch_exchange_cookie(metadata_query_provider=metadata_query_provider)
         cookie = self._exchange_cookie
         self._check_exchange_cookie_expiration()
@@ -100,9 +100,9 @@ class BareMetalLoadBalancedCookieAssistant(CookieAssistant):
         self._exchange_cookie_initialization_lock = asyncio.Lock()
 
     async def chain_cookie(self, metadata_query_provider: Callable) -> str:
-        if self._chain_cookie == None:
+        if self._chain_cookie is None:
             async with self._chain_cookie_initialization_lock:
-                if self._chain_cookie == None:
+                if self._chain_cookie is None:
                     await self._fetch_chain_cookie(metadata_query_provider=metadata_query_provider)
         cookie = self._chain_cookie
         self._check_chain_cookie_expiration()
@@ -110,9 +110,9 @@ class BareMetalLoadBalancedCookieAssistant(CookieAssistant):
         return cookie
 
     async def exchange_cookie(self, metadata_query_provider: Callable) -> str:
-        if self._exchange_cookie == None:
+        if self._exchange_cookie is None:
             async with self._exchange_cookie_initialization_lock:
-                if self._exchange_cookie == None:
+                if self._exchange_cookie is None:
                     await self._fetch_exchange_cookie(metadata_query_provider=metadata_query_provider)
         cookie = self._exchange_cookie
         self._check_exchange_cookie_expiration()
@@ -245,7 +245,7 @@ class Network:
     @classmethod
     def mainnet(cls, node="lb"):
         nodes = [
-            "lb", # us, asia, prod
+            "lb",  # us, asia, prod
             "lb_k8s",
             "sentry0",  # ca, prod
             "sentry1",  # ca, prod

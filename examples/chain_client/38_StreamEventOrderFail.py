@@ -1,5 +1,4 @@
 import asyncio
-import logging
 import json
 import websockets
 import base64
@@ -9,7 +8,9 @@ from pyinjective.core.network import Network
 
 async def main() -> None:
     network = Network.mainnet()
-    event_filter = "tm.event='Tx' AND message.sender='inj1rwv4zn3jptsqs7l8lpa3uvzhs57y8duemete9e' AND message.action='/injective.exchange.v1beta1.MsgBatchUpdateOrders' AND injective.exchange.v1beta1.EventOrderFail.flags EXISTS"
+    event_filter = ("tm.event='Tx' AND message.sender='inj1rwv4zn3jptsqs7l8lpa3uvzhs57y8duemete9e' "
+                    "AND message.action='/injective.exchange.v1beta1.MsgBatchUpdateOrders' "
+                    "AND injective.exchange.v1beta1.EventOrderFail.flags EXISTS")
     query = json.dumps({
         "jsonrpc": "2.0",
         "method": "subscribe",

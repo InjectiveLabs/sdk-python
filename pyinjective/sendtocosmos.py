@@ -3,11 +3,24 @@ from web3 import Web3
 from .utils.logger import LoggerProvider
 from .wallet import Address
 
+
 class Peggo:
     def __init__(self, network: str):
         self.network = network
-    def sendToInjective(self, ethereum_endpoint: str, private_key: str, token_contract: str, receiver: str, amount: int,
-                     maxFeePerGas: int, maxPriorityFeePerGas: int, peggo_abi: str, data: str, decimals=18):
+
+    def sendToInjective(
+            self,
+            ethereum_endpoint: str,
+            private_key: str,
+            token_contract: str,
+            receiver: str,
+            amount: int,
+            maxFeePerGas: int,
+            maxPriorityFeePerGas: int,
+            peggo_abi: str,
+            data: str,
+            decimals=18
+    ):
         if self.network == 'testnet':
             peggy_proxy_address = "0xd2C6753F6B1783EF0a3857275e16e79D91b539a3"
         elif self.network == 'mainnet':
@@ -63,6 +76,6 @@ class Peggo:
             LoggerProvider().logger_for_class(logging_class=self.__class__).info(
                 f"Transferred {amount} {token_contract} from {sender_ethereum_address} to {receiver}")
             LoggerProvider().logger_for_class(logging_class=self.__class__).info(
-                "Transaction hash:".format(Web3.to_hex(tx_hash)))
+                "Transaction hash: {}".format(Web3.to_hex(tx_hash)))
         except Exception as e:
-            LoggerProvider().logger_for_class(logging_class=self.__class__).info("Transaction failed".format(e))
+            LoggerProvider().logger_for_class(logging_class=self.__class__).info("Transaction failed {}".format(e))

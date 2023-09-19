@@ -1010,10 +1010,10 @@ class AsyncClient:
                 maintenance_margin_ratio=Decimal(market_info.maintenance_margin_ratio),
                 quote_token=quote_token,
                 maker_fee_rate=Decimal(market_info.maker_fee_rate),
-                taker_fee_rate = Decimal(market_info.taker_fee_rate),
-                service_provider_fee = Decimal(market_info.service_provider_fee),
-                min_price_tick_size = Decimal(market_info.min_price_tick_size),
-                min_quantity_tick_size = Decimal(market_info.min_quantity_tick_size),
+                taker_fee_rate=Decimal(market_info.taker_fee_rate),
+                service_provider_fee=Decimal(market_info.service_provider_fee),
+                min_price_tick_size=Decimal(market_info.min_price_tick_size),
+                min_quantity_tick_size=Decimal(market_info.min_quantity_tick_size),
             )
 
             derivative_markets[market.id] = market

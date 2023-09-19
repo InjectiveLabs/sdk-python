@@ -1,0 +1,64 @@
+[tool.poetry]
+name = "injective-py"
+version = "0.8.1"
+description = "Injective Python SDK, with Exchange API Client"
+authors = ["Injective Labs <contact@injectivelabs.org>"]
+license = "Apache Software License 2.0"
+readme = "README.md"
+packages = [
+    { include = "pyinjective" },
+]
+include = [
+    { path = "pyinjective/proto/**/*.py" },
+    { path = "*.ini" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+aiocron = "*"
+aiohttp = "*"
+asyncio = "*"
+bech32 = "*"
+bip32 = "*"
+coincurve = "*"
+ecdsa = "*"
+eip712 = "*"
+grpcio = "*"
+grpcio-tools = "*"
+hdwallets = "*"
+mnemonic = "*"
+protobuf = "*"
+requests = "*"
+safe-pysha3 = "*"
+urllib3 = "<2"
+websockets = "*"
+
+[tool.poetry.group.test.dependencies]
+pytest = "*"
+pytest-asyncio = "*"
+pytest-grpc = "*"
+requests-mock = "*"
+
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.4.0"
+flakeheaven = "^3.3.0"
+
+
+[tool.flakeheaven]
+exclude = ["pyinjective/proto/*", ".idea/*"]
+max_line_length = 120
+
+
+# list of plugins and rules for them
+[tool.flakeheaven.plugins]
+pycodestyle = ["+*", "-W503"]
+pyflakes = ["+*"]
+
+[tool.flakeheaven.exceptions."tests/"]
+pyflakes = ["-F811"]           # disable a plugin
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

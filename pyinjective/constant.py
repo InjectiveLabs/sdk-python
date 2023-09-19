@@ -1,6 +1,5 @@
 import os
 from configparser import ConfigParser
-from warnings import warn
 
 MAX_CLIENT_ID_LENGTH = 128
 MAX_DATA_SIZE = 256
@@ -48,7 +47,7 @@ class Denom:
         elif network == "testnet":
             config = testnet_config
         else:
-            config =mainnet_config
+            config = mainnet_config
 
         return cls(
             description=config[market_id]["description"],

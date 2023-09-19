@@ -1,9 +1,6 @@
 import asyncio
 import aiohttp
-import logging
-import json
 import base64
-import hashlib
 import json
 import ecdsa
 import sha3
@@ -11,10 +8,8 @@ import grpc
 
 from typing import Any, Dict, List
 from injective.chain_client._wallet import (
-    generate_wallet,
     privkey_to_address,
     privkey_to_pubkey,
-    pubkey_to_address,
     seed_to_privkey,
     DEFAULT_BECH32_HRP,
 )
@@ -24,6 +19,7 @@ import injective.exchange_api.injective_accounts_rpc_pb2_grpc as accounts_rpc_gr
 
 
 MIN_GAS_PRICE = 500000000
+
 
 class Transaction:
 
@@ -130,6 +126,7 @@ class Transaction:
             "msgs": self._msgs,
         }
 
+
 async def main() -> None:
     sender_pk = seed_to_privkey(
         "physical page glare junk return scale subject river token door mirror title"
@@ -143,7 +140,9 @@ async def main() -> None:
         accounts_rpc = accounts_rpc_grpc.InjectiveAccountsRPCStub(channel)
         account_addr = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku"
 
-        subacc = await accounts_rpc.SubaccountsList(accounts_rpc_pb.SubaccountsListRequest(account_address = account_addr))
+        subacc = await accounts_rpc.SubaccountsList(
+            accounts_rpc_pb.SubaccountsListRequest(account_address=account_addr)
+        )
         for sub in subacc.subaccounts:
             print("Primary subaccount:", sub)
             break
@@ -162,7 +161,7 @@ async def main() -> None:
         denom="inj",
     )
     tx.add_exchange_msg_deposit(
-        subaccount= sub,
+        subaccount=sub,
         amount=10000000000000000,
         denom="inj",
     )
@@ -171,6 +170,7 @@ async def main() -> None:
 
     print("Signed Tx:", tx_json)
     print("Sent Tx:", await post_tx(tx_json))
+
 
 async def get_account_num_seq(address: str) -> (int, int):
     async with aiohttp.ClientSession() as session:
@@ -185,6 +185,7 @@ async def get_account_num_seq(address: str) -> (int, int):
             resp = json.loads(await response.text())
             acc = resp['account']['base_account']
             return acc['account_number'], acc['sequence']
+
 
 async def post_tx(tx_json: str):
     async with aiohttp.ClientSession() as session:

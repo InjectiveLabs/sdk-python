@@ -19,7 +19,7 @@ async def main() -> None:
     priv_key = PrivateKey.from_hex("5d386fbdbf11f1141010f81a46b40f94887367562bd33b452bbaa6ce1cd1381e")
     pub_key = priv_key.to_public_key()
     address = pub_key.to_address()
-    account = await client.get_account(address.to_acc_bech32())
+    await client.get_account(address.to_acc_bech32())
 
     # prepare tx msg
     market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
@@ -62,7 +62,7 @@ async def main() -> None:
         return
 
     sim_res_msg = composer.MsgResponses(sim_res, simulation=True)
-    data=sim_res_msg[0]
+    data = sim_res_msg[0]
     unpacked_msg_res = composer.UnpackMsgExecResponse(
         msg_type=msg0.__class__.__name__,
         data=data
@@ -72,7 +72,7 @@ async def main() -> None:
 
     # build tx
     gas_price = 500000000
-    gas_limit = sim_res.gas_info.gas_used + 20000 # add 20k for gas, fee computation
+    gas_limit = sim_res.gas_info.gas_used + 20000  # add 20k for gas, fee computation
     gas_fee = '{:.18f}'.format((gas_price * gas_limit) / pow(10, 18)).rstrip('0')
     fee = [composer.Coin(
         amount=gas_price * gas_limit,

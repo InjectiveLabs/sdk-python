@@ -8,19 +8,21 @@ from pyinjective.proto.exchange import (
     injective_spot_exchange_rpc_pb2,
     injective_derivative_exchange_rpc_pb2,
 )
-from tests.rpc_fixtures.markets_fixtures import (
-    inj_token_meta,
-    ape_token_meta,
-    usdt_token_meta,
-    usdt_token_meta_second_denom,
-    usdt_perp_token_meta,
-    inj_usdt_spot_market_meta,
-    ape_usdt_spot_market_meta,
-    btc_usdt_perp_market_meta,
-    first_match_bet_market_meta,
+from tests.rpc_fixtures.markets_fixtures import (  # noqa: F401
+    inj_token_meta,  # noqa: F401
+    ape_token_meta,  # noqa: F401
+    usdt_token_meta,  # noqa: F401
+    usdt_token_meta_second_denom,  # noqa: F401
+    usdt_perp_token_meta,  # noqa: F401
+    inj_usdt_spot_market_meta,  # noqa: F401
+    ape_usdt_spot_market_meta,  # noqa: F401
+    btc_usdt_perp_market_meta,  # noqa: F401
+    first_match_bet_market_meta,  # noqa: F401
 )
-from tests.rpc_fixtures.configurable_servicers import ConfigurableInjectiveDerivativeExchangeRPCServicer, \
-    ConfigurableInjectiveSpotExchangeRPCServicer
+from tests.rpc_fixtures.configurable_servicers import (
+    ConfigurableInjectiveDerivativeExchangeRPCServicer,
+    ConfigurableInjectiveSpotExchangeRPCServicer,
+)
 
 
 @pytest.fixture
@@ -92,7 +94,8 @@ class TestAsyncClient:
         derivative_servicer.binary_option_markets_queue.append(
             injective_derivative_exchange_rpc_pb2.BinaryOptionsMarketsResponse(
                 markets=[first_match_bet_market_meta]
-        ))
+            )
+        )
 
         client = AsyncClient(
             network=Network.local(),
@@ -127,4 +130,8 @@ class TestAsyncClient:
 
         all_binary_option_markets = await client.all_binary_option_markets()
         assert (1 == len(all_binary_option_markets))
-        assert (any((first_match_bet_market_meta.market_id == market.id for market in all_binary_option_markets.values())))
+        assert (
+            any(
+                (first_match_bet_market_meta.market_id == market.id for market in all_binary_option_markets.values())
+            )
+        )

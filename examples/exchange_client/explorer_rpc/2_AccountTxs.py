@@ -1,5 +1,4 @@
 import asyncio
-import logging
 
 from pyinjective.async_client import AsyncClient
 from pyinjective.composer import Composer

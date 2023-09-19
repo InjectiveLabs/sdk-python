@@ -1,6 +1,5 @@
 import asyncio
-import logging
-from decimal import *
+from decimal import Decimal
 
 from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
@@ -61,7 +60,7 @@ async def main() -> None:
     async for update in stream:
         first_update = update.orderbook_level_updates
         break
-        
+
     # load the snapshot once we are already receiving updates, so we don't miss any
     await load_orderbook_snapshot(async_client=async_client, orderbook=orderbook)
 

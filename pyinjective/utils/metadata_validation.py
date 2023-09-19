@@ -90,17 +90,19 @@ def find_metadata_inconsistencies(network: Network) -> Tuple[List[Any]]:
 
 
 def print_metadata_mismatches(network: Network):
-    markets_with_diffs, markets_not_found, peggy_denoms_with_diffs, peggy_denoms_not_found = find_metadata_inconsistencies(
-        network=network)
+    (markets_with_diffs,
+     markets_not_found,
+     peggy_denoms_with_diffs,
+     peggy_denoms_not_found) = find_metadata_inconsistencies(network=network)
 
     for diff_pair in markets_with_diffs:
         print(f"{diff_pair[0]}\n{diff_pair[1]}")
-    print(f"\n\n")
+    print("\n\n")
     for missing_market in markets_not_found:
         print(f"{missing_market}")
-    print(f"\n\n")
+    print("\n\n")
     for diff_token in peggy_denoms_with_diffs:
         print(f"{diff_token[0]}\n{diff_token[1]}")
-    print(f"\n\n")
+    print("\n\n")
     for missing_peggy in peggy_denoms_not_found:
         print(f"{missing_peggy}")

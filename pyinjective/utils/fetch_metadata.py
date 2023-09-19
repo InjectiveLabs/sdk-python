@@ -23,6 +23,7 @@ decimals = {}
 testnet_denom_output = ''
 mainnet_denom_output = ''
 
+
 async def fetch_denom(network) -> str:
     denom_output = ''
     symbols = {}
@@ -40,7 +41,8 @@ async def fetch_denom(network) -> str:
             symbols[market.quote_token_meta.symbol] = (market.base_denom, market.quote_token_meta.decimals)
 
         # format into ini entry
-        min_display_price_tick_size = float(market.min_price_tick_size) / pow(10, market.quote_token_meta.decimals -  market.base_token_meta.decimals)
+        min_display_price_tick_size = (float(market.min_price_tick_size)
+                                       / pow(10, market.quote_token_meta.decimals - market.base_token_meta.decimals))
         min_display_quantity_tick_size = float(market.min_quantity_tick_size) / pow(10, market.base_token_meta.decimals)
         config = metadata_template.format(
             market.market_id,
@@ -51,7 +53,7 @@ async def fetch_denom(network) -> str:
             min_display_price_tick_size,
             market.min_quantity_tick_size,
             min_display_quantity_tick_size
-            )
+        )
         denom_output += config
 
     # fetch meta data for derivative markets
@@ -84,6 +86,7 @@ async def fetch_denom(network) -> str:
         denom_output += symbol
 
     return denom_output
+
 
 async def main() -> None:
     testnet = Network.testnet()

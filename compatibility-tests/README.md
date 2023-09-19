@@ -38,6 +38,6 @@ API users must also install the typing_extensions library with the below command
 
 ```bash
 pip3 install typing_extensions
-``` 
+```
 
 The Python 3.7 stdlib has an older version of typing.py so the above change in the code will fix the compatibility issue by importing Literal from typing_extensions

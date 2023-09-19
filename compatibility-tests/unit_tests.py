@@ -8,10 +8,8 @@ import base64
 
 from typing import Any, Dict, List
 from injective.chain_client._wallet import (
-    generate_wallet,
     privkey_to_address,
     privkey_to_pubkey,
-    pubkey_to_address,
     seed_to_privkey,
     DEFAULT_BECH32_HRP,
 )
@@ -21,6 +19,7 @@ import injective.exchange_api.injective_accounts_rpc_pb2 as accounts_rpc_pb
 import injective.exchange_api.injective_accounts_rpc_pb2_grpc as accounts_rpc_grpc
 
 MIN_GAS_PRICE = 500000000
+
 
 class Transaction:
 
@@ -49,7 +48,6 @@ class Transaction:
         self._hrp = hrp
         self._sync_mode = sync_mode
         self._msgs: List[dict] = []
-
 
     def add_cosmos_bank_msg_send(self, recipient: str, amount: int, denom: str = "inj") -> None:
         msg = {
@@ -141,6 +139,7 @@ async def get_account_num_seq(address: str) -> (int, int):
             acc = resp['account']['base_account']
             return acc['account_number'], acc['sequence']
 
+
 async def post_tx(tx_json: str):
     async with aiohttp.ClientSession() as session:
         async with session.request(
@@ -158,6 +157,7 @@ async def post_tx(tx_json: str):
 
             return resp['txhash']
 
+
 @pytest.fixture
 async def msg_send():
     sender_pk = seed_to_privkey(
@@ -172,7 +172,9 @@ async def msg_send():
         accounts_rpc = accounts_rpc_grpc.InjectiveAccountsRPCStub(channel)
         account_addr = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku"
 
-        subacc = await accounts_rpc.SubaccountsList(accounts_rpc_pb.SubaccountsListRequest(account_address = account_addr))
+        subacc = await accounts_rpc.SubaccountsList(
+            accounts_rpc_pb.SubaccountsListRequest(account_address=account_addr)
+        )
         for sub in subacc.subaccounts:
             print("Primary subaccount:", sub)
             break
@@ -191,7 +193,7 @@ async def msg_send():
         denom="inj",
     )
     tx.add_exchange_msg_deposit(
-        subaccount= sub,
+        subaccount=sub,
         amount=10000000000000000,
         denom="inj",
     )
@@ -203,6 +205,7 @@ async def msg_send():
     print("Sent Tx:", tx_result)
 
     return len(tx_result)
+
 
 @pytest.mark.asyncio
 async def test_msg_send(msg_send):

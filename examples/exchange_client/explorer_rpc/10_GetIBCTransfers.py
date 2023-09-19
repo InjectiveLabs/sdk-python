@@ -1,5 +1,4 @@
 import asyncio
-import logging
 
 from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
@@ -24,8 +23,8 @@ async def main() -> None:
         src_port=src_port,
         destination_channel=destination_channel,
         dest_port=dest_port,
-        # limit=limit,
-        # skip=skip
+        limit=limit,
+        skip=skip
     )
     print(ibc_transfers)
 

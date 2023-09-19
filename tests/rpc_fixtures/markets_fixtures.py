@@ -16,6 +16,7 @@ def inj_token_meta():
 
     return token
 
+
 @pytest.fixture
 def ape_token_meta():
     from pyinjective.proto.exchange.injective_spot_exchange_rpc_pb2 import TokenMeta
@@ -31,6 +32,7 @@ def ape_token_meta():
 
     return token
 
+
 @pytest.fixture
 def usdt_token_meta():
     from pyinjective.proto.exchange.injective_spot_exchange_rpc_pb2 import TokenMeta
@@ -45,6 +47,7 @@ def usdt_token_meta():
     )
 
     return token
+
 
 @pytest.fixture
 def usdt_token_meta_second_denom():
@@ -99,6 +102,7 @@ def ape_usdt_spot_market_meta(ape_token_meta, usdt_token_meta_second_denom):
 
     return market
 
+
 @pytest.fixture
 def inj_usdt_spot_market_meta(inj_token_meta, usdt_token_meta):
     from pyinjective.proto.exchange.injective_spot_exchange_rpc_pb2 import SpotMarketInfo
@@ -119,6 +123,7 @@ def inj_usdt_spot_market_meta(inj_token_meta, usdt_token_meta):
     )
 
     return market
+
 
 @pytest.fixture
 def btc_usdt_perp_market_meta(usdt_perp_token_meta):
@@ -163,6 +168,7 @@ def btc_usdt_perp_market_meta(usdt_perp_token_meta):
     )
 
     return market
+
 
 @pytest.fixture
 def first_match_bet_market_meta(inj_usdt_spot_market_meta):

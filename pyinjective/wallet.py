@@ -102,6 +102,7 @@ class PrivateKey:
 
         return self.signing_key.sign_deterministic(msg, hashfunc=sha3.keccak_256, sigencode=sigencode_string_canonize)
 
+
 class PublicKey:
     """
     Class for wrapping VerifyKey using for signature verification. Adding method to encode/decode
@@ -276,9 +277,11 @@ class Address:
                 self.sequence = int(acc['sequence'])
                 return self
 
-    def init_num_seq(self, lcd_endpoint: str)-> "Address":
-        response = requests.get(f"{lcd_endpoint}/cosmos/auth/v1beta1/accounts/{self.to_acc_bech32()}", 
-                headers={'Accept-Encoding': 'application/json'})
+    def init_num_seq(self, lcd_endpoint: str) -> "Address":
+        response = requests.get(
+            url=f"{lcd_endpoint}/cosmos/auth/v1beta1/accounts/{self.to_acc_bech32()}",
+            headers={'Accept-Encoding': 'application/json'}
+        )
         if response.status_code != 200:
             raise ValueError("HTTP response status", response.status_code)
         resp = json.loads(response.text)
@@ -291,6 +294,6 @@ class Address:
         current_seq = self.sequence
         self.sequence += 1
         return current_seq
-        
+
     def get_number(self):
         return self.number
