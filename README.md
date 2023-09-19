@@ -1,5 +1,7 @@
 ## Injective Python SDK
 
+[![codecov](https://codecov.io/gh/InjectiveLabs/sdk-python/graph/badge.svg?token=RBGK98G6F1)](https://codecov.io/gh/InjectiveLabs/sdk-python)
+
 ### Dependencies
 
 **Ubuntu**
