@@ -1,5 +1,4 @@
 import asyncio
-import logging
 
 from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
@@ -12,11 +11,10 @@ async def main() -> None:
     order_direction = "buy"
     market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
     subacc_order_summary = await client.get_subaccount_order_summary(
-        subaccount_id=subaccount,
-        # order_direction=order_direction,
-        # market_id=market_id
-        )
+        subaccount_id=subaccount, order_direction=order_direction, market_id=market_id
+    )
     print(subacc_order_summary)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

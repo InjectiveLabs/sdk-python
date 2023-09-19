@@ -1,10 +1,10 @@
 import asyncio
 
-from pyinjective.composer import Composer as ProtoMsgComposer
 from pyinjective.async_client import AsyncClient
+from pyinjective.composer import Composer as ProtoMsgComposer
 from pyinjective.core.broadcaster import MsgBroadcasterWithPk
 from pyinjective.core.network import Network
-from pyinjective.wallet import PrivateKey, Address
+from pyinjective.wallet import Address, PrivateKey
 
 
 async def main() -> None:
@@ -41,13 +41,14 @@ async def main() -> None:
         price=7.523,
         quantity=0.01,
         is_buy=True,
-        is_po=False
+        is_po=False,
     )
 
     # broadcast the transaction
     result = await message_broadcaster.broadcast([msg])
     print("---Transaction Response---")
     print(result)
+
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

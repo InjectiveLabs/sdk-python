@@ -1,9 +1,9 @@
 import asyncio
 
 from pyinjective.async_client import AsyncClient
-from pyinjective.transaction import Transaction
 from pyinjective.core.network import Network
-from pyinjective.wallet import PrivateKey, Address
+from pyinjective.transaction import Transaction
+from pyinjective.wallet import Address, PrivateKey
 
 
 async def main() -> None:
@@ -19,7 +19,7 @@ async def main() -> None:
     priv_key = PrivateKey.from_hex("5d386fbdbf11f1141010f81a46b40f94887367562bd33b452bbaa6ce1cd1381e")
     pub_key = priv_key.to_public_key()
     address = pub_key.to_address()
-    account = await client.get_account(address.to_acc_bech32())
+    await client.get_account(address.to_acc_bech32())
 
     # prepare tx msg
     market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
@@ -35,13 +35,10 @@ async def main() -> None:
         price=7.523,
         quantity=0.01,
         is_buy=True,
-        is_po=False
+        is_po=False,
     )
 
-    msg = composer.MsgExec(
-        grantee=grantee,
-        msgs=[msg0]
-    )
+    msg = composer.MsgExec(grantee=grantee, msgs=[msg0])
 
     # build sim tx
     tx = (
@@ -62,23 +59,22 @@ async def main() -> None:
         return
 
     sim_res_msg = composer.MsgResponses(sim_res, simulation=True)
-    data=sim_res_msg[0]
-    unpacked_msg_res = composer.UnpackMsgExecResponse(
-        msg_type=msg0.__class__.__name__,
-        data=data
-    )
+    data = sim_res_msg[0]
+    unpacked_msg_res = composer.UnpackMsgExecResponse(msg_type=msg0.__class__.__name__, data=data)
     print("simulation msg response")
     print(unpacked_msg_res)
 
     # build tx
     gas_price = 500000000
-    gas_limit = sim_res.gas_info.gas_used + 20000 # add 20k for gas, fee computation
-    gas_fee = '{:.18f}'.format((gas_price * gas_limit) / pow(10, 18)).rstrip('0')
-    fee = [composer.Coin(
-        amount=gas_price * gas_limit,
-        denom=network.fee_denom,
-    )]
-    tx = tx.with_gas(gas_limit).with_fee(fee).with_memo('').with_timeout_height(client.timeout_height)
+    gas_limit = sim_res.gas_info.gas_used + 20000  # add 20k for gas, fee computation
+    gas_fee = "{:.18f}".format((gas_price * gas_limit) / pow(10, 18)).rstrip("0")
+    fee = [
+        composer.Coin(
+            amount=gas_price * gas_limit,
+            denom=network.fee_denom,
+        )
+    ]
+    tx = tx.with_gas(gas_limit).with_fee(fee).with_memo("").with_timeout_height(client.timeout_height)
     sign_doc = tx.get_sign_doc(pub_key)
     sig = priv_key.sign(sign_doc.SerializeToString())
     tx_raw_bytes = tx.get_tx_data(sig, pub_key)
@@ -88,6 +84,7 @@ async def main() -> None:
     print(res)
     print("gas wanted: {}".format(gas_limit))
     print("gas fee: {} INJ".format(gas_fee))
+
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

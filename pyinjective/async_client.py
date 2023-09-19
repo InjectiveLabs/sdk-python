@@ -1,68 +1,49 @@
 import asyncio
 import time
 from copy import deepcopy
-
-import grpc
-import aiocron
 from decimal import Decimal
-from typing import Dict, List, Optional, Tuple, Union, Coroutine
+from typing import Coroutine, Dict, List, Optional, Tuple, Union
+
+import aiocron
+import grpc
 
 from pyinjective.composer import Composer
 
 from . import constant
 from .core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
+from .core.network import Network
 from .core.token import Token
 from .exceptions import NotFoundError
-
+from .proto.cosmos.auth.v1beta1 import query_pb2 as auth_query
+from .proto.cosmos.auth.v1beta1 import query_pb2_grpc as auth_query_grpc
+from .proto.cosmos.authz.v1beta1 import query_pb2 as authz_query
+from .proto.cosmos.authz.v1beta1 import query_pb2_grpc as authz_query_grpc
+from .proto.cosmos.bank.v1beta1 import query_pb2 as bank_query
+from .proto.cosmos.bank.v1beta1 import query_pb2_grpc as bank_query_grpc
 from .proto.cosmos.base.abci.v1beta1 import abci_pb2 as abci_type
-
-from .proto.cosmos.base.tendermint.v1beta1 import (
-    query_pb2_grpc as tendermint_query_grpc,
-    query_pb2 as tendermint_query,
-)
-
-from .proto.cosmos.auth.v1beta1 import (
-    query_pb2_grpc as auth_query_grpc,
-    query_pb2 as auth_query,
-)
-from .proto.cosmos.authz.v1beta1 import (
-    query_pb2_grpc as authz_query_grpc,
-    query_pb2 as authz_query,
-)
-from .proto.cosmos.bank.v1beta1 import (
-    query_pb2_grpc as bank_query_grpc,
-    query_pb2 as bank_query,
-)
-from .proto.cosmos.tx.v1beta1 import (
-    service_pb2_grpc as tx_service_grpc,
-    service_pb2 as tx_service,
-)
-from .proto.exchange import (
-    injective_accounts_rpc_pb2 as exchange_accounts_rpc_pb,
-    injective_accounts_rpc_pb2_grpc as exchange_accounts_rpc_grpc,
-    injective_oracle_rpc_pb2 as oracle_rpc_pb,
-    injective_oracle_rpc_pb2_grpc as oracle_rpc_grpc,
-    injective_insurance_rpc_pb2 as insurance_rpc_pb,
-    injective_insurance_rpc_pb2_grpc as insurance_rpc_grpc,
-    injective_spot_exchange_rpc_pb2 as spot_exchange_rpc_pb,
-    injective_spot_exchange_rpc_pb2_grpc as spot_exchange_rpc_grpc,
-    injective_derivative_exchange_rpc_pb2 as derivative_exchange_rpc_pb,
-    injective_derivative_exchange_rpc_pb2_grpc as derivative_exchange_rpc_grpc,
-    injective_meta_rpc_pb2 as exchange_meta_rpc_pb,
-    injective_meta_rpc_pb2_grpc as exchange_meta_rpc_grpc,
-    injective_explorer_rpc_pb2 as explorer_rpc_pb,
-    injective_explorer_rpc_pb2_grpc as explorer_rpc_grpc,
-    injective_auction_rpc_pb2 as auction_rpc_pb,
-    injective_auction_rpc_pb2_grpc as auction_rpc_grpc,
-    injective_portfolio_rpc_pb2 as portfolio_rpc_pb,
-    injective_portfolio_rpc_pb2_grpc as portfolio_rpc_grpc,
-)
-
-from .proto.injective.types.v1beta1 import (
-    account_pb2
-)
-
-from .core.network import Network
+from .proto.cosmos.base.tendermint.v1beta1 import query_pb2 as tendermint_query
+from .proto.cosmos.base.tendermint.v1beta1 import query_pb2_grpc as tendermint_query_grpc
+from .proto.cosmos.tx.v1beta1 import service_pb2 as tx_service
+from .proto.cosmos.tx.v1beta1 import service_pb2_grpc as tx_service_grpc
+from .proto.exchange import injective_accounts_rpc_pb2 as exchange_accounts_rpc_pb
+from .proto.exchange import injective_accounts_rpc_pb2_grpc as exchange_accounts_rpc_grpc
+from .proto.exchange import injective_auction_rpc_pb2 as auction_rpc_pb
+from .proto.exchange import injective_auction_rpc_pb2_grpc as auction_rpc_grpc
+from .proto.exchange import injective_derivative_exchange_rpc_pb2 as derivative_exchange_rpc_pb
+from .proto.exchange import injective_derivative_exchange_rpc_pb2_grpc as derivative_exchange_rpc_grpc
+from .proto.exchange import injective_explorer_rpc_pb2 as explorer_rpc_pb
+from .proto.exchange import injective_explorer_rpc_pb2_grpc as explorer_rpc_grpc
+from .proto.exchange import injective_insurance_rpc_pb2 as insurance_rpc_pb
+from .proto.exchange import injective_insurance_rpc_pb2_grpc as insurance_rpc_grpc
+from .proto.exchange import injective_meta_rpc_pb2 as exchange_meta_rpc_pb
+from .proto.exchange import injective_meta_rpc_pb2_grpc as exchange_meta_rpc_grpc
+from .proto.exchange import injective_oracle_rpc_pb2 as oracle_rpc_pb
+from .proto.exchange import injective_oracle_rpc_pb2_grpc as oracle_rpc_grpc
+from .proto.exchange import injective_portfolio_rpc_pb2 as portfolio_rpc_pb
+from .proto.exchange import injective_portfolio_rpc_pb2_grpc as portfolio_rpc_grpc
+from .proto.exchange import injective_spot_exchange_rpc_pb2 as spot_exchange_rpc_pb
+from .proto.exchange import injective_spot_exchange_rpc_pb2_grpc as spot_exchange_rpc_grpc
+from .proto.injective.types.v1beta1 import account_pb2
 from .utils.logger import LoggerProvider
 
 DEFAULT_TIMEOUTHEIGHT_SYNC_INTERVAL = 20  # seconds
@@ -73,10 +54,10 @@ DEFAULT_BLOCK_TIME = 2  # seconds
 
 class AsyncClient:
     def __init__(
-            self,
-            network: Network,
-            insecure: bool = False,
-            credentials=grpc.ssl_channel_credentials(),
+        self,
+        network: Network,
+        insecure: bool = False,
+        credentials=grpc.ssl_channel_credentials(),
     ):
         # the `insecure` parameter is ignored and will be deprecated soon. The value is taken directly from `network`
 
@@ -93,9 +74,7 @@ class AsyncClient:
             else grpc.aio.insecure_channel(network.grpc_endpoint)
         )
 
-        self.stubCosmosTendermint = tendermint_query_grpc.ServiceStub(
-            self.chain_channel
-        )
+        self.stubCosmosTendermint = tendermint_query_grpc.ServiceStub(self.chain_channel)
         self.stubAuth = auth_query_grpc.QueryStub(self.chain_channel)
         self.stubAuthz = authz_query_grpc.QueryStub(self.chain_channel)
         self.stubBank = bank_query_grpc.QueryStub(self.chain_channel)
@@ -110,30 +89,16 @@ class AsyncClient:
             if (network.use_secure_connection and credentials is not None)
             else grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
         )
-        self.stubMeta = exchange_meta_rpc_grpc.InjectiveMetaRPCStub(
-            self.exchange_channel
-        )
-        self.stubExchangeAccount = exchange_accounts_rpc_grpc.InjectiveAccountsRPCStub(
-            self.exchange_channel
-        )
+        self.stubMeta = exchange_meta_rpc_grpc.InjectiveMetaRPCStub(self.exchange_channel)
+        self.stubExchangeAccount = exchange_accounts_rpc_grpc.InjectiveAccountsRPCStub(self.exchange_channel)
         self.stubOracle = oracle_rpc_grpc.InjectiveOracleRPCStub(self.exchange_channel)
-        self.stubInsurance = insurance_rpc_grpc.InjectiveInsuranceRPCStub(
+        self.stubInsurance = insurance_rpc_grpc.InjectiveInsuranceRPCStub(self.exchange_channel)
+        self.stubSpotExchange = spot_exchange_rpc_grpc.InjectiveSpotExchangeRPCStub(self.exchange_channel)
+        self.stubDerivativeExchange = derivative_exchange_rpc_grpc.InjectiveDerivativeExchangeRPCStub(
             self.exchange_channel
         )
-        self.stubSpotExchange = spot_exchange_rpc_grpc.InjectiveSpotExchangeRPCStub(
-            self.exchange_channel
-        )
-        self.stubDerivativeExchange = (
-            derivative_exchange_rpc_grpc.InjectiveDerivativeExchangeRPCStub(
-                self.exchange_channel
-            )
-        )
-        self.stubAuction = auction_rpc_grpc.InjectiveAuctionRPCStub(
-            self.exchange_channel
-        )
-        self.stubPortfolio = portfolio_rpc_grpc.InjectivePortfolioRPCStub(
-            self.exchange_channel
-        )
+        self.stubAuction = auction_rpc_grpc.InjectiveAuctionRPCStub(self.exchange_channel)
+        self.stubPortfolio = portfolio_rpc_grpc.InjectivePortfolioRPCStub(self.exchange_channel)
 
         # explorer stubs
         self.explorer_channel = (
@@ -141,9 +106,7 @@ class AsyncClient:
             if (network.use_secure_connection and credentials is not None)
             else grpc.aio.insecure_channel(network.grpc_explorer_endpoint)
         )
-        self.stubExplorer = explorer_rpc_grpc.InjectiveExplorerRPCStub(
-            self.explorer_channel
-        )
+        self.stubExplorer = explorer_rpc_grpc.InjectiveExplorerRPCStub(self.explorer_channel)
 
         # timeout height update routine
         self.cron = aiocron.crontab(
@@ -223,11 +186,10 @@ class AsyncClient:
 
     async def get_account(self, address: str) -> Optional[account_pb2.EthAccount]:
         try:
-            metadata = await self.network.chain_metadata(
-                metadata_query_provider=self._chain_cookie_metadata_requestor)
-            account_any = (await self.stubAuth.Account(
-                auth_query.QueryAccountRequest(address=address), metadata=metadata
-            )).account
+            metadata = await self.network.chain_metadata(metadata_query_provider=self._chain_cookie_metadata_requestor)
+            account_any = (
+                await self.stubAuth.Account(auth_query.QueryAccountRequest(address=address), metadata=metadata)
+            ).account
             account = account_pb2.EthAccount()
             if account_any.Is(account.DESCRIPTOR):
                 account_any.Unpack(account)
@@ -235,18 +197,15 @@ class AsyncClient:
                 self.sequence = int(account.base_account.sequence)
         except Exception as e:
             LoggerProvider().logger_for_class(logging_class=self.__class__).debug(
-                f"error while fetching sequence and number {e}")
+                f"error while fetching sequence and number {e}"
+            )
             return None
 
     async def get_request_id_by_tx_hash(self, tx_hash: bytes) -> List[int]:
         tx = await self.stubTx.GetTx(tx_service.GetTxRequest(hash=tx_hash))
         request_ids = []
         for tx in tx.tx_response.logs:
-            request_event = [
-                event
-                for event in tx.events
-                if event.type == "request" or event.type == "report"
-            ]
+            request_event = [event for event in tx.events if event.type == "request" or event.type == "report"]
             if len(request_event) == 1:
                 attrs = request_event[0].attributes
                 attr_id = [attr for attr in attrs if attr.key == "id"]
@@ -257,37 +216,28 @@ class AsyncClient:
             raise NotFoundError("Request Id is not found")
         return request_ids
 
-    async def simulate_tx(
-            self, tx_byte: bytes
-    ) -> Tuple[Union[abci_type.SimulationResponse, grpc.RpcError], bool]:
+    async def simulate_tx(self, tx_byte: bytes) -> Tuple[Union[abci_type.SimulationResponse, grpc.RpcError], bool]:
         try:
             req = tx_service.SimulateRequest(tx_bytes=tx_byte)
-            metadata = await self.network.chain_metadata(
-                metadata_query_provider=self._chain_cookie_metadata_requestor)
+            metadata = await self.network.chain_metadata(metadata_query_provider=self._chain_cookie_metadata_requestor)
             return await self.stubTx.Simulate(request=req, metadata=metadata), True
         except grpc.RpcError as err:
             return err, False
 
     async def send_tx_sync_mode(self, tx_byte: bytes) -> abci_type.TxResponse:
-        req = tx_service.BroadcastTxRequest(
-            tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_SYNC
-        )
+        req = tx_service.BroadcastTxRequest(tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_SYNC)
         metadata = await self.network.chain_metadata(metadata_query_provider=self._chain_cookie_metadata_requestor)
         result = await self.stubTx.BroadcastTx(request=req, metadata=metadata)
         return result.tx_response
 
     async def send_tx_async_mode(self, tx_byte: bytes) -> abci_type.TxResponse:
-        req = tx_service.BroadcastTxRequest(
-            tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_ASYNC
-        )
+        req = tx_service.BroadcastTxRequest(tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_ASYNC)
         metadata = await self.network.chain_metadata(metadata_query_provider=self._chain_cookie_metadata_requestor)
         result = await self.stubTx.BroadcastTx(request=req, metadata=metadata)
         return result.tx_response
 
     async def send_tx_block_mode(self, tx_byte: bytes) -> abci_type.TxResponse:
-        req = tx_service.BroadcastTxRequest(
-            tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_BLOCK
-        )
+        req = tx_service.BroadcastTxRequest(tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_BLOCK)
         metadata = await self.network.chain_metadata(metadata_query_provider=self._chain_cookie_metadata_requestor)
         result = await self.stubTx.BroadcastTx(request=req, metadata=metadata)
         return result.tx_response
@@ -306,14 +256,10 @@ class AsyncClient:
         )
 
     async def get_bank_balances(self, address: str):
-        return await self.stubBank.AllBalances(
-            bank_query.QueryAllBalancesRequest(address=address)
-        )
+        return await self.stubBank.AllBalances(bank_query.QueryAllBalancesRequest(address=address))
 
     async def get_bank_balance(self, address: str, denom: str):
-        return await self.stubBank.Balance(
-            bank_query.QueryBalanceRequest(address=address, denom=denom)
-        )
+        return await self.stubBank.Balance(bank_query.QueryBalanceRequest(address=address, denom=denom))
 
     # Injective Exchange client methods
 
@@ -435,27 +381,21 @@ class AsyncClient:
 
     async def stream_subaccount_balance(self, subaccount_id: str, **kwargs):
         req = exchange_accounts_rpc_pb.StreamSubaccountBalanceRequest(
-            subaccount_id=subaccount_id,
-            denoms=kwargs.get("denoms")
+            subaccount_id=subaccount_id, denoms=kwargs.get("denoms")
         )
         return self.stubExchangeAccount.StreamSubaccountBalance(req)
 
     async def get_subaccount_balance(self, subaccount_id: str, denom: str):
-        req = exchange_accounts_rpc_pb.SubaccountBalanceEndpointRequest(
-            subaccount_id=subaccount_id, denom=denom
-        )
+        req = exchange_accounts_rpc_pb.SubaccountBalanceEndpointRequest(subaccount_id=subaccount_id, denom=denom)
         return await self.stubExchangeAccount.SubaccountBalanceEndpoint(req)
 
     async def get_subaccount_list(self, account_address: str):
-        req = exchange_accounts_rpc_pb.SubaccountsListRequest(
-            account_address=account_address
-        )
+        req = exchange_accounts_rpc_pb.SubaccountsListRequest(account_address=account_address)
         return await self.stubExchangeAccount.SubaccountsList(req)
 
     async def get_subaccount_balances_list(self, subaccount_id: str, **kwargs):
         req = exchange_accounts_rpc_pb.SubaccountBalancesListRequest(
-            subaccount_id=subaccount_id,
-            denoms=kwargs.get("denoms")
+            subaccount_id=subaccount_id, denoms=kwargs.get("denoms")
         )
         return await self.stubExchangeAccount.SubaccountBalancesList(req)
 
@@ -466,7 +406,7 @@ class AsyncClient:
             transfer_types=kwargs.get("transfer_types"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
-            end_time=kwargs.get("end_time")
+            end_time=kwargs.get("end_time"),
         )
         return await self.stubExchangeAccount.SubaccountHistory(req)
 
@@ -497,20 +437,18 @@ class AsyncClient:
 
     # OracleRPC
 
-    async def stream_oracle_prices(
-            self, base_symbol: str, quote_symbol: str, oracle_type: str
-    ):
+    async def stream_oracle_prices(self, base_symbol: str, quote_symbol: str, oracle_type: str):
         req = oracle_rpc_pb.StreamPricesRequest(
             base_symbol=base_symbol, quote_symbol=quote_symbol, oracle_type=oracle_type
         )
         return self.stubOracle.StreamPrices(req)
 
     async def get_oracle_prices(
-            self,
-            base_symbol: str,
-            quote_symbol: str,
-            oracle_type: str,
-            oracle_scale_factor: int,
+        self,
+        base_symbol: str,
+        quote_symbol: str,
+        oracle_type: str,
+        oracle_scale_factor: int,
     ):
         req = oracle_rpc_pb.PriceRequest(
             base_symbol=base_symbol,
@@ -553,9 +491,7 @@ class AsyncClient:
         return await self.stubSpotExchange.Markets(req)
 
     async def stream_spot_markets(self, **kwargs):
-        req = spot_exchange_rpc_pb.StreamMarketsRequest(
-            market_ids=kwargs.get("market_ids")
-        )
+        req = spot_exchange_rpc_pb.StreamMarketsRequest(market_ids=kwargs.get("market_ids"))
         metadata = await self.network.exchange_metadata(
             metadata_query_provider=self._exchange_cookie_metadata_requestor
         )
@@ -645,7 +581,7 @@ class AsyncClient:
             subaccount_id=kwargs.get("subaccount_id"),
             order_types=kwargs.get("order_types"),
             state=kwargs.get("state"),
-            execution_types=kwargs.get("execution_types")
+            execution_types=kwargs.get("execution_types"),
         )
         metadata = await self.network.exchange_metadata(
             metadata_query_provider=self._exchange_cookie_metadata_requestor
@@ -659,7 +595,7 @@ class AsyncClient:
             subaccount_id=kwargs.get("subaccount_id"),
             order_types=kwargs.get("order_types"),
             state=kwargs.get("state"),
-            execution_types=kwargs.get("execution_types")
+            execution_types=kwargs.get("execution_types"),
         )
         metadata = await self.network.exchange_metadata(
             metadata_query_provider=self._exchange_cookie_metadata_requestor
@@ -715,9 +651,7 @@ class AsyncClient:
         return await self.stubDerivativeExchange.Markets(req)
 
     async def stream_derivative_markets(self, **kwargs):
-        req = derivative_exchange_rpc_pb.StreamMarketRequest(
-            market_ids=kwargs.get("market_ids")
-        )
+        req = derivative_exchange_rpc_pb.StreamMarketRequest(market_ids=kwargs.get("market_ids"))
         metadata = await self.network.exchange_metadata(
             metadata_query_provider=self._exchange_cookie_metadata_requestor
         )
@@ -919,9 +853,7 @@ class AsyncClient:
 
     async def stream_account_portfolio(self, account_address: str, **kwargs):
         req = portfolio_rpc_pb.StreamAccountPortfolioRequest(
-            account_address=account_address,
-            subaccount_id=kwargs.get("subaccount_id"),
-            type=kwargs.get("type")
+            account_address=account_address, subaccount_id=kwargs.get("subaccount_id"), type=kwargs.get("type")
         )
         metadata = await self.network.exchange_metadata(
             metadata_query_provider=self._exchange_cookie_metadata_requestor
@@ -1010,10 +942,10 @@ class AsyncClient:
                 maintenance_margin_ratio=Decimal(market_info.maintenance_margin_ratio),
                 quote_token=quote_token,
                 maker_fee_rate=Decimal(market_info.maker_fee_rate),
-                taker_fee_rate = Decimal(market_info.taker_fee_rate),
-                service_provider_fee = Decimal(market_info.service_provider_fee),
-                min_price_tick_size = Decimal(market_info.min_price_tick_size),
-                min_quantity_tick_size = Decimal(market_info.min_quantity_tick_size),
+                taker_fee_rate=Decimal(market_info.taker_fee_rate),
+                service_provider_fee=Decimal(market_info.service_provider_fee),
+                min_price_tick_size=Decimal(market_info.min_price_tick_size),
+                min_quantity_tick_size=Decimal(market_info.min_quantity_tick_size),
             )
 
             derivative_markets[market.id] = market

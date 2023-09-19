@@ -27,7 +27,6 @@ class CookieAssistant(ABC):
 
 
 class KubernetesLoadBalancedCookieAssistant(CookieAssistant):
-
     def __init__(self):
         self._chain_cookie: Optional[str] = None
         self._exchange_cookie: Optional[str] = None
@@ -35,9 +34,9 @@ class KubernetesLoadBalancedCookieAssistant(CookieAssistant):
         self._exchange_cookie_initialization_lock = asyncio.Lock()
 
     async def chain_cookie(self, metadata_query_provider: Callable) -> str:
-        if self._chain_cookie == None:
+        if self._chain_cookie is None:
             async with self._chain_cookie_initialization_lock:
-                if self._chain_cookie == None:
+                if self._chain_cookie is None:
                     await self._fetch_chain_cookie(metadata_query_provider=metadata_query_provider)
         cookie = self._chain_cookie
         self._check_chain_cookie_expiration()
@@ -45,9 +44,9 @@ class KubernetesLoadBalancedCookieAssistant(CookieAssistant):
         return cookie
 
     async def exchange_cookie(self, metadata_query_provider: Callable) -> str:
-        if self._exchange_cookie == None:
+        if self._exchange_cookie is None:
             async with self._exchange_cookie_initialization_lock:
-                if self._exchange_cookie == None:
+                if self._exchange_cookie is None:
                     await self._fetch_exchange_cookie(metadata_query_provider=metadata_query_provider)
         cookie = self._exchange_cookie
         self._check_exchange_cookie_expiration()
@@ -84,15 +83,13 @@ class KubernetesLoadBalancedCookieAssistant(CookieAssistant):
         cookie = SimpleCookie()
         cookie.load(cookie_data)
 
-        expiration_time = datetime.datetime.strptime(cookie["GCLB"]["expires"],
-                                                     "%a, %d-%b-%Y %H:%M:%S %Z").timestamp()
+        expiration_time = datetime.datetime.strptime(cookie["GCLB"]["expires"], "%a, %d-%b-%Y %H:%M:%S %Z").timestamp()
 
         timestamp_diff = expiration_time - time.time()
         return timestamp_diff < self.SESSION_RENEWAL_OFFSET
 
 
 class BareMetalLoadBalancedCookieAssistant(CookieAssistant):
-
     def __init__(self):
         self._chain_cookie: Optional[str] = None
         self._exchange_cookie: Optional[str] = None
@@ -100,9 +97,9 @@ class BareMetalLoadBalancedCookieAssistant(CookieAssistant):
         self._exchange_cookie_initialization_lock = asyncio.Lock()
 
     async def chain_cookie(self, metadata_query_provider: Callable) -> str:
-        if self._chain_cookie == None:
+        if self._chain_cookie is None:
             async with self._chain_cookie_initialization_lock:
-                if self._chain_cookie == None:
+                if self._chain_cookie is None:
                     await self._fetch_chain_cookie(metadata_query_provider=metadata_query_provider)
         cookie = self._chain_cookie
         self._check_chain_cookie_expiration()
@@ -110,9 +107,9 @@ class BareMetalLoadBalancedCookieAssistant(CookieAssistant):
         return cookie
 
     async def exchange_cookie(self, metadata_query_provider: Callable) -> str:
-        if self._exchange_cookie == None:
+        if self._exchange_cookie is None:
             async with self._exchange_cookie_initialization_lock:
-                if self._exchange_cookie == None:
+                if self._exchange_cookie is None:
                     await self._fetch_exchange_cookie(metadata_query_provider=metadata_query_provider)
         cookie = self._exchange_cookie
         self._check_exchange_cookie_expiration()
@@ -239,13 +236,13 @@ class Network:
             fee_denom="inj",
             env="testnet",
             cookie_assistant=cookie_assistant,
-            use_secure_connection=use_secure_connection
+            use_secure_connection=use_secure_connection,
         )
 
     @classmethod
     def mainnet(cls, node="lb"):
         nodes = [
-            "lb", # us, asia, prod
+            "lb",  # us, asia, prod
             "lb_k8s",
             "sentry0",  # ca, prod
             "sentry1",  # ca, prod
@@ -309,16 +306,16 @@ class Network:
 
     @classmethod
     def custom(
-            cls,
-            lcd_endpoint,
-            tm_websocket_endpoint,
-            grpc_endpoint,
-            grpc_exchange_endpoint,
-            grpc_explorer_endpoint,
-            chain_id,
-            env,
-            cookie_assistant: Optional[CookieAssistant] = None,
-            use_secure_connection: bool = False,
+        cls,
+        lcd_endpoint,
+        tm_websocket_endpoint,
+        grpc_endpoint,
+        grpc_exchange_endpoint,
+        grpc_explorer_endpoint,
+        chain_id,
+        env,
+        cookie_assistant: Optional[CookieAssistant] = None,
+        use_secure_connection: bool = False,
     ):
         assistant = cookie_assistant or DisabledCookieAssistant()
         return cls(
@@ -331,7 +328,7 @@ class Network:
             fee_denom="inj",
             env=env,
             cookie_assistant=assistant,
-            use_secure_connection=use_secure_connection
+            use_secure_connection=use_secure_connection,
         )
 
     def string(self):
