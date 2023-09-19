@@ -14,14 +14,10 @@ async def main() -> None:
     limit = 15
     end_time = 1665118340224
     subacc_history = await client.get_subaccount_history(
-        subaccount_id=subaccount,
-        denom=denom,
-        transfer_types=transfer_types,
-        skip=skip,
-        limit=limit,
-        end_time=end_time
+        subaccount_id=subaccount, denom=denom, transfer_types=transfer_types, skip=skip, limit=limit, end_time=end_time
     )
     print(subacc_history)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

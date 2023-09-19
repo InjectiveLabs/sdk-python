@@ -26,14 +26,8 @@ CONFIGS = {
 
 class Denom:
     def __init__(
-        self,
-        description: str,
-        base: int,
-        quote: int,
-        min_price_tick_size: float,
-        min_quantity_tick_size: float
+        self, description: str, base: int, quote: int, min_price_tick_size: float, min_quantity_tick_size: float
     ):
-
         self.description = description
         self.base = base
         self.quote = quote

@@ -24,9 +24,10 @@ async def main() -> None:
         destination_channel=destination_channel,
         dest_port=dest_port,
         limit=limit,
-        skip=skip
+        skip=skip,
     )
     print(ibc_transfers)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

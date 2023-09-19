@@ -20,5 +20,6 @@ async def main() -> None:
     first_message = first_transaction_messages[0]
     print(first_message)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

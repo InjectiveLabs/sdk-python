@@ -20,7 +20,7 @@ class Transaction:
         fee: List[Coin] = None,
         gas: int = 0,
         memo: str = "",
-        timeout_height: int = 0
+        timeout_height: int = 0,
     ):
         self.msgs = self.__convert_msgs(msgs) if msgs is not None else []
         self.account_num = account_num
@@ -75,11 +75,7 @@ class Transaction:
         return self
 
     def __generate_info(self, public_key: PublicKey = None) -> Tuple[str, str]:
-        body = cosmos_tx_type.TxBody(
-            messages=self.msgs,
-            memo=self.memo,
-            timeout_height=self.timeout_height
-        )
+        body = cosmos_tx_type.TxBody(messages=self.msgs, memo=self.memo, timeout_height=self.timeout_height)
 
         body_bytes = body.SerializeToString()
         mode_info = cosmos_tx_type.ModeInfo(single=cosmos_tx_type.ModeInfo.Single(mode=tx_sign.SIGN_MODE_DIRECT))

@@ -11,5 +11,6 @@ async def main() -> None:
     market = await client.get_binary_options_market(market_id=market_id)
     print(market)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

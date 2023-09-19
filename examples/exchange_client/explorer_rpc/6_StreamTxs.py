@@ -8,10 +8,10 @@ async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
     client = AsyncClient(network)
-    stream_txs = await client.stream_txs(
-    )
+    stream_txs = await client.stream_txs()
     async for tx in stream_txs:
         print(tx)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

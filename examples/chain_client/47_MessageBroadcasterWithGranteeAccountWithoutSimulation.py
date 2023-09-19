@@ -41,13 +41,14 @@ async def main() -> None:
         price=7.523,
         quantity=0.01,
         is_buy=True,
-        is_po=False
+        is_po=False,
     )
 
     # broadcast the transaction
     result = await message_broadcaster.broadcast([msg])
     print("---Transaction Response---")
     print(result)
+
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

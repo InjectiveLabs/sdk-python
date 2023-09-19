@@ -11,7 +11,7 @@ def inj_token_meta():
         symbol="INJ",
         logo="https://static.alchemyapi.io/images/assets/7226.png",
         decimals=18,
-        updated_at=1681739137644
+        updated_at=1681739137644,
     )
 
     return token
@@ -27,7 +27,7 @@ def ape_token_meta():
         symbol="APE",
         logo="https://assets.coingecko.com/coins/images/24383/small/apecoin.jpg?1647476455",
         decimals=18,
-        updated_at=1681739137646
+        updated_at=1681739137646,
     )
 
     return token
@@ -43,7 +43,7 @@ def usdt_token_meta():
         symbol="USDT",
         logo="https://static.alchemyapi.io/images/assets/825.png",
         decimals=6,
-        updated_at=1681739137645
+        updated_at=1681739137645,
     )
 
     return token
@@ -59,7 +59,7 @@ def usdt_token_meta_second_denom():
         symbol="USDT",
         logo="https://static.alchemyapi.io/images/assets/826.png",
         decimals=6,
-        updated_at=1691739137645
+        updated_at=1691739137645,
     )
 
     return token
@@ -75,7 +75,7 @@ def usdt_perp_token_meta():
         symbol="USDTPerp",
         logo="https://static.alchemyapi.io/images/assets/825.png",
         decimals=6,
-        updated_at=1683929869866
+        updated_at=1683929869866,
     )
 
     return token

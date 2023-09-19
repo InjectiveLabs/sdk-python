@@ -37,26 +37,26 @@ async def main() -> None:
         composer.OrderData(
             market_id=derivative_market_id_cancel,
             subaccount_id=subaccount_id,
-            order_hash="0x48690013c382d5dbaff9989db04629a16a5818d7524e027d517ccc89fd068103"
+            order_hash="0x48690013c382d5dbaff9989db04629a16a5818d7524e027d517ccc89fd068103",
         ),
         composer.OrderData(
             market_id=derivative_market_id_cancel_2,
             subaccount_id=subaccount_id,
-            order_hash="0x7ee76255d7ca763c56b0eab9828fca89fdd3739645501c8a80f58b62b4f76da5"
-        )
+            order_hash="0x7ee76255d7ca763c56b0eab9828fca89fdd3739645501c8a80f58b62b4f76da5",
+        ),
     ]
 
     spot_orders_to_cancel = [
         composer.OrderData(
             market_id=spot_market_id_cancel,
             subaccount_id=subaccount_id,
-            order_hash="0x3870fbdd91f07d54425147b1bb96404f4f043ba6335b422a6d494d285b387f2d"
+            order_hash="0x3870fbdd91f07d54425147b1bb96404f4f043ba6335b422a6d494d285b387f2d",
         ),
         composer.OrderData(
             market_id=spot_market_id_cancel_2,
             subaccount_id=subaccount_id,
-            order_hash="0x222daa22f60fe9f075ed0ca583459e121c23e64431c3fbffdedda04598ede0d2"
-        )
+            order_hash="0x222daa22f60fe9f075ed0ca583459e121c23e64431c3fbffdedda04598ede0d2",
+        ),
     ]
 
     derivative_orders_to_create = [
@@ -68,7 +68,7 @@ async def main() -> None:
             quantity=0.1,
             leverage=1,
             is_buy=True,
-            is_po=False
+            is_po=False,
         ),
         composer.DerivativeOrder(
             market_id=derivative_market_id_create,
@@ -78,7 +78,7 @@ async def main() -> None:
             quantity=0.01,
             leverage=1,
             is_buy=False,
-            is_po=False
+            is_po=False,
         ),
     ]
 
@@ -90,7 +90,7 @@ async def main() -> None:
             price=3,
             quantity=55,
             is_buy=True,
-            is_po=False
+            is_po=False,
         ),
         composer.SpotOrder(
             market_id=spot_market_id_create,
@@ -99,7 +99,7 @@ async def main() -> None:
             price=300,
             quantity=55,
             is_buy=False,
-            is_po=False
+            is_po=False,
         ),
     ]
 
@@ -109,7 +109,7 @@ async def main() -> None:
         derivative_orders_to_create=derivative_orders_to_create,
         spot_orders_to_create=spot_orders_to_create,
         derivative_orders_to_cancel=derivative_orders_to_cancel,
-        spot_orders_to_cancel=spot_orders_to_cancel
+        spot_orders_to_cancel=spot_orders_to_cancel,
     )
 
     # build sim tx
@@ -137,12 +137,14 @@ async def main() -> None:
     # build tx
     gas_price = 500000000
     gas_limit = sim_res.gas_info.gas_used + 20000  # add 20k for gas, fee computation
-    gas_fee = '{:.18f}'.format((gas_price * gas_limit) / pow(10, 18)).rstrip('0')
-    fee = [composer.Coin(
-        amount=gas_price * gas_limit,
-        denom=network.fee_denom,
-    )]
-    tx = tx.with_gas(gas_limit).with_fee(fee).with_memo('').with_timeout_height(client.timeout_height)
+    gas_fee = "{:.18f}".format((gas_price * gas_limit) / pow(10, 18)).rstrip("0")
+    fee = [
+        composer.Coin(
+            amount=gas_price * gas_limit,
+            denom=network.fee_denom,
+        )
+    ]
+    tx = tx.with_gas(gas_limit).with_fee(fee).with_memo("").with_timeout_height(client.timeout_height)
     sign_doc = tx.get_sign_doc(pub_key)
     sig = priv_key.sign(sign_doc.SerializeToString())
     tx_raw_bytes = tx.get_tx_data(sig, pub_key)
@@ -153,6 +155,7 @@ async def main() -> None:
     print(res)
     print("gas wanted: {}".format(gas_limit))
     print("gas fee: {} INJ".format(gas_fee))
+
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

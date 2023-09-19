@@ -30,11 +30,11 @@ async def get_markets(client):
 async def keepalive(client, tasks: list):
     stream = await client.stream_keepalive()
     async for announce in stream:
-        print('Server announce:', announce)
+        print("Server announce:", announce)
         async for task in tasks:
             task.cancel()
-        print('Cancelled all tasks')
+        print("Cancelled all tasks")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

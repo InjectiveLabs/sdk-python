@@ -14,13 +14,10 @@ async def main() -> None:
     limit = 3
     end_time = 1676426400125
     funding = await client.get_funding_payments(
-        market_id=market_id,
-        subaccount_id=subaccount_id,
-        skip=skip,
-        limit=limit,
-        end_time=end_time
+        market_id=market_id, subaccount_id=subaccount_id, skip=skip, limit=limit, end_time=end_time
     )
     print(funding)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

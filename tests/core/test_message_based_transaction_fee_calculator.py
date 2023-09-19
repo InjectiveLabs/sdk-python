@@ -14,7 +14,6 @@ from pyinjective.proto.injective.exchange.v1beta1 import tx_pb2
 
 
 class TestMessageBasedTransactionFeeCalculator:
-
     @pytest.mark.asyncio
     async def test_gas_fee_for_privileged_execute_contract_message(self):
         network = Network.testnet(node="sentry")
@@ -34,8 +33,8 @@ class TestMessageBasedTransactionFeeCalculator:
 
         expected_transaction_gas_limit = 60_000
         expected_gas_limit = math.ceil(Decimal(6) * 150_000 + expected_transaction_gas_limit)
-        assert(expected_gas_limit == transaction.fee.gas_limit)
-        assert(str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount)
+        assert expected_gas_limit == transaction.fee.gas_limit
+        assert str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount
 
     @pytest.mark.asyncio
     async def test_gas_fee_for_execute_contract_message(self):
@@ -60,8 +59,8 @@ class TestMessageBasedTransactionFeeCalculator:
 
         expected_transaction_gas_limit = 60_000
         expected_gas_limit = math.ceil(Decimal(2.5) * 150_000 + expected_transaction_gas_limit)
-        assert (expected_gas_limit == transaction.fee.gas_limit)
-        assert (str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount)
+        assert expected_gas_limit == transaction.fee.gas_limit
+        assert str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount
 
     @pytest.mark.asyncio
     async def test_gas_fee_for_wasm_message(self):
@@ -82,8 +81,8 @@ class TestMessageBasedTransactionFeeCalculator:
 
         expected_transaction_gas_limit = 60_000
         expected_gas_limit = math.ceil(Decimal(1.5) * 150_000 + expected_transaction_gas_limit)
-        assert (expected_gas_limit == transaction.fee.gas_limit)
-        assert (str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount)
+        assert expected_gas_limit == transaction.fee.gas_limit
+        assert str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount
 
     @pytest.mark.asyncio
     async def test_gas_fee_for_governance_message(self):
@@ -104,8 +103,8 @@ class TestMessageBasedTransactionFeeCalculator:
 
         expected_transaction_gas_limit = 60_000
         expected_gas_limit = math.ceil(Decimal(15) * 150_000 + expected_transaction_gas_limit)
-        assert (expected_gas_limit == transaction.fee.gas_limit)
-        assert (str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount)
+        assert expected_gas_limit == transaction.fee.gas_limit
+        assert str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount
 
     @pytest.mark.asyncio
     async def test_gas_fee_for_exchange_message(self):
@@ -126,7 +125,7 @@ class TestMessageBasedTransactionFeeCalculator:
             price=7.523,
             quantity=0.01,
             is_buy=True,
-            is_po=False
+            is_po=False,
         )
         transaction = Transaction()
         transaction.with_messages(message)
@@ -135,8 +134,8 @@ class TestMessageBasedTransactionFeeCalculator:
 
         expected_transaction_gas_limit = 60_000
         expected_gas_limit = math.ceil(Decimal(1) * 100_000 + expected_transaction_gas_limit)
-        assert (expected_gas_limit == transaction.fee.gas_limit)
-        assert (str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount)
+        assert expected_gas_limit == transaction.fee.gas_limit
+        assert str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount
 
     @pytest.mark.asyncio
     async def test_gas_fee_for_msg_exec_message(self):
@@ -157,12 +156,9 @@ class TestMessageBasedTransactionFeeCalculator:
             price=7.523,
             quantity=0.01,
             is_buy=True,
-            is_po=False
+            is_po=False,
         )
-        message = composer.MsgExec(
-            grantee="grantee",
-            msgs=[inner_message]
-        )
+        message = composer.MsgExec(grantee="grantee", msgs=[inner_message])
         transaction = Transaction()
         transaction.with_messages(message)
 
@@ -174,8 +170,8 @@ class TestMessageBasedTransactionFeeCalculator:
         expected_gas_limit = math.ceil(
             expected_exec_message_gas_limit + expected_inner_message_gas_limit + expected_transaction_gas_limit
         )
-        assert (expected_gas_limit == transaction.fee.gas_limit)
-        assert (str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount)
+        assert expected_gas_limit == transaction.fee.gas_limit
+        assert str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount
 
     @pytest.mark.asyncio
     async def test_gas_fee_for_two_messages_in_one_transaction(self):
@@ -196,19 +192,11 @@ class TestMessageBasedTransactionFeeCalculator:
             price=7.523,
             quantity=0.01,
             is_buy=True,
-            is_po=False
+            is_po=False,
         )
-        message = composer.MsgExec(
-            grantee="grantee",
-            msgs=[inner_message]
-        )
+        message = composer.MsgExec(grantee="grantee", msgs=[inner_message])
 
-        send_message = composer.MsgSend(
-            from_address="address",
-            to_address='to_address',
-            amount=1,
-            denom='INJ'
-        )
+        send_message = composer.MsgSend(from_address="address", to_address="to_address", amount=1, denom="INJ")
 
         transaction = Transaction()
         transaction.with_messages(message, send_message)
@@ -225,5 +213,5 @@ class TestMessageBasedTransactionFeeCalculator:
             + expected_send_message_gas_limit
             + expected_transaction_gas_limit
         )
-        assert (expected_gas_limit == transaction.fee.gas_limit)
-        assert (str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount)
+        assert expected_gas_limit == transaction.fee.gas_limit
+        assert str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount

@@ -20,11 +20,12 @@ async def main() -> None:
     receiver = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku"
     amount = 1
 
-    data = ('{"@type": "/injective.exchange.v1beta1.MsgDeposit",'
-            '"sender": "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku",'
-            '"subaccountId": "0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000",'
-            '"amount": {"denom": "inj","amount": "1000000000000000000"}}'
-            )
+    data = (
+        '{"@type": "/injective.exchange.v1beta1.MsgDeposit",'
+        '"sender": "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku",'
+        '"subaccountId": "0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000",'
+        '"amount": {"denom": "inj","amount": "1000000000000000000"}}'
+    )
 
     with open("../pyinjective/Peggo_ABI.json") as pego_file:
         peggo_data = pego_file.read()
@@ -39,8 +40,9 @@ async def main() -> None:
         maxFeePerGas=maxFeePerGas_Gwei,
         maxPriorityFeePerGas=maxPriorityFeePerGas_Gwei,
         data=data,
-        peggo_abi=peggo_abi
+        peggo_abi=peggo_abi,
     )
+
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

@@ -11,5 +11,6 @@ async def main() -> None:
     oracle_list = await client.get_oracle_list()
     print(oracle_list)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

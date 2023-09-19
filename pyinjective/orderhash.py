@@ -43,14 +43,14 @@ class DerivativeOrder(EIP712Message):
 
 
 # domain_separator = EIP712_domain.hash_struct()
-order_type_dict = {0: '\x00', 1: '\x01', 2: '\x02', 3: '\x03', 4: '\x04', 5: '\x05', 6: '\x06', 7: '\x07', 8: '\x08'}
+order_type_dict = {0: "\x00", 1: "\x01", 2: "\x02", 3: "\x03", 4: "\x04", 5: "\x05", 6: "\x06", 7: "\x07", 8: "\x08"}
 
 
 class OrderHashResponse:
     def __init__(
-            self,
-            spot: [str] = None,
-            derivative: [str] = None,
+        self,
+        spot: [str] = None,
+        derivative: [str] = None,
     ):
         self.spot = spot
         self.derivative = derivative
@@ -58,17 +58,17 @@ class OrderHashResponse:
 
 class OrderHashManager:
     def __init__(
-            self,
-            address,
-            network,
-            subaccount_indexes: [int] = None,
+        self,
+        address,
+        network,
+        subaccount_indexes: [int] = None,
     ):
         self.address = address
         self.subacc_nonces = dict()
 
         for i in subaccount_indexes:
             subaccount_id = address.get_subaccount_id(index=i)
-            url = network.lcd_endpoint + '/injective/exchange/v1beta1/exchange/' + subaccount_id
+            url = network.lcd_endpoint + "/injective/exchange/v1beta1/exchange/" + subaccount_id
             res = requests.get(url=url)
             nonce = res.json()["nonce"]
             self.subacc_nonces[i] = [subaccount_id, nonce + 1]
@@ -96,7 +96,7 @@ class OrderHashManager:
 
 def param_to_backend_go(param) -> int:
     go_param = Decimal(param) / pow(10, 18)
-    return format(go_param, '.18f')
+    return format(go_param, ".18f")
 
 
 def parse_order_type(order):
@@ -104,7 +104,7 @@ def parse_order_type(order):
 
 
 def build_eip712_msg(order, nonce):
-    if order.__class__.__name__ == 'SpotOrder':
+    if order.__class__.__name__ == "SpotOrder":
         go_price = param_to_backend_go(order.order_info.price)
         go_trigger_price = param_to_backend_go(order.trigger_price)
         go_quantity = param_to_backend_go(order.order_info.quantity)
@@ -115,13 +115,13 @@ def build_eip712_msg(order, nonce):
                 SubaccountId=order.order_info.subaccount_id,
                 FeeRecipient=order.order_info.fee_recipient,
                 Price=go_price,
-                Quantity=go_quantity
+                Quantity=go_quantity,
             ),
             Salt=str(nonce),
             OrderType=go_order_type,
-            TriggerPrice=go_trigger_price
+            TriggerPrice=go_trigger_price,
         )
-    if order.__class__.__name__ == 'DerivativeOrder':
+    if order.__class__.__name__ == "DerivativeOrder":
         go_price = param_to_backend_go(order.order_info.price)
         go_trigger_price = param_to_backend_go(order.trigger_price)
         go_quantity = param_to_backend_go(order.order_info.quantity)
@@ -133,12 +133,12 @@ def build_eip712_msg(order, nonce):
                 SubaccountId=order.order_info.subaccount_id,
                 FeeRecipient=order.order_info.fee_recipient,
                 Price=go_price,
-                Quantity=go_quantity
+                Quantity=go_quantity,
             ),
             Salt=str(nonce),
             OrderType=go_order_type,
             TriggerPrice=go_trigger_price,
-            Margin=go_margin
+            Margin=go_margin,
         )
 
 

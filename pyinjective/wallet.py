@@ -255,39 +255,40 @@ class Address:
 
     def get_subaccount_id(self, index: int) -> str:
         """Return a hex representation of address"""
-        id = index.to_bytes(12, byteorder='big').hex()
-        return '0x' + self.addr.hex() + id
+        id = index.to_bytes(12, byteorder="big").hex()
+        return "0x" + self.addr.hex() + id
 
     def get_ethereum_address(self) -> str:
-        return '0x' + self.addr.hex()
+        return "0x" + self.addr.hex()
 
     async def async_init_num_seq(self, lcd_endpoint: str) -> "Address":
         async with aiohttp.ClientSession() as session:
             async with session.request(
-                'GET', lcd_endpoint + '/cosmos/auth/v1beta1/accounts/' + self.to_acc_bech32(),
-                headers={'Accept-Encoding': 'application/json'},
+                "GET",
+                lcd_endpoint + "/cosmos/auth/v1beta1/accounts/" + self.to_acc_bech32(),
+                headers={"Accept-Encoding": "application/json"},
             ) as response:
                 if response.status != 200:
                     print(await response.text())
                     raise ValueError("HTTP response status", response.status)
 
                 resp = json.loads(await response.text())
-                acc = resp['account']['base_account']
-                self.number = int(acc['account_number'])
-                self.sequence = int(acc['sequence'])
+                acc = resp["account"]["base_account"]
+                self.number = int(acc["account_number"])
+                self.sequence = int(acc["sequence"])
                 return self
 
     def init_num_seq(self, lcd_endpoint: str) -> "Address":
         response = requests.get(
             url=f"{lcd_endpoint}/cosmos/auth/v1beta1/accounts/{self.to_acc_bech32()}",
-            headers={'Accept-Encoding': 'application/json'}
+            headers={"Accept-Encoding": "application/json"},
         )
         if response.status_code != 200:
             raise ValueError("HTTP response status", response.status_code)
         resp = json.loads(response.text)
-        acc = resp['account']['base_account']
-        self.number = int(acc['account_number'])
-        self.sequence = int(acc['sequence'])
+        acc = resp["account"]["base_account"]
+        self.number = int(acc["account_number"])
+        self.sequence = int(acc["sequence"])
         return self
 
     def get_sequence(self):

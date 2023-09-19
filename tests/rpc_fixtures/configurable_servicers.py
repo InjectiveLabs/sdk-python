@@ -6,7 +6,6 @@ from pyinjective.proto.exchange.injective_spot_exchange_rpc_pb2_grpc import Inje
 
 
 class ConfigurableInjectiveSpotExchangeRPCServicer(InjectiveSpotExchangeRPCServicer):
-
     def __init__(self):
         super().__init__()
         self.markets_queue = deque()
@@ -16,7 +15,6 @@ class ConfigurableInjectiveSpotExchangeRPCServicer(InjectiveSpotExchangeRPCServi
 
 
 class ConfigurableInjectiveDerivativeExchangeRPCServicer(InjectiveDerivativeExchangeRPCServicer):
-
     def __init__(self):
         super().__init__()
         self.markets_queue = deque()
@@ -26,8 +24,6 @@ class ConfigurableInjectiveDerivativeExchangeRPCServicer(InjectiveDerivativeExch
         return self.markets_queue.pop()
 
     async def BinaryOptionsMarkets(
-            self,
-            request: injective_derivative_exchange_rpc_pb2.BinaryOptionsMarketsRequest,
-            context=None
+        self, request: injective_derivative_exchange_rpc_pb2.BinaryOptionsMarketsRequest, context=None
     ):
         return self.binary_option_markets_queue.pop()

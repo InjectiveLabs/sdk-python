@@ -24,11 +24,7 @@ async def main() -> None:
     subaccount_id = address.get_subaccount_id(index=0)
     subaccount_id_2 = address.get_subaccount_id(index=1)
 
-    order_hash_manager = OrderHashManager(
-        address=address,
-        network=network,
-        subaccount_indexes=[0, 1, 2, 7]
-    )
+    order_hash_manager = OrderHashManager(address=address, network=network, subaccount_indexes=[0, 1, 2, 7])
 
     # prepare trade info
     spot_market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
@@ -43,7 +39,7 @@ async def main() -> None:
             price=0.524,
             quantity=0.01,
             is_buy=True,
-            is_po=False
+            is_po=False,
         ),
         composer.SpotOrder(
             market_id=spot_market_id,
@@ -52,7 +48,7 @@ async def main() -> None:
             price=27.92,
             quantity=0.01,
             is_buy=False,
-            is_po=False
+            is_po=False,
         ),
     ]
 
@@ -65,7 +61,7 @@ async def main() -> None:
             quantity=0.01,
             leverage=1.5,
             is_buy=True,
-            is_po=False
+            is_po=False,
         ),
         composer.DerivativeOrder(
             market_id=deriv_market_id,
@@ -75,20 +71,14 @@ async def main() -> None:
             quantity=0.01,
             leverage=2,
             is_buy=False,
-            is_reduce_only=False
+            is_reduce_only=False,
         ),
     ]
 
     # prepare tx msg
-    spot_msg = composer.MsgBatchCreateSpotLimitOrders(
-        sender=address.to_acc_bech32(),
-        orders=spot_orders
-    )
+    spot_msg = composer.MsgBatchCreateSpotLimitOrders(sender=address.to_acc_bech32(), orders=spot_orders)
 
-    deriv_msg = composer.MsgBatchCreateDerivativeLimitOrders(
-        sender=address.to_acc_bech32(),
-        orders=derivative_orders
-    )
+    deriv_msg = composer.MsgBatchCreateDerivativeLimitOrders(sender=address.to_acc_bech32(), orders=derivative_orders)
 
     # compute order hashes
     order_hashes = order_hash_manager.compute_order_hashes(
@@ -109,12 +99,14 @@ async def main() -> None:
     gas_price = 500000000
     base_gas = 85000
     gas_limit = base_gas + 20000  # add 20k for gas, fee computation
-    gas_fee = '{:.18f}'.format((gas_price * gas_limit) / pow(10, 18)).rstrip('0')
-    fee = [composer.Coin(
-        amount=gas_price * gas_limit,
-        denom=network.fee_denom,
-    )]
-    tx = tx.with_gas(gas_limit).with_fee(fee).with_memo('').with_timeout_height(client.timeout_height)
+    gas_fee = "{:.18f}".format((gas_price * gas_limit) / pow(10, 18)).rstrip("0")
+    fee = [
+        composer.Coin(
+            amount=gas_price * gas_limit,
+            denom=network.fee_denom,
+        )
+    ]
+    tx = tx.with_gas(gas_limit).with_fee(fee).with_memo("").with_timeout_height(client.timeout_height)
     sign_doc = tx.get_sign_doc(pub_key)
     sig = priv_key.sign(sign_doc.SerializeToString())
     tx_raw_bytes = tx.get_tx_data(sig, pub_key)
@@ -144,12 +136,14 @@ async def main() -> None:
     gas_price = 500000000
     base_gas = 85000
     gas_limit = base_gas + 20000  # add 20k for gas, fee computation
-    gas_fee = '{:.18f}'.format((gas_price * gas_limit) / pow(10, 18)).rstrip('0')
-    fee = [composer.Coin(
-        amount=gas_price * gas_limit,
-        denom=network.fee_denom,
-    )]
-    tx = tx.with_gas(gas_limit).with_fee(fee).with_memo('').with_timeout_height(client.timeout_height)
+    gas_fee = "{:.18f}".format((gas_price * gas_limit) / pow(10, 18)).rstrip("0")
+    fee = [
+        composer.Coin(
+            amount=gas_price * gas_limit,
+            denom=network.fee_denom,
+        )
+    ]
+    tx = tx.with_gas(gas_limit).with_fee(fee).with_memo("").with_timeout_height(client.timeout_height)
     sign_doc = tx.get_sign_doc(pub_key)
     sig = priv_key.sign(sign_doc.SerializeToString())
     tx_raw_bytes = tx.get_tx_data(sig, pub_key)
@@ -168,7 +162,7 @@ async def main() -> None:
             price=1.524,
             quantity=0.01,
             is_buy=True,
-            is_po=True
+            is_po=True,
         ),
         composer.SpotOrder(
             market_id=spot_market_id,
@@ -177,7 +171,7 @@ async def main() -> None:
             price=27.92,
             quantity=0.01,
             is_buy=False,
-            is_po=False
+            is_po=False,
         ),
     ]
 
@@ -190,7 +184,7 @@ async def main() -> None:
             quantity=0.01,
             leverage=1.5,
             is_buy=True,
-            is_po=False
+            is_po=False,
         ),
         composer.DerivativeOrder(
             market_id=deriv_market_id,
@@ -200,20 +194,14 @@ async def main() -> None:
             quantity=0.01,
             leverage=2,
             is_buy=False,
-            is_reduce_only=False
+            is_reduce_only=False,
         ),
     ]
 
     # prepare tx msg
-    spot_msg = composer.MsgBatchCreateSpotLimitOrders(
-        sender=address.to_acc_bech32(),
-        orders=spot_orders
-    )
+    spot_msg = composer.MsgBatchCreateSpotLimitOrders(sender=address.to_acc_bech32(), orders=spot_orders)
 
-    deriv_msg = composer.MsgBatchCreateDerivativeLimitOrders(
-        sender=address.to_acc_bech32(),
-        orders=derivative_orders
-    )
+    deriv_msg = composer.MsgBatchCreateDerivativeLimitOrders(sender=address.to_acc_bech32(), orders=derivative_orders)
 
     # compute order hashes
     order_hashes = order_hash_manager.compute_order_hashes(
@@ -234,12 +222,14 @@ async def main() -> None:
     gas_price = 500000000
     base_gas = 85000
     gas_limit = base_gas + 20000  # add 20k for gas, fee computation
-    gas_fee = '{:.18f}'.format((gas_price * gas_limit) / pow(10, 18)).rstrip('0')
-    fee = [composer.Coin(
-        amount=gas_price * gas_limit,
-        denom=network.fee_denom,
-    )]
-    tx = tx.with_gas(gas_limit).with_fee(fee).with_memo('').with_timeout_height(client.timeout_height)
+    gas_fee = "{:.18f}".format((gas_price * gas_limit) / pow(10, 18)).rstrip("0")
+    fee = [
+        composer.Coin(
+            amount=gas_price * gas_limit,
+            denom=network.fee_denom,
+        )
+    ]
+    tx = tx.with_gas(gas_limit).with_fee(fee).with_memo("").with_timeout_height(client.timeout_height)
     sign_doc = tx.get_sign_doc(pub_key)
     sig = priv_key.sign(sign_doc.SerializeToString())
     tx_raw_bytes = tx.get_tx_data(sig, pub_key)
@@ -249,6 +239,7 @@ async def main() -> None:
     print(res)
     print("gas wanted: {}".format(gas_limit))
     print("gas fee: {} INJ".format(gas_fee))
+
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

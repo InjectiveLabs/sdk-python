@@ -12,5 +12,6 @@ async def main() -> None:
     async for bid in bids:
         print(bid)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

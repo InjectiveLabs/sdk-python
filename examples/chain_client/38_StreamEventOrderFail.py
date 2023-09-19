@@ -9,17 +9,19 @@ from pyinjective.core.network import Network
 
 async def main() -> None:
     network = Network.mainnet()
-    event_filter = ("tm.event='Tx' AND message.sender='inj1rwv4zn3jptsqs7l8lpa3uvzhs57y8duemete9e' "
-                    "AND message.action='/injective.exchange.v1beta1.MsgBatchUpdateOrders' "
-                    "AND injective.exchange.v1beta1.EventOrderFail.flags EXISTS")
-    query = json.dumps({
-        "jsonrpc": "2.0",
-        "method": "subscribe",
-        "id": "0",
-        "params": {
-            "query": event_filter
-        },
-    })
+    event_filter = (
+        "tm.event='Tx' AND message.sender='inj1rwv4zn3jptsqs7l8lpa3uvzhs57y8duemete9e' "
+        "AND message.action='/injective.exchange.v1beta1.MsgBatchUpdateOrders' "
+        "AND injective.exchange.v1beta1.EventOrderFail.flags EXISTS"
+    )
+    query = json.dumps(
+        {
+            "jsonrpc": "2.0",
+            "method": "subscribe",
+            "id": "0",
+            "params": {"query": event_filter},
+        }
+    )
 
     async with websockets.connect(network.tm_websocket_endpoint) as ws:
         await ws.send(query)
@@ -40,5 +42,6 @@ async def main() -> None:
 
             print(dict)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

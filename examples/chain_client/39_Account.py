@@ -11,5 +11,6 @@ async def main() -> None:
     acc = await client.get_account(address=address)
     print(acc)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

@@ -26,7 +26,7 @@ async def main() -> None:
         sender=address.to_acc_bech32(),
         market_id="0x141e3c92ed55107067ceb60ee412b86256cedef67b1227d6367b4cdf30c55a74",
         share_denom="share15",
-        amount=100  # raw chain value
+        amount=100,  # raw chain value
     )
 
     # build sim tx
@@ -50,12 +50,14 @@ async def main() -> None:
     # build tx
     gas_price = 500000000
     gas_limit = sim_res.gas_info.gas_used + 20000  # add 20k for gas, fee computation
-    gas_fee = '{:.18f}'.format((gas_price * gas_limit) / pow(10, 18)).rstrip('0')
-    fee = [composer.Coin(
-        amount=gas_price * gas_limit,
-        denom=network.fee_denom,
-    )]
-    tx = tx.with_gas(gas_limit).with_fee(fee).with_memo('').with_timeout_height(client.timeout_height)
+    gas_fee = "{:.18f}".format((gas_price * gas_limit) / pow(10, 18)).rstrip("0")
+    fee = [
+        composer.Coin(
+            amount=gas_price * gas_limit,
+            denom=network.fee_denom,
+        )
+    ]
+    tx = tx.with_gas(gas_limit).with_fee(fee).with_memo("").with_timeout_height(client.timeout_height)
     sign_doc = tx.get_sign_doc(pub_key)
     sig = priv_key.sign(sign_doc.SerializeToString())
     tx_raw_bytes = tx.get_tx_data(sig, pub_key)
@@ -65,6 +67,7 @@ async def main() -> None:
     print(res)
     print("gas wanted: {}".format(gas_limit))
     print("gas fee: {} INJ".format(gas_fee))
+
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

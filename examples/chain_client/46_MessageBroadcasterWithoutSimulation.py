@@ -35,7 +35,7 @@ async def main() -> None:
             price=3,
             quantity=55,
             is_buy=True,
-            is_po=False
+            is_po=False,
         ),
         composer.SpotOrder(
             market_id=spot_market_id_create,
@@ -44,7 +44,7 @@ async def main() -> None:
             price=300,
             quantity=55,
             is_buy=False,
-            is_po=False
+            is_po=False,
         ),
     ]
 
@@ -58,6 +58,7 @@ async def main() -> None:
     result = await message_broadcaster.broadcast([msg])
     print("---Transaction Response---")
     print(result)
+
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

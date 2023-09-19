@@ -13,5 +13,6 @@ async def main() -> None:
     async for market in markets:
         print(market)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

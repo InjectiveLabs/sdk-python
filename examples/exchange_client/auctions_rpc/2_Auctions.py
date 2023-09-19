@@ -11,5 +11,6 @@ async def main() -> None:
     auctions = await client.get_auctions()
     print(auctions)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

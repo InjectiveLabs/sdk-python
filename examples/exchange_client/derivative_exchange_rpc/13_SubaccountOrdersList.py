@@ -13,13 +13,10 @@ async def main() -> None:
     skip = 1
     limit = 2
     orders = await client.get_derivative_subaccount_orders(
-        subaccount_id=subaccount_id,
-        market_id=market_id,
-        skip=skip,
-        limit=limit
+        subaccount_id=subaccount_id, market_id=market_id, skip=skip, limit=limit
     )
     print(orders)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

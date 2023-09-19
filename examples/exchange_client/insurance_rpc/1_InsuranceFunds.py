@@ -11,5 +11,6 @@ async def main() -> None:
     insurance_funds = await client.get_insurance_funds()
     print(insurance_funds)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

@@ -45,6 +45,7 @@ requests-mock = "*"
 pre-commit = "^3.4.0"
 flakeheaven = "^3.3.0"
 isort = "^5.12.0"
+black = "^23.9.1"
 
 
 [tool.flakeheaven]
@@ -65,6 +66,20 @@ pyflakes = ["-F811"]           # disable a plugin
 profile = "black"
 line_length = 120
 skip_glob = ["pyinjective/proto/*", ".idea/*"]
+
+
+[tool.black]
+line-length = 120
+target-version = ["py39", "py310", "py311"]
+# 'extend-exclude' excludes files or directories in addition to the defaults
+extend-exclude = '''
+# A regex preceded with ^/ will apply only to files and directories
+# in the root of the project.
+(
+  ^pyinjective/proto/.*
+  | \.idea/.*
+)
+'''
 
 
 [build-system]

@@ -79,8 +79,11 @@ def apply_orderbook_update(orderbook: Orderbook, updates):
 
     # ensure we have not missed any update
     if updates.sequence > (orderbook.sequence + 1):
-        raise Exception("missing orderbook update events from stream, must restart: {} vs {}".format(
-            updates.sequence, (orderbook.sequence + 1)))
+        raise Exception(
+            "missing orderbook update events from stream, must restart: {} vs {}".format(
+                updates.sequence, (orderbook.sequence + 1)
+            )
+        )
 
     print("updating orderbook with updates at sequence {}".format(updates.sequence))
 
@@ -91,9 +94,8 @@ def apply_orderbook_update(orderbook: Orderbook, updates):
             if level.is_active:
                 # upsert level
                 orderbook.levels[direction][level.price] = PriceLevel(
-                    price=Decimal(level.price),
-                    quantity=Decimal(level.quantity),
-                    timestamp=level.timestamp)
+                    price=Decimal(level.price), quantity=Decimal(level.quantity), timestamp=level.timestamp
+                )
             else:
                 if level.price in orderbook.levels[direction]:
                     del orderbook.levels[direction][level.price]
@@ -121,5 +123,5 @@ def apply_orderbook_update(orderbook: Orderbook, updates):
     print("====================================")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     asyncio.run(main())

@@ -11,5 +11,6 @@ async def main() -> None:
     orderbook = await client.get_spot_orderbookV2(market_id=market_id)
     print(orderbook)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

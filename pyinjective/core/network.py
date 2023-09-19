@@ -27,7 +27,6 @@ class CookieAssistant(ABC):
 
 
 class KubernetesLoadBalancedCookieAssistant(CookieAssistant):
-
     def __init__(self):
         self._chain_cookie: Optional[str] = None
         self._exchange_cookie: Optional[str] = None
@@ -84,15 +83,13 @@ class KubernetesLoadBalancedCookieAssistant(CookieAssistant):
         cookie = SimpleCookie()
         cookie.load(cookie_data)
 
-        expiration_time = datetime.datetime.strptime(cookie["GCLB"]["expires"],
-                                                     "%a, %d-%b-%Y %H:%M:%S %Z").timestamp()
+        expiration_time = datetime.datetime.strptime(cookie["GCLB"]["expires"], "%a, %d-%b-%Y %H:%M:%S %Z").timestamp()
 
         timestamp_diff = expiration_time - time.time()
         return timestamp_diff < self.SESSION_RENEWAL_OFFSET
 
 
 class BareMetalLoadBalancedCookieAssistant(CookieAssistant):
-
     def __init__(self):
         self._chain_cookie: Optional[str] = None
         self._exchange_cookie: Optional[str] = None
@@ -239,7 +236,7 @@ class Network:
             fee_denom="inj",
             env="testnet",
             cookie_assistant=cookie_assistant,
-            use_secure_connection=use_secure_connection
+            use_secure_connection=use_secure_connection,
         )
 
     @classmethod
@@ -309,16 +306,16 @@ class Network:
 
     @classmethod
     def custom(
-            cls,
-            lcd_endpoint,
-            tm_websocket_endpoint,
-            grpc_endpoint,
-            grpc_exchange_endpoint,
-            grpc_explorer_endpoint,
-            chain_id,
-            env,
-            cookie_assistant: Optional[CookieAssistant] = None,
-            use_secure_connection: bool = False,
+        cls,
+        lcd_endpoint,
+        tm_websocket_endpoint,
+        grpc_endpoint,
+        grpc_exchange_endpoint,
+        grpc_explorer_endpoint,
+        chain_id,
+        env,
+        cookie_assistant: Optional[CookieAssistant] = None,
+        use_secure_connection: bool = False,
     ):
         assistant = cookie_assistant or DisabledCookieAssistant()
         return cls(
@@ -331,7 +328,7 @@ class Network:
             fee_denom="inj",
             env=env,
             cookie_assistant=assistant,
-            use_secure_connection=use_secure_connection
+            use_secure_connection=use_secure_connection,
         )
 
     def string(self):

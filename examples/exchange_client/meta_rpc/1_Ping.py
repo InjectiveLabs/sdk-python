@@ -9,7 +9,8 @@ async def main() -> None:
     network = Network.testnet()
     client = AsyncClient(network)
     resp = await client.ping()
-    print('Health OK?', resp)
+    print("Health OK?", resp)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

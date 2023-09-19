@@ -13,13 +13,10 @@ async def main() -> None:
     limit = 3
     order_types = ["buy_po"]
     orders = await client.get_historical_spot_orders(
-        market_id=market_id,
-        subaccount_id=subaccount_id,
-        skip=skip,
-        limit=limit,
-        order_types=order_types
+        market_id=market_id, subaccount_id=subaccount_id, skip=skip, limit=limit, order_types=order_types
     )
     print(orders)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())
