@@ -218,11 +218,11 @@ class Network:
             cookie_assistant = BareMetalLoadBalancedCookieAssistant()
             use_secure_connection = True
         else:
-            lcd_endpoint = "https://testnet.lcd.injective.network"
-            tm_websocket_endpoint = "wss://testnet.tm.injective.network/websocket"
-            grpc_endpoint = "testnet.chain.grpc.injective.network"
-            grpc_exchange_endpoint = "testnet.exchange.grpc.injective.network"
-            grpc_explorer_endpoint = "testnet.explorer.grpc.injective.network"
+            lcd_endpoint = "https://testnet.lcd.injective.network:443"
+            tm_websocket_endpoint = "wss://testnet.tm.injective.network:443/websocket"
+            grpc_endpoint = "testnet.chain.grpc.injective.network:443"
+            grpc_exchange_endpoint = "testnet.exchange.grpc.injective.network:443"
+            grpc_explorer_endpoint = "testnet.explorer.grpc.injective.network:443"
             cookie_assistant = DisabledCookieAssistant()
             use_secure_connection = True
 
