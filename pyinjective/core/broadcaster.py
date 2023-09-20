@@ -1,19 +1,18 @@
+import math
 from abc import ABC, abstractmethod
 from decimal import Decimal
 from typing import List, Optional
 
-import math
 from google.protobuf import any_pb2
 
-from pyinjective import PrivateKey, Transaction, PublicKey
+from pyinjective import PrivateKey, PublicKey, Transaction
 from pyinjective.async_client import AsyncClient
 from pyinjective.composer import Composer
-from pyinjective.core.network import Network
 from pyinjective.core.gas_limit_estimator import GasLimitEstimator
+from pyinjective.core.network import Network
 
 
 class BroadcasterAccountConfig(ABC):
-
     @property
     @abstractmethod
     def trading_injective_address(self) -> str:
@@ -34,28 +33,28 @@ class BroadcasterAccountConfig(ABC):
         ...
 
 
-class TransactionFeeCalculator (ABC):
+class TransactionFeeCalculator(ABC):
     DEFAULT_GAS_PRICE = 500_000_000
 
     @abstractmethod
     async def configure_gas_fee_for_transaction(
-            self,
-            transaction: Transaction,
-            private_key: PrivateKey,
-            public_key: PublicKey,
+        self,
+        transaction: Transaction,
+        private_key: PrivateKey,
+        public_key: PublicKey,
     ):
         ...
 
 
 class MsgBroadcasterWithPk:
-
     def __init__(
-            self,
-            network: Network,
-            account_config: BroadcasterAccountConfig,
-            client: AsyncClient,
-            composer: Composer,
-            fee_calculator: TransactionFeeCalculator):
+        self,
+        network: Network,
+        account_config: BroadcasterAccountConfig,
+        client: AsyncClient,
+        composer: Composer,
+        fee_calculator: TransactionFeeCalculator,
+    ):
         self._network = network
         self._account_config = account_config
         self._client = client
@@ -64,19 +63,16 @@ class MsgBroadcasterWithPk:
 
     @classmethod
     def new_using_simulation(
-            cls,
-            network: Network,
-            private_key: str,
-            client: Optional[AsyncClient] = None,
-            composer: Optional[Composer] = None,
+        cls,
+        network: Network,
+        private_key: str,
+        client: Optional[AsyncClient] = None,
+        composer: Optional[Composer] = None,
     ):
         client = client or AsyncClient(network=network)
         composer = composer or Composer(network=client.network.string())
         account_config = StandardAccountBroadcasterConfig(private_key=private_key)
-        fee_calculator = SimulatedTransactionFeeCalculator(
-            client=client,
-            composer=composer
-        )
+        fee_calculator = SimulatedTransactionFeeCalculator(client=client, composer=composer)
         instance = cls(
             network=network,
             account_config=account_config,
@@ -88,19 +84,16 @@ class MsgBroadcasterWithPk:
 
     @classmethod
     def new_without_simulation(
-            cls,
-            network: Network,
-            private_key: str,
-            client: Optional[AsyncClient] = None,
-            composer: Optional[Composer] = None,
+        cls,
+        network: Network,
+        private_key: str,
+        client: Optional[AsyncClient] = None,
+        composer: Optional[Composer] = None,
     ):
         client = client or AsyncClient(network=network)
         composer = composer or Composer(network=client.network.string())
         account_config = StandardAccountBroadcasterConfig(private_key=private_key)
-        fee_calculator = MessageBasedTransactionFeeCalculator(
-            client=client,
-            composer=composer
-        )
+        fee_calculator = MessageBasedTransactionFeeCalculator(client=client, composer=composer)
         instance = cls(
             network=network,
             account_config=account_config,
@@ -112,19 +105,16 @@ class MsgBroadcasterWithPk:
 
     @classmethod
     def new_for_grantee_account_using_simulation(
-            cls,
-            network: Network,
-            grantee_private_key: str,
-            client: Optional[AsyncClient] = None,
-            composer: Optional[Composer] = None,
+        cls,
+        network: Network,
+        grantee_private_key: str,
+        client: Optional[AsyncClient] = None,
+        composer: Optional[Composer] = None,
     ):
         client = client or AsyncClient(network=network)
         composer = composer or Composer(network=client.network.string())
         account_config = GranteeAccountBroadcasterConfig(grantee_private_key=grantee_private_key, composer=composer)
-        fee_calculator = SimulatedTransactionFeeCalculator(
-            client=client,
-            composer=composer
-        )
+        fee_calculator = SimulatedTransactionFeeCalculator(client=client, composer=composer)
         instance = cls(
             network=network,
             account_config=account_config,
@@ -136,19 +126,16 @@ class MsgBroadcasterWithPk:
 
     @classmethod
     def new_for_grantee_account_without_simulation(
-            cls,
-            network: Network,
-            grantee_private_key: str,
-            client: Optional[AsyncClient] = None,
-            composer: Optional[Composer] = None,
+        cls,
+        network: Network,
+        grantee_private_key: str,
+        client: Optional[AsyncClient] = None,
+        composer: Optional[Composer] = None,
     ):
         client = client or AsyncClient(network=network)
         composer = composer or Composer(network=client.network.string())
         account_config = GranteeAccountBroadcasterConfig(grantee_private_key=grantee_private_key, composer=composer)
-        fee_calculator = MessageBasedTransactionFeeCalculator(
-            client=client,
-            composer=composer
-        )
+        fee_calculator = MessageBasedTransactionFeeCalculator(client=client, composer=composer)
         instance = cls(
             network=network,
             account_config=account_config,
@@ -189,7 +176,6 @@ class MsgBroadcasterWithPk:
 
 
 class StandardAccountBroadcasterConfig(BroadcasterAccountConfig):
-
     def __init__(self, private_key: str):
         self._private_key = PrivateKey.from_hex(private_key)
         self._public_key = self._private_key.to_public_key()
@@ -213,7 +199,6 @@ class StandardAccountBroadcasterConfig(BroadcasterAccountConfig):
 
 
 class GranteeAccountBroadcasterConfig(BroadcasterAccountConfig):
-
     def __init__(self, grantee_private_key: str, composer: Composer):
         self._grantee_private_key = PrivateKey.from_hex(grantee_private_key)
         self._grantee_public_key = self._grantee_private_key.to_public_key()
@@ -242,23 +227,23 @@ class GranteeAccountBroadcasterConfig(BroadcasterAccountConfig):
 
 
 class SimulatedTransactionFeeCalculator(TransactionFeeCalculator):
-
     def __init__(
-            self,
-            client: AsyncClient,
-            composer: Composer,
-            gas_price: Optional[int] = None,
-            gas_limit_adjustment_multiplier: Optional[Decimal] = None):
+        self,
+        client: AsyncClient,
+        composer: Composer,
+        gas_price: Optional[int] = None,
+        gas_limit_adjustment_multiplier: Optional[Decimal] = None,
+    ):
         self._client = client
         self._composer = composer
         self._gas_price = gas_price or self.DEFAULT_GAS_PRICE
         self._gas_limit_adjustment_multiplier = gas_limit_adjustment_multiplier or Decimal("1.3")
 
     async def configure_gas_fee_for_transaction(
-            self,
-            transaction: Transaction,
-            private_key: PrivateKey,
-            public_key: PublicKey,
+        self,
+        transaction: Transaction,
+        private_key: PrivateKey,
+        public_key: PublicKey,
     ):
         sim_sign_doc = transaction.get_sign_doc(public_key)
         sim_sig = private_key.sign(sim_sign_doc.SerializeToString())
@@ -285,20 +270,16 @@ class SimulatedTransactionFeeCalculator(TransactionFeeCalculator):
 class MessageBasedTransactionFeeCalculator(TransactionFeeCalculator):
     TRANSACTION_GAS_LIMIT = 60_000
 
-    def __init__(
-            self,
-            client: AsyncClient,
-            composer: Composer,
-            gas_price: Optional[int] = None):
+    def __init__(self, client: AsyncClient, composer: Composer, gas_price: Optional[int] = None):
         self._client = client
         self._composer = composer
         self._gas_price = gas_price or self.DEFAULT_GAS_PRICE
 
     async def configure_gas_fee_for_transaction(
-            self,
-            transaction: Transaction,
-            private_key: PrivateKey,
-            public_key: PublicKey,
+        self,
+        transaction: Transaction,
+        private_key: PrivateKey,
+        public_key: PublicKey,
     ):
         messages_gas_limit = math.ceil(self._calculate_gas_limit(messages=transaction.msgs))
         transaction_gas_limit = messages_gas_limit + self.TRANSACTION_GAS_LIMIT

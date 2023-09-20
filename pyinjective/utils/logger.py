@@ -8,7 +8,6 @@ logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 
 class LoggerProvider:
-
     def logger(self) -> Logger:
         return logging.getLogger(__name__)
 

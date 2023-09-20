@@ -1,8 +1,8 @@
 import asyncio
 
 from pyinjective.async_client import AsyncClient
-from pyinjective.transaction import Transaction
 from pyinjective.core.network import Network
+from pyinjective.transaction import Transaction
 from pyinjective.wallet import PrivateKey
 
 
@@ -19,21 +19,21 @@ async def main() -> None:
     priv_key = PrivateKey.from_hex("f9db9bf330e23cb7839039e944adef6e9df447b90b503d5b4464c90bea9022f3")
     pub_key = priv_key.to_public_key()
     address = pub_key.to_address()
-    account = await client.get_account(address.to_acc_bech32())
-    subaccount_id = address.get_subaccount_id(index=0)
-    market_ids = ["0x0511ddc4e6586f3bfe1acb2dd905f8b8a82c97e1edaef654b12ca7e6031ca0fa"]
+    await client.get_account(address.to_acc_bech32())
+    # subaccount_id = address.get_subaccount_id(index=0)
+    # market_ids = ["0x0511ddc4e6586f3bfe1acb2dd905f8b8a82c97e1edaef654b12ca7e6031ca0fa"]
 
     # prepare tx msg
 
-    #GENERIC AUTHZ
+    # GENERIC AUTHZ
     msg = composer.MsgGrantGeneric(
-        granter = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
-        grantee = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku",
-        msg_type = "/injective.exchange.v1beta1.MsgCreateSpotLimitOrder",
-        expire_in=31536000 # 1 year
+        granter="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
+        grantee="inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku",
+        msg_type="/injective.exchange.v1beta1.MsgCreateSpotLimitOrder",
+        expire_in=31536000,  # 1 year
     )
 
-    #TYPED AUTHZ
+    # TYPED AUTHZ
     # msg = composer.MsgGrantTyped(
     #     granter = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku",
     #     grantee = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
@@ -63,13 +63,15 @@ async def main() -> None:
 
     # build tx
     gas_price = 500000000
-    gas_limit = sim_res.gas_info.gas_used + 20000 # add 20k for gas, fee computation
-    gas_fee = '{:.18f}'.format((gas_price * gas_limit) / pow(10, 18)).rstrip('0')
-    fee = [composer.Coin(
-        amount=gas_price * gas_limit,
-        denom=network.fee_denom,
-    )]
-    tx = tx.with_gas(gas_limit).with_fee(fee).with_memo('').with_timeout_height(client.timeout_height)
+    gas_limit = sim_res.gas_info.gas_used + 20000  # add 20k for gas, fee computation
+    gas_fee = "{:.18f}".format((gas_price * gas_limit) / pow(10, 18)).rstrip("0")
+    fee = [
+        composer.Coin(
+            amount=gas_price * gas_limit,
+            denom=network.fee_denom,
+        )
+    ]
+    tx = tx.with_gas(gas_limit).with_fee(fee).with_memo("").with_timeout_height(client.timeout_height)
     sign_doc = tx.get_sign_doc(pub_key)
     sig = priv_key.sign(sign_doc.SerializeToString())
     tx_raw_bytes = tx.get_tx_data(sig, pub_key)
