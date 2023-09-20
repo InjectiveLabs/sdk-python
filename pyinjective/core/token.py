@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from decimal import Decimal
 
+
 @dataclass(eq=True, frozen=True)
 class Token:
     name: str

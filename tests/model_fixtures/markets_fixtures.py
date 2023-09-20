@@ -1,5 +1,6 @@
-import pytest
 from decimal import Decimal
+
+import pytest
 
 from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from pyinjective.core.token import Token
@@ -89,6 +90,7 @@ def btc_usdt_perp_market(usdt_perp_token):
     )
 
     return market
+
 
 @pytest.fixture
 def first_match_bet_market(usdt_token):

@@ -19,9 +19,14 @@ class GasLimitEstimator(ABC):
 
     @classmethod
     def for_message(cls, message: any_pb2.Any):
-        estimator_class = next((estimator_subclass for estimator_subclass in cls.__subclasses__()
-                                if estimator_subclass.applies_to(message=message)),
-                               None)
+        estimator_class = next(
+            (
+                estimator_subclass
+                for estimator_subclass in cls.__subclasses__()
+                if estimator_subclass.applies_to(message=message)
+            ),
+            None,
+        )
         if estimator_class is None:
             estimator = DefaultGasLimitEstimator()
         else:
@@ -180,15 +185,21 @@ class BatchUpdateOrdersGasLimitEstimator(GasLimitEstimator):
         total += len(self._message.derivative_orders_to_cancel) * self.DERIVATIVE_ORDER_CANCELATION_GAS_LIMIT
         total += len(self._message.binary_options_orders_to_cancel) * self.DERIVATIVE_ORDER_CANCELATION_GAS_LIMIT
 
-        total += (len(self._message.spot_market_ids_to_cancel_all)
-                  * self.CANCEL_ALL_SPOT_MARKET_GAS_LIMIT
-                  * self.AVERAGE_CANCEL_ALL_AFFECTED_ORDERS)
-        total += (len(self._message.derivative_market_ids_to_cancel_all)
-                  * self.CANCEL_ALL_DERIVATIVE_MARKET_GAS_LIMIT
-                  * self.AVERAGE_CANCEL_ALL_AFFECTED_ORDERS)
-        total += (len(self._message.binary_options_market_ids_to_cancel_all)
-                  * self.CANCEL_ALL_DERIVATIVE_MARKET_GAS_LIMIT
-                  * self.AVERAGE_CANCEL_ALL_AFFECTED_ORDERS)
+        total += (
+            len(self._message.spot_market_ids_to_cancel_all)
+            * self.CANCEL_ALL_SPOT_MARKET_GAS_LIMIT
+            * self.AVERAGE_CANCEL_ALL_AFFECTED_ORDERS
+        )
+        total += (
+            len(self._message.derivative_market_ids_to_cancel_all)
+            * self.CANCEL_ALL_DERIVATIVE_MARKET_GAS_LIMIT
+            * self.AVERAGE_CANCEL_ALL_AFFECTED_ORDERS
+        )
+        total += (
+            len(self._message.binary_options_market_ids_to_cancel_all)
+            * self.CANCEL_ALL_DERIVATIVE_MARKET_GAS_LIMIT
+            * self.AVERAGE_CANCEL_ALL_AFFECTED_ORDERS
+        )
 
         return total
 
@@ -207,8 +218,9 @@ class ExecGasLimitEstimator(GasLimitEstimator):
         return cls.message_type(message=message).endswith("MsgExec")
 
     def gas_limit(self) -> int:
-        total = sum([GasLimitEstimator.for_message(message=inner_message).gas_limit()
-                     for inner_message in self._message.msgs])
+        total = sum(
+            [GasLimitEstimator.for_message(message=inner_message).gas_limit() for inner_message in self._message.msgs]
+        )
         total += self.DEFAULT_GAS_LIMIT
 
         return total
@@ -218,7 +230,6 @@ class ExecGasLimitEstimator(GasLimitEstimator):
 
 
 class PrivilegedExecuteContractGasLimitEstimator(GasLimitEstimator):
-
     def __init__(self, message: any_pb2.Any):
         self._message = self._parsed_message(message=message)
 
@@ -234,7 +245,6 @@ class PrivilegedExecuteContractGasLimitEstimator(GasLimitEstimator):
 
 
 class ExecuteContractGasLimitEstimator(GasLimitEstimator):
-
     def __init__(self, message: any_pb2.Any):
         self._message = self._parsed_message(message=message)
 
@@ -250,7 +260,6 @@ class ExecuteContractGasLimitEstimator(GasLimitEstimator):
 
 
 class GeneralWasmGasLimitEstimator(GasLimitEstimator):
-
     def __init__(self, message: any_pb2.Any):
         self._message = self._parsed_message(message=message)
 
@@ -266,7 +275,6 @@ class GeneralWasmGasLimitEstimator(GasLimitEstimator):
 
 
 class GovernanceGasLimitEstimator(GasLimitEstimator):
-
     def __init__(self, message: any_pb2.Any):
         self._message = self._parsed_message(message=message)
 
@@ -274,7 +282,7 @@ class GovernanceGasLimitEstimator(GasLimitEstimator):
     def applies_to(cls, message: any_pb2.Any) -> bool:
         message_type = cls.message_type(message=message)
         return "gov." in message_type and (
-                message_type.endswith("MsgDeposit") or message_type.endswith("MsgSubmitProposal")
+            message_type.endswith("MsgDeposit") or message_type.endswith("MsgSubmitProposal")
         )
 
     def gas_limit(self) -> int:

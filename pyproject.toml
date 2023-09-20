@@ -1,0 +1,106 @@
+[tool.poetry]
+name = "injective-py"
+version = "0.9.0"
+description = "Injective Python SDK, with Exchange API Client"
+authors = ["Injective Labs <contact@injectivelabs.org>"]
+license = "Apache-2.0"
+readme = "README.md"
+homepage = "https://injectivelabs.org/"
+repository = "https://github.com/InjectiveLabs/sdk-python"
+documentation = "https://api.injective.exchange/"
+keywords = ["injective", "blockchain", "cosmos", "injectivelabs"]
+classifiers = [
+    "Intended Audience :: Developers",
+]
+packages = [
+    { include = "pyinjective" },
+]
+include = [
+    { path = "pyinjective/proto/**/*.py" },
+    { path = "*.ini" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+aiocron = "*"
+aiohttp = "*"
+asyncio = "*"
+bech32 = "*"
+bip32 = "*"
+coincurve = "*"
+ecdsa = "*"
+eip712 = "*"
+grpcio = "*"
+grpcio-tools = "*"
+hdwallets = "*"
+mnemonic = "*"
+protobuf = "*"
+requests = "*"
+safe-pysha3 = "*"
+urllib3 = "<2"
+websockets = "*"
+web3 = "^6.0"
+
+[tool.poetry.group.test.dependencies]
+pytest = "*"
+pytest-asyncio = "*"
+pytest-grpc = "*"
+requests-mock = "*"
+pytest-cov = "^4.1.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.4.0"
+flakeheaven = "^3.3.0"
+isort = "^5.12.0"
+black = "^23.9.1"
+
+
+[tool.flakeheaven]
+exclude = ["pyinjective/proto/*", ".idea/*"]
+max_line_length = 120
+
+
+# list of plugins and rules for them
+[tool.flakeheaven.plugins]
+pycodestyle = ["+*", "-W503"]
+pyflakes = ["+*"]
+
+[tool.flakeheaven.exceptions."tests/"]
+pyflakes = ["-F811"]           # disable a plugin
+
+
+[tool.isort]
+profile = "black"
+line_length = 120
+skip_glob = ["pyinjective/proto/*", ".idea/*"]
+
+
+[tool.black]
+line-length = 120
+target-version = ["py39", "py310", "py311"]
+include = '\.pyi?$'
+# 'extend-exclude' excludes files or directories in addition to the defaults
+extend-exclude = '''
+# A regex preceded with ^/ will apply only to files and directories
+# in the root of the project.
+(
+  ^pyinjective/proto/.*
+  | \.idea/.*
+)
+'''
+
+[tool.coverage.run]
+branch = true
+source_pkgs = ["pyinjective"]
+omit = ["pyinjective/proto/*"]
+
+[tool.coverage.report]
+skip_empty = true
+fail_under = 52
+precision = 2
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

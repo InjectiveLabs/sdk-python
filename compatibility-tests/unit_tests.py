@@ -1,29 +1,21 @@
-import pytest
-import aiohttp
-import json
-import ecdsa
-import sha3
-import grpc
 import base64
-
+import json
 from typing import Any, Dict, List
-from injective.chain_client._wallet import (
-    generate_wallet,
-    privkey_to_address,
-    privkey_to_pubkey,
-    pubkey_to_address,
-    seed_to_privkey,
-    DEFAULT_BECH32_HRP,
-)
 
-from injective.chain_client._typings import SyncMode
+import aiohttp
+import ecdsa
+import grpc
 import injective.exchange_api.injective_accounts_rpc_pb2 as accounts_rpc_pb
 import injective.exchange_api.injective_accounts_rpc_pb2_grpc as accounts_rpc_grpc
+import pytest
+import sha3
+from injective.chain_client._typings import SyncMode
+from injective.chain_client._wallet import DEFAULT_BECH32_HRP, privkey_to_address, privkey_to_pubkey, seed_to_privkey
 
 MIN_GAS_PRICE = 500000000
 
-class Transaction:
 
+class Transaction:
     def __init__(
         self,
         *,
@@ -49,7 +41,6 @@ class Transaction:
         self._hrp = hrp
         self._sync_mode = sync_mode
         self._msgs: List[dict] = []
-
 
     def add_cosmos_bank_msg_send(self, recipient: str, amount: int, denom: str = "inj") -> None:
         msg = {
@@ -100,17 +91,14 @@ class Transaction:
         return json.dumps(signed_tx, separators=(",", ":"))
 
     def _sign(self) -> str:
-        message_str = json.dumps(
-            self._get_sign_message(), separators=(",", ":"), sort_keys=True)
+        message_str = json.dumps(self._get_sign_message(), separators=(",", ":"), sort_keys=True)
         message_bytes = message_str.encode("utf-8")
 
-        privkey = ecdsa.SigningKey.from_string(
-            self._privkey, curve=ecdsa.SECP256k1)
+        privkey = ecdsa.SigningKey.from_string(self._privkey, curve=ecdsa.SECP256k1)
         signature_compact_keccak = privkey.sign_deterministic(
             message_bytes, hashfunc=sha3.keccak_256, sigencode=ecdsa.util.sigencode_string_canonize
         )
-        signature_base64_str = base64.b64encode(
-            signature_compact_keccak).decode("utf-8")
+        signature_base64_str = base64.b64encode(signature_compact_keccak).decode("utf-8")
         return signature_base64_str
 
     def _get_sign_message(self) -> Dict[str, Any]:
@@ -130,49 +118,54 @@ class Transaction:
 async def get_account_num_seq(address: str) -> (int, int):
     async with aiohttp.ClientSession() as session:
         async with session.request(
-            'GET', 'http://staking-lcd-testnet.injective.network/cosmos/auth/v1beta1/accounts/' + address,
-            headers={'Accept-Encoding': 'application/json'},
+            "GET",
+            "http://staking-lcd-testnet.injective.network/cosmos/auth/v1beta1/accounts/" + address,
+            headers={"Accept-Encoding": "application/json"},
         ) as response:
             if response.status != 200:
                 print(await response.text())
                 raise ValueError("HTTP response status", response.status)
 
             resp = json.loads(await response.text())
-            acc = resp['account']['base_account']
-            return acc['account_number'], acc['sequence']
+            acc = resp["account"]["base_account"]
+            return acc["account_number"], acc["sequence"]
+
 
 async def post_tx(tx_json: str):
     async with aiohttp.ClientSession() as session:
         async with session.request(
-            'POST', 'http://staking-lcd-testnet.injective.network/txs', data=tx_json,
-            headers={'Content-Type': 'application/json'},
+            "POST",
+            "http://staking-lcd-testnet.injective.network/txs",
+            data=tx_json,
+            headers={"Content-Type": "application/json"},
         ) as response:
             if response.status != 200:
                 print(await response.text())
                 raise ValueError("HTTP response status", response.status)
 
             resp = json.loads(await response.text())
-            if 'code' in resp:
+            if "code" in resp:
                 print("Response:", resp)
-                raise ValueError('sdk error %d: %s' % (resp['code'], resp['raw_log']))
+                raise ValueError("sdk error %d: %s" % (resp["code"], resp["raw_log"]))
 
-            return resp['txhash']
+            return resp["txhash"]
+
 
 @pytest.fixture
 async def msg_send():
-    sender_pk = seed_to_privkey(
-        "physical page glare junk return scale subject river token door mirror title"
-    )
+    sender_pk = seed_to_privkey("physical page glare junk return scale subject river token door mirror title")
     sender_acc_addr = privkey_to_address(sender_pk)
     print("Sender Account:", sender_acc_addr)
 
     acc_num, acc_seq = await get_account_num_seq(sender_acc_addr)
 
-    async with grpc.aio.insecure_channel('testnet-sentry0.injective.network:9910') as channel:
+    async with grpc.aio.insecure_channel("testnet-sentry0.injective.network:9910") as channel:
         accounts_rpc = accounts_rpc_grpc.InjectiveAccountsRPCStub(channel)
         account_addr = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku"
 
-        subacc = await accounts_rpc.SubaccountsList(accounts_rpc_pb.SubaccountsListRequest(account_address = account_addr))
+        subacc = await accounts_rpc.SubaccountsList(
+            accounts_rpc_pb.SubaccountsListRequest(account_address=account_addr)
+        )
         for sub in subacc.subaccounts:
             print("Primary subaccount:", sub)
             break
@@ -191,7 +184,7 @@ async def msg_send():
         denom="inj",
     )
     tx.add_exchange_msg_deposit(
-        subaccount= sub,
+        subaccount=sub,
         amount=10000000000000000,
         denom="inj",
     )
@@ -203,6 +196,7 @@ async def msg_send():
     print("Sent Tx:", tx_result)
 
     return len(tx_result)
+
 
 @pytest.mark.asyncio
 async def test_msg_send(msg_send):

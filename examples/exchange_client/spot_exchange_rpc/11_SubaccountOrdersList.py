@@ -1,5 +1,4 @@
 import asyncio
-import logging
 
 from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
@@ -14,12 +13,10 @@ async def main() -> None:
     skip = 10
     limit = 10
     orders = await client.get_spot_subaccount_orders(
-        subaccount_id=subaccount_id,
-        market_id=market_id,
-        skip=skip,
-        limit=limit
+        subaccount_id=subaccount_id, market_id=market_id, skip=skip, limit=limit
     )
     print(orders)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

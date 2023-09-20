@@ -1,5 +1,7 @@
 ## Injective Python SDK
 
+[![codecov](https://codecov.io/gh/InjectiveLabs/sdk-python/graph/badge.svg?token=RBGK98G6F1)](https://codecov.io/gh/InjectiveLabs/sdk-python)
+
 ### Dependencies
 
 **Ubuntu**
@@ -24,20 +26,20 @@ pip install injective-py
 ```
 
 ### Usage
-Requires Python 3.7+
+Requires Python 3.9+
+Please install `poetry` following the steps described in the [documentation](https://python-poetry.org/docs/#installation)
 
 [Examples](https://github.com/InjectiveLabs/sdk-python/tree/master/examples)
 ```bash
-$ pipenv shell
-$ pipenv install
+$ poetry install
 
 # connecting to Injective Exchange API
 # and listening for new orders from a specific spot market
-$ python examples/exchange_client/spot_exchange_rpc/8_StreamOrders.py
+$ poetry run python examples/exchange_client/spot_exchange_rpc/8_StreamOrders.py
 
 # sending a msg with bank transfer
 # signs and posts a transaction to the Injective Chain
-$ python examples/chain_client/1_MsgSend.py
+$ poetry run python examples/chain_client/1_MsgSend.py
 ```
 Upgrade `pip` to the latest version, if you see these warnings:
   ```
@@ -49,16 +51,10 @@ Upgrade `pip` to the latest version, if you see these warnings:
 1. Generate proto binding & build
   ```
   make gen
-  python -m build
+  poetry build
   ```
 
-2. Enable dev env
-  ```
-  pipenv shell
-  pipenv install --dev
-  ```
-
-3. Install pkg
+2. Install pkg
   ```
   # from local build
   pip uninstall injective-py
@@ -69,24 +65,25 @@ Upgrade `pip` to the latest version, if you see these warnings:
   pip install injective-py
   ```
 
-4. Fetch latest denom config
+3. Fetch latest denom config
 ```
-python pyinjective/fetch_metadata.py
+poetry run python pyinjective/fetch_metadata.py
 ```
 
 Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/master/pyinjective/client.py) has been deprecated as of April 18, 2022. If you are using the sync client please make sure to transition to the [async client](https://github.com/InjectiveLabs/sdk-python/blob/master/pyinjective/async_client.py), for more information read [here](https://github.com/InjectiveLabs/sdk-python/issues/101)
 
-5. Install the development environment (requires `pipenv`)
+4. Run all unit tests in a development environment
 ```
-pipenv install -d
-```
-
-6. Run all unit tests in a development environment
-```
-make tests
+poetry run pytest -v
 ```
 
 ### Changelogs
+**0.9.0**
+* Improvement in broadcaster to initialize the account sequence number and the timeout height only when required
+* Replace Pipenv with Poetry
+* Add pre-commit validations to the project
+* Add a GitHub workflow to run all tests and calculate coverage for each PR
+
 **0.8.5**
 * Added NEOK/USDT and ORAI/USDT spot markets to the mainnet .ini file
 
@@ -264,5 +261,4 @@ Copyright © 2021 - 2022 Injective Labs Inc. (https://injectivelabs.org/)
 Originally released by Injective Labs Inc. under: <br />
 Apache License <br />
 Version 2.0, January 2004 <br />
-http://www.apache.org/licenses/ 
-
+http://www.apache.org/licenses/
