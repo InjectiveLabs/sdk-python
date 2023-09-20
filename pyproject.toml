@@ -3,8 +3,15 @@ name = "injective-py"
 version = "0.9.dev"
 description = "Injective Python SDK, with Exchange API Client"
 authors = ["Injective Labs <contact@injectivelabs.org>"]
-license = "Apache Software License 2.0"
+license = "Apache-2.0"
 readme = "README.md"
+homepage = "https://injectivelabs.org/"
+repository = "https://github.com/InjectiveLabs/sdk-python"
+documentation = "https://api.injective.exchange/"
+keywords = ["injective", "blockchain", "cosmos", "injectivelabs"]
+classifiers = [
+    "Intended Audience :: Developers",
+]
 packages = [
     { include = "pyinjective" },
 ]
