@@ -78,7 +78,8 @@ poetry run pytest -v
 ```
 
 ### Changelogs
-**0.9**
+**0.9.0**
+* Improvement in broadcaster to initialize the account sequence number and the timeout height only when required
 * Replace Pipenv with Poetry
 * Add pre-commit validations to the project
 * Add a GitHub workflow to run all tests and calculate coverage for each PR
