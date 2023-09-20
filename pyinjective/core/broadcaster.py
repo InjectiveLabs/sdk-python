@@ -146,8 +146,12 @@ class MsgBroadcasterWithPk:
         return instance
 
     async def broadcast(self, messages: List[any_pb2.Any]):
-        await self._client.sync_timeout_height()
-        await self._client.get_account(self._account_config.trading_injective_address)
+        # Only force initialization of timeout_height and account info (number and sequence) if they are not initialized
+        # Done this way to allow users to handle timeout_height and sequence re-synchronization in case of errors
+        if self._client.timeout_height == 1:
+            await self._client.sync_timeout_height()
+        if self._client.number == 0:
+            await self._client.get_account(self._account_config.trading_injective_address)
 
         messages_for_transaction = self._account_config.messages_prepared_for_transaction(messages=messages)
 
