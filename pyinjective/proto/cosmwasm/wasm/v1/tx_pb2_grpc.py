@@ -90,6 +90,16 @@ class MsgStub(object):
                 request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgAddCodeUploadParamsAddresses.SerializeToString,
                 response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgAddCodeUploadParamsAddressesResponse.FromString,
                 )
+        self.StoreAndMigrateContract = channel.unary_unary(
+                '/cosmwasm.wasm.v1.Msg/StoreAndMigrateContract',
+                request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndMigrateContract.SerializeToString,
+                response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndMigrateContractResponse.FromString,
+                )
+        self.UpdateContractLabel = channel.unary_unary(
+                '/cosmwasm.wasm.v1.Msg/UpdateContractLabel',
+                request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateContractLabel.SerializeToString,
+                response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateContractLabelResponse.FromString,
+                )
 
 
 class MsgServicer(object):
@@ -134,7 +144,7 @@ class MsgServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def UpdateAdmin(self, request, context):
-        """UpdateAdmin sets a new   admin for a smart contract
+        """UpdateAdmin sets a new admin for a smart contract
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -222,6 +232,25 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def StoreAndMigrateContract(self, request, context):
+        """StoreAndMigrateContract defines a governance operation for storing
+        and migrating the contract. The authority is defined in the keeper.
+
+        Since: 0.42
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateContractLabel(self, request, context):
+        """UpdateContractLabel sets a new label for a smart contract
+
+        Since: 0.43
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -299,6 +328,16 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.AddCodeUploadParamsAddresses,
                     request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgAddCodeUploadParamsAddresses.FromString,
                     response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgAddCodeUploadParamsAddressesResponse.SerializeToString,
+            ),
+            'StoreAndMigrateContract': grpc.unary_unary_rpc_method_handler(
+                    servicer.StoreAndMigrateContract,
+                    request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndMigrateContract.FromString,
+                    response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndMigrateContractResponse.SerializeToString,
+            ),
+            'UpdateContractLabel': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateContractLabel,
+                    request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateContractLabel.FromString,
+                    response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateContractLabelResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -563,5 +602,39 @@ class Msg(object):
         return grpc.experimental.unary_unary(request, target, '/cosmwasm.wasm.v1.Msg/AddCodeUploadParamsAddresses',
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgAddCodeUploadParamsAddresses.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgAddCodeUploadParamsAddressesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def StoreAndMigrateContract(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/cosmwasm.wasm.v1.Msg/StoreAndMigrateContract',
+            cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndMigrateContract.SerializeToString,
+            cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndMigrateContractResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def UpdateContractLabel(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/cosmwasm.wasm.v1.Msg/UpdateContractLabel',
+            cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateContractLabel.SerializeToString,
+            cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateContractLabelResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

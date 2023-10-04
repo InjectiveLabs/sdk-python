@@ -11,13 +11,14 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
+from amino import amino_pb2 as amino_dot_amino__pb2
 from cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
 from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from ibc.core.channel.v1 import channel_pb2 as ibc_dot_core_dot_channel_dot_v1_dot_channel__pb2
 from cosmos.msg.v1 import msg_pb2 as cosmos_dot_msg_dot_v1_dot_msg__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n!ibc/applications/fee/v1/fee.proto\x12\x17ibc.applications.fee.v1\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a\x14gogoproto/gogo.proto\x1a!ibc/core/channel/v1/channel.proto\x1a\x17\x63osmos/msg/v1/msg.proto\"\xa4\x02\n\x03\x46\x65\x65\x12]\n\x08recv_fee\x18\x01 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins\x12\\\n\x07\x61\x63k_fee\x18\x02 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins\x12`\n\x0btimeout_fee\x18\x03 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins\"{\n\tPacketFee\x12/\n\x03\x66\x65\x65\x18\x01 \x01(\x0b\x32\x1c.ibc.applications.fee.v1.FeeB\x04\xc8\xde\x1f\x00\x12\x16\n\x0erefund_address\x18\x02 \x01(\t\x12\x10\n\x08relayers\x18\x03 \x03(\t:\x13\x82\xe7\xb0*\x0erefund_address\"K\n\nPacketFees\x12=\n\x0bpacket_fees\x18\x01 \x03(\x0b\x32\".ibc.applications.fee.v1.PacketFeeB\x04\xc8\xde\x1f\x00\"\x8d\x01\n\x14IdentifiedPacketFees\x12\x36\n\tpacket_id\x18\x01 \x01(\x0b\x32\x1d.ibc.core.channel.v1.PacketIdB\x04\xc8\xde\x1f\x00\x12=\n\x0bpacket_fees\x18\x02 \x03(\x0b\x32\".ibc.applications.fee.v1.PacketFeeB\x04\xc8\xde\x1f\x00\x42\x37Z5github.com/cosmos/ibc-go/v8/modules/apps/29-fee/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n!ibc/applications/fee/v1/fee.proto\x12\x17ibc.applications.fee.v1\x1a\x11\x61mino/amino.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a\x14gogoproto/gogo.proto\x1a!ibc/core/channel/v1/channel.proto\x1a\x17\x63osmos/msg/v1/msg.proto\"\xd7\x02\n\x03\x46\x65\x65\x12n\n\x08recv_fee\x18\x01 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinBA\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins\x9a\xe7\xb0*\x0clegacy_coins\x12m\n\x07\x61\x63k_fee\x18\x02 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinBA\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins\x9a\xe7\xb0*\x0clegacy_coins\x12q\n\x0btimeout_fee\x18\x03 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinBA\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins\x9a\xe7\xb0*\x0clegacy_coins\"{\n\tPacketFee\x12/\n\x03\x66\x65\x65\x18\x01 \x01(\x0b\x32\x1c.ibc.applications.fee.v1.FeeB\x04\xc8\xde\x1f\x00\x12\x16\n\x0erefund_address\x18\x02 \x01(\t\x12\x10\n\x08relayers\x18\x03 \x03(\t:\x13\x82\xe7\xb0*\x0erefund_address\"K\n\nPacketFees\x12=\n\x0bpacket_fees\x18\x01 \x03(\x0b\x32\".ibc.applications.fee.v1.PacketFeeB\x04\xc8\xde\x1f\x00\"\x8d\x01\n\x14IdentifiedPacketFees\x12\x36\n\tpacket_id\x18\x01 \x01(\x0b\x32\x1d.ibc.core.channel.v1.PacketIdB\x04\xc8\xde\x1f\x00\x12=\n\x0bpacket_fees\x18\x02 \x03(\x0b\x32\".ibc.applications.fee.v1.PacketFeeB\x04\xc8\xde\x1f\x00\x42\x37Z5github.com/cosmos/ibc-go/v8/modules/apps/29-fee/typesb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -27,11 +28,11 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z5github.com/cosmos/ibc-go/v8/modules/apps/29-fee/types'
   _FEE.fields_by_name['recv_fee']._options = None
-  _FEE.fields_by_name['recv_fee']._serialized_options = b'\310\336\037\000\252\337\037(github.com/cosmos/cosmos-sdk/types.Coins'
+  _FEE.fields_by_name['recv_fee']._serialized_options = b'\310\336\037\000\252\337\037(github.com/cosmos/cosmos-sdk/types.Coins\232\347\260*\014legacy_coins'
   _FEE.fields_by_name['ack_fee']._options = None
-  _FEE.fields_by_name['ack_fee']._serialized_options = b'\310\336\037\000\252\337\037(github.com/cosmos/cosmos-sdk/types.Coins'
+  _FEE.fields_by_name['ack_fee']._serialized_options = b'\310\336\037\000\252\337\037(github.com/cosmos/cosmos-sdk/types.Coins\232\347\260*\014legacy_coins'
   _FEE.fields_by_name['timeout_fee']._options = None
-  _FEE.fields_by_name['timeout_fee']._serialized_options = b'\310\336\037\000\252\337\037(github.com/cosmos/cosmos-sdk/types.Coins'
+  _FEE.fields_by_name['timeout_fee']._serialized_options = b'\310\336\037\000\252\337\037(github.com/cosmos/cosmos-sdk/types.Coins\232\347\260*\014legacy_coins'
   _PACKETFEE.fields_by_name['fee']._options = None
   _PACKETFEE.fields_by_name['fee']._serialized_options = b'\310\336\037\000'
   _PACKETFEE._options = None
@@ -42,12 +43,12 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _IDENTIFIEDPACKETFEES.fields_by_name['packet_id']._serialized_options = b'\310\336\037\000'
   _IDENTIFIEDPACKETFEES.fields_by_name['packet_fees']._options = None
   _IDENTIFIEDPACKETFEES.fields_by_name['packet_fees']._serialized_options = b'\310\336\037\000'
-  _globals['_FEE']._serialized_start=177
-  _globals['_FEE']._serialized_end=469
-  _globals['_PACKETFEE']._serialized_start=471
-  _globals['_PACKETFEE']._serialized_end=594
-  _globals['_PACKETFEES']._serialized_start=596
-  _globals['_PACKETFEES']._serialized_end=671
-  _globals['_IDENTIFIEDPACKETFEES']._serialized_start=674
-  _globals['_IDENTIFIEDPACKETFEES']._serialized_end=815
+  _globals['_FEE']._serialized_start=196
+  _globals['_FEE']._serialized_end=539
+  _globals['_PACKETFEE']._serialized_start=541
+  _globals['_PACKETFEE']._serialized_end=664
+  _globals['_PACKETFEES']._serialized_start=666
+  _globals['_PACKETFEES']._serialized_end=741
+  _globals['_IDENTIFIEDPACKETFEES']._serialized_start=744
+  _globals['_IDENTIFIEDPACKETFEES']._serialized_end=885
 # @@protoc_insertion_point(module_scope)
