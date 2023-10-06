@@ -244,9 +244,6 @@ class Network:
         nodes = [
             "lb",  # us, asia, prod
             "lb_k8s",
-            "sentry0",  # ca, prod
-            "sentry1",  # ca, prod
-            "sentry3",  # us, prod
         ]
         if node not in nodes:
             raise ValueError("Must be one of {}".format(nodes))
@@ -259,7 +256,7 @@ class Network:
             grpc_explorer_endpoint = "sentry.explorer.grpc.injective.network:443"
             cookie_assistant = BareMetalLoadBalancedCookieAssistant()
             use_secure_connection = True
-        elif node == "lb_k8s":
+        else:
             lcd_endpoint = "https://k8s.global.mainnet.lcd.injective.network:443"
             tm_websocket_endpoint = "wss://k8s.global.mainnet.tm.injective.network:443/websocket"
             grpc_endpoint = "k8s.global.mainnet.chain.grpc.injective.network:443"
@@ -267,14 +264,6 @@ class Network:
             grpc_explorer_endpoint = "k8s.global.mainnet.explorer.grpc.injective.network:443"
             cookie_assistant = KubernetesLoadBalancedCookieAssistant()
             use_secure_connection = True
-        else:
-            lcd_endpoint = f"http://{node}.injective.network:10337"
-            tm_websocket_endpoint = f"ws://{node}.injective.network:26657/websocket"
-            grpc_endpoint = f"{node}.injective.network:9900"
-            grpc_exchange_endpoint = f"{node}.injective.network:9910"
-            grpc_explorer_endpoint = f"{node}.injective.network:9911"
-            cookie_assistant = DisabledCookieAssistant()
-            use_secure_connection = False
 
         return cls(
             lcd_endpoint=lcd_endpoint,
