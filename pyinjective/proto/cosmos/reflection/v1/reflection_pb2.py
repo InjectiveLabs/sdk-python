@@ -21,7 +21,6 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'cosmos.reflection.v1.reflection_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
-
   DESCRIPTOR._options = None
   _REFLECTIONSERVICE.methods_by_name['FileDescriptors']._options = None
   _REFLECTIONSERVICE.methods_by_name['FileDescriptors']._serialized_options = b'\210\347\260*\000'

@@ -27,7 +27,6 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'ibc.lightclients.tendermint.v1.tendermint_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
-
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'ZJgithub.com/cosmos/ibc-go/v8/modules/light-clients/07-tendermint;tendermint'
   _CLIENTSTATE.fields_by_name['trust_level']._options = None

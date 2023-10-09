@@ -20,12 +20,6 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'amino.amino_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
-  google_dot_protobuf_dot_descriptor__pb2.MessageOptions.RegisterExtension(name)
-  google_dot_protobuf_dot_descriptor__pb2.MessageOptions.RegisterExtension(message_encoding)
-  google_dot_protobuf_dot_descriptor__pb2.FieldOptions.RegisterExtension(encoding)
-  google_dot_protobuf_dot_descriptor__pb2.FieldOptions.RegisterExtension(field_name)
-  google_dot_protobuf_dot_descriptor__pb2.FieldOptions.RegisterExtension(dont_omitempty)
-
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z+github.com/cosmos/cosmos-sdk/types/tx/amino'
 # @@protoc_insertion_point(module_scope)

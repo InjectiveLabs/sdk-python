@@ -24,7 +24,6 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'injective.insurance.v1beta1.insurance_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
-
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'ZOgithub.com/InjectiveLabs/injective-core/injective-chain/modules/insurance/types'
   _PARAMS.fields_by_name['default_redemption_notice_period_duration']._options = None

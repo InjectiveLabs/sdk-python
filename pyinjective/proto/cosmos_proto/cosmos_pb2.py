@@ -20,12 +20,6 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'cosmos_proto.cosmos_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
-  google_dot_protobuf_dot_descriptor__pb2.MessageOptions.RegisterExtension(implements_interface)
-  google_dot_protobuf_dot_descriptor__pb2.FieldOptions.RegisterExtension(accepts_interface)
-  google_dot_protobuf_dot_descriptor__pb2.FieldOptions.RegisterExtension(scalar)
-  google_dot_protobuf_dot_descriptor__pb2.FileOptions.RegisterExtension(declare_interface)
-  google_dot_protobuf_dot_descriptor__pb2.FileOptions.RegisterExtension(declare_scalar)
-
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z+github.com/cosmos/cosmos-proto;cosmos_proto'
   _globals['_SCALARTYPE']._serialized_start=236

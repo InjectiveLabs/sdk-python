@@ -30,11 +30,6 @@ class InjectiveOracleRPCStub(object):
                 request_serializer=exchange_dot_injective__oracle__rpc__pb2.StreamPricesRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__oracle__rpc__pb2.StreamPricesResponse.FromString,
                 )
-        self.StreamPricesByMarkets = channel.unary_stream(
-                '/injective_oracle_rpc.InjectiveOracleRPC/StreamPricesByMarkets',
-                request_serializer=exchange_dot_injective__oracle__rpc__pb2.StreamPricesByMarketsRequest.SerializeToString,
-                response_deserializer=exchange_dot_injective__oracle__rpc__pb2.StreamPricesByMarketsResponse.FromString,
-                )
 
 
 class InjectiveOracleRPCServicer(object):
@@ -63,13 +58,6 @@ class InjectiveOracleRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def StreamPricesByMarkets(self, request, context):
-        """StreamPrices streams new price changes markets
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
 
 def add_InjectiveOracleRPCServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -87,11 +75,6 @@ def add_InjectiveOracleRPCServicer_to_server(servicer, server):
                     servicer.StreamPrices,
                     request_deserializer=exchange_dot_injective__oracle__rpc__pb2.StreamPricesRequest.FromString,
                     response_serializer=exchange_dot_injective__oracle__rpc__pb2.StreamPricesResponse.SerializeToString,
-            ),
-            'StreamPricesByMarkets': grpc.unary_stream_rpc_method_handler(
-                    servicer.StreamPricesByMarkets,
-                    request_deserializer=exchange_dot_injective__oracle__rpc__pb2.StreamPricesByMarketsRequest.FromString,
-                    response_serializer=exchange_dot_injective__oracle__rpc__pb2.StreamPricesByMarketsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -152,22 +135,5 @@ class InjectiveOracleRPC(object):
         return grpc.experimental.unary_stream(request, target, '/injective_oracle_rpc.InjectiveOracleRPC/StreamPrices',
             exchange_dot_injective__oracle__rpc__pb2.StreamPricesRequest.SerializeToString,
             exchange_dot_injective__oracle__rpc__pb2.StreamPricesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def StreamPricesByMarkets(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/injective_oracle_rpc.InjectiveOracleRPC/StreamPricesByMarkets',
-            exchange_dot_injective__oracle__rpc__pb2.StreamPricesByMarketsRequest.SerializeToString,
-            exchange_dot_injective__oracle__rpc__pb2.StreamPricesByMarketsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

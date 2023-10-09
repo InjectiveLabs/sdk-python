@@ -13,13 +13,12 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n#exchange/injective_oracle_rpc.proto\x12\x14injective_oracle_rpc\"\x13\n\x11OracleListRequest\"C\n\x12OracleListResponse\x12-\n\x07oracles\x18\x01 \x03(\x0b\x32\x1c.injective_oracle_rpc.Oracle\"g\n\x06Oracle\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x13\n\x0b\x62\x61se_symbol\x18\x02 \x01(\t\x12\x14\n\x0cquote_symbol\x18\x03 \x01(\t\x12\x13\n\x0boracle_type\x18\x04 \x01(\t\x12\r\n\x05price\x18\x05 \x01(\t\"k\n\x0cPriceRequest\x12\x13\n\x0b\x62\x61se_symbol\x18\x01 \x01(\t\x12\x14\n\x0cquote_symbol\x18\x02 \x01(\t\x12\x13\n\x0boracle_type\x18\x03 \x01(\t\x12\x1b\n\x13oracle_scale_factor\x18\x04 \x01(\r\"\x1e\n\rPriceResponse\x12\r\n\x05price\x18\x01 \x01(\t\"U\n\x13StreamPricesRequest\x12\x13\n\x0b\x62\x61se_symbol\x18\x01 \x01(\t\x12\x14\n\x0cquote_symbol\x18\x02 \x01(\t\x12\x13\n\x0boracle_type\x18\x03 \x01(\t\"8\n\x14StreamPricesResponse\x12\r\n\x05price\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x12\"2\n\x1cStreamPricesByMarketsRequest\x12\x12\n\nmarket_ids\x18\x01 \x03(\t\"T\n\x1dStreamPricesByMarketsResponse\x12\r\n\x05price\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x12\x12\x11\n\tmarket_id\x18\x03 \x01(\t2\xb5\x03\n\x12InjectiveOracleRPC\x12_\n\nOracleList\x12\'.injective_oracle_rpc.OracleListRequest\x1a(.injective_oracle_rpc.OracleListResponse\x12P\n\x05Price\x12\".injective_oracle_rpc.PriceRequest\x1a#.injective_oracle_rpc.PriceResponse\x12g\n\x0cStreamPrices\x12).injective_oracle_rpc.StreamPricesRequest\x1a*.injective_oracle_rpc.StreamPricesResponse0\x01\x12\x82\x01\n\x15StreamPricesByMarkets\x12\x32.injective_oracle_rpc.StreamPricesByMarketsRequest\x1a\x33.injective_oracle_rpc.StreamPricesByMarketsResponse0\x01\x42\x19Z\x17/injective_oracle_rpcpbb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n#exchange/injective_oracle_rpc.proto\x12\x14injective_oracle_rpc\"\x13\n\x11OracleListRequest\"C\n\x12OracleListResponse\x12-\n\x07oracles\x18\x01 \x03(\x0b\x32\x1c.injective_oracle_rpc.Oracle\"g\n\x06Oracle\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x13\n\x0b\x62\x61se_symbol\x18\x02 \x01(\t\x12\x14\n\x0cquote_symbol\x18\x03 \x01(\t\x12\x13\n\x0boracle_type\x18\x04 \x01(\t\x12\r\n\x05price\x18\x05 \x01(\t\"k\n\x0cPriceRequest\x12\x13\n\x0b\x62\x61se_symbol\x18\x01 \x01(\t\x12\x14\n\x0cquote_symbol\x18\x02 \x01(\t\x12\x13\n\x0boracle_type\x18\x03 \x01(\t\x12\x1b\n\x13oracle_scale_factor\x18\x04 \x01(\r\"\x1e\n\rPriceResponse\x12\r\n\x05price\x18\x01 \x01(\t\"U\n\x13StreamPricesRequest\x12\x13\n\x0b\x62\x61se_symbol\x18\x01 \x01(\t\x12\x14\n\x0cquote_symbol\x18\x02 \x01(\t\x12\x13\n\x0boracle_type\x18\x03 \x01(\t\"8\n\x14StreamPricesResponse\x12\r\n\x05price\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x12\x32\xb0\x02\n\x12InjectiveOracleRPC\x12_\n\nOracleList\x12\'.injective_oracle_rpc.OracleListRequest\x1a(.injective_oracle_rpc.OracleListResponse\x12P\n\x05Price\x12\".injective_oracle_rpc.PriceRequest\x1a#.injective_oracle_rpc.PriceResponse\x12g\n\x0cStreamPrices\x12).injective_oracle_rpc.StreamPricesRequest\x1a*.injective_oracle_rpc.StreamPricesResponse0\x01\x42\x19Z\x17/injective_oracle_rpcpbb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'exchange.injective_oracle_rpc_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
-
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z\027/injective_oracle_rpcpb'
   _globals['_ORACLELISTREQUEST']._serialized_start=61
@@ -36,10 +35,6 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['_STREAMPRICESREQUEST']._serialized_end=482
   _globals['_STREAMPRICESRESPONSE']._serialized_start=484
   _globals['_STREAMPRICESRESPONSE']._serialized_end=540
-  _globals['_STREAMPRICESBYMARKETSREQUEST']._serialized_start=542
-  _globals['_STREAMPRICESBYMARKETSREQUEST']._serialized_end=592
-  _globals['_STREAMPRICESBYMARKETSRESPONSE']._serialized_start=594
-  _globals['_STREAMPRICESBYMARKETSRESPONSE']._serialized_end=678
-  _globals['_INJECTIVEORACLERPC']._serialized_start=681
-  _globals['_INJECTIVEORACLERPC']._serialized_end=1118
+  _globals['_INJECTIVEORACLERPC']._serialized_start=543
+  _globals['_INJECTIVEORACLERPC']._serialized_end=847
 # @@protoc_insertion_point(module_scope)

@@ -24,7 +24,6 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'ibc.applications.transfer.v1.query_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
-
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z7github.com/cosmos/ibc-go/v8/modules/apps/transfer/types'
   _QUERYDENOMTRACESRESPONSE.fields_by_name['denom_traces']._options = None

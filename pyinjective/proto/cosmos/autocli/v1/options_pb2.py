@@ -19,7 +19,6 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'cosmos.autocli.v1.options_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
-
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z)cosmossdk.io/api/cosmos/base/cli/v1;cliv1'
   _SERVICECOMMANDDESCRIPTOR_SUBCOMMANDSENTRY._options = None

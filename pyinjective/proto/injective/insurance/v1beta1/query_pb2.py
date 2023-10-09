@@ -24,7 +24,6 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'injective.insurance.v1beta1.query_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
-
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'ZOgithub.com/InjectiveLabs/injective-core/injective-chain/modules/insurance/types'
   _QUERYINSURANCEPARAMSRESPONSE.fields_by_name['params']._options = None

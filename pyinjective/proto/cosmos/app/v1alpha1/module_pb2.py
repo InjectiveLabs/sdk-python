@@ -20,8 +20,6 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'cosmos.app.v1alpha1.module_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
-  google_dot_protobuf_dot_descriptor__pb2.MessageOptions.RegisterExtension(module)
-
   DESCRIPTOR._options = None
   _globals['_MODULEDESCRIPTOR']._serialized_start=92
   _globals['_MODULEDESCRIPTOR']._serialized_end=253
