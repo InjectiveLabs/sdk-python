@@ -16,7 +16,7 @@ from injective.tokenfactory.v1beta1 import authorityMetadata_pb2 as injective_do
 from injective.tokenfactory.v1beta1 import params_pb2 as injective_dot_tokenfactory_dot_v1beta1_dot_params__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n,injective/tokenfactory/v1beta1/genesis.proto\x12\x1einjective.tokenfactory.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x36injective/tokenfactory/v1beta1/authorityMetadata.proto\x1a+injective/tokenfactory/v1beta1/params.proto\"\xb1\x01\n\x0cGenesisState\x12<\n\x06params\x18\x01 \x01(\x0b\x32&.injective.tokenfactory.v1beta1.ParamsB\x04\xc8\xde\x1f\x00\x12\x63\n\x0e\x66\x61\x63tory_denoms\x18\x02 \x03(\x0b\x32,.injective.tokenfactory.v1beta1.GenesisDenomB\x1d\xc8\xde\x1f\x00\xf2\xde\x1f\x15yaml:\"factory_denoms\"\"\xee\x01\n\x0cGenesisDenom\x12\x1f\n\x05\x64\x65nom\x18\x01 \x01(\tB\x10\xf2\xde\x1f\x0cyaml:\"denom\"\x12u\n\x12\x61uthority_metadata\x18\x02 \x01(\x0b\x32\x36.injective.tokenfactory.v1beta1.DenomAuthorityMetadataB!\xc8\xde\x1f\x00\xf2\xde\x1f\x19yaml:\"authority_metadata\"\x12\x1d\n\x04name\x18\x03 \x01(\tB\x0f\xf2\xde\x1f\x0byaml:\"name\"\x12!\n\x06symbol\x18\x04 \x01(\tB\x11\xf2\xde\x1f\ryaml:\"symbol\":\x04\xe8\xa0\x1f\x01\x42TZRgithub.com/InjectiveLabs/injective-core/injective-chain/modules/tokenfactory/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n,injective/tokenfactory/v1beta1/genesis.proto\x12\x1einjective.tokenfactory.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x36injective/tokenfactory/v1beta1/authorityMetadata.proto\x1a+injective/tokenfactory/v1beta1/params.proto\"\xb1\x01\n\x0cGenesisState\x12<\n\x06params\x18\x01 \x01(\x0b\x32&.injective.tokenfactory.v1beta1.ParamsB\x04\xc8\xde\x1f\x00\x12\x63\n\x0e\x66\x61\x63tory_denoms\x18\x02 \x03(\x0b\x32,.injective.tokenfactory.v1beta1.GenesisDenomB\x1d\xc8\xde\x1f\x00\xf2\xde\x1f\x15yaml:\"factory_denoms\"\"\xac\x01\n\x0cGenesisDenom\x12\x1f\n\x05\x64\x65nom\x18\x01 \x01(\tB\x10\xf2\xde\x1f\x0cyaml:\"denom\"\x12u\n\x12\x61uthority_metadata\x18\x02 \x01(\x0b\x32\x36.injective.tokenfactory.v1beta1.DenomAuthorityMetadataB!\xc8\xde\x1f\x00\xf2\xde\x1f\x19yaml:\"authority_metadata\":\x04\xe8\xa0\x1f\x01\x42TZRgithub.com/InjectiveLabs/injective-core/injective-chain/modules/tokenfactory/typesb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -32,14 +32,10 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _GENESISDENOM.fields_by_name['denom']._serialized_options = b'\362\336\037\014yaml:\"denom\"'
   _GENESISDENOM.fields_by_name['authority_metadata']._options = None
   _GENESISDENOM.fields_by_name['authority_metadata']._serialized_options = b'\310\336\037\000\362\336\037\031yaml:\"authority_metadata\"'
-  _GENESISDENOM.fields_by_name['name']._options = None
-  _GENESISDENOM.fields_by_name['name']._serialized_options = b'\362\336\037\013yaml:\"name\"'
-  _GENESISDENOM.fields_by_name['symbol']._options = None
-  _GENESISDENOM.fields_by_name['symbol']._serialized_options = b'\362\336\037\ryaml:\"symbol\"'
   _GENESISDENOM._options = None
   _GENESISDENOM._serialized_options = b'\350\240\037\001'
   _globals['_GENESISSTATE']._serialized_start=204
   _globals['_GENESISSTATE']._serialized_end=381
   _globals['_GENESISDENOM']._serialized_start=384
-  _globals['_GENESISDENOM']._serialized_end=622
+  _globals['_GENESISDENOM']._serialized_end=556
 # @@protoc_insertion_point(module_scope)
