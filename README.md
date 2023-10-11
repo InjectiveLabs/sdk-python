@@ -78,7 +78,15 @@ poetry run pytest -v
 ```
 
 ### Changelogs
-**0.9**
+**0.9.2**
+* Added fix to the grpc import error in Mac with M1 and M2 chips
+
+**0.9.1**
+* Added new spot markets in mainnet ini file: KAVA/USDT, USDTkv/USDT
+* Added new derivative markets in mainnet ini file: TIA/USDT-30NOV2023, AXL/USDT, BTC/USDTkv, ETH/USDTkv
+
+**0.9.0**
+* Improvement in broadcaster to initialize the account sequence number and the timeout height only when required
 * Replace Pipenv with Poetry
 * Add pre-commit validations to the project
 * Add a GitHub workflow to run all tests and calculate coverage for each PR
