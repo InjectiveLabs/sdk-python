@@ -8,7 +8,7 @@ from pyinjective.core.network import Network
 
 
 async def main() -> None:
-    network = Network.devnet()
+    network = Network.testnet()
 
     client = AsyncClient(network)
     composer = Composer(network=network.string())

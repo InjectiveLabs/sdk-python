@@ -227,7 +227,7 @@ class Network:
             grpc_endpoint = "testnet.chain.grpc.injective.network:443"
             grpc_exchange_endpoint = "testnet.exchange.grpc.injective.network:443"
             grpc_explorer_endpoint = "testnet.explorer.grpc.injective.network:443"
-            chain_stream_endpoint = "testnet.chain.stream.injective.network"
+            chain_stream_endpoint = "testnet.chain.stream.injective.network:443"
             cookie_assistant = DisabledCookieAssistant()
             use_secure_connection = True
 
