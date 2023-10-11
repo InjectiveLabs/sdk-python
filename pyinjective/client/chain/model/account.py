@@ -2,16 +2,16 @@ from google.protobuf import any_pb2
 
 from pyinjective.proto.injective.types.v1beta1 import account_pb2 as account_pb
 
-class Account:
 
+class Account:
     def __init__(
-            self,
-            address: str,
-            pub_key_type_url: str,
-            pub_key_value: bytes,
-            account_number: int,
-            sequence: int,
-            code_hash: str,
+        self,
+        address: str,
+        pub_key_type_url: str,
+        pub_key_value: bytes,
+        account_number: int,
+        sequence: int,
+        code_hash: str,
     ):
         super().__init__()
         self.address = address

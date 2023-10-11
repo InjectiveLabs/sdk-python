@@ -1,14 +1,11 @@
-from typing import Dict, Any
+from typing import Any, Dict
 
 from grpc.aio import Channel
 
-from pyinjective.proto.cosmos.bank.v1beta1 import (
-    query_pb2_grpc as bank_query_grpc,
-    query_pb2 as bank_query_pb,
-)
+from pyinjective.proto.cosmos.bank.v1beta1 import query_pb2 as bank_query_pb, query_pb2_grpc as bank_query_grpc
+
 
 class ChainGrpcBankApi:
-
     def __init__(self, channel: Channel):
         self._stub = bank_query_grpc.QueryStub(channel)
 
@@ -39,7 +36,8 @@ class ChainGrpcBankApi:
 
         bank_balances = {
             "balances": [{"amount": coin.amount, "denom": coin.denom} for coin in response.balances],
-            "pagination": {"total": response.pagination.total}}
+            "pagination": {"total": response.pagination.total},
+        }
 
         return bank_balances
 
@@ -49,10 +47,7 @@ class ChainGrpcBankApi:
 
         total_supply = {
             "supply": [{"amount": coin.amount, "denom": coin.denom} for coin in response.supply],
-            "pagination": {
-                "next": response.pagination.next_key,
-                "total": response.pagination.total
-            }
+            "pagination": {"next": response.pagination.next_key, "total": response.pagination.total},
         }
 
         return total_supply

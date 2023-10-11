@@ -16,31 +16,30 @@ from .core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from .core.network import Network
 from .core.token import Token
 from .exceptions import NotFoundError
-from .proto.cosmos.authz.v1beta1 import query_pb2 as authz_query
-from .proto.cosmos.authz.v1beta1 import query_pb2_grpc as authz_query_grpc
+from .proto.cosmos.authz.v1beta1 import query_pb2 as authz_query, query_pb2_grpc as authz_query_grpc
 from .proto.cosmos.base.abci.v1beta1 import abci_pb2 as abci_type
-from .proto.cosmos.base.tendermint.v1beta1 import query_pb2 as tendermint_query
-from .proto.cosmos.base.tendermint.v1beta1 import query_pb2_grpc as tendermint_query_grpc
-from .proto.cosmos.tx.v1beta1 import service_pb2 as tx_service
-from .proto.cosmos.tx.v1beta1 import service_pb2_grpc as tx_service_grpc
-from .proto.exchange import injective_accounts_rpc_pb2 as exchange_accounts_rpc_pb
-from .proto.exchange import injective_accounts_rpc_pb2_grpc as exchange_accounts_rpc_grpc
-from .proto.exchange import injective_auction_rpc_pb2 as auction_rpc_pb
-from .proto.exchange import injective_auction_rpc_pb2_grpc as auction_rpc_grpc
-from .proto.exchange import injective_derivative_exchange_rpc_pb2 as derivative_exchange_rpc_pb
-from .proto.exchange import injective_derivative_exchange_rpc_pb2_grpc as derivative_exchange_rpc_grpc
-from .proto.exchange import injective_explorer_rpc_pb2 as explorer_rpc_pb
-from .proto.exchange import injective_explorer_rpc_pb2_grpc as explorer_rpc_grpc
-from .proto.exchange import injective_insurance_rpc_pb2 as insurance_rpc_pb
-from .proto.exchange import injective_insurance_rpc_pb2_grpc as insurance_rpc_grpc
-from .proto.exchange import injective_meta_rpc_pb2 as exchange_meta_rpc_pb
-from .proto.exchange import injective_meta_rpc_pb2_grpc as exchange_meta_rpc_grpc
-from .proto.exchange import injective_oracle_rpc_pb2 as oracle_rpc_pb
-from .proto.exchange import injective_oracle_rpc_pb2_grpc as oracle_rpc_grpc
-from .proto.exchange import injective_portfolio_rpc_pb2 as portfolio_rpc_pb
-from .proto.exchange import injective_portfolio_rpc_pb2_grpc as portfolio_rpc_grpc
-from .proto.exchange import injective_spot_exchange_rpc_pb2 as spot_exchange_rpc_pb
-from .proto.exchange import injective_spot_exchange_rpc_pb2_grpc as spot_exchange_rpc_grpc
+from .proto.cosmos.base.tendermint.v1beta1 import query_pb2 as tendermint_query, query_pb2_grpc as tendermint_query_grpc
+from .proto.cosmos.tx.v1beta1 import service_pb2 as tx_service, service_pb2_grpc as tx_service_grpc
+from .proto.exchange import (
+    injective_accounts_rpc_pb2 as exchange_accounts_rpc_pb,
+    injective_accounts_rpc_pb2_grpc as exchange_accounts_rpc_grpc,
+    injective_auction_rpc_pb2 as auction_rpc_pb,
+    injective_auction_rpc_pb2_grpc as auction_rpc_grpc,
+    injective_derivative_exchange_rpc_pb2 as derivative_exchange_rpc_pb,
+    injective_derivative_exchange_rpc_pb2_grpc as derivative_exchange_rpc_grpc,
+    injective_explorer_rpc_pb2 as explorer_rpc_pb,
+    injective_explorer_rpc_pb2_grpc as explorer_rpc_grpc,
+    injective_insurance_rpc_pb2 as insurance_rpc_pb,
+    injective_insurance_rpc_pb2_grpc as insurance_rpc_grpc,
+    injective_meta_rpc_pb2 as exchange_meta_rpc_pb,
+    injective_meta_rpc_pb2_grpc as exchange_meta_rpc_grpc,
+    injective_oracle_rpc_pb2 as oracle_rpc_pb,
+    injective_oracle_rpc_pb2_grpc as oracle_rpc_grpc,
+    injective_portfolio_rpc_pb2 as portfolio_rpc_pb,
+    injective_portfolio_rpc_pb2_grpc as portfolio_rpc_grpc,
+    injective_spot_exchange_rpc_pb2 as spot_exchange_rpc_pb,
+    injective_spot_exchange_rpc_pb2_grpc as spot_exchange_rpc_grpc,
+)
 from .proto.injective.types.v1beta1 import account_pb2
 from .utils.logger import LoggerProvider
 

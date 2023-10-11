@@ -4,14 +4,13 @@ from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagina
 
 
 class PaginationOption:
-
     def __init__(
-            self,
-            key: Optional[str],
-            offset: Optional[int],
-            limit: Optional[int],
-            reverse: Optional[bool],
-            count_total: Optional[bool],
+        self,
+        key: Optional[str],
+        offset: Optional[int],
+        limit: Optional[int],
+        reverse: Optional[bool],
+        count_total: Optional[bool],
     ):
         super().__init__()
         self.key = key
@@ -38,11 +37,10 @@ class PaginationOption:
 
 
 class Pagination:
-
     def __init__(
-            self,
-            next: Optional[str] = None,
-            total: Optional[int] = None,
+        self,
+        next: Optional[str] = None,
+        total: Optional[int] = None,
     ):
         super().__init__()
         self.next = next

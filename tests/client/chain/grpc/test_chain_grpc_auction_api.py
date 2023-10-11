@@ -2,7 +2,7 @@ import grpc
 import pytest
 
 from pyinjective.client.chain.grpc.chain_grpc_auction_api import ChainGrpcAuctionApi
-from pyinjective.constant import Network
+from pyinjective.core.network import Network
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb
 from pyinjective.proto.injective.auction.v1beta1 import (
     auction_pb2 as auction_pb,
@@ -18,19 +18,13 @@ def auction_servicer():
 
 
 class TestChainGrpcAuctionApi:
-
     @pytest.mark.asyncio
     async def test_fetch_module_params(
-            self,
-            auction_servicer,
+        self,
+        auction_servicer,
     ):
-        params = auction_pb.Params(
-            auction_period=604800,
-            min_next_bid_increment_rate="2500000000000000"
-        )
-        auction_servicer.auction_params.append(auction_query_pb.QueryAuctionParamsResponse(
-            params=params
-        ))
+        params = auction_pb.Params(auction_period=604800, min_next_bid_increment_rate="2500000000000000")
+        auction_servicer.auction_params.append(auction_query_pb.QueryAuctionParamsResponse(params=params))
 
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
@@ -44,17 +38,14 @@ class TestChainGrpcAuctionApi:
             "min_next_bid_increment_rate": "2500000000000000",
         }
 
-        assert (expected_params == module_params)
+        assert expected_params == module_params
 
     @pytest.mark.asyncio
     async def test_fetch_module_state(
-            self,
-            auction_servicer,
+        self,
+        auction_servicer,
     ):
-        params = auction_pb.Params(
-            auction_period=604800,
-            min_next_bid_increment_rate="2500000000000000"
-        )
+        params = auction_pb.Params(auction_period=604800, min_next_bid_increment_rate="2500000000000000")
         highest_bid = auction_pb.Bid(
             bidder="inj1pvt70tt7epjudnurkqlxu62flfgy46j2ytj7j5",
             amount="\n\003inj\022\0232347518723906280000",
@@ -65,9 +56,7 @@ class TestChainGrpcAuctionApi:
             highest_bid=highest_bid,
             auction_ending_timestamp=1687504387,
         )
-        auction_servicer.module_states.append(auction_query_pb.QueryModuleStateResponse(
-            state=state
-        ))
+        auction_servicer.module_states.append(auction_query_pb.QueryModuleStateResponse(state=state))
 
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
@@ -89,25 +78,20 @@ class TestChainGrpcAuctionApi:
             "auction_ending_timestamp": 1687504387,
         }
 
-        assert (expected_state == module_state)
+        assert expected_state == module_state
 
     @pytest.mark.asyncio
     async def test_fetch_module_state_when_no_highest_bid_present(
-            self,
-            auction_servicer,
+        self,
+        auction_servicer,
     ):
-        params = auction_pb.Params(
-            auction_period=604800,
-            min_next_bid_increment_rate="2500000000000000"
-        )
+        params = auction_pb.Params(auction_period=604800, min_next_bid_increment_rate="2500000000000000")
         state = genesis_pb.GenesisState(
             params=params,
             auction_round=50,
             auction_ending_timestamp=1687504387,
         )
-        auction_servicer.module_states.append(auction_query_pb.QueryModuleStateResponse(
-            state=state
-        ))
+        auction_servicer.module_states.append(auction_query_pb.QueryModuleStateResponse(state=state))
 
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
@@ -129,12 +113,12 @@ class TestChainGrpcAuctionApi:
             "auction_ending_timestamp": 1687504387,
         }
 
-        assert (expected_state == module_state)
+        assert expected_state == module_state
 
     @pytest.mark.asyncio
     async def test_fetch_current_basket(
-            self,
-            auction_servicer,
+        self,
+        auction_servicer,
     ):
         first_amount = coin_pb.Coin(
             amount="15059786755",
@@ -145,13 +129,15 @@ class TestChainGrpcAuctionApi:
             denom="peggy0xf9152067989BDc8783fF586624124C05A529A5D1",
         )
 
-        auction_servicer.current_baskets.append(auction_query_pb.QueryCurrentAuctionBasketResponse(
-            amount=[first_amount, second_amount],
-            auctionRound=50,
-            auctionClosingTime=1687504387,
-            highestBidder="inj1pvt70tt7epjudnurkqlxu62flfgy46j2ytj7j5",
-            highestBidAmount="2347518723906280000",
-        ))
+        auction_servicer.current_baskets.append(
+            auction_query_pb.QueryCurrentAuctionBasketResponse(
+                amount=[first_amount, second_amount],
+                auctionRound=50,
+                auctionClosingTime=1687504387,
+                highestBidder="inj1pvt70tt7epjudnurkqlxu62flfgy46j2ytj7j5",
+                highestBidAmount="2347518723906280000",
+            )
+        )
 
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
@@ -168,4 +154,4 @@ class TestChainGrpcAuctionApi:
             "highest_bid_amount": "2347518723906280000",
         }
 
-        assert (expected_basket == current_basket)
+        assert expected_basket == current_basket

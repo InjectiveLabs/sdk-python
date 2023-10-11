@@ -1,17 +1,14 @@
-from pyinjective.proto.cosmos.auth.v1beta1 import (
-    query_pb2_grpc as auth_query_grpc,
-    query_pb2 as auth_query_pb,
-)
+from pyinjective.proto.cosmos.auth.v1beta1 import query_pb2 as auth_query_pb
+
 
 class AuthParams:
-
     def __init__(
-            self,
-            max_memo_characters: int,
-            tx_sig_limit: int,
-            tx_size_cost_per_byte: int,
-            sig_verify_cost_ed25519: int,
-            sig_verify_cost_secp256k1: int,
+        self,
+        max_memo_characters: int,
+        tx_sig_limit: int,
+        tx_size_cost_per_byte: int,
+        sig_verify_cost_ed25519: int,
+        sig_verify_cost_secp256k1: int,
     ):
         super().__init__()
         self.max_memo_characters = max_memo_characters
@@ -27,5 +24,5 @@ class AuthParams:
             tx_sig_limit=response.params.tx_sig_limit,
             tx_size_cost_per_byte=response.params.tx_size_cost_per_byte,
             sig_verify_cost_ed25519=response.params.sig_verify_cost_ed25519,
-            sig_verify_cost_secp256k1=response.params.sig_verify_cost_secp256k1
+            sig_verify_cost_secp256k1=response.params.sig_verify_cost_secp256k1,
         )

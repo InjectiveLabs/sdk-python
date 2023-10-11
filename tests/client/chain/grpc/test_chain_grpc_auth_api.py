@@ -4,15 +4,13 @@ from google.protobuf import any_pb2
 
 from pyinjective.client.chain.grpc.chain_grpc_auth_api import ChainGrpcAuthApi
 from pyinjective.client.model.pagination import PaginationOption
-from pyinjective.constant import Network
-from pyinjective.proto.cosmos.auth.v1beta1 import (
-    auth_pb2 as auth_pb,
-    query_pb2 as auth_query_pb,
-)
+from pyinjective.core.network import Network
+from pyinjective.proto.cosmos.auth.v1beta1 import auth_pb2 as auth_pb, query_pb2 as auth_query_pb
 from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagination_pb
 from pyinjective.proto.injective.crypto.v1beta1.ethsecp256k1 import keys_pb2 as keys_pb
 from pyinjective.proto.injective.types.v1beta1 import account_pb2 as account_pb
 from tests.client.chain.grpc.configurable_auth_query_serciver import ConfigurableAuthQueryServicer
+
 
 @pytest.fixture
 def auth_servicer():
@@ -20,11 +18,10 @@ def auth_servicer():
 
 
 class TestChainGrpcAuthApi:
-
     @pytest.mark.asyncio
     async def test_fetch_module_params(
-            self,
-            auth_servicer,
+        self,
+        auth_servicer,
     ):
         params = auth_pb.Params(
             max_memo_characters=256,
@@ -33,9 +30,7 @@ class TestChainGrpcAuthApi:
             sig_verify_cost_ed25519=590,
             sig_verify_cost_secp256k1=1000,
         )
-        auth_servicer.auth_params.append(auth_query_pb.QueryParamsResponse(
-            params=params
-        ))
+        auth_servicer.auth_params.append(auth_query_pb.QueryParamsResponse(params=params))
 
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
@@ -45,20 +40,18 @@ class TestChainGrpcAuthApi:
 
         module_params = await api.fetch_module_params()
 
-        assert (params.max_memo_characters == module_params.max_memo_characters)
-        assert (params.tx_sig_limit == module_params.tx_sig_limit)
-        assert (params.tx_size_cost_per_byte == module_params.tx_size_cost_per_byte)
-        assert (params.sig_verify_cost_ed25519 == module_params.sig_verify_cost_ed25519)
-        assert (params.sig_verify_cost_secp256k1 == module_params.sig_verify_cost_secp256k1)
+        assert params.max_memo_characters == module_params.max_memo_characters
+        assert params.tx_sig_limit == module_params.tx_sig_limit
+        assert params.tx_size_cost_per_byte == module_params.tx_size_cost_per_byte
+        assert params.sig_verify_cost_ed25519 == module_params.sig_verify_cost_ed25519
+        assert params.sig_verify_cost_secp256k1 == module_params.sig_verify_cost_secp256k1
 
     @pytest.mark.asyncio
     async def test_fetch_account(
-            self,
-            auth_servicer,
+        self,
+        auth_servicer,
     ):
-        pub_key = keys_pb.PubKey(
-            key=b"\002\200T< /\340\341IC\260n\372\373\314&\3751A\034HfMk\255[ai\334\3303t\375"
-        )
+        pub_key = keys_pb.PubKey(key=b"\002\200T< /\340\341IC\260n\372\373\314&\3751A\034HfMk\255[ai\334\3303t\375")
         any_pub_key = any_pb2.Any()
         any_pub_key.Pack(pub_key, type_url_prefix="")
 
@@ -70,14 +63,13 @@ class TestChainGrpcAuthApi:
         )
         account = account_pb.EthAccount(
             base_account=base_account,
-            code_hash=b"\305\322F\001\206\367#<\222~}\262\334\307\003\300\345\000\266S\312\202\';{\372\330\004]\205\244p"
+            code_hash=b"\305\322F\001\206\367#<\222~}\262\334\307\003\300\345\000\266S\312\202';{"
+            b"\372\330\004]\205\244p",
         )
 
         any_account = any_pb2.Any()
         any_account.Pack(account, type_url_prefix="")
-        auth_servicer.account_responses.append(auth_query_pb.QueryAccountResponse(
-            account=any_account
-        ))
+        auth_servicer.account_responses.append(auth_query_pb.QueryAccountResponse(account=any_account))
 
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
@@ -87,21 +79,19 @@ class TestChainGrpcAuthApi:
 
         response_account = await api.fetch_account(address="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr")
 
-        assert (f"0x{account.code_hash.hex()}" == response_account.code_hash)
-        assert (base_account.address == response_account.address)
-        assert (any_pub_key.type_url == response_account.pub_key_type_url)
-        assert (any_pub_key.value == response_account.pub_key_value)
-        assert (base_account.account_number == response_account.account_number)
-        assert (base_account.sequence == response_account.sequence)
+        assert f"0x{account.code_hash.hex()}" == response_account.code_hash
+        assert base_account.address == response_account.address
+        assert any_pub_key.type_url == response_account.pub_key_type_url
+        assert any_pub_key.value == response_account.pub_key_value
+        assert base_account.account_number == response_account.account_number
+        assert base_account.sequence == response_account.sequence
 
     @pytest.mark.asyncio
     async def test_fetch_accounts(
-            self,
-            auth_servicer,
+        self,
+        auth_servicer,
     ):
-        pub_key = keys_pb.PubKey(
-            key=b"\002\200T< /\340\341IC\260n\372\373\314&\3751A\034HfMk\255[ai\334\3303t\375"
-        )
+        pub_key = keys_pb.PubKey(key=b"\002\200T< /\340\341IC\260n\372\373\314&\3751A\034HfMk\255[ai\334\3303t\375")
         any_pub_key = any_pb2.Any()
         any_pub_key.Pack(pub_key, type_url_prefix="")
 
@@ -113,7 +103,8 @@ class TestChainGrpcAuthApi:
         )
         account = account_pb.EthAccount(
             base_account=base_account,
-            code_hash=b"\305\322F\001\206\367#<\222~}\262\334\307\003\300\345\000\266S\312\202\';{\372\330\004]\205\244p"
+            code_hash=b"\305\322F\001\206\367#<\222~}\262\334\307\003\300\345\000\266S\312\202';{"
+            b"\372\330\004]\205\244p",
         )
 
         result_pagination = pagination_pb.PageResponse(
@@ -123,10 +114,12 @@ class TestChainGrpcAuthApi:
 
         any_account = any_pb2.Any()
         any_account.Pack(account, type_url_prefix="")
-        auth_servicer.accounts_responses.append(auth_query_pb.QueryAccountsResponse(
-            accounts=[any_account],
-            pagination=result_pagination,
-        ))
+        auth_servicer.accounts_responses.append(
+            auth_query_pb.QueryAccountsResponse(
+                accounts=[any_account],
+                pagination=result_pagination,
+            )
+        )
 
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
@@ -144,16 +137,16 @@ class TestChainGrpcAuthApi:
 
         response_accounts, response_pagination = await api.fetch_accounts(pagination_option=pagination_option)
 
-        assert (1 == len(response_accounts))
+        assert 1 == len(response_accounts)
 
         response_account = response_accounts[0]
 
-        assert (f"0x{account.code_hash.hex()}" == response_account.code_hash)
-        assert (base_account.address == response_account.address)
-        assert (any_pub_key.type_url == response_account.pub_key_type_url)
-        assert (any_pub_key.value == response_account.pub_key_value)
-        assert (base_account.account_number == response_account.account_number)
-        assert (base_account.sequence == response_account.sequence)
+        assert f"0x{account.code_hash.hex()}" == response_account.code_hash
+        assert base_account.address == response_account.address
+        assert any_pub_key.type_url == response_account.pub_key_type_url
+        assert any_pub_key.value == response_account.pub_key_value
+        assert base_account.account_number == response_account.account_number
+        assert base_account.sequence == response_account.sequence
 
-        assert (f"0x{result_pagination.next_key.hex()}" == response_pagination.next)
-        assert (result_pagination.total == response_pagination.total)
+        assert f"0x{result_pagination.next_key.hex()}" == response_pagination.next
+        assert result_pagination.total == response_pagination.total

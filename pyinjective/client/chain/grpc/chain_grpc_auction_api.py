@@ -1,15 +1,14 @@
-from typing import Dict, Any
+from typing import Any, Dict
 
 from grpc.aio import Channel
 
 from pyinjective.proto.injective.auction.v1beta1 import (
-    query_pb2_grpc as auction_query_grpc,
     query_pb2 as auction_query_pb,
+    query_pb2_grpc as auction_query_grpc,
 )
 
 
 class ChainGrpcAuctionApi:
-
     def __init__(self, channel: Channel):
         self._stub = auction_query_grpc.QueryStub(channel)
 

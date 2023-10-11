@@ -15,16 +15,14 @@ from pyinjective.proto.injective.exchange.v1beta1 import (
 from .constant import ADDITIONAL_CHAIN_FORMAT_DECIMALS, INJ_DENOM
 from .core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from .core.token import Token
-from .proto.cosmos.authz.v1beta1 import authz_pb2 as cosmos_authz_pb
-from .proto.cosmos.authz.v1beta1 import tx_pb2 as cosmos_authz_tx_pb
+from .proto.cosmos.authz.v1beta1 import authz_pb2 as cosmos_authz_pb, tx_pb2 as cosmos_authz_tx_pb
 from .proto.cosmos.bank.v1beta1 import tx_pb2 as cosmos_bank_tx_pb
 from .proto.cosmos.distribution.v1beta1 import tx_pb2 as cosmos_distribution_tx_pb
 from .proto.cosmos.gov.v1beta1 import tx_pb2 as cosmos_gov_tx_pb
 from .proto.cosmos.staking.v1beta1 import tx_pb2 as cosmos_staking_tx_pb
 from .proto.cosmwasm.wasm.v1 import tx_pb2 as wasm_tx_pb
 from .proto.injective.auction.v1beta1 import tx_pb2 as injective_auction_tx_pb
-from .proto.injective.exchange.v1beta1 import authz_pb2 as injective_authz_pb
-from .proto.injective.exchange.v1beta1 import tx_pb2 as injective_exchange_tx_pb
+from .proto.injective.exchange.v1beta1 import authz_pb2 as injective_authz_pb, tx_pb2 as injective_exchange_tx_pb
 from .proto.injective.insurance.v1beta1 import tx_pb2 as injective_insurance_tx_pb
 from .proto.injective.oracle.v1beta1 import tx_pb2 as injective_oracle_tx_pb
 from .proto.injective.peggy.v1 import msgs_pb2 as injective_peggy_tx_pb

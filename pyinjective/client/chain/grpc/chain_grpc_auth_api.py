@@ -4,17 +4,11 @@ from grpc.aio import Channel
 
 from pyinjective.client.chain.model.account import Account
 from pyinjective.client.chain.model.auth_params import AuthParams
-from pyinjective.client.model.pagination import PaginationOption
-
-from pyinjective.client.model.pagination import Pagination
-from pyinjective.proto.cosmos.auth.v1beta1 import (
-    query_pb2_grpc as auth_query_grpc,
-    query_pb2 as auth_query_pb,
-)
+from pyinjective.client.model.pagination import Pagination, PaginationOption
+from pyinjective.proto.cosmos.auth.v1beta1 import query_pb2 as auth_query_pb, query_pb2_grpc as auth_query_grpc
 
 
 class ChainGrpcAuthApi:
-
     def __init__(self, channel: Channel):
         self._stub = auth_query_grpc.QueryStub(channel)
 
