@@ -185,7 +185,9 @@ class AsyncClient:
 
     async def get_account(self, address: str) -> Optional[account_pb2.EthAccount]:
         try:
-            metadata = await self.network.chain_metadata(metadata_query_provider=self._chain_cookie_metadata_requestor)
+            # metadata = await self.network.chain_metadata(
+            #   metadata_query_provider=self._chain_cookie_metadata_requestor
+            # )
             account = await self.auth_api.fetch_account(address=address)
             self.number = account.account_number
             self.sequence = account.sequence
