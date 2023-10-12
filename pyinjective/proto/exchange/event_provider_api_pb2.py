@@ -13,30 +13,53 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n!exchange/event_provider_api.proto\x12\x12\x65vent_provider_api\"\x18\n\x16GetLatestHeightRequest\"i\n\x17GetLatestHeightResponse\x12\t\n\x01s\x18\x01 \x01(\t\x12\x0e\n\x06\x65rrmsg\x18\x02 \x01(\t\x12\x33\n\x04\x64\x61ta\x18\x03 \x01(\x0b\x32%.event_provider_api.LatestBlockHeight\"#\n\x11LatestBlockHeight\x12\x0e\n\x06height\x18\x01 \x01(\x04\";\n\x18GetBlockEventsRPCRequest\x12\x0f\n\x07\x62\x61\x63kend\x18\x01 \x01(\t\x12\x0e\n\x06height\x18\x02 \x01(\x11\"h\n\x19GetBlockEventsRPCResponse\x12\t\n\x01s\x18\x01 \x01(\t\x12\x0e\n\x06\x65rrmsg\x18\x02 \x01(\t\x12\x30\n\x04\x64\x61ta\x18\x03 \x01(\x0b\x32\".event_provider_api.BlockEventsRPC\"/\n\x0e\x42lockEventsRPC\x12\r\n\x05types\x18\x01 \x03(\t\x12\x0e\n\x06\x65vents\x18\x02 \x03(\x0c\"L\n\x19GetCustomEventsRPCRequest\x12\x0f\n\x07\x62\x61\x63kend\x18\x01 \x01(\t\x12\x0e\n\x06height\x18\x02 \x01(\x11\x12\x0e\n\x06\x65vents\x18\x03 \x01(\t\"i\n\x1aGetCustomEventsRPCResponse\x12\t\n\x01s\x18\x01 \x01(\t\x12\x0e\n\x06\x65rrmsg\x18\x02 \x01(\t\x12\x30\n\x04\x64\x61ta\x18\x03 \x01(\x0b\x32\".event_provider_api.BlockEventsRPC2\xe5\x02\n\x10\x45ventProviderAPI\x12j\n\x0fGetLatestHeight\x12*.event_provider_api.GetLatestHeightRequest\x1a+.event_provider_api.GetLatestHeightResponse\x12p\n\x11GetBlockEventsRPC\x12,.event_provider_api.GetBlockEventsRPCRequest\x1a-.event_provider_api.GetBlockEventsRPCResponse\x12s\n\x12GetCustomEventsRPC\x12-.event_provider_api.GetCustomEventsRPCRequest\x1a..event_provider_api.GetCustomEventsRPCResponseB\x17Z\x15/event_provider_apipbb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n!exchange/event_provider_api.proto\x12\x12\x65vent_provider_api\"\x18\n\x16GetLatestHeightRequest\"o\n\x17GetLatestHeightResponse\x12\t\n\x01v\x18\x01 \x01(\t\x12\t\n\x01s\x18\x02 \x01(\t\x12\t\n\x01\x65\x18\x03 \x01(\t\x12\x33\n\x04\x64\x61ta\x18\x04 \x01(\x0b\x32%.event_provider_api.LatestBlockHeight\"#\n\x11LatestBlockHeight\x12\x0e\n\x06height\x18\x01 \x01(\x04\";\n\x18StreamBlockEventsRequest\x12\x0f\n\x07\x62\x61\x63kend\x18\x01 \x01(\t\x12\x0e\n\x06height\x18\x02 \x01(\x11\"F\n\x19StreamBlockEventsResponse\x12)\n\x06\x62locks\x18\x01 \x03(\x0b\x32\x19.event_provider_api.Block\"\x8d\x02\n\x05\x42lock\x12\x0e\n\x06height\x18\x01 \x01(\x12\x12\x0f\n\x07version\x18\x02 \x01(\t\x12.\n\x06\x65vents\x18\x03 \x03(\x0b\x32\x1e.event_provider_api.BlockEvent\x12\x0f\n\x07in_sync\x18\x04 \x01(\x08\x12H\n\x11tx_hash_to_orders\x18\x05 \x03(\x0b\x32-.event_provider_api.Block.TxHashToOrdersEntry\x1aX\n\x13TxHashToOrdersEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x30\n\x05value\x18\x02 \x01(\x0b\x32!.event_provider_api.ArrayOfString:\x02\x38\x01\">\n\nBlockEvent\x12\x10\n\x08type_url\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x0c\x12\x0f\n\x07tx_hash\x18\x03 \x01(\x0c\"\x1e\n\rArrayOfString\x12\r\n\x05\x66ield\x18\x01 \x03(\t\";\n\x18GetBlockEventsRPCRequest\x12\x0f\n\x07\x62\x61\x63kend\x18\x01 \x01(\t\x12\x0e\n\x06height\x18\x02 \x01(\x11\"n\n\x19GetBlockEventsRPCResponse\x12\t\n\x01v\x18\x01 \x01(\t\x12\t\n\x01s\x18\x02 \x01(\t\x12\t\n\x01\x65\x18\x03 \x01(\t\x12\x30\n\x04\x64\x61ta\x18\x04 \x01(\x0b\x32\".event_provider_api.BlockEventsRPC\"\xc5\x02\n\x0e\x42lockEventsRPC\x12\r\n\x05types\x18\x01 \x03(\t\x12\x0e\n\x06\x65vents\x18\x02 \x03(\x0c\x12\x43\n\ttx_hashes\x18\x03 \x03(\x0b\x32\x30.event_provider_api.BlockEventsRPC.TxHashesEntry\x12H\n\x0ctx_to_orders\x18\x04 \x03(\x0b\x32\x32.event_provider_api.BlockEventsRPC.TxToOrdersEntry\x1a/\n\rTxHashesEntry\x12\x0b\n\x03key\x18\x01 \x01(\x11\x12\r\n\x05value\x18\x02 \x01(\x0c:\x02\x38\x01\x1aT\n\x0fTxToOrdersEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x30\n\x05value\x18\x02 \x01(\x0b\x32!.event_provider_api.ArrayOfString:\x02\x38\x01\"L\n\x19GetCustomEventsRPCRequest\x12\x0f\n\x07\x62\x61\x63kend\x18\x01 \x01(\t\x12\x0e\n\x06height\x18\x02 \x01(\x11\x12\x0e\n\x06\x65vents\x18\x03 \x01(\t\"o\n\x1aGetCustomEventsRPCResponse\x12\t\n\x01v\x18\x01 \x01(\t\x12\t\n\x01s\x18\x02 \x01(\t\x12\t\n\x01\x65\x18\x03 \x01(\t\x12\x30\n\x04\x64\x61ta\x18\x04 \x01(\x0b\x32\".event_provider_api.BlockEventsRPC2\xd9\x03\n\x10\x45ventProviderAPI\x12j\n\x0fGetLatestHeight\x12*.event_provider_api.GetLatestHeightRequest\x1a+.event_provider_api.GetLatestHeightResponse\x12r\n\x11StreamBlockEvents\x12,.event_provider_api.StreamBlockEventsRequest\x1a-.event_provider_api.StreamBlockEventsResponse0\x01\x12p\n\x11GetBlockEventsRPC\x12,.event_provider_api.GetBlockEventsRPCRequest\x1a-.event_provider_api.GetBlockEventsRPCResponse\x12s\n\x12GetCustomEventsRPC\x12-.event_provider_api.GetCustomEventsRPCRequest\x1a..event_provider_api.GetCustomEventsRPCResponseB\x17Z\x15/event_provider_apipbb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'exchange.event_provider_api_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
+
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z\025/event_provider_apipb'
+  _BLOCK_TXHASHTOORDERSENTRY._options = None
+  _BLOCK_TXHASHTOORDERSENTRY._serialized_options = b'8\001'
+  _BLOCKEVENTSRPC_TXHASHESENTRY._options = None
+  _BLOCKEVENTSRPC_TXHASHESENTRY._serialized_options = b'8\001'
+  _BLOCKEVENTSRPC_TXTOORDERSENTRY._options = None
+  _BLOCKEVENTSRPC_TXTOORDERSENTRY._serialized_options = b'8\001'
   _globals['_GETLATESTHEIGHTREQUEST']._serialized_start=57
   _globals['_GETLATESTHEIGHTREQUEST']._serialized_end=81
   _globals['_GETLATESTHEIGHTRESPONSE']._serialized_start=83
-  _globals['_GETLATESTHEIGHTRESPONSE']._serialized_end=188
-  _globals['_LATESTBLOCKHEIGHT']._serialized_start=190
-  _globals['_LATESTBLOCKHEIGHT']._serialized_end=225
-  _globals['_GETBLOCKEVENTSRPCREQUEST']._serialized_start=227
-  _globals['_GETBLOCKEVENTSRPCREQUEST']._serialized_end=286
-  _globals['_GETBLOCKEVENTSRPCRESPONSE']._serialized_start=288
-  _globals['_GETBLOCKEVENTSRPCRESPONSE']._serialized_end=392
-  _globals['_BLOCKEVENTSRPC']._serialized_start=394
-  _globals['_BLOCKEVENTSRPC']._serialized_end=441
-  _globals['_GETCUSTOMEVENTSRPCREQUEST']._serialized_start=443
-  _globals['_GETCUSTOMEVENTSRPCREQUEST']._serialized_end=519
-  _globals['_GETCUSTOMEVENTSRPCRESPONSE']._serialized_start=521
-  _globals['_GETCUSTOMEVENTSRPCRESPONSE']._serialized_end=626
-  _globals['_EVENTPROVIDERAPI']._serialized_start=629
-  _globals['_EVENTPROVIDERAPI']._serialized_end=986
+  _globals['_GETLATESTHEIGHTRESPONSE']._serialized_end=194
+  _globals['_LATESTBLOCKHEIGHT']._serialized_start=196
+  _globals['_LATESTBLOCKHEIGHT']._serialized_end=231
+  _globals['_STREAMBLOCKEVENTSREQUEST']._serialized_start=233
+  _globals['_STREAMBLOCKEVENTSREQUEST']._serialized_end=292
+  _globals['_STREAMBLOCKEVENTSRESPONSE']._serialized_start=294
+  _globals['_STREAMBLOCKEVENTSRESPONSE']._serialized_end=364
+  _globals['_BLOCK']._serialized_start=367
+  _globals['_BLOCK']._serialized_end=636
+  _globals['_BLOCK_TXHASHTOORDERSENTRY']._serialized_start=548
+  _globals['_BLOCK_TXHASHTOORDERSENTRY']._serialized_end=636
+  _globals['_BLOCKEVENT']._serialized_start=638
+  _globals['_BLOCKEVENT']._serialized_end=700
+  _globals['_ARRAYOFSTRING']._serialized_start=702
+  _globals['_ARRAYOFSTRING']._serialized_end=732
+  _globals['_GETBLOCKEVENTSRPCREQUEST']._serialized_start=734
+  _globals['_GETBLOCKEVENTSRPCREQUEST']._serialized_end=793
+  _globals['_GETBLOCKEVENTSRPCRESPONSE']._serialized_start=795
+  _globals['_GETBLOCKEVENTSRPCRESPONSE']._serialized_end=905
+  _globals['_BLOCKEVENTSRPC']._serialized_start=908
+  _globals['_BLOCKEVENTSRPC']._serialized_end=1233
+  _globals['_BLOCKEVENTSRPC_TXHASHESENTRY']._serialized_start=1100
+  _globals['_BLOCKEVENTSRPC_TXHASHESENTRY']._serialized_end=1147
+  _globals['_BLOCKEVENTSRPC_TXTOORDERSENTRY']._serialized_start=1149
+  _globals['_BLOCKEVENTSRPC_TXTOORDERSENTRY']._serialized_end=1233
+  _globals['_GETCUSTOMEVENTSRPCREQUEST']._serialized_start=1235
+  _globals['_GETCUSTOMEVENTSRPCREQUEST']._serialized_end=1311
+  _globals['_GETCUSTOMEVENTSRPCRESPONSE']._serialized_start=1313
+  _globals['_GETCUSTOMEVENTSRPCRESPONSE']._serialized_end=1424
+  _globals['_EVENTPROVIDERAPI']._serialized_start=1427
+  _globals['_EVENTPROVIDERAPI']._serialized_end=1900
 # @@protoc_insertion_point(module_scope)

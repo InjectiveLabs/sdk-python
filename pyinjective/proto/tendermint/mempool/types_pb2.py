@@ -19,6 +19,7 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'tendermint.mempool.types_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
+
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z5github.com/cometbft/cometbft/proto/tendermint/mempool'
   _globals['_TXS']._serialized_start=54

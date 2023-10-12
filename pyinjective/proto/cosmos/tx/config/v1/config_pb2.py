@@ -20,6 +20,7 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'cosmos.tx.config.v1.config_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
+
   DESCRIPTOR._options = None
   _CONFIG._options = None
   _CONFIG._serialized_options = b'\272\300\226\332\001(\n&github.com/cosmos/cosmos-sdk/x/auth/tx'

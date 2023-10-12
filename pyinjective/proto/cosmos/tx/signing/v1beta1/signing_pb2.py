@@ -21,6 +21,7 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'cosmos.tx.signing.v1beta1.signing_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
+
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z-github.com/cosmos/cosmos-sdk/types/tx/signing'
   _globals['_SIGNMODE']._serialized_start=788

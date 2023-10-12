@@ -21,6 +21,7 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'ibc.lightclients.solomachine.v3.solomachine_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
+
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'ZLgithub.com/cosmos/ibc-go/v8/modules/light-clients/06-solomachine;solomachine'
   _CLIENTSTATE._options = None

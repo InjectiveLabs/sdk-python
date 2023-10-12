@@ -22,6 +22,7 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'cosmos.crypto.multisig.keys_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
+
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z1github.com/cosmos/cosmos-sdk/crypto/keys/multisig'
   _LEGACYAMINOPUBKEY.fields_by_name['public_keys']._options = None

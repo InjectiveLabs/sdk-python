@@ -19,6 +19,7 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'ibc.applications.interchain_accounts.controller.v1.controller_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
+
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'ZPgithub.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts/controller/types'
   _globals['_PARAMS']._serialized_start=123

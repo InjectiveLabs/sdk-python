@@ -20,6 +20,7 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'tendermint.services.version.v1.version_service_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
+
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'ZAgithub.com/cometbft/cometbft/proto/tendermint/services/version/v1'
   _globals['_VERSIONSERVICE']._serialized_start=135

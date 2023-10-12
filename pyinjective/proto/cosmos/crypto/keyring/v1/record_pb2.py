@@ -22,6 +22,7 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'cosmos.crypto.keyring.v1.record_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
+
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z+github.com/cosmos/cosmos-sdk/crypto/keyring\310\341\036\000\230\343\036\000'
   _globals['_RECORD']._serialized_start=147

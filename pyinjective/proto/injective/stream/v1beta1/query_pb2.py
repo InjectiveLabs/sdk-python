@@ -23,6 +23,7 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'injective.stream.v1beta1.query_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
+
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'ZDgithub.com/InjectiveLabs/injective-core/injective-chain/stream/types'
   _STREAMREQUEST.fields_by_name['bank_balances_filter']._options = None

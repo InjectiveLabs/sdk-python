@@ -20,6 +20,7 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'cosmos.base.reflection.v2alpha1.reflection_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
+
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z<github.com/cosmos/cosmos-sdk/server/grpc/reflection/v2alpha1'
   _REFLECTIONSERVICE.methods_by_name['GetAuthnDescriptor']._options = None
