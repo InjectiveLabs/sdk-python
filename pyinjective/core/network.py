@@ -218,7 +218,7 @@ class Network:
             grpc_endpoint = "testnet.sentry.chain.grpc.injective.network:443"
             grpc_exchange_endpoint = "testnet.sentry.exchange.grpc.injective.network:443"
             grpc_explorer_endpoint = "testnet.sentry.explorer.grpc.injective.network:443"
-            chain_stream_endpoint = "testnet.sentry.chain.stream.injective.network:443"
+            chain_stream_endpoint = "testnet.chain.stream.injective.dev:443"
             cookie_assistant = BareMetalLoadBalancedCookieAssistant()
             use_secure_connection = True
         else:
