@@ -78,6 +78,9 @@ poetry run pytest -v
 ```
 
 ### Changelogs
+**0.9.3**
+* Updated TIA/USDT-30NOV2023 market id in denoms_mainnet.ini file
+
 **0.9.2**
 * Added fix to the grpc import error in Mac with M1 and M2 chips
 
