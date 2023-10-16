@@ -867,7 +867,7 @@ class Composer:
         self,
         subaccount_ids: Optional[List[str]] = None,
     ) -> chain_stream_query.SubaccountDepositsFilter:
-        subaccount_ids = ["*"]
+        subaccount_ids = subaccount_ids or ["*"]
         return chain_stream_query.SubaccountDepositsFilter(subaccount_ids=subaccount_ids)
 
     def chain_stream_trades_filter(
