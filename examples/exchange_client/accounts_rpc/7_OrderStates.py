@@ -15,7 +15,7 @@ async def main() -> None:
         "0x82113f3998999bdc3892feaab2c4e53ba06c5fe887a2d5f9763397240f24da50",
         "0xbb1f036001378cecb5fff1cc69303919985b5bf058c32f37d5aaf9b804c07a06",
     ]
-    orders = await client.get_order_states(
+    orders = await client.fetch_order_states(
         spot_order_hashes=spot_order_hashes, derivative_order_hashes=derivative_order_hashes
     )
     print(orders)

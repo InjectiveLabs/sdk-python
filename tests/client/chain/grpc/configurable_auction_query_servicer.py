@@ -13,11 +13,13 @@ class ConfigurableAuctionQueryServicer(auction_query_grpc.QueryServicer):
         self.module_states = deque()
         self.current_baskets = deque()
 
-    async def AuctionParams(self, request: auction_query_pb.QueryAuctionParamsRequest, context=None):
+    async def AuctionParams(self, request: auction_query_pb.QueryAuctionParamsRequest, context=None, metadata=None):
         return self.auction_params.pop()
 
-    async def AuctionModuleState(self, request: auction_query_pb.QueryModuleStateRequest, context=None):
+    async def AuctionModuleState(self, request: auction_query_pb.QueryModuleStateRequest, context=None, metadata=None):
         return self.module_states.pop()
 
-    async def CurrentAuctionBasket(self, request: auction_query_pb.QueryCurrentAuctionBasketRequest, context=None):
+    async def CurrentAuctionBasket(
+        self, request: auction_query_pb.QueryCurrentAuctionBasketRequest, context=None, metadata=None
+    ):
         return self.current_baskets.pop()

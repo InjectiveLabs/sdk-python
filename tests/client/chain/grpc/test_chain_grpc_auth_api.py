@@ -1,3 +1,5 @@
+import base64
+
 import grpc
 import pytest
 from google.protobuf import any_pb2
@@ -35,16 +37,21 @@ class TestChainGrpcAuthApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = ChainGrpcAuthApi(channel=channel)
+        api = ChainGrpcAuthApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
         api._stub = auth_servicer
 
         module_params = await api.fetch_module_params()
+        expected_params = {
+            "params": {
+                "maxMemoCharacters": "256",
+                "sigVerifyCostEd25519": "590",
+                "sigVerifyCostSecp256k1": "1000",
+                "txSigLimit": "7",
+                "txSizeCostPerByte": "10",
+            }
+        }
 
-        assert params.max_memo_characters == module_params.max_memo_characters
-        assert params.tx_sig_limit == module_params.tx_sig_limit
-        assert params.tx_size_cost_per_byte == module_params.tx_size_cost_per_byte
-        assert params.sig_verify_cost_ed25519 == module_params.sig_verify_cost_ed25519
-        assert params.sig_verify_cost_secp256k1 == module_params.sig_verify_cost_secp256k1
+        assert expected_params == module_params
 
     @pytest.mark.asyncio
     async def test_fetch_account(
@@ -74,17 +81,27 @@ class TestChainGrpcAuthApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = ChainGrpcAuthApi(channel=channel)
+        api = ChainGrpcAuthApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
         api._stub = auth_servicer
 
         response_account = await api.fetch_account(address="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr")
+        expected_account = {
+            "account": {
+                "@type": "/injective.types.v1beta1.EthAccount",
+                "baseAccount": {
+                    "accountNumber": str(base_account.account_number),
+                    "address": base_account.address,
+                    "pubKey": {
+                        "@type": "/injective.crypto.v1beta1.ethsecp256k1.PubKey",
+                        "key": base64.b64encode(pub_key.key).decode(),
+                    },
+                    "sequence": str(base_account.sequence),
+                },
+                "codeHash": base64.b64encode(account.code_hash).decode(),
+            }
+        }
 
-        assert f"0x{account.code_hash.hex()}" == response_account.code_hash
-        assert base_account.address == response_account.address
-        assert any_pub_key.type_url == response_account.pub_key_type_url
-        assert any_pub_key.value == response_account.pub_key_value
-        assert base_account.account_number == response_account.account_number
-        assert base_account.sequence == response_account.sequence
+        assert expected_account == response_account
 
     @pytest.mark.asyncio
     async def test_fetch_accounts(
@@ -124,7 +141,7 @@ class TestChainGrpcAuthApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = ChainGrpcAuthApi(channel=channel)
+        api = ChainGrpcAuthApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
         api._stub = auth_servicer
 
         pagination_option = PaginationOption(
@@ -135,18 +152,23 @@ class TestChainGrpcAuthApi:
             count_total=True,
         )
 
-        response_accounts, response_pagination = await api.fetch_accounts(pagination_option=pagination_option)
+        response = await api.fetch_accounts(pagination_option=pagination_option)
+        response_accounts = response["accounts"]
+        response_pagination = response["pagination"]
 
         assert 1 == len(response_accounts)
 
         response_account = response_accounts[0]
 
-        assert f"0x{account.code_hash.hex()}" == response_account.code_hash
-        assert base_account.address == response_account.address
-        assert any_pub_key.type_url == response_account.pub_key_type_url
-        assert any_pub_key.value == response_account.pub_key_value
-        assert base_account.account_number == response_account.account_number
-        assert base_account.sequence == response_account.sequence
+        assert account.code_hash == base64.b64decode(response_account["codeHash"])
+        assert base_account.address == response_account["baseAccount"]["address"]
+        assert any_pub_key.type_url == response_account["baseAccount"]["pubKey"]["@type"]
+        assert pub_key.key == base64.b64decode(response_account["baseAccount"]["pubKey"]["key"])
+        assert base_account.account_number == int(response_account["baseAccount"]["accountNumber"])
+        assert base_account.sequence == int(response_account["baseAccount"]["sequence"])
 
-        assert f"0x{result_pagination.next_key.hex()}" == response_pagination.next
-        assert result_pagination.total == response_pagination.total
+        assert result_pagination.next_key == base64.b64decode(response_pagination["nextKey"])
+        assert result_pagination.total == int(response_pagination["total"])
+
+    async def _dummy_metadata_provider(self):
+        return None

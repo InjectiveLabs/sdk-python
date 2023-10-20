@@ -13,7 +13,7 @@ async def main() -> None:
     skip = 1
     limit = 15
     end_time = 1665118340224
-    subacc_history = await client.get_subaccount_history(
+    subacc_history = await client.fetch_subaccount_history(
         subaccount_id=subaccount, denom=denom, transfer_types=transfer_types, skip=skip, limit=limit, end_time=end_time
     )
     print(subacc_history)

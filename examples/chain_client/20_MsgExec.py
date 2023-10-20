@@ -19,7 +19,7 @@ async def main() -> None:
     priv_key = PrivateKey.from_hex("5d386fbdbf11f1141010f81a46b40f94887367562bd33b452bbaa6ce1cd1381e")
     pub_key = priv_key.to_public_key()
     address = pub_key.to_address()
-    await client.get_account(address.to_acc_bech32())
+    await client.fetch_account(address.to_acc_bech32())
 
     # prepare tx msg
     market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"

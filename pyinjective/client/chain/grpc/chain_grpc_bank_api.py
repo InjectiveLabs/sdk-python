@@ -1,53 +1,39 @@
-from typing import Any, Dict
+from typing import Any, Callable, Coroutine, Dict
 
 from grpc.aio import Channel
 
 from pyinjective.proto.cosmos.bank.v1beta1 import query_pb2 as bank_query_pb, query_pb2_grpc as bank_query_grpc
+from pyinjective.utils.grpc_api_request_assistant import GrpcApiRequestAssistant
 
 
 class ChainGrpcBankApi:
-    def __init__(self, channel: Channel):
+    def __init__(self, channel: Channel, metadata_provider: Coroutine):
         self._stub = bank_query_grpc.QueryStub(channel)
+        self._assistant = GrpcApiRequestAssistant(metadata_provider=metadata_provider)
 
     async def fetch_module_params(self) -> Dict[str, Any]:
         request = bank_query_pb.QueryParamsRequest()
-        response = await self._stub.Params(request)
+        response = await self._execute_call(call=self._stub.Params, request=request)
 
-        module_params = {
-            "default_send_enabled": response.params.default_send_enabled,
-        }
-
-        return module_params
+        return response
 
     async def fetch_balance(self, account_address: str, denom: str) -> Dict[str, Any]:
         request = bank_query_pb.QueryBalanceRequest(address=account_address, denom=denom)
-        response = await self._stub.Balance(request)
+        response = await self._execute_call(call=self._stub.Balance, request=request)
 
-        bank_balance = {
-            "amount": response.balance.amount,
-            "denom": response.balance.denom,
-        }
-
-        return bank_balance
+        return response
 
     async def fetch_balances(self, account_address: str) -> Dict[str, Any]:
         request = bank_query_pb.QueryAllBalancesRequest(address=account_address)
-        response = await self._stub.AllBalances(request)
+        response = await self._execute_call(call=self._stub.AllBalances, request=request)
 
-        bank_balances = {
-            "balances": [{"amount": coin.amount, "denom": coin.denom} for coin in response.balances],
-            "pagination": {"total": response.pagination.total},
-        }
-
-        return bank_balances
+        return response
 
     async def fetch_total_supply(self) -> Dict[str, Any]:
         request = bank_query_pb.QueryTotalSupplyRequest()
-        response = await self._stub.TotalSupply(request)
+        response = await self._execute_call(call=self._stub.TotalSupply, request=request)
 
-        total_supply = {
-            "supply": [{"amount": coin.amount, "denom": coin.denom} for coin in response.supply],
-            "pagination": {"next": response.pagination.next_key, "total": response.pagination.total},
-        }
+        return response
 
-        return total_supply
+    async def _execute_call(self, call: Callable, request) -> Dict[str, Any]:
+        return await self._assistant.execute_call(call=call, request=request)

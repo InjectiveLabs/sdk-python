@@ -8,7 +8,7 @@ async def main() -> None:
     network = Network.testnet()
     client = AsyncClient(network)
     account_address = "inj1clw20s2uxeyxtam6f7m84vgae92s9eh7vygagt"
-    subacc_list = await client.get_subaccount_list(account_address)
+    subacc_list = await client.fetch_subaccounts_list(account_address)
     print(subacc_list)
 
 

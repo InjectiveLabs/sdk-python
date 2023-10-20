@@ -63,7 +63,7 @@ max_line_length = 120
 
 # list of plugins and rules for them
 [tool.flakeheaven.plugins]
-pycodestyle = ["+*", "-W503"]
+pycodestyle = ["+*", "-W503", "-E731"]
 pyflakes = ["+*"]
 
 [tool.flakeheaven.exceptions."tests/"]

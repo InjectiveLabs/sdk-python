@@ -2,25 +2,33 @@ import asyncio
 import time
 from copy import deepcopy
 from decimal import Decimal
-from typing import Coroutine, Dict, List, Optional, Tuple, Union
+from typing import Any, Callable, Coroutine, Dict, List, Optional, Tuple, Union
+from warnings import warn
 
 import aiocron
 import grpc
+from google.protobuf import json_format
 
+from pyinjective import constant
+from pyinjective.client.chain.grpc.chain_grpc_auth_api import ChainGrpcAuthApi
+from pyinjective.client.chain.grpc.chain_grpc_bank_api import ChainGrpcBankApi
+from pyinjective.client.indexer.grpc.indexer_grpc_account_api import IndexerGrpcAccountApi
+from pyinjective.client.indexer.grpc_stream.indexer_grpc_account_stream import IndexerGrpcAccountStream
 from pyinjective.composer import Composer
-
-from . import constant
-from .client.chain.grpc.chain_grpc_auth_api import ChainGrpcAuthApi
-from .client.chain.grpc.chain_grpc_bank_api import ChainGrpcBankApi
-from .core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
-from .core.network import Network
-from .core.token import Token
-from .exceptions import NotFoundError
-from .proto.cosmos.authz.v1beta1 import query_pb2 as authz_query, query_pb2_grpc as authz_query_grpc
-from .proto.cosmos.base.abci.v1beta1 import abci_pb2 as abci_type
-from .proto.cosmos.base.tendermint.v1beta1 import query_pb2 as tendermint_query, query_pb2_grpc as tendermint_query_grpc
-from .proto.cosmos.tx.v1beta1 import service_pb2 as tx_service, service_pb2_grpc as tx_service_grpc
-from .proto.exchange import (
+from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
+from pyinjective.core.network import Network
+from pyinjective.core.token import Token
+from pyinjective.exceptions import NotFoundError
+from pyinjective.proto.cosmos.auth.v1beta1 import query_pb2 as auth_query, query_pb2_grpc as auth_query_grpc
+from pyinjective.proto.cosmos.authz.v1beta1 import query_pb2 as authz_query, query_pb2_grpc as authz_query_grpc
+from pyinjective.proto.cosmos.bank.v1beta1 import query_pb2 as bank_query, query_pb2_grpc as bank_query_grpc
+from pyinjective.proto.cosmos.base.abci.v1beta1 import abci_pb2 as abci_type
+from pyinjective.proto.cosmos.base.tendermint.v1beta1 import (
+    query_pb2 as tendermint_query,
+    query_pb2_grpc as tendermint_query_grpc,
+)
+from pyinjective.proto.cosmos.tx.v1beta1 import service_pb2 as tx_service, service_pb2_grpc as tx_service_grpc
+from pyinjective.proto.exchange import (
     injective_accounts_rpc_pb2 as exchange_accounts_rpc_pb,
     injective_accounts_rpc_pb2_grpc as exchange_accounts_rpc_grpc,
     injective_auction_rpc_pb2 as auction_rpc_pb,
@@ -40,8 +48,8 @@ from .proto.exchange import (
     injective_spot_exchange_rpc_pb2 as spot_exchange_rpc_pb,
     injective_spot_exchange_rpc_pb2_grpc as spot_exchange_rpc_grpc,
 )
-from .proto.injective.types.v1beta1 import account_pb2
-from .utils.logger import LoggerProvider
+from pyinjective.proto.injective.types.v1beta1 import account_pb2
+from pyinjective.utils.logger import LoggerProvider
 
 DEFAULT_TIMEOUTHEIGHT_SYNC_INTERVAL = 20  # seconds
 DEFAULT_TIMEOUTHEIGHT = 30  # blocks
@@ -72,7 +80,9 @@ class AsyncClient:
         )
 
         self.stubCosmosTendermint = tendermint_query_grpc.ServiceStub(self.chain_channel)
+        self.stubAuth = auth_query_grpc.QueryStub(self.chain_channel)
         self.stubAuthz = authz_query_grpc.QueryStub(self.chain_channel)
+        self.stubBank = bank_query_grpc.QueryStub(self.chain_channel)
         self.stubTx = tx_service_grpc.ServiceStub(self.chain_channel)
 
         self.exchange_cookie = ""
@@ -117,8 +127,31 @@ class AsyncClient:
         self._derivative_markets: Optional[Dict[str, DerivativeMarket]] = None
         self._binary_option_markets: Optional[Dict[str, BinaryOptionMarket]] = None
 
-        self.bank_api = ChainGrpcBankApi(channel=self.chain_channel)
-        self.auth_api = ChainGrpcAuthApi(channel=self.chain_channel)
+        self.bank_api = ChainGrpcBankApi(
+            channel=self.chain_channel,
+            metadata_provider=self.network.chain_metadata(
+                metadata_query_provider=self._chain_cookie_metadata_requestor
+            ),
+        )
+        self.auth_api = ChainGrpcAuthApi(
+            channel=self.chain_channel,
+            metadata_provider=self.network.chain_metadata(
+                metadata_query_provider=self._chain_cookie_metadata_requestor
+            ),
+        )
+
+        self.exchange_account_api = IndexerGrpcAccountApi(
+            channel=self.exchange_channel,
+            metadata_provider=self.network.exchange_metadata(
+                metadata_query_provider=self._exchange_cookie_metadata_requestor
+            ),
+        )
+        self.exchange_account_stream_api = IndexerGrpcAccountStream(
+            channel=self.exchange_channel,
+            metadata_provider=self.network.exchange_metadata(
+                metadata_query_provider=self._exchange_cookie_metadata_requestor
+            ),
+        )
 
     async def all_tokens(self) -> Dict[str, Token]:
         if self._tokens is None:
@@ -183,18 +216,43 @@ class AsyncClient:
         return await self.stubCosmosTendermint.GetLatestBlock(req)
 
     async def get_account(self, address: str) -> Optional[account_pb2.EthAccount]:
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_account` instead
+        """
+        warn("This method is deprecated. Use fetch_account instead", DeprecationWarning, stacklevel=2)
+
         try:
-            # metadata = await self.network.chain_metadata(
-            #   metadata_query_provider=self._chain_cookie_metadata_requestor
-            # )
-            account = await self.auth_api.fetch_account(address=address)
-            self.number = account.account_number
-            self.sequence = account.sequence
+            metadata = await self.network.chain_metadata(metadata_query_provider=self._chain_cookie_metadata_requestor)
+            account_any = (
+                await self.stubAuth.Account(auth_query.QueryAccountRequest(address=address), metadata=metadata)
+            ).account
+            account = account_pb2.EthAccount()
+            if account_any.Is(account.DESCRIPTOR):
+                account_any.Unpack(account)
+                self.number = int(account.base_account.account_number)
+                self.sequence = int(account.base_account.sequence)
         except Exception as e:
             LoggerProvider().logger_for_class(logging_class=self.__class__).debug(
                 f"error while fetching sequence and number {e}"
             )
             return None
+
+    async def fetch_account(self, address: str) -> Optional[account_pb2.EthAccount]:
+        result_account = None
+        try:
+            account = await self.auth_api.fetch_account(address=address)
+            parsed_account = account_pb2.EthAccount()
+            if parsed_account.DESCRIPTOR.full_name in account["account"]["@type"]:
+                json_format.ParseDict(js_dict=account["account"], message=parsed_account, ignore_unknown_fields=True)
+                self.number = parsed_account.base_account.account_number
+                self.sequence = parsed_account.base_account.sequence
+                result_account = parsed_account
+        except Exception as e:
+            LoggerProvider().logger_for_class(logging_class=self.__class__).debug(
+                f"error while fetching sequence and number {e}"
+            )
+
+        return result_account
 
     async def get_request_id_by_tx_hash(self, tx_hash: bytes) -> List[int]:
         tx = await self.stubTx.GetTx(tx_service.GetTxRequest(hash=tx_hash))
@@ -251,9 +309,23 @@ class AsyncClient:
         )
 
     async def get_bank_balances(self, address: str):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_balances` instead
+        """
+        warn("This method is deprecated. Use fetch_bank_balances instead", DeprecationWarning, stacklevel=2)
+        return await self.stubBank.AllBalances(bank_query.QueryAllBalancesRequest(address=address))
+
+    async def fetch_bank_balances(self, address: str) -> Dict[str, Any]:
         return await self.bank_api.fetch_balances(account_address=address)
 
     async def get_bank_balance(self, address: str, denom: str):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_bank_balance` instead
+        """
+        warn("This method is deprecated. Use fetch_bank_balance instead", DeprecationWarning, stacklevel=2)
+        return await self.stubBank.Balance(bank_query.QueryBalanceRequest(address=address, denom=denom))
+
+    async def fetch_bank_balance(self, address: str, denom: str) -> Dict[str, Any]:
         return await self.bank_api.fetch_balance(account_address=address, denom=denom)
 
     # Injective Exchange client methods
@@ -375,26 +447,77 @@ class AsyncClient:
     # AccountsRPC
 
     async def stream_subaccount_balance(self, subaccount_id: str, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `listen_subaccount_balance_updates` instead
+        """
+        warn(
+            "This method is deprecated. Use listen_subaccount_balance_updates instead", DeprecationWarning, stacklevel=2
+        )
         req = exchange_accounts_rpc_pb.StreamSubaccountBalanceRequest(
             subaccount_id=subaccount_id, denoms=kwargs.get("denoms")
         )
         return self.stubExchangeAccount.StreamSubaccountBalance(req)
 
+    async def listen_subaccount_balance_updates(
+        self,
+        subaccount_id: str,
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+        denoms: Optional[List[str]] = None,
+    ):
+        await self.exchange_account_stream_api.stream_subaccount_balance(
+            subaccount_id=subaccount_id,
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+            denoms=denoms,
+        )
+
     async def get_subaccount_balance(self, subaccount_id: str, denom: str):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_subaccount_balance` instead
+        """
+        warn("This method is deprecated. Use fetch_subaccount_balance instead", DeprecationWarning, stacklevel=2)
         req = exchange_accounts_rpc_pb.SubaccountBalanceEndpointRequest(subaccount_id=subaccount_id, denom=denom)
         return await self.stubExchangeAccount.SubaccountBalanceEndpoint(req)
 
+    async def fetch_subaccount_balance(self, subaccount_id: str, denom: str) -> Dict[str, Any]:
+        return await self.exchange_account_api.fetch_subaccount_balance(subaccount_id=subaccount_id, denom=denom)
+
     async def get_subaccount_list(self, account_address: str):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_subaccounts_list` instead
+        """
+        warn("This method is deprecated. Use fetch_subaccounts_list instead", DeprecationWarning, stacklevel=2)
         req = exchange_accounts_rpc_pb.SubaccountsListRequest(account_address=account_address)
         return await self.stubExchangeAccount.SubaccountsList(req)
 
+    async def fetch_subaccounts_list(self, address: str) -> Dict[str, Any]:
+        return await self.exchange_account_api.fetch_subaccounts_list(address=address)
+
     async def get_subaccount_balances_list(self, subaccount_id: str, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_subaccount_balances_list` instead
+        """
+        warn("This method is deprecated. Use fetch_subaccount_balances_list instead", DeprecationWarning, stacklevel=2)
         req = exchange_accounts_rpc_pb.SubaccountBalancesListRequest(
             subaccount_id=subaccount_id, denoms=kwargs.get("denoms")
         )
         return await self.stubExchangeAccount.SubaccountBalancesList(req)
 
+    async def fetch_subaccount_balances_list(
+        self, subaccount_id: str, denoms: Optional[List[str]] = None
+    ) -> Dict[str, Any]:
+        return await self.exchange_account_api.fetch_subaccount_balances_list(
+            subaccount_id=subaccount_id, denoms=denoms
+        )
+
     async def get_subaccount_history(self, subaccount_id: str, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_subaccount_history` instead
+        """
+        warn("This method is deprecated. Use fetch_subaccount_history instead", DeprecationWarning, stacklevel=2)
         req = exchange_accounts_rpc_pb.SubaccountHistoryRequest(
             subaccount_id=subaccount_id,
             denom=kwargs.get("denom"),
@@ -405,7 +528,29 @@ class AsyncClient:
         )
         return await self.stubExchangeAccount.SubaccountHistory(req)
 
+    async def fetch_subaccount_history(
+        self,
+        subaccount_id: str,
+        denom: Optional[str] = None,
+        transfer_types: Optional[List[str]] = None,
+        skip: Optional[int] = None,
+        limit: Optional[int] = None,
+        end_time: Optional[int] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_account_api.fetch_subaccount_history(
+            subaccount_id=subaccount_id,
+            denom=denom,
+            transfer_types=transfer_types,
+            skip=skip,
+            limit=limit,
+            end_time=end_time,
+        )
+
     async def get_subaccount_order_summary(self, subaccount_id: str, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_subaccount_order_summary` instead
+        """
+        warn("This method is deprecated. Use fetch_subaccount_order_summary instead", DeprecationWarning, stacklevel=2)
         req = exchange_accounts_rpc_pb.SubaccountOrderSummaryRequest(
             subaccount_id=subaccount_id,
             order_direction=kwargs.get("order_direction"),
@@ -413,22 +558,63 @@ class AsyncClient:
         )
         return await self.stubExchangeAccount.SubaccountOrderSummary(req)
 
+    async def fetch_subaccount_order_summary(
+        self,
+        subaccount_id: str,
+        market_id: Optional[str] = None,
+        order_direction: Optional[str] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_account_api.fetch_subaccount_order_summary(
+            subaccount_id=subaccount_id,
+            market_id=market_id,
+            order_direction=order_direction,
+        )
+
     async def get_order_states(self, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_order_states` instead
+        """
+        warn("This method is deprecated. Use fetch_order_states instead", DeprecationWarning, stacklevel=2)
         req = exchange_accounts_rpc_pb.OrderStatesRequest(
             spot_order_hashes=kwargs.get("spot_order_hashes"),
             derivative_order_hashes=kwargs.get("derivative_order_hashes"),
         )
         return await self.stubExchangeAccount.OrderStates(req)
 
+    async def fetch_order_states(
+        self,
+        spot_order_hashes: Optional[List[str]] = None,
+        derivative_order_hashes: Optional[List[str]] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_account_api.fetch_order_states(
+            spot_order_hashes=spot_order_hashes,
+            derivative_order_hashes=derivative_order_hashes,
+        )
+
     async def get_portfolio(self, account_address: str):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_portfolio` instead
+        """
+        warn("This method is deprecated. Use fetch_portfolio instead", DeprecationWarning, stacklevel=2)
+
         req = exchange_accounts_rpc_pb.PortfolioRequest(account_address=account_address)
         return await self.stubExchangeAccount.Portfolio(req)
 
+    async def fetch_portfolio(self, account_address: str) -> Dict[str, Any]:
+        return await self.exchange_account_api.fetch_portfolio(account_address=account_address)
+
     async def get_rewards(self, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_rewards` instead
+        """
+        warn("This method is deprecated. Use fetch_rewards instead", DeprecationWarning, stacklevel=2)
         req = exchange_accounts_rpc_pb.RewardsRequest(
             account_address=kwargs.get("account_address"), epoch=kwargs.get("epoch")
         )
         return await self.stubExchangeAccount.Rewards(req)
+
+    async def fetch_rewards(self, account_address: Optional[str] = None, epoch: Optional[int] = None) -> Dict[str, Any]:
+        return await self.exchange_account_api.fetch_rewards(account_address=account_address, epoch=epoch)
 
     # OracleRPC
 

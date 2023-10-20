@@ -29,14 +29,11 @@ class TestChainGrpcAuctionApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = ChainGrpcAuctionApi(channel=channel)
+        api = ChainGrpcAuctionApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
         api._stub = auction_servicer
 
         module_params = await api.fetch_module_params()
-        expected_params = {
-            "auction_period": 604800,
-            "min_next_bid_increment_rate": "2500000000000000",
-        }
+        expected_params = {"params": {"auctionPeriod": "604800", "minNextBidIncrementRate": "2500000000000000"}}
 
         assert expected_params == module_params
 
@@ -61,21 +58,23 @@ class TestChainGrpcAuctionApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = ChainGrpcAuctionApi(channel=channel)
+        api = ChainGrpcAuctionApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
         api._stub = auction_servicer
 
         module_state = await api.fetch_module_state()
         expected_state = {
-            "params": {
-                "auction_period": 604800,
-                "min_next_bid_increment_rate": "2500000000000000",
-            },
-            "auction_round": 50,
-            "highest_bid": {
-                "bidder": "inj1pvt70tt7epjudnurkqlxu62flfgy46j2ytj7j5",
-                "amount": "\n\003inj\022\0232347518723906280000",
-            },
-            "auction_ending_timestamp": 1687504387,
+            "state": {
+                "auctionEndingTimestamp": "1687504387",
+                "auctionRound": "50",
+                "highestBid": {
+                    "amount": "\n\x03inj\x12\x132347518723906280000",
+                    "bidder": "inj1pvt70tt7epjudnurkqlxu62flfgy46j2ytj7j5",
+                },
+                "params": {
+                    "auctionPeriod": "604800",
+                    "minNextBidIncrementRate": "2500000000000000",
+                },
+            }
         }
 
         assert expected_state == module_state
@@ -96,21 +95,19 @@ class TestChainGrpcAuctionApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = ChainGrpcAuctionApi(channel=channel)
+        api = ChainGrpcAuctionApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
         api._stub = auction_servicer
 
         module_state = await api.fetch_module_state()
         expected_state = {
-            "params": {
-                "auction_period": 604800,
-                "min_next_bid_increment_rate": "2500000000000000",
-            },
-            "auction_round": 50,
-            "highest_bid": {
-                "bidder": "",
-                "amount": "",
-            },
-            "auction_ending_timestamp": 1687504387,
+            "state": {
+                "auctionEndingTimestamp": "1687504387",
+                "auctionRound": "50",
+                "params": {
+                    "auctionPeriod": "604800",
+                    "minNextBidIncrementRate": "2500000000000000",
+                },
+            }
         }
 
         assert expected_state == module_state
@@ -142,16 +139,28 @@ class TestChainGrpcAuctionApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = ChainGrpcAuctionApi(channel=channel)
+        api = ChainGrpcAuctionApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
         api._stub = auction_servicer
 
         current_basket = await api.fetch_current_basket()
         expected_basket = {
-            "amount_list": [{"amount": coin.amount, "denom": coin.denom} for coin in [first_amount, second_amount]],
-            "auction_round": 50,
-            "auction_closing_time": 1687504387,
-            "highest_bidder": "inj1pvt70tt7epjudnurkqlxu62flfgy46j2ytj7j5",
-            "highest_bid_amount": "2347518723906280000",
+            "amount": [
+                {
+                    "amount": "15059786755",
+                    "denom": "peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
+                },
+                {
+                    "amount": "200000",
+                    "denom": "peggy0xf9152067989BDc8783fF586624124C05A529A5D1",
+                },
+            ],
+            "auctionClosingTime": "1687504387",
+            "auctionRound": "50",
+            "highestBidAmount": "2347518723906280000",
+            "highestBidder": "inj1pvt70tt7epjudnurkqlxu62flfgy46j2ytj7j5",
         }
 
         assert expected_basket == current_basket
+
+    async def _dummy_metadata_provider(self):
+        return None

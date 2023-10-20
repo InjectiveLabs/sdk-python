@@ -60,7 +60,7 @@ class TestAsyncClient:
         )
 
         with caplog.at_level(logging.DEBUG):
-            await client.get_account(address="")
+            await client.fetch_account(address="")
 
         expected_log_message_prefix = "error while fetching sequence and number "
         found_log = next(

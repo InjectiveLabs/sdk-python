@@ -1,3 +1,5 @@
+import base64
+
 import grpc
 import pytest
 
@@ -26,12 +28,15 @@ class TestChainGrpcBankApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = ChainGrpcBankApi(channel=channel)
+        api = ChainGrpcBankApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
         api._stub = bank_servicer
 
         module_params = await api.fetch_module_params()
         expected_params = {
-            "default_send_enabled": True,
+            "params": {
+                "defaultSendEnabled": True,
+                "sendEnabled": [],
+            }
         }
 
         assert expected_params == module_params
@@ -47,7 +52,7 @@ class TestChainGrpcBankApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = ChainGrpcBankApi(channel=channel)
+        api = ChainGrpcBankApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
         api._stub = bank_servicer
 
         bank_balance = await api.fetch_balance(
@@ -68,13 +73,18 @@ class TestChainGrpcBankApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = ChainGrpcBankApi(channel=channel)
+        api = ChainGrpcBankApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
         api._stub = bank_servicer
 
         bank_balance = await api.fetch_balance(
             account_address="inj1cml96vmptgw99syqrrz8az79xer2pcgp0a885r", denom="inj"
         )
-        expected_balance = {"denom": "inj", "amount": "988987297011197594664"}
+        expected_balance = {
+            "balance": {
+                "denom": "inj",
+                "amount": "988987297011197594664",
+            }
+        }
 
         assert expected_balance == bank_balance
 
@@ -97,7 +107,7 @@ class TestChainGrpcBankApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = ChainGrpcBankApi(channel=channel)
+        api = ChainGrpcBankApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
         api._stub = bank_servicer
 
         bank_balances = await api.fetch_balances(
@@ -105,7 +115,7 @@ class TestChainGrpcBankApi:
         )
         expected_balances = {
             "balances": [{"denom": coin.denom, "amount": coin.amount} for coin in [first_balance, second_balance]],
-            "pagination": {"total": 2},
+            "pagination": {"nextKey": "", "total": "2"},
         }
 
         assert expected_balances == bank_balances
@@ -139,18 +149,20 @@ class TestChainGrpcBankApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = ChainGrpcBankApi(channel=channel)
+        api = ChainGrpcBankApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
         api._stub = bank_servicer
 
         total_supply = await api.fetch_total_supply()
+        next_key = "factory/inj1vkrp72xd67plcggcfjtjelqa4t5a093xljf2vj/inj1spw6nd0pj3kd3fgjljhuqpc8tv72a9v89myuja"
         expected_supply = {
             "supply": [{"denom": coin.denom, "amount": coin.amount} for coin in [first_supply, second_supply]],
             "pagination": {
-                "next": (
-                    "factory/inj1vkrp72xd67plcggcfjtjelqa4t5a093xljf2vj/" "inj1spw6nd0pj3kd3fgjljhuqpc8tv72a9v89myuja"
-                ).encode(),
-                "total": 179,
+                "nextKey": base64.b64encode(next_key.encode()).decode(),
+                "total": "179",
             },
         }
 
         assert expected_supply == total_supply
+
+    async def _dummy_metadata_provider(self):
+        return None

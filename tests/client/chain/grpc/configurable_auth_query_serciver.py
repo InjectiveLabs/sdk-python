@@ -10,11 +10,11 @@ class ConfigurableAuthQueryServicer(auth_query_grpc.QueryServicer):
         self.account_responses = deque()
         self.accounts_responses = deque()
 
-    async def Params(self, request: auth_query_pb.QueryParamsRequest, context=None):
+    async def Params(self, request: auth_query_pb.QueryParamsRequest, context=None, metadata=None):
         return self.auth_params.pop()
 
-    async def Account(self, request: auth_query_pb.QueryAccountRequest, context=None):
+    async def Account(self, request: auth_query_pb.QueryAccountRequest, context=None, metadata=None):
         return self.account_responses.pop()
 
-    async def Accounts(self, request: auth_query_pb.QueryAccountsRequest, context=None):
+    async def Accounts(self, request: auth_query_pb.QueryAccountsRequest, context=None, metadata=None):
         return self.accounts_responses.pop()

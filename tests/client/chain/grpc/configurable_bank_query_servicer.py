@@ -11,14 +11,14 @@ class ConfigurableBankQueryServicer(bank_query_grpc.QueryServicer):
         self.balances_responses = deque()
         self.total_supply_responses = deque()
 
-    async def Params(self, request: bank_query_pb.QueryParamsRequest, context=None):
+    async def Params(self, request: bank_query_pb.QueryParamsRequest, context=None, metadata=None):
         return self.bank_params.pop()
 
-    async def Balance(self, request: bank_query_pb.QueryBalanceRequest, context=None):
+    async def Balance(self, request: bank_query_pb.QueryBalanceRequest, context=None, metadata=None):
         return self.balance_responses.pop()
 
-    async def AllBalances(self, request: bank_query_pb.QueryAllBalancesRequest, context=None):
+    async def AllBalances(self, request: bank_query_pb.QueryAllBalancesRequest, context=None, metadata=None):
         return self.balances_responses.pop()
 
-    async def TotalSupply(self, request: bank_query_pb.QueryTotalSupplyRequest, context=None):
+    async def TotalSupply(self, request: bank_query_pb.QueryTotalSupplyRequest, context=None, metadata=None):
         return self.total_supply_responses.pop()
