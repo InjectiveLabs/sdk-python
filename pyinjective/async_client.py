@@ -11,9 +11,11 @@ from google.protobuf import json_format
 
 from pyinjective import constant
 from pyinjective.client.chain.grpc.chain_grpc_auth_api import ChainGrpcAuthApi
+from pyinjective.client.chain.grpc.chain_grpc_authz_api import ChainGrpcAuthZApi
 from pyinjective.client.chain.grpc.chain_grpc_bank_api import ChainGrpcBankApi
 from pyinjective.client.indexer.grpc.indexer_grpc_account_api import IndexerGrpcAccountApi
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_account_stream import IndexerGrpcAccountStream
+from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.composer import Composer
 from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from pyinjective.core.network import Network
@@ -134,6 +136,12 @@ class AsyncClient:
             ),
         )
         self.auth_api = ChainGrpcAuthApi(
+            channel=self.chain_channel,
+            metadata_provider=self.network.chain_metadata(
+                metadata_query_provider=self._chain_cookie_metadata_requestor
+            ),
+        )
+        self.authz_api = ChainGrpcAuthZApi(
             channel=self.chain_channel,
             metadata_provider=self.network.chain_metadata(
                 metadata_query_provider=self._chain_cookie_metadata_requestor
@@ -300,12 +308,30 @@ class AsyncClient:
         return latest_block.block.header.chain_id
 
     async def get_grants(self, granter: str, grantee: str, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_grants` instead
+        """
+        warn("This method is deprecated. Use fetch_grants instead", DeprecationWarning, stacklevel=2)
         return await self.stubAuthz.Grants(
             authz_query.QueryGrantsRequest(
                 granter=granter,
                 grantee=grantee,
                 msg_type_url=kwargs.get("msg_type_url"),
             )
+        )
+
+    async def fetch_grants(
+        self,
+        granter: str,
+        grantee: str,
+        msg_type_url: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.authz_api.fetch_grants(
+            granter=granter,
+            grantee=grantee,
+            msg_type_url=msg_type_url,
+            pagination=pagination,
         )
 
     async def get_bank_balances(self, address: str):

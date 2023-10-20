@@ -4,10 +4,12 @@ import pytest
 
 from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
+from pyinjective.proto.cosmos.authz.v1beta1 import query_pb2 as authz_query
 from pyinjective.proto.cosmos.bank.v1beta1 import query_pb2 as bank_query_pb
 from pyinjective.proto.exchange import injective_accounts_rpc_pb2 as exchange_accounts_pb
 from pyinjective.proto.injective.types.v1beta1 import account_pb2 as account_pb
-from tests.client.chain.grpc.configurable_auth_query_serciver import ConfigurableAuthQueryServicer
+from tests.client.chain.grpc.configurable_auth_query_servicer import ConfigurableAuthQueryServicer
+from tests.client.chain.grpc.configurable_autz_query_servicer import ConfigurableAuthZQueryServicer
 from tests.client.chain.grpc.configurable_bank_query_servicer import ConfigurableBankQueryServicer
 from tests.client.indexer.configurable_account_query_servicer import ConfigurableAccountQueryServicer
 
@@ -20,6 +22,11 @@ def account_servicer():
 @pytest.fixture
 def auth_servicer():
     return ConfigurableAuthQueryServicer()
+
+
+@pytest.fixture
+def authz_servicer():
+    return ConfigurableAuthZQueryServicer()
 
 
 @pytest.fixture
@@ -263,3 +270,22 @@ class TestAsyncClientDeprecationWarnings:
         assert (
             str(all_warnings[0].message) == "This method is deprecated. Use listen_subaccount_balance_updates instead"
         )
+
+    @pytest.mark.asyncio
+    async def test_get_grants_deprecation_warning(
+        self,
+        authz_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+            insecure=False,
+        )
+        client.stubAuthz = authz_servicer
+        authz_servicer.grants_responses.append(authz_query.QueryGrantsResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_grants(granter="granter", grantee="grantee")
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_grants instead"
