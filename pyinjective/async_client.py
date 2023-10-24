@@ -20,6 +20,7 @@ from pyinjective.composer import Composer
 from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from pyinjective.core.network import Network
 from pyinjective.core.token import Token
+from pyinjective.core.tx.grpc.tx_grpc_api import TxGrpcApi
 from pyinjective.exceptions import NotFoundError
 from pyinjective.proto.cosmos.auth.v1beta1 import query_pb2 as auth_query, query_pb2_grpc as auth_query_grpc
 from pyinjective.proto.cosmos.authz.v1beta1 import query_pb2 as authz_query, query_pb2_grpc as authz_query_grpc
@@ -63,10 +64,16 @@ class AsyncClient:
     def __init__(
         self,
         network: Network,
-        insecure: bool = False,
+        insecure: Optional[bool] = None,
         credentials=grpc.ssl_channel_credentials(),
     ):
         # the `insecure` parameter is ignored and will be deprecated soon. The value is taken directly from `network`
+        if insecure is not None:
+            warn(
+                "insecure parameter in AsyncClient is no longer used and will be deprecated",
+                DeprecationWarning,
+                stacklevel=2,
+            )
 
         self.addr = ""
         self.number = 0
@@ -147,6 +154,12 @@ class AsyncClient:
                 metadata_query_provider=self._chain_cookie_metadata_requestor
             ),
         )
+        self.tx_api = TxGrpcApi(
+            channel=self.chain_channel,
+            metadata_provider=self.network.chain_metadata(
+                metadata_query_provider=self._chain_cookie_metadata_requestor
+            ),
+        )
 
         self.exchange_account_api = IndexerGrpcAccountApi(
             channel=self.exchange_channel,
@@ -198,7 +211,14 @@ class AsyncClient:
         return self.number
 
     async def get_tx(self, tx_hash):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_tx` instead
+        """
+        warn("This method is deprecated. Use fetch_tx instead", DeprecationWarning, stacklevel=2)
         return await self.stubTx.GetTx(tx_service.GetTxRequest(hash=tx_hash))
+
+    async def fetch_tx(self, hash: str) -> Dict[str, Any]:
+        return await self.tx_api.fetch_tx(hash=hash)
 
     async def close_exchange_channel(self):
         await self.exchange_channel.close()
@@ -278,6 +298,10 @@ class AsyncClient:
         return request_ids
 
     async def simulate_tx(self, tx_byte: bytes) -> Tuple[Union[abci_type.SimulationResponse, grpc.RpcError], bool]:
+        """
+        This method is deprecated and will be removed soon. Please use `simulate` instead
+        """
+        warn("This method is deprecated. Use simulate instead", DeprecationWarning, stacklevel=2)
         try:
             req = tx_service.SimulateRequest(tx_bytes=tx_byte)
             metadata = await self.network.chain_metadata(metadata_query_provider=self._chain_cookie_metadata_requestor)
@@ -285,19 +309,37 @@ class AsyncClient:
         except grpc.RpcError as err:
             return err, False
 
+    async def simulate(self, tx_bytes: bytes) -> Dict[str, Any]:
+        return await self.tx_api.simulate(tx_bytes=tx_bytes)
+
     async def send_tx_sync_mode(self, tx_byte: bytes) -> abci_type.TxResponse:
+        """
+        This method is deprecated and will be removed soon. Please use `broadcast_tx_sync_mode` instead
+        """
+        warn("This method is deprecated. Use broadcast_tx_sync_mode instead", DeprecationWarning, stacklevel=2)
         req = tx_service.BroadcastTxRequest(tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_SYNC)
         metadata = await self.network.chain_metadata(metadata_query_provider=self._chain_cookie_metadata_requestor)
         result = await self.stubTx.BroadcastTx(request=req, metadata=metadata)
         return result.tx_response
 
+    async def broadcast_tx_sync_mode(self, tx_bytes: bytes) -> Dict[str, Any]:
+        return await self.tx_api.broadcast(tx_bytes=tx_bytes, mode=tx_service.BroadcastMode.BROADCAST_MODE_SYNC)
+
     async def send_tx_async_mode(self, tx_byte: bytes) -> abci_type.TxResponse:
+        """
+        This method is deprecated and will be removed soon. Please use `broadcast_tx_async_mode` instead
+        """
+        warn("This method is deprecated. Use broadcast_tx_async_mode instead", DeprecationWarning, stacklevel=2)
         req = tx_service.BroadcastTxRequest(tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_ASYNC)
         metadata = await self.network.chain_metadata(metadata_query_provider=self._chain_cookie_metadata_requestor)
         result = await self.stubTx.BroadcastTx(request=req, metadata=metadata)
         return result.tx_response
 
     async def send_tx_block_mode(self, tx_byte: bytes) -> abci_type.TxResponse:
+        """
+        This method is deprecated and will be removed soon. BLOCK broadcast mode should not be used
+        """
+        warn("This method is deprecated. BLOCK broadcast mode should not be used", DeprecationWarning, stacklevel=2)
         req = tx_service.BroadcastTxRequest(tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_BLOCK)
         metadata = await self.network.chain_metadata(metadata_query_provider=self._chain_cookie_metadata_requestor)
         result = await self.stubTx.BroadcastTx(request=req, metadata=metadata)
@@ -1082,7 +1124,7 @@ class AsyncClient:
         binary_option_markets = dict()
         tokens = dict()
         tokens_by_denom = dict()
-        markets_info = (await self.get_spot_markets()).markets
+        markets_info = (await self.get_spot_markets(market_status="active")).markets
 
         for market_info in markets_info:
             if "/" in market_info.ticker:
@@ -1124,7 +1166,7 @@ class AsyncClient:
 
             spot_markets[market.id] = market
 
-        markets_info = (await self.get_derivative_markets()).markets
+        markets_info = (await self.get_derivative_markets(market_status="active")).markets
         for market_info in markets_info:
             quote_token_symbol = market_info.quote_token_meta.symbol
 
@@ -1157,7 +1199,7 @@ class AsyncClient:
 
             derivative_markets[market.id] = market
 
-        markets_info = (await self.get_binary_options_markets()).markets
+        markets_info = (await self.get_binary_options_markets(market_status="active")).markets
         for market_info in markets_info:
             quote_token = tokens_by_denom.get(market_info.quote_denom, None)
 

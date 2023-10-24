@@ -112,7 +112,7 @@ async def main() -> None:
     tx_raw_bytes = tx.get_tx_data(sig, pub_key)
 
     # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
-    res = await client.send_tx_sync_mode(tx_raw_bytes)
+    res = await client.broadcast_tx_sync_mode(tx_raw_bytes)
     print(res)
     print("gas wanted: {}".format(gas_limit))
     print("gas fee: {} INJ".format(gas_fee))
@@ -149,7 +149,7 @@ async def main() -> None:
     tx_raw_bytes = tx.get_tx_data(sig, pub_key)
 
     # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
-    res = await client.send_tx_sync_mode(tx_raw_bytes)
+    res = await client.broadcast_tx_sync_mode(tx_raw_bytes)
     print(res)
     print("gas wanted: {}".format(gas_limit))
     print("gas fee: {} INJ".format(gas_fee))
@@ -235,7 +235,7 @@ async def main() -> None:
     tx_raw_bytes = tx.get_tx_data(sig, pub_key)
 
     # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
-    res = await client.send_tx_sync_mode(tx_raw_bytes)
+    res = await client.broadcast_tx_sync_mode(tx_raw_bytes)
     print(res)
     print("gas wanted: {}".format(gas_limit))
     print("gas fee: {} INJ".format(gas_fee))

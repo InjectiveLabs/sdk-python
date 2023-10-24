@@ -11,7 +11,7 @@ from pyinjective.proto.cosmos.auth.v1beta1 import auth_pb2 as auth_pb, query_pb2
 from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagination_pb
 from pyinjective.proto.injective.crypto.v1beta1.ethsecp256k1 import keys_pb2 as keys_pb
 from pyinjective.proto.injective.types.v1beta1 import account_pb2 as account_pb
-from tests.client.chain.grpc.configurable_auth_query_serciver import ConfigurableAuthQueryServicer
+from tests.client.chain.grpc.configurable_auth_query_servicer import ConfigurableAuthQueryServicer
 
 
 @pytest.fixture

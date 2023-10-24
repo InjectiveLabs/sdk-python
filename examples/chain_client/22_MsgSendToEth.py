@@ -1,6 +1,7 @@
 import asyncio
 
 import requests
+from grpc import RpcError
 
 from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
@@ -52,14 +53,15 @@ async def main() -> None:
     sim_tx_raw_bytes = tx.get_tx_data(sim_sig, pub_key)
 
     # simulate tx
-    (sim_res, success) = await client.simulate_tx(sim_tx_raw_bytes)
-    if not success:
-        print(sim_res)
+    try:
+        sim_res = await client.simulate(sim_tx_raw_bytes)
+    except RpcError as ex:
+        print(ex)
         return
 
     # build tx
     gas_price = 500000000
-    gas_limit = sim_res.gas_info.gas_used + 20000  # add 20k for gas, fee computation
+    gas_limit = int(sim_res["gasInfo"]["gasUsed"]) + 20000  # add 20k for gas, fee computation
     gas_fee = "{:.18f}".format((gas_price * gas_limit) / pow(10, 18)).rstrip("0")
     fee = [
         composer.Coin(
@@ -73,7 +75,7 @@ async def main() -> None:
     tx_raw_bytes = tx.get_tx_data(sig, pub_key)
 
     # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
-    res = await client.send_tx_sync_mode(tx_raw_bytes)
+    res = await client.broadcast_tx_sync_mode(tx_raw_bytes)
     print(res)
     print("gas wanted: {}".format(gas_limit))
     print("gas fee: {} INJ".format(gas_fee))

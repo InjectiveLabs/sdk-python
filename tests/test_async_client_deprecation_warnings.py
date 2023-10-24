@@ -6,12 +6,14 @@ from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
 from pyinjective.proto.cosmos.authz.v1beta1 import query_pb2 as authz_query
 from pyinjective.proto.cosmos.bank.v1beta1 import query_pb2 as bank_query_pb
+from pyinjective.proto.cosmos.tx.v1beta1 import service_pb2 as tx_service
 from pyinjective.proto.exchange import injective_accounts_rpc_pb2 as exchange_accounts_pb
 from pyinjective.proto.injective.types.v1beta1 import account_pb2 as account_pb
 from tests.client.chain.grpc.configurable_auth_query_servicer import ConfigurableAuthQueryServicer
 from tests.client.chain.grpc.configurable_autz_query_servicer import ConfigurableAuthZQueryServicer
 from tests.client.chain.grpc.configurable_bank_query_servicer import ConfigurableBankQueryServicer
 from tests.client.indexer.configurable_account_query_servicer import ConfigurableAccountQueryServicer
+from tests.core.tx.grpc.configurable_tx_query_servicer import ConfigurableTxQueryServicer
 
 
 @pytest.fixture
@@ -34,7 +36,28 @@ def bank_servicer():
     return ConfigurableBankQueryServicer()
 
 
+@pytest.fixture
+def tx_servicer():
+    return ConfigurableTxQueryServicer()
+
+
 class TestAsyncClientDeprecationWarnings:
+    def test_insecure_parameter_deprecation_warning(
+        self,
+        auth_servicer,
+    ):
+        with catch_warnings(record=True) as all_warnings:
+            AsyncClient(
+                network=Network.local(),
+                insecure=False,
+            )
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert (
+            str(all_warnings[0].message) == "insecure parameter in AsyncClient is no longer used and will be deprecated"
+        )
+
     @pytest.mark.asyncio
     async def test_get_account_deprecation_warning(
         self,
@@ -42,7 +65,6 @@ class TestAsyncClientDeprecationWarnings:
     ):
         client = AsyncClient(
             network=Network.local(),
-            insecure=False,
         )
         client.stubAuth = auth_servicer
         auth_servicer.account_responses.append(account_pb.EthAccount())
@@ -61,7 +83,6 @@ class TestAsyncClientDeprecationWarnings:
     ):
         client = AsyncClient(
             network=Network.local(),
-            insecure=False,
         )
         client.stubBank = bank_servicer
         bank_servicer.balance_responses.append(bank_query_pb.QueryBalanceResponse())
@@ -80,7 +101,6 @@ class TestAsyncClientDeprecationWarnings:
     ):
         client = AsyncClient(
             network=Network.local(),
-            insecure=False,
         )
         client.stubBank = bank_servicer
         bank_servicer.balances_responses.append(bank_query_pb.QueryAllBalancesResponse())
@@ -99,7 +119,6 @@ class TestAsyncClientDeprecationWarnings:
     ):
         client = AsyncClient(
             network=Network.local(),
-            insecure=False,
         )
         client.stubExchangeAccount = account_servicer
         account_servicer.order_states_responses.append(exchange_accounts_pb.OrderStatesResponse())
@@ -118,7 +137,6 @@ class TestAsyncClientDeprecationWarnings:
     ):
         client = AsyncClient(
             network=Network.local(),
-            insecure=False,
         )
         client.stubExchangeAccount = account_servicer
         account_servicer.subaccounts_list_responses.append(exchange_accounts_pb.SubaccountsListResponse())
@@ -137,7 +155,6 @@ class TestAsyncClientDeprecationWarnings:
     ):
         client = AsyncClient(
             network=Network.local(),
-            insecure=False,
         )
         client.stubExchangeAccount = account_servicer
         account_servicer.subaccount_balances_list_responses.append(
@@ -158,7 +175,6 @@ class TestAsyncClientDeprecationWarnings:
     ):
         client = AsyncClient(
             network=Network.local(),
-            insecure=False,
         )
         client.stubExchangeAccount = account_servicer
         account_servicer.subaccount_balance_responses.append(exchange_accounts_pb.SubaccountBalanceEndpointResponse())
@@ -177,7 +193,6 @@ class TestAsyncClientDeprecationWarnings:
     ):
         client = AsyncClient(
             network=Network.local(),
-            insecure=False,
         )
         client.stubExchangeAccount = account_servicer
         account_servicer.subaccount_history_responses.append(exchange_accounts_pb.SubaccountHistoryResponse())
@@ -196,7 +211,6 @@ class TestAsyncClientDeprecationWarnings:
     ):
         client = AsyncClient(
             network=Network.local(),
-            insecure=False,
         )
         client.stubExchangeAccount = account_servicer
         account_servicer.subaccount_order_summary_responses.append(
@@ -217,7 +231,6 @@ class TestAsyncClientDeprecationWarnings:
     ):
         client = AsyncClient(
             network=Network.local(),
-            insecure=False,
         )
         client.stubExchangeAccount = account_servicer
         account_servicer.portfolio_responses.append(exchange_accounts_pb.PortfolioResponse())
@@ -236,7 +249,6 @@ class TestAsyncClientDeprecationWarnings:
     ):
         client = AsyncClient(
             network=Network.local(),
-            insecure=False,
         )
         client.stubExchangeAccount = account_servicer
         account_servicer.rewards_responses.append(exchange_accounts_pb.RewardsResponse())
@@ -255,7 +267,6 @@ class TestAsyncClientDeprecationWarnings:
     ):
         client = AsyncClient(
             network=Network.local(),
-            insecure=False,
         )
         client.stubExchangeAccount = account_servicer
         account_servicer.stream_subaccount_balance_responses.append(
@@ -278,7 +289,6 @@ class TestAsyncClientDeprecationWarnings:
     ):
         client = AsyncClient(
             network=Network.local(),
-            insecure=False,
         )
         client.stubAuthz = authz_servicer
         authz_servicer.grants_responses.append(authz_query.QueryGrantsResponse())
@@ -289,3 +299,93 @@ class TestAsyncClientDeprecationWarnings:
         assert len(all_warnings) == 1
         assert issubclass(all_warnings[0].category, DeprecationWarning)
         assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_grants instead"
+
+    @pytest.mark.asyncio
+    async def test_simulate_deprecation_warning(
+        self,
+        tx_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubTx = tx_servicer
+        tx_servicer.simulate_responses.append(tx_service.SimulateResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.simulate_tx(tx_byte="".encode())
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use simulate instead"
+
+    @pytest.mark.asyncio
+    async def test_get_tx_deprecation_warning(
+        self,
+        tx_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubTx = tx_servicer
+        tx_servicer.get_tx_responses.append(tx_service.GetTxResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_tx(tx_hash="")
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_tx instead"
+
+    @pytest.mark.asyncio
+    async def test_send_tx_sync_mode_deprecation_warning(
+        self,
+        tx_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubTx = tx_servicer
+        tx_servicer.broadcast_responses.append(tx_service.BroadcastTxResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.send_tx_sync_mode(tx_byte="".encode())
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use broadcast_tx_sync_mode instead"
+
+    @pytest.mark.asyncio
+    async def test_send_tx_async_mode_deprecation_warning(
+        self,
+        tx_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubTx = tx_servicer
+        tx_servicer.broadcast_responses.append(tx_service.BroadcastTxResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.send_tx_async_mode(tx_byte="".encode())
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use broadcast_tx_async_mode instead"
+
+    @pytest.mark.asyncio
+    async def test_send_tx_block_mode_deprecation_warning(
+        self,
+        tx_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubTx = tx_servicer
+        tx_servicer.broadcast_responses.append(tx_service.BroadcastTxResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.send_tx_block_mode(tx_byte="".encode())
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. BLOCK broadcast mode should not be used"

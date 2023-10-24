@@ -4,6 +4,7 @@ from decimal import Decimal
 from typing import List, Optional
 
 from google.protobuf import any_pb2
+from grpc import RpcError
 
 from pyinjective import PrivateKey, PublicKey, Transaction
 from pyinjective.async_client import AsyncClient
@@ -174,7 +175,7 @@ class MsgBroadcasterWithPk:
         tx_raw_bytes = transaction.get_tx_data(sig, self._account_config.trading_public_key)
 
         # broadcast tx: send_tx_async_mode, send_tx_sync_mode
-        transaction_result = await self._client.send_tx_sync_mode(tx_raw_bytes)
+        transaction_result = await self._client.broadcast_tx_sync_mode(tx_raw_bytes)
 
         return transaction_result
 
@@ -254,9 +255,10 @@ class SimulatedTransactionFeeCalculator(TransactionFeeCalculator):
         sim_tx_raw_bytes = transaction.get_tx_data(sim_sig, public_key)
 
         # simulate tx
-        (sim_res, success) = await self._client.simulate_tx(sim_tx_raw_bytes)
-        if not success:
-            raise RuntimeError(f"Transaction simulation error: {sim_res}")
+        try:
+            sim_res = await self._client.simulate_tx(sim_tx_raw_bytes)
+        except RpcError as ex:
+            raise RuntimeError(f"Transaction simulation error: {ex}")
 
         gas_limit = math.ceil(Decimal(str(sim_res.gas_info.gas_used)) * self._gas_limit_adjustment_multiplier)
 
