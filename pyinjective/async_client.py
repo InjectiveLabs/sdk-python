@@ -4,7 +4,6 @@ from copy import deepcopy
 from decimal import Decimal
 from typing import Coroutine, Dict, List, Optional, Tuple, Union
 
-import aiocron
 import grpc
 
 from pyinjective.composer import Composer
@@ -117,13 +116,8 @@ class AsyncClient:
         )
         self.chain_stream_stub = stream_rpc_grpc.StreamStub(channel=self.chain_stream_channel)
 
-        # timeout height update routine
-        self.cron = aiocron.crontab(
-            "* * * * * */{}".format(DEFAULT_TIMEOUTHEIGHT_SYNC_INTERVAL),
-            func=self.sync_timeout_height,
-            args=(),
-            start=True,
-        )
+        self._timeout_height_sync_task = None
+        self._initialize_timeout_height_sync_task()
 
         self._tokens_and_markets_initialization_lock = asyncio.Lock()
         self._tokens: Optional[Dict[str, Token]] = None
@@ -172,11 +166,11 @@ class AsyncClient:
 
     async def close_exchange_channel(self):
         await self.exchange_channel.close()
-        self.cron.stop()
+        self._cancel_timeout_height_sync_task()
 
     async def close_chain_channel(self):
         await self.chain_channel.close()
-        self.cron.stop()
+        self._cancel_timeout_height_sync_task()
 
     async def sync_timeout_height(self):
         try:
@@ -1046,3 +1040,17 @@ class AsyncClient:
     def _exchange_cookie_metadata_requestor(self) -> Coroutine:
         request = exchange_meta_rpc_pb.VersionRequest()
         return self.stubMeta.Version(request).initial_metadata()
+
+    def _initialize_timeout_height_sync_task(self):
+        self._cancel_timeout_height_sync_task()
+        self._timeout_height_sync_task = asyncio.create_task(self._timeout_height_sync_process())
+
+    async def _timeout_height_sync_process(self):
+        while True:
+            await self.sync_timeout_height()
+            await asyncio.sleep(DEFAULT_TIMEOUTHEIGHT_SYNC_INTERVAL)
+
+    def _cancel_timeout_height_sync_task(self):
+        if self._timeout_height_sync_task is not None:
+            self._timeout_height_sync_task.cancel()
+        self._timeout_height_sync_task = None
