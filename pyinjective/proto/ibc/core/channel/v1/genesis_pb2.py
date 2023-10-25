@@ -21,6 +21,7 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'ibc.core.channel.v1.genesis_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
+
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z9github.com/cosmos/ibc-go/v8/modules/core/04-channel/types'
   _GENESISSTATE.fields_by_name['channels']._options = None

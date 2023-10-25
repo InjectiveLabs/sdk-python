@@ -20,6 +20,7 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'cosmos.base.reflection.v1beta1.reflection_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
+
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z3github.com/cosmos/cosmos-sdk/client/grpc/reflection'
   _REFLECTIONSERVICE.methods_by_name['ListAllInterfaces']._options = None

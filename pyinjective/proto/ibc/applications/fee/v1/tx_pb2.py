@@ -18,12 +18,13 @@ from ibc.core.channel.v1 import channel_pb2 as ibc_dot_core_dot_channel_dot_v1_d
 from cosmos.msg.v1 import msg_pb2 as cosmos_dot_msg_dot_v1_dot_msg__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n ibc/applications/fee/v1/tx.proto\x12\x17ibc.applications.fee.v1\x1a\x11\x61mino/amino.proto\x1a\x14gogoproto/gogo.proto\x1a!ibc/applications/fee/v1/fee.proto\x1a!ibc/core/channel/v1/channel.proto\x1a\x17\x63osmos/msg/v1/msg.proto\"\x89\x01\n\x10MsgRegisterPayee\x12\x0f\n\x07port_id\x18\x01 \x01(\t\x12\x12\n\nchannel_id\x18\x02 \x01(\t\x12\x0f\n\x07relayer\x18\x03 \x01(\t\x12\r\n\x05payee\x18\x04 \x01(\t:0\x88\xa0\x1f\x00\x82\xe7\xb0*\x07relayer\x8a\xe7\xb0*\x1b\x63osmos-sdk/MsgRegisterPayee\"\x1a\n\x18MsgRegisterPayeeResponse\"\xae\x01\n\x1cMsgRegisterCounterpartyPayee\x12\x0f\n\x07port_id\x18\x01 \x01(\t\x12\x12\n\nchannel_id\x18\x02 \x01(\t\x12\x0f\n\x07relayer\x18\x03 \x01(\t\x12\x1a\n\x12\x63ounterparty_payee\x18\x04 \x01(\t:<\x88\xa0\x1f\x00\x82\xe7\xb0*\x07relayer\x8a\xe7\xb0*\'cosmos-sdk/MsgRegisterCounterpartyPayee\"&\n$MsgRegisterCounterpartyPayeeResponse\"\xc7\x01\n\x0fMsgPayPacketFee\x12/\n\x03\x66\x65\x65\x18\x01 \x01(\x0b\x32\x1c.ibc.applications.fee.v1.FeeB\x04\xc8\xde\x1f\x00\x12\x16\n\x0esource_port_id\x18\x02 \x01(\t\x12\x19\n\x11source_channel_id\x18\x03 \x01(\t\x12\x0e\n\x06signer\x18\x04 \x01(\t\x12\x10\n\x08relayers\x18\x05 \x03(\t:.\x88\xa0\x1f\x00\x82\xe7\xb0*\x06signer\x8a\xe7\xb0*\x1a\x63osmos-sdk/MsgPayPacketFee\"\x19\n\x17MsgPayPacketFeeResponse\"\xc5\x01\n\x14MsgPayPacketFeeAsync\x12\x36\n\tpacket_id\x18\x01 \x01(\x0b\x32\x1d.ibc.core.channel.v1.PacketIdB\x04\xc8\xde\x1f\x00\x12<\n\npacket_fee\x18\x02 \x01(\x0b\x32\".ibc.applications.fee.v1.PacketFeeB\x04\xc8\xde\x1f\x00:7\x88\xa0\x1f\x00\x82\xe7\xb0*\npacket_fee\x8a\xe7\xb0*\x1f\x63osmos-sdk/MsgPayPacketFeeAsync\"\x1e\n\x1cMsgPayPacketFeeAsyncResponse2\xf6\x03\n\x03Msg\x12m\n\rRegisterPayee\x12).ibc.applications.fee.v1.MsgRegisterPayee\x1a\x31.ibc.applications.fee.v1.MsgRegisterPayeeResponse\x12\x91\x01\n\x19RegisterCounterpartyPayee\x12\x35.ibc.applications.fee.v1.MsgRegisterCounterpartyPayee\x1a=.ibc.applications.fee.v1.MsgRegisterCounterpartyPayeeResponse\x12j\n\x0cPayPacketFee\x12(.ibc.applications.fee.v1.MsgPayPacketFee\x1a\x30.ibc.applications.fee.v1.MsgPayPacketFeeResponse\x12y\n\x11PayPacketFeeAsync\x12-.ibc.applications.fee.v1.MsgPayPacketFeeAsync\x1a\x35.ibc.applications.fee.v1.MsgPayPacketFeeAsyncResponse\x1a\x05\x80\xe7\xb0*\x01\x42\x37Z5github.com/cosmos/ibc-go/v8/modules/apps/29-fee/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n ibc/applications/fee/v1/tx.proto\x12\x17ibc.applications.fee.v1\x1a\x11\x61mino/amino.proto\x1a\x14gogoproto/gogo.proto\x1a!ibc/applications/fee/v1/fee.proto\x1a!ibc/core/channel/v1/channel.proto\x1a\x17\x63osmos/msg/v1/msg.proto\"\x89\x01\n\x10MsgRegisterPayee\x12\x0f\n\x07port_id\x18\x01 \x01(\t\x12\x12\n\nchannel_id\x18\x02 \x01(\t\x12\x0f\n\x07relayer\x18\x03 \x01(\t\x12\r\n\x05payee\x18\x04 \x01(\t:0\x88\xa0\x1f\x00\x82\xe7\xb0*\x07relayer\x8a\xe7\xb0*\x1b\x63osmos-sdk/MsgRegisterPayee\"\x1a\n\x18MsgRegisterPayeeResponse\"\xae\x01\n\x1cMsgRegisterCounterpartyPayee\x12\x0f\n\x07port_id\x18\x01 \x01(\t\x12\x12\n\nchannel_id\x18\x02 \x01(\t\x12\x0f\n\x07relayer\x18\x03 \x01(\t\x12\x1a\n\x12\x63ounterparty_payee\x18\x04 \x01(\t:<\x88\xa0\x1f\x00\x82\xe7\xb0*\x07relayer\x8a\xe7\xb0*\'cosmos-sdk/MsgRegisterCounterpartyPayee\"&\n$MsgRegisterCounterpartyPayeeResponse\"\xcc\x01\n\x0fMsgPayPacketFee\x12\x34\n\x03\x66\x65\x65\x18\x01 \x01(\x0b\x32\x1c.ibc.applications.fee.v1.FeeB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12\x16\n\x0esource_port_id\x18\x02 \x01(\t\x12\x19\n\x11source_channel_id\x18\x03 \x01(\t\x12\x0e\n\x06signer\x18\x04 \x01(\t\x12\x10\n\x08relayers\x18\x05 \x03(\t:.\x88\xa0\x1f\x00\x82\xe7\xb0*\x06signer\x8a\xe7\xb0*\x1a\x63osmos-sdk/MsgPayPacketFee\"\x19\n\x17MsgPayPacketFeeResponse\"\xcf\x01\n\x14MsgPayPacketFeeAsync\x12;\n\tpacket_id\x18\x01 \x01(\x0b\x32\x1d.ibc.core.channel.v1.PacketIdB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12\x41\n\npacket_fee\x18\x02 \x01(\x0b\x32\".ibc.applications.fee.v1.PacketFeeB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01:7\x88\xa0\x1f\x00\x82\xe7\xb0*\npacket_fee\x8a\xe7\xb0*\x1f\x63osmos-sdk/MsgPayPacketFeeAsync\"\x1e\n\x1cMsgPayPacketFeeAsyncResponse2\xf6\x03\n\x03Msg\x12m\n\rRegisterPayee\x12).ibc.applications.fee.v1.MsgRegisterPayee\x1a\x31.ibc.applications.fee.v1.MsgRegisterPayeeResponse\x12\x91\x01\n\x19RegisterCounterpartyPayee\x12\x35.ibc.applications.fee.v1.MsgRegisterCounterpartyPayee\x1a=.ibc.applications.fee.v1.MsgRegisterCounterpartyPayeeResponse\x12j\n\x0cPayPacketFee\x12(.ibc.applications.fee.v1.MsgPayPacketFee\x1a\x30.ibc.applications.fee.v1.MsgPayPacketFeeResponse\x12y\n\x11PayPacketFeeAsync\x12-.ibc.applications.fee.v1.MsgPayPacketFeeAsync\x1a\x35.ibc.applications.fee.v1.MsgPayPacketFeeAsyncResponse\x1a\x05\x80\xe7\xb0*\x01\x42\x37Z5github.com/cosmos/ibc-go/v8/modules/apps/29-fee/typesb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'ibc.applications.fee.v1.tx_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
+
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z5github.com/cosmos/ibc-go/v8/modules/apps/29-fee/types'
   _MSGREGISTERPAYEE._options = None
@@ -31,13 +32,13 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _MSGREGISTERCOUNTERPARTYPAYEE._options = None
   _MSGREGISTERCOUNTERPARTYPAYEE._serialized_options = b'\210\240\037\000\202\347\260*\007relayer\212\347\260*\'cosmos-sdk/MsgRegisterCounterpartyPayee'
   _MSGPAYPACKETFEE.fields_by_name['fee']._options = None
-  _MSGPAYPACKETFEE.fields_by_name['fee']._serialized_options = b'\310\336\037\000'
+  _MSGPAYPACKETFEE.fields_by_name['fee']._serialized_options = b'\310\336\037\000\250\347\260*\001'
   _MSGPAYPACKETFEE._options = None
   _MSGPAYPACKETFEE._serialized_options = b'\210\240\037\000\202\347\260*\006signer\212\347\260*\032cosmos-sdk/MsgPayPacketFee'
   _MSGPAYPACKETFEEASYNC.fields_by_name['packet_id']._options = None
-  _MSGPAYPACKETFEEASYNC.fields_by_name['packet_id']._serialized_options = b'\310\336\037\000'
+  _MSGPAYPACKETFEEASYNC.fields_by_name['packet_id']._serialized_options = b'\310\336\037\000\250\347\260*\001'
   _MSGPAYPACKETFEEASYNC.fields_by_name['packet_fee']._options = None
-  _MSGPAYPACKETFEEASYNC.fields_by_name['packet_fee']._serialized_options = b'\310\336\037\000'
+  _MSGPAYPACKETFEEASYNC.fields_by_name['packet_fee']._serialized_options = b'\310\336\037\000\250\347\260*\001'
   _MSGPAYPACKETFEEASYNC._options = None
   _MSGPAYPACKETFEEASYNC._serialized_options = b'\210\240\037\000\202\347\260*\npacket_fee\212\347\260*\037cosmos-sdk/MsgPayPacketFeeAsync'
   _MSG._options = None
@@ -51,13 +52,13 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['_MSGREGISTERCOUNTERPARTYPAYEERESPONSE']._serialized_start=542
   _globals['_MSGREGISTERCOUNTERPARTYPAYEERESPONSE']._serialized_end=580
   _globals['_MSGPAYPACKETFEE']._serialized_start=583
-  _globals['_MSGPAYPACKETFEE']._serialized_end=782
-  _globals['_MSGPAYPACKETFEERESPONSE']._serialized_start=784
-  _globals['_MSGPAYPACKETFEERESPONSE']._serialized_end=809
-  _globals['_MSGPAYPACKETFEEASYNC']._serialized_start=812
-  _globals['_MSGPAYPACKETFEEASYNC']._serialized_end=1009
-  _globals['_MSGPAYPACKETFEEASYNCRESPONSE']._serialized_start=1011
-  _globals['_MSGPAYPACKETFEEASYNCRESPONSE']._serialized_end=1041
-  _globals['_MSG']._serialized_start=1044
-  _globals['_MSG']._serialized_end=1546
+  _globals['_MSGPAYPACKETFEE']._serialized_end=787
+  _globals['_MSGPAYPACKETFEERESPONSE']._serialized_start=789
+  _globals['_MSGPAYPACKETFEERESPONSE']._serialized_end=814
+  _globals['_MSGPAYPACKETFEEASYNC']._serialized_start=817
+  _globals['_MSGPAYPACKETFEEASYNC']._serialized_end=1024
+  _globals['_MSGPAYPACKETFEEASYNCRESPONSE']._serialized_start=1026
+  _globals['_MSGPAYPACKETFEEASYNCRESPONSE']._serialized_end=1056
+  _globals['_MSG']._serialized_start=1059
+  _globals['_MSG']._serialized_end=1561
 # @@protoc_insertion_point(module_scope)

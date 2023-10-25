@@ -13,32 +13,33 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n$exchange/injective_auction_rpc.proto\x12\x15injective_auction_rpc\"\x1f\n\x0e\x41uctionRequest\x12\r\n\x05round\x18\x01 \x01(\x12\"l\n\x0f\x41uctionResponse\x12/\n\x07\x61uction\x18\x01 \x01(\x0b\x32\x1e.injective_auction_rpc.Auction\x12(\n\x04\x62ids\x18\x02 \x03(\x0b\x32\x1a.injective_auction_rpc.Bid\"\x9c\x01\n\x07\x41uction\x12\x0e\n\x06winner\x18\x01 \x01(\t\x12+\n\x06\x62\x61sket\x18\x02 \x03(\x0b\x32\x1b.injective_auction_rpc.Coin\x12\x1a\n\x12winning_bid_amount\x18\x03 \x01(\t\x12\r\n\x05round\x18\x04 \x01(\x04\x12\x15\n\rend_timestamp\x18\x05 \x01(\x12\x12\x12\n\nupdated_at\x18\x06 \x01(\x12\"%\n\x04\x43oin\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\t\"8\n\x03\x42id\x12\x0e\n\x06\x62idder\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"\x11\n\x0f\x41uctionsRequest\"D\n\x10\x41uctionsResponse\x12\x30\n\x08\x61uctions\x18\x01 \x03(\x0b\x32\x1e.injective_auction_rpc.Auction\"\x13\n\x11StreamBidsRequest\"Z\n\x12StreamBidsResponse\x12\x0e\n\x06\x62idder\x18\x01 \x01(\t\x12\x12\n\nbid_amount\x18\x02 \x01(\t\x12\r\n\x05round\x18\x03 \x01(\x04\x12\x11\n\ttimestamp\x18\x04 \x01(\x12\x32\xb9\x02\n\x13InjectiveAuctionRPC\x12`\n\x0f\x41uctionEndpoint\x12%.injective_auction_rpc.AuctionRequest\x1a&.injective_auction_rpc.AuctionResponse\x12[\n\x08\x41uctions\x12&.injective_auction_rpc.AuctionsRequest\x1a\'.injective_auction_rpc.AuctionsResponse\x12\x63\n\nStreamBids\x12(.injective_auction_rpc.StreamBidsRequest\x1a).injective_auction_rpc.StreamBidsResponse0\x01\x42\x1aZ\x18/injective_auction_rpcpbb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n$exchange/injective_auction_rpc.proto\x12\x15injective_auction_rpc\"\'\n\x16\x41uctionEndpointRequest\x12\r\n\x05round\x18\x01 \x01(\x12\"t\n\x17\x41uctionEndpointResponse\x12/\n\x07\x61uction\x18\x01 \x01(\x0b\x32\x1e.injective_auction_rpc.Auction\x12(\n\x04\x62ids\x18\x02 \x03(\x0b\x32\x1a.injective_auction_rpc.Bid\"\x9c\x01\n\x07\x41uction\x12\x0e\n\x06winner\x18\x01 \x01(\t\x12+\n\x06\x62\x61sket\x18\x02 \x03(\x0b\x32\x1b.injective_auction_rpc.Coin\x12\x1a\n\x12winning_bid_amount\x18\x03 \x01(\t\x12\r\n\x05round\x18\x04 \x01(\x04\x12\x15\n\rend_timestamp\x18\x05 \x01(\x12\x12\x12\n\nupdated_at\x18\x06 \x01(\x12\"%\n\x04\x43oin\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\t\"8\n\x03\x42id\x12\x0e\n\x06\x62idder\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x12\"\x11\n\x0f\x41uctionsRequest\"D\n\x10\x41uctionsResponse\x12\x30\n\x08\x61uctions\x18\x01 \x03(\x0b\x32\x1e.injective_auction_rpc.Auction\"\x13\n\x11StreamBidsRequest\"Z\n\x12StreamBidsResponse\x12\x0e\n\x06\x62idder\x18\x01 \x01(\t\x12\x12\n\nbid_amount\x18\x02 \x01(\t\x12\r\n\x05round\x18\x03 \x01(\x04\x12\x11\n\ttimestamp\x18\x04 \x01(\x12\x32\xc9\x02\n\x13InjectiveAuctionRPC\x12p\n\x0f\x41uctionEndpoint\x12-.injective_auction_rpc.AuctionEndpointRequest\x1a..injective_auction_rpc.AuctionEndpointResponse\x12[\n\x08\x41uctions\x12&.injective_auction_rpc.AuctionsRequest\x1a\'.injective_auction_rpc.AuctionsResponse\x12\x63\n\nStreamBids\x12(.injective_auction_rpc.StreamBidsRequest\x1a).injective_auction_rpc.StreamBidsResponse0\x01\x42\x1aZ\x18/injective_auction_rpcpbb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'exchange.injective_auction_rpc_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
+
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z\030/injective_auction_rpcpb'
-  _globals['_AUCTIONREQUEST']._serialized_start=63
-  _globals['_AUCTIONREQUEST']._serialized_end=94
-  _globals['_AUCTIONRESPONSE']._serialized_start=96
-  _globals['_AUCTIONRESPONSE']._serialized_end=204
-  _globals['_AUCTION']._serialized_start=207
-  _globals['_AUCTION']._serialized_end=363
-  _globals['_COIN']._serialized_start=365
-  _globals['_COIN']._serialized_end=402
-  _globals['_BID']._serialized_start=404
-  _globals['_BID']._serialized_end=460
-  _globals['_AUCTIONSREQUEST']._serialized_start=462
-  _globals['_AUCTIONSREQUEST']._serialized_end=479
-  _globals['_AUCTIONSRESPONSE']._serialized_start=481
-  _globals['_AUCTIONSRESPONSE']._serialized_end=549
-  _globals['_STREAMBIDSREQUEST']._serialized_start=551
-  _globals['_STREAMBIDSREQUEST']._serialized_end=570
-  _globals['_STREAMBIDSRESPONSE']._serialized_start=572
-  _globals['_STREAMBIDSRESPONSE']._serialized_end=662
-  _globals['_INJECTIVEAUCTIONRPC']._serialized_start=665
-  _globals['_INJECTIVEAUCTIONRPC']._serialized_end=978
+  _globals['_AUCTIONENDPOINTREQUEST']._serialized_start=63
+  _globals['_AUCTIONENDPOINTREQUEST']._serialized_end=102
+  _globals['_AUCTIONENDPOINTRESPONSE']._serialized_start=104
+  _globals['_AUCTIONENDPOINTRESPONSE']._serialized_end=220
+  _globals['_AUCTION']._serialized_start=223
+  _globals['_AUCTION']._serialized_end=379
+  _globals['_COIN']._serialized_start=381
+  _globals['_COIN']._serialized_end=418
+  _globals['_BID']._serialized_start=420
+  _globals['_BID']._serialized_end=476
+  _globals['_AUCTIONSREQUEST']._serialized_start=478
+  _globals['_AUCTIONSREQUEST']._serialized_end=495
+  _globals['_AUCTIONSRESPONSE']._serialized_start=497
+  _globals['_AUCTIONSRESPONSE']._serialized_end=565
+  _globals['_STREAMBIDSREQUEST']._serialized_start=567
+  _globals['_STREAMBIDSREQUEST']._serialized_end=586
+  _globals['_STREAMBIDSRESPONSE']._serialized_start=588
+  _globals['_STREAMBIDSRESPONSE']._serialized_end=678
+  _globals['_INJECTIVEAUCTIONRPC']._serialized_start=681
+  _globals['_INJECTIVEAUCTIONRPC']._serialized_end=1010
 # @@protoc_insertion_point(module_scope)

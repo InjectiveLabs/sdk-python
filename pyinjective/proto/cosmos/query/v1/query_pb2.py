@@ -20,6 +20,8 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'cosmos.query.v1.query_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
+  google_dot_protobuf_dot_descriptor__pb2.MethodOptions.RegisterExtension(module_query_safe)
+
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z(github.com/cosmos/cosmos-sdk/types/query'
 # @@protoc_insertion_point(module_scope)

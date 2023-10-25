@@ -23,6 +23,7 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'cosmos.group.module.v1.module_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
+
   DESCRIPTOR._options = None
   _MODULE.fields_by_name['max_execution_period']._options = None
   _MODULE.fields_by_name['max_execution_period']._serialized_options = b'\310\336\037\000\230\337\037\001\250\347\260*\001'

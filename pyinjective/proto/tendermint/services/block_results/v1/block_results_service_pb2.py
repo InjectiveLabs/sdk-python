@@ -20,6 +20,7 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'tendermint.services.block_results.v1.block_results_service_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
+
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'ZGgithub.com/cometbft/cometbft/proto/tendermint/services/block_results/v1'
   _globals['_BLOCKRESULTSSERVICE']._serialized_start=165

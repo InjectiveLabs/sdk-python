@@ -21,6 +21,7 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'tendermint.p2p.pex_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
+
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z1github.com/cometbft/cometbft/proto/tendermint/p2p'
   _PEXADDRS.fields_by_name['addrs']._options = None

@@ -1,4 +1,5 @@
 import asyncio
+import uuid
 
 from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
@@ -69,6 +70,7 @@ async def main() -> None:
             leverage=1,
             is_buy=True,
             is_po=False,
+            cid=str(uuid.uuid4()),
         ),
         composer.DerivativeOrder(
             market_id=derivative_market_id_create,
@@ -79,6 +81,7 @@ async def main() -> None:
             leverage=1,
             is_buy=False,
             is_po=False,
+            cid=str(uuid.uuid4()),
         ),
     ]
 
@@ -91,6 +94,7 @@ async def main() -> None:
             quantity=55,
             is_buy=True,
             is_po=False,
+            cid=str(uuid.uuid4()),
         ),
         composer.SpotOrder(
             market_id=spot_market_id_create,
@@ -100,6 +104,7 @@ async def main() -> None:
             quantity=55,
             is_buy=False,
             is_po=False,
+            cid=str(uuid.uuid4()),
         ),
     ]
 

@@ -20,6 +20,7 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'cosmos.mint.module.v1.module_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
+
   DESCRIPTOR._options = None
   _MODULE._options = None
   _MODULE._serialized_options = b'\272\300\226\332\001%\n#github.com/cosmos/cosmos-sdk/x/mint'

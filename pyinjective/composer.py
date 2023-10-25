@@ -117,6 +117,7 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
+        cid: Optional[str] = None,
         **kwargs,
     ):
         market = self.spot_markets[market_id]
@@ -145,6 +146,7 @@ class Composer:
                 fee_recipient=fee_recipient,
                 price=str(int(price)),
                 quantity=str(int(quantity)),
+                cid=cid,
             ),
             order_type=order_type,
             trigger_price=str(int(trigger_price)),
@@ -158,6 +160,7 @@ class Composer:
         price: float,
         quantity: float,
         trigger_price: float = 0,
+        cid: Optional[str] = None,
         **kwargs,
     ):
         market = self.derivative_markets[market_id]
@@ -207,6 +210,7 @@ class Composer:
                 fee_recipient=fee_recipient,
                 price=str(int(price)),
                 quantity=str(int(quantity)),
+                cid=cid,
             ),
             margin=str(int(margin)),
             order_type=order_type,
@@ -220,6 +224,7 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
+        cid: Optional[str] = None,
         **kwargs,
     ):
         market = self.binary_option_markets[market_id]
@@ -259,6 +264,7 @@ class Composer:
                 fee_recipient=fee_recipient,
                 price=str(int(price)),
                 quantity=str(int(quantity)),
+                cid=cid,
             ),
             margin=str(int(margin)),
             order_type=order_type,
@@ -302,6 +308,7 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
+        cid: Optional[str] = None,
         **kwargs,
     ):
         return injective_exchange_tx_pb.MsgCreateSpotLimitOrder(
@@ -312,6 +319,7 @@ class Composer:
                 fee_recipient=fee_recipient,
                 price=price,
                 quantity=quantity,
+                cid=cid,
                 **kwargs,
             ),
         )
@@ -325,6 +333,7 @@ class Composer:
         price: float,
         quantity: float,
         is_buy: bool,
+        cid: Optional[str] = None,
     ):
         return injective_exchange_tx_pb.MsgCreateSpotMarketOrder(
             sender=sender,
@@ -335,6 +344,7 @@ class Composer:
                 price=price,
                 quantity=quantity,
                 is_buy=is_buy,
+                cid=cid,
             ),
         )
 
@@ -363,6 +373,7 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
+        cid: Optional[str] = None,
         **kwargs,
     ):
         return injective_exchange_tx_pb.MsgCreateDerivativeLimitOrder(
@@ -373,6 +384,7 @@ class Composer:
                 fee_recipient=fee_recipient,
                 price=price,
                 quantity=quantity,
+                cid=cid,
                 **kwargs,
             ),
         )
@@ -386,6 +398,7 @@ class Composer:
         price: float,
         quantity: float,
         is_buy: bool,
+        cid: Optional[str] = None,
         **kwargs,
     ):
         return injective_exchange_tx_pb.MsgCreateDerivativeMarketOrder(
@@ -397,6 +410,7 @@ class Composer:
                 price=price,
                 quantity=quantity,
                 is_buy=is_buy,
+                cid=cid,
                 **kwargs,
             ),
         )
@@ -409,6 +423,7 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
+        cid: Optional[str] = None,
         **kwargs,
     ):
         return injective_exchange_tx_pb.MsgCreateBinaryOptionsLimitOrder(
@@ -419,6 +434,7 @@ class Composer:
                 fee_recipient=fee_recipient,
                 price=price,
                 quantity=quantity,
+                cid=cid,
                 **kwargs,
             ),
         )
@@ -431,6 +447,7 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
+        cid: Optional[str] = None,
         **kwargs,
     ):
         return injective_exchange_tx_pb.MsgCreateBinaryOptionsMarketOrder(
@@ -441,6 +458,7 @@ class Composer:
                 fee_recipient=fee_recipient,
                 price=price,
                 quantity=quantity,
+                cid=cid,
                 **kwargs,
             ),
         )
