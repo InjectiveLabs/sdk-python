@@ -51,7 +51,7 @@ async def main() -> None:
         composer.OrderData(
             market_id=spot_market_id_cancel,
             subaccount_id=subaccount_id,
-            order_hash="0x3870fbdd91f07d54425147b1bb96404f4f043ba6335b422a6d494d285b387f2d",
+            cid="0e5c3ad5-2cc4-4a2a-bbe5-b12697739163",
         ),
         composer.OrderData(
             market_id=spot_market_id_cancel_2,

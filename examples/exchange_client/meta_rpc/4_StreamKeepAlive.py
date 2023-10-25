@@ -9,8 +9,8 @@ async def main() -> None:
     network = Network.testnet()
     client = AsyncClient(network)
 
-    task1 = asyncio.create_task(get_markets(client))
-    task2 = asyncio.create_task(keepalive(client, [task1]))
+    task1 = asyncio.get_event_loop().create_task(get_markets(client))
+    task2 = asyncio.get_event_loop().create_task(keepalive(client, [task1]))
 
     try:
         await asyncio.gather(

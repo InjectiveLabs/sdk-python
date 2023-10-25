@@ -1043,7 +1043,7 @@ class AsyncClient:
 
     def _initialize_timeout_height_sync_task(self):
         self._cancel_timeout_height_sync_task()
-        self._timeout_height_sync_task = asyncio.create_task(self._timeout_height_sync_process())
+        self._timeout_height_sync_task = asyncio.get_event_loop().create_task(self._timeout_height_sync_process())
 
     async def _timeout_height_sync_process(self):
         while True:

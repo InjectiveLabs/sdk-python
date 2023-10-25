@@ -100,7 +100,9 @@ class Composer:
 
         return order_mask
 
-    def OrderData(self, market_id: str, subaccount_id: str, order_hash: str, **kwargs):
+    def OrderData(
+        self, market_id: str, subaccount_id: str, order_hash: Optional[str] = None, cid: Optional[str] = None, **kwargs
+    ):
         order_mask = self.get_order_mask(**kwargs)
 
         return injective_exchange_tx_pb.OrderData(
@@ -108,6 +110,7 @@ class Composer:
             subaccount_id=subaccount_id,
             order_hash=order_hash,
             order_mask=order_mask,
+            cid=cid,
         )
 
     def SpotOrder(
@@ -348,12 +351,20 @@ class Composer:
             ),
         )
 
-    def MsgCancelSpotOrder(self, market_id: str, sender: str, subaccount_id: str, order_hash: str):
+    def MsgCancelSpotOrder(
+        self,
+        market_id: str,
+        sender: str,
+        subaccount_id: str,
+        order_hash: Optional[str] = None,
+        cid: Optional[str] = None,
+    ):
         return injective_exchange_tx_pb.MsgCancelSpotOrder(
             sender=sender,
             market_id=market_id,
             subaccount_id=subaccount_id,
             order_hash=order_hash,
+            cid=cid,
         )
 
     def MsgBatchCreateSpotLimitOrders(self, sender: str, orders: List):
@@ -463,12 +474,20 @@ class Composer:
             ),
         )
 
-    def MsgCancelBinaryOptionsOrder(self, sender: str, market_id: str, subaccount_id: str, order_hash: str):
+    def MsgCancelBinaryOptionsOrder(
+        self,
+        sender: str,
+        market_id: str,
+        subaccount_id: str,
+        order_hash: Optional[str] = None,
+        cid: Optional[str] = None,
+    ):
         return injective_exchange_tx_pb.MsgCancelBinaryOptionsOrder(
             sender=sender,
             market_id=market_id,
             subaccount_id=subaccount_id,
             order_hash=order_hash,
+            cid=cid,
         )
 
     def MsgAdminUpdateBinaryOptionsMarket(
@@ -555,7 +574,15 @@ class Composer:
             admin=kwargs.get("admin"),
         )
 
-    def MsgCancelDerivativeOrder(self, market_id: str, sender: str, subaccount_id: str, order_hash: str, **kwargs):
+    def MsgCancelDerivativeOrder(
+        self,
+        market_id: str,
+        sender: str,
+        subaccount_id: str,
+        order_hash: Optional[str] = None,
+        cid: Optional[str] = None,
+        **kwargs,
+    ):
         order_mask = self.get_order_mask(**kwargs)
 
         return injective_exchange_tx_pb.MsgCancelDerivativeOrder(
@@ -564,6 +591,7 @@ class Composer:
             subaccount_id=subaccount_id,
             order_hash=order_hash,
             order_mask=order_mask,
+            cid=cid,
         )
 
     def MsgBatchCreateDerivativeLimitOrders(self, sender: str, orders: List):
