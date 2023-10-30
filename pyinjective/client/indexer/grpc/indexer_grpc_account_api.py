@@ -1,4 +1,4 @@
-from typing import Any, Callable, Coroutine, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Optional
 
 from grpc.aio import Channel
 
@@ -10,7 +10,7 @@ from pyinjective.utils.grpc_api_request_assistant import GrpcApiRequestAssistant
 
 
 class IndexerGrpcAccountApi:
-    def __init__(self, channel: Channel, metadata_provider: Coroutine):
+    def __init__(self, channel: Channel, metadata_provider: Callable):
         self._stub = self._stub = exchange_accounts_grpc.InjectiveAccountsRPCStub(channel)
         self._assistant = GrpcApiRequestAssistant(metadata_provider=metadata_provider)
 

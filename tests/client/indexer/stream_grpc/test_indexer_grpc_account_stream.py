@@ -37,7 +37,7 @@ class TestIndexerGrpcAccountStream:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
 
-        api = IndexerGrpcAccountStream(channel=channel, metadata_provider=self._dummy_metadata_provider())
+        api = IndexerGrpcAccountStream(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
         api._stub = account_servicer
 
         balance_updates = asyncio.Queue()

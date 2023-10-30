@@ -50,7 +50,7 @@ class TestChainGrpcAuthZApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = ChainGrpcAuthZApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
+        api = ChainGrpcAuthZApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
         api._stub = authz_servicer
 
         result_grants = await api.fetch_grants(
@@ -112,7 +112,7 @@ class TestChainGrpcAuthZApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = ChainGrpcAuthZApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
+        api = ChainGrpcAuthZApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
         api._stub = authz_servicer
 
         result_grants = await api.fetch_granter_grants(
@@ -174,7 +174,7 @@ class TestChainGrpcAuthZApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = ChainGrpcAuthZApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
+        api = ChainGrpcAuthZApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
         api._stub = authz_servicer
 
         result_grants = await api.fetch_grantee_grants(

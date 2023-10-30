@@ -29,7 +29,7 @@ class TestChainGrpcAuctionApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = ChainGrpcAuctionApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
+        api = ChainGrpcAuctionApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
         api._stub = auction_servicer
 
         module_params = await api.fetch_module_params()
@@ -58,7 +58,7 @@ class TestChainGrpcAuctionApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = ChainGrpcAuctionApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
+        api = ChainGrpcAuctionApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
         api._stub = auction_servicer
 
         module_state = await api.fetch_module_state()
@@ -95,7 +95,7 @@ class TestChainGrpcAuctionApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = ChainGrpcAuctionApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
+        api = ChainGrpcAuctionApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
         api._stub = auction_servicer
 
         module_state = await api.fetch_module_state()
@@ -139,7 +139,7 @@ class TestChainGrpcAuctionApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = ChainGrpcAuctionApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
+        api = ChainGrpcAuctionApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
         api._stub = auction_servicer
 
         current_basket = await api.fetch_current_basket()

@@ -14,7 +14,9 @@ from pyinjective.client.chain.grpc.chain_grpc_auth_api import ChainGrpcAuthApi
 from pyinjective.client.chain.grpc.chain_grpc_authz_api import ChainGrpcAuthZApi
 from pyinjective.client.chain.grpc.chain_grpc_bank_api import ChainGrpcBankApi
 from pyinjective.client.indexer.grpc.indexer_grpc_account_api import IndexerGrpcAccountApi
+from pyinjective.client.indexer.grpc.indexer_grpc_meta_api import IndexerGrpcMetaApi
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_account_stream import IndexerGrpcAccountStream
+from pyinjective.client.indexer.grpc_stream.indexer_grpc_meta_stream import IndexerGrpcMetaStream
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.composer import Composer
 from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
@@ -138,38 +140,50 @@ class AsyncClient:
 
         self.bank_api = ChainGrpcBankApi(
             channel=self.chain_channel,
-            metadata_provider=self.network.chain_metadata(
+            metadata_provider=lambda: self.network.chain_metadata(
                 metadata_query_provider=self._chain_cookie_metadata_requestor
             ),
         )
         self.auth_api = ChainGrpcAuthApi(
             channel=self.chain_channel,
-            metadata_provider=self.network.chain_metadata(
+            metadata_provider=lambda: self.network.chain_metadata(
                 metadata_query_provider=self._chain_cookie_metadata_requestor
             ),
         )
         self.authz_api = ChainGrpcAuthZApi(
             channel=self.chain_channel,
-            metadata_provider=self.network.chain_metadata(
+            metadata_provider=lambda: self.network.chain_metadata(
                 metadata_query_provider=self._chain_cookie_metadata_requestor
             ),
         )
         self.tx_api = TxGrpcApi(
             channel=self.chain_channel,
-            metadata_provider=self.network.chain_metadata(
+            metadata_provider=lambda: self.network.chain_metadata(
                 metadata_query_provider=self._chain_cookie_metadata_requestor
             ),
         )
 
         self.exchange_account_api = IndexerGrpcAccountApi(
             channel=self.exchange_channel,
-            metadata_provider=self.network.exchange_metadata(
+            metadata_provider=lambda: self.network.exchange_metadata(
+                metadata_query_provider=self._exchange_cookie_metadata_requestor
+            ),
+        )
+        self.exchange_meta_api = IndexerGrpcMetaApi(
+            channel=self.exchange_channel,
+            metadata_provider=lambda: self.network.exchange_metadata(
                 metadata_query_provider=self._exchange_cookie_metadata_requestor
             ),
         )
         self.exchange_account_stream_api = IndexerGrpcAccountStream(
             channel=self.exchange_channel,
-            metadata_provider=self.network.exchange_metadata(
+            metadata_provider=lambda: self.network.exchange_metadata(
+                metadata_query_provider=self._exchange_cookie_metadata_requestor
+            ),
+        )
+        self.exchange_meta_stream_api = IndexerGrpcMetaStream(
+            channel=self.exchange_channel,
+            metadata_provider=lambda: self.network.exchange_metadata(
                 metadata_query_provider=self._exchange_cookie_metadata_requestor
             ),
         )
@@ -282,16 +296,18 @@ class AsyncClient:
 
         return result_account
 
-    async def get_request_id_by_tx_hash(self, tx_hash: bytes) -> List[int]:
-        tx = await self.stubTx.GetTx(tx_service.GetTxRequest(hash=tx_hash))
+    async def get_request_id_by_tx_hash(self, tx_hash: str) -> List[int]:
+        tx = await self.tx_api.fetch_tx(hash=tx_hash)
         request_ids = []
-        for tx in tx.tx_response.logs:
-            request_event = [event for event in tx.events if event.type == "request" or event.type == "report"]
+        for log in tx["txResponse"].get("logs", []):
+            request_event = [
+                event for event in log.get("events", []) if event["type"] == "request" or event["type"] == "report"
+            ]
             if len(request_event) == 1:
-                attrs = request_event[0].attributes
-                attr_id = [attr for attr in attrs if attr.key == "id"]
+                attrs = request_event[0].get("attributes", [])
+                attr_id = [attr for attr in attrs if attr["key"] == "id"]
                 if len(attr_id) == 1:
-                    request_id = attr_id[0].value
+                    request_id = attr_id[0]["value"]
                     request_ids.append(int(request_id))
         if len(request_ids) == 0:
             raise NotFoundError("Request Id is not found")
@@ -415,22 +431,59 @@ class AsyncClient:
     # Meta RPC
 
     async def ping(self):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_ping` instead
+        """
+        warn("This method is deprecated. Use fetch_ping instead", DeprecationWarning, stacklevel=2)
         req = exchange_meta_rpc_pb.PingRequest()
         return await self.stubMeta.Ping(req)
 
+    async def fetch_ping(self) -> Dict[str, Any]:
+        return await self.exchange_meta_api.fetch_ping()
+
     async def version(self):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_version` instead
+        """
+        warn("This method is deprecated. Use fetch_version instead", DeprecationWarning, stacklevel=2)
         req = exchange_meta_rpc_pb.VersionRequest()
         return await self.stubMeta.Version(req)
 
+    async def fetch_version(self) -> Dict[str, Any]:
+        return await self.exchange_meta_api.fetch_version()
+
     async def info(self):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_info` instead
+        """
+        warn("This method is deprecated. Use fetch_info instead", DeprecationWarning, stacklevel=2)
         req = exchange_meta_rpc_pb.InfoRequest(
             timestamp=int(time.time() * 1000),
         )
         return await self.stubMeta.Info(req)
 
+    async def fetch_info(self) -> Dict[str, Any]:
+        return await self.exchange_meta_api.fetch_info()
+
     async def stream_keepalive(self):
+        """
+        This method is deprecated and will be removed soon. Please use `listen_keepalive` instead
+        """
+        warn("This method is deprecated. Use listen_keepalive instead", DeprecationWarning, stacklevel=2)
         req = exchange_meta_rpc_pb.StreamKeepaliveRequest()
         return self.stubMeta.StreamKeepalive(req)
+
+    async def listen_keepalive(
+        self,
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+    ):
+        await self.exchange_meta_stream_api.stream_keepalive(
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+        )
 
     # Explorer RPC
 

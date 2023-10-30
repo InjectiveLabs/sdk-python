@@ -1,40 +1,35 @@
 import asyncio
-from typing import Callable, List, Optional
+from typing import Callable, Optional
 
 from google.protobuf import json_format
 from grpc import RpcError
 from grpc.aio import Channel
 
 from pyinjective.proto.exchange import (
-    injective_accounts_rpc_pb2 as exchange_accounts_pb,
-    injective_accounts_rpc_pb2_grpc as exchange_accounts_grpc,
+    injective_meta_rpc_pb2 as exchange_meta_pb,
+    injective_meta_rpc_pb2_grpc as exchange_meta_grpc,
 )
 
 
-class IndexerGrpcAccountStream:
+class IndexerGrpcMetaStream:
     def __init__(self, channel: Channel, metadata_provider: Callable):
-        self._stub = self._stub = exchange_accounts_grpc.InjectiveAccountsRPCStub(channel)
+        self._stub = self._stub = exchange_meta_grpc.InjectiveMetaRPCStub(channel)
         self._metadata_provider = metadata_provider
 
-    async def stream_subaccount_balance(
+    async def stream_keepalive(
         self,
-        subaccount_id: str,
         callback: Callable,
         on_end_callback: Optional[Callable] = None,
         on_status_callback: Optional[Callable] = None,
-        denoms: Optional[List[str]] = None,
     ):
-        request = exchange_accounts_pb.StreamSubaccountBalanceRequest(
-            subaccount_id=subaccount_id,
-            denoms=denoms,
-        )
+        request = exchange_meta_pb.StreamKeepaliveRequest()
         metadata = await self._metadata_provider()
-        stream = self._stub.StreamSubaccountBalance(request=request, metadata=metadata)
+        stream = self._stub.StreamKeepalive(request=request, metadata=metadata)
 
         try:
-            async for balance_update in stream:
+            async for keepalive_update in stream:
                 update = json_format.MessageToDict(
-                    message=balance_update,
+                    message=keepalive_update,
                     including_default_value_fields=True,
                 )
                 if asyncio.iscoroutinefunction(callback):

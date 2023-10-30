@@ -7,12 +7,16 @@ from pyinjective.core.network import Network
 from pyinjective.proto.cosmos.authz.v1beta1 import query_pb2 as authz_query
 from pyinjective.proto.cosmos.bank.v1beta1 import query_pb2 as bank_query_pb
 from pyinjective.proto.cosmos.tx.v1beta1 import service_pb2 as tx_service
-from pyinjective.proto.exchange import injective_accounts_rpc_pb2 as exchange_accounts_pb
+from pyinjective.proto.exchange import (
+    injective_accounts_rpc_pb2 as exchange_accounts_pb,
+    injective_meta_rpc_pb2 as exchange_meta_pb,
+)
 from pyinjective.proto.injective.types.v1beta1 import account_pb2 as account_pb
 from tests.client.chain.grpc.configurable_auth_query_servicer import ConfigurableAuthQueryServicer
 from tests.client.chain.grpc.configurable_autz_query_servicer import ConfigurableAuthZQueryServicer
 from tests.client.chain.grpc.configurable_bank_query_servicer import ConfigurableBankQueryServicer
 from tests.client.indexer.configurable_account_query_servicer import ConfigurableAccountQueryServicer
+from tests.client.indexer.configurable_meta_query_servicer import ConfigurableMetaQueryServicer
 from tests.core.tx.grpc.configurable_tx_query_servicer import ConfigurableTxQueryServicer
 
 
@@ -34,6 +38,11 @@ def authz_servicer():
 @pytest.fixture
 def bank_servicer():
     return ConfigurableBankQueryServicer()
+
+
+@pytest.fixture
+def meta_servicer():
+    return ConfigurableMetaQueryServicer()
 
 
 @pytest.fixture
@@ -389,3 +398,75 @@ class TestAsyncClientDeprecationWarnings:
         assert len(all_warnings) == 1
         assert issubclass(all_warnings[0].category, DeprecationWarning)
         assert str(all_warnings[0].message) == "This method is deprecated. BLOCK broadcast mode should not be used"
+
+    @pytest.mark.asyncio
+    async def test_ping_deprecation_warning(
+        self,
+        meta_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubMeta = meta_servicer
+        meta_servicer.ping_responses.append(exchange_meta_pb.PingResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.ping()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_ping instead"
+
+    @pytest.mark.asyncio
+    async def test_version_deprecation_warning(
+        self,
+        meta_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubMeta = meta_servicer
+        meta_servicer.version_responses.append(exchange_meta_pb.VersionResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.version()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_version instead"
+
+    @pytest.mark.asyncio
+    async def test_info_deprecation_warning(
+        self,
+        meta_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubMeta = meta_servicer
+        meta_servicer.info_responses.append(exchange_meta_pb.InfoResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.info()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_info instead"
+
+    @pytest.mark.asyncio
+    async def test_stream_keepalive_deprecation_warning(
+        self,
+        meta_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubExchangeAccount = account_servicer
+        meta_servicer.stream_keepalive_responses.append(exchange_meta_pb.StreamKeepaliveResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.stream_keepalive()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use listen_keepalive instead"

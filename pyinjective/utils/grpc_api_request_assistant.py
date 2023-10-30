@@ -1,15 +1,15 @@
-from typing import Any, Callable, Coroutine, Dict
+from typing import Any, Callable, Dict
 
 from google.protobuf import json_format
 
 
 class GrpcApiRequestAssistant:
-    def __init__(self, metadata_provider: Coroutine):
+    def __init__(self, metadata_provider: Callable):
         super().__init__()
         self._metadata_provider = metadata_provider
 
     async def execute_call(self, call: Callable, request) -> Dict[str, Any]:
-        metadata = await self._metadata_provider
+        metadata = await self._metadata_provider()
         response = await call(request=request, metadata=metadata)
 
         result = json_format.MessageToDict(

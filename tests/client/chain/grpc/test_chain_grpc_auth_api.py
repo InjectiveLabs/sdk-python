@@ -37,7 +37,7 @@ class TestChainGrpcAuthApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = ChainGrpcAuthApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
+        api = ChainGrpcAuthApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
         api._stub = auth_servicer
 
         module_params = await api.fetch_module_params()
@@ -81,7 +81,7 @@ class TestChainGrpcAuthApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = ChainGrpcAuthApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
+        api = ChainGrpcAuthApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
         api._stub = auth_servicer
 
         response_account = await api.fetch_account(address="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr")
@@ -141,7 +141,7 @@ class TestChainGrpcAuthApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = ChainGrpcAuthApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
+        api = ChainGrpcAuthApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
         api._stub = auth_servicer
 
         pagination_option = PaginationOption(

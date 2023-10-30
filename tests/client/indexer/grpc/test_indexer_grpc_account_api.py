@@ -38,7 +38,7 @@ class TestIndexerGrpcAccountApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
 
-        api = IndexerGrpcAccountApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
+        api = IndexerGrpcAccountApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
         api._stub = account_servicer
 
         account_address = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku"
@@ -86,7 +86,7 @@ class TestIndexerGrpcAccountApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
 
-        api = IndexerGrpcAccountApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
+        api = IndexerGrpcAccountApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
         api._stub = account_servicer
 
         result_order_states = await api.fetch_order_states(spot_order_hashes=[order_state.order_hash])
@@ -124,7 +124,7 @@ class TestIndexerGrpcAccountApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
 
-        api = IndexerGrpcAccountApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
+        api = IndexerGrpcAccountApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
         api._stub = account_servicer
 
         result_subaccounts_list = await api.fetch_subaccounts_list(address="testAddress")
@@ -156,7 +156,7 @@ class TestIndexerGrpcAccountApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
 
-        api = IndexerGrpcAccountApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
+        api = IndexerGrpcAccountApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
         api._stub = account_servicer
 
         result_subaccount_balances_list = await api.fetch_subaccount_balances_list(
@@ -200,7 +200,7 @@ class TestIndexerGrpcAccountApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
 
-        api = IndexerGrpcAccountApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
+        api = IndexerGrpcAccountApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
         api._stub = account_servicer
 
         result_subaccount_balance = await api.fetch_subaccount_balance(
@@ -253,7 +253,7 @@ class TestIndexerGrpcAccountApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
 
-        api = IndexerGrpcAccountApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
+        api = IndexerGrpcAccountApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
         api._stub = account_servicer
 
         result_subaccount_history = await api.fetch_subaccount_history(
@@ -298,7 +298,7 @@ class TestIndexerGrpcAccountApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
 
-        api = IndexerGrpcAccountApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
+        api = IndexerGrpcAccountApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
         api._stub = account_servicer
 
         result_subaccount_order_summary = await api.fetch_subaccount_order_summary(
@@ -331,7 +331,7 @@ class TestIndexerGrpcAccountApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
 
-        api = IndexerGrpcAccountApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
+        api = IndexerGrpcAccountApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
         api._stub = account_servicer
 
         result_rewards = await api.fetch_rewards(account_address=reward.account_address, epoch=1)
@@ -373,7 +373,7 @@ class TestIndexerGrpcAccountApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
 
-        api = IndexerGrpcAccountApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
+        api = IndexerGrpcAccountApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
         api._stub = account_servicer
 
         result_rewards = await api.fetch_rewards(account_address=reward.account_address, epoch=1)

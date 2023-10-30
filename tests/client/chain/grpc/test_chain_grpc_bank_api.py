@@ -28,7 +28,7 @@ class TestChainGrpcBankApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = ChainGrpcBankApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
+        api = ChainGrpcBankApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
         api._stub = bank_servicer
 
         module_params = await api.fetch_module_params()
@@ -52,7 +52,7 @@ class TestChainGrpcBankApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = ChainGrpcBankApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
+        api = ChainGrpcBankApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
         api._stub = bank_servicer
 
         bank_balance = await api.fetch_balance(
@@ -73,7 +73,7 @@ class TestChainGrpcBankApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = ChainGrpcBankApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
+        api = ChainGrpcBankApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
         api._stub = bank_servicer
 
         bank_balance = await api.fetch_balance(
@@ -107,7 +107,7 @@ class TestChainGrpcBankApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = ChainGrpcBankApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
+        api = ChainGrpcBankApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
         api._stub = bank_servicer
 
         bank_balances = await api.fetch_balances(
@@ -149,7 +149,7 @@ class TestChainGrpcBankApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = ChainGrpcBankApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
+        api = ChainGrpcBankApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
         api._stub = bank_servicer
 
         total_supply = await api.fetch_total_supply()

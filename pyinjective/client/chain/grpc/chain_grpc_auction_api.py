@@ -1,4 +1,4 @@
-from typing import Any, Callable, Coroutine, Dict
+from typing import Any, Callable, Dict
 
 from grpc.aio import Channel
 
@@ -10,7 +10,7 @@ from pyinjective.utils.grpc_api_request_assistant import GrpcApiRequestAssistant
 
 
 class ChainGrpcAuctionApi:
-    def __init__(self, channel: Channel, metadata_provider: Coroutine):
+    def __init__(self, channel: Channel, metadata_provider: Callable):
         self._stub = auction_query_grpc.QueryStub(channel)
         self._assistant = GrpcApiRequestAssistant(metadata_provider=metadata_provider)
 

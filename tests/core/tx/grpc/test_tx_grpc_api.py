@@ -40,7 +40,7 @@ class TestTxGrpcApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = TxGrpcApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
+        api = TxGrpcApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
         api._stub = tx_servicer
 
         result_simulate = await api.simulate(tx_bytes="Transaction content".encode())
@@ -103,7 +103,7 @@ class TestTxGrpcApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = TxGrpcApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
+        api = TxGrpcApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
         api._stub = tx_servicer
 
         result_tx = await api.fetch_tx(hash=transaction_response.txhash)
@@ -177,7 +177,7 @@ class TestTxGrpcApi:
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
 
-        api = TxGrpcApi(channel=channel, metadata_provider=self._dummy_metadata_provider())
+        api = TxGrpcApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
         api._stub = tx_servicer
 
         result_broadcast = await api.broadcast(
