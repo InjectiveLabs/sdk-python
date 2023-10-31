@@ -14,6 +14,7 @@ from pyinjective.client.chain.grpc.chain_grpc_auth_api import ChainGrpcAuthApi
 from pyinjective.client.chain.grpc.chain_grpc_authz_api import ChainGrpcAuthZApi
 from pyinjective.client.chain.grpc.chain_grpc_bank_api import ChainGrpcBankApi
 from pyinjective.client.indexer.grpc.indexer_grpc_account_api import IndexerGrpcAccountApi
+from pyinjective.client.indexer.grpc.indexer_grpc_insurance_api import IndexerGrpcInsuranceApi
 from pyinjective.client.indexer.grpc.indexer_grpc_meta_api import IndexerGrpcMetaApi
 from pyinjective.client.indexer.grpc.indexer_grpc_oracle_api import IndexerGrpcOracleApi
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_account_stream import IndexerGrpcAccountStream
@@ -166,6 +167,12 @@ class AsyncClient:
         )
 
         self.exchange_account_api = IndexerGrpcAccountApi(
+            channel=self.exchange_channel,
+            metadata_provider=lambda: self.network.exchange_metadata(
+                metadata_query_provider=self._exchange_cookie_metadata_requestor
+            ),
+        )
+        self.exchange_insurance_api = IndexerGrpcInsuranceApi(
             channel=self.exchange_channel,
             metadata_provider=lambda: self.network.exchange_metadata(
                 metadata_query_provider=self._exchange_cookie_metadata_requestor
@@ -828,16 +835,39 @@ class AsyncClient:
     # InsuranceRPC
 
     async def get_insurance_funds(self):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_insurance_funds` instead
+        """
+        warn("This method is deprecated. Use fetch_insurance_funds instead", DeprecationWarning, stacklevel=2)
         req = insurance_rpc_pb.FundsRequest()
         return await self.stubInsurance.Funds(req)
 
+    async def fetch_insurance_funds(self) -> Dict[str, Any]:
+        return await self.exchange_insurance_api.fetch_insurance_funds()
+
     async def get_redemptions(self, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_redemptions` instead
+        """
+        warn("This method is deprecated. Use fetch_redemptions instead", DeprecationWarning, stacklevel=2)
         req = insurance_rpc_pb.RedemptionsRequest(
             redeemer=kwargs.get("redeemer"),
             redemption_denom=kwargs.get("redemption_denom"),
             status=kwargs.get("status"),
         )
         return await self.stubInsurance.Redemptions(req)
+
+    async def fetch_redemptions(
+        self,
+        address: Optional[str] = None,
+        denom: Optional[str] = None,
+        status: Optional[str] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_insurance_api.fetch_redemptions(
+            address=address,
+            denom=denom,
+            status=status,
+        )
 
     # SpotRPC
 

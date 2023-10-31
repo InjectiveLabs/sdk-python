@@ -12,7 +12,7 @@ def oracle_servicer():
     return ConfigurableOracleQueryServicer()
 
 
-class TestIndexerGrpcMetaApi:
+class TestIndexerGrpcOracleApi:
     @pytest.mark.asyncio
     async def test_fetch_oracle_list(
         self,

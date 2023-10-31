@@ -9,6 +9,7 @@ from pyinjective.proto.cosmos.bank.v1beta1 import query_pb2 as bank_query_pb
 from pyinjective.proto.cosmos.tx.v1beta1 import service_pb2 as tx_service
 from pyinjective.proto.exchange import (
     injective_accounts_rpc_pb2 as exchange_accounts_pb,
+    injective_insurance_rpc_pb2 as exchange_insurance_pb,
     injective_meta_rpc_pb2 as exchange_meta_pb,
     injective_oracle_rpc_pb2 as exchange_oracle_pb,
 )
@@ -17,6 +18,7 @@ from tests.client.chain.grpc.configurable_auth_query_servicer import Configurabl
 from tests.client.chain.grpc.configurable_autz_query_servicer import ConfigurableAuthZQueryServicer
 from tests.client.chain.grpc.configurable_bank_query_servicer import ConfigurableBankQueryServicer
 from tests.client.indexer.configurable_account_query_servicer import ConfigurableAccountQueryServicer
+from tests.client.indexer.configurable_insurance_query_servicer import ConfigurableInsuranceQueryServicer
 from tests.client.indexer.configurable_meta_query_servicer import ConfigurableMetaQueryServicer
 from tests.client.indexer.configurable_oracle_query_servicer import ConfigurableOracleQueryServicer
 from tests.core.tx.grpc.configurable_tx_query_servicer import ConfigurableTxQueryServicer
@@ -40,6 +42,11 @@ def authz_servicer():
 @pytest.fixture
 def bank_servicer():
     return ConfigurableBankQueryServicer()
+
+
+@pytest.fixture
+def insurance_servicer():
+    return ConfigurableInsuranceQueryServicer()
 
 
 @pytest.fixture
@@ -558,3 +565,39 @@ class TestAsyncClientDeprecationWarnings:
         assert len(all_warnings) == 1
         assert issubclass(all_warnings[0].category, DeprecationWarning)
         assert str(all_warnings[0].message) == "This method is deprecated. Use listen_oracle_prices_updates instead"
+
+    @pytest.mark.asyncio
+    async def test_get_insurance_funds_deprecation_warning(
+        self,
+        insurance_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubInsurance = insurance_servicer
+        insurance_servicer.funds_responses.append(exchange_insurance_pb.FundsResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_insurance_funds()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_insurance_funds instead"
+
+    @pytest.mark.asyncio
+    async def test_get_redemptions_deprecation_warning(
+        self,
+        insurance_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubInsurance = insurance_servicer
+        insurance_servicer.redemptions_responses.append(exchange_insurance_pb.RedemptionsResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_redemptions()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_redemptions instead"
