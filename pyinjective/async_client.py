@@ -14,10 +14,12 @@ from pyinjective.client.chain.grpc.chain_grpc_auth_api import ChainGrpcAuthApi
 from pyinjective.client.chain.grpc.chain_grpc_authz_api import ChainGrpcAuthZApi
 from pyinjective.client.chain.grpc.chain_grpc_bank_api import ChainGrpcBankApi
 from pyinjective.client.indexer.grpc.indexer_grpc_account_api import IndexerGrpcAccountApi
+from pyinjective.client.indexer.grpc.indexer_grpc_auction_api import IndexerGrpcAuctionApi
 from pyinjective.client.indexer.grpc.indexer_grpc_insurance_api import IndexerGrpcInsuranceApi
 from pyinjective.client.indexer.grpc.indexer_grpc_meta_api import IndexerGrpcMetaApi
 from pyinjective.client.indexer.grpc.indexer_grpc_oracle_api import IndexerGrpcOracleApi
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_account_stream import IndexerGrpcAccountStream
+from pyinjective.client.indexer.grpc_stream.indexer_grpc_auction_stream import IndexerGrpcAuctionStream
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_meta_stream import IndexerGrpcMetaStream
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_oracle_stream import IndexerGrpcOracleStream
 from pyinjective.client.model.pagination import PaginationOption
@@ -172,6 +174,12 @@ class AsyncClient:
                 metadata_query_provider=self._exchange_cookie_metadata_requestor
             ),
         )
+        self.exchange_auction_api = IndexerGrpcAuctionApi(
+            channel=self.exchange_channel,
+            metadata_provider=lambda: self.network.exchange_metadata(
+                metadata_query_provider=self._exchange_cookie_metadata_requestor
+            ),
+        )
         self.exchange_insurance_api = IndexerGrpcInsuranceApi(
             channel=self.exchange_channel,
             metadata_provider=lambda: self.network.exchange_metadata(
@@ -190,7 +198,14 @@ class AsyncClient:
                 metadata_query_provider=self._exchange_cookie_metadata_requestor
             ),
         )
+
         self.exchange_account_stream_api = IndexerGrpcAccountStream(
+            channel=self.exchange_channel,
+            metadata_provider=lambda: self.network.exchange_metadata(
+                metadata_query_provider=self._exchange_cookie_metadata_requestor
+            ),
+        )
+        self.exchange_auction_stream_api = IndexerGrpcAuctionStream(
             channel=self.exchange_channel,
             metadata_provider=lambda: self.network.exchange_metadata(
                 metadata_query_provider=self._exchange_cookie_metadata_requestor
@@ -438,16 +453,46 @@ class AsyncClient:
     # Auction RPC
 
     async def get_auction(self, bid_round: int):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_auction` instead
+        """
+        warn("This method is deprecated. Use fetch_auction instead", DeprecationWarning, stacklevel=2)
         req = auction_rpc_pb.AuctionEndpointRequest(round=bid_round)
         return await self.stubAuction.AuctionEndpoint(req)
 
+    async def fetch_auction(self, round: int) -> Dict[str, Any]:
+        return await self.exchange_auction_api.fetch_auction(round=round)
+
     async def get_auctions(self):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_auctions` instead
+        """
+        warn("This method is deprecated. Use fetch_auctions instead", DeprecationWarning, stacklevel=2)
         req = auction_rpc_pb.AuctionsRequest()
         return await self.stubAuction.Auctions(req)
 
+    async def fetch_auctions(self) -> Dict[str, Any]:
+        return await self.exchange_auction_api.fetch_auctions()
+
     async def stream_bids(self):
+        """
+        This method is deprecated and will be removed soon. Please use `listen_bids_updates` instead
+        """
+        warn("This method is deprecated. Use listen_bids_updates instead", DeprecationWarning, stacklevel=2)
         req = auction_rpc_pb.StreamBidsRequest()
         return self.stubAuction.StreamBids(req)
+
+    async def listen_bids_updates(
+        self,
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+    ):
+        await self.exchange_auction_stream_api.stream_bids(
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+        )
 
     # Meta RPC
 

@@ -1,34 +1,29 @@
-from typing import Callable, List, Optional
+from typing import Callable, Optional
 
 from grpc.aio import Channel
 
 from pyinjective.proto.exchange import (
-    injective_accounts_rpc_pb2 as exchange_accounts_pb,
-    injective_accounts_rpc_pb2_grpc as exchange_accounts_grpc,
+    injective_auction_rpc_pb2 as exchange_auction_pb,
+    injective_auction_rpc_pb2_grpc as exchange_auction_grpc,
 )
 from pyinjective.utils.grpc_api_stream_assistant import GrpcApiStreamAssistant
 
 
-class IndexerGrpcAccountStream:
+class IndexerGrpcAuctionStream:
     def __init__(self, channel: Channel, metadata_provider: Callable):
-        self._stub = self._stub = exchange_accounts_grpc.InjectiveAccountsRPCStub(channel)
+        self._stub = self._stub = exchange_auction_grpc.InjectiveAuctionRPCStub(channel)
         self._assistant = GrpcApiStreamAssistant(metadata_provider=metadata_provider)
 
-    async def stream_subaccount_balance(
+    async def stream_bids(
         self,
-        subaccount_id: str,
         callback: Callable,
         on_end_callback: Optional[Callable] = None,
         on_status_callback: Optional[Callable] = None,
-        denoms: Optional[List[str]] = None,
     ):
-        request = exchange_accounts_pb.StreamSubaccountBalanceRequest(
-            subaccount_id=subaccount_id,
-            denoms=denoms,
-        )
+        request = exchange_auction_pb.StreamBidsRequest()
 
         await self._assistant.listen_stream(
-            call=self._stub.StreamSubaccountBalance,
+            call=self._stub.StreamBids,
             request=request,
             callback=callback,
             on_end_callback=on_end_callback,

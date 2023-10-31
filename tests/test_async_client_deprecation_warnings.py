@@ -9,6 +9,7 @@ from pyinjective.proto.cosmos.bank.v1beta1 import query_pb2 as bank_query_pb
 from pyinjective.proto.cosmos.tx.v1beta1 import service_pb2 as tx_service
 from pyinjective.proto.exchange import (
     injective_accounts_rpc_pb2 as exchange_accounts_pb,
+    injective_auction_rpc_pb2 as exchange_auction_pb,
     injective_insurance_rpc_pb2 as exchange_insurance_pb,
     injective_meta_rpc_pb2 as exchange_meta_pb,
     injective_oracle_rpc_pb2 as exchange_oracle_pb,
@@ -18,6 +19,7 @@ from tests.client.chain.grpc.configurable_auth_query_servicer import Configurabl
 from tests.client.chain.grpc.configurable_autz_query_servicer import ConfigurableAuthZQueryServicer
 from tests.client.chain.grpc.configurable_bank_query_servicer import ConfigurableBankQueryServicer
 from tests.client.indexer.configurable_account_query_servicer import ConfigurableAccountQueryServicer
+from tests.client.indexer.configurable_auction_query_servicer import ConfigurableAuctionQueryServicer
 from tests.client.indexer.configurable_insurance_query_servicer import ConfigurableInsuranceQueryServicer
 from tests.client.indexer.configurable_meta_query_servicer import ConfigurableMetaQueryServicer
 from tests.client.indexer.configurable_oracle_query_servicer import ConfigurableOracleQueryServicer
@@ -27,6 +29,11 @@ from tests.core.tx.grpc.configurable_tx_query_servicer import ConfigurableTxQuer
 @pytest.fixture
 def account_servicer():
     return ConfigurableAccountQueryServicer()
+
+
+@pytest.fixture
+def auction_servicer():
+    return ConfigurableAuctionQueryServicer()
 
 
 @pytest.fixture
@@ -601,3 +608,57 @@ class TestAsyncClientDeprecationWarnings:
         assert len(all_warnings) == 1
         assert issubclass(all_warnings[0].category, DeprecationWarning)
         assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_redemptions instead"
+
+    @pytest.mark.asyncio
+    async def test_get_auction_deprecation_warning(
+        self,
+        auction_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubAuction = auction_servicer
+        auction_servicer.auction_endpoint_responses.append(exchange_auction_pb.AuctionEndpointResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_auction(bid_round=1)
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_auction instead"
+
+    @pytest.mark.asyncio
+    async def test_get_auctions_deprecation_warning(
+        self,
+        auction_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubAuction = auction_servicer
+        auction_servicer.auctions_responses.append(exchange_auction_pb.AuctionsResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_auctions()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_auctions instead"
+
+    @pytest.mark.asyncio
+    async def test_stream_bids_deprecation_warning(
+        self,
+        auction_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubAuction = auction_servicer
+        auction_servicer.stream_bids_responses.append(exchange_auction_pb.StreamBidsResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.stream_bids()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use listen_bids_updates instead"
