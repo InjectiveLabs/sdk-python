@@ -10,6 +10,7 @@ from pyinjective.proto.cosmos.tx.v1beta1 import service_pb2 as tx_service
 from pyinjective.proto.exchange import (
     injective_accounts_rpc_pb2 as exchange_accounts_pb,
     injective_meta_rpc_pb2 as exchange_meta_pb,
+    injective_oracle_rpc_pb2 as exchange_oracle_pb,
 )
 from pyinjective.proto.injective.types.v1beta1 import account_pb2 as account_pb
 from tests.client.chain.grpc.configurable_auth_query_servicer import ConfigurableAuthQueryServicer
@@ -17,6 +18,7 @@ from tests.client.chain.grpc.configurable_autz_query_servicer import Configurabl
 from tests.client.chain.grpc.configurable_bank_query_servicer import ConfigurableBankQueryServicer
 from tests.client.indexer.configurable_account_query_servicer import ConfigurableAccountQueryServicer
 from tests.client.indexer.configurable_meta_query_servicer import ConfigurableMetaQueryServicer
+from tests.client.indexer.configurable_oracle_query_servicer import ConfigurableOracleQueryServicer
 from tests.core.tx.grpc.configurable_tx_query_servicer import ConfigurableTxQueryServicer
 
 
@@ -43,6 +45,11 @@ def bank_servicer():
 @pytest.fixture
 def meta_servicer():
     return ConfigurableMetaQueryServicer()
+
+
+@pytest.fixture
+def oracle_servicer():
+    return ConfigurableOracleQueryServicer()
 
 
 @pytest.fixture
@@ -470,3 +477,84 @@ class TestAsyncClientDeprecationWarnings:
         assert len(all_warnings) == 1
         assert issubclass(all_warnings[0].category, DeprecationWarning)
         assert str(all_warnings[0].message) == "This method is deprecated. Use listen_keepalive instead"
+
+    @pytest.mark.asyncio
+    async def test_oracle_list_deprecation_warning(
+        self,
+        oracle_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubOracle = oracle_servicer
+        oracle_servicer.oracle_list_responses.append(exchange_oracle_pb.OracleListResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_oracle_list()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_oracle_list instead"
+
+    @pytest.mark.asyncio
+    async def test_get_oracle_list_deprecation_warning(
+        self,
+        oracle_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubOracle = oracle_servicer
+        oracle_servicer.oracle_list_responses.append(exchange_oracle_pb.OracleListResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_oracle_list()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_oracle_list instead"
+
+    @pytest.mark.asyncio
+    async def test_get_oracle_prices_deprecation_warning(
+        self,
+        oracle_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubOracle = oracle_servicer
+        oracle_servicer.price_responses.append(exchange_oracle_pb.PriceResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_oracle_prices(
+                base_symbol="Gold",
+                quote_symbol="USDT",
+                oracle_type="pricefeed",
+                oracle_scale_factor=6,
+            )
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_oracle_price instead"
+
+    @pytest.mark.asyncio
+    async def test_stream_keepalive_deprecation_warning(
+        self,
+        oracle_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubOracle = oracle_servicer
+        oracle_servicer.stream_prices_responses.append(exchange_oracle_pb.StreamPricesResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.stream_oracle_prices(
+                base_symbol="Gold",
+                quote_symbol="USDT",
+                oracle_type="pricefeed",
+            )
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use listen_oracle_prices_updates instead"

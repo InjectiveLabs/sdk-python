@@ -10,7 +10,7 @@ class GrpcApiRequestAssistant:
 
     async def execute_call(self, call: Callable, request) -> Dict[str, Any]:
         metadata = await self._metadata_provider()
-        response = await call(request=request, metadata=metadata)
+        response = await call(request, metadata=metadata)
 
         result = json_format.MessageToDict(
             message=response,

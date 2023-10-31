@@ -15,8 +15,10 @@ from pyinjective.client.chain.grpc.chain_grpc_authz_api import ChainGrpcAuthZApi
 from pyinjective.client.chain.grpc.chain_grpc_bank_api import ChainGrpcBankApi
 from pyinjective.client.indexer.grpc.indexer_grpc_account_api import IndexerGrpcAccountApi
 from pyinjective.client.indexer.grpc.indexer_grpc_meta_api import IndexerGrpcMetaApi
+from pyinjective.client.indexer.grpc.indexer_grpc_oracle_api import IndexerGrpcOracleApi
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_account_stream import IndexerGrpcAccountStream
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_meta_stream import IndexerGrpcMetaStream
+from pyinjective.client.indexer.grpc_stream.indexer_grpc_oracle_stream import IndexerGrpcOracleStream
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.composer import Composer
 from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
@@ -175,6 +177,12 @@ class AsyncClient:
                 metadata_query_provider=self._exchange_cookie_metadata_requestor
             ),
         )
+        self.exchange_oracle_api = IndexerGrpcOracleApi(
+            channel=self.exchange_channel,
+            metadata_provider=lambda: self.network.exchange_metadata(
+                metadata_query_provider=self._exchange_cookie_metadata_requestor
+            ),
+        )
         self.exchange_account_stream_api = IndexerGrpcAccountStream(
             channel=self.exchange_channel,
             metadata_provider=lambda: self.network.exchange_metadata(
@@ -182,6 +190,12 @@ class AsyncClient:
             ),
         )
         self.exchange_meta_stream_api = IndexerGrpcMetaStream(
+            channel=self.exchange_channel,
+            metadata_provider=lambda: self.network.exchange_metadata(
+                metadata_query_provider=self._exchange_cookie_metadata_requestor
+            ),
+        )
+        self.exchange_oracle_stream_api = IndexerGrpcOracleStream(
             channel=self.exchange_channel,
             metadata_provider=lambda: self.network.exchange_metadata(
                 metadata_query_provider=self._exchange_cookie_metadata_requestor
@@ -740,10 +754,32 @@ class AsyncClient:
     # OracleRPC
 
     async def stream_oracle_prices(self, base_symbol: str, quote_symbol: str, oracle_type: str):
+        """
+        This method is deprecated and will be removed soon. Please use `listen_subaccount_balance_updates` instead
+        """
+        warn("This method is deprecated. Use listen_oracle_prices_updates instead", DeprecationWarning, stacklevel=2)
         req = oracle_rpc_pb.StreamPricesRequest(
             base_symbol=base_symbol, quote_symbol=quote_symbol, oracle_type=oracle_type
         )
         return self.stubOracle.StreamPrices(req)
+
+    async def listen_oracle_prices_updates(
+        self,
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+        base_symbol: Optional[str] = None,
+        quote_symbol: Optional[str] = None,
+        oracle_type: Optional[str] = None,
+    ):
+        await self.exchange_oracle_stream_api.stream_oracle_prices(
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+            base_symbol=base_symbol,
+            quote_symbol=quote_symbol,
+            oracle_type=oracle_type,
+        )
 
     async def get_oracle_prices(
         self,
@@ -752,6 +788,10 @@ class AsyncClient:
         oracle_type: str,
         oracle_scale_factor: int,
     ):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_oracle_price` instead
+        """
+        warn("This method is deprecated. Use fetch_oracle_price instead", DeprecationWarning, stacklevel=2)
         req = oracle_rpc_pb.PriceRequest(
             base_symbol=base_symbol,
             quote_symbol=quote_symbol,
@@ -760,9 +800,30 @@ class AsyncClient:
         )
         return await self.stubOracle.Price(req)
 
+    async def fetch_oracle_price(
+        self,
+        base_symbol: Optional[str] = None,
+        quote_symbol: Optional[str] = None,
+        oracle_type: Optional[str] = None,
+        oracle_scale_factor: Optional[int] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_oracle_api.fetch_oracle_price(
+            base_symbol=base_symbol,
+            quote_symbol=quote_symbol,
+            oracle_type=oracle_type,
+            oracle_scale_factor=oracle_scale_factor,
+        )
+
     async def get_oracle_list(self):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_oracle_list` instead
+        """
+        warn("This method is deprecated. Use fetch_oracle_list instead", DeprecationWarning, stacklevel=2)
         req = oracle_rpc_pb.OracleListRequest()
         return await self.stubOracle.OracleList(req)
+
+    async def fetch_oracle_list(self) -> Dict[str, Any]:
+        return await self.exchange_oracle_api.fetch_oracle_list()
 
     # InsuranceRPC
 
