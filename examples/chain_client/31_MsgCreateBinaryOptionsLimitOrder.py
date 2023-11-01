@@ -1,4 +1,5 @@
 import asyncio
+import uuid
 
 from pyinjective.async_client import AsyncClient
 from pyinjective.constant import Denom
@@ -41,6 +42,7 @@ async def main() -> None:
         is_buy=False,
         is_reduce_only=False,
         denom=denom,
+        cid=str(uuid.uuid4()),
     )
 
     # build sim tx

@@ -7,6 +7,8 @@ from typing import Coroutine, Dict, List, Optional, Tuple, Union
 import grpc
 
 from pyinjective.composer import Composer
+from pyinjective.proto.injective.stream.v1beta1 import query_pb2 as chain_stream_query
+from pyinjective.proto.injective.stream.v1beta1 import query_pb2_grpc as stream_rpc_grpc
 
 from . import constant
 from .core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
@@ -106,6 +108,13 @@ class AsyncClient:
             else grpc.aio.insecure_channel(network.grpc_explorer_endpoint)
         )
         self.stubExplorer = explorer_rpc_grpc.InjectiveExplorerRPCStub(self.explorer_channel)
+
+        self.chain_stream_channel = (
+            grpc.aio.secure_channel(network.chain_stream_endpoint, credentials)
+            if (network.use_secure_connection and credentials is not None)
+            else grpc.aio.insecure_channel(network.chain_stream_endpoint)
+        )
+        self.chain_stream_stub = stream_rpc_grpc.StreamStub(channel=self.chain_stream_channel)
 
         self._timeout_height_sync_task = None
         self._initialize_timeout_height_sync_task()
@@ -854,6 +863,34 @@ class AsyncClient:
         )
         return self.stubPortfolio.StreamAccountPortfolio(request=req, metadata=metadata)
 
+    async def chain_stream(
+        self,
+        bank_balances_filter: Optional[chain_stream_query.BankBalancesFilter] = None,
+        subaccount_deposits_filter: Optional[chain_stream_query.SubaccountDepositsFilter] = None,
+        spot_trades_filter: Optional[chain_stream_query.TradesFilter] = None,
+        derivative_trades_filter: Optional[chain_stream_query.TradesFilter] = None,
+        spot_orders_filter: Optional[chain_stream_query.OrdersFilter] = None,
+        derivative_orders_filter: Optional[chain_stream_query.OrdersFilter] = None,
+        spot_orderbooks_filter: Optional[chain_stream_query.OrderbookFilter] = None,
+        derivative_orderbooks_filter: Optional[chain_stream_query.OrderbookFilter] = None,
+        positions_filter: Optional[chain_stream_query.PositionsFilter] = None,
+        oracle_price_filter: Optional[chain_stream_query.OraclePriceFilter] = None,
+    ):
+        request = chain_stream_query.StreamRequest(
+            bank_balances_filter=bank_balances_filter,
+            subaccount_deposits_filter=subaccount_deposits_filter,
+            spot_trades_filter=spot_trades_filter,
+            derivative_trades_filter=derivative_trades_filter,
+            spot_orders_filter=spot_orders_filter,
+            derivative_orders_filter=derivative_orders_filter,
+            spot_orderbooks_filter=spot_orderbooks_filter,
+            derivative_orderbooks_filter=derivative_orderbooks_filter,
+            positions_filter=positions_filter,
+            oracle_price_filter=oracle_price_filter,
+        )
+        metadata = await self.network.chain_metadata(metadata_query_provider=self._chain_cookie_metadata_requestor)
+        return self.chain_stream_stub.Stream(request=request, metadata=metadata)
+
     async def composer(self):
         return Composer(
             network=self.network.string(),
@@ -1006,7 +1043,7 @@ class AsyncClient:
 
     def _initialize_timeout_height_sync_task(self):
         self._cancel_timeout_height_sync_task()
-        self._timeout_height_sync_task = asyncio.create_task(self._timeout_height_sync_process())
+        self._timeout_height_sync_task = asyncio.get_event_loop().create_task(self._timeout_height_sync_process())
 
     async def _timeout_height_sync_process(self):
         while True:

@@ -1,4 +1,5 @@
 import asyncio
+import uuid
 
 from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
@@ -36,6 +37,7 @@ async def main() -> None:
         quantity=0.01,
         is_buy=True,
         is_po=False,
+        cid=str(uuid.uuid4()),
     )
 
     msg = composer.MsgExec(grantee=grantee, msgs=[msg0])

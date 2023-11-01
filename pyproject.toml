@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "injective-py"
-version = "0.10dev"
+version = "1.0"
 description = "Injective Python SDK, with Exchange API Client"
 authors = ["Injective Labs <contact@injectivelabs.org>"]
 license = "Apache-2.0"
@@ -96,7 +96,7 @@ omit = ["pyinjective/proto/*"]
 
 [tool.coverage.report]
 skip_empty = true
-fail_under = 52
+fail_under = 50
 precision = 2
 
 

@@ -1,4 +1,5 @@
 import asyncio
+import uuid
 
 from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
@@ -35,6 +36,7 @@ async def main() -> None:
         price=10.522,
         quantity=0.01,
         is_buy=True,
+        cid=str(uuid.uuid4()),
     )
 
     # build sim tx

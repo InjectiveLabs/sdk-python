@@ -1,4 +1,5 @@
 import asyncio
+import uuid
 
 from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
@@ -25,6 +26,7 @@ async def main() -> None:
     # prepare trade info
     market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
     fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
+    cid = str(uuid.uuid4())
 
     # prepare tx msg
     msg = composer.MsgCreateSpotLimitOrder(
@@ -36,6 +38,7 @@ async def main() -> None:
         quantity=0.01,
         is_buy=True,
         is_po=False,
+        cid=cid,
     )
 
     # build sim tx
@@ -81,6 +84,7 @@ async def main() -> None:
     print(res)
     print("gas wanted: {}".format(gas_limit))
     print("gas fee: {} INJ".format(gas_fee))
+    print(f"\n\ncid: {cid}")
 
 
 if __name__ == "__main__":

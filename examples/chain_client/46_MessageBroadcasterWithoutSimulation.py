@@ -1,4 +1,5 @@
 import asyncio
+import uuid
 
 from pyinjective.composer import Composer as ProtoMsgComposer
 from pyinjective.core.broadcaster import MsgBroadcasterWithPk
@@ -36,6 +37,7 @@ async def main() -> None:
             quantity=55,
             is_buy=True,
             is_po=False,
+            cid=str(uuid.uuid4()),
         ),
         composer.SpotOrder(
             market_id=spot_market_id_create,
@@ -45,6 +47,7 @@ async def main() -> None:
             quantity=55,
             is_buy=False,
             is_po=False,
+            cid=str(uuid.uuid4()),
         ),
     ]
 
