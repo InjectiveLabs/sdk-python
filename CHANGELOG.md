@@ -2,12 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.10.0] - 2023-10-04
+## [1.0] - 2023-11-01
 ### Added
 - Added logic to support use of Client Order ID (CID) new identifier in OrderInfo
 - New chain stream support
 
 ### Changed
+- Remove support for `sentry` nodes in mainnet network. The only supported node option in mainnet is `lb`
+- Migrated all proto objects dependency to support chain version 1.22
 - Moved changelog from the README.md file to its own CHANGELOG.md file
 - Remove `aiocron` dependency. Use plain asyncio tasks to solve the timeout height synchronization
 

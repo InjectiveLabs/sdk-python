@@ -248,30 +248,19 @@ class Network:
     @classmethod
     def mainnet(cls, node="lb"):
         nodes = [
-            "lb",  # us, asia, prod
-            "lb_k8s",
+            "lb",
         ]
         if node not in nodes:
             raise ValueError("Must be one of {}".format(nodes))
 
-        if node == "lb":
-            lcd_endpoint = "https://sentry.lcd.injective.network:443"
-            tm_websocket_endpoint = "wss://sentry.tm.injective.network:443/websocket"
-            grpc_endpoint = "sentry.chain.grpc.injective.network:443"
-            grpc_exchange_endpoint = "sentry.exchange.grpc.injective.network:443"
-            grpc_explorer_endpoint = "sentry.explorer.grpc.injective.network:443"
-            chain_stream_endpoint = "sentry.chain.stream.injective.network:443"
-            cookie_assistant = BareMetalLoadBalancedCookieAssistant()
-            use_secure_connection = True
-        else:
-            lcd_endpoint = "https://k8s.global.mainnet.lcd.injective.network:443"
-            tm_websocket_endpoint = "wss://k8s.global.mainnet.tm.injective.network:443/websocket"
-            grpc_endpoint = "k8s.global.mainnet.chain.grpc.injective.network:443"
-            grpc_exchange_endpoint = "k8s.global.mainnet.exchange.grpc.injective.network:443"
-            grpc_explorer_endpoint = "k8s.global.mainnet.explorer.grpc.injective.network:443"
-            chain_stream_endpoint = "k8s.global.mainnet.chain.stream.injective.network:443"
-            cookie_assistant = KubernetesLoadBalancedCookieAssistant()
-            use_secure_connection = True
+        lcd_endpoint = "https://sentry.lcd.injective.network:443"
+        tm_websocket_endpoint = "wss://sentry.tm.injective.network:443/websocket"
+        grpc_endpoint = "sentry.chain.grpc.injective.network:443"
+        grpc_exchange_endpoint = "sentry.exchange.grpc.injective.network:443"
+        grpc_explorer_endpoint = "sentry.explorer.grpc.injective.network:443"
+        chain_stream_endpoint = "sentry.chain.stream.injective.network:443"
+        cookie_assistant = BareMetalLoadBalancedCookieAssistant()
+        use_secure_connection = True
 
         return cls(
             lcd_endpoint=lcd_endpoint,
