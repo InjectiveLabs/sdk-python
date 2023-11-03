@@ -3,6 +3,7 @@ from decimal import Decimal
 from typing import Any, List, Tuple
 
 import pyinjective.constant as constant
+import pyinjective.utils.denom
 from pyinjective.async_client import AsyncClient
 from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from pyinjective.core.network import Network
@@ -24,7 +25,7 @@ def find_metadata_inconsistencies(network: Network) -> Tuple[List[Any]]:
 
     for config_key in ini_config:
         if config_key.startswith("0x"):
-            denom = constant.Denom.load_market(network=network.string(), market_id=config_key)
+            denom = pyinjective.utils.denom.Denom.load_market(network=network.string(), market_id=config_key)
             if config_key in spot_markets:
                 market: SpotMarket = spot_markets[config_key]
                 if (
@@ -107,7 +108,9 @@ def find_metadata_inconsistencies(network: Network) -> Tuple[List[Any]]:
             continue
         else:
             # the configuration is a token
-            peggy_denom, decimals = constant.Denom.load_peggy_denom(network=network.string(), symbol=config_key)
+            peggy_denom, decimals = pyinjective.utils.denom.Denom.load_peggy_denom(
+                network=network.string(), symbol=config_key
+            )
             if config_key in all_tokens:
                 token = all_tokens[config_key]
                 if token.denom != peggy_denom or token.decimals != decimals:

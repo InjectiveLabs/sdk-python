@@ -1,20 +1,7 @@
-# Copyright 2022 Injective Labs
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 import asyncio
 
 from pyinjective.async_client import AsyncClient
+from pyinjective.constant import GAS_FEE_BUFFER_AMOUNT, GAS_PRICE
 from pyinjective.core.network import Network
 from pyinjective.transaction import Transaction
 from pyinjective.wallet import PrivateKey
@@ -58,8 +45,8 @@ async def main() -> None:
         return
 
     # build tx
-    gas_price = 500000000
-    gas_limit = sim_res.gas_info.gas_used + 20000  # add 20k for gas, fee computation
+    gas_price = GAS_PRICE
+    gas_limit = sim_res.gas_info.gas_used + GAS_FEE_BUFFER_AMOUNT  # add buffer for gas fee computation
     gas_fee = "{:.18f}".format((gas_price * gas_limit) / pow(10, 18)).rstrip("0")
     fee = [
         composer.Coin(

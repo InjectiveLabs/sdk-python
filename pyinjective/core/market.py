@@ -2,8 +2,9 @@ from dataclasses import dataclass
 from decimal import Decimal
 from typing import Optional
 
-from pyinjective.constant import ADDITIONAL_CHAIN_FORMAT_DECIMALS, Denom
+from pyinjective.constant import ADDITIONAL_CHAIN_FORMAT_DECIMALS
 from pyinjective.core.token import Token
+from pyinjective.utils.denom import Denom
 
 
 @dataclass(eq=True, frozen=True)
