@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 - Migrated all proto objects dependency to support chain version 1.22
 - Moved changelog from the README.md file to its own CHANGELOG.md file
 - Remove `aiocron` dependency. Use plain asyncio tasks to solve the timeout height synchronization
+- Updated the gas fee buffer used to calculate fee consumption in all examples
 
 ## [0.9.3]
 * Updated TIA/USDT-30NOV2023 market id in denoms_mainnet.ini file

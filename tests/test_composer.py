@@ -3,10 +3,10 @@ from decimal import Decimal
 import pytest
 
 from pyinjective.composer import Composer
-from pyinjective.constant import Denom
 from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from pyinjective.core.network import Network
 from pyinjective.proto.injective.exchange.v1beta1 import exchange_pb2
+from pyinjective.utils.denom import Denom
 from tests.model_fixtures.markets_fixtures import btc_usdt_perp_market  # noqa: F401
 from tests.model_fixtures.markets_fixtures import first_match_bet_market  # noqa: F401
 from tests.model_fixtures.markets_fixtures import inj_token  # noqa: F401

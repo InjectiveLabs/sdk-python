@@ -27,7 +27,7 @@ class InjectiveCampaignRPCServicer(object):
     """
 
     def Ranking(self, request, context):
-        """Lists all trading strategies
+        """Lists all participants in campaign
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
