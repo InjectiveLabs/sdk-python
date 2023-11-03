@@ -31,30 +31,32 @@ async def fetch_denom(network) -> str:
     # fetch meta data for spot markets
     client = AsyncClient(network)
     status = "active"
-    mresp = await client.get_spot_markets(market_status=status)
-    for market in mresp.markets:
+    mresp = await client.fetch_spot_markets(market_status=status)
+    for market in mresp["markets"]:
         # append symbols to dict
-        if market.base_token_meta.SerializeToString() != "":
-            symbols[market.base_token_meta.symbol] = (market.base_denom, market.base_token_meta.decimals)
+        if market["baseTokenMeta"] != "":
+            symbols[market["baseTokenMeta"]["symbol"]] = (market["baseDenom"], market["baseTokenMeta"]["decimals"])
 
-        if market.quote_token_meta.SerializeToString() != "":
-            symbols[market.quote_token_meta.symbol] = (market.base_denom, market.quote_token_meta.decimals)
+        if market["quoteTokenMeta"] != "":
+            symbols[market["quoteTokenMeta"]["symbol"]] = (market["baseDenom"], market["quoteTokenMeta"]["decimals"])
 
         # format into ini entry
-        min_display_price_tick_size = float(market.min_price_tick_size) / pow(
-            10, market.quote_token_meta.decimals - market.base_token_meta.decimals
+        min_display_price_tick_size = float(market["minPriceTickSize"]) / pow(
+            10, market["quoteTokenMeta"]["decimals"] - market["baseTokenMeta"]["decimals"]
         )
-        min_display_quantity_tick_size = float(market.min_quantity_tick_size) / pow(10, market.base_token_meta.decimals)
+        min_display_quantity_tick_size = float(market["minQuantityTickSize"]) / pow(
+            10, market["baseTokenMeta"]["decimals"]
+        )
         config = metadata_template.format(
-            market.market_id,
+            market["marketId"],
             network.string().capitalize(),
             "Spot",
-            market.ticker,
-            market.base_token_meta.decimals,
-            market.quote_token_meta.decimals,
-            market.min_price_tick_size,
+            market["ticker"],
+            market["baseTokenMeta"]["decimals"],
+            market["quoteTokenMeta"]["decimals"],
+            market["minPriceTickSize"],
             min_display_price_tick_size,
-            market.min_quantity_tick_size,
+            market["minQuantityTickSize"],
             min_display_quantity_tick_size,
         )
         denom_output += config
@@ -65,22 +67,22 @@ async def fetch_denom(network) -> str:
     mresp = await client.get_derivative_markets(market_status=status)
     for market in mresp.markets:
         # append symbols to dict
-        if market.quote_token_meta.SerializeToString() != "":
-            symbols[market.quote_token_meta.symbol] = (market.quote_denom, market.quote_token_meta.decimals)
+        if market["quoteTokenMeta"] != "":
+            symbols[market["quoteTokenMeta"]["symbol"]] = (market["quoteDenom"], market["quoteTokenMeta"]["decimals"])
 
             # format into ini entry
-        min_display_price_tick_size = float(market.min_price_tick_size) / pow(10, market.quote_token_meta.decimals)
+        min_display_price_tick_size = float(market["minPriceTickSize"]) / pow(10, market["quoteTokenMeta"]["decimals"])
         config = metadata_template.format(
-            market.market_id,
+            market["marketId"],
             network.string().capitalize(),
             "Derivative",
-            market.ticker,
+            market["ticker"],
             0,
-            market.quote_token_meta.decimals,
-            market.min_price_tick_size,
+            market["quoteTokenMeta"]["decimals"],
+            market["minPriceTickSize"],
             min_display_price_tick_size,
-            market.min_quantity_tick_size,
-            market.min_quantity_tick_size,
+            market["minQuantityTickSize"],
+            market["minQuantityTickSize"],
         )
         denom_output += config
 

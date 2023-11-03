@@ -18,6 +18,7 @@ from pyinjective.client.indexer.grpc.indexer_grpc_auction_api import IndexerGrpc
 from pyinjective.client.indexer.grpc.indexer_grpc_insurance_api import IndexerGrpcInsuranceApi
 from pyinjective.client.indexer.grpc.indexer_grpc_meta_api import IndexerGrpcMetaApi
 from pyinjective.client.indexer.grpc.indexer_grpc_oracle_api import IndexerGrpcOracleApi
+from pyinjective.client.indexer.grpc.indexer_grpc_spot_api import IndexerGrpcSpotApi
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_account_stream import IndexerGrpcAccountStream
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_auction_stream import IndexerGrpcAuctionStream
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_meta_stream import IndexerGrpcMetaStream
@@ -193,6 +194,12 @@ class AsyncClient:
             ),
         )
         self.exchange_oracle_api = IndexerGrpcOracleApi(
+            channel=self.exchange_channel,
+            metadata_provider=lambda: self.network.exchange_metadata(
+                metadata_query_provider=self._exchange_cookie_metadata_requestor
+            ),
+        )
+        self.exchange_spot_api = IndexerGrpcSpotApi(
             channel=self.exchange_channel,
             metadata_provider=lambda: self.network.exchange_metadata(
                 metadata_query_provider=self._exchange_cookie_metadata_requestor
@@ -917,16 +924,37 @@ class AsyncClient:
     # SpotRPC
 
     async def get_spot_market(self, market_id: str):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_spot_market` instead
+        """
+        warn("This method is deprecated. Use fetch_spot_market instead", DeprecationWarning, stacklevel=2)
         req = spot_exchange_rpc_pb.MarketRequest(market_id=market_id)
         return await self.stubSpotExchange.Market(req)
 
+    async def fetch_spot_market(self, market_id: str) -> Dict[str, Any]:
+        return await self.exchange_spot_api.fetch_market(market_id=market_id)
+
     async def get_spot_markets(self, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_spot_markets` instead
+        """
+        warn("This method is deprecated. Use fetch_spot_markets instead", DeprecationWarning, stacklevel=2)
         req = spot_exchange_rpc_pb.MarketsRequest(
             market_status=kwargs.get("market_status"),
             base_denom=kwargs.get("base_denom"),
             quote_denom=kwargs.get("quote_denom"),
         )
         return await self.stubSpotExchange.Markets(req)
+
+    async def fetch_spot_markets(
+        self,
+        market_status: Optional[str] = None,
+        base_denom: Optional[str] = None,
+        quote_denom: Optional[str] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_spot_api.fetch_markets(
+            market_status=market_status, base_denom=base_denom, quote_denom=quote_denom
+        )
 
     async def stream_spot_markets(self, **kwargs):
         req = spot_exchange_rpc_pb.StreamMarketsRequest(market_ids=kwargs.get("market_ids"))
@@ -936,8 +964,15 @@ class AsyncClient:
         return self.stubSpotExchange.StreamMarkets(request=req, metadata=metadata)
 
     async def get_spot_orderbookV2(self, market_id: str):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_spot_markets` instead
+        """
+        warn("This method is deprecated. Use fetch_spot_orderbook_v2 instead", DeprecationWarning, stacklevel=2)
         req = spot_exchange_rpc_pb.OrderbookV2Request(market_id=market_id)
         return await self.stubSpotExchange.OrderbookV2(req)
+
+    async def fetch_spot_orderbook_v2(self, market_id: str) -> Dict[str, Any]:
+        return await self.exchange_spot_api.fetch_orderbook_v2(market_id=market_id)
 
     async def get_spot_orderbooksV2(self, market_ids: List):
         req = spot_exchange_rpc_pb.OrderbooksV2Request(market_ids=market_ids)
@@ -1313,19 +1348,20 @@ class AsyncClient:
         binary_option_markets = dict()
         tokens = dict()
         tokens_by_denom = dict()
-        markets_info = (await self.get_spot_markets(market_status="active")).markets
+        markets_info = (await self.fetch_spot_markets(market_status="active"))["markets"]
 
         for market_info in markets_info:
-            if "/" in market_info.ticker:
-                base_token_symbol, quote_token_symbol = market_info.ticker.split(constant.TICKER_TOKENS_SEPARATOR)
+            ticker = market_info["ticker"]
+            if "/" in ticker:
+                base_token_symbol, quote_token_symbol = ticker.split(constant.TICKER_TOKENS_SEPARATOR)
             else:
-                base_token_symbol = market_info.base_token_meta.symbol
-                quote_token_symbol = market_info.quote_token_meta.symbol
+                base_token_symbol = market_info["baseTokenMeta"]["symbol"]
+                quote_token_symbol = market_info["quoteTokenMeta"]["symbol"]
 
             base_token = self._token_representation(
                 symbol=base_token_symbol,
-                token_meta=market_info.base_token_meta,
-                denom=market_info.base_denom,
+                token_meta=market_info["baseTokenMeta"],
+                denom=market_info["baseDenom"],
                 all_tokens=tokens,
             )
             if base_token.denom not in tokens_by_denom:
@@ -1333,81 +1369,81 @@ class AsyncClient:
 
             quote_token = self._token_representation(
                 symbol=quote_token_symbol,
-                token_meta=market_info.quote_token_meta,
-                denom=market_info.quote_denom,
+                token_meta=market_info["quoteTokenMeta"],
+                denom=market_info["quoteDenom"],
                 all_tokens=tokens,
             )
             if quote_token.denom not in tokens_by_denom:
                 tokens_by_denom[quote_token.denom] = quote_token
 
             market = SpotMarket(
-                id=market_info.market_id,
-                status=market_info.market_status,
-                ticker=market_info.ticker,
+                id=market_info["marketId"],
+                status=market_info["marketStatus"],
+                ticker=market_info["ticker"],
                 base_token=base_token,
                 quote_token=quote_token,
-                maker_fee_rate=Decimal(market_info.maker_fee_rate),
-                taker_fee_rate=Decimal(market_info.taker_fee_rate),
-                service_provider_fee=Decimal(market_info.service_provider_fee),
-                min_price_tick_size=Decimal(market_info.min_price_tick_size),
-                min_quantity_tick_size=Decimal(market_info.min_quantity_tick_size),
+                maker_fee_rate=Decimal(market_info["makerFeeRate"]),
+                taker_fee_rate=Decimal(market_info["takerFeeRate"]),
+                service_provider_fee=Decimal(market_info["serviceProviderFee"]),
+                min_price_tick_size=Decimal(market_info["minPriceTickSize"]),
+                min_quantity_tick_size=Decimal(market_info["minQuantityTickSize"]),
             )
 
             spot_markets[market.id] = market
 
         markets_info = (await self.get_derivative_markets(market_status="active")).markets
         for market_info in markets_info:
-            quote_token_symbol = market_info.quote_token_meta.symbol
+            quote_token_symbol = market_info["quoteTokenMeta"].symbol
 
             quote_token = self._token_representation(
                 symbol=quote_token_symbol,
-                token_meta=market_info.quote_token_meta,
-                denom=market_info.quote_denom,
+                token_meta=market_info["quoteTokenMeta"],
+                denom=market_info["quoteDenom"],
                 all_tokens=tokens,
             )
             if quote_token.denom not in tokens_by_denom:
                 tokens_by_denom[quote_token.denom] = quote_token
 
             market = DerivativeMarket(
-                id=market_info.market_id,
-                status=market_info.market_status,
-                ticker=market_info.ticker,
-                oracle_base=market_info.oracle_base,
-                oracle_quote=market_info.oracle_quote,
-                oracle_type=market_info.oracle_type,
-                oracle_scale_factor=market_info.oracle_scale_factor,
-                initial_margin_ratio=Decimal(market_info.initial_margin_ratio),
-                maintenance_margin_ratio=Decimal(market_info.maintenance_margin_ratio),
+                id=market_info["marketId"],
+                status=market_info["marketStatus"],
+                ticker=market_info["ticker"],
+                oracle_base=market_info["oracleBase"],
+                oracle_quote=market_info["oracleQuote"],
+                oracle_type=market_info["oracleType"],
+                oracle_scale_factor=market_info["oracleScaleFactor"],
+                initial_margin_ratio=Decimal(market_info["initialMarginRatio"]),
+                maintenance_margin_ratio=Decimal(market_info["maintenanceMarginRatio"]),
                 quote_token=quote_token,
-                maker_fee_rate=Decimal(market_info.maker_fee_rate),
-                taker_fee_rate=Decimal(market_info.taker_fee_rate),
-                service_provider_fee=Decimal(market_info.service_provider_fee),
-                min_price_tick_size=Decimal(market_info.min_price_tick_size),
-                min_quantity_tick_size=Decimal(market_info.min_quantity_tick_size),
+                maker_fee_rate=Decimal(market_info["makerFeeRate"]),
+                taker_fee_rate=Decimal(market_info["takerFeeRate"]),
+                service_provider_fee=Decimal(market_info["serviceProviderFee"]),
+                min_price_tick_size=Decimal(market_info["minPriceTickSize"]),
+                min_quantity_tick_size=Decimal(market_info["minQuantityTickSize"]),
             )
 
             derivative_markets[market.id] = market
 
         markets_info = (await self.get_binary_options_markets(market_status="active")).markets
         for market_info in markets_info:
-            quote_token = tokens_by_denom.get(market_info.quote_denom, None)
+            quote_token = tokens_by_denom.get(market_info["quoteDenom"], None)
 
             market = BinaryOptionMarket(
-                id=market_info.market_id,
-                status=market_info.market_status,
-                ticker=market_info.ticker,
-                oracle_symbol=market_info.oracle_symbol,
-                oracle_provider=market_info.oracle_provider,
-                oracle_type=market_info.oracle_type,
-                oracle_scale_factor=market_info.oracle_scale_factor,
-                expiration_timestamp=market_info.expiration_timestamp,
-                settlement_timestamp=market_info.settlement_timestamp,
+                id=market_info["marketId"],
+                status=market_info["marketStatus"],
+                ticker=market_info["ticker"],
+                oracle_symbol=market_info["oracleSymbol"],
+                oracle_provider=market_info["oracleProvider"],
+                oracle_type=market_info["oracleType"],
+                oracle_scale_factor=market_info["oracleScaleFactor"],
+                expiration_timestamp=market_info["expirationTimestamp"],
+                settlement_timestamp=market_info["settlementTimestamp"],
                 quote_token=quote_token,
-                maker_fee_rate=Decimal(market_info.maker_fee_rate),
-                taker_fee_rate=Decimal(market_info.taker_fee_rate),
-                service_provider_fee=Decimal(market_info.service_provider_fee),
-                min_price_tick_size=Decimal(market_info.min_price_tick_size),
-                min_quantity_tick_size=Decimal(market_info.min_quantity_tick_size),
+                maker_fee_rate=Decimal(market_info["makerFeeRate"]),
+                taker_fee_rate=Decimal(market_info["takerFeeRate"]),
+                service_provider_fee=Decimal(market_info["serviceProviderFee"]),
+                min_price_tick_size=Decimal(market_info["minPriceTickSize"]),
+                min_quantity_tick_size=Decimal(market_info["minQuantityTickSize"]),
             )
 
             binary_option_markets[market.id] = market

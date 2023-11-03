@@ -13,6 +13,7 @@ from pyinjective.proto.exchange import (
     injective_insurance_rpc_pb2 as exchange_insurance_pb,
     injective_meta_rpc_pb2 as exchange_meta_pb,
     injective_oracle_rpc_pb2 as exchange_oracle_pb,
+    injective_spot_exchange_rpc_pb2 as exchange_spot_pb,
 )
 from pyinjective.proto.injective.types.v1beta1 import account_pb2 as account_pb
 from tests.client.chain.grpc.configurable_auth_query_servicer import ConfigurableAuthQueryServicer
@@ -23,6 +24,7 @@ from tests.client.indexer.configurable_auction_query_servicer import Configurabl
 from tests.client.indexer.configurable_insurance_query_servicer import ConfigurableInsuranceQueryServicer
 from tests.client.indexer.configurable_meta_query_servicer import ConfigurableMetaQueryServicer
 from tests.client.indexer.configurable_oracle_query_servicer import ConfigurableOracleQueryServicer
+from tests.client.indexer.configurable_spot_query_servicer import ConfigurableSpotQueryServicer
 from tests.core.tx.grpc.configurable_tx_query_servicer import ConfigurableTxQueryServicer
 
 
@@ -64,6 +66,11 @@ def meta_servicer():
 @pytest.fixture
 def oracle_servicer():
     return ConfigurableOracleQueryServicer()
+
+
+@pytest.fixture
+def spot_servicer():
+    return ConfigurableSpotQueryServicer()
 
 
 @pytest.fixture
@@ -662,3 +669,57 @@ class TestAsyncClientDeprecationWarnings:
         assert len(all_warnings) == 1
         assert issubclass(all_warnings[0].category, DeprecationWarning)
         assert str(all_warnings[0].message) == "This method is deprecated. Use listen_bids_updates instead"
+
+    @pytest.mark.asyncio
+    async def test_get_spot_markets_deprecation_warning(
+        self,
+        spot_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubSpotExchange = spot_servicer
+        spot_servicer.markets_responses.append(exchange_spot_pb.MarketsResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_spot_markets()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_spot_markets instead"
+
+    @pytest.mark.asyncio
+    async def test_get_spot_market_deprecation_warning(
+        self,
+        spot_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubSpotExchange = spot_servicer
+        spot_servicer.market_responses.append(exchange_spot_pb.MarketResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_spot_market(market_id="")
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_spot_market instead"
+
+    @pytest.mark.asyncio
+    async def test_get_spot_orderbookV2_deprecation_warning(
+        self,
+        spot_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubSpotExchange = spot_servicer
+        spot_servicer.orderbook_v2_responses.append(exchange_spot_pb.OrderbookV2Response())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_spot_orderbookV2(market_id="")
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_spot_orderbook_v2 instead"
