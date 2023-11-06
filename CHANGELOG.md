@@ -14,6 +14,13 @@ All notable changes to this project will be documented in this file.
 - Remove `aiocron` dependency. Use plain asyncio tasks to solve the timeout height synchronization
 - Updated the gas fee buffer used to calculate fee consumption in all examples
 
+## [0.9.5]
+* Updated fetch_metadata script (to synchronize denom ini files) to reuse logic in AsyncClient
+* Synchronized denom ini files with Indexer information for mainnet, testnet and devnet
+
+## [0.9.4]
+* Added TIA/USDT spot market in mainnet and testnet ini file
+
 ## [0.9.3]
 * Updated TIA/USDT-30NOV2023 market id in denoms_mainnet.ini file
 
