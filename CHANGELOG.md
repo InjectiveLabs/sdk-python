@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.1] - 2023-11-07
+### Changed
+- Updated proto definitions to injective-core v1.12.2-testnet and injective-indexer v1.12.45-rc3
+
 ## [1.0] - 2023-11-01
 ### Added
 - Added logic to support use of Client Order ID (CID) new identifier in OrderInfo
