@@ -906,9 +906,15 @@ class AsyncClient:
         binary_option_markets = dict()
         tokens = dict()
         tokens_by_denom = dict()
-        markets_info = (await self.get_spot_markets()).markets
+        markets_info = (await self.get_spot_markets(market_status="active")).markets
+        valid_markets = (
+            market_info
+            for market_info in markets_info
+            if len(market_info.base_token_meta.SerializeToString()) > 0
+            and len(market_info.quote_token_meta.SerializeToString()) > 0
+        )
 
-        for market_info in markets_info:
+        for market_info in valid_markets:
             if "/" in market_info.ticker:
                 base_token_symbol, quote_token_symbol = market_info.ticker.split(constant.TICKER_TOKENS_SEPARATOR)
             else:
@@ -948,8 +954,11 @@ class AsyncClient:
 
             spot_markets[market.id] = market
 
-        markets_info = (await self.get_derivative_markets()).markets
-        for market_info in markets_info:
+        markets_info = (await self.get_derivative_markets(market_status="active")).markets
+        valid_markets = (
+            market_info for market_info in markets_info if len(market_info.quote_token_meta.SerializeToString()) > 0
+        )
+        for market_info in valid_markets:
             quote_token_symbol = market_info.quote_token_meta.symbol
 
             quote_token = self._token_representation(
