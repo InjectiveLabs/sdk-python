@@ -15,7 +15,7 @@ from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n%injective/oracle/v1beta1/oracle.proto\x12\x18injective.oracle.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\"%\n\x06Params\x12\x15\n\rpyth_contract\x18\x01 \x01(\t:\x04\xe8\xa0\x1f\x01\"m\n\nOracleInfo\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x39\n\x0boracle_type\x18\x02 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x14\n\x0cscale_factor\x18\x03 \x01(\r\"\xba\x01\n\x13\x43hainlinkPriceState\x12\x0f\n\x07\x66\x65\x65\x64_id\x18\x01 \x01(\t\x12>\n\x06\x61nswer\x18\x02 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\x12\x11\n\ttimestamp\x18\x03 \x01(\x04\x12?\n\x0bprice_state\x18\x04 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceStateB\x04\xc8\xde\x1f\x00\"\xc9\x01\n\x0e\x42\x61ndPriceState\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12<\n\x04rate\x18\x02 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\x12\x14\n\x0cresolve_time\x18\x03 \x01(\x04\x12\x12\n\nrequest_ID\x18\x04 \x01(\x04\x12?\n\x0bprice_state\x18\x05 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceStateB\x04\xc8\xde\x1f\x00\"z\n\x0ePriceFeedState\x12\x0c\n\x04\x62\x61se\x18\x01 \x01(\t\x12\r\n\x05quote\x18\x02 \x01(\t\x12\x39\n\x0bprice_state\x18\x03 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceState\x12\x10\n\x08relayers\x18\x04 \x03(\t\"2\n\x0cProviderInfo\x12\x10\n\x08provider\x18\x01 \x01(\t\x12\x10\n\x08relayers\x18\x02 \x03(\t\"\x9b\x01\n\rProviderState\x12=\n\rprovider_info\x18\x01 \x01(\x0b\x32&.injective.oracle.v1beta1.ProviderInfo\x12K\n\x15provider_price_states\x18\x02 \x03(\x0b\x32,.injective.oracle.v1beta1.ProviderPriceState\"Y\n\x12ProviderPriceState\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x33\n\x05state\x18\x02 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceState\",\n\rPriceFeedInfo\x12\x0c\n\x04\x62\x61se\x18\x01 \x01(\t\x12\r\n\x05quote\x18\x02 \x01(\t\"O\n\x0ePriceFeedPrice\x12=\n\x05price\x18\x01 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\"\x92\x01\n\x12\x43oinbasePriceState\x12\x0c\n\x04kind\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x04\x12\x0b\n\x03key\x18\x03 \x01(\t\x12\r\n\x05value\x18\x04 \x01(\x04\x12?\n\x0bprice_state\x18\x05 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceStateB\x04\xc8\xde\x1f\x00\"\xa8\x01\n\nPriceState\x12=\n\x05price\x18\x01 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\x12H\n\x10\x63umulative_price\x18\x02 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\x12\x11\n\ttimestamp\x18\x03 \x01(\x03\"\xbc\x02\n\x0ePythPriceState\x12\x10\n\x08price_id\x18\x01 \x01(\t\x12\x41\n\tema_price\x18\x02 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\x12@\n\x08\x65ma_conf\x18\x03 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\x12<\n\x04\x63onf\x18\x04 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\x12\x14\n\x0cpublish_time\x18\x05 \x01(\x04\x12?\n\x0bprice_state\x18\x06 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceStateB\x04\xc8\xde\x1f\x00\"\x9c\x02\n\x11\x42\x61ndOracleRequest\x12\x12\n\nrequest_id\x18\x01 \x01(\x04\x12\x18\n\x10oracle_script_id\x18\x02 \x01(\x03\x12\x0f\n\x07symbols\x18\x03 \x03(\t\x12\x11\n\task_count\x18\x04 \x01(\x04\x12\x11\n\tmin_count\x18\x05 \x01(\x04\x12^\n\tfee_limit\x18\x06 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins\x12\x13\n\x0bprepare_gas\x18\x07 \x01(\x04\x12\x13\n\x0b\x65xecute_gas\x18\x08 \x01(\x04\x12\x18\n\x10min_source_count\x18\t \x01(\x04\"\xa8\x01\n\rBandIBCParams\x12\x18\n\x10\x62\x61nd_ibc_enabled\x18\x01 \x01(\x08\x12\x1c\n\x14ibc_request_interval\x18\x02 \x01(\x03\x12\x1a\n\x12ibc_source_channel\x18\x03 \x01(\t\x12\x13\n\x0bibc_version\x18\x04 \x01(\t\x12\x13\n\x0bibc_port_id\x18\x05 \x01(\t\x12\x19\n\x11legacy_oracle_ids\x18\x06 \x03(\x03\"r\n\x14SymbolPriceTimestamp\x12\x34\n\x06oracle\x18\x01 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x11\n\tsymbol_id\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x03\"d\n\x13LastPriceTimestamps\x12M\n\x15last_price_timestamps\x18\x01 \x03(\x0b\x32..injective.oracle.v1beta1.SymbolPriceTimestamp\"\x9c\x01\n\x0cPriceRecords\x12\x34\n\x06oracle\x18\x01 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x11\n\tsymbol_id\x18\x02 \x01(\t\x12\x43\n\x14latest_price_records\x18\x03 \x03(\x0b\x32%.injective.oracle.v1beta1.PriceRecord\"_\n\x0bPriceRecord\x12\x11\n\ttimestamp\x18\x01 \x01(\x03\x12=\n\x05price\x18\x02 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\"\xbf\x03\n\x12MetadataStatistics\x12\x13\n\x0bgroup_count\x18\x01 \x01(\r\x12\x1b\n\x13records_sample_size\x18\x02 \x01(\r\x12<\n\x04mean\x18\x03 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\x12<\n\x04twap\x18\x04 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\x12\x17\n\x0f\x66irst_timestamp\x18\x05 \x01(\x03\x12\x16\n\x0elast_timestamp\x18\x06 \x01(\x03\x12\x41\n\tmin_price\x18\x07 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\x12\x41\n\tmax_price\x18\x08 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\x12\x44\n\x0cmedian_price\x18\t \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\"\x9c\x01\n\x10PriceAttestation\x12\x10\n\x08price_id\x18\x01 \x01(\t\x12\r\n\x05price\x18\x02 \x01(\x03\x12\x0c\n\x04\x63onf\x18\x03 \x01(\x04\x12\x0c\n\x04\x65xpo\x18\x04 \x01(\x05\x12\x11\n\tema_price\x18\x05 \x01(\x03\x12\x10\n\x08\x65ma_conf\x18\x06 \x01(\x04\x12\x10\n\x08\x65ma_expo\x18\x07 \x01(\x05\x12\x14\n\x0cpublish_time\x18\x08 \x01(\x03*\x9f\x01\n\nOracleType\x12\x0f\n\x0bUnspecified\x10\x00\x12\x08\n\x04\x42\x61nd\x10\x01\x12\r\n\tPriceFeed\x10\x02\x12\x0c\n\x08\x43oinbase\x10\x03\x12\r\n\tChainlink\x10\x04\x12\t\n\x05Razor\x10\x05\x12\x07\n\x03\x44ia\x10\x06\x12\x08\n\x04\x41PI3\x10\x07\x12\x07\n\x03Uma\x10\x08\x12\x08\n\x04Pyth\x10\t\x12\x0b\n\x07\x42\x61ndIBC\x10\n\x12\x0c\n\x08Provider\x10\x0b\x42NZLgithub.com/InjectiveLabs/injective-core/injective-chain/modules/oracle/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n%injective/oracle/v1beta1/oracle.proto\x12\x18injective.oracle.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\"%\n\x06Params\x12\x15\n\rpyth_contract\x18\x01 \x01(\t:\x04\xe8\xa0\x1f\x01\"W\n\nOracleInfo\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x39\n\x0boracle_type\x18\x02 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\"\xba\x01\n\x13\x43hainlinkPriceState\x12\x0f\n\x07\x66\x65\x65\x64_id\x18\x01 \x01(\t\x12>\n\x06\x61nswer\x18\x02 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\x12\x11\n\ttimestamp\x18\x03 \x01(\x04\x12?\n\x0bprice_state\x18\x04 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceStateB\x04\xc8\xde\x1f\x00\"\xc9\x01\n\x0e\x42\x61ndPriceState\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12<\n\x04rate\x18\x02 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\x12\x14\n\x0cresolve_time\x18\x03 \x01(\x04\x12\x12\n\nrequest_ID\x18\x04 \x01(\x04\x12?\n\x0bprice_state\x18\x05 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceStateB\x04\xc8\xde\x1f\x00\"z\n\x0ePriceFeedState\x12\x0c\n\x04\x62\x61se\x18\x01 \x01(\t\x12\r\n\x05quote\x18\x02 \x01(\t\x12\x39\n\x0bprice_state\x18\x03 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceState\x12\x10\n\x08relayers\x18\x04 \x03(\t\"2\n\x0cProviderInfo\x12\x10\n\x08provider\x18\x01 \x01(\t\x12\x10\n\x08relayers\x18\x02 \x03(\t\"\x9b\x01\n\rProviderState\x12=\n\rprovider_info\x18\x01 \x01(\x0b\x32&.injective.oracle.v1beta1.ProviderInfo\x12K\n\x15provider_price_states\x18\x02 \x03(\x0b\x32,.injective.oracle.v1beta1.ProviderPriceState\"Y\n\x12ProviderPriceState\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x33\n\x05state\x18\x02 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceState\",\n\rPriceFeedInfo\x12\x0c\n\x04\x62\x61se\x18\x01 \x01(\t\x12\r\n\x05quote\x18\x02 \x01(\t\"O\n\x0ePriceFeedPrice\x12=\n\x05price\x18\x01 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\"\x92\x01\n\x12\x43oinbasePriceState\x12\x0c\n\x04kind\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\x04\x12\x0b\n\x03key\x18\x03 \x01(\t\x12\r\n\x05value\x18\x04 \x01(\x04\x12?\n\x0bprice_state\x18\x05 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceStateB\x04\xc8\xde\x1f\x00\"\xa8\x01\n\nPriceState\x12=\n\x05price\x18\x01 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\x12H\n\x10\x63umulative_price\x18\x02 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\x12\x11\n\ttimestamp\x18\x03 \x01(\x03\"\xbc\x02\n\x0ePythPriceState\x12\x10\n\x08price_id\x18\x01 \x01(\t\x12\x41\n\tema_price\x18\x02 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\x12@\n\x08\x65ma_conf\x18\x03 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\x12<\n\x04\x63onf\x18\x04 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\x12\x14\n\x0cpublish_time\x18\x05 \x01(\x04\x12?\n\x0bprice_state\x18\x06 \x01(\x0b\x32$.injective.oracle.v1beta1.PriceStateB\x04\xc8\xde\x1f\x00\"\x9c\x02\n\x11\x42\x61ndOracleRequest\x12\x12\n\nrequest_id\x18\x01 \x01(\x04\x12\x18\n\x10oracle_script_id\x18\x02 \x01(\x03\x12\x0f\n\x07symbols\x18\x03 \x03(\t\x12\x11\n\task_count\x18\x04 \x01(\x04\x12\x11\n\tmin_count\x18\x05 \x01(\x04\x12^\n\tfee_limit\x18\x06 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins\x12\x13\n\x0bprepare_gas\x18\x07 \x01(\x04\x12\x13\n\x0b\x65xecute_gas\x18\x08 \x01(\x04\x12\x18\n\x10min_source_count\x18\t \x01(\x04\"\xa8\x01\n\rBandIBCParams\x12\x18\n\x10\x62\x61nd_ibc_enabled\x18\x01 \x01(\x08\x12\x1c\n\x14ibc_request_interval\x18\x02 \x01(\x03\x12\x1a\n\x12ibc_source_channel\x18\x03 \x01(\t\x12\x13\n\x0bibc_version\x18\x04 \x01(\t\x12\x13\n\x0bibc_port_id\x18\x05 \x01(\t\x12\x19\n\x11legacy_oracle_ids\x18\x06 \x03(\x03\"r\n\x14SymbolPriceTimestamp\x12\x34\n\x06oracle\x18\x01 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x11\n\tsymbol_id\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x03\"d\n\x13LastPriceTimestamps\x12M\n\x15last_price_timestamps\x18\x01 \x03(\x0b\x32..injective.oracle.v1beta1.SymbolPriceTimestamp\"\x9c\x01\n\x0cPriceRecords\x12\x34\n\x06oracle\x18\x01 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x11\n\tsymbol_id\x18\x02 \x01(\t\x12\x43\n\x14latest_price_records\x18\x03 \x03(\x0b\x32%.injective.oracle.v1beta1.PriceRecord\"_\n\x0bPriceRecord\x12\x11\n\ttimestamp\x18\x01 \x01(\x03\x12=\n\x05price\x18\x02 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\"\xbf\x03\n\x12MetadataStatistics\x12\x13\n\x0bgroup_count\x18\x01 \x01(\r\x12\x1b\n\x13records_sample_size\x18\x02 \x01(\r\x12<\n\x04mean\x18\x03 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\x12<\n\x04twap\x18\x04 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\x12\x17\n\x0f\x66irst_timestamp\x18\x05 \x01(\x03\x12\x16\n\x0elast_timestamp\x18\x06 \x01(\x03\x12\x41\n\tmin_price\x18\x07 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\x12\x41\n\tmax_price\x18\x08 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\x12\x44\n\x0cmedian_price\x18\t \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\"\x9c\x01\n\x10PriceAttestation\x12\x10\n\x08price_id\x18\x01 \x01(\t\x12\r\n\x05price\x18\x02 \x01(\x03\x12\x0c\n\x04\x63onf\x18\x03 \x01(\x04\x12\x0c\n\x04\x65xpo\x18\x04 \x01(\x05\x12\x11\n\tema_price\x18\x05 \x01(\x03\x12\x10\n\x08\x65ma_conf\x18\x06 \x01(\x04\x12\x10\n\x08\x65ma_expo\x18\x07 \x01(\x05\x12\x14\n\x0cpublish_time\x18\x08 \x01(\x03*\x9f\x01\n\nOracleType\x12\x0f\n\x0bUnspecified\x10\x00\x12\x08\n\x04\x42\x61nd\x10\x01\x12\r\n\tPriceFeed\x10\x02\x12\x0c\n\x08\x43oinbase\x10\x03\x12\r\n\tChainlink\x10\x04\x12\t\n\x05Razor\x10\x05\x12\x07\n\x03\x44ia\x10\x06\x12\x08\n\x04\x41PI3\x10\x07\x12\x07\n\x03Uma\x10\x08\x12\x08\n\x04Pyth\x10\t\x12\x0b\n\x07\x42\x61ndIBC\x10\n\x12\x0c\n\x08Provider\x10\x0b\x42RZLgithub.com/InjectiveLabs/injective-core/injective-chain/modules/oracle/types\xc0\xe3\x1e\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -23,7 +23,7 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'injective.oracle.v1beta1.or
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  DESCRIPTOR._serialized_options = b'ZLgithub.com/InjectiveLabs/injective-core/injective-chain/modules/oracle/types'
+  DESCRIPTOR._serialized_options = b'ZLgithub.com/InjectiveLabs/injective-core/injective-chain/modules/oracle/types\300\343\036\001'
   _PARAMS._options = None
   _PARAMS._serialized_options = b'\350\240\037\001'
   _CHAINLINKPRICESTATE.fields_by_name['answer']._options = None
@@ -64,48 +64,48 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _METADATASTATISTICS.fields_by_name['max_price']._serialized_options = b'\310\336\037\000\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec'
   _METADATASTATISTICS.fields_by_name['median_price']._options = None
   _METADATASTATISTICS.fields_by_name['median_price']._serialized_options = b'\310\336\037\000\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec'
-  _globals['_ORACLETYPE']._serialized_start=3397
-  _globals['_ORACLETYPE']._serialized_end=3556
+  _globals['_ORACLETYPE']._serialized_start=3375
+  _globals['_ORACLETYPE']._serialized_end=3534
   _globals['_PARAMS']._serialized_start=121
   _globals['_PARAMS']._serialized_end=158
   _globals['_ORACLEINFO']._serialized_start=160
-  _globals['_ORACLEINFO']._serialized_end=269
-  _globals['_CHAINLINKPRICESTATE']._serialized_start=272
-  _globals['_CHAINLINKPRICESTATE']._serialized_end=458
-  _globals['_BANDPRICESTATE']._serialized_start=461
-  _globals['_BANDPRICESTATE']._serialized_end=662
-  _globals['_PRICEFEEDSTATE']._serialized_start=664
-  _globals['_PRICEFEEDSTATE']._serialized_end=786
-  _globals['_PROVIDERINFO']._serialized_start=788
-  _globals['_PROVIDERINFO']._serialized_end=838
-  _globals['_PROVIDERSTATE']._serialized_start=841
-  _globals['_PROVIDERSTATE']._serialized_end=996
-  _globals['_PROVIDERPRICESTATE']._serialized_start=998
-  _globals['_PROVIDERPRICESTATE']._serialized_end=1087
-  _globals['_PRICEFEEDINFO']._serialized_start=1089
-  _globals['_PRICEFEEDINFO']._serialized_end=1133
-  _globals['_PRICEFEEDPRICE']._serialized_start=1135
-  _globals['_PRICEFEEDPRICE']._serialized_end=1214
-  _globals['_COINBASEPRICESTATE']._serialized_start=1217
-  _globals['_COINBASEPRICESTATE']._serialized_end=1363
-  _globals['_PRICESTATE']._serialized_start=1366
-  _globals['_PRICESTATE']._serialized_end=1534
-  _globals['_PYTHPRICESTATE']._serialized_start=1537
-  _globals['_PYTHPRICESTATE']._serialized_end=1853
-  _globals['_BANDORACLEREQUEST']._serialized_start=1856
-  _globals['_BANDORACLEREQUEST']._serialized_end=2140
-  _globals['_BANDIBCPARAMS']._serialized_start=2143
-  _globals['_BANDIBCPARAMS']._serialized_end=2311
-  _globals['_SYMBOLPRICETIMESTAMP']._serialized_start=2313
-  _globals['_SYMBOLPRICETIMESTAMP']._serialized_end=2427
-  _globals['_LASTPRICETIMESTAMPS']._serialized_start=2429
-  _globals['_LASTPRICETIMESTAMPS']._serialized_end=2529
-  _globals['_PRICERECORDS']._serialized_start=2532
-  _globals['_PRICERECORDS']._serialized_end=2688
-  _globals['_PRICERECORD']._serialized_start=2690
-  _globals['_PRICERECORD']._serialized_end=2785
-  _globals['_METADATASTATISTICS']._serialized_start=2788
-  _globals['_METADATASTATISTICS']._serialized_end=3235
-  _globals['_PRICEATTESTATION']._serialized_start=3238
-  _globals['_PRICEATTESTATION']._serialized_end=3394
+  _globals['_ORACLEINFO']._serialized_end=247
+  _globals['_CHAINLINKPRICESTATE']._serialized_start=250
+  _globals['_CHAINLINKPRICESTATE']._serialized_end=436
+  _globals['_BANDPRICESTATE']._serialized_start=439
+  _globals['_BANDPRICESTATE']._serialized_end=640
+  _globals['_PRICEFEEDSTATE']._serialized_start=642
+  _globals['_PRICEFEEDSTATE']._serialized_end=764
+  _globals['_PROVIDERINFO']._serialized_start=766
+  _globals['_PROVIDERINFO']._serialized_end=816
+  _globals['_PROVIDERSTATE']._serialized_start=819
+  _globals['_PROVIDERSTATE']._serialized_end=974
+  _globals['_PROVIDERPRICESTATE']._serialized_start=976
+  _globals['_PROVIDERPRICESTATE']._serialized_end=1065
+  _globals['_PRICEFEEDINFO']._serialized_start=1067
+  _globals['_PRICEFEEDINFO']._serialized_end=1111
+  _globals['_PRICEFEEDPRICE']._serialized_start=1113
+  _globals['_PRICEFEEDPRICE']._serialized_end=1192
+  _globals['_COINBASEPRICESTATE']._serialized_start=1195
+  _globals['_COINBASEPRICESTATE']._serialized_end=1341
+  _globals['_PRICESTATE']._serialized_start=1344
+  _globals['_PRICESTATE']._serialized_end=1512
+  _globals['_PYTHPRICESTATE']._serialized_start=1515
+  _globals['_PYTHPRICESTATE']._serialized_end=1831
+  _globals['_BANDORACLEREQUEST']._serialized_start=1834
+  _globals['_BANDORACLEREQUEST']._serialized_end=2118
+  _globals['_BANDIBCPARAMS']._serialized_start=2121
+  _globals['_BANDIBCPARAMS']._serialized_end=2289
+  _globals['_SYMBOLPRICETIMESTAMP']._serialized_start=2291
+  _globals['_SYMBOLPRICETIMESTAMP']._serialized_end=2405
+  _globals['_LASTPRICETIMESTAMPS']._serialized_start=2407
+  _globals['_LASTPRICETIMESTAMPS']._serialized_end=2507
+  _globals['_PRICERECORDS']._serialized_start=2510
+  _globals['_PRICERECORDS']._serialized_end=2666
+  _globals['_PRICERECORD']._serialized_start=2668
+  _globals['_PRICERECORD']._serialized_end=2763
+  _globals['_METADATASTATISTICS']._serialized_start=2766
+  _globals['_METADATASTATISTICS']._serialized_end=3213
+  _globals['_PRICEATTESTATION']._serialized_start=3216
+  _globals['_PRICEATTESTATION']._serialized_end=3372
 # @@protoc_insertion_point(module_scope)

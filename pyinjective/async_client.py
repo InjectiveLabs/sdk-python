@@ -515,6 +515,13 @@ class AsyncClient:
             subaccount_id=kwargs.get("subaccount_id"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
+            start_time=kwargs.get("start_time"),
+            end_time=kwargs.get("end_time"),
+            market_ids=kwargs.get("market_ids"),
+            include_inactive=kwargs.get("include_inactive"),
+            subaccount_total_orders=kwargs.get("subaccount_total_orders"),
+            trade_id=kwargs.get("trade_id"),
+            cid=kwargs.get("cid"),
         )
         return await self.stubSpotExchange.Orders(req)
 
@@ -522,33 +529,43 @@ class AsyncClient:
         market_ids = kwargs.get("market_ids", [])
         if market_id is not None:
             market_ids.append(market_id)
+        order_types = kwargs.get("order_types", [])
+        order_type = kwargs.get("order_type")
+        if order_type is not None:
+            order_types.append(market_id)
         req = spot_exchange_rpc_pb.OrdersHistoryRequest(
-            market_ids=kwargs.get("market_ids", []),
-            direction=kwargs.get("direction"),
-            order_types=kwargs.get("order_types", []),
-            execution_types=kwargs.get("execution_types", []),
             subaccount_id=kwargs.get("subaccount_id"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
+            order_types=order_types,
+            direction=kwargs.get("direction"),
             start_time=kwargs.get("start_time"),
             end_time=kwargs.get("end_time"),
             state=kwargs.get("state"),
+            execution_types=kwargs.get("execution_types", []),
+            market_ids=market_ids,
+            trade_id=kwargs.get("trade_id"),
+            active_markets_only=kwargs.get("active_markets_only"),
+            cid=kwargs.get("cid"),
         )
         return await self.stubSpotExchange.OrdersHistory(req)
 
     async def get_spot_trades(self, **kwargs):
         req = spot_exchange_rpc_pb.TradesRequest(
             market_id=kwargs.get("market_id"),
-            market_ids=kwargs.get("market_ids"),
             execution_side=kwargs.get("execution_side"),
             direction=kwargs.get("direction"),
             subaccount_id=kwargs.get("subaccount_id"),
-            subaccount_ids=kwargs.get("subaccount_ids"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
             start_time=kwargs.get("start_time"),
             end_time=kwargs.get("end_time"),
+            market_ids=kwargs.get("market_ids"),
+            subaccount_ids=kwargs.get("subaccount_ids"),
             execution_types=kwargs.get("execution_types"),
+            trade_id=kwargs.get("trade_id"),
+            account_address=kwargs.get("account_address"),
+            cid=kwargs.get("cid"),
         )
         return await self.stubSpotExchange.Trades(req)
 
@@ -571,6 +588,15 @@ class AsyncClient:
             market_id=market_id,
             order_side=kwargs.get("order_side"),
             subaccount_id=kwargs.get("subaccount_id"),
+            skip=kwargs.get("skip"),
+            limit=kwargs.get("limit"),
+            start_time=kwargs.get("start_time"),
+            end_time=kwargs.get("end_time"),
+            market_ids=kwargs.get("market_ids"),
+            include_inactive=kwargs.get("include_inactive"),
+            subaccount_total_orders=kwargs.get("subaccount_total_orders"),
+            trade_id=kwargs.get("trade_id"),
+            cid=kwargs.get("cid"),
         )
         metadata = await self.network.exchange_metadata(
             metadata_query_provider=self._exchange_cookie_metadata_requestor
@@ -608,12 +634,19 @@ class AsyncClient:
     async def stream_spot_trades(self, **kwargs):
         req = spot_exchange_rpc_pb.StreamTradesRequest(
             market_id=kwargs.get("market_id"),
-            market_ids=kwargs.get("market_ids"),
             execution_side=kwargs.get("execution_side"),
             direction=kwargs.get("direction"),
             subaccount_id=kwargs.get("subaccount_id"),
+            skip=kwargs.get("skip"),
+            limit=kwargs.get("limit"),
+            start_time=kwargs.get("start_time"),
+            end_time=kwargs.get("end_time"),
+            market_ids=kwargs.get("market_ids"),
             subaccount_ids=kwargs.get("subaccount_ids"),
             execution_types=kwargs.get("execution_types"),
+            trade_id=kwargs.get("trade_id"),
+            account_address=kwargs.get("account_address"),
+            cid=kwargs.get("cid"),
         )
         metadata = await self.network.exchange_metadata(
             metadata_query_provider=self._exchange_cookie_metadata_requestor
@@ -679,6 +712,15 @@ class AsyncClient:
             subaccount_id=kwargs.get("subaccount_id"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
+            start_time=kwargs.get("start_time"),
+            end_time=kwargs.get("end_time"),
+            market_ids=kwargs.get("market_ids"),
+            is_conditional=kwargs.get("is_conditional"),
+            order_type=kwargs.get("order_type"),
+            include_inactive=kwargs.get("include_inactive"),
+            subaccount_total_orders=kwargs.get("subaccount_total_orders"),
+            trade_id=kwargs.get("trade_id"),
+            cid=kwargs.get("cid"),
         )
         return await self.stubDerivativeExchange.Orders(req)
 
@@ -691,33 +733,39 @@ class AsyncClient:
         if order_type is not None:
             order_types.append(market_id)
         req = derivative_exchange_rpc_pb.OrdersHistoryRequest(
-            market_ids=market_ids,
-            direction=kwargs.get("direction"),
-            order_types=order_types,
-            execution_types=kwargs.get("execution_types", []),
             subaccount_id=kwargs.get("subaccount_id"),
-            is_conditional=kwargs.get("is_conditional"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
+            order_types=order_types,
+            direction=kwargs.get("direction"),
             start_time=kwargs.get("start_time"),
             end_time=kwargs.get("end_time"),
+            is_conditional=kwargs.get("is_conditional"),
             state=kwargs.get("state"),
+            execution_types=kwargs.get("execution_types", []),
+            market_ids=market_ids,
+            trade_id=kwargs.get("trade_id"),
+            active_markets_only=kwargs.get("active_markets_only"),
+            cid=kwargs.get("cid"),
         )
         return await self.stubDerivativeExchange.OrdersHistory(req)
 
     async def get_derivative_trades(self, **kwargs):
         req = derivative_exchange_rpc_pb.TradesRequest(
             market_id=kwargs.get("market_id"),
-            market_ids=kwargs.get("market_ids"),
-            subaccount_id=kwargs.get("subaccount_id"),
-            subaccount_ids=kwargs.get("subaccount_ids"),
             execution_side=kwargs.get("execution_side"),
             direction=kwargs.get("direction"),
+            subaccount_id=kwargs.get("subaccount_id"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
             start_time=kwargs.get("start_time"),
             end_time=kwargs.get("end_time"),
+            market_ids=kwargs.get("market_ids"),
+            subaccount_ids=kwargs.get("subaccount_ids"),
             execution_types=kwargs.get("execution_types"),
+            trade_id=kwargs.get("trade_id"),
+            account_address=kwargs.get("account_address"),
+            cid=kwargs.get("cid"),
         )
         return await self.stubDerivativeExchange.Trades(req)
 
@@ -738,8 +786,19 @@ class AsyncClient:
     async def stream_derivative_orders(self, market_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.StreamOrdersRequest(
             market_id=market_id,
-            order_side=kwargs.get("order_side"),
+            execution_side=kwargs.get("execution_side"),
+            direction=kwargs.get("direction"),
             subaccount_id=kwargs.get("subaccount_id"),
+            skip=kwargs.get("skip"),
+            limit=kwargs.get("limit"),
+            start_time=kwargs.get("start_time"),
+            end_time=kwargs.get("end_time"),
+            market_ids=kwargs.get("market_ids"),
+            subaccount_ids=kwargs.get("subaccount_ids"),
+            execution_types=kwargs.get("execution_types"),
+            trade_id=kwargs.get("trade_id"),
+            account_address=kwargs.get("account_address"),
+            cid=kwargs.get("cid"),
         )
         metadata = await self.network.exchange_metadata(
             metadata_query_provider=self._exchange_cookie_metadata_requestor
@@ -749,14 +808,19 @@ class AsyncClient:
     async def stream_derivative_trades(self, **kwargs):
         req = derivative_exchange_rpc_pb.StreamTradesRequest(
             market_id=kwargs.get("market_id"),
-            market_ids=kwargs.get("market_ids"),
-            subaccount_id=kwargs.get("subaccount_id"),
-            subaccount_ids=kwargs.get("subaccount_ids"),
             execution_side=kwargs.get("execution_side"),
             direction=kwargs.get("direction"),
+            subaccount_id=kwargs.get("subaccount_id"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
+            start_time=kwargs.get("start_time"),
+            end_time=kwargs.get("end_time"),
+            market_ids=kwargs.get("market_ids"),
+            subaccount_ids=kwargs.get("subaccount_ids"),
             execution_types=kwargs.get("execution_types"),
+            trade_id=kwargs.get("trade_id"),
+            account_address=kwargs.get("account_address"),
+            cid=kwargs.get("cid"),
         )
         metadata = await self.network.exchange_metadata(
             metadata_query_provider=self._exchange_cookie_metadata_requestor
