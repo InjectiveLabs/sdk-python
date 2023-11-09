@@ -1,8 +1,10 @@
 import asyncio
+import uuid
 
 from grpc import RpcError
 
 from pyinjective.async_client import AsyncClient
+from pyinjective.constant import GAS_FEE_BUFFER_AMOUNT, GAS_PRICE
 from pyinjective.core.network import Network
 from pyinjective.transaction import Transaction
 from pyinjective.wallet import PrivateKey
@@ -52,7 +54,7 @@ async def main() -> None:
         composer.OrderData(
             market_id=spot_market_id_cancel,
             subaccount_id=subaccount_id,
-            order_hash="0x3870fbdd91f07d54425147b1bb96404f4f043ba6335b422a6d494d285b387f2d",
+            cid="0e5c3ad5-2cc4-4a2a-bbe5-b12697739163",
         ),
         composer.OrderData(
             market_id=spot_market_id_cancel_2,
@@ -71,6 +73,7 @@ async def main() -> None:
             leverage=1,
             is_buy=True,
             is_po=False,
+            cid=str(uuid.uuid4()),
         ),
         composer.DerivativeOrder(
             market_id=derivative_market_id_create,
@@ -81,6 +84,7 @@ async def main() -> None:
             leverage=1,
             is_buy=False,
             is_po=False,
+            cid=str(uuid.uuid4()),
         ),
     ]
 
@@ -93,6 +97,7 @@ async def main() -> None:
             quantity=55,
             is_buy=True,
             is_po=False,
+            cid=str(uuid.uuid4()),
         ),
         composer.SpotOrder(
             market_id=spot_market_id_create,
@@ -102,6 +107,7 @@ async def main() -> None:
             quantity=55,
             is_buy=False,
             is_po=False,
+            cid=str(uuid.uuid4()),
         ),
     ]
 
@@ -138,8 +144,8 @@ async def main() -> None:
     print(sim_res_msg)
 
     # build tx
-    gas_price = 500000000
-    gas_limit = int(sim_res["gasInfo"]["gasUsed"]) + 20000  # add 20k for gas, fee computation
+    gas_price = GAS_PRICE
+    gas_limit = int(sim_res["gasInfo"]["gasUsed"]) + GAS_FEE_BUFFER_AMOUNT  # add buffer for gas fee computation
     gas_fee = "{:.18f}".format((gas_price * gas_limit) / pow(10, 18)).rstrip("0")
     fee = [
         composer.Coin(

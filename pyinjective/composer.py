@@ -26,6 +26,7 @@ from pyinjective.proto.injective.exchange.v1beta1 import (
 from pyinjective.proto.injective.insurance.v1beta1 import tx_pb2 as injective_insurance_tx_pb
 from pyinjective.proto.injective.oracle.v1beta1 import tx_pb2 as injective_oracle_tx_pb
 from pyinjective.proto.injective.peggy.v1 import msgs_pb2 as injective_peggy_tx_pb
+from pyinjective.proto.injective.stream.v1beta1 import query_pb2 as chain_stream_query
 
 REQUEST_TO_RESPONSE_TYPE_MAP = {
     "MsgCreateSpotLimitOrder": injective_exchange_tx_pb.MsgCreateSpotLimitOrderResponse,
@@ -121,7 +122,9 @@ class Composer:
 
         return order_mask
 
-    def OrderData(self, market_id: str, subaccount_id: str, order_hash: str, **kwargs):
+    def OrderData(
+        self, market_id: str, subaccount_id: str, order_hash: Optional[str] = None, cid: Optional[str] = None, **kwargs
+    ):
         order_mask = self.get_order_mask(**kwargs)
 
         return injective_exchange_tx_pb.OrderData(
@@ -129,6 +132,7 @@ class Composer:
             subaccount_id=subaccount_id,
             order_hash=order_hash,
             order_mask=order_mask,
+            cid=cid,
         )
 
     def SpotOrder(
@@ -138,6 +142,7 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
+        cid: Optional[str] = None,
         **kwargs,
     ):
         market = self.spot_markets[market_id]
@@ -166,6 +171,7 @@ class Composer:
                 fee_recipient=fee_recipient,
                 price=str(int(price)),
                 quantity=str(int(quantity)),
+                cid=cid,
             ),
             order_type=order_type,
             trigger_price=str(int(trigger_price)),
@@ -179,6 +185,7 @@ class Composer:
         price: float,
         quantity: float,
         trigger_price: float = 0,
+        cid: Optional[str] = None,
         **kwargs,
     ):
         market = self.derivative_markets[market_id]
@@ -228,6 +235,7 @@ class Composer:
                 fee_recipient=fee_recipient,
                 price=str(int(price)),
                 quantity=str(int(quantity)),
+                cid=cid,
             ),
             margin=str(int(margin)),
             order_type=order_type,
@@ -241,6 +249,7 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
+        cid: Optional[str] = None,
         **kwargs,
     ):
         market = self.binary_option_markets[market_id]
@@ -280,6 +289,7 @@ class Composer:
                 fee_recipient=fee_recipient,
                 price=str(int(price)),
                 quantity=str(int(quantity)),
+                cid=cid,
             ),
             margin=str(int(margin)),
             order_type=order_type,
@@ -323,6 +333,7 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
+        cid: Optional[str] = None,
         **kwargs,
     ):
         return injective_exchange_tx_pb.MsgCreateSpotLimitOrder(
@@ -333,6 +344,7 @@ class Composer:
                 fee_recipient=fee_recipient,
                 price=price,
                 quantity=quantity,
+                cid=cid,
                 **kwargs,
             ),
         )
@@ -346,6 +358,7 @@ class Composer:
         price: float,
         quantity: float,
         is_buy: bool,
+        cid: Optional[str] = None,
     ):
         return injective_exchange_tx_pb.MsgCreateSpotMarketOrder(
             sender=sender,
@@ -356,15 +369,24 @@ class Composer:
                 price=price,
                 quantity=quantity,
                 is_buy=is_buy,
+                cid=cid,
             ),
         )
 
-    def MsgCancelSpotOrder(self, market_id: str, sender: str, subaccount_id: str, order_hash: str):
+    def MsgCancelSpotOrder(
+        self,
+        market_id: str,
+        sender: str,
+        subaccount_id: str,
+        order_hash: Optional[str] = None,
+        cid: Optional[str] = None,
+    ):
         return injective_exchange_tx_pb.MsgCancelSpotOrder(
             sender=sender,
             market_id=market_id,
             subaccount_id=subaccount_id,
             order_hash=order_hash,
+            cid=cid,
         )
 
     def MsgBatchCreateSpotLimitOrders(self, sender: str, orders: List):
@@ -384,6 +406,7 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
+        cid: Optional[str] = None,
         **kwargs,
     ):
         return injective_exchange_tx_pb.MsgCreateDerivativeLimitOrder(
@@ -394,6 +417,7 @@ class Composer:
                 fee_recipient=fee_recipient,
                 price=price,
                 quantity=quantity,
+                cid=cid,
                 **kwargs,
             ),
         )
@@ -407,6 +431,7 @@ class Composer:
         price: float,
         quantity: float,
         is_buy: bool,
+        cid: Optional[str] = None,
         **kwargs,
     ):
         return injective_exchange_tx_pb.MsgCreateDerivativeMarketOrder(
@@ -418,6 +443,7 @@ class Composer:
                 price=price,
                 quantity=quantity,
                 is_buy=is_buy,
+                cid=cid,
                 **kwargs,
             ),
         )
@@ -430,6 +456,7 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
+        cid: Optional[str] = None,
         **kwargs,
     ):
         return injective_exchange_tx_pb.MsgCreateBinaryOptionsLimitOrder(
@@ -440,6 +467,7 @@ class Composer:
                 fee_recipient=fee_recipient,
                 price=price,
                 quantity=quantity,
+                cid=cid,
                 **kwargs,
             ),
         )
@@ -452,6 +480,7 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
+        cid: Optional[str] = None,
         **kwargs,
     ):
         return injective_exchange_tx_pb.MsgCreateBinaryOptionsMarketOrder(
@@ -462,16 +491,25 @@ class Composer:
                 fee_recipient=fee_recipient,
                 price=price,
                 quantity=quantity,
+                cid=cid,
                 **kwargs,
             ),
         )
 
-    def MsgCancelBinaryOptionsOrder(self, sender: str, market_id: str, subaccount_id: str, order_hash: str):
+    def MsgCancelBinaryOptionsOrder(
+        self,
+        sender: str,
+        market_id: str,
+        subaccount_id: str,
+        order_hash: Optional[str] = None,
+        cid: Optional[str] = None,
+    ):
         return injective_exchange_tx_pb.MsgCancelBinaryOptionsOrder(
             sender=sender,
             market_id=market_id,
             subaccount_id=subaccount_id,
             order_hash=order_hash,
+            cid=cid,
         )
 
     def MsgAdminUpdateBinaryOptionsMarket(
@@ -558,7 +596,15 @@ class Composer:
             admin=kwargs.get("admin"),
         )
 
-    def MsgCancelDerivativeOrder(self, market_id: str, sender: str, subaccount_id: str, order_hash: str, **kwargs):
+    def MsgCancelDerivativeOrder(
+        self,
+        market_id: str,
+        sender: str,
+        subaccount_id: str,
+        order_hash: Optional[str] = None,
+        cid: Optional[str] = None,
+        **kwargs,
+    ):
         order_mask = self.get_order_mask(**kwargs)
 
         return injective_exchange_tx_pb.MsgCancelDerivativeOrder(
@@ -567,6 +613,7 @@ class Composer:
             subaccount_id=subaccount_id,
             order_hash=order_hash,
             order_mask=order_mask,
+            cid=cid,
         )
 
     def MsgBatchCreateDerivativeLimitOrders(self, sender: str, orders: List):
@@ -877,6 +924,60 @@ class Composer:
             funds=kwargs.get("funds"),  # funds is a list of cosmos_dot_base_dot_v1beta1_dot_coin__pb2.Coin.
             # The coins in the list must be sorted in alphabetical order by denoms.
         )
+
+    def chain_stream_bank_balances_filter(
+        self, accounts: Optional[List[str]] = None
+    ) -> chain_stream_query.BankBalancesFilter:
+        accounts = accounts or ["*"]
+        return chain_stream_query.BankBalancesFilter(accounts=accounts)
+
+    def chain_stream_subaccount_deposits_filter(
+        self,
+        subaccount_ids: Optional[List[str]] = None,
+    ) -> chain_stream_query.SubaccountDepositsFilter:
+        subaccount_ids = subaccount_ids or ["*"]
+        return chain_stream_query.SubaccountDepositsFilter(subaccount_ids=subaccount_ids)
+
+    def chain_stream_trades_filter(
+        self,
+        subaccount_ids: Optional[List[str]] = None,
+        market_ids: Optional[List[str]] = None,
+    ) -> chain_stream_query.TradesFilter:
+        subaccount_ids = subaccount_ids or ["*"]
+        market_ids = market_ids or ["*"]
+        return chain_stream_query.TradesFilter(subaccount_ids=subaccount_ids, market_ids=market_ids)
+
+    def chain_stream_orders_filter(
+        self,
+        subaccount_ids: Optional[List[str]] = None,
+        market_ids: Optional[List[str]] = None,
+    ) -> chain_stream_query.OrdersFilter:
+        subaccount_ids = subaccount_ids or ["*"]
+        market_ids = market_ids or ["*"]
+        return chain_stream_query.OrdersFilter(subaccount_ids=subaccount_ids, market_ids=market_ids)
+
+    def chain_stream_orderbooks_filter(
+        self,
+        market_ids: Optional[List[str]] = None,
+    ) -> chain_stream_query.OrderbookFilter:
+        market_ids = market_ids or ["*"]
+        return chain_stream_query.OrderbookFilter(market_ids=market_ids)
+
+    def chain_stream_positions_filter(
+        self,
+        subaccount_ids: Optional[List[str]] = None,
+        market_ids: Optional[List[str]] = None,
+    ) -> chain_stream_query.PositionsFilter:
+        subaccount_ids = subaccount_ids or ["*"]
+        market_ids = market_ids or ["*"]
+        return chain_stream_query.PositionsFilter(subaccount_ids=subaccount_ids, market_ids=market_ids)
+
+    def chain_stream_oracle_price_filter(
+        self,
+        symbols: Optional[List[str]] = None,
+    ) -> chain_stream_query.PositionsFilter:
+        symbols = symbols or ["*"]
+        return chain_stream_query.OraclePriceFilter(symbol=symbols)
 
     # data field format: [request-msg-header][raw-byte-msg-response]
     # you need to figure out this magic prefix number to trim request-msg-header off the data

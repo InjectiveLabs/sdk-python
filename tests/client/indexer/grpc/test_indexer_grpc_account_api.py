@@ -239,11 +239,7 @@ class TestIndexerGrpcAccountApi:
             dst_account_address="",
         )
 
-        paging = exchange_accounts_pb.Paging(
-            total=5,
-            to=5,
-            count_by_subaccount=10,
-        )
+        paging = exchange_accounts_pb.Paging(total=5, to=5, count_by_subaccount=10, next=["next1", "next2"])
         setattr(paging, "from", 1)
 
         account_servicer.subaccount_history_responses.append(
@@ -281,6 +277,7 @@ class TestIndexerGrpcAccountApi:
                 "from": getattr(paging, "from"),
                 "to": paging.to,
                 "countBySubaccount": str(paging.count_by_subaccount),
+                "next": paging.next,
             },
         }
 

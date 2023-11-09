@@ -5,7 +5,6 @@ from decimal import Decimal
 from typing import Any, Callable, Coroutine, Dict, List, Optional, Tuple, Union
 from warnings import warn
 
-import aiocron
 import grpc
 from google.protobuf import json_format
 
@@ -58,6 +57,10 @@ from pyinjective.proto.exchange import (
     injective_portfolio_rpc_pb2_grpc as portfolio_rpc_grpc,
     injective_spot_exchange_rpc_pb2 as spot_exchange_rpc_pb,
     injective_spot_exchange_rpc_pb2_grpc as spot_exchange_rpc_grpc,
+)
+from pyinjective.proto.injective.stream.v1beta1 import (
+    query_pb2 as chain_stream_query,
+    query_pb2_grpc as stream_rpc_grpc,
 )
 from pyinjective.proto.injective.types.v1beta1 import account_pb2
 from pyinjective.utils.logger import LoggerProvider
@@ -130,13 +133,15 @@ class AsyncClient:
         )
         self.stubExplorer = explorer_rpc_grpc.InjectiveExplorerRPCStub(self.explorer_channel)
 
-        # timeout height update routine
-        self.cron = aiocron.crontab(
-            "* * * * * */{}".format(DEFAULT_TIMEOUTHEIGHT_SYNC_INTERVAL),
-            func=self.sync_timeout_height,
-            args=(),
-            start=True,
+        self.chain_stream_channel = (
+            grpc.aio.secure_channel(network.chain_stream_endpoint, credentials)
+            if (network.use_secure_connection and credentials is not None)
+            else grpc.aio.insecure_channel(network.chain_stream_endpoint)
         )
+        self.chain_stream_stub = stream_rpc_grpc.StreamStub(channel=self.chain_stream_channel)
+
+        self._timeout_height_sync_task = None
+        self._initialize_timeout_height_sync_task()
 
         self._tokens_and_markets_initialization_lock = asyncio.Lock()
         self._tokens: Optional[Dict[str, Token]] = None
@@ -279,11 +284,11 @@ class AsyncClient:
 
     async def close_exchange_channel(self):
         await self.exchange_channel.close()
-        self.cron.stop()
+        self._cancel_timeout_height_sync_task()
 
     async def close_chain_channel(self):
         await self.chain_channel.close()
-        self.cron.stop()
+        self._cancel_timeout_height_sync_task()
 
     async def sync_timeout_height(self):
         try:
@@ -985,6 +990,13 @@ class AsyncClient:
             subaccount_id=kwargs.get("subaccount_id"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
+            start_time=kwargs.get("start_time"),
+            end_time=kwargs.get("end_time"),
+            market_ids=kwargs.get("market_ids"),
+            include_inactive=kwargs.get("include_inactive"),
+            subaccount_total_orders=kwargs.get("subaccount_total_orders"),
+            trade_id=kwargs.get("trade_id"),
+            cid=kwargs.get("cid"),
         )
         return await self.stubSpotExchange.Orders(req)
 
@@ -992,33 +1004,43 @@ class AsyncClient:
         market_ids = kwargs.get("market_ids", [])
         if market_id is not None:
             market_ids.append(market_id)
+        order_types = kwargs.get("order_types", [])
+        order_type = kwargs.get("order_type")
+        if order_type is not None:
+            order_types.append(market_id)
         req = spot_exchange_rpc_pb.OrdersHistoryRequest(
-            market_ids=kwargs.get("market_ids", []),
-            direction=kwargs.get("direction"),
-            order_types=kwargs.get("order_types", []),
-            execution_types=kwargs.get("execution_types", []),
             subaccount_id=kwargs.get("subaccount_id"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
+            order_types=order_types,
+            direction=kwargs.get("direction"),
             start_time=kwargs.get("start_time"),
             end_time=kwargs.get("end_time"),
             state=kwargs.get("state"),
+            execution_types=kwargs.get("execution_types", []),
+            market_ids=market_ids,
+            trade_id=kwargs.get("trade_id"),
+            active_markets_only=kwargs.get("active_markets_only"),
+            cid=kwargs.get("cid"),
         )
         return await self.stubSpotExchange.OrdersHistory(req)
 
     async def get_spot_trades(self, **kwargs):
         req = spot_exchange_rpc_pb.TradesRequest(
             market_id=kwargs.get("market_id"),
-            market_ids=kwargs.get("market_ids"),
             execution_side=kwargs.get("execution_side"),
             direction=kwargs.get("direction"),
             subaccount_id=kwargs.get("subaccount_id"),
-            subaccount_ids=kwargs.get("subaccount_ids"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
             start_time=kwargs.get("start_time"),
             end_time=kwargs.get("end_time"),
+            market_ids=kwargs.get("market_ids"),
+            subaccount_ids=kwargs.get("subaccount_ids"),
             execution_types=kwargs.get("execution_types"),
+            trade_id=kwargs.get("trade_id"),
+            account_address=kwargs.get("account_address"),
+            cid=kwargs.get("cid"),
         )
         return await self.stubSpotExchange.Trades(req)
 
@@ -1041,6 +1063,15 @@ class AsyncClient:
             market_id=market_id,
             order_side=kwargs.get("order_side"),
             subaccount_id=kwargs.get("subaccount_id"),
+            skip=kwargs.get("skip"),
+            limit=kwargs.get("limit"),
+            start_time=kwargs.get("start_time"),
+            end_time=kwargs.get("end_time"),
+            market_ids=kwargs.get("market_ids"),
+            include_inactive=kwargs.get("include_inactive"),
+            subaccount_total_orders=kwargs.get("subaccount_total_orders"),
+            trade_id=kwargs.get("trade_id"),
+            cid=kwargs.get("cid"),
         )
         metadata = await self.network.exchange_metadata(
             metadata_query_provider=self._exchange_cookie_metadata_requestor
@@ -1078,12 +1109,19 @@ class AsyncClient:
     async def stream_spot_trades(self, **kwargs):
         req = spot_exchange_rpc_pb.StreamTradesRequest(
             market_id=kwargs.get("market_id"),
-            market_ids=kwargs.get("market_ids"),
             execution_side=kwargs.get("execution_side"),
             direction=kwargs.get("direction"),
             subaccount_id=kwargs.get("subaccount_id"),
+            skip=kwargs.get("skip"),
+            limit=kwargs.get("limit"),
+            start_time=kwargs.get("start_time"),
+            end_time=kwargs.get("end_time"),
+            market_ids=kwargs.get("market_ids"),
             subaccount_ids=kwargs.get("subaccount_ids"),
             execution_types=kwargs.get("execution_types"),
+            trade_id=kwargs.get("trade_id"),
+            account_address=kwargs.get("account_address"),
+            cid=kwargs.get("cid"),
         )
         metadata = await self.network.exchange_metadata(
             metadata_query_provider=self._exchange_cookie_metadata_requestor
@@ -1149,6 +1187,15 @@ class AsyncClient:
             subaccount_id=kwargs.get("subaccount_id"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
+            start_time=kwargs.get("start_time"),
+            end_time=kwargs.get("end_time"),
+            market_ids=kwargs.get("market_ids"),
+            is_conditional=kwargs.get("is_conditional"),
+            order_type=kwargs.get("order_type"),
+            include_inactive=kwargs.get("include_inactive"),
+            subaccount_total_orders=kwargs.get("subaccount_total_orders"),
+            trade_id=kwargs.get("trade_id"),
+            cid=kwargs.get("cid"),
         )
         return await self.stubDerivativeExchange.Orders(req)
 
@@ -1161,33 +1208,39 @@ class AsyncClient:
         if order_type is not None:
             order_types.append(market_id)
         req = derivative_exchange_rpc_pb.OrdersHistoryRequest(
-            market_ids=market_ids,
-            direction=kwargs.get("direction"),
-            order_types=order_types,
-            execution_types=kwargs.get("execution_types", []),
             subaccount_id=kwargs.get("subaccount_id"),
-            is_conditional=kwargs.get("is_conditional"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
+            order_types=order_types,
+            direction=kwargs.get("direction"),
             start_time=kwargs.get("start_time"),
             end_time=kwargs.get("end_time"),
+            is_conditional=kwargs.get("is_conditional"),
             state=kwargs.get("state"),
+            execution_types=kwargs.get("execution_types", []),
+            market_ids=market_ids,
+            trade_id=kwargs.get("trade_id"),
+            active_markets_only=kwargs.get("active_markets_only"),
+            cid=kwargs.get("cid"),
         )
         return await self.stubDerivativeExchange.OrdersHistory(req)
 
     async def get_derivative_trades(self, **kwargs):
         req = derivative_exchange_rpc_pb.TradesRequest(
             market_id=kwargs.get("market_id"),
-            market_ids=kwargs.get("market_ids"),
-            subaccount_id=kwargs.get("subaccount_id"),
-            subaccount_ids=kwargs.get("subaccount_ids"),
             execution_side=kwargs.get("execution_side"),
             direction=kwargs.get("direction"),
+            subaccount_id=kwargs.get("subaccount_id"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
             start_time=kwargs.get("start_time"),
             end_time=kwargs.get("end_time"),
+            market_ids=kwargs.get("market_ids"),
+            subaccount_ids=kwargs.get("subaccount_ids"),
             execution_types=kwargs.get("execution_types"),
+            trade_id=kwargs.get("trade_id"),
+            account_address=kwargs.get("account_address"),
+            cid=kwargs.get("cid"),
         )
         return await self.stubDerivativeExchange.Trades(req)
 
@@ -1208,8 +1261,19 @@ class AsyncClient:
     async def stream_derivative_orders(self, market_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.StreamOrdersRequest(
             market_id=market_id,
-            order_side=kwargs.get("order_side"),
+            execution_side=kwargs.get("execution_side"),
+            direction=kwargs.get("direction"),
             subaccount_id=kwargs.get("subaccount_id"),
+            skip=kwargs.get("skip"),
+            limit=kwargs.get("limit"),
+            start_time=kwargs.get("start_time"),
+            end_time=kwargs.get("end_time"),
+            market_ids=kwargs.get("market_ids"),
+            subaccount_ids=kwargs.get("subaccount_ids"),
+            execution_types=kwargs.get("execution_types"),
+            trade_id=kwargs.get("trade_id"),
+            account_address=kwargs.get("account_address"),
+            cid=kwargs.get("cid"),
         )
         metadata = await self.network.exchange_metadata(
             metadata_query_provider=self._exchange_cookie_metadata_requestor
@@ -1219,14 +1283,19 @@ class AsyncClient:
     async def stream_derivative_trades(self, **kwargs):
         req = derivative_exchange_rpc_pb.StreamTradesRequest(
             market_id=kwargs.get("market_id"),
-            market_ids=kwargs.get("market_ids"),
-            subaccount_id=kwargs.get("subaccount_id"),
-            subaccount_ids=kwargs.get("subaccount_ids"),
             execution_side=kwargs.get("execution_side"),
             direction=kwargs.get("direction"),
+            subaccount_id=kwargs.get("subaccount_id"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
+            start_time=kwargs.get("start_time"),
+            end_time=kwargs.get("end_time"),
+            market_ids=kwargs.get("market_ids"),
+            subaccount_ids=kwargs.get("subaccount_ids"),
             execution_types=kwargs.get("execution_types"),
+            trade_id=kwargs.get("trade_id"),
+            account_address=kwargs.get("account_address"),
+            cid=kwargs.get("cid"),
         )
         metadata = await self.network.exchange_metadata(
             metadata_query_provider=self._exchange_cookie_metadata_requestor
@@ -1333,6 +1402,34 @@ class AsyncClient:
         )
         return self.stubPortfolio.StreamAccountPortfolio(request=req, metadata=metadata)
 
+    async def chain_stream(
+        self,
+        bank_balances_filter: Optional[chain_stream_query.BankBalancesFilter] = None,
+        subaccount_deposits_filter: Optional[chain_stream_query.SubaccountDepositsFilter] = None,
+        spot_trades_filter: Optional[chain_stream_query.TradesFilter] = None,
+        derivative_trades_filter: Optional[chain_stream_query.TradesFilter] = None,
+        spot_orders_filter: Optional[chain_stream_query.OrdersFilter] = None,
+        derivative_orders_filter: Optional[chain_stream_query.OrdersFilter] = None,
+        spot_orderbooks_filter: Optional[chain_stream_query.OrderbookFilter] = None,
+        derivative_orderbooks_filter: Optional[chain_stream_query.OrderbookFilter] = None,
+        positions_filter: Optional[chain_stream_query.PositionsFilter] = None,
+        oracle_price_filter: Optional[chain_stream_query.OraclePriceFilter] = None,
+    ):
+        request = chain_stream_query.StreamRequest(
+            bank_balances_filter=bank_balances_filter,
+            subaccount_deposits_filter=subaccount_deposits_filter,
+            spot_trades_filter=spot_trades_filter,
+            derivative_trades_filter=derivative_trades_filter,
+            spot_orders_filter=spot_orders_filter,
+            derivative_orders_filter=derivative_orders_filter,
+            spot_orderbooks_filter=spot_orderbooks_filter,
+            derivative_orderbooks_filter=derivative_orderbooks_filter,
+            positions_filter=positions_filter,
+            oracle_price_filter=oracle_price_filter,
+        )
+        metadata = await self.network.chain_metadata(metadata_query_provider=self._chain_cookie_metadata_requestor)
+        return self.chain_stream_stub.Stream(request=request, metadata=metadata)
+
     async def composer(self):
         return Composer(
             network=self.network.string(),
@@ -1349,8 +1446,13 @@ class AsyncClient:
         tokens = dict()
         tokens_by_denom = dict()
         markets_info = (await self.fetch_spot_markets(market_status="active"))["markets"]
+        valid_markets = (
+            market_info
+            for market_info in markets_info
+            if len(market_info["baseTokenMeta"]["symbol"]) > 0 and len(market_info["quoteTokenMeta"]["symbol"]) > 0
+        )
 
-        for market_info in markets_info:
+        for market_info in valid_markets:
             ticker = market_info["ticker"]
             if "/" in ticker:
                 base_token_symbol, quote_token_symbol = ticker.split(constant.TICKER_TOKENS_SEPARATOR)
@@ -1392,8 +1494,12 @@ class AsyncClient:
             spot_markets[market.id] = market
 
         markets_info = (await self.get_derivative_markets(market_status="active")).markets
-        for market_info in markets_info:
-            quote_token_symbol = market_info["quoteTokenMeta"].symbol
+        valid_markets = (
+            market_info for market_info in markets_info if len(market_info["quoteTokenMeta"]["symbol"]) > 0
+        )
+
+        for market_info in valid_markets:
+            quote_token_symbol = market_info["quoteTokenMeta"]["symbol"]
 
             quote_token = self._token_representation(
                 symbol=quote_token_symbol,
@@ -1483,3 +1589,17 @@ class AsyncClient:
     def _exchange_cookie_metadata_requestor(self) -> Coroutine:
         request = exchange_meta_rpc_pb.VersionRequest()
         return self.stubMeta.Version(request).initial_metadata()
+
+    def _initialize_timeout_height_sync_task(self):
+        self._cancel_timeout_height_sync_task()
+        self._timeout_height_sync_task = asyncio.get_event_loop().create_task(self._timeout_height_sync_process())
+
+    async def _timeout_height_sync_process(self):
+        while True:
+            await self.sync_timeout_height()
+            await asyncio.sleep(DEFAULT_TIMEOUTHEIGHT_SYNC_INTERVAL)
+
+    def _cancel_timeout_height_sync_task(self):
+        if self._timeout_height_sync_task is not None:
+            self._timeout_height_sync_task.cancel()
+        self._timeout_height_sync_task = None

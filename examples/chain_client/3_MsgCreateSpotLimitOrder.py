@@ -1,8 +1,10 @@
 import asyncio
+import uuid
 
 from grpc import RpcError
 
 from pyinjective.async_client import AsyncClient
+from pyinjective.constant import GAS_FEE_BUFFER_AMOUNT, GAS_PRICE
 from pyinjective.core.network import Network
 from pyinjective.transaction import Transaction
 from pyinjective.wallet import PrivateKey
@@ -27,6 +29,7 @@ async def main() -> None:
     # prepare trade info
     market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
     fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
+    cid = str(uuid.uuid4())
 
     # prepare tx msg
     msg = composer.MsgCreateSpotLimitOrder(
@@ -38,6 +41,7 @@ async def main() -> None:
         quantity=0.01,
         is_buy=True,
         is_po=False,
+        cid=cid,
     )
 
     # build sim tx
@@ -64,8 +68,8 @@ async def main() -> None:
     print(sim_res_msg)
 
     # build tx
-    gas_price = 500000000
-    gas_limit = int(sim_res["gasInfo"]["gasUsed"]) + 20000  # add 20k for gas, fee computation
+    gas_price = GAS_PRICE
+    gas_limit = int(sim_res["gasInfo"]["gasUsed"]) + GAS_FEE_BUFFER_AMOUNT  # add buffer for gas fee computation
     gas_fee = "{:.18f}".format((gas_price * gas_limit) / pow(10, 18)).rstrip("0")
     fee = [
         composer.Coin(
@@ -84,6 +88,7 @@ async def main() -> None:
     print(res)
     print("gas wanted: {}".format(gas_limit))
     print("gas fee: {} INJ".format(gas_fee))
+    print(f"\n\ncid: {cid}")
 
 
 if __name__ == "__main__":

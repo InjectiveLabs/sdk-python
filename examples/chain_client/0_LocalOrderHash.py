@@ -1,6 +1,8 @@
 import asyncio
+import uuid
 
 from pyinjective.async_client import AsyncClient
+from pyinjective.constant import GAS_FEE_BUFFER_AMOUNT, GAS_PRICE
 from pyinjective.core.network import Network
 from pyinjective.orderhash import OrderHashManager
 from pyinjective.transaction import Transaction
@@ -40,6 +42,7 @@ async def main() -> None:
             quantity=0.01,
             is_buy=True,
             is_po=False,
+            cid=str(uuid.uuid4()),
         ),
         composer.SpotOrder(
             market_id=spot_market_id,
@@ -49,6 +52,7 @@ async def main() -> None:
             quantity=0.01,
             is_buy=False,
             is_po=False,
+            cid=str(uuid.uuid4()),
         ),
     ]
 
@@ -62,6 +66,7 @@ async def main() -> None:
             leverage=1.5,
             is_buy=True,
             is_po=False,
+            cid=str(uuid.uuid4()),
         ),
         composer.DerivativeOrder(
             market_id=deriv_market_id,
@@ -72,6 +77,7 @@ async def main() -> None:
             leverage=2,
             is_buy=False,
             is_reduce_only=False,
+            cid=str(uuid.uuid4()),
         ),
     ]
 
@@ -96,9 +102,9 @@ async def main() -> None:
         .with_account_num(client.get_number())
         .with_chain_id(network.chain_id)
     )
-    gas_price = 500000000
+    gas_price = GAS_PRICE
     base_gas = 85000
-    gas_limit = base_gas + 20000  # add 20k for gas, fee computation
+    gas_limit = base_gas + GAS_FEE_BUFFER_AMOUNT  # add buffer for gas fee computation
     gas_fee = "{:.18f}".format((gas_price * gas_limit) / pow(10, 18)).rstrip("0")
     fee = [
         composer.Coin(
@@ -133,9 +139,9 @@ async def main() -> None:
         .with_account_num(client.get_number())
         .with_chain_id(network.chain_id)
     )
-    gas_price = 500000000
+    gas_price = GAS_PRICE
     base_gas = 85000
-    gas_limit = base_gas + 20000  # add 20k for gas, fee computation
+    gas_limit = base_gas + GAS_FEE_BUFFER_AMOUNT  # add buffer for gas fee computation
     gas_fee = "{:.18f}".format((gas_price * gas_limit) / pow(10, 18)).rstrip("0")
     fee = [
         composer.Coin(
@@ -163,6 +169,7 @@ async def main() -> None:
             quantity=0.01,
             is_buy=True,
             is_po=True,
+            cid=str(uuid.uuid4()),
         ),
         composer.SpotOrder(
             market_id=spot_market_id,
@@ -172,6 +179,7 @@ async def main() -> None:
             quantity=0.01,
             is_buy=False,
             is_po=False,
+            cid=str(uuid.uuid4()),
         ),
     ]
 
@@ -185,6 +193,7 @@ async def main() -> None:
             leverage=1.5,
             is_buy=True,
             is_po=False,
+            cid=str(uuid.uuid4()),
         ),
         composer.DerivativeOrder(
             market_id=deriv_market_id,
@@ -195,6 +204,7 @@ async def main() -> None:
             leverage=2,
             is_buy=False,
             is_reduce_only=False,
+            cid=str(uuid.uuid4()),
         ),
     ]
 
@@ -219,9 +229,9 @@ async def main() -> None:
         .with_account_num(client.get_number())
         .with_chain_id(network.chain_id)
     )
-    gas_price = 500000000
+    gas_price = GAS_PRICE
     base_gas = 85000
-    gas_limit = base_gas + 20000  # add 20k for gas, fee computation
+    gas_limit = base_gas + GAS_FEE_BUFFER_AMOUNT  # add buffer for gas fee computation
     gas_fee = "{:.18f}".format((gas_price * gas_limit) / pow(10, 18)).rstrip("0")
     fee = [
         composer.Coin(
