@@ -7,15 +7,19 @@ class PaginationOption:
     def __init__(
         self,
         key: Optional[str] = None,
-        offset: Optional[int] = None,
+        skip: Optional[int] = None,
         limit: Optional[int] = None,
+        start_time: Optional[int] = None,
+        end_time: Optional[int] = None,
         reverse: Optional[bool] = None,
         count_total: Optional[bool] = None,
     ):
         super().__init__()
         self.key = key
-        self.offset = offset
+        self.skip = skip
         self.limit = limit
+        self.start_time = start_time
+        self.end_time = end_time
         self.reverse = reverse
         self.count_total = count_total
 
@@ -24,8 +28,8 @@ class PaginationOption:
 
         if self.key is not None:
             page_request.key = bytes.fromhex(self.key)
-        if self.offset is not None:
-            page_request.offset = self.offset
+        if self.skip is not None:
+            page_request.offset = self.skip
         if self.limit is not None:
             page_request.limit = self.limit
         if self.reverse is not None:

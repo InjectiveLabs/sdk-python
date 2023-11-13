@@ -41,7 +41,7 @@ class TestChainGrpcAuthZApi:
         )
 
         pagination_option = PaginationOption(
-            offset=10,
+            skip=10,
             limit=30,
             reverse=False,
             count_total=True,
@@ -103,7 +103,7 @@ class TestChainGrpcAuthZApi:
         )
 
         pagination_option = PaginationOption(
-            offset=10,
+            skip=10,
             limit=30,
             reverse=False,
             count_total=True,
@@ -165,7 +165,7 @@ class TestChainGrpcAuthZApi:
         )
 
         pagination_option = PaginationOption(
-            offset=10,
+            skip=10,
             limit=30,
             reverse=False,
             count_total=True,

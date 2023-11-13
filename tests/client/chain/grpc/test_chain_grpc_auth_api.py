@@ -146,7 +146,7 @@ class TestChainGrpcAuthApi:
 
         pagination_option = PaginationOption(
             key="011ab4075a94245dff7338e3042db5b7cc3f42e1",
-            offset=10,
+            skip=10,
             limit=30,
             reverse=False,
             count_total=True,

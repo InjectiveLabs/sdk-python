@@ -11,7 +11,7 @@ async def main() -> None:
     base_denom = "inj"
     quote_denom = "peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5"
     market = await client.fetch_spot_markets(
-        market_status=market_status, base_denom=base_denom, quote_denom=quote_denom
+        market_statuses=[market_status], base_denom=base_denom, quote_denom=quote_denom
     )
     print(market)
 

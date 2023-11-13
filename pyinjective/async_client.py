@@ -953,12 +953,12 @@ class AsyncClient:
 
     async def fetch_spot_markets(
         self,
-        market_status: Optional[str] = None,
+        market_statuses: Optional[List[str]] = None,
         base_denom: Optional[str] = None,
         quote_denom: Optional[str] = None,
     ) -> Dict[str, Any]:
         return await self.exchange_spot_api.fetch_markets(
-            market_status=market_status, base_denom=base_denom, quote_denom=quote_denom
+            market_statuses=market_statuses, base_denom=base_denom, quote_denom=quote_denom
         )
 
     async def stream_spot_markets(self, **kwargs):
@@ -970,7 +970,7 @@ class AsyncClient:
 
     async def get_spot_orderbookV2(self, market_id: str):
         """
-        This method is deprecated and will be removed soon. Please use `fetch_spot_markets` instead
+        This method is deprecated and will be removed soon. Please use `fetch_spot_orderbook_v2` instead
         """
         warn("This method is deprecated. Use fetch_spot_orderbook_v2 instead", DeprecationWarning, stacklevel=2)
         req = spot_exchange_rpc_pb.OrderbookV2Request(market_id=market_id)
@@ -980,10 +980,21 @@ class AsyncClient:
         return await self.exchange_spot_api.fetch_orderbook_v2(market_id=market_id)
 
     async def get_spot_orderbooksV2(self, market_ids: List):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_spot_orderbooks_v2` instead
+        """
+        warn("This method is deprecated. Use fetch_spot_orderbooks_v2 instead", DeprecationWarning, stacklevel=2)
         req = spot_exchange_rpc_pb.OrderbooksV2Request(market_ids=market_ids)
         return await self.stubSpotExchange.OrderbooksV2(req)
 
+    async def fetch_spot_orderbooks_v2(self, market_ids: List[str]) -> Dict[str, Any]:
+        return await self.exchange_spot_api.fetch_orderbooks_v2(market_ids=market_ids)
+
     async def get_spot_orders(self, market_id: str, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_spot_orders` instead
+        """
+        warn("This method is deprecated. Use fetch_spot_orders instead", DeprecationWarning, stacklevel=2)
         req = spot_exchange_rpc_pb.OrdersRequest(
             market_id=market_id,
             order_side=kwargs.get("order_side"),
@@ -1000,7 +1011,33 @@ class AsyncClient:
         )
         return await self.stubSpotExchange.Orders(req)
 
+    async def fetch_spot_orders(
+        self,
+        market_ids: Optional[List[str]] = None,
+        order_side: Optional[str] = None,
+        subaccount_id: Optional[str] = None,
+        include_inactive: Optional[bool] = None,
+        subaccount_total_orders: Optional[bool] = None,
+        trade_id: Optional[str] = None,
+        cid: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_spot_api.fetch_orders(
+            market_ids=market_ids,
+            order_side=order_side,
+            subaccount_id=subaccount_id,
+            include_inactive=include_inactive,
+            subaccount_total_orders=subaccount_total_orders,
+            trade_id=trade_id,
+            cid=cid,
+            pagination=pagination,
+        )
+
     async def get_historical_spot_orders(self, market_id: Optional[str] = None, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_spot_orders_history` instead
+        """
+        warn("This method is deprecated. Use fetch_spot_orders_history instead", DeprecationWarning, stacklevel=2)
         market_ids = kwargs.get("market_ids", [])
         if market_id is not None:
             market_ids.append(market_id)
@@ -1025,7 +1062,37 @@ class AsyncClient:
         )
         return await self.stubSpotExchange.OrdersHistory(req)
 
+    async def fetch_spot_orders_history(
+        self,
+        subaccount_id: Optional[str] = None,
+        market_ids: Optional[List[str]] = None,
+        order_types: Optional[List[str]] = None,
+        direction: Optional[str] = None,
+        state: Optional[str] = None,
+        execution_types: Optional[List[str]] = None,
+        trade_id: Optional[str] = None,
+        active_markets_only: Optional[bool] = None,
+        cid: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_spot_api.fetch_orders_history(
+            subaccount_id=subaccount_id,
+            market_ids=market_ids,
+            order_types=order_types,
+            direction=direction,
+            state=state,
+            execution_types=execution_types,
+            trade_id=trade_id,
+            active_markets_only=active_markets_only,
+            cid=cid,
+            pagination=pagination,
+        )
+
     async def get_spot_trades(self, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_spot_trades` instead
+        """
+        warn("This method is deprecated. Use fetch_spot_trades instead", DeprecationWarning, stacklevel=2)
         req = spot_exchange_rpc_pb.TradesRequest(
             market_id=kwargs.get("market_id"),
             execution_side=kwargs.get("execution_side"),
@@ -1043,6 +1110,30 @@ class AsyncClient:
             cid=kwargs.get("cid"),
         )
         return await self.stubSpotExchange.Trades(req)
+
+    async def fetch_spot_trades(
+        self,
+        market_ids: Optional[List[str]] = None,
+        subaccount_ids: Optional[List[str]] = None,
+        execution_side: Optional[str] = None,
+        direction: Optional[str] = None,
+        execution_types: Optional[List[str]] = None,
+        trade_id: Optional[str] = None,
+        account_address: Optional[str] = None,
+        cid: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_spot_api.fetch_trades(
+            market_ids=market_ids,
+            subaccount_ids=subaccount_ids,
+            execution_side=execution_side,
+            direction=direction,
+            execution_types=execution_types,
+            trade_id=trade_id,
+            account_address=account_address,
+            cid=cid,
+            pagination=pagination,
+        )
 
     async def stream_spot_orderbook_snapshot(self, market_ids: List[str]):
         req = spot_exchange_rpc_pb.StreamOrderbookV2Request(market_ids=market_ids)
@@ -1129,6 +1220,12 @@ class AsyncClient:
         return self.stubSpotExchange.StreamTrades(request=req, metadata=metadata)
 
     async def get_spot_subaccount_orders(self, subaccount_id: str, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_spot_subaccount_orders_list` instead
+        """
+        warn(
+            "This method is deprecated. Use fetch_spot_subaccount_orders_list instead", DeprecationWarning, stacklevel=2
+        )
         req = spot_exchange_rpc_pb.SubaccountOrdersListRequest(
             subaccount_id=subaccount_id,
             market_id=kwargs.get("market_id"),
@@ -1137,7 +1234,23 @@ class AsyncClient:
         )
         return await self.stubSpotExchange.SubaccountOrdersList(req)
 
+    async def fetch_spot_subaccount_orders_list(
+        self,
+        subaccount_id: str,
+        market_id: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_spot_api.fetch_subaccount_orders_list(
+            subaccount_id=subaccount_id, market_id=market_id, pagination=pagination
+        )
+
     async def get_spot_subaccount_trades(self, subaccount_id: str, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_spot_subaccount_trades_list` instead
+        """
+        warn(
+            "This method is deprecated. Use fetch_spot_subaccount_trades_list instead", DeprecationWarning, stacklevel=2
+        )
         req = spot_exchange_rpc_pb.SubaccountTradesListRequest(
             subaccount_id=subaccount_id,
             market_id=kwargs.get("market_id"),
@@ -1147,6 +1260,22 @@ class AsyncClient:
             limit=kwargs.get("limit"),
         )
         return await self.stubSpotExchange.SubaccountTradesList(req)
+
+    async def fetch_spot_subaccount_trades_list(
+        self,
+        subaccount_id: str,
+        market_id: Optional[str] = None,
+        execution_type: Optional[str] = None,
+        direction: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_spot_api.fetch_subaccount_trades_list(
+            subaccount_id=subaccount_id,
+            market_id=market_id,
+            execution_type=execution_type,
+            direction=direction,
+            pagination=pagination,
+        )
 
     # DerivativeRPC
 
@@ -1445,7 +1574,7 @@ class AsyncClient:
         binary_option_markets = dict()
         tokens = dict()
         tokens_by_denom = dict()
-        markets_info = (await self.fetch_spot_markets(market_status="active"))["markets"]
+        markets_info = (await self.fetch_spot_markets(market_statuses=["active"]))["markets"]
         valid_markets = (
             market_info
             for market_info in markets_info

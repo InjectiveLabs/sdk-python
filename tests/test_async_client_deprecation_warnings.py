@@ -723,3 +723,115 @@ class TestAsyncClientDeprecationWarnings:
         assert len(all_warnings) == 1
         assert issubclass(all_warnings[0].category, DeprecationWarning)
         assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_spot_orderbook_v2 instead"
+
+    @pytest.mark.asyncio
+    async def test_get_spot_orderbooksV2_deprecation_warning(
+        self,
+        spot_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubSpotExchange = spot_servicer
+        spot_servicer.orderbooks_v2_responses.append(exchange_spot_pb.OrderbooksV2Response())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_spot_orderbooksV2(market_ids=[])
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_spot_orderbooks_v2 instead"
+
+    @pytest.mark.asyncio
+    async def test_get_spot_orders_deprecation_warning(
+        self,
+        spot_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubSpotExchange = spot_servicer
+        spot_servicer.orders_responses.append(exchange_spot_pb.OrdersResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_spot_orders(market_id="")
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_spot_orders instead"
+
+    @pytest.mark.asyncio
+    async def test_get_spot_trades_deprecation_warning(
+        self,
+        spot_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubSpotExchange = spot_servicer
+        spot_servicer.trades_responses.append(exchange_spot_pb.TradesResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_spot_trades()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_spot_trades instead"
+
+    @pytest.mark.asyncio
+    async def test_get_spot_subaccount_orders_deprecation_warning(
+        self,
+        spot_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubSpotExchange = spot_servicer
+        spot_servicer.subaccount_orders_list_responses.append(exchange_spot_pb.SubaccountOrdersListResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_spot_subaccount_orders(subaccount_id="", market_id="")
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert (
+            str(all_warnings[0].message) == "This method is deprecated. Use fetch_spot_subaccount_orders_list instead"
+        )
+
+    @pytest.mark.asyncio
+    async def test_get_spot_subaccount_trades_deprecation_warning(
+        self,
+        spot_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubSpotExchange = spot_servicer
+        spot_servicer.subaccount_trades_list_responses.append(exchange_spot_pb.SubaccountTradesListResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_spot_subaccount_trades(subaccount_id="")
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert (
+            str(all_warnings[0].message) == "This method is deprecated. Use fetch_spot_subaccount_trades_list instead"
+        )
+
+    @pytest.mark.asyncio
+    async def test_get_historical_spot_orders_deprecation_warning(
+        self,
+        spot_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubSpotExchange = spot_servicer
+        spot_servicer.subaccount_trades_list_responses.append(exchange_spot_pb.SubaccountTradesListResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_historical_spot_orders()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_spot_orders_history instead"

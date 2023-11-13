@@ -2,6 +2,7 @@ import grpc
 import pytest
 
 from pyinjective.client.indexer.grpc.indexer_grpc_spot_api import IndexerGrpcSpotApi
+from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import Network
 from pyinjective.proto.exchange import injective_spot_exchange_rpc_pb2 as exchange_spot_pb
 from tests.client.indexer.configurable_spot_query_servicer import ConfigurableSpotQueryServicer
@@ -63,7 +64,7 @@ class TestIndexerGrpcSpotApi:
         api._stub = spot_servicer
 
         result_markets = await api.fetch_markets(
-            market_status=market.market_status,
+            market_statuses=[market.market_status],
             base_denom=market.base_denom,
             quote_denom=market.quote_denom,
         )
@@ -245,6 +246,486 @@ class TestIndexerGrpcSpotApi:
         }
 
         assert result_orderbook == expected_orderbook
+
+    @pytest.mark.asyncio
+    async def test_fetch_orderbooks_v2(
+        self,
+        spot_servicer,
+    ):
+        buy = exchange_spot_pb.PriceLevel(
+            price="0.000000000014198",
+            quantity="142000000000000000000",
+            timestamp=1698982052141,
+        )
+        sell = exchange_spot_pb.PriceLevel(
+            price="0.00000000095699",
+            quantity="189000000000000000",
+            timestamp=1698920369246,
+        )
+
+        orderbook = exchange_spot_pb.SpotLimitOrderbookV2(
+            buys=[buy],
+            sells=[sell],
+            sequence=5506752,
+            timestamp=1698982083606,
+        )
+
+        single_orderbook = exchange_spot_pb.SingleSpotLimitOrderbookV2(
+            market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
+            orderbook=orderbook,
+        )
+
+        spot_servicer.orderbooks_v2_responses.append(
+            exchange_spot_pb.OrderbooksV2Response(
+                orderbooks=[single_orderbook],
+            )
+        )
+
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
+
+        api = IndexerGrpcSpotApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
+        api._stub = spot_servicer
+
+        result_orderbook = await api.fetch_orderbooks_v2(market_ids=[single_orderbook.market_id])
+        expected_orderbook = {
+            "orderbooks": [
+                {
+                    "marketId": single_orderbook.market_id,
+                    "orderbook": {
+                        "buys": [
+                            {
+                                "price": buy.price,
+                                "quantity": buy.quantity,
+                                "timestamp": str(buy.timestamp),
+                            }
+                        ],
+                        "sells": [
+                            {
+                                "price": sell.price,
+                                "quantity": sell.quantity,
+                                "timestamp": str(sell.timestamp),
+                            }
+                        ],
+                        "sequence": str(orderbook.sequence),
+                        "timestamp": str(orderbook.timestamp),
+                    },
+                }
+            ]
+        }
+
+        assert result_orderbook == expected_orderbook
+
+    @pytest.mark.asyncio
+    async def test_fetch_orders(
+        self,
+        spot_servicer,
+    ):
+        order = exchange_spot_pb.SpotLimitOrder(
+            order_hash="0x14e43adbb3302db28bcd0619068227ebca880cdd66cdfc8b4a662bcac0777849",
+            order_side="buy",
+            market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
+            subaccount_id="0x5e249f0e8cb406f41de16e1bd6f6b55e7bc75add000000000000000000000004",
+            price="0.000000000017541",
+            quantity="50955000000000000000",
+            unfilled_quantity="50955000000000000000",
+            trigger_price="0",
+            fee_recipient="inj1tcjf7r5vksr0g80pdcdada44teauwkkahelyfy",
+            state="booked",
+            created_at=1699644939364,
+            updated_at=1699644939364,
+            tx_hash="0x0000000000000000000000000000000000000000000000000000000000000000",
+            cid="cid1",
+        )
+
+        paging = exchange_spot_pb.Paging(total=5, to=5, count_by_subaccount=10, next=["next1", "next2"])
+        setattr(paging, "from", 1)
+
+        spot_servicer.orders_responses.append(
+            exchange_spot_pb.OrdersResponse(
+                orders=[order],
+                paging=paging,
+            )
+        )
+
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
+
+        api = IndexerGrpcSpotApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
+        api._stub = spot_servicer
+
+        result_orders = await api.fetch_orders(
+            market_ids=[order.market_id],
+            order_side=order.order_side,
+            subaccount_id=order.subaccount_id,
+            include_inactive=True,
+            subaccount_total_orders=True,
+            trade_id="7959737_3_0",
+            cid=order.cid,
+            pagination=PaginationOption(
+                skip=0,
+                limit=100,
+                start_time=1699544939364,
+                end_time=1699744939364,
+            ),
+        )
+        expected_orders = {
+            "orders": [
+                {
+                    "orderHash": order.order_hash,
+                    "orderSide": order.order_side,
+                    "marketId": order.market_id,
+                    "subaccountId": order.subaccount_id,
+                    "price": order.price,
+                    "quantity": order.quantity,
+                    "unfilledQuantity": order.unfilled_quantity,
+                    "triggerPrice": order.trigger_price,
+                    "feeRecipient": order.fee_recipient,
+                    "state": order.state,
+                    "createdAt": str(order.created_at),
+                    "updatedAt": str(order.updated_at),
+                    "txHash": order.tx_hash,
+                    "cid": order.cid,
+                },
+            ],
+            "paging": {
+                "total": str(paging.total),
+                "from": getattr(paging, "from"),
+                "to": paging.to,
+                "countBySubaccount": str(paging.count_by_subaccount),
+                "next": paging.next,
+            },
+        }
+
+        assert result_orders == expected_orders
+
+    @pytest.mark.asyncio
+    async def test_fetch_trades(
+        self,
+        spot_servicer,
+    ):
+        price = exchange_spot_pb.PriceLevel(
+            price="0.000000000006024",
+            quantity="10000000000000000",
+            timestamp=1677563766350,
+        )
+
+        trade = exchange_spot_pb.SpotTrade(
+            order_hash="0xe549e4750287c93fcc8dec24f319c15025e07e89a8d0937be2b3865ed79d9da7",
+            subaccount_id="0xc7dca7c15c364865f77a4fb67ab11dc95502e6fe000000000000000000000001",
+            market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
+            trade_execution_type="limitMatchNewOrder",
+            trade_direction="buy",
+            price=price,
+            fee="36.144",
+            executed_at=1677563766350,
+            fee_recipient="inj1clw20s2uxeyxtam6f7m84vgae92s9eh7vygagt",
+            trade_id="8662464_1_0",
+            execution_side="taker",
+            cid="cid1",
+        )
+
+        paging = exchange_spot_pb.Paging(total=5, to=5, count_by_subaccount=10, next=["next1", "next2"])
+        setattr(paging, "from", 1)
+
+        spot_servicer.trades_responses.append(
+            exchange_spot_pb.TradesResponse(
+                trades=[trade],
+                paging=paging,
+            )
+        )
+
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
+
+        api = IndexerGrpcSpotApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
+        api._stub = spot_servicer
+
+        result_trades = await api.fetch_trades(
+            market_ids=[trade.market_id],
+            subaccount_ids=[trade.subaccount_id],
+            execution_side=trade.execution_side,
+            direction=trade.trade_direction,
+            execution_types=[trade.trade_execution_type],
+            trade_id=trade.trade_id,
+            account_address="inj1clw20s2uxeyxtam6f7m84vgae92s9eh7vygagt",
+            cid=trade.cid,
+            pagination=PaginationOption(
+                skip=0,
+                limit=100,
+                start_time=1699544939364,
+                end_time=1699744939364,
+            ),
+        )
+        expected_trades = {
+            "trades": [
+                {
+                    "orderHash": trade.order_hash,
+                    "subaccountId": trade.subaccount_id,
+                    "marketId": trade.market_id,
+                    "tradeExecutionType": trade.trade_execution_type,
+                    "tradeDirection": trade.trade_direction,
+                    "price": {
+                        "price": price.price,
+                        "quantity": price.quantity,
+                        "timestamp": str(price.timestamp),
+                    },
+                    "fee": trade.fee,
+                    "executedAt": str(trade.executed_at),
+                    "feeRecipient": trade.fee_recipient,
+                    "tradeId": trade.trade_id,
+                    "executionSide": trade.execution_side,
+                    "cid": trade.cid,
+                },
+            ],
+            "paging": {
+                "total": str(paging.total),
+                "from": getattr(paging, "from"),
+                "to": paging.to,
+                "countBySubaccount": str(paging.count_by_subaccount),
+                "next": paging.next,
+            },
+        }
+
+        assert result_trades == expected_trades
+
+    @pytest.mark.asyncio
+    async def test_fetch_subaccount_orders_list(
+        self,
+        spot_servicer,
+    ):
+        order = exchange_spot_pb.SpotLimitOrder(
+            order_hash="0x14e43adbb3302db28bcd0619068227ebca880cdd66cdfc8b4a662bcac0777849",
+            order_side="buy",
+            market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
+            subaccount_id="0x5e249f0e8cb406f41de16e1bd6f6b55e7bc75add000000000000000000000004",
+            price="0.000000000017541",
+            quantity="50955000000000000000",
+            unfilled_quantity="50955000000000000000",
+            trigger_price="0",
+            fee_recipient="inj1tcjf7r5vksr0g80pdcdada44teauwkkahelyfy",
+            state="booked",
+            created_at=1699644939364,
+            updated_at=1699644939364,
+            tx_hash="0x0000000000000000000000000000000000000000000000000000000000000000",
+            cid="cid1",
+        )
+
+        paging = exchange_spot_pb.Paging(total=5, to=5, count_by_subaccount=10, next=["next1", "next2"])
+        setattr(paging, "from", 1)
+
+        spot_servicer.subaccount_orders_list_responses.append(
+            exchange_spot_pb.SubaccountOrdersListResponse(
+                orders=[order],
+                paging=paging,
+            )
+        )
+
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
+
+        api = IndexerGrpcSpotApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
+        api._stub = spot_servicer
+
+        result_orders = await api.fetch_subaccount_orders_list(
+            subaccount_id=order.subaccount_id,
+            market_id=order.market_id,
+            pagination=PaginationOption(
+                skip=0,
+                limit=100,
+            ),
+        )
+        expected_orders = {
+            "orders": [
+                {
+                    "orderHash": order.order_hash,
+                    "orderSide": order.order_side,
+                    "marketId": order.market_id,
+                    "subaccountId": order.subaccount_id,
+                    "price": order.price,
+                    "quantity": order.quantity,
+                    "unfilledQuantity": order.unfilled_quantity,
+                    "triggerPrice": order.trigger_price,
+                    "feeRecipient": order.fee_recipient,
+                    "state": order.state,
+                    "createdAt": str(order.created_at),
+                    "updatedAt": str(order.updated_at),
+                    "txHash": order.tx_hash,
+                    "cid": order.cid,
+                },
+            ],
+            "paging": {
+                "total": str(paging.total),
+                "from": getattr(paging, "from"),
+                "to": paging.to,
+                "countBySubaccount": str(paging.count_by_subaccount),
+                "next": paging.next,
+            },
+        }
+
+        assert result_orders == expected_orders
+
+    @pytest.mark.asyncio
+    async def test_fetch_subaccount_trades_list(
+        self,
+        spot_servicer,
+    ):
+        price = exchange_spot_pb.PriceLevel(
+            price="0.000000000006024",
+            quantity="10000000000000000",
+            timestamp=1677563766350,
+        )
+
+        trade = exchange_spot_pb.SpotTrade(
+            order_hash="0xe549e4750287c93fcc8dec24f319c15025e07e89a8d0937be2b3865ed79d9da7",
+            subaccount_id="0xc7dca7c15c364865f77a4fb67ab11dc95502e6fe000000000000000000000001",
+            market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
+            trade_execution_type="limitMatchNewOrder",
+            trade_direction="buy",
+            price=price,
+            fee="36.144",
+            executed_at=1677563766350,
+            fee_recipient="inj1clw20s2uxeyxtam6f7m84vgae92s9eh7vygagt",
+            trade_id="8662464_1_0",
+            execution_side="taker",
+            cid="cid1",
+        )
+
+        spot_servicer.subaccount_trades_list_responses.append(
+            exchange_spot_pb.SubaccountTradesListResponse(
+                trades=[trade],
+            )
+        )
+
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
+
+        api = IndexerGrpcSpotApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
+        api._stub = spot_servicer
+
+        result_trades = await api.fetch_subaccount_trades_list(
+            subaccount_id=trade.subaccount_id,
+            market_id=trade.market_id,
+            execution_type=trade.trade_execution_type,
+            direction=trade.trade_direction,
+            pagination=PaginationOption(
+                skip=0,
+                limit=100,
+            ),
+        )
+        expected_trades = {
+            "trades": [
+                {
+                    "orderHash": trade.order_hash,
+                    "subaccountId": trade.subaccount_id,
+                    "marketId": trade.market_id,
+                    "tradeExecutionType": trade.trade_execution_type,
+                    "tradeDirection": trade.trade_direction,
+                    "price": {
+                        "price": price.price,
+                        "quantity": price.quantity,
+                        "timestamp": str(price.timestamp),
+                    },
+                    "fee": trade.fee,
+                    "executedAt": str(trade.executed_at),
+                    "feeRecipient": trade.fee_recipient,
+                    "tradeId": trade.trade_id,
+                    "executionSide": trade.execution_side,
+                    "cid": trade.cid,
+                },
+            ],
+        }
+
+        assert result_trades == expected_trades
+
+    @pytest.mark.asyncio
+    async def test_fetch_orders_history(
+        self,
+        spot_servicer,
+    ):
+        order = exchange_spot_pb.SpotOrderHistory(
+            order_hash="0x14e43adbb3302db28bcd0619068227ebca880cdd66cdfc8b4a662bcac0777849",
+            market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
+            is_active=True,
+            subaccount_id="0x5e249f0e8cb406f41de16e1bd6f6b55e7bc75add000000000000000000000004",
+            execution_type="limit",
+            order_type="buy_po",
+            price="0.000000000017541",
+            trigger_price="0",
+            quantity="50955000000000000000",
+            filled_quantity="1000000000000000",
+            state="booked",
+            created_at=1699644939364,
+            updated_at=1699644939364,
+            direction="buy",
+            tx_hash="0x0000000000000000000000000000000000000000000000000000000000000000",
+            cid="cid1",
+        )
+
+        paging = exchange_spot_pb.Paging(total=5, to=5, count_by_subaccount=10, next=["next1", "next2"])
+        setattr(paging, "from", 1)
+
+        spot_servicer.orders_history_responses.append(
+            exchange_spot_pb.OrdersHistoryResponse(
+                orders=[order],
+                paging=paging,
+            )
+        )
+
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
+
+        api = IndexerGrpcSpotApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
+        api._stub = spot_servicer
+
+        result_orders = await api.fetch_orders_history(
+            subaccount_id=order.subaccount_id,
+            market_ids=[order.market_id],
+            order_types=[order.order_type],
+            direction=order.direction,
+            state=order.state,
+            execution_types=[order.execution_type],
+            trade_id="8662464_1_0",
+            active_markets_only=True,
+            cid=order.cid,
+            pagination=PaginationOption(
+                skip=0,
+                limit=100,
+                start_time=1699544939364,
+                end_time=1699744939364,
+            ),
+        )
+        expected_orders = {
+            "orders": [
+                {
+                    "orderHash": order.order_hash,
+                    "marketId": order.market_id,
+                    "subaccountId": order.subaccount_id,
+                    "executionType": order.execution_type,
+                    "orderType": order.order_type,
+                    "price": order.price,
+                    "triggerPrice": order.trigger_price,
+                    "quantity": order.quantity,
+                    "filledQuantity": order.filled_quantity,
+                    "state": order.state,
+                    "createdAt": str(order.created_at),
+                    "updatedAt": str(order.updated_at),
+                    "direction": order.direction,
+                    "txHash": order.tx_hash,
+                    "isActive": order.is_active,
+                    "cid": order.cid,
+                },
+            ],
+            "paging": {
+                "total": str(paging.total),
+                "from": getattr(paging, "from"),
+                "to": paging.to,
+                "countBySubaccount": str(paging.count_by_subaccount),
+                "next": paging.next,
+            },
+        }
+
+        assert result_orders == expected_orders
 
     async def _dummy_metadata_provider(self):
         return None
