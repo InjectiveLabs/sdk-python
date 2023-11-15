@@ -15,7 +15,7 @@ from cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
 from cosmos.group.v1 import types_pb2 as cosmos_dot_group_dot_v1_dot_types__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1c\x63osmos/group/v1/events.proto\x12\x0f\x63osmos.group.v1\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x1b\x63osmos/group/v1/types.proto\"$\n\x10\x45ventCreateGroup\x12\x10\n\x08group_id\x18\x01 \x01(\x04\"$\n\x10\x45ventUpdateGroup\x12\x10\n\x08group_id\x18\x01 \x01(\x04\"C\n\x16\x45ventCreateGroupPolicy\x12)\n\x07\x61\x64\x64ress\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\"C\n\x16\x45ventUpdateGroupPolicy\x12)\n\x07\x61\x64\x64ress\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\"*\n\x13\x45ventSubmitProposal\x12\x13\n\x0bproposal_id\x18\x01 \x01(\x04\",\n\x15\x45ventWithdrawProposal\x12\x13\n\x0bproposal_id\x18\x01 \x01(\x04\" \n\tEventVote\x12\x13\n\x0bproposal_id\x18\x01 \x01(\x04\"g\n\tEventExec\x12\x13\n\x0bproposal_id\x18\x01 \x01(\x04\x12\x37\n\x06result\x18\x02 \x01(\x0e\x32\'.cosmos.group.v1.ProposalExecutorResult\x12\x0c\n\x04logs\x18\x03 \x01(\t\"N\n\x0f\x45ventLeaveGroup\x12\x10\n\x08group_id\x18\x01 \x01(\x04\x12)\n\x07\x61\x64\x64ress\x18\x02 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressStringB&Z$github.com/cosmos/cosmos-sdk/x/groupb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1c\x63osmos/group/v1/events.proto\x12\x0f\x63osmos.group.v1\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x1b\x63osmos/group/v1/types.proto\"$\n\x10\x45ventCreateGroup\x12\x10\n\x08group_id\x18\x01 \x01(\x04\"$\n\x10\x45ventUpdateGroup\x12\x10\n\x08group_id\x18\x01 \x01(\x04\"C\n\x16\x45ventCreateGroupPolicy\x12)\n\x07\x61\x64\x64ress\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\"C\n\x16\x45ventUpdateGroupPolicy\x12)\n\x07\x61\x64\x64ress\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\"*\n\x13\x45ventSubmitProposal\x12\x13\n\x0bproposal_id\x18\x01 \x01(\x04\",\n\x15\x45ventWithdrawProposal\x12\x13\n\x0bproposal_id\x18\x01 \x01(\x04\" \n\tEventVote\x12\x13\n\x0bproposal_id\x18\x01 \x01(\x04\"g\n\tEventExec\x12\x13\n\x0bproposal_id\x18\x01 \x01(\x04\x12\x37\n\x06result\x18\x02 \x01(\x0e\x32\'.cosmos.group.v1.ProposalExecutorResult\x12\x0c\n\x04logs\x18\x03 \x01(\t\"N\n\x0f\x45ventLeaveGroup\x12\x10\n\x08group_id\x18\x01 \x01(\x04\x12)\n\x07\x61\x64\x64ress\x18\x02 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\"\x8f\x01\n\x13\x45ventProposalPruned\x12\x13\n\x0bproposal_id\x18\x01 \x01(\x04\x12/\n\x06status\x18\x02 \x01(\x0e\x32\x1f.cosmos.group.v1.ProposalStatus\x12\x32\n\x0ctally_result\x18\x03 \x01(\x0b\x32\x1c.cosmos.group.v1.TallyResultB&Z$github.com/cosmos/cosmos-sdk/x/groupb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -48,4 +48,6 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['_EVENTEXEC']._serialized_end=546
   _globals['_EVENTLEAVEGROUP']._serialized_start=548
   _globals['_EVENTLEAVEGROUP']._serialized_end=626
+  _globals['_EVENTPROPOSALPRUNED']._serialized_start=629
+  _globals['_EVENTPROPOSALPRUNED']._serialized_end=772
 # @@protoc_insertion_point(module_scope)

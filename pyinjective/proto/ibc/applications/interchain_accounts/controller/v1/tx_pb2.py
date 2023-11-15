@@ -13,11 +13,9 @@ _sym_db = _symbol_database.Default()
 
 from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from ibc.applications.interchain_accounts.v1 import packet_pb2 as ibc_dot_applications_dot_interchain__accounts_dot_v1_dot_packet__pb2
-from ibc.applications.interchain_accounts.controller.v1 import controller_pb2 as ibc_dot_applications_dot_interchain__accounts_dot_controller_dot_v1_dot_controller__pb2
-from cosmos.msg.v1 import msg_pb2 as cosmos_dot_msg_dot_v1_dot_msg__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n;ibc/applications/interchain_accounts/controller/v1/tx.proto\x12\x32ibc.applications.interchain_accounts.controller.v1\x1a\x14gogoproto/gogo.proto\x1a\x34ibc/applications/interchain_accounts/v1/packet.proto\x1a\x43ibc/applications/interchain_accounts/controller/v1/controller.proto\x1a\x17\x63osmos/msg/v1/msg.proto\"e\n\x1cMsgRegisterInterchainAccount\x12\r\n\x05owner\x18\x01 \x01(\t\x12\x15\n\rconnection_id\x18\x02 \x01(\t\x12\x0f\n\x07version\x18\x03 \x01(\t:\x0e\x88\xa0\x1f\x00\x82\xe7\xb0*\x05owner\"Q\n$MsgRegisterInterchainAccountResponse\x12\x12\n\nchannel_id\x18\x01 \x01(\t\x12\x0f\n\x07port_id\x18\x02 \x01(\t:\x04\x88\xa0\x1f\x00\"\xbc\x01\n\tMsgSendTx\x12\r\n\x05owner\x18\x01 \x01(\t\x12\x15\n\rconnection_id\x18\x02 \x01(\t\x12_\n\x0bpacket_data\x18\x03 \x01(\x0b\x32\x44.ibc.applications.interchain_accounts.v1.InterchainAccountPacketDataB\x04\xc8\xde\x1f\x00\x12\x18\n\x10relative_timeout\x18\x04 \x01(\x04:\x0e\x88\xa0\x1f\x00\x82\xe7\xb0*\x05owner\"+\n\x11MsgSendTxResponse\x12\x10\n\x08sequence\x18\x01 \x01(\x04:\x04\x88\xa0\x1f\x00\"\x84\x01\n\x0fMsgUpdateParams\x12\x0e\n\x06signer\x18\x01 \x01(\t\x12P\n\x06params\x18\x02 \x01(\x0b\x32:.ibc.applications.interchain_accounts.controller.v1.ParamsB\x04\xc8\xde\x1f\x00:\x0f\x88\xa0\x1f\x00\x82\xe7\xb0*\x06signer\"\x19\n\x17MsgUpdateParamsResponse2\x8a\x04\n\x03Msg\x12\xc7\x01\n\x19RegisterInterchainAccount\x12P.ibc.applications.interchain_accounts.controller.v1.MsgRegisterInterchainAccount\x1aX.ibc.applications.interchain_accounts.controller.v1.MsgRegisterInterchainAccountResponse\x12\x8e\x01\n\x06SendTx\x12=.ibc.applications.interchain_accounts.controller.v1.MsgSendTx\x1a\x45.ibc.applications.interchain_accounts.controller.v1.MsgSendTxResponse\x12\xa0\x01\n\x0cUpdateParams\x12\x43.ibc.applications.interchain_accounts.controller.v1.MsgUpdateParams\x1aK.ibc.applications.interchain_accounts.controller.v1.MsgUpdateParamsResponse\x1a\x05\x80\xe7\xb0*\x01\x42RZPgithub.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts/controller/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n;ibc/applications/interchain_accounts/controller/v1/tx.proto\x12\x32ibc.applications.interchain_accounts.controller.v1\x1a\x14gogoproto/gogo.proto\x1a\x34ibc/applications/interchain_accounts/v1/packet.proto\"y\n\x1cMsgRegisterInterchainAccount\x12\r\n\x05owner\x18\x01 \x01(\t\x12/\n\rconnection_id\x18\x02 \x01(\tB\x18\xf2\xde\x1f\x14yaml:\"connection_id\"\x12\x0f\n\x07version\x18\x03 \x01(\t:\x08\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\"v\n$MsgRegisterInterchainAccountResponse\x12)\n\nchannel_id\x18\x01 \x01(\tB\x15\xf2\xde\x1f\x11yaml:\"channel_id\"\x12#\n\x07port_id\x18\x02 \x01(\tB\x12\xf2\xde\x1f\x0eyaml:\"port_id\"\"\x83\x02\n\tMsgSendTx\x12\r\n\x05owner\x18\x01 \x01(\t\x12/\n\rconnection_id\x18\x02 \x01(\tB\x18\xf2\xde\x1f\x14yaml:\"connection_id\"\x12u\n\x0bpacket_data\x18\x03 \x01(\x0b\x32\x44.ibc.applications.interchain_accounts.v1.InterchainAccountPacketDataB\x1a\xc8\xde\x1f\x00\xf2\xde\x1f\x12yaml:\"packet_data\"\x12\x35\n\x10relative_timeout\x18\x04 \x01(\x04\x42\x1b\xf2\xde\x1f\x17yaml:\"relative_timeout\":\x08\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\"%\n\x11MsgSendTxResponse\x12\x10\n\x08sequence\x18\x01 \x01(\x04\x32\xe0\x02\n\x03Msg\x12\xc7\x01\n\x19RegisterInterchainAccount\x12P.ibc.applications.interchain_accounts.controller.v1.MsgRegisterInterchainAccount\x1aX.ibc.applications.interchain_accounts.controller.v1.MsgRegisterInterchainAccountResponse\x12\x8e\x01\n\x06SendTx\x12=.ibc.applications.interchain_accounts.controller.v1.MsgSendTx\x1a\x45.ibc.applications.interchain_accounts.controller.v1.MsgSendTxResponseBRZPgithub.com/cosmos/ibc-go/v7/modules/apps/27-interchain-accounts/controller/typesb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -25,35 +23,31 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'ibc.applications.interchain
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  DESCRIPTOR._serialized_options = b'ZPgithub.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts/controller/types'
+  DESCRIPTOR._serialized_options = b'ZPgithub.com/cosmos/ibc-go/v7/modules/apps/27-interchain-accounts/controller/types'
+  _MSGREGISTERINTERCHAINACCOUNT.fields_by_name['connection_id']._options = None
+  _MSGREGISTERINTERCHAINACCOUNT.fields_by_name['connection_id']._serialized_options = b'\362\336\037\024yaml:\"connection_id\"'
   _MSGREGISTERINTERCHAINACCOUNT._options = None
-  _MSGREGISTERINTERCHAINACCOUNT._serialized_options = b'\210\240\037\000\202\347\260*\005owner'
-  _MSGREGISTERINTERCHAINACCOUNTRESPONSE._options = None
-  _MSGREGISTERINTERCHAINACCOUNTRESPONSE._serialized_options = b'\210\240\037\000'
+  _MSGREGISTERINTERCHAINACCOUNT._serialized_options = b'\210\240\037\000\350\240\037\000'
+  _MSGREGISTERINTERCHAINACCOUNTRESPONSE.fields_by_name['channel_id']._options = None
+  _MSGREGISTERINTERCHAINACCOUNTRESPONSE.fields_by_name['channel_id']._serialized_options = b'\362\336\037\021yaml:\"channel_id\"'
+  _MSGREGISTERINTERCHAINACCOUNTRESPONSE.fields_by_name['port_id']._options = None
+  _MSGREGISTERINTERCHAINACCOUNTRESPONSE.fields_by_name['port_id']._serialized_options = b'\362\336\037\016yaml:\"port_id\"'
+  _MSGSENDTX.fields_by_name['connection_id']._options = None
+  _MSGSENDTX.fields_by_name['connection_id']._serialized_options = b'\362\336\037\024yaml:\"connection_id\"'
   _MSGSENDTX.fields_by_name['packet_data']._options = None
-  _MSGSENDTX.fields_by_name['packet_data']._serialized_options = b'\310\336\037\000'
+  _MSGSENDTX.fields_by_name['packet_data']._serialized_options = b'\310\336\037\000\362\336\037\022yaml:\"packet_data\"'
+  _MSGSENDTX.fields_by_name['relative_timeout']._options = None
+  _MSGSENDTX.fields_by_name['relative_timeout']._serialized_options = b'\362\336\037\027yaml:\"relative_timeout\"'
   _MSGSENDTX._options = None
-  _MSGSENDTX._serialized_options = b'\210\240\037\000\202\347\260*\005owner'
-  _MSGSENDTXRESPONSE._options = None
-  _MSGSENDTXRESPONSE._serialized_options = b'\210\240\037\000'
-  _MSGUPDATEPARAMS.fields_by_name['params']._options = None
-  _MSGUPDATEPARAMS.fields_by_name['params']._serialized_options = b'\310\336\037\000'
-  _MSGUPDATEPARAMS._options = None
-  _MSGUPDATEPARAMS._serialized_options = b'\210\240\037\000\202\347\260*\006signer'
-  _MSG._options = None
-  _MSG._serialized_options = b'\200\347\260*\001'
-  _globals['_MSGREGISTERINTERCHAINACCOUNT']._serialized_start=285
-  _globals['_MSGREGISTERINTERCHAINACCOUNT']._serialized_end=386
-  _globals['_MSGREGISTERINTERCHAINACCOUNTRESPONSE']._serialized_start=388
-  _globals['_MSGREGISTERINTERCHAINACCOUNTRESPONSE']._serialized_end=469
-  _globals['_MSGSENDTX']._serialized_start=472
-  _globals['_MSGSENDTX']._serialized_end=660
-  _globals['_MSGSENDTXRESPONSE']._serialized_start=662
-  _globals['_MSGSENDTXRESPONSE']._serialized_end=705
-  _globals['_MSGUPDATEPARAMS']._serialized_start=708
-  _globals['_MSGUPDATEPARAMS']._serialized_end=840
-  _globals['_MSGUPDATEPARAMSRESPONSE']._serialized_start=842
-  _globals['_MSGUPDATEPARAMSRESPONSE']._serialized_end=867
-  _globals['_MSG']._serialized_start=870
-  _globals['_MSG']._serialized_end=1392
+  _MSGSENDTX._serialized_options = b'\210\240\037\000\350\240\037\000'
+  _globals['_MSGREGISTERINTERCHAINACCOUNT']._serialized_start=191
+  _globals['_MSGREGISTERINTERCHAINACCOUNT']._serialized_end=312
+  _globals['_MSGREGISTERINTERCHAINACCOUNTRESPONSE']._serialized_start=314
+  _globals['_MSGREGISTERINTERCHAINACCOUNTRESPONSE']._serialized_end=432
+  _globals['_MSGSENDTX']._serialized_start=435
+  _globals['_MSGSENDTX']._serialized_end=694
+  _globals['_MSGSENDTXRESPONSE']._serialized_start=696
+  _globals['_MSGSENDTXRESPONSE']._serialized_end=733
+  _globals['_MSG']._serialized_start=736
+  _globals['_MSG']._serialized_end=1088
 # @@protoc_insertion_point(module_scope)
