@@ -184,5 +184,25 @@ class IndexerGrpcSpotApi:
 
         return response
 
+    async def fetch_atomic_swap_history(
+        self,
+        address: str,
+        contract_address: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        pagination = pagination or PaginationOption()
+        request = exchange_spot_pb.AtomicSwapHistoryRequest(
+            address=address,
+            contract_address=contract_address,
+            skip=pagination.skip,
+            limit=pagination.limit,
+            from_number=pagination.from_number,
+            to_number=pagination.to_number,
+        )
+
+        response = await self._execute_call(call=self._stub.AtomicSwapHistory, request=request)
+
+        return response
+
     async def _execute_call(self, call: Callable, request) -> Dict[str, Any]:
         return await self._assistant.execute_call(call=call, request=request)

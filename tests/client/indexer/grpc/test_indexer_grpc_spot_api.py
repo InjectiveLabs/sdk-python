@@ -727,5 +727,80 @@ class TestIndexerGrpcSpotApi:
 
         assert result_orders == expected_orders
 
+    @pytest.mark.asyncio
+    async def test_fetch_atomic_swap_history(
+        self,
+        spot_servicer,
+    ):
+        source_coin = exchange_spot_pb.Coin(denom="inj", amount="988987297011197594664")
+        dest_coin = exchange_spot_pb.Coin(denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5", amount="54497408")
+        fee = exchange_spot_pb.Coin(denom="inj", amount="100000")
+
+        atomic_swap = exchange_spot_pb.AtomicSwap(
+            sender="sender",
+            route="route",
+            source_coin=source_coin,
+            dest_coin=dest_coin,
+            fees=[fee],
+            contract_address="contract address",
+            index_by_sender=1,
+            index_by_sender_contract=2,
+            tx_hash="0x0000000000000000000000000000000000000000000000000000000000000000",
+            executed_at=1699644939364,
+            refund_amount="0",
+        )
+        paging = exchange_spot_pb.Paging(total=5, to=5, count_by_subaccount=10, next=["next1", "next2"])
+        setattr(paging, "from", 1)
+
+        spot_servicer.atomic_swap_history_responses.append(
+            exchange_spot_pb.AtomicSwapHistoryResponse(
+                data=[atomic_swap],
+                paging=paging,
+            )
+        )
+
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
+
+        api = IndexerGrpcSpotApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
+        api._stub = spot_servicer
+
+        result_history = await api.fetch_atomic_swap_history(
+            address=atomic_swap.sender,
+            contract_address=atomic_swap.contract_address,
+            pagination=PaginationOption(
+                skip=0,
+                limit=100,
+                from_number=1,
+                to_number=100,
+            ),
+        )
+        expected_history = {
+            "data": [
+                {
+                    "contractAddress": atomic_swap.contract_address,
+                    "destCoin": {"amount": dest_coin.amount, "denom": dest_coin.denom},
+                    "executedAt": str(atomic_swap.executed_at),
+                    "fees": [{"amount": fee.amount, "denom": fee.denom}],
+                    "indexBySender": atomic_swap.index_by_sender,
+                    "indexBySenderContract": atomic_swap.index_by_sender_contract,
+                    "refundAmount": atomic_swap.refund_amount,
+                    "route": atomic_swap.route,
+                    "sender": atomic_swap.sender,
+                    "sourceCoin": {"amount": source_coin.amount, "denom": source_coin.denom},
+                    "txHash": atomic_swap.tx_hash,
+                }
+            ],
+            "paging": {
+                "total": str(paging.total),
+                "from": getattr(paging, "from"),
+                "to": paging.to,
+                "countBySubaccount": str(paging.count_by_subaccount),
+                "next": paging.next,
+            },
+        }
+
+        assert result_history == expected_history
+
     async def _dummy_metadata_provider(self):
         return None

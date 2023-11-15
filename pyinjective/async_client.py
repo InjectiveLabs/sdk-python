@@ -22,6 +22,7 @@ from pyinjective.client.indexer.grpc_stream.indexer_grpc_account_stream import I
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_auction_stream import IndexerGrpcAuctionStream
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_meta_stream import IndexerGrpcMetaStream
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_oracle_stream import IndexerGrpcOracleStream
+from pyinjective.client.indexer.grpc_stream.indexer_grpc_spot_stream import IndexerGrpcSpotStream
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.composer import Composer
 from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
@@ -230,6 +231,12 @@ class AsyncClient:
             ),
         )
         self.exchange_oracle_stream_api = IndexerGrpcOracleStream(
+            channel=self.exchange_channel,
+            metadata_provider=lambda: self.network.exchange_metadata(
+                metadata_query_provider=self._exchange_cookie_metadata_requestor
+            ),
+        )
+        self.exchange_spot_stream_api = IndexerGrpcSpotStream(
             channel=self.exchange_channel,
             metadata_provider=lambda: self.network.exchange_metadata(
                 metadata_query_provider=self._exchange_cookie_metadata_requestor
@@ -962,11 +969,30 @@ class AsyncClient:
         )
 
     async def stream_spot_markets(self, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `listen_spot_markets_updates` instead
+        """
+        warn("This method is deprecated. Use listen_spot_markets_updates instead", DeprecationWarning, stacklevel=2)
+
         req = spot_exchange_rpc_pb.StreamMarketsRequest(market_ids=kwargs.get("market_ids"))
         metadata = await self.network.exchange_metadata(
             metadata_query_provider=self._exchange_cookie_metadata_requestor
         )
         return self.stubSpotExchange.StreamMarkets(request=req, metadata=metadata)
+
+    async def listen_spot_markets_updates(
+        self,
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+        market_ids: Optional[List[str]] = None,
+    ):
+        await self.exchange_spot_stream_api.stream_markets(
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+            market_ids=market_ids,
+        )
 
     async def get_spot_orderbookV2(self, market_id: str):
         """
@@ -1136,20 +1162,60 @@ class AsyncClient:
         )
 
     async def stream_spot_orderbook_snapshot(self, market_ids: List[str]):
+        """
+        This method is deprecated and will be removed soon. Please use `listen_spot_orderbook_snapshots` instead
+        """
+        warn("This method is deprecated. Use listen_spot_orderbook_snapshots instead", DeprecationWarning, stacklevel=2)
         req = spot_exchange_rpc_pb.StreamOrderbookV2Request(market_ids=market_ids)
         metadata = await self.network.exchange_metadata(
             metadata_query_provider=self._exchange_cookie_metadata_requestor
         )
         return self.stubSpotExchange.StreamOrderbookV2(request=req, metadata=metadata)
 
+    async def listen_spot_orderbook_snapshots(
+        self,
+        market_ids: List[str],
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+    ):
+        await self.exchange_spot_stream_api.stream_orderbook_v2(
+            market_ids=market_ids,
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+        )
+
     async def stream_spot_orderbook_update(self, market_ids: List[str]):
+        """
+        This method is deprecated and will be removed soon. Please use `listen_spot_orderbook_updates` instead
+        """
+        warn("This method is deprecated. Use listen_spot_orderbook_updates instead", DeprecationWarning, stacklevel=2)
         req = spot_exchange_rpc_pb.StreamOrderbookUpdateRequest(market_ids=market_ids)
         metadata = await self.network.exchange_metadata(
             metadata_query_provider=self._exchange_cookie_metadata_requestor
         )
         return self.stubSpotExchange.StreamOrderbookUpdate(request=req, metadata=metadata)
 
+    async def listen_spot_orderbook_updates(
+        self,
+        market_ids: List[str],
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+    ):
+        await self.exchange_spot_stream_api.stream_orderbook_update(
+            market_ids=market_ids,
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+        )
+
     async def stream_spot_orders(self, market_id: str, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `listen_spot_orders_updates` instead
+        """
+        warn("This method is deprecated. Use listen_spot_orders_updates instead", DeprecationWarning, stacklevel=2)
         req = spot_exchange_rpc_pb.StreamOrdersRequest(
             market_id=market_id,
             order_side=kwargs.get("order_side"),
@@ -1169,7 +1235,43 @@ class AsyncClient:
         )
         return self.stubSpotExchange.StreamOrders(request=req, metadata=metadata)
 
+    async def listen_spot_orders_updates(
+        self,
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+        market_ids: Optional[List[str]] = None,
+        order_side: Optional[str] = None,
+        subaccount_id: Optional[PaginationOption] = None,
+        include_inactive: Optional[bool] = None,
+        subaccount_total_orders: Optional[bool] = None,
+        trade_id: Optional[str] = None,
+        cid: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ):
+        await self.exchange_spot_stream_api.stream_orders(
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+            market_ids=market_ids,
+            order_side=order_side,
+            subaccount_id=subaccount_id,
+            include_inactive=include_inactive,
+            subaccount_total_orders=subaccount_total_orders,
+            trade_id=trade_id,
+            cid=cid,
+            pagination=pagination,
+        )
+
     async def stream_historical_spot_orders(self, market_id: str, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `listen_spot_orders_history_updates` instead
+        """
+        warn(
+            "This method is deprecated. Use listen_spot_orders_history_updates instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         req = spot_exchange_rpc_pb.StreamOrdersHistoryRequest(
             market_id=market_id,
             direction=kwargs.get("direction"),
@@ -1182,6 +1284,30 @@ class AsyncClient:
             metadata_query_provider=self._exchange_cookie_metadata_requestor
         )
         return self.stubSpotExchange.StreamOrdersHistory(request=req, metadata=metadata)
+
+    async def listen_spot_orders_history_updates(
+        self,
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+        subaccount_id: Optional[str] = None,
+        market_id: Optional[str] = None,
+        order_types: Optional[List[str]] = None,
+        direction: Optional[str] = None,
+        state: Optional[str] = None,
+        execution_types: Optional[List[str]] = None,
+    ):
+        await self.exchange_spot_stream_api.stream_orders_history(
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+            subaccount_id=subaccount_id,
+            market_id=market_id,
+            order_types=order_types,
+            direction=direction,
+            state=state,
+            execution_types=execution_types,
+        )
 
     async def stream_historical_derivative_orders(self, market_id: str, **kwargs):
         req = derivative_exchange_rpc_pb.StreamOrdersHistoryRequest(
@@ -1198,6 +1324,10 @@ class AsyncClient:
         return self.stubDerivativeExchange.StreamOrdersHistory(request=req, metadata=metadata)
 
     async def stream_spot_trades(self, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `listen_spot_trades_updates` instead
+        """
+        warn("This method is deprecated. Use listen_spot_trades_updates instead", DeprecationWarning, stacklevel=2)
         req = spot_exchange_rpc_pb.StreamTradesRequest(
             market_id=kwargs.get("market_id"),
             execution_side=kwargs.get("execution_side"),
@@ -1218,6 +1348,36 @@ class AsyncClient:
             metadata_query_provider=self._exchange_cookie_metadata_requestor
         )
         return self.stubSpotExchange.StreamTrades(request=req, metadata=metadata)
+
+    async def listen_spot_trades_updates(
+        self,
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+        market_ids: Optional[List[str]] = None,
+        subaccount_ids: Optional[List[str]] = None,
+        execution_side: Optional[str] = None,
+        direction: Optional[str] = None,
+        execution_types: Optional[List[str]] = None,
+        trade_id: Optional[str] = None,
+        account_address: Optional[str] = None,
+        cid: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ):
+        await self.exchange_spot_stream_api.stream_trades(
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+            market_ids=market_ids,
+            subaccount_ids=subaccount_ids,
+            execution_side=execution_side,
+            direction=direction,
+            execution_types=execution_types,
+            trade_id=trade_id,
+            account_address=account_address,
+            cid=cid,
+            pagination=pagination,
+        )
 
     async def get_spot_subaccount_orders(self, subaccount_id: str, **kwargs):
         """

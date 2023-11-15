@@ -13,6 +13,8 @@ class PaginationOption:
         end_time: Optional[int] = None,
         reverse: Optional[bool] = None,
         count_total: Optional[bool] = None,
+        from_number: Optional[int] = None,
+        to_number: Optional[int] = None,
     ):
         super().__init__()
         self.key = key
@@ -22,6 +24,8 @@ class PaginationOption:
         self.end_time = end_time
         self.reverse = reverse
         self.count_total = count_total
+        self.from_number = from_number
+        self.to_number = to_number
 
     def create_pagination_request(self) -> pagination_pb.PageRequest:
         page_request = pagination_pb.PageRequest()
