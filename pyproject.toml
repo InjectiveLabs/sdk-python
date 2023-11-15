@@ -99,6 +99,9 @@ skip_empty = true
 fail_under = 50
 precision = 2
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
 
 [build-system]
 requires = ["poetry-core"]
