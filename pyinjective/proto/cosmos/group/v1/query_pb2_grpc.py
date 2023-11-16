@@ -80,6 +80,11 @@ class QueryStub(object):
                 request_serializer=cosmos_dot_group_dot_v1_dot_query__pb2.QueryTallyResultRequest.SerializeToString,
                 response_deserializer=cosmos_dot_group_dot_v1_dot_query__pb2.QueryTallyResultResponse.FromString,
                 )
+        self.Groups = channel.unary_unary(
+                '/cosmos.group.v1.Query/Groups',
+                request_serializer=cosmos_dot_group_dot_v1_dot_query__pb2.QueryGroupsRequest.SerializeToString,
+                response_deserializer=cosmos_dot_group_dot_v1_dot_query__pb2.QueryGroupsResponse.FromString,
+                )
 
 
 class QueryServicer(object):
@@ -181,6 +186,15 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def Groups(self, request, context):
+        """Groups queries all groups in state.
+
+        Since: cosmos-sdk 0.47.1
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_QueryServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -248,6 +262,11 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.TallyResult,
                     request_deserializer=cosmos_dot_group_dot_v1_dot_query__pb2.QueryTallyResultRequest.FromString,
                     response_serializer=cosmos_dot_group_dot_v1_dot_query__pb2.QueryTallyResultResponse.SerializeToString,
+            ),
+            'Groups': grpc.unary_unary_rpc_method_handler(
+                    servicer.Groups,
+                    request_deserializer=cosmos_dot_group_dot_v1_dot_query__pb2.QueryGroupsRequest.FromString,
+                    response_serializer=cosmos_dot_group_dot_v1_dot_query__pb2.QueryGroupsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -478,5 +497,22 @@ class Query(object):
         return grpc.experimental.unary_unary(request, target, '/cosmos.group.v1.Query/TallyResult',
             cosmos_dot_group_dot_v1_dot_query__pb2.QueryTallyResultRequest.SerializeToString,
             cosmos_dot_group_dot_v1_dot_query__pb2.QueryTallyResultResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Groups(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/cosmos.group.v1.Query/Groups',
+            cosmos_dot_group_dot_v1_dot_query__pb2.QueryGroupsRequest.SerializeToString,
+            cosmos_dot_group_dot_v1_dot_query__pb2.QueryGroupsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

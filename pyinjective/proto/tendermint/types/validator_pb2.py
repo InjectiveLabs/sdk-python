@@ -15,7 +15,7 @@ from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from tendermint.crypto import keys_pb2 as tendermint_dot_crypto_dot_keys__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n tendermint/types/validator.proto\x12\x10tendermint.types\x1a\x14gogoproto/gogo.proto\x1a\x1ctendermint/crypto/keys.proto\"\x8a\x01\n\x0cValidatorSet\x12/\n\nvalidators\x18\x01 \x03(\x0b\x32\x1b.tendermint.types.Validator\x12-\n\x08proposer\x18\x02 \x01(\x0b\x32\x1b.tendermint.types.Validator\x12\x1a\n\x12total_voting_power\x18\x03 \x01(\x03\"\x82\x01\n\tValidator\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\x0c\x12\x33\n\x07pub_key\x18\x02 \x01(\x0b\x32\x1c.tendermint.crypto.PublicKeyB\x04\xc8\xde\x1f\x00\x12\x14\n\x0cvoting_power\x18\x03 \x01(\x03\x12\x19\n\x11proposer_priority\x18\x04 \x01(\x03\"V\n\x0fSimpleValidator\x12-\n\x07pub_key\x18\x01 \x01(\x0b\x32\x1c.tendermint.crypto.PublicKey\x12\x14\n\x0cvoting_power\x18\x02 \x01(\x03*\xd7\x01\n\x0b\x42lockIDFlag\x12\x31\n\x15\x42LOCK_ID_FLAG_UNKNOWN\x10\x00\x1a\x16\x8a\x9d \x12\x42lockIDFlagUnknown\x12/\n\x14\x42LOCK_ID_FLAG_ABSENT\x10\x01\x1a\x15\x8a\x9d \x11\x42lockIDFlagAbsent\x12/\n\x14\x42LOCK_ID_FLAG_COMMIT\x10\x02\x1a\x15\x8a\x9d \x11\x42lockIDFlagCommit\x12)\n\x11\x42LOCK_ID_FLAG_NIL\x10\x03\x1a\x12\x8a\x9d \x0e\x42lockIDFlagNil\x1a\x08\x88\xa3\x1e\x00\xa8\xa4\x1e\x01\x42\x35Z3github.com/cometbft/cometbft/proto/tendermint/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n tendermint/types/validator.proto\x12\x10tendermint.types\x1a\x14gogoproto/gogo.proto\x1a\x1ctendermint/crypto/keys.proto\"\x8a\x01\n\x0cValidatorSet\x12/\n\nvalidators\x18\x01 \x03(\x0b\x32\x1b.tendermint.types.Validator\x12-\n\x08proposer\x18\x02 \x01(\x0b\x32\x1b.tendermint.types.Validator\x12\x1a\n\x12total_voting_power\x18\x03 \x01(\x03\"\x82\x01\n\tValidator\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\x0c\x12\x33\n\x07pub_key\x18\x02 \x01(\x0b\x32\x1c.tendermint.crypto.PublicKeyB\x04\xc8\xde\x1f\x00\x12\x14\n\x0cvoting_power\x18\x03 \x01(\x03\x12\x19\n\x11proposer_priority\x18\x04 \x01(\x03\"V\n\x0fSimpleValidator\x12-\n\x07pub_key\x18\x01 \x01(\x0b\x32\x1c.tendermint.crypto.PublicKey\x12\x14\n\x0cvoting_power\x18\x02 \x01(\x03\x42\x35Z3github.com/cometbft/cometbft/proto/tendermint/typesb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -24,20 +24,8 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z3github.com/cometbft/cometbft/proto/tendermint/types'
-  _BLOCKIDFLAG._options = None
-  _BLOCKIDFLAG._serialized_options = b'\210\243\036\000\250\244\036\001'
-  _BLOCKIDFLAG.values_by_name["BLOCK_ID_FLAG_UNKNOWN"]._options = None
-  _BLOCKIDFLAG.values_by_name["BLOCK_ID_FLAG_UNKNOWN"]._serialized_options = b'\212\235 \022BlockIDFlagUnknown'
-  _BLOCKIDFLAG.values_by_name["BLOCK_ID_FLAG_ABSENT"]._options = None
-  _BLOCKIDFLAG.values_by_name["BLOCK_ID_FLAG_ABSENT"]._serialized_options = b'\212\235 \021BlockIDFlagAbsent'
-  _BLOCKIDFLAG.values_by_name["BLOCK_ID_FLAG_COMMIT"]._options = None
-  _BLOCKIDFLAG.values_by_name["BLOCK_ID_FLAG_COMMIT"]._serialized_options = b'\212\235 \021BlockIDFlagCommit'
-  _BLOCKIDFLAG.values_by_name["BLOCK_ID_FLAG_NIL"]._options = None
-  _BLOCKIDFLAG.values_by_name["BLOCK_ID_FLAG_NIL"]._serialized_options = b'\212\235 \016BlockIDFlagNil'
   _VALIDATOR.fields_by_name['pub_key']._options = None
   _VALIDATOR.fields_by_name['pub_key']._serialized_options = b'\310\336\037\000'
-  _globals['_BLOCKIDFLAG']._serialized_start=469
-  _globals['_BLOCKIDFLAG']._serialized_end=684
   _globals['_VALIDATORSET']._serialized_start=107
   _globals['_VALIDATORSET']._serialized_end=245
   _globals['_VALIDATOR']._serialized_start=248

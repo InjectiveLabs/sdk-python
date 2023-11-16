@@ -19,7 +19,7 @@ from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
 from google.protobuf import any_pb2 as google_dot_protobuf_dot_any__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\"ibc/core/connection/v1/query.proto\x12\x16ibc.core.connection.v1\x1a\x14gogoproto/gogo.proto\x1a*cosmos/base/query/v1beta1/pagination.proto\x1a\x1fibc/core/client/v1/client.proto\x1a\'ibc/core/connection/v1/connection.proto\x1a\x1cgoogle/api/annotations.proto\x1a\x19google/protobuf/any.proto\"/\n\x16QueryConnectionRequest\x12\x15\n\rconnection_id\x18\x01 \x01(\t\"\x9b\x01\n\x17QueryConnectionResponse\x12\x39\n\nconnection\x18\x01 \x01(\x0b\x32%.ibc.core.connection.v1.ConnectionEnd\x12\r\n\x05proof\x18\x02 \x01(\x0c\x12\x36\n\x0cproof_height\x18\x03 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"U\n\x17QueryConnectionsRequest\x12:\n\npagination\x18\x01 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequest\"\xcc\x01\n\x18QueryConnectionsResponse\x12\x41\n\x0b\x63onnections\x18\x01 \x03(\x0b\x32,.ibc.core.connection.v1.IdentifiedConnection\x12;\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponse\x12\x30\n\x06height\x18\x03 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"2\n\x1dQueryClientConnectionsRequest\x12\x11\n\tclient_id\x18\x01 \x01(\t\"\x81\x01\n\x1eQueryClientConnectionsResponse\x12\x18\n\x10\x63onnection_paths\x18\x01 \x03(\t\x12\r\n\x05proof\x18\x02 \x01(\x0c\x12\x36\n\x0cproof_height\x18\x03 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\":\n!QueryConnectionClientStateRequest\x12\x15\n\rconnection_id\x18\x01 \x01(\t\"\xb7\x01\n\"QueryConnectionClientStateResponse\x12J\n\x17identified_client_state\x18\x01 \x01(\x0b\x32).ibc.core.client.v1.IdentifiedClientState\x12\r\n\x05proof\x18\x02 \x01(\x0c\x12\x36\n\x0cproof_height\x18\x03 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"o\n$QueryConnectionConsensusStateRequest\x12\x15\n\rconnection_id\x18\x01 \x01(\t\x12\x17\n\x0frevision_number\x18\x02 \x01(\x04\x12\x17\n\x0frevision_height\x18\x03 \x01(\x04\"\xb0\x01\n%QueryConnectionConsensusStateResponse\x12-\n\x0f\x63onsensus_state\x18\x01 \x01(\x0b\x32\x14.google.protobuf.Any\x12\x11\n\tclient_id\x18\x02 \x01(\t\x12\r\n\x05proof\x18\x03 \x01(\x0c\x12\x36\n\x0cproof_height\x18\x04 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"\x1e\n\x1cQueryConnectionParamsRequest\"O\n\x1dQueryConnectionParamsResponse\x12.\n\x06params\x18\x01 \x01(\x0b\x32\x1e.ibc.core.connection.v1.Params2\xb9\t\n\x05Query\x12\xaa\x01\n\nConnection\x12..ibc.core.connection.v1.QueryConnectionRequest\x1a/.ibc.core.connection.v1.QueryConnectionResponse\";\x82\xd3\xe4\x93\x02\x35\x12\x33/ibc/core/connection/v1/connections/{connection_id}\x12\x9d\x01\n\x0b\x43onnections\x12/.ibc.core.connection.v1.QueryConnectionsRequest\x1a\x30.ibc.core.connection.v1.QueryConnectionsResponse\"+\x82\xd3\xe4\x93\x02%\x12#/ibc/core/connection/v1/connections\x12\xc2\x01\n\x11\x43lientConnections\x12\x35.ibc.core.connection.v1.QueryClientConnectionsRequest\x1a\x36.ibc.core.connection.v1.QueryClientConnectionsResponse\">\x82\xd3\xe4\x93\x02\x38\x12\x36/ibc/core/connection/v1/client_connections/{client_id}\x12\xd8\x01\n\x15\x43onnectionClientState\x12\x39.ibc.core.connection.v1.QueryConnectionClientStateRequest\x1a:.ibc.core.connection.v1.QueryConnectionClientStateResponse\"H\x82\xd3\xe4\x93\x02\x42\x12@/ibc/core/connection/v1/connections/{connection_id}/client_state\x12\x98\x02\n\x18\x43onnectionConsensusState\x12<.ibc.core.connection.v1.QueryConnectionConsensusStateRequest\x1a=.ibc.core.connection.v1.QueryConnectionConsensusStateResponse\"\x7f\x82\xd3\xe4\x93\x02y\x12w/ibc/core/connection/v1/connections/{connection_id}/consensus_state/revision/{revision_number}/height/{revision_height}\x12\xa7\x01\n\x10\x43onnectionParams\x12\x34.ibc.core.connection.v1.QueryConnectionParamsRequest\x1a\x35.ibc.core.connection.v1.QueryConnectionParamsResponse\"&\x82\xd3\xe4\x93\x02 \x12\x1e/ibc/core/connection/v1/paramsB>Z<github.com/cosmos/ibc-go/v8/modules/core/03-connection/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\"ibc/core/connection/v1/query.proto\x12\x16ibc.core.connection.v1\x1a\x14gogoproto/gogo.proto\x1a*cosmos/base/query/v1beta1/pagination.proto\x1a\x1fibc/core/client/v1/client.proto\x1a\'ibc/core/connection/v1/connection.proto\x1a\x1cgoogle/api/annotations.proto\x1a\x19google/protobuf/any.proto\"/\n\x16QueryConnectionRequest\x12\x15\n\rconnection_id\x18\x01 \x01(\t\"\x9b\x01\n\x17QueryConnectionResponse\x12\x39\n\nconnection\x18\x01 \x01(\x0b\x32%.ibc.core.connection.v1.ConnectionEnd\x12\r\n\x05proof\x18\x02 \x01(\x0c\x12\x36\n\x0cproof_height\x18\x03 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"U\n\x17QueryConnectionsRequest\x12:\n\npagination\x18\x01 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequest\"\xcc\x01\n\x18QueryConnectionsResponse\x12\x41\n\x0b\x63onnections\x18\x01 \x03(\x0b\x32,.ibc.core.connection.v1.IdentifiedConnection\x12;\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponse\x12\x30\n\x06height\x18\x03 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"2\n\x1dQueryClientConnectionsRequest\x12\x11\n\tclient_id\x18\x01 \x01(\t\"\x81\x01\n\x1eQueryClientConnectionsResponse\x12\x18\n\x10\x63onnection_paths\x18\x01 \x03(\t\x12\r\n\x05proof\x18\x02 \x01(\x0c\x12\x36\n\x0cproof_height\x18\x03 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"T\n!QueryConnectionClientStateRequest\x12/\n\rconnection_id\x18\x01 \x01(\tB\x18\xf2\xde\x1f\x14yaml:\"connection_id\"\"\xb7\x01\n\"QueryConnectionClientStateResponse\x12J\n\x17identified_client_state\x18\x01 \x01(\x0b\x32).ibc.core.client.v1.IdentifiedClientState\x12\r\n\x05proof\x18\x02 \x01(\x0c\x12\x36\n\x0cproof_height\x18\x03 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"\x89\x01\n$QueryConnectionConsensusStateRequest\x12/\n\rconnection_id\x18\x01 \x01(\tB\x18\xf2\xde\x1f\x14yaml:\"connection_id\"\x12\x17\n\x0frevision_number\x18\x02 \x01(\x04\x12\x17\n\x0frevision_height\x18\x03 \x01(\x04\"\xb0\x01\n%QueryConnectionConsensusStateResponse\x12-\n\x0f\x63onsensus_state\x18\x01 \x01(\x0b\x32\x14.google.protobuf.Any\x12\x11\n\tclient_id\x18\x02 \x01(\t\x12\r\n\x05proof\x18\x03 \x01(\x0c\x12\x36\n\x0cproof_height\x18\x04 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\"\x1e\n\x1cQueryConnectionParamsRequest\"O\n\x1dQueryConnectionParamsResponse\x12.\n\x06params\x18\x01 \x01(\x0b\x32\x1e.ibc.core.connection.v1.Params2\xb9\t\n\x05Query\x12\xaa\x01\n\nConnection\x12..ibc.core.connection.v1.QueryConnectionRequest\x1a/.ibc.core.connection.v1.QueryConnectionResponse\";\x82\xd3\xe4\x93\x02\x35\x12\x33/ibc/core/connection/v1/connections/{connection_id}\x12\x9d\x01\n\x0b\x43onnections\x12/.ibc.core.connection.v1.QueryConnectionsRequest\x1a\x30.ibc.core.connection.v1.QueryConnectionsResponse\"+\x82\xd3\xe4\x93\x02%\x12#/ibc/core/connection/v1/connections\x12\xc2\x01\n\x11\x43lientConnections\x12\x35.ibc.core.connection.v1.QueryClientConnectionsRequest\x1a\x36.ibc.core.connection.v1.QueryClientConnectionsResponse\">\x82\xd3\xe4\x93\x02\x38\x12\x36/ibc/core/connection/v1/client_connections/{client_id}\x12\xd8\x01\n\x15\x43onnectionClientState\x12\x39.ibc.core.connection.v1.QueryConnectionClientStateRequest\x1a:.ibc.core.connection.v1.QueryConnectionClientStateResponse\"H\x82\xd3\xe4\x93\x02\x42\x12@/ibc/core/connection/v1/connections/{connection_id}/client_state\x12\x98\x02\n\x18\x43onnectionConsensusState\x12<.ibc.core.connection.v1.QueryConnectionConsensusStateRequest\x1a=.ibc.core.connection.v1.QueryConnectionConsensusStateResponse\"\x7f\x82\xd3\xe4\x93\x02y\x12w/ibc/core/connection/v1/connections/{connection_id}/consensus_state/revision/{revision_number}/height/{revision_height}\x12\xa7\x01\n\x10\x43onnectionParams\x12\x34.ibc.core.connection.v1.QueryConnectionParamsRequest\x1a\x35.ibc.core.connection.v1.QueryConnectionParamsResponse\"&\x82\xd3\xe4\x93\x02 \x12\x1e/ibc/core/connection/v1/paramsB>Z<github.com/cosmos/ibc-go/v7/modules/core/03-connection/typesb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -27,15 +27,19 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'ibc.core.connection.v1.quer
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  DESCRIPTOR._serialized_options = b'Z<github.com/cosmos/ibc-go/v8/modules/core/03-connection/types'
+  DESCRIPTOR._serialized_options = b'Z<github.com/cosmos/ibc-go/v7/modules/core/03-connection/types'
   _QUERYCONNECTIONRESPONSE.fields_by_name['proof_height']._options = None
   _QUERYCONNECTIONRESPONSE.fields_by_name['proof_height']._serialized_options = b'\310\336\037\000'
   _QUERYCONNECTIONSRESPONSE.fields_by_name['height']._options = None
   _QUERYCONNECTIONSRESPONSE.fields_by_name['height']._serialized_options = b'\310\336\037\000'
   _QUERYCLIENTCONNECTIONSRESPONSE.fields_by_name['proof_height']._options = None
   _QUERYCLIENTCONNECTIONSRESPONSE.fields_by_name['proof_height']._serialized_options = b'\310\336\037\000'
+  _QUERYCONNECTIONCLIENTSTATEREQUEST.fields_by_name['connection_id']._options = None
+  _QUERYCONNECTIONCLIENTSTATEREQUEST.fields_by_name['connection_id']._serialized_options = b'\362\336\037\024yaml:\"connection_id\"'
   _QUERYCONNECTIONCLIENTSTATERESPONSE.fields_by_name['proof_height']._options = None
   _QUERYCONNECTIONCLIENTSTATERESPONSE.fields_by_name['proof_height']._serialized_options = b'\310\336\037\000'
+  _QUERYCONNECTIONCONSENSUSSTATEREQUEST.fields_by_name['connection_id']._options = None
+  _QUERYCONNECTIONCONSENSUSSTATEREQUEST.fields_by_name['connection_id']._serialized_options = b'\362\336\037\024yaml:\"connection_id\"'
   _QUERYCONNECTIONCONSENSUSSTATERESPONSE.fields_by_name['proof_height']._options = None
   _QUERYCONNECTIONCONSENSUSSTATERESPONSE.fields_by_name['proof_height']._serialized_options = b'\310\336\037\000'
   _QUERY.methods_by_name['Connection']._options = None
@@ -63,17 +67,17 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['_QUERYCLIENTCONNECTIONSRESPONSE']._serialized_start=813
   _globals['_QUERYCLIENTCONNECTIONSRESPONSE']._serialized_end=942
   _globals['_QUERYCONNECTIONCLIENTSTATEREQUEST']._serialized_start=944
-  _globals['_QUERYCONNECTIONCLIENTSTATEREQUEST']._serialized_end=1002
-  _globals['_QUERYCONNECTIONCLIENTSTATERESPONSE']._serialized_start=1005
-  _globals['_QUERYCONNECTIONCLIENTSTATERESPONSE']._serialized_end=1188
-  _globals['_QUERYCONNECTIONCONSENSUSSTATEREQUEST']._serialized_start=1190
-  _globals['_QUERYCONNECTIONCONSENSUSSTATEREQUEST']._serialized_end=1301
-  _globals['_QUERYCONNECTIONCONSENSUSSTATERESPONSE']._serialized_start=1304
-  _globals['_QUERYCONNECTIONCONSENSUSSTATERESPONSE']._serialized_end=1480
-  _globals['_QUERYCONNECTIONPARAMSREQUEST']._serialized_start=1482
-  _globals['_QUERYCONNECTIONPARAMSREQUEST']._serialized_end=1512
-  _globals['_QUERYCONNECTIONPARAMSRESPONSE']._serialized_start=1514
-  _globals['_QUERYCONNECTIONPARAMSRESPONSE']._serialized_end=1593
-  _globals['_QUERY']._serialized_start=1596
-  _globals['_QUERY']._serialized_end=2805
+  _globals['_QUERYCONNECTIONCLIENTSTATEREQUEST']._serialized_end=1028
+  _globals['_QUERYCONNECTIONCLIENTSTATERESPONSE']._serialized_start=1031
+  _globals['_QUERYCONNECTIONCLIENTSTATERESPONSE']._serialized_end=1214
+  _globals['_QUERYCONNECTIONCONSENSUSSTATEREQUEST']._serialized_start=1217
+  _globals['_QUERYCONNECTIONCONSENSUSSTATEREQUEST']._serialized_end=1354
+  _globals['_QUERYCONNECTIONCONSENSUSSTATERESPONSE']._serialized_start=1357
+  _globals['_QUERYCONNECTIONCONSENSUSSTATERESPONSE']._serialized_end=1533
+  _globals['_QUERYCONNECTIONPARAMSREQUEST']._serialized_start=1535
+  _globals['_QUERYCONNECTIONPARAMSREQUEST']._serialized_end=1565
+  _globals['_QUERYCONNECTIONPARAMSRESPONSE']._serialized_start=1567
+  _globals['_QUERYCONNECTIONPARAMSRESPONSE']._serialized_end=1646
+  _globals['_QUERY']._serialized_start=1649
+  _globals['_QUERY']._serialized_end=2858
 # @@protoc_insertion_point(module_scope)
