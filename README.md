@@ -78,6 +78,9 @@ poetry run pytest -v
 ```
 
 ### Changelogs
+**0.9.6**
+* Synchronized denom ini files with Indexer information for mainnet, testnet and devnet to include TALIS/INJ and KUJI/USDT markets
+
 **0.9.5**
 * Updated fetch_metadata script (to synchronize denom ini files) to reuse logic in AsyncClient
 * Synchronized denom ini files with Indexer information for mainnet, testnet and devnet
