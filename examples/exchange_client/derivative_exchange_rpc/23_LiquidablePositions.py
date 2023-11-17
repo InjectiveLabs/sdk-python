@@ -1,8 +1,7 @@
 import asyncio
 
-from google.protobuf import json_format
-
 from pyinjective.async_client import AsyncClient
+from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import Network
 
 
@@ -12,18 +11,12 @@ async def main() -> None:
     market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
     skip = 10
     limit = 3
-    positions = await client.get_derivative_liquidable_positions(
+    pagination = PaginationOption(skip=skip, limit=limit)
+    positions = await client.fetch_derivative_liquidable_positions(
         market_id=market_id,
-        skip=skip,
-        limit=limit,
+        pagination=pagination,
     )
-    print(
-        json_format.MessageToJson(
-            message=positions,
-            including_default_value_fields=True,
-            preserving_proto_field_name=True,
-        )
-    )
+    print(positions)
 
 
 if __name__ == "__main__":

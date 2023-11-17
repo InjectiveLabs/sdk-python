@@ -10,6 +10,7 @@ from pyinjective.proto.cosmos.tx.v1beta1 import service_pb2 as tx_service
 from pyinjective.proto.exchange import (
     injective_accounts_rpc_pb2 as exchange_accounts_pb,
     injective_auction_rpc_pb2 as exchange_auction_pb,
+    injective_derivative_exchange_rpc_pb2 as exchange_derivative_pb,
     injective_insurance_rpc_pb2 as exchange_insurance_pb,
     injective_meta_rpc_pb2 as exchange_meta_pb,
     injective_oracle_rpc_pb2 as exchange_oracle_pb,
@@ -21,6 +22,7 @@ from tests.client.chain.grpc.configurable_autz_query_servicer import Configurabl
 from tests.client.chain.grpc.configurable_bank_query_servicer import ConfigurableBankQueryServicer
 from tests.client.indexer.configurable_account_query_servicer import ConfigurableAccountQueryServicer
 from tests.client.indexer.configurable_auction_query_servicer import ConfigurableAuctionQueryServicer
+from tests.client.indexer.configurable_derivative_query_servicer import ConfigurableDerivativeQueryServicer
 from tests.client.indexer.configurable_insurance_query_servicer import ConfigurableInsuranceQueryServicer
 from tests.client.indexer.configurable_meta_query_servicer import ConfigurableMetaQueryServicer
 from tests.client.indexer.configurable_oracle_query_servicer import ConfigurableOracleQueryServicer
@@ -51,6 +53,11 @@ def authz_servicer():
 @pytest.fixture
 def bank_servicer():
     return ConfigurableBankQueryServicer()
+
+
+@pytest.fixture
+def derivative_servicer():
+    return ConfigurableDerivativeQueryServicer()
 
 
 @pytest.fixture
@@ -945,3 +952,286 @@ class TestAsyncClientDeprecationWarnings:
         assert (
             str(all_warnings[0].message) == "This method is deprecated. Use listen_spot_orders_history_updates instead"
         )
+
+    @pytest.mark.asyncio
+    async def test_get_derivative_markets_deprecation_warning(
+        self,
+        derivative_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubDerivativeExchange = derivative_servicer
+        derivative_servicer.markets_responses.append(exchange_derivative_pb.MarketsResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_derivative_markets()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_derivative_markets instead"
+
+    @pytest.mark.asyncio
+    async def test_get_derivative_market_deprecation_warning(
+        self,
+        derivative_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubDerivativeExchange = derivative_servicer
+        derivative_servicer.market_responses.append(exchange_derivative_pb.MarketResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_derivative_market(market_id="")
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_derivative_market instead"
+
+    @pytest.mark.asyncio
+    async def test_get_binary_options_markets_deprecation_warning(
+        self,
+        derivative_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubDerivativeExchange = derivative_servicer
+        derivative_servicer.binary_options_markets_responses.append(
+            exchange_derivative_pb.BinaryOptionsMarketsResponse()
+        )
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_binary_options_markets()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_binary_options_markets instead"
+
+    @pytest.mark.asyncio
+    async def test_get_binary_options_market_deprecation_warning(
+        self,
+        derivative_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubDerivativeExchange = derivative_servicer
+        derivative_servicer.binary_options_market_responses.append(exchange_derivative_pb.BinaryOptionsMarketResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_binary_options_market(market_id="")
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_binary_options_market instead"
+
+    @pytest.mark.asyncio
+    async def test_get_derivative_orderbook_deprecation_warning(
+        self,
+        derivative_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubDerivativeExchange = derivative_servicer
+        derivative_servicer.orderbook_v2_responses.append(exchange_derivative_pb.OrderbookV2Request())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_derivative_orderbook(market_id="")
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_derivative_orderbook_v2 instead"
+
+    @pytest.mark.asyncio
+    async def test_get_derivative_orderbooksV2_deprecation_warning(
+        self,
+        derivative_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubDerivativeExchange = derivative_servicer
+        derivative_servicer.orderbooks_v2_responses.append(exchange_derivative_pb.OrderbooksV2Request())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_derivative_orderbooksV2(market_ids=[])
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_derivative_orderbooks_v2 instead"
+
+    @pytest.mark.asyncio
+    async def test_get_derivative_orders_deprecation_warning(
+        self,
+        derivative_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubDerivativeExchange = derivative_servicer
+        derivative_servicer.orders_responses.append(exchange_derivative_pb.OrdersResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_derivative_orders(market_id="")
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_derivative_orders instead"
+
+    @pytest.mark.asyncio
+    async def test_get_derivative_positions_deprecation_warning(
+        self,
+        derivative_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubDerivativeExchange = derivative_servicer
+        derivative_servicer.positions_responses.append(exchange_derivative_pb.PositionsResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_derivative_positions()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_derivative_positions instead"
+
+    @pytest.mark.asyncio
+    async def test_get_derivative_liquidable_positions_deprecation_warning(
+        self,
+        derivative_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubDerivativeExchange = derivative_servicer
+        derivative_servicer.liquidable_positions_responses.append(exchange_derivative_pb.LiquidablePositionsResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_derivative_liquidable_positions()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert (
+            str(all_warnings[0].message)
+            == "This method is deprecated. Use fetch_derivative_liquidable_positions instead"
+        )
+
+    @pytest.mark.asyncio
+    async def test_get_funding_payments_deprecation_warning(
+        self,
+        derivative_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubDerivativeExchange = derivative_servicer
+        derivative_servicer.funding_payments_responses.append(exchange_derivative_pb.FundingPaymentsResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_funding_payments(subaccount_id="")
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_funding_payments instead"
+
+    @pytest.mark.asyncio
+    async def test_get_funding_rates_deprecation_warning(
+        self,
+        derivative_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubDerivativeExchange = derivative_servicer
+        derivative_servicer.funding_rates_responses.append(exchange_derivative_pb.FundingRatesResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_funding_rates(market_id="")
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_funding_rates instead"
+
+    @pytest.mark.asyncio
+    async def test_get_derivative_trades_deprecation_warning(
+        self,
+        derivative_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubDerivativeExchange = derivative_servicer
+        derivative_servicer.trades_responses.append(exchange_derivative_pb.TradesResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_derivative_trades()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_derivative_trades instead"
+
+    @pytest.mark.asyncio
+    async def test_get_derivative_subaccount_orders_deprecation_warning(
+        self,
+        derivative_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubDerivativeExchange = derivative_servicer
+        derivative_servicer.subaccount_orders_list_responses.append(
+            exchange_derivative_pb.SubaccountOrdersListResponse()
+        )
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_derivative_subaccount_orders(subaccount_id="")
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert (
+            str(all_warnings[0].message) == "This method is deprecated. Use fetch_derivative_subaccount_orders instead"
+        )
+
+    @pytest.mark.asyncio
+    async def test_get_derivative_subaccount_trades_deprecation_warning(
+        self,
+        derivative_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubDerivativeExchange = derivative_servicer
+        derivative_servicer.subaccount_trades_list_responses.append(
+            exchange_derivative_pb.SubaccountTradesListResponse()
+        )
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_derivative_subaccount_trades(subaccount_id="")
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert (
+            str(all_warnings[0].message) == "This method is deprecated. Use fetch_derivative_subaccount_trades instead"
+        )
+
+    @pytest.mark.asyncio
+    async def test_get_historical_derivative_orders_deprecation_warning(
+        self,
+        derivative_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubDerivativeExchange = derivative_servicer
+        derivative_servicer.orders_history_responses.append(exchange_derivative_pb.OrdersHistoryResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_historical_derivative_orders()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_derivative_orders_history instead"

@@ -14,6 +14,7 @@ from pyinjective.client.chain.grpc.chain_grpc_authz_api import ChainGrpcAuthZApi
 from pyinjective.client.chain.grpc.chain_grpc_bank_api import ChainGrpcBankApi
 from pyinjective.client.indexer.grpc.indexer_grpc_account_api import IndexerGrpcAccountApi
 from pyinjective.client.indexer.grpc.indexer_grpc_auction_api import IndexerGrpcAuctionApi
+from pyinjective.client.indexer.grpc.indexer_grpc_derivative_api import IndexerGrpcDerivativeApi
 from pyinjective.client.indexer.grpc.indexer_grpc_insurance_api import IndexerGrpcInsuranceApi
 from pyinjective.client.indexer.grpc.indexer_grpc_meta_api import IndexerGrpcMetaApi
 from pyinjective.client.indexer.grpc.indexer_grpc_oracle_api import IndexerGrpcOracleApi
@@ -182,6 +183,12 @@ class AsyncClient:
             ),
         )
         self.exchange_auction_api = IndexerGrpcAuctionApi(
+            channel=self.exchange_channel,
+            metadata_provider=lambda: self.network.exchange_metadata(
+                metadata_query_provider=self._exchange_cookie_metadata_requestor
+            ),
+        )
+        self.exchange_derivative_api = IndexerGrpcDerivativeApi(
             channel=self.exchange_channel,
             metadata_provider=lambda: self.network.exchange_metadata(
                 metadata_query_provider=self._exchange_cookie_metadata_requestor
@@ -1440,15 +1447,36 @@ class AsyncClient:
     # DerivativeRPC
 
     async def get_derivative_market(self, market_id: str):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_derivative_market` instead
+        """
+        warn("This method is deprecated. Use fetch_derivative_market instead", DeprecationWarning, stacklevel=2)
         req = derivative_exchange_rpc_pb.MarketRequest(market_id=market_id)
         return await self.stubDerivativeExchange.Market(req)
 
+    async def fetch_derivative_market(self, market_id: str) -> Dict[str, Any]:
+        return await self.exchange_derivative_api.fetch_market(market_id=market_id)
+
     async def get_derivative_markets(self, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_derivative_markets` instead
+        """
+        warn("This method is deprecated. Use fetch_derivative_markets instead", DeprecationWarning, stacklevel=2)
         req = derivative_exchange_rpc_pb.MarketsRequest(
             market_status=kwargs.get("market_status"),
             quote_denom=kwargs.get("quote_denom"),
         )
         return await self.stubDerivativeExchange.Markets(req)
+
+    async def fetch_derivative_markets(
+        self,
+        market_statuses: Optional[List[str]] = None,
+        quote_denom: Optional[str] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_derivative_api.fetch_markets(
+            market_statuses=market_statuses,
+            quote_denom=quote_denom,
+        )
 
     async def stream_derivative_markets(self, **kwargs):
         req = derivative_exchange_rpc_pb.StreamMarketRequest(market_ids=kwargs.get("market_ids"))
@@ -1458,18 +1486,32 @@ class AsyncClient:
         return self.stubDerivativeExchange.StreamMarket(request=req, metadata=metadata)
 
     async def get_derivative_orderbook(self, market_id: str):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_derivative_orderbook_v2` instead
+        """
+        warn("This method is deprecated. Use fetch_derivative_orderbook_v2 instead", DeprecationWarning, stacklevel=2)
         req = derivative_exchange_rpc_pb.OrderbookV2Request(market_id=market_id)
         return await self.stubDerivativeExchange.OrderbookV2(req)
 
-    async def get_derivative_orderbooks(self, market_ids: List):
+    async def fetch_derivative_orderbook_v2(self, market_id: str) -> Dict[str, Any]:
+        return await self.exchange_derivative_api.fetch_orderbook_v2(market_id=market_id)
+
+    async def get_derivative_orderbooksV2(self, market_ids: List[str]):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_derivative_orderbooks_v2` instead
+        """
+        warn("This method is deprecated. Use fetch_derivative_orderbooks_v2 instead", DeprecationWarning, stacklevel=2)
         req = derivative_exchange_rpc_pb.OrderbooksV2Request(market_ids=market_ids)
         return await self.stubDerivativeExchange.OrderbooksV2(req)
 
-    async def get_derivative_orderbooksV2(self, market_ids: List):
-        req = derivative_exchange_rpc_pb.OrderbooksV2Request(market_ids=market_ids)
-        return await self.stubDerivativeExchange.OrderbooksV2(req)
+    async def fetch_derivative_orderbooks_v2(self, market_ids: List[str]) -> Dict[str, Any]:
+        return await self.exchange_derivative_api.fetch_orderbooks_v2(market_ids=market_ids)
 
     async def get_derivative_orders(self, market_id: str, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_derivative_orders` instead
+        """
+        warn("This method is deprecated. Use fetch_derivative_orders instead", DeprecationWarning, stacklevel=2)
         req = derivative_exchange_rpc_pb.OrdersRequest(
             market_id=market_id,
             order_side=kwargs.get("order_side"),
@@ -1488,7 +1530,37 @@ class AsyncClient:
         )
         return await self.stubDerivativeExchange.Orders(req)
 
+    async def fetch_derivative_orders(
+        self,
+        market_ids: Optional[List[str]] = None,
+        order_side: Optional[str] = None,
+        subaccount_id: Optional[str] = None,
+        is_conditional: Optional[str] = None,
+        order_type: Optional[str] = None,
+        include_inactive: Optional[bool] = None,
+        subaccount_total_orders: Optional[bool] = None,
+        trade_id: Optional[str] = None,
+        cid: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_derivative_api.fetch_orders(
+            market_ids=market_ids,
+            order_side=order_side,
+            subaccount_id=subaccount_id,
+            is_conditional=is_conditional,
+            order_type=order_type,
+            include_inactive=include_inactive,
+            subaccount_total_orders=subaccount_total_orders,
+            trade_id=trade_id,
+            cid=cid,
+            pagination=pagination,
+        )
+
     async def get_historical_derivative_orders(self, market_id: Optional[str] = None, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_derivative_orders_history` instead
+        """
+        warn("This method is deprecated. Use fetch_derivative_orders_history instead", DeprecationWarning, stacklevel=2)
         market_ids = kwargs.get("market_ids", [])
         if market_id is not None:
             market_ids.append(market_id)
@@ -1514,7 +1586,39 @@ class AsyncClient:
         )
         return await self.stubDerivativeExchange.OrdersHistory(req)
 
+    async def fetch_derivative_orders_history(
+        self,
+        subaccount_id: Optional[str] = None,
+        market_ids: Optional[List[str]] = None,
+        order_types: Optional[List[str]] = None,
+        direction: Optional[str] = None,
+        is_conditional: Optional[str] = None,
+        state: Optional[str] = None,
+        execution_types: Optional[List[str]] = None,
+        trade_id: Optional[str] = None,
+        active_markets_only: Optional[bool] = None,
+        cid: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_derivative_api.fetch_orders_history(
+            subaccount_id=subaccount_id,
+            market_ids=market_ids,
+            order_types=order_types,
+            direction=direction,
+            is_conditional=is_conditional,
+            state=state,
+            execution_types=execution_types,
+            trade_id=trade_id,
+            active_markets_only=active_markets_only,
+            cid=cid,
+            pagination=pagination,
+        )
+
     async def get_derivative_trades(self, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_derivative_trades` instead
+        """
+        warn("This method is deprecated. Use fetch_derivative_trades instead", DeprecationWarning, stacklevel=2)
         req = derivative_exchange_rpc_pb.TradesRequest(
             market_id=kwargs.get("market_id"),
             execution_side=kwargs.get("execution_side"),
@@ -1532,6 +1636,30 @@ class AsyncClient:
             cid=kwargs.get("cid"),
         )
         return await self.stubDerivativeExchange.Trades(req)
+
+    async def fetch_derivative_trades(
+        self,
+        market_ids: Optional[List[str]] = None,
+        subaccount_ids: Optional[List[str]] = None,
+        execution_side: Optional[str] = None,
+        direction: Optional[str] = None,
+        execution_types: Optional[List[str]] = None,
+        trade_id: Optional[str] = None,
+        account_address: Optional[str] = None,
+        cid: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_derivative_api.fetch_trades(
+            market_ids=market_ids,
+            subaccount_ids=subaccount_ids,
+            execution_side=execution_side,
+            direction=direction,
+            execution_types=execution_types,
+            trade_id=trade_id,
+            account_address=account_address,
+            cid=cid,
+            pagination=pagination,
+        )
 
     async def stream_derivative_orderbook_snapshot(self, market_ids: List[str]):
         req = derivative_exchange_rpc_pb.StreamOrderbookV2Request(market_ids=market_ids)
@@ -1592,6 +1720,10 @@ class AsyncClient:
         return self.stubDerivativeExchange.StreamTrades(request=req, metadata=metadata)
 
     async def get_derivative_positions(self, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_derivative_positions` instead
+        """
+        warn("This method is deprecated. Use fetch_derivative_positions instead", DeprecationWarning, stacklevel=2)
         req = derivative_exchange_rpc_pb.PositionsRequest(
             market_id=kwargs.get("market_id"),
             market_ids=kwargs.get("market_ids"),
@@ -1602,6 +1734,22 @@ class AsyncClient:
             limit=kwargs.get("limit"),
         )
         return await self.stubDerivativeExchange.Positions(req)
+
+    async def fetch_derivative_positions(
+        self,
+        market_ids: Optional[List[str]] = None,
+        subaccount_id: Optional[str] = None,
+        direction: Optional[str] = None,
+        subaccount_total_positions: Optional[bool] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_derivative_api.fetch_positions(
+            market_ids=market_ids,
+            subaccount_id=subaccount_id,
+            direction=direction,
+            subaccount_total_positions=subaccount_total_positions,
+            pagination=pagination,
+        )
 
     async def stream_derivative_positions(self, **kwargs):
         req = derivative_exchange_rpc_pb.StreamPositionsRequest(
@@ -1616,6 +1764,14 @@ class AsyncClient:
         return self.stubDerivativeExchange.StreamPositions(request=req, metadata=metadata)
 
     async def get_derivative_liquidable_positions(self, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_derivative_liquidable_positions` instead
+        """
+        warn(
+            "This method is deprecated. Use fetch_derivative_liquidable_positions instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         req = derivative_exchange_rpc_pb.LiquidablePositionsRequest(
             market_id=kwargs.get("market_id"),
             skip=kwargs.get("skip"),
@@ -1623,7 +1779,25 @@ class AsyncClient:
         )
         return await self.stubDerivativeExchange.LiquidablePositions(req)
 
+    async def fetch_derivative_liquidable_positions(
+        self,
+        market_id: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_derivative_api.fetch_liquidable_positions(
+            market_id=market_id,
+            pagination=pagination,
+        )
+
     async def get_derivative_subaccount_orders(self, subaccount_id: str, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_derivative_subaccount_orders` instead
+        """
+        warn(
+            "This method is deprecated. Use fetch_derivative_subaccount_orders instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         req = derivative_exchange_rpc_pb.SubaccountOrdersListRequest(
             subaccount_id=subaccount_id,
             market_id=kwargs.get("market_id"),
@@ -1632,7 +1806,25 @@ class AsyncClient:
         )
         return await self.stubDerivativeExchange.SubaccountOrdersList(req)
 
+    async def fetch_subaccount_orders_list(
+        self,
+        subaccount_id: str,
+        market_id: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_derivative_api.fetch_subaccount_orders_list(
+            subaccount_id=subaccount_id, market_id=market_id, pagination=pagination
+        )
+
     async def get_derivative_subaccount_trades(self, subaccount_id: str, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_derivative_subaccount_trades` instead
+        """
+        warn(
+            "This method is deprecated. Use fetch_derivative_subaccount_trades instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         req = derivative_exchange_rpc_pb.SubaccountTradesListRequest(
             subaccount_id=subaccount_id,
             market_id=kwargs.get("market_id"),
@@ -1643,7 +1835,27 @@ class AsyncClient:
         )
         return await self.stubDerivativeExchange.SubaccountTradesList(req)
 
+    async def fetch_subaccount_trades_list(
+        self,
+        subaccount_id: str,
+        market_id: Optional[str] = None,
+        execution_type: Optional[str] = None,
+        direction: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_derivative_api.fetch_subaccount_trades_list(
+            subaccount_id=subaccount_id,
+            market_id=market_id,
+            execution_type=execution_type,
+            direction=direction,
+            pagination=pagination,
+        )
+
     async def get_funding_payments(self, subaccount_id: str, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_funding_payments` instead
+        """
+        warn("This method is deprecated. Use fetch_funding_payments instead", DeprecationWarning, stacklevel=2)
         req = derivative_exchange_rpc_pb.FundingPaymentsRequest(
             subaccount_id=subaccount_id,
             market_id=kwargs.get("market_id"),
@@ -1654,7 +1866,21 @@ class AsyncClient:
         )
         return await self.stubDerivativeExchange.FundingPayments(req)
 
+    async def fetch_funding_payments(
+        self,
+        market_ids: Optional[List[str]] = None,
+        subaccount_id: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_derivative_api.fetch_funding_payments(
+            market_ids=market_ids, subaccount_id=subaccount_id, pagination=pagination
+        )
+
     async def get_funding_rates(self, market_id: str, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_funding_rates` instead
+        """
+        warn("This method is deprecated. Use fetch_funding_rates instead", DeprecationWarning, stacklevel=2)
         req = derivative_exchange_rpc_pb.FundingRatesRequest(
             market_id=market_id,
             skip=kwargs.get("skip"),
@@ -1663,7 +1889,18 @@ class AsyncClient:
         )
         return await self.stubDerivativeExchange.FundingRates(req)
 
+    async def fetch_funding_rates(
+        self,
+        market_id: str,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_derivative_api.fetch_funding_rates(market_id=market_id, pagination=pagination)
+
     async def get_binary_options_markets(self, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_binary_options_markets` instead
+        """
+        warn("This method is deprecated. Use fetch_binary_options_markets instead", DeprecationWarning, stacklevel=2)
         req = derivative_exchange_rpc_pb.BinaryOptionsMarketsRequest(
             market_status=kwargs.get("market_status"),
             quote_denom=kwargs.get("quote_denom"),
@@ -1672,9 +1909,28 @@ class AsyncClient:
         )
         return await self.stubDerivativeExchange.BinaryOptionsMarkets(req)
 
+    async def fetch_binary_options_markets(
+        self,
+        market_status: Optional[str] = None,
+        quote_denom: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_derivative_api.fetch_binary_options_markets(
+            market_status=market_status,
+            quote_denom=quote_denom,
+            pagination=pagination,
+        )
+
     async def get_binary_options_market(self, market_id: str):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_binary_options_market` instead
+        """
+        warn("This method is deprecated. Use fetch_binary_options_market instead", DeprecationWarning, stacklevel=2)
         req = derivative_exchange_rpc_pb.BinaryOptionsMarketRequest(market_id=market_id)
         return await self.stubDerivativeExchange.BinaryOptionsMarket(req)
+
+    async def fetch_binary_options_market(self, market_id: str) -> Dict[str, Any]:
+        return await self.exchange_derivative_api.fetch_binary_options_market(market_id=market_id)
 
     # PortfolioRPC
 
@@ -1738,7 +1994,8 @@ class AsyncClient:
         valid_markets = (
             market_info
             for market_info in markets_info
-            if len(market_info["baseTokenMeta"]["symbol"]) > 0 and len(market_info["quoteTokenMeta"]["symbol"]) > 0
+            if len(market_info.get("baseTokenMeta", {}).get("symbol", "")) > 0
+            and len(market_info.get("quoteTokenMeta", {}).get("symbol", "")) > 0
         )
 
         for market_info in valid_markets:
@@ -1782,9 +2039,11 @@ class AsyncClient:
 
             spot_markets[market.id] = market
 
-        markets_info = (await self.get_derivative_markets(market_status="active")).markets
+        markets_info = (await self.fetch_derivative_markets(market_statuses=["active"]))["markets"]
         valid_markets = (
-            market_info for market_info in markets_info if len(market_info["quoteTokenMeta"]["symbol"]) > 0
+            market_info
+            for market_info in markets_info
+            if len(market_info.get("quoteTokenMeta", {}).get("symbol", "")) > 0
         )
 
         for market_info in valid_markets:
@@ -1819,7 +2078,7 @@ class AsyncClient:
 
             derivative_markets[market.id] = market
 
-        markets_info = (await self.get_binary_options_markets(market_status="active")).markets
+        markets_info = (await self.fetch_binary_options_markets(market_status="active"))["markets"]
         for market_info in markets_info:
             quote_token = tokens_by_denom.get(market_info["quoteDenom"], None)
 
@@ -1839,6 +2098,9 @@ class AsyncClient:
                 service_provider_fee=Decimal(market_info["serviceProviderFee"]),
                 min_price_tick_size=Decimal(market_info["minPriceTickSize"]),
                 min_quantity_tick_size=Decimal(market_info["minQuantityTickSize"]),
+                settlement_price=None
+                if market_info["settlementPrice"] == ""
+                else Decimal(market_info["settlementPrice"]),
             )
 
             binary_option_markets[market.id] = market
@@ -1848,15 +2110,17 @@ class AsyncClient:
         self._derivative_markets = derivative_markets
         self._binary_option_markets = binary_option_markets
 
-    def _token_representation(self, symbol: str, token_meta, denom: str, all_tokens: Dict[str, Token]) -> Token:
+    def _token_representation(
+        self, symbol: str, token_meta: Dict[str, Any], denom: str, all_tokens: Dict[str, Token]
+    ) -> Token:
         token = Token(
-            name=token_meta.name,
+            name=token_meta["name"],
             symbol=symbol,
             denom=denom,
-            address=token_meta.address,
-            decimals=token_meta.decimals,
-            logo=token_meta.logo,
-            updated=token_meta.updated_at,
+            address=token_meta["address"],
+            decimals=token_meta["decimals"],
+            logo=token_meta["logo"],
+            updated=int(token_meta["updatedAt"]),
         )
 
         existing_token = all_tokens.get(token.symbol, None)

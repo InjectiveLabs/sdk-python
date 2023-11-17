@@ -5,10 +5,8 @@ import pytest
 from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
 from pyinjective.proto.exchange import injective_derivative_exchange_rpc_pb2, injective_spot_exchange_rpc_pb2
-from tests.rpc_fixtures.configurable_servicers import (
-    ConfigurableInjectiveDerivativeExchangeRPCServicer,
-    ConfigurableInjectiveSpotExchangeRPCServicer,
-)
+from tests.client.indexer.configurable_derivative_query_servicer import ConfigurableDerivativeQueryServicer
+from tests.client.indexer.configurable_spot_query_servicer import ConfigurableSpotQueryServicer
 from tests.rpc_fixtures.markets_fixtures import ape_token_meta  # noqa: F401
 from tests.rpc_fixtures.markets_fixtures import ape_usdt_spot_market_meta  # noqa: F401
 from tests.rpc_fixtures.markets_fixtures import btc_usdt_perp_market_meta  # noqa: F401
@@ -24,12 +22,12 @@ from tests.rpc_fixtures.markets_fixtures import (  # noqa: F401; noqa: F401; noq
 
 @pytest.fixture
 def spot_servicer():
-    return ConfigurableInjectiveSpotExchangeRPCServicer()
+    return ConfigurableSpotQueryServicer()
 
 
 @pytest.fixture
 def derivative_servicer():
-    return ConfigurableInjectiveDerivativeExchangeRPCServicer()
+    return ConfigurableDerivativeQueryServicer()
 
 
 class TestAsyncClient:
@@ -81,15 +79,15 @@ class TestAsyncClient:
         btc_usdt_perp_market_meta,
         first_match_bet_market_meta,
     ):
-        spot_servicer.markets_queue.append(
+        spot_servicer.markets_responses.append(
             injective_spot_exchange_rpc_pb2.MarketsResponse(
                 markets=[inj_usdt_spot_market_meta, ape_usdt_spot_market_meta]
             )
         )
-        derivative_servicer.markets_queue.append(
+        derivative_servicer.markets_responses.append(
             injective_derivative_exchange_rpc_pb2.MarketsResponse(markets=[btc_usdt_perp_market_meta])
         )
-        derivative_servicer.binary_option_markets_queue.append(
+        derivative_servicer.binary_options_markets_responses.append(
             injective_derivative_exchange_rpc_pb2.BinaryOptionsMarketsResponse(markets=[first_match_bet_market_meta])
         )
 
@@ -98,8 +96,8 @@ class TestAsyncClient:
             insecure=False,
         )
 
-        client.stubSpotExchange = spot_servicer
-        client.stubDerivativeExchange = derivative_servicer
+        client.exchange_spot_api._stub = spot_servicer
+        client.exchange_derivative_api._stub = derivative_servicer
 
         await client._initialize_tokens_and_markets()
 

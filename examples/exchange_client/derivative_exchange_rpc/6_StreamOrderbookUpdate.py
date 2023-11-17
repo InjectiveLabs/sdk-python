@@ -24,24 +24,24 @@ class Orderbook:
 
 async def load_orderbook_snapshot(async_client: AsyncClient, orderbook: Orderbook):
     # load the snapshot
-    res = await async_client.get_derivative_orderbooksV2(market_ids=[orderbook.market_id])
-    for snapshot in res.orderbooks:
-        if snapshot.market_id != orderbook.market_id:
+    res = await async_client.fetch_derivative_orderbooks_v2(market_ids=[orderbook.market_id])
+    for snapshot in res["orderbooks"]:
+        if snapshot["marketId"] != orderbook.market_id:
             raise Exception("unexpected snapshot")
 
-        orderbook.sequence = int(snapshot.orderbook.sequence)
+        orderbook.sequence = int(snapshot["orderbook"]["sequence"])
 
-        for buy in snapshot.orderbook.buys:
-            orderbook.levels["buys"][buy.price] = PriceLevel(
-                price=Decimal(buy.price),
-                quantity=Decimal(buy.quantity),
-                timestamp=buy.timestamp,
+        for buy in snapshot["orderbook"]["buys"]:
+            orderbook.levels["buys"][buy["price"]] = PriceLevel(
+                price=Decimal(buy["price"]),
+                quantity=Decimal(buy["quantity"]),
+                timestamp=int(buy["timestamp"]),
             )
-        for sell in snapshot.orderbook.sells:
-            orderbook.levels["sells"][sell.price] = PriceLevel(
-                price=Decimal(sell.price),
-                quantity=Decimal(sell.quantity),
-                timestamp=sell.timestamp,
+        for sell in snapshot["orderbook"]["sells"]:
+            orderbook.levels["sells"][sell["price"]] = PriceLevel(
+                price=Decimal(sell["price"]),
+                quantity=Decimal(sell["quantity"]),
+                timestamp=int(sell["timestamp"]),
             )
         break
 
