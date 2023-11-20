@@ -78,6 +78,9 @@ poetry run pytest -v
 ```
 
 ### Changelogs
+**0.9.7**
+* Added PYTH/USDT PERP market info in mainnet metadata ini file
+
 **0.9.6**
 * Synchronized denom ini files with Indexer information for mainnet, testnet and devnet to include TALIS/INJ and KUJI/USDT markets
 
