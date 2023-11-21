@@ -78,6 +78,9 @@ poetry run pytest -v
 ```
 
 ### Changelogs
+**0.9.8**
+* Synchronized markets and tokens config files to add PYTH/USDT spot market
+
 **0.9.7**
 * Added PYTH/USDT PERP market info in mainnet metadata ini file
 
