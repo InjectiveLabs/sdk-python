@@ -17,6 +17,13 @@ All notable changes to this project will be documented in this file.
 - Moved changelog from the README.md file to its own CHANGELOG.md file
 - Remove `aiocron` dependency. Use plain asyncio tasks to solve the timeout height synchronization
 - Updated the gas fee buffer used to calculate fee consumption in all examples
+- Refactored logic in AsyncClient to load markets and tokens, to ensure there are no duplicated tokens with the same denom
+
+## [0.9.8]
+* Synchronized markets and tokens config files to add PYTH/USDT spot market
+
+## [0.9.7]
+* Added PYTH/USDT PERP market info in mainnet metadata ini file
 
 ## [0.9.6]
 * Synchronized denom ini files with Indexer information for mainnet, testnet and devnet to include TALIS/INJ and KUJI/USDT markets
