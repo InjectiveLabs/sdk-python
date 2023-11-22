@@ -111,7 +111,7 @@ def inj_usdt_spot_market_meta(inj_token_meta, usdt_token_meta):
         market_id="0x7a57e705bb4e09c88aecfc295569481dbf2fe1d5efe364651fbe72385938e9b0",
         market_status="active",
         ticker="INJ/USDT",
-        base_denom="peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7",
+        base_denom="inj",
         base_token_meta=inj_token_meta,
         quote_denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
         quote_token_meta=usdt_token_meta,
