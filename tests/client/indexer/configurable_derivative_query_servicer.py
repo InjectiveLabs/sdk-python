@@ -25,6 +25,14 @@ class ConfigurableDerivativeQueryServicer(exchange_derivative_grpc.InjectiveDeri
         self.subaccount_trades_list_responses = deque()
         self.orders_history_responses = deque()
 
+        self.stream_market_responses = deque()
+        self.stream_orderbook_v2_responses = deque()
+        self.stream_orderbook_update_responses = deque()
+        self.stream_positions_responses = deque()
+        self.stream_orders_responses = deque()
+        self.stream_trades_responses = deque()
+        self.stream_orders_history_responses = deque()
+
     async def Markets(self, request: exchange_derivative_pb.MarketsRequest, context=None, metadata=None):
         return self.markets_responses.pop()
 
@@ -81,3 +89,39 @@ class ConfigurableDerivativeQueryServicer(exchange_derivative_grpc.InjectiveDeri
 
     async def OrdersHistory(self, request: exchange_derivative_pb.OrdersHistoryRequest, context=None, metadata=None):
         return self.orders_history_responses.pop()
+
+    async def StreamMarket(self, request: exchange_derivative_pb.StreamMarketRequest, context=None, metadata=None):
+        for event in self.stream_market_responses:
+            yield event
+
+    async def StreamOrderbookV2(
+        self, request: exchange_derivative_pb.StreamOrderbookV2Request, context=None, metadata=None
+    ):
+        for event in self.stream_orderbook_v2_responses:
+            yield event
+
+    async def StreamOrderbookUpdate(
+        self, request: exchange_derivative_pb.StreamOrderbookUpdateRequest, context=None, metadata=None
+    ):
+        for event in self.stream_orderbook_update_responses:
+            yield event
+
+    async def StreamPositions(
+        self, request: exchange_derivative_pb.StreamPositionsRequest, context=None, metadata=None
+    ):
+        for event in self.stream_positions_responses:
+            yield event
+
+    async def StreamOrders(self, request: exchange_derivative_pb.StreamOrdersRequest, context=None, metadata=None):
+        for event in self.stream_orders_responses:
+            yield event
+
+    async def StreamTrades(self, request: exchange_derivative_pb.StreamTradesRequest, context=None, metadata=None):
+        for event in self.stream_trades_responses:
+            yield event
+
+    async def StreamOrdersHistory(
+        self, request: exchange_derivative_pb.StreamOrdersHistoryRequest, context=None, metadata=None
+    ):
+        for event in self.stream_orders_history_responses:
+            yield event

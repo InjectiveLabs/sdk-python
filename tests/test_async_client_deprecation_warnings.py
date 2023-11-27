@@ -888,7 +888,7 @@ class TestAsyncClientDeprecationWarnings:
             network=Network.local(),
         )
         client.stubSpotExchange = spot_servicer
-        spot_servicer.stream_orderbook_v2_responses.append(exchange_spot_pb.StreamOrderbookUpdateRequest())
+        spot_servicer.stream_orderbook_update_responses.append(exchange_spot_pb.StreamOrderbookUpdateRequest())
 
         with catch_warnings(record=True) as all_warnings:
             await client.stream_spot_orderbook_update(market_ids=[])
@@ -1235,3 +1235,141 @@ class TestAsyncClientDeprecationWarnings:
         assert len(all_warnings) == 1
         assert issubclass(all_warnings[0].category, DeprecationWarning)
         assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_derivative_orders_history instead"
+
+    @pytest.mark.asyncio
+    async def test_stream_derivative_markets_deprecation_warning(
+        self,
+        derivative_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubDerivativeExchange = derivative_servicer
+        derivative_servicer.stream_market_responses.append(exchange_derivative_pb.StreamMarketResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.stream_derivative_markets()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use listen_derivative_market_updates instead"
+
+    @pytest.mark.asyncio
+    async def test_stream_derivative_orderbook_snapshot_deprecation_warning(
+        self,
+        derivative_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubSpotExchange = spot_servicer
+        derivative_servicer.stream_orderbook_v2_responses.append(exchange_derivative_pb.StreamOrderbookV2Response())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.stream_derivative_orderbook_snapshot(market_ids=[])
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert (
+            str(all_warnings[0].message)
+            == "This method is deprecated. Use listen_derivative_orderbook_snapshots instead"
+        )
+
+    @pytest.mark.asyncio
+    async def test_stream_derivative_orderbook_update_deprecation_warning(
+        self,
+        derivative_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubDerivativeExchange = derivative_servicer
+        derivative_servicer.stream_orderbook_update_responses.append(
+            exchange_derivative_pb.StreamOrderbookUpdateRequest()
+        )
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.stream_derivative_orderbook_update(market_ids=[])
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert (
+            str(all_warnings[0].message) == "This method is deprecated. Use listen_derivative_orderbook_updates instead"
+        )
+
+    @pytest.mark.asyncio
+    async def test_stream_derivative_positions_deprecation_warning(
+        self,
+        derivative_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubDerivativeExchange = derivative_servicer
+        derivative_servicer.stream_positions_responses.append(exchange_derivative_pb.StreamPositionsRequest())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.stream_derivative_positions()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert (
+            str(all_warnings[0].message) == "This method is deprecated. Use listen_derivative_positions_updates instead"
+        )
+
+    @pytest.mark.asyncio
+    async def test_stream_derivative_orders_deprecation_warning(
+        self,
+        derivative_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubSpotExchange = derivative_servicer
+        derivative_servicer.stream_orders_responses.append(exchange_derivative_pb.StreamOrdersRequest())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.stream_derivative_orders(market_id="")
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use listen_derivative_orders_updates instead"
+
+    @pytest.mark.asyncio
+    async def test_stream_derivative_trades_deprecation_warning(
+        self,
+        derivative_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubSpotExchange = derivative_servicer
+        derivative_servicer.stream_orders_responses.append(exchange_derivative_pb.StreamTradesResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.stream_derivative_trades()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use listen_derivative_trades_updates instead"
+
+    @pytest.mark.asyncio
+    async def test_stream_historical_derivative_orders_deprecation_warning(
+        self,
+        derivative_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubSpotExchange = derivative_servicer
+        derivative_servicer.stream_orders_history_responses.append(exchange_spot_pb.StreamOrdersHistoryRequest())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.stream_historical_derivative_orders(market_id="")
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert (
+            str(all_warnings[0].message)
+            == "This method is deprecated. Use listen_derivative_orders_history_updates instead"
+        )

@@ -21,6 +21,7 @@ from pyinjective.client.indexer.grpc.indexer_grpc_oracle_api import IndexerGrpcO
 from pyinjective.client.indexer.grpc.indexer_grpc_spot_api import IndexerGrpcSpotApi
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_account_stream import IndexerGrpcAccountStream
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_auction_stream import IndexerGrpcAuctionStream
+from pyinjective.client.indexer.grpc_stream.indexer_grpc_derivative_stream import IndexerGrpcDerivativeStream
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_meta_stream import IndexerGrpcMetaStream
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_oracle_stream import IndexerGrpcOracleStream
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_spot_stream import IndexerGrpcSpotStream
@@ -226,6 +227,12 @@ class AsyncClient:
             ),
         )
         self.exchange_auction_stream_api = IndexerGrpcAuctionStream(
+            channel=self.exchange_channel,
+            metadata_provider=lambda: self.network.exchange_metadata(
+                metadata_query_provider=self._exchange_cookie_metadata_requestor
+            ),
+        )
+        self.exchange_derivative_stream_api = IndexerGrpcDerivativeStream(
             channel=self.exchange_channel,
             metadata_provider=lambda: self.network.exchange_metadata(
                 metadata_query_provider=self._exchange_cookie_metadata_requestor
@@ -1317,6 +1324,15 @@ class AsyncClient:
         )
 
     async def stream_historical_derivative_orders(self, market_id: str, **kwargs):
+        """
+        This method is deprecated and will be removed soon.
+        Please use `listen_derivative_orders_history_updates` instead
+        """
+        warn(
+            "This method is deprecated. Use listen_derivative_orders_history_updates instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         req = derivative_exchange_rpc_pb.StreamOrdersHistoryRequest(
             market_id=market_id,
             direction=kwargs.get("direction"),
@@ -1329,6 +1345,30 @@ class AsyncClient:
             metadata_query_provider=self._exchange_cookie_metadata_requestor
         )
         return self.stubDerivativeExchange.StreamOrdersHistory(request=req, metadata=metadata)
+
+    async def listen_derivative_orders_history_updates(
+        self,
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+        subaccount_id: Optional[str] = None,
+        market_id: Optional[str] = None,
+        order_types: Optional[List[str]] = None,
+        direction: Optional[str] = None,
+        state: Optional[str] = None,
+        execution_types: Optional[List[str]] = None,
+    ):
+        await self.exchange_derivative_stream_api.stream_orders_history(
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+            subaccount_id=subaccount_id,
+            market_id=market_id,
+            order_types=order_types,
+            direction=direction,
+            state=state,
+            execution_types=execution_types,
+        )
 
     async def stream_spot_trades(self, **kwargs):
         """
@@ -1479,11 +1519,31 @@ class AsyncClient:
         )
 
     async def stream_derivative_markets(self, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `listen_derivative_market_updates` instead
+        """
+        warn(
+            "This method is deprecated. Use listen_derivative_market_updates instead", DeprecationWarning, stacklevel=2
+        )
         req = derivative_exchange_rpc_pb.StreamMarketRequest(market_ids=kwargs.get("market_ids"))
         metadata = await self.network.exchange_metadata(
             metadata_query_provider=self._exchange_cookie_metadata_requestor
         )
         return self.stubDerivativeExchange.StreamMarket(request=req, metadata=metadata)
+
+    async def listen_derivative_market_updates(
+        self,
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+        market_ids: Optional[List[str]] = None,
+    ):
+        await self.exchange_derivative_stream_api.stream_markets(
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+            market_ids=market_ids,
+        )
 
     async def get_derivative_orderbook(self, market_id: str):
         """
@@ -1662,34 +1722,84 @@ class AsyncClient:
         )
 
     async def stream_derivative_orderbook_snapshot(self, market_ids: List[str]):
+        """
+        This method is deprecated and will be removed soon. Please use `listen_derivative_orderbook_snapshots` instead
+        """
+        warn(
+            "This method is deprecated. Use listen_derivative_orderbook_snapshots instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         req = derivative_exchange_rpc_pb.StreamOrderbookV2Request(market_ids=market_ids)
         metadata = await self.network.exchange_metadata(
             metadata_query_provider=self._exchange_cookie_metadata_requestor
         )
         return self.stubDerivativeExchange.StreamOrderbookV2(request=req, metadata=metadata)
 
+    async def listen_derivative_orderbook_snapshots(
+        self,
+        market_ids: List[str],
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+    ):
+        await self.exchange_derivative_stream_api.stream_orderbook_v2(
+            market_ids=market_ids,
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+        )
+
     async def stream_derivative_orderbook_update(self, market_ids: List[str]):
+        """
+        This method is deprecated and will be removed soon. Please use `listen_derivative_orderbook_updates` instead
+        """
+        warn(
+            "This method is deprecated. Use listen_derivative_orderbook_updates instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         req = derivative_exchange_rpc_pb.StreamOrderbookUpdateRequest(market_ids=market_ids)
         metadata = await self.network.exchange_metadata(
             metadata_query_provider=self._exchange_cookie_metadata_requestor
         )
         return self.stubDerivativeExchange.StreamOrderbookUpdate(request=req, metadata=metadata)
 
+    async def listen_derivative_orderbook_updates(
+        self,
+        market_ids: List[str],
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+    ):
+        await self.exchange_derivative_stream_api.stream_orderbook_update(
+            market_ids=market_ids,
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+        )
+
     async def stream_derivative_orders(self, market_id: str, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `listen_derivative_orders_updates` instead
+        """
+        warn(
+            "This method is deprecated. Use listen_derivative_orders_updates instead", DeprecationWarning, stacklevel=2
+        )
         req = derivative_exchange_rpc_pb.StreamOrdersRequest(
             market_id=market_id,
-            execution_side=kwargs.get("execution_side"),
-            direction=kwargs.get("direction"),
+            order_side=kwargs.get("order_side"),
             subaccount_id=kwargs.get("subaccount_id"),
             skip=kwargs.get("skip"),
             limit=kwargs.get("limit"),
             start_time=kwargs.get("start_time"),
             end_time=kwargs.get("end_time"),
             market_ids=kwargs.get("market_ids"),
-            subaccount_ids=kwargs.get("subaccount_ids"),
-            execution_types=kwargs.get("execution_types"),
+            is_conditional=kwargs.get("is_conditional"),
+            order_type=kwargs.get("order_type"),
+            include_inactive=kwargs.get("include_inactive"),
+            subaccount_total_orders=kwargs.get("subaccount_total_orders"),
             trade_id=kwargs.get("trade_id"),
-            account_address=kwargs.get("account_address"),
             cid=kwargs.get("cid"),
         )
         metadata = await self.network.exchange_metadata(
@@ -1697,7 +1807,45 @@ class AsyncClient:
         )
         return self.stubDerivativeExchange.StreamOrders(request=req, metadata=metadata)
 
+    async def listen_derivative_orders_updates(
+        self,
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+        market_ids: Optional[List[str]] = None,
+        order_side: Optional[str] = None,
+        subaccount_id: Optional[PaginationOption] = None,
+        is_conditional: Optional[str] = None,
+        order_type: Optional[str] = None,
+        include_inactive: Optional[bool] = None,
+        subaccount_total_orders: Optional[bool] = None,
+        trade_id: Optional[str] = None,
+        cid: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ):
+        await self.exchange_derivative_stream_api.stream_orders(
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+            market_ids=market_ids,
+            order_side=order_side,
+            subaccount_id=subaccount_id,
+            is_conditional=is_conditional,
+            order_type=order_type,
+            include_inactive=include_inactive,
+            subaccount_total_orders=subaccount_total_orders,
+            trade_id=trade_id,
+            cid=cid,
+            pagination=pagination,
+        )
+
     async def stream_derivative_trades(self, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `listen_derivative_trades_updates` instead
+        """
+        warn(
+            "This method is deprecated. Use listen_derivative_trades_updates instead", DeprecationWarning, stacklevel=2
+        )
         req = derivative_exchange_rpc_pb.StreamTradesRequest(
             market_id=kwargs.get("market_id"),
             execution_side=kwargs.get("execution_side"),
@@ -1718,6 +1866,36 @@ class AsyncClient:
             metadata_query_provider=self._exchange_cookie_metadata_requestor
         )
         return self.stubDerivativeExchange.StreamTrades(request=req, metadata=metadata)
+
+    async def listen_derivative_trades_updates(
+        self,
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+        market_ids: Optional[List[str]] = None,
+        execution_side: Optional[str] = None,
+        direction: Optional[str] = None,
+        subaccount_ids: Optional[List[str]] = None,
+        execution_types: Optional[List[str]] = None,
+        trade_id: Optional[str] = None,
+        account_address: Optional[str] = None,
+        cid: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ):
+        return await self.exchange_derivative_stream_api.stream_trades(
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+            market_ids=market_ids,
+            subaccount_ids=subaccount_ids,
+            execution_side=execution_side,
+            direction=direction,
+            execution_types=execution_types,
+            trade_id=trade_id,
+            account_address=account_address,
+            cid=cid,
+            pagination=pagination,
+        )
 
     async def get_derivative_positions(self, **kwargs):
         """
@@ -1752,6 +1930,14 @@ class AsyncClient:
         )
 
     async def stream_derivative_positions(self, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `listen_derivative_positions_updates` instead
+        """
+        warn(
+            "This method is deprecated. Use listen_derivative_positions_updates instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         req = derivative_exchange_rpc_pb.StreamPositionsRequest(
             market_id=kwargs.get("market_id"),
             market_ids=kwargs.get("market_ids"),
@@ -1762,6 +1948,22 @@ class AsyncClient:
             metadata_query_provider=self._exchange_cookie_metadata_requestor
         )
         return self.stubDerivativeExchange.StreamPositions(request=req, metadata=metadata)
+
+    async def listen_derivative_positions_updates(
+        self,
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+        market_ids: Optional[List[str]] = None,
+        subaccount_ids: Optional[List[str]] = None,
+    ):
+        await self.exchange_derivative_stream_api.stream_positions(
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+            market_ids=market_ids,
+            subaccount_ids=subaccount_ids,
+        )
 
     async def get_derivative_liquidable_positions(self, **kwargs):
         """
@@ -1835,7 +2037,7 @@ class AsyncClient:
         )
         return await self.stubDerivativeExchange.SubaccountTradesList(req)
 
-    async def fetch_subaccount_trades_list(
+    async def fetch_derivative_subaccount_trades_list(
         self,
         subaccount_id: str,
         market_id: Optional[str] = None,

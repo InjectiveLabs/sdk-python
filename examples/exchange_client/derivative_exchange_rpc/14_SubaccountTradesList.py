@@ -16,7 +16,7 @@ async def main() -> None:
     skip = 10
     limit = 2
     pagination = PaginationOption(skip=skip, limit=limit)
-    trades = await client.fetch_subaccount_trades_list(
+    trades = await client.fetch_derivative_subaccount_trades_list(
         subaccount_id=subaccount_id,
         market_id=market_id,
         execution_type=execution_type,
