@@ -14,6 +14,7 @@ from pyinjective.proto.exchange import (
     injective_insurance_rpc_pb2 as exchange_insurance_pb,
     injective_meta_rpc_pb2 as exchange_meta_pb,
     injective_oracle_rpc_pb2 as exchange_oracle_pb,
+    injective_portfolio_rpc_pb2 as exchange_portfolio_pb,
     injective_spot_exchange_rpc_pb2 as exchange_spot_pb,
 )
 from pyinjective.proto.injective.types.v1beta1 import account_pb2 as account_pb
@@ -26,6 +27,7 @@ from tests.client.indexer.configurable_derivative_query_servicer import Configur
 from tests.client.indexer.configurable_insurance_query_servicer import ConfigurableInsuranceQueryServicer
 from tests.client.indexer.configurable_meta_query_servicer import ConfigurableMetaQueryServicer
 from tests.client.indexer.configurable_oracle_query_servicer import ConfigurableOracleQueryServicer
+from tests.client.indexer.configurable_portfolio_query_servicer import ConfigurablePortfolioQueryServicer
 from tests.client.indexer.configurable_spot_query_servicer import ConfigurableSpotQueryServicer
 from tests.core.tx.grpc.configurable_tx_query_servicer import ConfigurableTxQueryServicer
 
@@ -73,6 +75,11 @@ def meta_servicer():
 @pytest.fixture
 def oracle_servicer():
     return ConfigurableOracleQueryServicer()
+
+
+@pytest.fixture
+def portfolio_servicer():
+    return ConfigurablePortfolioQueryServicer()
 
 
 @pytest.fixture
@@ -1373,3 +1380,41 @@ class TestAsyncClientDeprecationWarnings:
             str(all_warnings[0].message)
             == "This method is deprecated. Use listen_derivative_orders_history_updates instead"
         )
+
+    @pytest.mark.asyncio
+    async def test_get_account_portfolio_deprecation_warning(
+        self,
+        portfolio_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubPortfolio = portfolio_servicer
+        portfolio_servicer.account_portfolio_responses.append(exchange_portfolio_pb.AccountPortfolioResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_account_portfolio(account_address="")
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_account_portfolio instead"
+
+    @pytest.mark.asyncio
+    async def test_stream_account_portfolio_deprecation_warning(
+        self,
+        portfolio_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubPortfolio = portfolio_servicer
+        portfolio_servicer.stream_account_portfolio_responses.append(
+            exchange_portfolio_pb.StreamAccountPortfolioResponse()
+        )
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.stream_account_portfolio(account_address="")
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use listen_account_portfolio_updates instead"

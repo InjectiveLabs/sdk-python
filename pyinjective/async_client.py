@@ -18,12 +18,14 @@ from pyinjective.client.indexer.grpc.indexer_grpc_derivative_api import IndexerG
 from pyinjective.client.indexer.grpc.indexer_grpc_insurance_api import IndexerGrpcInsuranceApi
 from pyinjective.client.indexer.grpc.indexer_grpc_meta_api import IndexerGrpcMetaApi
 from pyinjective.client.indexer.grpc.indexer_grpc_oracle_api import IndexerGrpcOracleApi
+from pyinjective.client.indexer.grpc.indexer_grpc_portfolio_api import IndexerGrpcPortfolioApi
 from pyinjective.client.indexer.grpc.indexer_grpc_spot_api import IndexerGrpcSpotApi
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_account_stream import IndexerGrpcAccountStream
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_auction_stream import IndexerGrpcAuctionStream
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_derivative_stream import IndexerGrpcDerivativeStream
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_meta_stream import IndexerGrpcMetaStream
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_oracle_stream import IndexerGrpcOracleStream
+from pyinjective.client.indexer.grpc_stream.indexer_grpc_portfolio_stream import IndexerGrpcPortfolioStream
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_spot_stream import IndexerGrpcSpotStream
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.composer import Composer
@@ -213,6 +215,12 @@ class AsyncClient:
                 metadata_query_provider=self._exchange_cookie_metadata_requestor
             ),
         )
+        self.exchange_portfolio_api = IndexerGrpcPortfolioApi(
+            channel=self.exchange_channel,
+            metadata_provider=lambda: self.network.exchange_metadata(
+                metadata_query_provider=self._exchange_cookie_metadata_requestor
+            ),
+        )
         self.exchange_spot_api = IndexerGrpcSpotApi(
             channel=self.exchange_channel,
             metadata_provider=lambda: self.network.exchange_metadata(
@@ -245,6 +253,12 @@ class AsyncClient:
             ),
         )
         self.exchange_oracle_stream_api = IndexerGrpcOracleStream(
+            channel=self.exchange_channel,
+            metadata_provider=lambda: self.network.exchange_metadata(
+                metadata_query_provider=self._exchange_cookie_metadata_requestor
+            ),
+        )
+        self.exchange_portfolio_stream_api = IndexerGrpcPortfolioStream(
             channel=self.exchange_channel,
             metadata_provider=lambda: self.network.exchange_metadata(
                 metadata_query_provider=self._exchange_cookie_metadata_requestor
@@ -2137,10 +2151,23 @@ class AsyncClient:
     # PortfolioRPC
 
     async def get_account_portfolio(self, account_address: str):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_account_portfolio` instead
+        """
+        warn("This method is deprecated. Use fetch_account_portfolio instead", DeprecationWarning, stacklevel=2)
         req = portfolio_rpc_pb.AccountPortfolioRequest(account_address=account_address)
         return await self.stubPortfolio.AccountPortfolio(req)
 
+    async def fetch_account_portfolio(self, account_address: str) -> Dict[str, Any]:
+        return await self.exchange_portfolio_api.fetch_account_portfolio(account_address=account_address)
+
     async def stream_account_portfolio(self, account_address: str, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `listen_account_portfolio_updates` instead
+        """
+        warn(
+            "This method is deprecated. Use listen_account_portfolio_updates instead", DeprecationWarning, stacklevel=2
+        )
         req = portfolio_rpc_pb.StreamAccountPortfolioRequest(
             account_address=account_address, subaccount_id=kwargs.get("subaccount_id"), type=kwargs.get("type")
         )
@@ -2148,6 +2175,24 @@ class AsyncClient:
             metadata_query_provider=self._exchange_cookie_metadata_requestor
         )
         return self.stubPortfolio.StreamAccountPortfolio(request=req, metadata=metadata)
+
+    async def listen_account_portfolio_updates(
+        self,
+        account_address: str,
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+        subaccount_id: Optional[str] = None,
+        update_type: Optional[str] = None,
+    ):
+        await self.exchange_portfolio_stream_api.stream_account_portfolio(
+            account_address=account_address,
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+            subaccount_id=subaccount_id,
+            update_type=update_type,
+        )
 
     async def chain_stream(
         self,
