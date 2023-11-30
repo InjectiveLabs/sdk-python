@@ -78,6 +78,9 @@ poetry run pytest -v
 ```
 
 ### Changelogs
+**0.9.10**
+* Synchronized markets and tokens config files to add SOL/USDT spot market
+
 **0.9.9**
 * Synchronized markets and tokens config files to add USDY/USDT and WHALE/USDT spot markets
 
