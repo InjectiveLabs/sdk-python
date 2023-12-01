@@ -1,6 +1,7 @@
 import asyncio
 
 from pyinjective.async_client import AsyncClient
+from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import Network
 
 
@@ -16,15 +17,15 @@ async def main() -> None:
     dest_port = "transfer"
     limit = 1
     skip = 10
-    ibc_transfers = await client.get_ibc_transfers(
+    pagination = PaginationOption(limit=limit, skip=skip)
+    ibc_transfers = await client.fetch_ibc_transfer_txs(
         sender=sender,
         receiver=receiver,
         src_channel=src_channel,
         src_port=src_port,
-        destination_channel=destination_channel,
+        dest_channel=destination_channel,
         dest_port=dest_port,
-        limit=limit,
-        skip=skip,
+        pagination=pagination,
     )
     print(ibc_transfers)
 

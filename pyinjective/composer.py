@@ -17,6 +17,7 @@ from pyinjective.proto.cosmos.distribution.v1beta1 import tx_pb2 as cosmos_distr
 from pyinjective.proto.cosmos.gov.v1beta1 import tx_pb2 as cosmos_gov_tx_pb
 from pyinjective.proto.cosmos.staking.v1beta1 import tx_pb2 as cosmos_staking_tx_pb
 from pyinjective.proto.cosmwasm.wasm.v1 import tx_pb2 as wasm_tx_pb
+from pyinjective.proto.exchange import injective_explorer_rpc_pb2 as explorer_pb2
 from pyinjective.proto.injective.auction.v1beta1 import tx_pb2 as injective_auction_tx_pb
 from pyinjective.proto.injective.exchange.v1beta1 import (
     authz_pb2 as injective_authz_pb,
@@ -50,6 +51,37 @@ REQUEST_TO_RESPONSE_TYPE_MAP = {
     "MsgCancelBinaryOptionsOrder": injective_exchange_tx_pb.MsgCancelBinaryOptionsOrderResponse,
     "MsgAdminUpdateBinaryOptionsMarket": injective_exchange_tx_pb.MsgAdminUpdateBinaryOptionsMarketResponse,
     "MsgInstantBinaryOptionsMarketLaunch": injective_exchange_tx_pb.MsgInstantBinaryOptionsMarketLaunchResponse,
+}
+
+GRPC_MESSAGE_TYPE_TO_CLASS_MAP = {
+    "/injective.exchange.v1beta1.MsgCreateSpotLimitOrder": injective_exchange_tx_pb.MsgCreateSpotLimitOrder,
+    "/injective.exchange.v1beta1.MsgCreateSpotMarketOrder": injective_exchange_tx_pb.MsgCreateSpotMarketOrder,
+    "/injective.exchange.v1beta1.MsgCreateDerivativeLimitOrder": injective_exchange_tx_pb.MsgCreateDerivativeLimitOrder,
+    "/injective.exchange.v1beta1.MsgCreateDerivativeMarketOrder": injective_exchange_tx_pb.MsgCreateDerivativeMarketOrder,  # noqa: 121
+    "/injective.exchange.v1beta1.MsgCancelSpotOrder": injective_exchange_tx_pb.MsgCancelSpotOrder,
+    "/injective.exchange.v1beta1.MsgCancelDerivativeOrder": injective_exchange_tx_pb.MsgCancelDerivativeOrder,
+    "/injective.exchange.v1beta1.MsgBatchCancelSpotOrders": injective_exchange_tx_pb.MsgBatchCancelSpotOrders,
+    "/injective.exchange.v1beta1.MsgBatchCancelDerivativeOrders": injective_exchange_tx_pb.MsgBatchCancelDerivativeOrders,  # noqa: 121
+    "/injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrders": injective_exchange_tx_pb.MsgBatchCreateSpotLimitOrders,
+    "/injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrders": injective_exchange_tx_pb.MsgBatchCreateDerivativeLimitOrders,  # noqa: 121
+    "/injective.exchange.v1beta1.MsgBatchUpdateOrders": injective_exchange_tx_pb.MsgBatchUpdateOrders,
+    "/injective.exchange.v1beta1.MsgDeposit": injective_exchange_tx_pb.MsgDeposit,
+    "/injective.exchange.v1beta1.MsgWithdraw": injective_exchange_tx_pb.MsgWithdraw,
+    "/injective.exchange.v1beta1.MsgSubaccountTransfer": injective_exchange_tx_pb.MsgSubaccountTransfer,
+    "/injective.exchange.v1beta1.MsgLiquidatePosition": injective_exchange_tx_pb.MsgLiquidatePosition,
+    "/injective.exchange.v1beta1.MsgIncreasePositionMargin": injective_exchange_tx_pb.MsgIncreasePositionMargin,
+    "/injective.auction.v1beta1.MsgBid": injective_auction_tx_pb.MsgBid,
+    "/injective.exchange.v1beta1.MsgCreateBinaryOptionsLimitOrder": injective_exchange_tx_pb.MsgCreateBinaryOptionsLimitOrder,  # noqa: 121
+    "/injective.exchange.v1beta1.MsgCreateBinaryOptionsMarketOrder": injective_exchange_tx_pb.MsgCreateBinaryOptionsMarketOrder,  # noqa: 121
+    "/injective.exchange.v1beta1.MsgCancelBinaryOptionsOrder": injective_exchange_tx_pb.MsgCancelBinaryOptionsOrder,
+    "/injective.exchange.v1beta1.MsgAdminUpdateBinaryOptionsMarket": injective_exchange_tx_pb.MsgAdminUpdateBinaryOptionsMarket,  # noqa: 121
+    "/injective.exchange.v1beta1.MsgInstantBinaryOptionsMarketLaunch": injective_exchange_tx_pb.MsgInstantBinaryOptionsMarketLaunch,  # noqa: 121
+    "/cosmos.bank.v1beta1.MsgSend": cosmos_bank_tx_pb.MsgSend,
+    "/cosmos.authz.v1beta1.MsgGrant": cosmos_authz_tx_pb.MsgGrant,
+    "/cosmos.authz.v1beta1.MsgExec": cosmos_authz_tx_pb.MsgExec,
+    "/cosmos.authz.v1beta1.MsgRevoke": cosmos_authz_tx_pb.MsgRevoke,
+    "/injective.oracle.v1beta1.MsgRelayPriceFeedPrice": injective_oracle_tx_pb.MsgRelayPriceFeedPrice,
+    "/injective.oracle.v1beta1.MsgRelayProviderPrices": injective_oracle_tx_pb.MsgRelayProviderPrices,
 }
 
 
@@ -1081,70 +1113,29 @@ class Composer:
     @staticmethod
     def UnpackTransactionMessages(transaction):
         meta_messages = json.loads(transaction.messages.decode())
-        # fmt: off
-        header_map = {
-            "/injective.exchange.v1beta1.MsgCreateSpotLimitOrder":
-                injective_exchange_tx_pb.MsgCreateSpotLimitOrder,
-            "/injective.exchange.v1beta1.MsgCreateSpotMarketOrder":
-                injective_exchange_tx_pb.MsgCreateSpotMarketOrder,
-            "/injective.exchange.v1beta1.MsgCreateDerivativeLimitOrder":
-                injective_exchange_tx_pb.MsgCreateDerivativeLimitOrder,
-            "/injective.exchange.v1beta1.MsgCreateDerivativeMarketOrder":
-                injective_exchange_tx_pb.MsgCreateDerivativeMarketOrder,
-            "/injective.exchange.v1beta1.MsgCancelSpotOrder":
-                injective_exchange_tx_pb.MsgCancelSpotOrder,
-            "/injective.exchange.v1beta1.MsgCancelDerivativeOrder":
-                injective_exchange_tx_pb.MsgCancelDerivativeOrder,
-            "/injective.exchange.v1beta1.MsgBatchCancelSpotOrders":
-                injective_exchange_tx_pb.MsgBatchCancelSpotOrders,
-            "/injective.exchange.v1beta1.MsgBatchCancelDerivativeOrders":
-                injective_exchange_tx_pb.MsgBatchCancelDerivativeOrders,
-            "/injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrders":
-                injective_exchange_tx_pb.MsgBatchCreateSpotLimitOrders,
-            "/injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrders":
-                injective_exchange_tx_pb.MsgBatchCreateDerivativeLimitOrders,
-            "/injective.exchange.v1beta1.MsgBatchUpdateOrders":
-                injective_exchange_tx_pb.MsgBatchUpdateOrders,
-            "/injective.exchange.v1beta1.MsgDeposit":
-                injective_exchange_tx_pb.MsgDeposit,
-            "/injective.exchange.v1beta1.MsgWithdraw":
-                injective_exchange_tx_pb.MsgWithdraw,
-            "/injective.exchange.v1beta1.MsgSubaccountTransfer":
-                injective_exchange_tx_pb.MsgSubaccountTransfer,
-            "/injective.exchange.v1beta1.MsgLiquidatePosition":
-                injective_exchange_tx_pb.MsgLiquidatePosition,
-            "/injective.exchange.v1beta1.MsgIncreasePositionMargin":
-                injective_exchange_tx_pb.MsgIncreasePositionMargin,
-            "/injective.auction.v1beta1.MsgBid":
-                injective_auction_tx_pb.MsgBid,
-            "/injective.exchange.v1beta1.MsgCreateBinaryOptionsLimitOrder":
-                injective_exchange_tx_pb.MsgCreateBinaryOptionsLimitOrder,
-            "/injective.exchange.v1beta1.MsgCreateBinaryOptionsMarketOrder":
-                injective_exchange_tx_pb.MsgCreateBinaryOptionsMarketOrder,
-            "/injective.exchange.v1beta1.MsgCancelBinaryOptionsOrder":
-                injective_exchange_tx_pb.MsgCancelBinaryOptionsOrder,
-            "/injective.exchange.v1beta1.MsgAdminUpdateBinaryOptionsMarket":
-                injective_exchange_tx_pb.MsgAdminUpdateBinaryOptionsMarket,
-            "/injective.exchange.v1beta1.MsgInstantBinaryOptionsMarketLaunch":
-                injective_exchange_tx_pb.MsgInstantBinaryOptionsMarketLaunch,
-            "/cosmos.bank.v1beta1.MsgSend":
-                cosmos_bank_tx_pb.MsgSend,
-            "/cosmos.authz.v1beta1.MsgGrant":
-                cosmos_authz_tx_pb.MsgGrant,
-            "/cosmos.authz.v1beta1.MsgExec":
-                cosmos_authz_tx_pb.MsgExec,
-            "/cosmos.authz.v1beta1.MsgRevoke":
-                cosmos_authz_tx_pb.MsgRevoke,
-            "/injective.oracle.v1beta1.MsgRelayPriceFeedPrice":
-                injective_oracle_tx_pb.MsgRelayPriceFeedPrice,
-            "/injective.oracle.v1beta1.MsgRelayProviderPrices":
-                injective_oracle_tx_pb.MsgRelayProviderPrices,
-        }
-        # fmt: on
+        header_map = GRPC_MESSAGE_TYPE_TO_CLASS_MAP
         msgs = []
         for msg in meta_messages:
             msg_as_string_dict = json.dumps(msg["value"])
             msgs.append(json_format.Parse(msg_as_string_dict, header_map[msg["type"]]()))
+
+        return msgs
+
+    @staticmethod
+    def unpack_transaction_messages(transaction_data: Dict[str, Any]) -> List[Dict[str, Any]]:
+        grpc_tx = explorer_pb2.TxDetailData()
+        json_format.ParseDict(js_dict=transaction_data, message=grpc_tx, ignore_unknown_fields=True)
+        meta_messages = json.loads(grpc_tx.messages.decode())
+        msgs = []
+        for msg in meta_messages:
+            msg_as_string_dict = json.dumps(msg["value"])
+            grpc_message = json_format.Parse(msg_as_string_dict, GRPC_MESSAGE_TYPE_TO_CLASS_MAP[msg["type"]]())
+            msgs.append(
+                {
+                    "type": msg["type"],
+                    "value": json_format.MessageToDict(message=grpc_message, including_default_value_fields=True),
+                }
+            )
 
         return msgs
 

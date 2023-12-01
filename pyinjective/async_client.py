@@ -15,6 +15,7 @@ from pyinjective.client.chain.grpc.chain_grpc_bank_api import ChainGrpcBankApi
 from pyinjective.client.indexer.grpc.indexer_grpc_account_api import IndexerGrpcAccountApi
 from pyinjective.client.indexer.grpc.indexer_grpc_auction_api import IndexerGrpcAuctionApi
 from pyinjective.client.indexer.grpc.indexer_grpc_derivative_api import IndexerGrpcDerivativeApi
+from pyinjective.client.indexer.grpc.indexer_grpc_explorer_api import IndexerGrpcExplorerApi
 from pyinjective.client.indexer.grpc.indexer_grpc_insurance_api import IndexerGrpcInsuranceApi
 from pyinjective.client.indexer.grpc.indexer_grpc_meta_api import IndexerGrpcMetaApi
 from pyinjective.client.indexer.grpc.indexer_grpc_oracle_api import IndexerGrpcOracleApi
@@ -268,6 +269,13 @@ class AsyncClient:
             channel=self.exchange_channel,
             metadata_provider=lambda: self.network.exchange_metadata(
                 metadata_query_provider=self._exchange_cookie_metadata_requestor
+            ),
+        )
+
+        self.exchange_explorer_api = IndexerGrpcExplorerApi(
+            channel=self.explorer_channel,
+            metadata_provider=lambda: self.network.exchange_metadata(
+                metadata_query_provider=self._explorer_cookie_metadata_requestor
             ),
         )
 
@@ -601,10 +609,22 @@ class AsyncClient:
     # Explorer RPC
 
     async def get_tx_by_hash(self, tx_hash: str):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_tx_by_tx_hash` instead
+        """
+        warn("This method is deprecated. Use fetch_tx_by_tx_hash instead", DeprecationWarning, stacklevel=2)
+
         req = explorer_rpc_pb.GetTxByTxHashRequest(hash=tx_hash)
         return await self.stubExplorer.GetTxByTxHash(req)
 
+    async def fetch_tx_by_tx_hash(self, tx_hash: str) -> Dict[str, Any]:
+        return await self.exchange_explorer_api.fetch_tx_by_tx_hash(tx_hash=tx_hash)
+
     async def get_account_txs(self, address: str, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_account_txs` instead
+        """
+        warn("This method is deprecated. Use fetch_account_txs instead", DeprecationWarning, stacklevel=2)
         req = explorer_rpc_pb.GetAccountTxsRequest(
             address=address,
             before=kwargs.get("before"),
@@ -616,7 +636,35 @@ class AsyncClient:
         )
         return await self.stubExplorer.GetAccountTxs(req)
 
+    async def fetch_account_txs(
+        self,
+        address: str,
+        before: Optional[int] = None,
+        after: Optional[int] = None,
+        message_type: Optional[str] = None,
+        module: Optional[str] = None,
+        from_number: Optional[int] = None,
+        to_number: Optional[int] = None,
+        status: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_explorer_api.fetch_account_txs(
+            address=address,
+            before=before,
+            after=after,
+            message_type=message_type,
+            module=module,
+            from_number=from_number,
+            to_number=to_number,
+            status=status,
+            pagination=pagination,
+        )
+
     async def get_blocks(self, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_blocks` instead
+        """
+        warn("This method is deprecated. Use fetch_blocks instead", DeprecationWarning, stacklevel=2)
         req = explorer_rpc_pb.GetBlocksRequest(
             before=kwargs.get("before"),
             after=kwargs.get("after"),
@@ -624,11 +672,30 @@ class AsyncClient:
         )
         return await self.stubExplorer.GetBlocks(req)
 
+    async def fetch_blocks(
+        self,
+        before: Optional[int] = None,
+        after: Optional[int] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_explorer_api.fetch_blocks(before=before, after=after, pagination=pagination)
+
     async def get_block(self, block_height: str):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_block` instead
+        """
+        warn("This method is deprecated. Use fetch_block instead", DeprecationWarning, stacklevel=2)
         req = explorer_rpc_pb.GetBlockRequest(id=block_height)
         return await self.stubExplorer.GetBlock(req)
 
+    async def fetch_block(self, block_id: str) -> Dict[str, Any]:
+        return await self.exchange_explorer_api.fetch_block(block_id=block_id)
+
     async def get_txs(self, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_txs` instead
+        """
+        warn("This method is deprecated. Use fetch_txs instead", DeprecationWarning, stacklevel=2)
         req = explorer_rpc_pb.GetTxsRequest(
             before=kwargs.get("before"),
             after=kwargs.get("after"),
@@ -639,6 +706,28 @@ class AsyncClient:
         )
         return await self.stubExplorer.GetTxs(req)
 
+    async def fetch_txs(
+        self,
+        before: Optional[int] = None,
+        after: Optional[int] = None,
+        message_type: Optional[str] = None,
+        module: Optional[str] = None,
+        from_number: Optional[int] = None,
+        to_number: Optional[int] = None,
+        status: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_explorer_api.fetch_txs(
+            before=before,
+            after=after,
+            message_type=message_type,
+            module=module,
+            from_number=from_number,
+            to_number=to_number,
+            status=status,
+            pagination=pagination,
+        )
+
     async def stream_txs(self):
         req = explorer_rpc_pb.StreamTxsRequest()
         return self.stubExplorer.StreamTxs(req)
@@ -648,6 +737,10 @@ class AsyncClient:
         return self.stubExplorer.StreamBlocks(req)
 
     async def get_peggy_deposits(self, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_peggy_deposit_txs` instead
+        """
+        warn("This method is deprecated. Use fetch_peggy_deposit_txs instead", DeprecationWarning, stacklevel=2)
         req = explorer_rpc_pb.GetPeggyDepositTxsRequest(
             sender=kwargs.get("sender"),
             receiver=kwargs.get("receiver"),
@@ -656,7 +749,23 @@ class AsyncClient:
         )
         return await self.stubExplorer.GetPeggyDepositTxs(req)
 
+    async def fetch_peggy_deposit_txs(
+        self,
+        sender: Optional[str] = None,
+        receiver: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_explorer_api.fetch_peggy_deposit_txs(
+            sender=sender,
+            receiver=receiver,
+            pagination=pagination,
+        )
+
     async def get_peggy_withdrawals(self, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_peggy_withdrawal_txs` instead
+        """
+        warn("This method is deprecated. Use fetch_peggy_withdrawal_txs instead", DeprecationWarning, stacklevel=2)
         req = explorer_rpc_pb.GetPeggyWithdrawalTxsRequest(
             sender=kwargs.get("sender"),
             receiver=kwargs.get("receiver"),
@@ -665,7 +774,23 @@ class AsyncClient:
         )
         return await self.stubExplorer.GetPeggyWithdrawalTxs(req)
 
+    async def fetch_peggy_withdrawal_txs(
+        self,
+        sender: Optional[str] = None,
+        receiver: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_explorer_api.fetch_peggy_withdrawal_txs(
+            sender=sender,
+            receiver=receiver,
+            pagination=pagination,
+        )
+
     async def get_ibc_transfers(self, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_ibc_transfer_txs` instead
+        """
+        warn("This method is deprecated. Use fetch_ibc_transfer_txs instead", DeprecationWarning, stacklevel=2)
         req = explorer_rpc_pb.GetIBCTransferTxsRequest(
             sender=kwargs.get("sender"),
             receiver=kwargs.get("receiver"),
@@ -677,6 +802,26 @@ class AsyncClient:
             skip=kwargs.get("skip"),
         )
         return await self.stubExplorer.GetIBCTransferTxs(req)
+
+    async def fetch_ibc_transfer_txs(
+        self,
+        sender: Optional[str] = None,
+        receiver: Optional[str] = None,
+        src_channel: Optional[str] = None,
+        src_port: Optional[str] = None,
+        dest_channel: Optional[str] = None,
+        dest_port: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_explorer_api.fetch_ibc_transfer_txs(
+            sender=sender,
+            receiver=receiver,
+            src_channel=src_channel,
+            src_port=src_port,
+            dest_channel=dest_channel,
+            dest_port=dest_port,
+            pagination=pagination,
+        )
 
     # AccountsRPC
 
@@ -2389,6 +2534,10 @@ class AsyncClient:
     def _exchange_cookie_metadata_requestor(self) -> Coroutine:
         request = exchange_meta_rpc_pb.VersionRequest()
         return self.stubMeta.Version(request).initial_metadata()
+
+    def _explorer_cookie_metadata_requestor(self) -> Coroutine:
+        request = explorer_rpc_pb.GetBlocksRequest()
+        return self.stubExplorer.GetBlocks(request).initial_metadata()
 
     def _initialize_timeout_height_sync_task(self):
         self._cancel_timeout_height_sync_task()

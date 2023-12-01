@@ -11,10 +11,10 @@ async def main() -> None:
     client = AsyncClient(network)
     composer = Composer(network=network.string())
     tx_hash = "0F3EBEC1882E1EEAC5B7BDD836E976250F1CD072B79485877CEACCB92ACDDF52"
-    transaction_response = await client.get_tx_by_hash(tx_hash=tx_hash)
+    transaction_response = await client.fetch_tx_by_tx_hash(tx_hash=tx_hash)
     print(transaction_response)
 
-    transaction_messages = composer.UnpackTransactionMessages(transaction=transaction_response.data)
+    transaction_messages = composer.unpack_transaction_messages(transaction_data=transaction_response["data"])
     print(transaction_messages)
     first_message = transaction_messages[0]
     print(first_message)

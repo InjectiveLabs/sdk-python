@@ -11,6 +11,7 @@ from pyinjective.proto.exchange import (
     injective_accounts_rpc_pb2 as exchange_accounts_pb,
     injective_auction_rpc_pb2 as exchange_auction_pb,
     injective_derivative_exchange_rpc_pb2 as exchange_derivative_pb,
+    injective_explorer_rpc_pb2 as exchange_explorer_pb,
     injective_insurance_rpc_pb2 as exchange_insurance_pb,
     injective_meta_rpc_pb2 as exchange_meta_pb,
     injective_oracle_rpc_pb2 as exchange_oracle_pb,
@@ -24,6 +25,7 @@ from tests.client.chain.grpc.configurable_bank_query_servicer import Configurabl
 from tests.client.indexer.configurable_account_query_servicer import ConfigurableAccountQueryServicer
 from tests.client.indexer.configurable_auction_query_servicer import ConfigurableAuctionQueryServicer
 from tests.client.indexer.configurable_derivative_query_servicer import ConfigurableDerivativeQueryServicer
+from tests.client.indexer.configurable_explorer_query_servicer import ConfigurableExplorerQueryServicer
 from tests.client.indexer.configurable_insurance_query_servicer import ConfigurableInsuranceQueryServicer
 from tests.client.indexer.configurable_meta_query_servicer import ConfigurableMetaQueryServicer
 from tests.client.indexer.configurable_oracle_query_servicer import ConfigurableOracleQueryServicer
@@ -60,6 +62,11 @@ def bank_servicer():
 @pytest.fixture
 def derivative_servicer():
     return ConfigurableDerivativeQueryServicer()
+
+
+@pytest.fixture
+def explorer_servicer():
+    return ConfigurableExplorerQueryServicer()
 
 
 @pytest.fixture
@@ -1418,3 +1425,147 @@ class TestAsyncClientDeprecationWarnings:
         assert len(all_warnings) == 1
         assert issubclass(all_warnings[0].category, DeprecationWarning)
         assert str(all_warnings[0].message) == "This method is deprecated. Use listen_account_portfolio_updates instead"
+
+    @pytest.mark.asyncio
+    async def test_get_account_txs_deprecation_warning(
+        self,
+        explorer_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubExplorer = explorer_servicer
+        explorer_servicer.account_txs_responses.append(exchange_explorer_pb.GetAccountTxsResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_account_txs(address="")
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_account_txs instead"
+
+    @pytest.mark.asyncio
+    async def test_get_blocks_deprecation_warning(
+        self,
+        explorer_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubExplorer = explorer_servicer
+        explorer_servicer.blocks_responses.append(exchange_explorer_pb.GetBlocksResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_blocks()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_blocks instead"
+
+    @pytest.mark.asyncio
+    async def test_get_block_deprecation_warning(
+        self,
+        explorer_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubExplorer = explorer_servicer
+        explorer_servicer.block_responses.append(exchange_explorer_pb.GetBlockResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_block(block_height="")
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_block instead"
+
+    @pytest.mark.asyncio
+    async def test_get_txs_deprecation_warning(
+        self,
+        explorer_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubExplorer = explorer_servicer
+        explorer_servicer.txs_responses.append(exchange_explorer_pb.GetTxsResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_txs()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_txs instead"
+
+    @pytest.mark.asyncio
+    async def test_get_tx_by_hash_deprecation_warning(
+        self,
+        explorer_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubExplorer = explorer_servicer
+        explorer_servicer.tx_by_tx_hash_responses.append(exchange_explorer_pb.GetTxByTxHashResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_tx_by_hash(tx_hash="")
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_tx_by_tx_hash instead"
+
+    @pytest.mark.asyncio
+    async def test_get_peggy_deposits_deprecation_warning(
+        self,
+        explorer_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubExplorer = explorer_servicer
+        explorer_servicer.peggy_deposit_txs_responses.append(exchange_explorer_pb.GetPeggyDepositTxsResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_peggy_deposits()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_peggy_deposit_txs instead"
+
+    @pytest.mark.asyncio
+    async def test_get_peggy_withdrawals_deprecation_warning(
+        self,
+        explorer_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubExplorer = explorer_servicer
+        explorer_servicer.peggy_withdrawal_txs_responses.append(exchange_explorer_pb.GetPeggyWithdrawalTxsResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_peggy_withdrawals()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_peggy_withdrawal_txs instead"
+
+    @pytest.mark.asyncio
+    async def test_get_ibc_transfers_deprecation_warning(
+        self,
+        explorer_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubExplorer = explorer_servicer
+        explorer_servicer.ibc_transfer_txs_responses.append(exchange_explorer_pb.GetIBCTransferTxsResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_ibc_transfers()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_ibc_transfer_txs instead"

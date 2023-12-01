@@ -9,7 +9,7 @@ async def main() -> None:
     network = Network.testnet()
     client = AsyncClient(network)
     block_height = "5825046"
-    block = await client.get_block(block_height=block_height)
+    block = await client.fetch_block(block_id=block_height)
     print(block)
 
 
