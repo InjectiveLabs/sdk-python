@@ -29,6 +29,9 @@ class ConfigurableExplorerQueryServicer(exchange_explorer_grpc.InjectiveExplorer
         self.relayers_responses = deque()
         self.bank_transfers_responses = deque()
 
+        self.stream_txs_responses = deque()
+        self.stream_blocks_responses = deque()
+
     async def GetAccountTxs(self, request: exchange_explorer_pb.GetAccountTxsRequest, context=None, metadata=None):
         return self.account_txs_responses.pop()
 
@@ -99,3 +102,11 @@ class ConfigurableExplorerQueryServicer(exchange_explorer_grpc.InjectiveExplorer
         self, request: exchange_explorer_pb.GetBankTransfersRequest, context=None, metadata=None
     ):
         return self.bank_transfers_responses.pop()
+
+    async def StreamTxs(self, request: exchange_explorer_pb.StreamTxsRequest, context=None, metadata=None):
+        for event in self.stream_txs_responses:
+            yield event
+
+    async def StreamBlocks(self, request: exchange_explorer_pb.StreamBlocksRequest, context=None, metadata=None):
+        for event in self.stream_blocks_responses:
+            yield event

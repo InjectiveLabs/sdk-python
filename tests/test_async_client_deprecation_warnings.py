@@ -1569,3 +1569,39 @@ class TestAsyncClientDeprecationWarnings:
         assert len(all_warnings) == 1
         assert issubclass(all_warnings[0].category, DeprecationWarning)
         assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_ibc_transfer_txs instead"
+
+    @pytest.mark.asyncio
+    async def test_stream_txs_deprecation_warning(
+        self,
+        explorer_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubPortfolio = explorer_servicer
+        explorer_servicer.stream_txs_responses.append(exchange_explorer_pb.StreamTxsResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.stream_txs()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use listen_txs_updates instead"
+
+    @pytest.mark.asyncio
+    async def test_stream_blocks_deprecation_warning(
+        self,
+        explorer_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubPortfolio = explorer_servicer
+        explorer_servicer.stream_blocks_responses.append(exchange_explorer_pb.StreamBlocksResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.stream_blocks()
+
+        assert len(all_warnings) == 1
+        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        assert str(all_warnings[0].message) == "This method is deprecated. Use listen_blocks_updates instead"

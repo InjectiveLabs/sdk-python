@@ -24,6 +24,7 @@ from pyinjective.client.indexer.grpc.indexer_grpc_spot_api import IndexerGrpcSpo
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_account_stream import IndexerGrpcAccountStream
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_auction_stream import IndexerGrpcAuctionStream
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_derivative_stream import IndexerGrpcDerivativeStream
+from pyinjective.client.indexer.grpc_stream.indexer_grpc_explorer_stream import IndexerGrpcExplorerStream
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_meta_stream import IndexerGrpcMetaStream
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_oracle_stream import IndexerGrpcOracleStream
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_portfolio_stream import IndexerGrpcPortfolioStream
@@ -273,6 +274,12 @@ class AsyncClient:
         )
 
         self.exchange_explorer_api = IndexerGrpcExplorerApi(
+            channel=self.explorer_channel,
+            metadata_provider=lambda: self.network.exchange_metadata(
+                metadata_query_provider=self._explorer_cookie_metadata_requestor
+            ),
+        )
+        self.exchange_explorer_stream_api = IndexerGrpcExplorerStream(
             channel=self.explorer_channel,
             metadata_provider=lambda: self.network.exchange_metadata(
                 metadata_query_provider=self._explorer_cookie_metadata_requestor
@@ -729,12 +736,44 @@ class AsyncClient:
         )
 
     async def stream_txs(self):
+        """
+        This method is deprecated and will be removed soon. Please use `listen_txs_updates` instead
+        """
+        warn("This method is deprecated. Use listen_txs_updates instead", DeprecationWarning, stacklevel=2)
         req = explorer_rpc_pb.StreamTxsRequest()
         return self.stubExplorer.StreamTxs(req)
 
+    async def listen_txs_updates(
+        self,
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+    ):
+        await self.exchange_explorer_stream_api.stream_txs(
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+        )
+
     async def stream_blocks(self):
+        """
+        This method is deprecated and will be removed soon. Please use `listen_blocks_updates` instead
+        """
+        warn("This method is deprecated. Use listen_blocks_updates instead", DeprecationWarning, stacklevel=2)
         req = explorer_rpc_pb.StreamBlocksRequest()
         return self.stubExplorer.StreamBlocks(req)
+
+    async def listen_blocks_updates(
+        self,
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+    ):
+        await self.exchange_explorer_stream_api.stream_blocks(
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+        )
 
     async def get_peggy_deposits(self, **kwargs):
         """
