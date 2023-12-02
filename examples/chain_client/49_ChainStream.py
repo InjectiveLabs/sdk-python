@@ -1,10 +1,23 @@
 import asyncio
+from typing import Any, Dict
 
-from google.protobuf import json_format
+from grpc import RpcError
 
 from pyinjective.async_client import AsyncClient
 from pyinjective.composer import Composer
 from pyinjective.core.network import Network
+
+
+async def chain_stream_event_processor(event: Dict[str, Any]):
+    print(event)
+
+
+def stream_error_processor(exception: RpcError):
+    print(f"There was an error listening to chain stream updates ({exception})")
+
+
+def stream_closed_processor():
+    print("The chain stream updates stream has been closed")
 
 
 async def main() -> None:
@@ -38,24 +51,27 @@ async def main() -> None:
         subaccount_ids=[subaccount_id], market_ids=[inj_usdt_perp_market]
     )
     oracle_price_filter = composer.chain_stream_oracle_price_filter(symbols=["INJ", "USDT"])
-    stream = await client.chain_stream(
-        bank_balances_filter=bank_balances_filter,
-        subaccount_deposits_filter=subaccount_deposits_filter,
-        spot_trades_filter=spot_trades_filter,
-        derivative_trades_filter=derivative_trades_filter,
-        spot_orders_filter=spot_orders_filter,
-        derivative_orders_filter=derivative_orders_filter,
-        spot_orderbooks_filter=spot_orderbooks_filter,
-        derivative_orderbooks_filter=derivative_orderbooks_filter,
-        positions_filter=positions_filter,
-        oracle_price_filter=oracle_price_filter,
-    )
-    async for event in stream:
-        print(
-            json_format.MessageToJson(
-                message=event, including_default_value_fields=True, preserving_proto_field_name=True
-            )
+
+    task = asyncio.get_event_loop().create_task(
+        client.listen_chain_stream_updates(
+            callback=chain_stream_event_processor,
+            on_end_callback=stream_closed_processor,
+            on_status_callback=stream_error_processor,
+            bank_balances_filter=bank_balances_filter,
+            subaccount_deposits_filter=subaccount_deposits_filter,
+            spot_trades_filter=spot_trades_filter,
+            derivative_trades_filter=derivative_trades_filter,
+            spot_orders_filter=spot_orders_filter,
+            derivative_orders_filter=derivative_orders_filter,
+            spot_orderbooks_filter=spot_orderbooks_filter,
+            derivative_orderbooks_filter=derivative_orderbooks_filter,
+            positions_filter=positions_filter,
+            oracle_price_filter=oracle_price_filter,
         )
+    )
+
+    await asyncio.sleep(delay=60)
+    task.cancel()
 
 
 if __name__ == "__main__":
