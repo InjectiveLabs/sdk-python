@@ -19,6 +19,13 @@ All notable changes to this project will be documented in this file.
 - Updated the gas fee buffer used to calculate fee consumption in all examples
 - Refactored logic in AsyncClient to load markets and tokens, to ensure there are no duplicated tokens with the same denom
 
+## [0.9.10]
+* Synchronized markets and tokens config files to add SOL/USDT spot market
+
+## [0.9.9]
+* Synchronized markets and tokens config files to add USDY/USDT and WHALE/USDT spot markets
+
+
 ## [0.9.8]
 * Synchronized markets and tokens config files to add PYTH/USDT spot market
 
