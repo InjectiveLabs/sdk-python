@@ -152,7 +152,8 @@ class AsyncClient:
         self._initialize_timeout_height_sync_task()
 
         self._tokens_and_markets_initialization_lock = asyncio.Lock()
-        self._tokens: Optional[Dict[str, Token]] = None
+        self._tokens_by_denom: Optional[Dict[str, Token]] = None
+        self._tokens_by_symbol: Optional[Dict[str, Token]] = None
         self._spot_markets: Optional[Dict[str, SpotMarket]] = None
         self._derivative_markets: Optional[Dict[str, DerivativeMarket]] = None
         self._binary_option_markets: Optional[Dict[str, BinaryOptionMarket]] = None
@@ -295,11 +296,11 @@ class AsyncClient:
         )
 
     async def all_tokens(self) -> Dict[str, Token]:
-        if self._tokens is None:
+        if self._tokens_by_symbol is None:
             async with self._tokens_and_markets_initialization_lock:
-                if self._tokens is None:
+                if self._tokens_by_symbol is None:
                     await self._initialize_tokens_and_markets()
-        return deepcopy(self._tokens)
+        return deepcopy(self._tokens_by_symbol)
 
     async def all_spot_markets(self) -> Dict[str, SpotMarket]:
         if self._spot_markets is None:
@@ -2463,7 +2464,7 @@ class AsyncClient:
         spot_markets = dict()
         derivative_markets = dict()
         binary_option_markets = dict()
-        tokens = dict()
+        tokens_by_symbol = dict()
         tokens_by_denom = dict()
         markets_info = (await self.fetch_spot_markets(market_statuses=["active"]))["markets"]
         valid_markets = (
@@ -2485,19 +2486,16 @@ class AsyncClient:
                 symbol=base_token_symbol,
                 token_meta=market_info["baseTokenMeta"],
                 denom=market_info["baseDenom"],
-                all_tokens=tokens,
+                tokens_by_denom=tokens_by_denom,
+                tokens_by_symbol=tokens_by_symbol,
             )
-            if base_token.denom not in tokens_by_denom:
-                tokens_by_denom[base_token.denom] = base_token
-
             quote_token = self._token_representation(
                 symbol=quote_token_symbol,
                 token_meta=market_info["quoteTokenMeta"],
                 denom=market_info["quoteDenom"],
-                all_tokens=tokens,
+                tokens_by_denom=tokens_by_denom,
+                tokens_by_symbol=tokens_by_symbol,
             )
-            if quote_token.denom not in tokens_by_denom:
-                tokens_by_denom[quote_token.denom] = quote_token
 
             market = SpotMarket(
                 id=market_info["marketId"],
@@ -2528,10 +2526,9 @@ class AsyncClient:
                 symbol=quote_token_symbol,
                 token_meta=market_info["quoteTokenMeta"],
                 denom=market_info["quoteDenom"],
-                all_tokens=tokens,
+                tokens_by_denom=tokens_by_denom,
+                tokens_by_symbol=tokens_by_symbol,
             )
-            if quote_token.denom not in tokens_by_denom:
-                tokens_by_denom[quote_token.denom] = quote_token
 
             market = DerivativeMarket(
                 id=market_info["marketId"],
@@ -2580,35 +2577,41 @@ class AsyncClient:
 
             binary_option_markets[market.id] = market
 
-        self._tokens = tokens
+        self._tokens_by_denom = tokens_by_denom
+        self._tokens_by_symbol = tokens_by_symbol
         self._spot_markets = spot_markets
         self._derivative_markets = derivative_markets
         self._binary_option_markets = binary_option_markets
 
     def _token_representation(
-        self, symbol: str, token_meta: Dict[str, Any], denom: str, all_tokens: Dict[str, Token]
+        self,
+        symbol: str,
+        token_meta: Dict[str, Any],
+        denom: str,
+        tokens_by_denom: Dict[str, Token],
+        tokens_by_symbol: Dict[str, Token],
     ) -> Token:
-        token = Token(
-            name=token_meta["name"],
-            symbol=symbol,
-            denom=denom,
-            address=token_meta["address"],
-            decimals=token_meta["decimals"],
-            logo=token_meta["logo"],
-            updated=int(token_meta["updatedAt"]),
-        )
+        if denom not in tokens_by_denom:
+            unique_symbol = denom
+            for symbol_candidate in [symbol, token_meta["symbol"], token_meta["name"]]:
+                if symbol_candidate not in tokens_by_symbol:
+                    unique_symbol = symbol_candidate
+                    break
 
-        existing_token = all_tokens.get(token.symbol, None)
-        if existing_token is None:
-            all_tokens[token.symbol] = token
-            existing_token = token
-        elif existing_token.denom != denom:
-            existing_token = all_tokens.get(token.name, None)
-            if existing_token is None:
-                all_tokens[token.name] = token
-                existing_token = token
+            token = Token(
+                name=token_meta["name"],
+                symbol=symbol,
+                denom=denom,
+                address=token_meta["address"],
+                decimals=token_meta["decimals"],
+                logo=token_meta["logo"],
+                updated=int(token_meta["updatedAt"]),
+            )
 
-        return existing_token
+            tokens_by_denom[denom] = token
+            tokens_by_symbol[unique_symbol] = token
+
+        return tokens_by_denom[denom]
 
     def _chain_cookie_metadata_requestor(self) -> Coroutine:
         request = tendermint_query.GetLatestBlockRequest()

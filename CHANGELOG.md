@@ -2,9 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.0.1] - 2023-11-07
+## [1.0.1] - 2023-12-11
+### Added
+- Added low level API components for all modules (chain, exchain and explorer) to make the Python SDK compatible with the TypeScript SDK.
+
 ### Changed
 - Updated proto definitions to injective-core v1.12.2-testnet and injective-indexer v1.12.45-rc3
+- Added new functions in AsyncClient to interact with chain, exchange and explorer using the low level API components
+- Marked old function sin AsyncClient as deprecated (the functions will be removed in a future version)
+- Updated all API examples to use the new AsyncClient functions
 
 ## [1.0] - 2023-11-01
 ### Added
@@ -17,6 +23,23 @@ All notable changes to this project will be documented in this file.
 - Moved changelog from the README.md file to its own CHANGELOG.md file
 - Remove `aiocron` dependency. Use plain asyncio tasks to solve the timeout height synchronization
 - Updated the gas fee buffer used to calculate fee consumption in all examples
+- Refactored logic in AsyncClient to load markets and tokens, to ensure there are no duplicated tokens with the same denom
+
+## [0.9.10]
+* Synchronized markets and tokens config files to add SOL/USDT spot market
+
+## [0.9.9]
+* Synchronized markets and tokens config files to add USDY/USDT and WHALE/USDT spot markets
+
+
+## [0.9.8]
+* Synchronized markets and tokens config files to add PYTH/USDT spot market
+
+## [0.9.7]
+* Added PYTH/USDT PERP market info in mainnet metadata ini file
+
+## [0.9.6]
+* Synchronized denom ini files with Indexer information for mainnet, testnet and devnet to include TALIS/INJ and KUJI/USDT markets
 
 ## [0.9.5]
 * Updated fetch_metadata script (to synchronize denom ini files) to reuse logic in AsyncClient

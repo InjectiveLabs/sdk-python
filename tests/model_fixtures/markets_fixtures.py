@@ -11,7 +11,7 @@ def inj_token():
     token = Token(
         name="Injective Protocol",
         symbol="INJ",
-        denom="peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7",
+        denom="inj",
         address="0xe28b3B32B6c345A34Ff64674606124Dd5Aceca30",
         decimals=18,
         logo="https://static.alchemyapi.io/images/assets/7226.png",
