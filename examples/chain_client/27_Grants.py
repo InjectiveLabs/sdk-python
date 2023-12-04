@@ -10,7 +10,7 @@ async def main() -> None:
     granter = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku"
     grantee = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
     msg_type_url = "/injective.exchange.v1beta1.MsgCreateDerivativeLimitOrder"
-    authorizations = await client.get_grants(granter=granter, grantee=grantee, msg_type_url=msg_type_url)
+    authorizations = await client.fetch_grants(granter=granter, grantee=grantee, msg_type_url=msg_type_url)
     print(authorizations)
 
 

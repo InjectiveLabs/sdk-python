@@ -8,7 +8,7 @@ async def main() -> None:
     network = Network.testnet()
     client = AsyncClient(network)
     address = "inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr"
-    acc = await client.get_account(address=address)
+    acc = await client.fetch_account(address=address)
     print(acc)
 
 

@@ -9,7 +9,7 @@ async def main() -> None:
     network = Network.testnet()
     client = AsyncClient(network)
     market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
-    market = await client.get_derivative_orderbook(market_id=market_id)
+    market = await client.fetch_derivative_orderbook_v2(market_id=market_id)
     print(market)
 
 

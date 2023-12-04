@@ -9,7 +9,7 @@ async def main() -> None:
     network = Network.testnet()
     client = AsyncClient(network)
     receiver = "inj1phd706jqzd9wznkk5hgsfkrc8jqxv0kmlj0kex"
-    peggy_deposits = await client.get_peggy_deposits(receiver=receiver)
+    peggy_deposits = await client.fetch_peggy_deposit_txs(receiver=receiver)
     print(peggy_deposits)
 
 

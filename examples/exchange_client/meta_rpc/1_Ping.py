@@ -8,7 +8,7 @@ async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
     client = AsyncClient(network)
-    resp = await client.ping()
+    resp = await client.fetch_ping()
     print("Health OK?", resp)
 
 

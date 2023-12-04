@@ -1,6 +1,7 @@
 import asyncio
 
 from pyinjective.async_client import AsyncClient
+from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import Network
 
 
@@ -9,8 +10,9 @@ async def main() -> None:
     network = Network.testnet()
     client = AsyncClient(network)
     limit = 2
-    block = await client.get_blocks(limit=limit)
-    print(block)
+    pagination = PaginationOption(limit=limit)
+    blocks = await client.fetch_blocks(pagination=pagination)
+    print(blocks)
 
 
 if __name__ == "__main__":

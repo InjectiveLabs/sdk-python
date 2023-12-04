@@ -1,7 +1,22 @@
 import asyncio
+from typing import Any, Dict
+
+from grpc import RpcError
 
 from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
+
+
+async def trade_event_processor(event: Dict[str, Any]):
+    print(event)
+
+
+def stream_error_processor(exception: RpcError):
+    print(f"There was an error listening to spot trades updates ({exception})")
+
+
+def stream_closed_processor():
+    print("The spot trades updates stream has been closed")
 
 
 async def main() -> None:
@@ -15,15 +30,22 @@ async def main() -> None:
     direction = "sell"
     subaccount_id = "0xc7dca7c15c364865f77a4fb67ab11dc95502e6fe000000000000000000000001"
     execution_types = ["limitMatchRestingOrder"]
-    trades = await client.stream_spot_trades(
-        market_ids=market_ids,
-        execution_side=execution_side,
-        direction=direction,
-        subaccount_id=subaccount_id,
-        execution_types=execution_types,
+
+    task = asyncio.get_event_loop().create_task(
+        client.listen_spot_trades_updates(
+            callback=trade_event_processor,
+            on_end_callback=stream_closed_processor,
+            on_status_callback=stream_error_processor,
+            market_ids=market_ids,
+            subaccount_ids=[subaccount_id],
+            execution_side=execution_side,
+            direction=direction,
+            execution_types=execution_types,
+        )
     )
-    async for trade in trades:
-        print(trade)
+
+    await asyncio.sleep(delay=60)
+    task.cancel()
 
 
 if __name__ == "__main__":

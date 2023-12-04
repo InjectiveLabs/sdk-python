@@ -8,7 +8,7 @@ async def main() -> None:
     network = Network.testnet()
     client = AsyncClient(network)
     address = "inj1cml96vmptgw99syqrrz8az79xer2pcgp0a885r"
-    all_bank_balances = await client.get_bank_balances(address=address)
+    all_bank_balances = await client.fetch_bank_balances(address=address)
     print(all_bank_balances)
 
 

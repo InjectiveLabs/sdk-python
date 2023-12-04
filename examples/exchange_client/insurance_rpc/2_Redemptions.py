@@ -11,9 +11,7 @@ async def main() -> None:
     redeemer = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku"
     redemption_denom = "share4"
     status = "disbursed"
-    insurance_redemptions = await client.get_redemptions(
-        redeemer=redeemer, redemption_denom=redemption_denom, status=status
-    )
+    insurance_redemptions = await client.fetch_redemptions(address=redeemer, denom=redemption_denom, status=status)
     print(insurance_redemptions)
 
 

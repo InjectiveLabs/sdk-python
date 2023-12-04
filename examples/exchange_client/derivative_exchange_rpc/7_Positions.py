@@ -1,6 +1,7 @@
 import asyncio
 
 from pyinjective.async_client import AsyncClient
+from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import Network
 
 
@@ -17,13 +18,13 @@ async def main() -> None:
     subaccount_total_positions = False
     skip = 4
     limit = 4
-    positions = await client.get_derivative_positions(
+    pagination = PaginationOption(skip=skip, limit=limit)
+    positions = await client.fetch_derivative_positions(
         market_ids=market_ids,
-        ubaccount_id=subaccount_id,
+        subaccount_id=subaccount_id,
         direction=direction,
         subaccount_total_positions=subaccount_total_positions,
-        skip=skip,
-        limit=limit,
+        pagination=pagination,
     )
     print(positions)
 

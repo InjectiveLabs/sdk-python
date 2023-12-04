@@ -1,6 +1,7 @@
 import asyncio
 
 from pyinjective.async_client import AsyncClient
+from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import Network
 
 
@@ -14,13 +15,13 @@ async def main() -> None:
     direction = "sell"
     skip = 10
     limit = 2
-    trades = await client.get_derivative_subaccount_trades(
+    pagination = PaginationOption(skip=skip, limit=limit)
+    trades = await client.fetch_derivative_subaccount_trades_list(
         subaccount_id=subaccount_id,
         market_id=market_id,
         execution_type=execution_type,
         direction=direction,
-        skip=skip,
-        limit=limit,
+        pagination=pagination,
     )
     print(trades)
 
