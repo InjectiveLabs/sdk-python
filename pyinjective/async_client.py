@@ -458,6 +458,9 @@ class AsyncClient:
         result = await self.stubTx.BroadcastTx(request=req, metadata=metadata)
         return result.tx_response
 
+    async def broadcast_tx_async_mode(self, tx_bytes: bytes) -> Dict[str, Any]:
+        return await self.tx_api.broadcast(tx_bytes=tx_bytes, mode=tx_service.BroadcastMode.BROADCAST_MODE_ASYNC)
+
     async def send_tx_block_mode(self, tx_byte: bytes) -> abci_type.TxResponse:
         """
         This method is deprecated and will be removed soon. BLOCK broadcast mode should not be used
@@ -960,17 +963,13 @@ class AsyncClient:
         subaccount_id: str,
         denom: Optional[str] = None,
         transfer_types: Optional[List[str]] = None,
-        skip: Optional[int] = None,
-        limit: Optional[int] = None,
-        end_time: Optional[int] = None,
+        pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
         return await self.exchange_account_api.fetch_subaccount_history(
             subaccount_id=subaccount_id,
             denom=denom,
             transfer_types=transfer_types,
-            skip=skip,
-            limit=limit,
-            end_time=end_time,
+            pagination=pagination,
         )
 
     async def get_subaccount_order_summary(self, subaccount_id: str, **kwargs):

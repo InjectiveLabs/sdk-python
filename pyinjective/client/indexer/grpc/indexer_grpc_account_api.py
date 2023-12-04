@@ -2,6 +2,7 @@ from typing import Any, Callable, Dict, List, Optional
 
 from grpc.aio import Channel
 
+from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.proto.exchange import (
     injective_accounts_rpc_pb2 as exchange_accounts_pb,
     injective_accounts_rpc_pb2_grpc as exchange_accounts_grpc,
@@ -66,17 +67,16 @@ class IndexerGrpcAccountApi:
         subaccount_id: str,
         denom: Optional[str] = None,
         transfer_types: Optional[List[str]] = None,
-        skip: Optional[int] = None,
-        limit: Optional[int] = None,
-        end_time: Optional[int] = None,
+        pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
+        pagination = pagination or PaginationOption()
         request = exchange_accounts_pb.SubaccountHistoryRequest(
             subaccount_id=subaccount_id,
             denom=denom,
             transfer_types=transfer_types,
-            skip=skip,
-            limit=limit,
-            end_time=end_time,
+            skip=pagination.skip,
+            limit=pagination.limit,
+            end_time=pagination.end_time,
         )
         response = await self._execute_call(call=self._stub.SubaccountHistory, request=request)
 

@@ -44,9 +44,14 @@ async def main() -> None:
 
 
 async def get_markets(client):
-    stream = await client.stream_spot_markets()
-    async for market in stream:
-        print(market)
+    async def print_market_updates(event: Dict[str, Any]):
+        print(event)
+
+    await client.listen_spot_markets_updates(
+        callback=print_market_updates,
+        on_end_callback=stream_closed_processor,
+        on_status_callback=stream_error_processor,
+    )
 
 
 if __name__ == "__main__":

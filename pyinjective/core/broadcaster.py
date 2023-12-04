@@ -256,11 +256,11 @@ class SimulatedTransactionFeeCalculator(TransactionFeeCalculator):
 
         # simulate tx
         try:
-            sim_res = await self._client.simulate_tx(sim_tx_raw_bytes)
+            sim_res = await self._client.simulate(sim_tx_raw_bytes)
         except RpcError as ex:
             raise RuntimeError(f"Transaction simulation error: {ex}")
 
-        gas_limit = math.ceil(Decimal(str(sim_res.gas_info.gas_used)) * self._gas_limit_adjustment_multiplier)
+        gas_limit = math.ceil(Decimal(str(sim_res["gasInfo"]["gasUsed"])) * self._gas_limit_adjustment_multiplier)
 
         fee = [
             self._composer.Coin(

@@ -1,9 +1,8 @@
-import time
-
 import grpc
 import pytest
 
 from pyinjective.client.indexer.grpc.indexer_grpc_account_api import IndexerGrpcAccountApi
+from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import Network
 from pyinjective.proto.exchange import injective_accounts_rpc_pb2 as exchange_accounts_pb
 from tests.client.indexer.configurable_account_query_servicer import ConfigurableAccountQueryServicer
@@ -256,9 +255,11 @@ class TestIndexerGrpcAccountApi:
             subaccount_id=transfer.dst_subaccount_id,
             denom=transfer.amount.denom,
             transfer_types=[transfer.transfer_type],
-            skip=0,
-            limit=5,
-            end_time=int(time.time() * 1e3),
+            pagination=PaginationOption(
+                skip=0,
+                limit=100,
+                end_time=1699744939364,
+            ),
         )
         expected_subaccount_history = {
             "transfers": [

@@ -1,6 +1,7 @@
 import asyncio
 
 from pyinjective.async_client import AsyncClient
+from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import Network
 
 
@@ -13,8 +14,12 @@ async def main() -> None:
     skip = 1
     limit = 15
     end_time = 1665118340224
+    pagination = PaginationOption(skip=skip, limit=limit, end_time=end_time)
     subacc_history = await client.fetch_subaccount_history(
-        subaccount_id=subaccount, denom=denom, transfer_types=transfer_types, skip=skip, limit=limit, end_time=end_time
+        subaccount_id=subaccount,
+        denom=denom,
+        transfer_types=transfer_types,
+        pagination=pagination,
     )
     print(subacc_history)
 
