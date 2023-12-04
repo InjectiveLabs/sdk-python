@@ -101,7 +101,7 @@ omit = ["pyinjective/proto/*"]
 
 [tool.coverage.report]
 skip_empty = true
-fail_under = 50
+fail_under = 65
 precision = 2
 
 [tool.pytest.ini_options]
