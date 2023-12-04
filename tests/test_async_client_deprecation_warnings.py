@@ -117,10 +117,11 @@ class TestAsyncClientDeprecationWarnings:
                 insecure=False,
             )
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
         assert (
-            str(all_warnings[0].message) == "insecure parameter in AsyncClient is no longer used and will be deprecated"
+            str(deprecation_warnings[0].message)
+            == "insecure parameter in AsyncClient is no longer used and will be deprecated"
         )
 
     @pytest.mark.asyncio
@@ -137,9 +138,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_account(address="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_account instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_account instead"
 
     @pytest.mark.asyncio
     async def test_get_bank_balance_deprecation_warning(
@@ -155,9 +156,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_bank_balance(address="", denom="inj")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_bank_balance instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_bank_balance instead"
 
     @pytest.mark.asyncio
     async def test_get_bank_balances_deprecation_warning(
@@ -173,9 +174,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_bank_balances(address="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_bank_balances instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_bank_balances instead"
 
     @pytest.mark.asyncio
     async def test_get_order_states_deprecation_warning(
@@ -191,9 +192,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_order_states(spot_order_hashes=["hash1"], derivative_order_hashes=["hash2"])
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_order_states instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_order_states instead"
 
     @pytest.mark.asyncio
     async def test_get_subaccount_list_deprecation_warning(
@@ -209,9 +210,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_subaccount_list(account_address="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_subaccounts_list instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_subaccounts_list instead"
 
     @pytest.mark.asyncio
     async def test_get_subaccount_balances_list_deprecation_warning(
@@ -229,9 +230,12 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_subaccount_balances_list(subaccount_id="", denoms=[])
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_subaccount_balances_list instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert (
+            str(deprecation_warnings[0].message)
+            == "This method is deprecated. Use fetch_subaccount_balances_list instead"
+        )
 
     @pytest.mark.asyncio
     async def test_get_subaccount_balance_deprecation_warning(
@@ -247,9 +251,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_subaccount_balance(subaccount_id="", denom="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_subaccount_balance instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_subaccount_balance instead"
 
     @pytest.mark.asyncio
     async def test_get_subaccount_history_deprecation_warning(
@@ -265,9 +269,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_subaccount_history(subaccount_id="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_subaccount_history instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_subaccount_history instead"
 
     @pytest.mark.asyncio
     async def test_get_subaccount_order_summary_deprecation_warning(
@@ -285,9 +289,12 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_subaccount_order_summary(subaccount_id="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_subaccount_order_summary instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert (
+            str(deprecation_warnings[0].message)
+            == "This method is deprecated. Use fetch_subaccount_order_summary instead"
+        )
 
     @pytest.mark.asyncio
     async def test_get_portfolio_deprecation_warning(
@@ -303,9 +310,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_portfolio(account_address="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_portfolio instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_portfolio instead"
 
     @pytest.mark.asyncio
     async def test_get_rewards_deprecation_warning(
@@ -321,9 +328,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_rewards(account_address="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_rewards instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_rewards instead"
 
     @pytest.mark.asyncio
     async def test_stream_subaccount_balance_deprecation_warning(
@@ -341,10 +348,11 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.stream_subaccount_balance(subaccount_id="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
         assert (
-            str(all_warnings[0].message) == "This method is deprecated. Use listen_subaccount_balance_updates instead"
+            str(deprecation_warnings[0].message)
+            == "This method is deprecated. Use listen_subaccount_balance_updates instead"
         )
 
     @pytest.mark.asyncio
@@ -361,9 +369,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_grants(granter="granter", grantee="grantee")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_grants instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_grants instead"
 
     @pytest.mark.asyncio
     async def test_simulate_deprecation_warning(
@@ -379,9 +387,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.simulate_tx(tx_byte="".encode())
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use simulate instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use simulate instead"
 
     @pytest.mark.asyncio
     async def test_get_tx_deprecation_warning(
@@ -397,9 +405,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_tx(tx_hash="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_tx instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_tx instead"
 
     @pytest.mark.asyncio
     async def test_send_tx_sync_mode_deprecation_warning(
@@ -415,9 +423,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.send_tx_sync_mode(tx_byte="".encode())
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use broadcast_tx_sync_mode instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use broadcast_tx_sync_mode instead"
 
     @pytest.mark.asyncio
     async def test_send_tx_async_mode_deprecation_warning(
@@ -433,9 +441,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.send_tx_async_mode(tx_byte="".encode())
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use broadcast_tx_async_mode instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use broadcast_tx_async_mode instead"
 
     @pytest.mark.asyncio
     async def test_send_tx_block_mode_deprecation_warning(
@@ -451,9 +459,11 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.send_tx_block_mode(tx_byte="".encode())
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. BLOCK broadcast mode should not be used"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert (
+            str(deprecation_warnings[0].message) == "This method is deprecated. BLOCK broadcast mode should not be used"
+        )
 
     @pytest.mark.asyncio
     async def test_ping_deprecation_warning(
@@ -469,9 +479,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.ping()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_ping instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_ping instead"
 
     @pytest.mark.asyncio
     async def test_version_deprecation_warning(
@@ -487,9 +497,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.version()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_version instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_version instead"
 
     @pytest.mark.asyncio
     async def test_info_deprecation_warning(
@@ -505,9 +515,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.info()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_info instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_info instead"
 
     @pytest.mark.asyncio
     async def test_stream_keepalive_deprecation_warning(
@@ -523,9 +533,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.stream_keepalive()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use listen_keepalive instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use listen_keepalive instead"
 
     @pytest.mark.asyncio
     async def test_oracle_list_deprecation_warning(
@@ -541,9 +551,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_oracle_list()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_oracle_list instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_oracle_list instead"
 
     @pytest.mark.asyncio
     async def test_get_oracle_list_deprecation_warning(
@@ -559,9 +569,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_oracle_list()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_oracle_list instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_oracle_list instead"
 
     @pytest.mark.asyncio
     async def test_get_oracle_prices_deprecation_warning(
@@ -582,9 +592,9 @@ class TestAsyncClientDeprecationWarnings:
                 oracle_scale_factor=6,
             )
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_oracle_price instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_oracle_price instead"
 
     @pytest.mark.asyncio
     async def test_stream_keepalive_deprecation_warning(
@@ -604,9 +614,12 @@ class TestAsyncClientDeprecationWarnings:
                 oracle_type="pricefeed",
             )
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use listen_oracle_prices_updates instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert (
+            str(deprecation_warnings[0].message)
+            == "This method is deprecated. Use listen_oracle_prices_updates instead"
+        )
 
     @pytest.mark.asyncio
     async def test_get_insurance_funds_deprecation_warning(
@@ -622,9 +635,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_insurance_funds()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_insurance_funds instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_insurance_funds instead"
 
     @pytest.mark.asyncio
     async def test_get_redemptions_deprecation_warning(
@@ -640,9 +653,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_redemptions()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_redemptions instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_redemptions instead"
 
     @pytest.mark.asyncio
     async def test_get_auction_deprecation_warning(
@@ -658,9 +671,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_auction(bid_round=1)
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_auction instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_auction instead"
 
     @pytest.mark.asyncio
     async def test_get_auctions_deprecation_warning(
@@ -676,9 +689,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_auctions()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_auctions instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_auctions instead"
 
     @pytest.mark.asyncio
     async def test_stream_bids_deprecation_warning(
@@ -694,9 +707,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.stream_bids()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use listen_bids_updates instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use listen_bids_updates instead"
 
     @pytest.mark.asyncio
     async def test_get_spot_markets_deprecation_warning(
@@ -712,9 +725,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_spot_markets()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_spot_markets instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_spot_markets instead"
 
     @pytest.mark.asyncio
     async def test_get_spot_market_deprecation_warning(
@@ -730,9 +743,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_spot_market(market_id="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_spot_market instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_spot_market instead"
 
     @pytest.mark.asyncio
     async def test_get_spot_orderbookV2_deprecation_warning(
@@ -748,9 +761,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_spot_orderbookV2(market_id="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_spot_orderbook_v2 instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_spot_orderbook_v2 instead"
 
     @pytest.mark.asyncio
     async def test_get_spot_orderbooksV2_deprecation_warning(
@@ -766,9 +779,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_spot_orderbooksV2(market_ids=[])
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_spot_orderbooks_v2 instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_spot_orderbooks_v2 instead"
 
     @pytest.mark.asyncio
     async def test_get_spot_orders_deprecation_warning(
@@ -784,9 +797,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_spot_orders(market_id="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_spot_orders instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_spot_orders instead"
 
     @pytest.mark.asyncio
     async def test_get_spot_trades_deprecation_warning(
@@ -802,9 +815,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_spot_trades()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_spot_trades instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_spot_trades instead"
 
     @pytest.mark.asyncio
     async def test_get_spot_subaccount_orders_deprecation_warning(
@@ -820,10 +833,11 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_spot_subaccount_orders(subaccount_id="", market_id="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
         assert (
-            str(all_warnings[0].message) == "This method is deprecated. Use fetch_spot_subaccount_orders_list instead"
+            str(deprecation_warnings[0].message)
+            == "This method is deprecated. Use fetch_spot_subaccount_orders_list instead"
         )
 
     @pytest.mark.asyncio
@@ -840,10 +854,11 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_spot_subaccount_trades(subaccount_id="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
         assert (
-            str(all_warnings[0].message) == "This method is deprecated. Use fetch_spot_subaccount_trades_list instead"
+            str(deprecation_warnings[0].message)
+            == "This method is deprecated. Use fetch_spot_subaccount_trades_list instead"
         )
 
     @pytest.mark.asyncio
@@ -860,9 +875,11 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_historical_spot_orders()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_spot_orders_history instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert (
+            str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_spot_orders_history instead"
+        )
 
     @pytest.mark.asyncio
     async def test_stream_spot_markets_deprecation_warning(
@@ -878,9 +895,11 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.stream_spot_markets()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use listen_spot_markets_updates instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert (
+            str(deprecation_warnings[0].message) == "This method is deprecated. Use listen_spot_markets_updates instead"
+        )
 
     @pytest.mark.asyncio
     async def test_stream_spot_orderbook_snapshot_deprecation_warning(
@@ -896,9 +915,12 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.stream_spot_orderbook_snapshot(market_ids=[])
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use listen_spot_orderbook_snapshots instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert (
+            str(deprecation_warnings[0].message)
+            == "This method is deprecated. Use listen_spot_orderbook_snapshots instead"
+        )
 
     @pytest.mark.asyncio
     async def test_stream_spot_orderbook_update_deprecation_warning(
@@ -914,9 +936,12 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.stream_spot_orderbook_update(market_ids=[])
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use listen_spot_orderbook_updates instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert (
+            str(deprecation_warnings[0].message)
+            == "This method is deprecated. Use listen_spot_orderbook_updates instead"
+        )
 
     @pytest.mark.asyncio
     async def test_stream_spot_orders_deprecation_warning(
@@ -932,9 +957,11 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.stream_spot_orders(market_id="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use listen_spot_orders_updates instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert (
+            str(deprecation_warnings[0].message) == "This method is deprecated. Use listen_spot_orders_updates instead"
+        )
 
     @pytest.mark.asyncio
     async def test_stream_spot_trades_deprecation_warning(
@@ -950,9 +977,11 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.stream_spot_trades()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use listen_spot_trades_updates instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert (
+            str(deprecation_warnings[0].message) == "This method is deprecated. Use listen_spot_trades_updates instead"
+        )
 
     @pytest.mark.asyncio
     async def test_stream_historical_spot_orders_deprecation_warning(
@@ -968,10 +997,11 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.stream_historical_spot_orders(market_id="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
         assert (
-            str(all_warnings[0].message) == "This method is deprecated. Use listen_spot_orders_history_updates instead"
+            str(deprecation_warnings[0].message)
+            == "This method is deprecated. Use listen_spot_orders_history_updates instead"
         )
 
     @pytest.mark.asyncio
@@ -988,9 +1018,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_derivative_markets()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_derivative_markets instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_derivative_markets instead"
 
     @pytest.mark.asyncio
     async def test_get_derivative_market_deprecation_warning(
@@ -1006,9 +1036,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_derivative_market(market_id="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_derivative_market instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_derivative_market instead"
 
     @pytest.mark.asyncio
     async def test_get_binary_options_markets_deprecation_warning(
@@ -1026,9 +1056,12 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_binary_options_markets()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_binary_options_markets instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert (
+            str(deprecation_warnings[0].message)
+            == "This method is deprecated. Use fetch_binary_options_markets instead"
+        )
 
     @pytest.mark.asyncio
     async def test_get_binary_options_market_deprecation_warning(
@@ -1044,9 +1077,11 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_binary_options_market(market_id="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_binary_options_market instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert (
+            str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_binary_options_market instead"
+        )
 
     @pytest.mark.asyncio
     async def test_get_derivative_orderbook_deprecation_warning(
@@ -1062,9 +1097,12 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_derivative_orderbook(market_id="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_derivative_orderbook_v2 instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert (
+            str(deprecation_warnings[0].message)
+            == "This method is deprecated. Use fetch_derivative_orderbook_v2 instead"
+        )
 
     @pytest.mark.asyncio
     async def test_get_derivative_orderbooksV2_deprecation_warning(
@@ -1080,9 +1118,12 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_derivative_orderbooksV2(market_ids=[])
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_derivative_orderbooks_v2 instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert (
+            str(deprecation_warnings[0].message)
+            == "This method is deprecated. Use fetch_derivative_orderbooks_v2 instead"
+        )
 
     @pytest.mark.asyncio
     async def test_get_derivative_orders_deprecation_warning(
@@ -1098,9 +1139,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_derivative_orders(market_id="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_derivative_orders instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_derivative_orders instead"
 
     @pytest.mark.asyncio
     async def test_get_derivative_positions_deprecation_warning(
@@ -1116,9 +1157,11 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_derivative_positions()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_derivative_positions instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert (
+            str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_derivative_positions instead"
+        )
 
     @pytest.mark.asyncio
     async def test_get_derivative_liquidable_positions_deprecation_warning(
@@ -1134,10 +1177,10 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_derivative_liquidable_positions()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
         assert (
-            str(all_warnings[0].message)
+            str(deprecation_warnings[0].message)
             == "This method is deprecated. Use fetch_derivative_liquidable_positions instead"
         )
 
@@ -1155,9 +1198,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_funding_payments(subaccount_id="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_funding_payments instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_funding_payments instead"
 
     @pytest.mark.asyncio
     async def test_get_funding_rates_deprecation_warning(
@@ -1173,9 +1216,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_funding_rates(market_id="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_funding_rates instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_funding_rates instead"
 
     @pytest.mark.asyncio
     async def test_get_derivative_trades_deprecation_warning(
@@ -1191,9 +1234,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_derivative_trades()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_derivative_trades instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_derivative_trades instead"
 
     @pytest.mark.asyncio
     async def test_get_derivative_subaccount_orders_deprecation_warning(
@@ -1211,10 +1254,11 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_derivative_subaccount_orders(subaccount_id="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
         assert (
-            str(all_warnings[0].message) == "This method is deprecated. Use fetch_derivative_subaccount_orders instead"
+            str(deprecation_warnings[0].message)
+            == "This method is deprecated. Use fetch_derivative_subaccount_orders instead"
         )
 
     @pytest.mark.asyncio
@@ -1233,10 +1277,11 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_derivative_subaccount_trades(subaccount_id="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
         assert (
-            str(all_warnings[0].message) == "This method is deprecated. Use fetch_derivative_subaccount_trades instead"
+            str(deprecation_warnings[0].message)
+            == "This method is deprecated. Use fetch_derivative_subaccount_trades instead"
         )
 
     @pytest.mark.asyncio
@@ -1253,9 +1298,12 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_historical_derivative_orders()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_derivative_orders_history instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert (
+            str(deprecation_warnings[0].message)
+            == "This method is deprecated. Use fetch_derivative_orders_history instead"
+        )
 
     @pytest.mark.asyncio
     async def test_stream_derivative_markets_deprecation_warning(
@@ -1271,9 +1319,12 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.stream_derivative_markets()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use listen_derivative_market_updates instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert (
+            str(deprecation_warnings[0].message)
+            == "This method is deprecated. Use listen_derivative_market_updates instead"
+        )
 
     @pytest.mark.asyncio
     async def test_stream_derivative_orderbook_snapshot_deprecation_warning(
@@ -1289,10 +1340,10 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.stream_derivative_orderbook_snapshot(market_ids=[])
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
         assert (
-            str(all_warnings[0].message)
+            str(deprecation_warnings[0].message)
             == "This method is deprecated. Use listen_derivative_orderbook_snapshots instead"
         )
 
@@ -1312,10 +1363,11 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.stream_derivative_orderbook_update(market_ids=[])
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
         assert (
-            str(all_warnings[0].message) == "This method is deprecated. Use listen_derivative_orderbook_updates instead"
+            str(deprecation_warnings[0].message)
+            == "This method is deprecated. Use listen_derivative_orderbook_updates instead"
         )
 
     @pytest.mark.asyncio
@@ -1332,10 +1384,11 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.stream_derivative_positions()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
         assert (
-            str(all_warnings[0].message) == "This method is deprecated. Use listen_derivative_positions_updates instead"
+            str(deprecation_warnings[0].message)
+            == "This method is deprecated. Use listen_derivative_positions_updates instead"
         )
 
     @pytest.mark.asyncio
@@ -1352,9 +1405,12 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.stream_derivative_orders(market_id="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use listen_derivative_orders_updates instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert (
+            str(deprecation_warnings[0].message)
+            == "This method is deprecated. Use listen_derivative_orders_updates instead"
+        )
 
     @pytest.mark.asyncio
     async def test_stream_derivative_trades_deprecation_warning(
@@ -1370,9 +1426,12 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.stream_derivative_trades()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use listen_derivative_trades_updates instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert (
+            str(deprecation_warnings[0].message)
+            == "This method is deprecated. Use listen_derivative_trades_updates instead"
+        )
 
     @pytest.mark.asyncio
     async def test_stream_historical_derivative_orders_deprecation_warning(
@@ -1388,10 +1447,10 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.stream_historical_derivative_orders(market_id="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
         assert (
-            str(all_warnings[0].message)
+            str(deprecation_warnings[0].message)
             == "This method is deprecated. Use listen_derivative_orders_history_updates instead"
         )
 
@@ -1409,9 +1468,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_account_portfolio(account_address="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_account_portfolio instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_account_portfolio instead"
 
     @pytest.mark.asyncio
     async def test_stream_account_portfolio_deprecation_warning(
@@ -1429,9 +1488,12 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.stream_account_portfolio(account_address="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use listen_account_portfolio_updates instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert (
+            str(deprecation_warnings[0].message)
+            == "This method is deprecated. Use listen_account_portfolio_updates instead"
+        )
 
     @pytest.mark.asyncio
     async def test_get_account_txs_deprecation_warning(
@@ -1447,9 +1509,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_account_txs(address="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_account_txs instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_account_txs instead"
 
     @pytest.mark.asyncio
     async def test_get_blocks_deprecation_warning(
@@ -1465,9 +1527,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_blocks()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_blocks instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_blocks instead"
 
     @pytest.mark.asyncio
     async def test_get_block_deprecation_warning(
@@ -1483,9 +1545,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_block(block_height="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_block instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_block instead"
 
     @pytest.mark.asyncio
     async def test_get_txs_deprecation_warning(
@@ -1501,9 +1563,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_txs()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_txs instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_txs instead"
 
     @pytest.mark.asyncio
     async def test_get_tx_by_hash_deprecation_warning(
@@ -1519,9 +1581,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_tx_by_hash(tx_hash="")
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_tx_by_tx_hash instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_tx_by_tx_hash instead"
 
     @pytest.mark.asyncio
     async def test_get_peggy_deposits_deprecation_warning(
@@ -1537,9 +1599,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_peggy_deposits()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_peggy_deposit_txs instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_peggy_deposit_txs instead"
 
     @pytest.mark.asyncio
     async def test_get_peggy_withdrawals_deprecation_warning(
@@ -1555,9 +1617,11 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_peggy_withdrawals()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_peggy_withdrawal_txs instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert (
+            str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_peggy_withdrawal_txs instead"
+        )
 
     @pytest.mark.asyncio
     async def test_get_ibc_transfers_deprecation_warning(
@@ -1573,9 +1637,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.get_ibc_transfers()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use fetch_ibc_transfer_txs instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_ibc_transfer_txs instead"
 
     @pytest.mark.asyncio
     async def test_stream_txs_deprecation_warning(
@@ -1591,9 +1655,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.stream_txs()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use listen_txs_updates instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use listen_txs_updates instead"
 
     @pytest.mark.asyncio
     async def test_stream_blocks_deprecation_warning(
@@ -1609,9 +1673,9 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.stream_blocks()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use listen_blocks_updates instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use listen_blocks_updates instead"
 
     @pytest.mark.asyncio
     async def test_chain_stream_deprecation_warning(
@@ -1627,6 +1691,8 @@ class TestAsyncClientDeprecationWarnings:
         with catch_warnings(record=True) as all_warnings:
             await client.chain_stream()
 
-        assert len(all_warnings) == 1
-        assert issubclass(all_warnings[0].category, DeprecationWarning)
-        assert str(all_warnings[0].message) == "This method is deprecated. Use listen_chain_stream_updates instead"
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert (
+            str(deprecation_warnings[0].message) == "This method is deprecated. Use listen_chain_stream_updates instead"
+        )
