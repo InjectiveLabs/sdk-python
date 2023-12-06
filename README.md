@@ -78,6 +78,9 @@ poetry run pytest -v
 ```
 
 ### Changelogs
+**0.9.11**
+* Synchronized markets and tokens config files to add SEI/USDT and TIA/USDT perpetual markets
+
 **0.9.10**
 * Synchronized markets and tokens config files to add SOL/USDT spot market
 
