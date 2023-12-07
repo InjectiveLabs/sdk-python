@@ -28,10 +28,10 @@ clean-all:
 	$(call clean_repos)
 
 clone-injective-core:
-	git clone https://github.com/InjectiveLabs/injective-core.git -b v1.12.5-testnet --depth 1 --single-branch
+	git clone https://github.com/InjectiveLabs/injective-core.git -b v1.12.6-testnet --depth 1 --single-branch
 
 clone-injective-indexer:
-	git clone https://github.com/InjectiveLabs/injective-indexer.git -b v1.12.45-rc5 --depth 1 --single-branch
+	git clone https://github.com/InjectiveLabs/injective-indexer.git -b v1.12.59 --depth 1 --single-branch
 
 clone-cometbft:
 	git clone https://github.com/cometbft/cometbft.git -b v0.37.2 --depth 1 --single-branch

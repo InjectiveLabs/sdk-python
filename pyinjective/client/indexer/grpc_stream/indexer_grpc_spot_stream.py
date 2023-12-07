@@ -172,3 +172,42 @@ class IndexerGrpcSpotStream:
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
         )
+
+    async def stream_trades_v2(
+        self,
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+        market_ids: Optional[List[str]] = None,
+        subaccount_ids: Optional[List[str]] = None,
+        execution_side: Optional[str] = None,
+        direction: Optional[str] = None,
+        execution_types: Optional[List[str]] = None,
+        trade_id: Optional[str] = None,
+        account_address: Optional[str] = None,
+        cid: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ):
+        pagination = pagination or PaginationOption()
+        request = exchange_spot_pb.StreamTradesV2Request(
+            execution_side=execution_side,
+            direction=direction,
+            skip=pagination.skip,
+            limit=pagination.limit,
+            start_time=pagination.start_time,
+            end_time=pagination.end_time,
+            market_ids=market_ids,
+            subaccount_ids=subaccount_ids,
+            execution_types=execution_types,
+            trade_id=trade_id,
+            account_address=account_address,
+            cid=cid,
+        )
+
+        await self._assistant.listen_stream(
+            call=self._stub.StreamTradesV2,
+            request=request,
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+        )

@@ -1369,7 +1369,7 @@ class AsyncClient:
         cid: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_trades(
+        return await self.exchange_spot_api.fetch_trades_v2(
             market_ids=market_ids,
             subaccount_ids=subaccount_ids,
             execution_side=execution_side,
@@ -1617,7 +1617,7 @@ class AsyncClient:
         cid: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ):
-        await self.exchange_spot_stream_api.stream_trades(
+        await self.exchange_spot_stream_api.stream_trades_v2(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
@@ -1915,7 +1915,7 @@ class AsyncClient:
         cid: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_trades(
+        return await self.exchange_derivative_api.fetch_trades_v2(
             market_ids=market_ids,
             subaccount_ids=subaccount_ids,
             execution_side=execution_side,
@@ -2088,7 +2088,7 @@ class AsyncClient:
         cid: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ):
-        return await self.exchange_derivative_stream_api.stream_trades(
+        return await self.exchange_derivative_stream_api.stream_trades_v2(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,

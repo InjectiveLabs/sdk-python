@@ -580,5 +580,104 @@ class TestIndexerGrpcSpotStream:
         assert first_update == expected_update
         assert end_event.is_set()
 
+    @pytest.mark.asyncio
+    async def test_stream_trades_v2(
+        self,
+        spot_servicer,
+    ):
+        operation_type = "update"
+        timestamp = 1672218001897
+
+        price = exchange_spot_pb.PriceLevel(
+            price="0.000000000006024",
+            quantity="10000000000000000",
+            timestamp=1677563766350,
+        )
+
+        trade = exchange_spot_pb.SpotTrade(
+            order_hash="0xe549e4750287c93fcc8dec24f319c15025e07e89a8d0937be2b3865ed79d9da7",
+            subaccount_id="0xc7dca7c15c364865f77a4fb67ab11dc95502e6fe000000000000000000000001",
+            market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
+            trade_execution_type="limitMatchNewOrder",
+            trade_direction="buy",
+            price=price,
+            fee="36.144",
+            executed_at=1677563766350,
+            fee_recipient="inj1clw20s2uxeyxtam6f7m84vgae92s9eh7vygagt",
+            trade_id="8662464_1_0",
+            execution_side="taker",
+            cid="cid1",
+        )
+
+        spot_servicer.stream_trades_v2_responses.append(
+            exchange_spot_pb.StreamTradesV2Response(
+                trade=trade,
+                operation_type=operation_type,
+                timestamp=timestamp,
+            )
+        )
+
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
+
+        api = IndexerGrpcSpotStream(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
+        api._stub = spot_servicer
+
+        trade_updates = asyncio.Queue()
+        end_event = asyncio.Event()
+
+        callback = lambda update: trade_updates.put_nowait(update)
+        error_callback = lambda exception: pytest.fail(str(exception))
+        end_callback = lambda: end_event.set()
+
+        asyncio.get_event_loop().create_task(
+            api.stream_trades_v2(
+                callback=callback,
+                on_end_callback=end_callback,
+                on_status_callback=error_callback,
+                market_ids=[trade.market_id],
+                subaccount_ids=[trade.subaccount_id],
+                execution_side=trade.execution_side,
+                direction=trade.trade_direction,
+                execution_types=[trade.trade_execution_type],
+                trade_id="7959737_3_0",
+                account_address="inj1clw20s2uxeyxtam6f7m84vgae92s9eh7vygagt",
+                cid=trade.cid,
+                pagination=PaginationOption(
+                    skip=0,
+                    limit=100,
+                    start_time=1699544939364,
+                    end_time=1699744939364,
+                ),
+            )
+        )
+        expected_update = {
+            "trade": {
+                "orderHash": trade.order_hash,
+                "subaccountId": trade.subaccount_id,
+                "marketId": trade.market_id,
+                "tradeExecutionType": trade.trade_execution_type,
+                "tradeDirection": trade.trade_direction,
+                "price": {
+                    "price": price.price,
+                    "quantity": price.quantity,
+                    "timestamp": str(price.timestamp),
+                },
+                "fee": trade.fee,
+                "executedAt": str(trade.executed_at),
+                "feeRecipient": trade.fee_recipient,
+                "tradeId": trade.trade_id,
+                "executionSide": trade.execution_side,
+                "cid": trade.cid,
+            },
+            "operationType": operation_type,
+            "timestamp": str(timestamp),
+        }
+
+        first_update = await asyncio.wait_for(trade_updates.get(), timeout=1)
+
+        assert first_update == expected_update
+        assert end_event.is_set()
+
     async def _dummy_metadata_provider(self):
         return None

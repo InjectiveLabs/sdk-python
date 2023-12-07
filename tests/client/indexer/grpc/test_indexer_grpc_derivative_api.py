@@ -1232,5 +1232,99 @@ class TestIndexerGrpcDerivativeApi:
 
         assert result_orders == expected_orders
 
+    @pytest.mark.asyncio
+    async def test_fetch_trades_v2(
+        self,
+        derivative_servicer,
+    ):
+        position_delta = exchange_derivative_pb.PositionDelta(
+            trade_direction="buy",
+            execution_price="13945600",
+            execution_quantity="5",
+            execution_margin="69728000",
+        )
+
+        trade = exchange_derivative_pb.DerivativeTrade(
+            order_hash="0xe549e4750287c93fcc8dec24f319c15025e07e89a8d0937be2b3865ed79d9da7",
+            subaccount_id="0xc7dca7c15c364865f77a4fb67ab11dc95502e6fe000000000000000000000001",
+            market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+            trade_execution_type="limitMatchNewOrder",
+            is_liquidation=False,
+            position_delta=position_delta,
+            payout="0",
+            fee="36.144",
+            executed_at=1677563766350,
+            fee_recipient="inj1clw20s2uxeyxtam6f7m84vgae92s9eh7vygagt",
+            trade_id="8662464_1_0",
+            execution_side="taker",
+            cid="cid1",
+        )
+
+        paging = exchange_derivative_pb.Paging(total=5, to=5, count_by_subaccount=10, next=["next1", "next2"])
+        setattr(paging, "from", 1)
+
+        derivative_servicer.trades_v2_responses.append(
+            exchange_derivative_pb.TradesV2Response(
+                trades=[trade],
+                paging=paging,
+            )
+        )
+
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
+
+        api = IndexerGrpcDerivativeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
+        api._stub = derivative_servicer
+
+        result_trades = await api.fetch_trades_v2(
+            market_ids=[trade.market_id],
+            subaccount_ids=[trade.subaccount_id],
+            execution_side=trade.execution_side,
+            direction=position_delta.trade_direction,
+            execution_types=[trade.trade_execution_type],
+            trade_id=trade.trade_id,
+            account_address="inj1clw20s2uxeyxtam6f7m84vgae92s9eh7vygagt",
+            cid=trade.cid,
+            pagination=PaginationOption(
+                skip=0,
+                limit=100,
+                start_time=1699544939364,
+                end_time=1699744939364,
+            ),
+        )
+        expected_trades = {
+            "trades": [
+                {
+                    "orderHash": trade.order_hash,
+                    "subaccountId": trade.subaccount_id,
+                    "marketId": trade.market_id,
+                    "tradeExecutionType": trade.trade_execution_type,
+                    "isLiquidation": trade.is_liquidation,
+                    "positionDelta": {
+                        "tradeDirection": position_delta.trade_direction,
+                        "executionPrice": position_delta.execution_price,
+                        "executionQuantity": position_delta.execution_quantity,
+                        "executionMargin": position_delta.execution_margin,
+                    },
+                    "payout": trade.payout,
+                    "fee": trade.fee,
+                    "executedAt": str(trade.executed_at),
+                    "feeRecipient": trade.fee_recipient,
+                    "tradeId": trade.trade_id,
+                    "executionSide": trade.execution_side,
+                    "cid": trade.cid,
+                },
+            ],
+            "paging": {
+                "total": str(paging.total),
+                "from": getattr(paging, "from"),
+                "to": paging.to,
+                "countBySubaccount": str(paging.count_by_subaccount),
+                "next": paging.next,
+            },
+        }
+
+        assert result_trades == expected_trades
+
     async def _dummy_metadata_provider(self):
         return None

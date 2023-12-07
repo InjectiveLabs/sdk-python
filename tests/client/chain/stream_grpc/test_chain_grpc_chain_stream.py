@@ -57,6 +57,7 @@ class TestChainGrpcChainStream:
             order_hash=b"\xaa\xb0Ju\xa3)@\xfe\xd58N\xba\xdfG\xfd\xd8}\xe4\r\xf4\xf8a\xd9\n\xa9\xd6x+V\x9b\x02&",
             fee_recipient_address="inj13ylj40uqx338u5xtccujxystzy39q08q2gz3dx",
             cid="HBOTSIJUT60b77b9c56f0456af96c5c6c0d8",
+            trade_id=f"{block_height}_0",
         )
         position_delta = exchange_pb.PositionDelta(
             is_long=True,
@@ -75,6 +76,7 @@ class TestChainGrpcChainStream:
             order_hash="0xe549e4750287c93fcc8dec24f319c15025e07e89a8d0937be2b3865ed79d9da7",
             fee_recipient_address="inj1clw20s2uxeyxtam6f7m84vgae92s9eh7vygagt",
             cid="cid1",
+            trade_id=f"{block_height}_1",
         )
         spot_order_info = exchange_pb.OrderInfo(
             subaccount_id="0x5e249f0e8cb406f41de16e1bd6f6b55e7bc75add000000000000000000000004",
@@ -255,6 +257,7 @@ class TestChainGrpcChainStream:
                     "orderHash": base64.b64encode(spot_trade.order_hash).decode(),
                     "feeRecipientAddress": spot_trade.fee_recipient_address,
                     "cid": spot_trade.cid,
+                    "tradeId": spot_trade.trade_id,
                 },
             ],
             "derivativeTrades": [
@@ -274,6 +277,7 @@ class TestChainGrpcChainStream:
                     "orderHash": derivative_trade.order_hash,
                     "feeRecipientAddress": derivative_trade.fee_recipient_address,
                     "cid": derivative_trade.cid,
+                    "tradeId": derivative_trade.trade_id,
                 }
             ],
             "spotOrders": [
