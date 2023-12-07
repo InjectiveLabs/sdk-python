@@ -287,5 +287,37 @@ class IndexerGrpcDerivativeApi:
 
         return response
 
+    async def fetch_trades_v2(
+        self,
+        market_ids: Optional[List[str]] = None,
+        subaccount_ids: Optional[List[str]] = None,
+        execution_side: Optional[str] = None,
+        direction: Optional[str] = None,
+        execution_types: Optional[List[str]] = None,
+        trade_id: Optional[str] = None,
+        account_address: Optional[str] = None,
+        cid: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        pagination = pagination or PaginationOption()
+        request = exchange_derivative_pb.TradesV2Request(
+            market_ids=market_ids,
+            subaccount_ids=subaccount_ids,
+            execution_side=execution_side,
+            direction=direction,
+            skip=pagination.skip,
+            limit=pagination.limit,
+            start_time=pagination.start_time,
+            end_time=pagination.end_time,
+            execution_types=execution_types,
+            trade_id=trade_id,
+            account_address=account_address,
+            cid=cid,
+        )
+
+        response = await self._execute_call(call=self._stub.TradesV2, request=request)
+
+        return response
+
     async def _execute_call(self, call: Callable, request) -> Dict[str, Any]:
         return await self._assistant.execute_call(call=call, request=request)

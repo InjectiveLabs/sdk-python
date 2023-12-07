@@ -140,6 +140,11 @@ class MsgStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgLiquidatePosition.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgLiquidatePositionResponse.FromString,
                 )
+        self.EmergencySettleMarket = channel.unary_unary(
+                '/injective.exchange.v1beta1.Msg/EmergencySettleMarket',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgEmergencySettleMarket.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgEmergencySettleMarketResponse.FromString,
+                )
         self.IncreasePositionMargin = channel.unary_unary(
                 '/injective.exchange.v1beta1.Msg/IncreasePositionMargin',
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgIncreasePositionMargin.SerializeToString,
@@ -365,6 +370,13 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def EmergencySettleMarket(self, request, context):
+        """EmergencySettleMarket defines a method for emergency settling a market
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def IncreasePositionMargin(self, request, context):
         """IncreasePositionMargin defines a method for increasing margin of a position
         """
@@ -527,6 +539,11 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.LiquidatePosition,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgLiquidatePosition.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgLiquidatePositionResponse.SerializeToString,
+            ),
+            'EmergencySettleMarket': grpc.unary_unary_rpc_method_handler(
+                    servicer.EmergencySettleMarket,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgEmergencySettleMarket.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgEmergencySettleMarketResponse.SerializeToString,
             ),
             'IncreasePositionMargin': grpc.unary_unary_rpc_method_handler(
                     servicer.IncreasePositionMargin,
@@ -986,6 +1003,23 @@ class Msg(object):
         return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Msg/LiquidatePosition',
             injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgLiquidatePosition.SerializeToString,
             injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgLiquidatePositionResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EmergencySettleMarket(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective.exchange.v1beta1.Msg/EmergencySettleMarket',
+            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgEmergencySettleMarket.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgEmergencySettleMarketResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

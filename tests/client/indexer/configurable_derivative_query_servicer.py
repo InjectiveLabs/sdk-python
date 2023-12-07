@@ -21,6 +21,7 @@ class ConfigurableDerivativeQueryServicer(exchange_derivative_grpc.InjectiveDeri
         self.funding_payments_responses = deque()
         self.funding_rates_responses = deque()
         self.trades_responses = deque()
+        self.trades_v2_responses = deque()
         self.subaccount_orders_list_responses = deque()
         self.subaccount_trades_list_responses = deque()
         self.orders_history_responses = deque()
@@ -31,6 +32,7 @@ class ConfigurableDerivativeQueryServicer(exchange_derivative_grpc.InjectiveDeri
         self.stream_positions_responses = deque()
         self.stream_orders_responses = deque()
         self.stream_trades_responses = deque()
+        self.stream_trades_v2_responses = deque()
         self.stream_orders_history_responses = deque()
 
     async def Markets(self, request: exchange_derivative_pb.MarketsRequest, context=None, metadata=None):
@@ -77,6 +79,9 @@ class ConfigurableDerivativeQueryServicer(exchange_derivative_grpc.InjectiveDeri
     async def Trades(self, request: exchange_derivative_pb.TradesRequest, context=None, metadata=None):
         return self.trades_responses.pop()
 
+    async def TradesV2(self, request: exchange_derivative_pb.TradesV2Request, context=None, metadata=None):
+        return self.trades_v2_responses.pop()
+
     async def SubaccountOrdersList(
         self, request: exchange_derivative_pb.SubaccountOrdersListRequest, context=None, metadata=None
     ):
@@ -118,6 +123,10 @@ class ConfigurableDerivativeQueryServicer(exchange_derivative_grpc.InjectiveDeri
 
     async def StreamTrades(self, request: exchange_derivative_pb.StreamTradesRequest, context=None, metadata=None):
         for event in self.stream_trades_responses:
+            yield event
+
+    async def StreamTradesV2(self, request: exchange_derivative_pb.StreamTradesV2Request, context=None, metadata=None):
+        for event in self.stream_trades_v2_responses:
             yield event
 
     async def StreamOrdersHistory(

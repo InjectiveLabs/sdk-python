@@ -37,8 +37,6 @@ class GrpcApiStreamAssistant:
                     await on_status_callback(ex)
                 else:
                     on_status_callback(ex)
-        except Exception as all_ex:
-            print(all_ex)
 
         if on_end_callback is not None:
             if asyncio.iscoroutinefunction(on_end_callback):
