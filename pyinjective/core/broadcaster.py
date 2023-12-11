@@ -9,6 +9,7 @@ from grpc import RpcError
 from pyinjective import PrivateKey, PublicKey, Transaction
 from pyinjective.async_client import AsyncClient
 from pyinjective.composer import Composer
+from pyinjective.constant import GAS_PRICE
 from pyinjective.core.gas_limit_estimator import GasLimitEstimator
 from pyinjective.core.network import Network
 
@@ -35,7 +36,7 @@ class BroadcasterAccountConfig(ABC):
 
 
 class TransactionFeeCalculator(ABC):
-    DEFAULT_GAS_PRICE = 500_000_000
+    DEFAULT_GAS_PRICE = GAS_PRICE
 
     @abstractmethod
     async def configure_gas_fee_for_transaction(
