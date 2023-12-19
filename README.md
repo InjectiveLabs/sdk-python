@@ -78,6 +78,9 @@ poetry run pytest -v
 ```
 
 ### Changelogs
+**0.9.12**
+* Synchronized markets and tokens config files to add KIRA/INJ, NINJA/INJ, KATANA/INJ, BRETT/INJ and nINJ/INJ spot markets
+
 **0.9.11**
 * Synchronized markets and tokens config files to add SEI/USDT and TIA/USDT perpetual markets
 
