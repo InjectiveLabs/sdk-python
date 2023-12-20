@@ -20,5 +20,11 @@ class IndexerGrpcPortfolioApi:
 
         return response
 
+    async def fetch_account_portfolio_balances(self, account_address: str) -> Dict[str, Any]:
+        request = exchange_portfolio_pb.AccountPortfolioBalancesRequest(account_address=account_address)
+        response = await self._execute_call(call=self._stub.AccountPortfolioBalances, request=request)
+
+        return response
+
     async def _execute_call(self, call: Callable, request) -> Dict[str, Any]:
         return await self._assistant.execute_call(call=call, request=request)

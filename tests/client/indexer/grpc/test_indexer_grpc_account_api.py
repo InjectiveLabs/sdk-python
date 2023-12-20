@@ -77,6 +77,8 @@ class TestIndexerGrpcAccountApi:
             quantity_remaining="1000000000000000",
             created_at=1669998526840,
             updated_at=1670919410587,
+            price="0.000000000000001",
+            margin="",
         )
         account_servicer.order_states_responses.append(
             exchange_accounts_pb.OrderStatesResponse(spot_order_states=[order_state])
@@ -102,6 +104,8 @@ class TestIndexerGrpcAccountApi:
                     "quantityRemaining": order_state.quantity_remaining,
                     "createdAt": str(order_state.created_at),
                     "updatedAt": str(order_state.updated_at),
+                    "price": (order_state.price),
+                    "margin": (order_state.margin),
                 }
             ],
             "derivativeOrderStates": [],

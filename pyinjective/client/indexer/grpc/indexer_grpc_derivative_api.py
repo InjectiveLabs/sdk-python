@@ -127,6 +127,30 @@ class IndexerGrpcDerivativeApi:
 
         return response
 
+    async def fetch_positions_v2(
+        self,
+        market_ids: Optional[List[str]] = None,
+        subaccount_id: Optional[str] = None,
+        direction: Optional[str] = None,
+        subaccount_total_positions: Optional[bool] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        pagination = pagination or PaginationOption()
+        request = exchange_derivative_pb.PositionsV2Request(
+            market_ids=market_ids,
+            subaccount_id=subaccount_id,
+            skip=pagination.skip,
+            limit=pagination.limit,
+            start_time=pagination.start_time,
+            end_time=pagination.end_time,
+            direction=direction,
+            subaccount_total_positions=subaccount_total_positions,
+        )
+
+        response = await self._execute_call(call=self._stub.PositionsV2, request=request)
+
+        return response
+
     async def fetch_liquidable_positions(
         self,
         market_id: Optional[str] = None,

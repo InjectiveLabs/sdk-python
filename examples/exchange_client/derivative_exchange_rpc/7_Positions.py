@@ -19,7 +19,7 @@ async def main() -> None:
     skip = 4
     limit = 4
     pagination = PaginationOption(skip=skip, limit=limit)
-    positions = await client.fetch_derivative_positions(
+    positions = await client.fetch_derivative_positions_v2(
         market_ids=market_ids,
         subaccount_id=subaccount_id,
         direction=direction,

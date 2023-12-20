@@ -10,12 +10,18 @@ class ConfigurablePortfolioQueryServicer(exchange_portfolio_grpc.InjectivePortfo
     def __init__(self):
         super().__init__()
         self.account_portfolio_responses = deque()
+        self.account_portfolio_balances_responses = deque()
         self.stream_account_portfolio_responses = deque()
 
     async def AccountPortfolio(
         self, request: exchange_portfolio_pb.AccountPortfolioRequest, context=None, metadata=None
     ):
         return self.account_portfolio_responses.pop()
+
+    async def AccountPortfolioBalances(
+        self, request: exchange_portfolio_pb.AccountPortfolioBalancesRequest, context=None, metadata=None
+    ):
+        return self.account_portfolio_balances_responses.pop()
 
     async def StreamAccountPortfolio(
         self, request: exchange_portfolio_pb.StreamAccountPortfolioRequest, context=None, metadata=None

@@ -1160,7 +1160,8 @@ class TestAsyncClientDeprecationWarnings:
         deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
         assert len(deprecation_warnings) == 1
         assert (
-            str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_derivative_positions instead"
+            str(deprecation_warnings[0].message)
+            == "This method is deprecated. Use fetch_derivative_positions_v2 instead"
         )
 
     @pytest.mark.asyncio
@@ -1470,7 +1471,10 @@ class TestAsyncClientDeprecationWarnings:
 
         deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
         assert len(deprecation_warnings) == 1
-        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_account_portfolio instead"
+        assert (
+            str(deprecation_warnings[0].message)
+            == "This method is deprecated. Use fetch_account_portfolio_balances instead"
+        )
 
     @pytest.mark.asyncio
     async def test_stream_account_portfolio_deprecation_warning(
