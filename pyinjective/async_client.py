@@ -522,6 +522,42 @@ class AsyncClient:
     async def fetch_bank_balance(self, address: str, denom: str) -> Dict[str, Any]:
         return await self.bank_api.fetch_balance(account_address=address, denom=denom)
 
+    async def fetch_spendable_balances(
+        self,
+        address: str,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.bank_api.fetch_spendable_balances(account_address=address, pagination=pagination)
+
+    async def fetch_spendable_balances_by_denom(
+        self,
+        address: str,
+        denom: str,
+    ) -> Dict[str, Any]:
+        return await self.bank_api.fetch_spendable_balances_by_denom(account_address=address, denom=denom)
+
+    async def fetch_total_supply(self, pagination: Optional[PaginationOption] = None) -> Dict[str, Any]:
+        return await self.bank_api.fetch_total_supply(pagination=pagination)
+
+    async def fetch_supply_of(self, denom: str) -> Dict[str, Any]:
+        return await self.bank_api.fetch_supply_of(denom=denom)
+
+    async def fetch_denom_metadata(self, denom: str) -> Dict[str, Any]:
+        return await self.bank_api.fetch_denom_metadata(denom=denom)
+
+    async def fetch_denoms_metadata(self, pagination: Optional[PaginationOption] = None) -> Dict[str, Any]:
+        return await self.bank_api.fetch_denoms_metadata(pagination=pagination)
+
+    async def fetch_denom_owners(self, denom: str, pagination: Optional[PaginationOption] = None) -> Dict[str, Any]:
+        return await self.bank_api.fetch_denom_owners(denom=denom, pagination=pagination)
+
+    async def fetch_send_enabled(
+        self,
+        denoms: Optional[List[str]] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.bank_api.fetch_send_enabled(denoms=denoms, pagination=pagination)
+
     # Injective Exchange client methods
 
     # Auction RPC
