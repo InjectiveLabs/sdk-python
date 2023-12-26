@@ -17,6 +17,7 @@ class ConfigurableDerivativeQueryServicer(exchange_derivative_grpc.InjectiveDeri
         self.orderbooks_v2_responses = deque()
         self.orders_responses = deque()
         self.positions_responses = deque()
+        self.positions_v2_responses = deque()
         self.liquidable_positions_responses = deque()
         self.funding_payments_responses = deque()
         self.funding_rates_responses = deque()
@@ -62,6 +63,9 @@ class ConfigurableDerivativeQueryServicer(exchange_derivative_grpc.InjectiveDeri
 
     async def Positions(self, request: exchange_derivative_pb.PositionsRequest, context=None, metadata=None):
         return self.positions_responses.pop()
+
+    async def PositionsV2(self, request: exchange_derivative_pb.PositionsV2Request, context=None, metadata=None):
+        return self.positions_v2_responses.pop()
 
     async def LiquidablePositions(
         self, request: exchange_derivative_pb.LiquidablePositionsRequest, context=None, metadata=None

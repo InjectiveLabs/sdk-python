@@ -9,7 +9,7 @@ async def main() -> None:
     network = Network.testnet()
     client = AsyncClient(network)
     account_address = "inj1clw20s2uxeyxtam6f7m84vgae92s9eh7vygagt"
-    portfolio = await client.fetch_account_portfolio(account_address=account_address)
+    portfolio = await client.fetch_account_portfolio_balances(account_address=account_address)
     print(portfolio)
 
 

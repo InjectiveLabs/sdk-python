@@ -113,5 +113,67 @@ class TestIndexerGrpcPortfolioApi:
 
         assert result_auction == expected_auction
 
+    @pytest.mark.asyncio
+    async def test_fetch_account_portfolio_balances(
+        self,
+        portfolio_servicer,
+    ):
+        coin = exchange_portfolio_pb.Coin(
+            denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
+            amount="2322098",
+        )
+        subaccount_deposit = exchange_portfolio_pb.SubaccountDeposit(
+            total_balance="0.170858923182467801",
+            available_balance="0.170858923182467801",
+        )
+        subaccount_balance = exchange_portfolio_pb.SubaccountBalanceV2(
+            subaccount_id="0xc7dca7c15c364865f77a4fb67ab11dc95502e6fe000000000000000000000000",
+            denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
+            deposit=subaccount_deposit,
+        )
+
+        portfolio = exchange_portfolio_pb.PortfolioBalances(
+            account_address="inj1clw20s2uxeyxtam6f7m84vgae92s9eh7vygagt",
+            bank_balances=[coin],
+            subaccounts=[subaccount_balance],
+        )
+
+        portfolio_servicer.account_portfolio_balances_responses.append(
+            exchange_portfolio_pb.AccountPortfolioBalancesResponse(
+                portfolio=portfolio,
+            )
+        )
+
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
+
+        api = IndexerGrpcPortfolioApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
+        api._stub = portfolio_servicer
+
+        result_auction = await api.fetch_account_portfolio_balances(account_address=portfolio.account_address)
+        expected_auction = {
+            "portfolio": {
+                "accountAddress": portfolio.account_address,
+                "bankBalances": [
+                    {
+                        "denom": coin.denom,
+                        "amount": coin.amount,
+                    }
+                ],
+                "subaccounts": [
+                    {
+                        "subaccountId": subaccount_balance.subaccount_id,
+                        "denom": subaccount_balance.denom,
+                        "deposit": {
+                            "totalBalance": subaccount_deposit.total_balance,
+                            "availableBalance": subaccount_deposit.available_balance,
+                        },
+                    }
+                ],
+            }
+        }
+
+        assert result_auction == expected_auction
+
     async def _dummy_metadata_provider(self):
         return None

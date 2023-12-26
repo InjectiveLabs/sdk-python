@@ -701,6 +701,78 @@ class TestIndexerGrpcDerivativeApi:
         assert result_orders == expected_orders
 
     @pytest.mark.asyncio
+    async def test_fetch_positions_v2(
+        self,
+        derivative_servicer,
+    ):
+        position = exchange_derivative_pb.DerivativePositionV2(
+            ticker="INJ/USDT PERP",
+            market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+            subaccount_id="0x1383dabde57e5aed55960ee43e158ae7118057d3000000000000000000000000",
+            direction="short",
+            quantity="0.070294765766186502",
+            entry_price="15980281.340438795311756847",
+            margin="561065.540974",
+            liquidation_price="23492052.224777",
+            mark_price="16197000",
+            updated_at=1700161202147,
+        )
+
+        paging = exchange_derivative_pb.Paging(total=5, to=5, count_by_subaccount=10, next=["next1", "next2"])
+        setattr(paging, "from", 1)
+
+        derivative_servicer.positions_v2_responses.append(
+            exchange_derivative_pb.PositionsV2Response(
+                positions=[position],
+                paging=paging,
+            )
+        )
+
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
+
+        api = IndexerGrpcDerivativeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
+        api._stub = derivative_servicer
+
+        result_orders = await api.fetch_positions_v2(
+            market_ids=[position.market_id],
+            subaccount_id=position.subaccount_id,
+            direction=position.direction,
+            subaccount_total_positions=True,
+            pagination=PaginationOption(
+                skip=0,
+                limit=100,
+                start_time=1699544939364,
+                end_time=1699744939364,
+            ),
+        )
+        expected_orders = {
+            "positions": [
+                {
+                    "ticker": position.ticker,
+                    "marketId": position.market_id,
+                    "subaccountId": position.subaccount_id,
+                    "direction": position.direction,
+                    "quantity": position.quantity,
+                    "entryPrice": position.entry_price,
+                    "margin": position.margin,
+                    "liquidationPrice": position.liquidation_price,
+                    "markPrice": position.mark_price,
+                    "updatedAt": str(position.updated_at),
+                },
+            ],
+            "paging": {
+                "total": str(paging.total),
+                "from": getattr(paging, "from"),
+                "to": paging.to,
+                "countBySubaccount": str(paging.count_by_subaccount),
+                "next": paging.next,
+            },
+        }
+
+        assert result_orders == expected_orders
+
+    @pytest.mark.asyncio
     async def test_fetch_liquidable_positions(
         self,
         derivative_servicer,

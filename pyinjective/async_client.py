@@ -2105,9 +2105,9 @@ class AsyncClient:
 
     async def get_derivative_positions(self, **kwargs):
         """
-        This method is deprecated and will be removed soon. Please use `fetch_derivative_positions` instead
+        This method is deprecated and will be removed soon. Please use `fetch_derivative_positions_v2` instead
         """
-        warn("This method is deprecated. Use fetch_derivative_positions instead", DeprecationWarning, stacklevel=2)
+        warn("This method is deprecated. Use fetch_derivative_positions_v2 instead", DeprecationWarning, stacklevel=2)
         req = derivative_exchange_rpc_pb.PositionsRequest(
             market_id=kwargs.get("market_id"),
             market_ids=kwargs.get("market_ids"),
@@ -2119,7 +2119,7 @@ class AsyncClient:
         )
         return await self.stubDerivativeExchange.Positions(req)
 
-    async def fetch_derivative_positions(
+    async def fetch_derivative_positions_v2(
         self,
         market_ids: Optional[List[str]] = None,
         subaccount_id: Optional[str] = None,
@@ -2127,7 +2127,7 @@ class AsyncClient:
         subaccount_total_positions: Optional[bool] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_positions(
+        return await self.exchange_derivative_api.fetch_positions_v2(
             market_ids=market_ids,
             subaccount_id=subaccount_id,
             direction=direction,
@@ -2344,14 +2344,16 @@ class AsyncClient:
 
     async def get_account_portfolio(self, account_address: str):
         """
-        This method is deprecated and will be removed soon. Please use `fetch_account_portfolio` instead
+        This method is deprecated and will be removed soon. Please use `fetch_account_portfolio_balances` instead
         """
-        warn("This method is deprecated. Use fetch_account_portfolio instead", DeprecationWarning, stacklevel=2)
+        warn(
+            "This method is deprecated. Use fetch_account_portfolio_balances instead", DeprecationWarning, stacklevel=2
+        )
         req = portfolio_rpc_pb.AccountPortfolioRequest(account_address=account_address)
         return await self.stubPortfolio.AccountPortfolio(req)
 
-    async def fetch_account_portfolio(self, account_address: str) -> Dict[str, Any]:
-        return await self.exchange_portfolio_api.fetch_account_portfolio(account_address=account_address)
+    async def fetch_account_portfolio_balances(self, account_address: str) -> Dict[str, Any]:
+        return await self.exchange_portfolio_api.fetch_account_portfolio_balances(account_address=account_address)
 
     async def stream_account_portfolio(self, account_address: str, **kwargs):
         """
