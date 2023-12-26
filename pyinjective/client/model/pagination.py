@@ -31,7 +31,7 @@ class PaginationOption:
         page_request = pagination_pb.PageRequest()
 
         if self.key is not None:
-            page_request.key = bytes.fromhex(self.key)
+            page_request.key = self.key.encode()
         if self.skip is not None:
             page_request.offset = self.skip
         if self.limit is not None:
