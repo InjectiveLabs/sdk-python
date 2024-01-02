@@ -1,4 +1,5 @@
 import asyncio
+import base64
 import time
 from copy import deepcopy
 from decimal import Decimal
@@ -521,6 +522,42 @@ class AsyncClient:
 
     async def fetch_bank_balance(self, address: str, denom: str) -> Dict[str, Any]:
         return await self.bank_api.fetch_balance(account_address=address, denom=denom)
+
+    async def fetch_spendable_balances(
+        self,
+        address: str,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.bank_api.fetch_spendable_balances(account_address=address, pagination=pagination)
+
+    async def fetch_spendable_balances_by_denom(
+        self,
+        address: str,
+        denom: str,
+    ) -> Dict[str, Any]:
+        return await self.bank_api.fetch_spendable_balances_by_denom(account_address=address, denom=denom)
+
+    async def fetch_total_supply(self, pagination: Optional[PaginationOption] = None) -> Dict[str, Any]:
+        return await self.bank_api.fetch_total_supply(pagination=pagination)
+
+    async def fetch_supply_of(self, denom: str) -> Dict[str, Any]:
+        return await self.bank_api.fetch_supply_of(denom=denom)
+
+    async def fetch_denom_metadata(self, denom: str) -> Dict[str, Any]:
+        return await self.bank_api.fetch_denom_metadata(denom=denom)
+
+    async def fetch_denoms_metadata(self, pagination: Optional[PaginationOption] = None) -> Dict[str, Any]:
+        return await self.bank_api.fetch_denoms_metadata(pagination=pagination)
+
+    async def fetch_denom_owners(self, denom: str, pagination: Optional[PaginationOption] = None) -> Dict[str, Any]:
+        return await self.bank_api.fetch_denom_owners(denom=denom, pagination=pagination)
+
+    async def fetch_send_enabled(
+        self,
+        denoms: Optional[List[str]] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.bank_api.fetch_send_enabled(denoms=denoms, pagination=pagination)
 
     # Injective Exchange client methods
 
@@ -2460,6 +2497,51 @@ class AsyncClient:
             binary_option_markets=await self.all_binary_option_markets(),
             tokens=await self.all_tokens(),
         )
+
+    async def initialize_tokens_from_chain_denoms(self):
+        # force initialization of markets and tokens
+        await self.all_tokens()
+
+        all_denoms_metadata = []
+
+        query_result = await self.fetch_denoms_metadata()
+
+        all_denoms_metadata.extend(query_result.get("metadatas", []))
+        next_key = query_result.get("pagination", {}).get("nextKey", "")
+
+        while next_key != "":
+            query_result = await self.fetch_denoms_metadata(pagination=PaginationOption(key=next_key))
+
+            all_denoms_metadata.extend(query_result.get("metadatas", []))
+            result_next_key = query_result.get("pagination", {}).get("nextKey", "")
+            next_key = base64.b64decode(result_next_key).decode()
+
+        for token_metadata in all_denoms_metadata:
+            symbol = token_metadata["symbol"]
+            denom = token_metadata["base"]
+
+            if denom != "" and symbol != "" and denom not in self._tokens_by_denom:
+                name = token_metadata["name"] or symbol
+                decimals = max({denom_unit["exponent"] for denom_unit in token_metadata["denomUnits"]})
+
+                unique_symbol = denom
+                for symbol_candidate in [symbol, name]:
+                    if symbol_candidate not in self._tokens_by_symbol:
+                        unique_symbol = symbol_candidate
+                        break
+
+                token = Token(
+                    name=name,
+                    symbol=symbol,
+                    denom=denom,
+                    address="",
+                    decimals=decimals,
+                    logo=token_metadata["uri"],
+                    updated=-1,
+                )
+
+                self._tokens_by_denom[denom] = token
+                self._tokens_by_symbol[unique_symbol] = token
 
     async def _initialize_tokens_and_markets(self):
         spot_markets = dict()
