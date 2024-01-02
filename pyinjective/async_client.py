@@ -13,6 +13,7 @@ from pyinjective import constant
 from pyinjective.client.chain.grpc.chain_grpc_auth_api import ChainGrpcAuthApi
 from pyinjective.client.chain.grpc.chain_grpc_authz_api import ChainGrpcAuthZApi
 from pyinjective.client.chain.grpc.chain_grpc_bank_api import ChainGrpcBankApi
+from pyinjective.client.chain.grpc.chain_grpc_wasm_api import ChainGrpcWasmApi
 from pyinjective.client.chain.grpc_stream.chain_grpc_chain_stream import ChainGrpcChainStream
 from pyinjective.client.indexer.grpc.indexer_grpc_account_api import IndexerGrpcAccountApi
 from pyinjective.client.indexer.grpc.indexer_grpc_auction_api import IndexerGrpcAuctionApi
@@ -178,6 +179,12 @@ class AsyncClient:
             ),
         )
         self.tx_api = TxGrpcApi(
+            channel=self.chain_channel,
+            metadata_provider=lambda: self.network.chain_metadata(
+                metadata_query_provider=self._chain_cookie_metadata_requestor
+            ),
+        )
+        self.wasm_api = ChainGrpcWasmApi(
             channel=self.chain_channel,
             metadata_provider=lambda: self.network.chain_metadata(
                 metadata_query_provider=self._chain_cookie_metadata_requestor
@@ -660,6 +667,75 @@ class AsyncClient:
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
+        )
+
+    # Wasm module
+    async def fetch_contract_info(self, address: str) -> Dict[str, Any]:
+        return await self.wasm_api.fetch_contract_info(address=address)
+
+    async def fetch_contract_history(
+        self,
+        address: str,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.wasm_api.fetch_contract_history(
+            address=address,
+            pagination=pagination,
+        )
+
+    async def fetch_contracts_by_code(
+        self,
+        code_id: int,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.wasm_api.fetch_contracts_by_code(
+            code_id=code_id,
+            pagination=pagination,
+        )
+
+    async def fetch_all_contracts_state(
+        self,
+        address: str,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.wasm_api.fetch_all_contracts_state(
+            address=address,
+            pagination=pagination,
+        )
+
+    async def fetch_raw_contract_state(self, address: str, query_data: str) -> Dict[str, Any]:
+        return await self.wasm_api.fetch_raw_contract_state(address=address, query_data=query_data)
+
+    async def fetch_smart_contract_state(self, address: str, query_data: str) -> Dict[str, Any]:
+        return await self.wasm_api.fetch_smart_contract_state(address=address, query_data=query_data)
+
+    async def fetch_code(self, code_id: int) -> Dict[str, Any]:
+        return await self.wasm_api.fetch_code(code_id=code_id)
+
+    async def fetch_codes(
+        self,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.wasm_api.fetch_codes(
+            pagination=pagination,
+        )
+
+    async def fetch_pinned_codes(
+        self,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.wasm_api.fetch_pinned_codes(
+            pagination=pagination,
+        )
+
+    async def fetch_contracts_by_creator(
+        self,
+        creator_address: str,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.wasm_api.fetch_contracts_by_creator(
+            creator_address=creator_address,
+            pagination=pagination,
         )
 
     # Explorer RPC
