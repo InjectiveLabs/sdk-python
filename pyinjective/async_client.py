@@ -13,6 +13,7 @@ from pyinjective import constant
 from pyinjective.client.chain.grpc.chain_grpc_auth_api import ChainGrpcAuthApi
 from pyinjective.client.chain.grpc.chain_grpc_authz_api import ChainGrpcAuthZApi
 from pyinjective.client.chain.grpc.chain_grpc_bank_api import ChainGrpcBankApi
+from pyinjective.client.chain.grpc.chain_grpc_token_factory_api import ChainGrpcTokenFactoryApi
 from pyinjective.client.chain.grpc.chain_grpc_wasm_api import ChainGrpcWasmApi
 from pyinjective.client.chain.grpc_stream.chain_grpc_chain_stream import ChainGrpcChainStream
 from pyinjective.client.indexer.grpc.indexer_grpc_account_api import IndexerGrpcAccountApi
@@ -173,6 +174,12 @@ class AsyncClient:
             ),
         )
         self.authz_api = ChainGrpcAuthZApi(
+            channel=self.chain_channel,
+            metadata_provider=lambda: self.network.chain_metadata(
+                metadata_query_provider=self._chain_cookie_metadata_requestor
+            ),
+        )
+        self.token_factory_api = ChainGrpcTokenFactoryApi(
             channel=self.chain_channel,
             metadata_provider=lambda: self.network.chain_metadata(
                 metadata_query_provider=self._chain_cookie_metadata_requestor
@@ -737,6 +744,24 @@ class AsyncClient:
             creator_address=creator_address,
             pagination=pagination,
         )
+
+    # Token Factory module
+
+    async def fetch_denom_authority_metadata(
+        self,
+        creator: str,
+        sub_denom: Optional[str] = None,
+    ) -> Dict[str, Any]:
+        return await self.token_factory_api.fetch_denom_authority_metadata(creator=creator, sub_denom=sub_denom)
+
+    async def fetch_denoms_from_creator(
+        self,
+        creator: str,
+    ) -> Dict[str, Any]:
+        return await self.token_factory_api.fetch_denoms_from_creator(creator=creator)
+
+    async def fetch_tokenfactory_module_state(self) -> Dict[str, Any]:
+        return await self.token_factory_api.fetch_tokenfactory_module_state()
 
     # Explorer RPC
 
