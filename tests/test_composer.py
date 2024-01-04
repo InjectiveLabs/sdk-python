@@ -1,3 +1,4 @@
+import json
 from decimal import Decimal
 
 import pytest
@@ -376,3 +377,21 @@ class TestComposer:
         assert message.sender == sender
         assert message.denom == denom
         assert message.new_admin == new_admin
+
+    def test_msg_execute_contract_compat(self, basic_composer):
+        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
+        contract = "inj1ady3s7whq30l4fx8sj3x6muv5mx4dfdlcpv8n7"
+        msg = json.dumps({"increment": {}})
+        funds = "100inj,420peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7"
+
+        message = basic_composer.msg_execute_contract_compat(
+            sender=sender,
+            contract=contract,
+            msg=msg,
+            funds=funds,
+        )
+
+        assert message.sender == sender
+        assert message.contract == contract
+        assert message.msg == msg
+        assert message.funds == funds

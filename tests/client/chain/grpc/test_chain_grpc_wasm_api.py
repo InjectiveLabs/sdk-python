@@ -44,14 +44,13 @@ class TestChainGrpcBankApi:
             "params": {
                 "codeUploadAccess": {
                     "permission": wasm_types_pb.AccessType.Name(access_config.permission),
-                    "address": "",
                     "addresses": access_config.addresses,
                 },
                 "instantiateDefaultPermission": wasm_types_pb.AccessType.Name(params.instantiate_default_permission),
             }
         }
 
-        assert expected_params == module_params
+        assert module_params == expected_params
 
     @pytest.mark.asyncio
     async def test_fetch_contract_info(
@@ -348,7 +347,6 @@ class TestChainGrpcBankApi:
                 "dataHash": base64.b64encode(code_info_response.data_hash).decode(),
                 "instantiatePermission": {
                     "permission": wasm_types_pb.AccessType.Name(access_config.permission),
-                    "address": "",
                     "addresses": access_config.addresses,
                 },
             },
@@ -406,7 +404,6 @@ class TestChainGrpcBankApi:
                     "dataHash": base64.b64encode(code_info_response.data_hash).decode(),
                     "instantiatePermission": {
                         "permission": wasm_types_pb.AccessType.Name(access_config.permission),
-                        "address": "",
                         "addresses": access_config.addresses,
                     },
                 },

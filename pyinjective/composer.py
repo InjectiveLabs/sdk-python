@@ -32,6 +32,7 @@ from pyinjective.proto.injective.tokenfactory.v1beta1 import (
     params_pb2 as token_factory_params_pb,
     tx_pb2 as token_factory_tx_pb,
 )
+from pyinjective.proto.injective.wasmx.v1 import tx_pb2 as wasmx_tx_pb
 
 REQUEST_TO_RESPONSE_TYPE_MAP = {
     "MsgCreateSpotLimitOrder": injective_exchange_tx_pb.MsgCreateSpotLimitOrderResponse,
@@ -1048,6 +1049,14 @@ class Composer:
             sender=sender,
             denom=denom,
             new_admin=new_admin,
+        )
+
+    def msg_execute_contract_compat(self, sender: str, contract: str, msg: str, funds: str):
+        return wasmx_tx_pb.MsgExecuteContractCompat(
+            sender=sender,
+            contract=contract,
+            msg=msg,
+            funds=funds,
         )
 
     def chain_stream_bank_balances_filter(

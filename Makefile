@@ -28,19 +28,19 @@ clean-all:
 	$(call clean_repos)
 
 clone-injective-core:
-	git clone https://github.com/InjectiveLabs/injective-core.git -b v1.12.8-testnet --depth 1 --single-branch
+	git clone https://github.com/InjectiveLabs/injective-core.git -b v1.12.9-testnet --depth 1 --single-branch
 
 clone-injective-indexer:
-	git clone https://github.com/InjectiveLabs/injective-indexer.git -b v1.12.67 --depth 1 --single-branch
+	git clone https://github.com/InjectiveLabs/injective-indexer.git -b v1.12.72 --depth 1 --single-branch
 
 clone-cometbft:
-	git clone https://github.com/cometbft/cometbft.git -b v0.37.2 --depth 1 --single-branch
+	git clone https://github.com/InjectiveLabs/cometbft.git -b v0.37.2-inj --depth 1 --single-branch
 
 clone-wasmd:
-	git clone https://github.com/InjectiveLabs/wasmd.git -b v0.40.2-inj --depth 1 --single-branch
+	git clone https://github.com/InjectiveLabs/wasmd.git -b v0.45.0-inj --depth 1 --single-branch
 
 clone-cosmos-sdk:
-	git clone https://github.com/InjectiveLabs/cosmos-sdk.git -b v0.47.3-inj-6 --depth 1 --single-branch
+	git clone https://github.com/InjectiveLabs/cosmos-sdk.git -b v0.47.3-inj-9 --depth 1 --single-branch
 
 clone-ibc-go:
 	git clone https://github.com/InjectiveLabs/ibc-go.git -b v7.2.0-inj --depth 1 --single-branch
