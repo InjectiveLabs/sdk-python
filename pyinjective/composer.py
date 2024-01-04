@@ -28,10 +28,7 @@ from pyinjective.proto.injective.insurance.v1beta1 import tx_pb2 as injective_in
 from pyinjective.proto.injective.oracle.v1beta1 import tx_pb2 as injective_oracle_tx_pb
 from pyinjective.proto.injective.peggy.v1 import msgs_pb2 as injective_peggy_tx_pb
 from pyinjective.proto.injective.stream.v1beta1 import query_pb2 as chain_stream_query
-from pyinjective.proto.injective.tokenfactory.v1beta1 import (
-    params_pb2 as token_factory_params_pb,
-    tx_pb2 as token_factory_tx_pb,
-)
+from pyinjective.proto.injective.tokenfactory.v1beta1 import tx_pb2 as token_factory_tx_pb
 
 REQUEST_TO_RESPONSE_TYPE_MAP = {
     "MsgCreateSpotLimitOrder": injective_exchange_tx_pb.MsgCreateSpotLimitOrderResponse,
@@ -1022,21 +1019,6 @@ class Composer:
             uri_hash=uri_hash,
         )
         return token_factory_tx_pb.MsgSetDenomMetadata(sender=sender, metadata=metadata)
-
-    def msg_update_params(
-        self,
-        authority: str,
-        denom: str,
-        amount: int,
-    ) -> token_factory_tx_pb.MsgUpdateParams:
-        coin = self.Coin(amount=amount, denom=denom)
-        params = token_factory_params_pb.Params(
-            denom_creation_fee=[coin],
-        )
-        return token_factory_tx_pb.MsgUpdateParams(
-            authority=authority,
-            params=params,
-        )
 
     def msg_change_admin(
         self,

@@ -347,21 +347,6 @@ class TestComposer:
         assert message.metadata.uri == uri
         assert message.metadata.uri_hash == uri_hash
 
-    def test_msg_update_params(self, basic_composer: Composer):
-        authority = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
-        amount = 1000
-        denom = "factory/inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r/inj_test"
-
-        message = basic_composer.msg_update_params(
-            authority=authority,
-            denom=denom,
-            amount=amount,
-        )
-
-        assert message.authority == authority
-        assert message.params.denom_creation_fee[0].amount == str(amount)
-        assert message.params.denom_creation_fee[0].denom == denom
-
     def test_msg_change_admin(self, basic_composer):
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
         denom = "factory/inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r/inj_test"
