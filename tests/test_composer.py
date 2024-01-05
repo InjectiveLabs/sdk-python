@@ -260,3 +260,104 @@ class TestComposer:
         assert order.order_type == exchange_pb2.OrderType.BUY
         assert order.margin == str(int(expected_margin))
         assert order.trigger_price == "0"
+
+    def test_msg_create_denom(self, basic_composer: Composer):
+        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
+        subdenom = "inj-test"
+        name = "Injective Test"
+        symbol = "INJTEST"
+
+        message = basic_composer.msg_create_denom(
+            sender=sender,
+            subdenom=subdenom,
+            name=name,
+            symbol=symbol,
+        )
+
+        assert message.sender == sender
+        assert message.subdenom == subdenom
+        assert message.name == name
+        assert message.symbol == symbol
+
+    def test_msg_mint(self, basic_composer: Composer):
+        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
+        amount = basic_composer.Coin(
+            amount=1_000_000,
+            denom="factory/inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r/inj_test",
+        )
+
+        message = basic_composer.msg_mint(
+            sender=sender,
+            amount=amount,
+        )
+
+        assert message.sender == sender
+        assert message.amount == amount
+
+    def test_msg_burn(self, basic_composer: Composer):
+        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
+        amount = basic_composer.Coin(
+            amount=100,
+            denom="factory/inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r/inj_test",
+        )
+
+        message = basic_composer.msg_burn(
+            sender=sender,
+            amount=amount,
+        )
+
+        assert message.sender == sender
+        assert message.amount == amount
+
+    def test_msg_set_denom_metadata(self, basic_composer: Composer):
+        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
+        description = "Injective Test Token"
+        subdenom = "inj_test"
+        denom = "factory/inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r/inj_test"
+        token_decimals = 6
+        name = "Injective Test"
+        symbol = "INJTEST"
+        uri = "http://injective-test.com/icon.jpg"
+        uri_hash = ""
+
+        message = basic_composer.msg_set_denom_metadata(
+            sender=sender,
+            description=description,
+            denom=denom,
+            subdenom=subdenom,
+            token_decimals=token_decimals,
+            name=name,
+            symbol=symbol,
+            uri=uri,
+            uri_hash=uri_hash,
+        )
+
+        assert message.sender == sender
+        assert message.metadata.description == description
+        assert message.metadata.denom_units[0].denom == denom
+        assert message.metadata.denom_units[0].exponent == 0
+        assert message.metadata.denom_units[0].aliases == [f"micro{subdenom}"]
+        assert message.metadata.denom_units[1].denom == subdenom
+        assert message.metadata.denom_units[1].exponent == token_decimals
+        assert message.metadata.denom_units[1].aliases == [subdenom]
+        assert message.metadata.base == denom
+        assert message.metadata.display == subdenom
+        assert message.metadata.name == name
+        assert message.metadata.symbol == symbol
+        assert message.metadata.uri == uri
+        assert message.metadata.uri_hash == uri_hash
+
+    def test_msg_change_admin(self, basic_composer):
+        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
+        denom = "factory/inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r/inj_test"
+        new_admin = "inj1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqe2hm49"
+
+        message = basic_composer.msg_change_admin(
+            sender=sender,
+            denom=denom,
+            new_admin=new_admin,
+        )
+
+        assert message.sender == sender
+        assert message.denom == denom
+        assert message.new_admin == new_admin
