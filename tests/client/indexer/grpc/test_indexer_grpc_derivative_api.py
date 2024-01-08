@@ -716,6 +716,7 @@ class TestIndexerGrpcDerivativeApi:
             liquidation_price="23492052.224777",
             mark_price="16197000",
             updated_at=1700161202147,
+            denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
         )
 
         paging = exchange_derivative_pb.Paging(total=5, to=5, count_by_subaccount=10, next=["next1", "next2"])
@@ -759,6 +760,7 @@ class TestIndexerGrpcDerivativeApi:
                     "liquidationPrice": position.liquidation_price,
                     "markPrice": position.mark_price,
                     "updatedAt": str(position.updated_at),
+                    "denom": position.denom,
                 },
             ],
             "paging": {
