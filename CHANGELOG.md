@@ -2,12 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.0.1] - 2023-12-11
+## [1.0.1] - 2024-01-08
 ### Added
 - Added low level API components for all modules (chain, exchain and explorer) to make the Python SDK compatible with the TypeScript SDK.
+- Added support for all wasm module messages.
+- Added support for all token factory module messages.
 
 ### Changed
-- Updated proto definitions to injective-core v1.12.2-testnet and injective-indexer v1.12.45-rc3
+- Updated proto definitions to injective-core v1.12.0 and injective-indexer v1.12.72
 - Added new functions in AsyncClient to interact with chain, exchange and explorer using the low level API components
 - Marked old function sin AsyncClient as deprecated (the functions will be removed in a future version)
 - Updated all API examples to use the new AsyncClient functions

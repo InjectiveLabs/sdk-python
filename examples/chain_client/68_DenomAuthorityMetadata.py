@@ -7,7 +7,10 @@ from pyinjective.core.network import Network
 async def main() -> None:
     network = Network.testnet()
     client = AsyncClient(network)
-    metadata = await client.fetch_denom_authority_metadata(creator="inj1zvy8xrlhe7ex9scer868clfstdv7j6vz790kwa")
+    metadata = await client.fetch_denom_authority_metadata(
+        creator="inj1uv6psuupldve0c9n3uezqlecadszqexv5vxx04",
+        sub_denom="position",
+    )
     print(metadata)
 
 
