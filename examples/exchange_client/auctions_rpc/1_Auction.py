@@ -9,7 +9,7 @@ async def main() -> None:
     network = Network.testnet()
     client = AsyncClient(network)
     bid_round = 31
-    auction = await client.get_auction(bid_round=bid_round)
+    auction = await client.fetch_auction(round=bid_round)
     print(auction)
 
 

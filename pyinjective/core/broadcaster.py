@@ -4,10 +4,12 @@ from decimal import Decimal
 from typing import List, Optional
 
 from google.protobuf import any_pb2
+from grpc import RpcError
 
 from pyinjective import PrivateKey, PublicKey, Transaction
 from pyinjective.async_client import AsyncClient
 from pyinjective.composer import Composer
+from pyinjective.constant import GAS_PRICE
 from pyinjective.core.gas_limit_estimator import GasLimitEstimator
 from pyinjective.core.network import Network
 
@@ -34,7 +36,7 @@ class BroadcasterAccountConfig(ABC):
 
 
 class TransactionFeeCalculator(ABC):
-    DEFAULT_GAS_PRICE = 500_000_000
+    DEFAULT_GAS_PRICE = GAS_PRICE
 
     @abstractmethod
     async def configure_gas_fee_for_transaction(
@@ -151,7 +153,7 @@ class MsgBroadcasterWithPk:
         if self._client.timeout_height == 1:
             await self._client.sync_timeout_height()
         if self._client.number == 0:
-            await self._client.get_account(self._account_config.trading_injective_address)
+            await self._client.fetch_account(self._account_config.trading_injective_address)
 
         messages_for_transaction = self._account_config.messages_prepared_for_transaction(messages=messages)
 
@@ -174,7 +176,7 @@ class MsgBroadcasterWithPk:
         tx_raw_bytes = transaction.get_tx_data(sig, self._account_config.trading_public_key)
 
         # broadcast tx: send_tx_async_mode, send_tx_sync_mode
-        transaction_result = await self._client.send_tx_sync_mode(tx_raw_bytes)
+        transaction_result = await self._client.broadcast_tx_sync_mode(tx_raw_bytes)
 
         return transaction_result
 
@@ -254,11 +256,12 @@ class SimulatedTransactionFeeCalculator(TransactionFeeCalculator):
         sim_tx_raw_bytes = transaction.get_tx_data(sim_sig, public_key)
 
         # simulate tx
-        (sim_res, success) = await self._client.simulate_tx(sim_tx_raw_bytes)
-        if not success:
-            raise RuntimeError(f"Transaction simulation error: {sim_res}")
+        try:
+            sim_res = await self._client.simulate(sim_tx_raw_bytes)
+        except RpcError as ex:
+            raise RuntimeError(f"Transaction simulation error: {ex}")
 
-        gas_limit = math.ceil(Decimal(str(sim_res.gas_info.gas_used)) * self._gas_limit_adjustment_multiplier)
+        gas_limit = math.ceil(Decimal(str(sim_res["gasInfo"]["gasUsed"])) * self._gas_limit_adjustment_multiplier)
 
         fee = [
             self._composer.Coin(

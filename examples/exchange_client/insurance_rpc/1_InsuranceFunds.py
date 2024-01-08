@@ -8,7 +8,7 @@ async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
     client = AsyncClient(network)
-    insurance_funds = await client.get_insurance_funds()
+    insurance_funds = await client.fetch_insurance_funds()
     print(insurance_funds)
 
 

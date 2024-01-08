@@ -12,7 +12,7 @@ async def main() -> None:
     quote_symbol = "USDT"
     oracle_type = "bandibc"
     oracle_scale_factor = 6
-    oracle_prices = await client.get_oracle_prices(
+    oracle_prices = await client.fetch_oracle_price(
         base_symbol=base_symbol,
         quote_symbol=quote_symbol,
         oracle_type=oracle_type,

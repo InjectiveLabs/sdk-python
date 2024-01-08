@@ -7,8 +7,8 @@ from pyinjective.core.network import Network
 async def main() -> None:
     network = Network.testnet()
     client = AsyncClient(network)
-    tx_hash = "7746BC12EB82B4D59D036FBFF2F67BDCA6F62A20B3DBC25661707DD61D4DC1B7"
-    tx_logs = await client.get_tx(tx_hash=tx_hash)
+    tx_hash = "D265527E3171C47D01D7EC9B839A95F8F794D4E683F26F5564025961C96EFDDA"
+    tx_logs = await client.fetch_tx(hash=tx_hash)
     print(tx_logs)
 
 

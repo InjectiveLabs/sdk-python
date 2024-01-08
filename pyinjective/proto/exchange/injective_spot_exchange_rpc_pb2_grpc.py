@@ -70,6 +70,16 @@ class InjectiveSpotExchangeRPCStub(object):
                 request_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamTradesRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamTradesResponse.FromString,
                 )
+        self.TradesV2 = channel.unary_unary(
+                '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/TradesV2',
+                request_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.TradesV2Request.SerializeToString,
+                response_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.TradesV2Response.FromString,
+                )
+        self.StreamTradesV2 = channel.unary_stream(
+                '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/StreamTradesV2',
+                request_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamTradesV2Request.SerializeToString,
+                response_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamTradesV2Response.FromString,
+                )
         self.SubaccountOrdersList = channel.unary_unary(
                 '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/SubaccountOrdersList',
                 request_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.SubaccountOrdersListRequest.SerializeToString,
@@ -89,6 +99,11 @@ class InjectiveSpotExchangeRPCStub(object):
                 '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/StreamOrdersHistory',
                 request_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrdersHistoryRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrdersHistoryResponse.FromString,
+                )
+        self.AtomicSwapHistory = channel.unary_unary(
+                '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/AtomicSwapHistory',
+                request_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.AtomicSwapHistoryRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.AtomicSwapHistoryResponse.FromString,
                 )
 
 
@@ -173,6 +188,20 @@ class InjectiveSpotExchangeRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def TradesV2(self, request, context):
+        """Trades of a Spot Market
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def StreamTradesV2(self, request, context):
+        """Stream newly executed trades from Spot Market
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def SubaccountOrdersList(self, request, context):
         """List orders posted from this subaccount
         """
@@ -196,6 +225,13 @@ class InjectiveSpotExchangeRPCServicer(object):
 
     def StreamOrdersHistory(self, request, context):
         """Stream updates to historical orders of a spot Market
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AtomicSwapHistory(self, request, context):
+        """Get historical atomic swaps
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -259,6 +295,16 @@ def add_InjectiveSpotExchangeRPCServicer_to_server(servicer, server):
                     request_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamTradesRequest.FromString,
                     response_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamTradesResponse.SerializeToString,
             ),
+            'TradesV2': grpc.unary_unary_rpc_method_handler(
+                    servicer.TradesV2,
+                    request_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.TradesV2Request.FromString,
+                    response_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.TradesV2Response.SerializeToString,
+            ),
+            'StreamTradesV2': grpc.unary_stream_rpc_method_handler(
+                    servicer.StreamTradesV2,
+                    request_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamTradesV2Request.FromString,
+                    response_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamTradesV2Response.SerializeToString,
+            ),
             'SubaccountOrdersList': grpc.unary_unary_rpc_method_handler(
                     servicer.SubaccountOrdersList,
                     request_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.SubaccountOrdersListRequest.FromString,
@@ -278,6 +324,11 @@ def add_InjectiveSpotExchangeRPCServicer_to_server(servicer, server):
                     servicer.StreamOrdersHistory,
                     request_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrdersHistoryRequest.FromString,
                     response_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrdersHistoryResponse.SerializeToString,
+            ),
+            'AtomicSwapHistory': grpc.unary_unary_rpc_method_handler(
+                    servicer.AtomicSwapHistory,
+                    request_deserializer=exchange_dot_injective__spot__exchange__rpc__pb2.AtomicSwapHistoryRequest.FromString,
+                    response_serializer=exchange_dot_injective__spot__exchange__rpc__pb2.AtomicSwapHistoryResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -478,6 +529,40 @@ class InjectiveSpotExchangeRPC(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def TradesV2(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/TradesV2',
+            exchange_dot_injective__spot__exchange__rpc__pb2.TradesV2Request.SerializeToString,
+            exchange_dot_injective__spot__exchange__rpc__pb2.TradesV2Response.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def StreamTradesV2(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/StreamTradesV2',
+            exchange_dot_injective__spot__exchange__rpc__pb2.StreamTradesV2Request.SerializeToString,
+            exchange_dot_injective__spot__exchange__rpc__pb2.StreamTradesV2Response.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def SubaccountOrdersList(request,
             target,
             options=(),
@@ -542,5 +627,22 @@ class InjectiveSpotExchangeRPC(object):
         return grpc.experimental.unary_stream(request, target, '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/StreamOrdersHistory',
             exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrdersHistoryRequest.SerializeToString,
             exchange_dot_injective__spot__exchange__rpc__pb2.StreamOrdersHistoryResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def AtomicSwapHistory(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective_spot_exchange_rpc.InjectiveSpotExchangeRPC/AtomicSwapHistory',
+            exchange_dot_injective__spot__exchange__rpc__pb2.AtomicSwapHistoryRequest.SerializeToString,
+            exchange_dot_injective__spot__exchange__rpc__pb2.AtomicSwapHistoryResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

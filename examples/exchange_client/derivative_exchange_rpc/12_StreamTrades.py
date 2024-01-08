@@ -1,7 +1,22 @@
 import asyncio
+from typing import Any, Dict
+
+from grpc import RpcError
 
 from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
+
+
+async def market_event_processor(event: Dict[str, Any]):
+    print(event)
+
+
+def stream_error_processor(exception: RpcError):
+    print(f"There was an error listening to derivative trades updates ({exception})")
+
+
+def stream_closed_processor():
+    print("The derivative trades updates stream has been closed")
 
 
 async def main() -> None:
@@ -10,12 +25,22 @@ async def main() -> None:
     client = AsyncClient(network)
     market_ids = [
         "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
-        "0xd5e4b12b19ecf176e4e14b42944731c27677819d2ed93be4104ad7025529c7ff",
+        "0x70bc8d7feab38b23d5fdfb12b9c3726e400c265edbcbf449b6c80c31d63d3a02",
     ]
-    subaccount_id = "0xc6fe5d33615a1c52c08018c47e8bc53646a0e101000000000000000000000000"
-    trades = await client.stream_derivative_trades(market_id=market_ids[0], subaccount_id=subaccount_id)
-    async for trade in trades:
-        print(trade)
+    subaccount_ids = ["0xc6fe5d33615a1c52c08018c47e8bc53646a0e101000000000000000000000000"]
+
+    task = asyncio.get_event_loop().create_task(
+        client.listen_derivative_trades_updates(
+            callback=market_event_processor,
+            on_end_callback=stream_closed_processor,
+            on_status_callback=stream_error_processor,
+            market_ids=market_ids,
+            subaccount_ids=subaccount_ids,
+        )
+    )
+
+    await asyncio.sleep(delay=60)
+    task.cancel()
 
 
 if __name__ == "__main__":

@@ -9,10 +9,10 @@ async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
     client = AsyncClient(network)
-    resp = await client.info()
+    resp = await client.fetch_info()
     print("[!] Info:")
     print(resp)
-    latency = int(round(time.time() * 1000)) - resp.timestamp
+    latency = int(time.time() * 1000) - int(resp["timestamp"])
     print(f"Server Latency: {latency}ms")
 
 

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "injective-py"
-version = "0.9.12"
+version = "1.0.1"
 description = "Injective Python SDK, with Exchange API Client"
 authors = ["Injective Labs <contact@injectivelabs.org>"]
 license = "Apache-2.0"
@@ -22,7 +22,6 @@ include = [
 
 [tool.poetry.dependencies]
 python = "^3.9"
-aiocron = "*"
 aiohttp = "*"
 asyncio = "*"
 bech32 = "*"
@@ -37,7 +36,7 @@ mnemonic = "*"
 protobuf = "*"
 requests = "*"
 safe-pysha3 = "*"
-urllib3 = "<2"
+urllib3 = ">=1.26.18,<2"
 websockets = "*"
 web3 = "^6.0"
 
@@ -63,7 +62,7 @@ max_line_length = 120
 
 # list of plugins and rules for them
 [tool.flakeheaven.plugins]
-pycodestyle = ["+*", "-W503"]
+pycodestyle = ["+*", "-W503", "-E731"]
 pyflakes = ["+*"]
 
 [tool.flakeheaven.exceptions."tests/"]
@@ -71,8 +70,13 @@ pyflakes = ["-F811"]           # disable a plugin
 
 
 [tool.isort]
-profile = "black"
 line_length = 120
+multi_line_output = 3
+combine_as_imports = true
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
 skip_glob = ["pyinjective/proto/*", ".idea/*"]
 
 
@@ -97,8 +101,11 @@ omit = ["pyinjective/proto/*"]
 
 [tool.coverage.report]
 skip_empty = true
-fail_under = 52
+fail_under = 65
 precision = 2
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
 
 
 [build-system]

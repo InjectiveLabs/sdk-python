@@ -1,7 +1,7 @@
 from decimal import Decimal
 
-from pyinjective.constant import Denom
 from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
+from pyinjective.utils.denom import Denom
 from tests.model_fixtures.markets_fixtures import btc_usdt_perp_market  # noqa: F401
 from tests.model_fixtures.markets_fixtures import first_match_bet_market  # noqa: F401
 from tests.model_fixtures.markets_fixtures import inj_token  # noqa: F401

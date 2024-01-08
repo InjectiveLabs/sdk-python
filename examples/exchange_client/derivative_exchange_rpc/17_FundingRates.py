@@ -1,6 +1,7 @@
 import asyncio
 
 from pyinjective.async_client import AsyncClient
+from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import Network
 
 
@@ -12,7 +13,8 @@ async def main() -> None:
     skip = 0
     limit = 3
     end_time = 1675717201465
-    funding_rates = await client.get_funding_rates(market_id=market_id, skip=skip, limit=limit, end_time=end_time)
+    pagination = PaginationOption(skip=skip, limit=limit, end_time=end_time)
+    funding_rates = await client.fetch_funding_rates(market_id=market_id, pagination=pagination)
     print(funding_rates)
 
 

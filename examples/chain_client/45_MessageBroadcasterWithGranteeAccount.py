@@ -1,4 +1,5 @@
 import asyncio
+import uuid
 
 from pyinjective.async_client import AsyncClient
 from pyinjective.composer import Composer as ProtoMsgComposer
@@ -42,6 +43,7 @@ async def main() -> None:
         quantity=0.01,
         is_buy=True,
         is_po=False,
+        cid=str(uuid.uuid4()),
     )
 
     # broadcast the transaction

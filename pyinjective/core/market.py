@@ -2,8 +2,9 @@ from dataclasses import dataclass
 from decimal import Decimal
 from typing import Optional
 
-from pyinjective.constant import ADDITIONAL_CHAIN_FORMAT_DECIMALS, Denom
+from pyinjective.constant import ADDITIONAL_CHAIN_FORMAT_DECIMALS
 from pyinjective.core.token import Token
+from pyinjective.utils.denom import Denom
 
 
 @dataclass(eq=True, frozen=True)
@@ -124,6 +125,7 @@ class BinaryOptionMarket:
     service_provider_fee: Decimal
     min_price_tick_size: Decimal
     min_quantity_tick_size: Decimal
+    settlement_price: Optional[Decimal] = None
 
     def quantity_to_chain_format(self, human_readable_value: Decimal, special_denom: Optional[Denom] = None) -> Decimal:
         # Binary option markets do not have a base market to provide the number of decimals

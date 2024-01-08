@@ -35,11 +35,6 @@ class MsgStub(object):
                 request_serializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgSubmitMisbehaviour.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgSubmitMisbehaviourResponse.FromString,
                 )
-        self.UpdateClientParams = channel.unary_unary(
-                '/ibc.core.client.v1.Msg/UpdateClientParams',
-                request_serializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
-                response_deserializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
-                )
 
 
 class MsgServicer(object):
@@ -74,13 +69,6 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def UpdateClientParams(self, request, context):
-        """UpdateClientParams defines a rpc handler method for MsgUpdateParams.
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -103,11 +91,6 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.SubmitMisbehaviour,
                     request_deserializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgSubmitMisbehaviour.FromString,
                     response_serializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgSubmitMisbehaviourResponse.SerializeToString,
-            ),
-            'UpdateClientParams': grpc.unary_unary_rpc_method_handler(
-                    servicer.UpdateClientParams,
-                    request_deserializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgUpdateParams.FromString,
-                    response_serializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -185,22 +168,5 @@ class Msg(object):
         return grpc.experimental.unary_unary(request, target, '/ibc.core.client.v1.Msg/SubmitMisbehaviour',
             ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgSubmitMisbehaviour.SerializeToString,
             ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgSubmitMisbehaviourResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def UpdateClientParams(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.core.client.v1.Msg/UpdateClientParams',
-            ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
-            ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

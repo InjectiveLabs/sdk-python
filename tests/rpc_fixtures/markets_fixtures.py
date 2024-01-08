@@ -2,6 +2,32 @@ import pytest
 
 
 @pytest.fixture
+def smart_denom_metadata():
+    from pyinjective.proto.cosmos.bank.v1beta1 import bank_pb2 as bank_pb
+
+    first_denom_unit = bank_pb.DenomUnit(
+        denom="factory/inj105ujajd95znwjvcy3hwcz80pgy8tc6v77spur0/SMART", exponent=0, aliases=["microSMART"]
+    )
+    second_denom_unit = bank_pb.DenomUnit(denom="SMART", exponent=6, aliases=["SMART"])
+    metadata = bank_pb.Metadata(
+        description="SMART",
+        denom_units=[first_denom_unit, second_denom_unit],
+        base="factory/inj105ujajd95znwjvcy3hwcz80pgy8tc6v77spur0/SMART",
+        display="SMART",
+        name="SMART",
+        symbol="SMART",
+        uri=(
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/"
+            "Flag_of_the_People%27s_Republic_of_China.svg/"
+            "2560px-Flag_of_the_People%27s_Republic_of_China.svg.png"
+        ),
+        uri_hash="",
+    )
+
+    return metadata
+
+
+@pytest.fixture
 def inj_token_meta():
     from pyinjective.proto.exchange.injective_spot_exchange_rpc_pb2 import TokenMeta
 
@@ -111,7 +137,7 @@ def inj_usdt_spot_market_meta(inj_token_meta, usdt_token_meta):
         market_id="0x7a57e705bb4e09c88aecfc295569481dbf2fe1d5efe364651fbe72385938e9b0",
         market_status="active",
         ticker="INJ/USDT",
-        base_denom="peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7",
+        base_denom="inj",
         base_token_meta=inj_token_meta,
         quote_denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
         quote_token_meta=usdt_token_meta,

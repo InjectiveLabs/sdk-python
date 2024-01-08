@@ -8,7 +8,7 @@ async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
     client = AsyncClient(network)
-    auctions = await client.get_auctions()
+    auctions = await client.fetch_auctions()
     print(auctions)
 
 

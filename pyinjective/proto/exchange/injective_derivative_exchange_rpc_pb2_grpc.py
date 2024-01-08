@@ -71,6 +71,11 @@ class InjectiveDerivativeExchangeRPCStub(object):
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.PositionsRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.PositionsResponse.FromString,
                 )
+        self.PositionsV2 = channel.unary_unary(
+                '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/PositionsV2',
+                request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.PositionsV2Request.SerializeToString,
+                response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.PositionsV2Response.FromString,
+                )
         self.LiquidablePositions = channel.unary_unary(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/LiquidablePositions',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.LiquidablePositionsRequest.SerializeToString,
@@ -101,10 +106,20 @@ class InjectiveDerivativeExchangeRPCStub(object):
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.TradesRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.TradesResponse.FromString,
                 )
+        self.TradesV2 = channel.unary_unary(
+                '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/TradesV2',
+                request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.TradesV2Request.SerializeToString,
+                response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.TradesV2Response.FromString,
+                )
         self.StreamTrades = channel.unary_stream(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamTrades',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamTradesRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamTradesResponse.FromString,
+                )
+        self.StreamTradesV2 = channel.unary_stream(
+                '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamTradesV2',
+                request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamTradesV2Request.SerializeToString,
+                response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamTradesV2Response.FromString,
                 )
         self.SubaccountOrdersList = channel.unary_unary(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/SubaccountOrdersList',
@@ -210,6 +225,14 @@ class InjectiveDerivativeExchangeRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def PositionsV2(self, request, context):
+        """Positions gets the positions for a trader. V2 removed some redundant fields
+        and had performance improvements
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def LiquidablePositions(self, request, context):
         """LiquidablePositions gets all the liquidable positions.
         """
@@ -252,7 +275,21 @@ class InjectiveDerivativeExchangeRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def TradesV2(self, request, context):
+        """Trades gets the trades of a Derivative Market.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def StreamTrades(self, request, context):
+        """StreamTrades streams newly executed trades from Derivative Market.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def StreamTradesV2(self, request, context):
         """StreamTrades streams newly executed trades from Derivative Market.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -346,6 +383,11 @@ def add_InjectiveDerivativeExchangeRPCServicer_to_server(servicer, server):
                     request_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.PositionsRequest.FromString,
                     response_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.PositionsResponse.SerializeToString,
             ),
+            'PositionsV2': grpc.unary_unary_rpc_method_handler(
+                    servicer.PositionsV2,
+                    request_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.PositionsV2Request.FromString,
+                    response_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.PositionsV2Response.SerializeToString,
+            ),
             'LiquidablePositions': grpc.unary_unary_rpc_method_handler(
                     servicer.LiquidablePositions,
                     request_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.LiquidablePositionsRequest.FromString,
@@ -376,10 +418,20 @@ def add_InjectiveDerivativeExchangeRPCServicer_to_server(servicer, server):
                     request_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.TradesRequest.FromString,
                     response_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.TradesResponse.SerializeToString,
             ),
+            'TradesV2': grpc.unary_unary_rpc_method_handler(
+                    servicer.TradesV2,
+                    request_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.TradesV2Request.FromString,
+                    response_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.TradesV2Response.SerializeToString,
+            ),
             'StreamTrades': grpc.unary_stream_rpc_method_handler(
                     servicer.StreamTrades,
                     request_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamTradesRequest.FromString,
                     response_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamTradesResponse.SerializeToString,
+            ),
+            'StreamTradesV2': grpc.unary_stream_rpc_method_handler(
+                    servicer.StreamTradesV2,
+                    request_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamTradesV2Request.FromString,
+                    response_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamTradesV2Response.SerializeToString,
             ),
             'SubaccountOrdersList': grpc.unary_unary_rpc_method_handler(
                     servicer.SubaccountOrdersList,
@@ -601,6 +653,23 @@ class InjectiveDerivativeExchangeRPC(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def PositionsV2(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/PositionsV2',
+            exchange_dot_injective__derivative__exchange__rpc__pb2.PositionsV2Request.SerializeToString,
+            exchange_dot_injective__derivative__exchange__rpc__pb2.PositionsV2Response.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def LiquidablePositions(request,
             target,
             options=(),
@@ -703,6 +772,23 @@ class InjectiveDerivativeExchangeRPC(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def TradesV2(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/TradesV2',
+            exchange_dot_injective__derivative__exchange__rpc__pb2.TradesV2Request.SerializeToString,
+            exchange_dot_injective__derivative__exchange__rpc__pb2.TradesV2Response.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def StreamTrades(request,
             target,
             options=(),
@@ -716,6 +802,23 @@ class InjectiveDerivativeExchangeRPC(object):
         return grpc.experimental.unary_stream(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamTrades',
             exchange_dot_injective__derivative__exchange__rpc__pb2.StreamTradesRequest.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.StreamTradesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def StreamTradesV2(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamTradesV2',
+            exchange_dot_injective__derivative__exchange__rpc__pb2.StreamTradesV2Request.SerializeToString,
+            exchange_dot_injective__derivative__exchange__rpc__pb2.StreamTradesV2Response.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

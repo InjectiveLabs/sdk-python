@@ -169,6 +169,7 @@ class Network:
         grpc_endpoint: str,
         grpc_exchange_endpoint: str,
         grpc_explorer_endpoint: str,
+        chain_stream_endpoint: str,
         chain_id: str,
         fee_denom: str,
         env: str,
@@ -180,6 +181,7 @@ class Network:
         self.grpc_endpoint = grpc_endpoint
         self.grpc_exchange_endpoint = grpc_exchange_endpoint
         self.grpc_explorer_endpoint = grpc_explorer_endpoint
+        self.chain_stream_endpoint = chain_stream_endpoint
         self.chain_id = chain_id
         self.fee_denom = fee_denom
         self.env = env
@@ -194,6 +196,7 @@ class Network:
             grpc_endpoint="devnet.injective.dev:9900",
             grpc_exchange_endpoint="devnet.injective.dev:9910",
             grpc_explorer_endpoint="devnet.injective.dev:9911",
+            chain_stream_endpoint="devnet.injective.dev:9999",
             chain_id="injective-777",
             fee_denom="inj",
             env="devnet",
@@ -215,6 +218,7 @@ class Network:
             grpc_endpoint = "testnet.sentry.chain.grpc.injective.network:443"
             grpc_exchange_endpoint = "testnet.sentry.exchange.grpc.injective.network:443"
             grpc_explorer_endpoint = "testnet.sentry.explorer.grpc.injective.network:443"
+            chain_stream_endpoint = "testnet.sentry.chain.stream.injective.network:443"
             cookie_assistant = BareMetalLoadBalancedCookieAssistant()
             use_secure_connection = True
         else:
@@ -223,6 +227,7 @@ class Network:
             grpc_endpoint = "testnet.chain.grpc.injective.network:443"
             grpc_exchange_endpoint = "testnet.exchange.grpc.injective.network:443"
             grpc_explorer_endpoint = "testnet.explorer.grpc.injective.network:443"
+            chain_stream_endpoint = "testnet.chain.stream.injective.network:443"
             cookie_assistant = DisabledCookieAssistant()
             use_secure_connection = True
 
@@ -232,6 +237,7 @@ class Network:
             grpc_endpoint=grpc_endpoint,
             grpc_exchange_endpoint=grpc_exchange_endpoint,
             grpc_explorer_endpoint=grpc_explorer_endpoint,
+            chain_stream_endpoint=chain_stream_endpoint,
             chain_id="injective-888",
             fee_denom="inj",
             env="testnet",
@@ -242,39 +248,19 @@ class Network:
     @classmethod
     def mainnet(cls, node="lb"):
         nodes = [
-            "lb",  # us, asia, prod
-            "lb_k8s",
-            "sentry0",  # ca, prod
-            "sentry1",  # ca, prod
-            "sentry3",  # us, prod
+            "lb",
         ]
         if node not in nodes:
             raise ValueError("Must be one of {}".format(nodes))
 
-        if node == "lb":
-            lcd_endpoint = "https://sentry.lcd.injective.network:443"
-            tm_websocket_endpoint = "wss://sentry.tm.injective.network:443/websocket"
-            grpc_endpoint = "sentry.chain.grpc.injective.network:443"
-            grpc_exchange_endpoint = "sentry.exchange.grpc.injective.network:443"
-            grpc_explorer_endpoint = "sentry.explorer.grpc.injective.network:443"
-            cookie_assistant = BareMetalLoadBalancedCookieAssistant()
-            use_secure_connection = True
-        elif node == "lb_k8s":
-            lcd_endpoint = "https://k8s.global.mainnet.lcd.injective.network:443"
-            tm_websocket_endpoint = "wss://k8s.global.mainnet.tm.injective.network:443/websocket"
-            grpc_endpoint = "k8s.global.mainnet.chain.grpc.injective.network:443"
-            grpc_exchange_endpoint = "k8s.global.mainnet.exchange.grpc.injective.network:443"
-            grpc_explorer_endpoint = "k8s.global.mainnet.explorer.grpc.injective.network:443"
-            cookie_assistant = KubernetesLoadBalancedCookieAssistant()
-            use_secure_connection = True
-        else:
-            lcd_endpoint = f"http://{node}.injective.network:10337"
-            tm_websocket_endpoint = f"ws://{node}.injective.network:26657/websocket"
-            grpc_endpoint = f"{node}.injective.network:9900"
-            grpc_exchange_endpoint = f"{node}.injective.network:9910"
-            grpc_explorer_endpoint = f"{node}.injective.network:9911"
-            cookie_assistant = DisabledCookieAssistant()
-            use_secure_connection = False
+        lcd_endpoint = "https://sentry.lcd.injective.network:443"
+        tm_websocket_endpoint = "wss://sentry.tm.injective.network:443/websocket"
+        grpc_endpoint = "sentry.chain.grpc.injective.network:443"
+        grpc_exchange_endpoint = "sentry.exchange.grpc.injective.network:443"
+        grpc_explorer_endpoint = "sentry.explorer.grpc.injective.network:443"
+        chain_stream_endpoint = "sentry.chain.stream.injective.network:443"
+        cookie_assistant = BareMetalLoadBalancedCookieAssistant()
+        use_secure_connection = True
 
         return cls(
             lcd_endpoint=lcd_endpoint,
@@ -282,6 +268,7 @@ class Network:
             grpc_endpoint=grpc_endpoint,
             grpc_exchange_endpoint=grpc_exchange_endpoint,
             grpc_explorer_endpoint=grpc_explorer_endpoint,
+            chain_stream_endpoint=chain_stream_endpoint,
             chain_id="injective-1",
             fee_denom="inj",
             env="mainnet",
@@ -297,6 +284,7 @@ class Network:
             grpc_endpoint="localhost:9900",
             grpc_exchange_endpoint="localhost:9910",
             grpc_explorer_endpoint="localhost:9911",
+            chain_stream_endpoint="localhost:9999",
             chain_id="injective-1",
             fee_denom="inj",
             env="local",
@@ -312,6 +300,7 @@ class Network:
         grpc_endpoint,
         grpc_exchange_endpoint,
         grpc_explorer_endpoint,
+        chain_stream_endpoint,
         chain_id,
         env,
         cookie_assistant: Optional[CookieAssistant] = None,
@@ -324,6 +313,7 @@ class Network:
             grpc_endpoint=grpc_endpoint,
             grpc_exchange_endpoint=grpc_exchange_endpoint,
             grpc_explorer_endpoint=grpc_explorer_endpoint,
+            chain_stream_endpoint=chain_stream_endpoint,
             chain_id=chain_id,
             fee_denom="inj",
             env=env,

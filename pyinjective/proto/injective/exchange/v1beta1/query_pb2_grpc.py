@@ -653,7 +653,8 @@ class QueryServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def QueryMarketIDFromVault(self, request, context):
-        """QueryMarketIDFromVault returns the market ID for a given vault subaccount ID
+        """QueryMarketIDFromVault returns the market ID for a given vault subaccount
+        ID
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
