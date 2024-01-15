@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0] - 2024-01-15
+### Added
+- Added new functions in all Market classes to convert values from extended chain format (the ones provided by chain streams) into human-readable format
+
+### Changed
+- Updated proto definitions for Indexer node using version v1.12.79.1
+- Updated market and tokens INI configuration files
+
+
 ## [1.0.1] - 2024-01-08
 ### Added
 - Added low level API components for all modules (chain, exchain and explorer) to make the Python SDK compatible with the TypeScript SDK.
