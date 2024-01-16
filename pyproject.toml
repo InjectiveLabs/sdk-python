@@ -40,7 +40,7 @@ websockets = "*"
 web3 = "^6.0"
 
 [tool.poetry.group.test.dependencies]
-pytest = "<8"
+pytest = "*"
 pytest-asyncio = "*"
 pytest-grpc = "*"
 requests-mock = "*"
