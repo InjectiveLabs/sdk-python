@@ -9,7 +9,6 @@ from warnings import warn
 import grpc
 from google.protobuf import json_format
 
-from pyinjective import constant
 from pyinjective.client.chain.grpc.chain_grpc_auth_api import ChainGrpcAuthApi
 from pyinjective.client.chain.grpc.chain_grpc_authz_api import ChainGrpcAuthZApi
 from pyinjective.client.chain.grpc.chain_grpc_bank_api import ChainGrpcBankApi
@@ -2659,22 +2658,13 @@ class AsyncClient:
         )
 
         for market_info in valid_markets:
-            ticker = market_info["ticker"]
-            if "/" in ticker:
-                base_token_symbol, quote_token_symbol = ticker.split(constant.TICKER_TOKENS_SEPARATOR)
-            else:
-                base_token_symbol = market_info["baseTokenMeta"]["symbol"]
-                quote_token_symbol = market_info["quoteTokenMeta"]["symbol"]
-
             base_token = self._token_representation(
-                symbol=base_token_symbol,
                 token_meta=market_info["baseTokenMeta"],
                 denom=market_info["baseDenom"],
                 tokens_by_denom=tokens_by_denom,
                 tokens_by_symbol=tokens_by_symbol,
             )
             quote_token = self._token_representation(
-                symbol=quote_token_symbol,
                 token_meta=market_info["quoteTokenMeta"],
                 denom=market_info["quoteDenom"],
                 tokens_by_denom=tokens_by_denom,
@@ -2704,10 +2694,7 @@ class AsyncClient:
         )
 
         for market_info in valid_markets:
-            quote_token_symbol = market_info["quoteTokenMeta"]["symbol"]
-
             quote_token = self._token_representation(
-                symbol=quote_token_symbol,
                 token_meta=market_info["quoteTokenMeta"],
                 denom=market_info["quoteDenom"],
                 tokens_by_denom=tokens_by_denom,
@@ -2769,7 +2756,6 @@ class AsyncClient:
 
     def _token_representation(
         self,
-        symbol: str,
         token_meta: Dict[str, Any],
         denom: str,
         tokens_by_denom: Dict[str, Token],
@@ -2777,14 +2763,14 @@ class AsyncClient:
     ) -> Token:
         if denom not in tokens_by_denom:
             unique_symbol = denom
-            for symbol_candidate in [symbol, token_meta["symbol"], token_meta["name"]]:
+            for symbol_candidate in [token_meta["symbol"], token_meta["name"]]:
                 if symbol_candidate not in tokens_by_symbol:
                     unique_symbol = symbol_candidate
                     break
 
             token = Token(
                 name=token_meta["name"],
-                symbol=symbol,
+                symbol=token_meta["symbol"],
                 denom=denom,
                 address=token_meta["address"],
                 decimals=token_meta["decimals"],
