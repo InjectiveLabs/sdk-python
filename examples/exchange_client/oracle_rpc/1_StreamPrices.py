@@ -23,9 +23,13 @@ async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
     client = AsyncClient(network)
-    base_symbol = "INJ"
-    quote_symbol = "USDT"
-    oracle_type = "bandibc"
+    market = (await client.all_derivative_markets())[
+        "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
+    ]
+
+    base_symbol = market.oracle_base
+    quote_symbol = market.oracle_quote
+    oracle_type = market.oracle_type
 
     task = asyncio.get_event_loop().create_task(
         client.listen_oracle_prices_updates(
