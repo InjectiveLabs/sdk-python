@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.1] - 2024-01-18
+### Changed
+- Updated the logic to create a `MsgLiquidatePosition` message
+
 ## [1.1.0] - 2024-01-15
 ### Added
 - Added new functions in all Market classes to convert values from extended chain format (the ones provided by chain streams) into human-readable format

@@ -671,9 +671,15 @@ class Composer:
             binary_options_orders_to_create=kwargs.get("binary_options_orders_to_create"),
         )
 
-    def MsgLiquidatePosition(self, sender: str, subaccount_id: str, market_id: str):
+    def MsgLiquidatePosition(
+        self,
+        sender: str,
+        subaccount_id: str,
+        market_id: str,
+        order: Optional[injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.DerivativeOrder] = None,
+    ):
         return injective_exchange_tx_pb.MsgLiquidatePosition(
-            sender=sender, subaccount_id=subaccount_id, market_id=market_id
+            sender=sender, subaccount_id=subaccount_id, market_id=market_id, order=order
         )
 
     def MsgIncreasePositionMargin(
