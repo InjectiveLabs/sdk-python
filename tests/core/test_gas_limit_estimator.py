@@ -46,8 +46,8 @@ class TestGasLimitEstimator:
         message = composer.MsgBatchCreateSpotLimitOrders(sender="sender", orders=orders)
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_order_gas_limit = 45000
-        expected_message_gas_limit = 5000
+        expected_order_gas_limit = 50000
+        expected_message_gas_limit = 10000
 
         assert (expected_order_gas_limit * 2) + expected_message_gas_limit == estimator.gas_limit()
 
@@ -74,8 +74,8 @@ class TestGasLimitEstimator:
         message = composer.MsgBatchCancelSpotOrders(sender="sender", data=orders)
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_order_gas_limit = 45000
-        expected_message_gas_limit = 5000
+        expected_order_gas_limit = 50000
+        expected_message_gas_limit = 10000
 
         assert (expected_order_gas_limit * 3) + expected_message_gas_limit == estimator.gas_limit()
 
@@ -107,8 +107,8 @@ class TestGasLimitEstimator:
         message = composer.MsgBatchCreateDerivativeLimitOrders(sender="sender", orders=orders)
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_order_gas_limit = 60_000
-        expected_message_gas_limit = 5000
+        expected_order_gas_limit = 66_000
+        expected_message_gas_limit = 10000
 
         assert (expected_order_gas_limit * 2) + expected_message_gas_limit == estimator.gas_limit()
 
@@ -135,8 +135,8 @@ class TestGasLimitEstimator:
         message = composer.MsgBatchCancelDerivativeOrders(sender="sender", data=orders)
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_order_gas_limit = 55_000
-        expected_message_gas_limit = 5000
+        expected_order_gas_limit = 60_000
+        expected_message_gas_limit = 10000
 
         assert (expected_order_gas_limit * 3) + expected_message_gas_limit == estimator.gas_limit()
 
@@ -172,8 +172,8 @@ class TestGasLimitEstimator:
         )
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_order_gas_limit = 40_000
-        expected_message_gas_limit = 10_000
+        expected_order_gas_limit = 45_000
+        expected_message_gas_limit = 15_000
 
         assert (expected_order_gas_limit * 2) + expected_message_gas_limit == estimator.gas_limit()
 
@@ -211,8 +211,8 @@ class TestGasLimitEstimator:
         )
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_order_gas_limit = 60_000
-        expected_message_gas_limit = 10_000
+        expected_order_gas_limit = 66_000
+        expected_message_gas_limit = 15_000
 
         assert (expected_order_gas_limit * 2) + expected_message_gas_limit == estimator.gas_limit()
 
@@ -269,8 +269,8 @@ class TestGasLimitEstimator:
         )
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_order_gas_limit = 60_000
-        expected_message_gas_limit = 10_000
+        expected_order_gas_limit = 66_000
+        expected_message_gas_limit = 15_000
 
         assert (expected_order_gas_limit * 2) + expected_message_gas_limit == estimator.gas_limit()
 
@@ -303,8 +303,8 @@ class TestGasLimitEstimator:
         )
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_order_gas_limit = 45_000
-        expected_message_gas_limit = 10_000
+        expected_order_gas_limit = 50_000
+        expected_message_gas_limit = 15_000
 
         assert (expected_order_gas_limit * 3) + expected_message_gas_limit == estimator.gas_limit()
 
@@ -337,8 +337,8 @@ class TestGasLimitEstimator:
         )
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_order_gas_limit = 55_000
-        expected_message_gas_limit = 10_000
+        expected_order_gas_limit = 60_000
+        expected_message_gas_limit = 15_000
 
         assert (expected_order_gas_limit * 3) + expected_message_gas_limit == estimator.gas_limit()
 
@@ -372,8 +372,8 @@ class TestGasLimitEstimator:
         )
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_order_gas_limit = 55_000
-        expected_message_gas_limit = 10_000
+        expected_order_gas_limit = 60_000
+        expected_message_gas_limit = 15_000
 
         assert (expected_order_gas_limit * 3) + expected_message_gas_limit == estimator.gas_limit()
 
@@ -392,8 +392,8 @@ class TestGasLimitEstimator:
         )
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_gas_limit = 35_000 * 20
-        expected_message_gas_limit = 10_000
+        expected_gas_limit = 40_000 * 20
+        expected_message_gas_limit = 15_000
 
         assert expected_gas_limit + expected_message_gas_limit == estimator.gas_limit()
 
@@ -412,8 +412,8 @@ class TestGasLimitEstimator:
         )
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_gas_limit = 45_000 * 20
-        expected_message_gas_limit = 10_000
+        expected_gas_limit = 50_000 * 20
+        expected_message_gas_limit = 15_000
 
         assert expected_gas_limit + expected_message_gas_limit == estimator.gas_limit()
 
@@ -432,8 +432,8 @@ class TestGasLimitEstimator:
         )
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_gas_limit = 45_000 * 20
-        expected_message_gas_limit = 10_000
+        expected_gas_limit = 50_000 * 20
+        expected_message_gas_limit = 15_000
 
         assert expected_gas_limit + expected_message_gas_limit == estimator.gas_limit()
 
@@ -462,9 +462,9 @@ class TestGasLimitEstimator:
 
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_order_gas_limit = 40_000
-        expected_inner_message_gas_limit = 10_000
-        expected_exec_message_gas_limit = 5_000
+        expected_order_gas_limit = 45_000
+        expected_inner_message_gas_limit = 15_000
+        expected_exec_message_gas_limit = 8_000
 
         assert (
             expected_order_gas_limit + expected_inner_message_gas_limit + expected_exec_message_gas_limit
@@ -522,6 +522,6 @@ class TestGasLimitEstimator:
         )
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_gas_limit = 100_000
+        expected_gas_limit = 120_000
 
         assert expected_gas_limit == estimator.gas_limit()

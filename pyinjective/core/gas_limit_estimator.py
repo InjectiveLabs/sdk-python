@@ -9,7 +9,7 @@ from pyinjective.proto.injective.exchange.v1beta1 import tx_pb2 as injective_exc
 
 
 class GasLimitEstimator(ABC):
-    GENERAL_MESSAGE_GAS_LIMIT = 5_000
+    GENERAL_MESSAGE_GAS_LIMIT = 10_000
     BASIC_REFERENCE_GAS_LIMIT = 150_000
 
     @classmethod
@@ -74,7 +74,7 @@ class DefaultGasLimitEstimator(GasLimitEstimator):
 
 
 class BatchCreateSpotLimitOrdersGasLimitEstimator(GasLimitEstimator):
-    ORDER_GAS_LIMIT = 45_000
+    ORDER_GAS_LIMIT = 50_000
 
     def __init__(self, message: any_pb2.Any):
         self._message = self._parsed_message(message=message)
@@ -95,7 +95,7 @@ class BatchCreateSpotLimitOrdersGasLimitEstimator(GasLimitEstimator):
 
 
 class BatchCancelSpotOrdersGasLimitEstimator(GasLimitEstimator):
-    ORDER_GAS_LIMIT = 45_000
+    ORDER_GAS_LIMIT = 50_000
 
     def __init__(self, message: any_pb2.Any):
         self._message = self._parsed_message(message=message)
@@ -116,7 +116,7 @@ class BatchCancelSpotOrdersGasLimitEstimator(GasLimitEstimator):
 
 
 class BatchCreateDerivativeLimitOrdersGasLimitEstimator(GasLimitEstimator):
-    ORDER_GAS_LIMIT = 60_000
+    ORDER_GAS_LIMIT = 66_000
 
     def __init__(self, message: any_pb2.Any):
         self._message = self._parsed_message(message=message)
@@ -137,7 +137,7 @@ class BatchCreateDerivativeLimitOrdersGasLimitEstimator(GasLimitEstimator):
 
 
 class BatchCancelDerivativeOrdersGasLimitEstimator(GasLimitEstimator):
-    ORDER_GAS_LIMIT = 55_000
+    ORDER_GAS_LIMIT = 60_000
 
     def __init__(self, message: any_pb2.Any):
         self._message = self._parsed_message(message=message)
@@ -158,13 +158,13 @@ class BatchCancelDerivativeOrdersGasLimitEstimator(GasLimitEstimator):
 
 
 class BatchUpdateOrdersGasLimitEstimator(GasLimitEstimator):
-    SPOT_ORDER_CREATION_GAS_LIMIT = 40_000
-    DERIVATIVE_ORDER_CREATION_GAS_LIMIT = 60_000
-    SPOT_ORDER_CANCELATION_GAS_LIMIT = 45_000
-    DERIVATIVE_ORDER_CANCELATION_GAS_LIMIT = 55_000
-    CANCEL_ALL_SPOT_MARKET_GAS_LIMIT = 35_000
-    CANCEL_ALL_DERIVATIVE_MARKET_GAS_LIMIT = 45_000
-    MESSAGE_GAS_LIMIT = 10_000
+    SPOT_ORDER_CREATION_GAS_LIMIT = 45_000
+    DERIVATIVE_ORDER_CREATION_GAS_LIMIT = 66_000
+    SPOT_ORDER_CANCELATION_GAS_LIMIT = 50_000
+    DERIVATIVE_ORDER_CANCELATION_GAS_LIMIT = 60_000
+    CANCEL_ALL_SPOT_MARKET_GAS_LIMIT = 40_000
+    CANCEL_ALL_DERIVATIVE_MARKET_GAS_LIMIT = 50_000
+    MESSAGE_GAS_LIMIT = 15_000
 
     AVERAGE_CANCEL_ALL_AFFECTED_ORDERS = 20
 
@@ -208,7 +208,7 @@ class BatchUpdateOrdersGasLimitEstimator(GasLimitEstimator):
 
 
 class ExecGasLimitEstimator(GasLimitEstimator):
-    DEFAULT_GAS_LIMIT = 5_000
+    DEFAULT_GAS_LIMIT = 8_000
 
     def __init__(self, message: any_pb2.Any):
         self._message = self._parsed_message(message=message)
@@ -297,7 +297,7 @@ class GovernanceGasLimitEstimator(GasLimitEstimator):
 
 
 class GenericExchangeGasLimitEstimator(GasLimitEstimator):
-    BASIC_REFERENCE_GAS_LIMIT = 100_000
+    BASIC_REFERENCE_GAS_LIMIT = 120_000
 
     def __init__(self, message: any_pb2.Any):
         self._message = message
