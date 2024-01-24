@@ -46,7 +46,7 @@ class TestGasLimitEstimator:
         message = composer.MsgBatchCreateSpotLimitOrders(sender="sender", orders=orders)
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_order_gas_limit = 45000
+        expected_order_gas_limit = 50000
         expected_message_gas_limit = 15000
 
         assert (expected_order_gas_limit * 2) + expected_message_gas_limit == estimator.gas_limit()
@@ -172,7 +172,7 @@ class TestGasLimitEstimator:
         )
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_order_gas_limit = 45_000
+        expected_order_gas_limit = 50_000
         expected_message_gas_limit = 15_000
 
         assert (expected_order_gas_limit * 2) + expected_message_gas_limit == estimator.gas_limit()
@@ -462,7 +462,7 @@ class TestGasLimitEstimator:
 
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_order_gas_limit = 45_000
+        expected_order_gas_limit = 50_000
         expected_inner_message_gas_limit = 15_000
         expected_exec_message_gas_limit = 8_000
 

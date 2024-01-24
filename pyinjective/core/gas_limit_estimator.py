@@ -12,13 +12,12 @@ from pyinjective.proto.injective.exchange.v1beta1 import (
     tx_pb2 as injective_exchange_tx_pb,
 )
 
-SPOT_ORDER_CREATION_GAS_LIMIT = 45_000
+SPOT_ORDER_CREATION_GAS_LIMIT = 50_000
 DERIVATIVE_ORDER_CREATION_GAS_LIMIT = 70_000
 SPOT_ORDER_CANCELATION_GAS_LIMIT = 50_000
 DERIVATIVE_ORDER_CANCELATION_GAS_LIMIT = 60_000
-# POST ONLY orders take around 60% (for spot) and 50% (for derivative) more gas to create than normal orders
-# due to the required validations
-SPOT_POST_ONLY_ORDER_MULTIPLIER = 0.6
+# POST ONLY orders take around 50% more gas to create than normal orders due to the required validations
+SPOT_POST_ONLY_ORDER_MULTIPLIER = 0.5
 DERIVATIVE_POST_ONLY_ORDER_MULTIPLIER = 0.5
 
 
