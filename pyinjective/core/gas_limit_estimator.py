@@ -1,15 +1,27 @@
+import math
 from abc import ABC, abstractmethod
+from typing import List, Union
 
 from google.protobuf import any_pb2
 
 from pyinjective.proto.cosmos.authz.v1beta1 import tx_pb2 as cosmos_authz_tx_pb
 from pyinjective.proto.cosmos.gov.v1beta1 import tx_pb2 as gov_tx_pb
 from pyinjective.proto.cosmwasm.wasm.v1 import tx_pb2 as wasm_tx_pb
-from pyinjective.proto.injective.exchange.v1beta1 import tx_pb2 as injective_exchange_tx_pb
+from pyinjective.proto.injective.exchange.v1beta1 import (
+    exchange_pb2 as injective_exchange_pb,
+    tx_pb2 as injective_exchange_tx_pb,
+)
+
+SPOT_ORDER_CREATION_GAS_LIMIT = 45_000
+DERIVATIVE_ORDER_CREATION_GAS_LIMIT = 70_000
+SPOT_ORDER_CANCELATION_GAS_LIMIT = 50_000
+DERIVATIVE_ORDER_CANCELATION_GAS_LIMIT = 60_000
+# POST ONLY orders take around 50% more gas to create than normal orders, due to the validations
+POST_ONLY_ORDER_MULTIPLIER = 0.5
 
 
 class GasLimitEstimator(ABC):
-    GENERAL_MESSAGE_GAS_LIMIT = 10_000
+    GENERAL_MESSAGE_GAS_LIMIT = 15_000
     BASIC_REFERENCE_GAS_LIMIT = 150_000
 
     @classmethod
@@ -57,6 +69,16 @@ class GasLimitEstimator(ABC):
             parsed_message = message
         return parsed_message
 
+    def _select_post_only_orders(
+        self,
+        orders: List[Union[injective_exchange_pb.SpotOrder, injective_exchange_pb.DerivativeOrder]],
+    ) -> List[Union[injective_exchange_pb.SpotOrder, injective_exchange_pb.DerivativeOrder]]:
+        return [
+            order
+            for order in orders
+            if order.order_type in [injective_exchange_pb.OrderType.BUY_PO, injective_exchange_pb.OrderType.SELL_PO]
+        ]
+
 
 class DefaultGasLimitEstimator(GasLimitEstimator):
     DEFAULT_GAS_LIMIT = 150_000
@@ -74,8 +96,6 @@ class DefaultGasLimitEstimator(GasLimitEstimator):
 
 
 class BatchCreateSpotLimitOrdersGasLimitEstimator(GasLimitEstimator):
-    ORDER_GAS_LIMIT = 50_000
-
     def __init__(self, message: any_pb2.Any):
         self._message = self._parsed_message(message=message)
 
@@ -84,9 +104,12 @@ class BatchCreateSpotLimitOrdersGasLimitEstimator(GasLimitEstimator):
         return cls.message_type(message=message).endswith("MsgBatchCreateSpotLimitOrders")
 
     def gas_limit(self) -> int:
+        post_only_orders = self._select_post_only_orders(orders=self._message.orders)
+
         total = 0
         total += self.GENERAL_MESSAGE_GAS_LIMIT
-        total += len(self._message.orders) * self.ORDER_GAS_LIMIT
+        total += len(self._message.orders) * SPOT_ORDER_CREATION_GAS_LIMIT
+        total += math.ceil(len(post_only_orders) * SPOT_ORDER_CREATION_GAS_LIMIT * POST_ONLY_ORDER_MULTIPLIER)
 
         return total
 
@@ -95,8 +118,6 @@ class BatchCreateSpotLimitOrdersGasLimitEstimator(GasLimitEstimator):
 
 
 class BatchCancelSpotOrdersGasLimitEstimator(GasLimitEstimator):
-    ORDER_GAS_LIMIT = 50_000
-
     def __init__(self, message: any_pb2.Any):
         self._message = self._parsed_message(message=message)
 
@@ -107,7 +128,7 @@ class BatchCancelSpotOrdersGasLimitEstimator(GasLimitEstimator):
     def gas_limit(self) -> int:
         total = 0
         total += self.GENERAL_MESSAGE_GAS_LIMIT
-        total += len(self._message.data) * self.ORDER_GAS_LIMIT
+        total += len(self._message.data) * SPOT_ORDER_CANCELATION_GAS_LIMIT
 
         return total
 
@@ -116,8 +137,6 @@ class BatchCancelSpotOrdersGasLimitEstimator(GasLimitEstimator):
 
 
 class BatchCreateDerivativeLimitOrdersGasLimitEstimator(GasLimitEstimator):
-    ORDER_GAS_LIMIT = 66_000
-
     def __init__(self, message: any_pb2.Any):
         self._message = self._parsed_message(message=message)
 
@@ -126,9 +145,12 @@ class BatchCreateDerivativeLimitOrdersGasLimitEstimator(GasLimitEstimator):
         return cls.message_type(message=message).endswith("MsgBatchCreateDerivativeLimitOrders")
 
     def gas_limit(self) -> int:
+        post_only_orders = self._select_post_only_orders(orders=self._message.orders)
+
         total = 0
         total += self.GENERAL_MESSAGE_GAS_LIMIT
-        total += len(self._message.orders) * self.ORDER_GAS_LIMIT
+        total += len(self._message.orders) * DERIVATIVE_ORDER_CREATION_GAS_LIMIT
+        total += math.ceil(len(post_only_orders) * DERIVATIVE_ORDER_CREATION_GAS_LIMIT * POST_ONLY_ORDER_MULTIPLIER)
 
         return total
 
@@ -137,8 +159,6 @@ class BatchCreateDerivativeLimitOrdersGasLimitEstimator(GasLimitEstimator):
 
 
 class BatchCancelDerivativeOrdersGasLimitEstimator(GasLimitEstimator):
-    ORDER_GAS_LIMIT = 60_000
-
     def __init__(self, message: any_pb2.Any):
         self._message = self._parsed_message(message=message)
 
@@ -149,7 +169,7 @@ class BatchCancelDerivativeOrdersGasLimitEstimator(GasLimitEstimator):
     def gas_limit(self) -> int:
         total = 0
         total += self.GENERAL_MESSAGE_GAS_LIMIT
-        total += len(self._message.data) * self.ORDER_GAS_LIMIT
+        total += len(self._message.data) * DERIVATIVE_ORDER_CANCELATION_GAS_LIMIT
 
         return total
 
@@ -158,10 +178,6 @@ class BatchCancelDerivativeOrdersGasLimitEstimator(GasLimitEstimator):
 
 
 class BatchUpdateOrdersGasLimitEstimator(GasLimitEstimator):
-    SPOT_ORDER_CREATION_GAS_LIMIT = 45_000
-    DERIVATIVE_ORDER_CREATION_GAS_LIMIT = 66_000
-    SPOT_ORDER_CANCELATION_GAS_LIMIT = 50_000
-    DERIVATIVE_ORDER_CANCELATION_GAS_LIMIT = 60_000
     CANCEL_ALL_SPOT_MARKET_GAS_LIMIT = 40_000
     CANCEL_ALL_DERIVATIVE_MARKET_GAS_LIMIT = 50_000
     MESSAGE_GAS_LIMIT = 15_000
@@ -176,14 +192,29 @@ class BatchUpdateOrdersGasLimitEstimator(GasLimitEstimator):
         return cls.message_type(message=message).endswith("MsgBatchUpdateOrders")
 
     def gas_limit(self) -> int:
+        post_only_spot_orders = self._select_post_only_orders(orders=self._message.spot_orders_to_create)
+        post_only_derivative_orders = self._select_post_only_orders(orders=self._message.derivative_orders_to_create)
+        post_only_binary_options_orders = self._select_post_only_orders(
+            orders=self._message.binary_options_orders_to_create
+        )
+
         total = 0
         total += self.MESSAGE_GAS_LIMIT
-        total += len(self._message.spot_orders_to_create) * self.SPOT_ORDER_CREATION_GAS_LIMIT
-        total += len(self._message.derivative_orders_to_create) * self.DERIVATIVE_ORDER_CREATION_GAS_LIMIT
-        total += len(self._message.binary_options_orders_to_create) * self.DERIVATIVE_ORDER_CREATION_GAS_LIMIT
-        total += len(self._message.spot_orders_to_cancel) * self.SPOT_ORDER_CANCELATION_GAS_LIMIT
-        total += len(self._message.derivative_orders_to_cancel) * self.DERIVATIVE_ORDER_CANCELATION_GAS_LIMIT
-        total += len(self._message.binary_options_orders_to_cancel) * self.DERIVATIVE_ORDER_CANCELATION_GAS_LIMIT
+        total += len(self._message.spot_orders_to_create) * SPOT_ORDER_CREATION_GAS_LIMIT
+        total += len(self._message.derivative_orders_to_create) * DERIVATIVE_ORDER_CREATION_GAS_LIMIT
+        total += len(self._message.binary_options_orders_to_create) * DERIVATIVE_ORDER_CREATION_GAS_LIMIT
+
+        total += math.ceil(len(post_only_spot_orders) * SPOT_ORDER_CREATION_GAS_LIMIT * POST_ONLY_ORDER_MULTIPLIER)
+        total += math.ceil(
+            len(post_only_derivative_orders) * DERIVATIVE_ORDER_CREATION_GAS_LIMIT * POST_ONLY_ORDER_MULTIPLIER
+        )
+        total += math.ceil(
+            len(post_only_binary_options_orders) * DERIVATIVE_ORDER_CREATION_GAS_LIMIT * POST_ONLY_ORDER_MULTIPLIER
+        )
+
+        total += len(self._message.spot_orders_to_cancel) * SPOT_ORDER_CANCELATION_GAS_LIMIT
+        total += len(self._message.derivative_orders_to_cancel) * DERIVATIVE_ORDER_CANCELATION_GAS_LIMIT
+        total += len(self._message.binary_options_orders_to_cancel) * DERIVATIVE_ORDER_CANCELATION_GAS_LIMIT
 
         total += (
             len(self._message.spot_market_ids_to_cancel_all)
