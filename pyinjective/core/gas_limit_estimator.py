@@ -16,8 +16,10 @@ SPOT_ORDER_CREATION_GAS_LIMIT = 45_000
 DERIVATIVE_ORDER_CREATION_GAS_LIMIT = 70_000
 SPOT_ORDER_CANCELATION_GAS_LIMIT = 50_000
 DERIVATIVE_ORDER_CANCELATION_GAS_LIMIT = 60_000
-# POST ONLY orders take around 50% more gas to create than normal orders, due to the validations
-POST_ONLY_ORDER_MULTIPLIER = 0.5
+# POST ONLY orders take around 60% (for spot) and 50% (for derivative) more gas to create than normal orders
+# due to the required validations
+SPOT_POST_ONLY_ORDER_MULTIPLIER = 0.6
+DERIVATIVE_POST_ONLY_ORDER_MULTIPLIER = 0.5
 
 
 class GasLimitEstimator(ABC):
@@ -109,7 +111,7 @@ class BatchCreateSpotLimitOrdersGasLimitEstimator(GasLimitEstimator):
         total = 0
         total += self.GENERAL_MESSAGE_GAS_LIMIT
         total += len(self._message.orders) * SPOT_ORDER_CREATION_GAS_LIMIT
-        total += math.ceil(len(post_only_orders) * SPOT_ORDER_CREATION_GAS_LIMIT * POST_ONLY_ORDER_MULTIPLIER)
+        total += math.ceil(len(post_only_orders) * SPOT_ORDER_CREATION_GAS_LIMIT * SPOT_POST_ONLY_ORDER_MULTIPLIER)
 
         return total
 
@@ -150,7 +152,9 @@ class BatchCreateDerivativeLimitOrdersGasLimitEstimator(GasLimitEstimator):
         total = 0
         total += self.GENERAL_MESSAGE_GAS_LIMIT
         total += len(self._message.orders) * DERIVATIVE_ORDER_CREATION_GAS_LIMIT
-        total += math.ceil(len(post_only_orders) * DERIVATIVE_ORDER_CREATION_GAS_LIMIT * POST_ONLY_ORDER_MULTIPLIER)
+        total += math.ceil(
+            len(post_only_orders) * DERIVATIVE_ORDER_CREATION_GAS_LIMIT * DERIVATIVE_POST_ONLY_ORDER_MULTIPLIER
+        )
 
         return total
 
@@ -204,12 +208,16 @@ class BatchUpdateOrdersGasLimitEstimator(GasLimitEstimator):
         total += len(self._message.derivative_orders_to_create) * DERIVATIVE_ORDER_CREATION_GAS_LIMIT
         total += len(self._message.binary_options_orders_to_create) * DERIVATIVE_ORDER_CREATION_GAS_LIMIT
 
-        total += math.ceil(len(post_only_spot_orders) * SPOT_ORDER_CREATION_GAS_LIMIT * POST_ONLY_ORDER_MULTIPLIER)
+        total += math.ceil(len(post_only_spot_orders) * SPOT_ORDER_CREATION_GAS_LIMIT * SPOT_POST_ONLY_ORDER_MULTIPLIER)
         total += math.ceil(
-            len(post_only_derivative_orders) * DERIVATIVE_ORDER_CREATION_GAS_LIMIT * POST_ONLY_ORDER_MULTIPLIER
+            len(post_only_derivative_orders)
+            * DERIVATIVE_ORDER_CREATION_GAS_LIMIT
+            * DERIVATIVE_POST_ONLY_ORDER_MULTIPLIER
         )
         total += math.ceil(
-            len(post_only_binary_options_orders) * DERIVATIVE_ORDER_CREATION_GAS_LIMIT * POST_ONLY_ORDER_MULTIPLIER
+            len(post_only_binary_options_orders)
+            * DERIVATIVE_ORDER_CREATION_GAS_LIMIT
+            * DERIVATIVE_POST_ONLY_ORDER_MULTIPLIER
         )
 
         total += len(self._message.spot_orders_to_cancel) * SPOT_ORDER_CANCELATION_GAS_LIMIT
