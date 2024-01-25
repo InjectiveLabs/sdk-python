@@ -133,7 +133,7 @@ class TestMessageBasedTransactionFeeCalculator:
         await calculator.configure_gas_fee_for_transaction(transaction=transaction, private_key=None, public_key=None)
 
         expected_transaction_gas_limit = 60_000
-        expected_gas_limit = math.ceil(Decimal(1) * 100_000 + expected_transaction_gas_limit)
+        expected_gas_limit = math.ceil(Decimal(1) * 120_000 + expected_transaction_gas_limit)
         assert expected_gas_limit == transaction.fee.gas_limit
         assert str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount
 
@@ -165,8 +165,8 @@ class TestMessageBasedTransactionFeeCalculator:
         await calculator.configure_gas_fee_for_transaction(transaction=transaction, private_key=None, public_key=None)
 
         expected_transaction_gas_limit = 60_000
-        expected_inner_message_gas_limit = Decimal(1) * 100_000
-        expected_exec_message_gas_limit = 5_000
+        expected_inner_message_gas_limit = Decimal(1) * 120_000
+        expected_exec_message_gas_limit = 8_000
         expected_gas_limit = math.ceil(
             expected_exec_message_gas_limit + expected_inner_message_gas_limit + expected_transaction_gas_limit
         )
@@ -204,8 +204,8 @@ class TestMessageBasedTransactionFeeCalculator:
         await calculator.configure_gas_fee_for_transaction(transaction=transaction, private_key=None, public_key=None)
 
         expected_transaction_gas_limit = 60_000
-        expected_inner_message_gas_limit = Decimal(1) * 100_000
-        expected_exec_message_gas_limit = 5_000
+        expected_inner_message_gas_limit = Decimal(1) * 120_000
+        expected_exec_message_gas_limit = 8_000
         expected_send_message_gas_limit = 150_000
         expected_gas_limit = math.ceil(
             expected_exec_message_gas_limit
