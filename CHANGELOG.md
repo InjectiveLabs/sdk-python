@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.2.0] - 2024-01-24
+## [1.2.0] - 2024-01-25
 ### Changed
 - Updated reference gas cost for all messages in the gas estimator
 - Included different calculation for Post Only orders
