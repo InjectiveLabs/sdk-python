@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0] - 2024-01-25
+### Changed
+- Updated reference gas cost for all messages in the gas estimator
+- Included different calculation for Post Only orders
+- Updated all proto definitions for Injective Core 1.12.1
+
+## [1.1.1] - 2024-01-18
+### Changed
+- Updated the logic to create a `MsgLiquidatePosition` message
+
 ## [1.1.0] - 2024-01-15
 ### Added
 - Added new functions in all Market classes to convert values from extended chain format (the ones provided by chain streams) into human-readable format
