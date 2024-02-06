@@ -1,5 +1,8 @@
 import asyncio
+import os
 import uuid
+
+import dotenv
 
 from pyinjective.composer import Composer as ProtoMsgComposer
 from pyinjective.core.broadcaster import MsgBroadcasterWithPk
@@ -8,10 +11,12 @@ from pyinjective.wallet import PrivateKey
 
 
 async def main() -> None:
+    dotenv.load_dotenv()
+    private_key_in_hexa = os.getenv("INJECTIVE_PRIVATE_KEY")
+
     # select network: local, testnet, mainnet
     network = Network.testnet()
     composer = ProtoMsgComposer(network=network.string())
-    private_key_in_hexa = "f9db9bf330e23cb7839039e944adef6e9df447b90b503d5b4464c90bea9022f3"
 
     message_broadcaster = MsgBroadcasterWithPk.new_without_simulation(
         network=network,

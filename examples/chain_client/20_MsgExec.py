@@ -1,6 +1,8 @@
 import asyncio
+import os
 import uuid
 
+import dotenv
 from grpc import RpcError
 
 from pyinjective.async_client import AsyncClient
@@ -11,6 +13,10 @@ from pyinjective.wallet import Address, PrivateKey
 
 
 async def main() -> None:
+    dotenv.load_dotenv()
+    configured_private_key = os.getenv("INJECTIVE_GRANTEE_PRIVATE_KEY")
+    granter_inj_address = os.getenv("INJECTIVE_GRANTER_PUBLIC_ADDRESS")
+
     # select network: local, testnet, mainnet
     network = Network.testnet()
 
@@ -20,15 +26,15 @@ async def main() -> None:
     await client.sync_timeout_height()
 
     # load account
-    priv_key = PrivateKey.from_hex("5d386fbdbf11f1141010f81a46b40f94887367562bd33b452bbaa6ce1cd1381e")
+    priv_key = PrivateKey.from_hex(configured_private_key)
     pub_key = priv_key.to_public_key()
     address = pub_key.to_address()
     await client.fetch_account(address.to_acc_bech32())
 
     # prepare tx msg
     market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
-    grantee = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku"
-    granter_inj_address = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
+    grantee = address.to_acc_bech32()
+
     granter_address = Address.from_acc_bech32(granter_inj_address)
     granter_subaccount_id = granter_address.get_subaccount_id(index=0)
     msg0 = composer.MsgCreateSpotLimitOrder(
