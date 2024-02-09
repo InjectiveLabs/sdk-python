@@ -12,6 +12,7 @@ from google.protobuf import json_format
 from pyinjective.client.chain.grpc.chain_grpc_auth_api import ChainGrpcAuthApi
 from pyinjective.client.chain.grpc.chain_grpc_authz_api import ChainGrpcAuthZApi
 from pyinjective.client.chain.grpc.chain_grpc_bank_api import ChainGrpcBankApi
+from pyinjective.client.chain.grpc.chain_grpc_distribution_api import ChainGrpcDistributionApi
 from pyinjective.client.chain.grpc.chain_grpc_token_factory_api import ChainGrpcTokenFactoryApi
 from pyinjective.client.chain.grpc.chain_grpc_wasm_api import ChainGrpcWasmApi
 from pyinjective.client.chain.grpc_stream.chain_grpc_chain_stream import ChainGrpcChainStream
@@ -173,6 +174,12 @@ class AsyncClient:
             ),
         )
         self.authz_api = ChainGrpcAuthZApi(
+            channel=self.chain_channel,
+            metadata_provider=lambda: self.network.chain_metadata(
+                metadata_query_provider=self._chain_cookie_metadata_requestor
+            ),
+        )
+        self.distribution_api = ChainGrpcDistributionApi(
             channel=self.chain_channel,
             metadata_provider=lambda: self.network.chain_metadata(
                 metadata_query_provider=self._chain_cookie_metadata_requestor
@@ -571,6 +578,66 @@ class AsyncClient:
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
         return await self.bank_api.fetch_send_enabled(denoms=denoms, pagination=pagination)
+
+    async def fetch_validator_distribution_info(self, validator_address: str) -> Dict[str, Any]:
+        return await self.distribution_api.fetch_validator_distribution_info(validator_address=validator_address)
+
+    async def fetch_validator_outstanding_rewards(self, validator_address: str) -> Dict[str, Any]:
+        return await self.distribution_api.fetch_validator_outstanding_rewards(validator_address=validator_address)
+
+    async def fetch_validator_commission(self, validator_address: str) -> Dict[str, Any]:
+        return await self.distribution_api.fetch_validator_commission(validator_address=validator_address)
+
+    async def fetch_validator_slashes(
+        self,
+        validator_address: str,
+        starting_height: Optional[int] = None,
+        ending_height: Optional[int] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.distribution_api.fetch_validator_slashes(
+            validator_address=validator_address,
+            starting_height=starting_height,
+            ending_height=ending_height,
+            pagination=pagination,
+        )
+
+    async def fetch_delegation_rewards(
+        self,
+        delegator_address: str,
+        validator_address: str,
+    ) -> Dict[str, Any]:
+        return await self.distribution_api.fetch_delegation_rewards(
+            delegator_address=delegator_address,
+            validator_address=validator_address,
+        )
+
+    async def fetch_delegation_total_rewards(
+        self,
+        delegator_address: str,
+    ) -> Dict[str, Any]:
+        return await self.distribution_api.fetch_delegation_total_rewards(
+            delegator_address=delegator_address,
+        )
+
+    async def fetch_delegator_validators(
+        self,
+        delegator_address: str,
+    ) -> Dict[str, Any]:
+        return await self.distribution_api.fetch_delegator_validators(
+            delegator_address=delegator_address,
+        )
+
+    async def fetch_delegator_withdraw_address(
+        self,
+        delegator_address: str,
+    ) -> Dict[str, Any]:
+        return await self.distribution_api.fetch_delegator_withdraw_address(
+            delegator_address=delegator_address,
+        )
+
+    async def fetch_community_pool(self) -> Dict[str, Any]:
+        return await self.distribution_api.fetch_community_pool()
 
     # Injective Exchange client methods
 
