@@ -21,7 +21,7 @@ from pyinjective.proto.exchange import (
 from pyinjective.proto.injective.stream.v1beta1 import query_pb2 as chain_stream_pb
 from pyinjective.proto.injective.types.v1beta1 import account_pb2 as account_pb
 from tests.client.chain.grpc.configurable_auth_query_servicer import ConfigurableAuthQueryServicer
-from tests.client.chain.grpc.configurable_autz_query_servicer import ConfigurableAuthZQueryServicer
+from tests.client.chain.grpc.configurable_authz_query_servicer import ConfigurableAuthZQueryServicer
 from tests.client.chain.grpc.configurable_bank_query_servicer import ConfigurableBankQueryServicer
 from tests.client.chain.stream_grpc.configurable_chain_stream_query_servicer import ConfigurableChainStreamQueryServicer
 from tests.client.indexer.configurable_account_query_servicer import ConfigurableAccountQueryServicer

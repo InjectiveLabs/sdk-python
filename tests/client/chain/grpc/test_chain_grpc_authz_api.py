@@ -7,7 +7,7 @@ from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import Network
 from pyinjective.proto.cosmos.authz.v1beta1 import authz_pb2, query_pb2 as authz_query
 from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagination_pb
-from tests.client.chain.grpc.configurable_autz_query_servicer import ConfigurableAuthZQueryServicer
+from tests.client.chain.grpc.configurable_authz_query_servicer import ConfigurableAuthZQueryServicer
 
 
 @pytest.fixture
