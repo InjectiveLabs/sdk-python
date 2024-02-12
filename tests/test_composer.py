@@ -282,7 +282,7 @@ class TestComposer:
 
     def test_msg_mint(self, basic_composer: Composer):
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
-        amount = basic_composer.Coin(
+        amount = basic_composer.coin(
             amount=1_000_000,
             denom="factory/inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r/inj_test",
         )
@@ -297,7 +297,7 @@ class TestComposer:
 
     def test_msg_burn(self, basic_composer: Composer):
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
-        amount = basic_composer.Coin(
+        amount = basic_composer.coin(
             amount=100,
             denom="factory/inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r/inj_test",
         )

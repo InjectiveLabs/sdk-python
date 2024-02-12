@@ -33,12 +33,12 @@ async def main() -> None:
     # prepare tx msg
     # NOTE: COIN MUST BE SORTED IN ALPHABETICAL ORDER BY DENOMS
     funds = [
-        composer.Coin(
+        composer.coin(
             amount=69,
             denom="factory/inj1hdvy6tl89llqy3ze8lv6mz5qh66sx9enn0jxg6/inj12ngevx045zpvacus9s6anr258gkwpmthnz80e9",
         ),
-        composer.Coin(amount=420, denom="peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7"),
-        composer.Coin(amount=1, denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5"),
+        composer.coin(amount=420, denom="peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7"),
+        composer.coin(amount=1, denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5"),
     ]
     msg = composer.MsgExecuteContract(
         sender=address.to_acc_bech32(),
@@ -71,7 +71,7 @@ async def main() -> None:
     gas_limit = int(sim_res["gasInfo"]["gasUsed"]) + GAS_FEE_BUFFER_AMOUNT  # add buffer for gas fee computation
     gas_fee = "{:.18f}".format((gas_price * gas_limit) / pow(10, 18)).rstrip("0")
     fee = [
-        composer.Coin(
+        composer.coin(
             amount=gas_price * gas_limit,
             denom=network.fee_denom,
         )
