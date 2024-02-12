@@ -3,6 +3,7 @@ from configparser import ConfigParser
 from decimal import Decimal
 from time import time
 from typing import Any, Dict, List, Optional
+from warnings import warn
 
 from google.protobuf import any_pb2, json_format, timestamp_pb2
 
@@ -13,7 +14,10 @@ from pyinjective.core.token import Token
 from pyinjective.proto.cosmos.authz.v1beta1 import authz_pb2 as cosmos_authz_pb, tx_pb2 as cosmos_authz_tx_pb
 from pyinjective.proto.cosmos.bank.v1beta1 import bank_pb2 as bank_pb, tx_pb2 as cosmos_bank_tx_pb
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
-from pyinjective.proto.cosmos.distribution.v1beta1 import tx_pb2 as cosmos_distribution_tx_pb
+from pyinjective.proto.cosmos.distribution.v1beta1 import (
+    distribution_pb2 as cosmos_distribution_pb2,
+    tx_pb2 as cosmos_distribution_tx_pb,
+)
 from pyinjective.proto.cosmos.gov.v1beta1 import tx_pb2 as cosmos_gov_tx_pb
 from pyinjective.proto.cosmos.staking.v1beta1 import tx_pb2 as cosmos_staking_tx_pb
 from pyinjective.proto.cosmwasm.wasm.v1 import tx_pb2 as wasm_tx_pb
@@ -129,7 +133,26 @@ class Composer:
             self.tokens = tokens
 
     def Coin(self, amount: int, denom: str):
+        """
+        This method is deprecated and will be removed soon. Please use `coin` instead
+        """
+        warn("This method is deprecated. Use coin instead", DeprecationWarning, stacklevel=2)
         return cosmos_dot_base_dot_v1beta1_dot_coin__pb2.Coin(amount=str(amount), denom=denom)
+
+    def coin(self, amount: int, denom: str):
+        """
+        This method create an instance of Coin gRPC type, considering the amount is already expressed in chain format
+        """
+        formatted_amount_string = str(int(amount))
+        return cosmos_dot_base_dot_v1beta1_dot_coin__pb2.Coin(amount=formatted_amount_string, denom=denom)
+
+    def create_coin_amount(self, amount: Decimal, token_name: str):
+        """
+        This method create an instance of Coin gRPC type, considering the amount is already expressed in chain format
+        """
+        token = self.tokens[token_name]
+        chain_amount = token.chain_formatted_value(human_readable_value=amount)
+        return self.coin(amount=int(chain_amount), denom=token.denom)
 
     def get_order_mask(self, **kwargs):
         order_mask = 0
@@ -331,13 +354,12 @@ class Composer:
         )
 
     def MsgSend(self, from_address: str, to_address: str, amount: float, denom: str):
-        token = self.tokens[denom]
-        be_amount = token.chain_formatted_value(human_readable_value=Decimal(str(amount)))
+        coin = self.create_coin_amount(amount=Decimal(str(amount)), token_name=denom)
 
         return cosmos_bank_tx_pb.MsgSend(
             from_address=from_address,
             to_address=to_address,
-            amount=[self.Coin(amount=int(be_amount), denom=token.denom)],
+            amount=[coin],
         )
 
     def MsgExecuteContract(self, sender: str, contract: str, msg: str, **kwargs):
@@ -350,13 +372,12 @@ class Composer:
         )
 
     def MsgDeposit(self, sender: str, subaccount_id: str, amount: float, denom: str):
-        token = self.tokens[denom]
-        be_amount = token.chain_formatted_value(human_readable_value=Decimal(str(amount)))
+        coin = self.create_coin_amount(amount=Decimal(str(amount)), token_name=denom)
 
         return injective_exchange_tx_pb.MsgDeposit(
             sender=sender,
             subaccount_id=subaccount_id,
-            amount=self.Coin(amount=int(be_amount), denom=token.denom),
+            amount=coin,
         )
 
     def MsgCreateSpotLimitOrder(
@@ -709,24 +730,22 @@ class Composer:
         amount: int,
         denom: str,
     ):
-        token = self.tokens[denom]
-        be_amount = token.chain_formatted_value(human_readable_value=Decimal(str(amount)))
+        be_amount = self.create_coin_amount(amount=Decimal(str(amount)), token_name=denom)
 
         return injective_exchange_tx_pb.MsgSubaccountTransfer(
             sender=sender,
             source_subaccount_id=source_subaccount_id,
             destination_subaccount_id=destination_subaccount_id,
-            amount=self.Coin(amount=int(be_amount), denom=token.denom),
+            amount=be_amount,
         )
 
     def MsgWithdraw(self, sender: str, subaccount_id: str, amount: float, denom: str):
-        token = self.tokens[denom]
-        be_amount = token.chain_formatted_value(human_readable_value=Decimal(str(amount)))
+        be_amount = self.create_coin_amount(amount=Decimal(str(amount)), token_name=denom)
 
         return injective_exchange_tx_pb.MsgWithdraw(
             sender=sender,
             subaccount_id=subaccount_id,
-            amount=self.Coin(amount=int(be_amount), denom=token.denom),
+            amount=be_amount,
         )
 
     def MsgExternalTransfer(
@@ -737,14 +756,13 @@ class Composer:
         amount: int,
         denom: str,
     ):
-        token = self.tokens[denom]
-        be_amount = token.chain_formatted_value(human_readable_value=Decimal(str(amount)))
+        coin = self.create_coin_amount(amount=Decimal(str(amount)), token_name=denom)
 
         return injective_exchange_tx_pb.MsgExternalTransfer(
             sender=sender,
             source_subaccount_id=source_subaccount_id,
             destination_subaccount_id=destination_subaccount_id,
-            amount=self.Coin(amount=int(be_amount), denom=token.denom),
+            amount=coin,
         )
 
     def MsgBid(self, sender: str, bid_amount: float, round: float):
@@ -753,7 +771,7 @@ class Composer:
         return injective_auction_tx_pb.MsgBid(
             sender=sender,
             round=round,
-            bid_amount=self.Coin(amount=int(be_amount), denom=INJ_DENOM),
+            bid_amount=self.coin(amount=int(be_amount), denom=INJ_DENOM),
         )
 
     def MsgGrantGeneric(self, granter: str, grantee: str, msg_type: str, expire_in: int):
@@ -851,15 +869,14 @@ class Composer:
         return injective_oracle_tx_pb.MsgRelayPriceFeedPrice(sender=sender, base=base, quote=quote, price=price)
 
     def MsgSendToEth(self, denom: str, sender: str, eth_dest: str, amount: float, bridge_fee: float):
-        token = self.tokens[denom]
-        be_amount = token.chain_formatted_value(human_readable_value=Decimal(str(amount)))
-        be_bridge_fee = token.chain_formatted_value(human_readable_value=Decimal(str(bridge_fee)))
+        be_amount = self.create_coin_amount(amount=Decimal(str(amount)), token_name=denom)
+        be_bridge_fee = self.create_coin_amount(amount=Decimal(str(bridge_fee)), token_name=denom)
 
         return injective_peggy_tx_pb.MsgSendToEth(
             sender=sender,
             eth_dest=eth_dest,
-            amount=self.Coin(amount=int(be_amount), denom=token.denom),
-            bridge_fee=self.Coin(amount=int(be_bridge_fee), denom=token.denom),
+            amount=be_amount,
+            bridge_fee=be_bridge_fee,
         )
 
     def MsgDelegate(self, delegator_address: str, validator_address: str, amount: float):
@@ -868,7 +885,7 @@ class Composer:
         return cosmos_staking_tx_pb.MsgDelegate(
             delegator_address=delegator_address,
             validator_address=validator_address,
-            amount=self.Coin(amount=int(be_amount), denom=INJ_DENOM),
+            amount=self.coin(amount=int(be_amount), denom=INJ_DENOM),
         )
 
     def MsgCreateInsuranceFund(
@@ -883,7 +900,7 @@ class Composer:
         initial_deposit: int,
     ):
         token = self.tokens[quote_denom]
-        be_amount = token.chain_formatted_value(human_readable_value=Decimal(str(initial_deposit)))
+        deposit = self.create_coin_amount(Decimal(str(initial_deposit)), quote_denom)
 
         return injective_insurance_tx_pb.MsgCreateInsuranceFund(
             sender=sender,
@@ -893,7 +910,7 @@ class Composer:
             oracle_quote=oracle_quote,
             oracle_type=oracle_type,
             expiry=expiry,
-            initial_deposit=self.Coin(amount=int(be_amount), denom=token.denom),
+            initial_deposit=deposit,
         )
 
     def MsgUnderwrite(
@@ -903,13 +920,12 @@ class Composer:
         quote_denom: str,
         amount: int,
     ):
-        token = self.tokens[quote_denom]
-        be_amount = token.chain_formatted_value(human_readable_value=Decimal(str(amount)))
+        be_amount = self.create_coin_amount(amount=Decimal(str(amount)), token_name=quote_denom)
 
         return injective_insurance_tx_pb.MsgUnderwrite(
             sender=sender,
             market_id=market_id,
-            deposit=self.Coin(amount=int(be_amount), denom=token.denom),
+            deposit=be_amount,
         )
 
     def MsgRequestRedemption(
@@ -922,16 +938,8 @@ class Composer:
         return injective_insurance_tx_pb.MsgRequestRedemption(
             sender=sender,
             market_id=market_id,
-            amount=self.Coin(amount=amount, denom=share_denom),
+            amount=self.coin(amount=amount, denom=share_denom),
         )
-
-    def MsgWithdrawDelegatorReward(self, delegator_address: str, validator_address: str):
-        return cosmos_distribution_tx_pb.MsgWithdrawDelegatorReward(
-            delegator_address=delegator_address, validator_address=validator_address
-        )
-
-    def MsgWithdrawValidatorCommission(self, validator_address: str):
-        return cosmos_distribution_tx_pb.MsgWithdrawValidatorCommission(validator_address=validator_address)
 
     def MsgVote(
         self,
@@ -1100,6 +1108,56 @@ class Composer:
     ) -> chain_stream_query.PositionsFilter:
         symbols = symbols or ["*"]
         return chain_stream_query.OraclePriceFilter(symbol=symbols)
+
+    # ------------------------------------------------
+    # Distribution module's messages
+
+    def msg_set_withdraw_address(self, delegator_address: str, withdraw_address: str):
+        return cosmos_distribution_tx_pb.MsgSetWithdrawAddress(
+            delegator_address=delegator_address, withdraw_address=withdraw_address
+        )
+
+    # Deprecated
+    def MsgWithdrawDelegatorReward(self, delegator_address: str, validator_address: str):
+        """
+        This method is deprecated and will be removed soon. Please use `msg_withdraw_delegator_reward` instead
+        """
+        warn("This method is deprecated. Use msg_withdraw_delegator_reward instead", DeprecationWarning, stacklevel=2)
+        return cosmos_distribution_tx_pb.MsgWithdrawDelegatorReward(
+            delegator_address=delegator_address, validator_address=validator_address
+        )
+
+    def msg_withdraw_delegator_reward(self, delegator_address: str, validator_address: str):
+        return cosmos_distribution_tx_pb.MsgWithdrawDelegatorReward(
+            delegator_address=delegator_address, validator_address=validator_address
+        )
+
+    def MsgWithdrawValidatorCommission(self, validator_address: str):
+        """
+        This method is deprecated and will be removed soon. Please use `msg_withdraw_validator_commission` instead
+        """
+        warn(
+            "This method is deprecated. Use msg_withdraw_validator_commission instead", DeprecationWarning, stacklevel=2
+        )
+        return cosmos_distribution_tx_pb.MsgWithdrawValidatorCommission(validator_address=validator_address)
+
+    def msg_withdraw_validator_commission(self, validator_address: str):
+        return cosmos_distribution_tx_pb.MsgWithdrawValidatorCommission(validator_address=validator_address)
+
+    def msg_fund_community_pool(self, amounts: List[cosmos_dot_base_dot_v1beta1_dot_coin__pb2.Coin], depositor: str):
+        return cosmos_distribution_tx_pb.MsgFundCommunityPool(amount=amounts, depositor=depositor)
+
+    def msg_update_distribution_params(self, authority: str, community_tax: str, withdraw_address_enabled: bool):
+        params = cosmos_distribution_pb2.Params(
+            community_tax=community_tax,
+            withdraw_addr_enabled=withdraw_address_enabled,
+        )
+        return cosmos_distribution_tx_pb.MsgUpdateParams(authority=authority, params=params)
+
+    def msg_community_pool_spend(
+        self, authority: str, recipient: str, amount: List[cosmos_dot_base_dot_v1beta1_dot_coin__pb2.Coin]
+    ):
+        return cosmos_distribution_tx_pb.MsgCommunityPoolSpend(authority=authority, recipient=recipient, amount=amount)
 
     # data field format: [request-msg-header][raw-byte-msg-response]
     # you need to figure out this magic prefix number to trim request-msg-header off the data

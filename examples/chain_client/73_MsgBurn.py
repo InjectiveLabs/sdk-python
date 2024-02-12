@@ -26,7 +26,7 @@ async def main() -> None:
     pub_key = priv_key.to_public_key()
     address = pub_key.to_address()
 
-    amount = composer.Coin(amount=100, denom="factory/inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r/inj_test")
+    amount = composer.coin(amount=100, denom="factory/inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r/inj_test")
 
     message = composer.msg_burn(
         sender=address.to_acc_bech32(),
