@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0] - 2024-02-12
+### Changed
+- Removed `asyncio` from the dependencies
+
 ## [1.2.0] - 2024-01-25
 ### Changed
 - Updated reference gas cost for all messages in the gas estimator
