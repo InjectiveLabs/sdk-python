@@ -3,7 +3,7 @@ import os
 
 import dotenv
 
-from pyinjective.composer import Composer as ProtoMsgComposer
+from pyinjective.async_client import AsyncClient
 from pyinjective.core.broadcaster import MsgBroadcasterWithPk
 from pyinjective.core.network import Network
 from pyinjective.wallet import PrivateKey
@@ -11,27 +11,29 @@ from pyinjective.wallet import PrivateKey
 
 async def main() -> None:
     dotenv.load_dotenv()
-    private_key_in_hexa = os.getenv("INJECTIVE_PRIVATE_KEY")
+    configured_private_key = os.getenv("INJECTIVE_PRIVATE_KEY")
 
     # select network: local, testnet, mainnet
     network = Network.testnet()
-    composer = ProtoMsgComposer(network=network.string())
+    client = AsyncClient(network)
+    composer = await client.composer()
 
-    message_broadcaster = MsgBroadcasterWithPk.new_using_simulation(
+    message_broadcaster = MsgBroadcasterWithPk.new_without_simulation(
         network=network,
-        private_key=private_key_in_hexa,
+        private_key=configured_private_key,
+        client=client,
+        composer=composer,
     )
 
-    priv_key = PrivateKey.from_hex(private_key_in_hexa)
+    priv_key = PrivateKey.from_hex(configured_private_key)
     pub_key = priv_key.to_public_key()
     address = pub_key.to_address()
+    await client.fetch_account(address.to_acc_bech32())
 
-    amount = composer.coin(amount=1_000_000_000, denom="factory/inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r/inj_test")
+    # prepare tx msg
+    validator_address = "injvaloper1ultw9r29l8nxy5u6thcgusjn95vsy2caw722q5"
 
-    message = composer.msg_mint(
-        sender=address.to_acc_bech32(),
-        amount=amount,
-    )
+    message = composer.msg_withdraw_validator_commission(validator_address=validator_address)
 
     # broadcast the transaction
     result = await message_broadcaster.broadcast([message])
