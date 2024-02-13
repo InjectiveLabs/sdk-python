@@ -264,7 +264,7 @@ class SimulatedTransactionFeeCalculator(TransactionFeeCalculator):
         gas_limit = math.ceil(Decimal(str(sim_res["gasInfo"]["gasUsed"])) * self._gas_limit_adjustment_multiplier)
 
         fee = [
-            self._composer.Coin(
+            self._composer.coin(
                 amount=self._gas_price * gas_limit,
                 denom=self._client.network.fee_denom,
             )
@@ -292,7 +292,7 @@ class MessageBasedTransactionFeeCalculator(TransactionFeeCalculator):
         transaction_gas_limit = messages_gas_limit + self.TRANSACTION_GAS_LIMIT
 
         fee = [
-            self._composer.Coin(
+            self._composer.coin(
                 amount=math.ceil(self._gas_price * transaction_gas_limit),
                 denom=self._client.network.fee_denom,
             )
