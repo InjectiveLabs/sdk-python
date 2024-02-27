@@ -1,6 +1,7 @@
 import asyncio
 import os
 import uuid
+from decimal import Decimal
 
 import dotenv
 from grpc import RpcError
@@ -43,12 +44,12 @@ async def main() -> None:
     spot_market_id_cancel_2 = "0x7a57e705bb4e09c88aecfc295569481dbf2fe1d5efe364651fbe72385938e9b0"
 
     derivative_orders_to_cancel = [
-        composer.OrderData(
+        composer.order_data(
             market_id=derivative_market_id_cancel,
             subaccount_id=subaccount_id,
             order_hash="0x48690013c382d5dbaff9989db04629a16a5818d7524e027d517ccc89fd068103",
         ),
-        composer.OrderData(
+        composer.order_data(
             market_id=derivative_market_id_cancel_2,
             subaccount_id=subaccount_id,
             order_hash="0x7ee76255d7ca763c56b0eab9828fca89fdd3739645501c8a80f58b62b4f76da5",
@@ -56,12 +57,12 @@ async def main() -> None:
     ]
 
     spot_orders_to_cancel = [
-        composer.OrderData(
+        composer.order_data(
             market_id=spot_market_id_cancel,
             subaccount_id=subaccount_id,
             cid="0e5c3ad5-2cc4-4a2a-bbe5-b12697739163",
         ),
-        composer.OrderData(
+        composer.order_data(
             market_id=spot_market_id_cancel_2,
             subaccount_id=subaccount_id,
             order_hash="0x222daa22f60fe9f075ed0ca583459e121c23e64431c3fbffdedda04598ede0d2",
@@ -69,49 +70,49 @@ async def main() -> None:
     ]
 
     derivative_orders_to_create = [
-        composer.DerivativeOrder(
+        composer.derivative_order(
             market_id=derivative_market_id_create,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
-            price=25000,
-            quantity=0.1,
-            leverage=1,
-            is_buy=True,
-            is_po=False,
+            price=Decimal(25000),
+            quantity=Decimal(0.1),
+            margin=composer.calculate_margin(
+                quantity=Decimal(0.1), price=Decimal(25000), leverage=Decimal(1), is_reduce_only=False
+            ),
+            order_type="BUY",
             cid=str(uuid.uuid4()),
         ),
-        composer.DerivativeOrder(
+        composer.derivative_order(
             market_id=derivative_market_id_create,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
-            price=50000,
-            quantity=0.01,
-            leverage=1,
-            is_buy=False,
-            is_po=False,
+            price=Decimal(50000),
+            quantity=Decimal(0.01),
+            margin=composer.calculate_margin(
+                quantity=Decimal(0.01), price=Decimal(50000), leverage=Decimal(1), is_reduce_only=False
+            ),
+            order_type="SELL",
             cid=str(uuid.uuid4()),
         ),
     ]
 
     spot_orders_to_create = [
-        composer.SpotOrder(
+        composer.spot_order(
             market_id=spot_market_id_create,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
-            price=3,
-            quantity=55,
-            is_buy=True,
-            is_po=False,
+            price=Decimal("3"),
+            quantity=Decimal("55"),
+            order_type="BUY",
             cid=str(uuid.uuid4()),
         ),
-        composer.SpotOrder(
+        composer.spot_order(
             market_id=spot_market_id_create,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
-            price=300,
-            quantity=55,
-            is_buy=False,
-            is_po=False,
+            price=Decimal("300"),
+            quantity=Decimal("55"),
+            order_type="SELL",
             cid=str(uuid.uuid4()),
         ),
     ]

@@ -1,6 +1,7 @@
 import asyncio
 import os
 import uuid
+from decimal import Decimal
 
 import dotenv
 from grpc import RpcError
@@ -36,19 +37,21 @@ async def main() -> None:
     fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
     cid = str(uuid.uuid4())
 
-    order = composer.DerivativeOrder(
+    order = composer.derivative_order(
         market_id=market_id,
         subaccount_id=subaccount_id,
         fee_recipient=fee_recipient,
-        price=39.01,  # This should be the liquidation price
-        quantity=0.147,
-        leverage=1,
+        price=Decimal(39.01),  # This should be the liquidation price
+        quantity=Decimal(0.147),
+        margin=composer.calculate_margin(
+            quantity=Decimal(0.147), price=Decimal(39.01), leverage=Decimal(1), is_reduce_only=False
+        ),
+        order_type="SELL",
         cid=cid,
-        is_buy=False,
     )
 
     # prepare tx msg
-    msg = composer.MsgLiquidatePosition(
+    msg = composer.msg_liquidate_position(
         sender=address.to_acc_bech32(),
         subaccount_id="0x156df4d5bc8e7dd9191433e54bd6a11eeb390921000000000000000000000000",
         market_id=market_id,

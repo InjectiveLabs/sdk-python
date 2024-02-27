@@ -117,15 +117,14 @@ class TestMessageBasedTransactionFeeCalculator:
             gas_price=5_000_000,
         )
 
-        message = composer.MsgCreateSpotLimitOrder(
+        message = composer.msg_create_spot_limit_order(
             sender="sender",
             market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
             subaccount_id="subaccount_id",
             fee_recipient="fee_recipient",
-            price=7.523,
-            quantity=0.01,
-            is_buy=True,
-            is_po=False,
+            price=Decimal("7.523"),
+            quantity=Decimal("0.01"),
+            order_type="BUY",
         )
         transaction = Transaction()
         transaction.with_messages(message)
@@ -148,15 +147,14 @@ class TestMessageBasedTransactionFeeCalculator:
             gas_price=5_000_000,
         )
 
-        inner_message = composer.MsgCreateSpotLimitOrder(
+        inner_message = composer.msg_create_spot_limit_order(
             sender="sender",
             market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
             subaccount_id="subaccount_id",
             fee_recipient="fee_recipient",
-            price=7.523,
-            quantity=0.01,
-            is_buy=True,
-            is_po=False,
+            price=Decimal("7.523"),
+            quantity=Decimal("0.01"),
+            order_type="BUY",
         )
         message = composer.MsgExec(grantee="grantee", msgs=[inner_message])
         transaction = Transaction()
@@ -184,15 +182,14 @@ class TestMessageBasedTransactionFeeCalculator:
             gas_price=5_000_000,
         )
 
-        inner_message = composer.MsgCreateSpotLimitOrder(
+        inner_message = composer.msg_create_spot_limit_order(
             sender="sender",
             market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
             subaccount_id="subaccount_id",
             fee_recipient="fee_recipient",
-            price=7.523,
-            quantity=0.01,
-            is_buy=True,
-            is_po=False,
+            price=Decimal("7.523"),
+            quantity=Decimal("0.01"),
+            order_type="BUY",
         )
         message = composer.MsgExec(grantee="grantee", msgs=[inner_message])
 

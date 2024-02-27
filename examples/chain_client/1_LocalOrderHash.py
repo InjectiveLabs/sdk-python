@@ -1,6 +1,7 @@
 import asyncio
 import os
 import uuid
+from decimal import Decimal
 
 import dotenv
 
@@ -40,57 +41,59 @@ async def main() -> None:
     fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
 
     spot_orders = [
-        composer.SpotOrder(
+        composer.spot_order(
             market_id=spot_market_id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
-            price=0.524,
-            quantity=0.01,
-            is_buy=True,
-            is_po=False,
+            price=Decimal("0.524"),
+            quantity=Decimal("0.01"),
+            order_type="BUY",
             cid=str(uuid.uuid4()),
         ),
-        composer.SpotOrder(
+        composer.spot_order(
             market_id=spot_market_id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
-            price=27.92,
-            quantity=0.01,
-            is_buy=False,
-            is_po=False,
+            price=Decimal("27.92"),
+            quantity=Decimal("0.01"),
+            order_type="SELL",
             cid=str(uuid.uuid4()),
         ),
     ]
 
     derivative_orders = [
-        composer.DerivativeOrder(
+        composer.derivative_order(
             market_id=deriv_market_id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
-            price=10500,
-            quantity=0.01,
-            leverage=1.5,
-            is_buy=True,
-            is_po=False,
+            price=Decimal(10500),
+            quantity=Decimal(0.01),
+            margin=composer.calculate_margin(
+                quantity=Decimal(0.01), price=Decimal(10500), leverage=Decimal(2), is_reduce_only=False
+            ),
+            order_type="BUY",
             cid=str(uuid.uuid4()),
         ),
-        composer.DerivativeOrder(
+        composer.derivative_order(
             market_id=deriv_market_id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
-            price=65111,
-            quantity=0.01,
-            leverage=2,
-            is_buy=False,
-            is_reduce_only=False,
+            price=Decimal(65111),
+            quantity=Decimal(0.01),
+            margin=composer.calculate_margin(
+                quantity=Decimal(0.01), price=Decimal(65111), leverage=Decimal(2), is_reduce_only=False
+            ),
+            order_type="SELL",
             cid=str(uuid.uuid4()),
         ),
     ]
 
     # prepare tx msg
-    spot_msg = composer.MsgBatchCreateSpotLimitOrders(sender=address.to_acc_bech32(), orders=spot_orders)
+    spot_msg = composer.msg_batch_create_spot_limit_orders(sender=address.to_acc_bech32(), orders=spot_orders)
 
-    deriv_msg = composer.MsgBatchCreateDerivativeLimitOrders(sender=address.to_acc_bech32(), orders=derivative_orders)
+    deriv_msg = composer.msg_batch_create_derivative_limit_orders(
+        sender=address.to_acc_bech32(), orders=derivative_orders
+    )
 
     # compute order hashes
     order_hashes = order_hash_manager.compute_order_hashes(
@@ -167,57 +170,59 @@ async def main() -> None:
     print("gas fee: {} INJ".format(gas_fee))
 
     spot_orders = [
-        composer.SpotOrder(
+        composer.spot_order(
             market_id=spot_market_id,
             subaccount_id=subaccount_id_2,
             fee_recipient=fee_recipient,
-            price=1.524,
-            quantity=0.01,
-            is_buy=True,
-            is_po=True,
+            price=Decimal("1.524"),
+            quantity=Decimal("0.01"),
+            order_type="BUY_PO",
             cid=str(uuid.uuid4()),
         ),
-        composer.SpotOrder(
+        composer.spot_order(
             market_id=spot_market_id,
             subaccount_id=subaccount_id_2,
             fee_recipient=fee_recipient,
-            price=27.92,
-            quantity=0.01,
-            is_buy=False,
-            is_po=False,
+            price=Decimal("27.92"),
+            quantity=Decimal("0.01"),
+            order_type="SELL_PO",
             cid=str(uuid.uuid4()),
         ),
     ]
 
     derivative_orders = [
-        composer.DerivativeOrder(
+        composer.derivative_order(
             market_id=deriv_market_id,
             subaccount_id=subaccount_id_2,
             fee_recipient=fee_recipient,
-            price=25111,
-            quantity=0.01,
-            leverage=1.5,
-            is_buy=True,
-            is_po=False,
+            price=Decimal(25111),
+            quantity=Decimal(0.01),
+            margin=composer.calculate_margin(
+                quantity=Decimal(0.01), price=Decimal(25111), leverage=Decimal("1.5"), is_reduce_only=False
+            ),
+            order_type="BUY",
             cid=str(uuid.uuid4()),
         ),
-        composer.DerivativeOrder(
+        composer.derivative_order(
             market_id=deriv_market_id,
             subaccount_id=subaccount_id_2,
             fee_recipient=fee_recipient,
-            price=65111,
-            quantity=0.01,
-            leverage=2,
-            is_buy=False,
-            is_reduce_only=False,
+            price=Decimal(65111),
+            quantity=Decimal(0.01),
+            margin=composer.calculate_margin(
+                quantity=Decimal(0.01), price=Decimal(25111), leverage=Decimal(2), is_reduce_only=False
+            ),
+            order_type="SELL",
             cid=str(uuid.uuid4()),
         ),
     ]
 
     # prepare tx msg
-    spot_msg = composer.MsgBatchCreateSpotLimitOrders(sender=address.to_acc_bech32(), orders=spot_orders)
+    spot_msg = composer.msg_batch_create_spot_limit_orders(sender=address.to_acc_bech32(), orders=spot_orders)
 
-    deriv_msg = composer.MsgBatchCreateDerivativeLimitOrders(sender=address.to_acc_bech32(), orders=derivative_orders)
+    deriv_msg = composer.msg_batch_create_derivative_limit_orders(
+        sender=address.to_acc_bech32(), orders=derivative_orders
+    )
 
     # compute order hashes
     order_hashes = order_hash_manager.compute_order_hashes(

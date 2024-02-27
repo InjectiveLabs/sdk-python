@@ -1,6 +1,7 @@
 import asyncio
 import os
 import uuid
+from decimal import Decimal
 
 import dotenv
 
@@ -18,7 +19,7 @@ async def main() -> None:
     network = Network.testnet()
     composer = ProtoMsgComposer(network=network.string())
 
-    message_broadcaster = MsgBroadcasterWithPk.new_using_simulation(
+    message_broadcaster = MsgBroadcasterWithPk.new_without_simulation(
         network=network,
         private_key=private_key_in_hexa,
     )
@@ -34,24 +35,22 @@ async def main() -> None:
     spot_market_id_create = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
 
     spot_orders_to_create = [
-        composer.SpotOrder(
+        composer.spot_order(
             market_id=spot_market_id_create,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
-            price=3,
-            quantity=55,
-            is_buy=True,
-            is_po=False,
+            price=Decimal("3"),
+            quantity=Decimal("55"),
+            order_type="BUY",
             cid=str(uuid.uuid4()),
         ),
-        composer.SpotOrder(
+        composer.spot_order(
             market_id=spot_market_id_create,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
-            price=300,
-            quantity=55,
-            is_buy=False,
-            is_po=False,
+            price=Decimal("300"),
+            quantity=Decimal("55"),
+            order_type="SELL",
             cid=str(uuid.uuid4()),
         ),
     ]

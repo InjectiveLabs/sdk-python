@@ -1,6 +1,7 @@
 import asyncio
 import os
 import uuid
+from decimal import Decimal
 
 import dotenv
 from grpc import RpcError
@@ -32,19 +33,18 @@ async def main() -> None:
     subaccount_id = address.get_subaccount_id(index=0)
 
     # prepare trade info
-    market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
+    market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
     fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
 
     # prepare tx msg
-    msg = composer.MsgCreateDerivativeMarketOrder(
-        sender=address.to_acc_bech32(),
+    msg = composer.msg_create_spot_market_order(
         market_id=market_id,
+        sender=address.to_acc_bech32(),
         subaccount_id=subaccount_id,
         fee_recipient=fee_recipient,
-        price=50000,
-        quantity=0.01,
-        leverage=3,
-        is_buy=True,
+        price=Decimal("10.522"),
+        quantity=Decimal("0.01"),
+        order_type="BUY",
         cid=str(uuid.uuid4()),
     )
 

@@ -1,6 +1,7 @@
 import asyncio
 import os
 import uuid
+from decimal import Decimal
 
 import dotenv
 
@@ -29,25 +30,25 @@ async def main() -> None:
     pub_key = priv_key.to_public_key()
     address = pub_key.to_address()
 
-    message_broadcaster = MsgBroadcasterWithPk.new_for_grantee_account_without_simulation(
+    message_broadcaster = MsgBroadcasterWithPk.new_for_grantee_account_using_simulation(
         network=network,
         grantee_private_key=private_key_in_hexa,
     )
 
     # prepare tx msg
     market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
+
     granter_address = Address.from_acc_bech32(granter_inj_address)
     granter_subaccount_id = granter_address.get_subaccount_id(index=0)
 
-    msg = composer.MsgCreateSpotLimitOrder(
-        sender=granter_inj_address,
+    msg = composer.msg_create_spot_limit_order(
         market_id=market_id,
+        sender=granter_inj_address,
         subaccount_id=granter_subaccount_id,
         fee_recipient=address.to_acc_bech32(),
-        price=7.523,
-        quantity=0.01,
-        is_buy=True,
-        is_po=False,
+        price=Decimal("7.523"),
+        quantity=Decimal("0.01"),
+        order_type="BUY",
         cid=str(uuid.uuid4()),
     )
 
