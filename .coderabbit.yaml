@@ -4,3 +4,5 @@ reviews:
             - "master"
             - "dev"
             - "feat/.*"
+chat:
+    auto_reply: true
