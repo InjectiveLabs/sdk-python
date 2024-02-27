@@ -1,5 +1,6 @@
 import asyncio
 import os
+from decimal import Decimal
 
 import dotenv
 from grpc import RpcError
@@ -28,9 +29,17 @@ async def main() -> None:
     pub_key = priv_key.to_public_key()
     address = pub_key.to_address()
     await client.fetch_account(address.to_acc_bech32())
+    subaccount_id = address.get_subaccount_id(index=0)
+    dest_subaccount_id = address.get_subaccount_id(index=1)
 
     # prepare tx msg
-    msg = composer.MsgRewardsOptOut(sender=address.to_acc_bech32())
+    msg = composer.msg_subaccount_transfer(
+        sender=address.to_acc_bech32(),
+        source_subaccount_id=subaccount_id,
+        destination_subaccount_id=dest_subaccount_id,
+        amount=Decimal(100),
+        denom="INJ",
+    )
 
     # build sim tx
     tx = (

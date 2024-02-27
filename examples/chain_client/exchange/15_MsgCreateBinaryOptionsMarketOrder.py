@@ -1,5 +1,7 @@
 import asyncio
 import os
+import uuid
+from decimal import Decimal
 
 import dotenv
 from grpc import RpcError
@@ -32,11 +34,20 @@ async def main() -> None:
 
     # prepare trade info
     market_id = "0x00617e128fdc0c0423dd18a1ff454511af14c4db6bdd98005a99cdf8fdbf74e9"
-    order_hash = "a975fbd72b874bdbf5caf5e1e8e2653937f33ce6dd14d241c06c8b1f7b56be46"
+    fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
 
     # prepare tx msg
-    msg = composer.MsgCancelBinaryOptionsOrder(
-        sender=address.to_acc_bech32(), market_id=market_id, subaccount_id=subaccount_id, order_hash=order_hash
+    msg = composer.msg_create_binary_options_market_order(
+        sender=address.to_acc_bech32(),
+        market_id=market_id,
+        subaccount_id=subaccount_id,
+        fee_recipient=fee_recipient,
+        price=Decimal("0.5"),
+        quantity=Decimal(1),
+        margin=composer.calculate_margin(
+            quantity=Decimal(1), price=Decimal("0.5"), leverage=Decimal(1), is_reduce_only=False
+        ),
+        cid=str(uuid.uuid4()),
     )
     # build sim tx
     tx = (

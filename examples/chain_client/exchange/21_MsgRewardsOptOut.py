@@ -1,6 +1,5 @@
 import asyncio
 import os
-import uuid
 
 import dotenv
 from grpc import RpcError
@@ -9,7 +8,6 @@ from pyinjective.async_client import AsyncClient
 from pyinjective.constant import GAS_FEE_BUFFER_AMOUNT, GAS_PRICE
 from pyinjective.core.network import Network
 from pyinjective.transaction import Transaction
-from pyinjective.utils.denom import Denom
 from pyinjective.wallet import PrivateKey
 
 
@@ -30,28 +28,9 @@ async def main() -> None:
     pub_key = priv_key.to_public_key()
     address = pub_key.to_address()
     await client.fetch_account(address.to_acc_bech32())
-    subaccount_id = address.get_subaccount_id(index=0)
-
-    # prepare trade info
-    market_id = "0x767e1542fbc111e88901e223e625a4a8eb6d630c96884bbde672e8bc874075bb"
-    fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
-
-    # set custom denom to bypass ini file load (optional)
-    denom = Denom(description="desc", base=0, quote=6, min_price_tick_size=1000, min_quantity_tick_size=0.0001)
 
     # prepare tx msg
-    msg = composer.MsgCreateBinaryOptionsLimitOrder(
-        sender=address.to_acc_bech32(),
-        market_id=market_id,
-        subaccount_id=subaccount_id,
-        fee_recipient=fee_recipient,
-        price=0.5,
-        quantity=1,
-        is_buy=False,
-        is_reduce_only=False,
-        denom=denom,
-        cid=str(uuid.uuid4()),
-    )
+    msg = composer.msg_rewards_opt_out(sender=address.to_acc_bech32())
 
     # build sim tx
     tx = (
@@ -72,10 +51,6 @@ async def main() -> None:
         print(ex)
         return
 
-    sim_res_msg = sim_res["result"]["msgResponses"]
-    print("---Simulation Response---")
-    print(sim_res_msg)
-
     # build tx
     gas_price = GAS_PRICE
     gas_limit = int(sim_res["gasInfo"]["gasUsed"]) + GAS_FEE_BUFFER_AMOUNT  # add buffer for gas fee computation
@@ -93,7 +68,6 @@ async def main() -> None:
 
     # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
     res = await client.broadcast_tx_sync_mode(tx_raw_bytes)
-    print("---Transaction Response---")
     print(res)
     print("gas wanted: {}".format(gas_limit))
     print("gas fee: {} INJ".format(gas_fee))
