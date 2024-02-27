@@ -248,6 +248,42 @@ class TestBinaryOptionMarket:
 
         assert quantized_chain_format_value == chain_value
 
+    def test_convert_margin_to_chain_format_with_fixed_denom(self, first_match_bet_market: BinaryOptionMarket):
+        original_quantity = Decimal("123.456789")
+        fixed_denom = Denom(
+            description="Fixed denom",
+            base=2,
+            quote=4,
+            min_quantity_tick_size=100,
+            min_price_tick_size=10000,
+        )
+
+        chain_value = first_match_bet_market.margin_to_chain_format(
+            human_readable_value=original_quantity,
+            special_denom=fixed_denom,
+        )
+        price_decimals = fixed_denom.quote
+        expected_value = original_quantity * Decimal(f"1e{price_decimals}")
+        quantized_value = (expected_value // Decimal(str(fixed_denom.min_quantity_tick_size))) * Decimal(
+            str(fixed_denom.min_quantity_tick_size)
+        )
+        quantized_chain_format_value = quantized_value * Decimal("1e18")
+
+        assert quantized_chain_format_value == chain_value
+
+    def test_convert_margin_to_chain_format_without_fixed_denom(self, first_match_bet_market: BinaryOptionMarket):
+        original_quantity = Decimal("123.456789")
+
+        chain_value = first_match_bet_market.margin_to_chain_format(human_readable_value=original_quantity)
+        price_decimals = first_match_bet_market.quote_token.decimals
+        expected_value = original_quantity * Decimal(f"1e{price_decimals}")
+        quantized_value = (
+            expected_value // first_match_bet_market.min_quantity_tick_size
+        ) * first_match_bet_market.min_quantity_tick_size
+        quantized_chain_format_value = quantized_value * Decimal("1e18")
+
+        assert quantized_chain_format_value == chain_value
+
     def test_calculate_margin_for_buy_with_fixed_denom(self, first_match_bet_market: BinaryOptionMarket):
         original_quantity = Decimal("123.456789")
         original_price = Decimal("0.6789")

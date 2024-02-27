@@ -1,6 +1,7 @@
 import asyncio
 import os
 import uuid
+from decimal import Decimal
 
 import dotenv
 from grpc import RpcError
@@ -36,16 +37,17 @@ async def main() -> None:
     fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
 
     # prepare tx msg
-    msg = composer.MsgCreateDerivativeLimitOrder(
+    msg = composer.msg_create_derivative_limit_order(
         sender=address.to_acc_bech32(),
         market_id=market_id,
         subaccount_id=subaccount_id,
         fee_recipient=fee_recipient,
-        price=50000,
-        quantity=0.1,
-        leverage=1,
-        is_buy=False,
-        is_reduce_only=False,
+        price=Decimal(50000),
+        quantity=Decimal(0.1),
+        margin=composer.calculate_margin(
+            quantity=Decimal(0.1), price=Decimal(50000), leverage=Decimal(1), is_reduce_only=False
+        ),
+        order_type="SELL",
         cid=str(uuid.uuid4()),
     )
 

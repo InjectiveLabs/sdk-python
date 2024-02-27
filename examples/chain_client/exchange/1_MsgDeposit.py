@@ -31,7 +31,9 @@ async def main() -> None:
     subaccount_id = address.get_subaccount_id(index=0)
 
     # prepare tx msg
-    msg = composer.MsgDeposit(sender=address.to_acc_bech32(), subaccount_id=subaccount_id, amount=0.000001, denom="INJ")
+    msg = composer.msg_deposit(
+        sender=address.to_acc_bech32(), subaccount_id=subaccount_id, amount=0.000001, denom="INJ"
+    )
 
     # build sim tx
     tx = (

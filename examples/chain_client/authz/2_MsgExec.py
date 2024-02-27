@@ -1,5 +1,7 @@
 import asyncio
 import os
+import uuid
+from decimal import Decimal
 
 import dotenv
 from grpc import RpcError
@@ -8,12 +10,13 @@ from pyinjective.async_client import AsyncClient
 from pyinjective.constant import GAS_FEE_BUFFER_AMOUNT, GAS_PRICE
 from pyinjective.core.network import Network
 from pyinjective.transaction import Transaction
-from pyinjective.wallet import PrivateKey
+from pyinjective.wallet import Address, PrivateKey
 
 
 async def main() -> None:
     dotenv.load_dotenv()
-    configured_private_key = os.getenv("INJECTIVE_PRIVATE_KEY")
+    configured_private_key = os.getenv("INJECTIVE_GRANTEE_PRIVATE_KEY")
+    granter_inj_address = os.getenv("INJECTIVE_GRANTER_PUBLIC_ADDRESS")
 
     # select network: local, testnet, mainnet
     network = Network.testnet()
@@ -30,23 +33,23 @@ async def main() -> None:
     await client.fetch_account(address.to_acc_bech32())
 
     # prepare tx msg
-    msg = composer.MsgInstantBinaryOptionsMarketLaunch(
-        sender=address.to_acc_bech32(),
-        admin=address.to_acc_bech32(),
-        ticker="UFC-KHABIB-TKO-05/30/2023",
-        oracle_symbol="UFC-KHABIB-TKO-05/30/2023",
-        oracle_provider="UFC",
-        oracle_type="Provider",
-        quote_denom="peggy0xdAC17F958D2ee523a2206206994597C13D831ec7",
-        quote_decimals=6,
-        oracle_scale_factor=6,
-        maker_fee_rate=0.0005,  # 0.05%
-        taker_fee_rate=0.0010,  # 0.10%
-        expiration_timestamp=1680730982,
-        settlement_timestamp=1690730982,
-        min_price_tick_size=0.01,
-        min_quantity_tick_size=0.01,
+    market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
+    grantee = address.to_acc_bech32()
+
+    granter_address = Address.from_acc_bech32(granter_inj_address)
+    granter_subaccount_id = granter_address.get_subaccount_id(index=0)
+    msg0 = composer.msg_create_spot_limit_order(
+        sender=granter_inj_address,
+        market_id=market_id,
+        subaccount_id=granter_subaccount_id,
+        fee_recipient=grantee,
+        price=Decimal("7.523"),
+        quantity=Decimal("0.01"),
+        order_type="BUY",
+        cid=str(uuid.uuid4()),
     )
+
+    msg = composer.MsgExec(grantee=grantee, msgs=[msg0])
 
     # build sim tx
     tx = (
@@ -67,9 +70,13 @@ async def main() -> None:
         print(ex)
         return
 
-    sim_res_msg = sim_res["result"]["msgResponses"]
-    print("---Simulation Response---")
-    print(sim_res_msg)
+    sim_res_msgs = sim_res["result"]["msgResponses"]
+    data = sim_res_msgs[0]
+    unpacked_msg_res = composer.unpack_msg_exec_response(
+        underlying_msg_type=msg0.__class__.__name__, msg_exec_response=data
+    )
+    print("simulation msg response")
+    print(unpacked_msg_res)
 
     # build tx
     gas_price = GAS_PRICE
@@ -88,7 +95,6 @@ async def main() -> None:
 
     # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
     res = await client.broadcast_tx_sync_mode(tx_raw_bytes)
-    print("---Transaction Response---")
     print(res)
     print("gas wanted: {}".format(gas_limit))
     print("gas fee: {} INJ".format(gas_fee))

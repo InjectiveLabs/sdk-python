@@ -28,23 +28,10 @@ async def main() -> None:
     pub_key = priv_key.to_public_key()
     address = pub_key.to_address()
     await client.fetch_account(address.to_acc_bech32())
-
-    # prepare trade info
-    market_id = "0xfafec40a7b93331c1fc89c23f66d11fbb48f38dfdd78f7f4fc4031fad90f6896"
-    status = "Demolished"
-    settlement_price = 1
-    expiration_timestamp = 1685460582
-    settlement_timestamp = 1690730982
+    subaccount_id = address.get_subaccount_id(index=0)
 
     # prepare tx msg
-    msg = composer.MsgAdminUpdateBinaryOptionsMarket(
-        sender=address.to_acc_bech32(),
-        market_id=market_id,
-        settlement_price=settlement_price,
-        expiration_timestamp=expiration_timestamp,
-        settlement_timestamp=settlement_timestamp,
-        status=status,
-    )
+    msg = composer.msg_withdraw(sender=address.to_acc_bech32(), subaccount_id=subaccount_id, amount=1, denom="USDT")
 
     # build sim tx
     tx = (
@@ -65,10 +52,6 @@ async def main() -> None:
         print(ex)
         return
 
-    sim_res_msg = sim_res["result"]["msgResponses"]
-    print("---Simulation Response---")
-    print(sim_res_msg)
-
     # build tx
     gas_price = GAS_PRICE
     gas_limit = int(sim_res["gasInfo"]["gasUsed"]) + GAS_FEE_BUFFER_AMOUNT  # add buffer for gas fee computation
@@ -86,7 +69,6 @@ async def main() -> None:
 
     # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
     res = await client.broadcast_tx_sync_mode(tx_raw_bytes)
-    print("---Transaction Response---")
     print(res)
     print("gas wanted: {}".format(gas_limit))
     print("gas fee: {} INJ".format(gas_fee))

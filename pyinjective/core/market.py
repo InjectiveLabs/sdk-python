@@ -169,6 +169,17 @@ class BinaryOptionMarket:
 
         return extended_chain_formatted_value
 
+    def margin_to_chain_format(self, human_readable_value: Decimal, special_denom: Optional[Denom] = None) -> Decimal:
+        decimals = self.quote_token.decimals if special_denom is None else special_denom.quote
+        min_quantity_tick_size = (
+            self.min_quantity_tick_size if special_denom is None else special_denom.min_quantity_tick_size
+        )
+        chain_formatted_value = human_readable_value * Decimal(f"1e{decimals}")
+        quantized_value = (chain_formatted_value // min_quantity_tick_size) * min_quantity_tick_size
+        extended_chain_formatted_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+
+        return extended_chain_formatted_value
+
     def calculate_margin_in_chain_format(
         self,
         human_readable_quantity: Decimal,

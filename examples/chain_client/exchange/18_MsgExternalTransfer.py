@@ -1,5 +1,6 @@
 import asyncio
 import os
+from decimal import Decimal
 
 import dotenv
 from grpc import RpcError
@@ -32,11 +33,11 @@ async def main() -> None:
     dest_subaccount_id = "0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000"
 
     # prepare tx msg
-    msg = composer.MsgExternalTransfer(
+    msg = composer.msg_external_transfer(
         sender=address.to_acc_bech32(),
         source_subaccount_id=subaccount_id,
         destination_subaccount_id=dest_subaccount_id,
-        amount=100,
+        amount=Decimal(100),
         denom="INJ",
     )
 

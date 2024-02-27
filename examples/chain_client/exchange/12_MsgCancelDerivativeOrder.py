@@ -1,6 +1,5 @@
 import asyncio
 import os
-import uuid
 
 import dotenv
 from grpc import RpcError
@@ -9,13 +8,12 @@ from pyinjective.async_client import AsyncClient
 from pyinjective.constant import GAS_FEE_BUFFER_AMOUNT, GAS_PRICE
 from pyinjective.core.network import Network
 from pyinjective.transaction import Transaction
-from pyinjective.wallet import Address, PrivateKey
+from pyinjective.wallet import PrivateKey
 
 
 async def main() -> None:
     dotenv.load_dotenv()
-    configured_private_key = os.getenv("INJECTIVE_GRANTEE_PRIVATE_KEY")
-    granter_inj_address = os.getenv("INJECTIVE_GRANTER_PUBLIC_ADDRESS")
+    configured_private_key = os.getenv("INJECTIVE_PRIVATE_KEY")
 
     # select network: local, testnet, mainnet
     network = Network.testnet()
@@ -30,26 +28,16 @@ async def main() -> None:
     pub_key = priv_key.to_public_key()
     address = pub_key.to_address()
     await client.fetch_account(address.to_acc_bech32())
+    subaccount_id = address.get_subaccount_id(index=0)
+
+    # prepare trade info
+    market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
+    order_hash = "0x667ee6f37f6d06bf473f4e1434e92ac98ff43c785405e2a511a0843daeca2de9"
 
     # prepare tx msg
-    market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
-    grantee = address.to_acc_bech32()
-
-    granter_address = Address.from_acc_bech32(granter_inj_address)
-    granter_subaccount_id = granter_address.get_subaccount_id(index=0)
-    msg0 = composer.MsgCreateSpotLimitOrder(
-        sender=granter_inj_address,
-        market_id=market_id,
-        subaccount_id=granter_subaccount_id,
-        fee_recipient=grantee,
-        price=7.523,
-        quantity=0.01,
-        is_buy=True,
-        is_po=False,
-        cid=str(uuid.uuid4()),
+    msg = composer.msg_cancel_derivative_order(
+        sender=address.to_acc_bech32(), market_id=market_id, subaccount_id=subaccount_id, order_hash=order_hash
     )
-
-    msg = composer.MsgExec(grantee=grantee, msgs=[msg0])
 
     # build sim tx
     tx = (
@@ -69,14 +57,6 @@ async def main() -> None:
     except RpcError as ex:
         print(ex)
         return
-
-    sim_res_msgs = sim_res["result"]["msgResponses"]
-    data = sim_res_msgs[0]
-    unpacked_msg_res = composer.unpack_msg_exec_response(
-        underlying_msg_type=msg0.__class__.__name__, msg_exec_response=data
-    )
-    print("simulation msg response")
-    print(unpacked_msg_res)
 
     # build tx
     gas_price = GAS_PRICE

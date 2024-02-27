@@ -31,14 +31,13 @@ async def main() -> None:
     subaccount_id = address.get_subaccount_id(index=0)
 
     # prepare trade info
-    market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
-    order_hash = "0x667ee6f37f6d06bf473f4e1434e92ac98ff43c785405e2a511a0843daeca2de9"
+    market_id = "0x00617e128fdc0c0423dd18a1ff454511af14c4db6bdd98005a99cdf8fdbf74e9"
+    order_hash = "a975fbd72b874bdbf5caf5e1e8e2653937f33ce6dd14d241c06c8b1f7b56be46"
 
     # prepare tx msg
-    msg = composer.MsgCancelDerivativeOrder(
+    msg = composer.msg_cancel_binary_options_order(
         sender=address.to_acc_bech32(), market_id=market_id, subaccount_id=subaccount_id, order_hash=order_hash
     )
-
     # build sim tx
     tx = (
         Transaction()
@@ -58,6 +57,10 @@ async def main() -> None:
         print(ex)
         return
 
+    sim_res_msg = sim_res["result"]["msgResponses"]
+    print("---Simulation Response---")
+    print(sim_res_msg)
+
     # build tx
     gas_price = GAS_PRICE
     gas_limit = int(sim_res["gasInfo"]["gasUsed"]) + GAS_FEE_BUFFER_AMOUNT  # add buffer for gas fee computation
@@ -75,6 +78,7 @@ async def main() -> None:
 
     # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
     res = await client.broadcast_tx_sync_mode(tx_raw_bytes)
+    print("---Transaction Response---")
     print(res)
     print("gas wanted: {}".format(gas_limit))
     print("gas fee: {} INJ".format(gas_fee))

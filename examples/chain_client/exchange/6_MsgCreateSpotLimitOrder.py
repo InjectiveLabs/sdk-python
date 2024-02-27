@@ -1,5 +1,7 @@
 import asyncio
 import os
+import uuid
+from decimal import Decimal
 
 import dotenv
 from grpc import RpcError
@@ -31,15 +33,20 @@ async def main() -> None:
     subaccount_id = address.get_subaccount_id(index=0)
 
     # prepare trade info
-    market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
+    market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
+    fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
+    cid = str(uuid.uuid4())
 
     # prepare tx msg
-    msg = composer.MsgIncreasePositionMargin(
+    msg = composer.msg_create_spot_limit_order(
         sender=address.to_acc_bech32(),
         market_id=market_id,
-        source_subaccount_id=subaccount_id,
-        destination_subaccount_id=subaccount_id,
-        amount=2,
+        subaccount_id=subaccount_id,
+        fee_recipient=fee_recipient,
+        price=Decimal("7.523"),
+        quantity=Decimal("0.01"),
+        order_type="BUY",
+        cid=cid,
     )
 
     # build sim tx
@@ -61,6 +68,10 @@ async def main() -> None:
         print(ex)
         return
 
+    sim_res_msg = sim_res["result"]["msgResponses"]
+    print("---Simulation Response---")
+    print(sim_res_msg)
+
     # build tx
     gas_price = GAS_PRICE
     gas_limit = int(sim_res["gasInfo"]["gasUsed"]) + GAS_FEE_BUFFER_AMOUNT  # add buffer for gas fee computation
@@ -78,9 +89,11 @@ async def main() -> None:
 
     # broadcast tx: send_tx_async_mode, send_tx_sync_mode, send_tx_block_mode
     res = await client.broadcast_tx_sync_mode(tx_raw_bytes)
+    print("---Transaction Response---")
     print(res)
     print("gas wanted: {}".format(gas_limit))
     print("gas fee: {} INJ".format(gas_fee))
+    print(f"\n\ncid: {cid}")
 
 
 if __name__ == "__main__":
