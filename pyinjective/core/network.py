@@ -86,12 +86,11 @@ class KubernetesLoadBalancedCookieAssistant(CookieAssistant):
         cookie = SimpleCookie()
         cookie.load(cookie_data)
 
-        if "GCLB" not in cookie:
+        expiration_data: Optional[str] = cookie.get("GCLB", {}).get("expires", None)
+        if expiration_data is None:
             expiration_time = 0
         else:
-            expiration_time = datetime.datetime.strptime(
-                cookie["GCLB"]["expires"], "%a, %d-%b-%Y %H:%M:%S %Z"
-            ).timestamp()
+            expiration_time = datetime.datetime.strptime(expiration_data, "%a, %d-%b-%Y %H:%M:%S %Z").timestamp()
 
         timestamp_diff = expiration_time - time.time()
         return timestamp_diff < self.SESSION_RENEWAL_OFFSET
