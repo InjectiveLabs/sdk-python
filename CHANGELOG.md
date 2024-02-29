@@ -2,7 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.2.0] - 2024-02-12
+## [1.3.1] - 2024-02-29
+### Changed
+- Updated cookie assistant logic to support the Indexer exchange server not using cookies and the chain server using them
+
+## [1.3.0] - 2024-02-12
 ### Changed
 - Removed `asyncio` from the dependencies
 

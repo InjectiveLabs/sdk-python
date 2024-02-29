@@ -23,7 +23,10 @@ class CookieAssistant(ABC):
 
     async def exchange_metadata(self, metadata_query_provider: Callable) -> Tuple[Tuple[str, str]]:
         cookie = await self.exchange_cookie(metadata_query_provider=metadata_query_provider)
-        return (("cookie", cookie),)
+        metadata = None
+        if cookie is not None and cookie != "":
+            metadata = (("cookie", cookie),)
+        return metadata
 
 
 class KubernetesLoadBalancedCookieAssistant(CookieAssistant):
@@ -67,7 +70,7 @@ class KubernetesLoadBalancedCookieAssistant(CookieAssistant):
         cookie_info = next((value for key, value in metadata if key == "set-cookie"), None)
 
         if cookie_info is None:
-            raise RuntimeError(f"Error fetching exchange cookie ({metadata})")
+            cookie_info = ""
 
         self._exchange_cookie = cookie_info
 
@@ -83,7 +86,11 @@ class KubernetesLoadBalancedCookieAssistant(CookieAssistant):
         cookie = SimpleCookie()
         cookie.load(cookie_data)
 
-        expiration_time = datetime.datetime.strptime(cookie["GCLB"]["expires"], "%a, %d-%b-%Y %H:%M:%S %Z").timestamp()
+        expiration_data: Optional[str] = cookie.get("GCLB", {}).get("expires", None)
+        if expiration_data is None:
+            expiration_time = 0
+        else:
+            expiration_time = datetime.datetime.strptime(expiration_data, "%a, %d-%b-%Y %H:%M:%S %Z").timestamp()
 
         timestamp_diff = expiration_time - time.time()
         return timestamp_diff < self.SESSION_RENEWAL_OFFSET
@@ -130,7 +137,7 @@ class BareMetalLoadBalancedCookieAssistant(CookieAssistant):
         cookie_info = next((value for key, value in metadata if key == "set-cookie"), None)
 
         if cookie_info is None:
-            raise RuntimeError(f"Error fetching exchange cookie ({metadata})")
+            cookie_info = ""
 
         self._exchange_cookie = cookie_info
 
