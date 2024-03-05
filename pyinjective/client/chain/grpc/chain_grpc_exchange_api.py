@@ -451,6 +451,12 @@ class ChainGrpcExchangeApi:
 
         return response
 
+    async def fetch_trade_reward_campaign(self) -> Dict[str, Any]:
+        request = exchange_query_pb.QueryTradeRewardCampaignRequest()
+        response = await self._execute_call(call=self._stub.TradeRewardCampaign, request=request)
+
+        return response
+
     async def fetch_fee_discount_account_info(
         self,
         account: str,
