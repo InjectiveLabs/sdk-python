@@ -1910,6 +1910,119 @@ class TestChainGrpcBankApi:
         assert trade_reward_points == expected_trade_reward_points
 
     @pytest.mark.asyncio
+    async def test_fetch_trade_reward_campaign(
+        self,
+        exchange_servicer,
+    ):
+        spot_market_multiplier = exchange_pb.PointsMultiplier(
+            maker_points_multiplier="10.0",
+            taker_points_multiplier="5.0",
+        )
+        derivative_market_multiplier = exchange_pb.PointsMultiplier(
+            maker_points_multiplier="9.0",
+            taker_points_multiplier="6.0",
+        )
+        trading_reward_boost_info = exchange_pb.TradingRewardCampaignBoostInfo(
+            boosted_spot_market_ids=["0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00aaf7"],
+            spot_market_multipliers=[spot_market_multiplier],
+            boosted_derivative_market_ids=["0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"],
+            derivative_market_multipliers=[derivative_market_multiplier],
+        )
+        trading_reward_campaign_info = exchange_pb.TradingRewardCampaignInfo(
+            campaign_duration_seconds=3600,
+            quote_denoms=["peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5"],
+            trading_reward_boost_info=trading_reward_boost_info,
+            disqualified_market_ids=["0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00aaf7"],
+        )
+        reward = coin_pb.Coin(
+            amount="1000000000000000000",
+            denom="inj",
+        )
+        trading_reward_pool_campaign_schedule = exchange_pb.CampaignRewardPool(
+            start_timestamp=1708099200,
+            max_campaign_rewards=[reward],
+        )
+        total_trade_reward_points = "40"
+        pending_reward = coin_pb.Coin(
+            amount="2000000000000000000",
+            denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
+        )
+        pending_trading_reward_pool_campaign_schedule = exchange_pb.CampaignRewardPool(
+            start_timestamp=1709099200,
+            max_campaign_rewards=[pending_reward],
+        )
+        pending_total_trade_reward_points = "80"
+        response = exchange_query_pb.QueryTradeRewardCampaignResponse(
+            trading_reward_campaign_info=trading_reward_campaign_info,
+            trading_reward_pool_campaign_schedule=[trading_reward_pool_campaign_schedule],
+            total_trade_reward_points=total_trade_reward_points,
+            pending_trading_reward_pool_campaign_schedule=[pending_trading_reward_pool_campaign_schedule],
+            pending_total_trade_reward_points=[pending_total_trade_reward_points],
+        )
+        exchange_servicer.trade_reward_campaign_responses.append(response)
+
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
+
+        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
+        api._stub = exchange_servicer
+
+        trade_reward_campaign = await api.fetch_trade_reward_campaign()
+        expected_campaign = {
+            "tradingRewardCampaignInfo": {
+                "campaignDurationSeconds": str(trading_reward_campaign_info.campaign_duration_seconds),
+                "quoteDenoms": trading_reward_campaign_info.quote_denoms,
+                "tradingRewardBoostInfo": {
+                    "boostedSpotMarketIds": (
+                        trading_reward_campaign_info.trading_reward_boost_info.boosted_spot_market_ids
+                    ),
+                    "spotMarketMultipliers": [
+                        {
+                            "makerPointsMultiplier": spot_market_multiplier.maker_points_multiplier,
+                            "takerPointsMultiplier": spot_market_multiplier.taker_points_multiplier,
+                        },
+                    ],
+                    "boostedDerivativeMarketIds": (
+                        trading_reward_campaign_info.trading_reward_boost_info.boosted_derivative_market_ids
+                    ),
+                    "derivativeMarketMultipliers": [
+                        {
+                            "makerPointsMultiplier": derivative_market_multiplier.maker_points_multiplier,
+                            "takerPointsMultiplier": derivative_market_multiplier.taker_points_multiplier,
+                        },
+                    ],
+                },
+                "disqualifiedMarketIds": trading_reward_campaign_info.disqualified_market_ids,
+            },
+            "tradingRewardPoolCampaignSchedule": [
+                {
+                    "startTimestamp": str(trading_reward_pool_campaign_schedule.start_timestamp),
+                    "maxCampaignRewards": [
+                        {
+                            "amount": trading_reward_pool_campaign_schedule.max_campaign_rewards[0].amount,
+                            "denom": trading_reward_pool_campaign_schedule.max_campaign_rewards[0].denom,
+                        },
+                    ],
+                },
+            ],
+            "totalTradeRewardPoints": total_trade_reward_points,
+            "pendingTradingRewardPoolCampaignSchedule": [
+                {
+                    "startTimestamp": str(pending_trading_reward_pool_campaign_schedule.start_timestamp),
+                    "maxCampaignRewards": [
+                        {
+                            "amount": pending_trading_reward_pool_campaign_schedule.max_campaign_rewards[0].amount,
+                            "denom": pending_trading_reward_pool_campaign_schedule.max_campaign_rewards[0].denom,
+                        },
+                    ],
+                },
+            ],
+            "pendingTotalTradeRewardPoints": [pending_total_trade_reward_points],
+        }
+
+        assert trade_reward_campaign == expected_campaign
+
+    @pytest.mark.asyncio
     async def test_fetch_fee_discount_account_info(
         self,
         exchange_servicer,

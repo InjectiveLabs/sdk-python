@@ -50,6 +50,7 @@ class ConfigurableExchangeQueryServicer(exchange_query_grpc.QueryServicer):
         self.subaccount_order_metadata_responses = deque()
         self.trade_reward_points_responses = deque()
         self.pending_trade_reward_points_responses = deque()
+        self.trade_reward_campaign_responses = deque()
         self.fee_discount_account_info_responses = deque()
         self.fee_discount_schedule_responses = deque()
         self.balance_mismatches_responses = deque()
@@ -255,6 +256,11 @@ class ConfigurableExchangeQueryServicer(exchange_query_grpc.QueryServicer):
         self, request: exchange_query_pb.QueryTradeRewardPointsRequest, context=None, metadata=None
     ):
         return self.pending_trade_reward_points_responses.pop()
+
+    async def TradeRewardCampaign(
+        self, request: exchange_query_pb.QueryTradeRewardCampaignRequest, context=None, metadata=None
+    ):
+        return self.trade_reward_campaign_responses.pop()
 
     async def FeeDiscountAccountInfo(
         self, request: exchange_query_pb.QueryFeeDiscountAccountInfoRequest, context=None, metadata=None

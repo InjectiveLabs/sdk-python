@@ -43,10 +43,11 @@ async def main() -> None:
         subaccount_id=subaccount_id,
         fee_recipient=fee_recipient,
         price=Decimal(50000),
-        quantity=Decimal(0.01),
+        quantity=Decimal(0.1),
         margin=composer.calculate_margin(
-            quantity=Decimal(0.01), price=Decimal(50000), leverage=Decimal(3), is_reduce_only=False
+            quantity=Decimal(0.1), price=Decimal(50000), leverage=Decimal(1), is_reduce_only=False
         ),
+        order_type="BUY",
         cid=str(uuid.uuid4()),
     )
 

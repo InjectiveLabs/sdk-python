@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.0] - 2024-03-11
+### Added
+- Added support for all queries and messages in the chain 'distribution' module
+- Added support for all queries and messages in the chain 'exchange' module
+- Use of python-dotenv in all example scripts to load private keys from a .env file
+
+## [1.3.1] - 2024-02-29
+### Changed
+- Updated cookie assistant logic to support the Indexer exchange server not using cookies and the chain server using them
+
 ## [1.3.0] - 2024-02-12
 ### Changed
 - Removed `asyncio` from the dependencies

@@ -965,6 +965,9 @@ class AsyncClient:
             pending_pool_timestamp=pending_pool_timestamp,
         )
 
+    async def fetch_trade_reward_campaign(self) -> Dict[str, Any]:
+        return await self.chain_exchange_api.fetch_trade_reward_campaign()
+
     async def fetch_fee_discount_account_info(self, account: str) -> Dict[str, Any]:
         return await self.chain_exchange_api.fetch_fee_discount_account_info(account=account)
 
