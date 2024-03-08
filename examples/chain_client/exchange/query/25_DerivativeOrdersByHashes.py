@@ -26,7 +26,7 @@ async def main() -> None:
 
     subaccount_id = address.get_subaccount_id(index=0)
 
-    orders = await client.fetch_chain_spot_orders_by_hashes(
+    orders = await client.fetch_chain_derivative_orders_by_hashes(
         market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
         subaccount_id=subaccount_id,
         order_hashes=["0x57a01cd26f1e2080860af3264e865d7c9c034a701e30946d01c1dc7a303cf2c1"],
