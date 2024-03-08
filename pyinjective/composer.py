@@ -3,6 +3,7 @@ from configparser import ConfigParser
 from decimal import Decimal
 from time import time
 from typing import Any, Dict, List, Optional
+from warnings import warn
 
 from google.protobuf import any_pb2, json_format, timestamp_pb2
 
@@ -12,8 +13,11 @@ from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMa
 from pyinjective.core.token import Token
 from pyinjective.proto.cosmos.authz.v1beta1 import authz_pb2 as cosmos_authz_pb, tx_pb2 as cosmos_authz_tx_pb
 from pyinjective.proto.cosmos.bank.v1beta1 import bank_pb2 as bank_pb, tx_pb2 as cosmos_bank_tx_pb
-from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
-from pyinjective.proto.cosmos.distribution.v1beta1 import tx_pb2 as cosmos_distribution_tx_pb
+from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as base_coin_pb
+from pyinjective.proto.cosmos.distribution.v1beta1 import (
+    distribution_pb2 as cosmos_distribution_pb2,
+    tx_pb2 as cosmos_distribution_tx_pb,
+)
 from pyinjective.proto.cosmos.gov.v1beta1 import tx_pb2 as cosmos_gov_tx_pb
 from pyinjective.proto.cosmos.staking.v1beta1 import tx_pb2 as cosmos_staking_tx_pb
 from pyinjective.proto.cosmwasm.wasm.v1 import tx_pb2 as wasm_tx_pb
@@ -21,15 +25,19 @@ from pyinjective.proto.exchange import injective_explorer_rpc_pb2 as explorer_pb
 from pyinjective.proto.injective.auction.v1beta1 import tx_pb2 as injective_auction_tx_pb
 from pyinjective.proto.injective.exchange.v1beta1 import (
     authz_pb2 as injective_authz_pb,
-    exchange_pb2 as injective_dot_exchange_dot_v1beta1_dot_exchange__pb2,
+    exchange_pb2 as injective_exchange_pb,
     tx_pb2 as injective_exchange_tx_pb,
 )
 from pyinjective.proto.injective.insurance.v1beta1 import tx_pb2 as injective_insurance_tx_pb
-from pyinjective.proto.injective.oracle.v1beta1 import tx_pb2 as injective_oracle_tx_pb
+from pyinjective.proto.injective.oracle.v1beta1 import (
+    oracle_pb2 as injective_oracle_pb,
+    tx_pb2 as injective_oracle_tx_pb,
+)
 from pyinjective.proto.injective.peggy.v1 import msgs_pb2 as injective_peggy_tx_pb
 from pyinjective.proto.injective.stream.v1beta1 import query_pb2 as chain_stream_query
 from pyinjective.proto.injective.tokenfactory.v1beta1 import tx_pb2 as token_factory_tx_pb
 from pyinjective.proto.injective.wasmx.v1 import tx_pb2 as wasmx_tx_pb
+from pyinjective.utils.denom import Denom
 
 REQUEST_TO_RESPONSE_TYPE_MAP = {
     "MsgCreateSpotLimitOrder": injective_exchange_tx_pb.MsgCreateSpotLimitOrderResponse,
@@ -129,37 +137,59 @@ class Composer:
             self.tokens = tokens
 
     def Coin(self, amount: int, denom: str):
-        return cosmos_dot_base_dot_v1beta1_dot_coin__pb2.Coin(amount=str(amount), denom=denom)
+        """
+        This method is deprecated and will be removed soon. Please use `coin` instead
+        """
+        warn("This method is deprecated. Use coin instead", DeprecationWarning, stacklevel=2)
+        return base_coin_pb.Coin(amount=str(amount), denom=denom)
 
-    def get_order_mask(self, **kwargs):
-        order_mask = 0
+    def coin(self, amount: int, denom: str):
+        """
+        This method create an instance of Coin gRPC type, considering the amount is already expressed in chain format
+        """
+        formatted_amount_string = str(int(amount))
+        return base_coin_pb.Coin(amount=formatted_amount_string, denom=denom)
 
-        if kwargs.get("is_conditional"):
-            order_mask += injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderMask.CONDITIONAL
-        else:
-            order_mask += injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderMask.REGULAR
-
-        if kwargs.get("order_direction") == "buy":
-            order_mask += injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderMask.DIRECTION_BUY_OR_HIGHER
-
-        elif kwargs.get("order_direction") == "sell":
-            order_mask += injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderMask.DIRECTION_SELL_OR_LOWER
-
-        if kwargs.get("order_type") == "market":
-            order_mask += injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderMask.TYPE_MARKET
-
-        elif kwargs.get("order_type") == "limit":
-            order_mask += injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderMask.TYPE_LIMIT
-
-        if order_mask == 0:
-            order_mask = 1
-
-        return order_mask
+    def create_coin_amount(self, amount: Decimal, token_name: str):
+        """
+        This method create an instance of Coin gRPC type, considering the amount is already expressed in chain format
+        """
+        token = self.tokens[token_name]
+        chain_amount = token.chain_formatted_value(human_readable_value=amount)
+        return self.coin(amount=int(chain_amount), denom=token.denom)
 
     def OrderData(
         self, market_id: str, subaccount_id: str, order_hash: Optional[str] = None, cid: Optional[str] = None, **kwargs
     ):
-        order_mask = self.get_order_mask(**kwargs)
+        """
+        This method is deprecated and will be removed soon. Please use `order_data` instead
+        """
+        warn("This method is deprecated. Use order_data instead", DeprecationWarning, stacklevel=2)
+
+        is_conditional = kwargs.get("is_conditional", False)
+        is_buy = kwargs.get("order_direction", "buy") == "buy"
+        is_market_order = kwargs.get("order_type", "limit") == "market"
+        order_mask = self._order_mask(is_conditional=is_conditional, is_buy=is_buy, is_market_order=is_market_order)
+
+        return injective_exchange_tx_pb.OrderData(
+            market_id=market_id,
+            subaccount_id=subaccount_id,
+            order_hash=order_hash,
+            order_mask=order_mask,
+            cid=cid,
+        )
+
+    def order_data(
+        self,
+        market_id: str,
+        subaccount_id: str,
+        order_hash: Optional[str] = None,
+        cid: Optional[str] = None,
+        is_conditional: Optional[bool] = False,
+        is_buy: Optional[bool] = False,
+        is_market_order: Optional[bool] = False,
+    ) -> injective_exchange_tx_pb.OrderData:
+        order_mask = self._order_mask(is_conditional=is_conditional, is_buy=is_buy, is_market_order=is_market_order)
 
         return injective_exchange_tx_pb.OrderData(
             market_id=market_id,
@@ -179,6 +209,11 @@ class Composer:
         cid: Optional[str] = None,
         **kwargs,
     ):
+        """
+        This method is deprecated and will be removed soon. Please use `spot_order` instead
+        """
+        warn("This method is deprecated. Use spot_order instead", DeprecationWarning, stacklevel=2)
+
         market = self.spot_markets[market_id]
 
         # prepare values
@@ -187,20 +222,20 @@ class Composer:
         trigger_price = market.price_to_chain_format(human_readable_value=Decimal(0))
 
         if kwargs.get("is_buy") and not kwargs.get("is_po"):
-            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.BUY
+            order_type = injective_exchange_pb.OrderType.BUY
 
         elif not kwargs.get("is_buy") and not kwargs.get("is_po"):
-            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.SELL
+            order_type = injective_exchange_pb.OrderType.SELL
 
         elif kwargs.get("is_buy") and kwargs.get("is_po"):
-            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.BUY_PO
+            order_type = injective_exchange_pb.OrderType.BUY_PO
 
         elif not kwargs.get("is_buy") and kwargs.get("is_po"):
-            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.SELL_PO
+            order_type = injective_exchange_pb.OrderType.SELL_PO
 
-        return injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.SpotOrder(
+        return injective_exchange_pb.SpotOrder(
             market_id=market_id,
-            order_info=injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderInfo(
+            order_info=injective_exchange_pb.OrderInfo(
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,
                 price=str(int(price)),
@@ -210,6 +245,50 @@ class Composer:
             order_type=order_type,
             trigger_price=str(int(trigger_price)),
         )
+
+    def spot_order(
+        self,
+        market_id: str,
+        subaccount_id: str,
+        fee_recipient: str,
+        price: Decimal,
+        quantity: Decimal,
+        order_type: str,
+        cid: Optional[str] = None,
+        trigger_price: Optional[Decimal] = None,
+    ) -> injective_exchange_pb.SpotOrder:
+        market = self.spot_markets[market_id]
+
+        chain_quantity = f"{market.quantity_to_chain_format(human_readable_value=quantity).normalize():f}"
+        chain_price = f"{market.price_to_chain_format(human_readable_value=price).normalize():f}"
+
+        trigger_price = trigger_price or Decimal(0)
+        chain_trigger_price = f"{market.price_to_chain_format(human_readable_value=trigger_price).normalize():f}"
+
+        chain_order_type = injective_exchange_pb.OrderType.Value(order_type)
+
+        return injective_exchange_pb.SpotOrder(
+            market_id=market_id,
+            order_info=injective_exchange_pb.OrderInfo(
+                subaccount_id=subaccount_id,
+                fee_recipient=fee_recipient,
+                price=chain_price,
+                quantity=chain_quantity,
+                cid=cid,
+            ),
+            order_type=chain_order_type,
+            trigger_price=chain_trigger_price,
+        )
+
+    def calculate_margin(
+        self, quantity: Decimal, price: Decimal, leverage: Decimal, is_reduce_only: bool = False
+    ) -> Decimal:
+        if is_reduce_only:
+            margin = Decimal(0)
+        else:
+            margin = quantity * price / leverage
+
+        return margin
 
     def DerivativeOrder(
         self,
@@ -222,6 +301,10 @@ class Composer:
         cid: Optional[str] = None,
         **kwargs,
     ):
+        """
+        This method is deprecated and will be removed soon. Please use `derivative_order` instead
+        """
+        warn("This method is deprecated. Use derivative_order instead", DeprecationWarning, stacklevel=2)
         market = self.derivative_markets[market_id]
 
         if kwargs.get("is_reduce_only", False):
@@ -239,32 +322,32 @@ class Composer:
         trigger_price = market.price_to_chain_format(human_readable_value=Decimal(str(trigger_price)))
 
         if kwargs.get("is_buy") and not kwargs.get("is_po"):
-            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.BUY
+            order_type = injective_exchange_pb.OrderType.BUY
 
         elif not kwargs.get("is_buy") and not kwargs.get("is_po"):
-            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.SELL
+            order_type = injective_exchange_pb.OrderType.SELL
 
         elif kwargs.get("is_buy") and kwargs.get("is_po"):
-            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.BUY_PO
+            order_type = injective_exchange_pb.OrderType.BUY_PO
 
         elif not kwargs.get("is_buy") and kwargs.get("is_po"):
-            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.SELL_PO
+            order_type = injective_exchange_pb.OrderType.SELL_PO
 
         elif kwargs.get("stop_buy"):
-            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.STOP_BUY
+            order_type = injective_exchange_pb.OrderType.STOP_BUY
 
         elif kwargs.get("stop_sell"):
-            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.STOP_SEll
+            order_type = injective_exchange_pb.OrderType.STOP_SEll
 
         elif kwargs.get("take_buy"):
-            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.TAKE_BUY
+            order_type = injective_exchange_pb.OrderType.TAKE_BUY
 
         elif kwargs.get("take_sell"):
-            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.TAKE_SELL
+            order_type = injective_exchange_pb.OrderType.TAKE_SELL
 
-        return injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.DerivativeOrder(
+        return injective_exchange_pb.DerivativeOrder(
             market_id=market_id,
-            order_info=injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderInfo(
+            order_info=injective_exchange_pb.OrderInfo(
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,
                 price=str(int(price)),
@@ -276,87 +359,291 @@ class Composer:
             trigger_price=str(int(trigger_price)),
         )
 
-    def BinaryOptionsOrder(
+    def derivative_order(
         self,
         market_id: str,
         subaccount_id: str,
         fee_recipient: str,
-        price: float,
-        quantity: float,
+        price: Decimal,
+        quantity: Decimal,
+        margin: Decimal,
+        order_type: str,
         cid: Optional[str] = None,
-        **kwargs,
-    ):
-        market = self.binary_option_markets[market_id]
-        denom = kwargs.get("denom", None)
+        trigger_price: Optional[Decimal] = None,
+    ) -> injective_exchange_pb.DerivativeOrder:
+        market = self.derivative_markets[market_id]
 
-        if kwargs.get("is_reduce_only", False):
-            margin = 0
-        else:
-            margin = market.calculate_margin_in_chain_format(
-                human_readable_quantity=Decimal(str(quantity)),
-                human_readable_price=Decimal(str(price)),
-                is_buy=kwargs["is_buy"],
-                special_denom=denom,
-            )
+        chain_quantity = market.quantity_to_chain_format(human_readable_value=quantity)
+        chain_price = market.price_to_chain_format(human_readable_value=price)
+        chain_margin = market.margin_to_chain_format(human_readable_value=margin)
 
-        # prepare values
-        price = market.price_to_chain_format(human_readable_value=Decimal(str(price)), special_denom=denom)
-        trigger_price = market.price_to_chain_format(human_readable_value=Decimal(str(0)), special_denom=denom)
-        quantity = market.quantity_to_chain_format(human_readable_value=Decimal(str(quantity)), special_denom=denom)
+        trigger_price = trigger_price or Decimal(0)
+        chain_trigger_price = market.price_to_chain_format(human_readable_value=trigger_price)
 
-        if kwargs.get("is_buy") and not kwargs.get("is_po"):
-            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.BUY
-
-        elif not kwargs.get("is_buy") and not kwargs.get("is_po"):
-            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.SELL
-
-        elif kwargs.get("is_buy") and kwargs.get("is_po"):
-            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.BUY_PO
-
-        elif not kwargs.get("is_buy") and kwargs.get("is_po"):
-            order_type = injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderType.SELL_PO
-
-        return injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.DerivativeOrder(
-            market_id=market_id,
-            order_info=injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.OrderInfo(
-                subaccount_id=subaccount_id,
-                fee_recipient=fee_recipient,
-                price=str(int(price)),
-                quantity=str(int(quantity)),
-                cid=cid,
-            ),
-            margin=str(int(margin)),
+        return self._basic_derivative_order(
+            market_id=market.id,
+            subaccount_id=subaccount_id,
+            fee_recipient=fee_recipient,
+            chain_price=chain_price,
+            chain_quantity=chain_quantity,
+            chain_margin=chain_margin,
             order_type=order_type,
-            trigger_price=str(int(trigger_price)),
+            cid=cid,
+            chain_trigger_price=chain_trigger_price,
         )
 
+    def binary_options_order(
+        self,
+        market_id: str,
+        subaccount_id: str,
+        fee_recipient: str,
+        price: Decimal,
+        quantity: Decimal,
+        margin: Decimal,
+        order_type: str,
+        cid: Optional[str] = None,
+        trigger_price: Optional[Decimal] = None,
+        denom: Optional[Denom] = None,
+    ) -> injective_exchange_pb.DerivativeOrder:
+        market = self.binary_option_markets[market_id]
+
+        chain_quantity = market.quantity_to_chain_format(human_readable_value=quantity, special_denom=denom)
+        chain_price = market.price_to_chain_format(human_readable_value=price, special_denom=denom)
+        chain_margin = market.margin_to_chain_format(human_readable_value=margin, special_denom=denom)
+
+        trigger_price = trigger_price or Decimal(0)
+        chain_trigger_price = market.price_to_chain_format(human_readable_value=trigger_price, special_denom=denom)
+
+        return self._basic_derivative_order(
+            market_id=market.id,
+            subaccount_id=subaccount_id,
+            fee_recipient=fee_recipient,
+            chain_price=chain_price,
+            chain_quantity=chain_quantity,
+            chain_margin=chain_margin,
+            order_type=order_type,
+            cid=cid,
+            chain_trigger_price=chain_trigger_price,
+        )
+
+    # region Auction module
+    def MsgBid(self, sender: str, bid_amount: float, round: float):
+        be_amount = Decimal(str(bid_amount)) * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+
+        return injective_auction_tx_pb.MsgBid(
+            sender=sender,
+            round=round,
+            bid_amount=self.coin(amount=int(be_amount), denom=INJ_DENOM),
+        )
+
+    # endregion
+
+    # region Authz module
+    def MsgGrantGeneric(self, granter: str, grantee: str, msg_type: str, expire_in: int):
+        auth = cosmos_authz_pb.GenericAuthorization(msg=msg_type)
+        any_auth = any_pb2.Any()
+        any_auth.Pack(auth, type_url_prefix="")
+
+        grant = cosmos_authz_pb.Grant(
+            authorization=any_auth,
+            expiration=timestamp_pb2.Timestamp(seconds=(int(time()) + expire_in)),
+        )
+
+        return cosmos_authz_tx_pb.MsgGrant(granter=granter, grantee=grantee, grant=grant)
+
+    def MsgExec(self, grantee: str, msgs: List):
+        any_msgs: List[any_pb2.Any] = []
+        for msg in msgs:
+            any_msg = any_pb2.Any()
+            any_msg.Pack(msg, type_url_prefix="")
+            any_msgs.append(any_msg)
+
+        return cosmos_authz_tx_pb.MsgExec(grantee=grantee, msgs=any_msgs)
+
+    def MsgRevoke(self, granter: str, grantee: str, msg_type: str):
+        return cosmos_authz_tx_pb.MsgRevoke(granter=granter, grantee=grantee, msg_type_url=msg_type)
+
+    def msg_execute_contract_compat(self, sender: str, contract: str, msg: str, funds: str):
+        return wasmx_tx_pb.MsgExecuteContractCompat(
+            sender=sender,
+            contract=contract,
+            msg=msg,
+            funds=funds,
+        )
+
+    # endregion
+
+    # region Bank module
     def MsgSend(self, from_address: str, to_address: str, amount: float, denom: str):
-        token = self.tokens[denom]
-        be_amount = token.chain_formatted_value(human_readable_value=Decimal(str(amount)))
+        coin = self.create_coin_amount(amount=Decimal(str(amount)), token_name=denom)
 
         return cosmos_bank_tx_pb.MsgSend(
             from_address=from_address,
             to_address=to_address,
-            amount=[self.Coin(amount=int(be_amount), denom=token.denom)],
+            amount=[coin],
         )
 
-    def MsgExecuteContract(self, sender: str, contract: str, msg: str, **kwargs):
-        return wasm_tx_pb.MsgExecuteContract(
-            sender=sender,
-            contract=contract,
-            msg=bytes(msg, "utf-8"),
-            funds=kwargs.get("funds")  # funds is a list of cosmos_dot_base_dot_v1beta1_dot_coin__pb2.Coin.
-            # The coins in the list must be sorted in alphabetical order by denoms.
-        )
+    # endregion
 
+    # region Chain Exchange module
     def MsgDeposit(self, sender: str, subaccount_id: str, amount: float, denom: str):
-        token = self.tokens[denom]
-        be_amount = token.chain_formatted_value(human_readable_value=Decimal(str(amount)))
+        """
+        This method is deprecated and will be removed soon. Please use `msg_deposit` instead
+        """
+        warn("This method is deprecated. Use msg_deposit instead", DeprecationWarning, stacklevel=2)
+        coin = self.create_coin_amount(amount=Decimal(str(amount)), token_name=denom)
 
         return injective_exchange_tx_pb.MsgDeposit(
             sender=sender,
             subaccount_id=subaccount_id,
-            amount=self.Coin(amount=int(be_amount), denom=token.denom),
+            amount=coin,
+        )
+
+    def msg_deposit(self, sender: str, subaccount_id: str, amount: Decimal, denom: str):
+        coin = self.create_coin_amount(amount=amount, token_name=denom)
+
+        return injective_exchange_tx_pb.MsgDeposit(
+            sender=sender,
+            subaccount_id=subaccount_id,
+            amount=coin,
+        )
+
+    def MsgWithdraw(self, sender: str, subaccount_id: str, amount: float, denom: str):
+        """
+        This method is deprecated and will be removed soon. Please use `msg_withdraw` instead
+        """
+        warn("This method is deprecated. Use msg_withdraw instead", DeprecationWarning, stacklevel=2)
+        be_amount = self.create_coin_amount(amount=Decimal(str(amount)), token_name=denom)
+
+        return injective_exchange_tx_pb.MsgWithdraw(
+            sender=sender,
+            subaccount_id=subaccount_id,
+            amount=be_amount,
+        )
+
+    def msg_withdraw(self, sender: str, subaccount_id: str, amount: Decimal, denom: str):
+        be_amount = self.create_coin_amount(amount=amount, token_name=denom)
+
+        return injective_exchange_tx_pb.MsgWithdraw(
+            sender=sender,
+            subaccount_id=subaccount_id,
+            amount=be_amount,
+        )
+
+    def msg_instant_spot_market_launch(
+        self,
+        sender: str,
+        ticker: str,
+        base_denom: str,
+        quote_denom: str,
+        min_price_tick_size: Decimal,
+        min_quantity_tick_size: Decimal,
+    ) -> injective_exchange_tx_pb.MsgInstantSpotMarketLaunch:
+        base_token = self.tokens[base_denom]
+        quote_token = self.tokens[quote_denom]
+
+        chain_min_price_tick_size = min_price_tick_size * Decimal(
+            f"1e{quote_token.decimals - base_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        )
+        chain_min_quantity_tick_size = min_quantity_tick_size * Decimal(
+            f"1e{base_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        )
+
+        return injective_exchange_tx_pb.MsgInstantSpotMarketLaunch(
+            sender=sender,
+            ticker=ticker,
+            base_denom=base_token.denom,
+            quote_denom=quote_token.denom,
+            min_price_tick_size=f"{chain_min_price_tick_size.normalize():f}",
+            min_quantity_tick_size=f"{chain_min_quantity_tick_size.normalize():f}",
+        )
+
+    def msg_instant_perpetual_market_launch(
+        self,
+        sender: str,
+        ticker: str,
+        quote_denom: str,
+        oracle_base: str,
+        oracle_quote: str,
+        oracle_scale_factor: int,
+        oracle_type: str,
+        maker_fee_rate: Decimal,
+        taker_fee_rate: Decimal,
+        initial_margin_ratio: Decimal,
+        maintenance_margin_ratio: Decimal,
+        min_price_tick_size: Decimal,
+        min_quantity_tick_size: Decimal,
+    ) -> injective_exchange_tx_pb.MsgInstantPerpetualMarketLaunch:
+        quote_token = self.tokens[quote_denom]
+
+        chain_min_price_tick_size = min_price_tick_size * Decimal(
+            f"1e{quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        )
+        chain_min_quantity_tick_size = min_quantity_tick_size * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        chain_maker_fee_rate = maker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        chain_taker_fee_rate = taker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        chain_initial_margin_ratio = initial_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        chain_maintenance_margin_ratio = maintenance_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+
+        return injective_exchange_tx_pb.MsgInstantPerpetualMarketLaunch(
+            sender=sender,
+            ticker=ticker,
+            quote_denom=quote_token.denom,
+            oracle_base=oracle_base,
+            oracle_quote=oracle_quote,
+            oracle_scale_factor=oracle_scale_factor,
+            oracle_type=injective_oracle_pb.OracleType.Value(oracle_type),
+            maker_fee_rate=f"{chain_maker_fee_rate.normalize():f}",
+            taker_fee_rate=f"{chain_taker_fee_rate.normalize():f}",
+            initial_margin_ratio=f"{chain_initial_margin_ratio.normalize():f}",
+            maintenance_margin_ratio=f"{chain_maintenance_margin_ratio.normalize():f}",
+            min_price_tick_size=f"{chain_min_price_tick_size.normalize():f}",
+            min_quantity_tick_size=f"{chain_min_quantity_tick_size.normalize():f}",
+        )
+
+    def msg_instant_expiry_futures_market_launch(
+        self,
+        sender: str,
+        ticker: str,
+        quote_denom: str,
+        oracle_base: str,
+        oracle_quote: str,
+        oracle_scale_factor: int,
+        oracle_type: str,
+        expiry: int,
+        maker_fee_rate: Decimal,
+        taker_fee_rate: Decimal,
+        initial_margin_ratio: Decimal,
+        maintenance_margin_ratio: Decimal,
+        min_price_tick_size: Decimal,
+        min_quantity_tick_size: Decimal,
+    ) -> injective_exchange_tx_pb.MsgInstantPerpetualMarketLaunch:
+        quote_token = self.tokens[quote_denom]
+
+        chain_min_price_tick_size = min_price_tick_size * Decimal(
+            f"1e{quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        )
+        chain_min_quantity_tick_size = min_quantity_tick_size * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        chain_maker_fee_rate = maker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        chain_taker_fee_rate = taker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        chain_initial_margin_ratio = initial_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        chain_maintenance_margin_ratio = maintenance_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+
+        return injective_exchange_tx_pb.MsgInstantExpiryFuturesMarketLaunch(
+            sender=sender,
+            ticker=ticker,
+            quote_denom=quote_token.denom,
+            oracle_base=oracle_base,
+            oracle_quote=oracle_quote,
+            oracle_scale_factor=oracle_scale_factor,
+            oracle_type=injective_oracle_pb.OracleType.Value(oracle_type),
+            expiry=expiry,
+            maker_fee_rate=f"{chain_maker_fee_rate.normalize():f}",
+            taker_fee_rate=f"{chain_taker_fee_rate.normalize():f}",
+            initial_margin_ratio=f"{chain_initial_margin_ratio.normalize():f}",
+            maintenance_margin_ratio=f"{chain_maintenance_margin_ratio.normalize():f}",
+            min_price_tick_size=f"{chain_min_price_tick_size.normalize():f}",
+            min_quantity_tick_size=f"{chain_min_quantity_tick_size.normalize():f}",
         )
 
     def MsgCreateSpotLimitOrder(
@@ -370,18 +657,78 @@ class Composer:
         cid: Optional[str] = None,
         **kwargs,
     ):
+        """
+        This method is deprecated and will be removed soon. Please use `msg_create_spot_limit_order` instead
+        """
+        warn("This method is deprecated. Use msg_create_spot_limit_order instead", DeprecationWarning, stacklevel=2)
+
+        order_type_name = "BUY"
+        if kwargs.get("is_buy") and not kwargs.get("is_po"):
+            order_type_name = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.BUY)
+
+        elif not kwargs.get("is_buy") and not kwargs.get("is_po"):
+            order_type_name = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.SELL)
+
+        elif kwargs.get("is_buy") and kwargs.get("is_po"):
+            order_type_name = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.BUY_PO)
+
+        elif not kwargs.get("is_buy") and kwargs.get("is_po"):
+            order_type_name = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.SELL_PO)
+
         return injective_exchange_tx_pb.MsgCreateSpotLimitOrder(
             sender=sender,
-            order=self.SpotOrder(
+            order=self.spot_order(
+                market_id=market_id,
+                subaccount_id=subaccount_id,
+                fee_recipient=fee_recipient,
+                price=Decimal(str(price)),
+                quantity=Decimal(str(quantity)),
+                order_type=order_type_name,
+                cid=cid,
+            ),
+        )
+
+    def msg_create_spot_limit_order(
+        self,
+        market_id: str,
+        sender: str,
+        subaccount_id: str,
+        fee_recipient: str,
+        price: Decimal,
+        quantity: Decimal,
+        order_type: str,
+        cid: Optional[str] = None,
+        trigger_price: Optional[Decimal] = None,
+    ) -> injective_exchange_tx_pb.MsgCreateSpotLimitOrder:
+        return injective_exchange_tx_pb.MsgCreateSpotLimitOrder(
+            sender=sender,
+            order=self.spot_order(
                 market_id=market_id,
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,
                 price=price,
                 quantity=quantity,
+                order_type=order_type,
                 cid=cid,
-                **kwargs,
+                trigger_price=trigger_price,
             ),
         )
+
+    def MsgBatchCreateSpotLimitOrders(self, sender: str, orders: List):
+        """
+        This method is deprecated and will be removed soon. Please use `msg_batch_create_spot_limit_orders` instead
+        """
+        warn(
+            "This method is deprecated. Use msg_batch_create_spot_limit_orders instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        return injective_exchange_tx_pb.MsgBatchCreateSpotLimitOrders(sender=sender, orders=orders)
+
+    def msg_batch_create_spot_limit_orders(
+        self, sender: str, orders: List[injective_exchange_pb.SpotOrder]
+    ) -> injective_exchange_tx_pb.MsgBatchCreateSpotLimitOrders:
+        return injective_exchange_tx_pb.MsgBatchCreateSpotLimitOrders(sender=sender, orders=orders)
 
     def MsgCreateSpotMarketOrder(
         self,
@@ -394,16 +741,51 @@ class Composer:
         is_buy: bool,
         cid: Optional[str] = None,
     ):
+        """
+        This method is deprecated and will be removed soon. Please use `msg_create_spot_market_order` instead
+        """
+        warn("This method is deprecated. Use msg_create_spot_market_order instead", DeprecationWarning, stacklevel=2)
+
+        order_type_name = "BUY"
+        if not is_buy:
+            order_type_name = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.SELL)
+
         return injective_exchange_tx_pb.MsgCreateSpotMarketOrder(
             sender=sender,
-            order=self.SpotOrder(
+            order=self.spot_order(
+                market_id=market_id,
+                subaccount_id=subaccount_id,
+                fee_recipient=fee_recipient,
+                price=Decimal(str(price)),
+                quantity=Decimal(str(quantity)),
+                order_type=order_type_name,
+                cid=cid,
+            ),
+        )
+
+    def msg_create_spot_market_order(
+        self,
+        market_id: str,
+        sender: str,
+        subaccount_id: str,
+        fee_recipient: str,
+        price: Decimal,
+        quantity: Decimal,
+        order_type: str,
+        cid: Optional[str] = None,
+        trigger_price: Optional[Decimal] = None,
+    ) -> injective_exchange_tx_pb.MsgCreateSpotMarketOrder:
+        return injective_exchange_tx_pb.MsgCreateSpotMarketOrder(
+            sender=sender,
+            order=self.spot_order(
                 market_id=market_id,
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,
                 price=price,
                 quantity=quantity,
-                is_buy=is_buy,
+                order_type=order_type,
                 cid=cid,
+                trigger_price=trigger_price,
             ),
         )
 
@@ -415,6 +797,10 @@ class Composer:
         order_hash: Optional[str] = None,
         cid: Optional[str] = None,
     ):
+        """
+        This method is deprecated and will be removed soon. Please use `msg_cancel_spot_order` instead
+        """
+        warn("This method is deprecated. Use msg_cancel_spot_order instead", DeprecationWarning, stacklevel=2)
         return injective_exchange_tx_pb.MsgCancelSpotOrder(
             sender=sender,
             market_id=market_id,
@@ -423,14 +809,111 @@ class Composer:
             cid=cid,
         )
 
-    def MsgBatchCreateSpotLimitOrders(self, sender: str, orders: List):
-        return injective_exchange_tx_pb.MsgBatchCreateSpotLimitOrders(sender=sender, orders=orders)
+    def msg_cancel_spot_order(
+        self,
+        market_id: str,
+        sender: str,
+        subaccount_id: str,
+        order_hash: Optional[str] = None,
+        cid: Optional[str] = None,
+    ) -> injective_exchange_tx_pb.MsgCancelSpotOrder:
+        return injective_exchange_tx_pb.MsgCancelSpotOrder(
+            sender=sender,
+            market_id=market_id,
+            subaccount_id=subaccount_id,
+            order_hash=order_hash,
+            cid=cid,
+        )
 
     def MsgBatchCancelSpotOrders(self, sender: str, data: List):
+        """
+        This method is deprecated and will be removed soon. Please use `msg_batch_cancel_spot_orders` instead
+        """
+        warn("This method is deprecated. Use msg_batch_cancel_spot_orders instead", DeprecationWarning, stacklevel=2)
         return injective_exchange_tx_pb.MsgBatchCancelSpotOrders(sender=sender, data=data)
 
-    def MsgRewardsOptOut(self, sender: str):
-        return injective_exchange_tx_pb.MsgRewardsOptOut(sender=sender)
+    def msg_batch_cancel_spot_orders(
+        self, sender: str, orders_data: List[injective_exchange_tx_pb.OrderData]
+    ) -> injective_exchange_tx_pb.MsgBatchCancelSpotOrders:
+        return injective_exchange_tx_pb.MsgBatchCancelSpotOrders(sender=sender, data=orders_data)
+
+    def MsgBatchUpdateOrders(self, sender: str, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `msg_batch_update_orders` instead
+        """
+        warn("This method is deprecated. Use msg_batch_update_orders instead", DeprecationWarning, stacklevel=2)
+        return injective_exchange_tx_pb.MsgBatchUpdateOrders(
+            sender=sender,
+            subaccount_id=kwargs.get("subaccount_id"),
+            spot_market_ids_to_cancel_all=kwargs.get("spot_market_ids_to_cancel_all"),
+            derivative_market_ids_to_cancel_all=kwargs.get("derivative_market_ids_to_cancel_all"),
+            spot_orders_to_cancel=kwargs.get("spot_orders_to_cancel"),
+            derivative_orders_to_cancel=kwargs.get("derivative_orders_to_cancel"),
+            spot_orders_to_create=kwargs.get("spot_orders_to_create"),
+            derivative_orders_to_create=kwargs.get("derivative_orders_to_create"),
+            binary_options_orders_to_cancel=kwargs.get("binary_options_orders_to_cancel"),
+            binary_options_market_ids_to_cancel_all=kwargs.get("binary_options_market_ids_to_cancel_all"),
+            binary_options_orders_to_create=kwargs.get("binary_options_orders_to_create"),
+        )
+
+    def msg_batch_update_orders(
+        self,
+        sender: str,
+        subaccount_id: Optional[str] = None,
+        spot_market_ids_to_cancel_all: Optional[List[str]] = None,
+        derivative_market_ids_to_cancel_all: Optional[List[str]] = None,
+        spot_orders_to_cancel: Optional[List[injective_exchange_tx_pb.OrderData]] = None,
+        derivative_orders_to_cancel: Optional[List[injective_exchange_tx_pb.OrderData]] = None,
+        spot_orders_to_create: Optional[List[injective_exchange_pb.SpotOrder]] = None,
+        derivative_orders_to_create: Optional[List[injective_exchange_pb.DerivativeOrder]] = None,
+        binary_options_orders_to_cancel: Optional[List[injective_exchange_tx_pb.OrderData]] = None,
+        binary_options_market_ids_to_cancel_all: Optional[List[str]] = None,
+        binary_options_orders_to_create: Optional[List[injective_exchange_pb.DerivativeOrder]] = None,
+    ) -> injective_exchange_tx_pb.MsgBatchUpdateOrders:
+        return injective_exchange_tx_pb.MsgBatchUpdateOrders(
+            sender=sender,
+            subaccount_id=subaccount_id,
+            spot_market_ids_to_cancel_all=spot_market_ids_to_cancel_all,
+            derivative_market_ids_to_cancel_all=derivative_market_ids_to_cancel_all,
+            spot_orders_to_cancel=spot_orders_to_cancel,
+            derivative_orders_to_cancel=derivative_orders_to_cancel,
+            spot_orders_to_create=spot_orders_to_create,
+            derivative_orders_to_create=derivative_orders_to_create,
+            binary_options_orders_to_cancel=binary_options_orders_to_cancel,
+            binary_options_market_ids_to_cancel_all=binary_options_market_ids_to_cancel_all,
+            binary_options_orders_to_create=binary_options_orders_to_create,
+        )
+
+    def MsgPrivilegedExecuteContract(
+        self, sender: str, contract: str, msg: str, **kwargs
+    ) -> injective_exchange_tx_pb.MsgPrivilegedExecuteContract:
+        """
+        This method is deprecated and will be removed soon. Please use `msg_privileged_execute_contract` instead
+        """
+        warn("This method is deprecated. Use msg_privileged_execute_contract instead", DeprecationWarning, stacklevel=2)
+
+        return injective_exchange_tx_pb.MsgPrivilegedExecuteContract(
+            sender=sender,
+            contract_address=contract,
+            data=msg,
+            funds=kwargs.get("funds")  # funds is a string of Coin strings, comma separated,
+            # e.g. 100000inj,20000000000usdt
+        )
+
+    def msg_privileged_execute_contract(
+        self,
+        sender: str,
+        contract_address: str,
+        data: str,
+        funds: Optional[str] = None,
+    ) -> injective_exchange_tx_pb.MsgPrivilegedExecuteContract:
+        # funds is a string of Coin strings, comma separated,  e.g. 100000inj,20000000000usdt
+        return injective_exchange_tx_pb.MsgPrivilegedExecuteContract(
+            sender=sender,
+            contract_address=contract_address,
+            data=data,
+            funds=funds,
+        )
 
     def MsgCreateDerivativeLimitOrder(
         self,
@@ -443,18 +926,103 @@ class Composer:
         cid: Optional[str] = None,
         **kwargs,
     ):
+        """
+        This method is deprecated and will be removed soon. Please use `msg_create_derivative_limit_order` instead
+        """
+        warn(
+            "This method is deprecated. Use msg_create_derivative_limit_order instead", DeprecationWarning, stacklevel=2
+        )
+
+        if kwargs.get("is_reduce_only", False):
+            margin = Decimal(0)
+        else:
+            margin = Decimal(str(price)) * Decimal(str(quantity)) / Decimal(str(kwargs["leverage"]))
+
+        if kwargs.get("is_buy") and not kwargs.get("is_po"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.BUY)
+
+        elif not kwargs.get("is_buy") and not kwargs.get("is_po"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.SELL)
+
+        elif kwargs.get("is_buy") and kwargs.get("is_po"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.BUY_PO)
+
+        elif not kwargs.get("is_buy") and kwargs.get("is_po"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.SELL_PO)
+
+        elif kwargs.get("stop_buy"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.STOP_BUY)
+
+        elif kwargs.get("stop_sell"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.STOP_SEll)
+
+        elif kwargs.get("take_buy"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.TAKE_BUY)
+
+        elif kwargs.get("take_sell"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.TAKE_SELL)
+
         return injective_exchange_tx_pb.MsgCreateDerivativeLimitOrder(
             sender=sender,
-            order=self.DerivativeOrder(
+            order=self.derivative_order(
+                market_id=market_id,
+                subaccount_id=subaccount_id,
+                fee_recipient=fee_recipient,
+                price=Decimal(str(price)),
+                quantity=Decimal(str(quantity)),
+                margin=margin,
+                order_type=order_type,
+                cid=cid,
+                trigger_price=Decimal(str(kwargs["trigger_price"])) if "trigger_price" in kwargs else None,
+            ),
+        )
+
+    def msg_create_derivative_limit_order(
+        self,
+        market_id: str,
+        sender: str,
+        subaccount_id: str,
+        fee_recipient: str,
+        price: Decimal,
+        quantity: Decimal,
+        margin: Decimal,
+        order_type: str,
+        cid: Optional[str] = None,
+        trigger_price: Optional[Decimal] = None,
+    ) -> injective_exchange_tx_pb.MsgCreateDerivativeLimitOrder:
+        return injective_exchange_tx_pb.MsgCreateDerivativeLimitOrder(
+            sender=sender,
+            order=self.derivative_order(
                 market_id=market_id,
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,
                 price=price,
                 quantity=quantity,
+                margin=margin,
+                order_type=order_type,
                 cid=cid,
-                **kwargs,
+                trigger_price=trigger_price,
             ),
         )
+
+    def MsgBatchCreateDerivativeLimitOrders(self, sender: str, orders: List):
+        """
+        This method is deprecated and will be removed soon.
+        Please use `msg_batch_create_derivative_limit_orders` instead
+        """
+        warn(
+            "This method is deprecated. Use msg_batch_create_derivative_limit_orders instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        return injective_exchange_tx_pb.MsgBatchCreateDerivativeLimitOrders(sender=sender, orders=orders)
+
+    def msg_batch_create_derivative_limit_orders(
+        self,
+        sender: str,
+        orders: List[injective_exchange_pb.DerivativeOrder],
+    ) -> injective_exchange_tx_pb.MsgBatchCreateDerivativeLimitOrders:
+        return injective_exchange_tx_pb.MsgBatchCreateDerivativeLimitOrders(sender=sender, orders=orders)
 
     def MsgCreateDerivativeMarketOrder(
         self,
@@ -464,124 +1032,159 @@ class Composer:
         fee_recipient: str,
         price: float,
         quantity: float,
-        is_buy: bool,
         cid: Optional[str] = None,
         **kwargs,
     ):
+        """
+        This method is deprecated and will be removed soon. Please use `msg_create_derivative_market_order` instead
+        """
+        warn(
+            "This method is deprecated. Use msg_create_derivative_market_order instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
+        if kwargs.get("is_reduce_only", False):
+            margin = Decimal(0)
+        else:
+            margin = Decimal(str(price)) * Decimal(str(quantity)) / Decimal(str(kwargs["leverage"]))
+
+        if kwargs.get("is_buy") and not kwargs.get("is_po"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.BUY)
+
+        elif not kwargs.get("is_buy") and not kwargs.get("is_po"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.SELL)
+
+        elif kwargs.get("is_buy") and kwargs.get("is_po"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.BUY_PO)
+
+        elif not kwargs.get("is_buy") and kwargs.get("is_po"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.SELL_PO)
+
+        elif kwargs.get("stop_buy"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.STOP_BUY)
+
+        elif kwargs.get("stop_sell"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.STOP_SEll)
+
+        elif kwargs.get("take_buy"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.TAKE_BUY)
+
+        elif kwargs.get("take_sell"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.TAKE_SELL)
+
         return injective_exchange_tx_pb.MsgCreateDerivativeMarketOrder(
             sender=sender,
-            order=self.DerivativeOrder(
+            order=self.derivative_order(
                 market_id=market_id,
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,
-                price=price,
-                quantity=quantity,
-                is_buy=is_buy,
+                price=Decimal(str(price)),
+                quantity=Decimal(str(quantity)),
+                margin=margin,
+                order_type=order_type,
                 cid=cid,
-                **kwargs,
+                trigger_price=Decimal(str(kwargs["trigger_price"])) if "trigger_price" in kwargs else None,
             ),
         )
 
-    def MsgCreateBinaryOptionsLimitOrder(
+    def msg_create_derivative_market_order(
         self,
         market_id: str,
         sender: str,
         subaccount_id: str,
         fee_recipient: str,
-        price: float,
-        quantity: float,
+        price: Decimal,
+        quantity: Decimal,
+        margin: Decimal,
+        order_type: str,
         cid: Optional[str] = None,
-        **kwargs,
-    ):
-        return injective_exchange_tx_pb.MsgCreateBinaryOptionsLimitOrder(
+        trigger_price: Optional[Decimal] = None,
+    ) -> injective_exchange_tx_pb.MsgCreateDerivativeMarketOrder:
+        return injective_exchange_tx_pb.MsgCreateDerivativeMarketOrder(
             sender=sender,
-            order=self.BinaryOptionsOrder(
+            order=self.derivative_order(
                 market_id=market_id,
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,
                 price=price,
                 quantity=quantity,
+                margin=margin,
+                order_type=order_type,
                 cid=cid,
-                **kwargs,
+                trigger_price=trigger_price,
             ),
         )
 
-    def MsgCreateBinaryOptionsMarketOrder(
+    def MsgCancelDerivativeOrder(
         self,
         market_id: str,
         sender: str,
-        subaccount_id: str,
-        fee_recipient: str,
-        price: float,
-        quantity: float,
-        cid: Optional[str] = None,
-        **kwargs,
-    ):
-        return injective_exchange_tx_pb.MsgCreateBinaryOptionsMarketOrder(
-            sender=sender,
-            order=self.BinaryOptionsOrder(
-                market_id=market_id,
-                subaccount_id=subaccount_id,
-                fee_recipient=fee_recipient,
-                price=price,
-                quantity=quantity,
-                cid=cid,
-                **kwargs,
-            ),
-        )
-
-    def MsgCancelBinaryOptionsOrder(
-        self,
-        sender: str,
-        market_id: str,
         subaccount_id: str,
         order_hash: Optional[str] = None,
         cid: Optional[str] = None,
+        **kwargs,
     ):
-        return injective_exchange_tx_pb.MsgCancelBinaryOptionsOrder(
+        """
+        This method is deprecated and will be removed soon. Please use `msg_cancel_derivative_order` instead
+        """
+        warn(
+            "This method is deprecated. Use msg_cancel_derivative_order instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
+        is_conditional = kwargs.get("is_conditional", False)
+        is_buy = kwargs.get("order_direction", "buy") == "buy"
+        is_market_order = kwargs.get("order_type", "limit") == "market"
+        order_mask = self._order_mask(is_conditional=is_conditional, is_buy=is_buy, is_market_order=is_market_order)
+
+        return injective_exchange_tx_pb.MsgCancelDerivativeOrder(
             sender=sender,
             market_id=market_id,
             subaccount_id=subaccount_id,
             order_hash=order_hash,
+            order_mask=order_mask,
             cid=cid,
         )
 
-    def MsgAdminUpdateBinaryOptionsMarket(
+    def msg_cancel_derivative_order(
         self,
-        sender: str,
         market_id: str,
-        status: str,
-        **kwargs,
-    ):
-        price_to_bytes = None
+        sender: str,
+        subaccount_id: str,
+        order_hash: Optional[str] = None,
+        cid: Optional[str] = None,
+        is_conditional: Optional[bool] = False,
+        is_buy: Optional[bool] = False,
+        is_market_order: Optional[bool] = False,
+    ) -> injective_exchange_tx_pb.MsgCancelDerivativeOrder:
+        order_mask = self._order_mask(is_conditional=is_conditional, is_buy=is_buy, is_market_order=is_market_order)
 
-        if kwargs.get("settlement_price") is not None:
-            scale_price = Decimal((kwargs.get("settlement_price") * pow(10, 18)))
-            price_to_bytes = bytes(str(scale_price), "utf-8")
-
-        else:
-            price_to_bytes = ""
-
-        return injective_exchange_tx_pb.MsgAdminUpdateBinaryOptionsMarket(
+        return injective_exchange_tx_pb.MsgCancelDerivativeOrder(
             sender=sender,
             market_id=market_id,
-            settlement_price=price_to_bytes,
-            expiration_timestamp=kwargs.get("expiration_timestamp"),
-            settlement_timestamp=kwargs.get("settlement_timestamp"),
-            status=status,
+            subaccount_id=subaccount_id,
+            order_hash=order_hash,
+            order_mask=order_mask,
+            cid=cid,
         )
 
-    def MsgRelayProviderPrices(self, sender: str, provider: str, symbols: list, prices: list):
-        oracle_prices = []
-
-        for price in prices:
-            scale_price = Decimal((price) * pow(10, 18))
-            price_to_bytes = bytes(str(scale_price), "utf-8")
-            oracle_prices.append(price_to_bytes)
-
-        return injective_oracle_tx_pb.MsgRelayProviderPrices(
-            sender=sender, provider=provider, symbols=symbols, prices=oracle_prices
+    def MsgBatchCancelDerivativeOrders(self, sender: str, data: List):
+        """
+        This method is deprecated and will be removed soon. Please use `msg_batch_cancel_derivative_orders` instead
+        """
+        warn(
+            "This method is deprecated. Use msg_batch_cancel_derivative_orders instead",
+            DeprecationWarning,
+            stacklevel=2,
         )
+        return injective_exchange_tx_pb.MsgBatchCancelDerivativeOrders(sender=sender, data=data)
+
+    def msg_batch_cancel_derivative_orders(
+        self, sender: str, orders_data: List[injective_exchange_tx_pb.OrderData]
+    ) -> injective_exchange_tx_pb.MsgBatchCancelDerivativeOrders:
+        return injective_exchange_tx_pb.MsgBatchCancelDerivativeOrders(sender=sender, data=orders_data)
 
     def MsgInstantBinaryOptionsMarketLaunch(
         self,
@@ -601,6 +1204,15 @@ class Composer:
         min_quantity_tick_size: float,
         **kwargs,
     ):
+        """
+        This method is deprecated and will be removed soon.
+        Please use `msg_instant_binary_options_market_launch` instead
+        """
+        warn(
+            "This method is deprecated. Use msg_instant_binary_options_market_launch instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         scaled_maker_fee_rate = Decimal((maker_fee_rate * pow(10, 18)))
         maker_fee_to_bytes = bytes(str(scaled_maker_fee_rate), "utf-8")
 
@@ -630,18 +1242,275 @@ class Composer:
             admin=kwargs.get("admin"),
         )
 
-    def MsgCancelDerivativeOrder(
+    def msg_instant_binary_options_market_launch(
+        self,
+        sender: str,
+        ticker: str,
+        oracle_symbol: str,
+        oracle_provider: str,
+        oracle_type: str,
+        oracle_scale_factor: int,
+        maker_fee_rate: Decimal,
+        taker_fee_rate: Decimal,
+        expiration_timestamp: int,
+        settlement_timestamp: int,
+        admin: str,
+        quote_denom: str,
+        min_price_tick_size: Decimal,
+        min_quantity_tick_size: Decimal,
+    ) -> injective_exchange_tx_pb.MsgInstantPerpetualMarketLaunch:
+        quote_token = self.tokens[quote_denom]
+
+        chain_min_price_tick_size = min_price_tick_size * Decimal(
+            f"1e{quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        )
+        chain_min_quantity_tick_size = min_quantity_tick_size * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        chain_maker_fee_rate = maker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        chain_taker_fee_rate = taker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+
+        return injective_exchange_tx_pb.MsgInstantBinaryOptionsMarketLaunch(
+            sender=sender,
+            ticker=ticker,
+            oracle_symbol=oracle_symbol,
+            oracle_provider=oracle_provider,
+            oracle_type=injective_oracle_pb.OracleType.Value(oracle_type),
+            oracle_scale_factor=oracle_scale_factor,
+            maker_fee_rate=f"{chain_maker_fee_rate.normalize():f}",
+            taker_fee_rate=f"{chain_taker_fee_rate.normalize():f}",
+            expiration_timestamp=expiration_timestamp,
+            settlement_timestamp=settlement_timestamp,
+            admin=admin,
+            quote_denom=quote_token.denom,
+            min_price_tick_size=f"{chain_min_price_tick_size.normalize():f}",
+            min_quantity_tick_size=f"{chain_min_quantity_tick_size.normalize():f}",
+        )
+
+    def MsgCreateBinaryOptionsLimitOrder(
+        self,
+        market_id: str,
+        sender: str,
+        subaccount_id: str,
+        fee_recipient: str,
+        price: float,
+        quantity: float,
+        cid: Optional[str] = None,
+        **kwargs,
+    ):
+        """
+        This method is deprecated and will be removed soon. Please use `msg_create_binary_options_limit_order` instead
+        """
+        warn(
+            "This method is deprecated. Use msg_create_binary_options_limit_order instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        if kwargs.get("is_reduce_only", False):
+            margin = Decimal(0)
+        else:
+            margin = Decimal(str(price)) * Decimal(str(quantity))
+
+        if kwargs.get("is_buy") and not kwargs.get("is_po"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.BUY)
+
+        elif not kwargs.get("is_buy") and not kwargs.get("is_po"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.SELL)
+
+        elif kwargs.get("is_buy") and kwargs.get("is_po"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.BUY_PO)
+
+        elif not kwargs.get("is_buy") and kwargs.get("is_po"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.SELL_PO)
+
+        elif kwargs.get("stop_buy"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.STOP_BUY)
+
+        elif kwargs.get("stop_sell"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.STOP_SEll)
+
+        elif kwargs.get("take_buy"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.TAKE_BUY)
+
+        elif kwargs.get("take_sell"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.TAKE_SELL)
+
+        return injective_exchange_tx_pb.MsgCreateBinaryOptionsLimitOrder(
+            sender=sender,
+            order=self.binary_options_order(
+                market_id=market_id,
+                subaccount_id=subaccount_id,
+                fee_recipient=fee_recipient,
+                price=Decimal(str(price)),
+                quantity=Decimal(str(quantity)),
+                margin=margin,
+                order_type=order_type,
+                cid=cid,
+                trigger_price=Decimal(str(kwargs["trigger_price"])) if "trigger_price" in kwargs else None,
+                denom=kwargs.get("denom"),
+            ),
+        )
+
+    def msg_create_binary_options_limit_order(
+        self,
+        market_id: str,
+        sender: str,
+        subaccount_id: str,
+        fee_recipient: str,
+        price: Decimal,
+        quantity: Decimal,
+        margin: Decimal,
+        order_type: str,
+        cid: Optional[str] = None,
+        trigger_price: Optional[Decimal] = None,
+        denom: Optional[Denom] = None,
+    ) -> injective_exchange_tx_pb.MsgCreateDerivativeLimitOrder:
+        return injective_exchange_tx_pb.MsgCreateDerivativeLimitOrder(
+            sender=sender,
+            order=self.binary_options_order(
+                market_id=market_id,
+                subaccount_id=subaccount_id,
+                fee_recipient=fee_recipient,
+                price=price,
+                quantity=quantity,
+                margin=margin,
+                order_type=order_type,
+                cid=cid,
+                trigger_price=trigger_price,
+                denom=denom,
+            ),
+        )
+
+    def MsgCreateBinaryOptionsMarketOrder(
+        self,
+        market_id: str,
+        sender: str,
+        subaccount_id: str,
+        fee_recipient: str,
+        price: float,
+        quantity: float,
+        cid: Optional[str] = None,
+        **kwargs,
+    ):
+        """
+        This method is deprecated and will be removed soon. Please use `msg_create_binary_options_market_order` instead
+        """
+        warn(
+            "This method is deprecated. Use msg_create_binary_options_market_order instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        if kwargs.get("is_reduce_only", False):
+            margin = Decimal(0)
+        else:
+            margin = Decimal(str(price)) * Decimal(str(quantity))
+
+        if kwargs.get("is_buy") and not kwargs.get("is_po"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.BUY)
+
+        elif not kwargs.get("is_buy") and not kwargs.get("is_po"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.SELL)
+
+        elif kwargs.get("is_buy") and kwargs.get("is_po"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.BUY_PO)
+
+        elif not kwargs.get("is_buy") and kwargs.get("is_po"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.SELL_PO)
+
+        elif kwargs.get("stop_buy"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.STOP_BUY)
+
+        elif kwargs.get("stop_sell"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.STOP_SEll)
+
+        elif kwargs.get("take_buy"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.TAKE_BUY)
+
+        elif kwargs.get("take_sell"):
+            order_type = injective_exchange_pb.OrderType.Name(injective_exchange_pb.OrderType.TAKE_SELL)
+
+        return injective_exchange_tx_pb.MsgCreateBinaryOptionsMarketOrder(
+            sender=sender,
+            order=self.binary_options_order(
+                market_id=market_id,
+                subaccount_id=subaccount_id,
+                fee_recipient=fee_recipient,
+                price=Decimal(str(price)),
+                quantity=Decimal(str(quantity)),
+                margin=margin,
+                order_type=order_type,
+                cid=cid,
+                trigger_price=Decimal(str(kwargs["trigger_price"])) if "trigger_price" in kwargs else None,
+                denom=kwargs.get("denom"),
+            ),
+        )
+
+    def msg_create_binary_options_market_order(
+        self,
+        market_id: str,
+        sender: str,
+        subaccount_id: str,
+        fee_recipient: str,
+        price: Decimal,
+        quantity: Decimal,
+        margin: Decimal,
+        order_type: str,
+        cid: Optional[str] = None,
+        trigger_price: Optional[Decimal] = None,
+        denom: Optional[Denom] = None,
+    ):
+        return injective_exchange_tx_pb.MsgCreateBinaryOptionsMarketOrder(
+            sender=sender,
+            order=self.binary_options_order(
+                market_id=market_id,
+                subaccount_id=subaccount_id,
+                fee_recipient=fee_recipient,
+                price=price,
+                quantity=quantity,
+                margin=margin,
+                order_type=order_type,
+                cid=cid,
+                trigger_price=trigger_price,
+                denom=denom,
+            ),
+        )
+
+    def MsgCancelBinaryOptionsOrder(
+        self,
+        sender: str,
+        market_id: str,
+        subaccount_id: str,
+        order_hash: Optional[str] = None,
+        cid: Optional[str] = None,
+    ):
+        """
+        This method is deprecated and will be removed soon. Please use `msg_cancel_binary_options_order` instead
+        """
+        warn(
+            "This method is deprecated. Use msg_cancel_binary_options_order instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        return injective_exchange_tx_pb.MsgCancelBinaryOptionsOrder(
+            sender=sender,
+            market_id=market_id,
+            subaccount_id=subaccount_id,
+            order_hash=order_hash,
+            cid=cid,
+        )
+
+    def msg_cancel_binary_options_order(
         self,
         market_id: str,
         sender: str,
         subaccount_id: str,
         order_hash: Optional[str] = None,
         cid: Optional[str] = None,
-        **kwargs,
-    ):
-        order_mask = self.get_order_mask(**kwargs)
+        is_conditional: Optional[bool] = False,
+        is_buy: Optional[bool] = False,
+        is_market_order: Optional[bool] = False,
+    ) -> injective_exchange_tx_pb.MsgCancelBinaryOptionsOrder:
+        order_mask = self._order_mask(is_conditional=is_conditional, is_buy=is_buy, is_market_order=is_market_order)
 
-        return injective_exchange_tx_pb.MsgCancelDerivativeOrder(
+        return injective_exchange_tx_pb.MsgCancelBinaryOptionsOrder(
             sender=sender,
             market_id=market_id,
             subaccount_id=subaccount_id,
@@ -650,25 +1519,88 @@ class Composer:
             cid=cid,
         )
 
-    def MsgBatchCreateDerivativeLimitOrders(self, sender: str, orders: List):
-        return injective_exchange_tx_pb.MsgBatchCreateDerivativeLimitOrders(sender=sender, orders=orders)
+    def MsgSubaccountTransfer(
+        self,
+        sender: str,
+        source_subaccount_id: str,
+        destination_subaccount_id: str,
+        amount: int,
+        denom: str,
+    ):
+        """
+        This method is deprecated and will be removed soon. Please use `msg_subaccount_transfer` instead
+        """
+        warn(
+            "This method is deprecated. Use msg_subaccount_transfer instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        be_amount = self.create_coin_amount(amount=Decimal(str(amount)), token_name=denom)
 
-    def MsgBatchCancelDerivativeOrders(self, sender: str, data: List):
-        return injective_exchange_tx_pb.MsgBatchCancelDerivativeOrders(sender=sender, data=data)
-
-    def MsgBatchUpdateOrders(self, sender: str, **kwargs):
-        return injective_exchange_tx_pb.MsgBatchUpdateOrders(
+        return injective_exchange_tx_pb.MsgSubaccountTransfer(
             sender=sender,
-            subaccount_id=kwargs.get("subaccount_id"),
-            spot_market_ids_to_cancel_all=kwargs.get("spot_market_ids_to_cancel_all"),
-            derivative_market_ids_to_cancel_all=kwargs.get("derivative_market_ids_to_cancel_all"),
-            spot_orders_to_cancel=kwargs.get("spot_orders_to_cancel"),
-            derivative_orders_to_cancel=kwargs.get("derivative_orders_to_cancel"),
-            spot_orders_to_create=kwargs.get("spot_orders_to_create"),
-            derivative_orders_to_create=kwargs.get("derivative_orders_to_create"),
-            binary_options_orders_to_cancel=kwargs.get("binary_options_orders_to_cancel"),
-            binary_options_market_ids_to_cancel_all=kwargs.get("binary_options_market_ids_to_cancel_all"),
-            binary_options_orders_to_create=kwargs.get("binary_options_orders_to_create"),
+            source_subaccount_id=source_subaccount_id,
+            destination_subaccount_id=destination_subaccount_id,
+            amount=be_amount,
+        )
+
+    def msg_subaccount_transfer(
+        self,
+        sender: str,
+        source_subaccount_id: str,
+        destination_subaccount_id: str,
+        amount: Decimal,
+        denom: str,
+    ) -> injective_exchange_tx_pb.MsgSubaccountTransfer:
+        be_amount = self.create_coin_amount(amount=amount, token_name=denom)
+
+        return injective_exchange_tx_pb.MsgSubaccountTransfer(
+            sender=sender,
+            source_subaccount_id=source_subaccount_id,
+            destination_subaccount_id=destination_subaccount_id,
+            amount=be_amount,
+        )
+
+    def MsgExternalTransfer(
+        self,
+        sender: str,
+        source_subaccount_id: str,
+        destination_subaccount_id: str,
+        amount: int,
+        denom: str,
+    ):
+        """
+        This method is deprecated and will be removed soon. Please use `msg_external_transfer` instead
+        """
+        warn(
+            "This method is deprecated. Use msg_external_transfer instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        coin = self.create_coin_amount(amount=Decimal(str(amount)), token_name=denom)
+
+        return injective_exchange_tx_pb.MsgExternalTransfer(
+            sender=sender,
+            source_subaccount_id=source_subaccount_id,
+            destination_subaccount_id=destination_subaccount_id,
+            amount=coin,
+        )
+
+    def msg_external_transfer(
+        self,
+        sender: str,
+        source_subaccount_id: str,
+        destination_subaccount_id: str,
+        amount: Decimal,
+        denom: str,
+    ) -> injective_exchange_tx_pb.MsgExternalTransfer:
+        coin = self.create_coin_amount(amount=amount, token_name=denom)
+
+        return injective_exchange_tx_pb.MsgExternalTransfer(
+            sender=sender,
+            source_subaccount_id=source_subaccount_id,
+            destination_subaccount_id=destination_subaccount_id,
+            amount=coin,
         )
 
     def MsgLiquidatePosition(
@@ -676,10 +1608,39 @@ class Composer:
         sender: str,
         subaccount_id: str,
         market_id: str,
-        order: Optional[injective_dot_exchange_dot_v1beta1_dot_exchange__pb2.DerivativeOrder] = None,
+        order: Optional[injective_exchange_pb.DerivativeOrder] = None,
     ):
+        """
+        This method is deprecated and will be removed soon. Please use `msg_liquidate_position` instead
+        """
+        warn(
+            "This method is deprecated. Use msg_liquidate_position instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         return injective_exchange_tx_pb.MsgLiquidatePosition(
             sender=sender, subaccount_id=subaccount_id, market_id=market_id, order=order
+        )
+
+    def msg_liquidate_position(
+        self,
+        sender: str,
+        subaccount_id: str,
+        market_id: str,
+        order: Optional[injective_exchange_pb.DerivativeOrder] = None,
+    ) -> injective_exchange_tx_pb.MsgLiquidatePosition:
+        return injective_exchange_tx_pb.MsgLiquidatePosition(
+            sender=sender, subaccount_id=subaccount_id, market_id=market_id, order=order
+        )
+
+    def msg_emergency_settle_market(
+        self,
+        sender: str,
+        subaccount_id: str,
+        market_id: str,
+    ) -> injective_exchange_tx_pb.MsgEmergencySettleMarket:
+        return injective_exchange_tx_pb.MsgEmergencySettleMarket(
+            sender=sender, subaccount_id=subaccount_id, market_id=market_id
         )
 
     def MsgIncreasePositionMargin(
@@ -690,6 +1651,14 @@ class Composer:
         market_id: str,
         amount: float,
     ):
+        """
+        This method is deprecated and will be removed soon. Please use `msg_increase_position_margin` instead
+        """
+        warn(
+            "This method is deprecated. Use msg_increase_position_margin instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         market = self.derivative_markets[market_id]
 
         additional_margin = market.margin_to_chain_format(human_readable_value=Decimal(str(amount)))
@@ -701,72 +1670,300 @@ class Composer:
             amount=str(int(additional_margin)),
         )
 
-    def MsgSubaccountTransfer(
+    def msg_increase_position_margin(
         self,
         sender: str,
         source_subaccount_id: str,
         destination_subaccount_id: str,
-        amount: int,
-        denom: str,
+        market_id: str,
+        amount: Decimal,
     ):
-        token = self.tokens[denom]
-        be_amount = token.chain_formatted_value(human_readable_value=Decimal(str(amount)))
+        market = self.derivative_markets[market_id]
 
-        return injective_exchange_tx_pb.MsgSubaccountTransfer(
+        additional_margin = market.margin_to_chain_format(human_readable_value=amount)
+        return injective_exchange_tx_pb.MsgIncreasePositionMargin(
             sender=sender,
             source_subaccount_id=source_subaccount_id,
             destination_subaccount_id=destination_subaccount_id,
-            amount=self.Coin(amount=int(be_amount), denom=token.denom),
+            market_id=market_id,
+            amount=str(int(additional_margin)),
         )
 
-    def MsgWithdraw(self, sender: str, subaccount_id: str, amount: float, denom: str):
-        token = self.tokens[denom]
-        be_amount = token.chain_formatted_value(human_readable_value=Decimal(str(amount)))
-
-        return injective_exchange_tx_pb.MsgWithdraw(
-            sender=sender,
-            subaccount_id=subaccount_id,
-            amount=self.Coin(amount=int(be_amount), denom=token.denom),
+    def MsgRewardsOptOut(self, sender: str):
+        """
+        This method is deprecated and will be removed soon. Please use `msg_rewards_opt_out` instead
+        """
+        warn(
+            "This method is deprecated. Use msg_rewards_opt_out instead",
+            DeprecationWarning,
+            stacklevel=2,
         )
+        return injective_exchange_tx_pb.MsgRewardsOptOut(sender=sender)
 
-    def MsgExternalTransfer(
+    def msg_rewards_opt_out(self, sender: str) -> injective_exchange_tx_pb.MsgRewardsOptOut:
+        return injective_exchange_tx_pb.MsgRewardsOptOut(sender=sender)
+
+    def MsgAdminUpdateBinaryOptionsMarket(
         self,
         sender: str,
-        source_subaccount_id: str,
-        destination_subaccount_id: str,
-        amount: int,
-        denom: str,
+        market_id: str,
+        status: str,
+        **kwargs,
     ):
-        token = self.tokens[denom]
-        be_amount = token.chain_formatted_value(human_readable_value=Decimal(str(amount)))
+        """
+        This method is deprecated and will be removed soon. Please use `msg_admin_update_binary_options_market` instead
+        """
+        warn(
+            "This method is deprecated. Use msg_admin_update_binary_options_market instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
 
-        return injective_exchange_tx_pb.MsgExternalTransfer(
+        if kwargs.get("settlement_price") is not None:
+            scale_price = Decimal((kwargs.get("settlement_price") * pow(10, 18)))
+            price_to_bytes = bytes(str(scale_price), "utf-8")
+
+        else:
+            price_to_bytes = ""
+
+        return injective_exchange_tx_pb.MsgAdminUpdateBinaryOptionsMarket(
             sender=sender,
-            source_subaccount_id=source_subaccount_id,
-            destination_subaccount_id=destination_subaccount_id,
-            amount=self.Coin(amount=int(be_amount), denom=token.denom),
+            market_id=market_id,
+            settlement_price=price_to_bytes,
+            expiration_timestamp=kwargs.get("expiration_timestamp"),
+            settlement_timestamp=kwargs.get("settlement_timestamp"),
+            status=status,
         )
 
-    def MsgBid(self, sender: str, bid_amount: float, round: float):
-        be_amount = Decimal(str(bid_amount)) * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+    def msg_admin_update_binary_options_market(
+        self,
+        sender: str,
+        market_id: str,
+        status: str,
+        settlement_price: Optional[Decimal] = None,
+        expiration_timestamp: Optional[int] = None,
+        settlement_timestamp: Optional[int] = None,
+    ) -> injective_exchange_tx_pb.MsgAdminUpdateBinaryOptionsMarket:
+        market = self.binary_option_markets[market_id]
 
-        return injective_auction_tx_pb.MsgBid(
+        if settlement_price is not None:
+            chain_settlement_price = market.price_to_chain_format(human_readable_value=settlement_price)
+            price_parameter = f"{chain_settlement_price.normalize():f}"
+        else:
+            price_parameter = None
+
+        return injective_exchange_tx_pb.MsgAdminUpdateBinaryOptionsMarket(
             sender=sender,
-            round=round,
-            bid_amount=self.Coin(amount=int(be_amount), denom=INJ_DENOM),
+            market_id=market_id,
+            settlement_price=price_parameter,
+            expiration_timestamp=expiration_timestamp,
+            settlement_timestamp=settlement_timestamp,
+            status=status,
         )
 
-    def MsgGrantGeneric(self, granter: str, grantee: str, msg_type: str, expire_in: int):
-        auth = cosmos_authz_pb.GenericAuthorization(msg=msg_type)
-        any_auth = any_pb2.Any()
-        any_auth.Pack(auth, type_url_prefix="")
+    # endregion
 
-        grant = cosmos_authz_pb.Grant(
-            authorization=any_auth,
-            expiration=timestamp_pb2.Timestamp(seconds=(int(time()) + expire_in)),
+    # region Insurance module
+    def MsgCreateInsuranceFund(
+        self,
+        sender: str,
+        ticker: str,
+        quote_denom: str,
+        oracle_base: str,
+        oracle_quote: str,
+        oracle_type: int,
+        expiry: int,
+        initial_deposit: int,
+    ):
+        token = self.tokens[quote_denom]
+        deposit = self.create_coin_amount(Decimal(str(initial_deposit)), quote_denom)
+
+        return injective_insurance_tx_pb.MsgCreateInsuranceFund(
+            sender=sender,
+            ticker=ticker,
+            quote_denom=token.denom,
+            oracle_base=oracle_base,
+            oracle_quote=oracle_quote,
+            oracle_type=oracle_type,
+            expiry=expiry,
+            initial_deposit=deposit,
         )
 
-        return cosmos_authz_tx_pb.MsgGrant(granter=granter, grantee=grantee, grant=grant)
+    def MsgUnderwrite(
+        self,
+        sender: str,
+        market_id: str,
+        quote_denom: str,
+        amount: int,
+    ):
+        be_amount = self.create_coin_amount(amount=Decimal(str(amount)), token_name=quote_denom)
+
+        return injective_insurance_tx_pb.MsgUnderwrite(
+            sender=sender,
+            market_id=market_id,
+            deposit=be_amount,
+        )
+
+    def MsgRequestRedemption(
+        self,
+        sender: str,
+        market_id: str,
+        share_denom: str,
+        amount: int,
+    ):
+        return injective_insurance_tx_pb.MsgRequestRedemption(
+            sender=sender,
+            market_id=market_id,
+            amount=self.coin(amount=amount, denom=share_denom),
+        )
+
+    # endregion
+
+    # region Oracle module
+    def MsgRelayProviderPrices(self, sender: str, provider: str, symbols: list, prices: list):
+        oracle_prices = []
+
+        for price in prices:
+            scale_price = Decimal((price) * pow(10, 18))
+            price_to_bytes = bytes(str(scale_price), "utf-8")
+            oracle_prices.append(price_to_bytes)
+
+        return injective_oracle_tx_pb.MsgRelayProviderPrices(
+            sender=sender, provider=provider, symbols=symbols, prices=oracle_prices
+        )
+
+    def MsgRelayPriceFeedPrice(self, sender: list, base: list, quote: list, price: list):
+        return injective_oracle_tx_pb.MsgRelayPriceFeedPrice(sender=sender, base=base, quote=quote, price=price)
+
+    # endregion
+
+    # region Peggy module
+    def MsgSendToEth(self, denom: str, sender: str, eth_dest: str, amount: float, bridge_fee: float):
+        be_amount = self.create_coin_amount(amount=Decimal(str(amount)), token_name=denom)
+        be_bridge_fee = self.create_coin_amount(amount=Decimal(str(bridge_fee)), token_name=denom)
+
+        return injective_peggy_tx_pb.MsgSendToEth(
+            sender=sender,
+            eth_dest=eth_dest,
+            amount=be_amount,
+            bridge_fee=be_bridge_fee,
+        )
+
+    # endregion
+
+    # region Staking module
+    def MsgDelegate(self, delegator_address: str, validator_address: str, amount: float):
+        be_amount = Decimal(str(amount)) * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+
+        return cosmos_staking_tx_pb.MsgDelegate(
+            delegator_address=delegator_address,
+            validator_address=validator_address,
+            amount=self.coin(amount=int(be_amount), denom=INJ_DENOM),
+        )
+
+    # endregion
+
+    # region Tokenfactory module
+    def msg_create_denom(
+        self,
+        sender: str,
+        subdenom: str,
+        name: str,
+        symbol: str,
+    ) -> token_factory_tx_pb.MsgCreateDenom:
+        return token_factory_tx_pb.MsgCreateDenom(
+            sender=sender,
+            subdenom=subdenom,
+            name=name,
+            symbol=symbol,
+        )
+
+    def msg_mint(
+        self,
+        sender: str,
+        amount: base_coin_pb.Coin,
+    ) -> token_factory_tx_pb.MsgMint:
+        return token_factory_tx_pb.MsgMint(sender=sender, amount=amount)
+
+    def msg_burn(
+        self,
+        sender: str,
+        amount: base_coin_pb.Coin,
+    ) -> token_factory_tx_pb.MsgBurn:
+        return token_factory_tx_pb.MsgBurn(sender=sender, amount=amount)
+
+    def msg_set_denom_metadata(
+        self,
+        sender: str,
+        description: str,
+        denom: str,
+        subdenom: str,
+        token_decimals: int,
+        name: str,
+        symbol: str,
+        uri: str,
+        uri_hash: str,
+    ) -> token_factory_tx_pb.MsgSetDenomMetadata:
+        micro_denom_unit = bank_pb.DenomUnit(
+            denom=denom,
+            exponent=0,
+            aliases=[f"micro{subdenom}"],
+        )
+        denom_unit = bank_pb.DenomUnit(
+            denom=subdenom,
+            exponent=token_decimals,
+            aliases=[subdenom],
+        )
+        metadata = bank_pb.Metadata(
+            description=description,
+            denom_units=[micro_denom_unit, denom_unit],
+            base=denom,
+            display=subdenom,
+            name=name,
+            symbol=symbol,
+            uri=uri,
+            uri_hash=uri_hash,
+        )
+        return token_factory_tx_pb.MsgSetDenomMetadata(sender=sender, metadata=metadata)
+
+    def msg_change_admin(
+        self,
+        sender: str,
+        denom: str,
+        new_admin: str,
+    ) -> token_factory_tx_pb.MsgChangeAdmin:
+        return token_factory_tx_pb.MsgChangeAdmin(
+            sender=sender,
+            denom=denom,
+            new_admin=new_admin,
+        )
+
+    # endregion
+
+    # region Wasm module
+    def MsgInstantiateContract(
+        self, sender: str, admin: str, code_id: int, label: str, message: bytes, **kwargs
+    ) -> wasm_tx_pb.MsgInstantiateContract:
+        return wasm_tx_pb.MsgInstantiateContract(
+            sender=sender,
+            admin=admin,
+            code_id=code_id,
+            label=label,
+            msg=message,
+            funds=kwargs.get("funds"),  # funds is a list of base_coin_pb.Coin.
+            # The coins in the list must be sorted in alphabetical order by denoms.
+        )
+
+    def MsgExecuteContract(self, sender: str, contract: str, msg: str, **kwargs):
+        return wasm_tx_pb.MsgExecuteContract(
+            sender=sender,
+            contract=contract,
+            msg=bytes(msg, "utf-8"),
+            funds=kwargs.get("funds")  # funds is a list of base_coin_pb.Coin.
+            # The coins in the list must be sorted in alphabetical order by denoms.
+        )
+
+    # endregion
 
     def MsgGrantTyped(
         self,
@@ -835,104 +2032,6 @@ class Composer:
 
         return cosmos_authz_tx_pb.MsgGrant(granter=granter, grantee=grantee, grant=grant)
 
-    def MsgExec(self, grantee: str, msgs: List):
-        any_msgs: List[any_pb2.Any] = []
-        for msg in msgs:
-            any_msg = any_pb2.Any()
-            any_msg.Pack(msg, type_url_prefix="")
-            any_msgs.append(any_msg)
-
-        return cosmos_authz_tx_pb.MsgExec(grantee=grantee, msgs=any_msgs)
-
-    def MsgRevoke(self, granter: str, grantee: str, msg_type: str):
-        return cosmos_authz_tx_pb.MsgRevoke(granter=granter, grantee=grantee, msg_type_url=msg_type)
-
-    def MsgRelayPriceFeedPrice(self, sender: list, base: list, quote: list, price: list):
-        return injective_oracle_tx_pb.MsgRelayPriceFeedPrice(sender=sender, base=base, quote=quote, price=price)
-
-    def MsgSendToEth(self, denom: str, sender: str, eth_dest: str, amount: float, bridge_fee: float):
-        token = self.tokens[denom]
-        be_amount = token.chain_formatted_value(human_readable_value=Decimal(str(amount)))
-        be_bridge_fee = token.chain_formatted_value(human_readable_value=Decimal(str(bridge_fee)))
-
-        return injective_peggy_tx_pb.MsgSendToEth(
-            sender=sender,
-            eth_dest=eth_dest,
-            amount=self.Coin(amount=int(be_amount), denom=token.denom),
-            bridge_fee=self.Coin(amount=int(be_bridge_fee), denom=token.denom),
-        )
-
-    def MsgDelegate(self, delegator_address: str, validator_address: str, amount: float):
-        be_amount = Decimal(str(amount)) * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-
-        return cosmos_staking_tx_pb.MsgDelegate(
-            delegator_address=delegator_address,
-            validator_address=validator_address,
-            amount=self.Coin(amount=int(be_amount), denom=INJ_DENOM),
-        )
-
-    def MsgCreateInsuranceFund(
-        self,
-        sender: str,
-        ticker: str,
-        quote_denom: str,
-        oracle_base: str,
-        oracle_quote: str,
-        oracle_type: int,
-        expiry: int,
-        initial_deposit: int,
-    ):
-        token = self.tokens[quote_denom]
-        be_amount = token.chain_formatted_value(human_readable_value=Decimal(str(initial_deposit)))
-
-        return injective_insurance_tx_pb.MsgCreateInsuranceFund(
-            sender=sender,
-            ticker=ticker,
-            quote_denom=token.denom,
-            oracle_base=oracle_base,
-            oracle_quote=oracle_quote,
-            oracle_type=oracle_type,
-            expiry=expiry,
-            initial_deposit=self.Coin(amount=int(be_amount), denom=token.denom),
-        )
-
-    def MsgUnderwrite(
-        self,
-        sender: str,
-        market_id: str,
-        quote_denom: str,
-        amount: int,
-    ):
-        token = self.tokens[quote_denom]
-        be_amount = token.chain_formatted_value(human_readable_value=Decimal(str(amount)))
-
-        return injective_insurance_tx_pb.MsgUnderwrite(
-            sender=sender,
-            market_id=market_id,
-            deposit=self.Coin(amount=int(be_amount), denom=token.denom),
-        )
-
-    def MsgRequestRedemption(
-        self,
-        sender: str,
-        market_id: str,
-        share_denom: str,
-        amount: int,
-    ):
-        return injective_insurance_tx_pb.MsgRequestRedemption(
-            sender=sender,
-            market_id=market_id,
-            amount=self.Coin(amount=amount, denom=share_denom),
-        )
-
-    def MsgWithdrawDelegatorReward(self, delegator_address: str, validator_address: str):
-        return cosmos_distribution_tx_pb.MsgWithdrawDelegatorReward(
-            delegator_address=delegator_address, validator_address=validator_address
-        )
-
-    def MsgWithdrawValidatorCommission(self, validator_address: str):
-        return cosmos_distribution_tx_pb.MsgWithdrawValidatorCommission(validator_address=validator_address)
-
     def MsgVote(
         self,
         proposal_id: str,
@@ -940,112 +2039,6 @@ class Composer:
         option: int,
     ):
         return cosmos_gov_tx_pb.MsgVote(proposal_id=proposal_id, voter=voter, option=option)
-
-    def MsgPrivilegedExecuteContract(
-        self, sender: str, contract: str, msg: str, **kwargs
-    ) -> injective_exchange_tx_pb.MsgPrivilegedExecuteContract:
-        return injective_exchange_tx_pb.MsgPrivilegedExecuteContract(
-            sender=sender,
-            contract_address=contract,
-            data=msg,
-            funds=kwargs.get("funds")  # funds is a string of Coin strings, comma separated,
-            # e.g. 100000inj,20000000000usdt
-        )
-
-    def MsgInstantiateContract(
-        self, sender: str, admin: str, code_id: int, label: str, message: bytes, **kwargs
-    ) -> wasm_tx_pb.MsgInstantiateContract:
-        return wasm_tx_pb.MsgInstantiateContract(
-            sender=sender,
-            admin=admin,
-            code_id=code_id,
-            label=label,
-            msg=message,
-            funds=kwargs.get("funds"),  # funds is a list of cosmos_dot_base_dot_v1beta1_dot_coin__pb2.Coin.
-            # The coins in the list must be sorted in alphabetical order by denoms.
-        )
-
-    def msg_create_denom(
-        self,
-        sender: str,
-        subdenom: str,
-        name: str,
-        symbol: str,
-    ) -> token_factory_tx_pb.MsgCreateDenom:
-        return token_factory_tx_pb.MsgCreateDenom(
-            sender=sender,
-            subdenom=subdenom,
-            name=name,
-            symbol=symbol,
-        )
-
-    def msg_mint(
-        self,
-        sender: str,
-        amount: cosmos_dot_base_dot_v1beta1_dot_coin__pb2.Coin,
-    ) -> token_factory_tx_pb.MsgMint:
-        return token_factory_tx_pb.MsgMint(sender=sender, amount=amount)
-
-    def msg_burn(
-        self,
-        sender: str,
-        amount: cosmos_dot_base_dot_v1beta1_dot_coin__pb2.Coin,
-    ) -> token_factory_tx_pb.MsgBurn:
-        return token_factory_tx_pb.MsgBurn(sender=sender, amount=amount)
-
-    def msg_set_denom_metadata(
-        self,
-        sender: str,
-        description: str,
-        denom: str,
-        subdenom: str,
-        token_decimals: int,
-        name: str,
-        symbol: str,
-        uri: str,
-        uri_hash: str,
-    ) -> token_factory_tx_pb.MsgSetDenomMetadata:
-        micro_denom_unit = bank_pb.DenomUnit(
-            denom=denom,
-            exponent=0,
-            aliases=[f"micro{subdenom}"],
-        )
-        denom_unit = bank_pb.DenomUnit(
-            denom=subdenom,
-            exponent=token_decimals,
-            aliases=[subdenom],
-        )
-        metadata = bank_pb.Metadata(
-            description=description,
-            denom_units=[micro_denom_unit, denom_unit],
-            base=denom,
-            display=subdenom,
-            name=name,
-            symbol=symbol,
-            uri=uri,
-            uri_hash=uri_hash,
-        )
-        return token_factory_tx_pb.MsgSetDenomMetadata(sender=sender, metadata=metadata)
-
-    def msg_change_admin(
-        self,
-        sender: str,
-        denom: str,
-        new_admin: str,
-    ) -> token_factory_tx_pb.MsgChangeAdmin:
-        return token_factory_tx_pb.MsgChangeAdmin(
-            sender=sender,
-            denom=denom,
-            new_admin=new_admin,
-        )
-
-    def msg_execute_contract_compat(self, sender: str, contract: str, msg: str, funds: str):
-        return wasmx_tx_pb.MsgExecuteContractCompat(
-            sender=sender,
-            contract=contract,
-            msg=msg,
-            funds=funds,
-        )
 
     def chain_stream_bank_balances_filter(
         self, accounts: Optional[List[str]] = None
@@ -1100,6 +2093,54 @@ class Composer:
     ) -> chain_stream_query.PositionsFilter:
         symbols = symbols or ["*"]
         return chain_stream_query.OraclePriceFilter(symbol=symbols)
+
+    # ------------------------------------------------
+    # Distribution module's messages
+
+    def msg_set_withdraw_address(self, delegator_address: str, withdraw_address: str):
+        return cosmos_distribution_tx_pb.MsgSetWithdrawAddress(
+            delegator_address=delegator_address, withdraw_address=withdraw_address
+        )
+
+    # Deprecated
+    def MsgWithdrawDelegatorReward(self, delegator_address: str, validator_address: str):
+        """
+        This method is deprecated and will be removed soon. Please use `msg_withdraw_delegator_reward` instead
+        """
+        warn("This method is deprecated. Use msg_withdraw_delegator_reward instead", DeprecationWarning, stacklevel=2)
+        return cosmos_distribution_tx_pb.MsgWithdrawDelegatorReward(
+            delegator_address=delegator_address, validator_address=validator_address
+        )
+
+    def msg_withdraw_delegator_reward(self, delegator_address: str, validator_address: str):
+        return cosmos_distribution_tx_pb.MsgWithdrawDelegatorReward(
+            delegator_address=delegator_address, validator_address=validator_address
+        )
+
+    def MsgWithdrawValidatorCommission(self, validator_address: str):
+        """
+        This method is deprecated and will be removed soon. Please use `msg_withdraw_validator_commission` instead
+        """
+        warn(
+            "This method is deprecated. Use msg_withdraw_validator_commission instead", DeprecationWarning, stacklevel=2
+        )
+        return cosmos_distribution_tx_pb.MsgWithdrawValidatorCommission(validator_address=validator_address)
+
+    def msg_withdraw_validator_commission(self, validator_address: str):
+        return cosmos_distribution_tx_pb.MsgWithdrawValidatorCommission(validator_address=validator_address)
+
+    def msg_fund_community_pool(self, amounts: List[base_coin_pb.Coin], depositor: str):
+        return cosmos_distribution_tx_pb.MsgFundCommunityPool(amount=amounts, depositor=depositor)
+
+    def msg_update_distribution_params(self, authority: str, community_tax: str, withdraw_address_enabled: bool):
+        params = cosmos_distribution_pb2.Params(
+            community_tax=community_tax,
+            withdraw_addr_enabled=withdraw_address_enabled,
+        )
+        return cosmos_distribution_tx_pb.MsgUpdateParams(authority=authority, params=params)
+
+    def msg_community_pool_spend(self, authority: str, recipient: str, amount: List[base_coin_pb.Coin]):
+        return cosmos_distribution_tx_pb.MsgCommunityPoolSpend(authority=authority, recipient=recipient, amount=amount)
 
     # data field format: [request-msg-header][raw-byte-msg-response]
     # you need to figure out this magic prefix number to trim request-msg-header off the data
@@ -1311,3 +2352,61 @@ class Composer:
         self.spot_markets = spot_markets
         self.derivative_markets = derivative_markets
         self.binary_option_markets = dict()
+
+    def _order_mask(self, is_conditional: bool, is_buy: bool, is_market_order: bool) -> int:
+        order_mask = 0
+
+        if is_conditional:
+            order_mask += injective_exchange_pb.OrderMask.CONDITIONAL
+        else:
+            order_mask += injective_exchange_pb.OrderMask.REGULAR
+
+        if is_buy:
+            order_mask += injective_exchange_pb.OrderMask.DIRECTION_BUY_OR_HIGHER
+        else:
+            order_mask += injective_exchange_pb.OrderMask.DIRECTION_SELL_OR_LOWER
+
+        if is_market_order:
+            order_mask += injective_exchange_pb.OrderMask.TYPE_MARKET
+        else:
+            order_mask += injective_exchange_pb.OrderMask.TYPE_LIMIT
+
+        if order_mask == 0:
+            order_mask = 1
+
+        return order_mask
+
+    def _basic_derivative_order(
+        self,
+        market_id: str,
+        subaccount_id: str,
+        fee_recipient: str,
+        chain_price: Decimal,
+        chain_quantity: Decimal,
+        chain_margin: Decimal,
+        order_type: str,
+        cid: Optional[str] = None,
+        chain_trigger_price: Optional[Decimal] = None,
+    ) -> injective_exchange_pb.DerivativeOrder:
+        formatted_quantity = f"{chain_quantity.normalize():f}"
+        formatted_price = f"{chain_price.normalize():f}"
+        formatted_margin = f"{chain_margin.normalize():f}"
+
+        trigger_price = chain_trigger_price or Decimal(0)
+        formatted_trigger_price = f"{trigger_price.normalize():f}"
+
+        chain_order_type = injective_exchange_pb.OrderType.Value(order_type)
+
+        return injective_exchange_pb.DerivativeOrder(
+            market_id=market_id,
+            order_info=injective_exchange_pb.OrderInfo(
+                subaccount_id=subaccount_id,
+                fee_recipient=fee_recipient,
+                price=formatted_price,
+                quantity=formatted_quantity,
+                cid=cid,
+            ),
+            order_type=chain_order_type,
+            margin=formatted_margin,
+            trigger_price=formatted_trigger_price,
+        )

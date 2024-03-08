@@ -1,16 +1,21 @@
 import asyncio
 import json
+import os
+
+import dotenv
 
 from pyinjective.core.network import Network
 from pyinjective.sendtocosmos import Peggo
 
 
 async def main() -> None:
+    dotenv.load_dotenv()
+    private_key = os.getenv("INJECTIVE_PRIVATE_KEY")
+
     # select network: testnet, mainnet
     network = Network.testnet()
     peggo_composer = Peggo(network=network.string())
 
-    private_key = "5d386fbdbf11f1141010f81a46b40f94887367562bd33b452bbaa6ce1cd1381e"
     ethereum_endpoint = "https://eth-goerli.g.alchemy.com/v2/q-7JVv4mTfsNh1y_djKkKn3maRBGILLL"
 
     maxFeePerGas_Gwei = 4
