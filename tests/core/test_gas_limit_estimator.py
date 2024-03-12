@@ -157,7 +157,7 @@ class TestGasLimitEstimator:
                 order_type="BUY",
             ),
         ]
-        message = composer.MsgBatchUpdateOrders(
+        message = composer.msg_batch_update_orders(
             sender="senders",
             derivative_orders_to_create=[],
             spot_orders_to_create=orders,
@@ -194,7 +194,7 @@ class TestGasLimitEstimator:
                 order_type="SELL",
             ),
         ]
-        message = composer.MsgBatchUpdateOrders(
+        message = composer.msg_batch_update_orders(
             sender="senders",
             derivative_orders_to_create=orders,
             spot_orders_to_create=[],
@@ -249,7 +249,7 @@ class TestGasLimitEstimator:
                 order_type="SELL",
             ),
         ]
-        message = composer.MsgBatchUpdateOrders(
+        message = composer.msg_batch_update_orders(
             sender="senders",
             derivative_orders_to_create=[],
             spot_orders_to_create=[],
@@ -284,7 +284,7 @@ class TestGasLimitEstimator:
                 order_hash="0x7ee76255d7ca763c56b0eab9828fca89fdd3739645501c8a80f58b62b4f76da5",
             ),
         ]
-        message = composer.MsgBatchUpdateOrders(
+        message = composer.msg_batch_update_orders(
             sender="senders",
             derivative_orders_to_create=[],
             spot_orders_to_create=[],
@@ -318,7 +318,7 @@ class TestGasLimitEstimator:
                 order_hash="0x7ee76255d7ca763c56b0eab9828fca89fdd3739645501c8a80f58b62b4f76da5",
             ),
         ]
-        message = composer.MsgBatchUpdateOrders(
+        message = composer.msg_batch_update_orders(
             sender="senders",
             derivative_orders_to_create=[],
             spot_orders_to_create=[],
@@ -352,7 +352,7 @@ class TestGasLimitEstimator:
                 order_hash="0x7ee76255d7ca763c56b0eab9828fca89fdd3739645501c8a80f58b62b4f76da5",
             ),
         ]
-        message = composer.MsgBatchUpdateOrders(
+        message = composer.msg_batch_update_orders(
             sender="senders",
             derivative_orders_to_create=[],
             spot_orders_to_create=[],
@@ -371,7 +371,7 @@ class TestGasLimitEstimator:
         market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
         composer = Composer(network="testnet")
 
-        message = composer.MsgBatchUpdateOrders(
+        message = composer.msg_batch_update_orders(
             sender="senders",
             subaccount_id="subaccount_id",
             spot_market_ids_to_cancel_all=[market_id],
@@ -391,7 +391,7 @@ class TestGasLimitEstimator:
         market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
         composer = Composer(network="testnet")
 
-        message = composer.MsgBatchUpdateOrders(
+        message = composer.msg_batch_update_orders(
             sender="senders",
             subaccount_id="subaccount_id",
             derivative_market_ids_to_cancel_all=[market_id],
@@ -411,7 +411,7 @@ class TestGasLimitEstimator:
         market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
         composer = Composer(network="testnet")
 
-        message = composer.MsgBatchUpdateOrders(
+        message = composer.msg_batch_update_orders(
             sender="senders",
             subaccount_id="subaccount_id",
             binary_options_market_ids_to_cancel_all=[market_id],
@@ -440,7 +440,7 @@ class TestGasLimitEstimator:
                 order_type="BUY",
             ),
         ]
-        inner_message = composer.MsgBatchUpdateOrders(
+        inner_message = composer.msg_batch_update_orders(
             sender="senders",
             derivative_orders_to_create=[],
             spot_orders_to_create=orders,
