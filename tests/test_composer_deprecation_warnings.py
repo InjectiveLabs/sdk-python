@@ -50,6 +50,19 @@ class TestComposerDeprecationWarnings:
         assert len(deprecation_warnings) == 1
         assert str(deprecation_warnings[0].message) == "This method is deprecated. Use msg_withdraw instead"
 
+    def teste_coin_deprecation_warning(self):
+        composer = Composer(network=Network.devnet().string())
+
+        with warnings.catch_warnings(record=True) as all_warnings:
+            composer.Coin(
+                amount=1,
+                denom="INJ",
+            )
+
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use coin instead"
+
     def teste_order_data_deprecation_warning(self):
         composer = Composer(network=Network.devnet().string())
 
@@ -519,4 +532,20 @@ class TestComposerDeprecationWarnings:
         assert (
             str(deprecation_warnings[0].message)
             == "This method is deprecated. Use msg_admin_update_binary_options_market instead"
+        )
+
+    def test_msg_withdraw_delegator_reward_deprecation_warning(self):
+        composer = Composer(network=Network.devnet().string())
+
+        with warnings.catch_warnings(record=True) as all_warnings:
+            composer.MsgWithdrawDelegatorReward(
+                delegator_address="delegator address",
+                validator_address="validator address",
+            )
+
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert (
+            str(deprecation_warnings[0].message)
+            == "This method is deprecated. Use msg_withdraw_delegator_reward instead"
         )

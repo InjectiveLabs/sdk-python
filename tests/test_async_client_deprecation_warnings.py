@@ -538,24 +538,6 @@ class TestAsyncClientDeprecationWarnings:
         assert str(deprecation_warnings[0].message) == "This method is deprecated. Use listen_keepalive instead"
 
     @pytest.mark.asyncio
-    async def test_oracle_list_deprecation_warning(
-        self,
-        oracle_servicer,
-    ):
-        client = AsyncClient(
-            network=Network.local(),
-        )
-        client.stubOracle = oracle_servicer
-        oracle_servicer.oracle_list_responses.append(exchange_oracle_pb.OracleListResponse())
-
-        with catch_warnings(record=True) as all_warnings:
-            await client.get_oracle_list()
-
-        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
-        assert len(deprecation_warnings) == 1
-        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_oracle_list instead"
-
-    @pytest.mark.asyncio
     async def test_get_oracle_list_deprecation_warning(
         self,
         oracle_servicer,
