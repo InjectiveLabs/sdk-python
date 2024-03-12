@@ -50,7 +50,7 @@ class TestComposerDeprecationWarnings:
         assert len(deprecation_warnings) == 1
         assert str(deprecation_warnings[0].message) == "This method is deprecated. Use msg_withdraw instead"
 
-    def teste_coin_deprecation_warning(self):
+    def test_coin_deprecation_warning(self):
         composer = Composer(network=Network.devnet().string())
 
         with warnings.catch_warnings(record=True) as all_warnings:
@@ -63,7 +63,7 @@ class TestComposerDeprecationWarnings:
         assert len(deprecation_warnings) == 1
         assert str(deprecation_warnings[0].message) == "This method is deprecated. Use coin instead"
 
-    def teste_order_data_deprecation_warning(self):
+    def test_order_data_deprecation_warning(self):
         composer = Composer(network=Network.devnet().string())
 
         with warnings.catch_warnings(record=True) as all_warnings:
