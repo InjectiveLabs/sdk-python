@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.1] - 2024-03-12
+### Changed
+- Updates example scripts that were still using deprecated methods
+
 ## [1.4.0] - 2024-03-11
 ### Added
 - Added support for all queries and messages in the chain 'distribution' module
