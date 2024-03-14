@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.5.0] - 9999-99-99
+### Added
+- Added support for all queries in the chain 'tendermint' module
+
 ## [1.4.0] - 2024-03-11
 ### Added
 - Added support for all queries and messages in the chain 'distribution' module
