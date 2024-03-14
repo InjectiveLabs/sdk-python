@@ -39,7 +39,7 @@ from pyinjective.composer import Composer
 from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from pyinjective.core.network import Network
 from pyinjective.core.token import Token
-from pyinjective.core.tx.grpc.tenderming_grpc_api import TendermintGrpcApi
+from pyinjective.core.tx.grpc.tendermint_grpc_api import TendermintGrpcApi
 from pyinjective.core.tx.grpc.tx_grpc_api import TxGrpcApi
 from pyinjective.exceptions import NotFoundError
 from pyinjective.proto.cosmos.auth.v1beta1 import query_pb2 as auth_query, query_pb2_grpc as auth_query_grpc
