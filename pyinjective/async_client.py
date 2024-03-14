@@ -39,6 +39,7 @@ from pyinjective.composer import Composer
 from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from pyinjective.core.network import Network
 from pyinjective.core.token import Token
+from pyinjective.core.tx.grpc.tendermint_grpc_api import TendermintGrpcApi
 from pyinjective.core.tx.grpc.tx_grpc_api import TxGrpcApi
 from pyinjective.exceptions import NotFoundError
 from pyinjective.proto.cosmos.auth.v1beta1 import query_pb2 as auth_query, query_pb2_grpc as auth_query_grpc
@@ -49,6 +50,7 @@ from pyinjective.proto.cosmos.base.tendermint.v1beta1 import (
     query_pb2 as tendermint_query,
     query_pb2_grpc as tendermint_query_grpc,
 )
+from pyinjective.proto.cosmos.crypto.ed25519 import keys_pb2 as ed25519_keys  # noqa: F401 for validator set responses
 from pyinjective.proto.cosmos.tx.v1beta1 import service_pb2 as tx_service, service_pb2_grpc as tx_service_grpc
 from pyinjective.proto.exchange import (
     injective_accounts_rpc_pb2 as exchange_accounts_rpc_pb,
@@ -187,6 +189,12 @@ class AsyncClient:
             ),
         )
         self.chain_exchange_api = ChainGrpcExchangeApi(
+            channel=self.chain_channel,
+            metadata_provider=lambda: self.network.chain_metadata(
+                metadata_query_provider=self._chain_cookie_metadata_requestor
+            ),
+        )
+        self.tendermint_api = TendermintGrpcApi(
             channel=self.chain_channel,
             metadata_provider=lambda: self.network.chain_metadata(
                 metadata_query_provider=self._chain_cookie_metadata_requestor
@@ -379,8 +387,8 @@ class AsyncClient:
 
     async def sync_timeout_height(self):
         try:
-            block = await self.get_latest_block()
-            self.timeout_height = block.block.header.height + DEFAULT_TIMEOUTHEIGHT
+            block = await self.fetch_latest_block()
+            self.timeout_height = int(block["block"]["header"]["height"]) + DEFAULT_TIMEOUTHEIGHT
         except Exception as e:
             LoggerProvider().logger_for_class(logging_class=self.__class__).debug(
                 f"error while fetching latest block, setting timeout height to 0: {e}"
@@ -388,9 +396,6 @@ class AsyncClient:
             self.timeout_height = 0
 
     # default client methods
-    async def get_latest_block(self) -> tendermint_query.GetLatestBlockResponse:
-        req = tendermint_query.GetLatestBlockRequest()
-        return await self.stubCosmosTendermint.GetLatestBlock(req)
 
     async def get_account(self, address: str) -> Optional[account_pb2.EthAccount]:
         """
@@ -500,8 +505,8 @@ class AsyncClient:
         return result.tx_response
 
     async def get_chain_id(self) -> str:
-        latest_block = await self.get_latest_block()
-        return latest_block.block.header.chain_id
+        latest_block = await self.fetch_latest_block()
+        return latest_block["block"]["header"]["chainId"]
 
     async def get_grants(self, granter: str, grantee: str, **kwargs):
         """
@@ -1225,6 +1230,44 @@ class AsyncClient:
     async def fetch_tokenfactory_module_state(self) -> Dict[str, Any]:
         return await self.token_factory_api.fetch_tokenfactory_module_state()
 
+    # ------------------------------
+    # region Tendermint module
+    async def fetch_node_info(self) -> Dict[str, Any]:
+        return await self.tendermint_api.fetch_node_info()
+
+    async def fetch_syncing(self) -> Dict[str, Any]:
+        return await self.tendermint_api.fetch_syncing()
+
+    async def get_latest_block(self) -> tendermint_query.GetLatestBlockResponse:
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_latest_block` instead
+        """
+        warn("This method is deprecated. Use fetch_latest_block instead", DeprecationWarning, stacklevel=2)
+        req = tendermint_query.GetLatestBlockRequest()
+        return await self.stubCosmosTendermint.GetLatestBlock(req)
+
+    async def fetch_latest_block(self) -> Dict[str, Any]:
+        return await self.tendermint_api.fetch_latest_block()
+
+    async def fetch_block_by_height(self, height: int) -> Dict[str, Any]:
+        return await self.tendermint_api.fetch_block_by_height(height=height)
+
+    async def fetch_latest_validator_set(self) -> Dict[str, Any]:
+        return await self.tendermint_api.fetch_latest_validator_set()
+
+    async def fetch_validator_set_by_height(
+        self, height: int, pagination: Optional[PaginationOption] = None
+    ) -> Dict[str, Any]:
+        return await self.tendermint_api.fetch_validator_set_by_height(height=height, pagination=pagination)
+
+    async def abci_query(
+        self, path: str, data: Optional[bytes] = None, height: Optional[int] = None, prove: bool = False
+    ) -> Dict[str, Any]:
+        return await self.tendermint_api.abci_query(path=path, data=data, height=height, prove=prove)
+
+    # endregion
+
+    # ------------------------------
     # Explorer RPC
 
     async def get_tx_by_hash(self, tx_hash: str):
