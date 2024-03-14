@@ -6,6 +6,7 @@ from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
 from pyinjective.proto.cosmos.authz.v1beta1 import query_pb2 as authz_query
 from pyinjective.proto.cosmos.bank.v1beta1 import query_pb2 as bank_query_pb
+from pyinjective.proto.cosmos.base.tendermint.v1beta1 import query_pb2 as tendermint_query
 from pyinjective.proto.cosmos.tx.v1beta1 import service_pb2 as tx_service
 from pyinjective.proto.exchange import (
     injective_accounts_rpc_pb2 as exchange_accounts_pb,
@@ -33,6 +34,7 @@ from tests.client.indexer.configurable_meta_query_servicer import ConfigurableMe
 from tests.client.indexer.configurable_oracle_query_servicer import ConfigurableOracleQueryServicer
 from tests.client.indexer.configurable_portfolio_query_servicer import ConfigurablePortfolioQueryServicer
 from tests.client.indexer.configurable_spot_query_servicer import ConfigurableSpotQueryServicer
+from tests.core.tx.grpc.configurable_tendermint_query_servicer import ConfigurableTendermintQueryServicer
 from tests.core.tx.grpc.configurable_tx_query_servicer import ConfigurableTxQueryServicer
 
 
@@ -104,6 +106,11 @@ def spot_servicer():
 @pytest.fixture
 def tx_servicer():
     return ConfigurableTxQueryServicer()
+
+
+@pytest.fixture
+def tendermint_servicer():
+    return ConfigurableTendermintQueryServicer()
 
 
 class TestAsyncClientDeprecationWarnings:
@@ -1700,3 +1707,21 @@ class TestAsyncClientDeprecationWarnings:
         assert (
             str(deprecation_warnings[0].message) == "This method is deprecated. Use listen_chain_stream_updates instead"
         )
+
+    @pytest.mark.asyncio
+    async def test_get_latest_block_deprecation_warning(
+        self,
+        tendermint_servicer,
+    ):
+        client = AsyncClient(
+            network=Network.local(),
+        )
+        client.stubCosmosTendermint = tendermint_servicer
+        tendermint_servicer.get_latest_block_responses.append(tendermint_query.GetLatestBlockResponse())
+
+        with catch_warnings(record=True) as all_warnings:
+            await client.get_latest_block()
+
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_latest_block instead"
