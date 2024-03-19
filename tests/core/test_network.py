@@ -51,7 +51,7 @@ class TestExpiringCookieAssistant:
             time_format=time_format,
         )
 
-        future_time = datetime.datetime.now(tz=ZoneInfo("Etc/GMT")) + datetime.timedelta(hours=1)
+        future_time = datetime.datetime.now(tz=ZoneInfo("Europe/London")) + datetime.timedelta(hours=1)
         formatted_time = future_time.strftime(time_format)
         cookie_value = (
             f"grpc-cookie=bb3a543cef4d9182587375c26556c15f; Expires={formatted_time};"
