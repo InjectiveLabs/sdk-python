@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.2] - 2024-03-19
+### Changed
+- Updated `aiohttp` dependency version to ">=3.9.2" to solve a security vulnerability detected by Dependabot
+
 ## [1.4.1] - 2024-03-12
 ### Changed
 - Updates example scripts that were still using deprecated methods
