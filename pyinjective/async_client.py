@@ -3,7 +3,7 @@ import base64
 import time
 from copy import deepcopy
 from decimal import Decimal
-from typing import Any, Callable, Coroutine, Dict, List, Optional, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 from warnings import warn
 
 import grpc
@@ -3206,18 +3206,6 @@ class AsyncClient:
             tokens_by_symbol[unique_symbol] = token
 
         return tokens_by_denom[denom]
-
-    def _chain_cookie_metadata_requestor(self) -> Coroutine:
-        request = tendermint_query.GetLatestBlockRequest()
-        return self.stubCosmosTendermint.GetLatestBlock(request).initial_metadata()
-
-    def _exchange_cookie_metadata_requestor(self) -> Coroutine:
-        request = exchange_meta_rpc_pb.VersionRequest()
-        return self.stubMeta.Version(request).initial_metadata()
-
-    def _explorer_cookie_metadata_requestor(self) -> Coroutine:
-        request = explorer_rpc_pb.GetBlocksRequest()
-        return self.stubExplorer.GetBlocks(request).initial_metadata()
 
     def _initialize_timeout_height_sync_task(self):
         self._cancel_timeout_height_sync_task()
