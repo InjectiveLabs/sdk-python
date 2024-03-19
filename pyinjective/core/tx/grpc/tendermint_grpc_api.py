@@ -3,6 +3,7 @@ from typing import Any, Callable, Dict, Optional
 from grpc.aio import Channel
 
 from pyinjective.client.model.pagination import PaginationOption
+from pyinjective.core.network import CookieAssistant
 from pyinjective.proto.cosmos.base.tendermint.v1beta1 import (
     query_pb2 as tendermint_query,
     query_pb2_grpc as tendermint_query_grpc,
@@ -11,9 +12,9 @@ from pyinjective.utils.grpc_api_request_assistant import GrpcApiRequestAssistant
 
 
 class TendermintGrpcApi:
-    def __init__(self, channel: Channel, metadata_provider: Callable):
+    def __init__(self, channel: Channel, cookie_assistant: CookieAssistant):
         self._stub = tendermint_query_grpc.ServiceStub(channel)
-        self._assistant = GrpcApiRequestAssistant(metadata_provider=metadata_provider)
+        self._assistant = GrpcApiRequestAssistant(cookie_assistant=cookie_assistant)
 
     async def fetch_node_info(self) -> Dict[str, Any]:
         request = tendermint_query.GetNodeInfoRequest()

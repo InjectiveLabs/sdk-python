@@ -2,7 +2,7 @@ import grpc
 import pytest
 
 from pyinjective.client.indexer.grpc.indexer_grpc_auction_api import IndexerGrpcAuctionApi
-from pyinjective.core.network import Network
+from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.exchange import injective_auction_rpc_pb2 as exchange_auction_pb
 from tests.client.indexer.configurable_auction_query_servicer import ConfigurableAuctionQueryServicer
 
@@ -44,11 +44,7 @@ class TestIndexerGrpcAuctionApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcAuctionApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = auction_servicer
+        api = self._api_instance(servicer=auction_servicer)
 
         result_auction = await api.fetch_auction(round=auction.round)
         expected_auction = {
@@ -90,11 +86,7 @@ class TestIndexerGrpcAuctionApi:
 
         auction_servicer.auctions_responses.append(exchange_auction_pb.AuctionsResponse(auctions=[auction]))
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcAuctionApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = auction_servicer
+        api = self._api_instance(servicer=auction_servicer)
 
         result_auctions = await api.fetch_auctions()
         expected_auctions = {
@@ -117,5 +109,12 @@ class TestIndexerGrpcAuctionApi:
 
         assert result_auctions == expected_auctions
 
-    async def _dummy_metadata_provider(self):
-        return None
+    def _api_instance(self, servicer):
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
+        cookie_assistant = DisabledCookieAssistant()
+
+        api = IndexerGrpcAuctionApi(channel=channel, cookie_assistant=cookie_assistant)
+        api._stub = servicer
+
+        return api

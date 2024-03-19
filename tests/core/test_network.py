@@ -1,105 +1,94 @@
-import pytest
+import datetime
+from zoneinfo import ZoneInfo
 
-from pyinjective.core.network import BareMetalLoadBalancedCookieAssistant, KubernetesLoadBalancedCookieAssistant
+import pytest
+from grpc.aio import Metadata
+
+from pyinjective.core.network import (
+    BareMetalLoadBalancedCookieAssistant,
+    DisabledCookieAssistant,
+    ExpiringCookieAssistant,
+)
+
+
+class DummyCall:
+    def __init__(self, metadata: Metadata):
+        self._metadata = metadata
+
+    async def initial_metadata(self):
+        return self._metadata
 
 
 class TestBareMetalLoadBalancedCookieAssistant:
     @pytest.mark.asyncio
-    async def test_chain_metadata(self):
+    async def test_metadata_access(self):
         assistant = BareMetalLoadBalancedCookieAssistant()
-        dummy_metadata = [("set-cookie", "expected_cookie")]
 
-        async def dummy_metadata_provider():
-            return dummy_metadata
+        assert assistant.metadata() == Metadata()
 
-        metadata = await assistant.chain_metadata(metadata_query_provider=dummy_metadata_provider)
-        expected_metadata = (("cookie", "expected_cookie"),)
+        response_cookie = "lb=205989dfdbf02c2b4b9ed656ff8a081cb146d66797f69eefb4aee61ad5f13d4e; Path=/"
+        metadata = Metadata(
+            ("alt-svc", 'h3=":443"; ma=2592000'),
+            ("server", "Caddy"),
+            ("set-cookie", response_cookie),
+            ("x-cosmos-block-height", "23624674"),
+            ("date", "Mon, 18 Mar 2024 18:09:42 GMT"),
+        )
 
-        assert expected_metadata == metadata
+        grpc_call = DummyCall(metadata=metadata)
+        await assistant.process_response_metadata(grpc_call=grpc_call)
 
+        assert assistant.metadata() == Metadata(("cookie", response_cookie))
+
+
+class TestExpiringCookieAssistant:
     @pytest.mark.asyncio
-    async def test_chain_metadata_fails_when_cookie_info_not_included_in_server_response(self):
-        assistant = BareMetalLoadBalancedCookieAssistant()
-        dummy_metadata = [("invalid_key", "invalid_value")]
+    async def test_cookie_expiration(self):
+        time_format = "%a, %d-%b-%Y %H:%M:%S %Z"
 
-        async def dummy_metadata_provider():
-            return dummy_metadata
+        assistant = ExpiringCookieAssistant(
+            expiration_time_keys_sequence=["grpc-cookie", "expires"],
+            time_format=time_format,
+        )
 
-        with pytest.raises(RuntimeError, match=f"Error fetching chain cookie ({dummy_metadata})"):
-            await assistant.chain_metadata(metadata_query_provider=dummy_metadata_provider)
+        future_time = datetime.datetime.now(tz=ZoneInfo("GMT")) + datetime.timedelta(hours=1)
+        formatted_time = future_time.strftime(time_format)
+        cookie_value = (
+            f"grpc-cookie=bb3a543cef4d9182587375c26556c15f; Expires={formatted_time};"
+            f" Max-Age=172800; Path=/; Secure; HttpOnly"
+        )
 
+        metadata = Metadata(("set-cookie", cookie_value))
+        grpc_call = DummyCall(metadata=metadata)
+
+        await assistant.process_response_metadata(grpc_call=grpc_call)
+
+        assert assistant.cookie() == cookie_value
+
+        past_time = datetime.datetime.now(tz=ZoneInfo("GMT")) + datetime.timedelta(hours=-1)
+        formatted_time = past_time.strftime(time_format)
+        cookie_value = (
+            f"grpc-cookie=bb3a543cef4d9182587375c26556c15f; Expires={formatted_time};"
+            f" Max-Age=172800; Path=/; Secure; HttpOnly"
+        )
+
+        metadata = Metadata(("set-cookie", cookie_value))
+        grpc_call = DummyCall(metadata=metadata)
+
+        await assistant.process_response_metadata(grpc_call=grpc_call)
+
+        assert assistant.cookie() is None
+
+    def test_instance_creation_for_kubernetes_server(self):
+        assistant = ExpiringCookieAssistant.for_kubernetes_public_server()
+
+        assert ["grpc-cookie", "expires"] == assistant._expiration_time_keys_sequence
+        assert "%a, %d-%b-%Y %H:%M:%S %Z" == assistant._time_format
+
+
+class TestDisabledCookieAssistant:
     @pytest.mark.asyncio
-    async def test_exchange_metadata(self):
-        assistant = BareMetalLoadBalancedCookieAssistant()
-        dummy_metadata = [("set-cookie", "expected_cookie")]
+    async def test_metadata_access(self):
+        assistant = DisabledCookieAssistant()
 
-        async def dummy_metadata_provider():
-            return dummy_metadata
-
-        metadata = await assistant.exchange_metadata(metadata_query_provider=dummy_metadata_provider)
-        expected_metadata = (("cookie", "expected_cookie"),)
-
-        assert expected_metadata == metadata
-
-    @pytest.mark.asyncio
-    async def test_exchange_metadata_is_none_when_cookie_info_not_included_in_server_response(self):
-        assistant = BareMetalLoadBalancedCookieAssistant()
-        dummy_metadata = [("invalid_key", "invalid_value")]
-
-        async def dummy_metadata_provider():
-            return dummy_metadata
-
-        metadata = await assistant.exchange_metadata(metadata_query_provider=dummy_metadata_provider)
-
-        assert metadata is None
-
-
-class TestKubernetesLoadBalancedCookieAssistant:
-    @pytest.mark.asyncio
-    async def test_chain_metadata(self):
-        assistant = KubernetesLoadBalancedCookieAssistant()
-        dummy_metadata = [("set-cookie", "expected_cookie")]
-
-        async def dummy_metadata_provider():
-            return dummy_metadata
-
-        metadata = await assistant.chain_metadata(metadata_query_provider=dummy_metadata_provider)
-        expected_metadata = (("cookie", "expected_cookie"),)
-
-        assert expected_metadata == metadata
-
-    @pytest.mark.asyncio
-    async def test_chain_metadata_fails_when_cookie_info_not_included_in_server_response(self):
-        assistant = KubernetesLoadBalancedCookieAssistant()
-        dummy_metadata = [("invalid_key", "invalid_value")]
-
-        async def dummy_metadata_provider():
-            return dummy_metadata
-
-        with pytest.raises(RuntimeError, match=f"Error fetching chain cookie ({dummy_metadata})"):
-            await assistant.chain_metadata(metadata_query_provider=dummy_metadata_provider)
-
-    @pytest.mark.asyncio
-    async def test_exchange_metadata(self):
-        assistant = KubernetesLoadBalancedCookieAssistant()
-        dummy_metadata = [("set-cookie", "expected_cookie")]
-
-        async def dummy_metadata_provider():
-            return dummy_metadata
-
-        metadata = await assistant.exchange_metadata(metadata_query_provider=dummy_metadata_provider)
-        expected_metadata = (("cookie", "expected_cookie"),)
-
-        assert expected_metadata == metadata
-
-    @pytest.mark.asyncio
-    async def test_exchange_metadata_is_none_when_cookie_info_not_included_in_server_response(self):
-        assistant = KubernetesLoadBalancedCookieAssistant()
-        dummy_metadata = [("invalid_key", "invalid_value")]
-
-        async def dummy_metadata_provider():
-            return dummy_metadata
-
-        metadata = await assistant.exchange_metadata(metadata_query_provider=dummy_metadata_provider)
-
-        assert metadata is None
+        assert assistant.metadata() == Metadata()

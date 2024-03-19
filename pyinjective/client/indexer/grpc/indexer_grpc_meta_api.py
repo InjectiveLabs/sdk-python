@@ -3,6 +3,7 @@ from typing import Any, Callable, Dict
 
 from grpc.aio import Channel
 
+from pyinjective.core.network import CookieAssistant
 from pyinjective.proto.exchange import (
     injective_meta_rpc_pb2 as exchange_meta_pb,
     injective_meta_rpc_pb2_grpc as exchange_meta_grpc,
@@ -11,9 +12,9 @@ from pyinjective.utils.grpc_api_request_assistant import GrpcApiRequestAssistant
 
 
 class IndexerGrpcMetaApi:
-    def __init__(self, channel: Channel, metadata_provider: Callable):
+    def __init__(self, channel: Channel, cookie_assistant: CookieAssistant):
         self._stub = self._stub = exchange_meta_grpc.InjectiveMetaRPCStub(channel)
-        self._assistant = GrpcApiRequestAssistant(metadata_provider=metadata_provider)
+        self._assistant = GrpcApiRequestAssistant(cookie_assistant=cookie_assistant)
 
     async def fetch_ping(self) -> Dict[str, Any]:
         request = exchange_meta_pb.PingRequest()

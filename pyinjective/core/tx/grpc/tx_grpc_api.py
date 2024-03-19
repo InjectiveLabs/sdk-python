@@ -2,14 +2,15 @@ from typing import Any, Callable, Dict
 
 from grpc.aio import Channel
 
+from pyinjective.core.network import CookieAssistant
 from pyinjective.proto.cosmos.tx.v1beta1 import service_pb2 as tx_service, service_pb2_grpc as tx_service_grpc
 from pyinjective.utils.grpc_api_request_assistant import GrpcApiRequestAssistant
 
 
 class TxGrpcApi:
-    def __init__(self, channel: Channel, metadata_provider: Callable):
+    def __init__(self, channel: Channel, cookie_assistant: CookieAssistant):
         self._stub = tx_service_grpc.ServiceStub(channel)
-        self._assistant = GrpcApiRequestAssistant(metadata_provider=metadata_provider)
+        self._assistant = GrpcApiRequestAssistant(cookie_assistant=cookie_assistant)
 
     async def simulate(self, tx_bytes: bytes) -> Dict[str, Any]:
         request = tx_service.SimulateRequest(tx_bytes=tx_bytes)

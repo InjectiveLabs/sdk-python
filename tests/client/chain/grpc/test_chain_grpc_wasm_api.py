@@ -6,7 +6,7 @@ import pytest
 
 from pyinjective.client.chain.grpc.chain_grpc_wasm_api import ChainGrpcWasmApi
 from pyinjective.client.model.pagination import PaginationOption
-from pyinjective.core.network import Network
+from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagination_pb
 from pyinjective.proto.cosmwasm.wasm.v1 import query_pb2 as wasm_query_pb, types_pb2 as wasm_types_pb
 from tests.client.chain.grpc.configurable_wasm_query_servicer import ConfigurableWasmQueryServicer
@@ -33,11 +33,7 @@ class TestChainGrpcBankApi:
         )
         wasm_servicer.params_responses.append(wasm_query_pb.QueryParamsResponse(params=params))
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcWasmApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = wasm_servicer
+        api = self._api_instance(servicer=wasm_servicer)
 
         module_params = await api.fetch_module_params()
         expected_params = {
@@ -77,11 +73,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcWasmApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = wasm_servicer
+        api = self._api_instance(servicer=wasm_servicer)
 
         info = await api.fetch_contract_info(address=address)
         expected_contract_info = {
@@ -130,11 +122,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcWasmApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = wasm_servicer
+        api = self._api_instance(servicer=wasm_servicer)
 
         info = await api.fetch_contract_history(
             address="inj18pp4vjwucpgg4nw3rr4wh4zyjg9ct5t8v9wqgj",
@@ -183,11 +171,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcWasmApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = wasm_servicer
+        api = self._api_instance(servicer=wasm_servicer)
 
         info = await api.fetch_contracts_by_code(
             code_id=3770,
@@ -231,11 +215,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcWasmApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = wasm_servicer
+        api = self._api_instance(servicer=wasm_servicer)
 
         info = await api.fetch_all_contracts_state(
             address="inj1z4l7jc8dj3y9484aqcrmf6y8mcctvkmm9zkf7n",
@@ -266,11 +246,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcWasmApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = wasm_servicer
+        api = self._api_instance(servicer=wasm_servicer)
 
         info = await api.fetch_raw_contract_state(
             address="inj1z4l7jc8dj3y9484aqcrmf6y8mcctvkmm9zkf7n",
@@ -294,11 +270,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcWasmApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = wasm_servicer
+        api = self._api_instance(servicer=wasm_servicer)
 
         info = await api.fetch_smart_contract_state(
             address="inj1z4l7jc8dj3y9484aqcrmf6y8mcctvkmm9zkf7n",
@@ -333,11 +305,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcWasmApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = wasm_servicer
+        api = self._api_instance(servicer=wasm_servicer)
 
         info = await api.fetch_code(code_id=code_info_response.code_id)
         expected_contract_info = {
@@ -384,11 +352,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcWasmApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = wasm_servicer
+        api = self._api_instance(servicer=wasm_servicer)
 
         codes = await api.fetch_codes(
             pagination=PaginationOption(
@@ -436,11 +400,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcWasmApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = wasm_servicer
+        api = self._api_instance(servicer=wasm_servicer)
 
         codes = await api.fetch_pinned_codes(
             pagination=PaginationOption(
@@ -478,11 +438,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcWasmApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = wasm_servicer
+        api = self._api_instance(servicer=wasm_servicer)
 
         codes = await api.fetch_contracts_by_creator(
             creator_address="inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku",
@@ -501,5 +457,12 @@ class TestChainGrpcBankApi:
 
         assert codes == expected_codes
 
-    async def _dummy_metadata_provider(self):
-        return None
+    def _api_instance(self, servicer):
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
+        cookie_assistant = DisabledCookieAssistant()
+
+        api = ChainGrpcWasmApi(channel=channel, cookie_assistant=cookie_assistant)
+        api._stub = servicer
+
+        return api

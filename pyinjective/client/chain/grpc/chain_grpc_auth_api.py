@@ -3,14 +3,15 @@ from typing import Any, Callable, Dict
 from grpc.aio import Channel
 
 from pyinjective.client.model.pagination import PaginationOption
+from pyinjective.core.network import CookieAssistant
 from pyinjective.proto.cosmos.auth.v1beta1 import query_pb2 as auth_query_pb, query_pb2_grpc as auth_query_grpc
 from pyinjective.utils.grpc_api_request_assistant import GrpcApiRequestAssistant
 
 
 class ChainGrpcAuthApi:
-    def __init__(self, channel: Channel, metadata_provider: Callable):
+    def __init__(self, channel: Channel, cookie_assistant: CookieAssistant):
         self._stub = auth_query_grpc.QueryStub(channel)
-        self._assistant = GrpcApiRequestAssistant(metadata_provider=metadata_provider)
+        self._assistant = GrpcApiRequestAssistant(cookie_assistant=cookie_assistant)
 
     async def fetch_module_params(self) -> Dict[str, Any]:
         request = auth_query_pb.QueryParamsRequest()

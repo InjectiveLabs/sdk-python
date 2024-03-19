@@ -6,6 +6,9 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Added support for all queries in the chain 'tendermint' module
 
+### Changed
+- Refactored cookies management logic to use all gRPC calls' responses to update the current cookies
+
 ## [1.4.1] - 2024-03-12
 ### Changed
 - Updates example scripts that were still using deprecated methods

@@ -3,7 +3,7 @@ import pytest
 
 from pyinjective.client.indexer.grpc.indexer_grpc_spot_api import IndexerGrpcSpotApi
 from pyinjective.client.model.pagination import PaginationOption
-from pyinjective.core.network import Network
+from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.exchange import injective_spot_exchange_rpc_pb2 as exchange_spot_pb
 from tests.client.indexer.configurable_spot_query_servicer import ConfigurableSpotQueryServicer
 
@@ -57,11 +57,7 @@ class TestIndexerGrpcSpotApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcSpotApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = spot_servicer
+        api = self._api_instance(servicer=spot_servicer)
 
         result_markets = await api.fetch_markets(
             market_statuses=[market.market_status],
@@ -146,11 +142,7 @@ class TestIndexerGrpcSpotApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcSpotApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = spot_servicer
+        api = self._api_instance(servicer=spot_servicer)
 
         result_market = await api.fetch_market(market_id=market.market_id)
         expected_market = {
@@ -215,11 +207,7 @@ class TestIndexerGrpcSpotApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcSpotApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = spot_servicer
+        api = self._api_instance(servicer=spot_servicer)
 
         result_orderbook = await api.fetch_orderbook_v2(
             market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
@@ -281,11 +269,7 @@ class TestIndexerGrpcSpotApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcSpotApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = spot_servicer
+        api = self._api_instance(servicer=spot_servicer)
 
         result_orderbook = await api.fetch_orderbooks_v2(market_ids=[single_orderbook.market_id])
         expected_orderbook = {
@@ -348,11 +332,7 @@ class TestIndexerGrpcSpotApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcSpotApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = spot_servicer
+        api = self._api_instance(servicer=spot_servicer)
 
         result_orders = await api.fetch_orders(
             market_ids=[order.market_id],
@@ -435,11 +415,7 @@ class TestIndexerGrpcSpotApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcSpotApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = spot_servicer
+        api = self._api_instance(servicer=spot_servicer)
 
         result_trades = await api.fetch_trades(
             market_ids=[trade.market_id],
@@ -521,11 +497,7 @@ class TestIndexerGrpcSpotApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcSpotApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = spot_servicer
+        api = self._api_instance(servicer=spot_servicer)
 
         result_orders = await api.fetch_subaccount_orders_list(
             subaccount_id=order.subaccount_id,
@@ -597,11 +569,7 @@ class TestIndexerGrpcSpotApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcSpotApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = spot_servicer
+        api = self._api_instance(servicer=spot_servicer)
 
         result_trades = await api.fetch_subaccount_trades_list(
             subaccount_id=trade.subaccount_id,
@@ -672,11 +640,7 @@ class TestIndexerGrpcSpotApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcSpotApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = spot_servicer
+        api = self._api_instance(servicer=spot_servicer)
 
         result_orders = await api.fetch_orders_history(
             subaccount_id=order.subaccount_id,
@@ -759,11 +723,7 @@ class TestIndexerGrpcSpotApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcSpotApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = spot_servicer
+        api = self._api_instance(servicer=spot_servicer)
 
         result_history = await api.fetch_atomic_swap_history(
             address=atomic_swap.sender,
@@ -838,11 +798,7 @@ class TestIndexerGrpcSpotApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcSpotApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = spot_servicer
+        api = self._api_instance(servicer=spot_servicer)
 
         result_trades = await api.fetch_trades_v2(
             market_ids=[trade.market_id],
@@ -892,5 +848,12 @@ class TestIndexerGrpcSpotApi:
 
         assert result_trades == expected_trades
 
-    async def _dummy_metadata_provider(self):
-        return None
+    def _api_instance(self, servicer):
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
+        cookie_assistant = DisabledCookieAssistant()
+
+        api = IndexerGrpcSpotApi(channel=channel, cookie_assistant=cookie_assistant)
+        api._stub = servicer
+
+        return api

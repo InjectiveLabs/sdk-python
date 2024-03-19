@@ -4,7 +4,7 @@ import grpc
 import pytest
 from google.protobuf import any_pb2
 
-from pyinjective.core.network import Network
+from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.core.tx.grpc.tx_grpc_api import TxGrpcApi
 from pyinjective.proto.cosmos.base.abci.v1beta1 import abci_pb2 as abci_type
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb
@@ -37,11 +37,7 @@ class TestTxGrpcApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = TxGrpcApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = tx_servicer
+        api = self._api_instance(servicer=tx_servicer)
 
         result_simulate = await api.simulate(tx_bytes="Transaction content".encode())
         expected_simulate = {
@@ -100,11 +96,7 @@ class TestTxGrpcApi:
 
         tx_servicer.get_tx_responses.append(tx_service.GetTxResponse(tx=transaction, tx_response=transaction_response))
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = TxGrpcApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = tx_servicer
+        api = self._api_instance(servicer=tx_servicer)
 
         result_tx = await api.fetch_tx(hash=transaction_response.txhash)
         expected_tx = {
@@ -174,11 +166,7 @@ class TestTxGrpcApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = TxGrpcApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = tx_servicer
+        api = self._api_instance(servicer=tx_servicer)
 
         result_broadcast = await api.broadcast(
             tx_bytes="Transaction content".encode(),
@@ -203,5 +191,12 @@ class TestTxGrpcApi:
 
         assert result_broadcast == expected_broadcast
 
-    async def _dummy_metadata_provider(self):
-        return None
+    def _api_instance(self, servicer):
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
+        cookie_assistant = DisabledCookieAssistant()
+
+        api = TxGrpcApi(channel=channel, cookie_assistant=cookie_assistant)
+        api._stub = servicer
+
+        return api

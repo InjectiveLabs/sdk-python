@@ -3,7 +3,7 @@ import pytest
 
 from pyinjective.client.indexer.grpc.indexer_grpc_derivative_api import IndexerGrpcDerivativeApi
 from pyinjective.client.model.pagination import PaginationOption
-from pyinjective.core.network import Network
+from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.exchange import injective_derivative_exchange_rpc_pb2 as exchange_derivative_pb
 from tests.client.indexer.configurable_derivative_query_servicer import ConfigurableDerivativeQueryServicer
 
@@ -67,11 +67,7 @@ class TestIndexerGrpcDerivativeApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcDerivativeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = derivative_servicer
+        api = self._api_instance(servicer=derivative_servicer)
 
         result_markets = await api.fetch_markets(
             market_statuses=[market.market_status],
@@ -174,11 +170,7 @@ class TestIndexerGrpcDerivativeApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcDerivativeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = derivative_servicer
+        api = self._api_instance(servicer=derivative_servicer)
 
         result_market = await api.fetch_market(market_id=market.market_id)
         expected_market = {
@@ -263,11 +255,7 @@ class TestIndexerGrpcDerivativeApi:
             exchange_derivative_pb.BinaryOptionsMarketsResponse(markets=[market], paging=paging)
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcDerivativeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = derivative_servicer
+        api = self._api_instance(servicer=derivative_servicer)
 
         result_markets = await api.fetch_binary_options_markets(
             market_status=market.market_status,
@@ -355,11 +343,7 @@ class TestIndexerGrpcDerivativeApi:
             exchange_derivative_pb.BinaryOptionsMarketResponse(market=market)
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcDerivativeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = derivative_servicer
+        api = self._api_instance(servicer=derivative_servicer)
 
         result_markets = await api.fetch_binary_options_market(market_id=market.market_id)
         expected_markets = {
@@ -422,11 +406,7 @@ class TestIndexerGrpcDerivativeApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcDerivativeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = derivative_servicer
+        api = self._api_instance(servicer=derivative_servicer)
 
         result_orderbook = await api.fetch_orderbook_v2(
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
@@ -488,11 +468,7 @@ class TestIndexerGrpcDerivativeApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcDerivativeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = derivative_servicer
+        api = self._api_instance(servicer=derivative_servicer)
 
         result_orderbook = await api.fetch_orderbooks_v2(market_ids=[single_orderbook.market_id])
         expected_orderbook = {
@@ -563,11 +539,7 @@ class TestIndexerGrpcDerivativeApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcDerivativeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = derivative_servicer
+        api = self._api_instance(servicer=derivative_servicer)
 
         result_orders = await api.fetch_orders(
             market_ids=[order.market_id],
@@ -654,11 +626,7 @@ class TestIndexerGrpcDerivativeApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcDerivativeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = derivative_servicer
+        api = self._api_instance(servicer=derivative_servicer)
 
         result_orders = await api.fetch_positions(
             market_ids=[position.market_id],
@@ -729,11 +697,7 @@ class TestIndexerGrpcDerivativeApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcDerivativeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = derivative_servicer
+        api = self._api_instance(servicer=derivative_servicer)
 
         result_orders = await api.fetch_positions_v2(
             market_ids=[position.market_id],
@@ -798,11 +762,7 @@ class TestIndexerGrpcDerivativeApi:
             exchange_derivative_pb.LiquidablePositionsResponse(positions=[position])
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcDerivativeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = derivative_servicer
+        api = self._api_instance(servicer=derivative_servicer)
 
         result_orders = await api.fetch_liquidable_positions(
             market_id=position.market_id,
@@ -854,11 +814,7 @@ class TestIndexerGrpcDerivativeApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcDerivativeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = derivative_servicer
+        api = self._api_instance(servicer=derivative_servicer)
 
         result_orders = await api.fetch_funding_payments(
             market_ids=[payment.market_id],
@@ -910,11 +866,7 @@ class TestIndexerGrpcDerivativeApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcDerivativeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = derivative_servicer
+        api = self._api_instance(servicer=derivative_servicer)
 
         result_orders = await api.fetch_funding_rates(
             market_id=funding_rate.market_id,
@@ -981,11 +933,7 @@ class TestIndexerGrpcDerivativeApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcDerivativeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = derivative_servicer
+        api = self._api_instance(servicer=derivative_servicer)
 
         result_trades = await api.fetch_trades(
             market_ids=[trade.market_id],
@@ -1077,11 +1025,7 @@ class TestIndexerGrpcDerivativeApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcDerivativeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = derivative_servicer
+        api = self._api_instance(servicer=derivative_servicer)
 
         result_orders = await api.fetch_subaccount_orders_list(
             subaccount_id=order.subaccount_id,
@@ -1163,11 +1107,7 @@ class TestIndexerGrpcDerivativeApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcDerivativeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = derivative_servicer
+        api = self._api_instance(servicer=derivative_servicer)
 
         result_trades = await api.fetch_subaccount_trades_list(
             subaccount_id=trade.subaccount_id,
@@ -1245,11 +1185,7 @@ class TestIndexerGrpcDerivativeApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcDerivativeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = derivative_servicer
+        api = self._api_instance(servicer=derivative_servicer)
 
         result_orders = await api.fetch_orders_history(
             subaccount_id=order.subaccount_id,
@@ -1344,11 +1280,7 @@ class TestIndexerGrpcDerivativeApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcDerivativeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = derivative_servicer
+        api = self._api_instance(servicer=derivative_servicer)
 
         result_trades = await api.fetch_trades_v2(
             market_ids=[trade.market_id],
@@ -1400,5 +1332,12 @@ class TestIndexerGrpcDerivativeApi:
 
         assert result_trades == expected_trades
 
-    async def _dummy_metadata_provider(self):
-        return None
+    def _api_instance(self, servicer):
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
+        cookie_assistant = DisabledCookieAssistant()
+
+        api = IndexerGrpcDerivativeApi(channel=channel, cookie_assistant=cookie_assistant)
+        api._stub = servicer
+
+        return api
