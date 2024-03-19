@@ -1,5 +1,4 @@
 import datetime
-from zoneinfo import ZoneInfo
 
 import pytest
 from grpc.aio import Metadata
@@ -45,13 +44,14 @@ class TestExpiringCookieAssistant:
     @pytest.mark.asyncio
     async def test_cookie_expiration(self):
         time_format = "%a, %d-%b-%Y %H:%M:%S %Z"
+        gmt_timezone = datetime.timezone(offset=datetime.timedelta(seconds=0), name="GMT")
 
         assistant = ExpiringCookieAssistant(
             expiration_time_keys_sequence=["grpc-cookie", "expires"],
             time_format=time_format,
         )
 
-        future_time = datetime.datetime.now(tz=ZoneInfo("Europe/London")) + datetime.timedelta(hours=1)
+        future_time = datetime.datetime.now(tz=gmt_timezone) + datetime.timedelta(hours=1)
         formatted_time = future_time.strftime(time_format)
         cookie_value = (
             f"grpc-cookie=bb3a543cef4d9182587375c26556c15f; Expires={formatted_time};"
@@ -65,7 +65,7 @@ class TestExpiringCookieAssistant:
 
         assert assistant.cookie() == cookie_value
 
-        past_time = datetime.datetime.now(tz=ZoneInfo("GMT")) + datetime.timedelta(hours=-1)
+        past_time = datetime.datetime.now(tz=gmt_timezone) + datetime.timedelta(hours=-1)
         formatted_time = past_time.strftime(time_format)
         cookie_value = (
             f"grpc-cookie=bb3a543cef4d9182587375c26556c15f; Expires={formatted_time};"
