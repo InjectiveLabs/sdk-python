@@ -3,6 +3,7 @@ from typing import Callable, List, Optional
 from grpc.aio import Channel
 
 from pyinjective.client.model.pagination import PaginationOption
+from pyinjective.core.network import CookieAssistant
 from pyinjective.proto.exchange import (
     injective_derivative_exchange_rpc_pb2 as exchange_derivative_pb,
     injective_derivative_exchange_rpc_pb2_grpc as exchange_derivative_grpc,
@@ -11,9 +12,9 @@ from pyinjective.utils.grpc_api_stream_assistant import GrpcApiStreamAssistant
 
 
 class IndexerGrpcDerivativeStream:
-    def __init__(self, channel: Channel, metadata_provider: Callable):
+    def __init__(self, channel: Channel, cookie_assistant: CookieAssistant):
         self._stub = self._stub = exchange_derivative_grpc.InjectiveDerivativeExchangeRPCStub(channel)
-        self._assistant = GrpcApiStreamAssistant(metadata_provider=metadata_provider)
+        self._assistant = GrpcApiStreamAssistant(cookie_assistant=cookie_assistant)
 
     async def stream_market(
         self,

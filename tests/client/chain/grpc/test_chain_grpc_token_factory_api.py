@@ -2,7 +2,7 @@ import grpc
 import pytest
 
 from pyinjective.client.chain.grpc.chain_grpc_token_factory_api import ChainGrpcTokenFactoryApi
-from pyinjective.core.network import Network
+from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb
 from pyinjective.proto.injective.tokenfactory.v1beta1 import (
     authorityMetadata_pb2 as token_factory_authority_metadata_pb,
@@ -30,11 +30,7 @@ class TestChainGrpcTokenFactoryApi:
         )
         token_factory_query_servicer.params_responses.append(token_factory_query_pb.QueryParamsResponse(params=params))
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcTokenFactoryApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._query_stub = token_factory_query_servicer
+        api = self._api_instance(servicer=token_factory_query_servicer)
 
         module_params = await api.fetch_module_params()
         expected_params = {
@@ -61,11 +57,7 @@ class TestChainGrpcTokenFactoryApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcTokenFactoryApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._query_stub = token_factory_query_servicer
+        api = self._api_instance(servicer=token_factory_query_servicer)
 
         metadata = await api.fetch_denom_authority_metadata(
             creator=authority_metadata.admin,
@@ -89,11 +81,7 @@ class TestChainGrpcTokenFactoryApi:
             token_factory_query_pb.QueryDenomsFromCreatorResponse(denoms=[denom])
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcTokenFactoryApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._query_stub = token_factory_query_servicer
+        api = self._api_instance(servicer=token_factory_query_servicer)
 
         denoms = await api.fetch_denoms_from_creator(creator="inj1ady3s7whq30l4fx8sj3x6muv5mx4dfdlcpv8n7")
         expected_denoms = {"denoms": [denom]}
@@ -126,11 +114,7 @@ class TestChainGrpcTokenFactoryApi:
             token_factory_query_pb.QueryModuleStateResponse(state=state)
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcTokenFactoryApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._query_stub = token_factory_query_servicer
+        api = self._api_instance(servicer=token_factory_query_servicer)
 
         state = await api.fetch_tokenfactory_module_state()
         expected_state = {
@@ -155,5 +139,12 @@ class TestChainGrpcTokenFactoryApi:
 
         assert state == expected_state
 
-    async def _dummy_metadata_provider(self):
-        return None
+    def _api_instance(self, servicer):
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
+        cookie_assistant = DisabledCookieAssistant()
+
+        api = ChainGrpcTokenFactoryApi(channel=channel, cookie_assistant=cookie_assistant)
+        api._query_stub = servicer
+
+        return api

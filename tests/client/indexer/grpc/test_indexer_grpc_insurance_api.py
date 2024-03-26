@@ -2,7 +2,7 @@ import grpc
 import pytest
 
 from pyinjective.client.indexer.grpc.indexer_grpc_insurance_api import IndexerGrpcInsuranceApi
-from pyinjective.core.network import Network
+from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.exchange import injective_insurance_rpc_pb2 as exchange_insurance_pb
 from tests.client.indexer.configurable_insurance_query_servicer import ConfigurableInsuranceQueryServicer
 
@@ -38,11 +38,7 @@ class TestIndexerGrpcInsuranceApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcInsuranceApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = insurance_servicer
+        api = self._api_instance(servicer=insurance_servicer)
 
         result_insurance_list = await api.fetch_insurance_funds()
         expected_insurance_list = {
@@ -89,11 +85,7 @@ class TestIndexerGrpcInsuranceApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcInsuranceApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = insurance_servicer
+        api = self._api_instance(servicer=insurance_servicer)
 
         result_insurance_list = await api.fetch_redemptions(
             address=redemption_schedule.redeemer,
@@ -119,5 +111,12 @@ class TestIndexerGrpcInsuranceApi:
 
         assert result_insurance_list == expected_insurance_list
 
-    async def _dummy_metadata_provider(self):
-        return None
+    def _api_instance(self, servicer):
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
+        cookie_assistant = DisabledCookieAssistant()
+
+        api = IndexerGrpcInsuranceApi(channel=channel, cookie_assistant=cookie_assistant)
+        api._stub = servicer
+
+        return api

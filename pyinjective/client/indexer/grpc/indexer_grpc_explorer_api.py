@@ -3,6 +3,7 @@ from typing import Any, Callable, Dict, List, Optional
 from grpc.aio import Channel
 
 from pyinjective.client.model.pagination import PaginationOption
+from pyinjective.core.network import CookieAssistant
 from pyinjective.proto.exchange import (
     injective_explorer_rpc_pb2 as exchange_explorer_pb,
     injective_explorer_rpc_pb2_grpc as exchange_explorer_grpc,
@@ -11,9 +12,9 @@ from pyinjective.utils.grpc_api_request_assistant import GrpcApiRequestAssistant
 
 
 class IndexerGrpcExplorerApi:
-    def __init__(self, channel: Channel, metadata_provider: Callable):
+    def __init__(self, channel: Channel, cookie_assistant: CookieAssistant):
         self._stub = self._stub = exchange_explorer_grpc.InjectiveExplorerRPCStub(channel)
-        self._assistant = GrpcApiRequestAssistant(metadata_provider=metadata_provider)
+        self._assistant = GrpcApiRequestAssistant(cookie_assistant=cookie_assistant)
 
     async def fetch_account_txs(
         self,

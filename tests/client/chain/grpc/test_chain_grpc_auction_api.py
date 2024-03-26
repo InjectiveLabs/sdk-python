@@ -2,7 +2,7 @@ import grpc
 import pytest
 
 from pyinjective.client.chain.grpc.chain_grpc_auction_api import ChainGrpcAuctionApi
-from pyinjective.core.network import Network
+from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb
 from pyinjective.proto.injective.auction.v1beta1 import (
     auction_pb2 as auction_pb,
@@ -26,11 +26,7 @@ class TestChainGrpcAuctionApi:
         params = auction_pb.Params(auction_period=604800, min_next_bid_increment_rate="2500000000000000")
         auction_servicer.auction_params.append(auction_query_pb.QueryAuctionParamsResponse(params=params))
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcAuctionApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = auction_servicer
+        api = self._api_instance(servicer=auction_servicer)
 
         module_params = await api.fetch_module_params()
         expected_params = {"params": {"auctionPeriod": "604800", "minNextBidIncrementRate": "2500000000000000"}}
@@ -55,11 +51,7 @@ class TestChainGrpcAuctionApi:
         )
         auction_servicer.module_states.append(auction_query_pb.QueryModuleStateResponse(state=state))
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcAuctionApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = auction_servicer
+        api = self._api_instance(servicer=auction_servicer)
 
         module_state = await api.fetch_module_state()
         expected_state = {
@@ -92,11 +84,7 @@ class TestChainGrpcAuctionApi:
         )
         auction_servicer.module_states.append(auction_query_pb.QueryModuleStateResponse(state=state))
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcAuctionApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = auction_servicer
+        api = self._api_instance(servicer=auction_servicer)
 
         module_state = await api.fetch_module_state()
         expected_state = {
@@ -136,11 +124,7 @@ class TestChainGrpcAuctionApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcAuctionApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = auction_servicer
+        api = self._api_instance(servicer=auction_servicer)
 
         current_basket = await api.fetch_current_basket()
         expected_basket = {
@@ -162,5 +146,12 @@ class TestChainGrpcAuctionApi:
 
         assert expected_basket == current_basket
 
-    async def _dummy_metadata_provider(self):
-        return None
+    def _api_instance(self, servicer):
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
+        cookie_assistant = DisabledCookieAssistant()
+
+        api = ChainGrpcAuctionApi(channel=channel, cookie_assistant=cookie_assistant)
+        api._stub = servicer
+
+        return api

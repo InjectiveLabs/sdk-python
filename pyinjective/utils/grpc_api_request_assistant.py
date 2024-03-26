@@ -2,15 +2,20 @@ from typing import Any, Callable, Dict
 
 from google.protobuf import json_format
 
+from pyinjective.core.network import CookieAssistant
+
 
 class GrpcApiRequestAssistant:
-    def __init__(self, metadata_provider: Callable):
+    def __init__(self, cookie_assistant: CookieAssistant):
         super().__init__()
-        self._metadata_provider = metadata_provider
+        self._cookie_assistant = cookie_assistant
 
     async def execute_call(self, call: Callable, request) -> Dict[str, Any]:
-        metadata = await self._metadata_provider()
-        response = await call(request, metadata=metadata)
+        metadata = self._cookie_assistant.metadata()
+        grpc_call = call(request, metadata=metadata)
+        response = await grpc_call
+
+        await self._cookie_assistant.process_response_metadata(grpc_call=grpc_call)
 
         result = json_format.MessageToDict(
             message=response,

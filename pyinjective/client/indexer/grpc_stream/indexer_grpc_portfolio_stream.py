@@ -2,6 +2,7 @@ from typing import Callable, Optional
 
 from grpc.aio import Channel
 
+from pyinjective.core.network import CookieAssistant
 from pyinjective.proto.exchange import (
     injective_portfolio_rpc_pb2 as exchange_portfolio_pb,
     injective_portfolio_rpc_pb2_grpc as exchange_portfolio_grpc,
@@ -10,9 +11,9 @@ from pyinjective.utils.grpc_api_stream_assistant import GrpcApiStreamAssistant
 
 
 class IndexerGrpcPortfolioStream:
-    def __init__(self, channel: Channel, metadata_provider: Callable):
+    def __init__(self, channel: Channel, cookie_assistant: CookieAssistant):
         self._stub = self._stub = exchange_portfolio_grpc.InjectivePortfolioRPCStub(channel)
-        self._assistant = GrpcApiStreamAssistant(metadata_provider=metadata_provider)
+        self._assistant = GrpcApiStreamAssistant(cookie_assistant=cookie_assistant)
 
     async def stream_account_portfolio(
         self,

@@ -4,7 +4,7 @@ from google.protobuf import any_pb2
 
 from pyinjective.client.chain.grpc.chain_grpc_authz_api import ChainGrpcAuthZApi
 from pyinjective.client.model.pagination import PaginationOption
-from pyinjective.core.network import Network
+from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.cosmos.authz.v1beta1 import authz_pb2, query_pb2 as authz_query
 from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagination_pb
 from tests.client.chain.grpc.configurable_authz_query_servicer import ConfigurableAuthZQueryServicer
@@ -47,11 +47,7 @@ class TestChainGrpcAuthZApi:
             count_total=True,
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcAuthZApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = authz_servicer
+        api = self._api_instance(servicer=authz_servicer)
 
         result_grants = await api.fetch_grants(
             granter="inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku",
@@ -109,11 +105,7 @@ class TestChainGrpcAuthZApi:
             count_total=True,
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcAuthZApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = authz_servicer
+        api = self._api_instance(servicer=authz_servicer)
 
         result_grants = await api.fetch_granter_grants(
             granter="inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku",
@@ -171,11 +163,7 @@ class TestChainGrpcAuthZApi:
             count_total=True,
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcAuthZApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = authz_servicer
+        api = self._api_instance(servicer=authz_servicer)
 
         result_grants = await api.fetch_grantee_grants(
             grantee="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
@@ -198,5 +186,12 @@ class TestChainGrpcAuthZApi:
 
         assert result_grants == expected_grants
 
-    async def _dummy_metadata_provider(self):
-        return None
+    def _api_instance(self, servicer):
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
+        cookie_assistant = DisabledCookieAssistant()
+
+        api = ChainGrpcAuthZApi(channel=channel, cookie_assistant=cookie_assistant)
+        api._stub = servicer
+
+        return api

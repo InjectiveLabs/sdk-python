@@ -3,7 +3,7 @@ import base64
 import time
 from copy import deepcopy
 from decimal import Decimal
-from typing import Any, Callable, Coroutine, Dict, List, Optional, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 from warnings import warn
 
 import grpc
@@ -166,169 +166,115 @@ class AsyncClient:
 
         self.bank_api = ChainGrpcBankApi(
             channel=self.chain_channel,
-            metadata_provider=lambda: self.network.chain_metadata(
-                metadata_query_provider=self._chain_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.chain_cookie_assistant,
         )
         self.auth_api = ChainGrpcAuthApi(
             channel=self.chain_channel,
-            metadata_provider=lambda: self.network.chain_metadata(
-                metadata_query_provider=self._chain_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.chain_cookie_assistant,
         )
         self.authz_api = ChainGrpcAuthZApi(
             channel=self.chain_channel,
-            metadata_provider=lambda: self.network.chain_metadata(
-                metadata_query_provider=self._chain_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.chain_cookie_assistant,
         )
         self.distribution_api = ChainGrpcDistributionApi(
             channel=self.chain_channel,
-            metadata_provider=lambda: self.network.chain_metadata(
-                metadata_query_provider=self._chain_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.chain_cookie_assistant,
         )
         self.chain_exchange_api = ChainGrpcExchangeApi(
             channel=self.chain_channel,
-            metadata_provider=lambda: self.network.chain_metadata(
-                metadata_query_provider=self._chain_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.chain_cookie_assistant,
         )
         self.tendermint_api = TendermintGrpcApi(
             channel=self.chain_channel,
-            metadata_provider=lambda: self.network.chain_metadata(
-                metadata_query_provider=self._chain_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.chain_cookie_assistant,
         )
         self.token_factory_api = ChainGrpcTokenFactoryApi(
             channel=self.chain_channel,
-            metadata_provider=lambda: self.network.chain_metadata(
-                metadata_query_provider=self._chain_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.chain_cookie_assistant,
         )
         self.tx_api = TxGrpcApi(
             channel=self.chain_channel,
-            metadata_provider=lambda: self.network.chain_metadata(
-                metadata_query_provider=self._chain_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.chain_cookie_assistant,
         )
         self.wasm_api = ChainGrpcWasmApi(
             channel=self.chain_channel,
-            metadata_provider=lambda: self.network.chain_metadata(
-                metadata_query_provider=self._chain_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.chain_cookie_assistant,
         )
 
         self.chain_stream_api = ChainGrpcChainStream(
             channel=self.chain_stream_channel,
-            metadata_provider=lambda: self.network.chain_metadata(
-                metadata_query_provider=self._chain_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.chain_cookie_assistant,
         )
 
         self.exchange_account_api = IndexerGrpcAccountApi(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
         self.exchange_auction_api = IndexerGrpcAuctionApi(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
         self.exchange_derivative_api = IndexerGrpcDerivativeApi(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
         self.exchange_insurance_api = IndexerGrpcInsuranceApi(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
         self.exchange_meta_api = IndexerGrpcMetaApi(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
         self.exchange_oracle_api = IndexerGrpcOracleApi(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
         self.exchange_portfolio_api = IndexerGrpcPortfolioApi(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
         self.exchange_spot_api = IndexerGrpcSpotApi(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
 
         self.exchange_account_stream_api = IndexerGrpcAccountStream(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
         self.exchange_auction_stream_api = IndexerGrpcAuctionStream(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
         self.exchange_derivative_stream_api = IndexerGrpcDerivativeStream(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
         self.exchange_meta_stream_api = IndexerGrpcMetaStream(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
         self.exchange_oracle_stream_api = IndexerGrpcOracleStream(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
         self.exchange_portfolio_stream_api = IndexerGrpcPortfolioStream(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
         self.exchange_spot_stream_api = IndexerGrpcSpotStream(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
 
         self.exchange_explorer_api = IndexerGrpcExplorerApi(
             channel=self.explorer_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._explorer_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.explorer_cookie_assistant,
         )
         self.exchange_explorer_stream_api = IndexerGrpcExplorerStream(
             channel=self.explorer_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._explorer_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.explorer_cookie_assistant,
         )
 
     async def all_tokens(self) -> Dict[str, Token]:
@@ -404,7 +350,7 @@ class AsyncClient:
         warn("This method is deprecated. Use fetch_account instead", DeprecationWarning, stacklevel=2)
 
         try:
-            metadata = await self.network.chain_metadata(metadata_query_provider=self._chain_cookie_metadata_requestor)
+            metadata = self.network.chain_cookie_assistant.metadata()
             account_any = (
                 await self.stubAuth.Account(auth_query.QueryAccountRequest(address=address), metadata=metadata)
             ).account
@@ -460,7 +406,7 @@ class AsyncClient:
         warn("This method is deprecated. Use simulate instead", DeprecationWarning, stacklevel=2)
         try:
             req = tx_service.SimulateRequest(tx_bytes=tx_byte)
-            metadata = await self.network.chain_metadata(metadata_query_provider=self._chain_cookie_metadata_requestor)
+            metadata = self.network.chain_cookie_assistant.metadata()
             return await self.stubTx.Simulate(request=req, metadata=metadata), True
         except grpc.RpcError as err:
             return err, False
@@ -474,7 +420,7 @@ class AsyncClient:
         """
         warn("This method is deprecated. Use broadcast_tx_sync_mode instead", DeprecationWarning, stacklevel=2)
         req = tx_service.BroadcastTxRequest(tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_SYNC)
-        metadata = await self.network.chain_metadata(metadata_query_provider=self._chain_cookie_metadata_requestor)
+        metadata = self.network.chain_cookie_assistant.metadata()
         result = await self.stubTx.BroadcastTx(request=req, metadata=metadata)
         return result.tx_response
 
@@ -487,7 +433,7 @@ class AsyncClient:
         """
         warn("This method is deprecated. Use broadcast_tx_async_mode instead", DeprecationWarning, stacklevel=2)
         req = tx_service.BroadcastTxRequest(tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_ASYNC)
-        metadata = await self.network.chain_metadata(metadata_query_provider=self._chain_cookie_metadata_requestor)
+        metadata = self.network.chain_cookie_assistant.metadata()
         result = await self.stubTx.BroadcastTx(request=req, metadata=metadata)
         return result.tx_response
 
@@ -500,7 +446,7 @@ class AsyncClient:
         """
         warn("This method is deprecated. BLOCK broadcast mode should not be used", DeprecationWarning, stacklevel=2)
         req = tx_service.BroadcastTxRequest(tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_BLOCK)
-        metadata = await self.network.chain_metadata(metadata_query_provider=self._chain_cookie_metadata_requestor)
+        metadata = self.network.chain_cookie_assistant.metadata()
         result = await self.stubTx.BroadcastTx(request=req, metadata=metadata)
         return result.tx_response
 
@@ -1838,9 +1784,7 @@ class AsyncClient:
         warn("This method is deprecated. Use listen_spot_markets_updates instead", DeprecationWarning, stacklevel=2)
 
         req = spot_exchange_rpc_pb.StreamMarketsRequest(market_ids=kwargs.get("market_ids"))
-        metadata = await self.network.exchange_metadata(
-            metadata_query_provider=self._exchange_cookie_metadata_requestor
-        )
+        metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubSpotExchange.StreamMarkets(request=req, metadata=metadata)
 
     async def listen_spot_markets_updates(
@@ -2030,9 +1974,7 @@ class AsyncClient:
         """
         warn("This method is deprecated. Use listen_spot_orderbook_snapshots instead", DeprecationWarning, stacklevel=2)
         req = spot_exchange_rpc_pb.StreamOrderbookV2Request(market_ids=market_ids)
-        metadata = await self.network.exchange_metadata(
-            metadata_query_provider=self._exchange_cookie_metadata_requestor
-        )
+        metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubSpotExchange.StreamOrderbookV2(request=req, metadata=metadata)
 
     async def listen_spot_orderbook_snapshots(
@@ -2055,9 +1997,7 @@ class AsyncClient:
         """
         warn("This method is deprecated. Use listen_spot_orderbook_updates instead", DeprecationWarning, stacklevel=2)
         req = spot_exchange_rpc_pb.StreamOrderbookUpdateRequest(market_ids=market_ids)
-        metadata = await self.network.exchange_metadata(
-            metadata_query_provider=self._exchange_cookie_metadata_requestor
-        )
+        metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubSpotExchange.StreamOrderbookUpdate(request=req, metadata=metadata)
 
     async def listen_spot_orderbook_updates(
@@ -2093,9 +2033,7 @@ class AsyncClient:
             trade_id=kwargs.get("trade_id"),
             cid=kwargs.get("cid"),
         )
-        metadata = await self.network.exchange_metadata(
-            metadata_query_provider=self._exchange_cookie_metadata_requestor
-        )
+        metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubSpotExchange.StreamOrders(request=req, metadata=metadata)
 
     async def listen_spot_orders_updates(
@@ -2143,9 +2081,7 @@ class AsyncClient:
             state=kwargs.get("state"),
             execution_types=kwargs.get("execution_types"),
         )
-        metadata = await self.network.exchange_metadata(
-            metadata_query_provider=self._exchange_cookie_metadata_requestor
-        )
+        metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubSpotExchange.StreamOrdersHistory(request=req, metadata=metadata)
 
     async def listen_spot_orders_history_updates(
@@ -2190,9 +2126,7 @@ class AsyncClient:
             state=kwargs.get("state"),
             execution_types=kwargs.get("execution_types"),
         )
-        metadata = await self.network.exchange_metadata(
-            metadata_query_provider=self._exchange_cookie_metadata_requestor
-        )
+        metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubDerivativeExchange.StreamOrdersHistory(request=req, metadata=metadata)
 
     async def listen_derivative_orders_history_updates(
@@ -2240,9 +2174,7 @@ class AsyncClient:
             account_address=kwargs.get("account_address"),
             cid=kwargs.get("cid"),
         )
-        metadata = await self.network.exchange_metadata(
-            metadata_query_provider=self._exchange_cookie_metadata_requestor
-        )
+        metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubSpotExchange.StreamTrades(request=req, metadata=metadata)
 
     async def listen_spot_trades_updates(
@@ -2375,9 +2307,7 @@ class AsyncClient:
             "This method is deprecated. Use listen_derivative_market_updates instead", DeprecationWarning, stacklevel=2
         )
         req = derivative_exchange_rpc_pb.StreamMarketRequest(market_ids=kwargs.get("market_ids"))
-        metadata = await self.network.exchange_metadata(
-            metadata_query_provider=self._exchange_cookie_metadata_requestor
-        )
+        metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubDerivativeExchange.StreamMarket(request=req, metadata=metadata)
 
     async def listen_derivative_market_updates(
@@ -2580,9 +2510,7 @@ class AsyncClient:
             stacklevel=2,
         )
         req = derivative_exchange_rpc_pb.StreamOrderbookV2Request(market_ids=market_ids)
-        metadata = await self.network.exchange_metadata(
-            metadata_query_provider=self._exchange_cookie_metadata_requestor
-        )
+        metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubDerivativeExchange.StreamOrderbookV2(request=req, metadata=metadata)
 
     async def listen_derivative_orderbook_snapshots(
@@ -2609,9 +2537,7 @@ class AsyncClient:
             stacklevel=2,
         )
         req = derivative_exchange_rpc_pb.StreamOrderbookUpdateRequest(market_ids=market_ids)
-        metadata = await self.network.exchange_metadata(
-            metadata_query_provider=self._exchange_cookie_metadata_requestor
-        )
+        metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubDerivativeExchange.StreamOrderbookUpdate(request=req, metadata=metadata)
 
     async def listen_derivative_orderbook_updates(
@@ -2651,9 +2577,7 @@ class AsyncClient:
             trade_id=kwargs.get("trade_id"),
             cid=kwargs.get("cid"),
         )
-        metadata = await self.network.exchange_metadata(
-            metadata_query_provider=self._exchange_cookie_metadata_requestor
-        )
+        metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubDerivativeExchange.StreamOrders(request=req, metadata=metadata)
 
     async def listen_derivative_orders_updates(
@@ -2711,9 +2635,7 @@ class AsyncClient:
             account_address=kwargs.get("account_address"),
             cid=kwargs.get("cid"),
         )
-        metadata = await self.network.exchange_metadata(
-            metadata_query_provider=self._exchange_cookie_metadata_requestor
-        )
+        metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubDerivativeExchange.StreamTrades(request=req, metadata=metadata)
 
     async def listen_derivative_trades_updates(
@@ -2793,9 +2715,7 @@ class AsyncClient:
             subaccount_id=kwargs.get("subaccount_id"),
             subaccount_ids=kwargs.get("subaccount_ids"),
         )
-        metadata = await self.network.exchange_metadata(
-            metadata_query_provider=self._exchange_cookie_metadata_requestor
-        )
+        metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubDerivativeExchange.StreamPositions(request=req, metadata=metadata)
 
     async def listen_derivative_positions_updates(
@@ -3008,9 +2928,7 @@ class AsyncClient:
         req = portfolio_rpc_pb.StreamAccountPortfolioRequest(
             account_address=account_address, subaccount_id=kwargs.get("subaccount_id"), type=kwargs.get("type")
         )
-        metadata = await self.network.exchange_metadata(
-            metadata_query_provider=self._exchange_cookie_metadata_requestor
-        )
+        metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubPortfolio.StreamAccountPortfolio(request=req, metadata=metadata)
 
     async def listen_account_portfolio_updates(
@@ -3060,7 +2978,7 @@ class AsyncClient:
             positions_filter=positions_filter,
             oracle_price_filter=oracle_price_filter,
         )
-        metadata = await self.network.chain_metadata(metadata_query_provider=self._chain_cookie_metadata_requestor)
+        metadata = self.network.chain_cookie_assistant.metadata()
         return self.chain_stream_stub.Stream(request=request, metadata=metadata)
 
     async def listen_chain_stream_updates(
@@ -3288,18 +3206,6 @@ class AsyncClient:
             tokens_by_symbol[unique_symbol] = token
 
         return tokens_by_denom[denom]
-
-    def _chain_cookie_metadata_requestor(self) -> Coroutine:
-        request = tendermint_query.GetLatestBlockRequest()
-        return self.stubCosmosTendermint.GetLatestBlock(request).initial_metadata()
-
-    def _exchange_cookie_metadata_requestor(self) -> Coroutine:
-        request = exchange_meta_rpc_pb.VersionRequest()
-        return self.stubMeta.Version(request).initial_metadata()
-
-    def _explorer_cookie_metadata_requestor(self) -> Coroutine:
-        request = explorer_rpc_pb.GetBlocksRequest()
-        return self.stubExplorer.GetBlocks(request).initial_metadata()
 
     def _initialize_timeout_height_sync_task(self):
         self._cancel_timeout_height_sync_task()

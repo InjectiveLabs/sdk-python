@@ -2,7 +2,7 @@ import grpc
 import pytest
 
 from pyinjective.client.indexer.grpc.indexer_grpc_oracle_api import IndexerGrpcOracleApi
-from pyinjective.core.network import Network
+from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.exchange import injective_oracle_rpc_pb2 as exchange_oracle_pb
 from tests.client.indexer.configurable_oracle_query_servicer import ConfigurableOracleQueryServicer
 
@@ -32,11 +32,7 @@ class TestIndexerGrpcOracleApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcOracleApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = oracle_servicer
+        api = self._api_instance(servicer=oracle_servicer)
 
         result_oracle_list = await api.fetch_oracle_list()
         expected_oracle_list = {
@@ -66,11 +62,7 @@ class TestIndexerGrpcOracleApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcOracleApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = oracle_servicer
+        api = self._api_instance(servicer=oracle_servicer)
 
         result_oracle_list = await api.fetch_oracle_price(
             base_symbol="Gold",
@@ -82,5 +74,12 @@ class TestIndexerGrpcOracleApi:
 
         assert result_oracle_list == expected_oracle_list
 
-    async def _dummy_metadata_provider(self):
-        return None
+    def _api_instance(self, servicer):
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
+        cookie_assistant = DisabledCookieAssistant()
+
+        api = IndexerGrpcOracleApi(channel=channel, cookie_assistant=cookie_assistant)
+        api._stub = servicer
+
+        return api

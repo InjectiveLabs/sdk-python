@@ -5,7 +5,7 @@ import pytest
 
 from pyinjective.client.chain.grpc.chain_grpc_distribution_api import ChainGrpcDistributionApi
 from pyinjective.client.model.pagination import PaginationOption
-from pyinjective.core.network import Network
+from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagination_pb
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb
 from pyinjective.proto.cosmos.distribution.v1beta1 import (
@@ -35,11 +35,7 @@ class TestChainGrpcAuthApi:
 
         distribution_servicer.distribution_params.append(distribution_query_pb.QueryParamsResponse(params=params))
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcDistributionApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = distribution_servicer
+        api = self._api_instance(servicer=distribution_servicer)
 
         module_params = await api.fetch_module_params()
         expected_params = {
@@ -68,11 +64,7 @@ class TestChainGrpcAuthApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcDistributionApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = distribution_servicer
+        api = self._api_instance(servicer=distribution_servicer)
 
         validator_info = await api.fetch_validator_distribution_info(validator_address=operator)
         expected_info = {
@@ -98,11 +90,7 @@ class TestChainGrpcAuthApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcDistributionApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = distribution_servicer
+        api = self._api_instance(servicer=distribution_servicer)
 
         validator_rewards = await api.fetch_validator_outstanding_rewards(validator_address=operator)
         expected_rewards = {"rewards": {"rewards": [{"denom": reward.denom, "amount": reward.amount}]}}
@@ -124,11 +112,7 @@ class TestChainGrpcAuthApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcDistributionApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = distribution_servicer
+        api = self._api_instance(servicer=distribution_servicer)
 
         commission = await api.fetch_validator_commission(validator_address=operator)
         expected_commission = {
@@ -156,11 +140,7 @@ class TestChainGrpcAuthApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcDistributionApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = distribution_servicer
+        api = self._api_instance(servicer=distribution_servicer)
 
         slashes = await api.fetch_validator_slashes(
             validator_address=operator,
@@ -198,11 +178,7 @@ class TestChainGrpcAuthApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcDistributionApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = distribution_servicer
+        api = self._api_instance(servicer=distribution_servicer)
 
         rewards = await api.fetch_delegation_rewards(
             delegator_address=delegator,
@@ -233,11 +209,7 @@ class TestChainGrpcAuthApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcDistributionApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = distribution_servicer
+        api = self._api_instance(servicer=distribution_servicer)
 
         rewards = await api.fetch_delegation_total_rewards(
             delegator_address=delegator,
@@ -268,11 +240,7 @@ class TestChainGrpcAuthApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcDistributionApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = distribution_servicer
+        api = self._api_instance(servicer=distribution_servicer)
 
         validators = await api.fetch_delegator_validators(
             delegator_address=delegator,
@@ -296,11 +264,7 @@ class TestChainGrpcAuthApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcDistributionApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = distribution_servicer
+        api = self._api_instance(servicer=distribution_servicer)
 
         withdraw_address = await api.fetch_delegator_withdraw_address(
             delegator_address=delegator,
@@ -323,16 +287,19 @@ class TestChainGrpcAuthApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcDistributionApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = distribution_servicer
+        api = self._api_instance(servicer=distribution_servicer)
 
         community_pool = await api.fetch_community_pool()
         expected_community_pool = {"pool": [{"denom": coin.denom, "amount": coin.amount}]}
 
         assert community_pool == expected_community_pool
 
-    async def _dummy_metadata_provider(self):
-        return None
+    def _api_instance(self, servicer):
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
+        cookie_assistant = DisabledCookieAssistant()
+
+        api = ChainGrpcDistributionApi(channel=channel, cookie_assistant=cookie_assistant)
+        api._stub = servicer
+
+        return api

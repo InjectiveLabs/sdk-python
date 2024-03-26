@@ -4,7 +4,7 @@ import grpc
 import pytest
 
 from pyinjective.client.model.pagination import PaginationOption
-from pyinjective.core.network import Network
+from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.core.tx.grpc.tendermint_grpc_api import TendermintGrpcApi
 from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagination_pb
 from pyinjective.proto.cosmos.base.tendermint.v1beta1 import query_pb2 as tendermint_query
@@ -66,11 +66,7 @@ class TestTxGrpcApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = TendermintGrpcApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = tendermint_servicer
+        api = self._api_instance(servicer=tendermint_servicer)
 
         result_info = await api.fetch_node_info()
         expected_info = {
@@ -122,11 +118,7 @@ class TestTxGrpcApi:
 
         tendermint_servicer.get_syncing_responses.append(response)
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = TendermintGrpcApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = tendermint_servicer
+        api = self._api_instance(servicer=tendermint_servicer)
 
         result_syncing = await api.fetch_syncing()
         expected_syncing = {
@@ -154,11 +146,7 @@ class TestTxGrpcApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = TendermintGrpcApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = tendermint_servicer
+        api = self._api_instance(servicer=tendermint_servicer)
 
         result_block = await api.fetch_latest_block()
         expected_block = {
@@ -192,11 +180,7 @@ class TestTxGrpcApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = TendermintGrpcApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = tendermint_servicer
+        api = self._api_instance(servicer=tendermint_servicer)
 
         result_block = await api.fetch_block_by_height(height=1)
         expected_block = {
@@ -234,11 +218,7 @@ class TestTxGrpcApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = TendermintGrpcApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = tendermint_servicer
+        api = self._api_instance(servicer=tendermint_servicer)
 
         result_validator_set = await api.fetch_latest_validator_set()
         expected_validator_set = {
@@ -281,11 +261,7 @@ class TestTxGrpcApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = TendermintGrpcApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = tendermint_servicer
+        api = self._api_instance(servicer=tendermint_servicer)
 
         pagination_option = PaginationOption(
             skip=10,
@@ -349,11 +325,7 @@ class TestTxGrpcApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = TendermintGrpcApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = tendermint_servicer
+        api = self._api_instance(servicer=tendermint_servicer)
 
         result_validator_set = await api.abci_query(
             data="query data".encode(),
@@ -383,5 +355,12 @@ class TestTxGrpcApi:
 
         assert result_validator_set == expected_validator_set
 
-    async def _dummy_metadata_provider(self):
-        return None
+    def _api_instance(self, servicer):
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
+        cookie_assistant = DisabledCookieAssistant()
+
+        api = TendermintGrpcApi(channel=channel, cookie_assistant=cookie_assistant)
+        api._stub = servicer
+
+        return api

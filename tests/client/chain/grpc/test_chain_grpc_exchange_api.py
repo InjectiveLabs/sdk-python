@@ -5,7 +5,7 @@ import pytest
 
 from pyinjective.client.chain.grpc.chain_grpc_exchange_api import ChainGrpcExchangeApi
 from pyinjective.client.model.pagination import PaginationOption
-from pyinjective.core.network import Network
+from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb
 from pyinjective.proto.injective.exchange.v1beta1 import (
     exchange_pb2 as exchange_pb,
@@ -59,11 +59,7 @@ class TestChainGrpcBankApi:
         )
         exchange_servicer.exchange_params.append(exchange_query_pb.QueryExchangeParamsResponse(params=params))
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         module_params = await api.fetch_exchange_params()
         expected_params = {
@@ -123,11 +119,7 @@ class TestChainGrpcBankApi:
             exchange_query_pb.QuerySubaccountDepositsResponse(deposits={deposit_denom: deposit})
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         deposits = await api.fetch_subaccount_deposits(
             subaccount_id="0x5303d92e49a619bb29de8fb6f59c0e7589213cc8000000000000000000000001",
@@ -158,11 +150,7 @@ class TestChainGrpcBankApi:
             exchange_query_pb.QuerySubaccountDepositResponse(deposits=deposit)
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         deposit_response = await api.fetch_subaccount_deposit(
             subaccount_id="0x5303d92e49a619bb29de8fb6f59c0e7589213cc8000000000000000000000001",
@@ -195,11 +183,7 @@ class TestChainGrpcBankApi:
             exchange_query_pb.QueryExchangeBalancesResponse(balances=[balance])
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         balances_response = await api.fetch_exchange_balances()
         expected_balances = {
@@ -236,11 +220,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         volume_response = await api.fetch_aggregate_volume(account="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r")
         expected_volume = {
@@ -289,11 +269,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         volume_response = await api.fetch_aggregate_volumes(
             accounts=[account_volume.account],
@@ -342,11 +318,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         volume_response = await api.fetch_aggregate_market_volume(
             market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
@@ -379,11 +351,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         volume_response = await api.fetch_aggregate_market_volumes(
             market_ids=[market_volume.market_id],
@@ -414,11 +382,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         denom_decimal = await api.fetch_denom_decimal(denom="inj")
         expected_decimal = {"decimal": str(decimal)}
@@ -440,11 +404,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         denom_decimals = await api.fetch_denom_decimals(denoms=[denom_decimal.denom])
         expected_decimals = {
@@ -481,11 +441,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         status_string = exchange_pb.MarketStatus.Name(market.status)
         markets = await api.fetch_spot_markets(
@@ -534,11 +490,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         response_market = await api.fetch_spot_market(
             market_id=market.market_id,
@@ -592,11 +544,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         status_string = exchange_pb.MarketStatus.Name(market.status)
         markets = await api.fetch_full_spot_markets(
@@ -662,11 +610,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         status_string = exchange_pb.MarketStatus.Name(market.status)
         market_response = await api.fetch_full_spot_market(
@@ -717,11 +661,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         orderbook = await api.fetch_spot_orderbook(
             market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
@@ -765,11 +705,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         orders = await api.fetch_trader_spot_orders(
             market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
@@ -807,11 +743,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         orders = await api.fetch_account_address_spot_orders(
             market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
@@ -849,11 +781,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         orders = await api.fetch_spot_orders_by_hashes(
             market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
@@ -904,11 +832,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         orders = await api.fetch_subaccount_orders(
             subaccount_id="0x5303d92e49a619bb29de8fb6f59c0e7589213cc8000000000000000000000001",
@@ -957,11 +881,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         orders = await api.fetch_trader_spot_transient_orders(
             market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
@@ -993,11 +913,7 @@ class TestChainGrpcBankApi:
         )
         exchange_servicer.spot_mid_price_and_tob_responses.append(response)
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         prices = await api.fetch_spot_mid_price_and_tob(
             market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
@@ -1022,11 +938,7 @@ class TestChainGrpcBankApi:
         )
         exchange_servicer.derivative_mid_price_and_tob_responses.append(response)
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         prices = await api.fetch_derivative_mid_price_and_tob(
             market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
@@ -1059,11 +971,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         orderbook = await api.fetch_derivative_orderbook(
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
@@ -1106,11 +1014,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         orders = await api.fetch_trader_derivative_orders(
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
@@ -1150,11 +1054,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         orders = await api.fetch_account_address_derivative_orders(
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
@@ -1194,11 +1094,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         orders = await api.fetch_derivative_orders_by_hashes(
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
@@ -1239,11 +1135,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         orders = await api.fetch_trader_derivative_transient_orders(
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
@@ -1320,11 +1212,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         status_string = exchange_pb.MarketStatus.Name(market.status)
         markets = await api.fetch_derivative_markets(
@@ -1434,11 +1322,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         status_string = exchange_pb.MarketStatus.Name(market.status)
         market_response = await api.fetch_derivative_market(
@@ -1500,11 +1384,7 @@ class TestChainGrpcBankApi:
         )
         exchange_servicer.derivative_market_address_responses.append(response)
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         address = await api.fetch_derivative_market_address(
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
@@ -1524,11 +1404,7 @@ class TestChainGrpcBankApi:
         response = exchange_query_pb.QuerySubaccountTradeNonceResponse(nonce=1234567879)
         exchange_servicer.subaccount_trade_nonce_responses.append(response)
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         nonce = await api.fetch_subaccount_trade_nonce(
             subaccount_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20000000000000000000000000",
@@ -1560,11 +1436,7 @@ class TestChainGrpcBankApi:
             exchange_query_pb.QueryPositionsResponse(state=[derivative_position])
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         positions = await api.fetch_positions()
         expected_positions = {
@@ -1606,11 +1478,7 @@ class TestChainGrpcBankApi:
             exchange_query_pb.QuerySubaccountPositionsResponse(state=[derivative_position])
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         positions = await api.fetch_subaccount_positions(subaccount_id=derivative_position.subaccount_id)
         expected_positions = {
@@ -1649,11 +1517,7 @@ class TestChainGrpcBankApi:
             exchange_query_pb.QuerySubaccountPositionInMarketResponse(state=position)
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         position_response = await api.fetch_subaccount_position_in_market(
             subaccount_id=subaccount_id,
@@ -1689,11 +1553,7 @@ class TestChainGrpcBankApi:
             exchange_query_pb.QuerySubaccountEffectivePositionInMarketResponse(state=effective_position)
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         position_response = await api.fetch_subaccount_effective_position_in_market(
             subaccount_id=subaccount_id,
@@ -1726,11 +1586,7 @@ class TestChainGrpcBankApi:
             exchange_query_pb.QueryPerpetualMarketInfoResponse(info=perpetual_market_info)
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         market_info = await api.fetch_perpetual_market_info(market_id=perpetual_market_info.market_id)
         expected_market_info = {
@@ -1761,11 +1617,7 @@ class TestChainGrpcBankApi:
             exchange_query_pb.QueryExpiryFuturesMarketInfoResponse(info=expiry_futures_market_info)
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         market_info = await api.fetch_expiry_futures_market_info(market_id=expiry_futures_market_info.market_id)
         expected_market_info = {
@@ -1794,11 +1646,7 @@ class TestChainGrpcBankApi:
             exchange_query_pb.QueryPerpetualMarketFundingResponse(state=perpetual_market_funding)
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         funding = await api.fetch_perpetual_market_funding(
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
@@ -1835,11 +1683,7 @@ class TestChainGrpcBankApi:
             exchange_query_pb.QuerySubaccountOrderMetadataResponse(metadata=[subaccount_order_metadata])
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         metadata_response = await api.fetch_subaccount_order_metadata(
             subaccount_id="0x5303d92e49a619bb29de8fb6f59c0e7589213cc8000000000000000000000001"
@@ -1872,11 +1716,7 @@ class TestChainGrpcBankApi:
         response = exchange_query_pb.QueryTradeRewardPointsResponse(account_trade_reward_points=[points])
         exchange_servicer.trade_reward_points_responses.append(response)
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         trade_reward_points = await api.fetch_trade_reward_points(
             accounts=["inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"],
@@ -1895,11 +1735,7 @@ class TestChainGrpcBankApi:
         response = exchange_query_pb.QueryTradeRewardPointsResponse(account_trade_reward_points=[points])
         exchange_servicer.pending_trade_reward_points_responses.append(response)
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         trade_reward_points = await api.fetch_pending_trade_reward_points(
             accounts=["inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"],
@@ -1961,11 +1797,7 @@ class TestChainGrpcBankApi:
         )
         exchange_servicer.trade_reward_campaign_responses.append(response)
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         trade_reward_campaign = await api.fetch_trade_reward_campaign()
         expected_campaign = {
@@ -2044,11 +1876,7 @@ class TestChainGrpcBankApi:
         )
         exchange_servicer.fee_discount_account_info_responses.append(response)
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         fee_discount = await api.fetch_fee_discount_account_info(account="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r")
         expected_fee_discount = {
@@ -2091,11 +1919,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         schedule = await api.fetch_fee_discount_schedule()
         expected_schedule = {
@@ -2137,11 +1961,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         mismatches = await api.fetch_balance_mismatches(dust_factor=20)
         expected_mismatches = {
@@ -2178,11 +1998,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         balance = await api.fetch_balance_with_balance_holds()
         expected_balance = {
@@ -2214,11 +2030,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         statistics = await api.fetch_fee_discount_tier_statistics()
         expected_statistics = {
@@ -2249,11 +2061,7 @@ class TestChainGrpcBankApi:
         )
         exchange_servicer.mito_vault_infos_responses.append(response)
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         mito_vaults = await api.fetch_mito_vault_infos()
         expected_mito_vaults = {
@@ -2277,11 +2085,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         market_id_response = await api.fetch_market_id_from_vault(
             vault_address="inj1zlh5sqevkfphtwnu9cul8p89vseme2eqt0snn9"
@@ -2312,11 +2116,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         records = await api.fetch_historical_trade_records(market_id=trade_record.market_id)
         expected_records = {
@@ -2346,11 +2146,7 @@ class TestChainGrpcBankApi:
         )
         exchange_servicer.is_opted_out_of_rewards_responses.append(response)
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         is_opted_out = await api.fetch_is_opted_out_of_rewards(account="inj1zlh5sqevkfphtwnu9cul8p89vseme2eqt0snn9")
         expected_is_opted_out = {
@@ -2369,11 +2165,7 @@ class TestChainGrpcBankApi:
         )
         exchange_servicer.opted_out_of_rewards_accounts_responses.append(response)
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         opted_out = await api.fetch_opted_out_of_rewards_accounts()
         expected_opted_out = {
@@ -2408,11 +2200,7 @@ class TestChainGrpcBankApi:
         )
         exchange_servicer.market_volatility_responses.append(response)
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         volatility = await api.fetch_market_volatility(
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
@@ -2474,11 +2262,7 @@ class TestChainGrpcBankApi:
         )
         exchange_servicer.binary_options_markets_responses.append(response)
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         markets = await api.fetch_binary_options_markets(status="Active")
         expected_markets = {
@@ -2524,11 +2308,7 @@ class TestChainGrpcBankApi:
         response = exchange_query_pb.QueryTraderDerivativeConditionalOrdersResponse(orders=[order])
         exchange_servicer.trader_derivative_conditional_orders_responses.append(response)
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         orders = await api.fetch_trader_derivative_conditional_orders(
             subaccount_id="0x5303d92e49a619bb29de8fb6f59c0e7589213cc8000000000000000000000001",
@@ -2560,11 +2340,7 @@ class TestChainGrpcBankApi:
         )
         exchange_servicer.market_atomic_execution_fee_multiplier_responses.append(response)
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcExchangeApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = exchange_servicer
+        api = self._api_instance(servicer=exchange_servicer)
 
         multiplier = await api.fetch_market_atomic_execution_fee_multiplier(
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
@@ -2575,5 +2351,12 @@ class TestChainGrpcBankApi:
 
         assert multiplier == expected_multiplier
 
-    async def _dummy_metadata_provider(self):
-        return None
+    def _api_instance(self, servicer):
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
+        cookie_assistant = DisabledCookieAssistant()
+
+        api = ChainGrpcExchangeApi(channel=channel, cookie_assistant=cookie_assistant)
+        api._stub = servicer
+
+        return api

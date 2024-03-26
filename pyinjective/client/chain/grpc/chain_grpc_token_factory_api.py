@@ -2,6 +2,7 @@ from typing import Any, Callable, Dict, Optional
 
 from grpc.aio import Channel
 
+from pyinjective.core.network import CookieAssistant
 from pyinjective.proto.injective.tokenfactory.v1beta1 import (
     query_pb2 as token_factory_query_pb,
     query_pb2_grpc as token_factory_query_grpc,
@@ -11,10 +12,10 @@ from pyinjective.utils.grpc_api_request_assistant import GrpcApiRequestAssistant
 
 
 class ChainGrpcTokenFactoryApi:
-    def __init__(self, channel: Channel, metadata_provider: Callable):
+    def __init__(self, channel: Channel, cookie_assistant: CookieAssistant):
         self._query_stub = token_factory_query_grpc.QueryStub(channel)
         self._tx_stub = token_factory_tx_grpc.MsgStub(channel)
-        self._assistant = GrpcApiRequestAssistant(metadata_provider=metadata_provider)
+        self._assistant = GrpcApiRequestAssistant(cookie_assistant=cookie_assistant)
 
     async def fetch_module_params(self) -> Dict[str, Any]:
         request = token_factory_query_pb.QueryParamsRequest()
