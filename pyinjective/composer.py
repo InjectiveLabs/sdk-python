@@ -22,6 +22,8 @@ from pyinjective.proto.cosmos.gov.v1beta1 import tx_pb2 as cosmos_gov_tx_pb
 from pyinjective.proto.cosmos.staking.v1beta1 import tx_pb2 as cosmos_staking_tx_pb
 from pyinjective.proto.cosmwasm.wasm.v1 import tx_pb2 as wasm_tx_pb
 from pyinjective.proto.exchange import injective_explorer_rpc_pb2 as explorer_pb2
+from pyinjective.proto.ibc.applications.transfer.v1 import tx_pb2 as ibc_transfer_tx_pb
+from pyinjective.proto.ibc.core.client.v1 import client_pb2 as ibc_core_client_pb
 from pyinjective.proto.injective.auction.v1beta1 import tx_pb2 as injective_auction_tx_pb
 from pyinjective.proto.injective.exchange.v1beta1 import (
     authz_pb2 as injective_authz_pb,
@@ -143,14 +145,14 @@ class Composer:
         warn("This method is deprecated. Use coin instead", DeprecationWarning, stacklevel=2)
         return base_coin_pb.Coin(amount=str(amount), denom=denom)
 
-    def coin(self, amount: int, denom: str):
+    def coin(self, amount: int, denom: str) -> base_coin_pb.Coin:
         """
         This method create an instance of Coin gRPC type, considering the amount is already expressed in chain format
         """
         formatted_amount_string = str(int(amount))
         return base_coin_pb.Coin(amount=formatted_amount_string, denom=denom)
 
-    def create_coin_amount(self, amount: Decimal, token_name: str):
+    def create_coin_amount(self, amount: Decimal, token_name: str) -> base_coin_pb.Coin:
         """
         This method create an instance of Coin gRPC type, considering the amount is already expressed in chain format
         """
@@ -2141,6 +2143,38 @@ class Composer:
 
     def msg_community_pool_spend(self, authority: str, recipient: str, amount: List[base_coin_pb.Coin]):
         return cosmos_distribution_tx_pb.MsgCommunityPoolSpend(authority=authority, recipient=recipient, amount=amount)
+
+    # region IBC Transfer module
+    def msg_ibc_transfer(
+        self,
+        source_port: str,
+        source_channel: str,
+        token_amount: base_coin_pb.Coin,
+        sender: str,
+        receiver: str,
+        timeout_height: Optional[int] = None,
+        timeout_timestamp: Optional[int] = None,
+        memo: Optional[str] = None,
+    ) -> ibc_transfer_tx_pb.MsgTransfer:
+        if timeout_height is None and timeout_timestamp is None:
+            raise ValueError("IBC Transfer error: Either timeout_height or timeout_timestamp must be provided")
+        parsed_timeout_height = None
+        if timeout_height:
+            parsed_timeout_height = ibc_core_client_pb.Height(
+                revision_number=timeout_height, revision_height=timeout_height
+            )
+        return ibc_transfer_tx_pb.MsgTransfer(
+            source_port=source_port,
+            source_channel=source_channel,
+            token=token_amount,
+            sender=sender,
+            receiver=receiver,
+            timeout_height=parsed_timeout_height,
+            timeout_timestamp=timeout_timestamp,
+            memo=memo,
+        )
+
+    # endregion
 
     # data field format: [request-msg-header][raw-byte-msg-response]
     # you need to figure out this magic prefix number to trim request-msg-header off the data
