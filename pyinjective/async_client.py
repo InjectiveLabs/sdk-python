@@ -39,6 +39,7 @@ from pyinjective.composer import Composer
 from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from pyinjective.core.network import Network
 from pyinjective.core.token import Token
+from pyinjective.core.tx.grpc.ibc_transfer_grpc_api import IBCTransferGrpcApi
 from pyinjective.core.tx.grpc.tendermint_grpc_api import TendermintGrpcApi
 from pyinjective.core.tx.grpc.tx_grpc_api import TxGrpcApi
 from pyinjective.exceptions import NotFoundError
@@ -181,6 +182,10 @@ class AsyncClient:
             cookie_assistant=network.chain_cookie_assistant,
         )
         self.chain_exchange_api = ChainGrpcExchangeApi(
+            channel=self.chain_channel,
+            cookie_assistant=network.chain_cookie_assistant,
+        )
+        self.ibc_transfer_api = IBCTransferGrpcApi(
             channel=self.chain_channel,
             cookie_assistant=network.chain_cookie_assistant,
         )
@@ -3012,6 +3017,24 @@ class AsyncClient:
             positions_filter=positions_filter,
             oracle_price_filter=oracle_price_filter,
         )
+
+    # region IBC Apps module
+    async def fetch_denom_trace(self, hash: str) -> Dict[str, Any]:
+        return await self.ibc_transfer_api.fetch_denom_trace(hash=hash)
+
+    async def fetch_denom_traces(self, pagination: Optional[PaginationOption] = None) -> Dict[str, Any]:
+        return await self.ibc_transfer_api.fetch_denom_traces(pagination=pagination)
+
+    async def fetch_denom_hash(self, trace: str) -> Dict[str, Any]:
+        return await self.ibc_transfer_api.fetch_denom_hash(trace=trace)
+
+    async def fetch_escrow_address(self, port_id: str, channel_id: str) -> Dict[str, Any]:
+        return await self.ibc_transfer_api.fetch_escrow_address(port_id=port_id, channel_id=channel_id)
+
+    async def fetch_total_escrow_for_denom(self, denom: str) -> Dict[str, Any]:
+        return await self.ibc_transfer_api.fetch_total_escrow_for_denom(denom=denom)
+
+    # endregion
 
     async def composer(self):
         return Composer(

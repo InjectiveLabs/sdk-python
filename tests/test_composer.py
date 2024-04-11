@@ -1430,3 +1430,43 @@ class TestComposer:
             including_default_value_fields=True,
         )
         assert dict_message == expected_message
+
+    def test_msg_ibc_transfer(self, basic_composer):
+        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
+        source_port = "transfer"
+        source_channel = "channel-126"
+        token_amount = basic_composer.create_coin_amount(amount=Decimal("0.1"), token_name="INJ")
+        receiver = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
+        timeout_height = 10
+        timeout_timestamp = 1630000000
+        memo = "memo"
+
+        message = basic_composer.msg_ibc_transfer(
+            source_port=source_port,
+            source_channel=source_channel,
+            token_amount=token_amount,
+            sender=sender,
+            receiver=receiver,
+            timeout_height=timeout_height,
+            timeout_timestamp=timeout_timestamp,
+            memo=memo,
+        )
+
+        expected_message = {
+            "sourcePort": source_port,
+            "sourceChannel": source_channel,
+            "token": {
+                "amount": "100000000000000000",
+                "denom": "inj",
+            },
+            "sender": sender,
+            "receiver": receiver,
+            "timeoutHeight": {"revisionNumber": str(timeout_height), "revisionHeight": str(timeout_height)},
+            "timeoutTimestamp": str(timeout_timestamp),
+            "memo": memo,
+        }
+        dict_message = json_format.MessageToDict(
+            message=message,
+            including_default_value_fields=True,
+        )
+        assert dict_message == expected_message
