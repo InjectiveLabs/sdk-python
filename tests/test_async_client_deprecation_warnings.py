@@ -34,7 +34,7 @@ from tests.client.indexer.configurable_meta_query_servicer import ConfigurableMe
 from tests.client.indexer.configurable_oracle_query_servicer import ConfigurableOracleQueryServicer
 from tests.client.indexer.configurable_portfolio_query_servicer import ConfigurablePortfolioQueryServicer
 from tests.client.indexer.configurable_spot_query_servicer import ConfigurableSpotQueryServicer
-from tests.core.tx.grpc.configurable_tendermint_query_servicer import ConfigurableTendermintQueryServicer
+from tests.core.tendermint.grpc.configurable_tendermint_query_servicer import ConfigurableTendermintQueryServicer
 from tests.core.tx.grpc.configurable_tx_query_servicer import ConfigurableTxQueryServicer
 
 

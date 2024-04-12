@@ -4,12 +4,12 @@ import grpc
 import pytest
 
 from pyinjective.client.model.pagination import PaginationOption
+from pyinjective.core.ibc.transfer.grpc.ibc_transfer_grpc_api import IBCTransferGrpcApi
 from pyinjective.core.network import DisabledCookieAssistant, Network
-from pyinjective.core.tx.grpc.ibc_transfer_grpc_api import IBCTransferGrpcApi
 from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagination_pb
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb
 from pyinjective.proto.ibc.applications.transfer.v1 import query_pb2 as ibc_transfer_query, transfer_pb2 as ibc_transfer
-from tests.core.tx.grpc.configurable_ibc_transfer_query_servicer import ConfigurableIBCTransferQueryServicer
+from tests.core.ibc.transfer.grpc.configurable_ibc_transfer_query_servicer import ConfigurableIBCTransferQueryServicer
 
 
 @pytest.fixture
@@ -17,7 +17,7 @@ def ibc_transfer_servicer():
     return ConfigurableIBCTransferQueryServicer()
 
 
-class TestTxGrpcApi:
+class TestIBCTransferGrpcApi:
     @pytest.mark.asyncio
     async def test_fetch_params(
         self,
