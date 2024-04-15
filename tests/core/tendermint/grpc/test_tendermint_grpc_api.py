@@ -5,12 +5,12 @@ import pytest
 
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import DisabledCookieAssistant, Network
-from pyinjective.core.tx.grpc.tendermint_grpc_api import TendermintGrpcApi
+from pyinjective.core.tendermint.grpc.tendermint_grpc_api import TendermintGrpcApi
 from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagination_pb
 from pyinjective.proto.cosmos.base.tendermint.v1beta1 import query_pb2 as tendermint_query
 from pyinjective.proto.tendermint.p2p import types_pb2 as tendermint_p2p_types
 from pyinjective.proto.tendermint.types import types_pb2 as tendermint_types
-from tests.core.tx.grpc.configurable_tendermint_query_servicer import ConfigurableTendermintQueryServicer
+from tests.core.tendermint.grpc.configurable_tendermint_query_servicer import ConfigurableTendermintQueryServicer
 
 
 @pytest.fixture

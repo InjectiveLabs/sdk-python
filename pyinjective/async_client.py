@@ -36,11 +36,12 @@ from pyinjective.client.indexer.grpc_stream.indexer_grpc_portfolio_stream import
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_spot_stream import IndexerGrpcSpotStream
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.composer import Composer
+from pyinjective.core.ibc.channel.grpc.ibc_channel_grpc_api import IBCChannelGrpcApi
+from pyinjective.core.ibc.transfer.grpc.ibc_transfer_grpc_api import IBCTransferGrpcApi
 from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from pyinjective.core.network import Network
+from pyinjective.core.tendermint.grpc.tendermint_grpc_api import TendermintGrpcApi
 from pyinjective.core.token import Token
-from pyinjective.core.tx.grpc.ibc_transfer_grpc_api import IBCTransferGrpcApi
-from pyinjective.core.tx.grpc.tendermint_grpc_api import TendermintGrpcApi
 from pyinjective.core.tx.grpc.tx_grpc_api import TxGrpcApi
 from pyinjective.exceptions import NotFoundError
 from pyinjective.proto.cosmos.auth.v1beta1 import query_pb2 as auth_query, query_pb2_grpc as auth_query_grpc
@@ -72,6 +73,9 @@ from pyinjective.proto.exchange import (
     injective_portfolio_rpc_pb2_grpc as portfolio_rpc_grpc,
     injective_spot_exchange_rpc_pb2 as spot_exchange_rpc_pb,
     injective_spot_exchange_rpc_pb2_grpc as spot_exchange_rpc_grpc,
+)
+from pyinjective.proto.ibc.lightclients.tendermint.v1 import (  # noqa: F401 for validator set responses
+    tendermint_pb2 as ibc_tendermint,
 )
 from pyinjective.proto.injective.stream.v1beta1 import (
     query_pb2 as chain_stream_query,
@@ -182,6 +186,10 @@ class AsyncClient:
             cookie_assistant=network.chain_cookie_assistant,
         )
         self.chain_exchange_api = ChainGrpcExchangeApi(
+            channel=self.chain_channel,
+            cookie_assistant=network.chain_cookie_assistant,
+        )
+        self.ibc_channel_api = IBCChannelGrpcApi(
             channel=self.chain_channel,
             cookie_assistant=network.chain_cookie_assistant,
         )
@@ -3018,7 +3026,7 @@ class AsyncClient:
             oracle_price_filter=oracle_price_filter,
         )
 
-    # region IBC Apps module
+    # region IBC Transfer module
     async def fetch_denom_trace(self, hash: str) -> Dict[str, Any]:
         return await self.ibc_transfer_api.fetch_denom_trace(hash=hash)
 
@@ -3033,6 +3041,90 @@ class AsyncClient:
 
     async def fetch_total_escrow_for_denom(self, denom: str) -> Dict[str, Any]:
         return await self.ibc_transfer_api.fetch_total_escrow_for_denom(denom=denom)
+
+    # endregion
+
+    # region IBC Channel module
+    async def fetch_ibc_channel(self, port_id: str, channel_id: str) -> Dict[str, Any]:
+        return await self.ibc_channel_api.fetch_channel(port_id=port_id, channel_id=channel_id)
+
+    async def fetch_ibc_channels(self, pagination: Optional[PaginationOption] = None) -> Dict[str, Any]:
+        return await self.ibc_channel_api.fetch_channels(pagination=pagination)
+
+    async def fetch_ibc_connection_channels(
+        self, connection: str, pagination: Optional[PaginationOption] = None
+    ) -> Dict[str, Any]:
+        return await self.ibc_channel_api.fetch_connection_channels(connection=connection, pagination=pagination)
+
+    async def fetch_ibc_channel_client_state(self, port_id: str, channel_id: str) -> Dict[str, Any]:
+        return await self.ibc_channel_api.fetch_channel_client_state(port_id=port_id, channel_id=channel_id)
+
+    async def fetch_ibc_channel_consensus_state(
+        self,
+        port_id: str,
+        channel_id: str,
+        revision_number: int,
+        revision_height: int,
+    ) -> Dict[str, Any]:
+        return await self.ibc_channel_api.fetch_channel_consensus_state(
+            port_id=port_id,
+            channel_id=channel_id,
+            revision_number=revision_number,
+            revision_height=revision_height,
+        )
+
+    async def fetch_ibc_packet_commitment(self, port_id: str, channel_id: str, sequence: int) -> Dict[str, Any]:
+        return await self.ibc_channel_api.fetch_packet_commitment(
+            port_id=port_id, channel_id=channel_id, sequence=sequence
+        )
+
+    async def fetch_ibc_packet_commitments(
+        self, port_id: str, channel_id: str, pagination: Optional[PaginationOption] = None
+    ) -> Dict[str, Any]:
+        return await self.ibc_channel_api.fetch_packet_commitments(
+            port_id=port_id, channel_id=channel_id, pagination=pagination
+        )
+
+    async def fetch_ibc_packet_receipt(self, port_id: str, channel_id: str, sequence: int) -> Dict[str, Any]:
+        return await self.ibc_channel_api.fetch_packet_receipt(
+            port_id=port_id, channel_id=channel_id, sequence=sequence
+        )
+
+    async def fetch_ibc_packet_acknowledgement(self, port_id: str, channel_id: str, sequence: int) -> Dict[str, Any]:
+        return await self.ibc_channel_api.fetch_packet_acknowledgement(
+            port_id=port_id, channel_id=channel_id, sequence=sequence
+        )
+
+    async def fetch_ibc_packet_acknowledgements(
+        self,
+        port_id: str,
+        channel_id: str,
+        packet_commitment_sequences: Optional[List[int]] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.ibc_channel_api.fetch_packet_acknowledgements(
+            port_id=port_id,
+            channel_id=channel_id,
+            packet_commitment_sequences=packet_commitment_sequences,
+            pagination=pagination,
+        )
+
+    async def fetch_ibc_unreceived_packets(
+        self, port_id: str, channel_id: str, packet_commitment_sequences: Optional[List[int]] = None
+    ) -> Dict[str, Any]:
+        return await self.ibc_channel_api.fetch_unreceived_packets(
+            port_id=port_id, channel_id=channel_id, packet_commitment_sequences=packet_commitment_sequences
+        )
+
+    async def fetch_ibc_unreceived_acks(
+        self, port_id: str, channel_id: str, packet_ack_sequences: Optional[List[int]] = None
+    ) -> Dict[str, Any]:
+        return await self.ibc_channel_api.fetch_unreceived_acks(
+            port_id=port_id, channel_id=channel_id, packet_ack_sequences=packet_ack_sequences
+        )
+
+    async def fetch_next_sequence_receive(self, port_id: str, channel_id: str) -> Dict[str, Any]:
+        return await self.ibc_channel_api.fetch_next_sequence_receive(port_id=port_id, channel_id=channel_id)
 
     # endregion
 
