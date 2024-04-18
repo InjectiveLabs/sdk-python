@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.5.0] - 2024-04-19
+### Changed
+- Refactoring in Network class to support mixed secure and insecure endpoints.
+- Marked the Network parameter `use_secure_connection` as deprecated.
+
 ## [1.4.2] - 2024-03-19
 ### Changed
 - Updated `aiohttp` dependency version to ">=3.9.2" to solve a security vulnerability detected by Dependabot

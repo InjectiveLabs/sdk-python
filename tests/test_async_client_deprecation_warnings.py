@@ -1,5 +1,6 @@
 from warnings import catch_warnings
 
+import grpc
 import pytest
 
 from pyinjective.async_client import AsyncClient
@@ -1681,4 +1682,21 @@ class TestAsyncClientDeprecationWarnings:
         assert len(deprecation_warnings) == 1
         assert (
             str(deprecation_warnings[0].message) == "This method is deprecated. Use listen_chain_stream_updates instead"
+        )
+
+    def test_credentials_parameter_deprecation_warning(
+        self,
+        auth_servicer,
+    ):
+        with catch_warnings(record=True) as all_warnings:
+            AsyncClient(
+                network=Network.local(),
+                credentials=grpc.ssl_channel_credentials()
+            )
+
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
+        assert len(deprecation_warnings) == 1
+        assert (
+            str(deprecation_warnings[0].message)
+            == "credentials parameter in AsyncClient is no longer used and will be deprecated"
         )
