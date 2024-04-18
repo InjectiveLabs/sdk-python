@@ -1689,10 +1689,7 @@ class TestAsyncClientDeprecationWarnings:
         auth_servicer,
     ):
         with catch_warnings(record=True) as all_warnings:
-            AsyncClient(
-                network=Network.local(),
-                credentials=grpc.ssl_channel_credentials()
-            )
+            AsyncClient(network=Network.local(), credentials=grpc.ssl_channel_credentials())
 
         deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
         assert len(deprecation_warnings) == 1

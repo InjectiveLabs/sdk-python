@@ -1,6 +1,6 @@
 from warnings import catch_warnings
 
-from pyinjective.core.network import Network, DisabledCookieAssistant
+from pyinjective.core.network import DisabledCookieAssistant, Network
 
 
 class TestNetworkDeprecationWarnings:

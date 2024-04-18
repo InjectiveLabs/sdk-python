@@ -375,12 +375,12 @@ class Network:
 
     @classmethod
     def custom_chain_and_public_indexer_mainnet(
-            cls,
-            lcd_endpoint,
-            tm_websocket_endpoint,
-            grpc_endpoint,
-            chain_stream_endpoint,
-            cookie_assistant: Optional[CookieAssistant] = None,
+        cls,
+        lcd_endpoint,
+        tm_websocket_endpoint,
+        grpc_endpoint,
+        chain_stream_endpoint,
+        cookie_assistant: Optional[CookieAssistant] = None,
     ):
         mainnet_network = cls.mainnet()
 
