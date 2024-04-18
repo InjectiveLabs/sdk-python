@@ -587,7 +587,7 @@ class TestAsyncClientDeprecationWarnings:
         assert str(deprecation_warnings[0].message) == "This method is deprecated. Use fetch_oracle_price instead"
 
     @pytest.mark.asyncio
-    async def test_stream_keepalive_deprecation_warning(
+    async def test_stream_oracle_prices_deprecation_warning(
         self,
         oracle_servicer,
     ):
