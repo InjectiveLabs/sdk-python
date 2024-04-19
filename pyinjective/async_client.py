@@ -95,12 +95,19 @@ class AsyncClient:
         self,
         network: Network,
         insecure: Optional[bool] = None,
-        credentials=grpc.ssl_channel_credentials(),
+        credentials=None,
     ):
         # the `insecure` parameter is ignored and will be deprecated soon. The value is taken directly from `network`
         if insecure is not None:
             warn(
                 "insecure parameter in AsyncClient is no longer used and will be deprecated",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+        # the `credentials` parameter is ignored and will be deprecated soon. The value is taken directly from `network`
+        if credentials is not None:
+            warn(
+                "credentials parameter in AsyncClient is no longer used and will be deprecated",
                 DeprecationWarning,
                 stacklevel=2,
             )
@@ -112,11 +119,7 @@ class AsyncClient:
         self.network = network
 
         # chain stubs
-        self.chain_channel = (
-            grpc.aio.secure_channel(network.grpc_endpoint, credentials)
-            if (network.use_secure_connection and credentials is not None)
-            else grpc.aio.insecure_channel(network.grpc_endpoint)
-        )
+        self.chain_channel = self.network.create_chain_grpc_channel()
 
         self.stubCosmosTendermint = tendermint_query_grpc.ServiceStub(self.chain_channel)
         self.stubAuth = auth_query_grpc.QueryStub(self.chain_channel)
@@ -128,11 +131,7 @@ class AsyncClient:
         self.timeout_height = 1
 
         # exchange stubs
-        self.exchange_channel = (
-            grpc.aio.secure_channel(network.grpc_exchange_endpoint, credentials)
-            if (network.use_secure_connection and credentials is not None)
-            else grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-        )
+        self.exchange_channel = self.network.create_exchange_grpc_channel()
         self.stubMeta = exchange_meta_rpc_grpc.InjectiveMetaRPCStub(self.exchange_channel)
         self.stubExchangeAccount = exchange_accounts_rpc_grpc.InjectiveAccountsRPCStub(self.exchange_channel)
         self.stubOracle = oracle_rpc_grpc.InjectiveOracleRPCStub(self.exchange_channel)
@@ -145,18 +144,10 @@ class AsyncClient:
         self.stubPortfolio = portfolio_rpc_grpc.InjectivePortfolioRPCStub(self.exchange_channel)
 
         # explorer stubs
-        self.explorer_channel = (
-            grpc.aio.secure_channel(network.grpc_explorer_endpoint, credentials)
-            if (network.use_secure_connection and credentials is not None)
-            else grpc.aio.insecure_channel(network.grpc_explorer_endpoint)
-        )
+        self.explorer_channel = self.network.create_explorer_grpc_channel()
         self.stubExplorer = explorer_rpc_grpc.InjectiveExplorerRPCStub(self.explorer_channel)
 
-        self.chain_stream_channel = (
-            grpc.aio.secure_channel(network.chain_stream_endpoint, credentials)
-            if (network.use_secure_connection and credentials is not None)
-            else grpc.aio.insecure_channel(network.chain_stream_endpoint)
-        )
+        self.chain_stream_channel = self.network.create_chain_stream_grpc_channel()
         self.chain_stream_stub = stream_rpc_grpc.StreamStub(channel=self.chain_stream_channel)
 
         self._timeout_height_sync_task = None

@@ -2,13 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.5.0] - 9999-99-99
+## [1.6.0] - 9999-99-99
 ### Added
 - Added support for all queries in the chain 'tendermint' module
 - Added support for all queries in the IBC Transfer module
 
 ### Changed
 - Refactored cookies management logic to use all gRPC calls' responses to update the current cookies
+
+## [1.5.0] - 2024-04-19
+### Changed
+- Refactoring in Network class to support mixed secure and insecure endpoints.
+- Marked the Network parameter `use_secure_connection` as deprecated.
+
+## [1.4.2] - 2024-03-19
+### Changed
+- Updated `aiohttp` dependency version to ">=3.9.2" to solve a security vulnerability detected by Dependabot
 
 ## [1.4.1] - 2024-03-12
 ### Changed
