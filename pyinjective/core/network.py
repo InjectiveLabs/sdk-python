@@ -374,7 +374,7 @@ class Network:
 
     def _create_grpc_channel(self, endpoint: str, credentials: Optional[ChannelCredentials]) -> grpc.Channel:
         if credentials is None:
-            channel = grpc.insecure_channel(endpoint)
+            channel = grpc.aio.insecure_channel(endpoint)
         else:
-            channel = grpc.secure_channel(endpoint, credentials)
+            channel = grpc.aio.secure_channel(endpoint, credentials)
         return channel
