@@ -4,6 +4,10 @@ import time
 from abc import ABC, abstractmethod
 from http.cookies import SimpleCookie
 from typing import Callable, Optional, Tuple
+from warnings import warn
+
+import grpc
+from grpc import ChannelCredentials
 
 
 class CookieAssistant(ABC):
@@ -181,8 +185,20 @@ class Network:
         fee_denom: str,
         env: str,
         cookie_assistant: CookieAssistant,
-        use_secure_connection: bool = False,
+        use_secure_connection: Optional[bool] = None,
+        grpc_channel_credentials: Optional[ChannelCredentials] = None,
+        grpc_exchange_channel_credentials: Optional[ChannelCredentials] = None,
+        grpc_explorer_channel_credentials: Optional[ChannelCredentials] = None,
+        chain_stream_channel_credentials: Optional[ChannelCredentials] = None,
     ):
+        # the `use_secure_connection` parameter is ignored and will be deprecated soon.
+        if use_secure_connection is not None:
+            warn(
+                "use_secure_connection parameter in Network is no longer used and will be deprecated",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+
         self.lcd_endpoint = lcd_endpoint
         self.tm_websocket_endpoint = tm_websocket_endpoint
         self.grpc_endpoint = grpc_endpoint
@@ -193,7 +209,10 @@ class Network:
         self.fee_denom = fee_denom
         self.env = env
         self.cookie_assistant = cookie_assistant
-        self.use_secure_connection = use_secure_connection
+        self.grpc_channel_credentials = grpc_channel_credentials
+        self.grpc_exchange_channel_credentials = grpc_exchange_channel_credentials
+        self.grpc_explorer_channel_credentials = grpc_explorer_channel_credentials
+        self.chain_stream_channel_credentials = chain_stream_channel_credentials
 
     @classmethod
     def devnet(cls):
@@ -219,6 +238,11 @@ class Network:
         if node not in nodes:
             raise ValueError("Must be one of {}".format(nodes))
 
+        grpc_channel_credentials = grpc.ssl_channel_credentials()
+        grpc_exchange_channel_credentials = grpc.ssl_channel_credentials()
+        grpc_explorer_channel_credentials = grpc.ssl_channel_credentials()
+        chain_stream_channel_credentials = grpc.ssl_channel_credentials()
+
         if node == "lb":
             lcd_endpoint = "https://testnet.sentry.lcd.injective.network:443"
             tm_websocket_endpoint = "wss://testnet.sentry.tm.injective.network:443/websocket"
@@ -227,7 +251,6 @@ class Network:
             grpc_explorer_endpoint = "testnet.sentry.explorer.grpc.injective.network:443"
             chain_stream_endpoint = "testnet.sentry.chain.stream.injective.network:443"
             cookie_assistant = BareMetalLoadBalancedCookieAssistant()
-            use_secure_connection = True
         else:
             lcd_endpoint = "https://testnet.lcd.injective.network:443"
             tm_websocket_endpoint = "wss://testnet.tm.injective.network:443/websocket"
@@ -236,7 +259,6 @@ class Network:
             grpc_explorer_endpoint = "testnet.explorer.grpc.injective.network:443"
             chain_stream_endpoint = "testnet.chain.stream.injective.network:443"
             cookie_assistant = DisabledCookieAssistant()
-            use_secure_connection = True
 
         return cls(
             lcd_endpoint=lcd_endpoint,
@@ -249,7 +271,10 @@ class Network:
             fee_denom="inj",
             env="testnet",
             cookie_assistant=cookie_assistant,
-            use_secure_connection=use_secure_connection,
+            grpc_channel_credentials=grpc_channel_credentials,
+            grpc_exchange_channel_credentials=grpc_exchange_channel_credentials,
+            grpc_explorer_channel_credentials=grpc_explorer_channel_credentials,
+            chain_stream_channel_credentials=chain_stream_channel_credentials,
         )
 
     @classmethod
@@ -267,7 +292,10 @@ class Network:
         grpc_explorer_endpoint = "sentry.explorer.grpc.injective.network:443"
         chain_stream_endpoint = "sentry.chain.stream.injective.network:443"
         cookie_assistant = BareMetalLoadBalancedCookieAssistant()
-        use_secure_connection = True
+        grpc_channel_credentials = grpc.ssl_channel_credentials()
+        grpc_exchange_channel_credentials = grpc.ssl_channel_credentials()
+        grpc_explorer_channel_credentials = grpc.ssl_channel_credentials()
+        chain_stream_channel_credentials = grpc.ssl_channel_credentials()
 
         return cls(
             lcd_endpoint=lcd_endpoint,
@@ -280,7 +308,10 @@ class Network:
             fee_denom="inj",
             env="mainnet",
             cookie_assistant=cookie_assistant,
-            use_secure_connection=use_secure_connection,
+            grpc_channel_credentials=grpc_channel_credentials,
+            grpc_exchange_channel_credentials=grpc_exchange_channel_credentials,
+            grpc_explorer_channel_credentials=grpc_explorer_channel_credentials,
+            chain_stream_channel_credentials=chain_stream_channel_credentials,
         )
 
     @classmethod
@@ -296,7 +327,6 @@ class Network:
             fee_denom="inj",
             env="local",
             cookie_assistant=DisabledCookieAssistant(),
-            use_secure_connection=False,
         )
 
     @classmethod
@@ -311,8 +341,20 @@ class Network:
         chain_id,
         env,
         cookie_assistant: Optional[CookieAssistant] = None,
-        use_secure_connection: bool = False,
+        use_secure_connection: Optional[bool] = None,
+        grpc_channel_credentials: Optional[ChannelCredentials] = None,
+        grpc_exchange_channel_credentials: Optional[ChannelCredentials] = None,
+        grpc_explorer_channel_credentials: Optional[ChannelCredentials] = None,
+        chain_stream_channel_credentials: Optional[ChannelCredentials] = None,
     ):
+        # the `use_secure_connection` parameter is ignored and will be deprecated soon.
+        if use_secure_connection is not None:
+            warn(
+                "use_secure_connection parameter in Network is no longer used and will be deprecated",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+
         assistant = cookie_assistant or DisabledCookieAssistant()
         return cls(
             lcd_endpoint=lcd_endpoint,
@@ -325,7 +367,37 @@ class Network:
             fee_denom="inj",
             env=env,
             cookie_assistant=assistant,
-            use_secure_connection=use_secure_connection,
+            grpc_channel_credentials=grpc_channel_credentials,
+            grpc_exchange_channel_credentials=grpc_exchange_channel_credentials,
+            grpc_explorer_channel_credentials=grpc_explorer_channel_credentials,
+            chain_stream_channel_credentials=chain_stream_channel_credentials,
+        )
+
+    @classmethod
+    def custom_chain_and_public_indexer_mainnet(
+        cls,
+        lcd_endpoint,
+        tm_websocket_endpoint,
+        grpc_endpoint,
+        chain_stream_endpoint,
+        cookie_assistant: Optional[CookieAssistant] = None,
+    ):
+        mainnet_network = cls.mainnet()
+
+        return cls.custom(
+            lcd_endpoint=lcd_endpoint,
+            tm_websocket_endpoint=tm_websocket_endpoint,
+            grpc_endpoint=grpc_endpoint,
+            grpc_exchange_endpoint=mainnet_network.grpc_exchange_endpoint,
+            grpc_explorer_endpoint=mainnet_network.grpc_explorer_endpoint,
+            chain_stream_endpoint=chain_stream_endpoint,
+            chain_id="injective-1",
+            env="mainnet",
+            cookie_assistant=cookie_assistant,
+            grpc_channel_credentials=None,
+            grpc_exchange_channel_credentials=mainnet_network.grpc_exchange_channel_credentials,
+            grpc_explorer_channel_credentials=mainnet_network.grpc_explorer_channel_credentials,
+            chain_stream_channel_credentials=None,
         )
 
     def string(self):
@@ -336,3 +408,22 @@ class Network:
 
     async def exchange_metadata(self, metadata_query_provider: Callable) -> Tuple[Tuple[str, str]]:
         return await self.cookie_assistant.exchange_metadata(metadata_query_provider=metadata_query_provider)
+
+    def create_chain_grpc_channel(self) -> grpc.Channel:
+        return self._create_grpc_channel(self.grpc_endpoint, self.grpc_channel_credentials)
+
+    def create_exchange_grpc_channel(self) -> grpc.Channel:
+        return self._create_grpc_channel(self.grpc_exchange_endpoint, self.grpc_exchange_channel_credentials)
+
+    def create_explorer_grpc_channel(self) -> grpc.Channel:
+        return self._create_grpc_channel(self.grpc_explorer_endpoint, self.grpc_explorer_channel_credentials)
+
+    def create_chain_stream_grpc_channel(self) -> grpc.Channel:
+        return self._create_grpc_channel(self.chain_stream_endpoint, self.chain_stream_channel_credentials)
+
+    def _create_grpc_channel(self, endpoint: str, credentials: Optional[ChannelCredentials]) -> grpc.Channel:
+        if credentials is None:
+            channel = grpc.aio.insecure_channel(endpoint)
+        else:
+            channel = grpc.aio.secure_channel(endpoint, credentials)
+        return channel
