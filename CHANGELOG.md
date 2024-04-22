@@ -4,8 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [1.6.0] - 9999-99-99
 ### Added
-- Added support for all queries in the chain 'tendermint' module
-- Added support for all queries in the IBC Transfer module
+- Support for all queries in the chain 'tendermint' module
+- Support for all queries in the IBC Transfer module
+- Support for all queries in the IBC Channel module
+- Support for all queries in the IBC Client module
 
 ### Changed
 - Refactored cookies management logic to use all gRPC calls' responses to update the current cookies
