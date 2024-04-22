@@ -1,6 +1,6 @@
 from typing import Any, Callable, Dict, List, Optional
 
-from grpc._cython.cygrpc import Channel
+from grpc import Channel
 
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import CookieAssistant

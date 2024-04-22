@@ -37,6 +37,7 @@ from pyinjective.client.indexer.grpc_stream.indexer_grpc_spot_stream import Inde
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.composer import Composer
 from pyinjective.core.ibc.channel.grpc.ibc_channel_grpc_api import IBCChannelGrpcApi
+from pyinjective.core.ibc.client.ibc_client_grpc_api import IBCClientGrpcApi
 from pyinjective.core.ibc.transfer.grpc.ibc_transfer_grpc_api import IBCTransferGrpcApi
 from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from pyinjective.core.network import Network
@@ -181,6 +182,10 @@ class AsyncClient:
             cookie_assistant=network.chain_cookie_assistant,
         )
         self.ibc_channel_api = IBCChannelGrpcApi(
+            channel=self.chain_channel,
+            cookie_assistant=network.chain_cookie_assistant,
+        )
+        self.ibc_client_api = IBCClientGrpcApi(
             channel=self.chain_channel,
             cookie_assistant=network.chain_cookie_assistant,
         )
@@ -3116,6 +3121,55 @@ class AsyncClient:
 
     async def fetch_next_sequence_receive(self, port_id: str, channel_id: str) -> Dict[str, Any]:
         return await self.ibc_channel_api.fetch_next_sequence_receive(port_id=port_id, channel_id=channel_id)
+
+    # endregion
+
+    # region IBC Client module
+    async def fetch_ibc_client_state(self, client_id: str) -> Dict[str, Any]:
+        return await self.ibc_client_api.fetch_client_state(client_id=client_id)
+
+    async def fetch_ibc_client_states(self, pagination: Optional[PaginationOption] = None) -> Dict[str, Any]:
+        return await self.ibc_client_api.fetch_client_states(pagination=pagination)
+
+    async def fetch_ibc_consensus_state(
+        self,
+        client_id: str,
+        revision_number: int,
+        revision_height: int,
+        latest_height: Optional[bool] = None,
+    ) -> Dict[str, Any]:
+        return await self.ibc_client_api.fetch_consensus_state(
+            client_id=client_id,
+            revision_number=revision_number,
+            revision_height=revision_height,
+            latest_height=latest_height,
+        )
+
+    async def fetch_ibc_consensus_states(
+        self,
+        client_id: str,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.ibc_client_api.fetch_consensus_states(client_id=client_id, pagination=pagination)
+
+    async def fetch_ibc_consensus_state_heights(
+        self,
+        client_id: str,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.ibc_client_api.fetch_consensus_state_heights(client_id=client_id, pagination=pagination)
+
+    async def fetch_ibc_client_status(self, client_id: str) -> Dict[str, Any]:
+        return await self.ibc_client_api.fetch_client_status(client_id=client_id)
+
+    async def fetch_ibc_client_params(self) -> Dict[str, Any]:
+        return await self.ibc_client_api.fetch_client_params()
+
+    async def fetch_ibc_upgraded_client_state(self) -> Dict[str, Any]:
+        return await self.ibc_client_api.fetch_upgraded_client_state()
+
+    async def fetch_ibc_upgraded_consensus_state(self) -> Dict[str, Any]:
+        return await self.ibc_client_api.fetch_upgraded_consensus_state()
 
     # endregion
 
