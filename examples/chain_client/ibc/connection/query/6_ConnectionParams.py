@@ -10,14 +10,8 @@ async def main() -> None:
     network = Network.testnet()
     client = AsyncClient(network)
 
-    connection_id = "connection-0"
-    revision_number = 0
-    revision_height = 7379538
-
-    state = await client.fetch_ibc_connection_consensus_state(
-        connection_id=connection_id, revision_number=revision_number, revision_height=revision_height
-    )
-    print(state)
+    params = await client.fetch_ibc_connection_params()
+    print(params)
 
 
 if __name__ == "__main__":
