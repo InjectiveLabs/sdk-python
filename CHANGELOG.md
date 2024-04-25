@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - Support for all queries in the "IBC Transfer" module
 - Support for all queries in the "IBC Channel" module
 - Support for all queries in the "IBC Client" module
+- Support for all queries in the "IBC Connection" module
 
 ### Changed
 - Refactored cookies management logic to use all gRPC calls' responses to update the current cookies

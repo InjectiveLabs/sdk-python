@@ -37,7 +37,8 @@ from pyinjective.client.indexer.grpc_stream.indexer_grpc_spot_stream import Inde
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.composer import Composer
 from pyinjective.core.ibc.channel.grpc.ibc_channel_grpc_api import IBCChannelGrpcApi
-from pyinjective.core.ibc.client.ibc_client_grpc_api import IBCClientGrpcApi
+from pyinjective.core.ibc.client.grpc.ibc_client_grpc_api import IBCClientGrpcApi
+from pyinjective.core.ibc.connection.grpc.ibc_connection_grpc_api import IBCConnectionGrpcApi
 from pyinjective.core.ibc.transfer.grpc.ibc_transfer_grpc_api import IBCTransferGrpcApi
 from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from pyinjective.core.network import Network
@@ -186,6 +187,10 @@ class AsyncClient:
             cookie_assistant=network.chain_cookie_assistant,
         )
         self.ibc_client_api = IBCClientGrpcApi(
+            channel=self.chain_channel,
+            cookie_assistant=network.chain_cookie_assistant,
+        )
+        self.ibc_connection_api = IBCConnectionGrpcApi(
             channel=self.chain_channel,
             cookie_assistant=network.chain_cookie_assistant,
         )
@@ -3170,6 +3175,34 @@ class AsyncClient:
 
     async def fetch_ibc_upgraded_consensus_state(self) -> Dict[str, Any]:
         return await self.ibc_client_api.fetch_upgraded_consensus_state()
+
+    # endregion
+
+    # region IBC Connection module
+    async def fetch_ibc_connection(self, connection_id: str) -> Dict[str, Any]:
+        return await self.ibc_connection_api.fetch_connection(connection_id=connection_id)
+
+    async def fetch_ibc_connections(self, pagination: Optional[PaginationOption] = None) -> Dict[str, Any]:
+        return await self.ibc_connection_api.fetch_connections(pagination=pagination)
+
+    async def fetch_ibc_client_connections(self, client_id: str) -> Dict[str, Any]:
+        return await self.ibc_connection_api.fetch_client_connections(client_id=client_id)
+
+    async def fetch_ibc_connection_client_state(self, connection_id: str) -> Dict[str, Any]:
+        return await self.ibc_connection_api.fetch_connection_client_state(connection_id=connection_id)
+
+    async def fetch_ibc_connection_consensus_state(
+        self,
+        connection_id: str,
+        revision_number: int,
+        revision_height: int,
+    ) -> Dict[str, Any]:
+        return await self.ibc_connection_api.fetch_connection_consensus_state(
+            connection_id=connection_id, revision_number=revision_number, revision_height=revision_height
+        )
+
+    async def fetch_ibc_connection_params(self) -> Dict[str, Any]:
+        return await self.ibc_connection_api.fetch_connection_params()
 
     # endregion
 
