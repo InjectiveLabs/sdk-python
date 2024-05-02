@@ -14,7 +14,7 @@ class GrpcApiRequestAssistant:
 
         result = json_format.MessageToDict(
             message=response,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
 
         return result
