@@ -27,7 +27,7 @@ class GrpcApiStreamAssistant:
             async for event in stream:
                 parsed_event = json_format.MessageToDict(
                     message=event,
-                    including_default_value_fields=True,
+                    always_print_fields_with_no_presence=True,
                 )
                 if asyncio.iscoroutinefunction(callback):
                     await callback(parsed_event)
