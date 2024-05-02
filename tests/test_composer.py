@@ -202,7 +202,7 @@ class TestComposer:
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
 
@@ -233,7 +233,7 @@ class TestComposer:
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
 
@@ -274,7 +274,7 @@ class TestComposer:
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
 
@@ -337,7 +337,7 @@ class TestComposer:
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
 
@@ -403,7 +403,7 @@ class TestComposer:
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
 
@@ -446,7 +446,7 @@ class TestComposer:
         }
         dict_message = json_format.MessageToDict(
             message=order,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_order
 
@@ -493,7 +493,7 @@ class TestComposer:
         }
         dict_message = json_format.MessageToDict(
             message=order,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_order
 
@@ -542,7 +542,7 @@ class TestComposer:
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
 
@@ -575,11 +575,11 @@ class TestComposer:
 
         expected_message = {
             "sender": sender,
-            "orders": [json_format.MessageToDict(message=order, including_default_value_fields=True)],
+            "orders": [json_format.MessageToDict(message=order, always_print_fields_with_no_presence=True)],
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
 
@@ -628,7 +628,7 @@ class TestComposer:
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
 
@@ -656,7 +656,7 @@ class TestComposer:
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
 
@@ -679,11 +679,11 @@ class TestComposer:
         assert "injective.exchange.v1beta1.MsgBatchCancelSpotOrders" == message.DESCRIPTOR.full_name
         expected_message = {
             "sender": sender,
-            "data": [json_format.MessageToDict(message=order_data, including_default_value_fields=True)],
+            "data": [json_format.MessageToDict(message=order_data, always_print_fields_with_no_presence=True)],
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
 
@@ -761,28 +761,32 @@ class TestComposer:
             "spotMarketIdsToCancelAll": [spot_market_id],
             "derivativeMarketIdsToCancelAll": [derivative_market_id],
             "spotOrdersToCancel": [
-                json_format.MessageToDict(message=spot_order_to_cancel, including_default_value_fields=True)
+                json_format.MessageToDict(message=spot_order_to_cancel, always_print_fields_with_no_presence=True)
             ],
             "derivativeOrdersToCancel": [
-                json_format.MessageToDict(message=derivative_order_to_cancel, including_default_value_fields=True)
+                json_format.MessageToDict(message=derivative_order_to_cancel, always_print_fields_with_no_presence=True)
             ],
             "spotOrdersToCreate": [
-                json_format.MessageToDict(message=spot_order_to_create, including_default_value_fields=True)
+                json_format.MessageToDict(message=spot_order_to_create, always_print_fields_with_no_presence=True)
             ],
             "derivativeOrdersToCreate": [
-                json_format.MessageToDict(message=derivative_order_to_create, including_default_value_fields=True)
+                json_format.MessageToDict(message=derivative_order_to_create, always_print_fields_with_no_presence=True)
             ],
             "binaryOptionsOrdersToCancel": [
-                json_format.MessageToDict(message=binary_options_order_to_cancel, including_default_value_fields=True)
+                json_format.MessageToDict(
+                    message=binary_options_order_to_cancel, always_print_fields_with_no_presence=True
+                )
             ],
             "binaryOptionsMarketIdsToCancelAll": [binary_options_market_id],
             "binaryOptionsOrdersToCreate": [
-                json_format.MessageToDict(message=binary_options_order_to_create, including_default_value_fields=True)
+                json_format.MessageToDict(
+                    message=binary_options_order_to_create, always_print_fields_with_no_presence=True
+                )
             ],
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
 
@@ -807,7 +811,7 @@ class TestComposer:
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
 
@@ -859,7 +863,7 @@ class TestComposer:
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
 
@@ -893,11 +897,11 @@ class TestComposer:
 
         expected_message = {
             "sender": sender,
-            "orders": [json_format.MessageToDict(message=order, including_default_value_fields=True)],
+            "orders": [json_format.MessageToDict(message=order, always_print_fields_with_no_presence=True)],
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
 
@@ -949,7 +953,7 @@ class TestComposer:
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
 
@@ -990,7 +994,7 @@ class TestComposer:
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
 
@@ -1012,11 +1016,11 @@ class TestComposer:
 
         expected_message = {
             "sender": sender,
-            "data": [json_format.MessageToDict(message=order_data, including_default_value_fields=True)],
+            "data": [json_format.MessageToDict(message=order_data, always_print_fields_with_no_presence=True)],
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
 
@@ -1080,7 +1084,7 @@ class TestComposer:
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
 
@@ -1132,7 +1136,7 @@ class TestComposer:
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
 
@@ -1184,7 +1188,7 @@ class TestComposer:
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
 
@@ -1225,7 +1229,7 @@ class TestComposer:
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
 
@@ -1259,7 +1263,7 @@ class TestComposer:
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
 
@@ -1293,7 +1297,7 @@ class TestComposer:
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
 
@@ -1322,11 +1326,11 @@ class TestComposer:
             "sender": sender,
             "subaccountId": subaccount_id,
             "marketId": market.id,
-            "order": json_format.MessageToDict(message=order, including_default_value_fields=True),
+            "order": json_format.MessageToDict(message=order, always_print_fields_with_no_presence=True),
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
 
@@ -1348,7 +1352,7 @@ class TestComposer:
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
 
@@ -1378,7 +1382,7 @@ class TestComposer:
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
 
@@ -1394,7 +1398,7 @@ class TestComposer:
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
 
@@ -1427,6 +1431,6 @@ class TestComposer:
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
