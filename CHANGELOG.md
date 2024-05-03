@@ -13,6 +13,10 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Refactored cookies management logic to use all gRPC calls' responses to update the current cookies
 
+## [1.5.1] - 2024-05-02
+### Changed
+- Updated calls to `json_format.MessageToDict` for compliance with the new version of the `protobuf` library
+
 ## [1.5.0] - 2024-04-19
 ### Changed
 - Refactoring in Network class to support mixed secure and insecure endpoints.

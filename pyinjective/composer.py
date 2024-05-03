@@ -2253,7 +2253,7 @@ class Composer:
     @staticmethod
     def UnpackMsgExecResponse(msg_type, data):
         responses = []
-        dict_message = json_format.MessageToDict(message=data, including_default_value_fields=True)
+        dict_message = json_format.MessageToDict(message=data, always_print_fields_with_no_presence=True)
         json_responses = Composer.unpack_msg_exec_response(underlying_msg_type=msg_type, msg_exec_response=dict_message)
         for json_response in json_responses:
             response = REQUEST_TO_RESPONSE_TYPE_MAP[msg_type]()
@@ -2268,7 +2268,7 @@ class Composer:
         responses = [
             json_format.MessageToDict(
                 message=REQUEST_TO_RESPONSE_TYPE_MAP[underlying_msg_type].FromString(result),
-                including_default_value_fields=True,
+                always_print_fields_with_no_presence=True,
             )
             for result in grpc_response.results
         ]
@@ -2298,7 +2298,7 @@ class Composer:
             msgs.append(
                 {
                     "type": msg["type"],
-                    "value": json_format.MessageToDict(message=grpc_message, including_default_value_fields=True),
+                    "value": json_format.MessageToDict(message=grpc_message, always_print_fields_with_no_presence=True),
                 }
             )
 
