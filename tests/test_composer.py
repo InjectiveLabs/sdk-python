@@ -1471,6 +1471,6 @@ class TestComposer:
         }
         dict_message = json_format.MessageToDict(
             message=message,
-            including_default_value_fields=True,
+            always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
