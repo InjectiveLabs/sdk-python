@@ -3,6 +3,7 @@ from typing import Dict, List
 import aiohttp
 
 from pyinjective.core.token import Token
+from pyinjective.utils.logger import LoggerProvider
 
 
 class TokensFileLoader:
@@ -26,9 +27,14 @@ class TokensFileLoader:
 
     async def load_tokens(self, tokens_file_url: str) -> List[Token]:
         tokens_list = []
-        async with aiohttp.ClientSession() as session:
-            async with session.get(tokens_file_url) as response:
-                if response.ok:
-                    tokens_list = await response.json(content_type=None)
+        try:
+            async with aiohttp.ClientSession() as session:
+                async with session.get(tokens_file_url) as response:
+                    if response.ok:
+                        tokens_list = await response.json(content_type=None)
+        except Exception as e:
+            LoggerProvider().logger_for_class(logging_class=self.__class__).warning(
+                f"there was an error fetching the list of official tokens: {e}"
+            )
 
         return self.load_json(tokens_list)
