@@ -87,7 +87,11 @@ class TestAsyncClient:
         ape_usdt_spot_market_meta,
         btc_usdt_perp_market_meta,
         first_match_bet_market_meta,
+        aioresponses,
     ):
+        test_network = Network.local()
+        aioresponses.get(test_network.official_tokens_list_url, payload=[])
+
         spot_servicer.markets_responses.append(
             injective_spot_exchange_rpc_pb2.MarketsResponse(
                 markets=[inj_usdt_spot_market_meta, ape_usdt_spot_market_meta]
@@ -101,7 +105,7 @@ class TestAsyncClient:
         )
 
         client = AsyncClient(
-            network=Network.local(),
+            network=test_network,
             insecure=False,
         )
 
@@ -144,7 +148,11 @@ class TestAsyncClient:
         spot_servicer,
         derivative_servicer,
         smart_denom_metadata,
+        aioresponses,
     ):
+        test_network = Network.local()
+        aioresponses.get(test_network.official_tokens_list_url, payload=[])
+
         pagination = pagination_pb.PageResponse(
             total=1,
         )
@@ -163,7 +171,7 @@ class TestAsyncClient:
         )
 
         client = AsyncClient(
-            network=Network.local(),
+            network=test_network,
             insecure=False,
         )
 
