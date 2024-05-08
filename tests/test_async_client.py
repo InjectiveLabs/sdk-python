@@ -142,6 +142,74 @@ class TestAsyncClient:
         )
 
     @pytest.mark.asyncio
+    async def test_tokens_and_markets_initialization_read_tokens_from_official_list(
+        self,
+        spot_servicer,
+        derivative_servicer,
+        inj_usdt_spot_market_meta,
+        ape_usdt_spot_market_meta,
+        btc_usdt_perp_market_meta,
+        first_match_bet_market_meta,
+        aioresponses,
+    ):
+        test_network = Network.local()
+
+        tokens_list = [
+            {
+                "address": "ibc/2CBC2EA121AE42563B08028466F37B600F2D7D4282342DE938283CC3FB2BC00E",
+                "isNative": True,
+                "tokenVerification": "verified",
+                "name": "USD Coin",
+                "decimals": 6,
+                "symbol": "USDC",
+                "logo": "https://imagedelivery.net/DYKOWp0iCc0sIkF-2e4dNw/a8bfa5f1-1dab-4be9-a68c-e15f0bd11100/public",
+                "coinGeckoId": "usd-coin",
+                "baseDenom": "uusdc",
+                "channelId": "channel-148",
+                "source": "cosmos",
+                "path": "transfer/channel-148",
+                "hash": "2CBC2EA121AE42563B08028466F37B600F2D7D4282342DE938283CC3FB2BC00E",
+                "denom": "ibc/2CBC2EA121AE42563B08028466F37B600F2D7D4282342DE938283CC3FB2BC00E",
+                "tokenType": "ibc",
+                "externalLogo": "usdc.png",
+            },
+            {
+                "address": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+                "isNative": False,
+                "decimals": 18,
+                "symbol": "WMATIC",
+                "logo": "https://imagedelivery.net/DYKOWp0iCc0sIkF-2e4dNw/0d061e1e-a746-4b19-1399-8187b8bb1700/public",
+                "name": "Wrapped Matic",
+                "coinGeckoId": "wmatic",
+                "denom": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+                "tokenType": "evm",
+                "tokenVerification": "verified",
+                "externalLogo": "polygon.png",
+            },
+        ]
+        aioresponses.get(test_network.official_tokens_list_url, payload=tokens_list)
+
+        spot_servicer.markets_responses.append(injective_spot_exchange_rpc_pb2.MarketsResponse(markets=[]))
+        derivative_servicer.markets_responses.append(injective_derivative_exchange_rpc_pb2.MarketsResponse(markets=[]))
+        derivative_servicer.binary_options_markets_responses.append(
+            injective_derivative_exchange_rpc_pb2.BinaryOptionsMarketsResponse(markets=[])
+        )
+
+        client = AsyncClient(
+            network=test_network,
+            insecure=False,
+        )
+
+        client.exchange_spot_api._stub = spot_servicer
+        client.exchange_derivative_api._stub = derivative_servicer
+
+        await client._initialize_tokens_and_markets()
+
+        all_tokens = await client.all_tokens()
+        for token_info in tokens_list:
+            assert token_info["symbol"] in all_tokens
+
+    @pytest.mark.asyncio
     async def test_initialize_tokens_from_chain_denoms(
         self,
         bank_servicer,
