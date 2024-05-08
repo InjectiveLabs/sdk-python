@@ -44,6 +44,7 @@ from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMa
 from pyinjective.core.network import Network
 from pyinjective.core.tendermint.grpc.tendermint_grpc_api import TendermintGrpcApi
 from pyinjective.core.token import Token
+from pyinjective.core.tokens_file_loader import TokensFileLoader
 from pyinjective.core.tx.grpc.tx_grpc_api import TxGrpcApi
 from pyinjective.exceptions import NotFoundError
 from pyinjective.proto.cosmos.auth.v1beta1 import query_pb2 as auth_query, query_pb2_grpc as auth_query_grpc
@@ -3264,8 +3265,7 @@ class AsyncClient:
         spot_markets = dict()
         derivative_markets = dict()
         binary_option_markets = dict()
-        tokens_by_symbol = dict()
-        tokens_by_denom = dict()
+        tokens_by_symbol, tokens_by_denom = await self._tokens_from_official_lists(network=self.network)
         markets_info = (await self.fetch_spot_markets(market_statuses=["active"]))["markets"]
         valid_markets = (
             market_info
@@ -3399,6 +3399,29 @@ class AsyncClient:
             tokens_by_symbol[unique_symbol] = token
 
         return tokens_by_denom[denom]
+
+    async def _tokens_from_official_lists(
+        self,
+        network: Network,
+    ) -> Tuple[Dict[str, Token], Dict[str, Token]]:
+        tokens_by_symbol = dict()
+        tokens_by_denom = dict()
+
+        loader = TokensFileLoader()
+        tokens = await loader.load_tokens(network.official_tokens_list_url)
+
+        for token in tokens:
+            if token.denom is not None and token.denom != "" and token.denom not in tokens_by_denom:
+                unique_symbol = token.symbol
+                for symbol_candidate in [token.symbol, token.name]:
+                    if symbol_candidate not in tokens_by_symbol:
+                        unique_symbol = symbol_candidate
+                        break
+
+                tokens_by_denom[token.denom] = token
+                tokens_by_symbol[unique_symbol] = token
+
+        return tokens_by_symbol, tokens_by_denom
 
     def _initialize_timeout_height_sync_task(self):
         self._cancel_timeout_height_sync_task()

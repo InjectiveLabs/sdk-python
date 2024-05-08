@@ -16,7 +16,7 @@ sudo dnf install python3-devel autoconf automake gcc gcc-c++ libffi-devel libtoo
 **macOS**
 
 ```bash
-brew install autoconf automake libtool
+brew install autoconf automake libtool bufbuild/buf/buf
 ```
 
 ### Quick Start
@@ -67,7 +67,7 @@ Upgrade `pip` to the latest version, if you see these warnings:
 
 3. Fetch latest denom config
 ```
-poetry run python pyinjective/fetch_metadata.py
+poetry run python pyinjective/utils/fetch_metadata.py
 ```
 
 Note that the [sync client](https://github.com/InjectiveLabs/sdk-python/blob/master/pyinjective/client.py) has been deprecated as of April 18, 2022. If you are using the sync client please make sure to transition to the [async client](https://github.com/InjectiveLabs/sdk-python/blob/master/pyinjective/async_client.py), for more information read [here](https://github.com/InjectiveLabs/sdk-python/issues/101)

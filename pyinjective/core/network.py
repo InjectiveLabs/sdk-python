@@ -118,6 +118,7 @@ class Network:
         chain_cookie_assistant: CookieAssistant,
         exchange_cookie_assistant: CookieAssistant,
         explorer_cookie_assistant: CookieAssistant,
+        official_tokens_list_url: str,
         use_secure_connection: Optional[bool] = None,
         grpc_channel_credentials: Optional[ChannelCredentials] = None,
         grpc_exchange_channel_credentials: Optional[ChannelCredentials] = None,
@@ -144,6 +145,7 @@ class Network:
         self.chain_cookie_assistant = chain_cookie_assistant
         self.exchange_cookie_assistant = exchange_cookie_assistant
         self.explorer_cookie_assistant = explorer_cookie_assistant
+        self.official_tokens_list_url = official_tokens_list_url
         self.grpc_channel_credentials = grpc_channel_credentials
         self.grpc_exchange_channel_credentials = grpc_exchange_channel_credentials
         self.grpc_explorer_channel_credentials = grpc_explorer_channel_credentials
@@ -164,6 +166,7 @@ class Network:
             chain_cookie_assistant=DisabledCookieAssistant(),
             exchange_cookie_assistant=DisabledCookieAssistant(),
             explorer_cookie_assistant=DisabledCookieAssistant(),
+            official_tokens_list_url="https://github.com/InjectiveLabs/injective-lists/raw/master/tokens/devnet.json",
         )
 
     @classmethod
@@ -218,6 +221,7 @@ class Network:
             grpc_exchange_channel_credentials=grpc_exchange_channel_credentials,
             grpc_explorer_channel_credentials=grpc_explorer_channel_credentials,
             chain_stream_channel_credentials=chain_stream_channel_credentials,
+            official_tokens_list_url="https://github.com/InjectiveLabs/injective-lists/raw/master/tokens/testnet.json",
         )
 
     @classmethod
@@ -259,6 +263,7 @@ class Network:
             grpc_exchange_channel_credentials=grpc_exchange_channel_credentials,
             grpc_explorer_channel_credentials=grpc_explorer_channel_credentials,
             chain_stream_channel_credentials=chain_stream_channel_credentials,
+            official_tokens_list_url="https://github.com/InjectiveLabs/injective-lists/raw/master/tokens/mainnet.json",
         )
 
     @classmethod
@@ -276,6 +281,7 @@ class Network:
             chain_cookie_assistant=DisabledCookieAssistant(),
             exchange_cookie_assistant=DisabledCookieAssistant(),
             explorer_cookie_assistant=DisabledCookieAssistant(),
+            official_tokens_list_url="https://github.com/InjectiveLabs/injective-lists/raw/master/tokens/mainnet.json",
         )
 
     @classmethod
@@ -289,6 +295,7 @@ class Network:
         chain_stream_endpoint,
         chain_id,
         env,
+        official_tokens_list_url: str,
         chain_cookie_assistant: Optional[CookieAssistant] = None,
         exchange_cookie_assistant: Optional[CookieAssistant] = None,
         explorer_cookie_assistant: Optional[CookieAssistant] = None,
@@ -322,6 +329,7 @@ class Network:
             chain_cookie_assistant=chain_assistant,
             exchange_cookie_assistant=exchange_assistant,
             explorer_cookie_assistant=explorer_assistant,
+            official_tokens_list_url=official_tokens_list_url,
             grpc_channel_credentials=grpc_channel_credentials,
             grpc_exchange_channel_credentials=grpc_exchange_channel_credentials,
             grpc_explorer_channel_credentials=grpc_explorer_channel_credentials,
@@ -351,6 +359,7 @@ class Network:
             chain_cookie_assistant=chain_cookie_assistant or DisabledCookieAssistant(),
             exchange_cookie_assistant=mainnet_network.exchange_cookie_assistant,
             explorer_cookie_assistant=mainnet_network.explorer_cookie_assistant,
+            official_tokens_list_url=mainnet_network.official_tokens_list_url,
             grpc_channel_credentials=None,
             grpc_exchange_channel_credentials=mainnet_network.grpc_exchange_channel_credentials,
             grpc_explorer_channel_credentials=mainnet_network.grpc_explorer_channel_credentials,
