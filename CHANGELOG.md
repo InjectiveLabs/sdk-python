@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.5.2] - 2024-05-10
+### Changed
+- Updated `protobuf` dependency version to ">=5.26.1"
+
 ## [1.5.1] - 2024-05-02
 ### Changed
 - Updated calls to `json_format.MessageToDict` for compliance with the new version of the `protobuf` library
