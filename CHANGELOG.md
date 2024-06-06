@@ -17,6 +17,7 @@ All notable changes to this project will be documented in this file.
 ## [1.4.3] - 2024-06-06
 ### Changed
 - Fixed `protobuf` dependency version to "<5" to for the v1.4 branch, because newer versions require a code refactoring (done in v1.5)
++ Fixed `protobuf` dependency version to "<5" for the v1.4 branch because newer versions require a code refactoring (done in v1.5)
 
 ## [1.5.2] - 2024-05-10
 ### Changed
