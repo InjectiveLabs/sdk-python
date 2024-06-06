@@ -14,6 +14,14 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Refactored cookies management logic to use all gRPC calls' responses to update the current cookies
 
+## [1.4.3] - 2024-06-06
+### Changed
+- Fixed `protobuf` dependency version to "<5" to for the v1.4 branch, because newer versions require a code refactoring (done in v1.5)
+
+## [1.5.2] - 2024-05-10
+### Changed
+- Updated `protobuf` dependency version to ">=5.26.1"
+
 ## [1.5.1] - 2024-05-02
 ### Changed
 - Updated calls to `json_format.MessageToDict` for compliance with the new version of the `protobuf` library
