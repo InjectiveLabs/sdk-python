@@ -29,26 +29,10 @@ endef
 clean-all:
 	$(call clean_repos)
 
-clone-injective-core:
-	git clone https://github.com/InjectiveLabs/injective-core.git -b dev --depth 1 --single-branch
-
 clone-injective-indexer:
 	git clone https://github.com/InjectiveLabs/injective-indexer.git -b release/v1.13.x --depth 1 --single-branch
 
-clone-cometbft:
-	git clone https://github.com/InjectiveLabs/cometbft.git -b v0.38.x-inj --depth 1 --single-branch
-	rm cometbft/buf.yaml
-
-clone-wasmd:
-	git clone https://github.com/InjectiveLabs/wasmd.git -b v0.51.x-inj --depth 1 --single-branch
-
-clone-cosmos-sdk:
-	git clone https://github.com/InjectiveLabs/cosmos-sdk.git -b v0.50.x-inj --depth 1 --single-branch
-
-clone-ibc-go:
-	git clone https://github.com/InjectiveLabs/ibc-go.git -b v8.3.x-inj --depth 1 --single-branch
-
-clone-all: clone-cosmos-sdk clone-cometbft clone-ibc-go clone-wasmd clone-injective-core clone-injective-indexer
+clone-all: clone-injective-indexer
 
 copy-proto:
 	rm -rf pyinjective/proto
