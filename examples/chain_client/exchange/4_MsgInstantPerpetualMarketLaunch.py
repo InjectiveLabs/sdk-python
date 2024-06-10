@@ -49,6 +49,7 @@ async def main() -> None:
         maintenance_margin_ratio=Decimal("0.095"),
         min_price_tick_size=Decimal("0.001"),
         min_quantity_tick_size=Decimal("0.01"),
+        min_notional=Decimal("1"),
     )
 
     # broadcast the transaction

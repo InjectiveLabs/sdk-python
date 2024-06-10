@@ -28,22 +28,22 @@ clean-all:
 	$(call clean_repos)
 
 clone-injective-core:
-	git clone https://github.com/InjectiveLabs/injective-core.git -b v1.12.1 --depth 1 --single-branch
+	git clone https://github.com/InjectiveLabs/injective-core.git -b feat-sdk-v0.50-migration --depth 1 --single-branch
 
 clone-injective-indexer:
-	git clone https://github.com/InjectiveLabs/injective-indexer.git -b v1.12.79.1 --depth 1 --single-branch
+	git clone https://github.com/InjectiveLabs/injective-indexer.git -b fix/makefile --depth 1 --single-branch
 
 clone-cometbft:
-	git clone https://github.com/InjectiveLabs/cometbft.git -b v0.37.2-inj --depth 1 --single-branch
+	git clone https://github.com/InjectiveLabs/cometbft.git -b v0.38.6-inj-2 --depth 1 --single-branch
 
 clone-wasmd:
-	git clone https://github.com/InjectiveLabs/wasmd.git -b v0.45.0-inj --depth 1 --single-branch
+	git clone https://github.com/InjectiveLabs/wasmd.git -b v0.50.x-inj --depth 1 --single-branch
 
 clone-cosmos-sdk:
-	git clone https://github.com/InjectiveLabs/cosmos-sdk.git -b v0.47.3-inj-9 --depth 1 --single-branch
+	git clone https://github.com/InjectiveLabs/cosmos-sdk.git -b v0.50.6 --depth 1 --single-branch
 
 clone-ibc-go:
-	git clone https://github.com/InjectiveLabs/ibc-go.git -b v7.2.0-inj --depth 1 --single-branch
+	git clone https://github.com/InjectiveLabs/ibc-go.git -b v8.3.x-inj --depth 1 --single-branch
 
 clone-all: clone-cosmos-sdk clone-cometbft clone-ibc-go clone-wasmd clone-injective-core clone-injective-indexer
 

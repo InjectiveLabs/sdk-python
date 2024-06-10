@@ -42,6 +42,7 @@ async def main() -> None:
         quote_denom="USDC",
         min_price_tick_size=Decimal("0.001"),
         min_quantity_tick_size=Decimal("0.01"),
+        min_notional=Decimal("1"),
     )
 
     # broadcast the transaction

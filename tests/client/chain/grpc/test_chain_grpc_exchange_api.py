@@ -30,6 +30,7 @@ class TestChainGrpcBankApi:
         spot_market_instant_listing_fee = coin_pb.Coin(denom="inj", amount="10000000000000000000")
         derivative_market_instant_listing_fee = coin_pb.Coin(denom="inj", amount="2000000000000000000000")
         binary_options_market_instant_listing_fee = coin_pb.Coin(denom="inj", amount="30000000000000000000")
+        admin = "inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr"
         params = exchange_pb.Params(
             spot_market_instant_listing_fee=spot_market_instant_listing_fee,
             derivative_market_instant_listing_fee=derivative_market_instant_listing_fee,
@@ -56,6 +57,8 @@ class TestChainGrpcBankApi:
             minimal_protocol_fee_rate="0.000010000000000000",
             is_instant_derivative_market_launch_enabled=False,
             post_only_mode_height_threshold=57078000,
+            margin_decrease_price_timestamp_threshold_seconds=10,
+            exchange_admins=[admin],
         )
         exchange_servicer.exchange_params.append(exchange_query_pb.QueryExchangeParamsResponse(params=params))
 
@@ -100,6 +103,10 @@ class TestChainGrpcBankApi:
                 "minimalProtocolFeeRate": params.minimal_protocol_fee_rate,
                 "isInstantDerivativeMarketLaunchEnabled": params.is_instant_derivative_market_launch_enabled,
                 "postOnlyModeHeightThreshold": str(params.post_only_mode_height_threshold),
+                "marginDecreasePriceTimestampThresholdSeconds": str(
+                    params.margin_decrease_price_timestamp_threshold_seconds
+                ),
+                "exchangeAdmins": [admin],
             }
         }
 
@@ -434,6 +441,9 @@ class TestChainGrpcBankApi:
             status=1,
             min_price_tick_size="0.000000000000001",
             min_quantity_tick_size="1000000000000000",
+            min_notional="5000000000000000000",
+            admin="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
+            admin_permissions=1,
         )
         exchange_servicer.spot_markets_responses.append(
             exchange_query_pb.QuerySpotMarketsResponse(
@@ -461,6 +471,9 @@ class TestChainGrpcBankApi:
                     "status": status_string,
                     "minPriceTickSize": market.min_price_tick_size,
                     "minQuantityTickSize": market.min_quantity_tick_size,
+                    "minNotional": market.min_notional,
+                    "admin": market.admin,
+                    "adminPermissions": market.admin_permissions,
                 }
             ]
         }
@@ -483,6 +496,9 @@ class TestChainGrpcBankApi:
             status=1,
             min_price_tick_size="0.000000000000001",
             min_quantity_tick_size="1000000000000000",
+            min_notional="5000000000000000000",
+            admin="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
+            admin_permissions=1,
         )
         exchange_servicer.spot_market_responses.append(
             exchange_query_pb.QuerySpotMarketResponse(
@@ -507,6 +523,9 @@ class TestChainGrpcBankApi:
                 "status": exchange_pb.MarketStatus.Name(market.status),
                 "minPriceTickSize": market.min_price_tick_size,
                 "minQuantityTickSize": market.min_quantity_tick_size,
+                "minNotional": market.min_notional,
+                "admin": market.admin,
+                "adminPermissions": market.admin_permissions,
             }
         }
 
@@ -528,6 +547,9 @@ class TestChainGrpcBankApi:
             status=1,
             min_price_tick_size="0.000000000000001",
             min_quantity_tick_size="1000000000000000",
+            min_notional="5000000000000000000",
+            admin="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
+            admin_permissions=1,
         )
         mid_price_and_tob = exchange_pb.MidPriceAndTOB(
             mid_price="2000000000000000000",
@@ -566,6 +588,9 @@ class TestChainGrpcBankApi:
                         "status": status_string,
                         "minPriceTickSize": market.min_price_tick_size,
                         "minQuantityTickSize": market.min_quantity_tick_size,
+                        "minNotional": market.min_notional,
+                        "admin": market.admin,
+                        "adminPermissions": market.admin_permissions,
                     },
                     "midPriceAndTob": {
                         "midPrice": mid_price_and_tob.mid_price,
@@ -594,6 +619,9 @@ class TestChainGrpcBankApi:
             status=1,
             min_price_tick_size="0.000000000000001",
             min_quantity_tick_size="1000000000000000",
+            min_notional="5000000000000000000",
+            admin="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
+            admin_permissions=1,
         )
         mid_price_and_tob = exchange_pb.MidPriceAndTOB(
             mid_price="2000000000000000000",
@@ -630,6 +658,9 @@ class TestChainGrpcBankApi:
                     "status": status_string,
                     "minPriceTickSize": market.min_price_tick_size,
                     "minQuantityTickSize": market.min_quantity_tick_size,
+                    "minNotional": market.min_notional,
+                    "admin": market.admin,
+                    "adminPermissions": market.admin_permissions,
                 },
                 "midPriceAndTob": {
                     "midPrice": mid_price_and_tob.mid_price,
@@ -698,6 +729,7 @@ class TestChainGrpcBankApi:
             fillable="1000000000000000",
             isBuy=True,
             order_hash="0x14e43adbb3302db28bcd0619068227ebca880cdd66cdfc8b4a662bcac0777849",
+            cid="order_cid",
         )
         exchange_servicer.trader_spot_orders_responses.append(
             exchange_query_pb.QueryTraderSpotOrdersResponse(
@@ -719,6 +751,7 @@ class TestChainGrpcBankApi:
                     "fillable": order.fillable,
                     "isBuy": order.isBuy,
                     "orderHash": order.order_hash,
+                    "cid": order.cid,
                 }
             ]
         }
@@ -736,6 +769,7 @@ class TestChainGrpcBankApi:
             fillable="1000000000000000",
             isBuy=True,
             order_hash="0x14e43adbb3302db28bcd0619068227ebca880cdd66cdfc8b4a662bcac0777849",
+            cid="order_cid",
         )
         exchange_servicer.account_address_spot_orders_responses.append(
             exchange_query_pb.QueryAccountAddressSpotOrdersResponse(
@@ -757,6 +791,7 @@ class TestChainGrpcBankApi:
                     "fillable": order.fillable,
                     "isBuy": order.isBuy,
                     "orderHash": order.order_hash,
+                    "cid": order.cid,
                 }
             ]
         }
@@ -774,6 +809,7 @@ class TestChainGrpcBankApi:
             fillable="1000000000000000",
             isBuy=True,
             order_hash="0x14e43adbb3302db28bcd0619068227ebca880cdd66cdfc8b4a662bcac0777849",
+            cid="order_cid",
         )
         exchange_servicer.spot_orders_by_hashes_responses.append(
             exchange_query_pb.QuerySpotOrdersByHashesResponse(
@@ -796,6 +832,7 @@ class TestChainGrpcBankApi:
                     "fillable": order.fillable,
                     "isBuy": order.isBuy,
                     "orderHash": order.order_hash,
+                    "cid": order.cid,
                 }
             ]
         }
@@ -811,6 +848,7 @@ class TestChainGrpcBankApi:
             price="1000000000000000000",
             quantity="1000000000000000",
             isReduceOnly=False,
+            cid="buy_cid",
         )
         buy_order = exchange_pb.SubaccountOrderData(
             order=buy_subaccount_order,
@@ -820,6 +858,7 @@ class TestChainGrpcBankApi:
             price="2000000000000000000",
             quantity="2000000000000000",
             isReduceOnly=False,
+            cid="sell_cid",
         )
         sell_order = exchange_pb.SubaccountOrderData(
             order=sell_subaccount_order,
@@ -845,6 +884,7 @@ class TestChainGrpcBankApi:
                         "price": buy_subaccount_order.price,
                         "quantity": buy_subaccount_order.quantity,
                         "isReduceOnly": buy_subaccount_order.isReduceOnly,
+                        "cid": buy_subaccount_order.cid,
                     },
                     "orderHash": base64.b64encode(buy_order.order_hash).decode(),
                 }
@@ -855,6 +895,7 @@ class TestChainGrpcBankApi:
                         "price": sell_subaccount_order.price,
                         "quantity": sell_subaccount_order.quantity,
                         "isReduceOnly": sell_subaccount_order.isReduceOnly,
+                        "cid": sell_subaccount_order.cid,
                     },
                     "orderHash": base64.b64encode(sell_order.order_hash).decode(),
                 }
@@ -874,6 +915,7 @@ class TestChainGrpcBankApi:
             fillable="1000000000000000",
             isBuy=True,
             order_hash="0x14e43adbb3302db28bcd0619068227ebca880cdd66cdfc8b4a662bcac0777849",
+            cid="order_cid",
         )
         exchange_servicer.trader_spot_transient_orders_responses.append(
             exchange_query_pb.QueryTraderSpotOrdersResponse(
@@ -895,6 +937,7 @@ class TestChainGrpcBankApi:
                     "fillable": order.fillable,
                     "isBuy": order.isBuy,
                     "orderHash": order.order_hash,
+                    "cid": order.cid,
                 }
             ]
         }
@@ -1007,6 +1050,7 @@ class TestChainGrpcBankApi:
             fillable="1000000000000000",
             isBuy=True,
             order_hash="0x14e43adbb3302db28bcd0619068227ebca880cdd66cdfc8b4a662bcac0777849",
+            cid="order_cid",
         )
         exchange_servicer.trader_derivative_orders_responses.append(
             exchange_query_pb.QueryTraderDerivativeOrdersResponse(
@@ -1029,6 +1073,7 @@ class TestChainGrpcBankApi:
                     "fillable": order.fillable,
                     "isBuy": order.isBuy,
                     "orderHash": order.order_hash,
+                    "cid": order.cid,
                 }
             ]
         }
@@ -1047,6 +1092,7 @@ class TestChainGrpcBankApi:
             fillable="1000000000000000",
             isBuy=True,
             order_hash="0x14e43adbb3302db28bcd0619068227ebca880cdd66cdfc8b4a662bcac0777849",
+            cid="order_cid",
         )
         exchange_servicer.account_address_derivative_orders_responses.append(
             exchange_query_pb.QueryAccountAddressDerivativeOrdersResponse(
@@ -1069,6 +1115,7 @@ class TestChainGrpcBankApi:
                     "fillable": order.fillable,
                     "isBuy": order.isBuy,
                     "orderHash": order.order_hash,
+                    "cid": order.cid,
                 }
             ]
         }
@@ -1087,6 +1134,7 @@ class TestChainGrpcBankApi:
             fillable="1000000000000000",
             isBuy=True,
             order_hash="0x14e43adbb3302db28bcd0619068227ebca880cdd66cdfc8b4a662bcac0777849",
+            cid="order_cid",
         )
         exchange_servicer.derivative_orders_by_hashes_responses.append(
             exchange_query_pb.QueryDerivativeOrdersByHashesResponse(
@@ -1110,6 +1158,7 @@ class TestChainGrpcBankApi:
                     "fillable": order.fillable,
                     "isBuy": order.isBuy,
                     "orderHash": order.order_hash,
+                    "cid": order.cid,
                 }
             ]
         }
@@ -1128,6 +1177,7 @@ class TestChainGrpcBankApi:
             fillable="1000000000000000",
             isBuy=True,
             order_hash="0x14e43adbb3302db28bcd0619068227ebca880cdd66cdfc8b4a662bcac0777849",
+            cid="order_cid",
         )
         exchange_servicer.trader_derivative_transient_orders_responses.append(
             exchange_query_pb.QueryTraderDerivativeOrdersResponse(
@@ -1150,6 +1200,7 @@ class TestChainGrpcBankApi:
                     "fillable": order.fillable,
                     "isBuy": order.isBuy,
                     "orderHash": order.order_hash,
+                    "cid": order.cid,
                 }
             ]
         }
@@ -1178,6 +1229,9 @@ class TestChainGrpcBankApi:
             status=1,
             min_price_tick_size="100000000000000000000",
             min_quantity_tick_size="1000000000000000",
+            min_notional="5000000000000000000",
+            admin="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
+            admin_permissions=1,
         )
         market_info = exchange_pb.PerpetualMarketInfo(
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
@@ -1239,6 +1293,9 @@ class TestChainGrpcBankApi:
                         "status": status_string,
                         "minPriceTickSize": market.min_price_tick_size,
                         "minQuantityTickSize": market.min_quantity_tick_size,
+                        "minNotional": market.min_notional,
+                        "admin": market.admin,
+                        "adminPermissions": market.admin_permissions,
                     },
                     "perpetualInfo": {
                         "marketInfo": {
@@ -1288,6 +1345,9 @@ class TestChainGrpcBankApi:
             status=1,
             min_price_tick_size="100000000000000000000",
             min_quantity_tick_size="1000000000000000",
+            min_notional="5000000000000000000",
+            admin="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
+            admin_permissions=1,
         )
         market_info = exchange_pb.PerpetualMarketInfo(
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
@@ -1347,6 +1407,9 @@ class TestChainGrpcBankApi:
                     "status": status_string,
                     "minPriceTickSize": market.min_price_tick_size,
                     "minQuantityTickSize": market.min_quantity_tick_size,
+                    "minNotional": market.min_notional,
+                    "admin": market.admin,
+                    "adminPermissions": market.admin_permissions,
                 },
                 "perpetualInfo": {
                     "marketInfo": {
@@ -2256,6 +2319,8 @@ class TestChainGrpcBankApi:
             min_price_tick_size="100000000000000000000",
             min_quantity_tick_size="1000000000000000",
             settlement_price="2000000000000000000",
+            min_notional="5000000000000000000",
+            admin_permissions=1,
         )
         response = exchange_query_pb.QueryBinaryMarketsResponse(
             markets=[market],
@@ -2285,6 +2350,8 @@ class TestChainGrpcBankApi:
                     "minPriceTickSize": market.min_price_tick_size,
                     "minQuantityTickSize": market.min_quantity_tick_size,
                     "settlementPrice": market.settlement_price,
+                    "minNotional": market.min_notional,
+                    "adminPermissions": market.admin_permissions,
                 },
             ]
         }
@@ -2304,6 +2371,7 @@ class TestChainGrpcBankApi:
             isBuy=True,
             isLimit=True,
             order_hash="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+            cid="order_cid",
         )
         response = exchange_query_pb.QueryTraderDerivativeConditionalOrdersResponse(orders=[order])
         exchange_servicer.trader_derivative_conditional_orders_responses.append(response)
@@ -2324,6 +2392,7 @@ class TestChainGrpcBankApi:
                     "isBuy": order.isBuy,
                     "isLimit": order.isLimit,
                     "orderHash": order.order_hash,
+                    "cid": order.cid,
                 }
             ]
         }

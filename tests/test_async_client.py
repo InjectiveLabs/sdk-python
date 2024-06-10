@@ -6,7 +6,10 @@ from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
 from pyinjective.proto.cosmos.bank.v1beta1 import query_pb2 as bank_query_pb
 from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagination_pb
-from pyinjective.proto.exchange import injective_derivative_exchange_rpc_pb2, injective_spot_exchange_rpc_pb2
+from pyinjective.proto.exchange import (
+    injective_derivative_exchange_rpc_pb2 as derivative_exchange_pb,
+    injective_spot_exchange_rpc_pb2 as spot_exchange_pb,
+)
 from tests.client.chain.grpc.configurable_bank_query_servicer import ConfigurableBankQueryServicer
 from tests.client.indexer.configurable_derivative_query_servicer import ConfigurableDerivativeQueryServicer
 from tests.client.indexer.configurable_spot_query_servicer import ConfigurableSpotQueryServicer
@@ -93,15 +96,13 @@ class TestAsyncClient:
         aioresponses.get(test_network.official_tokens_list_url, payload=[])
 
         spot_servicer.markets_responses.append(
-            injective_spot_exchange_rpc_pb2.MarketsResponse(
-                markets=[inj_usdt_spot_market_meta, ape_usdt_spot_market_meta]
-            )
+            spot_exchange_pb.MarketsResponse(markets=[inj_usdt_spot_market_meta, ape_usdt_spot_market_meta])
         )
         derivative_servicer.markets_responses.append(
-            injective_derivative_exchange_rpc_pb2.MarketsResponse(markets=[btc_usdt_perp_market_meta])
+            derivative_exchange_pb.MarketsResponse(markets=[btc_usdt_perp_market_meta])
         )
         derivative_servicer.binary_options_markets_responses.append(
-            injective_derivative_exchange_rpc_pb2.BinaryOptionsMarketsResponse(markets=[first_match_bet_market_meta])
+            derivative_exchange_pb.BinaryOptionsMarketsResponse(markets=[first_match_bet_market_meta])
         )
 
         client = AsyncClient(
@@ -189,10 +190,10 @@ class TestAsyncClient:
         ]
         aioresponses.get(test_network.official_tokens_list_url, payload=tokens_list)
 
-        spot_servicer.markets_responses.append(injective_spot_exchange_rpc_pb2.MarketsResponse(markets=[]))
-        derivative_servicer.markets_responses.append(injective_derivative_exchange_rpc_pb2.MarketsResponse(markets=[]))
+        spot_servicer.markets_responses.append(spot_exchange_pb.MarketsResponse(markets=[]))
+        derivative_servicer.markets_responses.append(derivative_exchange_pb.MarketsResponse(markets=[]))
         derivative_servicer.binary_options_markets_responses.append(
-            injective_derivative_exchange_rpc_pb2.BinaryOptionsMarketsResponse(markets=[])
+            derivative_exchange_pb.BinaryOptionsMarketsResponse(markets=[])
         )
 
         client = AsyncClient(
@@ -232,10 +233,10 @@ class TestAsyncClient:
             )
         )
 
-        spot_servicer.markets_responses.append(injective_spot_exchange_rpc_pb2.MarketsResponse(markets=[]))
-        derivative_servicer.markets_responses.append(injective_derivative_exchange_rpc_pb2.MarketsResponse(markets=[]))
+        spot_servicer.markets_responses.append(spot_exchange_pb.MarketsResponse(markets=[]))
+        derivative_servicer.markets_responses.append(derivative_exchange_pb.MarketsResponse(markets=[]))
         derivative_servicer.binary_options_markets_responses.append(
-            injective_derivative_exchange_rpc_pb2.BinaryOptionsMarketsResponse(markets=[])
+            derivative_exchange_pb.BinaryOptionsMarketsResponse(markets=[])
         )
 
         client = AsyncClient(
