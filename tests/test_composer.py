@@ -244,6 +244,7 @@ class TestComposer:
         quote_denom = "USDT"
         min_price_tick_size = Decimal("0.01")
         min_quantity_tick_size = Decimal("1")
+        min_notional = Decimal("2")
 
         base_token = basic_composer.tokens[base_denom]
         quote_token = basic_composer.tokens[quote_denom]
@@ -254,6 +255,9 @@ class TestComposer:
         expected_min_quantity_tick_size = min_quantity_tick_size * Decimal(
             f"1e{base_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
         )
+        expected_min_notional = min_notional * Decimal(
+            f"1e{quote_token.decimals - base_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        )
 
         message = basic_composer.msg_instant_spot_market_launch(
             sender=sender,
@@ -262,6 +266,7 @@ class TestComposer:
             quote_denom=quote_denom,
             min_price_tick_size=min_price_tick_size,
             min_quantity_tick_size=min_quantity_tick_size,
+            min_notional=min_notional,
         )
 
         expected_message = {
@@ -271,6 +276,7 @@ class TestComposer:
             "quoteDenom": quote_token.denom,
             "minPriceTickSize": f"{expected_min_price_tick_size.normalize():f}",
             "minQuantityTickSize": f"{expected_min_quantity_tick_size.normalize():f}",
+            "minNotional": f"{expected_min_notional.normalize():f}",
         }
         dict_message = json_format.MessageToDict(
             message=message,
@@ -292,6 +298,7 @@ class TestComposer:
         taker_fee_rate = Decimal("-0.002")
         initial_margin_ratio = Decimal("0.05")
         maintenance_margin_ratio = Decimal("0.03")
+        min_notional = Decimal("2")
 
         quote_token = basic_composer.tokens[quote_denom]
 
@@ -303,6 +310,7 @@ class TestComposer:
         expected_taker_fee_rate = taker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         expected_initial_margin_ratio = initial_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         expected_maintenance_margin_ratio = maintenance_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        expected_min_notional = min_notional * Decimal(f"1e{quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         message = basic_composer.msg_instant_perpetual_market_launch(
             sender=sender,
@@ -318,6 +326,7 @@ class TestComposer:
             maintenance_margin_ratio=maintenance_margin_ratio,
             min_price_tick_size=min_price_tick_size,
             min_quantity_tick_size=min_quantity_tick_size,
+            min_notional=min_notional,
         )
 
         expected_message = {
@@ -334,6 +343,7 @@ class TestComposer:
             "maintenanceMarginRatio": f"{expected_maintenance_margin_ratio.normalize():f}",
             "minPriceTickSize": f"{expected_min_price_tick_size.normalize():f}",
             "minQuantityTickSize": f"{expected_min_quantity_tick_size.normalize():f}",
+            "minNotional": f"{expected_min_notional.normalize():f}",
         }
         dict_message = json_format.MessageToDict(
             message=message,
@@ -356,6 +366,7 @@ class TestComposer:
         taker_fee_rate = Decimal("-0.002")
         initial_margin_ratio = Decimal("0.05")
         maintenance_margin_ratio = Decimal("0.03")
+        min_notional = Decimal("2")
 
         quote_token = basic_composer.tokens[quote_denom]
 
@@ -367,6 +378,7 @@ class TestComposer:
         expected_taker_fee_rate = taker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         expected_initial_margin_ratio = initial_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         expected_maintenance_margin_ratio = maintenance_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        expected_min_notional = min_notional * Decimal(f"1e{quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         message = basic_composer.msg_instant_expiry_futures_market_launch(
             sender=sender,
@@ -383,6 +395,7 @@ class TestComposer:
             maintenance_margin_ratio=maintenance_margin_ratio,
             min_price_tick_size=min_price_tick_size,
             min_quantity_tick_size=min_quantity_tick_size,
+            min_notional=min_notional,
         )
 
         expected_message = {
@@ -400,6 +413,7 @@ class TestComposer:
             "maintenanceMarginRatio": f"{expected_maintenance_margin_ratio.normalize():f}",
             "minPriceTickSize": f"{expected_min_price_tick_size.normalize():f}",
             "minQuantityTickSize": f"{expected_min_quantity_tick_size.normalize():f}",
+            "minNotional": f"{expected_min_notional.normalize():f}",
         }
         dict_message = json_format.MessageToDict(
             message=message,
@@ -1039,6 +1053,7 @@ class TestComposer:
         expiration_timestamp = 1630000000
         settlement_timestamp = 1660000000
         admin = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
+        min_notional = Decimal("2")
 
         quote_token = basic_composer.tokens[quote_denom]
 
@@ -1048,6 +1063,7 @@ class TestComposer:
         expected_min_quantity_tick_size = min_quantity_tick_size * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         expected_maker_fee_rate = maker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         expected_taker_fee_rate = taker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        expected_min_notional = min_notional * Decimal(f"1e{quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         message = basic_composer.msg_instant_binary_options_market_launch(
             sender=sender,
@@ -1064,6 +1080,7 @@ class TestComposer:
             quote_denom=quote_denom,
             min_price_tick_size=min_price_tick_size,
             min_quantity_tick_size=min_quantity_tick_size,
+            min_notional=min_notional,
         )
 
         expected_message = {
@@ -1081,6 +1098,7 @@ class TestComposer:
             "quoteDenom": quote_token.denom,
             "minPriceTickSize": f"{expected_min_price_tick_size.normalize():f}",
             "minQuantityTickSize": f"{expected_min_quantity_tick_size.normalize():f}",
+            "minNotional": f"{expected_min_notional.normalize():f}",
         }
         dict_message = json_format.MessageToDict(
             message=message,

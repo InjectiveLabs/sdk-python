@@ -44,6 +44,7 @@ class TestIBCChannelGrpcApi:
             counterparty=counterparty,
             connection_hops=[connection_hop],
             version=version,
+            upgrade_sequence=5,
         )
         proof = b"proof"
         proof_height = ibc_client.Height(
@@ -72,6 +73,7 @@ class TestIBCChannelGrpcApi:
                 },
                 "connectionHops": [connection_hop],
                 "version": version,
+                "upgradeSequence": str(channel.upgrade_sequence),
             },
             "proof": base64.b64encode(proof).decode(),
             "proofHeight": {
@@ -100,6 +102,7 @@ class TestIBCChannelGrpcApi:
         )
         port_id = "wasm.xion18pmp7n2j6a84dkmuqlc7lwp2pgr0gg3ssmvrm8vgjuy2vs66e4usm2w3ln"
         channel_id = "channel-34"
+        upgrade_sequence = 5
         channel = ibc_channel.IdentifiedChannel(
             state=3,
             ordering=1,
@@ -108,6 +111,7 @@ class TestIBCChannelGrpcApi:
             version=version,
             port_id=port_id,
             channel_id=channel_id,
+            upgrade_sequence=upgrade_sequence,
         )
         height = ibc_client.Height(
             revision_number=1,
@@ -149,6 +153,7 @@ class TestIBCChannelGrpcApi:
                     "version": version,
                     "portId": port_id,
                     "channelId": channel_id,
+                    "upgradeSequence": str(upgrade_sequence),
                 },
             ],
             "pagination": {
@@ -181,6 +186,7 @@ class TestIBCChannelGrpcApi:
         )
         port_id = "wasm.xion18pmp7n2j6a84dkmuqlc7lwp2pgr0gg3ssmvrm8vgjuy2vs66e4usm2w3ln"
         channel_id = "channel-34"
+        upgrade_sequence = 5
         channel = ibc_channel.IdentifiedChannel(
             state=3,
             ordering=1,
@@ -189,6 +195,7 @@ class TestIBCChannelGrpcApi:
             version=version,
             port_id=port_id,
             channel_id=channel_id,
+            upgrade_sequence=upgrade_sequence,
         )
         height = ibc_client.Height(
             revision_number=1,
@@ -230,6 +237,7 @@ class TestIBCChannelGrpcApi:
                     "version": version,
                     "portId": port_id,
                     "channelId": channel_id,
+                    "upgradeSequence": str(upgrade_sequence),
                 },
             ],
             "pagination": {

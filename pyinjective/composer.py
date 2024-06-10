@@ -540,6 +540,7 @@ class Composer:
         quote_denom: str,
         min_price_tick_size: Decimal,
         min_quantity_tick_size: Decimal,
+        min_notional: Decimal,
     ) -> injective_exchange_tx_pb.MsgInstantSpotMarketLaunch:
         base_token = self.tokens[base_denom]
         quote_token = self.tokens[quote_denom]
@@ -550,6 +551,9 @@ class Composer:
         chain_min_quantity_tick_size = min_quantity_tick_size * Decimal(
             f"1e{base_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
         )
+        chain_min_notional = min_notional * Decimal(
+            f"1e{quote_token.decimals - base_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        )
 
         return injective_exchange_tx_pb.MsgInstantSpotMarketLaunch(
             sender=sender,
@@ -558,6 +562,7 @@ class Composer:
             quote_denom=quote_token.denom,
             min_price_tick_size=f"{chain_min_price_tick_size.normalize():f}",
             min_quantity_tick_size=f"{chain_min_quantity_tick_size.normalize():f}",
+            min_notional=f"{chain_min_notional.normalize():f}",
         )
 
     def msg_instant_perpetual_market_launch(
@@ -575,6 +580,7 @@ class Composer:
         maintenance_margin_ratio: Decimal,
         min_price_tick_size: Decimal,
         min_quantity_tick_size: Decimal,
+        min_notional: Decimal,
     ) -> injective_exchange_tx_pb.MsgInstantPerpetualMarketLaunch:
         quote_token = self.tokens[quote_denom]
 
@@ -586,6 +592,7 @@ class Composer:
         chain_taker_fee_rate = taker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         chain_initial_margin_ratio = initial_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         chain_maintenance_margin_ratio = maintenance_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        chain_min_notional = min_notional * Decimal(f"1e{quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         return injective_exchange_tx_pb.MsgInstantPerpetualMarketLaunch(
             sender=sender,
@@ -601,6 +608,7 @@ class Composer:
             maintenance_margin_ratio=f"{chain_maintenance_margin_ratio.normalize():f}",
             min_price_tick_size=f"{chain_min_price_tick_size.normalize():f}",
             min_quantity_tick_size=f"{chain_min_quantity_tick_size.normalize():f}",
+            min_notional=f"{chain_min_notional.normalize():f}",
         )
 
     def msg_instant_expiry_futures_market_launch(
@@ -619,6 +627,7 @@ class Composer:
         maintenance_margin_ratio: Decimal,
         min_price_tick_size: Decimal,
         min_quantity_tick_size: Decimal,
+        min_notional: Decimal,
     ) -> injective_exchange_tx_pb.MsgInstantPerpetualMarketLaunch:
         quote_token = self.tokens[quote_denom]
 
@@ -630,6 +639,7 @@ class Composer:
         chain_taker_fee_rate = taker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         chain_initial_margin_ratio = initial_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         chain_maintenance_margin_ratio = maintenance_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        chain_min_notional = min_notional * Decimal(f"1e{quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         return injective_exchange_tx_pb.MsgInstantExpiryFuturesMarketLaunch(
             sender=sender,
@@ -646,6 +656,7 @@ class Composer:
             maintenance_margin_ratio=f"{chain_maintenance_margin_ratio.normalize():f}",
             min_price_tick_size=f"{chain_min_price_tick_size.normalize():f}",
             min_quantity_tick_size=f"{chain_min_quantity_tick_size.normalize():f}",
+            min_notional=f"{chain_min_notional.normalize():f}",
         )
 
     def MsgCreateSpotLimitOrder(
@@ -1260,6 +1271,7 @@ class Composer:
         quote_denom: str,
         min_price_tick_size: Decimal,
         min_quantity_tick_size: Decimal,
+        min_notional: Decimal,
     ) -> injective_exchange_tx_pb.MsgInstantPerpetualMarketLaunch:
         quote_token = self.tokens[quote_denom]
 
@@ -1269,6 +1281,7 @@ class Composer:
         chain_min_quantity_tick_size = min_quantity_tick_size * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         chain_maker_fee_rate = maker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         chain_taker_fee_rate = taker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        chain_min_notional = min_notional * Decimal(f"1e{quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         return injective_exchange_tx_pb.MsgInstantBinaryOptionsMarketLaunch(
             sender=sender,
@@ -1285,6 +1298,7 @@ class Composer:
             quote_denom=quote_token.denom,
             min_price_tick_size=f"{chain_min_price_tick_size.normalize():f}",
             min_quantity_tick_size=f"{chain_min_quantity_tick_size.normalize():f}",
+            min_notional=f"{chain_min_notional.normalize():f}",
         )
 
     def MsgCreateBinaryOptionsLimitOrder(
