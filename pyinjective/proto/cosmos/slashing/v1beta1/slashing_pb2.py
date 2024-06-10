@@ -12,14 +12,14 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from google.protobuf import duration_pb2 as google_dot_protobuf_dot_duration__pb2
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
-from pyinjective.proto.cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
-from pyinjective.proto.amino import amino_pb2 as amino_dot_amino__pb2
+from cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
+from amino import amino_pb2 as amino_dot_amino__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n&cosmos/slashing/v1beta1/slashing.proto\x12\x17\x63osmos.slashing.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x11\x61mino/amino.proto\"\xeb\x01\n\x14ValidatorSigningInfo\x12)\n\x07\x61\x64\x64ress\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12\x14\n\x0cstart_height\x18\x02 \x01(\x03\x12\x14\n\x0cindex_offset\x18\x03 \x01(\x03\x12?\n\x0cjailed_until\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.TimestampB\r\xc8\xde\x1f\x00\x90\xdf\x1f\x01\xa8\xe7\xb0*\x01\x12\x12\n\ntombstoned\x18\x05 \x01(\x08\x12\x1d\n\x15missed_blocks_counter\x18\x06 \x01(\x03:\x08\x98\xa0\x1f\x00\xe8\xa0\x1f\x01\"\x96\x03\n\x06Params\x12\x1c\n\x14signed_blocks_window\x18\x01 \x01(\x03\x12R\n\x15min_signed_per_window\x18\x02 \x01(\x0c\x42\x33\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xa8\xe7\xb0*\x01\x12H\n\x16\x64owntime_jail_duration\x18\x03 \x01(\x0b\x32\x19.google.protobuf.DurationB\r\xc8\xde\x1f\x00\x98\xdf\x1f\x01\xa8\xe7\xb0*\x01\x12W\n\x1aslash_fraction_double_sign\x18\x04 \x01(\x0c\x42\x33\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xa8\xe7\xb0*\x01\x12T\n\x17slash_fraction_downtime\x18\x05 \x01(\x0c\x42\x33\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xa8\xe7\xb0*\x01:!\x8a\xe7\xb0*\x1c\x63osmos-sdk/x/slashing/ParamsB3Z-github.com/cosmos/cosmos-sdk/x/slashing/types\xa8\xe2\x1e\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n&cosmos/slashing/v1beta1/slashing.proto\x12\x17\x63osmos.slashing.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x11\x61mino/amino.proto\"\xf0\x01\n\x14ValidatorSigningInfo\x12\x32\n\x07\x61\x64\x64ress\x18\x01 \x01(\tB!\xd2\xb4-\x1d\x63osmos.ConsensusAddressString\x12\x14\n\x0cstart_height\x18\x02 \x01(\x03\x12\x14\n\x0cindex_offset\x18\x03 \x01(\x03\x12?\n\x0cjailed_until\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.TimestampB\r\xc8\xde\x1f\x00\x90\xdf\x1f\x01\xa8\xe7\xb0*\x01\x12\x12\n\ntombstoned\x18\x05 \x01(\x08\x12\x1d\n\x15missed_blocks_counter\x18\x06 \x01(\x03:\x04\xe8\xa0\x1f\x01\"\x9f\x03\n\x06Params\x12\x1c\n\x14signed_blocks_window\x18\x01 \x01(\x03\x12U\n\x15min_signed_per_window\x18\x02 \x01(\x0c\x42\x36\xc8\xde\x1f\x00\xda\xde\x1f\x1b\x63osmossdk.io/math.LegacyDec\xd2\xb4-\ncosmos.Dec\xa8\xe7\xb0*\x01\x12H\n\x16\x64owntime_jail_duration\x18\x03 \x01(\x0b\x32\x19.google.protobuf.DurationB\r\xc8\xde\x1f\x00\x98\xdf\x1f\x01\xa8\xe7\xb0*\x01\x12Z\n\x1aslash_fraction_double_sign\x18\x04 \x01(\x0c\x42\x36\xc8\xde\x1f\x00\xda\xde\x1f\x1b\x63osmossdk.io/math.LegacyDec\xd2\xb4-\ncosmos.Dec\xa8\xe7\xb0*\x01\x12W\n\x17slash_fraction_downtime\x18\x05 \x01(\x0c\x42\x36\xc8\xde\x1f\x00\xda\xde\x1f\x1b\x63osmossdk.io/math.LegacyDec\xd2\xb4-\ncosmos.Dec\xa8\xe7\xb0*\x01:!\x8a\xe7\xb0*\x1c\x63osmos-sdk/x/slashing/ParamsB3Z-github.com/cosmos/cosmos-sdk/x/slashing/types\xa8\xe2\x1e\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -28,23 +28,23 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'Z-github.com/cosmos/cosmos-sdk/x/slashing/types\250\342\036\001'
   _globals['_VALIDATORSIGNINGINFO'].fields_by_name['address']._loaded_options = None
-  _globals['_VALIDATORSIGNINGINFO'].fields_by_name['address']._serialized_options = b'\322\264-\024cosmos.AddressString'
+  _globals['_VALIDATORSIGNINGINFO'].fields_by_name['address']._serialized_options = b'\322\264-\035cosmos.ConsensusAddressString'
   _globals['_VALIDATORSIGNINGINFO'].fields_by_name['jailed_until']._loaded_options = None
   _globals['_VALIDATORSIGNINGINFO'].fields_by_name['jailed_until']._serialized_options = b'\310\336\037\000\220\337\037\001\250\347\260*\001'
   _globals['_VALIDATORSIGNINGINFO']._loaded_options = None
-  _globals['_VALIDATORSIGNINGINFO']._serialized_options = b'\230\240\037\000\350\240\037\001'
+  _globals['_VALIDATORSIGNINGINFO']._serialized_options = b'\350\240\037\001'
   _globals['_PARAMS'].fields_by_name['min_signed_per_window']._loaded_options = None
-  _globals['_PARAMS'].fields_by_name['min_signed_per_window']._serialized_options = b'\310\336\037\000\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\250\347\260*\001'
+  _globals['_PARAMS'].fields_by_name['min_signed_per_window']._serialized_options = b'\310\336\037\000\332\336\037\033cosmossdk.io/math.LegacyDec\322\264-\ncosmos.Dec\250\347\260*\001'
   _globals['_PARAMS'].fields_by_name['downtime_jail_duration']._loaded_options = None
   _globals['_PARAMS'].fields_by_name['downtime_jail_duration']._serialized_options = b'\310\336\037\000\230\337\037\001\250\347\260*\001'
   _globals['_PARAMS'].fields_by_name['slash_fraction_double_sign']._loaded_options = None
-  _globals['_PARAMS'].fields_by_name['slash_fraction_double_sign']._serialized_options = b'\310\336\037\000\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\250\347\260*\001'
+  _globals['_PARAMS'].fields_by_name['slash_fraction_double_sign']._serialized_options = b'\310\336\037\000\332\336\037\033cosmossdk.io/math.LegacyDec\322\264-\ncosmos.Dec\250\347\260*\001'
   _globals['_PARAMS'].fields_by_name['slash_fraction_downtime']._loaded_options = None
-  _globals['_PARAMS'].fields_by_name['slash_fraction_downtime']._serialized_options = b'\310\336\037\000\332\336\037&github.com/cosmos/cosmos-sdk/types.Dec\250\347\260*\001'
+  _globals['_PARAMS'].fields_by_name['slash_fraction_downtime']._serialized_options = b'\310\336\037\000\332\336\037\033cosmossdk.io/math.LegacyDec\322\264-\ncosmos.Dec\250\347\260*\001'
   _globals['_PARAMS']._loaded_options = None
   _globals['_PARAMS']._serialized_options = b'\212\347\260*\034cosmos-sdk/x/slashing/Params'
   _globals['_VALIDATORSIGNINGINFO']._serialized_start=201
-  _globals['_VALIDATORSIGNINGINFO']._serialized_end=436
-  _globals['_PARAMS']._serialized_start=439
-  _globals['_PARAMS']._serialized_end=845
+  _globals['_VALIDATORSIGNINGINFO']._serialized_end=441
+  _globals['_PARAMS']._serialized_start=444
+  _globals['_PARAMS']._serialized_end=859
 # @@protoc_insertion_point(module_scope)

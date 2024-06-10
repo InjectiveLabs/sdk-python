@@ -12,68 +12,48 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from google.protobuf import any_pb2 as google_dot_protobuf_dot_any__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n1ibc/lightclients/solomachine/v3/solomachine.proto\x12\x1fibc.lightclients.solomachine.v3\x1a\x14gogoproto/gogo.proto\x1a\x19google/protobuf/any.proto\"\xb4\x01\n\x0b\x43lientState\x12\x10\n\x08sequence\x18\x01 \x01(\x04\x12\'\n\tis_frozen\x18\x02 \x01(\x08\x42\x14\xf2\xde\x1f\x10yaml:\"is_frozen\"\x12\x64\n\x0f\x63onsensus_state\x18\x03 \x01(\x0b\x32/.ibc.lightclients.solomachine.v3.ConsensusStateB\x1a\xf2\xde\x1f\x16yaml:\"consensus_state\":\x04\x88\xa0\x1f\x00\"\x7f\n\x0e\x43onsensusState\x12?\n\npublic_key\x18\x01 \x01(\x0b\x32\x14.google.protobuf.AnyB\x15\xf2\xde\x1f\x11yaml:\"public_key\"\x12\x13\n\x0b\x64iversifier\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x04:\x04\x88\xa0\x1f\x00\"\xb2\x01\n\x06Header\x12\x11\n\ttimestamp\x18\x01 \x01(\x04\x12\x11\n\tsignature\x18\x02 \x01(\x0c\x12G\n\x0enew_public_key\x18\x03 \x01(\x0b\x32\x14.google.protobuf.AnyB\x19\xf2\xde\x1f\x15yaml:\"new_public_key\"\x12\x33\n\x0fnew_diversifier\x18\x04 \x01(\tB\x1a\xf2\xde\x1f\x16yaml:\"new_diversifier\":\x04\x88\xa0\x1f\x00\"\xee\x01\n\x0cMisbehaviour\x12\x10\n\x08sequence\x18\x01 \x01(\x04\x12\x62\n\rsignature_one\x18\x02 \x01(\x0b\x32\x31.ibc.lightclients.solomachine.v3.SignatureAndDataB\x18\xf2\xde\x1f\x14yaml:\"signature_one\"\x12\x62\n\rsignature_two\x18\x03 \x01(\x0b\x32\x31.ibc.lightclients.solomachine.v3.SignatureAndDataB\x18\xf2\xde\x1f\x14yaml:\"signature_two\":\x04\x88\xa0\x1f\x00\"Z\n\x10SignatureAndData\x12\x11\n\tsignature\x18\x01 \x01(\x0c\x12\x0c\n\x04path\x18\x02 \x01(\x0c\x12\x0c\n\x04\x64\x61ta\x18\x03 \x01(\x0c\x12\x11\n\ttimestamp\x18\x04 \x01(\x04:\x04\x88\xa0\x1f\x00\"f\n\x18TimestampedSignatureData\x12\x31\n\x0esignature_data\x18\x01 \x01(\x0c\x42\x19\xf2\xde\x1f\x15yaml:\"signature_data\"\x12\x11\n\ttimestamp\x18\x02 \x01(\x04:\x04\x88\xa0\x1f\x00\"g\n\tSignBytes\x12\x10\n\x08sequence\x18\x01 \x01(\x04\x12\x11\n\ttimestamp\x18\x02 \x01(\x04\x12\x13\n\x0b\x64iversifier\x18\x03 \x01(\t\x12\x0c\n\x04path\x18\x04 \x01(\x0c\x12\x0c\n\x04\x64\x61ta\x18\x05 \x01(\x0c:\x04\x88\xa0\x1f\x00\"\x8a\x01\n\nHeaderData\x12\x41\n\x0bnew_pub_key\x18\x01 \x01(\x0b\x32\x14.google.protobuf.AnyB\x16\xf2\xde\x1f\x12yaml:\"new_pub_key\"\x12\x33\n\x0fnew_diversifier\x18\x02 \x01(\tB\x1a\xf2\xde\x1f\x16yaml:\"new_diversifier\":\x04\x88\xa0\x1f\x00\x42NZLgithub.com/cosmos/ibc-go/v7/modules/light-clients/06-solomachine;solomachineb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n1ibc/lightclients/solomachine/v3/solomachine.proto\x12\x1fibc.lightclients.solomachine.v3\x1a\x14gogoproto/gogo.proto\x1a\x19google/protobuf/any.proto\"\x82\x01\n\x0b\x43lientState\x12\x10\n\x08sequence\x18\x01 \x01(\x04\x12\x11\n\tis_frozen\x18\x02 \x01(\x08\x12H\n\x0f\x63onsensus_state\x18\x03 \x01(\x0b\x32/.ibc.lightclients.solomachine.v3.ConsensusState:\x04\x88\xa0\x1f\x00\"h\n\x0e\x43onsensusState\x12(\n\npublic_key\x18\x01 \x01(\x0b\x32\x14.google.protobuf.Any\x12\x13\n\x0b\x64iversifier\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x04:\x04\x88\xa0\x1f\x00\"{\n\x06Header\x12\x11\n\ttimestamp\x18\x01 \x01(\x04\x12\x11\n\tsignature\x18\x02 \x01(\x0c\x12,\n\x0enew_public_key\x18\x03 \x01(\x0b\x32\x14.google.protobuf.Any\x12\x17\n\x0fnew_diversifier\x18\x04 \x01(\t:\x04\x88\xa0\x1f\x00\"\xba\x01\n\x0cMisbehaviour\x12\x10\n\x08sequence\x18\x01 \x01(\x04\x12H\n\rsignature_one\x18\x02 \x01(\x0b\x32\x31.ibc.lightclients.solomachine.v3.SignatureAndData\x12H\n\rsignature_two\x18\x03 \x01(\x0b\x32\x31.ibc.lightclients.solomachine.v3.SignatureAndData:\x04\x88\xa0\x1f\x00\"Z\n\x10SignatureAndData\x12\x11\n\tsignature\x18\x01 \x01(\x0c\x12\x0c\n\x04path\x18\x02 \x01(\x0c\x12\x0c\n\x04\x64\x61ta\x18\x03 \x01(\x0c\x12\x11\n\ttimestamp\x18\x04 \x01(\x04:\x04\x88\xa0\x1f\x00\"K\n\x18TimestampedSignatureData\x12\x16\n\x0esignature_data\x18\x01 \x01(\x0c\x12\x11\n\ttimestamp\x18\x02 \x01(\x04:\x04\x88\xa0\x1f\x00\"g\n\tSignBytes\x12\x10\n\x08sequence\x18\x01 \x01(\x04\x12\x11\n\ttimestamp\x18\x02 \x01(\x04\x12\x13\n\x0b\x64iversifier\x18\x03 \x01(\t\x12\x0c\n\x04path\x18\x04 \x01(\x0c\x12\x0c\n\x04\x64\x61ta\x18\x05 \x01(\x0c:\x04\x88\xa0\x1f\x00\"V\n\nHeaderData\x12)\n\x0bnew_pub_key\x18\x01 \x01(\x0b\x32\x14.google.protobuf.Any\x12\x17\n\x0fnew_diversifier\x18\x02 \x01(\t:\x04\x88\xa0\x1f\x00\x42NZLgithub.com/cosmos/ibc-go/v8/modules/light-clients/06-solomachine;solomachineb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'ibc.lightclients.solomachine.v3.solomachine_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
-  _globals['DESCRIPTOR']._serialized_options = b'ZLgithub.com/cosmos/ibc-go/v7/modules/light-clients/06-solomachine;solomachine'
-  _globals['_CLIENTSTATE'].fields_by_name['is_frozen']._loaded_options = None
-  _globals['_CLIENTSTATE'].fields_by_name['is_frozen']._serialized_options = b'\362\336\037\020yaml:\"is_frozen\"'
-  _globals['_CLIENTSTATE'].fields_by_name['consensus_state']._loaded_options = None
-  _globals['_CLIENTSTATE'].fields_by_name['consensus_state']._serialized_options = b'\362\336\037\026yaml:\"consensus_state\"'
+  _globals['DESCRIPTOR']._serialized_options = b'ZLgithub.com/cosmos/ibc-go/v8/modules/light-clients/06-solomachine;solomachine'
   _globals['_CLIENTSTATE']._loaded_options = None
   _globals['_CLIENTSTATE']._serialized_options = b'\210\240\037\000'
-  _globals['_CONSENSUSSTATE'].fields_by_name['public_key']._loaded_options = None
-  _globals['_CONSENSUSSTATE'].fields_by_name['public_key']._serialized_options = b'\362\336\037\021yaml:\"public_key\"'
   _globals['_CONSENSUSSTATE']._loaded_options = None
   _globals['_CONSENSUSSTATE']._serialized_options = b'\210\240\037\000'
-  _globals['_HEADER'].fields_by_name['new_public_key']._loaded_options = None
-  _globals['_HEADER'].fields_by_name['new_public_key']._serialized_options = b'\362\336\037\025yaml:\"new_public_key\"'
-  _globals['_HEADER'].fields_by_name['new_diversifier']._loaded_options = None
-  _globals['_HEADER'].fields_by_name['new_diversifier']._serialized_options = b'\362\336\037\026yaml:\"new_diversifier\"'
   _globals['_HEADER']._loaded_options = None
   _globals['_HEADER']._serialized_options = b'\210\240\037\000'
-  _globals['_MISBEHAVIOUR'].fields_by_name['signature_one']._loaded_options = None
-  _globals['_MISBEHAVIOUR'].fields_by_name['signature_one']._serialized_options = b'\362\336\037\024yaml:\"signature_one\"'
-  _globals['_MISBEHAVIOUR'].fields_by_name['signature_two']._loaded_options = None
-  _globals['_MISBEHAVIOUR'].fields_by_name['signature_two']._serialized_options = b'\362\336\037\024yaml:\"signature_two\"'
   _globals['_MISBEHAVIOUR']._loaded_options = None
   _globals['_MISBEHAVIOUR']._serialized_options = b'\210\240\037\000'
   _globals['_SIGNATUREANDDATA']._loaded_options = None
   _globals['_SIGNATUREANDDATA']._serialized_options = b'\210\240\037\000'
-  _globals['_TIMESTAMPEDSIGNATUREDATA'].fields_by_name['signature_data']._loaded_options = None
-  _globals['_TIMESTAMPEDSIGNATUREDATA'].fields_by_name['signature_data']._serialized_options = b'\362\336\037\025yaml:\"signature_data\"'
   _globals['_TIMESTAMPEDSIGNATUREDATA']._loaded_options = None
   _globals['_TIMESTAMPEDSIGNATUREDATA']._serialized_options = b'\210\240\037\000'
   _globals['_SIGNBYTES']._loaded_options = None
   _globals['_SIGNBYTES']._serialized_options = b'\210\240\037\000'
-  _globals['_HEADERDATA'].fields_by_name['new_pub_key']._loaded_options = None
-  _globals['_HEADERDATA'].fields_by_name['new_pub_key']._serialized_options = b'\362\336\037\022yaml:\"new_pub_key\"'
-  _globals['_HEADERDATA'].fields_by_name['new_diversifier']._loaded_options = None
-  _globals['_HEADERDATA'].fields_by_name['new_diversifier']._serialized_options = b'\362\336\037\026yaml:\"new_diversifier\"'
   _globals['_HEADERDATA']._loaded_options = None
   _globals['_HEADERDATA']._serialized_options = b'\210\240\037\000'
   _globals['_CLIENTSTATE']._serialized_start=136
-  _globals['_CLIENTSTATE']._serialized_end=316
-  _globals['_CONSENSUSSTATE']._serialized_start=318
-  _globals['_CONSENSUSSTATE']._serialized_end=445
-  _globals['_HEADER']._serialized_start=448
-  _globals['_HEADER']._serialized_end=626
-  _globals['_MISBEHAVIOUR']._serialized_start=629
-  _globals['_MISBEHAVIOUR']._serialized_end=867
-  _globals['_SIGNATUREANDDATA']._serialized_start=869
-  _globals['_SIGNATUREANDDATA']._serialized_end=959
-  _globals['_TIMESTAMPEDSIGNATUREDATA']._serialized_start=961
-  _globals['_TIMESTAMPEDSIGNATUREDATA']._serialized_end=1063
-  _globals['_SIGNBYTES']._serialized_start=1065
-  _globals['_SIGNBYTES']._serialized_end=1168
-  _globals['_HEADERDATA']._serialized_start=1171
-  _globals['_HEADERDATA']._serialized_end=1309
+  _globals['_CLIENTSTATE']._serialized_end=266
+  _globals['_CONSENSUSSTATE']._serialized_start=268
+  _globals['_CONSENSUSSTATE']._serialized_end=372
+  _globals['_HEADER']._serialized_start=374
+  _globals['_HEADER']._serialized_end=497
+  _globals['_MISBEHAVIOUR']._serialized_start=500
+  _globals['_MISBEHAVIOUR']._serialized_end=686
+  _globals['_SIGNATUREANDDATA']._serialized_start=688
+  _globals['_SIGNATUREANDDATA']._serialized_end=778
+  _globals['_TIMESTAMPEDSIGNATUREDATA']._serialized_start=780
+  _globals['_TIMESTAMPEDSIGNATUREDATA']._serialized_end=855
+  _globals['_SIGNBYTES']._serialized_start=857
+  _globals['_SIGNBYTES']._serialized_end=960
+  _globals['_HEADERDATA']._serialized_start=962
+  _globals['_HEADERDATA']._serialized_end=1048
 # @@protoc_insertion_point(module_scope)

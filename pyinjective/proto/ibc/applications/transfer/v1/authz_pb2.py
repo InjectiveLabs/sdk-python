@@ -12,23 +12,19 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from pyinjective.proto.cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
-from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
-from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
+from cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
+from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n(ibc/applications/transfer/v1/authz.proto\x12\x1cibc.applications.transfer.v1\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\"\xe2\x01\n\nAllocation\x12+\n\x0bsource_port\x18\x01 \x01(\tB\x16\xf2\xde\x1f\x12yaml:\"source_port\"\x12\x31\n\x0esource_channel\x18\x02 \x01(\tB\x19\xf2\xde\x1f\x15yaml:\"source_channel\"\x12`\n\x0bspend_limit\x18\x03 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins\x12\x12\n\nallow_list\x18\x04 \x03(\t\"\x84\x01\n\x15TransferAuthorization\x12\x43\n\x0b\x61llocations\x18\x01 \x03(\x0b\x32(.ibc.applications.transfer.v1.AllocationB\x04\xc8\xde\x1f\x00:&\xca\xb4-\"cosmos.authz.v1beta1.AuthorizationB9Z7github.com/cosmos/ibc-go/v7/modules/apps/transfer/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n(ibc/applications/transfer/v1/authz.proto\x12\x1cibc.applications.transfer.v1\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\"\xcc\x01\n\nAllocation\x12\x13\n\x0bsource_port\x18\x01 \x01(\t\x12\x16\n\x0esource_channel\x18\x02 \x01(\t\x12`\n\x0bspend_limit\x18\x03 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins\x12\x12\n\nallow_list\x18\x04 \x03(\t\x12\x1b\n\x13\x61llowed_packet_data\x18\x05 \x03(\t\"\x84\x01\n\x15TransferAuthorization\x12\x43\n\x0b\x61llocations\x18\x01 \x03(\x0b\x32(.ibc.applications.transfer.v1.AllocationB\x04\xc8\xde\x1f\x00:&\xca\xb4-\"cosmos.authz.v1beta1.AuthorizationB9Z7github.com/cosmos/ibc-go/v8/modules/apps/transfer/typesb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'ibc.applications.transfer.v1.authz_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
-  _globals['DESCRIPTOR']._serialized_options = b'Z7github.com/cosmos/ibc-go/v7/modules/apps/transfer/types'
-  _globals['_ALLOCATION'].fields_by_name['source_port']._loaded_options = None
-  _globals['_ALLOCATION'].fields_by_name['source_port']._serialized_options = b'\362\336\037\022yaml:\"source_port\"'
-  _globals['_ALLOCATION'].fields_by_name['source_channel']._loaded_options = None
-  _globals['_ALLOCATION'].fields_by_name['source_channel']._serialized_options = b'\362\336\037\025yaml:\"source_channel\"'
+  _globals['DESCRIPTOR']._serialized_options = b'Z7github.com/cosmos/ibc-go/v8/modules/apps/transfer/types'
   _globals['_ALLOCATION'].fields_by_name['spend_limit']._loaded_options = None
   _globals['_ALLOCATION'].fields_by_name['spend_limit']._serialized_options = b'\310\336\037\000\252\337\037(github.com/cosmos/cosmos-sdk/types.Coins'
   _globals['_TRANSFERAUTHORIZATION'].fields_by_name['allocations']._loaded_options = None
@@ -36,7 +32,7 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_TRANSFERAUTHORIZATION']._loaded_options = None
   _globals['_TRANSFERAUTHORIZATION']._serialized_options = b'\312\264-\"cosmos.authz.v1beta1.Authorization'
   _globals['_ALLOCATION']._serialized_start=156
-  _globals['_ALLOCATION']._serialized_end=382
-  _globals['_TRANSFERAUTHORIZATION']._serialized_start=385
-  _globals['_TRANSFERAUTHORIZATION']._serialized_end=517
+  _globals['_ALLOCATION']._serialized_end=360
+  _globals['_TRANSFERAUTHORIZATION']._serialized_start=363
+  _globals['_TRANSFERAUTHORIZATION']._serialized_end=495
 # @@protoc_insertion_point(module_scope)

@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-from pyinjective.proto.cosmos.bank.v1beta1 import query_pb2 as cosmos_dot_bank_dot_v1beta1_dot_query__pb2
+from cosmos.bank.v1beta1 import query_pb2 as cosmos_dot_bank_dot_v1beta1_dot_query__pb2
 
 GRPC_GENERATED_VERSION = '1.64.1'
 GRPC_VERSION = grpc.__version__
@@ -80,6 +80,11 @@ class QueryStub(object):
                 request_serializer=cosmos_dot_bank_dot_v1beta1_dot_query__pb2.QueryDenomMetadataRequest.SerializeToString,
                 response_deserializer=cosmos_dot_bank_dot_v1beta1_dot_query__pb2.QueryDenomMetadataResponse.FromString,
                 _registered_method=True)
+        self.DenomMetadataByQueryString = channel.unary_unary(
+                '/cosmos.bank.v1beta1.Query/DenomMetadataByQueryString',
+                request_serializer=cosmos_dot_bank_dot_v1beta1_dot_query__pb2.QueryDenomMetadataByQueryStringRequest.SerializeToString,
+                response_deserializer=cosmos_dot_bank_dot_v1beta1_dot_query__pb2.QueryDenomMetadataByQueryStringResponse.FromString,
+                _registered_method=True)
         self.DenomsMetadata = channel.unary_unary(
                 '/cosmos.bank.v1beta1.Query/DenomsMetadata',
                 request_serializer=cosmos_dot_bank_dot_v1beta1_dot_query__pb2.QueryDenomsMetadataRequest.SerializeToString,
@@ -89,6 +94,11 @@ class QueryStub(object):
                 '/cosmos.bank.v1beta1.Query/DenomOwners',
                 request_serializer=cosmos_dot_bank_dot_v1beta1_dot_query__pb2.QueryDenomOwnersRequest.SerializeToString,
                 response_deserializer=cosmos_dot_bank_dot_v1beta1_dot_query__pb2.QueryDenomOwnersResponse.FromString,
+                _registered_method=True)
+        self.DenomOwnersByQuery = channel.unary_unary(
+                '/cosmos.bank.v1beta1.Query/DenomOwnersByQuery',
+                request_serializer=cosmos_dot_bank_dot_v1beta1_dot_query__pb2.QueryDenomOwnersByQueryRequest.SerializeToString,
+                response_deserializer=cosmos_dot_bank_dot_v1beta1_dot_query__pb2.QueryDenomOwnersByQueryResponse.FromString,
                 _registered_method=True)
         self.SendEnabled = channel.unary_unary(
                 '/cosmos.bank.v1beta1.Query/SendEnabled',
@@ -172,7 +182,14 @@ class QueryServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def DenomMetadata(self, request, context):
-        """DenomsMetadata queries the client metadata of a given coin denomination.
+        """DenomMetadata queries the client metadata of a given coin denomination.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DenomMetadataByQueryString(self, request, context):
+        """DenomMetadataByQueryString queries the client metadata of a given coin denomination.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -194,6 +211,16 @@ class QueryServicer(object):
         gas if the pagination field is incorrectly set.
 
         Since: cosmos-sdk 0.46
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DenomOwnersByQuery(self, request, context):
+        """DenomOwnersByQuery queries for all account addresses that own a particular token
+        denomination.
+
+        Since: cosmos-sdk 0.50.3
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -255,6 +282,11 @@ def add_QueryServicer_to_server(servicer, server):
                     request_deserializer=cosmos_dot_bank_dot_v1beta1_dot_query__pb2.QueryDenomMetadataRequest.FromString,
                     response_serializer=cosmos_dot_bank_dot_v1beta1_dot_query__pb2.QueryDenomMetadataResponse.SerializeToString,
             ),
+            'DenomMetadataByQueryString': grpc.unary_unary_rpc_method_handler(
+                    servicer.DenomMetadataByQueryString,
+                    request_deserializer=cosmos_dot_bank_dot_v1beta1_dot_query__pb2.QueryDenomMetadataByQueryStringRequest.FromString,
+                    response_serializer=cosmos_dot_bank_dot_v1beta1_dot_query__pb2.QueryDenomMetadataByQueryStringResponse.SerializeToString,
+            ),
             'DenomsMetadata': grpc.unary_unary_rpc_method_handler(
                     servicer.DenomsMetadata,
                     request_deserializer=cosmos_dot_bank_dot_v1beta1_dot_query__pb2.QueryDenomsMetadataRequest.FromString,
@@ -264,6 +296,11 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.DenomOwners,
                     request_deserializer=cosmos_dot_bank_dot_v1beta1_dot_query__pb2.QueryDenomOwnersRequest.FromString,
                     response_serializer=cosmos_dot_bank_dot_v1beta1_dot_query__pb2.QueryDenomOwnersResponse.SerializeToString,
+            ),
+            'DenomOwnersByQuery': grpc.unary_unary_rpc_method_handler(
+                    servicer.DenomOwnersByQuery,
+                    request_deserializer=cosmos_dot_bank_dot_v1beta1_dot_query__pb2.QueryDenomOwnersByQueryRequest.FromString,
+                    response_serializer=cosmos_dot_bank_dot_v1beta1_dot_query__pb2.QueryDenomOwnersByQueryResponse.SerializeToString,
             ),
             'SendEnabled': grpc.unary_unary_rpc_method_handler(
                     servicer.SendEnabled,
@@ -499,6 +536,33 @@ class Query(object):
             _registered_method=True)
 
     @staticmethod
+    def DenomMetadataByQueryString(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.bank.v1beta1.Query/DenomMetadataByQueryString',
+            cosmos_dot_bank_dot_v1beta1_dot_query__pb2.QueryDenomMetadataByQueryStringRequest.SerializeToString,
+            cosmos_dot_bank_dot_v1beta1_dot_query__pb2.QueryDenomMetadataByQueryStringResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
     def DenomsMetadata(request,
             target,
             options=(),
@@ -542,6 +606,33 @@ class Query(object):
             '/cosmos.bank.v1beta1.Query/DenomOwners',
             cosmos_dot_bank_dot_v1beta1_dot_query__pb2.QueryDenomOwnersRequest.SerializeToString,
             cosmos_dot_bank_dot_v1beta1_dot_query__pb2.QueryDenomOwnersResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DenomOwnersByQuery(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.bank.v1beta1.Query/DenomOwnersByQuery',
+            cosmos_dot_bank_dot_v1beta1_dot_query__pb2.QueryDenomOwnersByQueryRequest.SerializeToString,
+            cosmos_dot_bank_dot_v1beta1_dot_query__pb2.QueryDenomOwnersByQueryResponse.FromString,
             options,
             channel_credentials,
             insecure,

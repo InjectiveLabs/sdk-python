@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-from pyinjective.proto.exchange import injective_insurance_rpc_pb2 as exchange_dot_injective__insurance__rpc__pb2
+from exchange import injective_insurance_rpc_pb2 as exchange_dot_injective__insurance__rpc__pb2
 
 GRPC_GENERATED_VERSION = '1.64.1'
 GRPC_VERSION = grpc.__version__
@@ -45,6 +45,11 @@ class InjectiveInsuranceRPCStub(object):
                 request_serializer=exchange_dot_injective__insurance__rpc__pb2.FundsRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__insurance__rpc__pb2.FundsResponse.FromString,
                 _registered_method=True)
+        self.Fund = channel.unary_unary(
+                '/injective_insurance_rpc.InjectiveInsuranceRPC/Fund',
+                request_serializer=exchange_dot_injective__insurance__rpc__pb2.FundRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__insurance__rpc__pb2.FundResponse.FromString,
+                _registered_method=True)
         self.Redemptions = channel.unary_unary(
                 '/injective_insurance_rpc.InjectiveInsuranceRPC/Redemptions',
                 request_serializer=exchange_dot_injective__insurance__rpc__pb2.RedemptionsRequest.SerializeToString,
@@ -58,6 +63,13 @@ class InjectiveInsuranceRPCServicer(object):
 
     def Funds(self, request, context):
         """Funds lists all insurance funds.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Fund(self, request, context):
+        """Funds returns an insurance fund for a given insurance fund token denom.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -77,6 +89,11 @@ def add_InjectiveInsuranceRPCServicer_to_server(servicer, server):
                     servicer.Funds,
                     request_deserializer=exchange_dot_injective__insurance__rpc__pb2.FundsRequest.FromString,
                     response_serializer=exchange_dot_injective__insurance__rpc__pb2.FundsResponse.SerializeToString,
+            ),
+            'Fund': grpc.unary_unary_rpc_method_handler(
+                    servicer.Fund,
+                    request_deserializer=exchange_dot_injective__insurance__rpc__pb2.FundRequest.FromString,
+                    response_serializer=exchange_dot_injective__insurance__rpc__pb2.FundResponse.SerializeToString,
             ),
             'Redemptions': grpc.unary_unary_rpc_method_handler(
                     servicer.Redemptions,
@@ -112,6 +129,33 @@ class InjectiveInsuranceRPC(object):
             '/injective_insurance_rpc.InjectiveInsuranceRPC/Funds',
             exchange_dot_injective__insurance__rpc__pb2.FundsRequest.SerializeToString,
             exchange_dot_injective__insurance__rpc__pb2.FundsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Fund(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_insurance_rpc.InjectiveInsuranceRPC/Fund',
+            exchange_dot_injective__insurance__rpc__pb2.FundRequest.SerializeToString,
+            exchange_dot_injective__insurance__rpc__pb2.FundResponse.FromString,
             options,
             channel_credentials,
             insecure,

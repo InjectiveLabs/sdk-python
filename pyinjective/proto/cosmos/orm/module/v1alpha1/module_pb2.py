@@ -12,10 +12,10 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from pyinjective.proto.cosmos.app.v1alpha1 import module_pb2 as cosmos_dot_app_dot_v1alpha1_dot_module__pb2
+from cosmos.app.v1alpha1 import module_pb2 as cosmos_dot_app_dot_v1alpha1_dot_module__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\'cosmos/orm/module/v1alpha1/module.proto\x12\x1a\x63osmos.orm.module.v1alpha1\x1a cosmos/app/v1alpha1/module.proto\"2\n\x06Module:(\xba\xc0\x96\xda\x01\"\n github.com/cosmos/cosmos-sdk/ormb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\'cosmos/orm/module/v1alpha1/module.proto\x12\x1a\x63osmos.orm.module.v1alpha1\x1a cosmos/app/v1alpha1/module.proto\"\"\n\x06Module:\x18\xba\xc0\x96\xda\x01\x12\n\x10\x63osmossdk.io/ormb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -23,7 +23,7 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'cosmos.orm.module.v1alpha1.
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
   _globals['_MODULE']._loaded_options = None
-  _globals['_MODULE']._serialized_options = b'\272\300\226\332\001\"\n github.com/cosmos/cosmos-sdk/orm'
+  _globals['_MODULE']._serialized_options = b'\272\300\226\332\001\022\n\020cosmossdk.io/orm'
   _globals['_MODULE']._serialized_start=105
-  _globals['_MODULE']._serialized_end=155
+  _globals['_MODULE']._serialized_end=139
 # @@protoc_insertion_point(module_scope)

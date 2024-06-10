@@ -12,15 +12,16 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
-from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
-from pyinjective.proto.cosmos.bank.v1beta1 import bank_pb2 as cosmos_dot_bank_dot_v1beta1_dot_bank__pb2
-from pyinjective.proto.cosmos.msg.v1 import msg_pb2 as cosmos_dot_msg_dot_v1_dot_msg__pb2
-from pyinjective.proto.cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
-from pyinjective.proto.injective.tokenfactory.v1beta1 import params_pb2 as injective_dot_tokenfactory_dot_v1beta1_dot_params__pb2
+from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
+from cosmos.bank.v1beta1 import bank_pb2 as cosmos_dot_bank_dot_v1beta1_dot_bank__pb2
+from cosmos.msg.v1 import msg_pb2 as cosmos_dot_msg_dot_v1_dot_msg__pb2
+from cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
+from injective.tokenfactory.v1beta1 import params_pb2 as injective_dot_tokenfactory_dot_v1beta1_dot_params__pb2
+from amino import amino_pb2 as amino_dot_amino__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\'injective/tokenfactory/v1beta1/tx.proto\x12\x1einjective.tokenfactory.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a\x1e\x63osmos/bank/v1beta1/bank.proto\x1a\x17\x63osmos/msg/v1/msg.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a+injective/tokenfactory/v1beta1/params.proto\"\xa9\x01\n\x0eMsgCreateDenom\x12!\n\x06sender\x18\x01 \x01(\tB\x11\xf2\xde\x1f\ryaml:\"sender\"\x12%\n\x08subdenom\x18\x02 \x01(\tB\x13\xf2\xde\x1f\x0fyaml:\"subdenom\"\x12\x1d\n\x04name\x18\x03 \x01(\tB\x0f\xf2\xde\x1f\x0byaml:\"name\"\x12!\n\x06symbol\x18\x04 \x01(\tB\x11\xf2\xde\x1f\ryaml:\"symbol\":\x0b\x82\xe7\xb0*\x06sender\"M\n\x16MsgCreateDenomResponse\x12\x33\n\x0fnew_token_denom\x18\x01 \x01(\tB\x1a\xf2\xde\x1f\x16yaml:\"new_token_denom\"\"{\n\x07MsgMint\x12!\n\x06sender\x18\x01 \x01(\tB\x11\xf2\xde\x1f\ryaml:\"sender\"\x12@\n\x06\x61mount\x18\x02 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x15\xc8\xde\x1f\x00\xf2\xde\x1f\ryaml:\"amount\":\x0b\x82\xe7\xb0*\x06sender\"\x11\n\x0fMsgMintResponse\"{\n\x07MsgBurn\x12!\n\x06sender\x18\x01 \x01(\tB\x11\xf2\xde\x1f\ryaml:\"sender\"\x12@\n\x06\x61mount\x18\x02 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x15\xc8\xde\x1f\x00\xf2\xde\x1f\ryaml:\"amount\":\x0b\x82\xe7\xb0*\x06sender\"\x11\n\x0fMsgBurnResponse\"\x8a\x01\n\x0eMsgChangeAdmin\x12!\n\x06sender\x18\x01 \x01(\tB\x11\xf2\xde\x1f\ryaml:\"sender\"\x12\x1f\n\x05\x64\x65nom\x18\x02 \x01(\tB\x10\xf2\xde\x1f\x0cyaml:\"denom\"\x12\'\n\tnew_admin\x18\x03 \x01(\tB\x14\xf2\xde\x1f\x10yaml:\"new_admin\":\x0b\x82\xe7\xb0*\x06sender\"\x18\n\x16MsgChangeAdminResponse\"\x8f\x01\n\x13MsgSetDenomMetadata\x12!\n\x06sender\x18\x01 \x01(\tB\x11\xf2\xde\x1f\ryaml:\"sender\"\x12H\n\x08metadata\x18\x02 \x01(\x0b\x32\x1d.cosmos.bank.v1beta1.MetadataB\x17\xc8\xde\x1f\x00\xf2\xde\x1f\x0fyaml:\"metadata\":\x0b\x82\xe7\xb0*\x06sender\"\x1d\n\x1bMsgSetDenomMetadataResponse\"\x8c\x01\n\x0fMsgUpdateParams\x12+\n\tauthority\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12<\n\x06params\x18\x02 \x01(\x0b\x32&.injective.tokenfactory.v1beta1.ParamsB\x04\xc8\xde\x1f\x00:\x0e\x82\xe7\xb0*\tauthority\"\x19\n\x17MsgUpdateParamsResponse2\xb8\x05\n\x03Msg\x12u\n\x0b\x43reateDenom\x12..injective.tokenfactory.v1beta1.MsgCreateDenom\x1a\x36.injective.tokenfactory.v1beta1.MsgCreateDenomResponse\x12`\n\x04Mint\x12\'.injective.tokenfactory.v1beta1.MsgMint\x1a/.injective.tokenfactory.v1beta1.MsgMintResponse\x12`\n\x04\x42urn\x12\'.injective.tokenfactory.v1beta1.MsgBurn\x1a/.injective.tokenfactory.v1beta1.MsgBurnResponse\x12u\n\x0b\x43hangeAdmin\x12..injective.tokenfactory.v1beta1.MsgChangeAdmin\x1a\x36.injective.tokenfactory.v1beta1.MsgChangeAdminResponse\x12\x84\x01\n\x10SetDenomMetadata\x12\x33.injective.tokenfactory.v1beta1.MsgSetDenomMetadata\x1a;.injective.tokenfactory.v1beta1.MsgSetDenomMetadataResponse\x12x\n\x0cUpdateParams\x12/.injective.tokenfactory.v1beta1.MsgUpdateParams\x1a\x37.injective.tokenfactory.v1beta1.MsgUpdateParamsResponseBTZRgithub.com/InjectiveLabs/injective-core/injective-chain/modules/tokenfactory/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\'injective/tokenfactory/v1beta1/tx.proto\x12\x1einjective.tokenfactory.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a\x1e\x63osmos/bank/v1beta1/bank.proto\x1a\x17\x63osmos/msg/v1/msg.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a+injective/tokenfactory/v1beta1/params.proto\x1a\x11\x61mino/amino.proto\"\xd1\x01\n\x0eMsgCreateDenom\x12!\n\x06sender\x18\x01 \x01(\tB\x11\xf2\xde\x1f\ryaml:\"sender\"\x12%\n\x08subdenom\x18\x02 \x01(\tB\x13\xf2\xde\x1f\x0fyaml:\"subdenom\"\x12\x1d\n\x04name\x18\x03 \x01(\tB\x0f\xf2\xde\x1f\x0byaml:\"name\"\x12!\n\x06symbol\x18\x04 \x01(\tB\x11\xf2\xde\x1f\ryaml:\"symbol\":3\x82\xe7\xb0*\x06sender\x8a\xe7\xb0*#injective/tokenfactory/create-denom\"M\n\x16MsgCreateDenomResponse\x12\x33\n\x0fnew_token_denom\x18\x01 \x01(\tB\x1a\xf2\xde\x1f\x16yaml:\"new_token_denom\"\"\x9b\x01\n\x07MsgMint\x12!\n\x06sender\x18\x01 \x01(\tB\x11\xf2\xde\x1f\ryaml:\"sender\"\x12@\n\x06\x61mount\x18\x02 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x15\xc8\xde\x1f\x00\xf2\xde\x1f\ryaml:\"amount\":+\x82\xe7\xb0*\x06sender\x8a\xe7\xb0*\x1binjective/tokenfactory/mint\"\x11\n\x0fMsgMintResponse\"\x9b\x01\n\x07MsgBurn\x12!\n\x06sender\x18\x01 \x01(\tB\x11\xf2\xde\x1f\ryaml:\"sender\"\x12@\n\x06\x61mount\x18\x02 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x15\xc8\xde\x1f\x00\xf2\xde\x1f\ryaml:\"amount\":+\x82\xe7\xb0*\x06sender\x8a\xe7\xb0*\x1binjective/tokenfactory/burn\"\x11\n\x0fMsgBurnResponse\"\xb2\x01\n\x0eMsgChangeAdmin\x12!\n\x06sender\x18\x01 \x01(\tB\x11\xf2\xde\x1f\ryaml:\"sender\"\x12\x1f\n\x05\x64\x65nom\x18\x02 \x01(\tB\x10\xf2\xde\x1f\x0cyaml:\"denom\"\x12\'\n\tnew_admin\x18\x03 \x01(\tB\x14\xf2\xde\x1f\x10yaml:\"new_admin\":3\x82\xe7\xb0*\x06sender\x8a\xe7\xb0*#injective/tokenfactory/change-admin\"\x18\n\x16MsgChangeAdminResponse\"\xbd\x01\n\x13MsgSetDenomMetadata\x12!\n\x06sender\x18\x01 \x01(\tB\x11\xf2\xde\x1f\ryaml:\"sender\"\x12H\n\x08metadata\x18\x02 \x01(\x0b\x32\x1d.cosmos.bank.v1beta1.MetadataB\x17\xc8\xde\x1f\x00\xf2\xde\x1f\x0fyaml:\"metadata\":9\x82\xe7\xb0*\x06sender\x8a\xe7\xb0*)injective/tokenfactory/set-denom-metadata\"\x1d\n\x1bMsgSetDenomMetadataResponse\"\xb5\x01\n\x0fMsgUpdateParams\x12+\n\tauthority\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12<\n\x06params\x18\x02 \x01(\x0b\x32&.injective.tokenfactory.v1beta1.ParamsB\x04\xc8\xde\x1f\x00:7\x82\xe7\xb0*\tauthority\x8a\xe7\xb0*$injective/tokenfactory/update-params\"\x19\n\x17MsgUpdateParamsResponse2\xbf\x05\n\x03Msg\x12u\n\x0b\x43reateDenom\x12..injective.tokenfactory.v1beta1.MsgCreateDenom\x1a\x36.injective.tokenfactory.v1beta1.MsgCreateDenomResponse\x12`\n\x04Mint\x12\'.injective.tokenfactory.v1beta1.MsgMint\x1a/.injective.tokenfactory.v1beta1.MsgMintResponse\x12`\n\x04\x42urn\x12\'.injective.tokenfactory.v1beta1.MsgBurn\x1a/.injective.tokenfactory.v1beta1.MsgBurnResponse\x12u\n\x0b\x43hangeAdmin\x12..injective.tokenfactory.v1beta1.MsgChangeAdmin\x1a\x36.injective.tokenfactory.v1beta1.MsgChangeAdminResponse\x12\x84\x01\n\x10SetDenomMetadata\x12\x33.injective.tokenfactory.v1beta1.MsgSetDenomMetadata\x1a;.injective.tokenfactory.v1beta1.MsgSetDenomMetadataResponse\x12x\n\x0cUpdateParams\x12/.injective.tokenfactory.v1beta1.MsgUpdateParams\x1a\x37.injective.tokenfactory.v1beta1.MsgUpdateParamsResponse\x1a\x05\x80\xe7\xb0*\x01\x42TZRgithub.com/InjectiveLabs/injective-core/injective-chain/modules/tokenfactory/typesb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -37,7 +38,7 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_MSGCREATEDENOM'].fields_by_name['symbol']._loaded_options = None
   _globals['_MSGCREATEDENOM'].fields_by_name['symbol']._serialized_options = b'\362\336\037\ryaml:\"symbol\"'
   _globals['_MSGCREATEDENOM']._loaded_options = None
-  _globals['_MSGCREATEDENOM']._serialized_options = b'\202\347\260*\006sender'
+  _globals['_MSGCREATEDENOM']._serialized_options = b'\202\347\260*\006sender\212\347\260*#injective/tokenfactory/create-denom'
   _globals['_MSGCREATEDENOMRESPONSE'].fields_by_name['new_token_denom']._loaded_options = None
   _globals['_MSGCREATEDENOMRESPONSE'].fields_by_name['new_token_denom']._serialized_options = b'\362\336\037\026yaml:\"new_token_denom\"'
   _globals['_MSGMINT'].fields_by_name['sender']._loaded_options = None
@@ -45,13 +46,13 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_MSGMINT'].fields_by_name['amount']._loaded_options = None
   _globals['_MSGMINT'].fields_by_name['amount']._serialized_options = b'\310\336\037\000\362\336\037\ryaml:\"amount\"'
   _globals['_MSGMINT']._loaded_options = None
-  _globals['_MSGMINT']._serialized_options = b'\202\347\260*\006sender'
+  _globals['_MSGMINT']._serialized_options = b'\202\347\260*\006sender\212\347\260*\033injective/tokenfactory/mint'
   _globals['_MSGBURN'].fields_by_name['sender']._loaded_options = None
   _globals['_MSGBURN'].fields_by_name['sender']._serialized_options = b'\362\336\037\ryaml:\"sender\"'
   _globals['_MSGBURN'].fields_by_name['amount']._loaded_options = None
   _globals['_MSGBURN'].fields_by_name['amount']._serialized_options = b'\310\336\037\000\362\336\037\ryaml:\"amount\"'
   _globals['_MSGBURN']._loaded_options = None
-  _globals['_MSGBURN']._serialized_options = b'\202\347\260*\006sender'
+  _globals['_MSGBURN']._serialized_options = b'\202\347\260*\006sender\212\347\260*\033injective/tokenfactory/burn'
   _globals['_MSGCHANGEADMIN'].fields_by_name['sender']._loaded_options = None
   _globals['_MSGCHANGEADMIN'].fields_by_name['sender']._serialized_options = b'\362\336\037\ryaml:\"sender\"'
   _globals['_MSGCHANGEADMIN'].fields_by_name['denom']._loaded_options = None
@@ -59,43 +60,45 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_MSGCHANGEADMIN'].fields_by_name['new_admin']._loaded_options = None
   _globals['_MSGCHANGEADMIN'].fields_by_name['new_admin']._serialized_options = b'\362\336\037\020yaml:\"new_admin\"'
   _globals['_MSGCHANGEADMIN']._loaded_options = None
-  _globals['_MSGCHANGEADMIN']._serialized_options = b'\202\347\260*\006sender'
+  _globals['_MSGCHANGEADMIN']._serialized_options = b'\202\347\260*\006sender\212\347\260*#injective/tokenfactory/change-admin'
   _globals['_MSGSETDENOMMETADATA'].fields_by_name['sender']._loaded_options = None
   _globals['_MSGSETDENOMMETADATA'].fields_by_name['sender']._serialized_options = b'\362\336\037\ryaml:\"sender\"'
   _globals['_MSGSETDENOMMETADATA'].fields_by_name['metadata']._loaded_options = None
   _globals['_MSGSETDENOMMETADATA'].fields_by_name['metadata']._serialized_options = b'\310\336\037\000\362\336\037\017yaml:\"metadata\"'
   _globals['_MSGSETDENOMMETADATA']._loaded_options = None
-  _globals['_MSGSETDENOMMETADATA']._serialized_options = b'\202\347\260*\006sender'
+  _globals['_MSGSETDENOMMETADATA']._serialized_options = b'\202\347\260*\006sender\212\347\260*)injective/tokenfactory/set-denom-metadata'
   _globals['_MSGUPDATEPARAMS'].fields_by_name['authority']._loaded_options = None
   _globals['_MSGUPDATEPARAMS'].fields_by_name['authority']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _globals['_MSGUPDATEPARAMS'].fields_by_name['params']._loaded_options = None
   _globals['_MSGUPDATEPARAMS'].fields_by_name['params']._serialized_options = b'\310\336\037\000'
   _globals['_MSGUPDATEPARAMS']._loaded_options = None
-  _globals['_MSGUPDATEPARAMS']._serialized_options = b'\202\347\260*\tauthority'
-  _globals['_MSGCREATEDENOM']._serialized_start=259
-  _globals['_MSGCREATEDENOM']._serialized_end=428
-  _globals['_MSGCREATEDENOMRESPONSE']._serialized_start=430
-  _globals['_MSGCREATEDENOMRESPONSE']._serialized_end=507
-  _globals['_MSGMINT']._serialized_start=509
-  _globals['_MSGMINT']._serialized_end=632
-  _globals['_MSGMINTRESPONSE']._serialized_start=634
-  _globals['_MSGMINTRESPONSE']._serialized_end=651
-  _globals['_MSGBURN']._serialized_start=653
-  _globals['_MSGBURN']._serialized_end=776
-  _globals['_MSGBURNRESPONSE']._serialized_start=778
-  _globals['_MSGBURNRESPONSE']._serialized_end=795
-  _globals['_MSGCHANGEADMIN']._serialized_start=798
-  _globals['_MSGCHANGEADMIN']._serialized_end=936
-  _globals['_MSGCHANGEADMINRESPONSE']._serialized_start=938
-  _globals['_MSGCHANGEADMINRESPONSE']._serialized_end=962
-  _globals['_MSGSETDENOMMETADATA']._serialized_start=965
-  _globals['_MSGSETDENOMMETADATA']._serialized_end=1108
-  _globals['_MSGSETDENOMMETADATARESPONSE']._serialized_start=1110
-  _globals['_MSGSETDENOMMETADATARESPONSE']._serialized_end=1139
-  _globals['_MSGUPDATEPARAMS']._serialized_start=1142
-  _globals['_MSGUPDATEPARAMS']._serialized_end=1282
-  _globals['_MSGUPDATEPARAMSRESPONSE']._serialized_start=1284
-  _globals['_MSGUPDATEPARAMSRESPONSE']._serialized_end=1309
-  _globals['_MSG']._serialized_start=1312
-  _globals['_MSG']._serialized_end=2008
+  _globals['_MSGUPDATEPARAMS']._serialized_options = b'\202\347\260*\tauthority\212\347\260*$injective/tokenfactory/update-params'
+  _globals['_MSG']._loaded_options = None
+  _globals['_MSG']._serialized_options = b'\200\347\260*\001'
+  _globals['_MSGCREATEDENOM']._serialized_start=278
+  _globals['_MSGCREATEDENOM']._serialized_end=487
+  _globals['_MSGCREATEDENOMRESPONSE']._serialized_start=489
+  _globals['_MSGCREATEDENOMRESPONSE']._serialized_end=566
+  _globals['_MSGMINT']._serialized_start=569
+  _globals['_MSGMINT']._serialized_end=724
+  _globals['_MSGMINTRESPONSE']._serialized_start=726
+  _globals['_MSGMINTRESPONSE']._serialized_end=743
+  _globals['_MSGBURN']._serialized_start=746
+  _globals['_MSGBURN']._serialized_end=901
+  _globals['_MSGBURNRESPONSE']._serialized_start=903
+  _globals['_MSGBURNRESPONSE']._serialized_end=920
+  _globals['_MSGCHANGEADMIN']._serialized_start=923
+  _globals['_MSGCHANGEADMIN']._serialized_end=1101
+  _globals['_MSGCHANGEADMINRESPONSE']._serialized_start=1103
+  _globals['_MSGCHANGEADMINRESPONSE']._serialized_end=1127
+  _globals['_MSGSETDENOMMETADATA']._serialized_start=1130
+  _globals['_MSGSETDENOMMETADATA']._serialized_end=1319
+  _globals['_MSGSETDENOMMETADATARESPONSE']._serialized_start=1321
+  _globals['_MSGSETDENOMMETADATARESPONSE']._serialized_end=1350
+  _globals['_MSGUPDATEPARAMS']._serialized_start=1353
+  _globals['_MSGUPDATEPARAMS']._serialized_end=1534
+  _globals['_MSGUPDATEPARAMSRESPONSE']._serialized_start=1536
+  _globals['_MSGUPDATEPARAMSRESPONSE']._serialized_end=1561
+  _globals['_MSG']._serialized_start=1564
+  _globals['_MSG']._serialized_end=2267
 # @@protoc_insertion_point(module_scope)

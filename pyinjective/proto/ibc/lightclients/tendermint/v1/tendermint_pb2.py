@@ -12,44 +12,40 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from pyinjective.proto.tendermint.types import validator_pb2 as tendermint_dot_types_dot_validator__pb2
-from pyinjective.proto.tendermint.types import types_pb2 as tendermint_dot_types_dot_types__pb2
-from pyinjective.proto.cosmos.ics23.v1 import proofs_pb2 as cosmos_dot_ics23_dot_v1_dot_proofs__pb2
+from tendermint.types import validator_pb2 as tendermint_dot_types_dot_validator__pb2
+from tendermint.types import types_pb2 as tendermint_dot_types_dot_types__pb2
+from cosmos.ics23.v1 import proofs_pb2 as cosmos_dot_ics23_dot_v1_dot_proofs__pb2
 from google.protobuf import duration_pb2 as google_dot_protobuf_dot_duration__pb2
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
-from pyinjective.proto.ibc.core.client.v1 import client_pb2 as ibc_dot_core_dot_client_dot_v1_dot_client__pb2
-from pyinjective.proto.ibc.core.commitment.v1 import commitment_pb2 as ibc_dot_core_dot_commitment_dot_v1_dot_commitment__pb2
-from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from ibc.core.client.v1 import client_pb2 as ibc_dot_core_dot_client_dot_v1_dot_client__pb2
+from ibc.core.commitment.v1 import commitment_pb2 as ibc_dot_core_dot_commitment_dot_v1_dot_commitment__pb2
+from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n/ibc/lightclients/tendermint/v1/tendermint.proto\x12\x1eibc.lightclients.tendermint.v1\x1a tendermint/types/validator.proto\x1a\x1ctendermint/types/types.proto\x1a\x1c\x63osmos/ics23/v1/proofs.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1fibc/core/client/v1/client.proto\x1a\'ibc/core/commitment/v1/commitment.proto\x1a\x14gogoproto/gogo.proto\"\xc6\x06\n\x0b\x43lientState\x12\x10\n\x08\x63hain_id\x18\x01 \x01(\t\x12Y\n\x0btrust_level\x18\x02 \x01(\x0b\x32(.ibc.lightclients.tendermint.v1.FractionB\x1a\xc8\xde\x1f\x00\xf2\xde\x1f\x12yaml:\"trust_level\"\x12V\n\x0ftrusting_period\x18\x03 \x01(\x0b\x32\x19.google.protobuf.DurationB\"\xc8\xde\x1f\x00\xf2\xde\x1f\x16yaml:\"trusting_period\"\x98\xdf\x1f\x01\x12X\n\x10unbonding_period\x18\x04 \x01(\x0b\x32\x19.google.protobuf.DurationB#\xc8\xde\x1f\x00\xf2\xde\x1f\x17yaml:\"unbonding_period\"\x98\xdf\x1f\x01\x12V\n\x0fmax_clock_drift\x18\x05 \x01(\x0b\x32\x19.google.protobuf.DurationB\"\xc8\xde\x1f\x00\xf2\xde\x1f\x16yaml:\"max_clock_drift\"\x98\xdf\x1f\x01\x12O\n\rfrozen_height\x18\x06 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x1c\xc8\xde\x1f\x00\xf2\xde\x1f\x14yaml:\"frozen_height\"\x12O\n\rlatest_height\x18\x07 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x1c\xc8\xde\x1f\x00\xf2\xde\x1f\x14yaml:\"latest_height\"\x12G\n\x0bproof_specs\x18\x08 \x03(\x0b\x32\x1a.cosmos.ics23.v1.ProofSpecB\x16\xf2\xde\x1f\x12yaml:\"proof_specs\"\x12-\n\x0cupgrade_path\x18\t \x03(\tB\x17\xf2\xde\x1f\x13yaml:\"upgrade_path\"\x12I\n\x19\x61llow_update_after_expiry\x18\n \x01(\x08\x42&\x18\x01\xf2\xde\x1f yaml:\"allow_update_after_expiry\"\x12U\n\x1f\x61llow_update_after_misbehaviour\x18\x0b \x01(\x08\x42,\x18\x01\xf2\xde\x1f&yaml:\"allow_update_after_misbehaviour\":\x04\x88\xa0\x1f\x00\"\xfa\x01\n\x0e\x43onsensusState\x12\x37\n\ttimestamp\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.TimestampB\x08\xc8\xde\x1f\x00\x90\xdf\x1f\x01\x12\x36\n\x04root\x18\x02 \x01(\x0b\x32\".ibc.core.commitment.v1.MerkleRootB\x04\xc8\xde\x1f\x00\x12q\n\x14next_validators_hash\x18\x03 \x01(\x0c\x42S\xf2\xde\x1f\x1byaml:\"next_validators_hash\"\xfa\xde\x1f\x30github.com/cometbft/cometbft/libs/bytes.HexBytes:\x04\x88\xa0\x1f\x00\"\xf3\x01\n\x0cMisbehaviour\x12)\n\tclient_id\x18\x01 \x01(\tB\x16\x18\x01\xf2\xde\x1f\x10yaml:\"client_id\"\x12X\n\x08header_1\x18\x02 \x01(\x0b\x32&.ibc.lightclients.tendermint.v1.HeaderB\x1e\xe2\xde\x1f\x07Header1\xf2\xde\x1f\x0fyaml:\"header_1\"\x12X\n\x08header_2\x18\x03 \x01(\x0b\x32&.ibc.lightclients.tendermint.v1.HeaderB\x1e\xe2\xde\x1f\x07Header2\xf2\xde\x1f\x0fyaml:\"header_2\":\x04\x88\xa0\x1f\x00\"\xdc\x02\n\x06Header\x12S\n\rsigned_header\x18\x01 \x01(\x0b\x32\x1e.tendermint.types.SignedHeaderB\x1c\xd0\xde\x1f\x01\xf2\xde\x1f\x14yaml:\"signed_header\"\x12O\n\rvalidator_set\x18\x02 \x01(\x0b\x32\x1e.tendermint.types.ValidatorSetB\x18\xf2\xde\x1f\x14yaml:\"validator_set\"\x12Q\n\x0etrusted_height\x18\x03 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x1d\xc8\xde\x1f\x00\xf2\xde\x1f\x15yaml:\"trusted_height\"\x12Y\n\x12trusted_validators\x18\x04 \x01(\x0b\x32\x1e.tendermint.types.ValidatorSetB\x1d\xf2\xde\x1f\x19yaml:\"trusted_validators\"\"2\n\x08\x46raction\x12\x11\n\tnumerator\x18\x01 \x01(\x04\x12\x13\n\x0b\x64\x65nominator\x18\x02 \x01(\x04\x42LZJgithub.com/cosmos/ibc-go/v7/modules/light-clients/07-tendermint;tendermintb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n/ibc/lightclients/tendermint/v1/tendermint.proto\x12\x1eibc.lightclients.tendermint.v1\x1a tendermint/types/validator.proto\x1a\x1ctendermint/types/types.proto\x1a\x1c\x63osmos/ics23/v1/proofs.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1fibc/core/client/v1/client.proto\x1a\'ibc/core/commitment/v1/commitment.proto\x1a\x14gogoproto/gogo.proto\"\xb2\x04\n\x0b\x43lientState\x12\x10\n\x08\x63hain_id\x18\x01 \x01(\t\x12\x43\n\x0btrust_level\x18\x02 \x01(\x0b\x32(.ibc.lightclients.tendermint.v1.FractionB\x04\xc8\xde\x1f\x00\x12<\n\x0ftrusting_period\x18\x03 \x01(\x0b\x32\x19.google.protobuf.DurationB\x08\xc8\xde\x1f\x00\x98\xdf\x1f\x01\x12=\n\x10unbonding_period\x18\x04 \x01(\x0b\x32\x19.google.protobuf.DurationB\x08\xc8\xde\x1f\x00\x98\xdf\x1f\x01\x12<\n\x0fmax_clock_drift\x18\x05 \x01(\x0b\x32\x19.google.protobuf.DurationB\x08\xc8\xde\x1f\x00\x98\xdf\x1f\x01\x12\x37\n\rfrozen_height\x18\x06 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\x12\x37\n\rlatest_height\x18\x07 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\x12/\n\x0bproof_specs\x18\x08 \x03(\x0b\x32\x1a.cosmos.ics23.v1.ProofSpec\x12\x14\n\x0cupgrade_path\x18\t \x03(\t\x12%\n\x19\x61llow_update_after_expiry\x18\n \x01(\x08\x42\x02\x18\x01\x12+\n\x1f\x61llow_update_after_misbehaviour\x18\x0b \x01(\x08\x42\x02\x18\x01:\x04\x88\xa0\x1f\x00\"\xdb\x01\n\x0e\x43onsensusState\x12\x37\n\ttimestamp\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.TimestampB\x08\xc8\xde\x1f\x00\x90\xdf\x1f\x01\x12\x36\n\x04root\x18\x02 \x01(\x0b\x32\".ibc.core.commitment.v1.MerkleRootB\x04\xc8\xde\x1f\x00\x12R\n\x14next_validators_hash\x18\x03 \x01(\x0c\x42\x34\xfa\xde\x1f\x30github.com/cometbft/cometbft/libs/bytes.HexBytes:\x04\x88\xa0\x1f\x00\"\xb9\x01\n\x0cMisbehaviour\x12\x15\n\tclient_id\x18\x01 \x01(\tB\x02\x18\x01\x12\x45\n\x08header_1\x18\x02 \x01(\x0b\x32&.ibc.lightclients.tendermint.v1.HeaderB\x0b\xe2\xde\x1f\x07Header1\x12\x45\n\x08header_2\x18\x03 \x01(\x0b\x32&.ibc.lightclients.tendermint.v1.HeaderB\x0b\xe2\xde\x1f\x07Header2:\x04\x88\xa0\x1f\x00\"\xf2\x01\n\x06Header\x12;\n\rsigned_header\x18\x01 \x01(\x0b\x32\x1e.tendermint.types.SignedHeaderB\x04\xd0\xde\x1f\x01\x12\x35\n\rvalidator_set\x18\x02 \x01(\x0b\x32\x1e.tendermint.types.ValidatorSet\x12\x38\n\x0etrusted_height\x18\x03 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00\x12:\n\x12trusted_validators\x18\x04 \x01(\x0b\x32\x1e.tendermint.types.ValidatorSet\"2\n\x08\x46raction\x12\x11\n\tnumerator\x18\x01 \x01(\x04\x12\x13\n\x0b\x64\x65nominator\x18\x02 \x01(\x04\x42LZJgithub.com/cosmos/ibc-go/v8/modules/light-clients/07-tendermint;tendermintb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'ibc.lightclients.tendermint.v1.tendermint_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
-  _globals['DESCRIPTOR']._serialized_options = b'ZJgithub.com/cosmos/ibc-go/v7/modules/light-clients/07-tendermint;tendermint'
+  _globals['DESCRIPTOR']._serialized_options = b'ZJgithub.com/cosmos/ibc-go/v8/modules/light-clients/07-tendermint;tendermint'
   _globals['_CLIENTSTATE'].fields_by_name['trust_level']._loaded_options = None
-  _globals['_CLIENTSTATE'].fields_by_name['trust_level']._serialized_options = b'\310\336\037\000\362\336\037\022yaml:\"trust_level\"'
+  _globals['_CLIENTSTATE'].fields_by_name['trust_level']._serialized_options = b'\310\336\037\000'
   _globals['_CLIENTSTATE'].fields_by_name['trusting_period']._loaded_options = None
-  _globals['_CLIENTSTATE'].fields_by_name['trusting_period']._serialized_options = b'\310\336\037\000\362\336\037\026yaml:\"trusting_period\"\230\337\037\001'
+  _globals['_CLIENTSTATE'].fields_by_name['trusting_period']._serialized_options = b'\310\336\037\000\230\337\037\001'
   _globals['_CLIENTSTATE'].fields_by_name['unbonding_period']._loaded_options = None
-  _globals['_CLIENTSTATE'].fields_by_name['unbonding_period']._serialized_options = b'\310\336\037\000\362\336\037\027yaml:\"unbonding_period\"\230\337\037\001'
+  _globals['_CLIENTSTATE'].fields_by_name['unbonding_period']._serialized_options = b'\310\336\037\000\230\337\037\001'
   _globals['_CLIENTSTATE'].fields_by_name['max_clock_drift']._loaded_options = None
-  _globals['_CLIENTSTATE'].fields_by_name['max_clock_drift']._serialized_options = b'\310\336\037\000\362\336\037\026yaml:\"max_clock_drift\"\230\337\037\001'
+  _globals['_CLIENTSTATE'].fields_by_name['max_clock_drift']._serialized_options = b'\310\336\037\000\230\337\037\001'
   _globals['_CLIENTSTATE'].fields_by_name['frozen_height']._loaded_options = None
-  _globals['_CLIENTSTATE'].fields_by_name['frozen_height']._serialized_options = b'\310\336\037\000\362\336\037\024yaml:\"frozen_height\"'
+  _globals['_CLIENTSTATE'].fields_by_name['frozen_height']._serialized_options = b'\310\336\037\000'
   _globals['_CLIENTSTATE'].fields_by_name['latest_height']._loaded_options = None
-  _globals['_CLIENTSTATE'].fields_by_name['latest_height']._serialized_options = b'\310\336\037\000\362\336\037\024yaml:\"latest_height\"'
-  _globals['_CLIENTSTATE'].fields_by_name['proof_specs']._loaded_options = None
-  _globals['_CLIENTSTATE'].fields_by_name['proof_specs']._serialized_options = b'\362\336\037\022yaml:\"proof_specs\"'
-  _globals['_CLIENTSTATE'].fields_by_name['upgrade_path']._loaded_options = None
-  _globals['_CLIENTSTATE'].fields_by_name['upgrade_path']._serialized_options = b'\362\336\037\023yaml:\"upgrade_path\"'
+  _globals['_CLIENTSTATE'].fields_by_name['latest_height']._serialized_options = b'\310\336\037\000'
   _globals['_CLIENTSTATE'].fields_by_name['allow_update_after_expiry']._loaded_options = None
-  _globals['_CLIENTSTATE'].fields_by_name['allow_update_after_expiry']._serialized_options = b'\030\001\362\336\037 yaml:\"allow_update_after_expiry\"'
+  _globals['_CLIENTSTATE'].fields_by_name['allow_update_after_expiry']._serialized_options = b'\030\001'
   _globals['_CLIENTSTATE'].fields_by_name['allow_update_after_misbehaviour']._loaded_options = None
-  _globals['_CLIENTSTATE'].fields_by_name['allow_update_after_misbehaviour']._serialized_options = b'\030\001\362\336\037&yaml:\"allow_update_after_misbehaviour\"'
+  _globals['_CLIENTSTATE'].fields_by_name['allow_update_after_misbehaviour']._serialized_options = b'\030\001'
   _globals['_CLIENTSTATE']._loaded_options = None
   _globals['_CLIENTSTATE']._serialized_options = b'\210\240\037\000'
   _globals['_CONSENSUSSTATE'].fields_by_name['timestamp']._loaded_options = None
@@ -57,33 +53,29 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_CONSENSUSSTATE'].fields_by_name['root']._loaded_options = None
   _globals['_CONSENSUSSTATE'].fields_by_name['root']._serialized_options = b'\310\336\037\000'
   _globals['_CONSENSUSSTATE'].fields_by_name['next_validators_hash']._loaded_options = None
-  _globals['_CONSENSUSSTATE'].fields_by_name['next_validators_hash']._serialized_options = b'\362\336\037\033yaml:\"next_validators_hash\"\372\336\0370github.com/cometbft/cometbft/libs/bytes.HexBytes'
+  _globals['_CONSENSUSSTATE'].fields_by_name['next_validators_hash']._serialized_options = b'\372\336\0370github.com/cometbft/cometbft/libs/bytes.HexBytes'
   _globals['_CONSENSUSSTATE']._loaded_options = None
   _globals['_CONSENSUSSTATE']._serialized_options = b'\210\240\037\000'
   _globals['_MISBEHAVIOUR'].fields_by_name['client_id']._loaded_options = None
-  _globals['_MISBEHAVIOUR'].fields_by_name['client_id']._serialized_options = b'\030\001\362\336\037\020yaml:\"client_id\"'
+  _globals['_MISBEHAVIOUR'].fields_by_name['client_id']._serialized_options = b'\030\001'
   _globals['_MISBEHAVIOUR'].fields_by_name['header_1']._loaded_options = None
-  _globals['_MISBEHAVIOUR'].fields_by_name['header_1']._serialized_options = b'\342\336\037\007Header1\362\336\037\017yaml:\"header_1\"'
+  _globals['_MISBEHAVIOUR'].fields_by_name['header_1']._serialized_options = b'\342\336\037\007Header1'
   _globals['_MISBEHAVIOUR'].fields_by_name['header_2']._loaded_options = None
-  _globals['_MISBEHAVIOUR'].fields_by_name['header_2']._serialized_options = b'\342\336\037\007Header2\362\336\037\017yaml:\"header_2\"'
+  _globals['_MISBEHAVIOUR'].fields_by_name['header_2']._serialized_options = b'\342\336\037\007Header2'
   _globals['_MISBEHAVIOUR']._loaded_options = None
   _globals['_MISBEHAVIOUR']._serialized_options = b'\210\240\037\000'
   _globals['_HEADER'].fields_by_name['signed_header']._loaded_options = None
-  _globals['_HEADER'].fields_by_name['signed_header']._serialized_options = b'\320\336\037\001\362\336\037\024yaml:\"signed_header\"'
-  _globals['_HEADER'].fields_by_name['validator_set']._loaded_options = None
-  _globals['_HEADER'].fields_by_name['validator_set']._serialized_options = b'\362\336\037\024yaml:\"validator_set\"'
+  _globals['_HEADER'].fields_by_name['signed_header']._serialized_options = b'\320\336\037\001'
   _globals['_HEADER'].fields_by_name['trusted_height']._loaded_options = None
-  _globals['_HEADER'].fields_by_name['trusted_height']._serialized_options = b'\310\336\037\000\362\336\037\025yaml:\"trusted_height\"'
-  _globals['_HEADER'].fields_by_name['trusted_validators']._loaded_options = None
-  _globals['_HEADER'].fields_by_name['trusted_validators']._serialized_options = b'\362\336\037\031yaml:\"trusted_validators\"'
+  _globals['_HEADER'].fields_by_name['trusted_height']._serialized_options = b'\310\336\037\000'
   _globals['_CLIENTSTATE']._serialized_start=339
-  _globals['_CLIENTSTATE']._serialized_end=1177
-  _globals['_CONSENSUSSTATE']._serialized_start=1180
-  _globals['_CONSENSUSSTATE']._serialized_end=1430
-  _globals['_MISBEHAVIOUR']._serialized_start=1433
-  _globals['_MISBEHAVIOUR']._serialized_end=1676
-  _globals['_HEADER']._serialized_start=1679
-  _globals['_HEADER']._serialized_end=2027
-  _globals['_FRACTION']._serialized_start=2029
-  _globals['_FRACTION']._serialized_end=2079
+  _globals['_CLIENTSTATE']._serialized_end=901
+  _globals['_CONSENSUSSTATE']._serialized_start=904
+  _globals['_CONSENSUSSTATE']._serialized_end=1123
+  _globals['_MISBEHAVIOUR']._serialized_start=1126
+  _globals['_MISBEHAVIOUR']._serialized_end=1311
+  _globals['_HEADER']._serialized_start=1314
+  _globals['_HEADER']._serialized_end=1556
+  _globals['_FRACTION']._serialized_start=1558
+  _globals['_FRACTION']._serialized_end=1608
 # @@protoc_insertion_point(module_scope)

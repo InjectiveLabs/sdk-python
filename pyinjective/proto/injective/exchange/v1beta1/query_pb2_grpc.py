@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-from pyinjective.proto.injective.exchange.v1beta1 import query_pb2 as injective_dot_exchange_dot_v1beta1_dot_query__pb2
+from injective.exchange.v1beta1 import query_pb2 as injective_dot_exchange_dot_v1beta1_dot_query__pb2
 
 GRPC_GENERATED_VERSION = '1.64.1'
 GRPC_VERSION = grpc.__version__
@@ -324,6 +324,21 @@ class QueryStub(object):
                 '/injective.exchange.v1beta1.Query/MarketAtomicExecutionFeeMultiplier',
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryMarketAtomicExecutionFeeMultiplierRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryMarketAtomicExecutionFeeMultiplierResponse.FromString,
+                _registered_method=True)
+        self.ActiveStakeGrant = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/ActiveStakeGrant',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryActiveStakeGrantRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryActiveStakeGrantResponse.FromString,
+                _registered_method=True)
+        self.GrantAuthorization = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/GrantAuthorization',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryGrantAuthorizationRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryGrantAuthorizationResponse.FromString,
+                _registered_method=True)
+        self.GrantAuthorizations = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/GrantAuthorizations',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryGrantAuthorizationsRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryGrantAuthorizationsResponse.FromString,
                 _registered_method=True)
 
 
@@ -734,6 +749,27 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ActiveStakeGrant(self, request, context):
+        """Retrieves the active stake grant for a grantee
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GrantAuthorization(self, request, context):
+        """Retrieves the grant authorization amount for a granter and grantee
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GrantAuthorizations(self, request, context):
+        """Retrieves the grant authorization amount for a granter and grantee
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_QueryServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -1021,6 +1057,21 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.MarketAtomicExecutionFeeMultiplier,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryMarketAtomicExecutionFeeMultiplierRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryMarketAtomicExecutionFeeMultiplierResponse.SerializeToString,
+            ),
+            'ActiveStakeGrant': grpc.unary_unary_rpc_method_handler(
+                    servicer.ActiveStakeGrant,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryActiveStakeGrantRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryActiveStakeGrantResponse.SerializeToString,
+            ),
+            'GrantAuthorization': grpc.unary_unary_rpc_method_handler(
+                    servicer.GrantAuthorization,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryGrantAuthorizationRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryGrantAuthorizationResponse.SerializeToString,
+            ),
+            'GrantAuthorizations': grpc.unary_unary_rpc_method_handler(
+                    servicer.GrantAuthorizations,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryGrantAuthorizationsRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryGrantAuthorizationsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -2563,6 +2614,87 @@ class Query(object):
             '/injective.exchange.v1beta1.Query/MarketAtomicExecutionFeeMultiplier',
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryMarketAtomicExecutionFeeMultiplierRequest.SerializeToString,
             injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryMarketAtomicExecutionFeeMultiplierResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ActiveStakeGrant(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v1beta1.Query/ActiveStakeGrant',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryActiveStakeGrantRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryActiveStakeGrantResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GrantAuthorization(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v1beta1.Query/GrantAuthorization',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryGrantAuthorizationRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryGrantAuthorizationResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GrantAuthorizations(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v1beta1.Query/GrantAuthorizations',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryGrantAuthorizationsRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryGrantAuthorizationsResponse.FromString,
             options,
             channel_credentials,
             insecure,

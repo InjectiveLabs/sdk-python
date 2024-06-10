@@ -12,10 +12,10 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from pyinjective.proto.cosmos.app.v1alpha1 import module_pb2 as cosmos_dot_app_dot_v1alpha1_dot_module__pb2
+from cosmos.app.v1alpha1 import module_pb2 as cosmos_dot_app_dot_v1alpha1_dot_module__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n%cosmos/upgrade/module/v1/module.proto\x12\x18\x63osmos.upgrade.module.v1\x1a cosmos/app/v1alpha1/module.proto\"K\n\x06Module\x12\x11\n\tauthority\x18\x01 \x01(\t:.\xba\xc0\x96\xda\x01(\n&github.com/cosmos/cosmos-sdk/x/upgradeb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n%cosmos/upgrade/module/v1/module.proto\x12\x18\x63osmos.upgrade.module.v1\x1a cosmos/app/v1alpha1/module.proto\";\n\x06Module\x12\x11\n\tauthority\x18\x01 \x01(\t:\x1e\xba\xc0\x96\xda\x01\x18\n\x16\x63osmossdk.io/x/upgradeb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -23,7 +23,7 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'cosmos.upgrade.module.v1.mo
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
   _globals['_MODULE']._loaded_options = None
-  _globals['_MODULE']._serialized_options = b'\272\300\226\332\001(\n&github.com/cosmos/cosmos-sdk/x/upgrade'
+  _globals['_MODULE']._serialized_options = b'\272\300\226\332\001\030\n\026cosmossdk.io/x/upgrade'
   _globals['_MODULE']._serialized_start=101
-  _globals['_MODULE']._serialized_end=176
+  _globals['_MODULE']._serialized_end=160
 # @@protoc_insertion_point(module_scope)

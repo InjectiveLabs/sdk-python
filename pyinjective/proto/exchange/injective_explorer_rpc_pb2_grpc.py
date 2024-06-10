@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-from pyinjective.proto.exchange import injective_explorer_rpc_pb2 as exchange_dot_injective__explorer__rpc__pb2
+from exchange import injective_explorer_rpc_pb2 as exchange_dot_injective__explorer__rpc__pb2
 
 GRPC_GENERATED_VERSION = '1.64.1'
 GRPC_VERSION = grpc.__version__
@@ -49,6 +49,11 @@ class InjectiveExplorerRPCStub(object):
                 '/injective_explorer_rpc.InjectiveExplorerRPC/GetContractTxs',
                 request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetContractTxsRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetContractTxsResponse.FromString,
+                _registered_method=True)
+        self.GetContractTxsV2 = channel.unary_unary(
+                '/injective_explorer_rpc.InjectiveExplorerRPC/GetContractTxsV2',
+                request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetContractTxsV2Request.SerializeToString,
+                response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetContractTxsV2Response.FromString,
                 _registered_method=True)
         self.GetBlocks = channel.unary_unary(
                 '/injective_explorer_rpc.InjectiveExplorerRPC/GetBlocks',
@@ -159,6 +164,13 @@ class InjectiveExplorerRPCServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetContractTxs(self, request, context):
+        """GetContractTxs returns contract-related transactions
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetContractTxsV2(self, request, context):
         """GetContractTxs returns contract-related transactions
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -315,6 +327,11 @@ def add_InjectiveExplorerRPCServicer_to_server(servicer, server):
                     request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetContractTxsRequest.FromString,
                     response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetContractTxsResponse.SerializeToString,
             ),
+            'GetContractTxsV2': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetContractTxsV2,
+                    request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetContractTxsV2Request.FromString,
+                    response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetContractTxsV2Response.SerializeToString,
+            ),
             'GetBlocks': grpc.unary_unary_rpc_method_handler(
                     servicer.GetBlocks,
                     request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetBlocksRequest.FromString,
@@ -466,6 +483,33 @@ class InjectiveExplorerRPC(object):
             '/injective_explorer_rpc.InjectiveExplorerRPC/GetContractTxs',
             exchange_dot_injective__explorer__rpc__pb2.GetContractTxsRequest.SerializeToString,
             exchange_dot_injective__explorer__rpc__pb2.GetContractTxsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetContractTxsV2(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_explorer_rpc.InjectiveExplorerRPC/GetContractTxsV2',
+            exchange_dot_injective__explorer__rpc__pb2.GetContractTxsV2Request.SerializeToString,
+            exchange_dot_injective__explorer__rpc__pb2.GetContractTxsV2Response.FromString,
             options,
             channel_credentials,
             insecure,

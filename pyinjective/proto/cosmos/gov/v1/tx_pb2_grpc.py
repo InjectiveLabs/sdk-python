@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-from pyinjective.proto.cosmos.gov.v1 import tx_pb2 as cosmos_dot_gov_dot_v1_dot_tx__pb2
+from cosmos.gov.v1 import tx_pb2 as cosmos_dot_gov_dot_v1_dot_tx__pb2
 
 GRPC_GENERATED_VERSION = '1.64.1'
 GRPC_VERSION = grpc.__version__
@@ -70,6 +70,11 @@ class MsgStub(object):
                 request_serializer=cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
                 response_deserializer=cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
                 _registered_method=True)
+        self.CancelProposal = channel.unary_unary(
+                '/cosmos.gov.v1.Msg/CancelProposal',
+                request_serializer=cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgCancelProposal.SerializeToString,
+                response_deserializer=cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgCancelProposalResponse.FromString,
+                _registered_method=True)
 
 
 class MsgServicer(object):
@@ -122,6 +127,15 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def CancelProposal(self, request, context):
+        """CancelProposal defines a method to cancel governance proposal
+
+        Since: cosmos-sdk 0.50
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -154,6 +168,11 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.UpdateParams,
                     request_deserializer=cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgUpdateParams.FromString,
                     response_serializer=cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.SerializeToString,
+            ),
+            'CancelProposal': grpc.unary_unary_rpc_method_handler(
+                    servicer.CancelProposal,
+                    request_deserializer=cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgCancelProposal.FromString,
+                    response_serializer=cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgCancelProposalResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -319,6 +338,33 @@ class Msg(object):
             '/cosmos.gov.v1.Msg/UpdateParams',
             cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
             cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def CancelProposal(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.gov.v1.Msg/CancelProposal',
+            cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgCancelProposal.SerializeToString,
+            cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgCancelProposalResponse.FromString,
             options,
             channel_credentials,
             insecure,

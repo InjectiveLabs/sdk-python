@@ -12,15 +12,16 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from google.protobuf import any_pb2 as google_dot_protobuf_dot_any__pb2
-from pyinjective.proto.cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
-from pyinjective.proto.cosmos.msg.v1 import msg_pb2 as cosmos_dot_msg_dot_v1_dot_msg__pb2
-from pyinjective.proto.injective.wasmx.v1 import wasmx_pb2 as injective_dot_wasmx_dot_v1_dot_wasmx__pb2
-from pyinjective.proto.injective.wasmx.v1 import proposal_pb2 as injective_dot_wasmx_dot_v1_dot_proposal__pb2
+from cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
+from cosmos.msg.v1 import msg_pb2 as cosmos_dot_msg_dot_v1_dot_msg__pb2
+from injective.wasmx.v1 import wasmx_pb2 as injective_dot_wasmx_dot_v1_dot_wasmx__pb2
+from injective.wasmx.v1 import proposal_pb2 as injective_dot_wasmx_dot_v1_dot_proposal__pb2
+from amino import amino_pb2 as amino_dot_amino__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1binjective/wasmx/v1/tx.proto\x12\x12injective.wasmx.v1\x1a\x14gogoproto/gogo.proto\x1a\x19google/protobuf/any.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x17\x63osmos/msg/v1/msg.proto\x1a\x1einjective/wasmx/v1/wasmx.proto\x1a!injective/wasmx/v1/proposal.proto\"e\n\x18MsgExecuteContractCompat\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08\x63ontract\x18\x02 \x01(\t\x12\x0b\n\x03msg\x18\x03 \x01(\t\x12\r\n\x05\x66unds\x18\x04 \x01(\t:\x0b\x82\xe7\xb0*\x06sender\"0\n MsgExecuteContractCompatResponse\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\"\x8d\x01\n\x11MsgUpdateContract\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x18\n\x10\x63ontract_address\x18\x02 \x01(\t\x12\x11\n\tgas_limit\x18\x03 \x01(\x04\x12\x11\n\tgas_price\x18\x04 \x01(\x04\x12\x1b\n\radmin_address\x18\x05 \x01(\tB\x04\xc8\xde\x1f\x01:\x0b\x82\xe7\xb0*\x06sender\"\x1b\n\x19MsgUpdateContractResponse\"L\n\x13MsgActivateContract\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x18\n\x10\x63ontract_address\x18\x02 \x01(\t:\x0b\x82\xe7\xb0*\x06sender\"\x1d\n\x1bMsgActivateContractResponse\"N\n\x15MsgDeactivateContract\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x18\n\x10\x63ontract_address\x18\x02 \x01(\t:\x0b\x82\xe7\xb0*\x06sender\"\x1f\n\x1dMsgDeactivateContractResponse\"\x80\x01\n\x0fMsgUpdateParams\x12+\n\tauthority\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12\x30\n\x06params\x18\x02 \x01(\x0b\x32\x1a.injective.wasmx.v1.ParamsB\x04\xc8\xde\x1f\x00:\x0e\x82\xe7\xb0*\tauthority\"\x19\n\x17MsgUpdateParamsResponse\"\x90\x01\n\x13MsgRegisterContract\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\\\n\x1d\x63ontract_registration_request\x18\x02 \x01(\x0b\x32/.injective.wasmx.v1.ContractRegistrationRequestB\x04\xc8\xde\x1f\x00:\x0b\x82\xe7\xb0*\x06sender\"\x1d\n\x1bMsgRegisterContractResponse2\xba\x05\n\x03Msg\x12t\n\x1cUpdateRegistryContractParams\x12%.injective.wasmx.v1.MsgUpdateContract\x1a-.injective.wasmx.v1.MsgUpdateContractResponse\x12t\n\x18\x41\x63tivateRegistryContract\x12\'.injective.wasmx.v1.MsgActivateContract\x1a/.injective.wasmx.v1.MsgActivateContractResponse\x12z\n\x1a\x44\x65\x61\x63tivateRegistryContract\x12).injective.wasmx.v1.MsgDeactivateContract\x1a\x31.injective.wasmx.v1.MsgDeactivateContractResponse\x12{\n\x15\x45xecuteContractCompat\x12,.injective.wasmx.v1.MsgExecuteContractCompat\x1a\x34.injective.wasmx.v1.MsgExecuteContractCompatResponse\x12`\n\x0cUpdateParams\x12#.injective.wasmx.v1.MsgUpdateParams\x1a+.injective.wasmx.v1.MsgUpdateParamsResponse\x12l\n\x10RegisterContract\x12\'.injective.wasmx.v1.MsgRegisterContract\x1a/.injective.wasmx.v1.MsgRegisterContractResponseBMZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/wasmx/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1binjective/wasmx/v1/tx.proto\x12\x12injective.wasmx.v1\x1a\x14gogoproto/gogo.proto\x1a\x19google/protobuf/any.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x17\x63osmos/msg/v1/msg.proto\x1a\x1einjective/wasmx/v1/wasmx.proto\x1a!injective/wasmx/v1/proposal.proto\x1a\x11\x61mino/amino.proto\"\x88\x01\n\x18MsgExecuteContractCompat\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x10\n\x08\x63ontract\x18\x02 \x01(\t\x12\x0b\n\x03msg\x18\x03 \x01(\t\x12\r\n\x05\x66unds\x18\x04 \x01(\t:.\x82\xe7\xb0*\x06sender\x8a\xe7\xb0*\x1ewasmx/MsgExecuteContractCompat\"0\n MsgExecuteContractCompatResponse\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\"\xa9\x01\n\x11MsgUpdateContract\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x18\n\x10\x63ontract_address\x18\x02 \x01(\t\x12\x11\n\tgas_limit\x18\x03 \x01(\x04\x12\x11\n\tgas_price\x18\x04 \x01(\x04\x12\x1b\n\radmin_address\x18\x05 \x01(\tB\x04\xc8\xde\x1f\x01:\'\x82\xe7\xb0*\x06sender\x8a\xe7\xb0*\x17wasmx/MsgUpdateContract\"\x1b\n\x19MsgUpdateContractResponse\"j\n\x13MsgActivateContract\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x18\n\x10\x63ontract_address\x18\x02 \x01(\t:)\x82\xe7\xb0*\x06sender\x8a\xe7\xb0*\x19wasmx/MsgActivateContract\"\x1d\n\x1bMsgActivateContractResponse\"n\n\x15MsgDeactivateContract\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x18\n\x10\x63ontract_address\x18\x02 \x01(\t:+\x82\xe7\xb0*\x06sender\x8a\xe7\xb0*\x1bwasmx/MsgDeactivateContract\"\x1f\n\x1dMsgDeactivateContractResponse\"\x9a\x01\n\x0fMsgUpdateParams\x12+\n\tauthority\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12\x30\n\x06params\x18\x02 \x01(\x0b\x32\x1a.injective.wasmx.v1.ParamsB\x04\xc8\xde\x1f\x00:(\x82\xe7\xb0*\tauthority\x8a\xe7\xb0*\x15wasmx/MsgUpdateParams\"\x19\n\x17MsgUpdateParamsResponse\"\xae\x01\n\x13MsgRegisterContract\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\\\n\x1d\x63ontract_registration_request\x18\x02 \x01(\x0b\x32/.injective.wasmx.v1.ContractRegistrationRequestB\x04\xc8\xde\x1f\x00:)\x82\xe7\xb0*\x06sender\x8a\xe7\xb0*\x19wasmx/MsgRegisterContract\"\x1d\n\x1bMsgRegisterContractResponse2\xc1\x05\n\x03Msg\x12t\n\x1cUpdateRegistryContractParams\x12%.injective.wasmx.v1.MsgUpdateContract\x1a-.injective.wasmx.v1.MsgUpdateContractResponse\x12t\n\x18\x41\x63tivateRegistryContract\x12\'.injective.wasmx.v1.MsgActivateContract\x1a/.injective.wasmx.v1.MsgActivateContractResponse\x12z\n\x1a\x44\x65\x61\x63tivateRegistryContract\x12).injective.wasmx.v1.MsgDeactivateContract\x1a\x31.injective.wasmx.v1.MsgDeactivateContractResponse\x12{\n\x15\x45xecuteContractCompat\x12,.injective.wasmx.v1.MsgExecuteContractCompat\x1a\x34.injective.wasmx.v1.MsgExecuteContractCompatResponse\x12`\n\x0cUpdateParams\x12#.injective.wasmx.v1.MsgUpdateParams\x1a+.injective.wasmx.v1.MsgUpdateParamsResponse\x12l\n\x10RegisterContract\x12\'.injective.wasmx.v1.MsgRegisterContract\x1a/.injective.wasmx.v1.MsgRegisterContractResponse\x1a\x05\x80\xe7\xb0*\x01\x42MZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/wasmx/typesb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -29,49 +30,51 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'ZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/wasmx/types'
   _globals['_MSGEXECUTECONTRACTCOMPAT']._loaded_options = None
-  _globals['_MSGEXECUTECONTRACTCOMPAT']._serialized_options = b'\202\347\260*\006sender'
+  _globals['_MSGEXECUTECONTRACTCOMPAT']._serialized_options = b'\202\347\260*\006sender\212\347\260*\036wasmx/MsgExecuteContractCompat'
   _globals['_MSGUPDATECONTRACT'].fields_by_name['admin_address']._loaded_options = None
   _globals['_MSGUPDATECONTRACT'].fields_by_name['admin_address']._serialized_options = b'\310\336\037\001'
   _globals['_MSGUPDATECONTRACT']._loaded_options = None
-  _globals['_MSGUPDATECONTRACT']._serialized_options = b'\202\347\260*\006sender'
+  _globals['_MSGUPDATECONTRACT']._serialized_options = b'\202\347\260*\006sender\212\347\260*\027wasmx/MsgUpdateContract'
   _globals['_MSGACTIVATECONTRACT']._loaded_options = None
-  _globals['_MSGACTIVATECONTRACT']._serialized_options = b'\202\347\260*\006sender'
+  _globals['_MSGACTIVATECONTRACT']._serialized_options = b'\202\347\260*\006sender\212\347\260*\031wasmx/MsgActivateContract'
   _globals['_MSGDEACTIVATECONTRACT']._loaded_options = None
-  _globals['_MSGDEACTIVATECONTRACT']._serialized_options = b'\202\347\260*\006sender'
+  _globals['_MSGDEACTIVATECONTRACT']._serialized_options = b'\202\347\260*\006sender\212\347\260*\033wasmx/MsgDeactivateContract'
   _globals['_MSGUPDATEPARAMS'].fields_by_name['authority']._loaded_options = None
   _globals['_MSGUPDATEPARAMS'].fields_by_name['authority']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _globals['_MSGUPDATEPARAMS'].fields_by_name['params']._loaded_options = None
   _globals['_MSGUPDATEPARAMS'].fields_by_name['params']._serialized_options = b'\310\336\037\000'
   _globals['_MSGUPDATEPARAMS']._loaded_options = None
-  _globals['_MSGUPDATEPARAMS']._serialized_options = b'\202\347\260*\tauthority'
+  _globals['_MSGUPDATEPARAMS']._serialized_options = b'\202\347\260*\tauthority\212\347\260*\025wasmx/MsgUpdateParams'
   _globals['_MSGREGISTERCONTRACT'].fields_by_name['contract_registration_request']._loaded_options = None
   _globals['_MSGREGISTERCONTRACT'].fields_by_name['contract_registration_request']._serialized_options = b'\310\336\037\000'
   _globals['_MSGREGISTERCONTRACT']._loaded_options = None
-  _globals['_MSGREGISTERCONTRACT']._serialized_options = b'\202\347\260*\006sender'
-  _globals['_MSGEXECUTECONTRACTCOMPAT']._serialized_start=219
-  _globals['_MSGEXECUTECONTRACTCOMPAT']._serialized_end=320
-  _globals['_MSGEXECUTECONTRACTCOMPATRESPONSE']._serialized_start=322
-  _globals['_MSGEXECUTECONTRACTCOMPATRESPONSE']._serialized_end=370
-  _globals['_MSGUPDATECONTRACT']._serialized_start=373
-  _globals['_MSGUPDATECONTRACT']._serialized_end=514
-  _globals['_MSGUPDATECONTRACTRESPONSE']._serialized_start=516
-  _globals['_MSGUPDATECONTRACTRESPONSE']._serialized_end=543
-  _globals['_MSGACTIVATECONTRACT']._serialized_start=545
-  _globals['_MSGACTIVATECONTRACT']._serialized_end=621
-  _globals['_MSGACTIVATECONTRACTRESPONSE']._serialized_start=623
-  _globals['_MSGACTIVATECONTRACTRESPONSE']._serialized_end=652
-  _globals['_MSGDEACTIVATECONTRACT']._serialized_start=654
-  _globals['_MSGDEACTIVATECONTRACT']._serialized_end=732
-  _globals['_MSGDEACTIVATECONTRACTRESPONSE']._serialized_start=734
-  _globals['_MSGDEACTIVATECONTRACTRESPONSE']._serialized_end=765
-  _globals['_MSGUPDATEPARAMS']._serialized_start=768
-  _globals['_MSGUPDATEPARAMS']._serialized_end=896
-  _globals['_MSGUPDATEPARAMSRESPONSE']._serialized_start=898
-  _globals['_MSGUPDATEPARAMSRESPONSE']._serialized_end=923
-  _globals['_MSGREGISTERCONTRACT']._serialized_start=926
-  _globals['_MSGREGISTERCONTRACT']._serialized_end=1070
-  _globals['_MSGREGISTERCONTRACTRESPONSE']._serialized_start=1072
-  _globals['_MSGREGISTERCONTRACTRESPONSE']._serialized_end=1101
-  _globals['_MSG']._serialized_start=1104
-  _globals['_MSG']._serialized_end=1802
+  _globals['_MSGREGISTERCONTRACT']._serialized_options = b'\202\347\260*\006sender\212\347\260*\031wasmx/MsgRegisterContract'
+  _globals['_MSG']._loaded_options = None
+  _globals['_MSG']._serialized_options = b'\200\347\260*\001'
+  _globals['_MSGEXECUTECONTRACTCOMPAT']._serialized_start=239
+  _globals['_MSGEXECUTECONTRACTCOMPAT']._serialized_end=375
+  _globals['_MSGEXECUTECONTRACTCOMPATRESPONSE']._serialized_start=377
+  _globals['_MSGEXECUTECONTRACTCOMPATRESPONSE']._serialized_end=425
+  _globals['_MSGUPDATECONTRACT']._serialized_start=428
+  _globals['_MSGUPDATECONTRACT']._serialized_end=597
+  _globals['_MSGUPDATECONTRACTRESPONSE']._serialized_start=599
+  _globals['_MSGUPDATECONTRACTRESPONSE']._serialized_end=626
+  _globals['_MSGACTIVATECONTRACT']._serialized_start=628
+  _globals['_MSGACTIVATECONTRACT']._serialized_end=734
+  _globals['_MSGACTIVATECONTRACTRESPONSE']._serialized_start=736
+  _globals['_MSGACTIVATECONTRACTRESPONSE']._serialized_end=765
+  _globals['_MSGDEACTIVATECONTRACT']._serialized_start=767
+  _globals['_MSGDEACTIVATECONTRACT']._serialized_end=877
+  _globals['_MSGDEACTIVATECONTRACTRESPONSE']._serialized_start=879
+  _globals['_MSGDEACTIVATECONTRACTRESPONSE']._serialized_end=910
+  _globals['_MSGUPDATEPARAMS']._serialized_start=913
+  _globals['_MSGUPDATEPARAMS']._serialized_end=1067
+  _globals['_MSGUPDATEPARAMSRESPONSE']._serialized_start=1069
+  _globals['_MSGUPDATEPARAMSRESPONSE']._serialized_end=1094
+  _globals['_MSGREGISTERCONTRACT']._serialized_start=1097
+  _globals['_MSGREGISTERCONTRACT']._serialized_end=1271
+  _globals['_MSGREGISTERCONTRACTRESPONSE']._serialized_start=1273
+  _globals['_MSGREGISTERCONTRACTRESPONSE']._serialized_end=1302
+  _globals['_MSG']._serialized_start=1305
+  _globals['_MSG']._serialized_end=2010
 # @@protoc_insertion_point(module_scope)
