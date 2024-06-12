@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.5.3] - 2024-06-12
+### Changed
+- Changed parameter `key` from the PaginationOption class.
+- Fixed an error when using the next page key in PaginationOption, causing incorrect pagination responses.
+
 ## [1.5.2] - 2024-05-10
 ### Changed
 - Updated `protobuf` dependency version to ">=5.26.1"
