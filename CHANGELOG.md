@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.5.4] - 2024-07-03
+### Changed
+- Fixed all import statements in pyinjective.proto modules to make them explicit
+
 ## [1.5.3] - 2024-06-12
 ### Changed
 - Changed parameter `key` from the PaginationOption class.

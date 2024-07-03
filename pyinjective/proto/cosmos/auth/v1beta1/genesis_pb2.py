@@ -13,9 +13,9 @@ _sym_db = _symbol_database.Default()
 
 
 from google.protobuf import any_pb2 as google_dot_protobuf_dot_any__pb2
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
-from cosmos.auth.v1beta1 import auth_pb2 as cosmos_dot_auth_dot_v1beta1_dot_auth__pb2
-from amino import amino_pb2 as amino_dot_amino__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.cosmos.auth.v1beta1 import auth_pb2 as cosmos_dot_auth_dot_v1beta1_dot_auth__pb2
+from pyinjective.proto.amino import amino_pb2 as amino_dot_amino__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n!cosmos/auth/v1beta1/genesis.proto\x12\x13\x63osmos.auth.v1beta1\x1a\x19google/protobuf/any.proto\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/auth/v1beta1/auth.proto\x1a\x11\x61mino/amino.proto\"n\n\x0cGenesisState\x12\x36\n\x06params\x18\x01 \x01(\x0b\x32\x1b.cosmos.auth.v1beta1.ParamsB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12&\n\x08\x61\x63\x63ounts\x18\x02 \x03(\x0b\x32\x14.google.protobuf.AnyB+Z)github.com/cosmos/cosmos-sdk/x/auth/typesb\x06proto3')

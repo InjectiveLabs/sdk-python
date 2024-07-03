@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from injective.peggy.v1 import msgs_pb2 as injective_dot_peggy_dot_v1_dot_msgs__pb2
+from pyinjective.proto.injective.peggy.v1 import msgs_pb2 as injective_dot_peggy_dot_v1_dot_msgs__pb2
 
 
 class MsgStub(object):

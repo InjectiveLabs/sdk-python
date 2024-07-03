@@ -12,7 +12,7 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n$injective/types/v1beta1/tx_ext.proto\x12\x17injective.types.v1beta1\x1a\x14gogoproto/gogo.proto\"_\n\x16\x45xtensionOptionsWeb3Tx\x12\x18\n\x10typedDataChainID\x18\x01 \x01(\x04\x12\x10\n\x08\x66\x65\x65Payer\x18\x02 \x01(\t\x12\x13\n\x0b\x66\x65\x65PayerSig\x18\x03 \x01(\x0c:\x04\x88\xa0\x1f\x00\x42?Z=github.com/InjectiveLabs/injective-core/injective-chain/typesb\x06proto3')

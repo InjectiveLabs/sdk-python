@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 from google.protobuf import any_pb2 as google_dot_protobuf_dot_any__pb2
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n4ibc/applications/interchain_accounts/v1/packet.proto\x12\'ibc.applications.interchain_accounts.v1\x1a\x19google/protobuf/any.proto\x1a\x14gogoproto/gogo.proto\"v\n\x1bInterchainAccountPacketData\x12;\n\x04type\x18\x01 \x01(\x0e\x32-.ibc.applications.interchain_accounts.v1.Type\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\x12\x0c\n\x04memo\x18\x03 \x01(\t\"2\n\x08\x43osmosTx\x12&\n\x08messages\x18\x01 \x03(\x0b\x32\x14.google.protobuf.Any*X\n\x04Type\x12%\n\x10TYPE_UNSPECIFIED\x10\x00\x1a\x0f\x8a\x9d \x0bUNSPECIFIED\x12#\n\x0fTYPE_EXECUTE_TX\x10\x01\x1a\x0e\x8a\x9d \nEXECUTE_TX\x1a\x04\x88\xa3\x1e\x00\x42GZEgithub.com/cosmos/ibc-go/v7/modules/apps/27-interchain-accounts/typesb\x06proto3')

@@ -12,9 +12,9 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
-from cosmwasm.wasm.v1 import types_pb2 as cosmwasm_dot_wasm_dot_v1_dot_types__pb2
-from amino import amino_pb2 as amino_dot_amino__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.cosmwasm.wasm.v1 import types_pb2 as cosmwasm_dot_wasm_dot_v1_dot_types__pb2
+from pyinjective.proto.amino import amino_pb2 as amino_dot_amino__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1e\x63osmwasm/wasm/v1/genesis.proto\x12\x10\x63osmwasm.wasm.v1\x1a\x14gogoproto/gogo.proto\x1a\x1c\x63osmwasm/wasm/v1/types.proto\x1a\x11\x61mino/amino.proto\"\xaa\x02\n\x0cGenesisState\x12\x33\n\x06params\x18\x01 \x01(\x0b\x32\x18.cosmwasm.wasm.v1.ParamsB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12\x43\n\x05\x63odes\x18\x02 \x03(\x0b\x32\x16.cosmwasm.wasm.v1.CodeB\x1c\xc8\xde\x1f\x00\xea\xde\x1f\x0f\x63odes,omitempty\xa8\xe7\xb0*\x01\x12O\n\tcontracts\x18\x03 \x03(\x0b\x32\x1a.cosmwasm.wasm.v1.ContractB \xc8\xde\x1f\x00\xea\xde\x1f\x13\x63ontracts,omitempty\xa8\xe7\xb0*\x01\x12O\n\tsequences\x18\x04 \x03(\x0b\x32\x1a.cosmwasm.wasm.v1.SequenceB \xc8\xde\x1f\x00\xea\xde\x1f\x13sequences,omitempty\xa8\xe7\xb0*\x01\"\x81\x01\n\x04\x43ode\x12\x1b\n\x07\x63ode_id\x18\x01 \x01(\x04\x42\n\xe2\xde\x1f\x06\x43odeID\x12\x38\n\tcode_info\x18\x02 \x01(\x0b\x32\x1a.cosmwasm.wasm.v1.CodeInfoB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12\x12\n\ncode_bytes\x18\x03 \x01(\x0c\x12\x0e\n\x06pinned\x18\x04 \x01(\x08\"\xf8\x01\n\x08\x43ontract\x12\x18\n\x10\x63ontract_address\x18\x01 \x01(\t\x12@\n\rcontract_info\x18\x02 \x01(\x0b\x32\x1e.cosmwasm.wasm.v1.ContractInfoB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12:\n\x0e\x63ontract_state\x18\x03 \x03(\x0b\x32\x17.cosmwasm.wasm.v1.ModelB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12T\n\x15\x63ontract_code_history\x18\x04 \x03(\x0b\x32*.cosmwasm.wasm.v1.ContractCodeHistoryEntryB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\"4\n\x08Sequence\x12\x19\n\x06id_key\x18\x01 \x01(\x0c\x42\t\xe2\xde\x1f\x05IDKey\x12\r\n\x05value\x18\x02 \x01(\x04\x42(Z&github.com/CosmWasm/wasmd/x/wasm/typesb\x06proto3')

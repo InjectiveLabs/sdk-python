@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from exchange import health_pb2 as exchange_dot_health__pb2
+from pyinjective.proto.exchange import health_pb2 as exchange_dot_health__pb2
 
 
 class HealthStub(object):

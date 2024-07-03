@@ -12,9 +12,9 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
-from cosmos.msg.v1 import msg_pb2 as cosmos_dot_msg_dot_v1_dot_msg__pb2
-from tendermint.types import params_pb2 as tendermint_dot_types_dot_params__pb2
+from pyinjective.proto.cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
+from pyinjective.proto.cosmos.msg.v1 import msg_pb2 as cosmos_dot_msg_dot_v1_dot_msg__pb2
+from pyinjective.proto.tendermint.types import params_pb2 as tendermint_dot_types_dot_params__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1c\x63osmos/consensus/v1/tx.proto\x12\x13\x63osmos.consensus.v1\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x17\x63osmos/msg/v1/msg.proto\x1a\x1dtendermint/types/params.proto\"\xe6\x01\n\x0fMsgUpdateParams\x12+\n\tauthority\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12,\n\x05\x62lock\x18\x02 \x01(\x0b\x32\x1d.tendermint.types.BlockParams\x12\x32\n\x08\x65vidence\x18\x03 \x01(\x0b\x32 .tendermint.types.EvidenceParams\x12\x34\n\tvalidator\x18\x04 \x01(\x0b\x32!.tendermint.types.ValidatorParams:\x0e\x82\xe7\xb0*\tauthority\"\x19\n\x17MsgUpdateParamsResponse2i\n\x03Msg\x12\x62\n\x0cUpdateParams\x12$.cosmos.consensus.v1.MsgUpdateParams\x1a,.cosmos.consensus.v1.MsgUpdateParamsResponseB0Z.github.com/cosmos/cosmos-sdk/x/consensus/typesb\x06proto3')
