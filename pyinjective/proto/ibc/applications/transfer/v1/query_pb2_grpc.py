@@ -40,15 +40,15 @@ class QueryStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.DenomTraces = channel.unary_unary(
-                '/ibc.applications.transfer.v1.Query/DenomTraces',
-                request_serializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTracesRequest.SerializeToString,
-                response_deserializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTracesResponse.FromString,
-                _registered_method=True)
         self.DenomTrace = channel.unary_unary(
                 '/ibc.applications.transfer.v1.Query/DenomTrace',
                 request_serializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTraceRequest.SerializeToString,
                 response_deserializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTraceResponse.FromString,
+                _registered_method=True)
+        self.DenomTraces = channel.unary_unary(
+                '/ibc.applications.transfer.v1.Query/DenomTraces',
+                request_serializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTracesRequest.SerializeToString,
+                response_deserializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTracesResponse.FromString,
                 _registered_method=True)
         self.Params = channel.unary_unary(
                 '/ibc.applications.transfer.v1.Query/Params',
@@ -76,15 +76,15 @@ class QueryServicer(object):
     """Query provides defines the gRPC querier service.
     """
 
-    def DenomTraces(self, request, context):
-        """DenomTraces queries all denomination traces.
+    def DenomTrace(self, request, context):
+        """DenomTrace queries a denomination trace information.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def DenomTrace(self, request, context):
-        """DenomTrace queries a denomination trace information.
+    def DenomTraces(self, request, context):
+        """DenomTraces queries all denomination traces.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -121,15 +121,15 @@ class QueryServicer(object):
 
 def add_QueryServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'DenomTraces': grpc.unary_unary_rpc_method_handler(
-                    servicer.DenomTraces,
-                    request_deserializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTracesRequest.FromString,
-                    response_serializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTracesResponse.SerializeToString,
-            ),
             'DenomTrace': grpc.unary_unary_rpc_method_handler(
                     servicer.DenomTrace,
                     request_deserializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTraceRequest.FromString,
                     response_serializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTraceResponse.SerializeToString,
+            ),
+            'DenomTraces': grpc.unary_unary_rpc_method_handler(
+                    servicer.DenomTraces,
+                    request_deserializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTracesRequest.FromString,
+                    response_serializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTracesResponse.SerializeToString,
             ),
             'Params': grpc.unary_unary_rpc_method_handler(
                     servicer.Params,
@@ -164,33 +164,6 @@ class Query(object):
     """
 
     @staticmethod
-    def DenomTraces(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/ibc.applications.transfer.v1.Query/DenomTraces',
-            ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTracesRequest.SerializeToString,
-            ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTracesResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
     def DenomTrace(request,
             target,
             options=(),
@@ -207,6 +180,33 @@ class Query(object):
             '/ibc.applications.transfer.v1.Query/DenomTrace',
             ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTraceRequest.SerializeToString,
             ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTraceResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DenomTraces(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.applications.transfer.v1.Query/DenomTraces',
+            ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTracesRequest.SerializeToString,
+            ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTracesResponse.FromString,
             options,
             channel_credentials,
             insecure,

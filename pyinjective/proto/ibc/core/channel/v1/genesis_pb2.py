@@ -16,14 +16,14 @@ from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from pyinjective.proto.ibc.core.channel.v1 import channel_pb2 as ibc_dot_core_dot_channel_dot_v1_dot_channel__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n!ibc/core/channel/v1/genesis.proto\x12\x13ibc.core.channel.v1\x1a\x14gogoproto/gogo.proto\x1a!ibc/core/channel/v1/channel.proto\"\xb6\x04\n\x0cGenesisState\x12S\n\x08\x63hannels\x18\x01 \x03(\x0b\x32&.ibc.core.channel.v1.IdentifiedChannelB\x19\xc8\xde\x1f\x00\xfa\xde\x1f\x11IdentifiedChannel\x12@\n\x10\x61\x63knowledgements\x18\x02 \x03(\x0b\x32 .ibc.core.channel.v1.PacketStateB\x04\xc8\xde\x1f\x00\x12;\n\x0b\x63ommitments\x18\x03 \x03(\x0b\x32 .ibc.core.channel.v1.PacketStateB\x04\xc8\xde\x1f\x00\x12\x38\n\x08receipts\x18\x04 \x03(\x0b\x32 .ibc.core.channel.v1.PacketStateB\x04\xc8\xde\x1f\x00\x12\x41\n\x0esend_sequences\x18\x05 \x03(\x0b\x32#.ibc.core.channel.v1.PacketSequenceB\x04\xc8\xde\x1f\x00\x12\x41\n\x0erecv_sequences\x18\x06 \x03(\x0b\x32#.ibc.core.channel.v1.PacketSequenceB\x04\xc8\xde\x1f\x00\x12@\n\rack_sequences\x18\x07 \x03(\x0b\x32#.ibc.core.channel.v1.PacketSequenceB\x04\xc8\xde\x1f\x00\x12\x1d\n\x15next_channel_sequence\x18\x08 \x01(\x04\x12\x31\n\x06params\x18\t \x01(\x0b\x32\x1b.ibc.core.channel.v1.ParamsB\x04\xc8\xde\x1f\x00\"G\n\x0ePacketSequence\x12\x0f\n\x07port_id\x18\x01 \x01(\t\x12\x12\n\nchannel_id\x18\x02 \x01(\t\x12\x10\n\x08sequence\x18\x03 \x01(\x04\x42;Z9github.com/cosmos/ibc-go/v8/modules/core/04-channel/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n!ibc/core/channel/v1/genesis.proto\x12\x13ibc.core.channel.v1\x1a\x14gogoproto/gogo.proto\x1a!ibc/core/channel/v1/channel.proto\"\xef\x04\n\x0cGenesisState\x12S\n\x08\x63hannels\x18\x01 \x03(\x0b\x32&.ibc.core.channel.v1.IdentifiedChannelB\x19\xc8\xde\x1f\x00\xfa\xde\x1f\x11IdentifiedChannel\x12@\n\x10\x61\x63knowledgements\x18\x02 \x03(\x0b\x32 .ibc.core.channel.v1.PacketStateB\x04\xc8\xde\x1f\x00\x12;\n\x0b\x63ommitments\x18\x03 \x03(\x0b\x32 .ibc.core.channel.v1.PacketStateB\x04\xc8\xde\x1f\x00\x12\x38\n\x08receipts\x18\x04 \x03(\x0b\x32 .ibc.core.channel.v1.PacketStateB\x04\xc8\xde\x1f\x00\x12Z\n\x0esend_sequences\x18\x05 \x03(\x0b\x32#.ibc.core.channel.v1.PacketSequenceB\x1d\xc8\xde\x1f\x00\xf2\xde\x1f\x15yaml:\"send_sequences\"\x12Z\n\x0erecv_sequences\x18\x06 \x03(\x0b\x32#.ibc.core.channel.v1.PacketSequenceB\x1d\xc8\xde\x1f\x00\xf2\xde\x1f\x15yaml:\"recv_sequences\"\x12X\n\rack_sequences\x18\x07 \x03(\x0b\x32#.ibc.core.channel.v1.PacketSequenceB\x1c\xc8\xde\x1f\x00\xf2\xde\x1f\x14yaml:\"ack_sequences\"\x12?\n\x15next_channel_sequence\x18\x08 \x01(\x04\x42 \xf2\xde\x1f\x1cyaml:\"next_channel_sequence\"\"r\n\x0ePacketSequence\x12#\n\x07port_id\x18\x01 \x01(\tB\x12\xf2\xde\x1f\x0eyaml:\"port_id\"\x12)\n\nchannel_id\x18\x02 \x01(\tB\x15\xf2\xde\x1f\x11yaml:\"channel_id\"\x12\x10\n\x08sequence\x18\x03 \x01(\x04\x42;Z9github.com/cosmos/ibc-go/v7/modules/core/04-channel/typesb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'ibc.core.channel.v1.genesis_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
-  _globals['DESCRIPTOR']._serialized_options = b'Z9github.com/cosmos/ibc-go/v8/modules/core/04-channel/types'
+  _globals['DESCRIPTOR']._serialized_options = b'Z9github.com/cosmos/ibc-go/v7/modules/core/04-channel/types'
   _globals['_GENESISSTATE'].fields_by_name['channels']._loaded_options = None
   _globals['_GENESISSTATE'].fields_by_name['channels']._serialized_options = b'\310\336\037\000\372\336\037\021IdentifiedChannel'
   _globals['_GENESISSTATE'].fields_by_name['acknowledgements']._loaded_options = None
@@ -33,15 +33,19 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_GENESISSTATE'].fields_by_name['receipts']._loaded_options = None
   _globals['_GENESISSTATE'].fields_by_name['receipts']._serialized_options = b'\310\336\037\000'
   _globals['_GENESISSTATE'].fields_by_name['send_sequences']._loaded_options = None
-  _globals['_GENESISSTATE'].fields_by_name['send_sequences']._serialized_options = b'\310\336\037\000'
+  _globals['_GENESISSTATE'].fields_by_name['send_sequences']._serialized_options = b'\310\336\037\000\362\336\037\025yaml:\"send_sequences\"'
   _globals['_GENESISSTATE'].fields_by_name['recv_sequences']._loaded_options = None
-  _globals['_GENESISSTATE'].fields_by_name['recv_sequences']._serialized_options = b'\310\336\037\000'
+  _globals['_GENESISSTATE'].fields_by_name['recv_sequences']._serialized_options = b'\310\336\037\000\362\336\037\025yaml:\"recv_sequences\"'
   _globals['_GENESISSTATE'].fields_by_name['ack_sequences']._loaded_options = None
-  _globals['_GENESISSTATE'].fields_by_name['ack_sequences']._serialized_options = b'\310\336\037\000'
-  _globals['_GENESISSTATE'].fields_by_name['params']._loaded_options = None
-  _globals['_GENESISSTATE'].fields_by_name['params']._serialized_options = b'\310\336\037\000'
+  _globals['_GENESISSTATE'].fields_by_name['ack_sequences']._serialized_options = b'\310\336\037\000\362\336\037\024yaml:\"ack_sequences\"'
+  _globals['_GENESISSTATE'].fields_by_name['next_channel_sequence']._loaded_options = None
+  _globals['_GENESISSTATE'].fields_by_name['next_channel_sequence']._serialized_options = b'\362\336\037\034yaml:\"next_channel_sequence\"'
+  _globals['_PACKETSEQUENCE'].fields_by_name['port_id']._loaded_options = None
+  _globals['_PACKETSEQUENCE'].fields_by_name['port_id']._serialized_options = b'\362\336\037\016yaml:\"port_id\"'
+  _globals['_PACKETSEQUENCE'].fields_by_name['channel_id']._loaded_options = None
+  _globals['_PACKETSEQUENCE'].fields_by_name['channel_id']._serialized_options = b'\362\336\037\021yaml:\"channel_id\"'
   _globals['_GENESISSTATE']._serialized_start=116
-  _globals['_GENESISSTATE']._serialized_end=682
-  _globals['_PACKETSEQUENCE']._serialized_start=684
-  _globals['_PACKETSEQUENCE']._serialized_end=755
+  _globals['_GENESISSTATE']._serialized_end=739
+  _globals['_PACKETSEQUENCE']._serialized_start=741
+  _globals['_PACKETSEQUENCE']._serialized_end=855
 # @@protoc_insertion_point(module_scope)

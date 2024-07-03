@@ -19,14 +19,14 @@ from pyinjective.proto.cosmos.msg.v1 import msg_pb2 as cosmos_dot_msg_dot_v1_dot
 from pyinjective.proto.amino import amino_pb2 as amino_dot_amino__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n cosmos/evidence/v1beta1/tx.proto\x12\x17\x63osmos.evidence.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x19google/protobuf/any.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x17\x63osmos/msg/v1/msg.proto\x1a\x11\x61mino/amino.proto\"\xc7\x01\n\x11MsgSubmitEvidence\x12+\n\tsubmitter\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12L\n\x08\x65vidence\x18\x02 \x01(\x0b\x32\x14.google.protobuf.AnyB$\xca\xb4- cosmos.evidence.v1beta1.Evidence:7\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\x82\xe7\xb0*\tsubmitter\x8a\xe7\xb0*\x1c\x63osmos-sdk/MsgSubmitEvidence\")\n\x19MsgSubmitEvidenceResponse\x12\x0c\n\x04hash\x18\x04 \x01(\x0c\x32~\n\x03Msg\x12p\n\x0eSubmitEvidence\x12*.cosmos.evidence.v1beta1.MsgSubmitEvidence\x1a\x32.cosmos.evidence.v1beta1.MsgSubmitEvidenceResponse\x1a\x05\x80\xe7\xb0*\x01\x42#Z\x1d\x63osmossdk.io/x/evidence/types\xa8\xe2\x1e\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n cosmos/evidence/v1beta1/tx.proto\x12\x17\x63osmos.evidence.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x19google/protobuf/any.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x17\x63osmos/msg/v1/msg.proto\x1a\x11\x61mino/amino.proto\"\xc7\x01\n\x11MsgSubmitEvidence\x12+\n\tsubmitter\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12L\n\x08\x65vidence\x18\x02 \x01(\x0b\x32\x14.google.protobuf.AnyB$\xca\xb4- cosmos.evidence.v1beta1.Evidence:7\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\x82\xe7\xb0*\tsubmitter\x8a\xe7\xb0*\x1c\x63osmos-sdk/MsgSubmitEvidence\")\n\x19MsgSubmitEvidenceResponse\x12\x0c\n\x04hash\x18\x04 \x01(\x0c\x32~\n\x03Msg\x12p\n\x0eSubmitEvidence\x12*.cosmos.evidence.v1beta1.MsgSubmitEvidence\x1a\x32.cosmos.evidence.v1beta1.MsgSubmitEvidenceResponse\x1a\x05\x80\xe7\xb0*\x01\x42\x33Z-github.com/cosmos/cosmos-sdk/x/evidence/types\xa8\xe2\x1e\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'cosmos.evidence.v1beta1.tx_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
-  _globals['DESCRIPTOR']._serialized_options = b'Z\035cosmossdk.io/x/evidence/types\250\342\036\001'
+  _globals['DESCRIPTOR']._serialized_options = b'Z-github.com/cosmos/cosmos-sdk/x/evidence/types\250\342\036\001'
   _globals['_MSGSUBMITEVIDENCE'].fields_by_name['submitter']._loaded_options = None
   _globals['_MSGSUBMITEVIDENCE'].fields_by_name['submitter']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _globals['_MSGSUBMITEVIDENCE'].fields_by_name['evidence']._loaded_options = None

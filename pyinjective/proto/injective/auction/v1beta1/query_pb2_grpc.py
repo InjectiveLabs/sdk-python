@@ -55,11 +55,6 @@ class QueryStub(object):
                 request_serializer=injective_dot_auction_dot_v1beta1_dot_query__pb2.QueryModuleStateRequest.SerializeToString,
                 response_deserializer=injective_dot_auction_dot_v1beta1_dot_query__pb2.QueryModuleStateResponse.FromString,
                 _registered_method=True)
-        self.LastAuctionResult = channel.unary_unary(
-                '/injective.auction.v1beta1.Query/LastAuctionResult',
-                request_serializer=injective_dot_auction_dot_v1beta1_dot_query__pb2.QueryLastAuctionResultRequest.SerializeToString,
-                response_deserializer=injective_dot_auction_dot_v1beta1_dot_query__pb2.QueryLastAuctionResultResponse.FromString,
-                _registered_method=True)
 
 
 class QueryServicer(object):
@@ -87,12 +82,6 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def LastAuctionResult(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
 
 def add_QueryServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -110,11 +99,6 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.AuctionModuleState,
                     request_deserializer=injective_dot_auction_dot_v1beta1_dot_query__pb2.QueryModuleStateRequest.FromString,
                     response_serializer=injective_dot_auction_dot_v1beta1_dot_query__pb2.QueryModuleStateResponse.SerializeToString,
-            ),
-            'LastAuctionResult': grpc.unary_unary_rpc_method_handler(
-                    servicer.LastAuctionResult,
-                    request_deserializer=injective_dot_auction_dot_v1beta1_dot_query__pb2.QueryLastAuctionResultRequest.FromString,
-                    response_serializer=injective_dot_auction_dot_v1beta1_dot_query__pb2.QueryLastAuctionResultResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -199,33 +183,6 @@ class Query(object):
             '/injective.auction.v1beta1.Query/AuctionModuleState',
             injective_dot_auction_dot_v1beta1_dot_query__pb2.QueryModuleStateRequest.SerializeToString,
             injective_dot_auction_dot_v1beta1_dot_query__pb2.QueryModuleStateResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def LastAuctionResult(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective.auction.v1beta1.Query/LastAuctionResult',
-            injective_dot_auction_dot_v1beta1_dot_query__pb2.QueryLastAuctionResultRequest.SerializeToString,
-            injective_dot_auction_dot_v1beta1_dot_query__pb2.QueryLastAuctionResultResponse.FromString,
             options,
             channel_credentials,
             insecure,

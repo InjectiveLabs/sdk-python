@@ -17,7 +17,7 @@ from pyinjective.proto.cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmo
 from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n%injective/types/v1beta1/account.proto\x12\x17injective.types.v1beta1\x1a\x1e\x63osmos/auth/v1beta1/auth.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x14gogoproto/gogo.proto\"\xb8\x01\n\nEthAccount\x12S\n\x0c\x62\x61se_account\x18\x01 \x01(\x0b\x32 .cosmos.auth.v1beta1.BaseAccountB\x1b\xd0\xde\x1f\x01\xf2\xde\x1f\x13yaml:\"base_account\"\x12\'\n\tcode_hash\x18\x02 \x01(\x0c\x42\x14\xf2\xde\x1f\x10yaml:\"code_hash\":,\x88\xa0\x1f\x00\x98\xa0\x1f\x00\xe8\xa0\x1f\x00\xca\xb4-\x1c\x63osmos.auth.v1beta1.AccountIB?Z=github.com/InjectiveLabs/injective-core/injective-chain/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n%injective/types/v1beta1/account.proto\x12\x17injective.types.v1beta1\x1a\x1e\x63osmos/auth/v1beta1/auth.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x14gogoproto/gogo.proto\"\xce\x01\n\nEthAccount\x12S\n\x0c\x62\x61se_account\x18\x01 \x01(\x0b\x32 .cosmos.auth.v1beta1.BaseAccountB\x1b\xd0\xde\x1f\x01\xf2\xde\x1f\x13yaml:\"base_account\"\x12\'\n\tcode_hash\x18\x02 \x01(\x0c\x42\x14\xf2\xde\x1f\x10yaml:\"code_hash\":B\x88\xa0\x1f\x00\x98\xa0\x1f\x00\xe8\xa0\x1f\x00\xca\xb4-2github.com/cosmos/cosmos-sdk/x/auth/types.AccountIB?Z=github.com/InjectiveLabs/injective-core/injective-chain/typesb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -30,7 +30,7 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_ETHACCOUNT'].fields_by_name['code_hash']._loaded_options = None
   _globals['_ETHACCOUNT'].fields_by_name['code_hash']._serialized_options = b'\362\336\037\020yaml:\"code_hash\"'
   _globals['_ETHACCOUNT']._loaded_options = None
-  _globals['_ETHACCOUNT']._serialized_options = b'\210\240\037\000\230\240\037\000\350\240\037\000\312\264-\034cosmos.auth.v1beta1.AccountI'
+  _globals['_ETHACCOUNT']._serialized_options = b'\210\240\037\000\230\240\037\000\350\240\037\000\312\264-2github.com/cosmos/cosmos-sdk/x/auth/types.AccountI'
   _globals['_ETHACCOUNT']._serialized_start=148
-  _globals['_ETHACCOUNT']._serialized_end=332
+  _globals['_ETHACCOUNT']._serialized_end=354
 # @@protoc_insertion_point(module_scope)

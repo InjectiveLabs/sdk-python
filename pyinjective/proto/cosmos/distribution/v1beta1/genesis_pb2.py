@@ -19,7 +19,7 @@ from pyinjective.proto.cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmo
 from pyinjective.proto.amino import amino_pb2 as amino_dot_amino__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n)cosmos/distribution/v1beta1/genesis.proto\x12\x1b\x63osmos.distribution.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a.cosmos/distribution/v1beta1/distribution.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x11\x61mino/amino.proto\"\x8a\x01\n\x15\x44\x65legatorWithdrawInfo\x12\x33\n\x11\x64\x65legator_address\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12\x32\n\x10withdraw_address\x18\x02 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString:\x08\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\"\xe0\x01\n!ValidatorOutstandingRewardsRecord\x12<\n\x11validator_address\x18\x01 \x01(\tB!\xd2\xb4-\x1d\x63osmos.ValidatorAddressString\x12s\n\x13outstanding_rewards\x18\x02 \x03(\x0b\x32\x1c.cosmos.base.v1beta1.DecCoinB8\xc8\xde\x1f\x00\xaa\xdf\x1f+github.com/cosmos/cosmos-sdk/types.DecCoins\xa8\xe7\xb0*\x01:\x08\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\"\xcb\x01\n$ValidatorAccumulatedCommissionRecord\x12<\n\x11validator_address\x18\x01 \x01(\tB!\xd2\xb4-\x1d\x63osmos.ValidatorAddressString\x12[\n\x0b\x61\x63\x63umulated\x18\x02 \x01(\x0b\x32;.cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01:\x08\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\"\xcf\x01\n ValidatorHistoricalRewardsRecord\x12<\n\x11validator_address\x18\x01 \x01(\tB!\xd2\xb4-\x1d\x63osmos.ValidatorAddressString\x12\x0e\n\x06period\x18\x02 \x01(\x04\x12S\n\x07rewards\x18\x03 \x01(\x0b\x32\x37.cosmos.distribution.v1beta1.ValidatorHistoricalRewardsB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01:\x08\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\"\xb9\x01\n\x1dValidatorCurrentRewardsRecord\x12<\n\x11validator_address\x18\x01 \x01(\tB!\xd2\xb4-\x1d\x63osmos.ValidatorAddressString\x12P\n\x07rewards\x18\x02 \x01(\x0b\x32\x34.cosmos.distribution.v1beta1.ValidatorCurrentRewardsB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01:\x08\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\"\xf0\x01\n\x1b\x44\x65legatorStartingInfoRecord\x12\x33\n\x11\x64\x65legator_address\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12<\n\x11validator_address\x18\x02 \x01(\tB!\xd2\xb4-\x1d\x63osmos.ValidatorAddressString\x12T\n\rstarting_info\x18\x03 \x01(\x0b\x32\x32.cosmos.distribution.v1beta1.DelegatorStartingInfoB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01:\x08\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\"\xdf\x01\n\x19ValidatorSlashEventRecord\x12<\n\x11validator_address\x18\x01 \x01(\tB!\xd2\xb4-\x1d\x63osmos.ValidatorAddressString\x12\x0e\n\x06height\x18\x02 \x01(\x04\x12\x0e\n\x06period\x18\x03 \x01(\x04\x12Z\n\x15validator_slash_event\x18\x04 \x01(\x0b\x32\x30.cosmos.distribution.v1beta1.ValidatorSlashEventB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01:\x08\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\"\xb6\x07\n\x0cGenesisState\x12>\n\x06params\x18\x01 \x01(\x0b\x32#.cosmos.distribution.v1beta1.ParamsB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12\x41\n\x08\x66\x65\x65_pool\x18\x02 \x01(\x0b\x32$.cosmos.distribution.v1beta1.FeePoolB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12_\n\x18\x64\x65legator_withdraw_infos\x18\x03 \x03(\x0b\x32\x32.cosmos.distribution.v1beta1.DelegatorWithdrawInfoB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12\x33\n\x11previous_proposer\x18\x04 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12\x66\n\x13outstanding_rewards\x18\x05 \x03(\x0b\x32>.cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecordB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12w\n!validator_accumulated_commissions\x18\x06 \x03(\x0b\x32\x41.cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecordB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12n\n\x1cvalidator_historical_rewards\x18\x07 \x03(\x0b\x32=.cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecordB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12h\n\x19validator_current_rewards\x18\x08 \x03(\x0b\x32:.cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecordB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12\x65\n\x18\x64\x65legator_starting_infos\x18\t \x03(\x0b\x32\x38.cosmos.distribution.v1beta1.DelegatorStartingInfoRecordB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12\x61\n\x16validator_slash_events\x18\n \x03(\x0b\x32\x36.cosmos.distribution.v1beta1.ValidatorSlashEventRecordB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01:\x08\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\x42\x37Z1github.com/cosmos/cosmos-sdk/x/distribution/types\xa8\xe2\x1e\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n)cosmos/distribution/v1beta1/genesis.proto\x12\x1b\x63osmos.distribution.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a.cosmos/distribution/v1beta1/distribution.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x11\x61mino/amino.proto\"\x8a\x01\n\x15\x44\x65legatorWithdrawInfo\x12\x33\n\x11\x64\x65legator_address\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12\x32\n\x10withdraw_address\x18\x02 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString:\x08\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\"\xd7\x01\n!ValidatorOutstandingRewardsRecord\x12\x33\n\x11validator_address\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12s\n\x13outstanding_rewards\x18\x02 \x03(\x0b\x32\x1c.cosmos.base.v1beta1.DecCoinB8\xc8\xde\x1f\x00\xaa\xdf\x1f+github.com/cosmos/cosmos-sdk/types.DecCoins\xa8\xe7\xb0*\x01:\x08\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\"\xc2\x01\n$ValidatorAccumulatedCommissionRecord\x12\x33\n\x11validator_address\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12[\n\x0b\x61\x63\x63umulated\x18\x02 \x01(\x0b\x32;.cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01:\x08\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\"\xc6\x01\n ValidatorHistoricalRewardsRecord\x12\x33\n\x11validator_address\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12\x0e\n\x06period\x18\x02 \x01(\x04\x12S\n\x07rewards\x18\x03 \x01(\x0b\x32\x37.cosmos.distribution.v1beta1.ValidatorHistoricalRewardsB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01:\x08\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\"\xb0\x01\n\x1dValidatorCurrentRewardsRecord\x12\x33\n\x11validator_address\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12P\n\x07rewards\x18\x02 \x01(\x0b\x32\x34.cosmos.distribution.v1beta1.ValidatorCurrentRewardsB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01:\x08\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\"\xe7\x01\n\x1b\x44\x65legatorStartingInfoRecord\x12\x33\n\x11\x64\x65legator_address\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12\x33\n\x11validator_address\x18\x02 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12T\n\rstarting_info\x18\x03 \x01(\x0b\x32\x32.cosmos.distribution.v1beta1.DelegatorStartingInfoB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01:\x08\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\"\xd6\x01\n\x19ValidatorSlashEventRecord\x12\x33\n\x11validator_address\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12\x0e\n\x06height\x18\x02 \x01(\x04\x12\x0e\n\x06period\x18\x03 \x01(\x04\x12Z\n\x15validator_slash_event\x18\x04 \x01(\x0b\x32\x30.cosmos.distribution.v1beta1.ValidatorSlashEventB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01:\x08\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\"\xb6\x07\n\x0cGenesisState\x12>\n\x06params\x18\x01 \x01(\x0b\x32#.cosmos.distribution.v1beta1.ParamsB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12\x41\n\x08\x66\x65\x65_pool\x18\x02 \x01(\x0b\x32$.cosmos.distribution.v1beta1.FeePoolB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12_\n\x18\x64\x65legator_withdraw_infos\x18\x03 \x03(\x0b\x32\x32.cosmos.distribution.v1beta1.DelegatorWithdrawInfoB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12\x33\n\x11previous_proposer\x18\x04 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12\x66\n\x13outstanding_rewards\x18\x05 \x03(\x0b\x32>.cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecordB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12w\n!validator_accumulated_commissions\x18\x06 \x03(\x0b\x32\x41.cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecordB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12n\n\x1cvalidator_historical_rewards\x18\x07 \x03(\x0b\x32=.cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecordB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12h\n\x19validator_current_rewards\x18\x08 \x03(\x0b\x32:.cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecordB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12\x65\n\x18\x64\x65legator_starting_infos\x18\t \x03(\x0b\x32\x38.cosmos.distribution.v1beta1.DelegatorStartingInfoRecordB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12\x61\n\x16validator_slash_events\x18\n \x03(\x0b\x32\x36.cosmos.distribution.v1beta1.ValidatorSlashEventRecordB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01:\x08\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\x42\x37Z1github.com/cosmos/cosmos-sdk/x/distribution/types\xa8\xe2\x1e\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -34,25 +34,25 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_DELEGATORWITHDRAWINFO']._loaded_options = None
   _globals['_DELEGATORWITHDRAWINFO']._serialized_options = b'\210\240\037\000\350\240\037\000'
   _globals['_VALIDATOROUTSTANDINGREWARDSRECORD'].fields_by_name['validator_address']._loaded_options = None
-  _globals['_VALIDATOROUTSTANDINGREWARDSRECORD'].fields_by_name['validator_address']._serialized_options = b'\322\264-\035cosmos.ValidatorAddressString'
+  _globals['_VALIDATOROUTSTANDINGREWARDSRECORD'].fields_by_name['validator_address']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _globals['_VALIDATOROUTSTANDINGREWARDSRECORD'].fields_by_name['outstanding_rewards']._loaded_options = None
   _globals['_VALIDATOROUTSTANDINGREWARDSRECORD'].fields_by_name['outstanding_rewards']._serialized_options = b'\310\336\037\000\252\337\037+github.com/cosmos/cosmos-sdk/types.DecCoins\250\347\260*\001'
   _globals['_VALIDATOROUTSTANDINGREWARDSRECORD']._loaded_options = None
   _globals['_VALIDATOROUTSTANDINGREWARDSRECORD']._serialized_options = b'\210\240\037\000\350\240\037\000'
   _globals['_VALIDATORACCUMULATEDCOMMISSIONRECORD'].fields_by_name['validator_address']._loaded_options = None
-  _globals['_VALIDATORACCUMULATEDCOMMISSIONRECORD'].fields_by_name['validator_address']._serialized_options = b'\322\264-\035cosmos.ValidatorAddressString'
+  _globals['_VALIDATORACCUMULATEDCOMMISSIONRECORD'].fields_by_name['validator_address']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _globals['_VALIDATORACCUMULATEDCOMMISSIONRECORD'].fields_by_name['accumulated']._loaded_options = None
   _globals['_VALIDATORACCUMULATEDCOMMISSIONRECORD'].fields_by_name['accumulated']._serialized_options = b'\310\336\037\000\250\347\260*\001'
   _globals['_VALIDATORACCUMULATEDCOMMISSIONRECORD']._loaded_options = None
   _globals['_VALIDATORACCUMULATEDCOMMISSIONRECORD']._serialized_options = b'\210\240\037\000\350\240\037\000'
   _globals['_VALIDATORHISTORICALREWARDSRECORD'].fields_by_name['validator_address']._loaded_options = None
-  _globals['_VALIDATORHISTORICALREWARDSRECORD'].fields_by_name['validator_address']._serialized_options = b'\322\264-\035cosmos.ValidatorAddressString'
+  _globals['_VALIDATORHISTORICALREWARDSRECORD'].fields_by_name['validator_address']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _globals['_VALIDATORHISTORICALREWARDSRECORD'].fields_by_name['rewards']._loaded_options = None
   _globals['_VALIDATORHISTORICALREWARDSRECORD'].fields_by_name['rewards']._serialized_options = b'\310\336\037\000\250\347\260*\001'
   _globals['_VALIDATORHISTORICALREWARDSRECORD']._loaded_options = None
   _globals['_VALIDATORHISTORICALREWARDSRECORD']._serialized_options = b'\210\240\037\000\350\240\037\000'
   _globals['_VALIDATORCURRENTREWARDSRECORD'].fields_by_name['validator_address']._loaded_options = None
-  _globals['_VALIDATORCURRENTREWARDSRECORD'].fields_by_name['validator_address']._serialized_options = b'\322\264-\035cosmos.ValidatorAddressString'
+  _globals['_VALIDATORCURRENTREWARDSRECORD'].fields_by_name['validator_address']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _globals['_VALIDATORCURRENTREWARDSRECORD'].fields_by_name['rewards']._loaded_options = None
   _globals['_VALIDATORCURRENTREWARDSRECORD'].fields_by_name['rewards']._serialized_options = b'\310\336\037\000\250\347\260*\001'
   _globals['_VALIDATORCURRENTREWARDSRECORD']._loaded_options = None
@@ -60,13 +60,13 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_DELEGATORSTARTINGINFORECORD'].fields_by_name['delegator_address']._loaded_options = None
   _globals['_DELEGATORSTARTINGINFORECORD'].fields_by_name['delegator_address']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _globals['_DELEGATORSTARTINGINFORECORD'].fields_by_name['validator_address']._loaded_options = None
-  _globals['_DELEGATORSTARTINGINFORECORD'].fields_by_name['validator_address']._serialized_options = b'\322\264-\035cosmos.ValidatorAddressString'
+  _globals['_DELEGATORSTARTINGINFORECORD'].fields_by_name['validator_address']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _globals['_DELEGATORSTARTINGINFORECORD'].fields_by_name['starting_info']._loaded_options = None
   _globals['_DELEGATORSTARTINGINFORECORD'].fields_by_name['starting_info']._serialized_options = b'\310\336\037\000\250\347\260*\001'
   _globals['_DELEGATORSTARTINGINFORECORD']._loaded_options = None
   _globals['_DELEGATORSTARTINGINFORECORD']._serialized_options = b'\210\240\037\000\350\240\037\000'
   _globals['_VALIDATORSLASHEVENTRECORD'].fields_by_name['validator_address']._loaded_options = None
-  _globals['_VALIDATORSLASHEVENTRECORD'].fields_by_name['validator_address']._serialized_options = b'\322\264-\035cosmos.ValidatorAddressString'
+  _globals['_VALIDATORSLASHEVENTRECORD'].fields_by_name['validator_address']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _globals['_VALIDATORSLASHEVENTRECORD'].fields_by_name['validator_slash_event']._loaded_options = None
   _globals['_VALIDATORSLASHEVENTRECORD'].fields_by_name['validator_slash_event']._serialized_options = b'\310\336\037\000\250\347\260*\001'
   _globals['_VALIDATORSLASHEVENTRECORD']._loaded_options = None
@@ -96,17 +96,17 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_DELEGATORWITHDRAWINFO']._serialized_start=223
   _globals['_DELEGATORWITHDRAWINFO']._serialized_end=361
   _globals['_VALIDATOROUTSTANDINGREWARDSRECORD']._serialized_start=364
-  _globals['_VALIDATOROUTSTANDINGREWARDSRECORD']._serialized_end=588
-  _globals['_VALIDATORACCUMULATEDCOMMISSIONRECORD']._serialized_start=591
-  _globals['_VALIDATORACCUMULATEDCOMMISSIONRECORD']._serialized_end=794
-  _globals['_VALIDATORHISTORICALREWARDSRECORD']._serialized_start=797
-  _globals['_VALIDATORHISTORICALREWARDSRECORD']._serialized_end=1004
-  _globals['_VALIDATORCURRENTREWARDSRECORD']._serialized_start=1007
-  _globals['_VALIDATORCURRENTREWARDSRECORD']._serialized_end=1192
-  _globals['_DELEGATORSTARTINGINFORECORD']._serialized_start=1195
-  _globals['_DELEGATORSTARTINGINFORECORD']._serialized_end=1435
-  _globals['_VALIDATORSLASHEVENTRECORD']._serialized_start=1438
-  _globals['_VALIDATORSLASHEVENTRECORD']._serialized_end=1661
-  _globals['_GENESISSTATE']._serialized_start=1664
-  _globals['_GENESISSTATE']._serialized_end=2614
+  _globals['_VALIDATOROUTSTANDINGREWARDSRECORD']._serialized_end=579
+  _globals['_VALIDATORACCUMULATEDCOMMISSIONRECORD']._serialized_start=582
+  _globals['_VALIDATORACCUMULATEDCOMMISSIONRECORD']._serialized_end=776
+  _globals['_VALIDATORHISTORICALREWARDSRECORD']._serialized_start=779
+  _globals['_VALIDATORHISTORICALREWARDSRECORD']._serialized_end=977
+  _globals['_VALIDATORCURRENTREWARDSRECORD']._serialized_start=980
+  _globals['_VALIDATORCURRENTREWARDSRECORD']._serialized_end=1156
+  _globals['_DELEGATORSTARTINGINFORECORD']._serialized_start=1159
+  _globals['_DELEGATORSTARTINGINFORECORD']._serialized_end=1390
+  _globals['_VALIDATORSLASHEVENTRECORD']._serialized_start=1393
+  _globals['_VALIDATORSLASHEVENTRECORD']._serialized_end=1607
+  _globals['_GENESISSTATE']._serialized_start=1610
+  _globals['_GENESISSTATE']._serialized_end=2560
 # @@protoc_insertion_point(module_scope)

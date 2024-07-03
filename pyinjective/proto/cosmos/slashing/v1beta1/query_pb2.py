@@ -20,7 +20,7 @@ from pyinjective.proto.cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmo
 from pyinjective.proto.amino import amino_pb2 as amino_dot_amino__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n#cosmos/slashing/v1beta1/query.proto\x12\x17\x63osmos.slashing.v1beta1\x1a*cosmos/base/query/v1beta1/pagination.proto\x1a\x14gogoproto/gogo.proto\x1a\x1cgoogle/api/annotations.proto\x1a&cosmos/slashing/v1beta1/slashing.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x11\x61mino/amino.proto\"\x14\n\x12QueryParamsRequest\"Q\n\x13QueryParamsResponse\x12:\n\x06params\x18\x01 \x01(\x0b\x32\x1f.cosmos.slashing.v1beta1.ParamsB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\"R\n\x17QuerySigningInfoRequest\x12\x37\n\x0c\x63ons_address\x18\x01 \x01(\tB!\xd2\xb4-\x1d\x63osmos.ConsensusAddressString\"n\n\x18QuerySigningInfoResponse\x12R\n\x10val_signing_info\x18\x01 \x01(\x0b\x32-.cosmos.slashing.v1beta1.ValidatorSigningInfoB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\"V\n\x18QuerySigningInfosRequest\x12:\n\npagination\x18\x01 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequest\"\xa0\x01\n\x19QuerySigningInfosResponse\x12\x46\n\x04info\x18\x01 \x03(\x0b\x32-.cosmos.slashing.v1beta1.ValidatorSigningInfoB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12;\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponse2\xf2\x03\n\x05Query\x12\x8c\x01\n\x06Params\x12+.cosmos.slashing.v1beta1.QueryParamsRequest\x1a,.cosmos.slashing.v1beta1.QueryParamsResponse\"\'\x82\xd3\xe4\x93\x02!\x12\x1f/cosmos/slashing/v1beta1/params\x12\xb1\x01\n\x0bSigningInfo\x12\x30.cosmos.slashing.v1beta1.QuerySigningInfoRequest\x1a\x31.cosmos.slashing.v1beta1.QuerySigningInfoResponse\"=\x82\xd3\xe4\x93\x02\x37\x12\x35/cosmos/slashing/v1beta1/signing_infos/{cons_address}\x12\xa5\x01\n\x0cSigningInfos\x12\x31.cosmos.slashing.v1beta1.QuerySigningInfosRequest\x1a\x32.cosmos.slashing.v1beta1.QuerySigningInfosResponse\".\x82\xd3\xe4\x93\x02(\x12&/cosmos/slashing/v1beta1/signing_infosB/Z-github.com/cosmos/cosmos-sdk/x/slashing/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n#cosmos/slashing/v1beta1/query.proto\x12\x17\x63osmos.slashing.v1beta1\x1a*cosmos/base/query/v1beta1/pagination.proto\x1a\x14gogoproto/gogo.proto\x1a\x1cgoogle/api/annotations.proto\x1a&cosmos/slashing/v1beta1/slashing.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x11\x61mino/amino.proto\"\x14\n\x12QueryParamsRequest\"Q\n\x13QueryParamsResponse\x12:\n\x06params\x18\x01 \x01(\x0b\x32\x1f.cosmos.slashing.v1beta1.ParamsB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\"I\n\x17QuerySigningInfoRequest\x12.\n\x0c\x63ons_address\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\"n\n\x18QuerySigningInfoResponse\x12R\n\x10val_signing_info\x18\x01 \x01(\x0b\x32-.cosmos.slashing.v1beta1.ValidatorSigningInfoB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\"V\n\x18QuerySigningInfosRequest\x12:\n\npagination\x18\x01 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequest\"\xa0\x01\n\x19QuerySigningInfosResponse\x12\x46\n\x04info\x18\x01 \x03(\x0b\x32-.cosmos.slashing.v1beta1.ValidatorSigningInfoB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x12;\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponse2\xf2\x03\n\x05Query\x12\x8c\x01\n\x06Params\x12+.cosmos.slashing.v1beta1.QueryParamsRequest\x1a,.cosmos.slashing.v1beta1.QueryParamsResponse\"\'\x82\xd3\xe4\x93\x02!\x12\x1f/cosmos/slashing/v1beta1/params\x12\xb1\x01\n\x0bSigningInfo\x12\x30.cosmos.slashing.v1beta1.QuerySigningInfoRequest\x1a\x31.cosmos.slashing.v1beta1.QuerySigningInfoResponse\"=\x82\xd3\xe4\x93\x02\x37\x12\x35/cosmos/slashing/v1beta1/signing_infos/{cons_address}\x12\xa5\x01\n\x0cSigningInfos\x12\x31.cosmos.slashing.v1beta1.QuerySigningInfosRequest\x1a\x32.cosmos.slashing.v1beta1.QuerySigningInfosResponse\".\x82\xd3\xe4\x93\x02(\x12&/cosmos/slashing/v1beta1/signing_infosB/Z-github.com/cosmos/cosmos-sdk/x/slashing/typesb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -31,7 +31,7 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_QUERYPARAMSRESPONSE'].fields_by_name['params']._loaded_options = None
   _globals['_QUERYPARAMSRESPONSE'].fields_by_name['params']._serialized_options = b'\310\336\037\000\250\347\260*\001'
   _globals['_QUERYSIGNINGINFOREQUEST'].fields_by_name['cons_address']._loaded_options = None
-  _globals['_QUERYSIGNINGINFOREQUEST'].fields_by_name['cons_address']._serialized_options = b'\322\264-\035cosmos.ConsensusAddressString'
+  _globals['_QUERYSIGNINGINFOREQUEST'].fields_by_name['cons_address']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _globals['_QUERYSIGNINGINFORESPONSE'].fields_by_name['val_signing_info']._loaded_options = None
   _globals['_QUERYSIGNINGINFORESPONSE'].fields_by_name['val_signing_info']._serialized_options = b'\310\336\037\000\250\347\260*\001'
   _globals['_QUERYSIGNINGINFOSRESPONSE'].fields_by_name['info']._loaded_options = None
@@ -47,13 +47,13 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_QUERYPARAMSRESPONSE']._serialized_start=268
   _globals['_QUERYPARAMSRESPONSE']._serialized_end=349
   _globals['_QUERYSIGNINGINFOREQUEST']._serialized_start=351
-  _globals['_QUERYSIGNINGINFOREQUEST']._serialized_end=433
-  _globals['_QUERYSIGNINGINFORESPONSE']._serialized_start=435
-  _globals['_QUERYSIGNINGINFORESPONSE']._serialized_end=545
-  _globals['_QUERYSIGNINGINFOSREQUEST']._serialized_start=547
-  _globals['_QUERYSIGNINGINFOSREQUEST']._serialized_end=633
-  _globals['_QUERYSIGNINGINFOSRESPONSE']._serialized_start=636
-  _globals['_QUERYSIGNINGINFOSRESPONSE']._serialized_end=796
-  _globals['_QUERY']._serialized_start=799
-  _globals['_QUERY']._serialized_end=1297
+  _globals['_QUERYSIGNINGINFOREQUEST']._serialized_end=424
+  _globals['_QUERYSIGNINGINFORESPONSE']._serialized_start=426
+  _globals['_QUERYSIGNINGINFORESPONSE']._serialized_end=536
+  _globals['_QUERYSIGNINGINFOSREQUEST']._serialized_start=538
+  _globals['_QUERYSIGNINGINFOSREQUEST']._serialized_end=624
+  _globals['_QUERYSIGNINGINFOSRESPONSE']._serialized_start=627
+  _globals['_QUERYSIGNINGINFOSRESPONSE']._serialized_end=787
+  _globals['_QUERY']._serialized_start=790
+  _globals['_QUERY']._serialized_end=1288
 # @@protoc_insertion_point(module_scope)

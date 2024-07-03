@@ -14,14 +14,14 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n)ibc/applications/transfer/v2/packet.proto\x12\x1cibc.applications.transfer.v2\"h\n\x17\x46ungibleTokenPacketData\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\t\x12\x0e\n\x06sender\x18\x03 \x01(\t\x12\x10\n\x08receiver\x18\x04 \x01(\t\x12\x0c\n\x04memo\x18\x05 \x01(\tB9Z7github.com/cosmos/ibc-go/v8/modules/apps/transfer/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n)ibc/applications/transfer/v2/packet.proto\x12\x1cibc.applications.transfer.v2\"h\n\x17\x46ungibleTokenPacketData\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\t\x12\x0e\n\x06sender\x18\x03 \x01(\t\x12\x10\n\x08receiver\x18\x04 \x01(\t\x12\x0c\n\x04memo\x18\x05 \x01(\tB9Z7github.com/cosmos/ibc-go/v7/modules/apps/transfer/typesb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'ibc.applications.transfer.v2.packet_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
-  _globals['DESCRIPTOR']._serialized_options = b'Z7github.com/cosmos/ibc-go/v8/modules/apps/transfer/types'
+  _globals['DESCRIPTOR']._serialized_options = b'Z7github.com/cosmos/ibc-go/v7/modules/apps/transfer/types'
   _globals['_FUNGIBLETOKENPACKETDATA']._serialized_start=75
   _globals['_FUNGIBLETOKENPACKETDATA']._serialized_end=179
 # @@protoc_insertion_point(module_scope)

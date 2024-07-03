@@ -19,7 +19,7 @@ from pyinjective.proto.amino import amino_pb2 as amino_dot_amino__pb2
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1c\x63osmwasm/wasm/v1/types.proto\x12\x10\x63osmwasm.wasm.v1\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x14gogoproto/gogo.proto\x1a\x19google/protobuf/any.proto\x1a\x11\x61mino/amino.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\"V\n\x0f\x41\x63\x63\x65ssTypeParam\x12=\n\x05value\x18\x01 \x01(\x0e\x32\x1c.cosmwasm.wasm.v1.AccessTypeB\x10\xf2\xde\x1f\x0cyaml:\"value\":\x04\x98\xa0\x1f\x01\"\x90\x01\n\x0c\x41\x63\x63\x65ssConfig\x12G\n\npermission\x18\x01 \x01(\x0e\x32\x1c.cosmwasm.wasm.v1.AccessTypeB\x15\xf2\xde\x1f\x11yaml:\"permission\"\x12+\n\taddresses\x18\x03 \x03(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString:\x04\x98\xa0\x1f\x01J\x04\x08\x02\x10\x03\"\xe3\x01\n\x06Params\x12\x62\n\x12\x63ode_upload_access\x18\x01 \x01(\x0b\x32\x1e.cosmwasm.wasm.v1.AccessConfigB&\xc8\xde\x1f\x00\xf2\xde\x1f\x19yaml:\"code_upload_access\"\xa8\xe7\xb0*\x01\x12o\n\x1einstantiate_default_permission\x18\x02 \x01(\x0e\x32\x1c.cosmwasm.wasm.v1.AccessTypeB)\xf2\xde\x1f%yaml:\"instantiate_default_permission\":\x04\x98\xa0\x1f\x00\"\x9b\x01\n\x08\x43odeInfo\x12\x11\n\tcode_hash\x18\x01 \x01(\x0c\x12)\n\x07\x63reator\x18\x02 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12\x45\n\x12instantiate_config\x18\x05 \x01(\x0b\x32\x1e.cosmwasm.wasm.v1.AccessConfigB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01J\x04\x08\x03\x10\x04J\x04\x08\x04\x10\x05\"\xc4\x02\n\x0c\x43ontractInfo\x12\x1b\n\x07\x63ode_id\x18\x01 \x01(\x04\x42\n\xe2\xde\x1f\x06\x43odeID\x12)\n\x07\x63reator\x18\x02 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12\'\n\x05\x61\x64min\x18\x03 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12\r\n\x05label\x18\x04 \x01(\t\x12\x35\n\x07\x63reated\x18\x05 \x01(\x0b\x32$.cosmwasm.wasm.v1.AbsoluteTxPosition\x12\"\n\x0bibc_port_id\x18\x06 \x01(\tB\r\xe2\xde\x1f\tIBCPortID\x12S\n\textension\x18\x07 \x01(\x0b\x32\x14.google.protobuf.AnyB*\xca\xb4-&cosmwasm.wasm.v1.ContractInfoExtension:\x04\xe8\xa0\x1f\x01\"\xda\x01\n\x18\x43ontractCodeHistoryEntry\x12\x45\n\toperation\x18\x01 \x01(\x0e\x32\x32.cosmwasm.wasm.v1.ContractCodeHistoryOperationType\x12\x1b\n\x07\x63ode_id\x18\x02 \x01(\x04\x42\n\xe2\xde\x1f\x06\x43odeID\x12\x35\n\x07updated\x18\x03 \x01(\x0b\x32$.cosmwasm.wasm.v1.AbsoluteTxPosition\x12#\n\x03msg\x18\x04 \x01(\x0c\x42\x16\xfa\xde\x1f\x12RawContractMessage\"<\n\x12\x41\x62soluteTxPosition\x12\x14\n\x0c\x62lock_height\x18\x01 \x01(\x04\x12\x10\n\x08tx_index\x18\x02 \x01(\x04\"Y\n\x05Model\x12\x41\n\x03key\x18\x01 \x01(\x0c\x42\x34\xfa\xde\x1f\x30github.com/cometbft/cometbft/libs/bytes.HexBytes\x12\r\n\x05value\x18\x02 \x01(\x0c\"\x88\x01\n\x0f\x45ventCodeStored\x12\x1b\n\x07\x63ode_id\x18\x01 \x01(\x04\x42\n\xe2\xde\x1f\x06\x43odeID\x12\x0f\n\x07\x63reator\x18\x02 \x01(\t\x12\x35\n\raccess_config\x18\x03 \x01(\x0b\x32\x1e.cosmwasm.wasm.v1.AccessConfig\x12\x10\n\x08\x63hecksum\x18\x04 \x01(\x0c\"\x82\x02\n\x19\x45ventContractInstantiated\x12\x18\n\x10\x63ontract_address\x18\x01 \x01(\t\x12\r\n\x05\x61\x64min\x18\x02 \x01(\t\x12\x1b\n\x07\x63ode_id\x18\x03 \x01(\x04\x42\n\xe2\xde\x1f\x06\x43odeID\x12Z\n\x05\x66unds\x18\x04 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins\x12#\n\x03msg\x18\x05 \x01(\x0c\x42\x16\xfa\xde\x1f\x12RawContractMessage\x12\r\n\x05label\x18\x06 \x01(\t\x12\x0f\n\x07\x63reator\x18\x07 \x01(\t\"s\n\x15\x45ventContractMigrated\x12\x1b\n\x07\x63ode_id\x18\x01 \x01(\x04\x42\n\xe2\xde\x1f\x06\x43odeID\x12\x18\n\x10\x63ontract_address\x18\x02 \x01(\t\x12#\n\x03msg\x18\x03 \x01(\x0c\x42\x16\xfa\xde\x1f\x12RawContractMessage\"D\n\x15\x45ventContractAdminSet\x12\x18\n\x10\x63ontract_address\x18\x01 \x01(\t\x12\x11\n\tnew_admin\x18\x02 \x01(\t*\xf6\x01\n\nAccessType\x12\x36\n\x17\x41\x43\x43\x45SS_TYPE_UNSPECIFIED\x10\x00\x1a\x19\x8a\x9d \x15\x41\x63\x63\x65ssTypeUnspecified\x12,\n\x12\x41\x43\x43\x45SS_TYPE_NOBODY\x10\x01\x1a\x14\x8a\x9d \x10\x41\x63\x63\x65ssTypeNobody\x12\x32\n\x15\x41\x43\x43\x45SS_TYPE_EVERYBODY\x10\x03\x1a\x17\x8a\x9d \x13\x41\x63\x63\x65ssTypeEverybody\x12>\n\x1c\x41\x43\x43\x45SS_TYPE_ANY_OF_ADDRESSES\x10\x04\x1a\x1c\x8a\x9d \x18\x41\x63\x63\x65ssTypeAnyOfAddresses\x1a\x08\x88\xa3\x1e\x00\xa8\xa4\x1e\x00\"\x04\x08\x02\x10\x02*\xa6\x03\n ContractCodeHistoryOperationType\x12\x65\n0CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED\x10\x00\x1a/\x8a\x9d +ContractCodeHistoryOperationTypeUnspecified\x12W\n)CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT\x10\x01\x1a(\x8a\x9d $ContractCodeHistoryOperationTypeInit\x12]\n,CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE\x10\x02\x1a+\x8a\x9d \'ContractCodeHistoryOperationTypeMigrate\x12]\n,CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS\x10\x03\x1a+\x8a\x9d \'ContractCodeHistoryOperationTypeGenesis\x1a\x04\x88\xa3\x1e\x00\x42\x30Z&github.com/CosmWasm/wasmd/x/wasm/types\xc8\xe1\x1e\x00\xa8\xe2\x1e\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1c\x63osmwasm/wasm/v1/types.proto\x12\x10\x63osmwasm.wasm.v1\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x14gogoproto/gogo.proto\x1a\x19google/protobuf/any.proto\x1a\x11\x61mino/amino.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\"V\n\x0f\x41\x63\x63\x65ssTypeParam\x12=\n\x05value\x18\x01 \x01(\x0e\x32\x1c.cosmwasm.wasm.v1.AccessTypeB\x10\xf2\xde\x1f\x0cyaml:\"value\":\x04\x98\xa0\x1f\x01\"\x8c\x01\n\x0c\x41\x63\x63\x65ssConfig\x12G\n\npermission\x18\x01 \x01(\x0e\x32\x1c.cosmwasm.wasm.v1.AccessTypeB\x15\xf2\xde\x1f\x11yaml:\"permission\"\x12\'\n\taddresses\x18\x03 \x03(\tB\x14\xf2\xde\x1f\x10yaml:\"addresses\":\x04\x98\xa0\x1f\x01J\x04\x08\x02\x10\x03\"\xe3\x01\n\x06Params\x12\x62\n\x12\x63ode_upload_access\x18\x01 \x01(\x0b\x32\x1e.cosmwasm.wasm.v1.AccessConfigB&\xc8\xde\x1f\x00\xf2\xde\x1f\x19yaml:\"code_upload_access\"\xa8\xe7\xb0*\x01\x12o\n\x1einstantiate_default_permission\x18\x02 \x01(\x0e\x32\x1c.cosmwasm.wasm.v1.AccessTypeB)\xf2\xde\x1f%yaml:\"instantiate_default_permission\":\x04\x98\xa0\x1f\x00\"\x81\x01\n\x08\x43odeInfo\x12\x11\n\tcode_hash\x18\x01 \x01(\x0c\x12\x0f\n\x07\x63reator\x18\x02 \x01(\t\x12\x45\n\x12instantiate_config\x18\x05 \x01(\x0b\x32\x1e.cosmwasm.wasm.v1.AccessConfigB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01J\x04\x08\x03\x10\x04J\x04\x08\x04\x10\x05\"\x90\x02\n\x0c\x43ontractInfo\x12\x1b\n\x07\x63ode_id\x18\x01 \x01(\x04\x42\n\xe2\xde\x1f\x06\x43odeID\x12\x0f\n\x07\x63reator\x18\x02 \x01(\t\x12\r\n\x05\x61\x64min\x18\x03 \x01(\t\x12\r\n\x05label\x18\x04 \x01(\t\x12\x35\n\x07\x63reated\x18\x05 \x01(\x0b\x32$.cosmwasm.wasm.v1.AbsoluteTxPosition\x12\"\n\x0bibc_port_id\x18\x06 \x01(\tB\r\xe2\xde\x1f\tIBCPortID\x12S\n\textension\x18\x07 \x01(\x0b\x32\x14.google.protobuf.AnyB*\xca\xb4-&cosmwasm.wasm.v1.ContractInfoExtension:\x04\xe8\xa0\x1f\x01\"\xda\x01\n\x18\x43ontractCodeHistoryEntry\x12\x45\n\toperation\x18\x01 \x01(\x0e\x32\x32.cosmwasm.wasm.v1.ContractCodeHistoryOperationType\x12\x1b\n\x07\x63ode_id\x18\x02 \x01(\x04\x42\n\xe2\xde\x1f\x06\x43odeID\x12\x35\n\x07updated\x18\x03 \x01(\x0b\x32$.cosmwasm.wasm.v1.AbsoluteTxPosition\x12#\n\x03msg\x18\x04 \x01(\x0c\x42\x16\xfa\xde\x1f\x12RawContractMessage\"<\n\x12\x41\x62soluteTxPosition\x12\x14\n\x0c\x62lock_height\x18\x01 \x01(\x04\x12\x10\n\x08tx_index\x18\x02 \x01(\x04\"Y\n\x05Model\x12\x41\n\x03key\x18\x01 \x01(\x0c\x42\x34\xfa\xde\x1f\x30github.com/cometbft/cometbft/libs/bytes.HexBytes\x12\r\n\x05value\x18\x02 \x01(\x0c\"\x88\x01\n\x0f\x45ventCodeStored\x12\x1b\n\x07\x63ode_id\x18\x01 \x01(\x04\x42\n\xe2\xde\x1f\x06\x43odeID\x12\x0f\n\x07\x63reator\x18\x02 \x01(\t\x12\x35\n\raccess_config\x18\x03 \x01(\x0b\x32\x1e.cosmwasm.wasm.v1.AccessConfig\x12\x10\n\x08\x63hecksum\x18\x04 \x01(\x0c\"\x82\x02\n\x19\x45ventContractInstantiated\x12\x18\n\x10\x63ontract_address\x18\x01 \x01(\t\x12\r\n\x05\x61\x64min\x18\x02 \x01(\t\x12\x1b\n\x07\x63ode_id\x18\x03 \x01(\x04\x42\n\xe2\xde\x1f\x06\x43odeID\x12Z\n\x05\x66unds\x18\x04 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins\x12#\n\x03msg\x18\x05 \x01(\x0c\x42\x16\xfa\xde\x1f\x12RawContractMessage\x12\r\n\x05label\x18\x06 \x01(\t\x12\x0f\n\x07\x63reator\x18\x07 \x01(\t\"s\n\x15\x45ventContractMigrated\x12\x1b\n\x07\x63ode_id\x18\x01 \x01(\x04\x42\n\xe2\xde\x1f\x06\x43odeID\x12\x18\n\x10\x63ontract_address\x18\x02 \x01(\t\x12#\n\x03msg\x18\x03 \x01(\x0c\x42\x16\xfa\xde\x1f\x12RawContractMessage\"D\n\x15\x45ventContractAdminSet\x12\x18\n\x10\x63ontract_address\x18\x01 \x01(\t\x12\x11\n\tnew_admin\x18\x02 \x01(\t*\xf6\x01\n\nAccessType\x12\x36\n\x17\x41\x43\x43\x45SS_TYPE_UNSPECIFIED\x10\x00\x1a\x19\x8a\x9d \x15\x41\x63\x63\x65ssTypeUnspecified\x12,\n\x12\x41\x43\x43\x45SS_TYPE_NOBODY\x10\x01\x1a\x14\x8a\x9d \x10\x41\x63\x63\x65ssTypeNobody\x12\x32\n\x15\x41\x43\x43\x45SS_TYPE_EVERYBODY\x10\x03\x1a\x17\x8a\x9d \x13\x41\x63\x63\x65ssTypeEverybody\x12>\n\x1c\x41\x43\x43\x45SS_TYPE_ANY_OF_ADDRESSES\x10\x04\x1a\x1c\x8a\x9d \x18\x41\x63\x63\x65ssTypeAnyOfAddresses\x1a\x08\x88\xa3\x1e\x00\xa8\xa4\x1e\x00\"\x04\x08\x02\x10\x02*\xa6\x03\n ContractCodeHistoryOperationType\x12\x65\n0CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED\x10\x00\x1a/\x8a\x9d +ContractCodeHistoryOperationTypeUnspecified\x12W\n)CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT\x10\x01\x1a(\x8a\x9d $ContractCodeHistoryOperationTypeInit\x12]\n,CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE\x10\x02\x1a+\x8a\x9d \'ContractCodeHistoryOperationTypeMigrate\x12]\n,CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS\x10\x03\x1a+\x8a\x9d \'ContractCodeHistoryOperationTypeGenesis\x1a\x04\x88\xa3\x1e\x00\x42\x30Z&github.com/CosmWasm/wasmd/x/wasm/types\xc8\xe1\x1e\x00\xa8\xe2\x1e\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -54,7 +54,7 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_ACCESSCONFIG'].fields_by_name['permission']._loaded_options = None
   _globals['_ACCESSCONFIG'].fields_by_name['permission']._serialized_options = b'\362\336\037\021yaml:\"permission\"'
   _globals['_ACCESSCONFIG'].fields_by_name['addresses']._loaded_options = None
-  _globals['_ACCESSCONFIG'].fields_by_name['addresses']._serialized_options = b'\322\264-\024cosmos.AddressString'
+  _globals['_ACCESSCONFIG'].fields_by_name['addresses']._serialized_options = b'\362\336\037\020yaml:\"addresses\"'
   _globals['_ACCESSCONFIG']._loaded_options = None
   _globals['_ACCESSCONFIG']._serialized_options = b'\230\240\037\001'
   _globals['_PARAMS'].fields_by_name['code_upload_access']._loaded_options = None
@@ -63,16 +63,10 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_PARAMS'].fields_by_name['instantiate_default_permission']._serialized_options = b'\362\336\037%yaml:\"instantiate_default_permission\"'
   _globals['_PARAMS']._loaded_options = None
   _globals['_PARAMS']._serialized_options = b'\230\240\037\000'
-  _globals['_CODEINFO'].fields_by_name['creator']._loaded_options = None
-  _globals['_CODEINFO'].fields_by_name['creator']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _globals['_CODEINFO'].fields_by_name['instantiate_config']._loaded_options = None
   _globals['_CODEINFO'].fields_by_name['instantiate_config']._serialized_options = b'\310\336\037\000\250\347\260*\001'
   _globals['_CONTRACTINFO'].fields_by_name['code_id']._loaded_options = None
   _globals['_CONTRACTINFO'].fields_by_name['code_id']._serialized_options = b'\342\336\037\006CodeID'
-  _globals['_CONTRACTINFO'].fields_by_name['creator']._loaded_options = None
-  _globals['_CONTRACTINFO'].fields_by_name['creator']._serialized_options = b'\322\264-\024cosmos.AddressString'
-  _globals['_CONTRACTINFO'].fields_by_name['admin']._loaded_options = None
-  _globals['_CONTRACTINFO'].fields_by_name['admin']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _globals['_CONTRACTINFO'].fields_by_name['ibc_port_id']._loaded_options = None
   _globals['_CONTRACTINFO'].fields_by_name['ibc_port_id']._serialized_options = b'\342\336\037\tIBCPortID'
   _globals['_CONTRACTINFO'].fields_by_name['extension']._loaded_options = None
@@ -97,32 +91,32 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_EVENTCONTRACTMIGRATED'].fields_by_name['code_id']._serialized_options = b'\342\336\037\006CodeID'
   _globals['_EVENTCONTRACTMIGRATED'].fields_by_name['msg']._loaded_options = None
   _globals['_EVENTCONTRACTMIGRATED'].fields_by_name['msg']._serialized_options = b'\372\336\037\022RawContractMessage'
-  _globals['_ACCESSTYPE']._serialized_start=2089
-  _globals['_ACCESSTYPE']._serialized_end=2335
-  _globals['_CONTRACTCODEHISTORYOPERATIONTYPE']._serialized_start=2338
-  _globals['_CONTRACTCODEHISTORYOPERATIONTYPE']._serialized_end=2760
+  _globals['_ACCESSTYPE']._serialized_start=2007
+  _globals['_ACCESSTYPE']._serialized_end=2253
+  _globals['_CONTRACTCODEHISTORYOPERATIONTYPE']._serialized_start=2256
+  _globals['_CONTRACTCODEHISTORYOPERATIONTYPE']._serialized_end=2678
   _globals['_ACCESSTYPEPARAM']._serialized_start=177
   _globals['_ACCESSTYPEPARAM']._serialized_end=263
   _globals['_ACCESSCONFIG']._serialized_start=266
-  _globals['_ACCESSCONFIG']._serialized_end=410
-  _globals['_PARAMS']._serialized_start=413
-  _globals['_PARAMS']._serialized_end=640
-  _globals['_CODEINFO']._serialized_start=643
-  _globals['_CODEINFO']._serialized_end=798
-  _globals['_CONTRACTINFO']._serialized_start=801
-  _globals['_CONTRACTINFO']._serialized_end=1125
-  _globals['_CONTRACTCODEHISTORYENTRY']._serialized_start=1128
-  _globals['_CONTRACTCODEHISTORYENTRY']._serialized_end=1346
-  _globals['_ABSOLUTETXPOSITION']._serialized_start=1348
-  _globals['_ABSOLUTETXPOSITION']._serialized_end=1408
-  _globals['_MODEL']._serialized_start=1410
-  _globals['_MODEL']._serialized_end=1499
-  _globals['_EVENTCODESTORED']._serialized_start=1502
-  _globals['_EVENTCODESTORED']._serialized_end=1638
-  _globals['_EVENTCONTRACTINSTANTIATED']._serialized_start=1641
-  _globals['_EVENTCONTRACTINSTANTIATED']._serialized_end=1899
-  _globals['_EVENTCONTRACTMIGRATED']._serialized_start=1901
-  _globals['_EVENTCONTRACTMIGRATED']._serialized_end=2016
-  _globals['_EVENTCONTRACTADMINSET']._serialized_start=2018
-  _globals['_EVENTCONTRACTADMINSET']._serialized_end=2086
+  _globals['_ACCESSCONFIG']._serialized_end=406
+  _globals['_PARAMS']._serialized_start=409
+  _globals['_PARAMS']._serialized_end=636
+  _globals['_CODEINFO']._serialized_start=639
+  _globals['_CODEINFO']._serialized_end=768
+  _globals['_CONTRACTINFO']._serialized_start=771
+  _globals['_CONTRACTINFO']._serialized_end=1043
+  _globals['_CONTRACTCODEHISTORYENTRY']._serialized_start=1046
+  _globals['_CONTRACTCODEHISTORYENTRY']._serialized_end=1264
+  _globals['_ABSOLUTETXPOSITION']._serialized_start=1266
+  _globals['_ABSOLUTETXPOSITION']._serialized_end=1326
+  _globals['_MODEL']._serialized_start=1328
+  _globals['_MODEL']._serialized_end=1417
+  _globals['_EVENTCODESTORED']._serialized_start=1420
+  _globals['_EVENTCODESTORED']._serialized_end=1556
+  _globals['_EVENTCONTRACTINSTANTIATED']._serialized_start=1559
+  _globals['_EVENTCONTRACTINSTANTIATED']._serialized_end=1817
+  _globals['_EVENTCONTRACTMIGRATED']._serialized_start=1819
+  _globals['_EVENTCONTRACTMIGRATED']._serialized_end=1934
+  _globals['_EVENTCONTRACTADMINSET']._serialized_start=1936
+  _globals['_EVENTCONTRACTADMINSET']._serialized_end=2004
 # @@protoc_insertion_point(module_scope)

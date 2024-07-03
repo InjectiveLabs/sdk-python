@@ -16,14 +16,14 @@ from pyinjective.proto.cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmo
 from pyinjective.proto.cosmos.msg.v1 import msg_pb2 as cosmos_dot_msg_dot_v1_dot_msg__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1b\x63osmos/nft/v1beta1/tx.proto\x12\x12\x63osmos.nft.v1beta1\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x17\x63osmos/msg/v1/msg.proto\"\x8a\x01\n\x07MsgSend\x12\x10\n\x08\x63lass_id\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\t\x12(\n\x06sender\x18\x03 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12*\n\x08receiver\x18\x04 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString:\x0b\x82\xe7\xb0*\x06sender\"\x11\n\x0fMsgSendResponse2V\n\x03Msg\x12H\n\x04Send\x12\x1b.cosmos.nft.v1beta1.MsgSend\x1a#.cosmos.nft.v1beta1.MsgSendResponse\x1a\x05\x80\xe7\xb0*\x01\x42\x14Z\x12\x63osmossdk.io/x/nftb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1b\x63osmos/nft/v1beta1/tx.proto\x12\x12\x63osmos.nft.v1beta1\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x17\x63osmos/msg/v1/msg.proto\"\x8a\x01\n\x07MsgSend\x12\x10\n\x08\x63lass_id\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\t\x12(\n\x06sender\x18\x03 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12*\n\x08receiver\x18\x04 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString:\x0b\x82\xe7\xb0*\x06sender\"\x11\n\x0fMsgSendResponse2V\n\x03Msg\x12H\n\x04Send\x12\x1b.cosmos.nft.v1beta1.MsgSend\x1a#.cosmos.nft.v1beta1.MsgSendResponse\x1a\x05\x80\xe7\xb0*\x01\x42$Z\"github.com/cosmos/cosmos-sdk/x/nftb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'cosmos.nft.v1beta1.tx_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
-  _globals['DESCRIPTOR']._serialized_options = b'Z\022cosmossdk.io/x/nft'
+  _globals['DESCRIPTOR']._serialized_options = b'Z\"github.com/cosmos/cosmos-sdk/x/nft'
   _globals['_MSGSEND'].fields_by_name['sender']._loaded_options = None
   _globals['_MSGSEND'].fields_by_name['sender']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _globals['_MSGSEND'].fields_by_name['receiver']._loaded_options = None

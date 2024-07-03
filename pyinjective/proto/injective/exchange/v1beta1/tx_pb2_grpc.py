@@ -175,11 +175,6 @@ class MsgStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgIncreasePositionMargin.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgIncreasePositionMarginResponse.FromString,
                 _registered_method=True)
-        self.DecreasePositionMargin = channel.unary_unary(
-                '/injective.exchange.v1beta1.Msg/DecreasePositionMargin',
-                request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgDecreasePositionMargin.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgDecreasePositionMarginResponse.FromString,
-                _registered_method=True)
         self.RewardsOptOut = channel.unary_unary(
                 '/injective.exchange.v1beta1.Msg/RewardsOptOut',
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgRewardsOptOut.SerializeToString,
@@ -190,30 +185,15 @@ class MsgStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgAdminUpdateBinaryOptionsMarket.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgAdminUpdateBinaryOptionsMarketResponse.FromString,
                 _registered_method=True)
+        self.ReclaimLockedFunds = channel.unary_unary(
+                '/injective.exchange.v1beta1.Msg/ReclaimLockedFunds',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgReclaimLockedFunds.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgReclaimLockedFundsResponse.FromString,
+                _registered_method=True)
         self.UpdateParams = channel.unary_unary(
                 '/injective.exchange.v1beta1.Msg/UpdateParams',
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
-                _registered_method=True)
-        self.UpdateSpotMarket = channel.unary_unary(
-                '/injective.exchange.v1beta1.Msg/UpdateSpotMarket',
-                request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateSpotMarket.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateSpotMarketResponse.FromString,
-                _registered_method=True)
-        self.UpdateDerivativeMarket = channel.unary_unary(
-                '/injective.exchange.v1beta1.Msg/UpdateDerivativeMarket',
-                request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateDerivativeMarket.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateDerivativeMarketResponse.FromString,
-                _registered_method=True)
-        self.AuthorizeStakeGrants = channel.unary_unary(
-                '/injective.exchange.v1beta1.Msg/AuthorizeStakeGrants',
-                request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgAuthorizeStakeGrants.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgAuthorizeStakeGrantsResponse.FromString,
-                _registered_method=True)
-        self.ActivateStakeGrant = channel.unary_unary(
-                '/injective.exchange.v1beta1.Msg/ActivateStakeGrant',
-                request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgActivateStakeGrant.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgActivateStakeGrantResponse.FromString,
                 _registered_method=True)
 
 
@@ -429,13 +409,6 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def DecreasePositionMargin(self, request, context):
-        """DecreasePositionMargin defines a method for decreasing margin of a position
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def RewardsOptOut(self, request, context):
         """RewardsOptOut defines a method for opting out of rewards
         """
@@ -451,34 +424,14 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ReclaimLockedFunds(self, request, context):
+        """
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def UpdateParams(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def UpdateSpotMarket(self, request, context):
-        """UpdateSpotMarket modifies certain spot market fields (admin only)
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def UpdateDerivativeMarket(self, request, context):
-        """UpdateDerivativeMarket modifies certain derivative market fields (admin
-        only)
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def AuthorizeStakeGrants(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def ActivateStakeGrant(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -622,11 +575,6 @@ def add_MsgServicer_to_server(servicer, server):
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgIncreasePositionMargin.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgIncreasePositionMarginResponse.SerializeToString,
             ),
-            'DecreasePositionMargin': grpc.unary_unary_rpc_method_handler(
-                    servicer.DecreasePositionMargin,
-                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgDecreasePositionMargin.FromString,
-                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgDecreasePositionMarginResponse.SerializeToString,
-            ),
             'RewardsOptOut': grpc.unary_unary_rpc_method_handler(
                     servicer.RewardsOptOut,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgRewardsOptOut.FromString,
@@ -637,30 +585,15 @@ def add_MsgServicer_to_server(servicer, server):
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgAdminUpdateBinaryOptionsMarket.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgAdminUpdateBinaryOptionsMarketResponse.SerializeToString,
             ),
+            'ReclaimLockedFunds': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReclaimLockedFunds,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgReclaimLockedFunds.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgReclaimLockedFundsResponse.SerializeToString,
+            ),
             'UpdateParams': grpc.unary_unary_rpc_method_handler(
                     servicer.UpdateParams,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.SerializeToString,
-            ),
-            'UpdateSpotMarket': grpc.unary_unary_rpc_method_handler(
-                    servicer.UpdateSpotMarket,
-                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateSpotMarket.FromString,
-                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateSpotMarketResponse.SerializeToString,
-            ),
-            'UpdateDerivativeMarket': grpc.unary_unary_rpc_method_handler(
-                    servicer.UpdateDerivativeMarket,
-                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateDerivativeMarket.FromString,
-                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateDerivativeMarketResponse.SerializeToString,
-            ),
-            'AuthorizeStakeGrants': grpc.unary_unary_rpc_method_handler(
-                    servicer.AuthorizeStakeGrants,
-                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgAuthorizeStakeGrants.FromString,
-                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgAuthorizeStakeGrantsResponse.SerializeToString,
-            ),
-            'ActivateStakeGrant': grpc.unary_unary_rpc_method_handler(
-                    servicer.ActivateStakeGrant,
-                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgActivateStakeGrant.FromString,
-                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgActivateStakeGrantResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -1404,33 +1337,6 @@ class Msg(object):
             _registered_method=True)
 
     @staticmethod
-    def DecreasePositionMargin(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective.exchange.v1beta1.Msg/DecreasePositionMargin',
-            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgDecreasePositionMargin.SerializeToString,
-            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgDecreasePositionMarginResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
     def RewardsOptOut(request,
             target,
             options=(),
@@ -1485,6 +1391,33 @@ class Msg(object):
             _registered_method=True)
 
     @staticmethod
+    def ReclaimLockedFunds(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v1beta1.Msg/ReclaimLockedFunds',
+            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgReclaimLockedFunds.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgReclaimLockedFundsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
     def UpdateParams(request,
             target,
             options=(),
@@ -1501,114 +1434,6 @@ class Msg(object):
             '/injective.exchange.v1beta1.Msg/UpdateParams',
             injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
             injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def UpdateSpotMarket(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective.exchange.v1beta1.Msg/UpdateSpotMarket',
-            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateSpotMarket.SerializeToString,
-            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateSpotMarketResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def UpdateDerivativeMarket(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective.exchange.v1beta1.Msg/UpdateDerivativeMarket',
-            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateDerivativeMarket.SerializeToString,
-            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateDerivativeMarketResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def AuthorizeStakeGrants(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective.exchange.v1beta1.Msg/AuthorizeStakeGrants',
-            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgAuthorizeStakeGrants.SerializeToString,
-            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgAuthorizeStakeGrantsResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def ActivateStakeGrant(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective.exchange.v1beta1.Msg/ActivateStakeGrant',
-            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgActivateStakeGrant.SerializeToString,
-            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgActivateStakeGrantResponse.FromString,
             options,
             channel_credentials,
             insecure,

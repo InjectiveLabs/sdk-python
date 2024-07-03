@@ -85,11 +85,6 @@ class InjectiveAccountsRPCStub(object):
                 request_serializer=exchange_dot_injective__accounts__rpc__pb2.RewardsRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__accounts__rpc__pb2.RewardsResponse.FromString,
                 _registered_method=True)
-        self.StreamAccountData = channel.unary_stream(
-                '/injective_accounts_rpc.InjectiveAccountsRPC/StreamAccountData',
-                request_serializer=exchange_dot_injective__accounts__rpc__pb2.StreamAccountDataRequest.SerializeToString,
-                response_deserializer=exchange_dot_injective__accounts__rpc__pb2.StreamAccountDataResponse.FromString,
-                _registered_method=True)
 
 
 class InjectiveAccountsRPCServicer(object):
@@ -161,13 +156,6 @@ class InjectiveAccountsRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def StreamAccountData(self, request, context):
-        """Stream live data for an account and respective data
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
 
 def add_InjectiveAccountsRPCServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -215,11 +203,6 @@ def add_InjectiveAccountsRPCServicer_to_server(servicer, server):
                     servicer.Rewards,
                     request_deserializer=exchange_dot_injective__accounts__rpc__pb2.RewardsRequest.FromString,
                     response_serializer=exchange_dot_injective__accounts__rpc__pb2.RewardsResponse.SerializeToString,
-            ),
-            'StreamAccountData': grpc.unary_stream_rpc_method_handler(
-                    servicer.StreamAccountData,
-                    request_deserializer=exchange_dot_injective__accounts__rpc__pb2.StreamAccountDataRequest.FromString,
-                    response_serializer=exchange_dot_injective__accounts__rpc__pb2.StreamAccountDataResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -466,33 +449,6 @@ class InjectiveAccountsRPC(object):
             '/injective_accounts_rpc.InjectiveAccountsRPC/Rewards',
             exchange_dot_injective__accounts__rpc__pb2.RewardsRequest.SerializeToString,
             exchange_dot_injective__accounts__rpc__pb2.RewardsResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def StreamAccountData(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_stream(
-            request,
-            target,
-            '/injective_accounts_rpc.InjectiveAccountsRPC/StreamAccountData',
-            exchange_dot_injective__accounts__rpc__pb2.StreamAccountDataRequest.SerializeToString,
-            exchange_dot_injective__accounts__rpc__pb2.StreamAccountDataResponse.FromString,
             options,
             channel_credentials,
             insecure,

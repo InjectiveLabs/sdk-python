@@ -99,16 +99,6 @@ class MsgStub(object):
                 request_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgUpdateParams.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgUpdateParamsResponse.FromString,
                 _registered_method=True)
-        self.BlacklistEthereumAddresses = channel.unary_unary(
-                '/injective.peggy.v1.Msg/BlacklistEthereumAddresses',
-                request_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgBlacklistEthereumAddresses.SerializeToString,
-                response_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgBlacklistEthereumAddressesResponse.FromString,
-                _registered_method=True)
-        self.RevokeEthereumBlacklist = channel.unary_unary(
-                '/injective.peggy.v1.Msg/RevokeEthereumBlacklist',
-                request_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgRevokeEthereumBlacklist.SerializeToString,
-                response_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgRevokeEthereumBlacklistResponse.FromString,
-                _registered_method=True)
 
 
 class MsgServicer(object):
@@ -186,21 +176,6 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def BlacklistEthereumAddresses(self, request, context):
-        """BlacklistEthereumAddresses adds Ethereum addresses to the peggy blacklist.
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def RevokeEthereumBlacklist(self, request, context):
-        """RevokeEthereumBlacklist removes Ethereum addresses from the peggy
-        blacklist.
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -263,16 +238,6 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.UpdateParams,
                     request_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgUpdateParams.FromString,
                     response_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgUpdateParamsResponse.SerializeToString,
-            ),
-            'BlacklistEthereumAddresses': grpc.unary_unary_rpc_method_handler(
-                    servicer.BlacklistEthereumAddresses,
-                    request_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgBlacklistEthereumAddresses.FromString,
-                    response_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgBlacklistEthereumAddressesResponse.SerializeToString,
-            ),
-            'RevokeEthereumBlacklist': grpc.unary_unary_rpc_method_handler(
-                    servicer.RevokeEthereumBlacklist,
-                    request_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgRevokeEthereumBlacklist.FromString,
-                    response_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgRevokeEthereumBlacklistResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -599,60 +564,6 @@ class Msg(object):
             '/injective.peggy.v1.Msg/UpdateParams',
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgUpdateParams.SerializeToString,
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgUpdateParamsResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def BlacklistEthereumAddresses(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective.peggy.v1.Msg/BlacklistEthereumAddresses',
-            injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgBlacklistEthereumAddresses.SerializeToString,
-            injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgBlacklistEthereumAddressesResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def RevokeEthereumBlacklist(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective.peggy.v1.Msg/RevokeEthereumBlacklist',
-            injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgRevokeEthereumBlacklist.SerializeToString,
-            injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgRevokeEthereumBlacklistResponse.FromString,
             options,
             channel_credentials,
             insecure,

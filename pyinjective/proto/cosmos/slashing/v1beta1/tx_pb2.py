@@ -19,7 +19,7 @@ from pyinjective.proto.cosmos.msg.v1 import msg_pb2 as cosmos_dot_msg_dot_v1_dot
 from pyinjective.proto.amino import amino_pb2 as amino_dot_amino__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n cosmos/slashing/v1beta1/tx.proto\x12\x17\x63osmos.slashing.v1beta1\x1a\x14gogoproto/gogo.proto\x1a&cosmos/slashing/v1beta1/slashing.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x17\x63osmos/msg/v1/msg.proto\x1a\x11\x61mino/amino.proto\"\x94\x01\n\tMsgUnjail\x12U\n\x0evalidator_addr\x18\x01 \x01(\tB=\xea\xde\x1f\x07\x61\x64\x64ress\xd2\xb4-\x1d\x63osmos.ValidatorAddressString\xa2\xe7\xb0*\x07\x61\x64\x64ress\xa8\xe7\xb0*\x01:0\x88\xa0\x1f\x00\x82\xe7\xb0*\x0evalidator_addr\x8a\xe7\xb0*\x14\x63osmos-sdk/MsgUnjail\"\x13\n\x11MsgUnjailResponse\"\xb4\x01\n\x0fMsgUpdateParams\x12+\n\tauthority\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12:\n\x06params\x18\x02 \x01(\x0b\x32\x1f.cosmos.slashing.v1beta1.ParamsB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01:8\x82\xe7\xb0*\tauthority\x8a\xe7\xb0*%cosmos-sdk/x/slashing/MsgUpdateParams\"\x19\n\x17MsgUpdateParamsResponse2\xd2\x01\n\x03Msg\x12X\n\x06Unjail\x12\".cosmos.slashing.v1beta1.MsgUnjail\x1a*.cosmos.slashing.v1beta1.MsgUnjailResponse\x12j\n\x0cUpdateParams\x12(.cosmos.slashing.v1beta1.MsgUpdateParams\x1a\x30.cosmos.slashing.v1beta1.MsgUpdateParamsResponse\x1a\x05\x80\xe7\xb0*\x01\x42\x33Z-github.com/cosmos/cosmos-sdk/x/slashing/types\xa8\xe2\x1e\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n cosmos/slashing/v1beta1/tx.proto\x12\x17\x63osmos.slashing.v1beta1\x1a\x14gogoproto/gogo.proto\x1a&cosmos/slashing/v1beta1/slashing.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x17\x63osmos/msg/v1/msg.proto\x1a\x11\x61mino/amino.proto\"\x8f\x01\n\tMsgUnjail\x12L\n\x0evalidator_addr\x18\x01 \x01(\tB4\xea\xde\x1f\x07\x61\x64\x64ress\xd2\xb4-\x14\x63osmos.AddressString\xa2\xe7\xb0*\x07\x61\x64\x64ress\xa8\xe7\xb0*\x01:4\x88\xa0\x1f\x00\x98\xa0\x1f\x01\x82\xe7\xb0*\x0evalidator_addr\x8a\xe7\xb0*\x14\x63osmos-sdk/MsgUnjail\"\x13\n\x11MsgUnjailResponse\"\xb4\x01\n\x0fMsgUpdateParams\x12+\n\tauthority\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12:\n\x06params\x18\x02 \x01(\x0b\x32\x1f.cosmos.slashing.v1beta1.ParamsB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01:8\x82\xe7\xb0*\tauthority\x8a\xe7\xb0*%cosmos-sdk/x/slashing/MsgUpdateParams\"\x19\n\x17MsgUpdateParamsResponse2\xd2\x01\n\x03Msg\x12X\n\x06Unjail\x12\".cosmos.slashing.v1beta1.MsgUnjail\x1a*.cosmos.slashing.v1beta1.MsgUnjailResponse\x12j\n\x0cUpdateParams\x12(.cosmos.slashing.v1beta1.MsgUpdateParams\x1a\x30.cosmos.slashing.v1beta1.MsgUpdateParamsResponse\x1a\x05\x80\xe7\xb0*\x01\x42\x33Z-github.com/cosmos/cosmos-sdk/x/slashing/types\xa8\xe2\x1e\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -28,9 +28,9 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'Z-github.com/cosmos/cosmos-sdk/x/slashing/types\250\342\036\001'
   _globals['_MSGUNJAIL'].fields_by_name['validator_addr']._loaded_options = None
-  _globals['_MSGUNJAIL'].fields_by_name['validator_addr']._serialized_options = b'\352\336\037\007address\322\264-\035cosmos.ValidatorAddressString\242\347\260*\007address\250\347\260*\001'
+  _globals['_MSGUNJAIL'].fields_by_name['validator_addr']._serialized_options = b'\352\336\037\007address\322\264-\024cosmos.AddressString\242\347\260*\007address\250\347\260*\001'
   _globals['_MSGUNJAIL']._loaded_options = None
-  _globals['_MSGUNJAIL']._serialized_options = b'\210\240\037\000\202\347\260*\016validator_addr\212\347\260*\024cosmos-sdk/MsgUnjail'
+  _globals['_MSGUNJAIL']._serialized_options = b'\210\240\037\000\230\240\037\001\202\347\260*\016validator_addr\212\347\260*\024cosmos-sdk/MsgUnjail'
   _globals['_MSGUPDATEPARAMS'].fields_by_name['authority']._loaded_options = None
   _globals['_MSGUPDATEPARAMS'].fields_by_name['authority']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _globals['_MSGUPDATEPARAMS'].fields_by_name['params']._loaded_options = None
@@ -40,13 +40,13 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_MSG']._loaded_options = None
   _globals['_MSG']._serialized_options = b'\200\347\260*\001'
   _globals['_MSGUNJAIL']._serialized_start=195
-  _globals['_MSGUNJAIL']._serialized_end=343
-  _globals['_MSGUNJAILRESPONSE']._serialized_start=345
-  _globals['_MSGUNJAILRESPONSE']._serialized_end=364
-  _globals['_MSGUPDATEPARAMS']._serialized_start=367
-  _globals['_MSGUPDATEPARAMS']._serialized_end=547
-  _globals['_MSGUPDATEPARAMSRESPONSE']._serialized_start=549
-  _globals['_MSGUPDATEPARAMSRESPONSE']._serialized_end=574
-  _globals['_MSG']._serialized_start=577
-  _globals['_MSG']._serialized_end=787
+  _globals['_MSGUNJAIL']._serialized_end=338
+  _globals['_MSGUNJAILRESPONSE']._serialized_start=340
+  _globals['_MSGUNJAILRESPONSE']._serialized_end=359
+  _globals['_MSGUPDATEPARAMS']._serialized_start=362
+  _globals['_MSGUPDATEPARAMS']._serialized_end=542
+  _globals['_MSGUPDATEPARAMSRESPONSE']._serialized_start=544
+  _globals['_MSGUPDATEPARAMSRESPONSE']._serialized_end=569
+  _globals['_MSG']._serialized_start=572
+  _globals['_MSG']._serialized_end=782
 # @@protoc_insertion_point(module_scope)

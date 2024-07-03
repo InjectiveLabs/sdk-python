@@ -16,14 +16,14 @@ from pyinjective.proto.ibc.core.client.v1 import client_pb2 as ibc_dot_core_dot_
 from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n-ibc/lightclients/localhost/v2/localhost.proto\x12\x1dibc.lightclients.localhost.v2\x1a\x1fibc/core/client/v1/client.proto\x1a\x14gogoproto/gogo.proto\"L\n\x0b\x43lientState\x12\x37\n\rlatest_height\x18\x01 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00:\x04\x88\xa0\x1f\x00\x42JZHgithub.com/cosmos/ibc-go/v8/modules/light-clients/09-localhost;localhostb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n-ibc/lightclients/localhost/v2/localhost.proto\x12\x1dibc.lightclients.localhost.v2\x1a\x1fibc/core/client/v1/client.proto\x1a\x14gogoproto/gogo.proto\"L\n\x0b\x43lientState\x12\x37\n\rlatest_height\x18\x01 \x01(\x0b\x32\x1a.ibc.core.client.v1.HeightB\x04\xc8\xde\x1f\x00:\x04\x88\xa0\x1f\x00\x42JZHgithub.com/cosmos/ibc-go/v7/modules/light-clients/09-localhost;localhostb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'ibc.lightclients.localhost.v2.localhost_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
-  _globals['DESCRIPTOR']._serialized_options = b'ZHgithub.com/cosmos/ibc-go/v8/modules/light-clients/09-localhost;localhost'
+  _globals['DESCRIPTOR']._serialized_options = b'ZHgithub.com/cosmos/ibc-go/v7/modules/light-clients/09-localhost;localhost'
   _globals['_CLIENTSTATE'].fields_by_name['latest_height']._loaded_options = None
   _globals['_CLIENTSTATE'].fields_by_name['latest_height']._serialized_options = b'\310\336\037\000'
   _globals['_CLIENTSTATE']._loaded_options = None

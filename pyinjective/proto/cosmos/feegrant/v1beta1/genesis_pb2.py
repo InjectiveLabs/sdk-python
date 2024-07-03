@@ -17,14 +17,14 @@ from pyinjective.proto.cosmos.feegrant.v1beta1 import feegrant_pb2 as cosmos_dot
 from pyinjective.proto.amino import amino_pb2 as amino_dot_amino__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n%cosmos/feegrant/v1beta1/genesis.proto\x12\x17\x63osmos.feegrant.v1beta1\x1a\x14gogoproto/gogo.proto\x1a&cosmos/feegrant/v1beta1/feegrant.proto\x1a\x11\x61mino/amino.proto\"M\n\x0cGenesisState\x12=\n\nallowances\x18\x01 \x03(\x0b\x32\x1e.cosmos.feegrant.v1beta1.GrantB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x42\x19Z\x17\x63osmossdk.io/x/feegrantb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n%cosmos/feegrant/v1beta1/genesis.proto\x12\x17\x63osmos.feegrant.v1beta1\x1a\x14gogoproto/gogo.proto\x1a&cosmos/feegrant/v1beta1/feegrant.proto\x1a\x11\x61mino/amino.proto\"M\n\x0cGenesisState\x12=\n\nallowances\x18\x01 \x03(\x0b\x32\x1e.cosmos.feegrant.v1beta1.GrantB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01\x42)Z\'github.com/cosmos/cosmos-sdk/x/feegrantb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'cosmos.feegrant.v1beta1.genesis_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
-  _globals['DESCRIPTOR']._serialized_options = b'Z\027cosmossdk.io/x/feegrant'
+  _globals['DESCRIPTOR']._serialized_options = b'Z\'github.com/cosmos/cosmos-sdk/x/feegrant'
   _globals['_GENESISSTATE'].fields_by_name['allowances']._loaded_options = None
   _globals['_GENESISSTATE'].fields_by_name['allowances']._serialized_options = b'\310\336\037\000\250\347\260*\001'
   _globals['_GENESISSTATE']._serialized_start=147

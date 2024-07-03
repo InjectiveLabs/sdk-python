@@ -17,7 +17,7 @@ from pyinjective.proto.cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmo
 from pyinjective.proto.amino import amino_pb2 as amino_dot_amino__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\"cosmos/params/v1beta1/params.proto\x12\x15\x63osmos.params.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x11\x61mino/amino.proto\"\xc8\x01\n\x17ParameterChangeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12>\n\x07\x63hanges\x18\x03 \x03(\x0b\x32\".cosmos.params.v1beta1.ParamChangeB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01:I\x88\xa0\x1f\x00\xca\xb4-\x1a\x63osmos.gov.v1beta1.Content\x8a\xe7\xb0*\"cosmos-sdk/ParameterChangeProposal\";\n\x0bParamChange\x12\x10\n\x08subspace\x18\x01 \x01(\t\x12\x0b\n\x03key\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\tB:Z4github.com/cosmos/cosmos-sdk/x/params/types/proposal\xa8\xe2\x1e\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\"cosmos/params/v1beta1/params.proto\x12\x15\x63osmos.params.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x11\x61mino/amino.proto\"\xcc\x01\n\x17ParameterChangeProposal\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12>\n\x07\x63hanges\x18\x03 \x03(\x0b\x32\".cosmos.params.v1beta1.ParamChangeB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01:M\x88\xa0\x1f\x00\x98\xa0\x1f\x00\xca\xb4-\x1a\x63osmos.gov.v1beta1.Content\x8a\xe7\xb0*\"cosmos-sdk/ParameterChangeProposal\"A\n\x0bParamChange\x12\x10\n\x08subspace\x18\x01 \x01(\t\x12\x0b\n\x03key\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\t:\x04\x98\xa0\x1f\x00\x42:Z4github.com/cosmos/cosmos-sdk/x/params/types/proposal\xa8\xe2\x1e\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -28,9 +28,11 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_PARAMETERCHANGEPROPOSAL'].fields_by_name['changes']._loaded_options = None
   _globals['_PARAMETERCHANGEPROPOSAL'].fields_by_name['changes']._serialized_options = b'\310\336\037\000\250\347\260*\001'
   _globals['_PARAMETERCHANGEPROPOSAL']._loaded_options = None
-  _globals['_PARAMETERCHANGEPROPOSAL']._serialized_options = b'\210\240\037\000\312\264-\032cosmos.gov.v1beta1.Content\212\347\260*\"cosmos-sdk/ParameterChangeProposal'
+  _globals['_PARAMETERCHANGEPROPOSAL']._serialized_options = b'\210\240\037\000\230\240\037\000\312\264-\032cosmos.gov.v1beta1.Content\212\347\260*\"cosmos-sdk/ParameterChangeProposal'
+  _globals['_PARAMCHANGE']._loaded_options = None
+  _globals['_PARAMCHANGE']._serialized_options = b'\230\240\037\000'
   _globals['_PARAMETERCHANGEPROPOSAL']._serialized_start=130
-  _globals['_PARAMETERCHANGEPROPOSAL']._serialized_end=330
-  _globals['_PARAMCHANGE']._serialized_start=332
-  _globals['_PARAMCHANGE']._serialized_end=391
+  _globals['_PARAMETERCHANGEPROPOSAL']._serialized_end=334
+  _globals['_PARAMCHANGE']._serialized_start=336
+  _globals['_PARAMCHANGE']._serialized_end=401
 # @@protoc_insertion_point(module_scope)
