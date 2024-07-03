@@ -12,10 +12,10 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from cosmos.app.v1alpha1 import module_pb2 as cosmos_dot_app_dot_v1alpha1_dot_module__pb2
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.cosmos.app.v1alpha1 import module_pb2 as cosmos_dot_app_dot_v1alpha1_dot_module__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from google.protobuf import duration_pb2 as google_dot_protobuf_dot_duration__pb2
-from amino import amino_pb2 as amino_dot_amino__pb2
+from pyinjective.proto.amino import amino_pb2 as amino_dot_amino__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n#cosmos/group/module/v1/module.proto\x12\x16\x63osmos.group.module.v1\x1a cosmos/app/v1alpha1/module.proto\x1a\x14gogoproto/gogo.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x11\x61mino/amino.proto\"\x98\x01\n\x06Module\x12\x46\n\x14max_execution_period\x18\x01 \x01(\x0b\x32\x19.google.protobuf.DurationB\r\xc8\xde\x1f\x00\x98\xdf\x1f\x01\xa8\xe7\xb0*\x01\x12\x18\n\x10max_metadata_len\x18\x02 \x01(\x04:,\xba\xc0\x96\xda\x01&\n$github.com/cosmos/cosmos-sdk/x/groupb\x06proto3')

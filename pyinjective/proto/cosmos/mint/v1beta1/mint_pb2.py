@@ -12,9 +12,9 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
-from cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
-from amino import amino_pb2 as amino_dot_amino__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
+from pyinjective.proto.amino import amino_pb2 as amino_dot_amino__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1e\x63osmos/mint/v1beta1/mint.proto\x12\x13\x63osmos.mint.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x11\x61mino/amino.proto\"\xb2\x01\n\x06Minter\x12O\n\tinflation\x18\x01 \x01(\tB<\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xd2\xb4-\ncosmos.Dec\x12W\n\x11\x61nnual_provisions\x18\x02 \x01(\tB<\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xd2\xb4-\ncosmos.Dec\"\xb2\x03\n\x06Params\x12\x12\n\nmint_denom\x18\x01 \x01(\t\x12[\n\x15inflation_rate_change\x18\x02 \x01(\tB<\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xd2\xb4-\ncosmos.Dec\x12S\n\rinflation_max\x18\x03 \x01(\tB<\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xd2\xb4-\ncosmos.Dec\x12S\n\rinflation_min\x18\x04 \x01(\tB<\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xd2\xb4-\ncosmos.Dec\x12Q\n\x0bgoal_bonded\x18\x05 \x01(\tB<\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec\xd2\xb4-\ncosmos.Dec\x12\x17\n\x0f\x62locks_per_year\x18\x06 \x01(\x04:!\x98\xa0\x1f\x00\x8a\xe7\xb0*\x18\x63osmos-sdk/x/mint/ParamsB+Z)github.com/cosmos/cosmos-sdk/x/mint/typesb\x06proto3')

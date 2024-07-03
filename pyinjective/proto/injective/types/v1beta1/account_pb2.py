@@ -12,9 +12,9 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from cosmos.auth.v1beta1 import auth_pb2 as cosmos_dot_auth_dot_v1beta1_dot_auth__pb2
-from cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.cosmos.auth.v1beta1 import auth_pb2 as cosmos_dot_auth_dot_v1beta1_dot_auth__pb2
+from pyinjective.proto.cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n%injective/types/v1beta1/account.proto\x12\x17injective.types.v1beta1\x1a\x1e\x63osmos/auth/v1beta1/auth.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x14gogoproto/gogo.proto\"\xce\x01\n\nEthAccount\x12S\n\x0c\x62\x61se_account\x18\x01 \x01(\x0b\x32 .cosmos.auth.v1beta1.BaseAccountB\x1b\xd0\xde\x1f\x01\xf2\xde\x1f\x13yaml:\"base_account\"\x12\'\n\tcode_hash\x18\x02 \x01(\x0c\x42\x14\xf2\xde\x1f\x10yaml:\"code_hash\":B\x88\xa0\x1f\x00\x98\xa0\x1f\x00\xe8\xa0\x1f\x00\xca\xb4-2github.com/cosmos/cosmos-sdk/x/auth/types.AccountIB?Z=github.com/InjectiveLabs/injective-core/injective-chain/typesb\x06proto3')

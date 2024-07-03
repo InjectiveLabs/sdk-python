@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from testpb import test_schema_query_pb2 as testpb_dot_test__schema__query__pb2
+from pyinjective.proto.testpb import test_schema_query_pb2 as testpb_dot_test__schema__query__pb2
 
 
 class TestSchemaQueryServiceStub(object):

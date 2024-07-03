@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from exchange import injective_insurance_rpc_pb2 as exchange_dot_injective__insurance__rpc__pb2
+from pyinjective.proto.exchange import injective_insurance_rpc_pb2 as exchange_dot_injective__insurance__rpc__pb2
 
 
 class InjectiveInsuranceRPCStub(object):

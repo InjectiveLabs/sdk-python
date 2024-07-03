@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.4] - 2024-07-03
+### Changed
+- Fixed all import statements in pyinjective.proto modules to make them explicit
+
 ## [1.4.3] - 2024-06-06
 ### Changed
 - Fixed `protobuf` dependency version to "<5" to for the v1.4 branch, because newer versions require a code refactoring (done in v1.5)

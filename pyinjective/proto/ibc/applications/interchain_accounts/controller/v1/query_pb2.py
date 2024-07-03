@@ -12,9 +12,9 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from ibc.applications.interchain_accounts.controller.v1 import controller_pb2 as ibc_dot_applications_dot_interchain__accounts_dot_controller_dot_v1_dot_controller__pb2
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
-from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
+from pyinjective.proto.ibc.applications.interchain_accounts.controller.v1 import controller_pb2 as ibc_dot_applications_dot_interchain__accounts_dot_controller_dot_v1_dot_controller__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n>ibc/applications/interchain_accounts/controller/v1/query.proto\x12\x32ibc.applications.interchain_accounts.controller.v1\x1a\x43ibc/applications/interchain_accounts/controller/v1/controller.proto\x1a\x14gogoproto/gogo.proto\x1a\x1cgoogle/api/annotations.proto\"_\n\x1dQueryInterchainAccountRequest\x12\r\n\x05owner\x18\x01 \x01(\t\x12/\n\rconnection_id\x18\x02 \x01(\tB\x18\xf2\xde\x1f\x14yaml:\"connection_id\"\"1\n\x1eQueryInterchainAccountResponse\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\"\x14\n\x12QueryParamsRequest\"a\n\x13QueryParamsResponse\x12J\n\x06params\x18\x01 \x01(\x0b\x32:.ibc.applications.interchain_accounts.controller.v1.Params2\xfc\x03\n\x05Query\x12\x9a\x02\n\x11InterchainAccount\x12Q.ibc.applications.interchain_accounts.controller.v1.QueryInterchainAccountRequest\x1aR.ibc.applications.interchain_accounts.controller.v1.QueryInterchainAccountResponse\"^\x82\xd3\xe4\x93\x02X\x12V/ibc/apps/interchain_accounts/controller/v1/owners/{owner}/connections/{connection_id}\x12\xd5\x01\n\x06Params\x12\x46.ibc.applications.interchain_accounts.controller.v1.QueryParamsRequest\x1aG.ibc.applications.interchain_accounts.controller.v1.QueryParamsResponse\":\x82\xd3\xe4\x93\x02\x34\x12\x32/ibc/apps/interchain_accounts/controller/v1/paramsBRZPgithub.com/cosmos/ibc-go/v7/modules/apps/27-interchain-accounts/controller/typesb\x06proto3')

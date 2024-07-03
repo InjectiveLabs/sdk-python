@@ -12,8 +12,8 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
-from ibc.core.channel.v1 import channel_pb2 as ibc_dot_core_dot_channel_dot_v1_dot_channel__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.ibc.core.channel.v1 import channel_pb2 as ibc_dot_core_dot_channel_dot_v1_dot_channel__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n!ibc/core/channel/v1/genesis.proto\x12\x13ibc.core.channel.v1\x1a\x14gogoproto/gogo.proto\x1a!ibc/core/channel/v1/channel.proto\"\xef\x04\n\x0cGenesisState\x12S\n\x08\x63hannels\x18\x01 \x03(\x0b\x32&.ibc.core.channel.v1.IdentifiedChannelB\x19\xc8\xde\x1f\x00\xfa\xde\x1f\x11IdentifiedChannel\x12@\n\x10\x61\x63knowledgements\x18\x02 \x03(\x0b\x32 .ibc.core.channel.v1.PacketStateB\x04\xc8\xde\x1f\x00\x12;\n\x0b\x63ommitments\x18\x03 \x03(\x0b\x32 .ibc.core.channel.v1.PacketStateB\x04\xc8\xde\x1f\x00\x12\x38\n\x08receipts\x18\x04 \x03(\x0b\x32 .ibc.core.channel.v1.PacketStateB\x04\xc8\xde\x1f\x00\x12Z\n\x0esend_sequences\x18\x05 \x03(\x0b\x32#.ibc.core.channel.v1.PacketSequenceB\x1d\xc8\xde\x1f\x00\xf2\xde\x1f\x15yaml:\"send_sequences\"\x12Z\n\x0erecv_sequences\x18\x06 \x03(\x0b\x32#.ibc.core.channel.v1.PacketSequenceB\x1d\xc8\xde\x1f\x00\xf2\xde\x1f\x15yaml:\"recv_sequences\"\x12X\n\rack_sequences\x18\x07 \x03(\x0b\x32#.ibc.core.channel.v1.PacketSequenceB\x1c\xc8\xde\x1f\x00\xf2\xde\x1f\x14yaml:\"ack_sequences\"\x12?\n\x15next_channel_sequence\x18\x08 \x01(\x04\x42 \xf2\xde\x1f\x1cyaml:\"next_channel_sequence\"\"r\n\x0ePacketSequence\x12#\n\x07port_id\x18\x01 \x01(\tB\x12\xf2\xde\x1f\x0eyaml:\"port_id\"\x12)\n\nchannel_id\x18\x02 \x01(\tB\x15\xf2\xde\x1f\x11yaml:\"channel_id\"\x12\x10\n\x08sequence\x18\x03 \x01(\x04\x42;Z9github.com/cosmos/ibc-go/v7/modules/core/04-channel/typesb\x06proto3')

@@ -12,7 +12,7 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from tendermint.abci import types_pb2 as tendermint_dot_abci_dot_types__pb2
+from pyinjective.proto.tendermint.abci import types_pb2 as tendermint_dot_abci_dot_types__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n)cosmos/base/store/v1beta1/listening.proto\x12\x19\x63osmos.base.store.v1beta1\x1a\x1btendermint/abci/types.proto\"L\n\x0bStoreKVPair\x12\x11\n\tstore_key\x18\x01 \x01(\t\x12\x0e\n\x06\x64\x65lete\x18\x02 \x01(\x08\x12\x0b\n\x03key\x18\x03 \x01(\x0c\x12\r\n\x05value\x18\x04 \x01(\x0c\"\x89\x04\n\rBlockMetadata\x12?\n\x13request_begin_block\x18\x01 \x01(\x0b\x32\".tendermint.abci.RequestBeginBlock\x12\x41\n\x14response_begin_block\x18\x02 \x01(\x0b\x32#.tendermint.abci.ResponseBeginBlock\x12G\n\x0b\x64\x65liver_txs\x18\x03 \x03(\x0b\x32\x32.cosmos.base.store.v1beta1.BlockMetadata.DeliverTx\x12;\n\x11request_end_block\x18\x04 \x01(\x0b\x32 .tendermint.abci.RequestEndBlock\x12=\n\x12response_end_block\x18\x05 \x01(\x0b\x32!.tendermint.abci.ResponseEndBlock\x12\x38\n\x0fresponse_commit\x18\x06 \x01(\x0b\x32\x1f.tendermint.abci.ResponseCommit\x1au\n\tDeliverTx\x12\x32\n\x07request\x18\x01 \x01(\x0b\x32!.tendermint.abci.RequestDeliverTx\x12\x34\n\x08response\x18\x02 \x01(\x0b\x32\".tendermint.abci.ResponseDeliverTxB*Z(github.com/cosmos/cosmos-sdk/store/typesb\x06proto3')

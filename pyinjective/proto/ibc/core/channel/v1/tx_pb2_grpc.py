@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from ibc.core.channel.v1 import tx_pb2 as ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2
+from pyinjective.proto.ibc.core.channel.v1 import tx_pb2 as ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2
 
 
 class MsgStub(object):

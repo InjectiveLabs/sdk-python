@@ -12,7 +12,7 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\"cosmos/crypto/secp256r1/keys.proto\x12\x17\x63osmos.crypto.secp256r1\x1a\x14gogoproto/gogo.proto\"\"\n\x06PubKey\x12\x18\n\x03key\x18\x01 \x01(\x0c\x42\x0b\xda\xde\x1f\x07\x65\x63\x64saPK\"&\n\x07PrivKey\x12\x1b\n\x06secret\x18\x01 \x01(\x0c\x42\x0b\xda\xde\x1f\x07\x65\x63\x64saSKB@Z2github.com/cosmos/cosmos-sdk/crypto/keys/secp256r1\xc8\xe1\x1e\x00\xd8\xe1\x1e\x00\xc8\xe3\x1e\x01\x62\x06proto3')

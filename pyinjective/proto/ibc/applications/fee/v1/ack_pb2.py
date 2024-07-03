@@ -12,7 +12,7 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n!ibc/applications/fee/v1/ack.proto\x12\x17ibc.applications.fee.v1\x1a\x14gogoproto/gogo.proto\"\xe3\x01\n\x1bIncentivizedAcknowledgement\x12;\n\x13\x61pp_acknowledgement\x18\x01 \x01(\x0c\x42\x1e\xf2\xde\x1f\x1ayaml:\"app_acknowledgement\"\x12\x43\n\x17\x66orward_relayer_address\x18\x02 \x01(\tB\"\xf2\xde\x1f\x1eyaml:\"forward_relayer_address\"\x12\x42\n\x16underlying_app_success\x18\x03 \x01(\x08\x42\"\xf2\xde\x1f\x1eyaml:\"underlying_app_successl\"B7Z5github.com/cosmos/ibc-go/v7/modules/apps/29-fee/typesb\x06proto3')

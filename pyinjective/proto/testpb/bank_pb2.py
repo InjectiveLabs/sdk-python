@@ -12,7 +12,7 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from cosmos.orm.v1 import orm_pb2 as cosmos_dot_orm_dot_v1_dot_orm__pb2
+from pyinjective.proto.cosmos.orm.v1 import orm_pb2 as cosmos_dot_orm_dot_v1_dot_orm__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x11testpb/bank.proto\x12\x06testpb\x1a\x17\x63osmos/orm/v1/orm.proto\"_\n\x07\x42\x61lance\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\x04:$\xf2\x9e\xd3\x8e\x03\x1e\n\x0f\n\raddress,denom\x12\t\n\x05\x64\x65nom\x10\x01\x18\x01\":\n\x06Supply\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\x04:\x11\xf2\x9e\xd3\x8e\x03\x0b\n\x07\n\x05\x64\x65nom\x18\x02\x62\x06proto3')

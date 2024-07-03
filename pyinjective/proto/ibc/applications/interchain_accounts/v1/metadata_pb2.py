@@ -12,7 +12,7 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n6ibc/applications/interchain_accounts/v1/metadata.proto\x12\'ibc.applications.interchain_accounts.v1\x1a\x14gogoproto/gogo.proto\"\xd1\x01\n\x08Metadata\x12\x0f\n\x07version\x18\x01 \x01(\t\x12\x45\n\x18\x63ontroller_connection_id\x18\x02 \x01(\tB#\xf2\xde\x1f\x1fyaml:\"controller_connection_id\"\x12\x39\n\x12host_connection_id\x18\x03 \x01(\tB\x1d\xf2\xde\x1f\x19yaml:\"host_connection_id\"\x12\x0f\n\x07\x61\x64\x64ress\x18\x04 \x01(\t\x12\x10\n\x08\x65ncoding\x18\x05 \x01(\t\x12\x0f\n\x07tx_type\x18\x06 \x01(\tBGZEgithub.com/cosmos/ibc-go/v7/modules/apps/27-interchain-accounts/typesb\x06proto3')

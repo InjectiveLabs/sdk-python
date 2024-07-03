@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from exchange import event_provider_api_pb2 as exchange_dot_event__provider__api__pb2
+from pyinjective.proto.exchange import event_provider_api_pb2 as exchange_dot_event__provider__api__pb2
 
 
 class EventProviderAPIStub(object):
