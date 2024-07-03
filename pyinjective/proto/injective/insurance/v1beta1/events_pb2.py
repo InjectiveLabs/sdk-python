@@ -12,9 +12,9 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
-from cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
-from injective.insurance.v1beta1 import insurance_pb2 as injective_dot_insurance_dot_v1beta1_dot_insurance__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
+from pyinjective.proto.injective.insurance.v1beta1 import insurance_pb2 as injective_dot_insurance_dot_v1beta1_dot_insurance__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n(injective/insurance/v1beta1/events.proto\x12\x1binjective.insurance.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a+injective/insurance/v1beta1/insurance.proto\"T\n\x18\x45ventInsuranceFundUpdate\x12\x38\n\x04\x66und\x18\x01 \x01(\x0b\x32*.injective.insurance.v1beta1.InsuranceFund\"[\n\x16\x45ventRequestRedemption\x12\x41\n\x08schedule\x18\x01 \x01(\x0b\x32/.injective.insurance.v1beta1.RedemptionSchedule\"\x92\x01\n\x17\x45ventWithdrawRedemption\x12\x41\n\x08schedule\x18\x01 \x01(\x0b\x32/.injective.insurance.v1beta1.RedemptionSchedule\x12\x34\n\x0bredeem_coin\x18\x02 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00\"\x9b\x01\n\x0f\x45ventUnderwrite\x12\x13\n\x0bunderwriter\x18\x01 \x01(\t\x12\x10\n\x08marketId\x18\x02 \x01(\t\x12\x30\n\x07\x64\x65posit\x18\x03 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00\x12/\n\x06shares\x18\x04 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00\"w\n\x16\x45ventInsuranceWithdraw\x12\x11\n\tmarket_id\x18\x01 \x01(\t\x12\x15\n\rmarket_ticker\x18\x02 \x01(\t\x12\x33\n\nwithdrawal\x18\x03 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00\x42QZOgithub.com/InjectiveLabs/injective-core/injective-chain/modules/insurance/typesb\x06proto3')

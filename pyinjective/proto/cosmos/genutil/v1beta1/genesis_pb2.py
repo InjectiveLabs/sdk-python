@@ -12,8 +12,8 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
-from amino import amino_pb2 as amino_dot_amino__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.amino import amino_pb2 as amino_dot_amino__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n$cosmos/genutil/v1beta1/genesis.proto\x12\x16\x63osmos.genutil.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x11\x61mino/amino.proto\"W\n\x0cGenesisState\x12G\n\x07gen_txs\x18\x01 \x03(\x0c\x42\x36\xea\xde\x1f\x06gentxs\xfa\xde\x1f\x18\x65ncoding/json.RawMessage\xa2\xe7\xb0*\x06gentxs\xa8\xe7\xb0*\x01\x42.Z,github.com/cosmos/cosmos-sdk/x/genutil/typesb\x06proto3')

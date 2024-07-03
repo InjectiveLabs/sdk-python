@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from injective.insurance.v1beta1 import query_pb2 as injective_dot_insurance_dot_v1beta1_dot_query__pb2
+from pyinjective.proto.injective.insurance.v1beta1 import query_pb2 as injective_dot_insurance_dot_v1beta1_dot_query__pb2
 
 
 class QueryStub(object):

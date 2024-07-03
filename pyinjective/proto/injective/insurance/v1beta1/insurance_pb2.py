@@ -12,11 +12,11 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from google.protobuf import duration_pb2 as google_dot_protobuf_dot_duration__pb2
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
-from cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
-from injective.oracle.v1beta1 import oracle_pb2 as injective_dot_oracle_dot_v1beta1_dot_oracle__pb2
+from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
+from pyinjective.proto.injective.oracle.v1beta1 import oracle_pb2 as injective_dot_oracle_dot_v1beta1_dot_oracle__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n+injective/insurance/v1beta1/insurance.proto\x12\x1binjective.insurance.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a%injective/oracle/v1beta1/oracle.proto\"\x9b\x01\n\x06Params\x12\x8a\x01\n)default_redemption_notice_period_duration\x18\x01 \x01(\x0b\x32\x19.google.protobuf.DurationB<\xc8\xde\x1f\x00\xf2\xde\x1f\x30yaml:\"default_redemption_notice_period_duration\"\x98\xdf\x1f\x01:\x04\xe8\xa0\x1f\x01\"\xec\x03\n\rInsuranceFund\x12\x15\n\rdeposit_denom\x18\x01 \x01(\t\x12\"\n\x1ainsurance_pool_token_denom\x18\x02 \x01(\t\x12z\n!redemption_notice_period_duration\x18\x03 \x01(\x0b\x32\x19.google.protobuf.DurationB4\xc8\xde\x1f\x00\xf2\xde\x1f(yaml:\"redemption_notice_period_duration\"\x98\xdf\x1f\x01\x12?\n\x07\x62\x61lance\x18\x04 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\x12\x43\n\x0btotal_share\x18\x05 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\x12\x11\n\tmarket_id\x18\x06 \x01(\t\x12\x15\n\rmarket_ticker\x18\x07 \x01(\t\x12\x13\n\x0boracle_base\x18\x08 \x01(\t\x12\x14\n\x0coracle_quote\x18\t \x01(\t\x12\x39\n\x0boracle_type\x18\n \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x0e\n\x06\x65xpiry\x18\x0b \x01(\x03\"\xed\x01\n\x12RedemptionSchedule\x12\n\n\x02id\x18\x01 \x01(\x04\x12\x10\n\x08marketId\x18\x02 \x01(\t\x12\x10\n\x08redeemer\x18\x03 \x01(\t\x12k\n\x19\x63laimable_redemption_time\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.TimestampB,\xc8\xde\x1f\x00\xf2\xde\x1f yaml:\"claimable_redemption_time\"\x90\xdf\x1f\x01\x12:\n\x11redemption_amount\x18\x05 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00\x42QZOgithub.com/InjectiveLabs/injective-core/injective-chain/modules/insurance/typesb\x06proto3')

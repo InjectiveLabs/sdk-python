@@ -12,7 +12,7 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from injective.peggy.v1 import attestation_pb2 as injective_dot_peggy_dot_v1_dot_attestation__pb2
+from pyinjective.proto.injective.peggy.v1 import attestation_pb2 as injective_dot_peggy_dot_v1_dot_attestation__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1einjective/peggy/v1/batch.proto\x12\x12injective.peggy.v1\x1a$injective/peggy/v1/attestation.proto\"\xa2\x01\n\x0fOutgoingTxBatch\x12\x13\n\x0b\x62\x61tch_nonce\x18\x01 \x01(\x04\x12\x15\n\rbatch_timeout\x18\x02 \x01(\x04\x12<\n\x0ctransactions\x18\x03 \x03(\x0b\x32&.injective.peggy.v1.OutgoingTransferTx\x12\x16\n\x0etoken_contract\x18\x04 \x01(\t\x12\r\n\x05\x62lock\x18\x05 \x01(\x04\"\xae\x01\n\x12OutgoingTransferTx\x12\n\n\x02id\x18\x01 \x01(\x04\x12\x0e\n\x06sender\x18\x02 \x01(\t\x12\x14\n\x0c\x64\x65st_address\x18\x03 \x01(\t\x12\x33\n\x0b\x65rc20_token\x18\x04 \x01(\x0b\x32\x1e.injective.peggy.v1.ERC20Token\x12\x31\n\terc20_fee\x18\x05 \x01(\x0b\x32\x1e.injective.peggy.v1.ERC20TokenBMZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/peggy/typesb\x06proto3')

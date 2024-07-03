@@ -12,12 +12,12 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
-from tendermint.abci import types_pb2 as tendermint_dot_abci_dot_types__pb2
-from tendermint.types import types_pb2 as tendermint_dot_types_dot_types__pb2
-from tendermint.types import validator_pb2 as tendermint_dot_types_dot_validator__pb2
-from tendermint.types import params_pb2 as tendermint_dot_types_dot_params__pb2
-from tendermint.version import types_pb2 as tendermint_dot_version_dot_types__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.tendermint.abci import types_pb2 as tendermint_dot_abci_dot_types__pb2
+from pyinjective.proto.tendermint.types import types_pb2 as tendermint_dot_types_dot_types__pb2
+from pyinjective.proto.tendermint.types import validator_pb2 as tendermint_dot_types_dot_validator__pb2
+from pyinjective.proto.tendermint.types import params_pb2 as tendermint_dot_types_dot_params__pb2
+from pyinjective.proto.tendermint.version import types_pb2 as tendermint_dot_version_dot_types__pb2
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 

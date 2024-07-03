@@ -12,7 +12,7 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1einjective/peggy/v1/types.proto\x12\x12injective.peggy.v1\x1a\x14gogoproto/gogo.proto\":\n\x0f\x42ridgeValidator\x12\r\n\x05power\x18\x01 \x01(\x04\x12\x18\n\x10\x65thereum_address\x18\x02 \x01(\t\"\xba\x01\n\x06Valset\x12\r\n\x05nonce\x18\x01 \x01(\x04\x12\x34\n\x07members\x18\x02 \x03(\x0b\x32#.injective.peggy.v1.BridgeValidator\x12\x0e\n\x06height\x18\x03 \x01(\x04\x12\x45\n\rreward_amount\x18\x04 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\x12\x14\n\x0creward_token\x18\x05 \x01(\t\"]\n\x1fLastObservedEthereumBlockHeight\x12\x1b\n\x13\x63osmos_block_height\x18\x01 \x01(\x04\x12\x1d\n\x15\x65thereum_block_height\x18\x02 \x01(\x04\"M\n\x0eLastClaimEvent\x12\x1c\n\x14\x65thereum_event_nonce\x18\x01 \x01(\x04\x12\x1d\n\x15\x65thereum_event_height\x18\x02 \x01(\x04\",\n\x0c\x45RC20ToDenom\x12\r\n\x05\x65rc20\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\tBMZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/peggy/typesb\x06proto3')

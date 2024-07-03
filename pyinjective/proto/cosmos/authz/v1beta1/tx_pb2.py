@@ -12,12 +12,12 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from google.protobuf import any_pb2 as google_dot_protobuf_dot_any__pb2
-from cosmos.authz.v1beta1 import authz_pb2 as cosmos_dot_authz_dot_v1beta1_dot_authz__pb2
-from cosmos.msg.v1 import msg_pb2 as cosmos_dot_msg_dot_v1_dot_msg__pb2
-from amino import amino_pb2 as amino_dot_amino__pb2
+from pyinjective.proto.cosmos.authz.v1beta1 import authz_pb2 as cosmos_dot_authz_dot_v1beta1_dot_authz__pb2
+from pyinjective.proto.cosmos.msg.v1 import msg_pb2 as cosmos_dot_msg_dot_v1_dot_msg__pb2
+from pyinjective.proto.amino import amino_pb2 as amino_dot_amino__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1d\x63osmos/authz/v1beta1/tx.proto\x12\x14\x63osmos.authz.v1beta1\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x14gogoproto/gogo.proto\x1a\x19google/protobuf/any.proto\x1a cosmos/authz/v1beta1/authz.proto\x1a\x17\x63osmos/msg/v1/msg.proto\x1a\x11\x61mino/amino.proto\"\xbd\x01\n\x08MsgGrant\x12)\n\x07granter\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12)\n\x07grantee\x18\x02 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12\x35\n\x05grant\x18\x03 \x01(\x0b\x32\x1b.cosmos.authz.v1beta1.GrantB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01:$\x82\xe7\xb0*\x07granter\x8a\xe7\xb0*\x13\x63osmos-sdk/MsgGrant\"\"\n\x0fMsgExecResponse\x12\x0f\n\x07results\x18\x01 \x03(\x0c\"\x9a\x01\n\x07MsgExec\x12)\n\x07grantee\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12?\n\x04msgs\x18\x02 \x03(\x0b\x32\x14.google.protobuf.AnyB\x1b\xca\xb4-\x17\x63osmos.base.v1beta1.Msg:#\x82\xe7\xb0*\x07grantee\x8a\xe7\xb0*\x12\x63osmos-sdk/MsgExec\"\x12\n\x10MsgGrantResponse\"\x9e\x01\n\tMsgRevoke\x12)\n\x07granter\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12)\n\x07grantee\x18\x02 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12\x14\n\x0cmsg_type_url\x18\x03 \x01(\t:%\x82\xe7\xb0*\x07granter\x8a\xe7\xb0*\x14\x63osmos-sdk/MsgRevoke\"\x13\n\x11MsgRevokeResponse\"(\n\x15MsgExecCompatResponse\x12\x0f\n\x07results\x18\x01 \x03(\x0c\"m\n\rMsgExecCompat\x12)\n\x07grantee\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12\x0c\n\x04msgs\x18\x02 \x03(\t:#\x82\xe7\xb0*\x07grantee\x8a\xe7\xb0*\x12\x63osmos-sdk/MsgExec2\xdf\x02\n\x03Msg\x12O\n\x05Grant\x12\x1e.cosmos.authz.v1beta1.MsgGrant\x1a&.cosmos.authz.v1beta1.MsgGrantResponse\x12L\n\x04\x45xec\x12\x1d.cosmos.authz.v1beta1.MsgExec\x1a%.cosmos.authz.v1beta1.MsgExecResponse\x12R\n\x06Revoke\x12\x1f.cosmos.authz.v1beta1.MsgRevoke\x1a\'.cosmos.authz.v1beta1.MsgRevokeResponse\x12^\n\nExecCompat\x12#.cosmos.authz.v1beta1.MsgExecCompat\x1a+.cosmos.authz.v1beta1.MsgExecCompatResponse\x1a\x05\x80\xe7\xb0*\x01\x42*Z$github.com/cosmos/cosmos-sdk/x/authz\xc8\xe1\x1e\x00\x62\x06proto3')
