@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from ibc.applications.interchain_accounts.controller.v1 import query_pb2 as ibc_dot_applications_dot_interchain__accounts_dot_controller_dot_v1_dot_query__pb2
+from pyinjective.proto.ibc.applications.interchain_accounts.controller.v1 import query_pb2 as ibc_dot_applications_dot_interchain__accounts_dot_controller_dot_v1_dot_query__pb2
 
 
 class QueryStub(object):

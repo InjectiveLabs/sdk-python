@@ -12,12 +12,12 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
-from cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
-from cosmos.msg.v1 import msg_pb2 as cosmos_dot_msg_dot_v1_dot_msg__pb2
-from cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
-from injective.insurance.v1beta1 import insurance_pb2 as injective_dot_insurance_dot_v1beta1_dot_insurance__pb2
-from injective.oracle.v1beta1 import oracle_pb2 as injective_dot_oracle_dot_v1beta1_dot_oracle__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
+from pyinjective.proto.cosmos.msg.v1 import msg_pb2 as cosmos_dot_msg_dot_v1_dot_msg__pb2
+from pyinjective.proto.cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
+from pyinjective.proto.injective.insurance.v1beta1 import insurance_pb2 as injective_dot_insurance_dot_v1beta1_dot_insurance__pb2
+from pyinjective.proto.injective.oracle.v1beta1 import oracle_pb2 as injective_dot_oracle_dot_v1beta1_dot_oracle__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n$injective/insurance/v1beta1/tx.proto\x12\x1binjective.insurance.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a\x17\x63osmos/msg/v1/msg.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a+injective/insurance/v1beta1/insurance.proto\x1a%injective/oracle/v1beta1/oracle.proto\"\x92\x02\n\x16MsgCreateInsuranceFund\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x0e\n\x06ticker\x18\x02 \x01(\t\x12\x13\n\x0bquote_denom\x18\x03 \x01(\t\x12\x13\n\x0boracle_base\x18\x04 \x01(\t\x12\x14\n\x0coracle_quote\x18\x05 \x01(\t\x12\x39\n\x0boracle_type\x18\x06 \x01(\x0e\x32$.injective.oracle.v1beta1.OracleType\x12\x0e\n\x06\x65xpiry\x18\x07 \x01(\x03\x12\x38\n\x0finitial_deposit\x18\x08 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00:\x13\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\x82\xe7\xb0*\x06sender\" \n\x1eMsgCreateInsuranceFundResponse\"y\n\rMsgUnderwrite\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12\x30\n\x07\x64\x65posit\x18\x03 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00:\x13\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\x82\xe7\xb0*\x06sender\"\x17\n\x15MsgUnderwriteResponse\"\x7f\n\x14MsgRequestRedemption\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x11\n\tmarket_id\x18\x02 \x01(\t\x12/\n\x06\x61mount\x18\x03 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00:\x13\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\x82\xe7\xb0*\x06sender\"\x1e\n\x1cMsgRequestRedemptionResponse\"\x89\x01\n\x0fMsgUpdateParams\x12+\n\tauthority\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12\x39\n\x06params\x18\x02 \x01(\x0b\x32#.injective.insurance.v1beta1.ParamsB\x04\xc8\xde\x1f\x00:\x0e\x82\xe7\xb0*\tauthority\"\x19\n\x17MsgUpdateParamsResponse2\xf5\x03\n\x03Msg\x12\x87\x01\n\x13\x43reateInsuranceFund\x12\x33.injective.insurance.v1beta1.MsgCreateInsuranceFund\x1a;.injective.insurance.v1beta1.MsgCreateInsuranceFundResponse\x12l\n\nUnderwrite\x12*.injective.insurance.v1beta1.MsgUnderwrite\x1a\x32.injective.insurance.v1beta1.MsgUnderwriteResponse\x12\x81\x01\n\x11RequestRedemption\x12\x31.injective.insurance.v1beta1.MsgRequestRedemption\x1a\x39.injective.insurance.v1beta1.MsgRequestRedemptionResponse\x12r\n\x0cUpdateParams\x12,.injective.insurance.v1beta1.MsgUpdateParams\x1a\x34.injective.insurance.v1beta1.MsgUpdateParamsResponseBQZOgithub.com/InjectiveLabs/injective-core/injective-chain/modules/insurance/typesb\x06proto3')

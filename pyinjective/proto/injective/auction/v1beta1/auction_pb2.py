@@ -12,8 +12,8 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
-from cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\'injective/auction/v1beta1/auction.proto\x12\x19injective.auction.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\"{\n\x06Params\x12\x16\n\x0e\x61uction_period\x18\x01 \x01(\x03\x12S\n\x1bmin_next_bid_increment_rate\x18\x02 \x01(\tB.\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Dec:\x04\xe8\xa0\x1f\x01\"s\n\x03\x42id\x12+\n\x06\x62idder\x18\x01 \x01(\tB\x1b\xea\xde\x1f\x06\x62idder\xf2\xde\x1f\ryaml:\"bidder\"\x12?\n\x06\x61mount\x18\x02 \x01(\tB/\xc8\xde\x1f\x00\xda\xde\x1f\'github.com/cosmos/cosmos-sdk/types.Coin\"j\n\x08\x45ventBid\x12\x0e\n\x06\x62idder\x18\x01 \x01(\t\x12?\n\x06\x61mount\x18\x02 \x01(\tB/\xc8\xde\x1f\x00\xda\xde\x1f\'github.com/cosmos/cosmos-sdk/types.Coin\x12\r\n\x05round\x18\x03 \x01(\x04\"t\n\x12\x45ventAuctionResult\x12\x0e\n\x06winner\x18\x01 \x01(\t\x12?\n\x06\x61mount\x18\x02 \x01(\tB/\xc8\xde\x1f\x00\xda\xde\x1f\'github.com/cosmos/cosmos-sdk/types.Coin\x12\r\n\x05round\x18\x03 \x01(\x04\"\x9d\x01\n\x11\x45ventAuctionStart\x12\r\n\x05round\x18\x01 \x01(\x04\x12\x18\n\x10\x65nding_timestamp\x18\x02 \x01(\x03\x12_\n\nnew_basket\x18\x03 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.CoinsBOZMgithub.com/InjectiveLabs/injective-core/injective-chain/modules/auction/typesb\x06proto3')

@@ -12,7 +12,7 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1a\x63osmwasm/wasm/v1/ibc.proto\x12\x10\x63osmwasm.wasm.v1\x1a\x14gogoproto/gogo.proto\"\xb2\x01\n\nMsgIBCSend\x12*\n\x07\x63hannel\x18\x02 \x01(\tB\x19\xf2\xde\x1f\x15yaml:\"source_channel\"\x12\x31\n\x0etimeout_height\x18\x04 \x01(\x04\x42\x19\xf2\xde\x1f\x15yaml:\"timeout_height\"\x12\x37\n\x11timeout_timestamp\x18\x05 \x01(\x04\x42\x1c\xf2\xde\x1f\x18yaml:\"timeout_timestamp\"\x12\x0c\n\x04\x64\x61ta\x18\x06 \x01(\x0c\"&\n\x12MsgIBCSendResponse\x12\x10\n\x08sequence\x18\x01 \x01(\x04\"@\n\x12MsgIBCCloseChannel\x12*\n\x07\x63hannel\x18\x02 \x01(\tB\x19\xf2\xde\x1f\x15yaml:\"source_channel\"B,Z&github.com/CosmWasm/wasmd/x/wasm/types\xc8\xe1\x1e\x00\x62\x06proto3')

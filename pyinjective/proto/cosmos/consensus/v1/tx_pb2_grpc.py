@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from cosmos.consensus.v1 import tx_pb2 as cosmos_dot_consensus_dot_v1_dot_tx__pb2
+from pyinjective.proto.cosmos.consensus.v1 import tx_pb2 as cosmos_dot_consensus_dot_v1_dot_tx__pb2
 
 
 class MsgStub(object):

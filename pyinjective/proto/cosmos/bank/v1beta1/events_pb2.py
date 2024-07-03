@@ -12,9 +12,9 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
-from amino import amino_pb2 as amino_dot_amino__pb2
+from pyinjective.proto.cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.amino import amino_pb2 as amino_dot_amino__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n cosmos/bank/v1beta1/events.proto\x12\x13\x63osmos.bank.v1beta1\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x14gogoproto/gogo.proto\x1a\x11\x61mino/amino.proto\"O\n\x10\x45ventSetBalances\x12;\n\x0f\x62\x61lance_updates\x18\x01 \x03(\x0b\x32\".cosmos.bank.v1beta1.BalanceUpdate\"|\n\rBalanceUpdate\x12\x0c\n\x04\x61\x64\x64r\x18\x01 \x01(\x0c\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\x0c\x12N\n\x03\x61mt\x18\x03 \x01(\tBA\xc8\xde\x1f\x00\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int\xd2\xb4-\ncosmos.Int\xa8\xe7\xb0*\x01\x42+Z)github.com/cosmos/cosmos-sdk/x/bank/typesb\x06proto3')

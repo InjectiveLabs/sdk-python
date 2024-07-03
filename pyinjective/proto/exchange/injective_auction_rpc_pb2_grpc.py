@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from exchange import injective_auction_rpc_pb2 as exchange_dot_injective__auction__rpc__pb2
+from pyinjective.proto.exchange import injective_auction_rpc_pb2 as exchange_dot_injective__auction__rpc__pb2
 
 
 class InjectiveAuctionRPCStub(object):

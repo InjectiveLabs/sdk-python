@@ -12,7 +12,7 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from cosmos.nft.v1beta1 import nft_pb2 as cosmos_dot_nft_dot_v1beta1_dot_nft__pb2
+from pyinjective.proto.cosmos.nft.v1beta1 import nft_pb2 as cosmos_dot_nft_dot_v1beta1_dot_nft__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n cosmos/nft/v1beta1/genesis.proto\x12\x12\x63osmos.nft.v1beta1\x1a\x1c\x63osmos/nft/v1beta1/nft.proto\"f\n\x0cGenesisState\x12*\n\x07\x63lasses\x18\x01 \x03(\x0b\x32\x19.cosmos.nft.v1beta1.Class\x12*\n\x07\x65ntries\x18\x02 \x03(\x0b\x32\x19.cosmos.nft.v1beta1.Entry\"=\n\x05\x45ntry\x12\r\n\x05owner\x18\x01 \x01(\t\x12%\n\x04nfts\x18\x02 \x03(\x0b\x32\x17.cosmos.nft.v1beta1.NFTB$Z\"github.com/cosmos/cosmos-sdk/x/nftb\x06proto3')

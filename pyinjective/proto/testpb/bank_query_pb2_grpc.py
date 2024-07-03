@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from testpb import bank_query_pb2 as testpb_dot_bank__query__pb2
+from pyinjective.proto.testpb import bank_query_pb2 as testpb_dot_bank__query__pb2
 
 
 class BankQueryServiceStub(object):

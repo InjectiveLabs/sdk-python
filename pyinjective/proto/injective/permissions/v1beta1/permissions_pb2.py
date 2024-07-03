@@ -12,8 +12,8 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
-from cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n/injective/permissions/v1beta1/permissions.proto\x12\x1dinjective.permissions.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\"\xf2\x01\n\tNamespace\x12\r\n\x05\x64\x65nom\x18\x01 \x01(\t\x12\x11\n\twasm_hook\x18\x02 \x01(\t\x12\x14\n\x0cmints_paused\x18\x03 \x01(\x08\x12\x14\n\x0csends_paused\x18\x04 \x01(\x08\x12\x14\n\x0c\x62urns_paused\x18\x05 \x01(\x08\x12=\n\x10role_permissions\x18\x06 \x03(\x0b\x32#.injective.permissions.v1beta1.Role\x12\x42\n\raddress_roles\x18\x07 \x03(\x0b\x32+.injective.permissions.v1beta1.AddressRoles\".\n\x0c\x41\x64\x64ressRoles\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\r\n\x05roles\x18\x02 \x03(\t\")\n\x04Role\x12\x0c\n\x04role\x18\x01 \x01(\t\x12\x13\n\x0bpermissions\x18\x02 \x01(\r\"\x1b\n\x07RoleIDs\x12\x10\n\x08role_ids\x18\x01 \x03(\r\"e\n\x07Voucher\x12Z\n\x05\x63oins\x18\x01 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.Coins\"Z\n\x0e\x41\x64\x64ressVoucher\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\x37\n\x07voucher\x18\x02 \x01(\x0b\x32&.injective.permissions.v1beta1.Voucher*:\n\x06\x41\x63tion\x12\x0f\n\x0bUNSPECIFIED\x10\x00\x12\x08\n\x04MINT\x10\x01\x12\x0b\n\x07RECEIVE\x10\x02\x12\x08\n\x04\x42URN\x10\x04\x42SZQgithub.com/InjectiveLabs/injective-core/injective-chain/modules/permissions/typesb\x06proto3')
