@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-from exchange import event_provider_api_pb2 as exchange_dot_event__provider__api__pb2
+from pyinjective.proto.exchange import event_provider_api_pb2 as exchange_dot_event__provider__api__pb2
 
 GRPC_GENERATED_VERSION = '1.64.1'
 GRPC_VERSION = grpc.__version__

@@ -12,7 +12,7 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n(injective/peggy/v1/ethereum_signer.proto\x12\x12injective.peggy.v1\x1a\x14gogoproto/gogo.proto*\x91\x01\n\x08SignType\x12\x15\n\x11SIGN_TYPE_UNKNOWN\x10\x00\x12\x32\n.SIGN_TYPE_ORCHESTRATOR_SIGNED_MULTI_SIG_UPDATE\x10\x01\x12\x30\n,SIGN_TYPE_ORCHESTRATOR_SIGNED_WITHDRAW_BATCH\x10\x02\x1a\x08\x88\xa3\x1e\x00\xa8\xa4\x1e\x00\x42MZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/peggy/typesb\x06proto3')

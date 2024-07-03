@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-from cosmos.app.v1alpha1 import query_pb2 as cosmos_dot_app_dot_v1alpha1_dot_query__pb2
+from pyinjective.proto.cosmos.app.v1alpha1 import query_pb2 as cosmos_dot_app_dot_v1alpha1_dot_query__pb2
 
 GRPC_GENERATED_VERSION = '1.64.1'
 GRPC_VERSION = grpc.__version__

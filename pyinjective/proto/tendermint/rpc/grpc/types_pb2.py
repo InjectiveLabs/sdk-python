@@ -12,7 +12,7 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from tendermint.abci import types_pb2 as tendermint_dot_abci_dot_types__pb2
+from pyinjective.proto.tendermint.abci import types_pb2 as tendermint_dot_abci_dot_types__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1ftendermint/rpc/grpc/types.proto\x12\x13tendermint.rpc.grpc\x1a\x1btendermint/abci/types.proto\"\r\n\x0bRequestPing\" \n\x12RequestBroadcastTx\x12\n\n\x02tx\x18\x01 \x01(\x0c\"\x0e\n\x0cResponsePing\"{\n\x13ResponseBroadcastTx\x12\x32\n\x08\x63heck_tx\x18\x01 \x01(\x0b\x32 .tendermint.abci.ResponseCheckTx\x12\x30\n\ttx_result\x18\x02 \x01(\x0b\x32\x1d.tendermint.abci.ExecTxResult2\xbd\x01\n\x0c\x42roadcastAPI\x12K\n\x04Ping\x12 .tendermint.rpc.grpc.RequestPing\x1a!.tendermint.rpc.grpc.ResponsePing\x12`\n\x0b\x42roadcastTx\x12\'.tendermint.rpc.grpc.RequestBroadcastTx\x1a(.tendermint.rpc.grpc.ResponseBroadcastTxB0Z.github.com/cometbft/cometbft/rpc/grpc;coregrpcb\x06proto3')

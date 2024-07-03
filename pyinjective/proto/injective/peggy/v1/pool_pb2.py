@@ -12,7 +12,7 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1dinjective/peggy/v1/pool.proto\x12\x12injective.peggy.v1\x1a\x14gogoproto/gogo.proto\"\x14\n\x05IDSet\x12\x0b\n\x03ids\x18\x01 \x03(\x04\"M\n\tBatchFees\x12\r\n\x05token\x18\x01 \x01(\t\x12\x31\n\ntotal_fees\x18\x02 \x01(\tB\x1d\xc8\xde\x1f\x00\xda\xde\x1f\x15\x63osmossdk.io/math.IntBMZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/peggy/typesb\x06proto3')

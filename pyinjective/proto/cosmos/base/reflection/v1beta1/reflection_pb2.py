@@ -12,7 +12,7 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
+from pyinjective.proto.google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n/cosmos/base/reflection/v1beta1/reflection.proto\x12\x1e\x63osmos.base.reflection.v1beta1\x1a\x1cgoogle/api/annotations.proto\"\x1a\n\x18ListAllInterfacesRequest\"4\n\x19ListAllInterfacesResponse\x12\x17\n\x0finterface_names\x18\x01 \x03(\t\"4\n\x1aListImplementationsRequest\x12\x16\n\x0einterface_name\x18\x01 \x01(\t\"C\n\x1bListImplementationsResponse\x12$\n\x1cimplementation_message_names\x18\x01 \x03(\t2\xb8\x03\n\x11ReflectionService\x12\xbc\x01\n\x11ListAllInterfaces\x12\x38.cosmos.base.reflection.v1beta1.ListAllInterfacesRequest\x1a\x39.cosmos.base.reflection.v1beta1.ListAllInterfacesResponse\"2\x82\xd3\xe4\x93\x02,\x12*/cosmos/base/reflection/v1beta1/interfaces\x12\xe3\x01\n\x13ListImplementations\x12:.cosmos.base.reflection.v1beta1.ListImplementationsRequest\x1a;.cosmos.base.reflection.v1beta1.ListImplementationsResponse\"S\x82\xd3\xe4\x93\x02M\x12K/cosmos/base/reflection/v1beta1/interfaces/{interface_name}/implementationsB5Z3github.com/cosmos/cosmos-sdk/client/grpc/reflectionb\x06proto3')

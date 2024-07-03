@@ -12,11 +12,11 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from google.protobuf import duration_pb2 as google_dot_protobuf_dot_duration__pb2
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
-from cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
-from amino import amino_pb2 as amino_dot_amino__pb2
+from pyinjective.proto.cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
+from pyinjective.proto.amino import amino_pb2 as amino_dot_amino__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n&cosmos/slashing/v1beta1/slashing.proto\x12\x17\x63osmos.slashing.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x11\x61mino/amino.proto\"\xf0\x01\n\x14ValidatorSigningInfo\x12\x32\n\x07\x61\x64\x64ress\x18\x01 \x01(\tB!\xd2\xb4-\x1d\x63osmos.ConsensusAddressString\x12\x14\n\x0cstart_height\x18\x02 \x01(\x03\x12\x14\n\x0cindex_offset\x18\x03 \x01(\x03\x12?\n\x0cjailed_until\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.TimestampB\r\xc8\xde\x1f\x00\x90\xdf\x1f\x01\xa8\xe7\xb0*\x01\x12\x12\n\ntombstoned\x18\x05 \x01(\x08\x12\x1d\n\x15missed_blocks_counter\x18\x06 \x01(\x03:\x04\xe8\xa0\x1f\x01\"\x9f\x03\n\x06Params\x12\x1c\n\x14signed_blocks_window\x18\x01 \x01(\x03\x12U\n\x15min_signed_per_window\x18\x02 \x01(\x0c\x42\x36\xc8\xde\x1f\x00\xda\xde\x1f\x1b\x63osmossdk.io/math.LegacyDec\xd2\xb4-\ncosmos.Dec\xa8\xe7\xb0*\x01\x12H\n\x16\x64owntime_jail_duration\x18\x03 \x01(\x0b\x32\x19.google.protobuf.DurationB\r\xc8\xde\x1f\x00\x98\xdf\x1f\x01\xa8\xe7\xb0*\x01\x12Z\n\x1aslash_fraction_double_sign\x18\x04 \x01(\x0c\x42\x36\xc8\xde\x1f\x00\xda\xde\x1f\x1b\x63osmossdk.io/math.LegacyDec\xd2\xb4-\ncosmos.Dec\xa8\xe7\xb0*\x01\x12W\n\x17slash_fraction_downtime\x18\x05 \x01(\x0c\x42\x36\xc8\xde\x1f\x00\xda\xde\x1f\x1b\x63osmossdk.io/math.LegacyDec\xd2\xb4-\ncosmos.Dec\xa8\xe7\xb0*\x01:!\x8a\xe7\xb0*\x1c\x63osmos-sdk/x/slashing/ParamsB3Z-github.com/cosmos/cosmos-sdk/x/slashing/types\xa8\xe2\x1e\x01\x62\x06proto3')

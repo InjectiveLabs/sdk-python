@@ -3,17 +3,25 @@ all:
 gen: gen-client
 
 gen-client: clone-all copy-proto
+	mkdir -p ./pyinjective/proto
 	@for dir in $(shell find ./proto -path -prune -o -name '*.proto' -print0 | xargs -0 -n1 dirname | sort | uniq); do \
-		mkdir -p ./pyinjective/$${dir}; \
 		python3 -m grpc_tools.protoc \
-		-I proto \
+		--proto_path=./proto \
 		--python_out=./pyinjective/proto \
 		--grpc_python_out=./pyinjective/proto \
 		$$(find ./$${dir} -type f -name '*.proto'); \
-	done; \
+	done
 	rm -rf proto
 	$(call clean_repos)
-	echo "import os\nimport sys\n\nsys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))" > pyinjective/proto/__init__.py
+	touch pyinjective/proto/__init__.py
+	$(MAKE) fix-proto-imports
+
+PROTO_MODULES := cosmwasm exchange gogoproto cosmos_proto cosmos testpb ibc amino tendermint injective
+fix-proto-imports:
+	@for module in $(PROTO_MODULES); do \
+  		find ./pyinjective/proto -type f -name "*.py" -exec sed -i "" -e "s/from $${module}/from pyinjective.proto.$${module}/g" {} \; ; \
+	done
+	@find ./pyinjective/proto -type f -name "*.py" -exec sed -i "" -e "s/from google.api/from pyinjective.proto.google.api/g" {} \;
 
 define clean_repos
 	rm -Rf cosmos-sdk

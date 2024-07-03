@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-from exchange import injective_accounts_rpc_pb2 as exchange_dot_injective__accounts__rpc__pb2
+from pyinjective.proto.exchange import injective_accounts_rpc_pb2 as exchange_dot_injective__accounts__rpc__pb2
 
 GRPC_GENERATED_VERSION = '1.64.1'
 GRPC_VERSION = grpc.__version__

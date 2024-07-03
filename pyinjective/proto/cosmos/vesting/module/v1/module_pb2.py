@@ -12,7 +12,7 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from cosmos.app.v1alpha1 import module_pb2 as cosmos_dot_app_dot_v1alpha1_dot_module__pb2
+from pyinjective.proto.cosmos.app.v1alpha1 import module_pb2 as cosmos_dot_app_dot_v1alpha1_dot_module__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n%cosmos/vesting/module/v1/module.proto\x12\x18\x63osmos.vesting.module.v1\x1a cosmos/app/v1alpha1/module.proto\"=\n\x06Module:3\xba\xc0\x96\xda\x01-\n+github.com/cosmos/cosmos-sdk/x/auth/vestingb\x06proto3')

@@ -12,8 +12,8 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
-from cosmos.ics23.v1 import proofs_pb2 as cosmos_dot_ics23_dot_v1_dot_proofs__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.cosmos.ics23.v1 import proofs_pb2 as cosmos_dot_ics23_dot_v1_dot_proofs__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\'ibc/core/commitment/v1/commitment.proto\x12\x16ibc.core.commitment.v1\x1a\x14gogoproto/gogo.proto\x1a\x1c\x63osmos/ics23/v1/proofs.proto\" \n\nMerkleRoot\x12\x0c\n\x04hash\x18\x01 \x01(\x0c:\x04\x88\xa0\x1f\x00\"\"\n\x0cMerklePrefix\x12\x12\n\nkey_prefix\x18\x01 \x01(\x0c\"\x1e\n\nMerklePath\x12\x10\n\x08key_path\x18\x01 \x03(\t\"?\n\x0bMerkleProof\x12\x30\n\x06proofs\x18\x01 \x03(\x0b\x32 .cosmos.ics23.v1.CommitmentProofB>Z<github.com/cosmos/ibc-go/v8/modules/core/23-commitment/typesb\x06proto3')

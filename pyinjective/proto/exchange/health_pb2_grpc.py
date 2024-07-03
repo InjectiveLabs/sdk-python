@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-from exchange import health_pb2 as exchange_dot_health__pb2
+from pyinjective.proto.exchange import health_pb2 as exchange_dot_health__pb2
 
 GRPC_GENERATED_VERSION = '1.64.1'
 GRPC_VERSION = grpc.__version__

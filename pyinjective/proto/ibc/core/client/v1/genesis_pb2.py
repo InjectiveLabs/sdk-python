@@ -12,8 +12,8 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from ibc.core.client.v1 import client_pb2 as ibc_dot_core_dot_client_dot_v1_dot_client__pb2
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.ibc.core.client.v1 import client_pb2 as ibc_dot_core_dot_client_dot_v1_dot_client__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n ibc/core/client/v1/genesis.proto\x12\x12ibc.core.client.v1\x1a\x1fibc/core/client/v1/client.proto\x1a\x14gogoproto/gogo.proto\"\x8d\x03\n\x0cGenesisState\x12Z\n\x07\x63lients\x18\x01 \x03(\x0b\x32).ibc.core.client.v1.IdentifiedClientStateB\x1e\xc8\xde\x1f\x00\xaa\xdf\x1f\x16IdentifiedClientStates\x12\x64\n\x11\x63lients_consensus\x18\x02 \x03(\x0b\x32).ibc.core.client.v1.ClientConsensusStatesB\x1e\xc8\xde\x1f\x00\xaa\xdf\x1f\x16\x43lientsConsensusStates\x12M\n\x10\x63lients_metadata\x18\x03 \x03(\x0b\x32-.ibc.core.client.v1.IdentifiedGenesisMetadataB\x04\xc8\xde\x1f\x00\x12\x30\n\x06params\x18\x04 \x01(\x0b\x32\x1a.ibc.core.client.v1.ParamsB\x04\xc8\xde\x1f\x00\x12\x1c\n\x10\x63reate_localhost\x18\x05 \x01(\x08\x42\x02\x18\x01\x12\x1c\n\x14next_client_sequence\x18\x06 \x01(\x04\"3\n\x0fGenesisMetadata\x12\x0b\n\x03key\x18\x01 \x01(\x0c\x12\r\n\x05value\x18\x02 \x01(\x0c:\x04\x88\xa0\x1f\x00\"r\n\x19IdentifiedGenesisMetadata\x12\x11\n\tclient_id\x18\x01 \x01(\t\x12\x42\n\x0f\x63lient_metadata\x18\x02 \x03(\x0b\x32#.ibc.core.client.v1.GenesisMetadataB\x04\xc8\xde\x1f\x00\x42:Z8github.com/cosmos/ibc-go/v8/modules/core/02-client/typesb\x06proto3')

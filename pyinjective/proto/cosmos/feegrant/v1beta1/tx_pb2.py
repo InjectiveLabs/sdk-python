@@ -13,9 +13,9 @@ _sym_db = _symbol_database.Default()
 
 
 from google.protobuf import any_pb2 as google_dot_protobuf_dot_any__pb2
-from cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
-from cosmos.msg.v1 import msg_pb2 as cosmos_dot_msg_dot_v1_dot_msg__pb2
-from amino import amino_pb2 as amino_dot_amino__pb2
+from pyinjective.proto.cosmos_proto import cosmos_pb2 as cosmos__proto_dot_cosmos__pb2
+from pyinjective.proto.cosmos.msg.v1 import msg_pb2 as cosmos_dot_msg_dot_v1_dot_msg__pb2
+from pyinjective.proto.amino import amino_pb2 as amino_dot_amino__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n cosmos/feegrant/v1beta1/tx.proto\x12\x17\x63osmos.feegrant.v1beta1\x1a\x19google/protobuf/any.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x17\x63osmos/msg/v1/msg.proto\x1a\x11\x61mino/amino.proto\"\xec\x01\n\x11MsgGrantAllowance\x12)\n\x07granter\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12)\n\x07grantee\x18\x02 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12R\n\tallowance\x18\x03 \x01(\x0b\x32\x14.google.protobuf.AnyB)\xca\xb4-%cosmos.feegrant.v1beta1.FeeAllowanceI:-\x82\xe7\xb0*\x07granter\x8a\xe7\xb0*\x1c\x63osmos-sdk/MsgGrantAllowance\"\x1b\n\x19MsgGrantAllowanceResponse\"\x9a\x01\n\x12MsgRevokeAllowance\x12)\n\x07granter\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString\x12)\n\x07grantee\x18\x02 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString:.\x82\xe7\xb0*\x07granter\x8a\xe7\xb0*\x1d\x63osmos-sdk/MsgRevokeAllowance\"\x1c\n\x1aMsgRevokeAllowanceResponse\"K\n\x12MsgPruneAllowances\x12(\n\x06pruner\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressString:\x0b\x82\xe7\xb0*\x06pruner\"\x1c\n\x1aMsgPruneAllowancesResponse2\xe8\x02\n\x03Msg\x12p\n\x0eGrantAllowance\x12*.cosmos.feegrant.v1beta1.MsgGrantAllowance\x1a\x32.cosmos.feegrant.v1beta1.MsgGrantAllowanceResponse\x12s\n\x0fRevokeAllowance\x12+.cosmos.feegrant.v1beta1.MsgRevokeAllowance\x1a\x33.cosmos.feegrant.v1beta1.MsgRevokeAllowanceResponse\x12s\n\x0fPruneAllowances\x12+.cosmos.feegrant.v1beta1.MsgPruneAllowances\x1a\x33.cosmos.feegrant.v1beta1.MsgPruneAllowancesResponse\x1a\x05\x80\xe7\xb0*\x01\x42\x19Z\x17\x63osmossdk.io/x/feegrantb\x06proto3')

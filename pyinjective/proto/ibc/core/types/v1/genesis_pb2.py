@@ -12,10 +12,10 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
-from ibc.core.client.v1 import genesis_pb2 as ibc_dot_core_dot_client_dot_v1_dot_genesis__pb2
-from ibc.core.connection.v1 import genesis_pb2 as ibc_dot_core_dot_connection_dot_v1_dot_genesis__pb2
-from ibc.core.channel.v1 import genesis_pb2 as ibc_dot_core_dot_channel_dot_v1_dot_genesis__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.ibc.core.client.v1 import genesis_pb2 as ibc_dot_core_dot_client_dot_v1_dot_genesis__pb2
+from pyinjective.proto.ibc.core.connection.v1 import genesis_pb2 as ibc_dot_core_dot_connection_dot_v1_dot_genesis__pb2
+from pyinjective.proto.ibc.core.channel.v1 import genesis_pb2 as ibc_dot_core_dot_channel_dot_v1_dot_genesis__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1fibc/core/types/v1/genesis.proto\x12\x11ibc.core.types.v1\x1a\x14gogoproto/gogo.proto\x1a ibc/core/client/v1/genesis.proto\x1a$ibc/core/connection/v1/genesis.proto\x1a!ibc/core/channel/v1/genesis.proto\"\xd8\x01\n\x0cGenesisState\x12>\n\x0e\x63lient_genesis\x18\x01 \x01(\x0b\x32 .ibc.core.client.v1.GenesisStateB\x04\xc8\xde\x1f\x00\x12\x46\n\x12\x63onnection_genesis\x18\x02 \x01(\x0b\x32$.ibc.core.connection.v1.GenesisStateB\x04\xc8\xde\x1f\x00\x12@\n\x0f\x63hannel_genesis\x18\x03 \x01(\x0b\x32!.ibc.core.channel.v1.GenesisStateB\x04\xc8\xde\x1f\x00\x42\x30Z.github.com/cosmos/ibc-go/v8/modules/core/typesb\x06proto3')

@@ -12,9 +12,9 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
-from ibc.applications.fee.v1 import fee_pb2 as ibc_dot_applications_dot_fee_dot_v1_dot_fee__pb2
-from ibc.core.channel.v1 import channel_pb2 as ibc_dot_core_dot_channel_dot_v1_dot_channel__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.ibc.applications.fee.v1 import fee_pb2 as ibc_dot_applications_dot_fee_dot_v1_dot_fee__pb2
+from pyinjective.proto.ibc.core.channel.v1 import channel_pb2 as ibc_dot_core_dot_channel_dot_v1_dot_channel__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n%ibc/applications/fee/v1/genesis.proto\x12\x17ibc.applications.fee.v1\x1a\x14gogoproto/gogo.proto\x1a!ibc/applications/fee/v1/fee.proto\x1a!ibc/core/channel/v1/channel.proto\"\xab\x03\n\x0cGenesisState\x12L\n\x0fidentified_fees\x18\x01 \x03(\x0b\x32-.ibc.applications.fee.v1.IdentifiedPacketFeesB\x04\xc8\xde\x1f\x00\x12N\n\x14\x66\x65\x65_enabled_channels\x18\x02 \x03(\x0b\x32*.ibc.applications.fee.v1.FeeEnabledChannelB\x04\xc8\xde\x1f\x00\x12I\n\x11registered_payees\x18\x03 \x03(\x0b\x32(.ibc.applications.fee.v1.RegisteredPayeeB\x04\xc8\xde\x1f\x00\x12\x62\n\x1eregistered_counterparty_payees\x18\x04 \x03(\x0b\x32\x34.ibc.applications.fee.v1.RegisteredCounterpartyPayeeB\x04\xc8\xde\x1f\x00\x12N\n\x10\x66orward_relayers\x18\x05 \x03(\x0b\x32..ibc.applications.fee.v1.ForwardRelayerAddressB\x04\xc8\xde\x1f\x00\"8\n\x11\x46\x65\x65\x45nabledChannel\x12\x0f\n\x07port_id\x18\x01 \x01(\t\x12\x12\n\nchannel_id\x18\x02 \x01(\t\"E\n\x0fRegisteredPayee\x12\x12\n\nchannel_id\x18\x01 \x01(\t\x12\x0f\n\x07relayer\x18\x02 \x01(\t\x12\r\n\x05payee\x18\x03 \x01(\t\"^\n\x1bRegisteredCounterpartyPayee\x12\x12\n\nchannel_id\x18\x01 \x01(\t\x12\x0f\n\x07relayer\x18\x02 \x01(\t\x12\x1a\n\x12\x63ounterparty_payee\x18\x03 \x01(\t\"`\n\x15\x46orwardRelayerAddress\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\x36\n\tpacket_id\x18\x02 \x01(\x0b\x32\x1d.ibc.core.channel.v1.PacketIdB\x04\xc8\xde\x1f\x00\x42\x37Z5github.com/cosmos/ibc-go/v8/modules/apps/29-fee/typesb\x06proto3')

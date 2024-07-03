@@ -12,8 +12,8 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from injective.auction.v1beta1 import auction_pb2 as injective_dot_auction_dot_v1beta1_dot_auction__pb2
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.injective.auction.v1beta1 import auction_pb2 as injective_dot_auction_dot_v1beta1_dot_auction__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\'injective/auction/v1beta1/genesis.proto\x12\x19injective.auction.v1beta1\x1a\'injective/auction/v1beta1/auction.proto\x1a\x14gogoproto/gogo.proto\"\x80\x02\n\x0cGenesisState\x12\x37\n\x06params\x18\x01 \x01(\x0b\x32!.injective.auction.v1beta1.ParamsB\x04\xc8\xde\x1f\x00\x12\x15\n\rauction_round\x18\x02 \x01(\x04\x12\x33\n\x0bhighest_bid\x18\x03 \x01(\x0b\x32\x1e.injective.auction.v1beta1.Bid\x12 \n\x18\x61uction_ending_timestamp\x18\x04 \x01(\x03\x12I\n\x13last_auction_result\x18\x05 \x01(\x0b\x32,.injective.auction.v1beta1.LastAuctionResultBOZMgithub.com/InjectiveLabs/injective-core/injective-chain/modules/auction/typesb\x06proto3')

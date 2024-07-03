@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-from cosmos.base.reflection.v2alpha1 import reflection_pb2 as cosmos_dot_base_dot_reflection_dot_v2alpha1_dot_reflection__pb2
+from pyinjective.proto.cosmos.base.reflection.v2alpha1 import reflection_pb2 as cosmos_dot_base_dot_reflection_dot_v2alpha1_dot_reflection__pb2
 
 GRPC_GENERATED_VERSION = '1.64.1'
 GRPC_VERSION = grpc.__version__

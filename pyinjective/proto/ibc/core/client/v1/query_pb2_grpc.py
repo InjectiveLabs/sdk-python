@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-from ibc.core.client.v1 import query_pb2 as ibc_dot_core_dot_client_dot_v1_dot_query__pb2
+from pyinjective.proto.ibc.core.client.v1 import query_pb2 as ibc_dot_core_dot_client_dot_v1_dot_query__pb2
 
 GRPC_GENERATED_VERSION = '1.64.1'
 GRPC_VERSION = grpc.__version__

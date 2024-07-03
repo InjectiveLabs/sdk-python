@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-from tendermint.abci import types_pb2 as tendermint_dot_abci_dot_types__pb2
+from pyinjective.proto.tendermint.abci import types_pb2 as tendermint_dot_abci_dot_types__pb2
 
 GRPC_GENERATED_VERSION = '1.64.1'
 GRPC_VERSION = grpc.__version__

@@ -12,8 +12,8 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from amino import amino_pb2 as amino_dot_amino__pb2
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from pyinjective.proto.amino import amino_pb2 as amino_dot_amino__pb2
+from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\"cosmos/crypto/secp256k1/keys.proto\x12\x17\x63osmos.crypto.secp256k1\x1a\x11\x61mino/amino.proto\x1a\x14gogoproto/gogo.proto\"H\n\x06PubKey\x12\x0b\n\x03key\x18\x01 \x01(\x0c:1\x98\xa0\x1f\x00\x8a\xe7\xb0*\x1atendermint/PubKeySecp256k1\x92\xe7\xb0*\tkey_field\"F\n\x07PrivKey\x12\x0b\n\x03key\x18\x01 \x01(\x0c:.\x8a\xe7\xb0*\x1btendermint/PrivKeySecp256k1\x92\xe7\xb0*\tkey_fieldB4Z2github.com/cosmos/cosmos-sdk/crypto/keys/secp256k1b\x06proto3')
