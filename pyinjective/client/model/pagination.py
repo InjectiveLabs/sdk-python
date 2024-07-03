@@ -1,3 +1,4 @@
+import base64
 from typing import Optional
 
 from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagination_pb
@@ -6,7 +7,7 @@ from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagina
 class PaginationOption:
     def __init__(
         self,
-        key: Optional[str] = None,
+        encoded_page_key: Optional[str] = None,
         skip: Optional[int] = None,
         limit: Optional[int] = None,
         start_time: Optional[int] = None,
@@ -17,7 +18,7 @@ class PaginationOption:
         to_number: Optional[int] = None,
     ):
         super().__init__()
-        self.key = key
+        self.encoded_page_key = encoded_page_key
         self.skip = skip
         self.limit = limit
         self.start_time = start_time
@@ -30,8 +31,9 @@ class PaginationOption:
     def create_pagination_request(self) -> pagination_pb.PageRequest:
         page_request = pagination_pb.PageRequest()
 
-        if self.key is not None:
-            page_request.key = self.key.encode()
+        if self.encoded_page_key is not None and self.encoded_page_key != "":
+            page_key = base64.b64decode(self.encoded_page_key)
+            page_request.key = page_key
         if self.skip is not None:
             page_request.offset = self.skip
         if self.limit is not None:

@@ -1,5 +1,4 @@
 import asyncio
-import base64
 import time
 from copy import deepcopy
 from decimal import Decimal
@@ -3228,11 +3227,10 @@ class AsyncClient:
         next_key = query_result.get("pagination", {}).get("nextKey", "")
 
         while next_key != "":
-            query_result = await self.fetch_denoms_metadata(pagination=PaginationOption(key=next_key))
+            query_result = await self.fetch_denoms_metadata(pagination=PaginationOption(encoded_page_key=next_key))
 
             all_denoms_metadata.extend(query_result.get("metadatas", []))
-            result_next_key = query_result.get("pagination", {}).get("nextKey", "")
-            next_key = base64.b64decode(result_next_key).decode()
+            next_key = query_result.get("pagination", {}).get("nextKey", "")
 
         for token_metadata in all_denoms_metadata:
             symbol = token_metadata["symbol"]

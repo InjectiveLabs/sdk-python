@@ -133,7 +133,7 @@ class TestChainGrpcAuthApi:
         api = self._api_instance(servicer=auth_servicer)
 
         pagination_option = PaginationOption(
-            key="011ab4075a94245dff7338e3042db5b7cc3f42e1",
+            encoded_page_key="011ab4075a94245dff7338e3042db5b7cc3f42e1",
             skip=10,
             limit=30,
             reverse=False,
