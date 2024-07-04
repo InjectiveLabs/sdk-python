@@ -4,13 +4,7 @@ gen: gen-client
 
 gen-client: clone-all copy-proto
 	mkdir -p ./pyinjective/proto
-	@for dir in $(shell find ./proto -path -prune -o -name '*.proto' -print0 | xargs -0 -n1 dirname | sort | uniq); do \
-		python3 -m grpc_tools.protoc \
-		--proto_path=./proto \
-		--python_out=./pyinjective/proto \
-		--grpc_python_out=./pyinjective/proto \
-		$$(find ./$${dir} -type f -name '*.proto'); \
-	done
+	cd ./proto && buf generate --template ../buf.gen.yaml
 	rm -rf proto
 	$(call clean_repos)
 	touch pyinjective/proto/__init__.py
@@ -36,19 +30,20 @@ clean-all:
 	$(call clean_repos)
 
 clone-injective-core:
-	git clone https://github.com/InjectiveLabs/injective-core.git -b feat-sdk-v0.50-migration --depth 1 --single-branch
+	git clone https://github.com/InjectiveLabs/injective-core.git -b dev --depth 1 --single-branch
 
 clone-injective-indexer:
-	git clone https://github.com/InjectiveLabs/injective-indexer.git -b fix/makefile --depth 1 --single-branch
+	git clone https://github.com/InjectiveLabs/injective-indexer.git -b release/v1.13.x --depth 1 --single-branch
 
 clone-cometbft:
-	git clone https://github.com/InjectiveLabs/cometbft.git -b v0.38.6-inj-2 --depth 1 --single-branch
+	git clone https://github.com/InjectiveLabs/cometbft.git -b v0.38.x-inj --depth 1 --single-branch
+	rm cometbft/buf.yaml
 
 clone-wasmd:
-	git clone https://github.com/InjectiveLabs/wasmd.git -b v0.50.x-inj --depth 1 --single-branch
+	git clone https://github.com/InjectiveLabs/wasmd.git -b v0.51.x-inj --depth 1 --single-branch
 
 clone-cosmos-sdk:
-	git clone https://github.com/InjectiveLabs/cosmos-sdk.git -b v0.50.6 --depth 1 --single-branch
+	git clone https://github.com/InjectiveLabs/cosmos-sdk.git -b v0.50.x-inj --depth 1 --single-branch
 
 clone-ibc-go:
 	git clone https://github.com/InjectiveLabs/ibc-go.git -b v8.3.x-inj --depth 1 --single-branch
