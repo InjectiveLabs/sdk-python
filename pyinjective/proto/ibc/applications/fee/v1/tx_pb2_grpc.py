@@ -19,22 +19,22 @@ class MsgStub(object):
                 '/ibc.applications.fee.v1.Msg/RegisterPayee',
                 request_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgRegisterPayee.SerializeToString,
                 response_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgRegisterPayeeResponse.FromString,
-                )
+                _registered_method=True)
         self.RegisterCounterpartyPayee = channel.unary_unary(
                 '/ibc.applications.fee.v1.Msg/RegisterCounterpartyPayee',
                 request_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgRegisterCounterpartyPayee.SerializeToString,
                 response_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgRegisterCounterpartyPayeeResponse.FromString,
-                )
+                _registered_method=True)
         self.PayPacketFee = channel.unary_unary(
                 '/ibc.applications.fee.v1.Msg/PayPacketFee',
                 request_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgPayPacketFee.SerializeToString,
                 response_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgPayPacketFeeResponse.FromString,
-                )
+                _registered_method=True)
         self.PayPacketFeeAsync = channel.unary_unary(
                 '/ibc.applications.fee.v1.Msg/PayPacketFeeAsync',
                 request_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgPayPacketFeeAsync.SerializeToString,
                 response_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgPayPacketFeeAsyncResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class MsgServicer(object):
@@ -110,6 +110,7 @@ def add_MsgServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'ibc.applications.fee.v1.Msg', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('ibc.applications.fee.v1.Msg', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -128,11 +129,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.applications.fee.v1.Msg/RegisterPayee',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.applications.fee.v1.Msg/RegisterPayee',
             ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgRegisterPayee.SerializeToString,
             ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgRegisterPayeeResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def RegisterCounterpartyPayee(request,
@@ -145,11 +156,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.applications.fee.v1.Msg/RegisterCounterpartyPayee',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.applications.fee.v1.Msg/RegisterCounterpartyPayee',
             ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgRegisterCounterpartyPayee.SerializeToString,
             ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgRegisterCounterpartyPayeeResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def PayPacketFee(request,
@@ -162,11 +183,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.applications.fee.v1.Msg/PayPacketFee',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.applications.fee.v1.Msg/PayPacketFee',
             ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgPayPacketFee.SerializeToString,
             ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgPayPacketFeeResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def PayPacketFeeAsync(request,
@@ -179,8 +210,18 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.applications.fee.v1.Msg/PayPacketFeeAsync',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.applications.fee.v1.Msg/PayPacketFeeAsync',
             ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgPayPacketFeeAsync.SerializeToString,
             ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgPayPacketFeeAsyncResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

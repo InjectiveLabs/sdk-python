@@ -19,27 +19,27 @@ class QueryStub(object):
                 '/cosmos.upgrade.v1beta1.Query/CurrentPlan',
                 request_serializer=cosmos_dot_upgrade_dot_v1beta1_dot_query__pb2.QueryCurrentPlanRequest.SerializeToString,
                 response_deserializer=cosmos_dot_upgrade_dot_v1beta1_dot_query__pb2.QueryCurrentPlanResponse.FromString,
-                )
+                _registered_method=True)
         self.AppliedPlan = channel.unary_unary(
                 '/cosmos.upgrade.v1beta1.Query/AppliedPlan',
                 request_serializer=cosmos_dot_upgrade_dot_v1beta1_dot_query__pb2.QueryAppliedPlanRequest.SerializeToString,
                 response_deserializer=cosmos_dot_upgrade_dot_v1beta1_dot_query__pb2.QueryAppliedPlanResponse.FromString,
-                )
+                _registered_method=True)
         self.UpgradedConsensusState = channel.unary_unary(
                 '/cosmos.upgrade.v1beta1.Query/UpgradedConsensusState',
                 request_serializer=cosmos_dot_upgrade_dot_v1beta1_dot_query__pb2.QueryUpgradedConsensusStateRequest.SerializeToString,
                 response_deserializer=cosmos_dot_upgrade_dot_v1beta1_dot_query__pb2.QueryUpgradedConsensusStateResponse.FromString,
-                )
+                _registered_method=True)
         self.ModuleVersions = channel.unary_unary(
                 '/cosmos.upgrade.v1beta1.Query/ModuleVersions',
                 request_serializer=cosmos_dot_upgrade_dot_v1beta1_dot_query__pb2.QueryModuleVersionsRequest.SerializeToString,
                 response_deserializer=cosmos_dot_upgrade_dot_v1beta1_dot_query__pb2.QueryModuleVersionsResponse.FromString,
-                )
+                _registered_method=True)
         self.Authority = channel.unary_unary(
                 '/cosmos.upgrade.v1beta1.Query/Authority',
                 request_serializer=cosmos_dot_upgrade_dot_v1beta1_dot_query__pb2.QueryAuthorityRequest.SerializeToString,
                 response_deserializer=cosmos_dot_upgrade_dot_v1beta1_dot_query__pb2.QueryAuthorityResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class QueryServicer(object):
@@ -122,6 +122,7 @@ def add_QueryServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'cosmos.upgrade.v1beta1.Query', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('cosmos.upgrade.v1beta1.Query', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -140,11 +141,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.upgrade.v1beta1.Query/CurrentPlan',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.upgrade.v1beta1.Query/CurrentPlan',
             cosmos_dot_upgrade_dot_v1beta1_dot_query__pb2.QueryCurrentPlanRequest.SerializeToString,
             cosmos_dot_upgrade_dot_v1beta1_dot_query__pb2.QueryCurrentPlanResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def AppliedPlan(request,
@@ -157,11 +168,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.upgrade.v1beta1.Query/AppliedPlan',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.upgrade.v1beta1.Query/AppliedPlan',
             cosmos_dot_upgrade_dot_v1beta1_dot_query__pb2.QueryAppliedPlanRequest.SerializeToString,
             cosmos_dot_upgrade_dot_v1beta1_dot_query__pb2.QueryAppliedPlanResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def UpgradedConsensusState(request,
@@ -174,11 +195,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.upgrade.v1beta1.Query/UpgradedConsensusState',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.upgrade.v1beta1.Query/UpgradedConsensusState',
             cosmos_dot_upgrade_dot_v1beta1_dot_query__pb2.QueryUpgradedConsensusStateRequest.SerializeToString,
             cosmos_dot_upgrade_dot_v1beta1_dot_query__pb2.QueryUpgradedConsensusStateResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ModuleVersions(request,
@@ -191,11 +222,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.upgrade.v1beta1.Query/ModuleVersions',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.upgrade.v1beta1.Query/ModuleVersions',
             cosmos_dot_upgrade_dot_v1beta1_dot_query__pb2.QueryModuleVersionsRequest.SerializeToString,
             cosmos_dot_upgrade_dot_v1beta1_dot_query__pb2.QueryModuleVersionsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Authority(request,
@@ -208,8 +249,18 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.upgrade.v1beta1.Query/Authority',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.upgrade.v1beta1.Query/Authority',
             cosmos_dot_upgrade_dot_v1beta1_dot_query__pb2.QueryAuthorityRequest.SerializeToString,
             cosmos_dot_upgrade_dot_v1beta1_dot_query__pb2.QueryAuthorityResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

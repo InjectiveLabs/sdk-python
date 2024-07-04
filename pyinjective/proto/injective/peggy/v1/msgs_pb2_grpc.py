@@ -18,62 +18,62 @@ class MsgStub(object):
                 '/injective.peggy.v1.Msg/ValsetConfirm',
                 request_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgValsetConfirm.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgValsetConfirmResponse.FromString,
-                )
+                _registered_method=True)
         self.SendToEth = channel.unary_unary(
                 '/injective.peggy.v1.Msg/SendToEth',
                 request_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgSendToEth.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgSendToEthResponse.FromString,
-                )
+                _registered_method=True)
         self.RequestBatch = channel.unary_unary(
                 '/injective.peggy.v1.Msg/RequestBatch',
                 request_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgRequestBatch.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgRequestBatchResponse.FromString,
-                )
+                _registered_method=True)
         self.ConfirmBatch = channel.unary_unary(
                 '/injective.peggy.v1.Msg/ConfirmBatch',
                 request_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgConfirmBatch.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgConfirmBatchResponse.FromString,
-                )
+                _registered_method=True)
         self.DepositClaim = channel.unary_unary(
                 '/injective.peggy.v1.Msg/DepositClaim',
                 request_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgDepositClaim.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgDepositClaimResponse.FromString,
-                )
+                _registered_method=True)
         self.WithdrawClaim = channel.unary_unary(
                 '/injective.peggy.v1.Msg/WithdrawClaim',
                 request_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgWithdrawClaim.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgWithdrawClaimResponse.FromString,
-                )
+                _registered_method=True)
         self.ValsetUpdateClaim = channel.unary_unary(
                 '/injective.peggy.v1.Msg/ValsetUpdateClaim',
                 request_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgValsetUpdatedClaim.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgValsetUpdatedClaimResponse.FromString,
-                )
+                _registered_method=True)
         self.ERC20DeployedClaim = channel.unary_unary(
                 '/injective.peggy.v1.Msg/ERC20DeployedClaim',
                 request_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgERC20DeployedClaim.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgERC20DeployedClaimResponse.FromString,
-                )
+                _registered_method=True)
         self.SetOrchestratorAddresses = channel.unary_unary(
                 '/injective.peggy.v1.Msg/SetOrchestratorAddresses',
                 request_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgSetOrchestratorAddresses.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgSetOrchestratorAddressesResponse.FromString,
-                )
+                _registered_method=True)
         self.CancelSendToEth = channel.unary_unary(
                 '/injective.peggy.v1.Msg/CancelSendToEth',
                 request_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgCancelSendToEth.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgCancelSendToEthResponse.FromString,
-                )
+                _registered_method=True)
         self.SubmitBadSignatureEvidence = channel.unary_unary(
                 '/injective.peggy.v1.Msg/SubmitBadSignatureEvidence',
                 request_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgSubmitBadSignatureEvidence.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgSubmitBadSignatureEvidenceResponse.FromString,
-                )
+                _registered_method=True)
         self.UpdateParams = channel.unary_unary(
                 '/injective.peggy.v1.Msg/UpdateParams',
                 request_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgUpdateParams.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgUpdateParamsResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class MsgServicer(object):
@@ -218,6 +218,7 @@ def add_MsgServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'injective.peggy.v1.Msg', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('injective.peggy.v1.Msg', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -235,11 +236,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Msg/ValsetConfirm',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Msg/ValsetConfirm',
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgValsetConfirm.SerializeToString,
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgValsetConfirmResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def SendToEth(request,
@@ -252,11 +263,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Msg/SendToEth',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Msg/SendToEth',
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgSendToEth.SerializeToString,
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgSendToEthResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def RequestBatch(request,
@@ -269,11 +290,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Msg/RequestBatch',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Msg/RequestBatch',
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgRequestBatch.SerializeToString,
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgRequestBatchResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ConfirmBatch(request,
@@ -286,11 +317,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Msg/ConfirmBatch',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Msg/ConfirmBatch',
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgConfirmBatch.SerializeToString,
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgConfirmBatchResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def DepositClaim(request,
@@ -303,11 +344,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Msg/DepositClaim',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Msg/DepositClaim',
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgDepositClaim.SerializeToString,
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgDepositClaimResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def WithdrawClaim(request,
@@ -320,11 +371,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Msg/WithdrawClaim',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Msg/WithdrawClaim',
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgWithdrawClaim.SerializeToString,
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgWithdrawClaimResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ValsetUpdateClaim(request,
@@ -337,11 +398,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Msg/ValsetUpdateClaim',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Msg/ValsetUpdateClaim',
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgValsetUpdatedClaim.SerializeToString,
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgValsetUpdatedClaimResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ERC20DeployedClaim(request,
@@ -354,11 +425,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Msg/ERC20DeployedClaim',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Msg/ERC20DeployedClaim',
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgERC20DeployedClaim.SerializeToString,
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgERC20DeployedClaimResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def SetOrchestratorAddresses(request,
@@ -371,11 +452,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Msg/SetOrchestratorAddresses',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Msg/SetOrchestratorAddresses',
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgSetOrchestratorAddresses.SerializeToString,
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgSetOrchestratorAddressesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def CancelSendToEth(request,
@@ -388,11 +479,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Msg/CancelSendToEth',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Msg/CancelSendToEth',
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgCancelSendToEth.SerializeToString,
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgCancelSendToEthResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def SubmitBadSignatureEvidence(request,
@@ -405,11 +506,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Msg/SubmitBadSignatureEvidence',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Msg/SubmitBadSignatureEvidence',
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgSubmitBadSignatureEvidence.SerializeToString,
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgSubmitBadSignatureEvidenceResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def UpdateParams(request,
@@ -422,8 +533,18 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Msg/UpdateParams',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Msg/UpdateParams',
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgUpdateParams.SerializeToString,
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgUpdateParamsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

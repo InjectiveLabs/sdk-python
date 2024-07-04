@@ -19,72 +19,72 @@ class QueryStub(object):
                 '/cosmos.staking.v1beta1.Query/Validators',
                 request_serializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryValidatorsRequest.SerializeToString,
                 response_deserializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryValidatorsResponse.FromString,
-                )
+                _registered_method=True)
         self.Validator = channel.unary_unary(
                 '/cosmos.staking.v1beta1.Query/Validator',
                 request_serializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryValidatorRequest.SerializeToString,
                 response_deserializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryValidatorResponse.FromString,
-                )
+                _registered_method=True)
         self.ValidatorDelegations = channel.unary_unary(
                 '/cosmos.staking.v1beta1.Query/ValidatorDelegations',
                 request_serializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryValidatorDelegationsRequest.SerializeToString,
                 response_deserializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryValidatorDelegationsResponse.FromString,
-                )
+                _registered_method=True)
         self.ValidatorUnbondingDelegations = channel.unary_unary(
                 '/cosmos.staking.v1beta1.Query/ValidatorUnbondingDelegations',
                 request_serializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryValidatorUnbondingDelegationsRequest.SerializeToString,
                 response_deserializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryValidatorUnbondingDelegationsResponse.FromString,
-                )
+                _registered_method=True)
         self.Delegation = channel.unary_unary(
                 '/cosmos.staking.v1beta1.Query/Delegation',
                 request_serializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryDelegationRequest.SerializeToString,
                 response_deserializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryDelegationResponse.FromString,
-                )
+                _registered_method=True)
         self.UnbondingDelegation = channel.unary_unary(
                 '/cosmos.staking.v1beta1.Query/UnbondingDelegation',
                 request_serializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryUnbondingDelegationRequest.SerializeToString,
                 response_deserializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryUnbondingDelegationResponse.FromString,
-                )
+                _registered_method=True)
         self.DelegatorDelegations = channel.unary_unary(
                 '/cosmos.staking.v1beta1.Query/DelegatorDelegations',
                 request_serializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryDelegatorDelegationsRequest.SerializeToString,
                 response_deserializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryDelegatorDelegationsResponse.FromString,
-                )
+                _registered_method=True)
         self.DelegatorUnbondingDelegations = channel.unary_unary(
                 '/cosmos.staking.v1beta1.Query/DelegatorUnbondingDelegations',
                 request_serializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryDelegatorUnbondingDelegationsRequest.SerializeToString,
                 response_deserializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryDelegatorUnbondingDelegationsResponse.FromString,
-                )
+                _registered_method=True)
         self.Redelegations = channel.unary_unary(
                 '/cosmos.staking.v1beta1.Query/Redelegations',
                 request_serializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryRedelegationsRequest.SerializeToString,
                 response_deserializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryRedelegationsResponse.FromString,
-                )
+                _registered_method=True)
         self.DelegatorValidators = channel.unary_unary(
                 '/cosmos.staking.v1beta1.Query/DelegatorValidators',
                 request_serializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryDelegatorValidatorsRequest.SerializeToString,
                 response_deserializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryDelegatorValidatorsResponse.FromString,
-                )
+                _registered_method=True)
         self.DelegatorValidator = channel.unary_unary(
                 '/cosmos.staking.v1beta1.Query/DelegatorValidator',
                 request_serializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryDelegatorValidatorRequest.SerializeToString,
                 response_deserializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryDelegatorValidatorResponse.FromString,
-                )
+                _registered_method=True)
         self.HistoricalInfo = channel.unary_unary(
                 '/cosmos.staking.v1beta1.Query/HistoricalInfo',
                 request_serializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryHistoricalInfoRequest.SerializeToString,
                 response_deserializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryHistoricalInfoResponse.FromString,
-                )
+                _registered_method=True)
         self.Pool = channel.unary_unary(
                 '/cosmos.staking.v1beta1.Query/Pool',
                 request_serializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryPoolRequest.SerializeToString,
                 response_deserializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryPoolResponse.FromString,
-                )
+                _registered_method=True)
         self.Params = channel.unary_unary(
                 '/cosmos.staking.v1beta1.Query/Params',
                 request_serializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryParamsRequest.SerializeToString,
                 response_deserializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryParamsResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class QueryServicer(object):
@@ -291,6 +291,7 @@ def add_QueryServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'cosmos.staking.v1beta1.Query', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('cosmos.staking.v1beta1.Query', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -309,11 +310,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.staking.v1beta1.Query/Validators',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.staking.v1beta1.Query/Validators',
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryValidatorsRequest.SerializeToString,
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryValidatorsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Validator(request,
@@ -326,11 +337,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.staking.v1beta1.Query/Validator',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.staking.v1beta1.Query/Validator',
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryValidatorRequest.SerializeToString,
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryValidatorResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ValidatorDelegations(request,
@@ -343,11 +364,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.staking.v1beta1.Query/ValidatorDelegations',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.staking.v1beta1.Query/ValidatorDelegations',
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryValidatorDelegationsRequest.SerializeToString,
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryValidatorDelegationsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ValidatorUnbondingDelegations(request,
@@ -360,11 +391,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.staking.v1beta1.Query/ValidatorUnbondingDelegations',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.staking.v1beta1.Query/ValidatorUnbondingDelegations',
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryValidatorUnbondingDelegationsRequest.SerializeToString,
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryValidatorUnbondingDelegationsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Delegation(request,
@@ -377,11 +418,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.staking.v1beta1.Query/Delegation',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.staking.v1beta1.Query/Delegation',
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryDelegationRequest.SerializeToString,
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryDelegationResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def UnbondingDelegation(request,
@@ -394,11 +445,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.staking.v1beta1.Query/UnbondingDelegation',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.staking.v1beta1.Query/UnbondingDelegation',
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryUnbondingDelegationRequest.SerializeToString,
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryUnbondingDelegationResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def DelegatorDelegations(request,
@@ -411,11 +472,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.staking.v1beta1.Query/DelegatorDelegations',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.staking.v1beta1.Query/DelegatorDelegations',
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryDelegatorDelegationsRequest.SerializeToString,
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryDelegatorDelegationsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def DelegatorUnbondingDelegations(request,
@@ -428,11 +499,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.staking.v1beta1.Query/DelegatorUnbondingDelegations',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.staking.v1beta1.Query/DelegatorUnbondingDelegations',
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryDelegatorUnbondingDelegationsRequest.SerializeToString,
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryDelegatorUnbondingDelegationsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Redelegations(request,
@@ -445,11 +526,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.staking.v1beta1.Query/Redelegations',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.staking.v1beta1.Query/Redelegations',
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryRedelegationsRequest.SerializeToString,
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryRedelegationsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def DelegatorValidators(request,
@@ -462,11 +553,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.staking.v1beta1.Query/DelegatorValidators',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.staking.v1beta1.Query/DelegatorValidators',
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryDelegatorValidatorsRequest.SerializeToString,
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryDelegatorValidatorsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def DelegatorValidator(request,
@@ -479,11 +580,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.staking.v1beta1.Query/DelegatorValidator',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.staking.v1beta1.Query/DelegatorValidator',
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryDelegatorValidatorRequest.SerializeToString,
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryDelegatorValidatorResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def HistoricalInfo(request,
@@ -496,11 +607,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.staking.v1beta1.Query/HistoricalInfo',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.staking.v1beta1.Query/HistoricalInfo',
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryHistoricalInfoRequest.SerializeToString,
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryHistoricalInfoResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Pool(request,
@@ -513,11 +634,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.staking.v1beta1.Query/Pool',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.staking.v1beta1.Query/Pool',
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryPoolRequest.SerializeToString,
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryPoolResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Params(request,
@@ -530,8 +661,18 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.staking.v1beta1.Query/Params',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.staking.v1beta1.Query/Params',
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryParamsRequest.SerializeToString,
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryParamsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

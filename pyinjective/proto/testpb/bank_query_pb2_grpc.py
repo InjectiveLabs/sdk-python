@@ -19,22 +19,22 @@ class BankQueryServiceStub(object):
                 '/testpb.BankQueryService/GetBalance',
                 request_serializer=testpb_dot_bank__query__pb2.GetBalanceRequest.SerializeToString,
                 response_deserializer=testpb_dot_bank__query__pb2.GetBalanceResponse.FromString,
-                )
+                _registered_method=True)
         self.ListBalance = channel.unary_unary(
                 '/testpb.BankQueryService/ListBalance',
                 request_serializer=testpb_dot_bank__query__pb2.ListBalanceRequest.SerializeToString,
                 response_deserializer=testpb_dot_bank__query__pb2.ListBalanceResponse.FromString,
-                )
+                _registered_method=True)
         self.GetSupply = channel.unary_unary(
                 '/testpb.BankQueryService/GetSupply',
                 request_serializer=testpb_dot_bank__query__pb2.GetSupplyRequest.SerializeToString,
                 response_deserializer=testpb_dot_bank__query__pb2.GetSupplyResponse.FromString,
-                )
+                _registered_method=True)
         self.ListSupply = channel.unary_unary(
                 '/testpb.BankQueryService/ListSupply',
                 request_serializer=testpb_dot_bank__query__pb2.ListSupplyRequest.SerializeToString,
                 response_deserializer=testpb_dot_bank__query__pb2.ListSupplyResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class BankQueryServiceServicer(object):
@@ -96,6 +96,7 @@ def add_BankQueryServiceServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'testpb.BankQueryService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('testpb.BankQueryService', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -114,11 +115,21 @@ class BankQueryService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/testpb.BankQueryService/GetBalance',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/testpb.BankQueryService/GetBalance',
             testpb_dot_bank__query__pb2.GetBalanceRequest.SerializeToString,
             testpb_dot_bank__query__pb2.GetBalanceResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ListBalance(request,
@@ -131,11 +142,21 @@ class BankQueryService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/testpb.BankQueryService/ListBalance',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/testpb.BankQueryService/ListBalance',
             testpb_dot_bank__query__pb2.ListBalanceRequest.SerializeToString,
             testpb_dot_bank__query__pb2.ListBalanceResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def GetSupply(request,
@@ -148,11 +169,21 @@ class BankQueryService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/testpb.BankQueryService/GetSupply',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/testpb.BankQueryService/GetSupply',
             testpb_dot_bank__query__pb2.GetSupplyRequest.SerializeToString,
             testpb_dot_bank__query__pb2.GetSupplyResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ListSupply(request,
@@ -165,8 +196,18 @@ class BankQueryService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/testpb.BankQueryService/ListSupply',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/testpb.BankQueryService/ListSupply',
             testpb_dot_bank__query__pb2.ListSupplyRequest.SerializeToString,
             testpb_dot_bank__query__pb2.ListSupplyResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

@@ -4,13 +4,7 @@ gen: gen-client
 
 gen-client: clone-all copy-proto
 	mkdir -p ./pyinjective/proto
-	@for dir in $(shell find ./proto -path -prune -o -name '*.proto' -print0 | xargs -0 -n1 dirname | sort | uniq); do \
-		python3 -m grpc_tools.protoc \
-		--proto_path=./proto \
-		--python_out=./pyinjective/proto \
-		--grpc_python_out=./pyinjective/proto \
-		$$(find ./$${dir} -type f -name '*.proto'); \
-	done
+	cd ./proto && buf generate --template ../buf.gen.yaml
 	rm -rf proto
 	$(call clean_repos)
 	touch pyinjective/proto/__init__.py
@@ -43,6 +37,7 @@ clone-injective-indexer:
 
 clone-cometbft:
 	git clone https://github.com/InjectiveLabs/cometbft.git -b v0.37.2-inj --depth 1 --single-branch
+	rm cometbft/buf.yaml
 
 clone-wasmd:
 	git clone https://github.com/InjectiveLabs/wasmd.git -b v0.45.0-inj --depth 1 --single-branch

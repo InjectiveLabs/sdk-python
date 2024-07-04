@@ -19,22 +19,22 @@ class MsgStub(object):
                 '/cosmos.gov.v1beta1.Msg/SubmitProposal',
                 request_serializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgSubmitProposal.SerializeToString,
                 response_deserializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgSubmitProposalResponse.FromString,
-                )
+                _registered_method=True)
         self.Vote = channel.unary_unary(
                 '/cosmos.gov.v1beta1.Msg/Vote',
                 request_serializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgVote.SerializeToString,
                 response_deserializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgVoteResponse.FromString,
-                )
+                _registered_method=True)
         self.VoteWeighted = channel.unary_unary(
                 '/cosmos.gov.v1beta1.Msg/VoteWeighted',
                 request_serializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgVoteWeighted.SerializeToString,
                 response_deserializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgVoteWeightedResponse.FromString,
-                )
+                _registered_method=True)
         self.Deposit = channel.unary_unary(
                 '/cosmos.gov.v1beta1.Msg/Deposit',
                 request_serializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgDeposit.SerializeToString,
                 response_deserializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgDepositResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class MsgServicer(object):
@@ -98,6 +98,7 @@ def add_MsgServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'cosmos.gov.v1beta1.Msg', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('cosmos.gov.v1beta1.Msg', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -116,11 +117,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.gov.v1beta1.Msg/SubmitProposal',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.gov.v1beta1.Msg/SubmitProposal',
             cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgSubmitProposal.SerializeToString,
             cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgSubmitProposalResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Vote(request,
@@ -133,11 +144,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.gov.v1beta1.Msg/Vote',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.gov.v1beta1.Msg/Vote',
             cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgVote.SerializeToString,
             cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgVoteResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def VoteWeighted(request,
@@ -150,11 +171,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.gov.v1beta1.Msg/VoteWeighted',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.gov.v1beta1.Msg/VoteWeighted',
             cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgVoteWeighted.SerializeToString,
             cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgVoteWeightedResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Deposit(request,
@@ -167,8 +198,18 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.gov.v1beta1.Msg/Deposit',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.gov.v1beta1.Msg/Deposit',
             cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgDeposit.SerializeToString,
             cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgDepositResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

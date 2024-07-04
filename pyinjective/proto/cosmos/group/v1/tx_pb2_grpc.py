@@ -19,72 +19,72 @@ class MsgStub(object):
                 '/cosmos.group.v1.Msg/CreateGroup',
                 request_serializer=cosmos_dot_group_dot_v1_dot_tx__pb2.MsgCreateGroup.SerializeToString,
                 response_deserializer=cosmos_dot_group_dot_v1_dot_tx__pb2.MsgCreateGroupResponse.FromString,
-                )
+                _registered_method=True)
         self.UpdateGroupMembers = channel.unary_unary(
                 '/cosmos.group.v1.Msg/UpdateGroupMembers',
                 request_serializer=cosmos_dot_group_dot_v1_dot_tx__pb2.MsgUpdateGroupMembers.SerializeToString,
                 response_deserializer=cosmos_dot_group_dot_v1_dot_tx__pb2.MsgUpdateGroupMembersResponse.FromString,
-                )
+                _registered_method=True)
         self.UpdateGroupAdmin = channel.unary_unary(
                 '/cosmos.group.v1.Msg/UpdateGroupAdmin',
                 request_serializer=cosmos_dot_group_dot_v1_dot_tx__pb2.MsgUpdateGroupAdmin.SerializeToString,
                 response_deserializer=cosmos_dot_group_dot_v1_dot_tx__pb2.MsgUpdateGroupAdminResponse.FromString,
-                )
+                _registered_method=True)
         self.UpdateGroupMetadata = channel.unary_unary(
                 '/cosmos.group.v1.Msg/UpdateGroupMetadata',
                 request_serializer=cosmos_dot_group_dot_v1_dot_tx__pb2.MsgUpdateGroupMetadata.SerializeToString,
                 response_deserializer=cosmos_dot_group_dot_v1_dot_tx__pb2.MsgUpdateGroupMetadataResponse.FromString,
-                )
+                _registered_method=True)
         self.CreateGroupPolicy = channel.unary_unary(
                 '/cosmos.group.v1.Msg/CreateGroupPolicy',
                 request_serializer=cosmos_dot_group_dot_v1_dot_tx__pb2.MsgCreateGroupPolicy.SerializeToString,
                 response_deserializer=cosmos_dot_group_dot_v1_dot_tx__pb2.MsgCreateGroupPolicyResponse.FromString,
-                )
+                _registered_method=True)
         self.CreateGroupWithPolicy = channel.unary_unary(
                 '/cosmos.group.v1.Msg/CreateGroupWithPolicy',
                 request_serializer=cosmos_dot_group_dot_v1_dot_tx__pb2.MsgCreateGroupWithPolicy.SerializeToString,
                 response_deserializer=cosmos_dot_group_dot_v1_dot_tx__pb2.MsgCreateGroupWithPolicyResponse.FromString,
-                )
+                _registered_method=True)
         self.UpdateGroupPolicyAdmin = channel.unary_unary(
                 '/cosmos.group.v1.Msg/UpdateGroupPolicyAdmin',
                 request_serializer=cosmos_dot_group_dot_v1_dot_tx__pb2.MsgUpdateGroupPolicyAdmin.SerializeToString,
                 response_deserializer=cosmos_dot_group_dot_v1_dot_tx__pb2.MsgUpdateGroupPolicyAdminResponse.FromString,
-                )
+                _registered_method=True)
         self.UpdateGroupPolicyDecisionPolicy = channel.unary_unary(
                 '/cosmos.group.v1.Msg/UpdateGroupPolicyDecisionPolicy',
                 request_serializer=cosmos_dot_group_dot_v1_dot_tx__pb2.MsgUpdateGroupPolicyDecisionPolicy.SerializeToString,
                 response_deserializer=cosmos_dot_group_dot_v1_dot_tx__pb2.MsgUpdateGroupPolicyDecisionPolicyResponse.FromString,
-                )
+                _registered_method=True)
         self.UpdateGroupPolicyMetadata = channel.unary_unary(
                 '/cosmos.group.v1.Msg/UpdateGroupPolicyMetadata',
                 request_serializer=cosmos_dot_group_dot_v1_dot_tx__pb2.MsgUpdateGroupPolicyMetadata.SerializeToString,
                 response_deserializer=cosmos_dot_group_dot_v1_dot_tx__pb2.MsgUpdateGroupPolicyMetadataResponse.FromString,
-                )
+                _registered_method=True)
         self.SubmitProposal = channel.unary_unary(
                 '/cosmos.group.v1.Msg/SubmitProposal',
                 request_serializer=cosmos_dot_group_dot_v1_dot_tx__pb2.MsgSubmitProposal.SerializeToString,
                 response_deserializer=cosmos_dot_group_dot_v1_dot_tx__pb2.MsgSubmitProposalResponse.FromString,
-                )
+                _registered_method=True)
         self.WithdrawProposal = channel.unary_unary(
                 '/cosmos.group.v1.Msg/WithdrawProposal',
                 request_serializer=cosmos_dot_group_dot_v1_dot_tx__pb2.MsgWithdrawProposal.SerializeToString,
                 response_deserializer=cosmos_dot_group_dot_v1_dot_tx__pb2.MsgWithdrawProposalResponse.FromString,
-                )
+                _registered_method=True)
         self.Vote = channel.unary_unary(
                 '/cosmos.group.v1.Msg/Vote',
                 request_serializer=cosmos_dot_group_dot_v1_dot_tx__pb2.MsgVote.SerializeToString,
                 response_deserializer=cosmos_dot_group_dot_v1_dot_tx__pb2.MsgVoteResponse.FromString,
-                )
+                _registered_method=True)
         self.Exec = channel.unary_unary(
                 '/cosmos.group.v1.Msg/Exec',
                 request_serializer=cosmos_dot_group_dot_v1_dot_tx__pb2.MsgExec.SerializeToString,
                 response_deserializer=cosmos_dot_group_dot_v1_dot_tx__pb2.MsgExecResponse.FromString,
-                )
+                _registered_method=True)
         self.LeaveGroup = channel.unary_unary(
                 '/cosmos.group.v1.Msg/LeaveGroup',
                 request_serializer=cosmos_dot_group_dot_v1_dot_tx__pb2.MsgLeaveGroup.SerializeToString,
                 response_deserializer=cosmos_dot_group_dot_v1_dot_tx__pb2.MsgLeaveGroupResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class MsgServicer(object):
@@ -266,6 +266,7 @@ def add_MsgServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'cosmos.group.v1.Msg', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('cosmos.group.v1.Msg', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -284,11 +285,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.group.v1.Msg/CreateGroup',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.group.v1.Msg/CreateGroup',
             cosmos_dot_group_dot_v1_dot_tx__pb2.MsgCreateGroup.SerializeToString,
             cosmos_dot_group_dot_v1_dot_tx__pb2.MsgCreateGroupResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def UpdateGroupMembers(request,
@@ -301,11 +312,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.group.v1.Msg/UpdateGroupMembers',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.group.v1.Msg/UpdateGroupMembers',
             cosmos_dot_group_dot_v1_dot_tx__pb2.MsgUpdateGroupMembers.SerializeToString,
             cosmos_dot_group_dot_v1_dot_tx__pb2.MsgUpdateGroupMembersResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def UpdateGroupAdmin(request,
@@ -318,11 +339,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.group.v1.Msg/UpdateGroupAdmin',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.group.v1.Msg/UpdateGroupAdmin',
             cosmos_dot_group_dot_v1_dot_tx__pb2.MsgUpdateGroupAdmin.SerializeToString,
             cosmos_dot_group_dot_v1_dot_tx__pb2.MsgUpdateGroupAdminResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def UpdateGroupMetadata(request,
@@ -335,11 +366,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.group.v1.Msg/UpdateGroupMetadata',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.group.v1.Msg/UpdateGroupMetadata',
             cosmos_dot_group_dot_v1_dot_tx__pb2.MsgUpdateGroupMetadata.SerializeToString,
             cosmos_dot_group_dot_v1_dot_tx__pb2.MsgUpdateGroupMetadataResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def CreateGroupPolicy(request,
@@ -352,11 +393,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.group.v1.Msg/CreateGroupPolicy',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.group.v1.Msg/CreateGroupPolicy',
             cosmos_dot_group_dot_v1_dot_tx__pb2.MsgCreateGroupPolicy.SerializeToString,
             cosmos_dot_group_dot_v1_dot_tx__pb2.MsgCreateGroupPolicyResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def CreateGroupWithPolicy(request,
@@ -369,11 +420,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.group.v1.Msg/CreateGroupWithPolicy',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.group.v1.Msg/CreateGroupWithPolicy',
             cosmos_dot_group_dot_v1_dot_tx__pb2.MsgCreateGroupWithPolicy.SerializeToString,
             cosmos_dot_group_dot_v1_dot_tx__pb2.MsgCreateGroupWithPolicyResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def UpdateGroupPolicyAdmin(request,
@@ -386,11 +447,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.group.v1.Msg/UpdateGroupPolicyAdmin',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.group.v1.Msg/UpdateGroupPolicyAdmin',
             cosmos_dot_group_dot_v1_dot_tx__pb2.MsgUpdateGroupPolicyAdmin.SerializeToString,
             cosmos_dot_group_dot_v1_dot_tx__pb2.MsgUpdateGroupPolicyAdminResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def UpdateGroupPolicyDecisionPolicy(request,
@@ -403,11 +474,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.group.v1.Msg/UpdateGroupPolicyDecisionPolicy',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.group.v1.Msg/UpdateGroupPolicyDecisionPolicy',
             cosmos_dot_group_dot_v1_dot_tx__pb2.MsgUpdateGroupPolicyDecisionPolicy.SerializeToString,
             cosmos_dot_group_dot_v1_dot_tx__pb2.MsgUpdateGroupPolicyDecisionPolicyResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def UpdateGroupPolicyMetadata(request,
@@ -420,11 +501,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.group.v1.Msg/UpdateGroupPolicyMetadata',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.group.v1.Msg/UpdateGroupPolicyMetadata',
             cosmos_dot_group_dot_v1_dot_tx__pb2.MsgUpdateGroupPolicyMetadata.SerializeToString,
             cosmos_dot_group_dot_v1_dot_tx__pb2.MsgUpdateGroupPolicyMetadataResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def SubmitProposal(request,
@@ -437,11 +528,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.group.v1.Msg/SubmitProposal',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.group.v1.Msg/SubmitProposal',
             cosmos_dot_group_dot_v1_dot_tx__pb2.MsgSubmitProposal.SerializeToString,
             cosmos_dot_group_dot_v1_dot_tx__pb2.MsgSubmitProposalResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def WithdrawProposal(request,
@@ -454,11 +555,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.group.v1.Msg/WithdrawProposal',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.group.v1.Msg/WithdrawProposal',
             cosmos_dot_group_dot_v1_dot_tx__pb2.MsgWithdrawProposal.SerializeToString,
             cosmos_dot_group_dot_v1_dot_tx__pb2.MsgWithdrawProposalResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Vote(request,
@@ -471,11 +582,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.group.v1.Msg/Vote',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.group.v1.Msg/Vote',
             cosmos_dot_group_dot_v1_dot_tx__pb2.MsgVote.SerializeToString,
             cosmos_dot_group_dot_v1_dot_tx__pb2.MsgVoteResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Exec(request,
@@ -488,11 +609,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.group.v1.Msg/Exec',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.group.v1.Msg/Exec',
             cosmos_dot_group_dot_v1_dot_tx__pb2.MsgExec.SerializeToString,
             cosmos_dot_group_dot_v1_dot_tx__pb2.MsgExecResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def LeaveGroup(request,
@@ -505,8 +636,18 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.group.v1.Msg/LeaveGroup',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.group.v1.Msg/LeaveGroup',
             cosmos_dot_group_dot_v1_dot_tx__pb2.MsgLeaveGroup.SerializeToString,
             cosmos_dot_group_dot_v1_dot_tx__pb2.MsgLeaveGroupResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

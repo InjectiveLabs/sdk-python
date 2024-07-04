@@ -19,7 +19,7 @@ class StreamStub(object):
                 '/injective.stream.v1beta1.Stream/Stream',
                 request_serializer=injective_dot_stream_dot_v1beta1_dot_query__pb2.StreamRequest.SerializeToString,
                 response_deserializer=injective_dot_stream_dot_v1beta1_dot_query__pb2.StreamResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class StreamServicer(object):
@@ -44,6 +44,7 @@ def add_StreamServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'injective.stream.v1beta1.Stream', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('injective.stream.v1beta1.Stream', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -62,8 +63,18 @@ class Stream(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/injective.stream.v1beta1.Stream/Stream',
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/injective.stream.v1beta1.Stream/Stream',
             injective_dot_stream_dot_v1beta1_dot_query__pb2.StreamRequest.SerializeToString,
             injective_dot_stream_dot_v1beta1_dot_query__pb2.StreamResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

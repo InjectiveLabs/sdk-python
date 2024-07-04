@@ -19,17 +19,17 @@ class QueryStub(object):
                 '/injective.auction.v1beta1.Query/AuctionParams',
                 request_serializer=injective_dot_auction_dot_v1beta1_dot_query__pb2.QueryAuctionParamsRequest.SerializeToString,
                 response_deserializer=injective_dot_auction_dot_v1beta1_dot_query__pb2.QueryAuctionParamsResponse.FromString,
-                )
+                _registered_method=True)
         self.CurrentAuctionBasket = channel.unary_unary(
                 '/injective.auction.v1beta1.Query/CurrentAuctionBasket',
                 request_serializer=injective_dot_auction_dot_v1beta1_dot_query__pb2.QueryCurrentAuctionBasketRequest.SerializeToString,
                 response_deserializer=injective_dot_auction_dot_v1beta1_dot_query__pb2.QueryCurrentAuctionBasketResponse.FromString,
-                )
+                _registered_method=True)
         self.AuctionModuleState = channel.unary_unary(
                 '/injective.auction.v1beta1.Query/AuctionModuleState',
                 request_serializer=injective_dot_auction_dot_v1beta1_dot_query__pb2.QueryModuleStateRequest.SerializeToString,
                 response_deserializer=injective_dot_auction_dot_v1beta1_dot_query__pb2.QueryModuleStateResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class QueryServicer(object):
@@ -79,6 +79,7 @@ def add_QueryServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'injective.auction.v1beta1.Query', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('injective.auction.v1beta1.Query', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -97,11 +98,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.auction.v1beta1.Query/AuctionParams',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.auction.v1beta1.Query/AuctionParams',
             injective_dot_auction_dot_v1beta1_dot_query__pb2.QueryAuctionParamsRequest.SerializeToString,
             injective_dot_auction_dot_v1beta1_dot_query__pb2.QueryAuctionParamsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def CurrentAuctionBasket(request,
@@ -114,11 +125,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.auction.v1beta1.Query/CurrentAuctionBasket',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.auction.v1beta1.Query/CurrentAuctionBasket',
             injective_dot_auction_dot_v1beta1_dot_query__pb2.QueryCurrentAuctionBasketRequest.SerializeToString,
             injective_dot_auction_dot_v1beta1_dot_query__pb2.QueryCurrentAuctionBasketResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def AuctionModuleState(request,
@@ -131,8 +152,18 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.auction.v1beta1.Query/AuctionModuleState',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.auction.v1beta1.Query/AuctionModuleState',
             injective_dot_auction_dot_v1beta1_dot_query__pb2.QueryModuleStateRequest.SerializeToString,
             injective_dot_auction_dot_v1beta1_dot_query__pb2.QueryModuleStateResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

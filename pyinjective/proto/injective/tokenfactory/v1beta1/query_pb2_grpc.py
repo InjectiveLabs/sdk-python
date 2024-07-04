@@ -19,22 +19,22 @@ class QueryStub(object):
                 '/injective.tokenfactory.v1beta1.Query/Params',
                 request_serializer=injective_dot_tokenfactory_dot_v1beta1_dot_query__pb2.QueryParamsRequest.SerializeToString,
                 response_deserializer=injective_dot_tokenfactory_dot_v1beta1_dot_query__pb2.QueryParamsResponse.FromString,
-                )
+                _registered_method=True)
         self.DenomAuthorityMetadata = channel.unary_unary(
                 '/injective.tokenfactory.v1beta1.Query/DenomAuthorityMetadata',
                 request_serializer=injective_dot_tokenfactory_dot_v1beta1_dot_query__pb2.QueryDenomAuthorityMetadataRequest.SerializeToString,
                 response_deserializer=injective_dot_tokenfactory_dot_v1beta1_dot_query__pb2.QueryDenomAuthorityMetadataResponse.FromString,
-                )
+                _registered_method=True)
         self.DenomsFromCreator = channel.unary_unary(
                 '/injective.tokenfactory.v1beta1.Query/DenomsFromCreator',
                 request_serializer=injective_dot_tokenfactory_dot_v1beta1_dot_query__pb2.QueryDenomsFromCreatorRequest.SerializeToString,
                 response_deserializer=injective_dot_tokenfactory_dot_v1beta1_dot_query__pb2.QueryDenomsFromCreatorResponse.FromString,
-                )
+                _registered_method=True)
         self.TokenfactoryModuleState = channel.unary_unary(
                 '/injective.tokenfactory.v1beta1.Query/TokenfactoryModuleState',
                 request_serializer=injective_dot_tokenfactory_dot_v1beta1_dot_query__pb2.QueryModuleStateRequest.SerializeToString,
                 response_deserializer=injective_dot_tokenfactory_dot_v1beta1_dot_query__pb2.QueryModuleStateResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class QueryServicer(object):
@@ -99,6 +99,7 @@ def add_QueryServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'injective.tokenfactory.v1beta1.Query', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('injective.tokenfactory.v1beta1.Query', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -117,11 +118,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.tokenfactory.v1beta1.Query/Params',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.tokenfactory.v1beta1.Query/Params',
             injective_dot_tokenfactory_dot_v1beta1_dot_query__pb2.QueryParamsRequest.SerializeToString,
             injective_dot_tokenfactory_dot_v1beta1_dot_query__pb2.QueryParamsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def DenomAuthorityMetadata(request,
@@ -134,11 +145,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.tokenfactory.v1beta1.Query/DenomAuthorityMetadata',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.tokenfactory.v1beta1.Query/DenomAuthorityMetadata',
             injective_dot_tokenfactory_dot_v1beta1_dot_query__pb2.QueryDenomAuthorityMetadataRequest.SerializeToString,
             injective_dot_tokenfactory_dot_v1beta1_dot_query__pb2.QueryDenomAuthorityMetadataResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def DenomsFromCreator(request,
@@ -151,11 +172,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.tokenfactory.v1beta1.Query/DenomsFromCreator',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.tokenfactory.v1beta1.Query/DenomsFromCreator',
             injective_dot_tokenfactory_dot_v1beta1_dot_query__pb2.QueryDenomsFromCreatorRequest.SerializeToString,
             injective_dot_tokenfactory_dot_v1beta1_dot_query__pb2.QueryDenomsFromCreatorResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def TokenfactoryModuleState(request,
@@ -168,8 +199,18 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.tokenfactory.v1beta1.Query/TokenfactoryModuleState',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.tokenfactory.v1beta1.Query/TokenfactoryModuleState',
             injective_dot_tokenfactory_dot_v1beta1_dot_query__pb2.QueryModuleStateRequest.SerializeToString,
             injective_dot_tokenfactory_dot_v1beta1_dot_query__pb2.QueryModuleStateResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

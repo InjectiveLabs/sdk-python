@@ -19,27 +19,27 @@ class InjectiveCampaignRPCStub(object):
                 '/injective_campaign_rpc.InjectiveCampaignRPC/Ranking',
                 request_serializer=exchange_dot_injective__campaign__rpc__pb2.RankingRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__campaign__rpc__pb2.RankingResponse.FromString,
-                )
+                _registered_method=True)
         self.Campaigns = channel.unary_unary(
                 '/injective_campaign_rpc.InjectiveCampaignRPC/Campaigns',
                 request_serializer=exchange_dot_injective__campaign__rpc__pb2.CampaignsRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__campaign__rpc__pb2.CampaignsResponse.FromString,
-                )
+                _registered_method=True)
         self.ListGuilds = channel.unary_unary(
                 '/injective_campaign_rpc.InjectiveCampaignRPC/ListGuilds',
                 request_serializer=exchange_dot_injective__campaign__rpc__pb2.ListGuildsRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__campaign__rpc__pb2.ListGuildsResponse.FromString,
-                )
+                _registered_method=True)
         self.ListGuildMembers = channel.unary_unary(
                 '/injective_campaign_rpc.InjectiveCampaignRPC/ListGuildMembers',
                 request_serializer=exchange_dot_injective__campaign__rpc__pb2.ListGuildMembersRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__campaign__rpc__pb2.ListGuildMembersResponse.FromString,
-                )
+                _registered_method=True)
         self.GetGuildMember = channel.unary_unary(
                 '/injective_campaign_rpc.InjectiveCampaignRPC/GetGuildMember',
                 request_serializer=exchange_dot_injective__campaign__rpc__pb2.GetGuildMemberRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__campaign__rpc__pb2.GetGuildMemberResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class InjectiveCampaignRPCServicer(object):
@@ -113,6 +113,7 @@ def add_InjectiveCampaignRPCServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'injective_campaign_rpc.InjectiveCampaignRPC', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('injective_campaign_rpc.InjectiveCampaignRPC', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -131,11 +132,21 @@ class InjectiveCampaignRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_campaign_rpc.InjectiveCampaignRPC/Ranking',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_campaign_rpc.InjectiveCampaignRPC/Ranking',
             exchange_dot_injective__campaign__rpc__pb2.RankingRequest.SerializeToString,
             exchange_dot_injective__campaign__rpc__pb2.RankingResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Campaigns(request,
@@ -148,11 +159,21 @@ class InjectiveCampaignRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_campaign_rpc.InjectiveCampaignRPC/Campaigns',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_campaign_rpc.InjectiveCampaignRPC/Campaigns',
             exchange_dot_injective__campaign__rpc__pb2.CampaignsRequest.SerializeToString,
             exchange_dot_injective__campaign__rpc__pb2.CampaignsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ListGuilds(request,
@@ -165,11 +186,21 @@ class InjectiveCampaignRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_campaign_rpc.InjectiveCampaignRPC/ListGuilds',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_campaign_rpc.InjectiveCampaignRPC/ListGuilds',
             exchange_dot_injective__campaign__rpc__pb2.ListGuildsRequest.SerializeToString,
             exchange_dot_injective__campaign__rpc__pb2.ListGuildsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ListGuildMembers(request,
@@ -182,11 +213,21 @@ class InjectiveCampaignRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_campaign_rpc.InjectiveCampaignRPC/ListGuildMembers',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_campaign_rpc.InjectiveCampaignRPC/ListGuildMembers',
             exchange_dot_injective__campaign__rpc__pb2.ListGuildMembersRequest.SerializeToString,
             exchange_dot_injective__campaign__rpc__pb2.ListGuildMembersResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def GetGuildMember(request,
@@ -199,8 +240,18 @@ class InjectiveCampaignRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_campaign_rpc.InjectiveCampaignRPC/GetGuildMember',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_campaign_rpc.InjectiveCampaignRPC/GetGuildMember',
             exchange_dot_injective__campaign__rpc__pb2.GetGuildMemberRequest.SerializeToString,
             exchange_dot_injective__campaign__rpc__pb2.GetGuildMemberResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

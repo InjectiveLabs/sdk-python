@@ -19,32 +19,32 @@ class MsgStub(object):
                 '/injective.wasmx.v1.Msg/UpdateRegistryContractParams',
                 request_serializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgUpdateContract.SerializeToString,
                 response_deserializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgUpdateContractResponse.FromString,
-                )
+                _registered_method=True)
         self.ActivateRegistryContract = channel.unary_unary(
                 '/injective.wasmx.v1.Msg/ActivateRegistryContract',
                 request_serializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgActivateContract.SerializeToString,
                 response_deserializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgActivateContractResponse.FromString,
-                )
+                _registered_method=True)
         self.DeactivateRegistryContract = channel.unary_unary(
                 '/injective.wasmx.v1.Msg/DeactivateRegistryContract',
                 request_serializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgDeactivateContract.SerializeToString,
                 response_deserializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgDeactivateContractResponse.FromString,
-                )
+                _registered_method=True)
         self.ExecuteContractCompat = channel.unary_unary(
                 '/injective.wasmx.v1.Msg/ExecuteContractCompat',
                 request_serializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgExecuteContractCompat.SerializeToString,
                 response_deserializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgExecuteContractCompatResponse.FromString,
-                )
+                _registered_method=True)
         self.UpdateParams = channel.unary_unary(
                 '/injective.wasmx.v1.Msg/UpdateParams',
                 request_serializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
                 response_deserializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
-                )
+                _registered_method=True)
         self.RegisterContract = channel.unary_unary(
                 '/injective.wasmx.v1.Msg/RegisterContract',
                 request_serializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgRegisterContract.SerializeToString,
                 response_deserializer=injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgRegisterContractResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class MsgServicer(object):
@@ -124,6 +124,7 @@ def add_MsgServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'injective.wasmx.v1.Msg', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('injective.wasmx.v1.Msg', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -142,11 +143,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.wasmx.v1.Msg/UpdateRegistryContractParams',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.wasmx.v1.Msg/UpdateRegistryContractParams',
             injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgUpdateContract.SerializeToString,
             injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgUpdateContractResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ActivateRegistryContract(request,
@@ -159,11 +170,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.wasmx.v1.Msg/ActivateRegistryContract',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.wasmx.v1.Msg/ActivateRegistryContract',
             injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgActivateContract.SerializeToString,
             injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgActivateContractResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def DeactivateRegistryContract(request,
@@ -176,11 +197,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.wasmx.v1.Msg/DeactivateRegistryContract',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.wasmx.v1.Msg/DeactivateRegistryContract',
             injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgDeactivateContract.SerializeToString,
             injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgDeactivateContractResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ExecuteContractCompat(request,
@@ -193,11 +224,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.wasmx.v1.Msg/ExecuteContractCompat',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.wasmx.v1.Msg/ExecuteContractCompat',
             injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgExecuteContractCompat.SerializeToString,
             injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgExecuteContractCompatResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def UpdateParams(request,
@@ -210,11 +251,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.wasmx.v1.Msg/UpdateParams',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.wasmx.v1.Msg/UpdateParams',
             injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
             injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def RegisterContract(request,
@@ -227,8 +278,18 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.wasmx.v1.Msg/RegisterContract',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.wasmx.v1.Msg/RegisterContract',
             injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgRegisterContract.SerializeToString,
             injective_dot_wasmx_dot_v1_dot_tx__pb2.MsgRegisterContractResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

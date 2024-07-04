@@ -19,37 +19,37 @@ class ServiceStub(object):
                 '/cosmos.base.tendermint.v1beta1.Service/GetNodeInfo',
                 request_serializer=cosmos_dot_base_dot_tendermint_dot_v1beta1_dot_query__pb2.GetNodeInfoRequest.SerializeToString,
                 response_deserializer=cosmos_dot_base_dot_tendermint_dot_v1beta1_dot_query__pb2.GetNodeInfoResponse.FromString,
-                )
+                _registered_method=True)
         self.GetSyncing = channel.unary_unary(
                 '/cosmos.base.tendermint.v1beta1.Service/GetSyncing',
                 request_serializer=cosmos_dot_base_dot_tendermint_dot_v1beta1_dot_query__pb2.GetSyncingRequest.SerializeToString,
                 response_deserializer=cosmos_dot_base_dot_tendermint_dot_v1beta1_dot_query__pb2.GetSyncingResponse.FromString,
-                )
+                _registered_method=True)
         self.GetLatestBlock = channel.unary_unary(
                 '/cosmos.base.tendermint.v1beta1.Service/GetLatestBlock',
                 request_serializer=cosmos_dot_base_dot_tendermint_dot_v1beta1_dot_query__pb2.GetLatestBlockRequest.SerializeToString,
                 response_deserializer=cosmos_dot_base_dot_tendermint_dot_v1beta1_dot_query__pb2.GetLatestBlockResponse.FromString,
-                )
+                _registered_method=True)
         self.GetBlockByHeight = channel.unary_unary(
                 '/cosmos.base.tendermint.v1beta1.Service/GetBlockByHeight',
                 request_serializer=cosmos_dot_base_dot_tendermint_dot_v1beta1_dot_query__pb2.GetBlockByHeightRequest.SerializeToString,
                 response_deserializer=cosmos_dot_base_dot_tendermint_dot_v1beta1_dot_query__pb2.GetBlockByHeightResponse.FromString,
-                )
+                _registered_method=True)
         self.GetLatestValidatorSet = channel.unary_unary(
                 '/cosmos.base.tendermint.v1beta1.Service/GetLatestValidatorSet',
                 request_serializer=cosmos_dot_base_dot_tendermint_dot_v1beta1_dot_query__pb2.GetLatestValidatorSetRequest.SerializeToString,
                 response_deserializer=cosmos_dot_base_dot_tendermint_dot_v1beta1_dot_query__pb2.GetLatestValidatorSetResponse.FromString,
-                )
+                _registered_method=True)
         self.GetValidatorSetByHeight = channel.unary_unary(
                 '/cosmos.base.tendermint.v1beta1.Service/GetValidatorSetByHeight',
                 request_serializer=cosmos_dot_base_dot_tendermint_dot_v1beta1_dot_query__pb2.GetValidatorSetByHeightRequest.SerializeToString,
                 response_deserializer=cosmos_dot_base_dot_tendermint_dot_v1beta1_dot_query__pb2.GetValidatorSetByHeightResponse.FromString,
-                )
+                _registered_method=True)
         self.ABCIQuery = channel.unary_unary(
                 '/cosmos.base.tendermint.v1beta1.Service/ABCIQuery',
                 request_serializer=cosmos_dot_base_dot_tendermint_dot_v1beta1_dot_query__pb2.ABCIQueryRequest.SerializeToString,
                 response_deserializer=cosmos_dot_base_dot_tendermint_dot_v1beta1_dot_query__pb2.ABCIQueryResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class ServiceServicer(object):
@@ -151,6 +151,7 @@ def add_ServiceServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'cosmos.base.tendermint.v1beta1.Service', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('cosmos.base.tendermint.v1beta1.Service', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -169,11 +170,21 @@ class Service(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.base.tendermint.v1beta1.Service/GetNodeInfo',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.base.tendermint.v1beta1.Service/GetNodeInfo',
             cosmos_dot_base_dot_tendermint_dot_v1beta1_dot_query__pb2.GetNodeInfoRequest.SerializeToString,
             cosmos_dot_base_dot_tendermint_dot_v1beta1_dot_query__pb2.GetNodeInfoResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def GetSyncing(request,
@@ -186,11 +197,21 @@ class Service(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.base.tendermint.v1beta1.Service/GetSyncing',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.base.tendermint.v1beta1.Service/GetSyncing',
             cosmos_dot_base_dot_tendermint_dot_v1beta1_dot_query__pb2.GetSyncingRequest.SerializeToString,
             cosmos_dot_base_dot_tendermint_dot_v1beta1_dot_query__pb2.GetSyncingResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def GetLatestBlock(request,
@@ -203,11 +224,21 @@ class Service(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.base.tendermint.v1beta1.Service/GetLatestBlock',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.base.tendermint.v1beta1.Service/GetLatestBlock',
             cosmos_dot_base_dot_tendermint_dot_v1beta1_dot_query__pb2.GetLatestBlockRequest.SerializeToString,
             cosmos_dot_base_dot_tendermint_dot_v1beta1_dot_query__pb2.GetLatestBlockResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def GetBlockByHeight(request,
@@ -220,11 +251,21 @@ class Service(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.base.tendermint.v1beta1.Service/GetBlockByHeight',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.base.tendermint.v1beta1.Service/GetBlockByHeight',
             cosmos_dot_base_dot_tendermint_dot_v1beta1_dot_query__pb2.GetBlockByHeightRequest.SerializeToString,
             cosmos_dot_base_dot_tendermint_dot_v1beta1_dot_query__pb2.GetBlockByHeightResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def GetLatestValidatorSet(request,
@@ -237,11 +278,21 @@ class Service(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.base.tendermint.v1beta1.Service/GetLatestValidatorSet',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.base.tendermint.v1beta1.Service/GetLatestValidatorSet',
             cosmos_dot_base_dot_tendermint_dot_v1beta1_dot_query__pb2.GetLatestValidatorSetRequest.SerializeToString,
             cosmos_dot_base_dot_tendermint_dot_v1beta1_dot_query__pb2.GetLatestValidatorSetResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def GetValidatorSetByHeight(request,
@@ -254,11 +305,21 @@ class Service(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.base.tendermint.v1beta1.Service/GetValidatorSetByHeight',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.base.tendermint.v1beta1.Service/GetValidatorSetByHeight',
             cosmos_dot_base_dot_tendermint_dot_v1beta1_dot_query__pb2.GetValidatorSetByHeightRequest.SerializeToString,
             cosmos_dot_base_dot_tendermint_dot_v1beta1_dot_query__pb2.GetValidatorSetByHeightResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ABCIQuery(request,
@@ -271,8 +332,18 @@ class Service(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.base.tendermint.v1beta1.Service/ABCIQuery',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.base.tendermint.v1beta1.Service/ABCIQuery',
             cosmos_dot_base_dot_tendermint_dot_v1beta1_dot_query__pb2.ABCIQueryRequest.SerializeToString,
             cosmos_dot_base_dot_tendermint_dot_v1beta1_dot_query__pb2.ABCIQueryResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

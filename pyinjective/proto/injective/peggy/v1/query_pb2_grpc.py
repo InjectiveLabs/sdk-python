@@ -19,107 +19,107 @@ class QueryStub(object):
                 '/injective.peggy.v1.Query/Params',
                 request_serializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryParamsRequest.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryParamsResponse.FromString,
-                )
+                _registered_method=True)
         self.CurrentValset = channel.unary_unary(
                 '/injective.peggy.v1.Query/CurrentValset',
                 request_serializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryCurrentValsetRequest.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryCurrentValsetResponse.FromString,
-                )
+                _registered_method=True)
         self.ValsetRequest = channel.unary_unary(
                 '/injective.peggy.v1.Query/ValsetRequest',
                 request_serializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryValsetRequestRequest.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryValsetRequestResponse.FromString,
-                )
+                _registered_method=True)
         self.ValsetConfirm = channel.unary_unary(
                 '/injective.peggy.v1.Query/ValsetConfirm',
                 request_serializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryValsetConfirmRequest.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryValsetConfirmResponse.FromString,
-                )
+                _registered_method=True)
         self.ValsetConfirmsByNonce = channel.unary_unary(
                 '/injective.peggy.v1.Query/ValsetConfirmsByNonce',
                 request_serializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryValsetConfirmsByNonceRequest.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryValsetConfirmsByNonceResponse.FromString,
-                )
+                _registered_method=True)
         self.LastValsetRequests = channel.unary_unary(
                 '/injective.peggy.v1.Query/LastValsetRequests',
                 request_serializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryLastValsetRequestsRequest.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryLastValsetRequestsResponse.FromString,
-                )
+                _registered_method=True)
         self.LastPendingValsetRequestByAddr = channel.unary_unary(
                 '/injective.peggy.v1.Query/LastPendingValsetRequestByAddr',
                 request_serializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryLastPendingValsetRequestByAddrRequest.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryLastPendingValsetRequestByAddrResponse.FromString,
-                )
+                _registered_method=True)
         self.LastEventByAddr = channel.unary_unary(
                 '/injective.peggy.v1.Query/LastEventByAddr',
                 request_serializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryLastEventByAddrRequest.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryLastEventByAddrResponse.FromString,
-                )
+                _registered_method=True)
         self.GetPendingSendToEth = channel.unary_unary(
                 '/injective.peggy.v1.Query/GetPendingSendToEth',
                 request_serializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryPendingSendToEth.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryPendingSendToEthResponse.FromString,
-                )
+                _registered_method=True)
         self.BatchFees = channel.unary_unary(
                 '/injective.peggy.v1.Query/BatchFees',
                 request_serializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryBatchFeeRequest.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryBatchFeeResponse.FromString,
-                )
+                _registered_method=True)
         self.OutgoingTxBatches = channel.unary_unary(
                 '/injective.peggy.v1.Query/OutgoingTxBatches',
                 request_serializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryOutgoingTxBatchesRequest.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryOutgoingTxBatchesResponse.FromString,
-                )
+                _registered_method=True)
         self.LastPendingBatchRequestByAddr = channel.unary_unary(
                 '/injective.peggy.v1.Query/LastPendingBatchRequestByAddr',
                 request_serializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryLastPendingBatchRequestByAddrRequest.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryLastPendingBatchRequestByAddrResponse.FromString,
-                )
+                _registered_method=True)
         self.BatchRequestByNonce = channel.unary_unary(
                 '/injective.peggy.v1.Query/BatchRequestByNonce',
                 request_serializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryBatchRequestByNonceRequest.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryBatchRequestByNonceResponse.FromString,
-                )
+                _registered_method=True)
         self.BatchConfirms = channel.unary_unary(
                 '/injective.peggy.v1.Query/BatchConfirms',
                 request_serializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryBatchConfirmsRequest.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryBatchConfirmsResponse.FromString,
-                )
+                _registered_method=True)
         self.ERC20ToDenom = channel.unary_unary(
                 '/injective.peggy.v1.Query/ERC20ToDenom',
                 request_serializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryERC20ToDenomRequest.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryERC20ToDenomResponse.FromString,
-                )
+                _registered_method=True)
         self.DenomToERC20 = channel.unary_unary(
                 '/injective.peggy.v1.Query/DenomToERC20',
                 request_serializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryDenomToERC20Request.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryDenomToERC20Response.FromString,
-                )
+                _registered_method=True)
         self.GetDelegateKeyByValidator = channel.unary_unary(
                 '/injective.peggy.v1.Query/GetDelegateKeyByValidator',
                 request_serializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryDelegateKeysByValidatorAddress.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryDelegateKeysByValidatorAddressResponse.FromString,
-                )
+                _registered_method=True)
         self.GetDelegateKeyByEth = channel.unary_unary(
                 '/injective.peggy.v1.Query/GetDelegateKeyByEth',
                 request_serializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryDelegateKeysByEthAddress.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryDelegateKeysByEthAddressResponse.FromString,
-                )
+                _registered_method=True)
         self.GetDelegateKeyByOrchestrator = channel.unary_unary(
                 '/injective.peggy.v1.Query/GetDelegateKeyByOrchestrator',
                 request_serializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryDelegateKeysByOrchestratorAddress.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryDelegateKeysByOrchestratorAddressResponse.FromString,
-                )
+                _registered_method=True)
         self.PeggyModuleState = channel.unary_unary(
                 '/injective.peggy.v1.Query/PeggyModuleState',
                 request_serializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryModuleStateRequest.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_query__pb2.QueryModuleStateResponse.FromString,
-                )
+                _registered_method=True)
         self.MissingPeggoNonces = channel.unary_unary(
                 '/injective.peggy.v1.Query/MissingPeggoNonces',
                 request_serializer=injective_dot_peggy_dot_v1_dot_query__pb2.MissingNoncesRequest.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_query__pb2.MissingNoncesResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class QueryServicer(object):
@@ -369,6 +369,7 @@ def add_QueryServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'injective.peggy.v1.Query', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('injective.peggy.v1.Query', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -387,11 +388,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Query/Params',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Query/Params',
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryParamsRequest.SerializeToString,
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryParamsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def CurrentValset(request,
@@ -404,11 +415,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Query/CurrentValset',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Query/CurrentValset',
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryCurrentValsetRequest.SerializeToString,
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryCurrentValsetResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ValsetRequest(request,
@@ -421,11 +442,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Query/ValsetRequest',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Query/ValsetRequest',
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryValsetRequestRequest.SerializeToString,
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryValsetRequestResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ValsetConfirm(request,
@@ -438,11 +469,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Query/ValsetConfirm',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Query/ValsetConfirm',
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryValsetConfirmRequest.SerializeToString,
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryValsetConfirmResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ValsetConfirmsByNonce(request,
@@ -455,11 +496,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Query/ValsetConfirmsByNonce',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Query/ValsetConfirmsByNonce',
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryValsetConfirmsByNonceRequest.SerializeToString,
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryValsetConfirmsByNonceResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def LastValsetRequests(request,
@@ -472,11 +523,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Query/LastValsetRequests',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Query/LastValsetRequests',
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryLastValsetRequestsRequest.SerializeToString,
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryLastValsetRequestsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def LastPendingValsetRequestByAddr(request,
@@ -489,11 +550,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Query/LastPendingValsetRequestByAddr',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Query/LastPendingValsetRequestByAddr',
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryLastPendingValsetRequestByAddrRequest.SerializeToString,
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryLastPendingValsetRequestByAddrResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def LastEventByAddr(request,
@@ -506,11 +577,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Query/LastEventByAddr',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Query/LastEventByAddr',
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryLastEventByAddrRequest.SerializeToString,
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryLastEventByAddrResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def GetPendingSendToEth(request,
@@ -523,11 +604,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Query/GetPendingSendToEth',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Query/GetPendingSendToEth',
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryPendingSendToEth.SerializeToString,
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryPendingSendToEthResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def BatchFees(request,
@@ -540,11 +631,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Query/BatchFees',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Query/BatchFees',
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryBatchFeeRequest.SerializeToString,
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryBatchFeeResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def OutgoingTxBatches(request,
@@ -557,11 +658,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Query/OutgoingTxBatches',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Query/OutgoingTxBatches',
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryOutgoingTxBatchesRequest.SerializeToString,
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryOutgoingTxBatchesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def LastPendingBatchRequestByAddr(request,
@@ -574,11 +685,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Query/LastPendingBatchRequestByAddr',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Query/LastPendingBatchRequestByAddr',
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryLastPendingBatchRequestByAddrRequest.SerializeToString,
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryLastPendingBatchRequestByAddrResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def BatchRequestByNonce(request,
@@ -591,11 +712,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Query/BatchRequestByNonce',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Query/BatchRequestByNonce',
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryBatchRequestByNonceRequest.SerializeToString,
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryBatchRequestByNonceResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def BatchConfirms(request,
@@ -608,11 +739,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Query/BatchConfirms',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Query/BatchConfirms',
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryBatchConfirmsRequest.SerializeToString,
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryBatchConfirmsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ERC20ToDenom(request,
@@ -625,11 +766,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Query/ERC20ToDenom',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Query/ERC20ToDenom',
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryERC20ToDenomRequest.SerializeToString,
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryERC20ToDenomResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def DenomToERC20(request,
@@ -642,11 +793,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Query/DenomToERC20',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Query/DenomToERC20',
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryDenomToERC20Request.SerializeToString,
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryDenomToERC20Response.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def GetDelegateKeyByValidator(request,
@@ -659,11 +820,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Query/GetDelegateKeyByValidator',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Query/GetDelegateKeyByValidator',
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryDelegateKeysByValidatorAddress.SerializeToString,
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryDelegateKeysByValidatorAddressResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def GetDelegateKeyByEth(request,
@@ -676,11 +847,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Query/GetDelegateKeyByEth',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Query/GetDelegateKeyByEth',
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryDelegateKeysByEthAddress.SerializeToString,
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryDelegateKeysByEthAddressResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def GetDelegateKeyByOrchestrator(request,
@@ -693,11 +874,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Query/GetDelegateKeyByOrchestrator',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Query/GetDelegateKeyByOrchestrator',
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryDelegateKeysByOrchestratorAddress.SerializeToString,
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryDelegateKeysByOrchestratorAddressResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def PeggyModuleState(request,
@@ -710,11 +901,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Query/PeggyModuleState',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Query/PeggyModuleState',
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryModuleStateRequest.SerializeToString,
             injective_dot_peggy_dot_v1_dot_query__pb2.QueryModuleStateResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def MissingPeggoNonces(request,
@@ -727,8 +928,18 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.peggy.v1.Query/MissingPeggoNonces',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Query/MissingPeggoNonces',
             injective_dot_peggy_dot_v1_dot_query__pb2.MissingNoncesRequest.SerializeToString,
             injective_dot_peggy_dot_v1_dot_query__pb2.MissingNoncesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

@@ -19,37 +19,37 @@ class QueryStub(object):
                 '/injective.ocr.v1beta1.Query/Params',
                 request_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryParamsRequest.SerializeToString,
                 response_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryParamsResponse.FromString,
-                )
+                _registered_method=True)
         self.FeedConfig = channel.unary_unary(
                 '/injective.ocr.v1beta1.Query/FeedConfig',
                 request_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryFeedConfigRequest.SerializeToString,
                 response_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryFeedConfigResponse.FromString,
-                )
+                _registered_method=True)
         self.FeedConfigInfo = channel.unary_unary(
                 '/injective.ocr.v1beta1.Query/FeedConfigInfo',
                 request_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryFeedConfigInfoRequest.SerializeToString,
                 response_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryFeedConfigInfoResponse.FromString,
-                )
+                _registered_method=True)
         self.LatestRound = channel.unary_unary(
                 '/injective.ocr.v1beta1.Query/LatestRound',
                 request_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryLatestRoundRequest.SerializeToString,
                 response_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryLatestRoundResponse.FromString,
-                )
+                _registered_method=True)
         self.LatestTransmissionDetails = channel.unary_unary(
                 '/injective.ocr.v1beta1.Query/LatestTransmissionDetails',
                 request_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryLatestTransmissionDetailsRequest.SerializeToString,
                 response_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryLatestTransmissionDetailsResponse.FromString,
-                )
+                _registered_method=True)
         self.OwedAmount = channel.unary_unary(
                 '/injective.ocr.v1beta1.Query/OwedAmount',
                 request_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryOwedAmountRequest.SerializeToString,
                 response_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryOwedAmountResponse.FromString,
-                )
+                _registered_method=True)
         self.OcrModuleState = channel.unary_unary(
                 '/injective.ocr.v1beta1.Query/OcrModuleState',
                 request_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryModuleStateRequest.SerializeToString,
                 response_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryModuleStateResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class QueryServicer(object):
@@ -147,6 +147,7 @@ def add_QueryServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'injective.ocr.v1beta1.Query', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('injective.ocr.v1beta1.Query', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -165,11 +166,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.ocr.v1beta1.Query/Params',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.ocr.v1beta1.Query/Params',
             injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryParamsRequest.SerializeToString,
             injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryParamsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def FeedConfig(request,
@@ -182,11 +193,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.ocr.v1beta1.Query/FeedConfig',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.ocr.v1beta1.Query/FeedConfig',
             injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryFeedConfigRequest.SerializeToString,
             injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryFeedConfigResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def FeedConfigInfo(request,
@@ -199,11 +220,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.ocr.v1beta1.Query/FeedConfigInfo',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.ocr.v1beta1.Query/FeedConfigInfo',
             injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryFeedConfigInfoRequest.SerializeToString,
             injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryFeedConfigInfoResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def LatestRound(request,
@@ -216,11 +247,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.ocr.v1beta1.Query/LatestRound',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.ocr.v1beta1.Query/LatestRound',
             injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryLatestRoundRequest.SerializeToString,
             injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryLatestRoundResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def LatestTransmissionDetails(request,
@@ -233,11 +274,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.ocr.v1beta1.Query/LatestTransmissionDetails',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.ocr.v1beta1.Query/LatestTransmissionDetails',
             injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryLatestTransmissionDetailsRequest.SerializeToString,
             injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryLatestTransmissionDetailsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def OwedAmount(request,
@@ -250,11 +301,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.ocr.v1beta1.Query/OwedAmount',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.ocr.v1beta1.Query/OwedAmount',
             injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryOwedAmountRequest.SerializeToString,
             injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryOwedAmountResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def OcrModuleState(request,
@@ -267,8 +328,18 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.ocr.v1beta1.Query/OcrModuleState',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.ocr.v1beta1.Query/OcrModuleState',
             injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryModuleStateRequest.SerializeToString,
             injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryModuleStateResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

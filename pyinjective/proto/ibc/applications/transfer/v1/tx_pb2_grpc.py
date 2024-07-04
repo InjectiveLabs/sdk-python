@@ -19,7 +19,7 @@ class MsgStub(object):
                 '/ibc.applications.transfer.v1.Msg/Transfer',
                 request_serializer=ibc_dot_applications_dot_transfer_dot_v1_dot_tx__pb2.MsgTransfer.SerializeToString,
                 response_deserializer=ibc_dot_applications_dot_transfer_dot_v1_dot_tx__pb2.MsgTransferResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class MsgServicer(object):
@@ -45,6 +45,7 @@ def add_MsgServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'ibc.applications.transfer.v1.Msg', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('ibc.applications.transfer.v1.Msg', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -63,8 +64,18 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.applications.transfer.v1.Msg/Transfer',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.applications.transfer.v1.Msg/Transfer',
             ibc_dot_applications_dot_transfer_dot_v1_dot_tx__pb2.MsgTransfer.SerializeToString,
             ibc_dot_applications_dot_transfer_dot_v1_dot_tx__pb2.MsgTransferResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

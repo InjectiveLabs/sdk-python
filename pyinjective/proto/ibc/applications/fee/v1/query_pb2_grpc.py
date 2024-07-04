@@ -19,52 +19,52 @@ class QueryStub(object):
                 '/ibc.applications.fee.v1.Query/IncentivizedPackets',
                 request_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryIncentivizedPacketsRequest.SerializeToString,
                 response_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryIncentivizedPacketsResponse.FromString,
-                )
+                _registered_method=True)
         self.IncentivizedPacket = channel.unary_unary(
                 '/ibc.applications.fee.v1.Query/IncentivizedPacket',
                 request_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryIncentivizedPacketRequest.SerializeToString,
                 response_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryIncentivizedPacketResponse.FromString,
-                )
+                _registered_method=True)
         self.IncentivizedPacketsForChannel = channel.unary_unary(
                 '/ibc.applications.fee.v1.Query/IncentivizedPacketsForChannel',
                 request_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryIncentivizedPacketsForChannelRequest.SerializeToString,
                 response_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryIncentivizedPacketsForChannelResponse.FromString,
-                )
+                _registered_method=True)
         self.TotalRecvFees = channel.unary_unary(
                 '/ibc.applications.fee.v1.Query/TotalRecvFees',
                 request_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryTotalRecvFeesRequest.SerializeToString,
                 response_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryTotalRecvFeesResponse.FromString,
-                )
+                _registered_method=True)
         self.TotalAckFees = channel.unary_unary(
                 '/ibc.applications.fee.v1.Query/TotalAckFees',
                 request_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryTotalAckFeesRequest.SerializeToString,
                 response_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryTotalAckFeesResponse.FromString,
-                )
+                _registered_method=True)
         self.TotalTimeoutFees = channel.unary_unary(
                 '/ibc.applications.fee.v1.Query/TotalTimeoutFees',
                 request_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryTotalTimeoutFeesRequest.SerializeToString,
                 response_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryTotalTimeoutFeesResponse.FromString,
-                )
+                _registered_method=True)
         self.Payee = channel.unary_unary(
                 '/ibc.applications.fee.v1.Query/Payee',
                 request_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryPayeeRequest.SerializeToString,
                 response_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryPayeeResponse.FromString,
-                )
+                _registered_method=True)
         self.CounterpartyPayee = channel.unary_unary(
                 '/ibc.applications.fee.v1.Query/CounterpartyPayee',
                 request_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryCounterpartyPayeeRequest.SerializeToString,
                 response_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryCounterpartyPayeeResponse.FromString,
-                )
+                _registered_method=True)
         self.FeeEnabledChannels = channel.unary_unary(
                 '/ibc.applications.fee.v1.Query/FeeEnabledChannels',
                 request_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryFeeEnabledChannelsRequest.SerializeToString,
                 response_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryFeeEnabledChannelsResponse.FromString,
-                )
+                _registered_method=True)
         self.FeeEnabledChannel = channel.unary_unary(
                 '/ibc.applications.fee.v1.Query/FeeEnabledChannel',
                 request_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryFeeEnabledChannelRequest.SerializeToString,
                 response_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryFeeEnabledChannelResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class QueryServicer(object):
@@ -198,6 +198,7 @@ def add_QueryServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'ibc.applications.fee.v1.Query', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('ibc.applications.fee.v1.Query', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -216,11 +217,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.applications.fee.v1.Query/IncentivizedPackets',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.applications.fee.v1.Query/IncentivizedPackets',
             ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryIncentivizedPacketsRequest.SerializeToString,
             ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryIncentivizedPacketsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def IncentivizedPacket(request,
@@ -233,11 +244,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.applications.fee.v1.Query/IncentivizedPacket',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.applications.fee.v1.Query/IncentivizedPacket',
             ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryIncentivizedPacketRequest.SerializeToString,
             ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryIncentivizedPacketResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def IncentivizedPacketsForChannel(request,
@@ -250,11 +271,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.applications.fee.v1.Query/IncentivizedPacketsForChannel',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.applications.fee.v1.Query/IncentivizedPacketsForChannel',
             ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryIncentivizedPacketsForChannelRequest.SerializeToString,
             ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryIncentivizedPacketsForChannelResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def TotalRecvFees(request,
@@ -267,11 +298,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.applications.fee.v1.Query/TotalRecvFees',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.applications.fee.v1.Query/TotalRecvFees',
             ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryTotalRecvFeesRequest.SerializeToString,
             ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryTotalRecvFeesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def TotalAckFees(request,
@@ -284,11 +325,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.applications.fee.v1.Query/TotalAckFees',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.applications.fee.v1.Query/TotalAckFees',
             ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryTotalAckFeesRequest.SerializeToString,
             ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryTotalAckFeesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def TotalTimeoutFees(request,
@@ -301,11 +352,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.applications.fee.v1.Query/TotalTimeoutFees',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.applications.fee.v1.Query/TotalTimeoutFees',
             ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryTotalTimeoutFeesRequest.SerializeToString,
             ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryTotalTimeoutFeesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Payee(request,
@@ -318,11 +379,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.applications.fee.v1.Query/Payee',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.applications.fee.v1.Query/Payee',
             ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryPayeeRequest.SerializeToString,
             ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryPayeeResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def CounterpartyPayee(request,
@@ -335,11 +406,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.applications.fee.v1.Query/CounterpartyPayee',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.applications.fee.v1.Query/CounterpartyPayee',
             ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryCounterpartyPayeeRequest.SerializeToString,
             ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryCounterpartyPayeeResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def FeeEnabledChannels(request,
@@ -352,11 +433,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.applications.fee.v1.Query/FeeEnabledChannels',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.applications.fee.v1.Query/FeeEnabledChannels',
             ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryFeeEnabledChannelsRequest.SerializeToString,
             ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryFeeEnabledChannelsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def FeeEnabledChannel(request,
@@ -369,8 +460,18 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.applications.fee.v1.Query/FeeEnabledChannel',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.applications.fee.v1.Query/FeeEnabledChannel',
             ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryFeeEnabledChannelRequest.SerializeToString,
             ibc_dot_applications_dot_fee_dot_v1_dot_query__pb2.QueryFeeEnabledChannelResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

@@ -19,52 +19,52 @@ class QueryStub(object):
                 '/cosmos.distribution.v1beta1.Query/Params',
                 request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryParamsRequest.SerializeToString,
                 response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryParamsResponse.FromString,
-                )
+                _registered_method=True)
         self.ValidatorDistributionInfo = channel.unary_unary(
                 '/cosmos.distribution.v1beta1.Query/ValidatorDistributionInfo',
                 request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryValidatorDistributionInfoRequest.SerializeToString,
                 response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryValidatorDistributionInfoResponse.FromString,
-                )
+                _registered_method=True)
         self.ValidatorOutstandingRewards = channel.unary_unary(
                 '/cosmos.distribution.v1beta1.Query/ValidatorOutstandingRewards',
                 request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryValidatorOutstandingRewardsRequest.SerializeToString,
                 response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryValidatorOutstandingRewardsResponse.FromString,
-                )
+                _registered_method=True)
         self.ValidatorCommission = channel.unary_unary(
                 '/cosmos.distribution.v1beta1.Query/ValidatorCommission',
                 request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryValidatorCommissionRequest.SerializeToString,
                 response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryValidatorCommissionResponse.FromString,
-                )
+                _registered_method=True)
         self.ValidatorSlashes = channel.unary_unary(
                 '/cosmos.distribution.v1beta1.Query/ValidatorSlashes',
                 request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryValidatorSlashesRequest.SerializeToString,
                 response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryValidatorSlashesResponse.FromString,
-                )
+                _registered_method=True)
         self.DelegationRewards = channel.unary_unary(
                 '/cosmos.distribution.v1beta1.Query/DelegationRewards',
                 request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryDelegationRewardsRequest.SerializeToString,
                 response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryDelegationRewardsResponse.FromString,
-                )
+                _registered_method=True)
         self.DelegationTotalRewards = channel.unary_unary(
                 '/cosmos.distribution.v1beta1.Query/DelegationTotalRewards',
                 request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryDelegationTotalRewardsRequest.SerializeToString,
                 response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryDelegationTotalRewardsResponse.FromString,
-                )
+                _registered_method=True)
         self.DelegatorValidators = channel.unary_unary(
                 '/cosmos.distribution.v1beta1.Query/DelegatorValidators',
                 request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryDelegatorValidatorsRequest.SerializeToString,
                 response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryDelegatorValidatorsResponse.FromString,
-                )
+                _registered_method=True)
         self.DelegatorWithdrawAddress = channel.unary_unary(
                 '/cosmos.distribution.v1beta1.Query/DelegatorWithdrawAddress',
                 request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryDelegatorWithdrawAddressRequest.SerializeToString,
                 response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryDelegatorWithdrawAddressResponse.FromString,
-                )
+                _registered_method=True)
         self.CommunityPool = channel.unary_unary(
                 '/cosmos.distribution.v1beta1.Query/CommunityPool',
                 request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryCommunityPoolRequest.SerializeToString,
                 response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryCommunityPoolResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class QueryServicer(object):
@@ -199,6 +199,7 @@ def add_QueryServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'cosmos.distribution.v1beta1.Query', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('cosmos.distribution.v1beta1.Query', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -217,11 +218,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.distribution.v1beta1.Query/Params',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.distribution.v1beta1.Query/Params',
             cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryParamsRequest.SerializeToString,
             cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryParamsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ValidatorDistributionInfo(request,
@@ -234,11 +245,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.distribution.v1beta1.Query/ValidatorDistributionInfo',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.distribution.v1beta1.Query/ValidatorDistributionInfo',
             cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryValidatorDistributionInfoRequest.SerializeToString,
             cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryValidatorDistributionInfoResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ValidatorOutstandingRewards(request,
@@ -251,11 +272,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.distribution.v1beta1.Query/ValidatorOutstandingRewards',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.distribution.v1beta1.Query/ValidatorOutstandingRewards',
             cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryValidatorOutstandingRewardsRequest.SerializeToString,
             cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryValidatorOutstandingRewardsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ValidatorCommission(request,
@@ -268,11 +299,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.distribution.v1beta1.Query/ValidatorCommission',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.distribution.v1beta1.Query/ValidatorCommission',
             cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryValidatorCommissionRequest.SerializeToString,
             cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryValidatorCommissionResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ValidatorSlashes(request,
@@ -285,11 +326,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.distribution.v1beta1.Query/ValidatorSlashes',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.distribution.v1beta1.Query/ValidatorSlashes',
             cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryValidatorSlashesRequest.SerializeToString,
             cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryValidatorSlashesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def DelegationRewards(request,
@@ -302,11 +353,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.distribution.v1beta1.Query/DelegationRewards',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.distribution.v1beta1.Query/DelegationRewards',
             cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryDelegationRewardsRequest.SerializeToString,
             cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryDelegationRewardsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def DelegationTotalRewards(request,
@@ -319,11 +380,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.distribution.v1beta1.Query/DelegationTotalRewards',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.distribution.v1beta1.Query/DelegationTotalRewards',
             cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryDelegationTotalRewardsRequest.SerializeToString,
             cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryDelegationTotalRewardsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def DelegatorValidators(request,
@@ -336,11 +407,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.distribution.v1beta1.Query/DelegatorValidators',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.distribution.v1beta1.Query/DelegatorValidators',
             cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryDelegatorValidatorsRequest.SerializeToString,
             cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryDelegatorValidatorsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def DelegatorWithdrawAddress(request,
@@ -353,11 +434,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.distribution.v1beta1.Query/DelegatorWithdrawAddress',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.distribution.v1beta1.Query/DelegatorWithdrawAddress',
             cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryDelegatorWithdrawAddressRequest.SerializeToString,
             cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryDelegatorWithdrawAddressResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def CommunityPool(request,
@@ -370,8 +461,18 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.distribution.v1beta1.Query/CommunityPool',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.distribution.v1beta1.Query/CommunityPool',
             cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryCommunityPoolRequest.SerializeToString,
             cosmos_dot_distribution_dot_v1beta1_dot_query__pb2.QueryCommunityPoolResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

@@ -19,12 +19,12 @@ class QueryStub(object):
                 '/cosmos.params.v1beta1.Query/Params',
                 request_serializer=cosmos_dot_params_dot_v1beta1_dot_query__pb2.QueryParamsRequest.SerializeToString,
                 response_deserializer=cosmos_dot_params_dot_v1beta1_dot_query__pb2.QueryParamsResponse.FromString,
-                )
+                _registered_method=True)
         self.Subspaces = channel.unary_unary(
                 '/cosmos.params.v1beta1.Query/Subspaces',
                 request_serializer=cosmos_dot_params_dot_v1beta1_dot_query__pb2.QuerySubspacesRequest.SerializeToString,
                 response_deserializer=cosmos_dot_params_dot_v1beta1_dot_query__pb2.QuerySubspacesResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class QueryServicer(object):
@@ -65,6 +65,7 @@ def add_QueryServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'cosmos.params.v1beta1.Query', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('cosmos.params.v1beta1.Query', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -83,11 +84,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.params.v1beta1.Query/Params',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.params.v1beta1.Query/Params',
             cosmos_dot_params_dot_v1beta1_dot_query__pb2.QueryParamsRequest.SerializeToString,
             cosmos_dot_params_dot_v1beta1_dot_query__pb2.QueryParamsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Subspaces(request,
@@ -100,8 +111,18 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.params.v1beta1.Query/Subspaces',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.params.v1beta1.Query/Subspaces',
             cosmos_dot_params_dot_v1beta1_dot_query__pb2.QuerySubspacesRequest.SerializeToString,
             cosmos_dot_params_dot_v1beta1_dot_query__pb2.QuerySubspacesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

@@ -19,12 +19,12 @@ class MsgStub(object):
                 '/cosmos.slashing.v1beta1.Msg/Unjail',
                 request_serializer=cosmos_dot_slashing_dot_v1beta1_dot_tx__pb2.MsgUnjail.SerializeToString,
                 response_deserializer=cosmos_dot_slashing_dot_v1beta1_dot_tx__pb2.MsgUnjailResponse.FromString,
-                )
+                _registered_method=True)
         self.UpdateParams = channel.unary_unary(
                 '/cosmos.slashing.v1beta1.Msg/UpdateParams',
                 request_serializer=cosmos_dot_slashing_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
                 response_deserializer=cosmos_dot_slashing_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class MsgServicer(object):
@@ -67,6 +67,7 @@ def add_MsgServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'cosmos.slashing.v1beta1.Msg', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('cosmos.slashing.v1beta1.Msg', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -85,11 +86,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.slashing.v1beta1.Msg/Unjail',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.slashing.v1beta1.Msg/Unjail',
             cosmos_dot_slashing_dot_v1beta1_dot_tx__pb2.MsgUnjail.SerializeToString,
             cosmos_dot_slashing_dot_v1beta1_dot_tx__pb2.MsgUnjailResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def UpdateParams(request,
@@ -102,8 +113,18 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.slashing.v1beta1.Msg/UpdateParams',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.slashing.v1beta1.Msg/UpdateParams',
             cosmos_dot_slashing_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
             cosmos_dot_slashing_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

@@ -21,12 +21,12 @@ class BroadcastAPIStub(object):
                 '/tendermint.rpc.grpc.BroadcastAPI/Ping',
                 request_serializer=tendermint_dot_rpc_dot_grpc_dot_types__pb2.RequestPing.SerializeToString,
                 response_deserializer=tendermint_dot_rpc_dot_grpc_dot_types__pb2.ResponsePing.FromString,
-                )
+                _registered_method=True)
         self.BroadcastTx = channel.unary_unary(
                 '/tendermint.rpc.grpc.BroadcastAPI/BroadcastTx',
                 request_serializer=tendermint_dot_rpc_dot_grpc_dot_types__pb2.RequestBroadcastTx.SerializeToString,
                 response_deserializer=tendermint_dot_rpc_dot_grpc_dot_types__pb2.ResponseBroadcastTx.FromString,
-                )
+                _registered_method=True)
 
 
 class BroadcastAPIServicer(object):
@@ -64,6 +64,7 @@ def add_BroadcastAPIServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'tendermint.rpc.grpc.BroadcastAPI', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('tendermint.rpc.grpc.BroadcastAPI', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -84,11 +85,21 @@ class BroadcastAPI(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/tendermint.rpc.grpc.BroadcastAPI/Ping',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/tendermint.rpc.grpc.BroadcastAPI/Ping',
             tendermint_dot_rpc_dot_grpc_dot_types__pb2.RequestPing.SerializeToString,
             tendermint_dot_rpc_dot_grpc_dot_types__pb2.ResponsePing.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def BroadcastTx(request,
@@ -101,8 +112,18 @@ class BroadcastAPI(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/tendermint.rpc.grpc.BroadcastAPI/BroadcastTx',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/tendermint.rpc.grpc.BroadcastAPI/BroadcastTx',
             tendermint_dot_rpc_dot_grpc_dot_types__pb2.RequestBroadcastTx.SerializeToString,
             tendermint_dot_rpc_dot_grpc_dot_types__pb2.ResponseBroadcastTx.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

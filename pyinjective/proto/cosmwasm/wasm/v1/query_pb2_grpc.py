@@ -19,57 +19,57 @@ class QueryStub(object):
                 '/cosmwasm.wasm.v1.Query/ContractInfo',
                 request_serializer=cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryContractInfoRequest.SerializeToString,
                 response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryContractInfoResponse.FromString,
-                )
+                _registered_method=True)
         self.ContractHistory = channel.unary_unary(
                 '/cosmwasm.wasm.v1.Query/ContractHistory',
                 request_serializer=cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryContractHistoryRequest.SerializeToString,
                 response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryContractHistoryResponse.FromString,
-                )
+                _registered_method=True)
         self.ContractsByCode = channel.unary_unary(
                 '/cosmwasm.wasm.v1.Query/ContractsByCode',
                 request_serializer=cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryContractsByCodeRequest.SerializeToString,
                 response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryContractsByCodeResponse.FromString,
-                )
+                _registered_method=True)
         self.AllContractState = channel.unary_unary(
                 '/cosmwasm.wasm.v1.Query/AllContractState',
                 request_serializer=cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryAllContractStateRequest.SerializeToString,
                 response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryAllContractStateResponse.FromString,
-                )
+                _registered_method=True)
         self.RawContractState = channel.unary_unary(
                 '/cosmwasm.wasm.v1.Query/RawContractState',
                 request_serializer=cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryRawContractStateRequest.SerializeToString,
                 response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryRawContractStateResponse.FromString,
-                )
+                _registered_method=True)
         self.SmartContractState = channel.unary_unary(
                 '/cosmwasm.wasm.v1.Query/SmartContractState',
                 request_serializer=cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QuerySmartContractStateRequest.SerializeToString,
                 response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QuerySmartContractStateResponse.FromString,
-                )
+                _registered_method=True)
         self.Code = channel.unary_unary(
                 '/cosmwasm.wasm.v1.Query/Code',
                 request_serializer=cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryCodeRequest.SerializeToString,
                 response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryCodeResponse.FromString,
-                )
+                _registered_method=True)
         self.Codes = channel.unary_unary(
                 '/cosmwasm.wasm.v1.Query/Codes',
                 request_serializer=cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryCodesRequest.SerializeToString,
                 response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryCodesResponse.FromString,
-                )
+                _registered_method=True)
         self.PinnedCodes = channel.unary_unary(
                 '/cosmwasm.wasm.v1.Query/PinnedCodes',
                 request_serializer=cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryPinnedCodesRequest.SerializeToString,
                 response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryPinnedCodesResponse.FromString,
-                )
+                _registered_method=True)
         self.Params = channel.unary_unary(
                 '/cosmwasm.wasm.v1.Query/Params',
                 request_serializer=cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryParamsRequest.SerializeToString,
                 response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryParamsResponse.FromString,
-                )
+                _registered_method=True)
         self.ContractsByCreator = channel.unary_unary(
                 '/cosmwasm.wasm.v1.Query/ContractsByCreator',
                 request_serializer=cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryContractsByCreatorRequest.SerializeToString,
                 response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryContractsByCreatorResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class QueryServicer(object):
@@ -215,6 +215,7 @@ def add_QueryServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'cosmwasm.wasm.v1.Query', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('cosmwasm.wasm.v1.Query', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -233,11 +234,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmwasm.wasm.v1.Query/ContractInfo',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmwasm.wasm.v1.Query/ContractInfo',
             cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryContractInfoRequest.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryContractInfoResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ContractHistory(request,
@@ -250,11 +261,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmwasm.wasm.v1.Query/ContractHistory',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmwasm.wasm.v1.Query/ContractHistory',
             cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryContractHistoryRequest.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryContractHistoryResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ContractsByCode(request,
@@ -267,11 +288,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmwasm.wasm.v1.Query/ContractsByCode',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmwasm.wasm.v1.Query/ContractsByCode',
             cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryContractsByCodeRequest.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryContractsByCodeResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def AllContractState(request,
@@ -284,11 +315,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmwasm.wasm.v1.Query/AllContractState',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmwasm.wasm.v1.Query/AllContractState',
             cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryAllContractStateRequest.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryAllContractStateResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def RawContractState(request,
@@ -301,11 +342,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmwasm.wasm.v1.Query/RawContractState',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmwasm.wasm.v1.Query/RawContractState',
             cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryRawContractStateRequest.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryRawContractStateResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def SmartContractState(request,
@@ -318,11 +369,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmwasm.wasm.v1.Query/SmartContractState',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmwasm.wasm.v1.Query/SmartContractState',
             cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QuerySmartContractStateRequest.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QuerySmartContractStateResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Code(request,
@@ -335,11 +396,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmwasm.wasm.v1.Query/Code',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmwasm.wasm.v1.Query/Code',
             cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryCodeRequest.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryCodeResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Codes(request,
@@ -352,11 +423,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmwasm.wasm.v1.Query/Codes',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmwasm.wasm.v1.Query/Codes',
             cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryCodesRequest.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryCodesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def PinnedCodes(request,
@@ -369,11 +450,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmwasm.wasm.v1.Query/PinnedCodes',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmwasm.wasm.v1.Query/PinnedCodes',
             cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryPinnedCodesRequest.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryPinnedCodesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Params(request,
@@ -386,11 +477,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmwasm.wasm.v1.Query/Params',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmwasm.wasm.v1.Query/Params',
             cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryParamsRequest.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryParamsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ContractsByCreator(request,
@@ -403,8 +504,18 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmwasm.wasm.v1.Query/ContractsByCreator',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmwasm.wasm.v1.Query/ContractsByCreator',
             cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryContractsByCreatorRequest.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_query__pb2.QueryContractsByCreatorResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

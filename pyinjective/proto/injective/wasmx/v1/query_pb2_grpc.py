@@ -19,17 +19,17 @@ class QueryStub(object):
                 '/injective.wasmx.v1.Query/WasmxParams',
                 request_serializer=injective_dot_wasmx_dot_v1_dot_query__pb2.QueryWasmxParamsRequest.SerializeToString,
                 response_deserializer=injective_dot_wasmx_dot_v1_dot_query__pb2.QueryWasmxParamsResponse.FromString,
-                )
+                _registered_method=True)
         self.ContractRegistrationInfo = channel.unary_unary(
                 '/injective.wasmx.v1.Query/ContractRegistrationInfo',
                 request_serializer=injective_dot_wasmx_dot_v1_dot_query__pb2.QueryContractRegistrationInfoRequest.SerializeToString,
                 response_deserializer=injective_dot_wasmx_dot_v1_dot_query__pb2.QueryContractRegistrationInfoResponse.FromString,
-                )
+                _registered_method=True)
         self.WasmxModuleState = channel.unary_unary(
                 '/injective.wasmx.v1.Query/WasmxModuleState',
                 request_serializer=injective_dot_wasmx_dot_v1_dot_query__pb2.QueryModuleStateRequest.SerializeToString,
                 response_deserializer=injective_dot_wasmx_dot_v1_dot_query__pb2.QueryModuleStateResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class QueryServicer(object):
@@ -79,6 +79,7 @@ def add_QueryServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'injective.wasmx.v1.Query', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('injective.wasmx.v1.Query', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -97,11 +98,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.wasmx.v1.Query/WasmxParams',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.wasmx.v1.Query/WasmxParams',
             injective_dot_wasmx_dot_v1_dot_query__pb2.QueryWasmxParamsRequest.SerializeToString,
             injective_dot_wasmx_dot_v1_dot_query__pb2.QueryWasmxParamsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ContractRegistrationInfo(request,
@@ -114,11 +125,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.wasmx.v1.Query/ContractRegistrationInfo',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.wasmx.v1.Query/ContractRegistrationInfo',
             injective_dot_wasmx_dot_v1_dot_query__pb2.QueryContractRegistrationInfoRequest.SerializeToString,
             injective_dot_wasmx_dot_v1_dot_query__pb2.QueryContractRegistrationInfoResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def WasmxModuleState(request,
@@ -131,8 +152,18 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.wasmx.v1.Query/WasmxModuleState',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.wasmx.v1.Query/WasmxModuleState',
             injective_dot_wasmx_dot_v1_dot_query__pb2.QueryModuleStateRequest.SerializeToString,
             injective_dot_wasmx_dot_v1_dot_query__pb2.QueryModuleStateResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

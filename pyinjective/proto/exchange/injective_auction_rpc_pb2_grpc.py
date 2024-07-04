@@ -19,17 +19,17 @@ class InjectiveAuctionRPCStub(object):
                 '/injective_auction_rpc.InjectiveAuctionRPC/AuctionEndpoint',
                 request_serializer=exchange_dot_injective__auction__rpc__pb2.AuctionEndpointRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__auction__rpc__pb2.AuctionEndpointResponse.FromString,
-                )
+                _registered_method=True)
         self.Auctions = channel.unary_unary(
                 '/injective_auction_rpc.InjectiveAuctionRPC/Auctions',
                 request_serializer=exchange_dot_injective__auction__rpc__pb2.AuctionsRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__auction__rpc__pb2.AuctionsResponse.FromString,
-                )
+                _registered_method=True)
         self.StreamBids = channel.unary_stream(
                 '/injective_auction_rpc.InjectiveAuctionRPC/StreamBids',
                 request_serializer=exchange_dot_injective__auction__rpc__pb2.StreamBidsRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__auction__rpc__pb2.StreamBidsResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class InjectiveAuctionRPCServicer(object):
@@ -79,6 +79,7 @@ def add_InjectiveAuctionRPCServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'injective_auction_rpc.InjectiveAuctionRPC', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('injective_auction_rpc.InjectiveAuctionRPC', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -97,11 +98,21 @@ class InjectiveAuctionRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_auction_rpc.InjectiveAuctionRPC/AuctionEndpoint',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_auction_rpc.InjectiveAuctionRPC/AuctionEndpoint',
             exchange_dot_injective__auction__rpc__pb2.AuctionEndpointRequest.SerializeToString,
             exchange_dot_injective__auction__rpc__pb2.AuctionEndpointResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Auctions(request,
@@ -114,11 +125,21 @@ class InjectiveAuctionRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_auction_rpc.InjectiveAuctionRPC/Auctions',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_auction_rpc.InjectiveAuctionRPC/Auctions',
             exchange_dot_injective__auction__rpc__pb2.AuctionsRequest.SerializeToString,
             exchange_dot_injective__auction__rpc__pb2.AuctionsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def StreamBids(request,
@@ -131,8 +152,18 @@ class InjectiveAuctionRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/injective_auction_rpc.InjectiveAuctionRPC/StreamBids',
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/injective_auction_rpc.InjectiveAuctionRPC/StreamBids',
             exchange_dot_injective__auction__rpc__pb2.StreamBidsRequest.SerializeToString,
             exchange_dot_injective__auction__rpc__pb2.StreamBidsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

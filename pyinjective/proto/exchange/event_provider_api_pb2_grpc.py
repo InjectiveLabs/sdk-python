@@ -19,27 +19,27 @@ class EventProviderAPIStub(object):
                 '/event_provider_api.EventProviderAPI/GetLatestHeight',
                 request_serializer=exchange_dot_event__provider__api__pb2.GetLatestHeightRequest.SerializeToString,
                 response_deserializer=exchange_dot_event__provider__api__pb2.GetLatestHeightResponse.FromString,
-                )
+                _registered_method=True)
         self.StreamBlockEvents = channel.unary_stream(
                 '/event_provider_api.EventProviderAPI/StreamBlockEvents',
                 request_serializer=exchange_dot_event__provider__api__pb2.StreamBlockEventsRequest.SerializeToString,
                 response_deserializer=exchange_dot_event__provider__api__pb2.StreamBlockEventsResponse.FromString,
-                )
+                _registered_method=True)
         self.GetBlockEventsRPC = channel.unary_unary(
                 '/event_provider_api.EventProviderAPI/GetBlockEventsRPC',
                 request_serializer=exchange_dot_event__provider__api__pb2.GetBlockEventsRPCRequest.SerializeToString,
                 response_deserializer=exchange_dot_event__provider__api__pb2.GetBlockEventsRPCResponse.FromString,
-                )
+                _registered_method=True)
         self.GetCustomEventsRPC = channel.unary_unary(
                 '/event_provider_api.EventProviderAPI/GetCustomEventsRPC',
                 request_serializer=exchange_dot_event__provider__api__pb2.GetCustomEventsRPCRequest.SerializeToString,
                 response_deserializer=exchange_dot_event__provider__api__pb2.GetCustomEventsRPCResponse.FromString,
-                )
+                _registered_method=True)
         self.GetABCIBlockEvents = channel.unary_unary(
                 '/event_provider_api.EventProviderAPI/GetABCIBlockEvents',
                 request_serializer=exchange_dot_event__provider__api__pb2.GetABCIBlockEventsRequest.SerializeToString,
                 response_deserializer=exchange_dot_event__provider__api__pb2.GetABCIBlockEventsResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class EventProviderAPIServicer(object):
@@ -113,6 +113,7 @@ def add_EventProviderAPIServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'event_provider_api.EventProviderAPI', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('event_provider_api.EventProviderAPI', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -131,11 +132,21 @@ class EventProviderAPI(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/event_provider_api.EventProviderAPI/GetLatestHeight',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/event_provider_api.EventProviderAPI/GetLatestHeight',
             exchange_dot_event__provider__api__pb2.GetLatestHeightRequest.SerializeToString,
             exchange_dot_event__provider__api__pb2.GetLatestHeightResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def StreamBlockEvents(request,
@@ -148,11 +159,21 @@ class EventProviderAPI(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/event_provider_api.EventProviderAPI/StreamBlockEvents',
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/event_provider_api.EventProviderAPI/StreamBlockEvents',
             exchange_dot_event__provider__api__pb2.StreamBlockEventsRequest.SerializeToString,
             exchange_dot_event__provider__api__pb2.StreamBlockEventsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def GetBlockEventsRPC(request,
@@ -165,11 +186,21 @@ class EventProviderAPI(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/event_provider_api.EventProviderAPI/GetBlockEventsRPC',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/event_provider_api.EventProviderAPI/GetBlockEventsRPC',
             exchange_dot_event__provider__api__pb2.GetBlockEventsRPCRequest.SerializeToString,
             exchange_dot_event__provider__api__pb2.GetBlockEventsRPCResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def GetCustomEventsRPC(request,
@@ -182,11 +213,21 @@ class EventProviderAPI(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/event_provider_api.EventProviderAPI/GetCustomEventsRPC',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/event_provider_api.EventProviderAPI/GetCustomEventsRPC',
             exchange_dot_event__provider__api__pb2.GetCustomEventsRPCRequest.SerializeToString,
             exchange_dot_event__provider__api__pb2.GetCustomEventsRPCResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def GetABCIBlockEvents(request,
@@ -199,8 +240,18 @@ class EventProviderAPI(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/event_provider_api.EventProviderAPI/GetABCIBlockEvents',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/event_provider_api.EventProviderAPI/GetABCIBlockEvents',
             exchange_dot_event__provider__api__pb2.GetABCIBlockEventsRequest.SerializeToString,
             exchange_dot_event__provider__api__pb2.GetABCIBlockEventsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

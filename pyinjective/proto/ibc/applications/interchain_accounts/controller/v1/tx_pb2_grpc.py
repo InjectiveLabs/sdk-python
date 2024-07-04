@@ -19,12 +19,12 @@ class MsgStub(object):
                 '/ibc.applications.interchain_accounts.controller.v1.Msg/RegisterInterchainAccount',
                 request_serializer=ibc_dot_applications_dot_interchain__accounts_dot_controller_dot_v1_dot_tx__pb2.MsgRegisterInterchainAccount.SerializeToString,
                 response_deserializer=ibc_dot_applications_dot_interchain__accounts_dot_controller_dot_v1_dot_tx__pb2.MsgRegisterInterchainAccountResponse.FromString,
-                )
+                _registered_method=True)
         self.SendTx = channel.unary_unary(
                 '/ibc.applications.interchain_accounts.controller.v1.Msg/SendTx',
                 request_serializer=ibc_dot_applications_dot_interchain__accounts_dot_controller_dot_v1_dot_tx__pb2.MsgSendTx.SerializeToString,
                 response_deserializer=ibc_dot_applications_dot_interchain__accounts_dot_controller_dot_v1_dot_tx__pb2.MsgSendTxResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class MsgServicer(object):
@@ -62,6 +62,7 @@ def add_MsgServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'ibc.applications.interchain_accounts.controller.v1.Msg', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('ibc.applications.interchain_accounts.controller.v1.Msg', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -80,11 +81,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.applications.interchain_accounts.controller.v1.Msg/RegisterInterchainAccount',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.applications.interchain_accounts.controller.v1.Msg/RegisterInterchainAccount',
             ibc_dot_applications_dot_interchain__accounts_dot_controller_dot_v1_dot_tx__pb2.MsgRegisterInterchainAccount.SerializeToString,
             ibc_dot_applications_dot_interchain__accounts_dot_controller_dot_v1_dot_tx__pb2.MsgRegisterInterchainAccountResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def SendTx(request,
@@ -97,8 +108,18 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.applications.interchain_accounts.controller.v1.Msg/SendTx',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.applications.interchain_accounts.controller.v1.Msg/SendTx',
             ibc_dot_applications_dot_interchain__accounts_dot_controller_dot_v1_dot_tx__pb2.MsgSendTx.SerializeToString,
             ibc_dot_applications_dot_interchain__accounts_dot_controller_dot_v1_dot_tx__pb2.MsgSendTxResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

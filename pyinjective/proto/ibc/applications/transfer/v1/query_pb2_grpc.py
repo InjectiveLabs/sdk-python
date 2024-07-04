@@ -19,32 +19,32 @@ class QueryStub(object):
                 '/ibc.applications.transfer.v1.Query/DenomTrace',
                 request_serializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTraceRequest.SerializeToString,
                 response_deserializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTraceResponse.FromString,
-                )
+                _registered_method=True)
         self.DenomTraces = channel.unary_unary(
                 '/ibc.applications.transfer.v1.Query/DenomTraces',
                 request_serializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTracesRequest.SerializeToString,
                 response_deserializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTracesResponse.FromString,
-                )
+                _registered_method=True)
         self.Params = channel.unary_unary(
                 '/ibc.applications.transfer.v1.Query/Params',
                 request_serializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryParamsRequest.SerializeToString,
                 response_deserializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryParamsResponse.FromString,
-                )
+                _registered_method=True)
         self.DenomHash = channel.unary_unary(
                 '/ibc.applications.transfer.v1.Query/DenomHash',
                 request_serializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomHashRequest.SerializeToString,
                 response_deserializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomHashResponse.FromString,
-                )
+                _registered_method=True)
         self.EscrowAddress = channel.unary_unary(
                 '/ibc.applications.transfer.v1.Query/EscrowAddress',
                 request_serializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryEscrowAddressRequest.SerializeToString,
                 response_deserializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryEscrowAddressResponse.FromString,
-                )
+                _registered_method=True)
         self.TotalEscrowForDenom = channel.unary_unary(
                 '/ibc.applications.transfer.v1.Query/TotalEscrowForDenom',
                 request_serializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryTotalEscrowForDenomRequest.SerializeToString,
                 response_deserializer=ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryTotalEscrowForDenomResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class QueryServicer(object):
@@ -130,6 +130,7 @@ def add_QueryServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'ibc.applications.transfer.v1.Query', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('ibc.applications.transfer.v1.Query', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -148,11 +149,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.applications.transfer.v1.Query/DenomTrace',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.applications.transfer.v1.Query/DenomTrace',
             ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTraceRequest.SerializeToString,
             ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTraceResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def DenomTraces(request,
@@ -165,11 +176,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.applications.transfer.v1.Query/DenomTraces',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.applications.transfer.v1.Query/DenomTraces',
             ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTracesRequest.SerializeToString,
             ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomTracesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Params(request,
@@ -182,11 +203,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.applications.transfer.v1.Query/Params',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.applications.transfer.v1.Query/Params',
             ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryParamsRequest.SerializeToString,
             ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryParamsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def DenomHash(request,
@@ -199,11 +230,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.applications.transfer.v1.Query/DenomHash',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.applications.transfer.v1.Query/DenomHash',
             ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomHashRequest.SerializeToString,
             ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryDenomHashResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def EscrowAddress(request,
@@ -216,11 +257,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.applications.transfer.v1.Query/EscrowAddress',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.applications.transfer.v1.Query/EscrowAddress',
             ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryEscrowAddressRequest.SerializeToString,
             ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryEscrowAddressResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def TotalEscrowForDenom(request,
@@ -233,8 +284,18 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.applications.transfer.v1.Query/TotalEscrowForDenom',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.applications.transfer.v1.Query/TotalEscrowForDenom',
             ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryTotalEscrowForDenomRequest.SerializeToString,
             ibc_dot_applications_dot_transfer_dot_v1_dot_query__pb2.QueryTotalEscrowForDenomResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

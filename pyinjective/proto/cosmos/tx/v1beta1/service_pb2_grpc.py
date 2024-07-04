@@ -19,47 +19,47 @@ class ServiceStub(object):
                 '/cosmos.tx.v1beta1.Service/Simulate',
                 request_serializer=cosmos_dot_tx_dot_v1beta1_dot_service__pb2.SimulateRequest.SerializeToString,
                 response_deserializer=cosmos_dot_tx_dot_v1beta1_dot_service__pb2.SimulateResponse.FromString,
-                )
+                _registered_method=True)
         self.GetTx = channel.unary_unary(
                 '/cosmos.tx.v1beta1.Service/GetTx',
                 request_serializer=cosmos_dot_tx_dot_v1beta1_dot_service__pb2.GetTxRequest.SerializeToString,
                 response_deserializer=cosmos_dot_tx_dot_v1beta1_dot_service__pb2.GetTxResponse.FromString,
-                )
+                _registered_method=True)
         self.BroadcastTx = channel.unary_unary(
                 '/cosmos.tx.v1beta1.Service/BroadcastTx',
                 request_serializer=cosmos_dot_tx_dot_v1beta1_dot_service__pb2.BroadcastTxRequest.SerializeToString,
                 response_deserializer=cosmos_dot_tx_dot_v1beta1_dot_service__pb2.BroadcastTxResponse.FromString,
-                )
+                _registered_method=True)
         self.GetTxsEvent = channel.unary_unary(
                 '/cosmos.tx.v1beta1.Service/GetTxsEvent',
                 request_serializer=cosmos_dot_tx_dot_v1beta1_dot_service__pb2.GetTxsEventRequest.SerializeToString,
                 response_deserializer=cosmos_dot_tx_dot_v1beta1_dot_service__pb2.GetTxsEventResponse.FromString,
-                )
+                _registered_method=True)
         self.GetBlockWithTxs = channel.unary_unary(
                 '/cosmos.tx.v1beta1.Service/GetBlockWithTxs',
                 request_serializer=cosmos_dot_tx_dot_v1beta1_dot_service__pb2.GetBlockWithTxsRequest.SerializeToString,
                 response_deserializer=cosmos_dot_tx_dot_v1beta1_dot_service__pb2.GetBlockWithTxsResponse.FromString,
-                )
+                _registered_method=True)
         self.TxDecode = channel.unary_unary(
                 '/cosmos.tx.v1beta1.Service/TxDecode',
                 request_serializer=cosmos_dot_tx_dot_v1beta1_dot_service__pb2.TxDecodeRequest.SerializeToString,
                 response_deserializer=cosmos_dot_tx_dot_v1beta1_dot_service__pb2.TxDecodeResponse.FromString,
-                )
+                _registered_method=True)
         self.TxEncode = channel.unary_unary(
                 '/cosmos.tx.v1beta1.Service/TxEncode',
                 request_serializer=cosmos_dot_tx_dot_v1beta1_dot_service__pb2.TxEncodeRequest.SerializeToString,
                 response_deserializer=cosmos_dot_tx_dot_v1beta1_dot_service__pb2.TxEncodeResponse.FromString,
-                )
+                _registered_method=True)
         self.TxEncodeAmino = channel.unary_unary(
                 '/cosmos.tx.v1beta1.Service/TxEncodeAmino',
                 request_serializer=cosmos_dot_tx_dot_v1beta1_dot_service__pb2.TxEncodeAminoRequest.SerializeToString,
                 response_deserializer=cosmos_dot_tx_dot_v1beta1_dot_service__pb2.TxEncodeAminoResponse.FromString,
-                )
+                _registered_method=True)
         self.TxDecodeAmino = channel.unary_unary(
                 '/cosmos.tx.v1beta1.Service/TxDecodeAmino',
                 request_serializer=cosmos_dot_tx_dot_v1beta1_dot_service__pb2.TxDecodeAminoRequest.SerializeToString,
                 response_deserializer=cosmos_dot_tx_dot_v1beta1_dot_service__pb2.TxDecodeAminoResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class ServiceServicer(object):
@@ -191,6 +191,7 @@ def add_ServiceServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'cosmos.tx.v1beta1.Service', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('cosmos.tx.v1beta1.Service', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -209,11 +210,21 @@ class Service(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.tx.v1beta1.Service/Simulate',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.tx.v1beta1.Service/Simulate',
             cosmos_dot_tx_dot_v1beta1_dot_service__pb2.SimulateRequest.SerializeToString,
             cosmos_dot_tx_dot_v1beta1_dot_service__pb2.SimulateResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def GetTx(request,
@@ -226,11 +237,21 @@ class Service(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.tx.v1beta1.Service/GetTx',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.tx.v1beta1.Service/GetTx',
             cosmos_dot_tx_dot_v1beta1_dot_service__pb2.GetTxRequest.SerializeToString,
             cosmos_dot_tx_dot_v1beta1_dot_service__pb2.GetTxResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def BroadcastTx(request,
@@ -243,11 +264,21 @@ class Service(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.tx.v1beta1.Service/BroadcastTx',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.tx.v1beta1.Service/BroadcastTx',
             cosmos_dot_tx_dot_v1beta1_dot_service__pb2.BroadcastTxRequest.SerializeToString,
             cosmos_dot_tx_dot_v1beta1_dot_service__pb2.BroadcastTxResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def GetTxsEvent(request,
@@ -260,11 +291,21 @@ class Service(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.tx.v1beta1.Service/GetTxsEvent',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.tx.v1beta1.Service/GetTxsEvent',
             cosmos_dot_tx_dot_v1beta1_dot_service__pb2.GetTxsEventRequest.SerializeToString,
             cosmos_dot_tx_dot_v1beta1_dot_service__pb2.GetTxsEventResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def GetBlockWithTxs(request,
@@ -277,11 +318,21 @@ class Service(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.tx.v1beta1.Service/GetBlockWithTxs',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.tx.v1beta1.Service/GetBlockWithTxs',
             cosmos_dot_tx_dot_v1beta1_dot_service__pb2.GetBlockWithTxsRequest.SerializeToString,
             cosmos_dot_tx_dot_v1beta1_dot_service__pb2.GetBlockWithTxsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def TxDecode(request,
@@ -294,11 +345,21 @@ class Service(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.tx.v1beta1.Service/TxDecode',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.tx.v1beta1.Service/TxDecode',
             cosmos_dot_tx_dot_v1beta1_dot_service__pb2.TxDecodeRequest.SerializeToString,
             cosmos_dot_tx_dot_v1beta1_dot_service__pb2.TxDecodeResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def TxEncode(request,
@@ -311,11 +372,21 @@ class Service(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.tx.v1beta1.Service/TxEncode',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.tx.v1beta1.Service/TxEncode',
             cosmos_dot_tx_dot_v1beta1_dot_service__pb2.TxEncodeRequest.SerializeToString,
             cosmos_dot_tx_dot_v1beta1_dot_service__pb2.TxEncodeResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def TxEncodeAmino(request,
@@ -328,11 +399,21 @@ class Service(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.tx.v1beta1.Service/TxEncodeAmino',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.tx.v1beta1.Service/TxEncodeAmino',
             cosmos_dot_tx_dot_v1beta1_dot_service__pb2.TxEncodeAminoRequest.SerializeToString,
             cosmos_dot_tx_dot_v1beta1_dot_service__pb2.TxEncodeAminoResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def TxDecodeAmino(request,
@@ -345,8 +426,18 @@ class Service(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.tx.v1beta1.Service/TxDecodeAmino',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.tx.v1beta1.Service/TxDecodeAmino',
             cosmos_dot_tx_dot_v1beta1_dot_service__pb2.TxDecodeAminoRequest.SerializeToString,
             cosmos_dot_tx_dot_v1beta1_dot_service__pb2.TxDecodeAminoResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

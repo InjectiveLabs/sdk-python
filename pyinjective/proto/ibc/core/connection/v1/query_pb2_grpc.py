@@ -19,32 +19,32 @@ class QueryStub(object):
                 '/ibc.core.connection.v1.Query/Connection',
                 request_serializer=ibc_dot_core_dot_connection_dot_v1_dot_query__pb2.QueryConnectionRequest.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_connection_dot_v1_dot_query__pb2.QueryConnectionResponse.FromString,
-                )
+                _registered_method=True)
         self.Connections = channel.unary_unary(
                 '/ibc.core.connection.v1.Query/Connections',
                 request_serializer=ibc_dot_core_dot_connection_dot_v1_dot_query__pb2.QueryConnectionsRequest.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_connection_dot_v1_dot_query__pb2.QueryConnectionsResponse.FromString,
-                )
+                _registered_method=True)
         self.ClientConnections = channel.unary_unary(
                 '/ibc.core.connection.v1.Query/ClientConnections',
                 request_serializer=ibc_dot_core_dot_connection_dot_v1_dot_query__pb2.QueryClientConnectionsRequest.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_connection_dot_v1_dot_query__pb2.QueryClientConnectionsResponse.FromString,
-                )
+                _registered_method=True)
         self.ConnectionClientState = channel.unary_unary(
                 '/ibc.core.connection.v1.Query/ConnectionClientState',
                 request_serializer=ibc_dot_core_dot_connection_dot_v1_dot_query__pb2.QueryConnectionClientStateRequest.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_connection_dot_v1_dot_query__pb2.QueryConnectionClientStateResponse.FromString,
-                )
+                _registered_method=True)
         self.ConnectionConsensusState = channel.unary_unary(
                 '/ibc.core.connection.v1.Query/ConnectionConsensusState',
                 request_serializer=ibc_dot_core_dot_connection_dot_v1_dot_query__pb2.QueryConnectionConsensusStateRequest.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_connection_dot_v1_dot_query__pb2.QueryConnectionConsensusStateResponse.FromString,
-                )
+                _registered_method=True)
         self.ConnectionParams = channel.unary_unary(
                 '/ibc.core.connection.v1.Query/ConnectionParams',
                 request_serializer=ibc_dot_core_dot_connection_dot_v1_dot_query__pb2.QueryConnectionParamsRequest.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_connection_dot_v1_dot_query__pb2.QueryConnectionParamsResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class QueryServicer(object):
@@ -133,6 +133,7 @@ def add_QueryServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'ibc.core.connection.v1.Query', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('ibc.core.connection.v1.Query', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -151,11 +152,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.core.connection.v1.Query/Connection',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.connection.v1.Query/Connection',
             ibc_dot_core_dot_connection_dot_v1_dot_query__pb2.QueryConnectionRequest.SerializeToString,
             ibc_dot_core_dot_connection_dot_v1_dot_query__pb2.QueryConnectionResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Connections(request,
@@ -168,11 +179,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.core.connection.v1.Query/Connections',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.connection.v1.Query/Connections',
             ibc_dot_core_dot_connection_dot_v1_dot_query__pb2.QueryConnectionsRequest.SerializeToString,
             ibc_dot_core_dot_connection_dot_v1_dot_query__pb2.QueryConnectionsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ClientConnections(request,
@@ -185,11 +206,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.core.connection.v1.Query/ClientConnections',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.connection.v1.Query/ClientConnections',
             ibc_dot_core_dot_connection_dot_v1_dot_query__pb2.QueryClientConnectionsRequest.SerializeToString,
             ibc_dot_core_dot_connection_dot_v1_dot_query__pb2.QueryClientConnectionsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ConnectionClientState(request,
@@ -202,11 +233,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.core.connection.v1.Query/ConnectionClientState',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.connection.v1.Query/ConnectionClientState',
             ibc_dot_core_dot_connection_dot_v1_dot_query__pb2.QueryConnectionClientStateRequest.SerializeToString,
             ibc_dot_core_dot_connection_dot_v1_dot_query__pb2.QueryConnectionClientStateResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ConnectionConsensusState(request,
@@ -219,11 +260,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.core.connection.v1.Query/ConnectionConsensusState',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.connection.v1.Query/ConnectionConsensusState',
             ibc_dot_core_dot_connection_dot_v1_dot_query__pb2.QueryConnectionConsensusStateRequest.SerializeToString,
             ibc_dot_core_dot_connection_dot_v1_dot_query__pb2.QueryConnectionConsensusStateResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ConnectionParams(request,
@@ -236,8 +287,18 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.core.connection.v1.Query/ConnectionParams',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.connection.v1.Query/ConnectionParams',
             ibc_dot_core_dot_connection_dot_v1_dot_query__pb2.QueryConnectionParamsRequest.SerializeToString,
             ibc_dot_core_dot_connection_dot_v1_dot_query__pb2.QueryConnectionParamsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

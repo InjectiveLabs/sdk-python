@@ -19,17 +19,17 @@ class QueryStub(object):
                 '/cosmos.slashing.v1beta1.Query/Params',
                 request_serializer=cosmos_dot_slashing_dot_v1beta1_dot_query__pb2.QueryParamsRequest.SerializeToString,
                 response_deserializer=cosmos_dot_slashing_dot_v1beta1_dot_query__pb2.QueryParamsResponse.FromString,
-                )
+                _registered_method=True)
         self.SigningInfo = channel.unary_unary(
                 '/cosmos.slashing.v1beta1.Query/SigningInfo',
                 request_serializer=cosmos_dot_slashing_dot_v1beta1_dot_query__pb2.QuerySigningInfoRequest.SerializeToString,
                 response_deserializer=cosmos_dot_slashing_dot_v1beta1_dot_query__pb2.QuerySigningInfoResponse.FromString,
-                )
+                _registered_method=True)
         self.SigningInfos = channel.unary_unary(
                 '/cosmos.slashing.v1beta1.Query/SigningInfos',
                 request_serializer=cosmos_dot_slashing_dot_v1beta1_dot_query__pb2.QuerySigningInfosRequest.SerializeToString,
                 response_deserializer=cosmos_dot_slashing_dot_v1beta1_dot_query__pb2.QuerySigningInfosResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class QueryServicer(object):
@@ -79,6 +79,7 @@ def add_QueryServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'cosmos.slashing.v1beta1.Query', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('cosmos.slashing.v1beta1.Query', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -97,11 +98,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.slashing.v1beta1.Query/Params',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.slashing.v1beta1.Query/Params',
             cosmos_dot_slashing_dot_v1beta1_dot_query__pb2.QueryParamsRequest.SerializeToString,
             cosmos_dot_slashing_dot_v1beta1_dot_query__pb2.QueryParamsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def SigningInfo(request,
@@ -114,11 +125,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.slashing.v1beta1.Query/SigningInfo',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.slashing.v1beta1.Query/SigningInfo',
             cosmos_dot_slashing_dot_v1beta1_dot_query__pb2.QuerySigningInfoRequest.SerializeToString,
             cosmos_dot_slashing_dot_v1beta1_dot_query__pb2.QuerySigningInfoResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def SigningInfos(request,
@@ -131,8 +152,18 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.slashing.v1beta1.Query/SigningInfos',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.slashing.v1beta1.Query/SigningInfos',
             cosmos_dot_slashing_dot_v1beta1_dot_query__pb2.QuerySigningInfosRequest.SerializeToString,
             cosmos_dot_slashing_dot_v1beta1_dot_query__pb2.QuerySigningInfosResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
