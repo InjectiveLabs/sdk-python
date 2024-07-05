@@ -69,10 +69,18 @@ class TestComposer:
             symbol=symbol,
         )
 
-        assert message.sender == sender
-        assert message.subdenom == subdenom
-        assert message.name == name
-        assert message.symbol == symbol
+        expected_message = {
+            "sender": sender,
+            "subdenom": subdenom,
+            "name": name,
+            "symbol": symbol,
+        }
+        dict_message = json_format.MessageToDict(
+            message=message,
+            always_print_fields_with_no_presence=True,
+        )
+
+        assert dict_message == expected_message
 
     def test_msg_mint(self, basic_composer: Composer):
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
@@ -86,8 +94,19 @@ class TestComposer:
             amount=amount,
         )
 
-        assert message.sender == sender
-        assert message.amount == amount
+        expected_message = {
+            "sender": sender,
+            "amount": {
+                "amount": str(amount.amount),
+                "denom": amount.denom,
+            },
+        }
+        dict_message = json_format.MessageToDict(
+            message=message,
+            always_print_fields_with_no_presence=True,
+        )
+
+        assert dict_message == expected_message
 
     def test_msg_burn(self, basic_composer: Composer):
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
@@ -101,8 +120,19 @@ class TestComposer:
             amount=amount,
         )
 
-        assert message.sender == sender
-        assert message.amount == amount
+        expected_message = {
+            "sender": sender,
+            "amount": {
+                "amount": str(amount.amount),
+                "denom": amount.denom,
+            },
+        }
+        dict_message = json_format.MessageToDict(
+            message=message,
+            always_print_fields_with_no_presence=True,
+        )
+
+        assert dict_message == expected_message
 
     def test_msg_set_denom_metadata(self, basic_composer: Composer):
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
@@ -127,20 +157,36 @@ class TestComposer:
             uri_hash=uri_hash,
         )
 
-        assert message.sender == sender
-        assert message.metadata.description == description
-        assert message.metadata.denom_units[0].denom == denom
-        assert message.metadata.denom_units[0].exponent == 0
-        assert message.metadata.denom_units[0].aliases == [f"micro{subdenom}"]
-        assert message.metadata.denom_units[1].denom == subdenom
-        assert message.metadata.denom_units[1].exponent == token_decimals
-        assert message.metadata.denom_units[1].aliases == [subdenom]
-        assert message.metadata.base == denom
-        assert message.metadata.display == subdenom
-        assert message.metadata.name == name
-        assert message.metadata.symbol == symbol
-        assert message.metadata.uri == uri
-        assert message.metadata.uri_hash == uri_hash
+        expected_message = {
+            "sender": sender,
+            "metadata": {
+                "base": denom,
+                "denomUnits": [
+                    {
+                        "denom": denom,
+                        "exponent": 0,
+                        "aliases": [f"micro{subdenom}"],
+                    },
+                    {
+                        "denom": subdenom,
+                        "exponent": token_decimals,
+                        "aliases": [subdenom],
+                    },
+                ],
+                "description": description,
+                "name": name,
+                "symbol": symbol,
+                "display": subdenom,
+                "uri": uri,
+                "uriHash": uri_hash,
+            },
+        }
+        dict_message = json_format.MessageToDict(
+            message=message,
+            always_print_fields_with_no_presence=True,
+        )
+
+        assert dict_message == expected_message
 
     def test_msg_change_admin(self, basic_composer):
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
@@ -153,9 +199,17 @@ class TestComposer:
             new_admin=new_admin,
         )
 
-        assert message.sender == sender
-        assert message.denom == denom
-        assert message.new_admin == new_admin
+        expected_message = {
+            "sender": sender,
+            "denom": denom,
+            "newAdmin": new_admin,
+        }
+        dict_message = json_format.MessageToDict(
+            message=message,
+            always_print_fields_with_no_presence=True,
+        )
+
+        assert dict_message == expected_message
 
     def test_msg_execute_contract_compat(self, basic_composer):
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
@@ -170,10 +224,18 @@ class TestComposer:
             funds=funds,
         )
 
-        assert message.sender == sender
-        assert message.contract == contract
-        assert message.msg == msg
-        assert message.funds == funds
+        expected_message = {
+            "sender": sender,
+            "contract": contract,
+            "msg": msg,
+            "funds": funds,
+        }
+        dict_message = json_format.MessageToDict(
+            message=message,
+            always_print_fields_with_no_presence=True,
+        )
+
+        assert dict_message == expected_message
 
     def test_msg_deposit(self, basic_composer):
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
