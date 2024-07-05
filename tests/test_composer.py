@@ -179,6 +179,7 @@ class TestComposer:
                 "display": subdenom,
                 "uri": uri,
                 "uriHash": uri_hash,
+                "decimals": token_decimals,
             },
         }
         dict_message = json_format.MessageToDict(

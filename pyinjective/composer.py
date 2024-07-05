@@ -1939,6 +1939,7 @@ class Composer:
             symbol=symbol,
             uri=uri,
             uri_hash=uri_hash,
+            decimals=token_decimals,
         )
         return token_factory_tx_pb.MsgSetDenomMetadata(sender=sender, metadata=metadata)
 
