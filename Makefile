@@ -4,14 +4,15 @@ gen: gen-client
 
 gen-client: clone-all copy-proto
 	mkdir -p ./pyinjective/proto
-	cd ./proto && buf generate --template ../buf.gen.yaml
+	buf generate --template buf.gen.yaml
 	rm -rf proto
 	$(call clean_repos)
-	touch pyinjective/proto/__init__.py
-	$(MAKE) fix-proto-imports
+	$(MAKE) fix-generated-proto-imports
 
 PROTO_MODULES := cosmwasm exchange gogoproto cosmos_proto cosmos testpb ibc amino tendermint injective
-fix-proto-imports:
+
+fix-generated-proto-imports:
+	@touch pyinjective/proto/__init__.py
 	@for module in $(PROTO_MODULES); do \
   		find ./pyinjective/proto -type f -name "*.py" -exec sed -i "" -e "s/from $${module}/from pyinjective.proto.$${module}/g" {} \; ; \
 	done
@@ -37,16 +38,6 @@ clone-all: clone-injective-indexer
 copy-proto:
 	rm -rf pyinjective/proto
 	mkdir -p proto/exchange
-	buf export ./cosmos-sdk --output=third_party
-	buf export ./ibc-go --exclude-imports --output=third_party
-	buf export ./cometbft --exclude-imports --output=third_party
-	buf export ./wasmd --exclude-imports --output=third_party
-	buf export https://github.com/cosmos/ics23.git --exclude-imports --output=third_party
-	cp -r injective-core/proto/injective proto/
-	cp -r third_party/* proto/
-
-	rm -rf ./third_party
-
 	find ./injective-indexer/api/gen/grpc -type f -name "*.proto" -exec cp {} ./proto/exchange/ \;
 
 tests:

@@ -3,6 +3,29 @@ managed:
   enabled: true
 plugins:
   - remote: buf.build/protocolbuffers/python
-    out: ../pyinjective/proto/
+    out: ./pyinjective/proto/
   - remote: buf.build/grpc/python
-    out: ../pyinjective/proto/
+    out: ./pyinjective/proto/
+inputs:
+  - module: buf.build/cosmos/cosmos-proto
+  - module: buf.build/cosmos/gogo-proto
+  - module: buf.build/googleapis/googleapis
+  - module: buf.build/cosmos/ics23
+  - git_repo: https://github.com/InjectiveLabs/cosmos-sdk
+    branch: v0.50.x-inj
+  - git_repo: https://github.com/InjectiveLabs/ibc-go
+    branch: v8.3.x-inj
+    subdir: proto
+#  - git_repo: https://github.com/InjectiveLabs/wasmd
+#    tag: v0.45.0-inj
+#    subdir: proto
+  - git_repo: https://github.com/InjectiveLabs/wasmd
+    branch: v0.51.x-inj
+    subdir: proto
+  - git_repo: https://github.com/InjectiveLabs/injective-core
+    tag: v1.12.1
+    subdir: proto
+  - git_repo: https://github.com/InjectiveLabs/injective-core
+    branch: dev
+    subdir: proto
+  - directory: proto
