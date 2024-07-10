@@ -1,7 +1,7 @@
 from web3 import Web3
 
-from .utils.logger import LoggerProvider
-from .wallet import Address
+from pyinjective.utils.logger import LoggerProvider
+from pyinjective.wallet import Address
 
 
 class Peggo:

@@ -2,12 +2,12 @@ from typing import List, Tuple
 
 from google.protobuf import any_pb2, message
 
-from .constant import MAX_MEMO_CHARACTERS
-from .exceptions import EmptyMsgError, UndefinedError, ValueTooLargeError
-from .proto.cosmos.base.v1beta1.coin_pb2 import Coin
-from .proto.cosmos.tx.signing.v1beta1 import signing_pb2 as tx_sign
-from .proto.cosmos.tx.v1beta1 import tx_pb2 as cosmos_tx_type
-from .wallet import PublicKey
+from pyinjective.constant import MAX_MEMO_CHARACTERS
+from pyinjective.exceptions import EmptyMsgError, UndefinedError, ValueTooLargeError
+from pyinjective.proto.cosmos.base.v1beta1.coin_pb2 import Coin
+from pyinjective.proto.cosmos.tx.signing.v1beta1 import signing_pb2 as tx_sign
+from pyinjective.proto.cosmos.tx.v1beta1 import tx_pb2 as cosmos_tx_type
+from pyinjective.wallet import PublicKey
 
 
 class Transaction:

@@ -11,8 +11,8 @@ from ecdsa import BadSignatureError, SECP256k1, SigningKey, VerifyingKey
 from ecdsa.util import sigencode_string_canonize
 from mnemonic import Mnemonic
 
-from .exceptions import ConvertError, DecodeError
-from .proto.injective.crypto.v1beta1.ethsecp256k1.keys_pb2 import PubKey as PubKeyProto
+from pyinjective.exceptions import ConvertError, DecodeError
+from pyinjective.proto.injective.crypto.v1beta1.ethsecp256k1.keys_pb2 import PubKey as PubKeyProto
 
 BECH32_PUBKEY_ACC_PREFIX = "injpub"
 BECH32_PUBKEY_VAL_PREFIX = "injvaloperpub"
