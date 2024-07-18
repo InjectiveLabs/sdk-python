@@ -59,6 +59,7 @@ class TestChainGrpcBankApi:
             post_only_mode_height_threshold=57078000,
             margin_decrease_price_timestamp_threshold_seconds=10,
             exchange_admins=[admin],
+            inj_auction_max_cap="1000000000000000000000",
         )
         exchange_servicer.exchange_params.append(exchange_query_pb.QueryExchangeParamsResponse(params=params))
 
@@ -107,6 +108,7 @@ class TestChainGrpcBankApi:
                     params.margin_decrease_price_timestamp_threshold_seconds
                 ),
                 "exchangeAdmins": [admin],
+                "injAuctionMaxCap": params.inj_auction_max_cap,
             }
         }
 

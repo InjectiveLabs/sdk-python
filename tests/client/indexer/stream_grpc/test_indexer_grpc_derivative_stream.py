@@ -64,6 +64,7 @@ class TestIndexerGrpcDerivativeStream:
             min_quantity_tick_size="0.0001",
             perpetual_market_info=perpetual_market_info,
             perpetual_market_funding=perpetual_market_funding,
+            min_notional="1000000",
         )
 
         derivative_servicer.stream_market_responses.append(
@@ -117,6 +118,7 @@ class TestIndexerGrpcDerivativeStream:
                 "isPerpetual": market.is_perpetual,
                 "minPriceTickSize": market.min_price_tick_size,
                 "minQuantityTickSize": market.min_quantity_tick_size,
+                "minNotional": market.min_notional,
                 "perpetualMarketInfo": {
                     "hourlyFundingRateCap": perpetual_market_info.hourly_funding_rate_cap,
                     "hourlyInterestRate": str(perpetual_market_info.hourly_interest_rate),

@@ -49,6 +49,7 @@ class TestIndexerGrpcSpotApi:
             service_provider_fee="0.4",
             min_price_tick_size="0.000000000000001",
             min_quantity_tick_size="1000000000000000",
+            min_notional="1000000",
         )
 
         spot_servicer.markets_responses.append(
@@ -93,6 +94,7 @@ class TestIndexerGrpcSpotApi:
                     "serviceProviderFee": market.service_provider_fee,
                     "minPriceTickSize": market.min_price_tick_size,
                     "minQuantityTickSize": market.min_quantity_tick_size,
+                    "minNotional": market.min_notional,
                 }
             ]
         }
@@ -134,6 +136,7 @@ class TestIndexerGrpcSpotApi:
             service_provider_fee="0.4",
             min_price_tick_size="0.000000000000001",
             min_quantity_tick_size="1000000000000000",
+            min_notional="1000000",
         )
 
         spot_servicer.market_responses.append(
@@ -173,6 +176,7 @@ class TestIndexerGrpcSpotApi:
                 "serviceProviderFee": market.service_provider_fee,
                 "minPriceTickSize": market.min_price_tick_size,
                 "minQuantityTickSize": market.min_quantity_tick_size,
+                "minNotional": market.min_notional,
             }
         }
 

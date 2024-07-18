@@ -59,6 +59,7 @@ class TestIndexerGrpcDerivativeApi:
             min_quantity_tick_size="0.0001",
             perpetual_market_info=perpetual_market_info,
             perpetual_market_funding=perpetual_market_funding,
+            min_notional="1000000",
         )
 
         derivative_servicer.markets_responses.append(
@@ -100,6 +101,7 @@ class TestIndexerGrpcDerivativeApi:
                     "isPerpetual": market.is_perpetual,
                     "minPriceTickSize": market.min_price_tick_size,
                     "minQuantityTickSize": market.min_quantity_tick_size,
+                    "minNotional": market.min_notional,
                     "perpetualMarketInfo": {
                         "hourlyFundingRateCap": perpetual_market_info.hourly_funding_rate_cap,
                         "hourlyInterestRate": str(perpetual_market_info.hourly_interest_rate),
@@ -162,6 +164,7 @@ class TestIndexerGrpcDerivativeApi:
             min_quantity_tick_size="0.0001",
             perpetual_market_info=perpetual_market_info,
             perpetual_market_funding=perpetual_market_funding,
+            min_notional="1000000",
         )
 
         derivative_servicer.market_responses.append(
@@ -199,6 +202,7 @@ class TestIndexerGrpcDerivativeApi:
                 "isPerpetual": market.is_perpetual,
                 "minPriceTickSize": market.min_price_tick_size,
                 "minQuantityTickSize": market.min_quantity_tick_size,
+                "minNotional": market.min_notional,
                 "perpetualMarketInfo": {
                     "hourlyFundingRateCap": perpetual_market_info.hourly_funding_rate_cap,
                     "hourlyInterestRate": str(perpetual_market_info.hourly_interest_rate),
@@ -247,6 +251,7 @@ class TestIndexerGrpcDerivativeApi:
             min_price_tick_size="0.01",
             min_quantity_tick_size="1",
             settlement_price="1000",
+            min_notional="1000000",
         )
         paging = exchange_derivative_pb.Paging(total=5, to=5, count_by_subaccount=10, next=["next1", "next2"])
         setattr(paging, "from", 1)
@@ -292,6 +297,7 @@ class TestIndexerGrpcDerivativeApi:
                     "minPriceTickSize": market.min_price_tick_size,
                     "minQuantityTickSize": market.min_quantity_tick_size,
                     "settlementPrice": market.settlement_price,
+                    "minNotional": market.min_notional,
                 }
             ],
             "paging": {
@@ -337,6 +343,7 @@ class TestIndexerGrpcDerivativeApi:
             min_price_tick_size="0.01",
             min_quantity_tick_size="1",
             settlement_price="1000",
+            min_notional="1000000",
         )
 
         derivative_servicer.binary_options_market_responses.append(
@@ -372,6 +379,7 @@ class TestIndexerGrpcDerivativeApi:
                 "minPriceTickSize": market.min_price_tick_size,
                 "minQuantityTickSize": market.min_quantity_tick_size,
                 "settlementPrice": market.settlement_price,
+                "minNotional": market.min_notional,
             }
         }
 
