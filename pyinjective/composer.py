@@ -36,6 +36,10 @@ from pyinjective.proto.injective.oracle.v1beta1 import (
     tx_pb2 as injective_oracle_tx_pb,
 )
 from pyinjective.proto.injective.peggy.v1 import msgs_pb2 as injective_peggy_tx_pb
+from pyinjective.proto.injective.permissions.v1beta1 import (
+    permissions_pb2 as injective_permissions_pb,
+    tx_pb2 as injective_permissions_tx_pb,
+)
 from pyinjective.proto.injective.stream.v1beta1 import query_pb2 as chain_stream_query
 from pyinjective.proto.injective.tokenfactory.v1beta1 import tx_pb2 as token_factory_tx_pb
 from pyinjective.proto.injective.wasmx.v1 import tx_pb2 as wasmx_tx_pb
@@ -98,6 +102,12 @@ GRPC_MESSAGE_TYPE_TO_CLASS_MAP = {
 
 
 class Composer:
+    DEFAULT_PERMISSIONS_EVERYONE_ROLE = "EVERYONE"
+    UNDEFINED_ACTION_PERMISSION = 0
+    MINT_ACTION_PERMISSION = 1
+    RECEIVE_ACTION_PERMISSION = 2
+    BURN_ACTION_PERMISSION = 4
+
     def __init__(
         self,
         network: str,
@@ -2112,7 +2122,7 @@ class Composer:
         return chain_stream_query.OraclePriceFilter(symbol=symbols)
 
     # ------------------------------------------------
-    # Distribution module's messages
+    # region Distribution module's messages
 
     def msg_set_withdraw_address(self, delegator_address: str, withdraw_address: str):
         return cosmos_distribution_tx_pb.MsgSetWithdrawAddress(
@@ -2187,6 +2197,102 @@ class Composer:
             timeout_height=parsed_timeout_height,
             timeout_timestamp=timeout_timestamp,
             memo=memo,
+        )
+
+    # endregion
+
+    # region Permissions module
+    def permissions_role(self, role: str, permissions: int) -> injective_permissions_pb.Role:
+        return injective_permissions_pb.Role(role=role, permissions=permissions)
+
+    def permissions_address_roles(self, address: str, roles: List[str]) -> injective_permissions_pb.AddressRoles:
+        return injective_permissions_pb.AddressRoles(address=address, roles=roles)
+
+    def msg_create_namespace(
+        self,
+        sender: str,
+        denom: str,
+        wasm_hook: str,
+        mints_paused: bool,
+        sends_paused: bool,
+        burns_paused: bool,
+        role_permissions: List[injective_permissions_pb.Role],
+        address_roles: List[injective_permissions_pb.AddressRoles],
+    ) -> injective_permissions_tx_pb.MsgCreateNamespace:
+        namespace = injective_permissions_pb.Namespace(
+            denom=denom,
+            wasm_hook=wasm_hook,
+            mints_paused=mints_paused,
+            sends_paused=sends_paused,
+            burns_paused=burns_paused,
+            role_permissions=role_permissions,
+            address_roles=address_roles,
+        )
+        return injective_permissions_tx_pb.MsgCreateNamespace(
+            sender=sender,
+            namespace=namespace,
+        )
+
+    def msg_delete_namespace(self, sender: str, namespace_denom: str) -> injective_permissions_tx_pb.MsgDeleteNamespace:
+        return injective_permissions_tx_pb.MsgDeleteNamespace(sender=sender, namespace_denom=namespace_denom)
+
+    def msg_update_namespace(
+        self,
+        sender: str,
+        namespace_denom: str,
+        wasm_hook: str,
+        mints_paused: bool,
+        sends_paused: bool,
+        burns_paused: bool,
+    ) -> injective_permissions_tx_pb.MsgUpdateNamespace:
+        wasmhook_update = injective_permissions_tx_pb.MsgUpdateNamespace.MsgSetWasmHook(new_value=wasm_hook)
+        mints_paused_update = injective_permissions_tx_pb.MsgUpdateNamespace.MsgSetMintsPaused(new_value=mints_paused)
+        sends_paused_update = injective_permissions_tx_pb.MsgUpdateNamespace.MsgSetSendsPaused(new_value=sends_paused)
+        burns_paused_update = injective_permissions_tx_pb.MsgUpdateNamespace.MsgSetBurnsPaused(new_value=burns_paused)
+
+        return injective_permissions_tx_pb.MsgUpdateNamespace(
+            sender=sender,
+            namespace_denom=namespace_denom,
+            wasm_hook=wasmhook_update,
+            mints_paused=mints_paused_update,
+            sends_paused=sends_paused_update,
+            burns_paused=burns_paused_update,
+        )
+
+    def msg_update_namespace_roles(
+        self,
+        sender: str,
+        namespace_denom: str,
+        role_permissions: List[injective_permissions_pb.Role],
+        address_roles: List[injective_permissions_pb.AddressRoles],
+    ) -> injective_permissions_tx_pb.MsgUpdateNamespaceRoles:
+        return injective_permissions_tx_pb.MsgUpdateNamespaceRoles(
+            sender=sender,
+            namespace_denom=namespace_denom,
+            role_permissions=role_permissions,
+            address_roles=address_roles,
+        )
+
+    def msg_revoke_namespace_roles(
+        self,
+        sender: str,
+        namespace_denom: str,
+        address_roles_to_revoke: List[injective_permissions_pb.AddressRoles],
+    ) -> injective_permissions_tx_pb.MsgRevokeNamespaceRoles:
+        return injective_permissions_tx_pb.MsgRevokeNamespaceRoles(
+            sender=sender,
+            namespace_denom=namespace_denom,
+            address_roles_to_revoke=address_roles_to_revoke,
+        )
+
+    def msg_claim_voucher(
+        self,
+        sender: str,
+        denom: str,
+    ) -> injective_permissions_tx_pb.MsgClaimVoucher:
+        return injective_permissions_tx_pb.MsgClaimVoucher(
+            sender=sender,
+            denom=denom,
         )
 
     # endregion

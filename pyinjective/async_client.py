@@ -13,6 +13,7 @@ from pyinjective.client.chain.grpc.chain_grpc_authz_api import ChainGrpcAuthZApi
 from pyinjective.client.chain.grpc.chain_grpc_bank_api import ChainGrpcBankApi
 from pyinjective.client.chain.grpc.chain_grpc_distribution_api import ChainGrpcDistributionApi
 from pyinjective.client.chain.grpc.chain_grpc_exchange_api import ChainGrpcExchangeApi
+from pyinjective.client.chain.grpc.chain_grpc_permissions_api import ChainGrpcPermissionsApi
 from pyinjective.client.chain.grpc.chain_grpc_token_factory_api import ChainGrpcTokenFactoryApi
 from pyinjective.client.chain.grpc.chain_grpc_wasm_api import ChainGrpcWasmApi
 from pyinjective.client.chain.grpc_stream.chain_grpc_chain_stream import ChainGrpcChainStream
@@ -195,6 +196,10 @@ class AsyncClient:
             cookie_assistant=network.chain_cookie_assistant,
         )
         self.ibc_transfer_api = IBCTransferGrpcApi(
+            channel=self.chain_channel,
+            cookie_assistant=network.chain_cookie_assistant,
+        )
+        self.permissions_api = ChainGrpcPermissionsApi(
             channel=self.chain_channel,
             cookie_assistant=network.chain_cookie_assistant,
         )
@@ -3203,6 +3208,28 @@ class AsyncClient:
 
     async def fetch_ibc_connection_params(self) -> Dict[str, Any]:
         return await self.ibc_connection_api.fetch_connection_params()
+
+    # endregion
+
+    # ------------------------------
+    # region Permissions module
+
+    async def fetch_all_permissions_namespaces(self) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_all_namespaces()
+
+    async def fetch_permissions_namespace_by_denom(
+        self, denom: str, include_roles: Optional[bool] = None
+    ) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_namespace_by_denom(denom=denom, include_roles=include_roles)
+
+    async def fetch_permissions_address_roles(self, denom: str, address: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_address_roles(denom=denom, address=address)
+
+    async def fetch_permissions_addresses_by_role(self, denom: str, role: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_addresses_by_role(denom=denom, role=role)
+
+    async def fetch_permissions_vouchers_for_address(self, address: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_vouchers_for_address(address=address)
 
     # endregion
 

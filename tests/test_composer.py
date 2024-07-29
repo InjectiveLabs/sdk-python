@@ -1555,3 +1555,224 @@ class TestComposer:
             always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
+
+    def test_msg_create_namespace(self, basic_composer):
+        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
+        denom = "inj"
+        wasmhook = "wasmhook"
+        mints_paused = True
+        sends_paused = False
+        burns_paused = True
+        permissions_role1 = basic_composer.permissions_role(
+            role="role1",
+            permissions=1,
+        )
+        permissions_role2 = basic_composer.permissions_role(
+            role="role2",
+            permissions=2,
+        )
+        permissions_address_roles1 = basic_composer.permissions_address_roles(
+            address="inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0",
+            roles=["role1"],
+        )
+        permissions_address_roles2 = basic_composer.permissions_address_roles(
+            address="inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0",
+            roles=["role2"],
+        )
+
+        message = basic_composer.msg_create_namespace(
+            sender=sender,
+            denom=denom,
+            wasm_hook=wasmhook,
+            mints_paused=mints_paused,
+            sends_paused=sends_paused,
+            burns_paused=burns_paused,
+            role_permissions=[permissions_role1, permissions_role2],
+            address_roles=[permissions_address_roles1, permissions_address_roles2],
+        )
+
+        expected_message = {
+            "sender": sender,
+            "namespace": {
+                "denom": denom,
+                "wasmHook": wasmhook,
+                "mintsPaused": mints_paused,
+                "sendsPaused": sends_paused,
+                "burnsPaused": burns_paused,
+                "rolePermissions": [
+                    json_format.MessageToDict(message=permissions_role1, always_print_fields_with_no_presence=True),
+                    json_format.MessageToDict(message=permissions_role2, always_print_fields_with_no_presence=True),
+                ],
+                "addressRoles": [
+                    json_format.MessageToDict(
+                        message=permissions_address_roles1, always_print_fields_with_no_presence=True
+                    ),
+                    json_format.MessageToDict(
+                        message=permissions_address_roles2, always_print_fields_with_no_presence=True
+                    ),
+                ],
+            },
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=message,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_msg_delete_namespace(self, basic_composer):
+        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
+        denom = "inj"
+
+        message = basic_composer.msg_delete_namespace(
+            sender=sender,
+            namespace_denom=denom,
+        )
+
+        expected_message = {
+            "sender": sender,
+            "namespaceDenom": denom,
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=message,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_msg_update_namespace(self, basic_composer):
+        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
+        denom = "inj"
+        wasmhook = "wasmhook"
+        mints_paused = True
+        sends_paused = False
+        burns_paused = True
+
+        message = basic_composer.msg_update_namespace(
+            sender=sender,
+            namespace_denom=denom,
+            wasm_hook=wasmhook,
+            mints_paused=mints_paused,
+            sends_paused=sends_paused,
+            burns_paused=burns_paused,
+        )
+
+        expected_message = {
+            "sender": sender,
+            "namespaceDenom": denom,
+            "wasmHook": {"newValue": wasmhook},
+            "mintsPaused": {"newValue": mints_paused},
+            "sendsPaused": {"newValue": sends_paused},
+            "burnsPaused": {"newValue": burns_paused},
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=message,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_msg_update_namespace_roles(self, basic_composer):
+        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
+        denom = "inj"
+        permissions_role1 = basic_composer.permissions_role(
+            role="role1",
+            permissions=1,
+        )
+        permissions_role2 = basic_composer.permissions_role(
+            role="role2",
+            permissions=2,
+        )
+        permissions_address_roles1 = basic_composer.permissions_address_roles(
+            address="inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0",
+            roles=["role1"],
+        )
+        permissions_address_roles2 = basic_composer.permissions_address_roles(
+            address="inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0",
+            roles=["role2"],
+        )
+
+        message = basic_composer.msg_update_namespace_roles(
+            sender=sender,
+            namespace_denom=denom,
+            role_permissions=[permissions_role1, permissions_role2],
+            address_roles=[permissions_address_roles1, permissions_address_roles2],
+        )
+
+        expected_message = {
+            "sender": sender,
+            "namespaceDenom": denom,
+            "rolePermissions": [
+                json_format.MessageToDict(message=permissions_role1, always_print_fields_with_no_presence=True),
+                json_format.MessageToDict(message=permissions_role2, always_print_fields_with_no_presence=True),
+            ],
+            "addressRoles": [
+                json_format.MessageToDict(
+                    message=permissions_address_roles1, always_print_fields_with_no_presence=True
+                ),
+                json_format.MessageToDict(
+                    message=permissions_address_roles2, always_print_fields_with_no_presence=True
+                ),
+            ],
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=message,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_msg_revoke_namespace_roles(self, basic_composer):
+        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
+        denom = "inj"
+        permissions_address_roles1 = basic_composer.permissions_address_roles(
+            address="inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0",
+            roles=["role1"],
+        )
+        permissions_address_roles2 = basic_composer.permissions_address_roles(
+            address="inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0",
+            roles=["role2"],
+        )
+        message = basic_composer.msg_revoke_namespace_roles(
+            sender=sender,
+            namespace_denom=denom,
+            address_roles_to_revoke=[permissions_address_roles1, permissions_address_roles2],
+        )
+
+        expected_message = {
+            "sender": sender,
+            "namespaceDenom": denom,
+            "addressRolesToRevoke": [
+                json_format.MessageToDict(
+                    message=permissions_address_roles1, always_print_fields_with_no_presence=True
+                ),
+                json_format.MessageToDict(
+                    message=permissions_address_roles2, always_print_fields_with_no_presence=True
+                ),
+            ],
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=message,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_msg_claim_voucher(self, basic_composer):
+        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
+        denom = "inj"
+        message = basic_composer.msg_claim_voucher(
+            sender=sender,
+            denom=denom,
+        )
+
+        expected_message = {
+            "sender": sender,
+            "denom": denom,
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=message,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
