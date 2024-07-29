@@ -25,6 +25,11 @@ class InjectiveCampaignRPCStub(object):
                 request_serializer=exchange_dot_injective__campaign__rpc__pb2.CampaignsRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__campaign__rpc__pb2.CampaignsResponse.FromString,
                 _registered_method=True)
+        self.CampaignsV2 = channel.unary_unary(
+                '/injective_campaign_rpc.InjectiveCampaignRPC/CampaignsV2',
+                request_serializer=exchange_dot_injective__campaign__rpc__pb2.CampaignsV2Request.SerializeToString,
+                response_deserializer=exchange_dot_injective__campaign__rpc__pb2.CampaignsV2Response.FromString,
+                _registered_method=True)
         self.ListGuilds = channel.unary_unary(
                 '/injective_campaign_rpc.InjectiveCampaignRPC/ListGuilds',
                 request_serializer=exchange_dot_injective__campaign__rpc__pb2.ListGuildsRequest.SerializeToString,
@@ -55,6 +60,13 @@ class InjectiveCampaignRPCServicer(object):
 
     def Campaigns(self, request, context):
         """List current round active campaigns
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CampaignsV2(self, request, context):
+        """List campaigns v2
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -93,6 +105,11 @@ def add_InjectiveCampaignRPCServicer_to_server(servicer, server):
                     servicer.Campaigns,
                     request_deserializer=exchange_dot_injective__campaign__rpc__pb2.CampaignsRequest.FromString,
                     response_serializer=exchange_dot_injective__campaign__rpc__pb2.CampaignsResponse.SerializeToString,
+            ),
+            'CampaignsV2': grpc.unary_unary_rpc_method_handler(
+                    servicer.CampaignsV2,
+                    request_deserializer=exchange_dot_injective__campaign__rpc__pb2.CampaignsV2Request.FromString,
+                    response_serializer=exchange_dot_injective__campaign__rpc__pb2.CampaignsV2Response.SerializeToString,
             ),
             'ListGuilds': grpc.unary_unary_rpc_method_handler(
                     servicer.ListGuilds,
@@ -165,6 +182,33 @@ class InjectiveCampaignRPC(object):
             '/injective_campaign_rpc.InjectiveCampaignRPC/Campaigns',
             exchange_dot_injective__campaign__rpc__pb2.CampaignsRequest.SerializeToString,
             exchange_dot_injective__campaign__rpc__pb2.CampaignsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def CampaignsV2(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_campaign_rpc.InjectiveCampaignRPC/CampaignsV2',
+            exchange_dot_injective__campaign__rpc__pb2.CampaignsV2Request.SerializeToString,
+            exchange_dot_injective__campaign__rpc__pb2.CampaignsV2Response.FromString,
             options,
             channel_credentials,
             insecure,

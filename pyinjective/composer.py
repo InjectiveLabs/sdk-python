@@ -1896,12 +1896,14 @@ class Composer:
         subdenom: str,
         name: str,
         symbol: str,
+        decimals: int,
     ) -> token_factory_tx_pb.MsgCreateDenom:
         return token_factory_tx_pb.MsgCreateDenom(
             sender=sender,
             subdenom=subdenom,
             name=name,
             symbol=symbol,
+            decimals=decimals,
         )
 
     def msg_mint(

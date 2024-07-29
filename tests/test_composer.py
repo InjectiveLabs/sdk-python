@@ -61,12 +61,14 @@ class TestComposer:
         subdenom = "inj-test"
         name = "Injective Test"
         symbol = "INJTEST"
+        decimals = 18
 
         message = basic_composer.msg_create_denom(
             sender=sender,
             subdenom=subdenom,
             name=name,
             symbol=symbol,
+            decimals=decimals,
         )
 
         expected_message = {
@@ -74,6 +76,7 @@ class TestComposer:
             "subdenom": subdenom,
             "name": name,
             "symbol": symbol,
+            "decimals": decimals,
         }
         dict_message = json_format.MessageToDict(
             message=message,

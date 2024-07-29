@@ -105,6 +105,7 @@ class TestChainGrpcTokenFactoryApi:
             authority_metadata=authority_metadata,
             name="Dog Wif Nunchucks",
             symbol="NINJA",
+            decimals=6,
         )
         state = token_factory_genesis_pb.GenesisState(
             params=params,
@@ -132,6 +133,7 @@ class TestChainGrpcTokenFactoryApi:
                         },
                         "name": genesis_denom.name,
                         "symbol": genesis_denom.symbol,
+                        "decimals": genesis_denom.decimals,
                     }
                 ],
             }
