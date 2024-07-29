@@ -2,13 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.6.0] - 9999-99-99
+## [1.6.0] - 2024-07-30
 ### Added
 - Support for all queries in the chain "tendermint" module
 - Support for all queries in the "IBC Transfer" module
 - Support for all queries in the "IBC Channel" module
 - Support for all queries in the "IBC Client" module
 - Support for all queries in the "IBC Connection" module
+- Support for all queries and messages in the chain "permissions" module
 - Tokens initialization from the official tokens list in https://github.com/InjectiveLabs/injective-lists
 
 ### Changed
