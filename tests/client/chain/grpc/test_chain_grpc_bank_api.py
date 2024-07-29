@@ -244,6 +244,7 @@ class TestChainGrpcBankApi:
                 "2560px-Flag_of_the_People%27s_Republic_of_China.svg.png"
             ),
             uri_hash="",
+            decimals=6,
         )
 
         bank_servicer.denom_metadata_responses.append(
@@ -269,6 +270,7 @@ class TestChainGrpcBankApi:
                 "symbol": metadata.symbol,
                 "uri": metadata.uri,
                 "uriHash": metadata.uri_hash,
+                "decimals": metadata.decimals,
             }
         }
 
@@ -296,6 +298,7 @@ class TestChainGrpcBankApi:
                 "2560px-Flag_of_the_People%27s_Republic_of_China.svg.png"
             ),
             uri_hash="",
+            decimals=6,
         )
         pagination = pagination_pb.PageResponse(
             next_key=(
@@ -334,6 +337,7 @@ class TestChainGrpcBankApi:
                     "symbol": metadata.symbol,
                     "uri": metadata.uri,
                     "uriHash": metadata.uri_hash,
+                    "decimals": metadata.decimals,
                 },
             ],
             "pagination": {

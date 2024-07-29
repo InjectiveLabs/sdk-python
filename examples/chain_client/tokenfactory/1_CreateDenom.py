@@ -27,7 +27,11 @@ async def main() -> None:
     address = pub_key.to_address()
 
     message = composer.msg_create_denom(
-        sender=address.to_acc_bech32(), subdenom="inj_test", name="Injective Test Token", symbol="INJTEST"
+        sender=address.to_acc_bech32(),
+        subdenom="inj_test",
+        name="Injective Test Token",
+        symbol="INJTEST",
+        decimals=18,
     )
 
     # broadcast the transaction

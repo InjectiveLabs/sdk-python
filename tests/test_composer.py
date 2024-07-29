@@ -61,12 +61,14 @@ class TestComposer:
         subdenom = "inj-test"
         name = "Injective Test"
         symbol = "INJTEST"
+        decimals = 18
 
         message = basic_composer.msg_create_denom(
             sender=sender,
             subdenom=subdenom,
             name=name,
             symbol=symbol,
+            decimals=decimals,
         )
 
         expected_message = {
@@ -74,6 +76,7 @@ class TestComposer:
             "subdenom": subdenom,
             "name": name,
             "symbol": symbol,
+            "decimals": decimals,
         }
         dict_message = json_format.MessageToDict(
             message=message,
@@ -179,6 +182,7 @@ class TestComposer:
                 "display": subdenom,
                 "uri": uri,
                 "uriHash": uri_hash,
+                "decimals": token_decimals,
             },
         }
         dict_message = json_format.MessageToDict(
@@ -306,6 +310,7 @@ class TestComposer:
         quote_denom = "USDT"
         min_price_tick_size = Decimal("0.01")
         min_quantity_tick_size = Decimal("1")
+        min_notional = Decimal("2")
 
         base_token = basic_composer.tokens[base_denom]
         quote_token = basic_composer.tokens[quote_denom]
@@ -316,6 +321,9 @@ class TestComposer:
         expected_min_quantity_tick_size = min_quantity_tick_size * Decimal(
             f"1e{base_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
         )
+        expected_min_notional = min_notional * Decimal(
+            f"1e{quote_token.decimals - base_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        )
 
         message = basic_composer.msg_instant_spot_market_launch(
             sender=sender,
@@ -324,6 +332,7 @@ class TestComposer:
             quote_denom=quote_denom,
             min_price_tick_size=min_price_tick_size,
             min_quantity_tick_size=min_quantity_tick_size,
+            min_notional=min_notional,
         )
 
         expected_message = {
@@ -333,6 +342,7 @@ class TestComposer:
             "quoteDenom": quote_token.denom,
             "minPriceTickSize": f"{expected_min_price_tick_size.normalize():f}",
             "minQuantityTickSize": f"{expected_min_quantity_tick_size.normalize():f}",
+            "minNotional": f"{expected_min_notional.normalize():f}",
         }
         dict_message = json_format.MessageToDict(
             message=message,
@@ -354,6 +364,7 @@ class TestComposer:
         taker_fee_rate = Decimal("-0.002")
         initial_margin_ratio = Decimal("0.05")
         maintenance_margin_ratio = Decimal("0.03")
+        min_notional = Decimal("2")
 
         quote_token = basic_composer.tokens[quote_denom]
 
@@ -365,6 +376,7 @@ class TestComposer:
         expected_taker_fee_rate = taker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         expected_initial_margin_ratio = initial_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         expected_maintenance_margin_ratio = maintenance_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        expected_min_notional = min_notional * Decimal(f"1e{quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         message = basic_composer.msg_instant_perpetual_market_launch(
             sender=sender,
@@ -380,6 +392,7 @@ class TestComposer:
             maintenance_margin_ratio=maintenance_margin_ratio,
             min_price_tick_size=min_price_tick_size,
             min_quantity_tick_size=min_quantity_tick_size,
+            min_notional=min_notional,
         )
 
         expected_message = {
@@ -396,6 +409,7 @@ class TestComposer:
             "maintenanceMarginRatio": f"{expected_maintenance_margin_ratio.normalize():f}",
             "minPriceTickSize": f"{expected_min_price_tick_size.normalize():f}",
             "minQuantityTickSize": f"{expected_min_quantity_tick_size.normalize():f}",
+            "minNotional": f"{expected_min_notional.normalize():f}",
         }
         dict_message = json_format.MessageToDict(
             message=message,
@@ -418,6 +432,7 @@ class TestComposer:
         taker_fee_rate = Decimal("-0.002")
         initial_margin_ratio = Decimal("0.05")
         maintenance_margin_ratio = Decimal("0.03")
+        min_notional = Decimal("2")
 
         quote_token = basic_composer.tokens[quote_denom]
 
@@ -429,6 +444,7 @@ class TestComposer:
         expected_taker_fee_rate = taker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         expected_initial_margin_ratio = initial_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         expected_maintenance_margin_ratio = maintenance_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        expected_min_notional = min_notional * Decimal(f"1e{quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         message = basic_composer.msg_instant_expiry_futures_market_launch(
             sender=sender,
@@ -445,6 +461,7 @@ class TestComposer:
             maintenance_margin_ratio=maintenance_margin_ratio,
             min_price_tick_size=min_price_tick_size,
             min_quantity_tick_size=min_quantity_tick_size,
+            min_notional=min_notional,
         )
 
         expected_message = {
@@ -462,6 +479,7 @@ class TestComposer:
             "maintenanceMarginRatio": f"{expected_maintenance_margin_ratio.normalize():f}",
             "minPriceTickSize": f"{expected_min_price_tick_size.normalize():f}",
             "minQuantityTickSize": f"{expected_min_quantity_tick_size.normalize():f}",
+            "minNotional": f"{expected_min_notional.normalize():f}",
         }
         dict_message = json_format.MessageToDict(
             message=message,
@@ -1101,6 +1119,7 @@ class TestComposer:
         expiration_timestamp = 1630000000
         settlement_timestamp = 1660000000
         admin = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
+        min_notional = Decimal("2")
 
         quote_token = basic_composer.tokens[quote_denom]
 
@@ -1110,6 +1129,7 @@ class TestComposer:
         expected_min_quantity_tick_size = min_quantity_tick_size * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         expected_maker_fee_rate = maker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         expected_taker_fee_rate = taker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        expected_min_notional = min_notional * Decimal(f"1e{quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         message = basic_composer.msg_instant_binary_options_market_launch(
             sender=sender,
@@ -1126,6 +1146,7 @@ class TestComposer:
             quote_denom=quote_denom,
             min_price_tick_size=min_price_tick_size,
             min_quantity_tick_size=min_quantity_tick_size,
+            min_notional=min_notional,
         )
 
         expected_message = {
@@ -1143,6 +1164,7 @@ class TestComposer:
             "quoteDenom": quote_token.denom,
             "minPriceTickSize": f"{expected_min_price_tick_size.normalize():f}",
             "minQuantityTickSize": f"{expected_min_quantity_tick_size.normalize():f}",
+            "minNotional": f"{expected_min_notional.normalize():f}",
         }
         dict_message = json_format.MessageToDict(
             message=message,
@@ -1531,6 +1553,227 @@ class TestComposer:
             "timeoutTimestamp": str(timeout_timestamp),
             "memo": memo,
         }
+        dict_message = json_format.MessageToDict(
+            message=message,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_msg_create_namespace(self, basic_composer):
+        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
+        denom = "inj"
+        wasmhook = "wasmhook"
+        mints_paused = True
+        sends_paused = False
+        burns_paused = True
+        permissions_role1 = basic_composer.permissions_role(
+            role="role1",
+            permissions=1,
+        )
+        permissions_role2 = basic_composer.permissions_role(
+            role="role2",
+            permissions=2,
+        )
+        permissions_address_roles1 = basic_composer.permissions_address_roles(
+            address="inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0",
+            roles=["role1"],
+        )
+        permissions_address_roles2 = basic_composer.permissions_address_roles(
+            address="inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0",
+            roles=["role2"],
+        )
+
+        message = basic_composer.msg_create_namespace(
+            sender=sender,
+            denom=denom,
+            wasm_hook=wasmhook,
+            mints_paused=mints_paused,
+            sends_paused=sends_paused,
+            burns_paused=burns_paused,
+            role_permissions=[permissions_role1, permissions_role2],
+            address_roles=[permissions_address_roles1, permissions_address_roles2],
+        )
+
+        expected_message = {
+            "sender": sender,
+            "namespace": {
+                "denom": denom,
+                "wasmHook": wasmhook,
+                "mintsPaused": mints_paused,
+                "sendsPaused": sends_paused,
+                "burnsPaused": burns_paused,
+                "rolePermissions": [
+                    json_format.MessageToDict(message=permissions_role1, always_print_fields_with_no_presence=True),
+                    json_format.MessageToDict(message=permissions_role2, always_print_fields_with_no_presence=True),
+                ],
+                "addressRoles": [
+                    json_format.MessageToDict(
+                        message=permissions_address_roles1, always_print_fields_with_no_presence=True
+                    ),
+                    json_format.MessageToDict(
+                        message=permissions_address_roles2, always_print_fields_with_no_presence=True
+                    ),
+                ],
+            },
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=message,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_msg_delete_namespace(self, basic_composer):
+        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
+        denom = "inj"
+
+        message = basic_composer.msg_delete_namespace(
+            sender=sender,
+            namespace_denom=denom,
+        )
+
+        expected_message = {
+            "sender": sender,
+            "namespaceDenom": denom,
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=message,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_msg_update_namespace(self, basic_composer):
+        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
+        denom = "inj"
+        wasmhook = "wasmhook"
+        mints_paused = True
+        sends_paused = False
+        burns_paused = True
+
+        message = basic_composer.msg_update_namespace(
+            sender=sender,
+            namespace_denom=denom,
+            wasm_hook=wasmhook,
+            mints_paused=mints_paused,
+            sends_paused=sends_paused,
+            burns_paused=burns_paused,
+        )
+
+        expected_message = {
+            "sender": sender,
+            "namespaceDenom": denom,
+            "wasmHook": {"newValue": wasmhook},
+            "mintsPaused": {"newValue": mints_paused},
+            "sendsPaused": {"newValue": sends_paused},
+            "burnsPaused": {"newValue": burns_paused},
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=message,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_msg_update_namespace_roles(self, basic_composer):
+        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
+        denom = "inj"
+        permissions_role1 = basic_composer.permissions_role(
+            role="role1",
+            permissions=1,
+        )
+        permissions_role2 = basic_composer.permissions_role(
+            role="role2",
+            permissions=2,
+        )
+        permissions_address_roles1 = basic_composer.permissions_address_roles(
+            address="inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0",
+            roles=["role1"],
+        )
+        permissions_address_roles2 = basic_composer.permissions_address_roles(
+            address="inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0",
+            roles=["role2"],
+        )
+
+        message = basic_composer.msg_update_namespace_roles(
+            sender=sender,
+            namespace_denom=denom,
+            role_permissions=[permissions_role1, permissions_role2],
+            address_roles=[permissions_address_roles1, permissions_address_roles2],
+        )
+
+        expected_message = {
+            "sender": sender,
+            "namespaceDenom": denom,
+            "rolePermissions": [
+                json_format.MessageToDict(message=permissions_role1, always_print_fields_with_no_presence=True),
+                json_format.MessageToDict(message=permissions_role2, always_print_fields_with_no_presence=True),
+            ],
+            "addressRoles": [
+                json_format.MessageToDict(
+                    message=permissions_address_roles1, always_print_fields_with_no_presence=True
+                ),
+                json_format.MessageToDict(
+                    message=permissions_address_roles2, always_print_fields_with_no_presence=True
+                ),
+            ],
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=message,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_msg_revoke_namespace_roles(self, basic_composer):
+        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
+        denom = "inj"
+        permissions_address_roles1 = basic_composer.permissions_address_roles(
+            address="inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0",
+            roles=["role1"],
+        )
+        permissions_address_roles2 = basic_composer.permissions_address_roles(
+            address="inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0",
+            roles=["role2"],
+        )
+        message = basic_composer.msg_revoke_namespace_roles(
+            sender=sender,
+            namespace_denom=denom,
+            address_roles_to_revoke=[permissions_address_roles1, permissions_address_roles2],
+        )
+
+        expected_message = {
+            "sender": sender,
+            "namespaceDenom": denom,
+            "addressRolesToRevoke": [
+                json_format.MessageToDict(
+                    message=permissions_address_roles1, always_print_fields_with_no_presence=True
+                ),
+                json_format.MessageToDict(
+                    message=permissions_address_roles2, always_print_fields_with_no_presence=True
+                ),
+            ],
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=message,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_msg_claim_voucher(self, basic_composer):
+        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
+        denom = "inj"
+        message = basic_composer.msg_claim_voucher(
+            sender=sender,
+            denom=denom,
+        )
+
+        expected_message = {
+            "sender": sender,
+            "denom": denom,
+        }
+
         dict_message = json_format.MessageToDict(
             message=message,
             always_print_fields_with_no_presence=True,
