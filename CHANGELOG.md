@@ -2,7 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.0] - 2024-07-30
+### Added
+- Support for all queries in the chain "tendermint" module
+- Support for all queries in the "IBC Transfer" module
+- Support for all queries in the "IBC Channel" module
+- Support for all queries in the "IBC Client" module
+- Support for all queries in the "IBC Connection" module
+- Support for all queries and messages in the chain "permissions" module
+- Tokens initialization from the official tokens list in https://github.com/InjectiveLabs/injective-lists
+
+### Changed
+- Updated all proto definitions based on chain upgrade to v1.13
+- Refactored cookies management logic to use all gRPC calls' responses to update the current cookies
+
 ## [1.5.4] - 2024-07-03
+### Changed
+- Fixed all import statements in pyinjective.proto modules to make them explicit
+
+## [1.4.4] - 2024-07-03
 ### Changed
 - Fixed all import statements in pyinjective.proto modules to make them explicit
 
@@ -10,6 +28,11 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Changed parameter `key` from the PaginationOption class.
 - Fixed an error when using the next page key in PaginationOption, causing incorrect pagination responses.
+
+## [1.4.3] - 2024-06-06
+### Changed
+- Fixed `protobuf` dependency version to "<5" to for the v1.4 branch, because newer versions require a code refactoring (done in v1.5)
+- Fixed `protobuf` dependency version to "<5" for the v1.4 branch because newer versions require a code refactoring (done in v1.5)
 
 ## [1.5.2] - 2024-05-10
 ### Changed

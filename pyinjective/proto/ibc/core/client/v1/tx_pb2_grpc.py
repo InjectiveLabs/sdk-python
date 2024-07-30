@@ -19,22 +19,37 @@ class MsgStub(object):
                 '/ibc.core.client.v1.Msg/CreateClient',
                 request_serializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgCreateClient.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgCreateClientResponse.FromString,
-                )
+                _registered_method=True)
         self.UpdateClient = channel.unary_unary(
                 '/ibc.core.client.v1.Msg/UpdateClient',
                 request_serializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgUpdateClient.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgUpdateClientResponse.FromString,
-                )
+                _registered_method=True)
         self.UpgradeClient = channel.unary_unary(
                 '/ibc.core.client.v1.Msg/UpgradeClient',
                 request_serializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgUpgradeClient.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgUpgradeClientResponse.FromString,
-                )
+                _registered_method=True)
         self.SubmitMisbehaviour = channel.unary_unary(
                 '/ibc.core.client.v1.Msg/SubmitMisbehaviour',
                 request_serializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgSubmitMisbehaviour.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgSubmitMisbehaviourResponse.FromString,
-                )
+                _registered_method=True)
+        self.RecoverClient = channel.unary_unary(
+                '/ibc.core.client.v1.Msg/RecoverClient',
+                request_serializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgRecoverClient.SerializeToString,
+                response_deserializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgRecoverClientResponse.FromString,
+                _registered_method=True)
+        self.IBCSoftwareUpgrade = channel.unary_unary(
+                '/ibc.core.client.v1.Msg/IBCSoftwareUpgrade',
+                request_serializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgIBCSoftwareUpgrade.SerializeToString,
+                response_deserializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgIBCSoftwareUpgradeResponse.FromString,
+                _registered_method=True)
+        self.UpdateClientParams = channel.unary_unary(
+                '/ibc.core.client.v1.Msg/UpdateClientParams',
+                request_serializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
+                response_deserializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
+                _registered_method=True)
 
 
 class MsgServicer(object):
@@ -69,6 +84,27 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def RecoverClient(self, request, context):
+        """RecoverClient defines a rpc handler method for MsgRecoverClient.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def IBCSoftwareUpgrade(self, request, context):
+        """IBCSoftwareUpgrade defines a rpc handler method for MsgIBCSoftwareUpgrade.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateClientParams(self, request, context):
+        """UpdateClientParams defines a rpc handler method for MsgUpdateParams.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -92,10 +128,26 @@ def add_MsgServicer_to_server(servicer, server):
                     request_deserializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgSubmitMisbehaviour.FromString,
                     response_serializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgSubmitMisbehaviourResponse.SerializeToString,
             ),
+            'RecoverClient': grpc.unary_unary_rpc_method_handler(
+                    servicer.RecoverClient,
+                    request_deserializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgRecoverClient.FromString,
+                    response_serializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgRecoverClientResponse.SerializeToString,
+            ),
+            'IBCSoftwareUpgrade': grpc.unary_unary_rpc_method_handler(
+                    servicer.IBCSoftwareUpgrade,
+                    request_deserializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgIBCSoftwareUpgrade.FromString,
+                    response_serializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgIBCSoftwareUpgradeResponse.SerializeToString,
+            ),
+            'UpdateClientParams': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateClientParams,
+                    request_deserializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgUpdateParams.FromString,
+                    response_serializer=ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
             'ibc.core.client.v1.Msg', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('ibc.core.client.v1.Msg', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -114,11 +166,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.core.client.v1.Msg/CreateClient',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.client.v1.Msg/CreateClient',
             ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgCreateClient.SerializeToString,
             ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgCreateClientResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def UpdateClient(request,
@@ -131,11 +193,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.core.client.v1.Msg/UpdateClient',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.client.v1.Msg/UpdateClient',
             ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgUpdateClient.SerializeToString,
             ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgUpdateClientResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def UpgradeClient(request,
@@ -148,11 +220,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.core.client.v1.Msg/UpgradeClient',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.client.v1.Msg/UpgradeClient',
             ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgUpgradeClient.SerializeToString,
             ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgUpgradeClientResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def SubmitMisbehaviour(request,
@@ -165,8 +247,99 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.core.client.v1.Msg/SubmitMisbehaviour',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.client.v1.Msg/SubmitMisbehaviour',
             ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgSubmitMisbehaviour.SerializeToString,
             ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgSubmitMisbehaviourResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def RecoverClient(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.client.v1.Msg/RecoverClient',
+            ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgRecoverClient.SerializeToString,
+            ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgRecoverClientResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def IBCSoftwareUpgrade(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.client.v1.Msg/IBCSoftwareUpgrade',
+            ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgIBCSoftwareUpgrade.SerializeToString,
+            ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgIBCSoftwareUpgradeResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateClientParams(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.client.v1.Msg/UpdateClientParams',
+            ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
+            ibc_dot_core_dot_client_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

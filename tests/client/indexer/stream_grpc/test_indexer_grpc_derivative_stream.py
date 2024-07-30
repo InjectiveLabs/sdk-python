@@ -5,7 +5,7 @@ import pytest
 
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_derivative_stream import IndexerGrpcDerivativeStream
 from pyinjective.client.model.pagination import PaginationOption
-from pyinjective.core.network import Network
+from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.exchange import injective_derivative_exchange_rpc_pb2 as exchange_derivative_pb
 from tests.client.indexer.configurable_derivative_query_servicer import ConfigurableDerivativeQueryServicer
 
@@ -64,6 +64,7 @@ class TestIndexerGrpcDerivativeStream:
             min_quantity_tick_size="0.0001",
             perpetual_market_info=perpetual_market_info,
             perpetual_market_funding=perpetual_market_funding,
+            min_notional="1000000",
         )
 
         derivative_servicer.stream_market_responses.append(
@@ -74,11 +75,7 @@ class TestIndexerGrpcDerivativeStream:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcDerivativeStream(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = derivative_servicer
+        api = self._api_instance(servicer=derivative_servicer)
 
         market_updates = asyncio.Queue()
         end_event = asyncio.Event()
@@ -121,6 +118,7 @@ class TestIndexerGrpcDerivativeStream:
                 "isPerpetual": market.is_perpetual,
                 "minPriceTickSize": market.min_price_tick_size,
                 "minQuantityTickSize": market.min_quantity_tick_size,
+                "minNotional": market.min_notional,
                 "perpetualMarketInfo": {
                     "hourlyFundingRateCap": perpetual_market_info.hourly_funding_rate_cap,
                     "hourlyInterestRate": str(perpetual_market_info.hourly_interest_rate),
@@ -178,11 +176,7 @@ class TestIndexerGrpcDerivativeStream:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcDerivativeStream(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = derivative_servicer
+        api = self._api_instance(servicer=derivative_servicer)
 
         orderbook_updates = asyncio.Queue()
         end_event = asyncio.Event()
@@ -266,11 +260,7 @@ class TestIndexerGrpcDerivativeStream:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcDerivativeStream(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = derivative_servicer
+        api = self._api_instance(servicer=derivative_servicer)
 
         orderbook_updates = asyncio.Queue()
         end_event = asyncio.Event()
@@ -348,11 +338,7 @@ class TestIndexerGrpcDerivativeStream:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcDerivativeStream(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = derivative_servicer
+        api = self._api_instance(servicer=derivative_servicer)
 
         positions = asyncio.Queue()
         end_event = asyncio.Event()
@@ -434,11 +420,7 @@ class TestIndexerGrpcDerivativeStream:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcDerivativeStream(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = derivative_servicer
+        api = self._api_instance(servicer=derivative_servicer)
 
         orders_updates = asyncio.Queue()
         end_event = asyncio.Event()
@@ -542,11 +524,7 @@ class TestIndexerGrpcDerivativeStream:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcDerivativeStream(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = derivative_servicer
+        api = self._api_instance(servicer=derivative_servicer)
 
         trade_updates = asyncio.Queue()
         end_event = asyncio.Event()
@@ -646,11 +624,7 @@ class TestIndexerGrpcDerivativeStream:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcDerivativeStream(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = derivative_servicer
+        api = self._api_instance(servicer=derivative_servicer)
 
         orders_history_updates = asyncio.Queue()
         end_event = asyncio.Event()
@@ -744,11 +718,7 @@ class TestIndexerGrpcDerivativeStream:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcDerivativeStream(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = derivative_servicer
+        api = self._api_instance(servicer=derivative_servicer)
 
         trade_updates = asyncio.Queue()
         end_event = asyncio.Event()
@@ -808,5 +778,12 @@ class TestIndexerGrpcDerivativeStream:
         assert first_update == expected_update
         assert end_event.is_set()
 
-    async def _dummy_metadata_provider(self):
-        return None
+    def _api_instance(self, servicer):
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
+        cookie_assistant = DisabledCookieAssistant()
+
+        api = IndexerGrpcDerivativeStream(channel=channel, cookie_assistant=cookie_assistant)
+        api._stub = servicer
+
+        return api

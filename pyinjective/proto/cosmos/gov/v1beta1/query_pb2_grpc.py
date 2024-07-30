@@ -19,42 +19,42 @@ class QueryStub(object):
                 '/cosmos.gov.v1beta1.Query/Proposal',
                 request_serializer=cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryProposalRequest.SerializeToString,
                 response_deserializer=cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryProposalResponse.FromString,
-                )
+                _registered_method=True)
         self.Proposals = channel.unary_unary(
                 '/cosmos.gov.v1beta1.Query/Proposals',
                 request_serializer=cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryProposalsRequest.SerializeToString,
                 response_deserializer=cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryProposalsResponse.FromString,
-                )
+                _registered_method=True)
         self.Vote = channel.unary_unary(
                 '/cosmos.gov.v1beta1.Query/Vote',
                 request_serializer=cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryVoteRequest.SerializeToString,
                 response_deserializer=cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryVoteResponse.FromString,
-                )
+                _registered_method=True)
         self.Votes = channel.unary_unary(
                 '/cosmos.gov.v1beta1.Query/Votes',
                 request_serializer=cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryVotesRequest.SerializeToString,
                 response_deserializer=cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryVotesResponse.FromString,
-                )
+                _registered_method=True)
         self.Params = channel.unary_unary(
                 '/cosmos.gov.v1beta1.Query/Params',
                 request_serializer=cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryParamsRequest.SerializeToString,
                 response_deserializer=cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryParamsResponse.FromString,
-                )
+                _registered_method=True)
         self.Deposit = channel.unary_unary(
                 '/cosmos.gov.v1beta1.Query/Deposit',
                 request_serializer=cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryDepositRequest.SerializeToString,
                 response_deserializer=cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryDepositResponse.FromString,
-                )
+                _registered_method=True)
         self.Deposits = channel.unary_unary(
                 '/cosmos.gov.v1beta1.Query/Deposits',
                 request_serializer=cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryDepositsRequest.SerializeToString,
                 response_deserializer=cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryDepositsResponse.FromString,
-                )
+                _registered_method=True)
         self.TallyResult = channel.unary_unary(
                 '/cosmos.gov.v1beta1.Query/TallyResult',
                 request_serializer=cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryTallyResultRequest.SerializeToString,
                 response_deserializer=cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryTallyResultResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class QueryServicer(object):
@@ -97,7 +97,7 @@ class QueryServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def Deposit(self, request, context):
-        """Deposit queries single deposit information based proposalID, depositAddr.
+        """Deposit queries single deposit information based on proposalID, depositor address.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -164,6 +164,7 @@ def add_QueryServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'cosmos.gov.v1beta1.Query', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('cosmos.gov.v1beta1.Query', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -182,11 +183,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.gov.v1beta1.Query/Proposal',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.gov.v1beta1.Query/Proposal',
             cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryProposalRequest.SerializeToString,
             cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryProposalResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Proposals(request,
@@ -199,11 +210,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.gov.v1beta1.Query/Proposals',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.gov.v1beta1.Query/Proposals',
             cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryProposalsRequest.SerializeToString,
             cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryProposalsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Vote(request,
@@ -216,11 +237,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.gov.v1beta1.Query/Vote',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.gov.v1beta1.Query/Vote',
             cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryVoteRequest.SerializeToString,
             cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryVoteResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Votes(request,
@@ -233,11 +264,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.gov.v1beta1.Query/Votes',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.gov.v1beta1.Query/Votes',
             cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryVotesRequest.SerializeToString,
             cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryVotesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Params(request,
@@ -250,11 +291,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.gov.v1beta1.Query/Params',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.gov.v1beta1.Query/Params',
             cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryParamsRequest.SerializeToString,
             cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryParamsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Deposit(request,
@@ -267,11 +318,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.gov.v1beta1.Query/Deposit',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.gov.v1beta1.Query/Deposit',
             cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryDepositRequest.SerializeToString,
             cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryDepositResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Deposits(request,
@@ -284,11 +345,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.gov.v1beta1.Query/Deposits',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.gov.v1beta1.Query/Deposits',
             cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryDepositsRequest.SerializeToString,
             cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryDepositsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def TallyResult(request,
@@ -301,8 +372,18 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.gov.v1beta1.Query/TallyResult',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.gov.v1beta1.Query/TallyResult',
             cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryTallyResultRequest.SerializeToString,
             cosmos_dot_gov_dot_v1beta1_dot_query__pb2.QueryTallyResultResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

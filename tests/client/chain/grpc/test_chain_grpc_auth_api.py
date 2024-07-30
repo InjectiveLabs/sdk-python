@@ -6,7 +6,7 @@ from google.protobuf import any_pb2
 
 from pyinjective.client.chain.grpc.chain_grpc_auth_api import ChainGrpcAuthApi
 from pyinjective.client.model.pagination import PaginationOption
-from pyinjective.core.network import Network
+from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.cosmos.auth.v1beta1 import auth_pb2 as auth_pb, query_pb2 as auth_query_pb
 from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagination_pb
 from pyinjective.proto.injective.crypto.v1beta1.ethsecp256k1 import keys_pb2 as keys_pb
@@ -34,11 +34,7 @@ class TestChainGrpcAuthApi:
         )
         auth_servicer.auth_params.append(auth_query_pb.QueryParamsResponse(params=params))
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcAuthApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = auth_servicer
+        api = self._api_instance(servicer=auth_servicer)
 
         module_params = await api.fetch_module_params()
         expected_params = {
@@ -78,11 +74,7 @@ class TestChainGrpcAuthApi:
         any_account.Pack(account, type_url_prefix="")
         auth_servicer.account_responses.append(auth_query_pb.QueryAccountResponse(account=any_account))
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcAuthApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = auth_servicer
+        api = self._api_instance(servicer=auth_servicer)
 
         response_account = await api.fetch_account(address="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr")
         expected_account = {
@@ -138,11 +130,7 @@ class TestChainGrpcAuthApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcAuthApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = auth_servicer
+        api = self._api_instance(servicer=auth_servicer)
 
         pagination_option = PaginationOption(
             encoded_page_key="011ab4075a94245dff7338e3042db5b7cc3f42e1",
@@ -170,5 +158,12 @@ class TestChainGrpcAuthApi:
         assert result_pagination.next_key == base64.b64decode(response_pagination["nextKey"])
         assert result_pagination.total == int(response_pagination["total"])
 
-    async def _dummy_metadata_provider(self):
-        return None
+    def _api_instance(self, servicer):
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
+        cookie_assistant = DisabledCookieAssistant()
+
+        api = ChainGrpcAuthApi(channel=channel, cookie_assistant=cookie_assistant)
+        api._stub = servicer
+
+        return api

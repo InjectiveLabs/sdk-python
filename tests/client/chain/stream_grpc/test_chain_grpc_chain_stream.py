@@ -6,7 +6,7 @@ import pytest
 
 from pyinjective.client.chain.grpc_stream.chain_grpc_chain_stream import ChainGrpcChainStream
 from pyinjective.composer import Composer
-from pyinjective.core.network import Network
+from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb
 from pyinjective.proto.injective.exchange.v1beta1 import exchange_pb2 as exchange_pb
 from pyinjective.proto.injective.stream.v1beta1 import query_pb2 as chain_stream_pb
@@ -194,10 +194,7 @@ class TestChainGrpcChainStream:
 
         network = Network.devnet()
         composer = Composer(network=network.string())
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = ChainGrpcChainStream(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = chain_stream_servicer
+        api = self._api_instance(servicer=chain_stream_servicer)
 
         events = asyncio.Queue()
         end_event = asyncio.Event()
@@ -408,5 +405,12 @@ class TestChainGrpcChainStream:
         assert first_update == expected_update
         assert end_event.is_set()
 
-    async def _dummy_metadata_provider(self):
-        return None
+    def _api_instance(self, servicer):
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
+        cookie_assistant = DisabledCookieAssistant()
+
+        api = ChainGrpcChainStream(channel=channel, cookie_assistant=cookie_assistant)
+        api._stub = servicer
+
+        return api

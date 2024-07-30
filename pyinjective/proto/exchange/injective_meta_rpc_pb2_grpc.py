@@ -19,27 +19,27 @@ class InjectiveMetaRPCStub(object):
                 '/injective_meta_rpc.InjectiveMetaRPC/Ping',
                 request_serializer=exchange_dot_injective__meta__rpc__pb2.PingRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__meta__rpc__pb2.PingResponse.FromString,
-                )
+                _registered_method=True)
         self.Version = channel.unary_unary(
                 '/injective_meta_rpc.InjectiveMetaRPC/Version',
                 request_serializer=exchange_dot_injective__meta__rpc__pb2.VersionRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__meta__rpc__pb2.VersionResponse.FromString,
-                )
+                _registered_method=True)
         self.Info = channel.unary_unary(
                 '/injective_meta_rpc.InjectiveMetaRPC/Info',
                 request_serializer=exchange_dot_injective__meta__rpc__pb2.InfoRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__meta__rpc__pb2.InfoResponse.FromString,
-                )
+                _registered_method=True)
         self.StreamKeepalive = channel.unary_stream(
                 '/injective_meta_rpc.InjectiveMetaRPC/StreamKeepalive',
                 request_serializer=exchange_dot_injective__meta__rpc__pb2.StreamKeepaliveRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__meta__rpc__pb2.StreamKeepaliveResponse.FromString,
-                )
+                _registered_method=True)
         self.TokenMetadata = channel.unary_unary(
                 '/injective_meta_rpc.InjectiveMetaRPC/TokenMetadata',
                 request_serializer=exchange_dot_injective__meta__rpc__pb2.TokenMetadataRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__meta__rpc__pb2.TokenMetadataResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class InjectiveMetaRPCServicer(object):
@@ -114,6 +114,7 @@ def add_InjectiveMetaRPCServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'injective_meta_rpc.InjectiveMetaRPC', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('injective_meta_rpc.InjectiveMetaRPC', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -132,11 +133,21 @@ class InjectiveMetaRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_meta_rpc.InjectiveMetaRPC/Ping',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_meta_rpc.InjectiveMetaRPC/Ping',
             exchange_dot_injective__meta__rpc__pb2.PingRequest.SerializeToString,
             exchange_dot_injective__meta__rpc__pb2.PingResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Version(request,
@@ -149,11 +160,21 @@ class InjectiveMetaRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_meta_rpc.InjectiveMetaRPC/Version',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_meta_rpc.InjectiveMetaRPC/Version',
             exchange_dot_injective__meta__rpc__pb2.VersionRequest.SerializeToString,
             exchange_dot_injective__meta__rpc__pb2.VersionResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Info(request,
@@ -166,11 +187,21 @@ class InjectiveMetaRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_meta_rpc.InjectiveMetaRPC/Info',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_meta_rpc.InjectiveMetaRPC/Info',
             exchange_dot_injective__meta__rpc__pb2.InfoRequest.SerializeToString,
             exchange_dot_injective__meta__rpc__pb2.InfoResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def StreamKeepalive(request,
@@ -183,11 +214,21 @@ class InjectiveMetaRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/injective_meta_rpc.InjectiveMetaRPC/StreamKeepalive',
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/injective_meta_rpc.InjectiveMetaRPC/StreamKeepalive',
             exchange_dot_injective__meta__rpc__pb2.StreamKeepaliveRequest.SerializeToString,
             exchange_dot_injective__meta__rpc__pb2.StreamKeepaliveResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def TokenMetadata(request,
@@ -200,8 +241,18 @@ class InjectiveMetaRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_meta_rpc.InjectiveMetaRPC/TokenMetadata',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_meta_rpc.InjectiveMetaRPC/TokenMetadata',
             exchange_dot_injective__meta__rpc__pb2.TokenMetadataRequest.SerializeToString,
             exchange_dot_injective__meta__rpc__pb2.TokenMetadataResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

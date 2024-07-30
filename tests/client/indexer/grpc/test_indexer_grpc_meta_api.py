@@ -2,7 +2,7 @@ import grpc
 import pytest
 
 from pyinjective.client.indexer.grpc.indexer_grpc_meta_api import IndexerGrpcMetaApi
-from pyinjective.core.network import Network
+from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.exchange import injective_meta_rpc_pb2 as exchange_meta_pb
 from tests.client.indexer.configurable_meta_query_servicer import ConfigurableMetaQueryServicer
 
@@ -20,11 +20,7 @@ class TestIndexerGrpcMetaApi:
     ):
         meta_servicer.ping_responses.append(exchange_meta_pb.PingResponse())
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcMetaApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = meta_servicer
+        api = self._api_instance(servicer=meta_servicer)
 
         result_ping = await api.fetch_ping()
         expected_ping = {}
@@ -48,11 +44,7 @@ class TestIndexerGrpcMetaApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcMetaApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = meta_servicer
+        api = self._api_instance(servicer=meta_servicer)
 
         result_version = await api.fetch_version()
         expected_version = {"build": build, "version": version}
@@ -78,11 +70,7 @@ class TestIndexerGrpcMetaApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcMetaApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = meta_servicer
+        api = self._api_instance(servicer=meta_servicer)
 
         result_info = await api.fetch_info()
         expected_info = {
@@ -95,5 +83,12 @@ class TestIndexerGrpcMetaApi:
 
         assert result_info == expected_info
 
-    async def _dummy_metadata_provider(self):
-        return None
+    def _api_instance(self, servicer):
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
+        cookie_assistant = DisabledCookieAssistant()
+
+        api = IndexerGrpcMetaApi(channel=channel, cookie_assistant=cookie_assistant)
+        api._stub = servicer
+
+        return api

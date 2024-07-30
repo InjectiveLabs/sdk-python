@@ -19,37 +19,42 @@ class MsgStub(object):
                 '/injective.oracle.v1beta1.Msg/RelayProviderPrices',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayProviderPrices.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayProviderPricesResponse.FromString,
-                )
+                _registered_method=True)
         self.RelayPriceFeedPrice = channel.unary_unary(
                 '/injective.oracle.v1beta1.Msg/RelayPriceFeedPrice',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPriceFeedPrice.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPriceFeedPriceResponse.FromString,
-                )
+                _registered_method=True)
         self.RelayBandRates = channel.unary_unary(
                 '/injective.oracle.v1beta1.Msg/RelayBandRates',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayBandRates.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayBandRatesResponse.FromString,
-                )
+                _registered_method=True)
         self.RequestBandIBCRates = channel.unary_unary(
                 '/injective.oracle.v1beta1.Msg/RequestBandIBCRates',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRequestBandIBCRates.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRequestBandIBCRatesResponse.FromString,
-                )
+                _registered_method=True)
         self.RelayCoinbaseMessages = channel.unary_unary(
                 '/injective.oracle.v1beta1.Msg/RelayCoinbaseMessages',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayCoinbaseMessages.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayCoinbaseMessagesResponse.FromString,
-                )
+                _registered_method=True)
+        self.RelayStorkMessage = channel.unary_unary(
+                '/injective.oracle.v1beta1.Msg/RelayStorkMessage',
+                request_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayStorkPrices.SerializeToString,
+                response_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayStorkPricesResponse.FromString,
+                _registered_method=True)
         self.RelayPythPrices = channel.unary_unary(
                 '/injective.oracle.v1beta1.Msg/RelayPythPrices',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPythPrices.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPythPricesResponse.FromString,
-                )
+                _registered_method=True)
         self.UpdateParams = channel.unary_unary(
                 '/injective.oracle.v1beta1.Msg/UpdateParams',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class MsgServicer(object):
@@ -89,6 +94,14 @@ class MsgServicer(object):
     def RelayCoinbaseMessages(self, request, context):
         """RelayCoinbaseMessages defines a method for relaying price messages from
         Coinbase API
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def RelayStorkMessage(self, request, context):
+        """RelayStorkMessage defines a method for relaying price message from
+        Stork API
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -136,6 +149,11 @@ def add_MsgServicer_to_server(servicer, server):
                     request_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayCoinbaseMessages.FromString,
                     response_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayCoinbaseMessagesResponse.SerializeToString,
             ),
+            'RelayStorkMessage': grpc.unary_unary_rpc_method_handler(
+                    servicer.RelayStorkMessage,
+                    request_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayStorkPrices.FromString,
+                    response_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayStorkPricesResponse.SerializeToString,
+            ),
             'RelayPythPrices': grpc.unary_unary_rpc_method_handler(
                     servicer.RelayPythPrices,
                     request_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPythPrices.FromString,
@@ -150,6 +168,7 @@ def add_MsgServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'injective.oracle.v1beta1.Msg', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('injective.oracle.v1beta1.Msg', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -168,11 +187,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Msg/RelayProviderPrices',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Msg/RelayProviderPrices',
             injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayProviderPrices.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayProviderPricesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def RelayPriceFeedPrice(request,
@@ -185,11 +214,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Msg/RelayPriceFeedPrice',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Msg/RelayPriceFeedPrice',
             injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPriceFeedPrice.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPriceFeedPriceResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def RelayBandRates(request,
@@ -202,11 +241,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Msg/RelayBandRates',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Msg/RelayBandRates',
             injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayBandRates.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayBandRatesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def RequestBandIBCRates(request,
@@ -219,11 +268,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Msg/RequestBandIBCRates',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Msg/RequestBandIBCRates',
             injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRequestBandIBCRates.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRequestBandIBCRatesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def RelayCoinbaseMessages(request,
@@ -236,11 +295,48 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Msg/RelayCoinbaseMessages',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Msg/RelayCoinbaseMessages',
             injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayCoinbaseMessages.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayCoinbaseMessagesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def RelayStorkMessage(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Msg/RelayStorkMessage',
+            injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayStorkPrices.SerializeToString,
+            injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayStorkPricesResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def RelayPythPrices(request,
@@ -253,11 +349,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Msg/RelayPythPrices',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Msg/RelayPythPrices',
             injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPythPrices.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPythPricesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def UpdateParams(request,
@@ -270,8 +376,18 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Msg/UpdateParams',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Msg/UpdateParams',
             injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

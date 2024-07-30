@@ -2,7 +2,7 @@ import grpc
 import pytest
 
 from pyinjective.client.indexer.grpc.indexer_grpc_portfolio_api import IndexerGrpcPortfolioApi
-from pyinjective.core.network import Network
+from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.exchange import injective_portfolio_rpc_pb2 as exchange_portfolio_pb
 from tests.client.indexer.configurable_portfolio_query_servicer import ConfigurablePortfolioQueryServicer
 
@@ -63,11 +63,7 @@ class TestIndexerGrpcPortfolioApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcPortfolioApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = portfolio_servicer
+        api = self._api_instance(servicer=portfolio_servicer)
 
         result_auction = await api.fetch_account_portfolio(account_address=portfolio.account_address)
         expected_auction = {
@@ -144,11 +140,7 @@ class TestIndexerGrpcPortfolioApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcPortfolioApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = portfolio_servicer
+        api = self._api_instance(servicer=portfolio_servicer)
 
         result_auction = await api.fetch_account_portfolio_balances(account_address=portfolio.account_address)
         expected_auction = {
@@ -175,5 +167,12 @@ class TestIndexerGrpcPortfolioApi:
 
         assert result_auction == expected_auction
 
-    async def _dummy_metadata_provider(self):
-        return None
+    def _api_instance(self, servicer):
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
+        cookie_assistant = DisabledCookieAssistant()
+
+        api = IndexerGrpcPortfolioApi(channel=channel, cookie_assistant=cookie_assistant)
+        api._stub = servicer
+
+        return api

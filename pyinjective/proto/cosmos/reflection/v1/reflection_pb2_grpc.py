@@ -20,7 +20,7 @@ class ReflectionServiceStub(object):
                 '/cosmos.reflection.v1.ReflectionService/FileDescriptors',
                 request_serializer=cosmos_dot_reflection_dot_v1_dot_reflection__pb2.FileDescriptorsRequest.SerializeToString,
                 response_deserializer=cosmos_dot_reflection_dot_v1_dot_reflection__pb2.FileDescriptorsResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class ReflectionServiceServicer(object):
@@ -48,6 +48,7 @@ def add_ReflectionServiceServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'cosmos.reflection.v1.ReflectionService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('cosmos.reflection.v1.ReflectionService', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -67,8 +68,18 @@ class ReflectionService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.reflection.v1.ReflectionService/FileDescriptors',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.reflection.v1.ReflectionService/FileDescriptors',
             cosmos_dot_reflection_dot_v1_dot_reflection__pb2.FileDescriptorsRequest.SerializeToString,
             cosmos_dot_reflection_dot_v1_dot_reflection__pb2.FileDescriptorsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

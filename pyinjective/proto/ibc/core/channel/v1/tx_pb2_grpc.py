@@ -19,52 +19,97 @@ class MsgStub(object):
                 '/ibc.core.channel.v1.Msg/ChannelOpenInit',
                 request_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelOpenInit.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelOpenInitResponse.FromString,
-                )
+                _registered_method=True)
         self.ChannelOpenTry = channel.unary_unary(
                 '/ibc.core.channel.v1.Msg/ChannelOpenTry',
                 request_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelOpenTry.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelOpenTryResponse.FromString,
-                )
+                _registered_method=True)
         self.ChannelOpenAck = channel.unary_unary(
                 '/ibc.core.channel.v1.Msg/ChannelOpenAck',
                 request_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelOpenAck.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelOpenAckResponse.FromString,
-                )
+                _registered_method=True)
         self.ChannelOpenConfirm = channel.unary_unary(
                 '/ibc.core.channel.v1.Msg/ChannelOpenConfirm',
                 request_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelOpenConfirm.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelOpenConfirmResponse.FromString,
-                )
+                _registered_method=True)
         self.ChannelCloseInit = channel.unary_unary(
                 '/ibc.core.channel.v1.Msg/ChannelCloseInit',
                 request_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelCloseInit.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelCloseInitResponse.FromString,
-                )
+                _registered_method=True)
         self.ChannelCloseConfirm = channel.unary_unary(
                 '/ibc.core.channel.v1.Msg/ChannelCloseConfirm',
                 request_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelCloseConfirm.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelCloseConfirmResponse.FromString,
-                )
+                _registered_method=True)
         self.RecvPacket = channel.unary_unary(
                 '/ibc.core.channel.v1.Msg/RecvPacket',
                 request_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgRecvPacket.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgRecvPacketResponse.FromString,
-                )
+                _registered_method=True)
         self.Timeout = channel.unary_unary(
                 '/ibc.core.channel.v1.Msg/Timeout',
                 request_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgTimeout.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgTimeoutResponse.FromString,
-                )
+                _registered_method=True)
         self.TimeoutOnClose = channel.unary_unary(
                 '/ibc.core.channel.v1.Msg/TimeoutOnClose',
                 request_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgTimeoutOnClose.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgTimeoutOnCloseResponse.FromString,
-                )
+                _registered_method=True)
         self.Acknowledgement = channel.unary_unary(
                 '/ibc.core.channel.v1.Msg/Acknowledgement',
                 request_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgAcknowledgement.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgAcknowledgementResponse.FromString,
-                )
+                _registered_method=True)
+        self.ChannelUpgradeInit = channel.unary_unary(
+                '/ibc.core.channel.v1.Msg/ChannelUpgradeInit',
+                request_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeInit.SerializeToString,
+                response_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeInitResponse.FromString,
+                _registered_method=True)
+        self.ChannelUpgradeTry = channel.unary_unary(
+                '/ibc.core.channel.v1.Msg/ChannelUpgradeTry',
+                request_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeTry.SerializeToString,
+                response_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeTryResponse.FromString,
+                _registered_method=True)
+        self.ChannelUpgradeAck = channel.unary_unary(
+                '/ibc.core.channel.v1.Msg/ChannelUpgradeAck',
+                request_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeAck.SerializeToString,
+                response_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeAckResponse.FromString,
+                _registered_method=True)
+        self.ChannelUpgradeConfirm = channel.unary_unary(
+                '/ibc.core.channel.v1.Msg/ChannelUpgradeConfirm',
+                request_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeConfirm.SerializeToString,
+                response_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeConfirmResponse.FromString,
+                _registered_method=True)
+        self.ChannelUpgradeOpen = channel.unary_unary(
+                '/ibc.core.channel.v1.Msg/ChannelUpgradeOpen',
+                request_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeOpen.SerializeToString,
+                response_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeOpenResponse.FromString,
+                _registered_method=True)
+        self.ChannelUpgradeTimeout = channel.unary_unary(
+                '/ibc.core.channel.v1.Msg/ChannelUpgradeTimeout',
+                request_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeTimeout.SerializeToString,
+                response_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeTimeoutResponse.FromString,
+                _registered_method=True)
+        self.ChannelUpgradeCancel = channel.unary_unary(
+                '/ibc.core.channel.v1.Msg/ChannelUpgradeCancel',
+                request_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeCancel.SerializeToString,
+                response_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeCancelResponse.FromString,
+                _registered_method=True)
+        self.UpdateChannelParams = channel.unary_unary(
+                '/ibc.core.channel.v1.Msg/UpdateChannelParams',
+                request_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
+                response_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
+                _registered_method=True)
+        self.PruneAcknowledgements = channel.unary_unary(
+                '/ibc.core.channel.v1.Msg/PruneAcknowledgements',
+                request_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgPruneAcknowledgements.SerializeToString,
+                response_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgPruneAcknowledgementsResponse.FromString,
+                _registered_method=True)
 
 
 class MsgServicer(object):
@@ -142,6 +187,69 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ChannelUpgradeInit(self, request, context):
+        """ChannelUpgradeInit defines a rpc handler method for MsgChannelUpgradeInit.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ChannelUpgradeTry(self, request, context):
+        """ChannelUpgradeTry defines a rpc handler method for MsgChannelUpgradeTry.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ChannelUpgradeAck(self, request, context):
+        """ChannelUpgradeAck defines a rpc handler method for MsgChannelUpgradeAck.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ChannelUpgradeConfirm(self, request, context):
+        """ChannelUpgradeConfirm defines a rpc handler method for MsgChannelUpgradeConfirm.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ChannelUpgradeOpen(self, request, context):
+        """ChannelUpgradeOpen defines a rpc handler method for MsgChannelUpgradeOpen.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ChannelUpgradeTimeout(self, request, context):
+        """ChannelUpgradeTimeout defines a rpc handler method for MsgChannelUpgradeTimeout.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ChannelUpgradeCancel(self, request, context):
+        """ChannelUpgradeCancel defines a rpc handler method for MsgChannelUpgradeCancel.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateChannelParams(self, request, context):
+        """UpdateChannelParams defines a rpc handler method for MsgUpdateParams.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def PruneAcknowledgements(self, request, context):
+        """PruneAcknowledgements defines a rpc handler method for MsgPruneAcknowledgements.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -195,10 +303,56 @@ def add_MsgServicer_to_server(servicer, server):
                     request_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgAcknowledgement.FromString,
                     response_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgAcknowledgementResponse.SerializeToString,
             ),
+            'ChannelUpgradeInit': grpc.unary_unary_rpc_method_handler(
+                    servicer.ChannelUpgradeInit,
+                    request_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeInit.FromString,
+                    response_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeInitResponse.SerializeToString,
+            ),
+            'ChannelUpgradeTry': grpc.unary_unary_rpc_method_handler(
+                    servicer.ChannelUpgradeTry,
+                    request_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeTry.FromString,
+                    response_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeTryResponse.SerializeToString,
+            ),
+            'ChannelUpgradeAck': grpc.unary_unary_rpc_method_handler(
+                    servicer.ChannelUpgradeAck,
+                    request_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeAck.FromString,
+                    response_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeAckResponse.SerializeToString,
+            ),
+            'ChannelUpgradeConfirm': grpc.unary_unary_rpc_method_handler(
+                    servicer.ChannelUpgradeConfirm,
+                    request_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeConfirm.FromString,
+                    response_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeConfirmResponse.SerializeToString,
+            ),
+            'ChannelUpgradeOpen': grpc.unary_unary_rpc_method_handler(
+                    servicer.ChannelUpgradeOpen,
+                    request_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeOpen.FromString,
+                    response_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeOpenResponse.SerializeToString,
+            ),
+            'ChannelUpgradeTimeout': grpc.unary_unary_rpc_method_handler(
+                    servicer.ChannelUpgradeTimeout,
+                    request_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeTimeout.FromString,
+                    response_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeTimeoutResponse.SerializeToString,
+            ),
+            'ChannelUpgradeCancel': grpc.unary_unary_rpc_method_handler(
+                    servicer.ChannelUpgradeCancel,
+                    request_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeCancel.FromString,
+                    response_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeCancelResponse.SerializeToString,
+            ),
+            'UpdateChannelParams': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateChannelParams,
+                    request_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgUpdateParams.FromString,
+                    response_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.SerializeToString,
+            ),
+            'PruneAcknowledgements': grpc.unary_unary_rpc_method_handler(
+                    servicer.PruneAcknowledgements,
+                    request_deserializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgPruneAcknowledgements.FromString,
+                    response_serializer=ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgPruneAcknowledgementsResponse.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
             'ibc.core.channel.v1.Msg', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('ibc.core.channel.v1.Msg', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -217,11 +371,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.core.channel.v1.Msg/ChannelOpenInit',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.channel.v1.Msg/ChannelOpenInit',
             ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelOpenInit.SerializeToString,
             ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelOpenInitResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ChannelOpenTry(request,
@@ -234,11 +398,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.core.channel.v1.Msg/ChannelOpenTry',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.channel.v1.Msg/ChannelOpenTry',
             ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelOpenTry.SerializeToString,
             ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelOpenTryResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ChannelOpenAck(request,
@@ -251,11 +425,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.core.channel.v1.Msg/ChannelOpenAck',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.channel.v1.Msg/ChannelOpenAck',
             ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelOpenAck.SerializeToString,
             ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelOpenAckResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ChannelOpenConfirm(request,
@@ -268,11 +452,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.core.channel.v1.Msg/ChannelOpenConfirm',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.channel.v1.Msg/ChannelOpenConfirm',
             ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelOpenConfirm.SerializeToString,
             ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelOpenConfirmResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ChannelCloseInit(request,
@@ -285,11 +479,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.core.channel.v1.Msg/ChannelCloseInit',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.channel.v1.Msg/ChannelCloseInit',
             ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelCloseInit.SerializeToString,
             ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelCloseInitResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ChannelCloseConfirm(request,
@@ -302,11 +506,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.core.channel.v1.Msg/ChannelCloseConfirm',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.channel.v1.Msg/ChannelCloseConfirm',
             ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelCloseConfirm.SerializeToString,
             ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelCloseConfirmResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def RecvPacket(request,
@@ -319,11 +533,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.core.channel.v1.Msg/RecvPacket',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.channel.v1.Msg/RecvPacket',
             ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgRecvPacket.SerializeToString,
             ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgRecvPacketResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Timeout(request,
@@ -336,11 +560,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.core.channel.v1.Msg/Timeout',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.channel.v1.Msg/Timeout',
             ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgTimeout.SerializeToString,
             ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgTimeoutResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def TimeoutOnClose(request,
@@ -353,11 +587,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.core.channel.v1.Msg/TimeoutOnClose',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.channel.v1.Msg/TimeoutOnClose',
             ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgTimeoutOnClose.SerializeToString,
             ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgTimeoutOnCloseResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Acknowledgement(request,
@@ -370,8 +614,261 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.core.channel.v1.Msg/Acknowledgement',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.channel.v1.Msg/Acknowledgement',
             ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgAcknowledgement.SerializeToString,
             ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgAcknowledgementResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ChannelUpgradeInit(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.channel.v1.Msg/ChannelUpgradeInit',
+            ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeInit.SerializeToString,
+            ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeInitResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ChannelUpgradeTry(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.channel.v1.Msg/ChannelUpgradeTry',
+            ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeTry.SerializeToString,
+            ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeTryResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ChannelUpgradeAck(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.channel.v1.Msg/ChannelUpgradeAck',
+            ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeAck.SerializeToString,
+            ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeAckResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ChannelUpgradeConfirm(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.channel.v1.Msg/ChannelUpgradeConfirm',
+            ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeConfirm.SerializeToString,
+            ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeConfirmResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ChannelUpgradeOpen(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.channel.v1.Msg/ChannelUpgradeOpen',
+            ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeOpen.SerializeToString,
+            ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeOpenResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ChannelUpgradeTimeout(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.channel.v1.Msg/ChannelUpgradeTimeout',
+            ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeTimeout.SerializeToString,
+            ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeTimeoutResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ChannelUpgradeCancel(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.channel.v1.Msg/ChannelUpgradeCancel',
+            ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeCancel.SerializeToString,
+            ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgChannelUpgradeCancelResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateChannelParams(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.channel.v1.Msg/UpdateChannelParams',
+            ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
+            ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def PruneAcknowledgements(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.channel.v1.Msg/PruneAcknowledgements',
+            ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgPruneAcknowledgements.SerializeToString,
+            ibc_dot_core_dot_channel_dot_v1_dot_tx__pb2.MsgPruneAcknowledgementsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

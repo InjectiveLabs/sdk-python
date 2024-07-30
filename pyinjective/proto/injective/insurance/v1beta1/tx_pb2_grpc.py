@@ -19,22 +19,22 @@ class MsgStub(object):
                 '/injective.insurance.v1beta1.Msg/CreateInsuranceFund',
                 request_serializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgCreateInsuranceFund.SerializeToString,
                 response_deserializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgCreateInsuranceFundResponse.FromString,
-                )
+                _registered_method=True)
         self.Underwrite = channel.unary_unary(
                 '/injective.insurance.v1beta1.Msg/Underwrite',
                 request_serializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUnderwrite.SerializeToString,
                 response_deserializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUnderwriteResponse.FromString,
-                )
+                _registered_method=True)
         self.RequestRedemption = channel.unary_unary(
                 '/injective.insurance.v1beta1.Msg/RequestRedemption',
                 request_serializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgRequestRedemption.SerializeToString,
                 response_deserializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgRequestRedemptionResponse.FromString,
-                )
+                _registered_method=True)
         self.UpdateParams = channel.unary_unary(
                 '/injective.insurance.v1beta1.Msg/UpdateParams',
                 request_serializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
                 response_deserializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class MsgServicer(object):
@@ -97,6 +97,7 @@ def add_MsgServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'injective.insurance.v1beta1.Msg', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('injective.insurance.v1beta1.Msg', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -115,11 +116,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.insurance.v1beta1.Msg/CreateInsuranceFund',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.insurance.v1beta1.Msg/CreateInsuranceFund',
             injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgCreateInsuranceFund.SerializeToString,
             injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgCreateInsuranceFundResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Underwrite(request,
@@ -132,11 +143,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.insurance.v1beta1.Msg/Underwrite',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.insurance.v1beta1.Msg/Underwrite',
             injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUnderwrite.SerializeToString,
             injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUnderwriteResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def RequestRedemption(request,
@@ -149,11 +170,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.insurance.v1beta1.Msg/RequestRedemption',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.insurance.v1beta1.Msg/RequestRedemption',
             injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgRequestRedemption.SerializeToString,
             injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgRequestRedemptionResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def UpdateParams(request,
@@ -166,8 +197,18 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.insurance.v1beta1.Msg/UpdateParams',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.insurance.v1beta1.Msg/UpdateParams',
             injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
             injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

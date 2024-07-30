@@ -4,7 +4,7 @@ import grpc
 import pytest
 
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_account_stream import IndexerGrpcAccountStream
-from pyinjective.core.network import Network
+from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.exchange import injective_accounts_rpc_pb2 as exchange_accounts_pb
 from tests.client.indexer.configurable_account_query_servicer import ConfigurableAccountQueryServicer
 
@@ -34,11 +34,7 @@ class TestIndexerGrpcAccountStream:
             exchange_accounts_pb.StreamSubaccountBalanceResponse(balance=balance, timestamp=1672218001897)
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcAccountStream(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = account_servicer
+        api = self._api_instance(servicer=account_servicer)
 
         balance_updates = asyncio.Queue()
         end_event = asyncio.Event()
@@ -74,5 +70,12 @@ class TestIndexerGrpcAccountStream:
         assert first_balance_update == expected_balance_update
         assert end_event.is_set()
 
-    async def _dummy_metadata_provider(self):
-        return None
+    def _api_instance(self, servicer):
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
+        cookie_assistant = DisabledCookieAssistant()
+
+        api = IndexerGrpcAccountStream(channel=channel, cookie_assistant=cookie_assistant)
+        api._stub = servicer
+
+        return api

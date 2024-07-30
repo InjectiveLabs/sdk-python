@@ -19,22 +19,27 @@ class MsgStub(object):
                 '/ibc.core.connection.v1.Msg/ConnectionOpenInit',
                 request_serializer=ibc_dot_core_dot_connection_dot_v1_dot_tx__pb2.MsgConnectionOpenInit.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_connection_dot_v1_dot_tx__pb2.MsgConnectionOpenInitResponse.FromString,
-                )
+                _registered_method=True)
         self.ConnectionOpenTry = channel.unary_unary(
                 '/ibc.core.connection.v1.Msg/ConnectionOpenTry',
                 request_serializer=ibc_dot_core_dot_connection_dot_v1_dot_tx__pb2.MsgConnectionOpenTry.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_connection_dot_v1_dot_tx__pb2.MsgConnectionOpenTryResponse.FromString,
-                )
+                _registered_method=True)
         self.ConnectionOpenAck = channel.unary_unary(
                 '/ibc.core.connection.v1.Msg/ConnectionOpenAck',
                 request_serializer=ibc_dot_core_dot_connection_dot_v1_dot_tx__pb2.MsgConnectionOpenAck.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_connection_dot_v1_dot_tx__pb2.MsgConnectionOpenAckResponse.FromString,
-                )
+                _registered_method=True)
         self.ConnectionOpenConfirm = channel.unary_unary(
                 '/ibc.core.connection.v1.Msg/ConnectionOpenConfirm',
                 request_serializer=ibc_dot_core_dot_connection_dot_v1_dot_tx__pb2.MsgConnectionOpenConfirm.SerializeToString,
                 response_deserializer=ibc_dot_core_dot_connection_dot_v1_dot_tx__pb2.MsgConnectionOpenConfirmResponse.FromString,
-                )
+                _registered_method=True)
+        self.UpdateConnectionParams = channel.unary_unary(
+                '/ibc.core.connection.v1.Msg/UpdateConnectionParams',
+                request_serializer=ibc_dot_core_dot_connection_dot_v1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
+                response_deserializer=ibc_dot_core_dot_connection_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
+                _registered_method=True)
 
 
 class MsgServicer(object):
@@ -70,6 +75,14 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def UpdateConnectionParams(self, request, context):
+        """UpdateConnectionParams defines a rpc handler method for
+        MsgUpdateParams.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -93,10 +106,16 @@ def add_MsgServicer_to_server(servicer, server):
                     request_deserializer=ibc_dot_core_dot_connection_dot_v1_dot_tx__pb2.MsgConnectionOpenConfirm.FromString,
                     response_serializer=ibc_dot_core_dot_connection_dot_v1_dot_tx__pb2.MsgConnectionOpenConfirmResponse.SerializeToString,
             ),
+            'UpdateConnectionParams': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateConnectionParams,
+                    request_deserializer=ibc_dot_core_dot_connection_dot_v1_dot_tx__pb2.MsgUpdateParams.FromString,
+                    response_serializer=ibc_dot_core_dot_connection_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
             'ibc.core.connection.v1.Msg', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('ibc.core.connection.v1.Msg', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -115,11 +134,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.core.connection.v1.Msg/ConnectionOpenInit',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.connection.v1.Msg/ConnectionOpenInit',
             ibc_dot_core_dot_connection_dot_v1_dot_tx__pb2.MsgConnectionOpenInit.SerializeToString,
             ibc_dot_core_dot_connection_dot_v1_dot_tx__pb2.MsgConnectionOpenInitResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ConnectionOpenTry(request,
@@ -132,11 +161,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.core.connection.v1.Msg/ConnectionOpenTry',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.connection.v1.Msg/ConnectionOpenTry',
             ibc_dot_core_dot_connection_dot_v1_dot_tx__pb2.MsgConnectionOpenTry.SerializeToString,
             ibc_dot_core_dot_connection_dot_v1_dot_tx__pb2.MsgConnectionOpenTryResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ConnectionOpenAck(request,
@@ -149,11 +188,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.core.connection.v1.Msg/ConnectionOpenAck',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.connection.v1.Msg/ConnectionOpenAck',
             ibc_dot_core_dot_connection_dot_v1_dot_tx__pb2.MsgConnectionOpenAck.SerializeToString,
             ibc_dot_core_dot_connection_dot_v1_dot_tx__pb2.MsgConnectionOpenAckResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ConnectionOpenConfirm(request,
@@ -166,8 +215,45 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.core.connection.v1.Msg/ConnectionOpenConfirm',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.connection.v1.Msg/ConnectionOpenConfirm',
             ibc_dot_core_dot_connection_dot_v1_dot_tx__pb2.MsgConnectionOpenConfirm.SerializeToString,
             ibc_dot_core_dot_connection_dot_v1_dot_tx__pb2.MsgConnectionOpenConfirmResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateConnectionParams(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.core.connection.v1.Msg/UpdateConnectionParams',
+            ibc_dot_core_dot_connection_dot_v1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
+            ibc_dot_core_dot_connection_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

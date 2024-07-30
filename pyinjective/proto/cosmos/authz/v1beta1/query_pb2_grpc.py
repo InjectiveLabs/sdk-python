@@ -19,17 +19,17 @@ class QueryStub(object):
                 '/cosmos.authz.v1beta1.Query/Grants',
                 request_serializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGrantsRequest.SerializeToString,
                 response_deserializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGrantsResponse.FromString,
-                )
+                _registered_method=True)
         self.GranterGrants = channel.unary_unary(
                 '/cosmos.authz.v1beta1.Query/GranterGrants',
                 request_serializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGranterGrantsRequest.SerializeToString,
                 response_deserializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGranterGrantsResponse.FromString,
-                )
+                _registered_method=True)
         self.GranteeGrants = channel.unary_unary(
                 '/cosmos.authz.v1beta1.Query/GranteeGrants',
                 request_serializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGranteeGrantsRequest.SerializeToString,
                 response_deserializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGranteeGrantsResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class QueryServicer(object):
@@ -83,6 +83,7 @@ def add_QueryServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'cosmos.authz.v1beta1.Query', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('cosmos.authz.v1beta1.Query', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -101,11 +102,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.authz.v1beta1.Query/Grants',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.authz.v1beta1.Query/Grants',
             cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGrantsRequest.SerializeToString,
             cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGrantsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def GranterGrants(request,
@@ -118,11 +129,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.authz.v1beta1.Query/GranterGrants',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.authz.v1beta1.Query/GranterGrants',
             cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGranterGrantsRequest.SerializeToString,
             cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGranterGrantsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def GranteeGrants(request,
@@ -135,8 +156,18 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.authz.v1beta1.Query/GranteeGrants',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.authz.v1beta1.Query/GranteeGrants',
             cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGranteeGrantsRequest.SerializeToString,
             cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGranteeGrantsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

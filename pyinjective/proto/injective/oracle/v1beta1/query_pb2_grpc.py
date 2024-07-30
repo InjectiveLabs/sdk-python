@@ -19,77 +19,87 @@ class QueryStub(object):
                 '/injective.oracle.v1beta1.Query/Params',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryParamsRequest.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryParamsResponse.FromString,
-                )
+                _registered_method=True)
         self.BandRelayers = channel.unary_unary(
                 '/injective.oracle.v1beta1.Query/BandRelayers',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryBandRelayersRequest.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryBandRelayersResponse.FromString,
-                )
+                _registered_method=True)
         self.BandPriceStates = channel.unary_unary(
                 '/injective.oracle.v1beta1.Query/BandPriceStates',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryBandPriceStatesRequest.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryBandPriceStatesResponse.FromString,
-                )
+                _registered_method=True)
         self.BandIBCPriceStates = channel.unary_unary(
                 '/injective.oracle.v1beta1.Query/BandIBCPriceStates',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryBandIBCPriceStatesRequest.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryBandIBCPriceStatesResponse.FromString,
-                )
+                _registered_method=True)
         self.PriceFeedPriceStates = channel.unary_unary(
                 '/injective.oracle.v1beta1.Query/PriceFeedPriceStates',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPriceFeedPriceStatesRequest.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPriceFeedPriceStatesResponse.FromString,
-                )
+                _registered_method=True)
         self.CoinbasePriceStates = channel.unary_unary(
                 '/injective.oracle.v1beta1.Query/CoinbasePriceStates',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryCoinbasePriceStatesRequest.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryCoinbasePriceStatesResponse.FromString,
-                )
+                _registered_method=True)
         self.PythPriceStates = channel.unary_unary(
                 '/injective.oracle.v1beta1.Query/PythPriceStates',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythPriceStatesRequest.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythPriceStatesResponse.FromString,
-                )
+                _registered_method=True)
+        self.StorkPriceStates = channel.unary_unary(
+                '/injective.oracle.v1beta1.Query/StorkPriceStates',
+                request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryStorkPriceStatesRequest.SerializeToString,
+                response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryStorkPriceStatesResponse.FromString,
+                _registered_method=True)
+        self.StorkPublishers = channel.unary_unary(
+                '/injective.oracle.v1beta1.Query/StorkPublishers',
+                request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryStorkPublishersRequest.SerializeToString,
+                response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryStorkPublishersResponse.FromString,
+                _registered_method=True)
         self.ProviderPriceState = channel.unary_unary(
                 '/injective.oracle.v1beta1.Query/ProviderPriceState',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStateRequest.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStateResponse.FromString,
-                )
+                _registered_method=True)
         self.OracleModuleState = channel.unary_unary(
                 '/injective.oracle.v1beta1.Query/OracleModuleState',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryModuleStateRequest.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryModuleStateResponse.FromString,
-                )
+                _registered_method=True)
         self.HistoricalPriceRecords = channel.unary_unary(
                 '/injective.oracle.v1beta1.Query/HistoricalPriceRecords',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryHistoricalPriceRecordsRequest.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryHistoricalPriceRecordsResponse.FromString,
-                )
+                _registered_method=True)
         self.OracleVolatility = channel.unary_unary(
                 '/injective.oracle.v1beta1.Query/OracleVolatility',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleVolatilityRequest.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleVolatilityResponse.FromString,
-                )
+                _registered_method=True)
         self.OracleProvidersInfo = channel.unary_unary(
                 '/injective.oracle.v1beta1.Query/OracleProvidersInfo',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleProvidersInfoRequest.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleProvidersInfoResponse.FromString,
-                )
+                _registered_method=True)
         self.OracleProviderPrices = channel.unary_unary(
                 '/injective.oracle.v1beta1.Query/OracleProviderPrices',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleProviderPricesRequest.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleProviderPricesResponse.FromString,
-                )
+                _registered_method=True)
         self.OraclePrice = channel.unary_unary(
                 '/injective.oracle.v1beta1.Query/OraclePrice',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOraclePriceRequest.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOraclePriceResponse.FromString,
-                )
+                _registered_method=True)
         self.PythPrice = channel.unary_unary(
                 '/injective.oracle.v1beta1.Query/PythPrice',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythPriceRequest.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythPriceResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class QueryServicer(object):
@@ -140,6 +150,20 @@ class QueryServicer(object):
 
     def PythPriceStates(self, request, context):
         """Retrieves the state for all pyth price feeds
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def StorkPriceStates(self, request, context):
+        """Retrieves the state for all stork price feeds
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def StorkPublishers(self, request, context):
+        """Retrieves all stork publishers
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -235,6 +259,16 @@ def add_QueryServicer_to_server(servicer, server):
                     request_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythPriceStatesRequest.FromString,
                     response_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythPriceStatesResponse.SerializeToString,
             ),
+            'StorkPriceStates': grpc.unary_unary_rpc_method_handler(
+                    servicer.StorkPriceStates,
+                    request_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryStorkPriceStatesRequest.FromString,
+                    response_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryStorkPriceStatesResponse.SerializeToString,
+            ),
+            'StorkPublishers': grpc.unary_unary_rpc_method_handler(
+                    servicer.StorkPublishers,
+                    request_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryStorkPublishersRequest.FromString,
+                    response_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryStorkPublishersResponse.SerializeToString,
+            ),
             'ProviderPriceState': grpc.unary_unary_rpc_method_handler(
                     servicer.ProviderPriceState,
                     request_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStateRequest.FromString,
@@ -279,6 +313,7 @@ def add_QueryServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'injective.oracle.v1beta1.Query', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('injective.oracle.v1beta1.Query', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -297,11 +332,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/Params',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Query/Params',
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryParamsRequest.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryParamsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def BandRelayers(request,
@@ -314,11 +359,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/BandRelayers',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Query/BandRelayers',
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryBandRelayersRequest.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryBandRelayersResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def BandPriceStates(request,
@@ -331,11 +386,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/BandPriceStates',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Query/BandPriceStates',
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryBandPriceStatesRequest.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryBandPriceStatesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def BandIBCPriceStates(request,
@@ -348,11 +413,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/BandIBCPriceStates',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Query/BandIBCPriceStates',
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryBandIBCPriceStatesRequest.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryBandIBCPriceStatesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def PriceFeedPriceStates(request,
@@ -365,11 +440,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/PriceFeedPriceStates',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Query/PriceFeedPriceStates',
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPriceFeedPriceStatesRequest.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPriceFeedPriceStatesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def CoinbasePriceStates(request,
@@ -382,11 +467,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/CoinbasePriceStates',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Query/CoinbasePriceStates',
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryCoinbasePriceStatesRequest.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryCoinbasePriceStatesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def PythPriceStates(request,
@@ -399,11 +494,75 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/PythPriceStates',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Query/PythPriceStates',
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythPriceStatesRequest.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythPriceStatesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def StorkPriceStates(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Query/StorkPriceStates',
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryStorkPriceStatesRequest.SerializeToString,
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryStorkPriceStatesResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def StorkPublishers(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Query/StorkPublishers',
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryStorkPublishersRequest.SerializeToString,
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryStorkPublishersResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ProviderPriceState(request,
@@ -416,11 +575,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/ProviderPriceState',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Query/ProviderPriceState',
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStateRequest.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStateResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def OracleModuleState(request,
@@ -433,11 +602,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/OracleModuleState',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Query/OracleModuleState',
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryModuleStateRequest.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryModuleStateResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def HistoricalPriceRecords(request,
@@ -450,11 +629,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/HistoricalPriceRecords',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Query/HistoricalPriceRecords',
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryHistoricalPriceRecordsRequest.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryHistoricalPriceRecordsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def OracleVolatility(request,
@@ -467,11 +656,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/OracleVolatility',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Query/OracleVolatility',
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleVolatilityRequest.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleVolatilityResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def OracleProvidersInfo(request,
@@ -484,11 +683,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/OracleProvidersInfo',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Query/OracleProvidersInfo',
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleProvidersInfoRequest.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleProvidersInfoResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def OracleProviderPrices(request,
@@ -501,11 +710,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/OracleProviderPrices',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Query/OracleProviderPrices',
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleProviderPricesRequest.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOracleProviderPricesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def OraclePrice(request,
@@ -518,11 +737,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/OraclePrice',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Query/OraclePrice',
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOraclePriceRequest.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryOraclePriceResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def PythPrice(request,
@@ -535,8 +764,18 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.oracle.v1beta1.Query/PythPrice',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Query/PythPrice',
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythPriceRequest.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythPriceResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

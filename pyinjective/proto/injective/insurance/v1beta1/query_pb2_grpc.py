@@ -19,32 +19,32 @@ class QueryStub(object):
                 '/injective.insurance.v1beta1.Query/InsuranceParams',
                 request_serializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryInsuranceParamsRequest.SerializeToString,
                 response_deserializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryInsuranceParamsResponse.FromString,
-                )
+                _registered_method=True)
         self.InsuranceFund = channel.unary_unary(
                 '/injective.insurance.v1beta1.Query/InsuranceFund',
                 request_serializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryInsuranceFundRequest.SerializeToString,
                 response_deserializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryInsuranceFundResponse.FromString,
-                )
+                _registered_method=True)
         self.InsuranceFunds = channel.unary_unary(
                 '/injective.insurance.v1beta1.Query/InsuranceFunds',
                 request_serializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryInsuranceFundsRequest.SerializeToString,
                 response_deserializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryInsuranceFundsResponse.FromString,
-                )
+                _registered_method=True)
         self.EstimatedRedemptions = channel.unary_unary(
                 '/injective.insurance.v1beta1.Query/EstimatedRedemptions',
                 request_serializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryEstimatedRedemptionsRequest.SerializeToString,
                 response_deserializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryEstimatedRedemptionsResponse.FromString,
-                )
+                _registered_method=True)
         self.PendingRedemptions = channel.unary_unary(
                 '/injective.insurance.v1beta1.Query/PendingRedemptions',
                 request_serializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryPendingRedemptionsRequest.SerializeToString,
                 response_deserializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryPendingRedemptionsResponse.FromString,
-                )
+                _registered_method=True)
         self.InsuranceModuleState = channel.unary_unary(
                 '/injective.insurance.v1beta1.Query/InsuranceModuleState',
                 request_serializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryModuleStateRequest.SerializeToString,
                 response_deserializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryModuleStateResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class QueryServicer(object):
@@ -131,6 +131,7 @@ def add_QueryServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'injective.insurance.v1beta1.Query', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('injective.insurance.v1beta1.Query', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -149,11 +150,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.insurance.v1beta1.Query/InsuranceParams',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.insurance.v1beta1.Query/InsuranceParams',
             injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryInsuranceParamsRequest.SerializeToString,
             injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryInsuranceParamsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def InsuranceFund(request,
@@ -166,11 +177,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.insurance.v1beta1.Query/InsuranceFund',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.insurance.v1beta1.Query/InsuranceFund',
             injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryInsuranceFundRequest.SerializeToString,
             injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryInsuranceFundResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def InsuranceFunds(request,
@@ -183,11 +204,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.insurance.v1beta1.Query/InsuranceFunds',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.insurance.v1beta1.Query/InsuranceFunds',
             injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryInsuranceFundsRequest.SerializeToString,
             injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryInsuranceFundsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def EstimatedRedemptions(request,
@@ -200,11 +231,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.insurance.v1beta1.Query/EstimatedRedemptions',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.insurance.v1beta1.Query/EstimatedRedemptions',
             injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryEstimatedRedemptionsRequest.SerializeToString,
             injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryEstimatedRedemptionsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def PendingRedemptions(request,
@@ -217,11 +258,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.insurance.v1beta1.Query/PendingRedemptions',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.insurance.v1beta1.Query/PendingRedemptions',
             injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryPendingRedemptionsRequest.SerializeToString,
             injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryPendingRedemptionsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def InsuranceModuleState(request,
@@ -234,8 +285,18 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.insurance.v1beta1.Query/InsuranceModuleState',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.insurance.v1beta1.Query/InsuranceModuleState',
             injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryModuleStateRequest.SerializeToString,
             injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryModuleStateResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

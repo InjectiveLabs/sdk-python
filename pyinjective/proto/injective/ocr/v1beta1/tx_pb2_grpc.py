@@ -19,47 +19,47 @@ class MsgStub(object):
                 '/injective.ocr.v1beta1.Msg/CreateFeed',
                 request_serializer=injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgCreateFeed.SerializeToString,
                 response_deserializer=injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgCreateFeedResponse.FromString,
-                )
+                _registered_method=True)
         self.UpdateFeed = channel.unary_unary(
                 '/injective.ocr.v1beta1.Msg/UpdateFeed',
                 request_serializer=injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgUpdateFeed.SerializeToString,
                 response_deserializer=injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgUpdateFeedResponse.FromString,
-                )
+                _registered_method=True)
         self.Transmit = channel.unary_unary(
                 '/injective.ocr.v1beta1.Msg/Transmit',
                 request_serializer=injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgTransmit.SerializeToString,
                 response_deserializer=injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgTransmitResponse.FromString,
-                )
+                _registered_method=True)
         self.FundFeedRewardPool = channel.unary_unary(
                 '/injective.ocr.v1beta1.Msg/FundFeedRewardPool',
                 request_serializer=injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgFundFeedRewardPool.SerializeToString,
                 response_deserializer=injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgFundFeedRewardPoolResponse.FromString,
-                )
+                _registered_method=True)
         self.WithdrawFeedRewardPool = channel.unary_unary(
                 '/injective.ocr.v1beta1.Msg/WithdrawFeedRewardPool',
                 request_serializer=injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgWithdrawFeedRewardPool.SerializeToString,
                 response_deserializer=injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgWithdrawFeedRewardPoolResponse.FromString,
-                )
+                _registered_method=True)
         self.SetPayees = channel.unary_unary(
                 '/injective.ocr.v1beta1.Msg/SetPayees',
                 request_serializer=injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgSetPayees.SerializeToString,
                 response_deserializer=injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgSetPayeesResponse.FromString,
-                )
+                _registered_method=True)
         self.TransferPayeeship = channel.unary_unary(
                 '/injective.ocr.v1beta1.Msg/TransferPayeeship',
                 request_serializer=injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgTransferPayeeship.SerializeToString,
                 response_deserializer=injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgTransferPayeeshipResponse.FromString,
-                )
+                _registered_method=True)
         self.AcceptPayeeship = channel.unary_unary(
                 '/injective.ocr.v1beta1.Msg/AcceptPayeeship',
                 request_serializer=injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgAcceptPayeeship.SerializeToString,
                 response_deserializer=injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgAcceptPayeeshipResponse.FromString,
-                )
+                _registered_method=True)
         self.UpdateParams = channel.unary_unary(
                 '/injective.ocr.v1beta1.Msg/UpdateParams',
                 request_serializer=injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
                 response_deserializer=injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class MsgServicer(object):
@@ -184,6 +184,7 @@ def add_MsgServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'injective.ocr.v1beta1.Msg', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('injective.ocr.v1beta1.Msg', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -202,11 +203,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.ocr.v1beta1.Msg/CreateFeed',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.ocr.v1beta1.Msg/CreateFeed',
             injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgCreateFeed.SerializeToString,
             injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgCreateFeedResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def UpdateFeed(request,
@@ -219,11 +230,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.ocr.v1beta1.Msg/UpdateFeed',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.ocr.v1beta1.Msg/UpdateFeed',
             injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgUpdateFeed.SerializeToString,
             injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgUpdateFeedResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Transmit(request,
@@ -236,11 +257,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.ocr.v1beta1.Msg/Transmit',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.ocr.v1beta1.Msg/Transmit',
             injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgTransmit.SerializeToString,
             injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgTransmitResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def FundFeedRewardPool(request,
@@ -253,11 +284,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.ocr.v1beta1.Msg/FundFeedRewardPool',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.ocr.v1beta1.Msg/FundFeedRewardPool',
             injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgFundFeedRewardPool.SerializeToString,
             injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgFundFeedRewardPoolResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def WithdrawFeedRewardPool(request,
@@ -270,11 +311,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.ocr.v1beta1.Msg/WithdrawFeedRewardPool',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.ocr.v1beta1.Msg/WithdrawFeedRewardPool',
             injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgWithdrawFeedRewardPool.SerializeToString,
             injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgWithdrawFeedRewardPoolResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def SetPayees(request,
@@ -287,11 +338,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.ocr.v1beta1.Msg/SetPayees',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.ocr.v1beta1.Msg/SetPayees',
             injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgSetPayees.SerializeToString,
             injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgSetPayeesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def TransferPayeeship(request,
@@ -304,11 +365,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.ocr.v1beta1.Msg/TransferPayeeship',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.ocr.v1beta1.Msg/TransferPayeeship',
             injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgTransferPayeeship.SerializeToString,
             injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgTransferPayeeshipResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def AcceptPayeeship(request,
@@ -321,11 +392,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.ocr.v1beta1.Msg/AcceptPayeeship',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.ocr.v1beta1.Msg/AcceptPayeeship',
             injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgAcceptPayeeship.SerializeToString,
             injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgAcceptPayeeshipResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def UpdateParams(request,
@@ -338,8 +419,18 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.ocr.v1beta1.Msg/UpdateParams',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.ocr.v1beta1.Msg/UpdateParams',
             injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
             injective_dot_ocr_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

@@ -5,7 +5,7 @@ import pytest
 
 from pyinjective.client.chain.grpc.chain_grpc_bank_api import ChainGrpcBankApi
 from pyinjective.client.model.pagination import PaginationOption
-from pyinjective.core.network import Network
+from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.cosmos.bank.v1beta1 import bank_pb2 as bank_pb, query_pb2 as bank_query_pb
 from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagination_pb
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb
@@ -26,11 +26,7 @@ class TestChainGrpcBankApi:
         params = bank_pb.Params(default_send_enabled=True)
         bank_servicer.bank_params.append(bank_query_pb.QueryParamsResponse(params=params))
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcBankApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = bank_servicer
+        api = self._api_instance(servicer=bank_servicer)
 
         module_params = await api.fetch_module_params()
         expected_params = {
@@ -50,11 +46,7 @@ class TestChainGrpcBankApi:
         balance = coin_pb.Coin(denom="inj", amount="988987297011197594664")
         bank_servicer.balance_responses.append(bank_query_pb.QueryBalanceResponse(balance=balance))
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcBankApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = bank_servicer
+        api = self._api_instance(servicer=bank_servicer)
 
         bank_balance = await api.fetch_balance(
             account_address="inj1cml96vmptgw99syqrrz8az79xer2pcgp0a885r", denom="inj"
@@ -71,11 +63,7 @@ class TestChainGrpcBankApi:
         balance = coin_pb.Coin(denom="inj", amount="988987297011197594664")
         bank_servicer.balance_responses.append(bank_query_pb.QueryBalanceResponse(balance=balance))
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcBankApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = bank_servicer
+        api = self._api_instance(servicer=bank_servicer)
 
         bank_balance = await api.fetch_balance(
             account_address="inj1cml96vmptgw99syqrrz8az79xer2pcgp0a885r", denom="inj"
@@ -105,11 +93,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcBankApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = bank_servicer
+        api = self._api_instance(servicer=bank_servicer)
 
         bank_balances = await api.fetch_balances(
             account_address="inj1cml96vmptgw99syqrrz8az79xer2pcgp0a885r",
@@ -137,11 +121,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcBankApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = bank_servicer
+        api = self._api_instance(servicer=bank_servicer)
 
         balances = await api.fetch_spendable_balances(
             account_address="inj1cml96vmptgw99syqrrz8az79xer2pcgp0a885r",
@@ -168,11 +148,7 @@ class TestChainGrpcBankApi:
             bank_query_pb.QuerySpendableBalanceByDenomResponse(balance=first_balance)
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcBankApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = bank_servicer
+        api = self._api_instance(servicer=bank_servicer)
 
         balances = await api.fetch_spendable_balances_by_denom(
             account_address="inj1cml96vmptgw99syqrrz8az79xer2pcgp0a885r",
@@ -210,11 +186,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcBankApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = bank_servicer
+        api = self._api_instance(servicer=bank_servicer)
 
         total_supply = await api.fetch_total_supply()
         next_key = "factory/inj1vkrp72xd67plcggcfjtjelqa4t5a093xljf2vj/inj1spw6nd0pj3kd3fgjljhuqpc8tv72a9v89myuja"
@@ -243,11 +215,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcBankApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = bank_servicer
+        api = self._api_instance(servicer=bank_servicer)
 
         total_supply = await api.fetch_supply_of(denom=first_supply.denom)
         expected_supply = {"amount": {"denom": first_supply.denom, "amount": first_supply.amount}}
@@ -276,6 +244,7 @@ class TestChainGrpcBankApi:
                 "2560px-Flag_of_the_People%27s_Republic_of_China.svg.png"
             ),
             uri_hash="",
+            decimals=6,
         )
 
         bank_servicer.denom_metadata_responses.append(
@@ -284,11 +253,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcBankApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = bank_servicer
+        api = self._api_instance(servicer=bank_servicer)
 
         denom_metadata = await api.fetch_denom_metadata(denom=metadata.base)
 
@@ -305,6 +270,7 @@ class TestChainGrpcBankApi:
                 "symbol": metadata.symbol,
                 "uri": metadata.uri,
                 "uriHash": metadata.uri_hash,
+                "decimals": metadata.decimals,
             }
         }
 
@@ -332,6 +298,7 @@ class TestChainGrpcBankApi:
                 "2560px-Flag_of_the_People%27s_Republic_of_China.svg.png"
             ),
             uri_hash="",
+            decimals=6,
         )
         pagination = pagination_pb.PageResponse(
             next_key=(
@@ -347,11 +314,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcBankApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = bank_servicer
+        api = self._api_instance(servicer=bank_servicer)
 
         denoms_metadata = await api.fetch_denoms_metadata(
             pagination=PaginationOption(
@@ -374,6 +337,7 @@ class TestChainGrpcBankApi:
                     "symbol": metadata.symbol,
                     "uri": metadata.uri,
                     "uriHash": metadata.uri_hash,
+                    "decimals": metadata.decimals,
                 },
             ],
             "pagination": {
@@ -405,11 +369,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcBankApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = bank_servicer
+        api = self._api_instance(servicer=bank_servicer)
 
         denoms_metadata = await api.fetch_denom_owners(
             denom=balance.denom,
@@ -460,11 +420,7 @@ class TestChainGrpcBankApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
-
-        api = ChainGrpcBankApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = bank_servicer
+        api = self._api_instance(servicer=bank_servicer)
 
         denoms_metadata = await api.fetch_send_enabled(
             denoms=[send_enabled.denom],
@@ -489,5 +445,12 @@ class TestChainGrpcBankApi:
 
         assert expected_denoms_metadata == denoms_metadata
 
-    async def _dummy_metadata_provider(self):
-        return None
+    def _api_instance(self, servicer):
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
+        cookie_assistant = DisabledCookieAssistant()
+
+        api = ChainGrpcBankApi(channel=channel, cookie_assistant=cookie_assistant)
+        api._stub = servicer
+
+        return api

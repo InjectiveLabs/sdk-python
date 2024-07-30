@@ -2,14 +2,15 @@ from typing import Callable, Optional
 
 from grpc.aio import Channel
 
+from pyinjective.core.network import CookieAssistant
 from pyinjective.proto.injective.stream.v1beta1 import query_pb2 as chain_stream_pb, query_pb2_grpc as chain_stream_grpc
 from pyinjective.utils.grpc_api_stream_assistant import GrpcApiStreamAssistant
 
 
 class ChainGrpcChainStream:
-    def __init__(self, channel: Channel, metadata_provider: Callable):
+    def __init__(self, channel: Channel, cookie_assistant: CookieAssistant):
         self._stub = self._stub = chain_stream_grpc.StreamStub(channel)
-        self._assistant = GrpcApiStreamAssistant(metadata_provider=metadata_provider)
+        self._assistant = GrpcApiStreamAssistant(cookie_assistant=cookie_assistant)
 
     async def stream(
         self,

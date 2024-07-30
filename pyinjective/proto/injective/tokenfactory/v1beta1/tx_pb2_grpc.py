@@ -19,32 +19,32 @@ class MsgStub(object):
                 '/injective.tokenfactory.v1beta1.Msg/CreateDenom',
                 request_serializer=injective_dot_tokenfactory_dot_v1beta1_dot_tx__pb2.MsgCreateDenom.SerializeToString,
                 response_deserializer=injective_dot_tokenfactory_dot_v1beta1_dot_tx__pb2.MsgCreateDenomResponse.FromString,
-                )
+                _registered_method=True)
         self.Mint = channel.unary_unary(
                 '/injective.tokenfactory.v1beta1.Msg/Mint',
                 request_serializer=injective_dot_tokenfactory_dot_v1beta1_dot_tx__pb2.MsgMint.SerializeToString,
                 response_deserializer=injective_dot_tokenfactory_dot_v1beta1_dot_tx__pb2.MsgMintResponse.FromString,
-                )
+                _registered_method=True)
         self.Burn = channel.unary_unary(
                 '/injective.tokenfactory.v1beta1.Msg/Burn',
                 request_serializer=injective_dot_tokenfactory_dot_v1beta1_dot_tx__pb2.MsgBurn.SerializeToString,
                 response_deserializer=injective_dot_tokenfactory_dot_v1beta1_dot_tx__pb2.MsgBurnResponse.FromString,
-                )
+                _registered_method=True)
         self.ChangeAdmin = channel.unary_unary(
                 '/injective.tokenfactory.v1beta1.Msg/ChangeAdmin',
                 request_serializer=injective_dot_tokenfactory_dot_v1beta1_dot_tx__pb2.MsgChangeAdmin.SerializeToString,
                 response_deserializer=injective_dot_tokenfactory_dot_v1beta1_dot_tx__pb2.MsgChangeAdminResponse.FromString,
-                )
+                _registered_method=True)
         self.SetDenomMetadata = channel.unary_unary(
                 '/injective.tokenfactory.v1beta1.Msg/SetDenomMetadata',
                 request_serializer=injective_dot_tokenfactory_dot_v1beta1_dot_tx__pb2.MsgSetDenomMetadata.SerializeToString,
                 response_deserializer=injective_dot_tokenfactory_dot_v1beta1_dot_tx__pb2.MsgSetDenomMetadataResponse.FromString,
-                )
+                _registered_method=True)
         self.UpdateParams = channel.unary_unary(
                 '/injective.tokenfactory.v1beta1.Msg/UpdateParams',
                 request_serializer=injective_dot_tokenfactory_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
                 response_deserializer=injective_dot_tokenfactory_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class MsgServicer(object):
@@ -124,6 +124,7 @@ def add_MsgServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'injective.tokenfactory.v1beta1.Msg', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('injective.tokenfactory.v1beta1.Msg', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -142,11 +143,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.tokenfactory.v1beta1.Msg/CreateDenom',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.tokenfactory.v1beta1.Msg/CreateDenom',
             injective_dot_tokenfactory_dot_v1beta1_dot_tx__pb2.MsgCreateDenom.SerializeToString,
             injective_dot_tokenfactory_dot_v1beta1_dot_tx__pb2.MsgCreateDenomResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Mint(request,
@@ -159,11 +170,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.tokenfactory.v1beta1.Msg/Mint',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.tokenfactory.v1beta1.Msg/Mint',
             injective_dot_tokenfactory_dot_v1beta1_dot_tx__pb2.MsgMint.SerializeToString,
             injective_dot_tokenfactory_dot_v1beta1_dot_tx__pb2.MsgMintResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Burn(request,
@@ -176,11 +197,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.tokenfactory.v1beta1.Msg/Burn',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.tokenfactory.v1beta1.Msg/Burn',
             injective_dot_tokenfactory_dot_v1beta1_dot_tx__pb2.MsgBurn.SerializeToString,
             injective_dot_tokenfactory_dot_v1beta1_dot_tx__pb2.MsgBurnResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ChangeAdmin(request,
@@ -193,11 +224,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.tokenfactory.v1beta1.Msg/ChangeAdmin',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.tokenfactory.v1beta1.Msg/ChangeAdmin',
             injective_dot_tokenfactory_dot_v1beta1_dot_tx__pb2.MsgChangeAdmin.SerializeToString,
             injective_dot_tokenfactory_dot_v1beta1_dot_tx__pb2.MsgChangeAdminResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def SetDenomMetadata(request,
@@ -210,11 +251,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.tokenfactory.v1beta1.Msg/SetDenomMetadata',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.tokenfactory.v1beta1.Msg/SetDenomMetadata',
             injective_dot_tokenfactory_dot_v1beta1_dot_tx__pb2.MsgSetDenomMetadata.SerializeToString,
             injective_dot_tokenfactory_dot_v1beta1_dot_tx__pb2.MsgSetDenomMetadataResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def UpdateParams(request,
@@ -227,8 +278,18 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.tokenfactory.v1beta1.Msg/UpdateParams',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.tokenfactory.v1beta1.Msg/UpdateParams',
             injective_dot_tokenfactory_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
             injective_dot_tokenfactory_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

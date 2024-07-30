@@ -19,12 +19,12 @@ class QueryStub(object):
                 '/cosmos.orm.query.v1alpha1.Query/Get',
                 request_serializer=cosmos_dot_orm_dot_query_dot_v1alpha1_dot_query__pb2.GetRequest.SerializeToString,
                 response_deserializer=cosmos_dot_orm_dot_query_dot_v1alpha1_dot_query__pb2.GetResponse.FromString,
-                )
+                _registered_method=True)
         self.List = channel.unary_unary(
                 '/cosmos.orm.query.v1alpha1.Query/List',
                 request_serializer=cosmos_dot_orm_dot_query_dot_v1alpha1_dot_query__pb2.ListRequest.SerializeToString,
                 response_deserializer=cosmos_dot_orm_dot_query_dot_v1alpha1_dot_query__pb2.ListResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class QueryServicer(object):
@@ -62,6 +62,7 @@ def add_QueryServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'cosmos.orm.query.v1alpha1.Query', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('cosmos.orm.query.v1alpha1.Query', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -80,11 +81,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.orm.query.v1alpha1.Query/Get',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.orm.query.v1alpha1.Query/Get',
             cosmos_dot_orm_dot_query_dot_v1alpha1_dot_query__pb2.GetRequest.SerializeToString,
             cosmos_dot_orm_dot_query_dot_v1alpha1_dot_query__pb2.GetResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def List(request,
@@ -97,8 +108,18 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.orm.query.v1alpha1.Query/List',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.orm.query.v1alpha1.Query/List',
             cosmos_dot_orm_dot_query_dot_v1alpha1_dot_query__pb2.ListRequest.SerializeToString,
             cosmos_dot_orm_dot_query_dot_v1alpha1_dot_query__pb2.ListResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

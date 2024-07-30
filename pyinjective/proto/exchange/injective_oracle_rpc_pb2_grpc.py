@@ -19,22 +19,22 @@ class InjectiveOracleRPCStub(object):
                 '/injective_oracle_rpc.InjectiveOracleRPC/OracleList',
                 request_serializer=exchange_dot_injective__oracle__rpc__pb2.OracleListRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__oracle__rpc__pb2.OracleListResponse.FromString,
-                )
+                _registered_method=True)
         self.Price = channel.unary_unary(
                 '/injective_oracle_rpc.InjectiveOracleRPC/Price',
                 request_serializer=exchange_dot_injective__oracle__rpc__pb2.PriceRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__oracle__rpc__pb2.PriceResponse.FromString,
-                )
+                _registered_method=True)
         self.StreamPrices = channel.unary_stream(
                 '/injective_oracle_rpc.InjectiveOracleRPC/StreamPrices',
                 request_serializer=exchange_dot_injective__oracle__rpc__pb2.StreamPricesRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__oracle__rpc__pb2.StreamPricesResponse.FromString,
-                )
+                _registered_method=True)
         self.StreamPricesByMarkets = channel.unary_stream(
                 '/injective_oracle_rpc.InjectiveOracleRPC/StreamPricesByMarkets',
                 request_serializer=exchange_dot_injective__oracle__rpc__pb2.StreamPricesByMarketsRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__oracle__rpc__pb2.StreamPricesByMarketsResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class InjectiveOracleRPCServicer(object):
@@ -97,6 +97,7 @@ def add_InjectiveOracleRPCServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'injective_oracle_rpc.InjectiveOracleRPC', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('injective_oracle_rpc.InjectiveOracleRPC', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -115,11 +116,21 @@ class InjectiveOracleRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_oracle_rpc.InjectiveOracleRPC/OracleList',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_oracle_rpc.InjectiveOracleRPC/OracleList',
             exchange_dot_injective__oracle__rpc__pb2.OracleListRequest.SerializeToString,
             exchange_dot_injective__oracle__rpc__pb2.OracleListResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Price(request,
@@ -132,11 +143,21 @@ class InjectiveOracleRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_oracle_rpc.InjectiveOracleRPC/Price',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_oracle_rpc.InjectiveOracleRPC/Price',
             exchange_dot_injective__oracle__rpc__pb2.PriceRequest.SerializeToString,
             exchange_dot_injective__oracle__rpc__pb2.PriceResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def StreamPrices(request,
@@ -149,11 +170,21 @@ class InjectiveOracleRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/injective_oracle_rpc.InjectiveOracleRPC/StreamPrices',
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/injective_oracle_rpc.InjectiveOracleRPC/StreamPrices',
             exchange_dot_injective__oracle__rpc__pb2.StreamPricesRequest.SerializeToString,
             exchange_dot_injective__oracle__rpc__pb2.StreamPricesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def StreamPricesByMarkets(request,
@@ -166,8 +197,18 @@ class InjectiveOracleRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/injective_oracle_rpc.InjectiveOracleRPC/StreamPricesByMarkets',
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/injective_oracle_rpc.InjectiveOracleRPC/StreamPricesByMarkets',
             exchange_dot_injective__oracle__rpc__pb2.StreamPricesByMarketsRequest.SerializeToString,
             exchange_dot_injective__oracle__rpc__pb2.StreamPricesByMarketsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

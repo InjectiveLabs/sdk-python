@@ -20,127 +20,127 @@ class InjectiveDerivativeExchangeRPCStub(object):
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/Markets',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.MarketsRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.MarketsResponse.FromString,
-                )
+                _registered_method=True)
         self.Market = channel.unary_unary(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/Market',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.MarketRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.MarketResponse.FromString,
-                )
+                _registered_method=True)
         self.StreamMarket = channel.unary_stream(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamMarket',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamMarketRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamMarketResponse.FromString,
-                )
+                _registered_method=True)
         self.BinaryOptionsMarkets = channel.unary_unary(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/BinaryOptionsMarkets',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.BinaryOptionsMarketsRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.BinaryOptionsMarketsResponse.FromString,
-                )
+                _registered_method=True)
         self.BinaryOptionsMarket = channel.unary_unary(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/BinaryOptionsMarket',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.BinaryOptionsMarketRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.BinaryOptionsMarketResponse.FromString,
-                )
+                _registered_method=True)
         self.OrderbookV2 = channel.unary_unary(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/OrderbookV2',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.OrderbookV2Request.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.OrderbookV2Response.FromString,
-                )
+                _registered_method=True)
         self.OrderbooksV2 = channel.unary_unary(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/OrderbooksV2',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.OrderbooksV2Request.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.OrderbooksV2Response.FromString,
-                )
+                _registered_method=True)
         self.StreamOrderbookV2 = channel.unary_stream(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamOrderbookV2',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrderbookV2Request.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrderbookV2Response.FromString,
-                )
+                _registered_method=True)
         self.StreamOrderbookUpdate = channel.unary_stream(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamOrderbookUpdate',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrderbookUpdateRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrderbookUpdateResponse.FromString,
-                )
+                _registered_method=True)
         self.Orders = channel.unary_unary(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/Orders',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.OrdersRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.OrdersResponse.FromString,
-                )
+                _registered_method=True)
         self.Positions = channel.unary_unary(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/Positions',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.PositionsRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.PositionsResponse.FromString,
-                )
+                _registered_method=True)
         self.PositionsV2 = channel.unary_unary(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/PositionsV2',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.PositionsV2Request.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.PositionsV2Response.FromString,
-                )
+                _registered_method=True)
         self.LiquidablePositions = channel.unary_unary(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/LiquidablePositions',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.LiquidablePositionsRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.LiquidablePositionsResponse.FromString,
-                )
+                _registered_method=True)
         self.FundingPayments = channel.unary_unary(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/FundingPayments',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.FundingPaymentsRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.FundingPaymentsResponse.FromString,
-                )
+                _registered_method=True)
         self.FundingRates = channel.unary_unary(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/FundingRates',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.FundingRatesRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.FundingRatesResponse.FromString,
-                )
+                _registered_method=True)
         self.StreamPositions = channel.unary_stream(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamPositions',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamPositionsRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamPositionsResponse.FromString,
-                )
+                _registered_method=True)
         self.StreamOrders = channel.unary_stream(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamOrders',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrdersRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrdersResponse.FromString,
-                )
+                _registered_method=True)
         self.Trades = channel.unary_unary(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/Trades',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.TradesRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.TradesResponse.FromString,
-                )
+                _registered_method=True)
         self.TradesV2 = channel.unary_unary(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/TradesV2',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.TradesV2Request.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.TradesV2Response.FromString,
-                )
+                _registered_method=True)
         self.StreamTrades = channel.unary_stream(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamTrades',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamTradesRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamTradesResponse.FromString,
-                )
+                _registered_method=True)
         self.StreamTradesV2 = channel.unary_stream(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamTradesV2',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamTradesV2Request.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamTradesV2Response.FromString,
-                )
+                _registered_method=True)
         self.SubaccountOrdersList = channel.unary_unary(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/SubaccountOrdersList',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.SubaccountOrdersListRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.SubaccountOrdersListResponse.FromString,
-                )
+                _registered_method=True)
         self.SubaccountTradesList = channel.unary_unary(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/SubaccountTradesList',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.SubaccountTradesListRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.SubaccountTradesListResponse.FromString,
-                )
+                _registered_method=True)
         self.OrdersHistory = channel.unary_unary(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/OrdersHistory',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.OrdersHistoryRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.OrdersHistoryResponse.FromString,
-                )
+                _registered_method=True)
         self.StreamOrdersHistory = channel.unary_stream(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamOrdersHistory',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrdersHistoryRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrdersHistoryResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class InjectiveDerivativeExchangeRPCServicer(object):
@@ -457,6 +457,7 @@ def add_InjectiveDerivativeExchangeRPCServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -476,11 +477,21 @@ class InjectiveDerivativeExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/Markets',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/Markets',
             exchange_dot_injective__derivative__exchange__rpc__pb2.MarketsRequest.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.MarketsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Market(request,
@@ -493,11 +504,21 @@ class InjectiveDerivativeExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/Market',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/Market',
             exchange_dot_injective__derivative__exchange__rpc__pb2.MarketRequest.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.MarketResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def StreamMarket(request,
@@ -510,11 +531,21 @@ class InjectiveDerivativeExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamMarket',
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamMarket',
             exchange_dot_injective__derivative__exchange__rpc__pb2.StreamMarketRequest.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.StreamMarketResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def BinaryOptionsMarkets(request,
@@ -527,11 +558,21 @@ class InjectiveDerivativeExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/BinaryOptionsMarkets',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/BinaryOptionsMarkets',
             exchange_dot_injective__derivative__exchange__rpc__pb2.BinaryOptionsMarketsRequest.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.BinaryOptionsMarketsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def BinaryOptionsMarket(request,
@@ -544,11 +585,21 @@ class InjectiveDerivativeExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/BinaryOptionsMarket',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/BinaryOptionsMarket',
             exchange_dot_injective__derivative__exchange__rpc__pb2.BinaryOptionsMarketRequest.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.BinaryOptionsMarketResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def OrderbookV2(request,
@@ -561,11 +612,21 @@ class InjectiveDerivativeExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/OrderbookV2',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/OrderbookV2',
             exchange_dot_injective__derivative__exchange__rpc__pb2.OrderbookV2Request.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.OrderbookV2Response.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def OrderbooksV2(request,
@@ -578,11 +639,21 @@ class InjectiveDerivativeExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/OrderbooksV2',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/OrderbooksV2',
             exchange_dot_injective__derivative__exchange__rpc__pb2.OrderbooksV2Request.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.OrderbooksV2Response.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def StreamOrderbookV2(request,
@@ -595,11 +666,21 @@ class InjectiveDerivativeExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamOrderbookV2',
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamOrderbookV2',
             exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrderbookV2Request.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrderbookV2Response.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def StreamOrderbookUpdate(request,
@@ -612,11 +693,21 @@ class InjectiveDerivativeExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamOrderbookUpdate',
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamOrderbookUpdate',
             exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrderbookUpdateRequest.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrderbookUpdateResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Orders(request,
@@ -629,11 +720,21 @@ class InjectiveDerivativeExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/Orders',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/Orders',
             exchange_dot_injective__derivative__exchange__rpc__pb2.OrdersRequest.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.OrdersResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Positions(request,
@@ -646,11 +747,21 @@ class InjectiveDerivativeExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/Positions',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/Positions',
             exchange_dot_injective__derivative__exchange__rpc__pb2.PositionsRequest.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.PositionsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def PositionsV2(request,
@@ -663,11 +774,21 @@ class InjectiveDerivativeExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/PositionsV2',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/PositionsV2',
             exchange_dot_injective__derivative__exchange__rpc__pb2.PositionsV2Request.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.PositionsV2Response.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def LiquidablePositions(request,
@@ -680,11 +801,21 @@ class InjectiveDerivativeExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/LiquidablePositions',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/LiquidablePositions',
             exchange_dot_injective__derivative__exchange__rpc__pb2.LiquidablePositionsRequest.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.LiquidablePositionsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def FundingPayments(request,
@@ -697,11 +828,21 @@ class InjectiveDerivativeExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/FundingPayments',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/FundingPayments',
             exchange_dot_injective__derivative__exchange__rpc__pb2.FundingPaymentsRequest.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.FundingPaymentsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def FundingRates(request,
@@ -714,11 +855,21 @@ class InjectiveDerivativeExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/FundingRates',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/FundingRates',
             exchange_dot_injective__derivative__exchange__rpc__pb2.FundingRatesRequest.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.FundingRatesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def StreamPositions(request,
@@ -731,11 +882,21 @@ class InjectiveDerivativeExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamPositions',
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamPositions',
             exchange_dot_injective__derivative__exchange__rpc__pb2.StreamPositionsRequest.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.StreamPositionsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def StreamOrders(request,
@@ -748,11 +909,21 @@ class InjectiveDerivativeExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamOrders',
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamOrders',
             exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrdersRequest.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrdersResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Trades(request,
@@ -765,11 +936,21 @@ class InjectiveDerivativeExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/Trades',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/Trades',
             exchange_dot_injective__derivative__exchange__rpc__pb2.TradesRequest.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.TradesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def TradesV2(request,
@@ -782,11 +963,21 @@ class InjectiveDerivativeExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/TradesV2',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/TradesV2',
             exchange_dot_injective__derivative__exchange__rpc__pb2.TradesV2Request.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.TradesV2Response.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def StreamTrades(request,
@@ -799,11 +990,21 @@ class InjectiveDerivativeExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamTrades',
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamTrades',
             exchange_dot_injective__derivative__exchange__rpc__pb2.StreamTradesRequest.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.StreamTradesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def StreamTradesV2(request,
@@ -816,11 +1017,21 @@ class InjectiveDerivativeExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamTradesV2',
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamTradesV2',
             exchange_dot_injective__derivative__exchange__rpc__pb2.StreamTradesV2Request.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.StreamTradesV2Response.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def SubaccountOrdersList(request,
@@ -833,11 +1044,21 @@ class InjectiveDerivativeExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/SubaccountOrdersList',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/SubaccountOrdersList',
             exchange_dot_injective__derivative__exchange__rpc__pb2.SubaccountOrdersListRequest.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.SubaccountOrdersListResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def SubaccountTradesList(request,
@@ -850,11 +1071,21 @@ class InjectiveDerivativeExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/SubaccountTradesList',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/SubaccountTradesList',
             exchange_dot_injective__derivative__exchange__rpc__pb2.SubaccountTradesListRequest.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.SubaccountTradesListResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def OrdersHistory(request,
@@ -867,11 +1098,21 @@ class InjectiveDerivativeExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/OrdersHistory',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/OrdersHistory',
             exchange_dot_injective__derivative__exchange__rpc__pb2.OrdersHistoryRequest.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.OrdersHistoryResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def StreamOrdersHistory(request,
@@ -884,8 +1125,18 @@ class InjectiveDerivativeExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamOrdersHistory',
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamOrdersHistory',
             exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrdersHistoryRequest.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrdersHistoryResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

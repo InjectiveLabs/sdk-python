@@ -19,32 +19,32 @@ class InjectiveExchangeRPCStub(object):
                 '/injective_exchange_rpc.InjectiveExchangeRPC/GetTx',
                 request_serializer=exchange_dot_injective__exchange__rpc__pb2.GetTxRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__exchange__rpc__pb2.GetTxResponse.FromString,
-                )
+                _registered_method=True)
         self.PrepareTx = channel.unary_unary(
                 '/injective_exchange_rpc.InjectiveExchangeRPC/PrepareTx',
                 request_serializer=exchange_dot_injective__exchange__rpc__pb2.PrepareTxRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__exchange__rpc__pb2.PrepareTxResponse.FromString,
-                )
+                _registered_method=True)
         self.BroadcastTx = channel.unary_unary(
                 '/injective_exchange_rpc.InjectiveExchangeRPC/BroadcastTx',
                 request_serializer=exchange_dot_injective__exchange__rpc__pb2.BroadcastTxRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__exchange__rpc__pb2.BroadcastTxResponse.FromString,
-                )
+                _registered_method=True)
         self.PrepareCosmosTx = channel.unary_unary(
                 '/injective_exchange_rpc.InjectiveExchangeRPC/PrepareCosmosTx',
                 request_serializer=exchange_dot_injective__exchange__rpc__pb2.PrepareCosmosTxRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__exchange__rpc__pb2.PrepareCosmosTxResponse.FromString,
-                )
+                _registered_method=True)
         self.BroadcastCosmosTx = channel.unary_unary(
                 '/injective_exchange_rpc.InjectiveExchangeRPC/BroadcastCosmosTx',
                 request_serializer=exchange_dot_injective__exchange__rpc__pb2.BroadcastCosmosTxRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__exchange__rpc__pb2.BroadcastCosmosTxResponse.FromString,
-                )
+                _registered_method=True)
         self.GetFeePayer = channel.unary_unary(
                 '/injective_exchange_rpc.InjectiveExchangeRPC/GetFeePayer',
                 request_serializer=exchange_dot_injective__exchange__rpc__pb2.GetFeePayerRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__exchange__rpc__pb2.GetFeePayerResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class InjectiveExchangeRPCServicer(object):
@@ -130,6 +130,7 @@ def add_InjectiveExchangeRPCServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'injective_exchange_rpc.InjectiveExchangeRPC', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('injective_exchange_rpc.InjectiveExchangeRPC', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -148,11 +149,21 @@ class InjectiveExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_exchange_rpc.InjectiveExchangeRPC/GetTx',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_exchange_rpc.InjectiveExchangeRPC/GetTx',
             exchange_dot_injective__exchange__rpc__pb2.GetTxRequest.SerializeToString,
             exchange_dot_injective__exchange__rpc__pb2.GetTxResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def PrepareTx(request,
@@ -165,11 +176,21 @@ class InjectiveExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_exchange_rpc.InjectiveExchangeRPC/PrepareTx',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_exchange_rpc.InjectiveExchangeRPC/PrepareTx',
             exchange_dot_injective__exchange__rpc__pb2.PrepareTxRequest.SerializeToString,
             exchange_dot_injective__exchange__rpc__pb2.PrepareTxResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def BroadcastTx(request,
@@ -182,11 +203,21 @@ class InjectiveExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_exchange_rpc.InjectiveExchangeRPC/BroadcastTx',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_exchange_rpc.InjectiveExchangeRPC/BroadcastTx',
             exchange_dot_injective__exchange__rpc__pb2.BroadcastTxRequest.SerializeToString,
             exchange_dot_injective__exchange__rpc__pb2.BroadcastTxResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def PrepareCosmosTx(request,
@@ -199,11 +230,21 @@ class InjectiveExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_exchange_rpc.InjectiveExchangeRPC/PrepareCosmosTx',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_exchange_rpc.InjectiveExchangeRPC/PrepareCosmosTx',
             exchange_dot_injective__exchange__rpc__pb2.PrepareCosmosTxRequest.SerializeToString,
             exchange_dot_injective__exchange__rpc__pb2.PrepareCosmosTxResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def BroadcastCosmosTx(request,
@@ -216,11 +257,21 @@ class InjectiveExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_exchange_rpc.InjectiveExchangeRPC/BroadcastCosmosTx',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_exchange_rpc.InjectiveExchangeRPC/BroadcastCosmosTx',
             exchange_dot_injective__exchange__rpc__pb2.BroadcastCosmosTxRequest.SerializeToString,
             exchange_dot_injective__exchange__rpc__pb2.BroadcastCosmosTxResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def GetFeePayer(request,
@@ -233,8 +284,18 @@ class InjectiveExchangeRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_exchange_rpc.InjectiveExchangeRPC/GetFeePayer',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_exchange_rpc.InjectiveExchangeRPC/GetFeePayer',
             exchange_dot_injective__exchange__rpc__pb2.GetFeePayerRequest.SerializeToString,
             exchange_dot_injective__exchange__rpc__pb2.GetFeePayerResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

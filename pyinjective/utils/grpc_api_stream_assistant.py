@@ -4,11 +4,13 @@ from typing import Callable, Optional
 from google.protobuf import json_format
 from grpc import RpcError
 
+from pyinjective.core.network import CookieAssistant
+
 
 class GrpcApiStreamAssistant:
-    def __init__(self, metadata_provider: Callable):
+    def __init__(self, cookie_assistant: CookieAssistant):
         super().__init__()
-        self._metadata_provider = metadata_provider
+        self._cookie_assistant = cookie_assistant
 
     async def listen_stream(
         self,
@@ -18,7 +20,7 @@ class GrpcApiStreamAssistant:
         on_end_callback: Optional[Callable] = None,
         on_status_callback: Optional[Callable] = None,
     ):
-        metadata = await self._metadata_provider()
+        metadata = self._cookie_assistant.metadata()
         stream = call(request, metadata=metadata)
 
         try:

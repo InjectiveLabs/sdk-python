@@ -4,7 +4,7 @@ import grpc
 import pytest
 
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_portfolio_stream import IndexerGrpcPortfolioStream
-from pyinjective.core.network import Network
+from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.exchange import injective_portfolio_rpc_pb2 as exchange_portfolio_pb
 from tests.client.indexer.configurable_portfolio_query_servicer import ConfigurablePortfolioQueryServicer
 
@@ -36,11 +36,7 @@ class TestIndexerGrpcPortfolioStream:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcPortfolioStream(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = portfolio_servicer
+        api = self._api_instance(servicer=portfolio_servicer)
 
         portfolio_updates = asyncio.Queue()
         end_event = asyncio.Event()
@@ -72,5 +68,12 @@ class TestIndexerGrpcPortfolioStream:
         assert first_update == expected_update
         assert end_event.is_set()
 
-    async def _dummy_metadata_provider(self):
-        return None
+    def _api_instance(self, servicer):
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
+        cookie_assistant = DisabledCookieAssistant()
+
+        api = IndexerGrpcPortfolioStream(channel=channel, cookie_assistant=cookie_assistant)
+        api._stub = servicer
+
+        return api

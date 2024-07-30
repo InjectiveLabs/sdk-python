@@ -1,175 +1,106 @@
-import asyncio
 import datetime
-import time
 from abc import ABC, abstractmethod
 from http.cookies import SimpleCookie
-from typing import Callable, Optional, Tuple
+from typing import List, Optional
 from warnings import warn
 
 import grpc
 from grpc import ChannelCredentials
+from grpc.aio import Call, Metadata
 
 
 class CookieAssistant(ABC):
-    SESSION_RENEWAL_OFFSET = 120
-
     @abstractmethod
-    async def chain_cookie(self, metadata_query_provider: Callable) -> str:
+    def cookie(self) -> Optional[str]:
         ...
 
     @abstractmethod
-    async def exchange_cookie(self, metadata_query_provider: Callable) -> str:
+    async def process_response_metadata(self, grpc_call: Call):
         ...
 
-    async def chain_metadata(self, metadata_query_provider: Callable) -> Tuple[Tuple[str, str]]:
-        cookie = await self.chain_cookie(metadata_query_provider=metadata_query_provider)
-        return (("cookie", cookie),)
-
-    async def exchange_metadata(self, metadata_query_provider: Callable) -> Tuple[Tuple[str, str]]:
-        cookie = await self.exchange_cookie(metadata_query_provider=metadata_query_provider)
-        metadata = None
+    def metadata(self) -> Metadata:
+        cookie = self.cookie()
+        metadata = Metadata()
         if cookie is not None and cookie != "":
-            metadata = (("cookie", cookie),)
+            metadata.add("cookie", cookie)
         return metadata
-
-
-class KubernetesLoadBalancedCookieAssistant(CookieAssistant):
-    def __init__(self):
-        self._chain_cookie: Optional[str] = None
-        self._exchange_cookie: Optional[str] = None
-        self._chain_cookie_initialization_lock = asyncio.Lock()
-        self._exchange_cookie_initialization_lock = asyncio.Lock()
-
-    async def chain_cookie(self, metadata_query_provider: Callable) -> str:
-        if self._chain_cookie is None:
-            async with self._chain_cookie_initialization_lock:
-                if self._chain_cookie is None:
-                    await self._fetch_chain_cookie(metadata_query_provider=metadata_query_provider)
-        cookie = self._chain_cookie
-        self._check_chain_cookie_expiration()
-
-        return cookie
-
-    async def exchange_cookie(self, metadata_query_provider: Callable) -> str:
-        if self._exchange_cookie is None:
-            async with self._exchange_cookie_initialization_lock:
-                if self._exchange_cookie is None:
-                    await self._fetch_exchange_cookie(metadata_query_provider=metadata_query_provider)
-        cookie = self._exchange_cookie
-        self._check_exchange_cookie_expiration()
-
-        return cookie
-
-    async def _fetch_chain_cookie(self, metadata_query_provider: Callable):
-        metadata = await metadata_query_provider()
-        cookie_info = next((value for key, value in metadata if key == "set-cookie"), None)
-
-        if cookie_info is None:
-            raise RuntimeError(f"Error fetching chain cookie ({metadata})")
-
-        self._chain_cookie = cookie_info
-
-    async def _fetch_exchange_cookie(self, metadata_query_provider: Callable):
-        metadata = await metadata_query_provider()
-        cookie_info = next((value for key, value in metadata if key == "set-cookie"), None)
-
-        if cookie_info is None:
-            cookie_info = ""
-
-        self._exchange_cookie = cookie_info
-
-    def _check_chain_cookie_expiration(self):
-        if self._is_cookie_expired(cookie_data=self._chain_cookie):
-            self._chain_cookie = None
-
-    def _check_exchange_cookie_expiration(self):
-        if self._is_cookie_expired(cookie_data=self._exchange_cookie):
-            self._exchange_cookie = None
-
-    def _is_cookie_expired(self, cookie_data: str) -> bool:
-        cookie = SimpleCookie()
-        cookie.load(cookie_data)
-
-        expiration_data: Optional[str] = cookie.get("GCLB", {}).get("expires", None)
-        if expiration_data is None:
-            expiration_time = 0
-        else:
-            expiration_time = datetime.datetime.strptime(expiration_data, "%a, %d-%b-%Y %H:%M:%S %Z").timestamp()
-
-        timestamp_diff = expiration_time - time.time()
-        return timestamp_diff < self.SESSION_RENEWAL_OFFSET
 
 
 class BareMetalLoadBalancedCookieAssistant(CookieAssistant):
     def __init__(self):
-        self._chain_cookie: Optional[str] = None
-        self._exchange_cookie: Optional[str] = None
-        self._chain_cookie_initialization_lock = asyncio.Lock()
-        self._exchange_cookie_initialization_lock = asyncio.Lock()
+        self._cookie: Optional[str] = None
 
-    async def chain_cookie(self, metadata_query_provider: Callable) -> str:
-        if self._chain_cookie is None:
-            async with self._chain_cookie_initialization_lock:
-                if self._chain_cookie is None:
-                    await self._fetch_chain_cookie(metadata_query_provider=metadata_query_provider)
-        cookie = self._chain_cookie
-        self._check_chain_cookie_expiration()
+    def cookie(self) -> Optional[str]:
+        self._check_cookie_expiration()
 
-        return cookie
+        return self._cookie
 
-    async def exchange_cookie(self, metadata_query_provider: Callable) -> str:
-        if self._exchange_cookie is None:
-            async with self._exchange_cookie_initialization_lock:
-                if self._exchange_cookie is None:
-                    await self._fetch_exchange_cookie(metadata_query_provider=metadata_query_provider)
-        cookie = self._exchange_cookie
-        self._check_exchange_cookie_expiration()
+    async def process_response_metadata(self, grpc_call: Call):
+        metadata = await grpc_call.initial_metadata()
+        if "set-cookie" in metadata:
+            self._cookie = metadata["set-cookie"]
 
-        return cookie
-
-    async def _fetch_chain_cookie(self, metadata_query_provider: Callable):
-        metadata = await metadata_query_provider()
-        cookie_info = next((value for key, value in metadata if key == "set-cookie"), None)
-
-        if cookie_info is None:
-            raise RuntimeError(f"Error fetching chain cookie ({metadata})")
-
-        self._chain_cookie = cookie_info
-
-    async def _fetch_exchange_cookie(self, metadata_query_provider: Callable):
-        metadata = await metadata_query_provider()
-        cookie_info = next((value for key, value in metadata if key == "set-cookie"), None)
-
-        if cookie_info is None:
-            cookie_info = ""
-
-        self._exchange_cookie = cookie_info
-
-    def _check_chain_cookie_expiration(self):
-        if self._is_cookie_expired(cookie_data=self._chain_cookie):
-            self._chain_cookie = None
-
-    def _check_exchange_cookie_expiration(self):
-        if self._is_cookie_expired(cookie_data=self._exchange_cookie):
-            self._exchange_cookie = None
+    def _check_cookie_expiration(self):
+        if self._is_cookie_expired(cookie_data=self._cookie):
+            self._cookie = None
 
     def _is_cookie_expired(self, cookie_data: str) -> bool:
         # The cookies for these nodes do not expire
         return False
 
 
+class ExpiringCookieAssistant(CookieAssistant):
+    def __init__(self, expiration_time_keys_sequence: List[str], time_format: str):
+        self._cookie: Optional[str] = None
+        self._expiration_time_keys_sequence = expiration_time_keys_sequence
+        self._time_format = time_format
+
+    @classmethod
+    def for_kubernetes_public_server(cls):
+        return cls(
+            expiration_time_keys_sequence=["grpc-cookie", "expires"],
+            time_format="%a, %d-%b-%Y %H:%M:%S %Z",
+        )
+
+    def cookie(self) -> Optional[str]:
+        self._check_cookie_expiration()
+
+        return self._cookie
+
+    async def process_response_metadata(self, grpc_call: Call):
+        metadata = await grpc_call.initial_metadata()
+        if "set-cookie" in metadata:
+            self._cookie = metadata["set-cookie"]
+
+    def _check_cookie_expiration(self):
+        if self._is_cookie_expired():
+            self._cookie = None
+
+    def _is_cookie_expired(self) -> bool:
+        is_expired = False
+
+        if self._cookie is not None:
+            cookie = SimpleCookie()
+            cookie.load(self._cookie)
+            cookie_map = cookie
+
+            for key in self._expiration_time_keys_sequence[:-1]:
+                cookie_map = cookie.get(key, {})
+
+            expiration_data: Optional[str] = cookie_map.get(self._expiration_time_keys_sequence[-1], None)
+            if expiration_data is not None:
+                expiration_time = datetime.datetime.strptime(expiration_data, self._time_format)
+                is_expired = datetime.datetime.utcnow() >= expiration_time
+
+        return is_expired
+
+
 class DisabledCookieAssistant(CookieAssistant):
-    async def chain_cookie(self, metadata_query_provider: Callable) -> str:
-        pass
-
-    async def exchange_cookie(self, metadata_query_provider: Callable) -> str:
-        pass
-
-    async def chain_metadata(self, metadata_query_provider: Callable) -> Tuple[Tuple[str, str]]:
+    def cookie(self) -> Optional[str]:
         return None
 
-    async def exchange_metadata(self, metadata_query_provider: Callable) -> Tuple[Tuple[str, str]]:
-        return None
+    async def process_response_metadata(self, grpc_call: Call):
+        pass
 
 
 class Network:
@@ -184,7 +115,10 @@ class Network:
         chain_id: str,
         fee_denom: str,
         env: str,
-        cookie_assistant: CookieAssistant,
+        chain_cookie_assistant: CookieAssistant,
+        exchange_cookie_assistant: CookieAssistant,
+        explorer_cookie_assistant: CookieAssistant,
+        official_tokens_list_url: str,
         use_secure_connection: Optional[bool] = None,
         grpc_channel_credentials: Optional[ChannelCredentials] = None,
         grpc_exchange_channel_credentials: Optional[ChannelCredentials] = None,
@@ -208,7 +142,10 @@ class Network:
         self.chain_id = chain_id
         self.fee_denom = fee_denom
         self.env = env
-        self.cookie_assistant = cookie_assistant
+        self.chain_cookie_assistant = chain_cookie_assistant
+        self.exchange_cookie_assistant = exchange_cookie_assistant
+        self.explorer_cookie_assistant = explorer_cookie_assistant
+        self.official_tokens_list_url = official_tokens_list_url
         self.grpc_channel_credentials = grpc_channel_credentials
         self.grpc_exchange_channel_credentials = grpc_exchange_channel_credentials
         self.grpc_explorer_channel_credentials = grpc_explorer_channel_credentials
@@ -226,7 +163,10 @@ class Network:
             chain_id="injective-777",
             fee_denom="inj",
             env="devnet",
-            cookie_assistant=DisabledCookieAssistant(),
+            chain_cookie_assistant=DisabledCookieAssistant(),
+            exchange_cookie_assistant=DisabledCookieAssistant(),
+            explorer_cookie_assistant=DisabledCookieAssistant(),
+            official_tokens_list_url="https://github.com/InjectiveLabs/injective-lists/raw/master/tokens/devnet.json",
         )
 
     @classmethod
@@ -250,7 +190,9 @@ class Network:
             grpc_exchange_endpoint = "testnet.sentry.exchange.grpc.injective.network:443"
             grpc_explorer_endpoint = "testnet.sentry.explorer.grpc.injective.network:443"
             chain_stream_endpoint = "testnet.sentry.chain.stream.injective.network:443"
-            cookie_assistant = BareMetalLoadBalancedCookieAssistant()
+            chain_cookie_assistant = BareMetalLoadBalancedCookieAssistant()
+            exchange_cookie_assistant = BareMetalLoadBalancedCookieAssistant()
+            explorer_cookie_assistant = BareMetalLoadBalancedCookieAssistant()
         else:
             lcd_endpoint = "https://testnet.lcd.injective.network:443"
             tm_websocket_endpoint = "wss://testnet.tm.injective.network:443/websocket"
@@ -258,7 +200,9 @@ class Network:
             grpc_exchange_endpoint = "testnet.exchange.grpc.injective.network:443"
             grpc_explorer_endpoint = "testnet.explorer.grpc.injective.network:443"
             chain_stream_endpoint = "testnet.chain.stream.injective.network:443"
-            cookie_assistant = DisabledCookieAssistant()
+            chain_cookie_assistant = DisabledCookieAssistant()
+            exchange_cookie_assistant = DisabledCookieAssistant()
+            explorer_cookie_assistant = DisabledCookieAssistant()
 
         return cls(
             lcd_endpoint=lcd_endpoint,
@@ -270,11 +214,14 @@ class Network:
             chain_id="injective-888",
             fee_denom="inj",
             env="testnet",
-            cookie_assistant=cookie_assistant,
+            chain_cookie_assistant=chain_cookie_assistant,
+            exchange_cookie_assistant=exchange_cookie_assistant,
+            explorer_cookie_assistant=explorer_cookie_assistant,
             grpc_channel_credentials=grpc_channel_credentials,
             grpc_exchange_channel_credentials=grpc_exchange_channel_credentials,
             grpc_explorer_channel_credentials=grpc_explorer_channel_credentials,
             chain_stream_channel_credentials=chain_stream_channel_credentials,
+            official_tokens_list_url="https://github.com/InjectiveLabs/injective-lists/raw/master/tokens/testnet.json",
         )
 
     @classmethod
@@ -291,7 +238,9 @@ class Network:
         grpc_exchange_endpoint = "sentry.exchange.grpc.injective.network:443"
         grpc_explorer_endpoint = "sentry.explorer.grpc.injective.network:443"
         chain_stream_endpoint = "sentry.chain.stream.injective.network:443"
-        cookie_assistant = BareMetalLoadBalancedCookieAssistant()
+        chain_cookie_assistant = BareMetalLoadBalancedCookieAssistant()
+        exchange_cookie_assistant = BareMetalLoadBalancedCookieAssistant()
+        explorer_cookie_assistant = BareMetalLoadBalancedCookieAssistant()
         grpc_channel_credentials = grpc.ssl_channel_credentials()
         grpc_exchange_channel_credentials = grpc.ssl_channel_credentials()
         grpc_explorer_channel_credentials = grpc.ssl_channel_credentials()
@@ -307,11 +256,14 @@ class Network:
             chain_id="injective-1",
             fee_denom="inj",
             env="mainnet",
-            cookie_assistant=cookie_assistant,
+            chain_cookie_assistant=chain_cookie_assistant,
+            exchange_cookie_assistant=exchange_cookie_assistant,
+            explorer_cookie_assistant=explorer_cookie_assistant,
             grpc_channel_credentials=grpc_channel_credentials,
             grpc_exchange_channel_credentials=grpc_exchange_channel_credentials,
             grpc_explorer_channel_credentials=grpc_explorer_channel_credentials,
             chain_stream_channel_credentials=chain_stream_channel_credentials,
+            official_tokens_list_url="https://github.com/InjectiveLabs/injective-lists/raw/master/tokens/mainnet.json",
         )
 
     @classmethod
@@ -326,7 +278,10 @@ class Network:
             chain_id="injective-1",
             fee_denom="inj",
             env="local",
-            cookie_assistant=DisabledCookieAssistant(),
+            chain_cookie_assistant=DisabledCookieAssistant(),
+            exchange_cookie_assistant=DisabledCookieAssistant(),
+            explorer_cookie_assistant=DisabledCookieAssistant(),
+            official_tokens_list_url="https://github.com/InjectiveLabs/injective-lists/raw/master/tokens/mainnet.json",
         )
 
     @classmethod
@@ -340,7 +295,10 @@ class Network:
         chain_stream_endpoint,
         chain_id,
         env,
-        cookie_assistant: Optional[CookieAssistant] = None,
+        official_tokens_list_url: str,
+        chain_cookie_assistant: Optional[CookieAssistant] = None,
+        exchange_cookie_assistant: Optional[CookieAssistant] = None,
+        explorer_cookie_assistant: Optional[CookieAssistant] = None,
         use_secure_connection: Optional[bool] = None,
         grpc_channel_credentials: Optional[ChannelCredentials] = None,
         grpc_exchange_channel_credentials: Optional[ChannelCredentials] = None,
@@ -355,7 +313,9 @@ class Network:
                 stacklevel=2,
             )
 
-        assistant = cookie_assistant or DisabledCookieAssistant()
+        chain_assistant = chain_cookie_assistant or DisabledCookieAssistant()
+        exchange_assistant = exchange_cookie_assistant or DisabledCookieAssistant()
+        explorer_assistant = explorer_cookie_assistant or DisabledCookieAssistant()
         return cls(
             lcd_endpoint=lcd_endpoint,
             tm_websocket_endpoint=tm_websocket_endpoint,
@@ -366,7 +326,10 @@ class Network:
             chain_id=chain_id,
             fee_denom="inj",
             env=env,
-            cookie_assistant=assistant,
+            chain_cookie_assistant=chain_assistant,
+            exchange_cookie_assistant=exchange_assistant,
+            explorer_cookie_assistant=explorer_assistant,
+            official_tokens_list_url=official_tokens_list_url,
             grpc_channel_credentials=grpc_channel_credentials,
             grpc_exchange_channel_credentials=grpc_exchange_channel_credentials,
             grpc_explorer_channel_credentials=grpc_explorer_channel_credentials,
@@ -380,7 +343,7 @@ class Network:
         tm_websocket_endpoint,
         grpc_endpoint,
         chain_stream_endpoint,
-        cookie_assistant: Optional[CookieAssistant] = None,
+        chain_cookie_assistant: Optional[CookieAssistant] = None,
     ):
         mainnet_network = cls.mainnet()
 
@@ -393,7 +356,10 @@ class Network:
             chain_stream_endpoint=chain_stream_endpoint,
             chain_id="injective-1",
             env="mainnet",
-            cookie_assistant=cookie_assistant,
+            chain_cookie_assistant=chain_cookie_assistant or DisabledCookieAssistant(),
+            exchange_cookie_assistant=mainnet_network.exchange_cookie_assistant,
+            explorer_cookie_assistant=mainnet_network.explorer_cookie_assistant,
+            official_tokens_list_url=mainnet_network.official_tokens_list_url,
             grpc_channel_credentials=None,
             grpc_exchange_channel_credentials=mainnet_network.grpc_exchange_channel_credentials,
             grpc_explorer_channel_credentials=mainnet_network.grpc_explorer_channel_credentials,
@@ -402,12 +368,6 @@ class Network:
 
     def string(self):
         return self.env
-
-    async def chain_metadata(self, metadata_query_provider: Callable) -> Tuple[Tuple[str, str]]:
-        return await self.cookie_assistant.chain_metadata(metadata_query_provider=metadata_query_provider)
-
-    async def exchange_metadata(self, metadata_query_provider: Callable) -> Tuple[Tuple[str, str]]:
-        return await self.cookie_assistant.exchange_metadata(metadata_query_provider=metadata_query_provider)
 
     def create_chain_grpc_channel(self) -> grpc.Channel:
         return self._create_grpc_channel(self.grpc_endpoint, self.grpc_channel_credentials)

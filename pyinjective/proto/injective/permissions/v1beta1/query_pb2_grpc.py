@@ -19,32 +19,32 @@ class QueryStub(object):
                 '/injective.permissions.v1beta1.Query/Params',
                 request_serializer=injective_dot_permissions_dot_v1beta1_dot_query__pb2.QueryParamsRequest.SerializeToString,
                 response_deserializer=injective_dot_permissions_dot_v1beta1_dot_query__pb2.QueryParamsResponse.FromString,
-                )
+                _registered_method=True)
         self.AllNamespaces = channel.unary_unary(
                 '/injective.permissions.v1beta1.Query/AllNamespaces',
                 request_serializer=injective_dot_permissions_dot_v1beta1_dot_query__pb2.QueryAllNamespacesRequest.SerializeToString,
                 response_deserializer=injective_dot_permissions_dot_v1beta1_dot_query__pb2.QueryAllNamespacesResponse.FromString,
-                )
+                _registered_method=True)
         self.NamespaceByDenom = channel.unary_unary(
                 '/injective.permissions.v1beta1.Query/NamespaceByDenom',
                 request_serializer=injective_dot_permissions_dot_v1beta1_dot_query__pb2.QueryNamespaceByDenomRequest.SerializeToString,
                 response_deserializer=injective_dot_permissions_dot_v1beta1_dot_query__pb2.QueryNamespaceByDenomResponse.FromString,
-                )
+                _registered_method=True)
         self.AddressRoles = channel.unary_unary(
                 '/injective.permissions.v1beta1.Query/AddressRoles',
                 request_serializer=injective_dot_permissions_dot_v1beta1_dot_query__pb2.QueryAddressRolesRequest.SerializeToString,
                 response_deserializer=injective_dot_permissions_dot_v1beta1_dot_query__pb2.QueryAddressRolesResponse.FromString,
-                )
+                _registered_method=True)
         self.AddressesByRole = channel.unary_unary(
                 '/injective.permissions.v1beta1.Query/AddressesByRole',
                 request_serializer=injective_dot_permissions_dot_v1beta1_dot_query__pb2.QueryAddressesByRoleRequest.SerializeToString,
                 response_deserializer=injective_dot_permissions_dot_v1beta1_dot_query__pb2.QueryAddressesByRoleResponse.FromString,
-                )
+                _registered_method=True)
         self.VouchersForAddress = channel.unary_unary(
                 '/injective.permissions.v1beta1.Query/VouchersForAddress',
                 request_serializer=injective_dot_permissions_dot_v1beta1_dot_query__pb2.QueryVouchersForAddressRequest.SerializeToString,
                 response_deserializer=injective_dot_permissions_dot_v1beta1_dot_query__pb2.QueryVouchersForAddressResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class QueryServicer(object):
@@ -137,6 +137,7 @@ def add_QueryServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'injective.permissions.v1beta1.Query', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('injective.permissions.v1beta1.Query', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -155,11 +156,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.permissions.v1beta1.Query/Params',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.permissions.v1beta1.Query/Params',
             injective_dot_permissions_dot_v1beta1_dot_query__pb2.QueryParamsRequest.SerializeToString,
             injective_dot_permissions_dot_v1beta1_dot_query__pb2.QueryParamsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def AllNamespaces(request,
@@ -172,11 +183,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.permissions.v1beta1.Query/AllNamespaces',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.permissions.v1beta1.Query/AllNamespaces',
             injective_dot_permissions_dot_v1beta1_dot_query__pb2.QueryAllNamespacesRequest.SerializeToString,
             injective_dot_permissions_dot_v1beta1_dot_query__pb2.QueryAllNamespacesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def NamespaceByDenom(request,
@@ -189,11 +210,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.permissions.v1beta1.Query/NamespaceByDenom',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.permissions.v1beta1.Query/NamespaceByDenom',
             injective_dot_permissions_dot_v1beta1_dot_query__pb2.QueryNamespaceByDenomRequest.SerializeToString,
             injective_dot_permissions_dot_v1beta1_dot_query__pb2.QueryNamespaceByDenomResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def AddressRoles(request,
@@ -206,11 +237,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.permissions.v1beta1.Query/AddressRoles',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.permissions.v1beta1.Query/AddressRoles',
             injective_dot_permissions_dot_v1beta1_dot_query__pb2.QueryAddressRolesRequest.SerializeToString,
             injective_dot_permissions_dot_v1beta1_dot_query__pb2.QueryAddressRolesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def AddressesByRole(request,
@@ -223,11 +264,21 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.permissions.v1beta1.Query/AddressesByRole',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.permissions.v1beta1.Query/AddressesByRole',
             injective_dot_permissions_dot_v1beta1_dot_query__pb2.QueryAddressesByRoleRequest.SerializeToString,
             injective_dot_permissions_dot_v1beta1_dot_query__pb2.QueryAddressesByRoleResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def VouchersForAddress(request,
@@ -240,8 +291,18 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.permissions.v1beta1.Query/VouchersForAddress',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.permissions.v1beta1.Query/VouchersForAddress',
             injective_dot_permissions_dot_v1beta1_dot_query__pb2.QueryVouchersForAddressRequest.SerializeToString,
             injective_dot_permissions_dot_v1beta1_dot_query__pb2.QueryVouchersForAddressResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

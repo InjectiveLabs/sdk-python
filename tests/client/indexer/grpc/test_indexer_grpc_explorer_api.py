@@ -5,7 +5,7 @@ import pytest
 
 from pyinjective.client.indexer.grpc.indexer_grpc_explorer_api import IndexerGrpcExplorerApi
 from pyinjective.client.model.pagination import PaginationOption
-from pyinjective.core.network import Network
+from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.exchange import injective_explorer_rpc_pb2 as exchange_explorer_pb
 from tests.client.indexer.configurable_explorer_query_servicer import ConfigurableExplorerQueryServicer
 
@@ -90,11 +90,7 @@ class TestIndexerGrpcExplorerApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcExplorerApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = explorer_servicer
+        api = self._api_instance(servicer=explorer_servicer)
 
         result_txs = await api.fetch_account_txs(
             address="inj1phd706jqzd9wznkk5hgsfkrc8jqxv0kmlj0kex",
@@ -245,11 +241,7 @@ class TestIndexerGrpcExplorerApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcExplorerApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = explorer_servicer
+        api = self._api_instance(servicer=explorer_servicer)
 
         result_contract_txs = await api.fetch_contract_txs(
             address="inj1phd706jqzd9wznkk5hgsfkrc8jqxv0kmlj0kex",
@@ -345,11 +337,7 @@ class TestIndexerGrpcExplorerApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcExplorerApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = explorer_servicer
+        api = self._api_instance(servicer=explorer_servicer)
 
         result_blocks = await api.fetch_blocks(
             before=221419,
@@ -418,11 +406,7 @@ class TestIndexerGrpcExplorerApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcExplorerApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = explorer_servicer
+        api = self._api_instance(servicer=explorer_servicer)
 
         result_block = await api.fetch_block(block_id=str(block_info.height))
         expected_block = {
@@ -496,11 +480,7 @@ class TestIndexerGrpcExplorerApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcExplorerApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = explorer_servicer
+        api = self._api_instance(servicer=explorer_servicer)
 
         result_validators = await api.fetch_validators()
         expected_validators = {
@@ -581,11 +561,7 @@ class TestIndexerGrpcExplorerApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcExplorerApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = explorer_servicer
+        api = self._api_instance(servicer=explorer_servicer)
 
         result_validator = await api.fetch_validator(address=validator.operator_address)
         expected_validator = {
@@ -645,11 +621,7 @@ class TestIndexerGrpcExplorerApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcExplorerApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = explorer_servicer
+        api = self._api_instance(servicer=explorer_servicer)
 
         result_validator = await api.fetch_validator_uptime(address="injvaloper156t3yxd4udv0h9gwagfcmwnmm3quy0nph7tyh5")
         expected_validator = {
@@ -716,11 +688,7 @@ class TestIndexerGrpcExplorerApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcExplorerApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = explorer_servicer
+        api = self._api_instance(servicer=explorer_servicer)
 
         result_txs = await api.fetch_txs(
             before=221439,
@@ -837,11 +805,7 @@ class TestIndexerGrpcExplorerApi:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcExplorerApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = explorer_servicer
+        api = self._api_instance(servicer=explorer_servicer)
 
         result_tx = await api.fetch_tx_by_tx_hash(tx_hash=tx_data.hash)
         expected_tx = {
@@ -921,11 +885,7 @@ class TestIndexerGrpcExplorerApi:
             exchange_explorer_pb.GetPeggyDepositTxsResponse(field=[tx_data])
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcExplorerApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = explorer_servicer
+        api = self._api_instance(servicer=explorer_servicer)
 
         result_tx = await api.fetch_peggy_deposit_txs(
             sender=tx_data.sender,
@@ -985,11 +945,7 @@ class TestIndexerGrpcExplorerApi:
             exchange_explorer_pb.GetPeggyWithdrawalTxsResponse(field=[tx_data])
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcExplorerApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = explorer_servicer
+        api = self._api_instance(servicer=explorer_servicer)
 
         result_tx = await api.fetch_peggy_withdrawal_txs(
             sender=tx_data.sender,
@@ -1056,11 +1012,7 @@ class TestIndexerGrpcExplorerApi:
             exchange_explorer_pb.GetIBCTransferTxsResponse(field=[tx_data])
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcExplorerApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = explorer_servicer
+        api = self._api_instance(servicer=explorer_servicer)
 
         result_tx = await api.fetch_ibc_transfer_txs(
             sender=tx_data.sender,
@@ -1135,11 +1087,7 @@ class TestIndexerGrpcExplorerApi:
             exchange_explorer_pb.GetWasmCodesResponse(paging=paging, data=[wasm_code])
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcExplorerApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = explorer_servicer
+        api = self._api_instance(servicer=explorer_servicer)
 
         result_wasm_codes = await api.fetch_wasm_codes(
             from_number=1,
@@ -1214,11 +1162,7 @@ class TestIndexerGrpcExplorerApi:
 
         explorer_servicer.wasm_code_by_id_responses.append(wasm_code)
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcExplorerApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = explorer_servicer
+        api = self._api_instance(servicer=explorer_servicer)
 
         result_wasm_code = await api.fetch_wasm_code_by_id(code_id=wasm_code.code_id)
         expected_wasm_code = {
@@ -1285,11 +1229,7 @@ class TestIndexerGrpcExplorerApi:
             exchange_explorer_pb.GetWasmContractsResponse(paging=paging, data=[wasm_contract])
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcExplorerApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = explorer_servicer
+        api = self._api_instance(servicer=explorer_servicer)
 
         result_wasm_contracts = await api.fetch_wasm_contracts(
             code_id=wasm_contract.code_id,
@@ -1368,11 +1308,7 @@ class TestIndexerGrpcExplorerApi:
 
         explorer_servicer.wasm_contract_by_address_responses.append(wasm_contract)
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcExplorerApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = explorer_servicer
+        api = self._api_instance(servicer=explorer_servicer)
 
         result_wasm_contract = await api.fetch_wasm_contract_by_address(address=wasm_contract.address)
         expected_wasm_contract = {
@@ -1429,11 +1365,7 @@ class TestIndexerGrpcExplorerApi:
             exchange_explorer_pb.GetCw20BalanceResponse(field=[wasm_balance])
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcExplorerApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = explorer_servicer
+        api = self._api_instance(servicer=explorer_servicer)
 
         result_wasm_contract = await api.fetch_cw20_balance(
             address=wasm_balance.account,
@@ -1483,11 +1415,7 @@ class TestIndexerGrpcExplorerApi:
 
         explorer_servicer.relayers_responses.append(exchange_explorer_pb.RelayersResponse(field=[relayers]))
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcExplorerApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = explorer_servicer
+        api = self._api_instance(servicer=explorer_servicer)
 
         result_wasm_contract = await api.fetch_relayers(
             market_ids=[relayers.market_id],
@@ -1532,11 +1460,7 @@ class TestIndexerGrpcExplorerApi:
             exchange_explorer_pb.GetBankTransfersResponse(paging=paging, data=[bank_transfer])
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcExplorerApi(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = explorer_servicer
+        api = self._api_instance(servicer=explorer_servicer)
 
         result_transfers = await api.fetch_bank_transfers(
             senders=[bank_transfer.sender],
@@ -1578,5 +1502,12 @@ class TestIndexerGrpcExplorerApi:
 
         assert result_transfers == expected_transfers
 
-    async def _dummy_metadata_provider(self):
-        return None
+    def _api_instance(self, servicer):
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
+        cookie_assistant = DisabledCookieAssistant()
+
+        api = IndexerGrpcExplorerApi(channel=channel, cookie_assistant=cookie_assistant)
+        api._stub = servicer
+
+        return api

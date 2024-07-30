@@ -2,7 +2,7 @@ import asyncio
 import time
 from copy import deepcopy
 from decimal import Decimal
-from typing import Any, Callable, Coroutine, Dict, List, Optional, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 from warnings import warn
 
 import grpc
@@ -13,6 +13,7 @@ from pyinjective.client.chain.grpc.chain_grpc_authz_api import ChainGrpcAuthZApi
 from pyinjective.client.chain.grpc.chain_grpc_bank_api import ChainGrpcBankApi
 from pyinjective.client.chain.grpc.chain_grpc_distribution_api import ChainGrpcDistributionApi
 from pyinjective.client.chain.grpc.chain_grpc_exchange_api import ChainGrpcExchangeApi
+from pyinjective.client.chain.grpc.chain_grpc_permissions_api import ChainGrpcPermissionsApi
 from pyinjective.client.chain.grpc.chain_grpc_token_factory_api import ChainGrpcTokenFactoryApi
 from pyinjective.client.chain.grpc.chain_grpc_wasm_api import ChainGrpcWasmApi
 from pyinjective.client.chain.grpc_stream.chain_grpc_chain_stream import ChainGrpcChainStream
@@ -35,9 +36,15 @@ from pyinjective.client.indexer.grpc_stream.indexer_grpc_portfolio_stream import
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_spot_stream import IndexerGrpcSpotStream
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.composer import Composer
+from pyinjective.core.ibc.channel.grpc.ibc_channel_grpc_api import IBCChannelGrpcApi
+from pyinjective.core.ibc.client.grpc.ibc_client_grpc_api import IBCClientGrpcApi
+from pyinjective.core.ibc.connection.grpc.ibc_connection_grpc_api import IBCConnectionGrpcApi
+from pyinjective.core.ibc.transfer.grpc.ibc_transfer_grpc_api import IBCTransferGrpcApi
 from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from pyinjective.core.network import Network
+from pyinjective.core.tendermint.grpc.tendermint_grpc_api import TendermintGrpcApi
 from pyinjective.core.token import Token
+from pyinjective.core.tokens_file_loader import TokensFileLoader
 from pyinjective.core.tx.grpc.tx_grpc_api import TxGrpcApi
 from pyinjective.exceptions import NotFoundError
 from pyinjective.proto.cosmos.auth.v1beta1 import query_pb2 as auth_query, query_pb2_grpc as auth_query_grpc
@@ -48,6 +55,7 @@ from pyinjective.proto.cosmos.base.tendermint.v1beta1 import (
     query_pb2 as tendermint_query,
     query_pb2_grpc as tendermint_query_grpc,
 )
+from pyinjective.proto.cosmos.crypto.ed25519 import keys_pb2 as ed25519_keys  # noqa: F401 for validator set responses
 from pyinjective.proto.cosmos.tx.v1beta1 import service_pb2 as tx_service, service_pb2_grpc as tx_service_grpc
 from pyinjective.proto.exchange import (
     injective_accounts_rpc_pb2 as exchange_accounts_rpc_pb,
@@ -68,6 +76,9 @@ from pyinjective.proto.exchange import (
     injective_portfolio_rpc_pb2_grpc as portfolio_rpc_grpc,
     injective_spot_exchange_rpc_pb2 as spot_exchange_rpc_pb,
     injective_spot_exchange_rpc_pb2_grpc as spot_exchange_rpc_grpc,
+)
+from pyinjective.proto.ibc.lightclients.tendermint.v1 import (  # noqa: F401 for validator set responses
+    tendermint_pb2 as ibc_tendermint,
 )
 from pyinjective.proto.injective.stream.v1beta1 import (
     query_pb2 as chain_stream_query,
@@ -154,163 +165,135 @@ class AsyncClient:
 
         self.bank_api = ChainGrpcBankApi(
             channel=self.chain_channel,
-            metadata_provider=lambda: self.network.chain_metadata(
-                metadata_query_provider=self._chain_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.chain_cookie_assistant,
         )
         self.auth_api = ChainGrpcAuthApi(
             channel=self.chain_channel,
-            metadata_provider=lambda: self.network.chain_metadata(
-                metadata_query_provider=self._chain_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.chain_cookie_assistant,
         )
         self.authz_api = ChainGrpcAuthZApi(
             channel=self.chain_channel,
-            metadata_provider=lambda: self.network.chain_metadata(
-                metadata_query_provider=self._chain_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.chain_cookie_assistant,
         )
         self.distribution_api = ChainGrpcDistributionApi(
             channel=self.chain_channel,
-            metadata_provider=lambda: self.network.chain_metadata(
-                metadata_query_provider=self._chain_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.chain_cookie_assistant,
         )
         self.chain_exchange_api = ChainGrpcExchangeApi(
             channel=self.chain_channel,
-            metadata_provider=lambda: self.network.chain_metadata(
-                metadata_query_provider=self._chain_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.chain_cookie_assistant,
+        )
+        self.ibc_channel_api = IBCChannelGrpcApi(
+            channel=self.chain_channel,
+            cookie_assistant=network.chain_cookie_assistant,
+        )
+        self.ibc_client_api = IBCClientGrpcApi(
+            channel=self.chain_channel,
+            cookie_assistant=network.chain_cookie_assistant,
+        )
+        self.ibc_connection_api = IBCConnectionGrpcApi(
+            channel=self.chain_channel,
+            cookie_assistant=network.chain_cookie_assistant,
+        )
+        self.ibc_transfer_api = IBCTransferGrpcApi(
+            channel=self.chain_channel,
+            cookie_assistant=network.chain_cookie_assistant,
+        )
+        self.permissions_api = ChainGrpcPermissionsApi(
+            channel=self.chain_channel,
+            cookie_assistant=network.chain_cookie_assistant,
+        )
+        self.tendermint_api = TendermintGrpcApi(
+            channel=self.chain_channel,
+            cookie_assistant=network.chain_cookie_assistant,
         )
         self.token_factory_api = ChainGrpcTokenFactoryApi(
             channel=self.chain_channel,
-            metadata_provider=lambda: self.network.chain_metadata(
-                metadata_query_provider=self._chain_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.chain_cookie_assistant,
         )
         self.tx_api = TxGrpcApi(
             channel=self.chain_channel,
-            metadata_provider=lambda: self.network.chain_metadata(
-                metadata_query_provider=self._chain_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.chain_cookie_assistant,
         )
         self.wasm_api = ChainGrpcWasmApi(
             channel=self.chain_channel,
-            metadata_provider=lambda: self.network.chain_metadata(
-                metadata_query_provider=self._chain_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.chain_cookie_assistant,
         )
 
         self.chain_stream_api = ChainGrpcChainStream(
             channel=self.chain_stream_channel,
-            metadata_provider=lambda: self.network.chain_metadata(
-                metadata_query_provider=self._chain_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.chain_cookie_assistant,
         )
 
         self.exchange_account_api = IndexerGrpcAccountApi(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
         self.exchange_auction_api = IndexerGrpcAuctionApi(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
         self.exchange_derivative_api = IndexerGrpcDerivativeApi(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
         self.exchange_insurance_api = IndexerGrpcInsuranceApi(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
         self.exchange_meta_api = IndexerGrpcMetaApi(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
         self.exchange_oracle_api = IndexerGrpcOracleApi(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
         self.exchange_portfolio_api = IndexerGrpcPortfolioApi(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
         self.exchange_spot_api = IndexerGrpcSpotApi(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
 
         self.exchange_account_stream_api = IndexerGrpcAccountStream(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
         self.exchange_auction_stream_api = IndexerGrpcAuctionStream(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
         self.exchange_derivative_stream_api = IndexerGrpcDerivativeStream(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
         self.exchange_meta_stream_api = IndexerGrpcMetaStream(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
         self.exchange_oracle_stream_api = IndexerGrpcOracleStream(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
         self.exchange_portfolio_stream_api = IndexerGrpcPortfolioStream(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
         self.exchange_spot_stream_api = IndexerGrpcSpotStream(
             channel=self.exchange_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._exchange_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.exchange_cookie_assistant,
         )
 
         self.exchange_explorer_api = IndexerGrpcExplorerApi(
             channel=self.explorer_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._explorer_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.explorer_cookie_assistant,
         )
         self.exchange_explorer_stream_api = IndexerGrpcExplorerStream(
             channel=self.explorer_channel,
-            metadata_provider=lambda: self.network.exchange_metadata(
-                metadata_query_provider=self._explorer_cookie_metadata_requestor
-            ),
+            cookie_assistant=network.explorer_cookie_assistant,
         )
 
     async def all_tokens(self) -> Dict[str, Token]:
@@ -369,8 +352,8 @@ class AsyncClient:
 
     async def sync_timeout_height(self):
         try:
-            block = await self.get_latest_block()
-            self.timeout_height = block.block.header.height + DEFAULT_TIMEOUTHEIGHT
+            block = await self.fetch_latest_block()
+            self.timeout_height = int(block["block"]["header"]["height"]) + DEFAULT_TIMEOUTHEIGHT
         except Exception as e:
             LoggerProvider().logger_for_class(logging_class=self.__class__).debug(
                 f"error while fetching latest block, setting timeout height to 0: {e}"
@@ -378,9 +361,6 @@ class AsyncClient:
             self.timeout_height = 0
 
     # default client methods
-    async def get_latest_block(self) -> tendermint_query.GetLatestBlockResponse:
-        req = tendermint_query.GetLatestBlockRequest()
-        return await self.stubCosmosTendermint.GetLatestBlock(req)
 
     async def get_account(self, address: str) -> Optional[account_pb2.EthAccount]:
         """
@@ -389,7 +369,7 @@ class AsyncClient:
         warn("This method is deprecated. Use fetch_account instead", DeprecationWarning, stacklevel=2)
 
         try:
-            metadata = await self.network.chain_metadata(metadata_query_provider=self._chain_cookie_metadata_requestor)
+            metadata = self.network.chain_cookie_assistant.metadata()
             account_any = (
                 await self.stubAuth.Account(auth_query.QueryAccountRequest(address=address), metadata=metadata)
             ).account
@@ -445,7 +425,7 @@ class AsyncClient:
         warn("This method is deprecated. Use simulate instead", DeprecationWarning, stacklevel=2)
         try:
             req = tx_service.SimulateRequest(tx_bytes=tx_byte)
-            metadata = await self.network.chain_metadata(metadata_query_provider=self._chain_cookie_metadata_requestor)
+            metadata = self.network.chain_cookie_assistant.metadata()
             return await self.stubTx.Simulate(request=req, metadata=metadata), True
         except grpc.RpcError as err:
             return err, False
@@ -459,7 +439,7 @@ class AsyncClient:
         """
         warn("This method is deprecated. Use broadcast_tx_sync_mode instead", DeprecationWarning, stacklevel=2)
         req = tx_service.BroadcastTxRequest(tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_SYNC)
-        metadata = await self.network.chain_metadata(metadata_query_provider=self._chain_cookie_metadata_requestor)
+        metadata = self.network.chain_cookie_assistant.metadata()
         result = await self.stubTx.BroadcastTx(request=req, metadata=metadata)
         return result.tx_response
 
@@ -472,7 +452,7 @@ class AsyncClient:
         """
         warn("This method is deprecated. Use broadcast_tx_async_mode instead", DeprecationWarning, stacklevel=2)
         req = tx_service.BroadcastTxRequest(tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_ASYNC)
-        metadata = await self.network.chain_metadata(metadata_query_provider=self._chain_cookie_metadata_requestor)
+        metadata = self.network.chain_cookie_assistant.metadata()
         result = await self.stubTx.BroadcastTx(request=req, metadata=metadata)
         return result.tx_response
 
@@ -485,13 +465,13 @@ class AsyncClient:
         """
         warn("This method is deprecated. BLOCK broadcast mode should not be used", DeprecationWarning, stacklevel=2)
         req = tx_service.BroadcastTxRequest(tx_bytes=tx_byte, mode=tx_service.BroadcastMode.BROADCAST_MODE_BLOCK)
-        metadata = await self.network.chain_metadata(metadata_query_provider=self._chain_cookie_metadata_requestor)
+        metadata = self.network.chain_cookie_assistant.metadata()
         result = await self.stubTx.BroadcastTx(request=req, metadata=metadata)
         return result.tx_response
 
     async def get_chain_id(self) -> str:
-        latest_block = await self.get_latest_block()
-        return latest_block.block.header.chain_id
+        latest_block = await self.fetch_latest_block()
+        return latest_block["block"]["header"]["chainId"]
 
     async def get_grants(self, granter: str, grantee: str, **kwargs):
         """
@@ -1215,6 +1195,44 @@ class AsyncClient:
     async def fetch_tokenfactory_module_state(self) -> Dict[str, Any]:
         return await self.token_factory_api.fetch_tokenfactory_module_state()
 
+    # ------------------------------
+    # region Tendermint module
+    async def fetch_node_info(self) -> Dict[str, Any]:
+        return await self.tendermint_api.fetch_node_info()
+
+    async def fetch_syncing(self) -> Dict[str, Any]:
+        return await self.tendermint_api.fetch_syncing()
+
+    async def get_latest_block(self) -> tendermint_query.GetLatestBlockResponse:
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_latest_block` instead
+        """
+        warn("This method is deprecated. Use fetch_latest_block instead", DeprecationWarning, stacklevel=2)
+        req = tendermint_query.GetLatestBlockRequest()
+        return await self.stubCosmosTendermint.GetLatestBlock(req)
+
+    async def fetch_latest_block(self) -> Dict[str, Any]:
+        return await self.tendermint_api.fetch_latest_block()
+
+    async def fetch_block_by_height(self, height: int) -> Dict[str, Any]:
+        return await self.tendermint_api.fetch_block_by_height(height=height)
+
+    async def fetch_latest_validator_set(self) -> Dict[str, Any]:
+        return await self.tendermint_api.fetch_latest_validator_set()
+
+    async def fetch_validator_set_by_height(
+        self, height: int, pagination: Optional[PaginationOption] = None
+    ) -> Dict[str, Any]:
+        return await self.tendermint_api.fetch_validator_set_by_height(height=height, pagination=pagination)
+
+    async def abci_query(
+        self, path: str, data: Optional[bytes] = None, height: Optional[int] = None, prove: bool = False
+    ) -> Dict[str, Any]:
+        return await self.tendermint_api.abci_query(path=path, data=data, height=height, prove=prove)
+
+    # endregion
+
+    # ------------------------------
     # Explorer RPC
 
     async def get_tx_by_hash(self, tx_hash: str):
@@ -1785,9 +1803,7 @@ class AsyncClient:
         warn("This method is deprecated. Use listen_spot_markets_updates instead", DeprecationWarning, stacklevel=2)
 
         req = spot_exchange_rpc_pb.StreamMarketsRequest(market_ids=kwargs.get("market_ids"))
-        metadata = await self.network.exchange_metadata(
-            metadata_query_provider=self._exchange_cookie_metadata_requestor
-        )
+        metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubSpotExchange.StreamMarkets(request=req, metadata=metadata)
 
     async def listen_spot_markets_updates(
@@ -1977,9 +1993,7 @@ class AsyncClient:
         """
         warn("This method is deprecated. Use listen_spot_orderbook_snapshots instead", DeprecationWarning, stacklevel=2)
         req = spot_exchange_rpc_pb.StreamOrderbookV2Request(market_ids=market_ids)
-        metadata = await self.network.exchange_metadata(
-            metadata_query_provider=self._exchange_cookie_metadata_requestor
-        )
+        metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubSpotExchange.StreamOrderbookV2(request=req, metadata=metadata)
 
     async def listen_spot_orderbook_snapshots(
@@ -2002,9 +2016,7 @@ class AsyncClient:
         """
         warn("This method is deprecated. Use listen_spot_orderbook_updates instead", DeprecationWarning, stacklevel=2)
         req = spot_exchange_rpc_pb.StreamOrderbookUpdateRequest(market_ids=market_ids)
-        metadata = await self.network.exchange_metadata(
-            metadata_query_provider=self._exchange_cookie_metadata_requestor
-        )
+        metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubSpotExchange.StreamOrderbookUpdate(request=req, metadata=metadata)
 
     async def listen_spot_orderbook_updates(
@@ -2040,9 +2052,7 @@ class AsyncClient:
             trade_id=kwargs.get("trade_id"),
             cid=kwargs.get("cid"),
         )
-        metadata = await self.network.exchange_metadata(
-            metadata_query_provider=self._exchange_cookie_metadata_requestor
-        )
+        metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubSpotExchange.StreamOrders(request=req, metadata=metadata)
 
     async def listen_spot_orders_updates(
@@ -2090,9 +2100,7 @@ class AsyncClient:
             state=kwargs.get("state"),
             execution_types=kwargs.get("execution_types"),
         )
-        metadata = await self.network.exchange_metadata(
-            metadata_query_provider=self._exchange_cookie_metadata_requestor
-        )
+        metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubSpotExchange.StreamOrdersHistory(request=req, metadata=metadata)
 
     async def listen_spot_orders_history_updates(
@@ -2137,9 +2145,7 @@ class AsyncClient:
             state=kwargs.get("state"),
             execution_types=kwargs.get("execution_types"),
         )
-        metadata = await self.network.exchange_metadata(
-            metadata_query_provider=self._exchange_cookie_metadata_requestor
-        )
+        metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubDerivativeExchange.StreamOrdersHistory(request=req, metadata=metadata)
 
     async def listen_derivative_orders_history_updates(
@@ -2187,9 +2193,7 @@ class AsyncClient:
             account_address=kwargs.get("account_address"),
             cid=kwargs.get("cid"),
         )
-        metadata = await self.network.exchange_metadata(
-            metadata_query_provider=self._exchange_cookie_metadata_requestor
-        )
+        metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubSpotExchange.StreamTrades(request=req, metadata=metadata)
 
     async def listen_spot_trades_updates(
@@ -2322,9 +2326,7 @@ class AsyncClient:
             "This method is deprecated. Use listen_derivative_market_updates instead", DeprecationWarning, stacklevel=2
         )
         req = derivative_exchange_rpc_pb.StreamMarketRequest(market_ids=kwargs.get("market_ids"))
-        metadata = await self.network.exchange_metadata(
-            metadata_query_provider=self._exchange_cookie_metadata_requestor
-        )
+        metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubDerivativeExchange.StreamMarket(request=req, metadata=metadata)
 
     async def listen_derivative_market_updates(
@@ -2527,9 +2529,7 @@ class AsyncClient:
             stacklevel=2,
         )
         req = derivative_exchange_rpc_pb.StreamOrderbookV2Request(market_ids=market_ids)
-        metadata = await self.network.exchange_metadata(
-            metadata_query_provider=self._exchange_cookie_metadata_requestor
-        )
+        metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubDerivativeExchange.StreamOrderbookV2(request=req, metadata=metadata)
 
     async def listen_derivative_orderbook_snapshots(
@@ -2556,9 +2556,7 @@ class AsyncClient:
             stacklevel=2,
         )
         req = derivative_exchange_rpc_pb.StreamOrderbookUpdateRequest(market_ids=market_ids)
-        metadata = await self.network.exchange_metadata(
-            metadata_query_provider=self._exchange_cookie_metadata_requestor
-        )
+        metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubDerivativeExchange.StreamOrderbookUpdate(request=req, metadata=metadata)
 
     async def listen_derivative_orderbook_updates(
@@ -2598,9 +2596,7 @@ class AsyncClient:
             trade_id=kwargs.get("trade_id"),
             cid=kwargs.get("cid"),
         )
-        metadata = await self.network.exchange_metadata(
-            metadata_query_provider=self._exchange_cookie_metadata_requestor
-        )
+        metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubDerivativeExchange.StreamOrders(request=req, metadata=metadata)
 
     async def listen_derivative_orders_updates(
@@ -2658,9 +2654,7 @@ class AsyncClient:
             account_address=kwargs.get("account_address"),
             cid=kwargs.get("cid"),
         )
-        metadata = await self.network.exchange_metadata(
-            metadata_query_provider=self._exchange_cookie_metadata_requestor
-        )
+        metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubDerivativeExchange.StreamTrades(request=req, metadata=metadata)
 
     async def listen_derivative_trades_updates(
@@ -2740,9 +2734,7 @@ class AsyncClient:
             subaccount_id=kwargs.get("subaccount_id"),
             subaccount_ids=kwargs.get("subaccount_ids"),
         )
-        metadata = await self.network.exchange_metadata(
-            metadata_query_provider=self._exchange_cookie_metadata_requestor
-        )
+        metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubDerivativeExchange.StreamPositions(request=req, metadata=metadata)
 
     async def listen_derivative_positions_updates(
@@ -2955,9 +2947,7 @@ class AsyncClient:
         req = portfolio_rpc_pb.StreamAccountPortfolioRequest(
             account_address=account_address, subaccount_id=kwargs.get("subaccount_id"), type=kwargs.get("type")
         )
-        metadata = await self.network.exchange_metadata(
-            metadata_query_provider=self._exchange_cookie_metadata_requestor
-        )
+        metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubPortfolio.StreamAccountPortfolio(request=req, metadata=metadata)
 
     async def listen_account_portfolio_updates(
@@ -3007,7 +2997,7 @@ class AsyncClient:
             positions_filter=positions_filter,
             oracle_price_filter=oracle_price_filter,
         )
-        metadata = await self.network.chain_metadata(metadata_query_provider=self._chain_cookie_metadata_requestor)
+        metadata = self.network.chain_cookie_assistant.metadata()
         return self.chain_stream_stub.Stream(request=request, metadata=metadata)
 
     async def listen_chain_stream_updates(
@@ -3041,6 +3031,207 @@ class AsyncClient:
             positions_filter=positions_filter,
             oracle_price_filter=oracle_price_filter,
         )
+
+    # region IBC Transfer module
+    async def fetch_denom_trace(self, hash: str) -> Dict[str, Any]:
+        return await self.ibc_transfer_api.fetch_denom_trace(hash=hash)
+
+    async def fetch_denom_traces(self, pagination: Optional[PaginationOption] = None) -> Dict[str, Any]:
+        return await self.ibc_transfer_api.fetch_denom_traces(pagination=pagination)
+
+    async def fetch_denom_hash(self, trace: str) -> Dict[str, Any]:
+        return await self.ibc_transfer_api.fetch_denom_hash(trace=trace)
+
+    async def fetch_escrow_address(self, port_id: str, channel_id: str) -> Dict[str, Any]:
+        return await self.ibc_transfer_api.fetch_escrow_address(port_id=port_id, channel_id=channel_id)
+
+    async def fetch_total_escrow_for_denom(self, denom: str) -> Dict[str, Any]:
+        return await self.ibc_transfer_api.fetch_total_escrow_for_denom(denom=denom)
+
+    # endregion
+
+    # region IBC Channel module
+    async def fetch_ibc_channel(self, port_id: str, channel_id: str) -> Dict[str, Any]:
+        return await self.ibc_channel_api.fetch_channel(port_id=port_id, channel_id=channel_id)
+
+    async def fetch_ibc_channels(self, pagination: Optional[PaginationOption] = None) -> Dict[str, Any]:
+        return await self.ibc_channel_api.fetch_channels(pagination=pagination)
+
+    async def fetch_ibc_connection_channels(
+        self, connection: str, pagination: Optional[PaginationOption] = None
+    ) -> Dict[str, Any]:
+        return await self.ibc_channel_api.fetch_connection_channels(connection=connection, pagination=pagination)
+
+    async def fetch_ibc_channel_client_state(self, port_id: str, channel_id: str) -> Dict[str, Any]:
+        return await self.ibc_channel_api.fetch_channel_client_state(port_id=port_id, channel_id=channel_id)
+
+    async def fetch_ibc_channel_consensus_state(
+        self,
+        port_id: str,
+        channel_id: str,
+        revision_number: int,
+        revision_height: int,
+    ) -> Dict[str, Any]:
+        return await self.ibc_channel_api.fetch_channel_consensus_state(
+            port_id=port_id,
+            channel_id=channel_id,
+            revision_number=revision_number,
+            revision_height=revision_height,
+        )
+
+    async def fetch_ibc_packet_commitment(self, port_id: str, channel_id: str, sequence: int) -> Dict[str, Any]:
+        return await self.ibc_channel_api.fetch_packet_commitment(
+            port_id=port_id, channel_id=channel_id, sequence=sequence
+        )
+
+    async def fetch_ibc_packet_commitments(
+        self, port_id: str, channel_id: str, pagination: Optional[PaginationOption] = None
+    ) -> Dict[str, Any]:
+        return await self.ibc_channel_api.fetch_packet_commitments(
+            port_id=port_id, channel_id=channel_id, pagination=pagination
+        )
+
+    async def fetch_ibc_packet_receipt(self, port_id: str, channel_id: str, sequence: int) -> Dict[str, Any]:
+        return await self.ibc_channel_api.fetch_packet_receipt(
+            port_id=port_id, channel_id=channel_id, sequence=sequence
+        )
+
+    async def fetch_ibc_packet_acknowledgement(self, port_id: str, channel_id: str, sequence: int) -> Dict[str, Any]:
+        return await self.ibc_channel_api.fetch_packet_acknowledgement(
+            port_id=port_id, channel_id=channel_id, sequence=sequence
+        )
+
+    async def fetch_ibc_packet_acknowledgements(
+        self,
+        port_id: str,
+        channel_id: str,
+        packet_commitment_sequences: Optional[List[int]] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.ibc_channel_api.fetch_packet_acknowledgements(
+            port_id=port_id,
+            channel_id=channel_id,
+            packet_commitment_sequences=packet_commitment_sequences,
+            pagination=pagination,
+        )
+
+    async def fetch_ibc_unreceived_packets(
+        self, port_id: str, channel_id: str, packet_commitment_sequences: Optional[List[int]] = None
+    ) -> Dict[str, Any]:
+        return await self.ibc_channel_api.fetch_unreceived_packets(
+            port_id=port_id, channel_id=channel_id, packet_commitment_sequences=packet_commitment_sequences
+        )
+
+    async def fetch_ibc_unreceived_acks(
+        self, port_id: str, channel_id: str, packet_ack_sequences: Optional[List[int]] = None
+    ) -> Dict[str, Any]:
+        return await self.ibc_channel_api.fetch_unreceived_acks(
+            port_id=port_id, channel_id=channel_id, packet_ack_sequences=packet_ack_sequences
+        )
+
+    async def fetch_next_sequence_receive(self, port_id: str, channel_id: str) -> Dict[str, Any]:
+        return await self.ibc_channel_api.fetch_next_sequence_receive(port_id=port_id, channel_id=channel_id)
+
+    # endregion
+
+    # region IBC Client module
+    async def fetch_ibc_client_state(self, client_id: str) -> Dict[str, Any]:
+        return await self.ibc_client_api.fetch_client_state(client_id=client_id)
+
+    async def fetch_ibc_client_states(self, pagination: Optional[PaginationOption] = None) -> Dict[str, Any]:
+        return await self.ibc_client_api.fetch_client_states(pagination=pagination)
+
+    async def fetch_ibc_consensus_state(
+        self,
+        client_id: str,
+        revision_number: int,
+        revision_height: int,
+        latest_height: Optional[bool] = None,
+    ) -> Dict[str, Any]:
+        return await self.ibc_client_api.fetch_consensus_state(
+            client_id=client_id,
+            revision_number=revision_number,
+            revision_height=revision_height,
+            latest_height=latest_height,
+        )
+
+    async def fetch_ibc_consensus_states(
+        self,
+        client_id: str,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.ibc_client_api.fetch_consensus_states(client_id=client_id, pagination=pagination)
+
+    async def fetch_ibc_consensus_state_heights(
+        self,
+        client_id: str,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.ibc_client_api.fetch_consensus_state_heights(client_id=client_id, pagination=pagination)
+
+    async def fetch_ibc_client_status(self, client_id: str) -> Dict[str, Any]:
+        return await self.ibc_client_api.fetch_client_status(client_id=client_id)
+
+    async def fetch_ibc_client_params(self) -> Dict[str, Any]:
+        return await self.ibc_client_api.fetch_client_params()
+
+    async def fetch_ibc_upgraded_client_state(self) -> Dict[str, Any]:
+        return await self.ibc_client_api.fetch_upgraded_client_state()
+
+    async def fetch_ibc_upgraded_consensus_state(self) -> Dict[str, Any]:
+        return await self.ibc_client_api.fetch_upgraded_consensus_state()
+
+    # endregion
+
+    # region IBC Connection module
+    async def fetch_ibc_connection(self, connection_id: str) -> Dict[str, Any]:
+        return await self.ibc_connection_api.fetch_connection(connection_id=connection_id)
+
+    async def fetch_ibc_connections(self, pagination: Optional[PaginationOption] = None) -> Dict[str, Any]:
+        return await self.ibc_connection_api.fetch_connections(pagination=pagination)
+
+    async def fetch_ibc_client_connections(self, client_id: str) -> Dict[str, Any]:
+        return await self.ibc_connection_api.fetch_client_connections(client_id=client_id)
+
+    async def fetch_ibc_connection_client_state(self, connection_id: str) -> Dict[str, Any]:
+        return await self.ibc_connection_api.fetch_connection_client_state(connection_id=connection_id)
+
+    async def fetch_ibc_connection_consensus_state(
+        self,
+        connection_id: str,
+        revision_number: int,
+        revision_height: int,
+    ) -> Dict[str, Any]:
+        return await self.ibc_connection_api.fetch_connection_consensus_state(
+            connection_id=connection_id, revision_number=revision_number, revision_height=revision_height
+        )
+
+    async def fetch_ibc_connection_params(self) -> Dict[str, Any]:
+        return await self.ibc_connection_api.fetch_connection_params()
+
+    # endregion
+
+    # ------------------------------
+    # region Permissions module
+
+    async def fetch_all_permissions_namespaces(self) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_all_namespaces()
+
+    async def fetch_permissions_namespace_by_denom(
+        self, denom: str, include_roles: Optional[bool] = None
+    ) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_namespace_by_denom(denom=denom, include_roles=include_roles)
+
+    async def fetch_permissions_address_roles(self, denom: str, address: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_address_roles(denom=denom, address=address)
+
+    async def fetch_permissions_addresses_by_role(self, denom: str, role: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_addresses_by_role(denom=denom, role=role)
+
+    async def fetch_permissions_vouchers_for_address(self, address: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_vouchers_for_address(address=address)
+
+    # endregion
 
     async def composer(self):
         return Composer(
@@ -3099,8 +3290,7 @@ class AsyncClient:
         spot_markets = dict()
         derivative_markets = dict()
         binary_option_markets = dict()
-        tokens_by_symbol = dict()
-        tokens_by_denom = dict()
+        tokens_by_symbol, tokens_by_denom = await self._tokens_from_official_lists(network=self.network)
         markets_info = (await self.fetch_spot_markets(market_statuses=["active"]))["markets"]
         valid_markets = (
             market_info
@@ -3235,17 +3425,28 @@ class AsyncClient:
 
         return tokens_by_denom[denom]
 
-    def _chain_cookie_metadata_requestor(self) -> Coroutine:
-        request = tendermint_query.GetLatestBlockRequest()
-        return self.stubCosmosTendermint.GetLatestBlock(request).initial_metadata()
+    async def _tokens_from_official_lists(
+        self,
+        network: Network,
+    ) -> Tuple[Dict[str, Token], Dict[str, Token]]:
+        tokens_by_symbol = dict()
+        tokens_by_denom = dict()
 
-    def _exchange_cookie_metadata_requestor(self) -> Coroutine:
-        request = exchange_meta_rpc_pb.VersionRequest()
-        return self.stubMeta.Version(request).initial_metadata()
+        loader = TokensFileLoader()
+        tokens = await loader.load_tokens(network.official_tokens_list_url)
 
-    def _explorer_cookie_metadata_requestor(self) -> Coroutine:
-        request = explorer_rpc_pb.GetBlocksRequest()
-        return self.stubExplorer.GetBlocks(request).initial_metadata()
+        for token in tokens:
+            if token.denom is not None and token.denom != "" and token.denom not in tokens_by_denom:
+                unique_symbol = token.denom
+                for symbol_candidate in [token.symbol, token.name]:
+                    if symbol_candidate not in tokens_by_symbol:
+                        unique_symbol = symbol_candidate
+                        break
+
+                tokens_by_denom[token.denom] = token
+                tokens_by_symbol[unique_symbol] = token
+
+        return tokens_by_symbol, tokens_by_denom
 
     def _initialize_timeout_height_sync_task(self):
         self._cancel_timeout_height_sync_task()

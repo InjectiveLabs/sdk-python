@@ -19,37 +19,37 @@ class MsgStub(object):
                 '/injective.permissions.v1beta1.Msg/UpdateParams',
                 request_serializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
                 response_deserializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
-                )
+                _registered_method=True)
         self.CreateNamespace = channel.unary_unary(
                 '/injective.permissions.v1beta1.Msg/CreateNamespace',
                 request_serializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgCreateNamespace.SerializeToString,
                 response_deserializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgCreateNamespaceResponse.FromString,
-                )
+                _registered_method=True)
         self.DeleteNamespace = channel.unary_unary(
                 '/injective.permissions.v1beta1.Msg/DeleteNamespace',
                 request_serializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgDeleteNamespace.SerializeToString,
                 response_deserializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgDeleteNamespaceResponse.FromString,
-                )
+                _registered_method=True)
         self.UpdateNamespace = channel.unary_unary(
                 '/injective.permissions.v1beta1.Msg/UpdateNamespace',
                 request_serializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgUpdateNamespace.SerializeToString,
                 response_deserializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgUpdateNamespaceResponse.FromString,
-                )
+                _registered_method=True)
         self.UpdateNamespaceRoles = channel.unary_unary(
                 '/injective.permissions.v1beta1.Msg/UpdateNamespaceRoles',
                 request_serializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgUpdateNamespaceRoles.SerializeToString,
                 response_deserializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgUpdateNamespaceRolesResponse.FromString,
-                )
+                _registered_method=True)
         self.RevokeNamespaceRoles = channel.unary_unary(
                 '/injective.permissions.v1beta1.Msg/RevokeNamespaceRoles',
                 request_serializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgRevokeNamespaceRoles.SerializeToString,
                 response_deserializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgRevokeNamespaceRolesResponse.FromString,
-                )
+                _registered_method=True)
         self.ClaimVoucher = channel.unary_unary(
                 '/injective.permissions.v1beta1.Msg/ClaimVoucher',
                 request_serializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgClaimVoucher.SerializeToString,
                 response_deserializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgClaimVoucherResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class MsgServicer(object):
@@ -140,6 +140,7 @@ def add_MsgServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'injective.permissions.v1beta1.Msg', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('injective.permissions.v1beta1.Msg', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -158,11 +159,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.permissions.v1beta1.Msg/UpdateParams',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.permissions.v1beta1.Msg/UpdateParams',
             injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
             injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def CreateNamespace(request,
@@ -175,11 +186,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.permissions.v1beta1.Msg/CreateNamespace',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.permissions.v1beta1.Msg/CreateNamespace',
             injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgCreateNamespace.SerializeToString,
             injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgCreateNamespaceResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def DeleteNamespace(request,
@@ -192,11 +213,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.permissions.v1beta1.Msg/DeleteNamespace',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.permissions.v1beta1.Msg/DeleteNamespace',
             injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgDeleteNamespace.SerializeToString,
             injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgDeleteNamespaceResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def UpdateNamespace(request,
@@ -209,11 +240,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.permissions.v1beta1.Msg/UpdateNamespace',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.permissions.v1beta1.Msg/UpdateNamespace',
             injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgUpdateNamespace.SerializeToString,
             injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgUpdateNamespaceResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def UpdateNamespaceRoles(request,
@@ -226,11 +267,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.permissions.v1beta1.Msg/UpdateNamespaceRoles',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.permissions.v1beta1.Msg/UpdateNamespaceRoles',
             injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgUpdateNamespaceRoles.SerializeToString,
             injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgUpdateNamespaceRolesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def RevokeNamespaceRoles(request,
@@ -243,11 +294,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.permissions.v1beta1.Msg/RevokeNamespaceRoles',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.permissions.v1beta1.Msg/RevokeNamespaceRoles',
             injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgRevokeNamespaceRoles.SerializeToString,
             injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgRevokeNamespaceRolesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ClaimVoucher(request,
@@ -260,8 +321,18 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective.permissions.v1beta1.Msg/ClaimVoucher',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.permissions.v1beta1.Msg/ClaimVoucher',
             injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgClaimVoucher.SerializeToString,
             injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgClaimVoucherResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

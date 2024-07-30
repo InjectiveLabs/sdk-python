@@ -19,32 +19,32 @@ class ReflectionServiceStub(object):
                 '/cosmos.base.reflection.v2alpha1.ReflectionService/GetAuthnDescriptor',
                 request_serializer=cosmos_dot_base_dot_reflection_dot_v2alpha1_dot_reflection__pb2.GetAuthnDescriptorRequest.SerializeToString,
                 response_deserializer=cosmos_dot_base_dot_reflection_dot_v2alpha1_dot_reflection__pb2.GetAuthnDescriptorResponse.FromString,
-                )
+                _registered_method=True)
         self.GetChainDescriptor = channel.unary_unary(
                 '/cosmos.base.reflection.v2alpha1.ReflectionService/GetChainDescriptor',
                 request_serializer=cosmos_dot_base_dot_reflection_dot_v2alpha1_dot_reflection__pb2.GetChainDescriptorRequest.SerializeToString,
                 response_deserializer=cosmos_dot_base_dot_reflection_dot_v2alpha1_dot_reflection__pb2.GetChainDescriptorResponse.FromString,
-                )
+                _registered_method=True)
         self.GetCodecDescriptor = channel.unary_unary(
                 '/cosmos.base.reflection.v2alpha1.ReflectionService/GetCodecDescriptor',
                 request_serializer=cosmos_dot_base_dot_reflection_dot_v2alpha1_dot_reflection__pb2.GetCodecDescriptorRequest.SerializeToString,
                 response_deserializer=cosmos_dot_base_dot_reflection_dot_v2alpha1_dot_reflection__pb2.GetCodecDescriptorResponse.FromString,
-                )
+                _registered_method=True)
         self.GetConfigurationDescriptor = channel.unary_unary(
                 '/cosmos.base.reflection.v2alpha1.ReflectionService/GetConfigurationDescriptor',
                 request_serializer=cosmos_dot_base_dot_reflection_dot_v2alpha1_dot_reflection__pb2.GetConfigurationDescriptorRequest.SerializeToString,
                 response_deserializer=cosmos_dot_base_dot_reflection_dot_v2alpha1_dot_reflection__pb2.GetConfigurationDescriptorResponse.FromString,
-                )
+                _registered_method=True)
         self.GetQueryServicesDescriptor = channel.unary_unary(
                 '/cosmos.base.reflection.v2alpha1.ReflectionService/GetQueryServicesDescriptor',
                 request_serializer=cosmos_dot_base_dot_reflection_dot_v2alpha1_dot_reflection__pb2.GetQueryServicesDescriptorRequest.SerializeToString,
                 response_deserializer=cosmos_dot_base_dot_reflection_dot_v2alpha1_dot_reflection__pb2.GetQueryServicesDescriptorResponse.FromString,
-                )
+                _registered_method=True)
         self.GetTxDescriptor = channel.unary_unary(
                 '/cosmos.base.reflection.v2alpha1.ReflectionService/GetTxDescriptor',
                 request_serializer=cosmos_dot_base_dot_reflection_dot_v2alpha1_dot_reflection__pb2.GetTxDescriptorRequest.SerializeToString,
                 response_deserializer=cosmos_dot_base_dot_reflection_dot_v2alpha1_dot_reflection__pb2.GetTxDescriptorResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class ReflectionServiceServicer(object):
@@ -132,6 +132,7 @@ def add_ReflectionServiceServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'cosmos.base.reflection.v2alpha1.ReflectionService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('cosmos.base.reflection.v2alpha1.ReflectionService', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -150,11 +151,21 @@ class ReflectionService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.base.reflection.v2alpha1.ReflectionService/GetAuthnDescriptor',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.base.reflection.v2alpha1.ReflectionService/GetAuthnDescriptor',
             cosmos_dot_base_dot_reflection_dot_v2alpha1_dot_reflection__pb2.GetAuthnDescriptorRequest.SerializeToString,
             cosmos_dot_base_dot_reflection_dot_v2alpha1_dot_reflection__pb2.GetAuthnDescriptorResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def GetChainDescriptor(request,
@@ -167,11 +178,21 @@ class ReflectionService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.base.reflection.v2alpha1.ReflectionService/GetChainDescriptor',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.base.reflection.v2alpha1.ReflectionService/GetChainDescriptor',
             cosmos_dot_base_dot_reflection_dot_v2alpha1_dot_reflection__pb2.GetChainDescriptorRequest.SerializeToString,
             cosmos_dot_base_dot_reflection_dot_v2alpha1_dot_reflection__pb2.GetChainDescriptorResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def GetCodecDescriptor(request,
@@ -184,11 +205,21 @@ class ReflectionService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.base.reflection.v2alpha1.ReflectionService/GetCodecDescriptor',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.base.reflection.v2alpha1.ReflectionService/GetCodecDescriptor',
             cosmos_dot_base_dot_reflection_dot_v2alpha1_dot_reflection__pb2.GetCodecDescriptorRequest.SerializeToString,
             cosmos_dot_base_dot_reflection_dot_v2alpha1_dot_reflection__pb2.GetCodecDescriptorResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def GetConfigurationDescriptor(request,
@@ -201,11 +232,21 @@ class ReflectionService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.base.reflection.v2alpha1.ReflectionService/GetConfigurationDescriptor',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.base.reflection.v2alpha1.ReflectionService/GetConfigurationDescriptor',
             cosmos_dot_base_dot_reflection_dot_v2alpha1_dot_reflection__pb2.GetConfigurationDescriptorRequest.SerializeToString,
             cosmos_dot_base_dot_reflection_dot_v2alpha1_dot_reflection__pb2.GetConfigurationDescriptorResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def GetQueryServicesDescriptor(request,
@@ -218,11 +259,21 @@ class ReflectionService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.base.reflection.v2alpha1.ReflectionService/GetQueryServicesDescriptor',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.base.reflection.v2alpha1.ReflectionService/GetQueryServicesDescriptor',
             cosmos_dot_base_dot_reflection_dot_v2alpha1_dot_reflection__pb2.GetQueryServicesDescriptorRequest.SerializeToString,
             cosmos_dot_base_dot_reflection_dot_v2alpha1_dot_reflection__pb2.GetQueryServicesDescriptorResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def GetTxDescriptor(request,
@@ -235,8 +286,18 @@ class ReflectionService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.base.reflection.v2alpha1.ReflectionService/GetTxDescriptor',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.base.reflection.v2alpha1.ReflectionService/GetTxDescriptor',
             cosmos_dot_base_dot_reflection_dot_v2alpha1_dot_reflection__pb2.GetTxDescriptorRequest.SerializeToString,
             cosmos_dot_base_dot_reflection_dot_v2alpha1_dot_reflection__pb2.GetTxDescriptorResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

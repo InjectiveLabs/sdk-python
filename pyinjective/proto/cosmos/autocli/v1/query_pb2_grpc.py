@@ -20,7 +20,7 @@ class QueryStub(object):
                 '/cosmos.autocli.v1.Query/AppOptions',
                 request_serializer=cosmos_dot_autocli_dot_v1_dot_query__pb2.AppOptionsRequest.SerializeToString,
                 response_deserializer=cosmos_dot_autocli_dot_v1_dot_query__pb2.AppOptionsResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class QueryServicer(object):
@@ -47,6 +47,7 @@ def add_QueryServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'cosmos.autocli.v1.Query', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('cosmos.autocli.v1.Query', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -66,8 +67,18 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.autocli.v1.Query/AppOptions',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.autocli.v1.Query/AppOptions',
             cosmos_dot_autocli_dot_v1_dot_query__pb2.AppOptionsRequest.SerializeToString,
             cosmos_dot_autocli_dot_v1_dot_query__pb2.AppOptionsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

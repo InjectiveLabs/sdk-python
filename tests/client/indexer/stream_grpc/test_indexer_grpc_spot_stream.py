@@ -5,7 +5,7 @@ import pytest
 
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_spot_stream import IndexerGrpcSpotStream
 from pyinjective.client.model.pagination import PaginationOption
-from pyinjective.core.network import Network
+from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.exchange import injective_spot_exchange_rpc_pb2 as exchange_spot_pb
 from tests.client.indexer.configurable_spot_query_servicer import ConfigurableSpotQueryServicer
 
@@ -54,6 +54,7 @@ class TestIndexerGrpcSpotStream:
             service_provider_fee="0.4",
             min_price_tick_size="0.000000000000001",
             min_quantity_tick_size="1000000000000000",
+            min_notional="1000000",
         )
 
         spot_servicer.stream_markets_responses.append(
@@ -64,11 +65,7 @@ class TestIndexerGrpcSpotStream:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcSpotStream(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = spot_servicer
+        api = self._api_instance(servicer=spot_servicer)
 
         market_updates = asyncio.Queue()
         end_event = asyncio.Event()
@@ -113,6 +110,7 @@ class TestIndexerGrpcSpotStream:
                 "serviceProviderFee": market.service_provider_fee,
                 "minPriceTickSize": market.min_price_tick_size,
                 "minQuantityTickSize": market.min_quantity_tick_size,
+                "minNotional": market.min_notional,
             },
             "operationType": operation_type,
             "timestamp": str(timestamp),
@@ -159,11 +157,7 @@ class TestIndexerGrpcSpotStream:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcSpotStream(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = spot_servicer
+        api = self._api_instance(servicer=spot_servicer)
 
         orderbook_updates = asyncio.Queue()
         end_event = asyncio.Event()
@@ -247,11 +241,7 @@ class TestIndexerGrpcSpotStream:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcSpotStream(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = spot_servicer
+        api = self._api_instance(servicer=spot_servicer)
 
         orderbook_updates = asyncio.Queue()
         end_event = asyncio.Event()
@@ -333,11 +323,7 @@ class TestIndexerGrpcSpotStream:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcSpotStream(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = spot_servicer
+        api = self._api_instance(servicer=spot_servicer)
 
         orders_updates = asyncio.Queue()
         end_event = asyncio.Event()
@@ -429,11 +415,7 @@ class TestIndexerGrpcSpotStream:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcSpotStream(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = spot_servicer
+        api = self._api_instance(servicer=spot_servicer)
 
         trade_updates = asyncio.Queue()
         end_event = asyncio.Event()
@@ -526,11 +508,7 @@ class TestIndexerGrpcSpotStream:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcSpotStream(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = spot_servicer
+        api = self._api_instance(servicer=spot_servicer)
 
         orders_history_updates = asyncio.Queue()
         end_event = asyncio.Event()
@@ -617,11 +595,7 @@ class TestIndexerGrpcSpotStream:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcSpotStream(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = spot_servicer
+        api = self._api_instance(servicer=spot_servicer)
 
         trade_updates = asyncio.Queue()
         end_event = asyncio.Event()
@@ -679,5 +653,12 @@ class TestIndexerGrpcSpotStream:
         assert first_update == expected_update
         assert end_event.is_set()
 
-    async def _dummy_metadata_provider(self):
-        return None
+    def _api_instance(self, servicer):
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
+        cookie_assistant = DisabledCookieAssistant()
+
+        api = IndexerGrpcSpotStream(channel=channel, cookie_assistant=cookie_assistant)
+        api._stub = servicer
+
+        return api

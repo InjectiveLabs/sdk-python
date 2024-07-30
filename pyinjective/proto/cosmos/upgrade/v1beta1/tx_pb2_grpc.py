@@ -19,12 +19,12 @@ class MsgStub(object):
                 '/cosmos.upgrade.v1beta1.Msg/SoftwareUpgrade',
                 request_serializer=cosmos_dot_upgrade_dot_v1beta1_dot_tx__pb2.MsgSoftwareUpgrade.SerializeToString,
                 response_deserializer=cosmos_dot_upgrade_dot_v1beta1_dot_tx__pb2.MsgSoftwareUpgradeResponse.FromString,
-                )
+                _registered_method=True)
         self.CancelUpgrade = channel.unary_unary(
                 '/cosmos.upgrade.v1beta1.Msg/CancelUpgrade',
                 request_serializer=cosmos_dot_upgrade_dot_v1beta1_dot_tx__pb2.MsgCancelUpgrade.SerializeToString,
                 response_deserializer=cosmos_dot_upgrade_dot_v1beta1_dot_tx__pb2.MsgCancelUpgradeResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class MsgServicer(object):
@@ -67,6 +67,7 @@ def add_MsgServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'cosmos.upgrade.v1beta1.Msg', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('cosmos.upgrade.v1beta1.Msg', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -85,11 +86,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.upgrade.v1beta1.Msg/SoftwareUpgrade',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.upgrade.v1beta1.Msg/SoftwareUpgrade',
             cosmos_dot_upgrade_dot_v1beta1_dot_tx__pb2.MsgSoftwareUpgrade.SerializeToString,
             cosmos_dot_upgrade_dot_v1beta1_dot_tx__pb2.MsgSoftwareUpgradeResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def CancelUpgrade(request,
@@ -102,8 +113,18 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.upgrade.v1beta1.Msg/CancelUpgrade',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.upgrade.v1beta1.Msg/CancelUpgrade',
             cosmos_dot_upgrade_dot_v1beta1_dot_tx__pb2.MsgCancelUpgrade.SerializeToString,
             cosmos_dot_upgrade_dot_v1beta1_dot_tx__pb2.MsgCancelUpgradeResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

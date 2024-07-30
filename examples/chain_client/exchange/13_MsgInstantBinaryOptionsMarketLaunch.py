@@ -1,5 +1,6 @@
 import asyncio
 import os
+from decimal import Decimal
 
 import dotenv
 
@@ -40,14 +41,15 @@ async def main() -> None:
         oracle_provider="UFC",
         oracle_type="Provider",
         oracle_scale_factor=6,
-        maker_fee_rate=0.0005,  # 0.05%
-        taker_fee_rate=0.0010,  # 0.10%
+        maker_fee_rate=Decimal("0.0005"),  # 0.05%
+        taker_fee_rate=Decimal("0.0010"),  # 0.10%
         expiration_timestamp=1680730982,
         settlement_timestamp=1690730982,
         admin=address.to_acc_bech32(),
         quote_denom="peggy0xdAC17F958D2ee523a2206206994597C13D831ec7",
-        min_price_tick_size=0.01,
-        min_quantity_tick_size=0.01,
+        min_price_tick_size=Decimal("0.01"),
+        min_quantity_tick_size=Decimal("0.01"),
+        min_notional=Decimal("1"),
     )
 
     # broadcast the transaction

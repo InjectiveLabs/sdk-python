@@ -19,7 +19,7 @@ class QueryStub(object):
                 '/cosmos.consensus.v1.Query/Params',
                 request_serializer=cosmos_dot_consensus_dot_v1_dot_query__pb2.QueryParamsRequest.SerializeToString,
                 response_deserializer=cosmos_dot_consensus_dot_v1_dot_query__pb2.QueryParamsResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class QueryServicer(object):
@@ -27,7 +27,7 @@ class QueryServicer(object):
     """
 
     def Params(self, request, context):
-        """Params queries the parameters of x/consensus_param module.
+        """Params queries the parameters of x/consensus module.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -45,6 +45,7 @@ def add_QueryServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'cosmos.consensus.v1.Query', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('cosmos.consensus.v1.Query', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -63,8 +64,18 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.consensus.v1.Query/Params',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.consensus.v1.Query/Params',
             cosmos_dot_consensus_dot_v1_dot_query__pb2.QueryParamsRequest.SerializeToString,
             cosmos_dot_consensus_dot_v1_dot_query__pb2.QueryParamsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

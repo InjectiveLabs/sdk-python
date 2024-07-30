@@ -19,32 +19,37 @@ class MsgStub(object):
                 '/cosmos.gov.v1.Msg/SubmitProposal',
                 request_serializer=cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgSubmitProposal.SerializeToString,
                 response_deserializer=cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgSubmitProposalResponse.FromString,
-                )
+                _registered_method=True)
         self.ExecLegacyContent = channel.unary_unary(
                 '/cosmos.gov.v1.Msg/ExecLegacyContent',
                 request_serializer=cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgExecLegacyContent.SerializeToString,
                 response_deserializer=cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgExecLegacyContentResponse.FromString,
-                )
+                _registered_method=True)
         self.Vote = channel.unary_unary(
                 '/cosmos.gov.v1.Msg/Vote',
                 request_serializer=cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgVote.SerializeToString,
                 response_deserializer=cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgVoteResponse.FromString,
-                )
+                _registered_method=True)
         self.VoteWeighted = channel.unary_unary(
                 '/cosmos.gov.v1.Msg/VoteWeighted',
                 request_serializer=cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgVoteWeighted.SerializeToString,
                 response_deserializer=cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgVoteWeightedResponse.FromString,
-                )
+                _registered_method=True)
         self.Deposit = channel.unary_unary(
                 '/cosmos.gov.v1.Msg/Deposit',
                 request_serializer=cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgDeposit.SerializeToString,
                 response_deserializer=cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgDepositResponse.FromString,
-                )
+                _registered_method=True)
         self.UpdateParams = channel.unary_unary(
                 '/cosmos.gov.v1.Msg/UpdateParams',
                 request_serializer=cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
                 response_deserializer=cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
-                )
+                _registered_method=True)
+        self.CancelProposal = channel.unary_unary(
+                '/cosmos.gov.v1.Msg/CancelProposal',
+                request_serializer=cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgCancelProposal.SerializeToString,
+                response_deserializer=cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgCancelProposalResponse.FromString,
+                _registered_method=True)
 
 
 class MsgServicer(object):
@@ -97,6 +102,15 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def CancelProposal(self, request, context):
+        """CancelProposal defines a method to cancel governance proposal
+
+        Since: cosmos-sdk 0.50
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -130,10 +144,16 @@ def add_MsgServicer_to_server(servicer, server):
                     request_deserializer=cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgUpdateParams.FromString,
                     response_serializer=cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.SerializeToString,
             ),
+            'CancelProposal': grpc.unary_unary_rpc_method_handler(
+                    servicer.CancelProposal,
+                    request_deserializer=cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgCancelProposal.FromString,
+                    response_serializer=cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgCancelProposalResponse.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
             'cosmos.gov.v1.Msg', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('cosmos.gov.v1.Msg', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -152,11 +172,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.gov.v1.Msg/SubmitProposal',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.gov.v1.Msg/SubmitProposal',
             cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgSubmitProposal.SerializeToString,
             cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgSubmitProposalResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ExecLegacyContent(request,
@@ -169,11 +199,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.gov.v1.Msg/ExecLegacyContent',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.gov.v1.Msg/ExecLegacyContent',
             cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgExecLegacyContent.SerializeToString,
             cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgExecLegacyContentResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Vote(request,
@@ -186,11 +226,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.gov.v1.Msg/Vote',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.gov.v1.Msg/Vote',
             cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgVote.SerializeToString,
             cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgVoteResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def VoteWeighted(request,
@@ -203,11 +253,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.gov.v1.Msg/VoteWeighted',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.gov.v1.Msg/VoteWeighted',
             cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgVoteWeighted.SerializeToString,
             cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgVoteWeightedResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Deposit(request,
@@ -220,11 +280,21 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.gov.v1.Msg/Deposit',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.gov.v1.Msg/Deposit',
             cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgDeposit.SerializeToString,
             cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgDepositResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def UpdateParams(request,
@@ -237,8 +307,45 @@ class Msg(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/cosmos.gov.v1.Msg/UpdateParams',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.gov.v1.Msg/UpdateParams',
             cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
             cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def CancelProposal(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.gov.v1.Msg/CancelProposal',
+            cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgCancelProposal.SerializeToString,
+            cosmos_dot_gov_dot_v1_dot_tx__pb2.MsgCancelProposalResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

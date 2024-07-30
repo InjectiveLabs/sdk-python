@@ -19,7 +19,7 @@ class QueryStub(object):
                 '/ibc.applications.interchain_accounts.host.v1.Query/Params',
                 request_serializer=ibc_dot_applications_dot_interchain__accounts_dot_host_dot_v1_dot_query__pb2.QueryParamsRequest.SerializeToString,
                 response_deserializer=ibc_dot_applications_dot_interchain__accounts_dot_host_dot_v1_dot_query__pb2.QueryParamsResponse.FromString,
-                )
+                _registered_method=True)
 
 
 class QueryServicer(object):
@@ -45,6 +45,7 @@ def add_QueryServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'ibc.applications.interchain_accounts.host.v1.Query', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('ibc.applications.interchain_accounts.host.v1.Query', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -63,8 +64,18 @@ class Query(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ibc.applications.interchain_accounts.host.v1.Query/Params',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ibc.applications.interchain_accounts.host.v1.Query/Params',
             ibc_dot_applications_dot_interchain__accounts_dot_host_dot_v1_dot_query__pb2.QueryParamsRequest.SerializeToString,
             ibc_dot_applications_dot_interchain__accounts_dot_host_dot_v1_dot_query__pb2.QueryParamsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

@@ -4,7 +4,7 @@ import grpc
 import pytest
 
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_meta_stream import IndexerGrpcMetaStream
-from pyinjective.core.network import Network
+from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.exchange import injective_meta_rpc_pb2 as exchange_meta_pb
 from tests.client.indexer.configurable_meta_query_servicer import ConfigurableMetaQueryServicer
 
@@ -32,11 +32,7 @@ class TestIndexerGrpcMetaStream:
             )
         )
 
-        network = Network.devnet()
-        channel = grpc.aio.insecure_channel(network.grpc_exchange_endpoint)
-
-        api = IndexerGrpcMetaStream(channel=channel, metadata_provider=lambda: self._dummy_metadata_provider())
-        api._stub = meta_servicer
+        api = self._api_instance(servicer=meta_servicer)
 
         keepalive_updates = asyncio.Queue()
         end_event = asyncio.Event()
@@ -59,5 +55,12 @@ class TestIndexerGrpcMetaStream:
         assert first_update == expected_update
         assert end_event.is_set()
 
-    async def _dummy_metadata_provider(self):
-        return None
+    def _api_instance(self, servicer):
+        network = Network.devnet()
+        channel = grpc.aio.insecure_channel(network.grpc_endpoint)
+        cookie_assistant = DisabledCookieAssistant()
+
+        api = IndexerGrpcMetaStream(channel=channel, cookie_assistant=cookie_assistant)
+        api._stub = servicer
+
+        return api

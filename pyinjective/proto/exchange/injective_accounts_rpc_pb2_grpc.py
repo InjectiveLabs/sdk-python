@@ -19,47 +19,52 @@ class InjectiveAccountsRPCStub(object):
                 '/injective_accounts_rpc.InjectiveAccountsRPC/Portfolio',
                 request_serializer=exchange_dot_injective__accounts__rpc__pb2.PortfolioRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__accounts__rpc__pb2.PortfolioResponse.FromString,
-                )
+                _registered_method=True)
         self.OrderStates = channel.unary_unary(
                 '/injective_accounts_rpc.InjectiveAccountsRPC/OrderStates',
                 request_serializer=exchange_dot_injective__accounts__rpc__pb2.OrderStatesRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__accounts__rpc__pb2.OrderStatesResponse.FromString,
-                )
+                _registered_method=True)
         self.SubaccountsList = channel.unary_unary(
                 '/injective_accounts_rpc.InjectiveAccountsRPC/SubaccountsList',
                 request_serializer=exchange_dot_injective__accounts__rpc__pb2.SubaccountsListRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__accounts__rpc__pb2.SubaccountsListResponse.FromString,
-                )
+                _registered_method=True)
         self.SubaccountBalancesList = channel.unary_unary(
                 '/injective_accounts_rpc.InjectiveAccountsRPC/SubaccountBalancesList',
                 request_serializer=exchange_dot_injective__accounts__rpc__pb2.SubaccountBalancesListRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__accounts__rpc__pb2.SubaccountBalancesListResponse.FromString,
-                )
+                _registered_method=True)
         self.SubaccountBalanceEndpoint = channel.unary_unary(
                 '/injective_accounts_rpc.InjectiveAccountsRPC/SubaccountBalanceEndpoint',
                 request_serializer=exchange_dot_injective__accounts__rpc__pb2.SubaccountBalanceEndpointRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__accounts__rpc__pb2.SubaccountBalanceEndpointResponse.FromString,
-                )
+                _registered_method=True)
         self.StreamSubaccountBalance = channel.unary_stream(
                 '/injective_accounts_rpc.InjectiveAccountsRPC/StreamSubaccountBalance',
                 request_serializer=exchange_dot_injective__accounts__rpc__pb2.StreamSubaccountBalanceRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__accounts__rpc__pb2.StreamSubaccountBalanceResponse.FromString,
-                )
+                _registered_method=True)
         self.SubaccountHistory = channel.unary_unary(
                 '/injective_accounts_rpc.InjectiveAccountsRPC/SubaccountHistory',
                 request_serializer=exchange_dot_injective__accounts__rpc__pb2.SubaccountHistoryRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__accounts__rpc__pb2.SubaccountHistoryResponse.FromString,
-                )
+                _registered_method=True)
         self.SubaccountOrderSummary = channel.unary_unary(
                 '/injective_accounts_rpc.InjectiveAccountsRPC/SubaccountOrderSummary',
                 request_serializer=exchange_dot_injective__accounts__rpc__pb2.SubaccountOrderSummaryRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__accounts__rpc__pb2.SubaccountOrderSummaryResponse.FromString,
-                )
+                _registered_method=True)
         self.Rewards = channel.unary_unary(
                 '/injective_accounts_rpc.InjectiveAccountsRPC/Rewards',
                 request_serializer=exchange_dot_injective__accounts__rpc__pb2.RewardsRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__accounts__rpc__pb2.RewardsResponse.FromString,
-                )
+                _registered_method=True)
+        self.StreamAccountData = channel.unary_stream(
+                '/injective_accounts_rpc.InjectiveAccountsRPC/StreamAccountData',
+                request_serializer=exchange_dot_injective__accounts__rpc__pb2.StreamAccountDataRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__accounts__rpc__pb2.StreamAccountDataResponse.FromString,
+                _registered_method=True)
 
 
 class InjectiveAccountsRPCServicer(object):
@@ -131,6 +136,13 @@ class InjectiveAccountsRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def StreamAccountData(self, request, context):
+        """Stream live data for an account and respective data
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_InjectiveAccountsRPCServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -179,10 +191,16 @@ def add_InjectiveAccountsRPCServicer_to_server(servicer, server):
                     request_deserializer=exchange_dot_injective__accounts__rpc__pb2.RewardsRequest.FromString,
                     response_serializer=exchange_dot_injective__accounts__rpc__pb2.RewardsResponse.SerializeToString,
             ),
+            'StreamAccountData': grpc.unary_stream_rpc_method_handler(
+                    servicer.StreamAccountData,
+                    request_deserializer=exchange_dot_injective__accounts__rpc__pb2.StreamAccountDataRequest.FromString,
+                    response_serializer=exchange_dot_injective__accounts__rpc__pb2.StreamAccountDataResponse.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
             'injective_accounts_rpc.InjectiveAccountsRPC', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('injective_accounts_rpc.InjectiveAccountsRPC', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -201,11 +219,21 @@ class InjectiveAccountsRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_accounts_rpc.InjectiveAccountsRPC/Portfolio',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_accounts_rpc.InjectiveAccountsRPC/Portfolio',
             exchange_dot_injective__accounts__rpc__pb2.PortfolioRequest.SerializeToString,
             exchange_dot_injective__accounts__rpc__pb2.PortfolioResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def OrderStates(request,
@@ -218,11 +246,21 @@ class InjectiveAccountsRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_accounts_rpc.InjectiveAccountsRPC/OrderStates',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_accounts_rpc.InjectiveAccountsRPC/OrderStates',
             exchange_dot_injective__accounts__rpc__pb2.OrderStatesRequest.SerializeToString,
             exchange_dot_injective__accounts__rpc__pb2.OrderStatesResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def SubaccountsList(request,
@@ -235,11 +273,21 @@ class InjectiveAccountsRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_accounts_rpc.InjectiveAccountsRPC/SubaccountsList',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_accounts_rpc.InjectiveAccountsRPC/SubaccountsList',
             exchange_dot_injective__accounts__rpc__pb2.SubaccountsListRequest.SerializeToString,
             exchange_dot_injective__accounts__rpc__pb2.SubaccountsListResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def SubaccountBalancesList(request,
@@ -252,11 +300,21 @@ class InjectiveAccountsRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_accounts_rpc.InjectiveAccountsRPC/SubaccountBalancesList',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_accounts_rpc.InjectiveAccountsRPC/SubaccountBalancesList',
             exchange_dot_injective__accounts__rpc__pb2.SubaccountBalancesListRequest.SerializeToString,
             exchange_dot_injective__accounts__rpc__pb2.SubaccountBalancesListResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def SubaccountBalanceEndpoint(request,
@@ -269,11 +327,21 @@ class InjectiveAccountsRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_accounts_rpc.InjectiveAccountsRPC/SubaccountBalanceEndpoint',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_accounts_rpc.InjectiveAccountsRPC/SubaccountBalanceEndpoint',
             exchange_dot_injective__accounts__rpc__pb2.SubaccountBalanceEndpointRequest.SerializeToString,
             exchange_dot_injective__accounts__rpc__pb2.SubaccountBalanceEndpointResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def StreamSubaccountBalance(request,
@@ -286,11 +354,21 @@ class InjectiveAccountsRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/injective_accounts_rpc.InjectiveAccountsRPC/StreamSubaccountBalance',
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/injective_accounts_rpc.InjectiveAccountsRPC/StreamSubaccountBalance',
             exchange_dot_injective__accounts__rpc__pb2.StreamSubaccountBalanceRequest.SerializeToString,
             exchange_dot_injective__accounts__rpc__pb2.StreamSubaccountBalanceResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def SubaccountHistory(request,
@@ -303,11 +381,21 @@ class InjectiveAccountsRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_accounts_rpc.InjectiveAccountsRPC/SubaccountHistory',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_accounts_rpc.InjectiveAccountsRPC/SubaccountHistory',
             exchange_dot_injective__accounts__rpc__pb2.SubaccountHistoryRequest.SerializeToString,
             exchange_dot_injective__accounts__rpc__pb2.SubaccountHistoryResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def SubaccountOrderSummary(request,
@@ -320,11 +408,21 @@ class InjectiveAccountsRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_accounts_rpc.InjectiveAccountsRPC/SubaccountOrderSummary',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_accounts_rpc.InjectiveAccountsRPC/SubaccountOrderSummary',
             exchange_dot_injective__accounts__rpc__pb2.SubaccountOrderSummaryRequest.SerializeToString,
             exchange_dot_injective__accounts__rpc__pb2.SubaccountOrderSummaryResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def Rewards(request,
@@ -337,8 +435,45 @@ class InjectiveAccountsRPC(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/injective_accounts_rpc.InjectiveAccountsRPC/Rewards',
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_accounts_rpc.InjectiveAccountsRPC/Rewards',
             exchange_dot_injective__accounts__rpc__pb2.RewardsRequest.SerializeToString,
             exchange_dot_injective__accounts__rpc__pb2.RewardsResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def StreamAccountData(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/injective_accounts_rpc.InjectiveAccountsRPC/StreamAccountData',
+            exchange_dot_injective__accounts__rpc__pb2.StreamAccountDataRequest.SerializeToString,
+            exchange_dot_injective__accounts__rpc__pb2.StreamAccountDataResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
