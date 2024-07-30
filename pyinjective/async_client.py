@@ -3437,7 +3437,7 @@ class AsyncClient:
 
         for token in tokens:
             if token.denom is not None and token.denom != "" and token.denom not in tokens_by_denom:
-                unique_symbol = token.symbol
+                unique_symbol = token.denom
                 for symbol_candidate in [token.symbol, token.name]:
                     if symbol_candidate not in tokens_by_symbol:
                         unique_symbol = symbol_candidate
