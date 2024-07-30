@@ -211,6 +211,21 @@ class Composer:
             cid=cid,
         )
 
+    def order_data_without_mask(
+        self,
+        market_id: str,
+        subaccount_id: str,
+        order_hash: Optional[str] = None,
+        cid: Optional[str] = None,
+    ) -> injective_exchange_tx_pb.OrderData:
+        return injective_exchange_tx_pb.OrderData(
+            market_id=market_id,
+            subaccount_id=subaccount_id,
+            order_hash=order_hash,
+            order_mask=1,
+            cid=cid,
+        )
+
     def SpotOrder(
         self,
         market_id: str,
