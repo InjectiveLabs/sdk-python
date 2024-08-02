@@ -3324,6 +3324,7 @@ class AsyncClient:
                 service_provider_fee=Decimal(market_info["serviceProviderFee"]),
                 min_price_tick_size=Decimal(market_info["minPriceTickSize"]),
                 min_quantity_tick_size=Decimal(market_info["minQuantityTickSize"]),
+                min_notional=Decimal(market_info["minNotional"]),
             )
 
             spot_markets[market.id] = market
@@ -3359,6 +3360,7 @@ class AsyncClient:
                 service_provider_fee=Decimal(market_info["serviceProviderFee"]),
                 min_price_tick_size=Decimal(market_info["minPriceTickSize"]),
                 min_quantity_tick_size=Decimal(market_info["minQuantityTickSize"]),
+                min_notional=Decimal(market_info["minNotional"]),
             )
 
             derivative_markets[market.id] = market
@@ -3383,6 +3385,7 @@ class AsyncClient:
                 service_provider_fee=Decimal(market_info["serviceProviderFee"]),
                 min_price_tick_size=Decimal(market_info["minPriceTickSize"]),
                 min_quantity_tick_size=Decimal(market_info["minQuantityTickSize"]),
+                min_notional=Decimal(market_info["minNotional"]),
                 settlement_price=None
                 if market_info["settlementPrice"] == ""
                 else Decimal(market_info["settlementPrice"]),

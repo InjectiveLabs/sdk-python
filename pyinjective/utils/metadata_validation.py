@@ -33,6 +33,7 @@ def find_metadata_inconsistencies(network: Network) -> Tuple[List[Any]]:
                     or market.quote_token.decimals != denom.quote
                     or market.min_price_tick_size != Decimal(str(denom.min_price_tick_size))
                     or market.min_quantity_tick_size != Decimal(str(denom.min_quantity_tick_size))
+                    or market.min_notional != Decimal(str(denom.min_notional))
                 ):
                     markets_with_diffs.append(
                         [
@@ -42,6 +43,7 @@ def find_metadata_inconsistencies(network: Network) -> Tuple[List[Any]]:
                                 "quote_decimals": denom.quote,
                                 "min_quantity_tick_size": denom.min_quantity_tick_size,
                                 "min_price_tick_size": denom.min_price_tick_size,
+                                "min_notional": denom.min_notional,
                             },
                             {
                                 "newer-market": market.id,
@@ -49,6 +51,7 @@ def find_metadata_inconsistencies(network: Network) -> Tuple[List[Any]]:
                                 "quote_decimals": market.quote_token.decimals,
                                 "min_quantity_tick_size": float(market.min_quantity_tick_size),
                                 "min_price_tick_size": float(market.min_price_tick_size),
+                                "min_notional": float(market.min_notional),
                                 "ticker": market.ticker,
                             },
                         ]
@@ -59,6 +62,7 @@ def find_metadata_inconsistencies(network: Network) -> Tuple[List[Any]]:
                     market.quote_token.decimals != denom.quote
                     or market.min_price_tick_size != Decimal(str(denom.min_price_tick_size))
                     or market.min_quantity_tick_size != Decimal(str(denom.min_quantity_tick_size))
+                    or market.min_notional != Decimal(str(denom.min_notional))
                 ):
                     markets_with_diffs.append(
                         [
@@ -67,12 +71,14 @@ def find_metadata_inconsistencies(network: Network) -> Tuple[List[Any]]:
                                 "quote_decimals": denom.quote,
                                 "min_quantity_tick_size": denom.min_quantity_tick_size,
                                 "min_price_tick_size": denom.min_price_tick_size,
+                                "min_notional": denom.min_notional,
                             },
                             {
                                 "newer-market": market.id,
                                 "quote_decimals": market.quote_token.decimals,
                                 "min_quantity_tick_size": float(market.min_quantity_tick_size),
                                 "min_price_tick_size": float(market.min_price_tick_size),
+                                "min_notional": float(market.min_notional),
                                 "ticker": market.ticker,
                             },
                         ]
@@ -83,6 +89,7 @@ def find_metadata_inconsistencies(network: Network) -> Tuple[List[Any]]:
                     market.quote_token.decimals != denom.quote
                     or market.min_price_tick_size != Decimal(str(denom.min_price_tick_size))
                     or market.min_quantity_tick_size != Decimal(str(denom.min_quantity_tick_size))
+                    or market.min_notional != Decimal(str(denom.min_notional))
                 ):
                     markets_with_diffs.append(
                         [
@@ -91,12 +98,14 @@ def find_metadata_inconsistencies(network: Network) -> Tuple[List[Any]]:
                                 "quote_decimals": denom.quote,
                                 "min_quantity_tick_size": denom.min_quantity_tick_size,
                                 "min_price_tick_size": denom.min_price_tick_size,
+                                "min_notional": denom.min_notional,
                             },
                             {
                                 "newer-market": market.id,
                                 "quote_decimals": market.quote_token.decimals,
                                 "min_quantity_tick_size": float(market.min_quantity_tick_size),
                                 "min_price_tick_size": float(market.min_price_tick_size),
+                                "min_notional": float(market.min_notional),
                                 "ticker": market.ticker,
                             },
                         ]

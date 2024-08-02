@@ -19,6 +19,7 @@ class SpotMarket:
     service_provider_fee: Decimal
     min_price_tick_size: Decimal
     min_quantity_tick_size: Decimal
+    min_notional: Decimal
 
     def quantity_to_chain_format(self, human_readable_value: Decimal) -> Decimal:
         chain_formatted_value = human_readable_value * Decimal(f"1e{self.base_token.decimals}")
@@ -69,6 +70,7 @@ class DerivativeMarket:
     service_provider_fee: Decimal
     min_price_tick_size: Decimal
     min_quantity_tick_size: Decimal
+    min_notional: Decimal
 
     def quantity_to_chain_format(self, human_readable_value: Decimal) -> Decimal:
         # Derivative markets do not have a base market to provide the number of decimals
@@ -146,6 +148,7 @@ class BinaryOptionMarket:
     service_provider_fee: Decimal
     min_price_tick_size: Decimal
     min_quantity_tick_size: Decimal
+    min_notional: Decimal
     settlement_price: Optional[Decimal] = None
 
     def quantity_to_chain_format(self, human_readable_value: Decimal, special_denom: Optional[Denom] = None) -> Decimal:

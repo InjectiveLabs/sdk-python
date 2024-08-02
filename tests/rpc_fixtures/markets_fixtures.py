@@ -124,6 +124,7 @@ def ape_usdt_spot_market_meta(ape_token_meta, usdt_token_meta_second_denom):
         service_provider_fee="0.4",
         min_price_tick_size="0.000000000000001",
         min_quantity_tick_size="1000000000000000",
+        min_notional="0.000000000001",
     )
 
     return market
@@ -146,6 +147,7 @@ def inj_usdt_spot_market_meta(inj_token_meta, usdt_token_meta):
         service_provider_fee="0.4",
         min_price_tick_size="0.000000000000001",
         min_quantity_tick_size="1000000000000000",
+        min_notional="0.000000000001",
     )
 
     return market
@@ -187,6 +189,7 @@ def btc_usdt_perp_market_meta(usdt_perp_token_meta):
         min_quantity_tick_size="0.0001",
         perpetual_market_info=perpetual_market_info,
         perpetual_market_funding=perpetual_market_funding,
+        min_notional="0.000001",
     )
 
     return market
@@ -212,6 +215,7 @@ def first_match_bet_market_meta(inj_usdt_spot_market_meta):
         service_provider_fee="0.4",
         min_price_tick_size="10000",
         min_quantity_tick_size="1",
+        min_notional="0",
     )
 
     return market

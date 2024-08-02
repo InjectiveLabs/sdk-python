@@ -186,6 +186,7 @@ class TestBinaryOptionMarket:
             quote=4,
             min_quantity_tick_size=100,
             min_price_tick_size=10000,
+            min_notional=0,
         )
 
         chain_value = first_match_bet_market.quantity_to_chain_format(
@@ -220,6 +221,7 @@ class TestBinaryOptionMarket:
             quote=4,
             min_quantity_tick_size=100,
             min_price_tick_size=10000,
+            min_notional=0,
         )
 
         chain_value = first_match_bet_market.price_to_chain_format(
@@ -256,6 +258,7 @@ class TestBinaryOptionMarket:
             quote=4,
             min_quantity_tick_size=100,
             min_price_tick_size=10000,
+            min_notional=0,
         )
 
         chain_value = first_match_bet_market.margin_to_chain_format(
@@ -293,6 +296,7 @@ class TestBinaryOptionMarket:
             quote=4,
             min_quantity_tick_size=100,
             min_price_tick_size=10000,
+            min_notional=0,
         )
 
         chain_value = first_match_bet_market.calculate_margin_in_chain_format(
@@ -362,6 +366,7 @@ class TestBinaryOptionMarket:
             quote=4,
             min_quantity_tick_size=100,
             min_price_tick_size=10000,
+            min_notional=0,
         )
 
         chain_formatted_quantity = original_quantity * Decimal(f"1e{fixed_denom.base}")
@@ -391,6 +396,7 @@ class TestBinaryOptionMarket:
             quote=4,
             min_quantity_tick_size=100,
             min_price_tick_size=10000,
+            min_notional=0,
         )
 
         chain_formatted_price = original_price * Decimal(f"1e{fixed_denom.quote}")
@@ -419,6 +425,7 @@ class TestBinaryOptionMarket:
             quote=4,
             min_quantity_tick_size=100,
             min_price_tick_size=10000,
+            min_notional=0,
         )
 
         chain_formatted_quantity = (
@@ -454,6 +461,7 @@ class TestBinaryOptionMarket:
             quote=4,
             min_quantity_tick_size=100,
             min_price_tick_size=10000,
+            min_notional=0,
         )
 
         chain_formatted_price = (

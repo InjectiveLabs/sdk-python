@@ -2484,6 +2484,7 @@ class Composer:
                         service_provider_fee=None,
                         min_price_tick_size=Decimal(str(configuration_section["min_price_tick_size"])),
                         min_quantity_tick_size=Decimal(str(configuration_section["min_quantity_tick_size"])),
+                        min_notional=Decimal(str(configuration_section.get("min_notional", "0"))),
                     )
                     spot_markets[market.id] = market
                 else:
@@ -2503,6 +2504,7 @@ class Composer:
                         service_provider_fee=None,
                         min_price_tick_size=Decimal(str(configuration_section["min_price_tick_size"])),
                         min_quantity_tick_size=Decimal(str(configuration_section["min_quantity_tick_size"])),
+                        min_notional=Decimal(str(configuration_section.get("min_notional", "0"))),
                     )
 
                     derivative_markets[market.id] = market
