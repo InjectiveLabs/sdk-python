@@ -1819,7 +1819,7 @@ class Composer:
         destination_subaccount_id: str,
         market_id: str,
         amount: Decimal,
-    ):
+    ) -> injective_exchange_tx_pb.MsgDecreasePositionMargin:
         market = self.derivative_markets[market_id]
 
         additional_margin = market.margin_to_chain_format(human_readable_value=amount)
