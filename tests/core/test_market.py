@@ -43,10 +43,9 @@ class TestSpotMarket:
         chain_value = inj_usdt_spot_market.notional_to_chain_format(human_readable_value=original_notional)
         notional_decimals = inj_usdt_spot_market.quote_token.decimals
         expected_value = original_notional * Decimal(f"1e{notional_decimals}")
-        quantized_value = (expected_value // inj_usdt_spot_market.min_notional) * inj_usdt_spot_market.min_notional
-        quantized_chain_format_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        expected_chain_format_value = expected_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
-        assert quantized_chain_format_value == chain_value
+        assert expected_chain_format_value == chain_value
 
     def test_convert_quantity_from_chain_format(self, inj_usdt_spot_market: SpotMarket):
         expected_quantity = Decimal("123.456")
@@ -157,10 +156,9 @@ class TestDerivativeMarket:
         chain_value = btc_usdt_perp_market.notional_to_chain_format(human_readable_value=original_notional)
         notional_decimals = btc_usdt_perp_market.quote_token.decimals
         expected_value = original_notional * Decimal(f"1e{notional_decimals}")
-        quantized_value = (expected_value // btc_usdt_perp_market.min_notional) * btc_usdt_perp_market.min_notional
-        quantized_chain_format_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        expected_chain_format_value = expected_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
-        assert quantized_chain_format_value == chain_value
+        assert expected_chain_format_value == chain_value
 
     def test_convert_quantity_from_chain_format(self, btc_usdt_perp_market: DerivativeMarket):
         expected_quantity = Decimal("123.456")
@@ -430,10 +428,9 @@ class TestBinaryOptionMarket:
         chain_value = first_match_bet_market.notional_to_chain_format(human_readable_value=original_notional)
         notional_decimals = first_match_bet_market.quote_token.decimals
         expected_value = original_notional * Decimal(f"1e{notional_decimals}")
-        quantized_value = (expected_value // first_match_bet_market.min_notional) * first_match_bet_market.min_notional
-        quantized_chain_format_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        expected_chain_format_value = expected_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
-        assert quantized_chain_format_value == chain_value
+        assert expected_chain_format_value == chain_value
 
     def test_convert_quantity_from_chain_format_with_fixed_denom(self, first_match_bet_market: BinaryOptionMarket):
         original_quantity = Decimal("123.456789")

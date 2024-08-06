@@ -39,9 +39,7 @@ class SpotMarket:
     def notional_to_chain_format(self, human_readable_value: Decimal) -> Decimal:
         decimals = self.quote_token.decimals
         chain_formatted_value = human_readable_value * Decimal(f"1e{decimals}")
-        quantization_factor = self.min_notional if self.min_notional > Decimal("0") else self.min_quantity_tick_size
-        quantized_value = (chain_formatted_value // quantization_factor) * quantization_factor
-        extended_chain_formatted_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        extended_chain_formatted_value = chain_formatted_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         return extended_chain_formatted_value
 
@@ -122,9 +120,7 @@ class DerivativeMarket:
     def notional_to_chain_format(self, human_readable_value: Decimal) -> Decimal:
         decimals = self.quote_token.decimals
         chain_formatted_value = human_readable_value * Decimal(f"1e{decimals}")
-        quantization_factor = self.min_notional if self.min_notional > Decimal("0") else self.min_quantity_tick_size
-        quantized_value = (chain_formatted_value // quantization_factor) * quantization_factor
-        extended_chain_formatted_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        extended_chain_formatted_value = chain_formatted_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         return extended_chain_formatted_value
 
@@ -234,9 +230,7 @@ class BinaryOptionMarket:
     def notional_to_chain_format(self, human_readable_value: Decimal) -> Decimal:
         decimals = self.quote_token.decimals
         chain_formatted_value = human_readable_value * Decimal(f"1e{decimals}")
-        quantization_factor = self.min_notional if self.min_notional > Decimal("0") else self.min_quantity_tick_size
-        quantized_value = (chain_formatted_value // quantization_factor) * quantization_factor
-        extended_chain_formatted_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        extended_chain_formatted_value = chain_formatted_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         return extended_chain_formatted_value
 
