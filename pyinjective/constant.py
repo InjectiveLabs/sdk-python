@@ -7,6 +7,7 @@ MAX_MEMO_CHARACTERS = 256
 ADDITIONAL_CHAIN_FORMAT_DECIMALS = 18
 TICKER_TOKENS_SEPARATOR = "/"
 INJ_DENOM = "inj"
+INJ_DECIMALS = 18
 
 devnet_config = ConfigParser()
 devnet_config.read(os.path.join(os.path.dirname(__file__), "denoms_devnet.ini"))

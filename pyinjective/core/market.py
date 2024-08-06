@@ -36,6 +36,15 @@ class SpotMarket:
 
         return extended_chain_formatted_value
 
+    def notional_to_chain_format(self, human_readable_value: Decimal) -> Decimal:
+        decimals = self.quote_token.decimals
+        chain_formatted_value = human_readable_value * Decimal(f"1e{decimals}")
+        quantization_factor = self.min_notional if self.min_notional > Decimal("0") else self.min_quantity_tick_size
+        quantized_value = (chain_formatted_value // quantization_factor) * quantization_factor
+        extended_chain_formatted_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+
+        return extended_chain_formatted_value
+
     def quantity_from_chain_format(self, chain_value: Decimal) -> Decimal:
         return chain_value / Decimal(f"1e{self.base_token.decimals}")
 
@@ -43,11 +52,17 @@ class SpotMarket:
         decimals = self.base_token.decimals - self.quote_token.decimals
         return chain_value * Decimal(f"1e{decimals}")
 
+    def notional_from_chain_format(self, chain_value: Decimal) -> Decimal:
+        return chain_value / Decimal(f"1e{self.quote_token.decimals}")
+
     def quantity_from_extended_chain_format(self, chain_value: Decimal) -> Decimal:
         return self._from_extended_chain_format(chain_value=self.quantity_from_chain_format(chain_value=chain_value))
 
     def price_from_extended_chain_format(self, chain_value: Decimal) -> Decimal:
         return self._from_extended_chain_format(chain_value=self.price_from_chain_format(chain_value=chain_value))
+
+    def notional_from_extended_chain_format(self, chain_value: Decimal) -> Decimal:
+        return self._from_extended_chain_format(chain_value=self.notional_from_chain_format(chain_value=chain_value))
 
     def _from_extended_chain_format(self, chain_value: Decimal) -> Decimal:
         return chain_value / Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
@@ -89,12 +104,7 @@ class DerivativeMarket:
         return extended_chain_formatted_value
 
     def margin_to_chain_format(self, human_readable_value: Decimal) -> Decimal:
-        decimals = self.quote_token.decimals
-        chain_formatted_value = human_readable_value * Decimal(f"1e{decimals}")
-        quantized_value = (chain_formatted_value // self.min_quantity_tick_size) * self.min_quantity_tick_size
-        extended_chain_formatted_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-
-        return extended_chain_formatted_value
+        return self.notional_to_chain_format(human_readable_value=human_readable_value)
 
     def calculate_margin_in_chain_format(
         self, human_readable_quantity: Decimal, human_readable_price: Decimal, leverage: Decimal
@@ -109,6 +119,15 @@ class DerivativeMarket:
 
         return extended_chain_formatted_margin
 
+    def notional_to_chain_format(self, human_readable_value: Decimal) -> Decimal:
+        decimals = self.quote_token.decimals
+        chain_formatted_value = human_readable_value * Decimal(f"1e{decimals}")
+        quantization_factor = self.min_notional if self.min_notional > Decimal("0") else self.min_quantity_tick_size
+        quantized_value = (chain_formatted_value // quantization_factor) * quantization_factor
+        extended_chain_formatted_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+
+        return extended_chain_formatted_value
+
     def quantity_from_chain_format(self, chain_value: Decimal) -> Decimal:
         return chain_value
 
@@ -116,7 +135,10 @@ class DerivativeMarket:
         return chain_value * Decimal(f"1e-{self.quote_token.decimals}")
 
     def margin_from_chain_format(self, chain_value: Decimal) -> Decimal:
-        return chain_value * Decimal(f"1e-{self.quote_token.decimals}")
+        return self.notional_from_chain_format(chain_value=chain_value)
+
+    def notional_from_chain_format(self, chain_value: Decimal) -> Decimal:
+        return chain_value / Decimal(f"1e{self.quote_token.decimals}")
 
     def quantity_from_extended_chain_format(self, chain_value: Decimal) -> Decimal:
         return self._from_extended_chain_format(chain_value=self.quantity_from_chain_format(chain_value=chain_value))
@@ -125,7 +147,10 @@ class DerivativeMarket:
         return self._from_extended_chain_format(chain_value=self.price_from_chain_format(chain_value=chain_value))
 
     def margin_from_extended_chain_format(self, chain_value: Decimal) -> Decimal:
-        return self._from_extended_chain_format(chain_value=self.margin_from_chain_format(chain_value=chain_value))
+        return self.notional_from_extended_chain_format(chain_value=chain_value)
+
+    def notional_from_extended_chain_format(self, chain_value: Decimal) -> Decimal:
+        return self._from_extended_chain_format(chain_value=self.notional_from_chain_format(chain_value=chain_value))
 
     def _from_extended_chain_format(self, chain_value: Decimal) -> Decimal:
         return chain_value / Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
@@ -206,6 +231,15 @@ class BinaryOptionMarket:
 
         return extended_chain_formatted_margin
 
+    def notional_to_chain_format(self, human_readable_value: Decimal) -> Decimal:
+        decimals = self.quote_token.decimals
+        chain_formatted_value = human_readable_value * Decimal(f"1e{decimals}")
+        quantization_factor = self.min_notional if self.min_notional > Decimal("0") else self.min_quantity_tick_size
+        quantized_value = (chain_formatted_value // quantization_factor) * quantization_factor
+        extended_chain_formatted_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+
+        return extended_chain_formatted_value
+
     def quantity_from_chain_format(self, chain_value: Decimal, special_denom: Optional[Denom] = None) -> Decimal:
         # Binary option markets do not have a base market to provide the number of decimals
         decimals = 0 if special_denom is None else special_denom.base
@@ -214,6 +248,12 @@ class BinaryOptionMarket:
     def price_from_chain_format(self, chain_value: Decimal, special_denom: Optional[Denom] = None) -> Decimal:
         decimals = self.quote_token.decimals if special_denom is None else special_denom.quote
         return chain_value * Decimal(f"1e-{decimals}")
+
+    def margin_from_chain_format(self, chain_value: Decimal) -> Decimal:
+        return self.notional_from_chain_format(chain_value=chain_value)
+
+    def notional_from_chain_format(self, chain_value: Decimal) -> Decimal:
+        return chain_value / Decimal(f"1e{self.quote_token.decimals}")
 
     def quantity_from_extended_chain_format(
         self, chain_value: Decimal, special_denom: Optional[Denom] = None
@@ -226,6 +266,12 @@ class BinaryOptionMarket:
         return self._from_extended_chain_format(
             chain_value=self.price_from_chain_format(chain_value=chain_value, special_denom=special_denom)
         )
+
+    def margin_from_extended_chain_format(self, chain_value: Decimal) -> Decimal:
+        return self.notional_from_extended_chain_format(chain_value=chain_value)
+
+    def notional_from_extended_chain_format(self, chain_value: Decimal) -> Decimal:
+        return self._from_extended_chain_format(chain_value=self.notional_from_chain_format(chain_value=chain_value))
 
     def _from_extended_chain_format(self, chain_value: Decimal) -> Decimal:
         return chain_value / Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")

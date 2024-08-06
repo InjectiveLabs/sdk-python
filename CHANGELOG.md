@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.1] - 2024-08-07
+### Added
+- Added support for the following messages in the chain "exchange" module:
+  - MsgDecreasePositionMargin
+  - MsgUpdateSpotMarket
+  - MsgUpdateDerivativeMarket
+  - MsgAuthorizeStakeGrants
+  - MsgActivateStakeGrant
+
 ## [1.6.0] - 2024-07-30
 ### Added
 - Support for all queries in the chain "tendermint" module
