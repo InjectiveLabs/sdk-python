@@ -33,9 +33,19 @@ class TestSpotMarket:
         quantized_value = (
             expected_value // inj_usdt_spot_market.min_price_tick_size
         ) * inj_usdt_spot_market.min_price_tick_size
-        quantized_chain_format_value = quantized_value * Decimal("1e18")
+        quantized_chain_format_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         assert quantized_chain_format_value == chain_value
+
+    def test_convert_notional_to_chain_format(self, inj_usdt_spot_market: SpotMarket):
+        original_notional = Decimal("123.456789")
+
+        chain_value = inj_usdt_spot_market.notional_to_chain_format(human_readable_value=original_notional)
+        notional_decimals = inj_usdt_spot_market.quote_token.decimals
+        expected_value = original_notional * Decimal(f"1e{notional_decimals}")
+        expected_chain_format_value = expected_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+
+        assert expected_chain_format_value == chain_value
 
     def test_convert_quantity_from_chain_format(self, inj_usdt_spot_market: SpotMarket):
         expected_quantity = Decimal("123.456")
@@ -53,6 +63,15 @@ class TestSpotMarket:
         human_readable_price = inj_usdt_spot_market.price_from_chain_format(chain_value=chain_format_price)
 
         assert expected_price == human_readable_price
+
+    def test_convert_notional_from_chain_format(self, inj_usdt_spot_market: SpotMarket):
+        expected_notional = Decimal("123.456")
+
+        notional_decimals = inj_usdt_spot_market.quote_token.decimals
+        chain_format_notional = expected_notional * Decimal(f"1e{notional_decimals}")
+        human_readable_notional = inj_usdt_spot_market.notional_from_chain_format(chain_value=chain_format_notional)
+
+        assert expected_notional == human_readable_notional
 
     def test_convert_quantity_from_extended_chain_format(self, inj_usdt_spot_market: SpotMarket):
         expected_quantity = Decimal("123.456")
@@ -79,6 +98,19 @@ class TestSpotMarket:
 
         assert expected_price == human_readable_price
 
+    def test_convert_notional_from_extended_chain_format(self, inj_usdt_spot_market: SpotMarket):
+        expected_notional = Decimal("123.456")
+
+        notional_decimals = inj_usdt_spot_market.quote_token.decimals
+        chain_format_notional = (
+            expected_notional * Decimal(f"1e{notional_decimals}") * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        )
+        human_readable_notional = inj_usdt_spot_market.notional_from_extended_chain_format(
+            chain_value=chain_format_notional
+        )
+
+        assert expected_notional == human_readable_notional
+
 
 class TestDerivativeMarket:
     def test_convert_quantity_to_chain_format(self, btc_usdt_perp_market: DerivativeMarket):
@@ -88,7 +120,7 @@ class TestDerivativeMarket:
         quantized_value = (
             original_quantity // btc_usdt_perp_market.min_quantity_tick_size
         ) * btc_usdt_perp_market.min_quantity_tick_size
-        quantized_chain_format_value = quantized_value * Decimal("1e18")
+        quantized_chain_format_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         assert quantized_chain_format_value == chain_value
 
@@ -101,7 +133,7 @@ class TestDerivativeMarket:
         quantized_value = (
             expected_value // btc_usdt_perp_market.min_price_tick_size
         ) * btc_usdt_perp_market.min_price_tick_size
-        quantized_chain_format_value = quantized_value * Decimal("1e18")
+        quantized_chain_format_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         assert quantized_chain_format_value == chain_value
 
@@ -114,9 +146,19 @@ class TestDerivativeMarket:
         quantized_value = (
             expected_value // btc_usdt_perp_market.min_quantity_tick_size
         ) * btc_usdt_perp_market.min_quantity_tick_size
-        quantized_chain_format_value = quantized_value * Decimal("1e18")
+        quantized_chain_format_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         assert quantized_chain_format_value == chain_value
+
+    def test_convert_notional_to_chain_format(self, btc_usdt_perp_market: DerivativeMarket):
+        original_notional = Decimal("123.456789")
+
+        chain_value = btc_usdt_perp_market.notional_to_chain_format(human_readable_value=original_notional)
+        notional_decimals = btc_usdt_perp_market.quote_token.decimals
+        expected_value = original_notional * Decimal(f"1e{notional_decimals}")
+        expected_chain_format_value = expected_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+
+        assert expected_chain_format_value == chain_value
 
     def test_convert_quantity_from_chain_format(self, btc_usdt_perp_market: DerivativeMarket):
         expected_quantity = Decimal("123.456")
@@ -143,6 +185,15 @@ class TestDerivativeMarket:
         human_readable_margin = btc_usdt_perp_market.margin_from_chain_format(chain_value=chain_format_margin)
 
         assert expected_margin == human_readable_margin
+
+    def test_convert_notional_from_chain_format(self, btc_usdt_perp_market: DerivativeMarket):
+        expected_notional = Decimal("123.456")
+
+        notional_decimals = btc_usdt_perp_market.quote_token.decimals
+        chain_format_notional = expected_notional * Decimal(f"1e{notional_decimals}")
+        human_readable_notional = btc_usdt_perp_market.notional_from_chain_format(chain_value=chain_format_notional)
+
+        assert expected_notional == human_readable_notional
 
     def test_convert_quantity_from_extended_chain_format(self, btc_usdt_perp_market: DerivativeMarket):
         expected_quantity = Decimal("123.456")
@@ -176,6 +227,19 @@ class TestDerivativeMarket:
 
         assert expected_margin == human_readable_margin
 
+    def test_convert_notional_from_extended_chain_format(self, btc_usdt_perp_market: DerivativeMarket):
+        expected_notional = Decimal("123.456")
+
+        notional_decimals = btc_usdt_perp_market.quote_token.decimals
+        chain_format_notional = (
+            expected_notional * Decimal(f"1e{notional_decimals}") * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        )
+        human_readable_notional = btc_usdt_perp_market.notional_from_extended_chain_format(
+            chain_value=chain_format_notional
+        )
+
+        assert expected_notional == human_readable_notional
+
 
 class TestBinaryOptionMarket:
     def test_convert_quantity_to_chain_format_with_fixed_denom(self, first_match_bet_market: BinaryOptionMarket):
@@ -186,6 +250,7 @@ class TestBinaryOptionMarket:
             quote=4,
             min_quantity_tick_size=100,
             min_price_tick_size=10000,
+            min_notional=0,
         )
 
         chain_value = first_match_bet_market.quantity_to_chain_format(
@@ -195,7 +260,7 @@ class TestBinaryOptionMarket:
         quantized_value = (chain_formatted_quantity // Decimal(str(fixed_denom.min_quantity_tick_size))) * Decimal(
             str(fixed_denom.min_quantity_tick_size)
         )
-        quantized_chain_format_value = quantized_value * Decimal("1e18")
+        quantized_chain_format_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         assert quantized_chain_format_value == chain_value
 
@@ -208,7 +273,7 @@ class TestBinaryOptionMarket:
         quantized_value = (
             original_quantity // first_match_bet_market.min_quantity_tick_size
         ) * first_match_bet_market.min_quantity_tick_size
-        quantized_chain_format_value = quantized_value * Decimal("1e18")
+        quantized_chain_format_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         assert quantized_chain_format_value == chain_value
 
@@ -220,6 +285,7 @@ class TestBinaryOptionMarket:
             quote=4,
             min_quantity_tick_size=100,
             min_price_tick_size=10000,
+            min_notional=0,
         )
 
         chain_value = first_match_bet_market.price_to_chain_format(
@@ -231,7 +297,7 @@ class TestBinaryOptionMarket:
         quantized_value = (expected_value // Decimal(str(fixed_denom.min_price_tick_size))) * Decimal(
             str(fixed_denom.min_price_tick_size)
         )
-        quantized_chain_format_value = quantized_value * Decimal("1e18")
+        quantized_chain_format_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         assert quantized_chain_format_value == chain_value
 
@@ -244,7 +310,7 @@ class TestBinaryOptionMarket:
         quantized_value = (
             expected_value // first_match_bet_market.min_price_tick_size
         ) * first_match_bet_market.min_price_tick_size
-        quantized_chain_format_value = quantized_value * Decimal("1e18")
+        quantized_chain_format_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         assert quantized_chain_format_value == chain_value
 
@@ -256,6 +322,7 @@ class TestBinaryOptionMarket:
             quote=4,
             min_quantity_tick_size=100,
             min_price_tick_size=10000,
+            min_notional=0,
         )
 
         chain_value = first_match_bet_market.margin_to_chain_format(
@@ -267,7 +334,7 @@ class TestBinaryOptionMarket:
         quantized_value = (expected_value // Decimal(str(fixed_denom.min_quantity_tick_size))) * Decimal(
             str(fixed_denom.min_quantity_tick_size)
         )
-        quantized_chain_format_value = quantized_value * Decimal("1e18")
+        quantized_chain_format_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         assert quantized_chain_format_value == chain_value
 
@@ -280,7 +347,7 @@ class TestBinaryOptionMarket:
         quantized_value = (
             expected_value // first_match_bet_market.min_quantity_tick_size
         ) * first_match_bet_market.min_quantity_tick_size
-        quantized_chain_format_value = quantized_value * Decimal("1e18")
+        quantized_chain_format_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         assert quantized_chain_format_value == chain_value
 
@@ -293,6 +360,7 @@ class TestBinaryOptionMarket:
             quote=4,
             min_quantity_tick_size=100,
             min_price_tick_size=10000,
+            min_notional=0,
         )
 
         chain_value = first_match_bet_market.calculate_margin_in_chain_format(
@@ -310,7 +378,7 @@ class TestBinaryOptionMarket:
         quantized_margin = (expected_margin // Decimal(str(fixed_denom.min_quantity_tick_size))) * Decimal(
             str(fixed_denom.min_quantity_tick_size)
         )
-        quantized_chain_format_margin = quantized_margin * Decimal("1e18")
+        quantized_chain_format_margin = quantized_margin * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         assert quantized_chain_format_margin == chain_value
 
@@ -330,7 +398,7 @@ class TestBinaryOptionMarket:
         quantized_margin = (expected_margin // Decimal(str(first_match_bet_market.min_quantity_tick_size))) * Decimal(
             str(first_match_bet_market.min_quantity_tick_size)
         )
-        quantized_chain_format_margin = quantized_margin * Decimal("1e18")
+        quantized_chain_format_margin = quantized_margin * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         assert quantized_chain_format_margin == chain_value
 
@@ -350,9 +418,19 @@ class TestBinaryOptionMarket:
         quantized_margin = (expected_margin // Decimal(str(first_match_bet_market.min_quantity_tick_size))) * Decimal(
             str(first_match_bet_market.min_quantity_tick_size)
         )
-        quantized_chain_format_margin = quantized_margin * Decimal("1e18")
+        quantized_chain_format_margin = quantized_margin * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         assert quantized_chain_format_margin == chain_value
+
+    def test_convert_notional_to_chain_format(self, first_match_bet_market: BinaryOptionMarket):
+        original_notional = Decimal("123.456789")
+
+        chain_value = first_match_bet_market.notional_to_chain_format(human_readable_value=original_notional)
+        notional_decimals = first_match_bet_market.quote_token.decimals
+        expected_value = original_notional * Decimal(f"1e{notional_decimals}")
+        expected_chain_format_value = expected_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+
+        assert expected_chain_format_value == chain_value
 
     def test_convert_quantity_from_chain_format_with_fixed_denom(self, first_match_bet_market: BinaryOptionMarket):
         original_quantity = Decimal("123.456789")
@@ -362,6 +440,7 @@ class TestBinaryOptionMarket:
             quote=4,
             min_quantity_tick_size=100,
             min_price_tick_size=10000,
+            min_notional=0,
         )
 
         chain_formatted_quantity = original_quantity * Decimal(f"1e{fixed_denom.base}")
@@ -391,6 +470,7 @@ class TestBinaryOptionMarket:
             quote=4,
             min_quantity_tick_size=100,
             min_price_tick_size=10000,
+            min_notional=0,
         )
 
         chain_formatted_price = original_price * Decimal(f"1e{fixed_denom.quote}")
@@ -409,6 +489,15 @@ class TestBinaryOptionMarket:
 
         assert original_price == human_readable_price
 
+    def test_convert_notional_from_chain_format(self, first_match_bet_market: BinaryOptionMarket):
+        expected_notional = Decimal("123.456")
+
+        notional_decimals = first_match_bet_market.quote_token.decimals
+        chain_format_notional = expected_notional * Decimal(f"1e{notional_decimals}")
+        human_readable_notional = first_match_bet_market.notional_from_chain_format(chain_value=chain_format_notional)
+
+        assert expected_notional == human_readable_notional
+
     def test_convert_quantity_from_extended_chain_format_with_fixed_denom(
         self, first_match_bet_market: BinaryOptionMarket
     ):
@@ -419,6 +508,7 @@ class TestBinaryOptionMarket:
             quote=4,
             min_quantity_tick_size=100,
             min_price_tick_size=10000,
+            min_notional=0,
         )
 
         chain_formatted_quantity = (
@@ -454,6 +544,7 @@ class TestBinaryOptionMarket:
             quote=4,
             min_quantity_tick_size=100,
             min_price_tick_size=10000,
+            min_notional=0,
         )
 
         chain_formatted_price = (
@@ -481,3 +572,16 @@ class TestBinaryOptionMarket:
         )
 
         assert original_price == human_readable_price
+
+    def test_convert_notional_from_extended_chain_format(self, first_match_bet_market: BinaryOptionMarket):
+        expected_notional = Decimal("123.456")
+
+        notional_decimals = first_match_bet_market.quote_token.decimals
+        chain_format_notional = (
+            expected_notional * Decimal(f"1e{notional_decimals}") * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        )
+        human_readable_notional = first_match_bet_market.notional_from_extended_chain_format(
+            chain_value=chain_format_notional
+        )
+
+        assert expected_notional == human_readable_notional

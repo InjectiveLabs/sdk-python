@@ -8,7 +8,7 @@ from warnings import warn
 from google.protobuf import any_pb2, json_format, timestamp_pb2
 
 from pyinjective import constant
-from pyinjective.constant import ADDITIONAL_CHAIN_FORMAT_DECIMALS, INJ_DENOM
+from pyinjective.constant import ADDITIONAL_CHAIN_FORMAT_DECIMALS, INJ_DECIMALS, INJ_DENOM
 from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from pyinjective.core.token import Token
 from pyinjective.proto.cosmos.authz.v1beta1 import authz_pb2 as cosmos_authz_pb, tx_pb2 as cosmos_authz_tx_pb
@@ -453,6 +453,10 @@ class Composer:
             chain_trigger_price=chain_trigger_price,
         )
 
+    def create_grant_authorization(self, grantee: str, amount: Decimal) -> injective_exchange_pb.GrantAuthorization:
+        chain_formatted_amount = int(amount * Decimal(f"1e{INJ_DECIMALS}"))
+        return injective_exchange_pb.GrantAuthorization(grantee=grantee, amount=str(chain_formatted_amount))
+
     # region Auction module
     def MsgBid(self, sender: str, bid_amount: float, round: float):
         be_amount = Decimal(str(bid_amount)) * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
@@ -570,14 +574,14 @@ class Composer:
         base_token = self.tokens[base_denom]
         quote_token = self.tokens[quote_denom]
 
-        chain_min_price_tick_size = min_price_tick_size * Decimal(
-            f"1e{quote_token.decimals - base_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        chain_min_price_tick_size = (
+            quote_token.chain_formatted_value(min_price_tick_size) / base_token.chain_formatted_value(Decimal("1"))
+        ) * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        chain_min_quantity_tick_size = base_token.chain_formatted_value(min_quantity_tick_size) * Decimal(
+            f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
         )
-        chain_min_quantity_tick_size = min_quantity_tick_size * Decimal(
-            f"1e{base_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
-        )
-        chain_min_notional = min_notional * Decimal(
-            f"1e{quote_token.decimals - base_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        chain_min_notional = quote_token.chain_formatted_value(min_notional) * Decimal(
+            f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
         )
 
         return injective_exchange_tx_pb.MsgInstantSpotMarketLaunch(
@@ -609,15 +613,17 @@ class Composer:
     ) -> injective_exchange_tx_pb.MsgInstantPerpetualMarketLaunch:
         quote_token = self.tokens[quote_denom]
 
-        chain_min_price_tick_size = min_price_tick_size * Decimal(
-            f"1e{quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        chain_min_price_tick_size = quote_token.chain_formatted_value(min_price_tick_size) * Decimal(
+            f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
         )
         chain_min_quantity_tick_size = min_quantity_tick_size * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         chain_maker_fee_rate = maker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         chain_taker_fee_rate = taker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         chain_initial_margin_ratio = initial_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         chain_maintenance_margin_ratio = maintenance_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        chain_min_notional = min_notional * Decimal(f"1e{quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        chain_min_notional = quote_token.chain_formatted_value(min_notional) * Decimal(
+            f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        )
 
         return injective_exchange_tx_pb.MsgInstantPerpetualMarketLaunch(
             sender=sender,
@@ -656,15 +662,17 @@ class Composer:
     ) -> injective_exchange_tx_pb.MsgInstantPerpetualMarketLaunch:
         quote_token = self.tokens[quote_denom]
 
-        chain_min_price_tick_size = min_price_tick_size * Decimal(
-            f"1e{quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        chain_min_price_tick_size = quote_token.chain_formatted_value(min_price_tick_size) * Decimal(
+            f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
         )
         chain_min_quantity_tick_size = min_quantity_tick_size * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         chain_maker_fee_rate = maker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         chain_taker_fee_rate = taker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         chain_initial_margin_ratio = initial_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         chain_maintenance_margin_ratio = maintenance_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        chain_min_notional = min_notional * Decimal(f"1e{quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        chain_min_notional = quote_token.chain_formatted_value(min_notional) * Decimal(
+            f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        )
 
         return injective_exchange_tx_pb.MsgInstantExpiryFuturesMarketLaunch(
             sender=sender,
@@ -1306,7 +1314,9 @@ class Composer:
         chain_min_quantity_tick_size = min_quantity_tick_size * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         chain_maker_fee_rate = maker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         chain_taker_fee_rate = taker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        chain_min_notional = min_notional * Decimal(f"1e{quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        chain_min_notional = quote_token.chain_formatted_value(min_notional) * Decimal(
+            f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        )
 
         return injective_exchange_tx_pb.MsgInstantBinaryOptionsMarketLaunch(
             sender=sender,
@@ -1800,6 +1810,103 @@ class Composer:
             expiration_timestamp=expiration_timestamp,
             settlement_timestamp=settlement_timestamp,
             status=status,
+        )
+
+    def msg_decrease_position_margin(
+        self,
+        sender: str,
+        source_subaccount_id: str,
+        destination_subaccount_id: str,
+        market_id: str,
+        amount: Decimal,
+    ) -> injective_exchange_tx_pb.MsgDecreasePositionMargin:
+        market = self.derivative_markets[market_id]
+
+        additional_margin = market.margin_to_chain_format(human_readable_value=amount)
+        return injective_exchange_tx_pb.MsgDecreasePositionMargin(
+            sender=sender,
+            source_subaccount_id=source_subaccount_id,
+            destination_subaccount_id=destination_subaccount_id,
+            market_id=market_id,
+            amount=str(int(additional_margin)),
+        )
+
+    def msg_update_spot_market(
+        self,
+        admin: str,
+        market_id: str,
+        new_ticker: str,
+        new_min_price_tick_size: Decimal,
+        new_min_quantity_tick_size: Decimal,
+        new_min_notional: Decimal,
+    ) -> injective_exchange_tx_pb.MsgUpdateSpotMarket:
+        market = self.spot_markets[market_id]
+
+        chain_min_price_tick_size = new_min_price_tick_size * Decimal(
+            f"1e{market.quote_token.decimals - market.base_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        )
+        chain_min_quantity_tick_size = new_min_quantity_tick_size * Decimal(
+            f"1e{market.base_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        )
+        chain_min_notional = new_min_notional * Decimal(
+            f"1e{market.quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        )
+
+        return injective_exchange_tx_pb.MsgUpdateSpotMarket(
+            admin=admin,
+            market_id=market_id,
+            new_ticker=new_ticker,
+            new_min_price_tick_size=f"{chain_min_price_tick_size.normalize():f}",
+            new_min_quantity_tick_size=f"{chain_min_quantity_tick_size.normalize():f}",
+            new_min_notional=f"{chain_min_notional.normalize():f}",
+        )
+
+    def msg_update_derivative_market(
+        self,
+        admin: str,
+        market_id: str,
+        new_ticker: str,
+        new_min_price_tick_size: Decimal,
+        new_min_quantity_tick_size: Decimal,
+        new_min_notional: Decimal,
+        new_initial_margin_ratio: Decimal,
+        new_maintenance_margin_ratio: Decimal,
+    ) -> injective_exchange_tx_pb.MsgUpdateDerivativeMarket:
+        market = self.derivative_markets[market_id]
+
+        chain_min_price_tick_size = new_min_price_tick_size * Decimal(
+            f"1e{market.quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        )
+        chain_min_quantity_tick_size = new_min_quantity_tick_size * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        chain_min_notional = new_min_notional * Decimal(
+            f"1e{market.quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        )
+        chain_initial_margin_ratio = new_initial_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        chain_maintenance_margin_ratio = new_maintenance_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+
+        return injective_exchange_tx_pb.MsgUpdateDerivativeMarket(
+            admin=admin,
+            market_id=market_id,
+            new_ticker=new_ticker,
+            new_min_price_tick_size=f"{chain_min_price_tick_size.normalize():f}",
+            new_min_quantity_tick_size=f"{chain_min_quantity_tick_size.normalize():f}",
+            new_min_notional=f"{chain_min_notional.normalize():f}",
+            new_initial_margin_ratio=f"{chain_initial_margin_ratio.normalize():f}",
+            new_maintenance_margin_ratio=f"{chain_maintenance_margin_ratio.normalize():f}",
+        )
+
+    def msg_authorize_stake_grants(
+        self, sender: str, grants: List[injective_exchange_pb.GrantAuthorization]
+    ) -> injective_exchange_tx_pb.MsgAuthorizeStakeGrants:
+        return injective_exchange_tx_pb.MsgAuthorizeStakeGrants(
+            sender=sender,
+            grants=grants,
+        )
+
+    def msg_activate_stake_grant(self, sender: str, granter: str) -> injective_exchange_tx_pb.MsgActivateStakeGrant:
+        return injective_exchange_tx_pb.MsgActivateStakeGrant(
+            sender=sender,
+            granter=granter,
         )
 
     # endregion
@@ -2484,6 +2591,7 @@ class Composer:
                         service_provider_fee=None,
                         min_price_tick_size=Decimal(str(configuration_section["min_price_tick_size"])),
                         min_quantity_tick_size=Decimal(str(configuration_section["min_quantity_tick_size"])),
+                        min_notional=Decimal(str(configuration_section.get("min_notional", "0"))),
                     )
                     spot_markets[market.id] = market
                 else:
@@ -2503,6 +2611,7 @@ class Composer:
                         service_provider_fee=None,
                         min_price_tick_size=Decimal(str(configuration_section["min_price_tick_size"])),
                         min_quantity_tick_size=Decimal(str(configuration_section["min_quantity_tick_size"])),
+                        min_notional=Decimal(str(configuration_section.get("min_notional", "0"))),
                     )
 
                     derivative_markets[market.id] = market

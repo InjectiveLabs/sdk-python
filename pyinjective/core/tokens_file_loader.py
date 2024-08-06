@@ -15,7 +15,7 @@ class TokensFileLoader:
                 name=token_info["name"],
                 symbol=token_info["symbol"],
                 denom=token_info["denom"],
-                address=token_info["address"],
+                address=token_info.get("address", ""),
                 decimals=token_info["decimals"],
                 logo=token_info["logo"],
                 updated=-1,

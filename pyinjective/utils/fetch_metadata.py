@@ -12,6 +12,7 @@ min_price_tick_size = {}
 min_display_price_tick_size = {}
 min_quantity_tick_size = {}
 min_display_quantity_tick_size = {}
+min_notional = {}
 
 """
 
@@ -47,6 +48,7 @@ async def fetch_denom(network) -> str:
             f"{min_display_price_tick_size.normalize():f}",
             f"{market.min_quantity_tick_size.normalize():f}",
             f"{min_display_quantity_tick_size.normalize():f}",
+            f"{market.min_notional.normalize():f}",
         )
         denom_output += config
 
@@ -66,6 +68,7 @@ async def fetch_denom(network) -> str:
             f"{min_display_price_tick_size.normalize():f}",
             f"{market.min_quantity_tick_size.normalize():f}",
             f"{market.min_quantity_tick_size.normalize():f}",
+            f"{market.min_notional.normalize():f}",
         )
         denom_output += config
 
