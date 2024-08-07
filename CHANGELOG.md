@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.2]
+### Fixed
+- Fixed issue in the `listen_derivative_market_updates` method in the `AsyncClient` class
+
 ## [1.6.1] - 2024-08-07
 ### Added
 - Added support for the following messages in the chain "exchange" module:
