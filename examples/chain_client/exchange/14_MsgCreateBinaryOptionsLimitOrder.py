@@ -38,7 +38,14 @@ async def main() -> None:
     fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
 
     # set custom denom to bypass ini file load (optional)
-    denom = Denom(description="desc", base=0, quote=6, min_price_tick_size=1000, min_quantity_tick_size=0.0001)
+    denom = Denom(
+        description="desc",
+        base=0,
+        quote=6,
+        min_price_tick_size=1000,
+        min_quantity_tick_size=0.0001,
+        min_notional=0,
+    )
 
     # prepare tx msg
     msg = composer.msg_create_binary_options_limit_order(

@@ -64,6 +64,7 @@ def inj_usdt_spot_market(inj_token, usdt_token):
         service_provider_fee=Decimal("0.4"),
         min_price_tick_size=Decimal("0.000000000000001"),
         min_quantity_tick_size=Decimal("1000000000000000"),
+        min_notional=Decimal("0.000000000001"),
     )
 
     return market
@@ -87,6 +88,7 @@ def btc_usdt_perp_market(usdt_perp_token):
         service_provider_fee=Decimal("0.4"),
         min_price_tick_size=Decimal("1000000"),
         min_quantity_tick_size=Decimal("0.0001"),
+        min_notional=Decimal("0.000001"),
     )
 
     return market
@@ -110,6 +112,7 @@ def first_match_bet_market(usdt_token):
         service_provider_fee=Decimal("0.4"),
         min_price_tick_size=Decimal("10000"),
         min_quantity_tick_size=Decimal("1"),
+        min_notional=Decimal("0.000001"),
     )
 
     return market

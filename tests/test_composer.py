@@ -5,7 +5,7 @@ import pytest
 from google.protobuf import json_format
 
 from pyinjective.composer import Composer
-from pyinjective.constant import ADDITIONAL_CHAIN_FORMAT_DECIMALS
+from pyinjective.constant import ADDITIONAL_CHAIN_FORMAT_DECIMALS, INJ_DECIMALS
 from pyinjective.core.network import Network
 from tests.model_fixtures.markets_fixtures import btc_usdt_perp_market  # noqa: F401
 from tests.model_fixtures.markets_fixtures import first_match_bet_market  # noqa: F401
@@ -321,9 +321,7 @@ class TestComposer:
         expected_min_quantity_tick_size = min_quantity_tick_size * Decimal(
             f"1e{base_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
         )
-        expected_min_notional = min_notional * Decimal(
-            f"1e{quote_token.decimals - base_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
-        )
+        expected_min_notional = min_notional * Decimal(f"1e{quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         message = basic_composer.msg_instant_spot_market_launch(
             sender=sender,
@@ -1440,7 +1438,7 @@ class TestComposer:
         )
         assert dict_message == expected_message
 
-    def test_msg_external_transfer(self, basic_composer):
+    def test_msg_increase_position_margin(self, basic_composer):
         market = list(basic_composer.derivative_markets.values())[0]
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
         source_subaccount_id = "0x893f2abf8034627e50cbc63923120b1122503ce0000000000000000000000001"
@@ -1450,6 +1448,36 @@ class TestComposer:
         expected_amount = market.margin_to_chain_format(human_readable_value=amount)
 
         message = basic_composer.msg_increase_position_margin(
+            sender=sender,
+            source_subaccount_id=source_subaccount_id,
+            destination_subaccount_id=destination_subaccount_id,
+            market_id=market.id,
+            amount=amount,
+        )
+
+        expected_message = {
+            "sender": sender,
+            "sourceSubaccountId": source_subaccount_id,
+            "destinationSubaccountId": destination_subaccount_id,
+            "marketId": market.id,
+            "amount": f"{expected_amount.normalize():f}",
+        }
+        dict_message = json_format.MessageToDict(
+            message=message,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_msg_decrease_position_margin(self, basic_composer):
+        market = list(basic_composer.derivative_markets.values())[0]
+        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
+        source_subaccount_id = "0x893f2abf8034627e50cbc63923120b1122503ce0000000000000000000000001"
+        destination_subaccount_id = "0xc6fe5d33615a1c52c08018c47e8bc53646a0e101000000000000000000000000"
+        amount = Decimal(100)
+
+        expected_amount = market.margin_to_chain_format(human_readable_value=amount)
+
+        message = basic_composer.msg_decrease_position_margin(
             sender=sender,
             source_subaccount_id=source_subaccount_id,
             destination_subaccount_id=destination_subaccount_id,
@@ -1512,6 +1540,142 @@ class TestComposer:
             "expirationTimestamp": str(expiration_timestamp),
             "settlementTimestamp": str(settlement_timestamp),
             "status": status,
+        }
+        dict_message = json_format.MessageToDict(
+            message=message,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_msg_update_spot_market(self, basic_composer):
+        market = list(basic_composer.spot_markets.values())[0]
+        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
+        new_ticker = "NEW/TICKER"
+        min_price_tick_size = Decimal("0.0009")
+        min_quantity_tick_size = Decimal("10")
+        min_notional = Decimal("5")
+
+        expected_min_price_tick_size = min_price_tick_size * Decimal(
+            f"1e{market.quote_token.decimals - market.base_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        )
+        expected_min_quantity_tick_size = min_quantity_tick_size * Decimal(
+            f"1e{market.base_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        )
+        expected_min_notional = min_notional * Decimal(
+            f"1e{market.quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        )
+
+        message = basic_composer.msg_update_spot_market(
+            admin=sender,
+            market_id=market.id,
+            new_ticker=new_ticker,
+            new_min_price_tick_size=min_price_tick_size,
+            new_min_quantity_tick_size=min_quantity_tick_size,
+            new_min_notional=min_notional,
+        )
+
+        expected_message = {
+            "admin": sender,
+            "marketId": market.id,
+            "newTicker": new_ticker,
+            "newMinPriceTickSize": f"{expected_min_price_tick_size.normalize():f}",
+            "newMinQuantityTickSize": f"{expected_min_quantity_tick_size.normalize():f}",
+            "newMinNotional": f"{expected_min_notional.normalize():f}",
+        }
+        dict_message = json_format.MessageToDict(
+            message=message,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_msg_update_derivative_market(self, basic_composer):
+        market = list(basic_composer.derivative_markets.values())[0]
+        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
+        new_ticker = "NEW/TICKER"
+        min_price_tick_size = Decimal("0.0009")
+        min_quantity_tick_size = Decimal("10")
+        min_notional = Decimal("5")
+        initial_margin_ratio = Decimal("0.05")
+        maintenance_margin_ratio = Decimal("0.009")
+
+        expected_min_price_tick_size = min_price_tick_size * Decimal(
+            f"1e{market.quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        )
+        expected_min_quantity_tick_size = min_quantity_tick_size * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        expected_min_notional = min_notional * Decimal(
+            f"1e{market.quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        )
+        expected_initial_margin_ratio = initial_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        expected_maintenance_margin_ratio = maintenance_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+
+        message = basic_composer.msg_update_derivative_market(
+            admin=sender,
+            market_id=market.id,
+            new_ticker=new_ticker,
+            new_min_price_tick_size=min_price_tick_size,
+            new_min_quantity_tick_size=min_quantity_tick_size,
+            new_min_notional=min_notional,
+            new_initial_margin_ratio=initial_margin_ratio,
+            new_maintenance_margin_ratio=maintenance_margin_ratio,
+        )
+
+        expected_message = {
+            "admin": sender,
+            "marketId": market.id,
+            "newTicker": new_ticker,
+            "newMinPriceTickSize": f"{expected_min_price_tick_size.normalize():f}",
+            "newMinQuantityTickSize": f"{expected_min_quantity_tick_size.normalize():f}",
+            "newMinNotional": f"{expected_min_notional.normalize():f}",
+            "newInitialMarginRatio": f"{expected_initial_margin_ratio.normalize():f}",
+            "newMaintenanceMarginRatio": f"{expected_maintenance_margin_ratio.normalize():f}",
+        }
+        dict_message = json_format.MessageToDict(
+            message=message,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_msg_authorize_stake_grants(self, basic_composer):
+        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
+        amount = Decimal("100")
+        grant_authorization = basic_composer.create_grant_authorization(
+            grantee="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
+            amount=amount,
+        )
+
+        message = basic_composer.msg_authorize_stake_grants(
+            sender=sender,
+            grants=[grant_authorization],
+        )
+
+        expected_amount = amount * Decimal(f"1e{INJ_DECIMALS}")
+        expected_message = {
+            "sender": sender,
+            "grants": [
+                {
+                    "grantee": grant_authorization.grantee,
+                    "amount": str(int(expected_amount)),
+                }
+            ],
+        }
+        dict_message = json_format.MessageToDict(
+            message=message,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_msg_activate_stake_grant(self, basic_composer):
+        sender = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
+        granter = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
+
+        message = basic_composer.msg_activate_stake_grant(
+            sender=sender,
+            granter=granter,
+        )
+
+        expected_message = {
+            "sender": sender,
+            "granter": granter,
         }
         dict_message = json_format.MessageToDict(
             message=message,

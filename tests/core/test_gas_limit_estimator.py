@@ -227,6 +227,7 @@ class TestGasLimitEstimator:
             service_provider_fee=Decimal("0.4"),
             min_price_tick_size=Decimal("10000"),
             min_quantity_tick_size=Decimal("1"),
+            min_notional=Decimal(0),
         )
         composer.binary_option_markets[market.id] = market
         orders = [
