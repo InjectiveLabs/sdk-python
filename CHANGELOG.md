@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.3]
+### Fixed
+- Updated reference gas cost for messages in the gas limit estimator after chain upgrade v1.13
+
 ## [1.6.2]
 ### Fixed
 - Fixed issue in the `listen_derivative_market_updates` method in the `AsyncClient` class
