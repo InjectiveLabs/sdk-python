@@ -1,7 +1,19 @@
 from decimal import Decimal
 
 from pyinjective.composer import Composer
-from pyinjective.core.gas_limit_estimator import GasLimitEstimator
+from pyinjective.core.gas_limit_estimator import (
+    DERIVATIVE_ORDER_CANCELATION_GAS_LIMIT,
+    DERIVATIVE_ORDER_CREATION_GAS_LIMIT,
+    SPOT_ORDER_CANCELATION_GAS_LIMIT,
+    SPOT_ORDER_CREATION_GAS_LIMIT,
+    BatchCancelDerivativeOrdersGasLimitEstimator,
+    BatchCancelSpotOrdersGasLimitEstimator,
+    BatchCreateDerivativeLimitOrdersGasLimitEstimator,
+    BatchCreateSpotLimitOrdersGasLimitEstimator,
+    BatchUpdateOrdersGasLimitEstimator,
+    ExecGasLimitEstimator,
+    GasLimitEstimator,
+)
 from pyinjective.core.market import BinaryOptionMarket
 from pyinjective.proto.cosmos.gov.v1beta1 import tx_pb2 as gov_tx_pb
 from pyinjective.proto.cosmwasm.wasm.v1 import tx_pb2 as wasm_tx_pb
@@ -44,8 +56,8 @@ class TestGasLimitEstimator:
         message = composer.msg_batch_create_spot_limit_orders(sender="sender", orders=orders)
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_order_gas_limit = 50000
-        expected_message_gas_limit = 15000
+        expected_order_gas_limit = SPOT_ORDER_CREATION_GAS_LIMIT
+        expected_message_gas_limit = BatchCreateSpotLimitOrdersGasLimitEstimator.GENERAL_MESSAGE_GAS_LIMIT
 
         assert (expected_order_gas_limit * 2) + expected_message_gas_limit == estimator.gas_limit()
 
@@ -72,8 +84,8 @@ class TestGasLimitEstimator:
         message = composer.msg_batch_cancel_spot_orders(sender="sender", orders_data=orders)
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_order_gas_limit = 50000
-        expected_message_gas_limit = 15000
+        expected_order_gas_limit = SPOT_ORDER_CANCELATION_GAS_LIMIT
+        expected_message_gas_limit = BatchCancelSpotOrdersGasLimitEstimator.GENERAL_MESSAGE_GAS_LIMIT
 
         assert (expected_order_gas_limit * 3) + expected_message_gas_limit == estimator.gas_limit()
 
@@ -103,8 +115,8 @@ class TestGasLimitEstimator:
         message = composer.msg_batch_create_derivative_limit_orders(sender="sender", orders=orders)
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_order_gas_limit = 70_000
-        expected_message_gas_limit = 15000
+        expected_order_gas_limit = DERIVATIVE_ORDER_CREATION_GAS_LIMIT
+        expected_message_gas_limit = BatchCreateDerivativeLimitOrdersGasLimitEstimator.GENERAL_MESSAGE_GAS_LIMIT
 
         assert (expected_order_gas_limit * 2) + expected_message_gas_limit == estimator.gas_limit()
 
@@ -131,8 +143,8 @@ class TestGasLimitEstimator:
         message = composer.msg_batch_cancel_derivative_orders(sender="sender", orders_data=orders)
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_order_gas_limit = 60_000
-        expected_message_gas_limit = 15000
+        expected_order_gas_limit = DERIVATIVE_ORDER_CANCELATION_GAS_LIMIT
+        expected_message_gas_limit = BatchCancelDerivativeOrdersGasLimitEstimator.GENERAL_MESSAGE_GAS_LIMIT
 
         assert (expected_order_gas_limit * 3) + expected_message_gas_limit == estimator.gas_limit()
 
@@ -166,8 +178,8 @@ class TestGasLimitEstimator:
         )
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_order_gas_limit = 50_000
-        expected_message_gas_limit = 15_000
+        expected_order_gas_limit = SPOT_ORDER_CREATION_GAS_LIMIT
+        expected_message_gas_limit = BatchUpdateOrdersGasLimitEstimator.MESSAGE_GAS_LIMIT
 
         assert (expected_order_gas_limit * 2) + expected_message_gas_limit == estimator.gas_limit()
 
@@ -203,8 +215,8 @@ class TestGasLimitEstimator:
         )
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_order_gas_limit = 70_000
-        expected_message_gas_limit = 15_000
+        expected_order_gas_limit = DERIVATIVE_ORDER_CREATION_GAS_LIMIT
+        expected_message_gas_limit = BatchUpdateOrdersGasLimitEstimator.MESSAGE_GAS_LIMIT
 
         assert (expected_order_gas_limit * 2) + expected_message_gas_limit == estimator.gas_limit()
 
@@ -260,8 +272,8 @@ class TestGasLimitEstimator:
         )
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_order_gas_limit = 70_000
-        expected_message_gas_limit = 15_000
+        expected_order_gas_limit = DERIVATIVE_ORDER_CREATION_GAS_LIMIT
+        expected_message_gas_limit = BatchUpdateOrdersGasLimitEstimator.MESSAGE_GAS_LIMIT
 
         assert (expected_order_gas_limit * 2) + expected_message_gas_limit == estimator.gas_limit()
 
@@ -294,8 +306,8 @@ class TestGasLimitEstimator:
         )
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_order_gas_limit = 50_000
-        expected_message_gas_limit = 15_000
+        expected_order_gas_limit = SPOT_ORDER_CANCELATION_GAS_LIMIT
+        expected_message_gas_limit = BatchUpdateOrdersGasLimitEstimator.MESSAGE_GAS_LIMIT
 
         assert (expected_order_gas_limit * 3) + expected_message_gas_limit == estimator.gas_limit()
 
@@ -328,8 +340,8 @@ class TestGasLimitEstimator:
         )
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_order_gas_limit = 60_000
-        expected_message_gas_limit = 15_000
+        expected_order_gas_limit = DERIVATIVE_ORDER_CANCELATION_GAS_LIMIT
+        expected_message_gas_limit = BatchUpdateOrdersGasLimitEstimator.MESSAGE_GAS_LIMIT
 
         assert (expected_order_gas_limit * 3) + expected_message_gas_limit == estimator.gas_limit()
 
@@ -363,8 +375,8 @@ class TestGasLimitEstimator:
         )
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_order_gas_limit = 60_000
-        expected_message_gas_limit = 15_000
+        expected_order_gas_limit = DERIVATIVE_ORDER_CANCELATION_GAS_LIMIT
+        expected_message_gas_limit = BatchUpdateOrdersGasLimitEstimator.MESSAGE_GAS_LIMIT
 
         assert (expected_order_gas_limit * 3) + expected_message_gas_limit == estimator.gas_limit()
 
@@ -383,8 +395,8 @@ class TestGasLimitEstimator:
         )
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_gas_limit = 40_000 * 20
-        expected_message_gas_limit = 15_000
+        expected_gas_limit = BatchUpdateOrdersGasLimitEstimator.CANCEL_ALL_SPOT_MARKET_GAS_LIMIT * 20
+        expected_message_gas_limit = BatchUpdateOrdersGasLimitEstimator.MESSAGE_GAS_LIMIT
 
         assert expected_gas_limit + expected_message_gas_limit == estimator.gas_limit()
 
@@ -403,8 +415,8 @@ class TestGasLimitEstimator:
         )
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_gas_limit = 50_000 * 20
-        expected_message_gas_limit = 15_000
+        expected_gas_limit = BatchUpdateOrdersGasLimitEstimator.CANCEL_ALL_DERIVATIVE_MARKET_GAS_LIMIT * 20
+        expected_message_gas_limit = BatchUpdateOrdersGasLimitEstimator.MESSAGE_GAS_LIMIT
 
         assert expected_gas_limit + expected_message_gas_limit == estimator.gas_limit()
 
@@ -423,8 +435,8 @@ class TestGasLimitEstimator:
         )
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_gas_limit = 50_000 * 20
-        expected_message_gas_limit = 15_000
+        expected_gas_limit = BatchUpdateOrdersGasLimitEstimator.CANCEL_ALL_DERIVATIVE_MARKET_GAS_LIMIT * 20
+        expected_message_gas_limit = BatchUpdateOrdersGasLimitEstimator.MESSAGE_GAS_LIMIT
 
         assert expected_gas_limit + expected_message_gas_limit == estimator.gas_limit()
 
@@ -452,9 +464,9 @@ class TestGasLimitEstimator:
 
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_order_gas_limit = 50_000
-        expected_inner_message_gas_limit = 15_000
-        expected_exec_message_gas_limit = 8_000
+        expected_order_gas_limit = SPOT_ORDER_CREATION_GAS_LIMIT
+        expected_inner_message_gas_limit = BatchUpdateOrdersGasLimitEstimator.MESSAGE_GAS_LIMIT
+        expected_exec_message_gas_limit = ExecGasLimitEstimator.DEFAULT_GAS_LIMIT
 
         assert (
             expected_order_gas_limit + expected_inner_message_gas_limit + expected_exec_message_gas_limit
