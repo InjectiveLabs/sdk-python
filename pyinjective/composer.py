@@ -11,6 +11,7 @@ from pyinjective import constant
 from pyinjective.constant import ADDITIONAL_CHAIN_FORMAT_DECIMALS, INJ_DECIMALS, INJ_DENOM
 from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from pyinjective.core.token import Token
+from pyinjective.ofac import OfacChecker
 from pyinjective.proto.cosmos.authz.v1beta1 import authz_pb2 as cosmos_authz_pb, tx_pb2 as cosmos_authz_tx_pb
 from pyinjective.proto.cosmos.bank.v1beta1 import bank_pb2 as bank_pb, tx_pb2 as cosmos_bank_tx_pb
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as base_coin_pb
@@ -147,6 +148,7 @@ class Composer:
             self.derivative_markets = derivative_markets
             self.binary_option_markets = binary_option_markets
             self.tokens = tokens
+        self._ofac_checker = OfacChecker()
 
     def Coin(self, amount: int, denom: str):
         """
@@ -471,6 +473,8 @@ class Composer:
 
     # region Authz module
     def MsgGrantGeneric(self, granter: str, grantee: str, msg_type: str, expire_in: int):
+        if self._ofac_checker.is_blacklisted(granter):
+            raise Exception(f"Address {granter} is in the OFAC list")
         auth = cosmos_authz_pb.GenericAuthorization(msg=msg_type)
         any_auth = any_pb2.Any()
         any_auth.Pack(auth, type_url_prefix="")
@@ -2125,6 +2129,9 @@ class Composer:
         subaccount_id: str,
         **kwargs,
     ):
+        if self._ofac_checker.is_blacklisted(granter):
+            raise Exception(f"Address {granter} is in the OFAC list")
+
         auth = None
         if msg_type == "CreateSpotLimitOrderAuthz":
             auth = injective_authz_pb.CreateSpotLimitOrderAuthz(

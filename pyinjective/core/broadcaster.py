@@ -12,6 +12,7 @@ from pyinjective.composer import Composer
 from pyinjective.constant import GAS_PRICE
 from pyinjective.core.gas_limit_estimator import GasLimitEstimator
 from pyinjective.core.network import Network
+from pyinjective.ofac import OfacChecker
 
 
 class BroadcasterAccountConfig(ABC):
@@ -62,6 +63,10 @@ class MsgBroadcasterWithPk:
         self._client = client
         self._composer = composer
         self._fee_calculator = fee_calculator
+        self._ofac_checker = OfacChecker()
+
+        if self._ofac_checker.is_blacklisted(address=self._account_config.trading_injective_address):
+            raise Exception(f"Address {self._account_config.trading_injective_address} is in the OFAC list")
 
     @classmethod
     def new_using_simulation(
