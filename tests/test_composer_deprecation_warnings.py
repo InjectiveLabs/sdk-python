@@ -100,7 +100,7 @@ class TestComposerDeprecationWarnings:
 
         with warnings.catch_warnings(record=True) as all_warnings:
             composer.DerivativeOrder(
-                market_id="0x7cc8b10d7deb61e744ef83bdec2bbcf4a056867e89b062c6a453020ca82bd4e4",
+                market_id="0x9b9980167ecc3645ff1a5517886652d94a0825e54a77d2057cbbe3ebee015963",
                 subaccount_id="subaccount id",
                 fee_recipient="fee recipient",
                 price=1,
@@ -247,7 +247,7 @@ class TestComposerDeprecationWarnings:
 
         with warnings.catch_warnings(record=True) as all_warnings:
             composer.MsgCreateDerivativeLimitOrder(
-                market_id="0x7cc8b10d7deb61e744ef83bdec2bbcf4a056867e89b062c6a453020ca82bd4e4",
+                market_id="0x9b9980167ecc3645ff1a5517886652d94a0825e54a77d2057cbbe3ebee015963",
                 sender="sender",
                 subaccount_id="subaccount id",
                 fee_recipient="fee recipient",
@@ -267,7 +267,7 @@ class TestComposerDeprecationWarnings:
     def test_msg_batch_create_derivative_limit_orders_deprecation_warning(self):
         composer = Composer(network=Network.devnet().string())
         order = composer.derivative_order(
-            market_id="0x7cc8b10d7deb61e744ef83bdec2bbcf4a056867e89b062c6a453020ca82bd4e4",
+            market_id="0x9b9980167ecc3645ff1a5517886652d94a0825e54a77d2057cbbe3ebee015963",
             subaccount_id="subaccount id",
             fee_recipient="fee recipient",
             price=Decimal(1),
@@ -294,7 +294,7 @@ class TestComposerDeprecationWarnings:
 
         with warnings.catch_warnings(record=True) as all_warnings:
             composer.MsgCreateDerivativeMarketOrder(
-                market_id="0x7cc8b10d7deb61e744ef83bdec2bbcf4a056867e89b062c6a453020ca82bd4e4",
+                market_id="0x9b9980167ecc3645ff1a5517886652d94a0825e54a77d2057cbbe3ebee015963",
                 sender="sender",
                 subaccount_id="subaccount id",
                 fee_recipient="fee recipient",
@@ -316,7 +316,7 @@ class TestComposerDeprecationWarnings:
 
         with warnings.catch_warnings(record=True) as all_warnings:
             composer.MsgCancelDerivativeOrder(
-                market_id="0x7cc8b10d7deb61e744ef83bdec2bbcf4a056867e89b062c6a453020ca82bd4e4",
+                market_id="0x9b9980167ecc3645ff1a5517886652d94a0825e54a77d2057cbbe3ebee015963",
                 sender="sender",
                 subaccount_id="subaccount id",
                 order_hash="order hash",
@@ -333,7 +333,7 @@ class TestComposerDeprecationWarnings:
         composer = Composer(network=Network.devnet().string())
         orders = [
             composer.order_data(
-                market_id="0x7cc8b10d7deb61e744ef83bdec2bbcf4a056867e89b062c6a453020ca82bd4e4",
+                market_id="0x9b9980167ecc3645ff1a5517886652d94a0825e54a77d2057cbbe3ebee015963",
                 subaccount_id="subaccount_id",
                 order_hash="0x3870fbdd91f07d54425147b1bb96404f4f043ba6335b422a6d494d285b387f2d",
             ),
@@ -479,7 +479,7 @@ class TestComposerDeprecationWarnings:
             composer.MsgLiquidatePosition(
                 sender="sender",
                 subaccount_id="subaccount id",
-                market_id="0x7cc8b10d7deb61e744ef83bdec2bbcf4a056867e89b062c6a453020ca82bd4e4",
+                market_id="0x9b9980167ecc3645ff1a5517886652d94a0825e54a77d2057cbbe3ebee015963",
             )
 
         deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
@@ -494,7 +494,7 @@ class TestComposerDeprecationWarnings:
                 sender="sender",
                 source_subaccount_id="source_subaccount id",
                 destination_subaccount_id="destination_subaccount id",
-                market_id="0x7cc8b10d7deb61e744ef83bdec2bbcf4a056867e89b062c6a453020ca82bd4e4",
+                market_id="0x9b9980167ecc3645ff1a5517886652d94a0825e54a77d2057cbbe3ebee015963",
                 amount=1,
             )
 
