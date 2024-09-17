@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.7.0] - 2024-09-18
+### Added
+- Added OFAC restricted addresses validations
+
 ## [1.6.3]
 ### Fixed
 - Updated reference gas cost for messages in the gas limit estimator after chain upgrade v1.13
