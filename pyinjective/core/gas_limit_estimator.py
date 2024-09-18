@@ -12,17 +12,17 @@ from pyinjective.proto.injective.exchange.v1beta1 import (
     tx_pb2 as injective_exchange_tx_pb,
 )
 
-SPOT_ORDER_CREATION_GAS_LIMIT = 50_000
-DERIVATIVE_ORDER_CREATION_GAS_LIMIT = 70_000
+SPOT_ORDER_CREATION_GAS_LIMIT = 52_000
+DERIVATIVE_ORDER_CREATION_GAS_LIMIT = 84_000
 SPOT_ORDER_CANCELATION_GAS_LIMIT = 50_000
-DERIVATIVE_ORDER_CANCELATION_GAS_LIMIT = 60_000
+DERIVATIVE_ORDER_CANCELATION_GAS_LIMIT = 68_000
 # POST ONLY orders take around 50% more gas to create than normal orders due to the required validations
-SPOT_POST_ONLY_ORDER_MULTIPLIER = 0.5
-DERIVATIVE_POST_ONLY_ORDER_MULTIPLIER = 0.5
+SPOT_POST_ONLY_ORDER_MULTIPLIER = 0.62
+DERIVATIVE_POST_ONLY_ORDER_MULTIPLIER = 0.35
 
 
 class GasLimitEstimator(ABC):
-    GENERAL_MESSAGE_GAS_LIMIT = 15_000
+    GENERAL_MESSAGE_GAS_LIMIT = 25_000
     BASIC_REFERENCE_GAS_LIMIT = 150_000
 
     @classmethod
@@ -183,7 +183,7 @@ class BatchCancelDerivativeOrdersGasLimitEstimator(GasLimitEstimator):
 class BatchUpdateOrdersGasLimitEstimator(GasLimitEstimator):
     CANCEL_ALL_SPOT_MARKET_GAS_LIMIT = 40_000
     CANCEL_ALL_DERIVATIVE_MARKET_GAS_LIMIT = 50_000
-    MESSAGE_GAS_LIMIT = 15_000
+    MESSAGE_GAS_LIMIT = 30_000
 
     AVERAGE_CANCEL_ALL_AFFECTED_ORDERS = 20
 
@@ -246,7 +246,7 @@ class BatchUpdateOrdersGasLimitEstimator(GasLimitEstimator):
 
 
 class ExecGasLimitEstimator(GasLimitEstimator):
-    DEFAULT_GAS_LIMIT = 8_000
+    DEFAULT_GAS_LIMIT = 20_000
 
     def __init__(self, message: any_pb2.Any):
         self._message = self._parsed_message(message=message)

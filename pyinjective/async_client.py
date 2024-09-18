@@ -2336,7 +2336,7 @@ class AsyncClient:
         on_status_callback: Optional[Callable] = None,
         market_ids: Optional[List[str]] = None,
     ):
-        await self.exchange_derivative_stream_api.stream_markets(
+        await self.exchange_derivative_stream_api.stream_market(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
