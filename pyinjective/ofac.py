@@ -12,20 +12,17 @@ OFAC_LIST_FILENAME = OFAC_LIST_FILENAME_DEFAULT
 class OfacChecker:
     def __init__(self):
         self._ofac_list_path = self.get_ofac_list_path()
-        if not os.path.exists(self._ofac_list_path):
+        try:
+            with open(self._ofac_list_path, "r") as f:
+                self._ofac_list = set(json.load(f))
+        except Exception as e:
             raise Exception(
-                "OFAC list is missing on the disk. Please, download it by running python3 pyinjective/ofac_list.py"
+                f"Error parsing OFAC list. Please, download it by running python3 pyinjective/ofac_list.py ({e})"
             )
-
-        with open(self._ofac_list_path, "r") as f:
-            self._ofac_list = set(json.load(f))
 
     @classmethod
     def get_ofac_list_path(cls):
-        current_directory = os.getcwd()
-        while os.path.basename(current_directory) != "sdk-python":
-            current_directory = os.path.dirname(current_directory)
-        return os.path.join(os.path.join(current_directory, "pyinjective"), OFAC_LIST_FILENAME)
+        return os.path.join(os.path.dirname(__file__), OFAC_LIST_FILENAME)
 
     @classmethod
     async def download_ofac_list(cls):
