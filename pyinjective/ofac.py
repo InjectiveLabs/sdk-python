@@ -22,10 +22,7 @@ class OfacChecker:
 
     @classmethod
     def get_ofac_list_path(cls):
-        current_directory = os.getcwd()
-        while os.path.basename(current_directory) != "sdk-python":
-            current_directory = os.path.dirname(current_directory)
-        return os.path.join(os.path.join(current_directory, "pyinjective"), OFAC_LIST_FILENAME)
+        return os.path.join(os.path.dirname(__file__), OFAC_LIST_FILENAME)
 
     @classmethod
     async def download_ofac_list(cls):
