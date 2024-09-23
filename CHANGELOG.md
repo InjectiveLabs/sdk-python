@@ -2,7 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.7.0] - 2024-09-18
+## [1.7.1] - 2024-09-24
+### Fixed
+- Fixed logic to get the absolute ofac.json file path
+
+## [1.7.0] - 2024-09-19
 ### Added
 - Added OFAC restricted addresses validations
 
