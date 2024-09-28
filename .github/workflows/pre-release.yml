@@ -1,0 +1,44 @@
+name: Test Injective Python Package
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        platform: [linux/amd64]
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Install Miniconda
+      - name: Set up Miniconda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          auto-activate-base: false
+          python-version: 3.11
+          miniconda-version: "latest"  # Required when using architecture
+          architecture: x86_64  # Ensure x86_64 architecture is used
+          activate-environment: test-env
+
+      # Create conda environment and install injective-py from conda-forge
+      - name: Create conda environment and install injective-py
+        run: |
+          conda create -n test-env python=3.11 -y
+          source activate test-env
+          conda install -c conda-forge injective-py -y
+
+      # Run the Python script using injective-py, all on a single line
+      - name: Run Python script using injective-py
+        run: |
+          source activate test-env
+          python -c "import asyncio; from pyinjective.async_client import AsyncClient; from pyinjective.core.network import Network; async def main(): network = Network.testnet(); client = AsyncClient(network); tx_hash = 'D265527E3171C47D01D7EC9B839A95F8F794D4E683F26F5564025961C96EFDDA'; tx_logs = await client.fetch_tx(hash=tx_hash); print(tx_logs); if __name__ == '__main__': asyncio.get_event_loop().run_until_complete(main())"
