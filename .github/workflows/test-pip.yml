@@ -1,0 +1,33 @@
+name: Test package installation by running a basic example
+
+on:
+  pull_request:
+
+jobs:
+    test-pip:
+      runs-on: ubuntu-latest
+      strategy:
+        matrix:
+          platform: [linux/amd64]
+
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v3
+
+        - name: Set up Python
+          uses: actions/setup-python@v4
+          with:
+            python-version: 3.11
+
+        - name: Clone sdk-python repository
+          run: |
+            git clone https://github.com/InjectiveLabs/sdk-python
+            cd sdk-python
+
+        - name: Install injective-py from local copy
+          run: |
+            pip install .
+
+        - name: Run Python script
+          run: |
+            python3 examples/chain_client/tendermint/query/3_GetLatestBlock.py
