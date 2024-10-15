@@ -47,7 +47,6 @@ class TestAsyncClient:
     async def test_sync_timeout_height_logs_exception(self, caplog):
         client = AsyncClient(
             network=Network.local(),
-            insecure=False,
         )
 
         with caplog.at_level(logging.DEBUG):
@@ -66,7 +65,6 @@ class TestAsyncClient:
     async def test_get_account_logs_exception(self, caplog):
         client = AsyncClient(
             network=Network.local(),
-            insecure=False,
         )
 
         with caplog.at_level(logging.DEBUG):
@@ -107,7 +105,6 @@ class TestAsyncClient:
 
         client = AsyncClient(
             network=test_network,
-            insecure=False,
         )
 
         client.exchange_spot_api._stub = spot_servicer
@@ -198,7 +195,6 @@ class TestAsyncClient:
 
         client = AsyncClient(
             network=test_network,
-            insecure=False,
         )
 
         client.exchange_spot_api._stub = spot_servicer
@@ -241,7 +237,6 @@ class TestAsyncClient:
 
         client = AsyncClient(
             network=test_network,
-            insecure=False,
         )
 
         client.bank_api._stub = bank_servicer
