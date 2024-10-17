@@ -311,6 +311,8 @@ class TestComposer:
         min_price_tick_size = Decimal("0.01")
         min_quantity_tick_size = Decimal("1")
         min_notional = Decimal("2")
+        base_decimals = 18
+        quote_decimals = 6
 
         base_token = basic_composer.tokens[base_denom]
         quote_token = basic_composer.tokens[quote_denom]
@@ -331,6 +333,8 @@ class TestComposer:
             min_price_tick_size=min_price_tick_size,
             min_quantity_tick_size=min_quantity_tick_size,
             min_notional=min_notional,
+            base_decimals=base_decimals,
+            quote_decimals=quote_decimals,
         )
 
         expected_message = {
@@ -341,6 +345,8 @@ class TestComposer:
             "minPriceTickSize": f"{expected_min_price_tick_size.normalize():f}",
             "minQuantityTickSize": f"{expected_min_quantity_tick_size.normalize():f}",
             "minNotional": f"{expected_min_notional.normalize():f}",
+            "baseDecimals": base_decimals,
+            "quoteDecimals": quote_decimals,
         }
         dict_message = json_format.MessageToDict(
             message=message,

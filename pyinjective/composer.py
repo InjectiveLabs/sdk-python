@@ -403,6 +403,8 @@ class Composer:
         min_price_tick_size: Decimal,
         min_quantity_tick_size: Decimal,
         min_notional: Decimal,
+        base_decimals: int,
+        quote_decimals: int,
     ) -> injective_exchange_tx_pb.MsgInstantSpotMarketLaunch:
         base_token = self.tokens[base_denom]
         quote_token = self.tokens[quote_denom]
@@ -425,6 +427,8 @@ class Composer:
             min_price_tick_size=f"{chain_min_price_tick_size.normalize():f}",
             min_quantity_tick_size=f"{chain_min_quantity_tick_size.normalize():f}",
             min_notional=f"{chain_min_notional.normalize():f}",
+            base_decimals=base_decimals,
+            quote_decimals=quote_decimals,
         )
 
     def msg_instant_perpetual_market_launch(

@@ -12,18 +12,18 @@ inputs:
   - module: buf.build/googleapis/googleapis
   - module: buf.build/cosmos/ics23
   - git_repo: https://github.com/InjectiveLabs/cosmos-sdk
-    tag: v0.50.8-inj-0
+    tag: v0.50.9-inj-2
   - git_repo: https://github.com/InjectiveLabs/ibc-go
     tag: v8.3.2-inj-0
   - git_repo: https://github.com/InjectiveLabs/wasmd
-    tag: v0.51.0-inj-0
+    tag: v0.52.0-inj-0
 #  - git_repo: https://github.com/InjectiveLabs/wasmd
 #    branch: v0.51.x-inj
 #    subdir: proto
-  - git_repo: https://github.com/InjectiveLabs/injective-core
-    tag: v1.13.0
-    subdir: proto
 #  - git_repo: https://github.com/InjectiveLabs/injective-core
-#    branch: master
+#    tag: v1.13.0
 #    subdir: proto
+  - git_repo: https://github.com/InjectiveLabs/injective-core
+    branch: feat/add_derivative_v2_upgrade_handler_logic
+    subdir: proto
   - directory: proto

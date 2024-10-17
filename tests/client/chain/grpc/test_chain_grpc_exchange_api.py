@@ -446,6 +446,8 @@ class TestChainGrpcBankApi:
             min_notional="5000000000000000000",
             admin="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
             admin_permissions=1,
+            base_decimals=18,
+            quote_decimals=6,
         )
         exchange_servicer.spot_markets_responses.append(
             exchange_query_pb.QuerySpotMarketsResponse(
@@ -476,6 +478,8 @@ class TestChainGrpcBankApi:
                     "minNotional": market.min_notional,
                     "admin": market.admin,
                     "adminPermissions": market.admin_permissions,
+                    "baseDecimals": market.base_decimals,
+                    "quoteDecimals": market.quote_decimals,
                 }
             ]
         }
@@ -501,6 +505,8 @@ class TestChainGrpcBankApi:
             min_notional="5000000000000000000",
             admin="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
             admin_permissions=1,
+            base_decimals=18,
+            quote_decimals=6,
         )
         exchange_servicer.spot_market_responses.append(
             exchange_query_pb.QuerySpotMarketResponse(
@@ -528,6 +534,8 @@ class TestChainGrpcBankApi:
                 "minNotional": market.min_notional,
                 "admin": market.admin,
                 "adminPermissions": market.admin_permissions,
+                "baseDecimals": market.base_decimals,
+                "quoteDecimals": market.quote_decimals,
             }
         }
 
@@ -552,6 +560,8 @@ class TestChainGrpcBankApi:
             min_notional="5000000000000000000",
             admin="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
             admin_permissions=1,
+            base_decimals=18,
+            quote_decimals=6,
         )
         mid_price_and_tob = exchange_pb.MidPriceAndTOB(
             mid_price="2000000000000000000",
@@ -593,6 +603,8 @@ class TestChainGrpcBankApi:
                         "minNotional": market.min_notional,
                         "admin": market.admin,
                         "adminPermissions": market.admin_permissions,
+                        "baseDecimals": market.base_decimals,
+                        "quoteDecimals": market.quote_decimals,
                     },
                     "midPriceAndTob": {
                         "midPrice": mid_price_and_tob.mid_price,
@@ -624,6 +636,8 @@ class TestChainGrpcBankApi:
             min_notional="5000000000000000000",
             admin="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
             admin_permissions=1,
+            base_decimals=18,
+            quote_decimals=6,
         )
         mid_price_and_tob = exchange_pb.MidPriceAndTOB(
             mid_price="2000000000000000000",
@@ -663,6 +677,8 @@ class TestChainGrpcBankApi:
                     "minNotional": market.min_notional,
                     "admin": market.admin,
                     "adminPermissions": market.admin_permissions,
+                    "baseDecimals": market.base_decimals,
+                    "quoteDecimals": market.quote_decimals,
                 },
                 "midPriceAndTob": {
                     "midPrice": mid_price_and_tob.mid_price,
@@ -1234,6 +1250,7 @@ class TestChainGrpcBankApi:
             min_notional="5000000000000000000",
             admin="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
             admin_permissions=1,
+            quote_decimals=6,
         )
         market_info = exchange_pb.PerpetualMarketInfo(
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
@@ -1298,6 +1315,7 @@ class TestChainGrpcBankApi:
                         "minNotional": market.min_notional,
                         "admin": market.admin,
                         "adminPermissions": market.admin_permissions,
+                        "quoteDecimals": market.quote_decimals,
                     },
                     "perpetualInfo": {
                         "marketInfo": {
@@ -1350,6 +1368,7 @@ class TestChainGrpcBankApi:
             min_notional="5000000000000000000",
             admin="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
             admin_permissions=1,
+            quote_decimals=6,
         )
         market_info = exchange_pb.PerpetualMarketInfo(
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
@@ -1412,6 +1431,7 @@ class TestChainGrpcBankApi:
                     "minNotional": market.min_notional,
                     "admin": market.admin,
                     "adminPermissions": market.admin_permissions,
+                    "quoteDecimals": market.quote_decimals,
                 },
                 "perpetualInfo": {
                     "marketInfo": {
@@ -2323,6 +2343,7 @@ class TestChainGrpcBankApi:
             settlement_price="2000000000000000000",
             min_notional="5000000000000000000",
             admin_permissions=1,
+            quote_decimals=6,
         )
         response = exchange_query_pb.QueryBinaryMarketsResponse(
             markets=[market],
@@ -2354,6 +2375,7 @@ class TestChainGrpcBankApi:
                     "settlementPrice": market.settlement_price,
                     "minNotional": market.min_notional,
                     "adminPermissions": market.admin_permissions,
+                    "quoteDecimals": market.quote_decimals,
                 },
             ]
         }
