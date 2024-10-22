@@ -53,15 +53,22 @@ class TestChainGrpcAuctionApi:
             min_next_bid_increment_rate="2500000000000000",
             inj_basket_max_cap="100000",
         )
+        coin = coin_pb.Coin(denom="inj", amount="988987297011197594664")
         highest_bid = auction_pb.Bid(
             bidder="inj1pvt70tt7epjudnurkqlxu62flfgy46j2ytj7j5",
-            amount="\n\003inj\022\0232347518723906280000",
+            amount=coin,
+        )
+        last_auction_result = auction_pb.LastAuctionResult(
+            winner="inj1pvt70tt7epjudnurkqlxu62flfgy46j2ytj7j5",
+            amount=coin,
+            round=3,
         )
         state = genesis_pb.GenesisState(
             params=params,
             auction_round=50,
             highest_bid=highest_bid,
             auction_ending_timestamp=1687504387,
+            last_auction_result=last_auction_result,
         )
         auction_servicer.module_states.append(auction_query_pb.QueryModuleStateResponse(state=state))
 
@@ -73,13 +80,24 @@ class TestChainGrpcAuctionApi:
                 "auctionEndingTimestamp": "1687504387",
                 "auctionRound": "50",
                 "highestBid": {
-                    "amount": "\n\x03inj\x12\x132347518723906280000",
+                    "amount": {
+                        "denom": coin.denom,
+                        "amount": coin.amount,
+                    },
                     "bidder": "inj1pvt70tt7epjudnurkqlxu62flfgy46j2ytj7j5",
                 },
                 "params": {
                     "auctionPeriod": str(params.auction_period),
                     "minNextBidIncrementRate": params.min_next_bid_increment_rate,
                     "injBasketMaxCap": str(params.inj_basket_max_cap),
+                },
+                "lastAuctionResult": {
+                    "winner": last_auction_result.winner,
+                    "amount": {
+                        "denom": coin.denom,
+                        "amount": coin.amount,
+                    },
+                    "round": str(last_auction_result.round),
                 },
             }
         }

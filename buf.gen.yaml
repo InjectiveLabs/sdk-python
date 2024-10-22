@@ -24,6 +24,6 @@ inputs:
 #    tag: v1.13.0
 #    subdir: proto
   - git_repo: https://github.com/InjectiveLabs/injective-core
-    branch: feat/add_derivative_v2_upgrade_handler_logic
+    branch: feat/chain_stream_exchange_v2
     subdir: proto
   - directory: proto
