@@ -1,20 +1,26 @@
 import asyncio
+import os
+
+import dotenv
 
 from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
 
 
 async def main() -> None:
+    dotenv.load_dotenv()
+    grantee_public_address = os.getenv("INJECTIVE_GRANTEE_PUBLIC_ADDRESS")
+
     # select network: local, testnet, mainnet
     network = Network.testnet()
 
     # initialize grpc client
     client = AsyncClient(network)
 
-    prices = await client.fetch_derivative_mid_price_and_tob_v2(
-        market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+    active_grant = await client.fetch_active_stake_grant(
+        grantee=grantee_public_address,
     )
-    print(prices)
+    print(active_grant)
 
 
 if __name__ == "__main__":

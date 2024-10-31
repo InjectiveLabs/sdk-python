@@ -16,7 +16,7 @@ async def main() -> None:
     max_age = 0
     include_raw_history = True
     include_metadata = True
-    volatility = await client.fetch_market_volatility(
+    volatility = await client.fetch_market_volatility_v2(
         market_id=market_id,
         trade_grouping_sec=trade_grouping_sec,
         max_age=max_age,

@@ -125,7 +125,7 @@ class TestMessageBasedTransactionFeeCalculator:
             gas_price=5_000_000,
         )
 
-        message = composer.msg_create_spot_limit_order(
+        message = composer.msg_create_spot_limit_order_v2(
             sender="sender",
             market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
             subaccount_id="subaccount_id",
@@ -155,7 +155,7 @@ class TestMessageBasedTransactionFeeCalculator:
             gas_price=5_000_000,
         )
 
-        inner_message = composer.msg_create_spot_limit_order(
+        inner_message = composer.msg_create_spot_limit_order_v2(
             sender="sender",
             market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
             subaccount_id="subaccount_id",
@@ -190,7 +190,7 @@ class TestMessageBasedTransactionFeeCalculator:
             gas_price=5_000_000,
         )
 
-        inner_message = composer.msg_create_spot_limit_order(
+        inner_message = composer.msg_create_spot_limit_order_v2(
             sender="sender",
             market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
             subaccount_id="subaccount_id",
@@ -201,7 +201,7 @@ class TestMessageBasedTransactionFeeCalculator:
         )
         message = composer.MsgExec(grantee="grantee", msgs=[inner_message])
 
-        send_message = composer.MsgSend(from_address="address", to_address="to_address", amount=1, denom="INJ")
+        send_message = composer.msg_send(from_address="address", to_address="to_address", amount=1, denom="INJ")
 
         transaction = Transaction()
         transaction.with_messages(message, send_message)

@@ -38,7 +38,7 @@ async def main() -> None:
 
     granter_address = Address.from_acc_bech32(granter_inj_address)
     granter_subaccount_id = granter_address.get_subaccount_id(index=0)
-    msg0 = composer.msg_create_spot_limit_order(
+    msg0 = composer.msg_create_spot_limit_order_v2(
         sender=granter_inj_address,
         market_id=market_id,
         subaccount_id=granter_subaccount_id,

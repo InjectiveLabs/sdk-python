@@ -11,7 +11,7 @@ async def main() -> None:
     # initialize grpc client
     client = AsyncClient(network)
 
-    positions = await client.fetch_chain_positions()
+    positions = await client.fetch_chain_positions_v2()
     print(positions)
 
 

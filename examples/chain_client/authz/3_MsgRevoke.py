@@ -34,7 +34,7 @@ async def main() -> None:
     msg = composer.MsgRevoke(
         granter=address.to_acc_bech32(),
         grantee=grantee_public_address,
-        msg_type="/injective.exchange.v1beta1.MsgCreateSpotLimitOrder",
+        msg_type="/injective.exchange.v2.MsgCreateSpotLimitOrder",
     )
 
     # build sim tx

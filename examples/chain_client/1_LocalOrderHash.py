@@ -41,7 +41,7 @@ async def main() -> None:
     fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
 
     spot_orders = [
-        composer.spot_order(
+        composer.create_v2_spot_order(
             market_id=spot_market_id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -50,7 +50,7 @@ async def main() -> None:
             order_type="BUY",
             cid=str(uuid.uuid4()),
         ),
-        composer.spot_order(
+        composer.create_v2_spot_order(
             market_id=spot_market_id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -62,7 +62,7 @@ async def main() -> None:
     ]
 
     derivative_orders = [
-        composer.derivative_order(
+        composer.create_v2_derivative_order(
             market_id=deriv_market_id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -74,7 +74,7 @@ async def main() -> None:
             order_type="BUY",
             cid=str(uuid.uuid4()),
         ),
-        composer.derivative_order(
+        composer.create_v2_derivative_order(
             market_id=deriv_market_id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -89,9 +89,9 @@ async def main() -> None:
     ]
 
     # prepare tx msg
-    spot_msg = composer.msg_batch_create_spot_limit_orders(sender=address.to_acc_bech32(), orders=spot_orders)
+    spot_msg = composer.msg_batch_create_spot_limit_orders_v2(sender=address.to_acc_bech32(), orders=spot_orders)
 
-    deriv_msg = composer.msg_batch_create_derivative_limit_orders(
+    deriv_msg = composer.msg_batch_create_derivative_limit_orders_v2(
         sender=address.to_acc_bech32(), orders=derivative_orders
     )
 
@@ -218,9 +218,9 @@ async def main() -> None:
     ]
 
     # prepare tx msg
-    spot_msg = composer.msg_batch_create_spot_limit_orders(sender=address.to_acc_bech32(), orders=spot_orders)
+    spot_msg = composer.msg_batch_create_spot_limit_orders_v2(sender=address.to_acc_bech32(), orders=spot_orders)
 
-    deriv_msg = composer.msg_batch_create_derivative_limit_orders(
+    deriv_msg = composer.msg_batch_create_derivative_limit_orders_v2(
         sender=address.to_acc_bech32(), orders=derivative_orders
     )
 

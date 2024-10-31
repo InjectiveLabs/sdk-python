@@ -38,7 +38,7 @@ async def main() -> None:
     market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
 
     # prepare tx msg
-    msg = composer.msg_decrease_position_margin(
+    msg = composer.msg_decrease_position_margin_v2(
         sender=address.to_acc_bech32(),
         market_id=market_id,
         source_subaccount_id=subaccount_id,

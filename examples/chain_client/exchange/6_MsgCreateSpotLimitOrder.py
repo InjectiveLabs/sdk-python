@@ -38,7 +38,7 @@ async def main() -> None:
     cid = str(uuid.uuid4())
 
     # prepare tx msg
-    msg = composer.msg_create_spot_limit_order(
+    msg = composer.msg_create_spot_limit_order_v2(
         sender=address.to_acc_bech32(),
         market_id=market_id,
         subaccount_id=subaccount_id,

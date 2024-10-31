@@ -11,6 +11,7 @@ from pyinjective.core.network import Network
 async def main() -> None:
     dotenv.load_dotenv()
     configured_private_key = os.getenv("INJECTIVE_PRIVATE_KEY")
+    grantee_public_address = os.getenv("INJECTIVE_GRANTEE_PUBLIC_ADDRESS")
 
     # select network: local, testnet, mainnet
     network = Network.testnet()
@@ -18,19 +19,15 @@ async def main() -> None:
     # initialize grpc client
     client = AsyncClient(network)
 
-    # load account
     priv_key = PrivateKey.from_hex(configured_private_key)
     pub_key = priv_key.to_public_key()
     address = pub_key.to_address()
-    await client.fetch_account(address.to_acc_bech32())
 
-    subaccount_id = address.get_subaccount_id(index=0)
-
-    position = await client.fetch_chain_subaccount_effective_position_in_market_v2(
-        subaccount_id=subaccount_id,
-        market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+    active_grant = await client.fetch_grant_authorization(
+        granter=address.to_acc_bech32(),
+        grantee=grantee_public_address,
     )
-    print(position)
+    print(active_grant)
 
 
 if __name__ == "__main__":

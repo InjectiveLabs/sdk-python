@@ -14,7 +14,7 @@ async def main() -> None:
 
     network = Network.testnet()
     client = AsyncClient(network)
-    msg_type_url = "/injective.exchange.v1beta1.MsgCreateDerivativeLimitOrder"
+    msg_type_url = "/injective.exchange.v2.MsgCreateDerivativeLimitOrder"
     authorizations = await client.fetch_grants(granter=granter, grantee=grantee, msg_type_url=msg_type_url)
     print(authorizations)
 

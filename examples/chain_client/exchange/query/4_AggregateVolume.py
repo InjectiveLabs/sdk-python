@@ -25,10 +25,10 @@ async def main() -> None:
 
     subaccount_id = address.get_subaccount_id(index=0)
 
-    volume = await client.fetch_aggregate_volume(account=address.to_acc_bech32())
+    volume = await client.fetch_aggregate_volume_v2(account=address.to_acc_bech32())
     print(volume)
 
-    volume = await client.fetch_aggregate_volume(account=subaccount_id)
+    volume = await client.fetch_aggregate_volume_v2(account=subaccount_id)
     print(volume)
 
 

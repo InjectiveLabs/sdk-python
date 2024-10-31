@@ -3,22 +3,24 @@ import base64
 import grpc
 import pytest
 
-from pyinjective.client.chain.grpc.chain_grpc_exchange_api import ChainGrpcExchangeApi
+from pyinjective.client.chain.grpc.chain_grpc_exchange_v2_api import ChainGrpcExchangeV2Api
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb
-from pyinjective.proto.injective.exchange.v1beta1 import (
+from pyinjective.proto.injective.exchange.v2 import (
     exchange_pb2 as exchange_pb,
-    genesis_pb2 as genesis_pb,
+    market_pb2 as market_pb,
+    order_pb2 as order_pb,
+    orderbook_pb2 as orderbook_pb,
     query_pb2 as exchange_query_pb,
 )
 from pyinjective.proto.injective.oracle.v1beta1 import oracle_pb2 as oracle_pb
-from tests.client.chain.grpc.configurable_exchange_query_servicer import ConfigurableExchangeQueryServicer
+from tests.client.chain.grpc.configurable_exchange_v2_query_servicer import ConfigurableExchangeV2QueryServicer
 
 
 @pytest.fixture
 def exchange_servicer():
-    return ConfigurableExchangeQueryServicer()
+    return ConfigurableExchangeV2QueryServicer()
 
 
 class TestChainGrpcBankApi:
@@ -95,7 +97,7 @@ class TestChainGrpcBankApi:
                     "amount": binary_options_market_instant_listing_fee.amount,
                     "denom": binary_options_market_instant_listing_fee.denom,
                 },
-                "atomicMarketOrderAccessLevel": exchange_pb.AtomicMarketOrderAccessLevel.Name(
+                "atomicMarketOrderAccessLevel": order_pb.AtomicMarketOrderAccessLevel.Name(
                     params.atomic_market_order_access_level
                 ),
                 "spotAtomicMarketOrderFeeMultiplier": params.spot_atomic_market_order_fee_multiplier,
@@ -183,7 +185,7 @@ class TestChainGrpcBankApi:
             available_balance="1000000000000000000",
             total_balance="2000000000000000000",
         )
-        balance = genesis_pb.Balance(
+        balance = exchange_pb.Balance(
             subaccount_id="0x5303d92e49a619bb29de8fb6f59c0e7589213cc8000000000000000000000001",
             denom="inj",
             deposits=deposit,
@@ -215,11 +217,11 @@ class TestChainGrpcBankApi:
         self,
         exchange_servicer,
     ):
-        volume = exchange_pb.VolumeRecord(
+        volume = market_pb.VolumeRecord(
             maker_volume="1000000000000000000",
             taker_volume="2000000000000000000",
         )
-        market_volume = exchange_pb.MarketVolume(
+        market_volume = market_pb.MarketVolume(
             market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
             volume=volume,
         )
@@ -251,11 +253,11 @@ class TestChainGrpcBankApi:
         self,
         exchange_servicer,
     ):
-        acc_volume = exchange_pb.VolumeRecord(
+        acc_volume = market_pb.VolumeRecord(
             maker_volume="1000000000000000000",
             taker_volume="2000000000000000000",
         )
-        account_market_volume = exchange_pb.MarketVolume(
+        account_market_volume = market_pb.MarketVolume(
             market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
             volume=acc_volume,
         )
@@ -263,11 +265,11 @@ class TestChainGrpcBankApi:
             account="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
             market_volumes=[account_market_volume],
         )
-        volume = exchange_pb.VolumeRecord(
+        volume = market_pb.VolumeRecord(
             maker_volume="3000000000000000000",
             taker_volume="4000000000000000000",
         )
-        market_volume = exchange_pb.MarketVolume(
+        market_volume = market_pb.MarketVolume(
             market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
             volume=volume,
         )
@@ -317,7 +319,7 @@ class TestChainGrpcBankApi:
         self,
         exchange_servicer,
     ):
-        volume = exchange_pb.VolumeRecord(
+        volume = market_pb.VolumeRecord(
             maker_volume="1000000000000000000",
             taker_volume="2000000000000000000",
         )
@@ -346,11 +348,11 @@ class TestChainGrpcBankApi:
         self,
         exchange_servicer,
     ):
-        volume = exchange_pb.VolumeRecord(
+        volume = market_pb.VolumeRecord(
             maker_volume="3000000000000000000",
             taker_volume="4000000000000000000",
         )
-        market_volume = exchange_pb.MarketVolume(
+        market_volume = market_pb.MarketVolume(
             market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
             volume=volume,
         )
@@ -432,7 +434,7 @@ class TestChainGrpcBankApi:
         self,
         exchange_servicer,
     ):
-        market = exchange_pb.SpotMarket(
+        market = market_pb.SpotMarket(
             ticker="INJ/USDT",
             base_denom="inj",
             quote_denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
@@ -457,7 +459,7 @@ class TestChainGrpcBankApi:
 
         api = self._api_instance(servicer=exchange_servicer)
 
-        status_string = exchange_pb.MarketStatus.Name(market.status)
+        status_string = market_pb.MarketStatus.Name(market.status)
         markets = await api.fetch_spot_markets(
             status=status_string,
             market_ids=[market.market_id],
@@ -491,7 +493,7 @@ class TestChainGrpcBankApi:
         self,
         exchange_servicer,
     ):
-        market = exchange_pb.SpotMarket(
+        market = market_pb.SpotMarket(
             ticker="INJ/USDT",
             base_denom="inj",
             quote_denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
@@ -528,7 +530,7 @@ class TestChainGrpcBankApi:
                 "takerFeeRate": market.taker_fee_rate,
                 "relayerFeeShareRate": market.relayer_fee_share_rate,
                 "marketId": market.market_id,
-                "status": exchange_pb.MarketStatus.Name(market.status),
+                "status": market_pb.MarketStatus.Name(market.status),
                 "minPriceTickSize": market.min_price_tick_size,
                 "minQuantityTickSize": market.min_quantity_tick_size,
                 "minNotional": market.min_notional,
@@ -546,7 +548,7 @@ class TestChainGrpcBankApi:
         self,
         exchange_servicer,
     ):
-        market = exchange_pb.SpotMarket(
+        market = market_pb.SpotMarket(
             ticker="INJ/USDT",
             base_denom="inj",
             quote_denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
@@ -580,7 +582,7 @@ class TestChainGrpcBankApi:
 
         api = self._api_instance(servicer=exchange_servicer)
 
-        status_string = exchange_pb.MarketStatus.Name(market.status)
+        status_string = market_pb.MarketStatus.Name(market.status)
         markets = await api.fetch_full_spot_markets(
             status=status_string,
             market_ids=[market.market_id],
@@ -622,7 +624,7 @@ class TestChainGrpcBankApi:
         self,
         exchange_servicer,
     ):
-        market = exchange_pb.SpotMarket(
+        market = market_pb.SpotMarket(
             ticker="INJ/USDT",
             base_denom="inj",
             quote_denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
@@ -656,7 +658,7 @@ class TestChainGrpcBankApi:
 
         api = self._api_instance(servicer=exchange_servicer)
 
-        status_string = exchange_pb.MarketStatus.Name(market.status)
+        status_string = market_pb.MarketStatus.Name(market.status)
         market_response = await api.fetch_full_spot_market(
             market_id=market.market_id,
             with_mid_price_and_tob=True,
@@ -1230,7 +1232,7 @@ class TestChainGrpcBankApi:
         self,
         exchange_servicer,
     ):
-        market = exchange_pb.DerivativeMarket(
+        market = market_pb.DerivativeMarket(
             ticker="20250608/USDT",
             oracle_base="0x2d9315a88f3019f8efa88dfe9c0f0843712da0bac814461e27733f6b83eb51b3",
             oracle_quote="0x1fc18861232290221461220bd4e2acd1dcdfbc89c84092c93c18bdc7756c1588",
@@ -1252,14 +1254,14 @@ class TestChainGrpcBankApi:
             admin_permissions=1,
             quote_decimals=6,
         )
-        market_info = exchange_pb.PerpetualMarketInfo(
+        market_info = market_pb.PerpetualMarketInfo(
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
             hourly_funding_rate_cap="625000000000000",
             hourly_interest_rate="4166660000000",
             next_funding_timestamp=1708099200,
             funding_interval=3600,
         )
-        funding_info = exchange_pb.PerpetualMarketFunding(
+        funding_info = market_pb.PerpetualMarketFunding(
             cumulative_funding="-107853477278881692857461",
             cumulative_price="0",
             last_timestamp=1708099200,
@@ -1287,7 +1289,7 @@ class TestChainGrpcBankApi:
 
         api = self._api_instance(servicer=exchange_servicer)
 
-        status_string = exchange_pb.MarketStatus.Name(market.status)
+        status_string = market_pb.MarketStatus.Name(market.status)
         markets = await api.fetch_derivative_markets(
             status=status_string,
             market_ids=[market.market_id],
@@ -1348,7 +1350,7 @@ class TestChainGrpcBankApi:
         self,
         exchange_servicer,
     ):
-        market = exchange_pb.DerivativeMarket(
+        market = market_pb.DerivativeMarket(
             ticker="INJ/USDT PERP",
             oracle_base="0x2d9315a88f3019f8efa88dfe9c0f0843712da0bac814461e27733f6b83eb51b3",
             oracle_quote="0x1fc18861232290221461220bd4e2acd1dcdfbc89c84092c93c18bdc7756c1588",
@@ -1370,14 +1372,14 @@ class TestChainGrpcBankApi:
             admin_permissions=1,
             quote_decimals=6,
         )
-        market_info = exchange_pb.PerpetualMarketInfo(
+        market_info = market_pb.PerpetualMarketInfo(
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
             hourly_funding_rate_cap="625000000000000",
             hourly_interest_rate="4166660000000",
             next_funding_timestamp=1708099200,
             funding_interval=3600,
         )
-        funding_info = exchange_pb.PerpetualMarketFunding(
+        funding_info = market_pb.PerpetualMarketFunding(
             cumulative_funding="-107853477278881692857461",
             cumulative_price="0",
             last_timestamp=1708099200,
@@ -1405,7 +1407,7 @@ class TestChainGrpcBankApi:
 
         api = self._api_instance(servicer=exchange_servicer)
 
-        status_string = exchange_pb.MarketStatus.Name(market.status)
+        status_string = market_pb.MarketStatus.Name(market.status)
         market_response = await api.fetch_derivative_market(
             market_id=market.market_id,
         )
@@ -1512,7 +1514,7 @@ class TestChainGrpcBankApi:
             margin="2000000000000000000000000000000000",
             cumulative_funding_entry="4000000",
         )
-        derivative_position = genesis_pb.DerivativePosition(
+        derivative_position = exchange_pb.DerivativePosition(
             subaccount_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20000000000000000000000000",
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
             position=position,
@@ -1554,7 +1556,7 @@ class TestChainGrpcBankApi:
             margin="2000000000000000000000000000000000",
             cumulative_funding_entry="4000000",
         )
-        derivative_position = genesis_pb.DerivativePosition(
+        derivative_position = exchange_pb.DerivativePosition(
             subaccount_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20000000000000000000000000",
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
             position=position,
@@ -1660,7 +1662,7 @@ class TestChainGrpcBankApi:
         self,
         exchange_servicer,
     ):
-        perpetual_market_info = exchange_pb.PerpetualMarketInfo(
+        perpetual_market_info = market_pb.PerpetualMarketInfo(
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
             hourly_funding_rate_cap="625000000000000",
             hourly_interest_rate="4166660000000",
@@ -1691,7 +1693,7 @@ class TestChainGrpcBankApi:
         self,
         exchange_servicer,
     ):
-        expiry_futures_market_info = exchange_pb.ExpiryFuturesMarketInfo(
+        expiry_futures_market_info = market_pb.ExpiryFuturesMarketInfo(
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
             expiration_timestamp=1708099200,
             twap_start_timestamp=1705566200,
@@ -1722,7 +1724,7 @@ class TestChainGrpcBankApi:
         self,
         exchange_servicer,
     ):
-        perpetual_market_funding = exchange_pb.PerpetualMarketFunding(
+        perpetual_market_funding = market_pb.PerpetualMarketFunding(
             cumulative_funding="-107853477278881692857461",
             cumulative_price="0",
             last_timestamp=1708099200,
@@ -1751,7 +1753,7 @@ class TestChainGrpcBankApi:
         self,
         exchange_servicer,
     ):
-        metadata = exchange_pb.SubaccountOrderbookMetadata(
+        metadata = orderbook_pb.SubaccountOrderbookMetadata(
             vanilla_limit_order_count=1,
             reduce_only_limit_order_count=2,
             aggregate_reduce_only_quantity="1000000000000000",
@@ -2323,7 +2325,7 @@ class TestChainGrpcBankApi:
         self,
         exchange_servicer,
     ):
-        market = exchange_pb.BinaryOptionsMarket(
+        market = market_pb.BinaryOptionsMarket(
             ticker="20250608/USDT",
             oracle_symbol="0x2d9315a88f3019f8efa88dfe9c0f0843712da0bac814461e27733f6b83eb51b3",
             oracle_provider="Pyth",
@@ -2369,7 +2371,7 @@ class TestChainGrpcBankApi:
                     "makerFeeRate": market.maker_fee_rate,
                     "takerFeeRate": market.taker_fee_rate,
                     "relayerFeeShareRate": market.relayer_fee_share_rate,
-                    "status": exchange_pb.MarketStatus.Name(market.status),
+                    "status": market_pb.MarketStatus.Name(market.status),
                     "minPriceTickSize": market.min_price_tick_size,
                     "minQuantityTickSize": market.min_quantity_tick_size,
                     "settlementPrice": market.settlement_price,
@@ -2640,7 +2642,7 @@ class TestChainGrpcBankApi:
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
         cookie_assistant = DisabledCookieAssistant()
 
-        api = ChainGrpcExchangeApi(channel=channel, cookie_assistant=cookie_assistant)
+        api = ChainGrpcExchangeV2Api(channel=channel, cookie_assistant=cookie_assistant)
         api._stub = servicer
 
         return api

@@ -1,12 +1,12 @@
 from collections import deque
 
-from pyinjective.proto.injective.exchange.v1beta1 import (
+from pyinjective.proto.injective.exchange.v2 import (
     query_pb2 as exchange_query_pb,
     query_pb2_grpc as exchange_query_grpc,
 )
 
 
-class ConfigurableExchangeQueryServicer(exchange_query_grpc.QueryServicer):
+class ConfigurableExchangeV2QueryServicer(exchange_query_grpc.QueryServicer):
     def __init__(self):
         super().__init__()
         self.exchange_params = deque()

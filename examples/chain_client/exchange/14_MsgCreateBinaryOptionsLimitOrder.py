@@ -10,7 +10,6 @@ from pyinjective.async_client import AsyncClient
 from pyinjective.constant import GAS_FEE_BUFFER_AMOUNT, GAS_PRICE
 from pyinjective.core.network import Network
 from pyinjective.transaction import Transaction
-from pyinjective.utils.denom import Denom
 from pyinjective.wallet import PrivateKey
 
 
@@ -37,18 +36,8 @@ async def main() -> None:
     market_id = "0x767e1542fbc111e88901e223e625a4a8eb6d630c96884bbde672e8bc874075bb"
     fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
 
-    # set custom denom to bypass ini file load (optional)
-    denom = Denom(
-        description="desc",
-        base=0,
-        quote=6,
-        min_price_tick_size=1000,
-        min_quantity_tick_size=0.0001,
-        min_notional=0,
-    )
-
     # prepare tx msg
-    msg = composer.msg_create_binary_options_limit_order(
+    msg = composer.msg_create_binary_options_limit_order_v2(
         sender=address.to_acc_bech32(),
         market_id=market_id,
         subaccount_id=subaccount_id,
@@ -58,7 +47,6 @@ async def main() -> None:
         margin=Decimal("0.5"),
         order_type="BUY",
         cid=str(uuid.uuid4()),
-        denom=denom,
     )
 
     # build sim tx

@@ -11,10 +11,10 @@ async def main() -> None:
     # initialize grpc client
     client = AsyncClient(network)
 
-    prices = await client.fetch_derivative_mid_price_and_tob_v2(
-        market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+    orderbook = await client.fetch_l3_spot_orderbook_v2(
+        market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
     )
-    print(prices)
+    print(orderbook)
 
 
 if __name__ == "__main__":
