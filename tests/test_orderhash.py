@@ -24,7 +24,7 @@ class TestOrderHashManager:
         fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
 
         spot_orders = [
-            composer.spot_order(
+            composer.create_v2_spot_order(
                 market_id=spot_market_id,
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,
@@ -32,7 +32,7 @@ class TestOrderHashManager:
                 quantity=Decimal("0.01"),
                 order_type="BUY",
             ),
-            composer.spot_order(
+            composer.create_v2_spot_order(
                 market_id=spot_market_id,
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,
@@ -48,5 +48,5 @@ class TestOrderHashManager:
 
         assert len(order_hashes_response.spot) == 2
         assert len(order_hashes_response.derivative) == 0
-        assert order_hashes_response.spot[0] == "0x6b1e4d1fb3012735dd5e386175eb4541c024e0d8dbfeb452767b973d70ae0924"
-        assert order_hashes_response.spot[1] == "0xb36146f913955d989269732d167ec554e6d0d544411d82d7f86aef18350b252b"
+        assert order_hashes_response.spot[0] == "0x4f70723b33db271e6c56201e42c5911dd97a9f5345c7fcf12eb69c2689f94e78"
+        assert order_hashes_response.spot[1] == "0x2cc1acacf0e576ea41e9381725f4c78fc5c191f9df4e3e98402c09b8ad2c82e8"

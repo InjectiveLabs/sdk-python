@@ -1,5 +1,4 @@
 import json
-from configparser import ConfigParser
 from decimal import Decimal
 from time import time
 from typing import Any, Dict, List, Optional
@@ -7,7 +6,6 @@ from warnings import warn
 
 from google.protobuf import any_pb2, json_format, timestamp_pb2
 
-from pyinjective import constant
 from pyinjective.constant import ADDITIONAL_CHAIN_FORMAT_DECIMALS, INJ_DECIMALS, INJ_DENOM
 from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from pyinjective.core.token import Token
@@ -339,17 +337,11 @@ class Composer:
 
         """
         self.network = network
-        self.spot_markets = dict()
-        self.derivative_markets = dict()
-        self.binary_option_markets = dict()
-        self.tokens = dict()
-        if spot_markets is None or derivative_markets is None or binary_option_markets is None or tokens is None:
-            self._initialize_markets_and_tokens_from_files()
-        else:
-            self.spot_markets = spot_markets
-            self.derivative_markets = derivative_markets
-            self.binary_option_markets = binary_option_markets
-            self.tokens = tokens
+        self.spot_markets = spot_markets or dict()
+        self.derivative_markets = derivative_markets or dict()
+        self.binary_option_markets = binary_option_markets or dict()
+        self.tokens = tokens or dict()
+
         self._ofac_checker = OfacChecker()
 
     def coin(self, amount: int, denom: str) -> base_coin_pb.Coin:
@@ -501,9 +493,9 @@ class Composer:
     ) -> injective_order_v2_pb.SpotOrder:
         trigger_price = trigger_price or Decimal(0)
         chain_order_type = injective_order_v2_pb.OrderType.Value(order_type)
-        chain_quantity = f"{self.convert_value_to_chain_format(value=quantity).normalize():f}"
-        chain_price = f"{self.convert_value_to_chain_format(value=price).normalize():f}"
-        chain_trigger_price = f"{self.convert_value_to_chain_format(value=trigger_price).normalize():f}"
+        chain_quantity = f"{Token.convert_value_to_chain_format(value=quantity).normalize():f}"
+        chain_price = f"{Token.convert_value_to_chain_format(value=price).normalize():f}"
+        chain_trigger_price = f"{Token.convert_value_to_chain_format(value=trigger_price).normalize():f}"
 
         return injective_order_v2_pb.SpotOrder(
             market_id=market_id,
@@ -663,7 +655,7 @@ class Composer:
 
     # region Auction module
     def MsgBid(self, sender: str, bid_amount: float, round: float):
-        be_amount = self.convert_value_to_chain_format(value=Decimal(str(bid_amount)))
+        be_amount = Token.convert_value_to_chain_format(value=Decimal(str(bid_amount)))
 
         return injective_auction_tx_pb.MsgBid(
             sender=sender,
@@ -726,7 +718,7 @@ class Composer:
         )
 
     def msg_send(self, from_address: str, to_address: str, amount: int, denom: str):
-        chain_amount = self.convert_value_to_chain_format(value=Decimal(str(amount)))
+        chain_amount = Token.convert_value_to_chain_format(value=Decimal(str(amount)))
         coin = self.coin(amount=int(chain_amount), denom=denom)
 
         return cosmos_bank_tx_pb.MsgSend(
@@ -757,7 +749,7 @@ class Composer:
     def msg_deposit_v2(
         self, sender: str, subaccount_id: str, amount: int, denom: str
     ) -> injective_exchange_tx_v2_pb.MsgDeposit:
-        chain_amount = self.convert_value_to_chain_format(value=Decimal(str(amount)))
+        chain_amount = Token.convert_value_to_chain_format(value=Decimal(str(amount)))
         coin = self.coin(amount=int(chain_amount), denom=denom)
 
         return injective_exchange_tx_v2_pb.MsgDeposit(
@@ -789,7 +781,7 @@ class Composer:
         amount: int,
         denom: str,
     ) -> injective_exchange_tx_v2_pb.MsgWithdraw:
-        chain_amount = self.convert_value_to_chain_format(value=Decimal(str(amount)))
+        chain_amount = Token.convert_value_to_chain_format(value=Decimal(str(amount)))
         coin = self.coin(amount=int(chain_amount), denom=denom)
 
         return injective_exchange_tx_v2_pb.MsgWithdraw(
@@ -854,11 +846,11 @@ class Composer:
         base_decimals: int,
         quote_decimals: int,
     ) -> injective_exchange_tx_v2_pb.MsgInstantSpotMarketLaunch:
-        chain_min_price_tick_size = f"{self.convert_value_to_chain_format(value=min_price_tick_size).normalize():f}"
+        chain_min_price_tick_size = f"{Token.convert_value_to_chain_format(value=min_price_tick_size).normalize():f}"
         chain_min_quantity_tick_size = (
-            f"{self.convert_value_to_chain_format(value=min_quantity_tick_size).normalize():f}"
+            f"{Token.convert_value_to_chain_format(value=min_quantity_tick_size).normalize():f}"
         )
-        chain_min_notional = f"{self.convert_value_to_chain_format(value=min_notional).normalize():f}"
+        chain_min_notional = f"{Token.convert_value_to_chain_format(value=min_notional).normalize():f}"
 
         return injective_exchange_tx_v2_pb.MsgInstantSpotMarketLaunch(
             sender=sender,
@@ -946,13 +938,13 @@ class Composer:
         min_quantity_tick_size: Decimal,
         min_notional: Decimal,
     ) -> injective_exchange_tx_v2_pb.MsgInstantPerpetualMarketLaunch:
-        chain_min_price_tick_size = self.convert_value_to_chain_format(value=min_price_tick_size)
-        chain_min_quantity_tick_size = self.convert_value_to_chain_format(value=min_quantity_tick_size)
-        chain_maker_fee_rate = self.convert_value_to_chain_format(value=maker_fee_rate)
-        chain_taker_fee_rate = self.convert_value_to_chain_format(value=taker_fee_rate)
-        chain_initial_margin_ratio = self.convert_value_to_chain_format(value=initial_margin_ratio)
-        chain_maintenance_margin_ratio = self.convert_value_to_chain_format(value=maintenance_margin_ratio)
-        chain_min_notional = self.convert_value_to_chain_format(value=min_notional)
+        chain_min_price_tick_size = Token.convert_value_to_chain_format(value=min_price_tick_size)
+        chain_min_quantity_tick_size = Token.convert_value_to_chain_format(value=min_quantity_tick_size)
+        chain_maker_fee_rate = Token.convert_value_to_chain_format(value=maker_fee_rate)
+        chain_taker_fee_rate = Token.convert_value_to_chain_format(value=taker_fee_rate)
+        chain_initial_margin_ratio = Token.convert_value_to_chain_format(value=initial_margin_ratio)
+        chain_maintenance_margin_ratio = Token.convert_value_to_chain_format(value=maintenance_margin_ratio)
+        chain_min_notional = Token.convert_value_to_chain_format(value=min_notional)
 
         return injective_exchange_tx_v2_pb.MsgInstantPerpetualMarketLaunch(
             sender=sender,
@@ -1049,13 +1041,13 @@ class Composer:
         min_quantity_tick_size: Decimal,
         min_notional: Decimal,
     ) -> injective_exchange_tx_v2_pb.MsgInstantPerpetualMarketLaunch:
-        chain_min_price_tick_size = self.convert_value_to_chain_format(value=min_price_tick_size)
-        chain_min_quantity_tick_size = self.convert_value_to_chain_format(value=min_quantity_tick_size)
-        chain_maker_fee_rate = self.convert_value_to_chain_format(value=maker_fee_rate)
-        chain_taker_fee_rate = self.convert_value_to_chain_format(value=taker_fee_rate)
-        chain_initial_margin_ratio = self.convert_value_to_chain_format(value=initial_margin_ratio)
-        chain_maintenance_margin_ratio = self.convert_value_to_chain_format(value=maintenance_margin_ratio)
-        chain_min_notional = self.convert_value_to_chain_format(value=min_notional)
+        chain_min_price_tick_size = Token.convert_value_to_chain_format(value=min_price_tick_size)
+        chain_min_quantity_tick_size = Token.convert_value_to_chain_format(value=min_quantity_tick_size)
+        chain_maker_fee_rate = Token.convert_value_to_chain_format(value=maker_fee_rate)
+        chain_taker_fee_rate = Token.convert_value_to_chain_format(value=taker_fee_rate)
+        chain_initial_margin_ratio = Token.convert_value_to_chain_format(value=initial_margin_ratio)
+        chain_maintenance_margin_ratio = Token.convert_value_to_chain_format(value=maintenance_margin_ratio)
+        chain_min_notional = Token.convert_value_to_chain_format(value=min_notional)
 
         return injective_exchange_tx_v2_pb.MsgInstantExpiryFuturesMarketLaunch(
             sender=sender,
@@ -1658,11 +1650,11 @@ class Composer:
         min_quantity_tick_size: Decimal,
         min_notional: Decimal,
     ) -> injective_exchange_tx_v2_pb.MsgInstantPerpetualMarketLaunch:
-        chain_min_price_tick_size = self.convert_value_to_chain_format(value=min_price_tick_size)
-        chain_min_quantity_tick_size = self.convert_value_to_chain_format(value=min_quantity_tick_size)
-        chain_maker_fee_rate = self.convert_value_to_chain_format(value=maker_fee_rate)
-        chain_taker_fee_rate = self.convert_value_to_chain_format(value=taker_fee_rate)
-        chain_min_notional = self.convert_value_to_chain_format(value=min_notional)
+        chain_min_price_tick_size = Token.convert_value_to_chain_format(value=min_price_tick_size)
+        chain_min_quantity_tick_size = Token.convert_value_to_chain_format(value=min_quantity_tick_size)
+        chain_maker_fee_rate = Token.convert_value_to_chain_format(value=maker_fee_rate)
+        chain_taker_fee_rate = Token.convert_value_to_chain_format(value=taker_fee_rate)
+        chain_min_notional = Token.convert_value_to_chain_format(value=min_notional)
 
         return injective_exchange_tx_v2_pb.MsgInstantBinaryOptionsMarketLaunch(
             sender=sender,
@@ -1901,7 +1893,7 @@ class Composer:
         amount: int,
         denom: str,
     ) -> injective_exchange_tx_v2_pb.MsgSubaccountTransfer:
-        chain_amount = self.convert_value_to_chain_format(value=Decimal(str(amount)))
+        chain_amount = Token.convert_value_to_chain_format(value=Decimal(str(amount)))
         amount_coin = self.coin(amount=int(chain_amount), denom=denom)
 
         return injective_exchange_tx_v2_pb.MsgSubaccountTransfer(
@@ -1941,7 +1933,7 @@ class Composer:
         amount: int,
         denom: str,
     ) -> injective_exchange_tx_v2_pb.MsgExternalTransfer:
-        chain_amount = self.convert_value_to_chain_format(value=Decimal(str(amount)))
+        chain_amount = Token.convert_value_to_chain_format(value=Decimal(str(amount)))
         coin = self.coin(amount=int(chain_amount), denom=denom)
 
         return injective_exchange_tx_v2_pb.MsgExternalTransfer(
@@ -2035,7 +2027,7 @@ class Composer:
         market_id: str,
         amount: Decimal,
     ) -> injective_exchange_tx_v2_pb.MsgIncreasePositionMargin:
-        additional_margin = self.convert_value_to_chain_format(value=amount)
+        additional_margin = Token.convert_value_to_chain_format(value=amount)
         return injective_exchange_tx_v2_pb.MsgIncreasePositionMargin(
             sender=sender,
             source_subaccount_id=source_subaccount_id,
@@ -2101,7 +2093,7 @@ class Composer:
         )
 
         if settlement_price is not None:
-            chain_settlement_price = self.convert_value_to_chain_format(value=settlement_price)
+            chain_settlement_price = Token.convert_value_to_chain_format(value=settlement_price)
             message.settlement_price = f"{chain_settlement_price.normalize():f}"
 
         return message
@@ -2138,7 +2130,7 @@ class Composer:
         market_id: str,
         amount: Decimal,
     ) -> injective_exchange_tx_v2_pb.MsgDecreasePositionMargin:
-        additional_margin = self.convert_value_to_chain_format(value=amount)
+        additional_margin = Token.convert_value_to_chain_format(value=amount)
         return injective_exchange_tx_v2_pb.MsgDecreasePositionMargin(
             sender=sender,
             source_subaccount_id=source_subaccount_id,
@@ -2191,9 +2183,9 @@ class Composer:
         new_min_quantity_tick_size: Decimal,
         new_min_notional: Decimal,
     ) -> injective_exchange_tx_v2_pb.MsgUpdateSpotMarket:
-        chain_min_price_tick_size = self.convert_value_to_chain_format(value=new_min_price_tick_size)
-        chain_min_quantity_tick_size = self.convert_value_to_chain_format(value=new_min_quantity_tick_size)
-        chain_min_notional = self.convert_value_to_chain_format(value=new_min_notional)
+        chain_min_price_tick_size = Token.convert_value_to_chain_format(value=new_min_price_tick_size)
+        chain_min_quantity_tick_size = Token.convert_value_to_chain_format(value=new_min_quantity_tick_size)
+        chain_min_notional = Token.convert_value_to_chain_format(value=new_min_notional)
 
         return injective_exchange_tx_v2_pb.MsgUpdateSpotMarket(
             admin=admin,
@@ -2254,11 +2246,11 @@ class Composer:
         new_initial_margin_ratio: Decimal,
         new_maintenance_margin_ratio: Decimal,
     ) -> injective_exchange_tx_v2_pb.MsgUpdateDerivativeMarket:
-        chain_min_price_tick_size = self.convert_value_to_chain_format(value=new_min_price_tick_size)
-        chain_min_quantity_tick_size = self.convert_value_to_chain_format(value=new_min_quantity_tick_size)
-        chain_min_notional = self.convert_value_to_chain_format(value=new_min_notional)
-        chain_initial_margin_ratio = self.convert_value_to_chain_format(value=new_initial_margin_ratio)
-        chain_maintenance_margin_ratio = self.convert_value_to_chain_format(value=new_maintenance_margin_ratio)
+        chain_min_price_tick_size = Token.convert_value_to_chain_format(value=new_min_price_tick_size)
+        chain_min_quantity_tick_size = Token.convert_value_to_chain_format(value=new_min_quantity_tick_size)
+        chain_min_notional = Token.convert_value_to_chain_format(value=new_min_notional)
+        chain_initial_margin_ratio = Token.convert_value_to_chain_format(value=new_initial_margin_ratio)
+        chain_maintenance_margin_ratio = Token.convert_value_to_chain_format(value=new_maintenance_margin_ratio)
 
         return injective_exchange_tx_v2_pb.MsgUpdateDerivativeMarket(
             admin=admin,
@@ -2329,7 +2321,7 @@ class Composer:
         expiry: int,
         initial_deposit: int,
     ) -> injective_insurance_tx_pb.MsgCreateInsuranceFund:
-        chain_initial_deposit = self.convert_value_to_chain_format(value=Decimal(str(initial_deposit)))
+        chain_initial_deposit = Token.convert_value_to_chain_format(value=Decimal(str(initial_deposit)))
         deposit = self.coin(amount=int(chain_initial_deposit), denom=quote_denom)
 
         return injective_insurance_tx_pb.MsgCreateInsuranceFund(
@@ -2370,7 +2362,7 @@ class Composer:
         quote_denom: str,
         amount: int,
     ):
-        chain_amount = self.convert_value_to_chain_format(value=Decimal(str(amount)))
+        chain_amount = Token.convert_value_to_chain_format(value=Decimal(str(amount)))
         coin = self.coin(amount=int(chain_amount), denom=quote_denom)
 
         return injective_insurance_tx_pb.MsgUnderwrite(
@@ -2386,7 +2378,7 @@ class Composer:
         share_denom: str,
         amount: int,
     ):
-        chain_amount = self.convert_value_to_chain_format(value=Decimal(str(amount)))
+        chain_amount = Token.convert_value_to_chain_format(value=Decimal(str(amount)))
         return injective_insurance_tx_pb.MsgRequestRedemption(
             sender=sender,
             market_id=market_id,
@@ -2431,8 +2423,8 @@ class Composer:
         )
 
     def msg_send_to_eth(self, denom: str, sender: str, eth_dest: str, amount: int, bridge_fee: int):
-        chain_amount = self.convert_value_to_chain_format(value=Decimal(str(amount)))
-        chain_bridge_fee = self.convert_value_to_chain_format(value=Decimal(str(bridge_fee)))
+        chain_amount = Token.convert_value_to_chain_format(value=Decimal(str(amount)))
+        chain_bridge_fee = Token.convert_value_to_chain_format(value=Decimal(str(bridge_fee)))
         amount_coin = self.coin(amount=int(chain_amount), denom=denom)
         bridge_fee_coin = self.coin(amount=int(chain_bridge_fee), denom=denom)
 
@@ -2447,7 +2439,7 @@ class Composer:
 
     # region Staking module
     def MsgDelegate(self, delegator_address: str, validator_address: str, amount: float):
-        be_amount = self.convert_value_to_chain_format(Decimal(str(amount)))
+        be_amount = Token.convert_value_to_chain_format(Decimal(str(amount)))
 
         return cosmos_staking_tx_pb.MsgDelegate(
             delegator_address=delegator_address,
@@ -3104,91 +3096,6 @@ class Composer:
 
         return msgs
 
-    def _initialize_markets_and_tokens_from_files(self):
-        config: ConfigParser = constant.CONFIGS[self.network]
-        spot_markets = dict()
-        derivative_markets = dict()
-        tokens = dict()
-
-        for section_name, configuration_section in config.items():
-            if section_name.startswith("0x"):
-                description = configuration_section["description"]
-
-                quote_token = Token(
-                    name="",
-                    symbol="",
-                    denom="",
-                    address="",
-                    decimals=int(configuration_section["quote"]),
-                    logo="",
-                    updated=-1,
-                )
-
-                if "Spot" in description:
-                    base_token = Token(
-                        name="",
-                        symbol="",
-                        denom="",
-                        address="",
-                        decimals=int(configuration_section["base"]),
-                        logo="",
-                        updated=-1,
-                    )
-
-                    market = SpotMarket(
-                        id=section_name,
-                        status="",
-                        ticker=description,
-                        base_token=base_token,
-                        quote_token=quote_token,
-                        maker_fee_rate=None,
-                        taker_fee_rate=None,
-                        service_provider_fee=None,
-                        min_price_tick_size=Decimal(str(configuration_section["min_price_tick_size"])),
-                        min_quantity_tick_size=Decimal(str(configuration_section["min_quantity_tick_size"])),
-                        min_notional=Decimal(str(configuration_section.get("min_notional", "0"))),
-                    )
-                    spot_markets[market.id] = market
-                else:
-                    market = DerivativeMarket(
-                        id=section_name,
-                        status="",
-                        ticker=description,
-                        oracle_base="",
-                        oracle_quote="",
-                        oracle_type="",
-                        oracle_scale_factor=1,
-                        initial_margin_ratio=None,
-                        maintenance_margin_ratio=None,
-                        quote_token=quote_token,
-                        maker_fee_rate=None,
-                        taker_fee_rate=None,
-                        service_provider_fee=None,
-                        min_price_tick_size=Decimal(str(configuration_section["min_price_tick_size"])),
-                        min_quantity_tick_size=Decimal(str(configuration_section["min_quantity_tick_size"])),
-                        min_notional=Decimal(str(configuration_section.get("min_notional", "0"))),
-                    )
-
-                    derivative_markets[market.id] = market
-
-            elif section_name != "DEFAULT":
-                token = Token(
-                    name=section_name,
-                    symbol=section_name,
-                    denom=configuration_section["peggy_denom"],
-                    address="",
-                    decimals=int(configuration_section["decimals"]),
-                    logo="",
-                    updated=-1,
-                )
-
-                tokens[token.symbol] = token
-
-        self.tokens = tokens
-        self.spot_markets = spot_markets
-        self.derivative_markets = derivative_markets
-        self.binary_option_markets = dict()
-
     def _order_mask(self, is_conditional: bool, is_buy: bool, is_market_order: bool) -> int:
         order_mask = 0
 
@@ -3265,10 +3172,10 @@ class Composer:
         trigger_price: Optional[Decimal] = None,
     ) -> injective_order_v2_pb.DerivativeOrder:
         trigger_price = trigger_price or Decimal(0)
-        chain_quantity = f"{self.convert_value_to_chain_format(value=quantity).normalize():f}"
-        chain_price = f"{self.convert_value_to_chain_format(value=price).normalize():f}"
-        chain_margin = f"{self.convert_value_to_chain_format(value=margin).normalize():f}"
-        chain_trigger_price = f"{self.convert_value_to_chain_format(value=trigger_price).normalize():f}"
+        chain_quantity = f"{Token.convert_value_to_chain_format(value=quantity).normalize():f}"
+        chain_price = f"{Token.convert_value_to_chain_format(value=price).normalize():f}"
+        chain_margin = f"{Token.convert_value_to_chain_format(value=margin).normalize():f}"
+        chain_trigger_price = f"{Token.convert_value_to_chain_format(value=trigger_price).normalize():f}"
         chain_order_type = injective_order_v2_pb.OrderType.Value(order_type)
 
         return injective_order_v2_pb.DerivativeOrder(
@@ -3284,9 +3191,3 @@ class Composer:
             margin=chain_margin,
             trigger_price=chain_trigger_price,
         )
-
-    def convert_value_to_chain_format(self, value: Decimal) -> Decimal:
-        return value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-
-    def convert_value_from_chain_format(self, value: Decimal) -> Decimal:
-        return value / Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")

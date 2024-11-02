@@ -99,8 +99,8 @@ class AsyncClient:
         self._initialize_timeout_height_sync_task()
 
         self._tokens_and_markets_initialization_lock = asyncio.Lock()
-        self._tokens_by_denom: Optional[Dict[str, Token]] = None
-        self._tokens_by_symbol: Optional[Dict[str, Token]] = None
+        self._tokens_by_denom = dict()
+        self._tokens_by_symbol = dict()
         self._spot_markets: Optional[Dict[str, SpotMarket]] = None
         self._derivative_markets: Optional[Dict[str, DerivativeMarket]] = None
         self._binary_option_markets: Optional[Dict[str, BinaryOptionMarket]] = None
@@ -2794,87 +2794,69 @@ class AsyncClient:
         derivative_markets = dict()
         binary_option_markets = dict()
         tokens_by_symbol, tokens_by_denom = await self._tokens_from_official_lists(network=self.network)
-        markets_info = (await self.fetch_spot_markets(market_statuses=["active"]))["markets"]
-        valid_markets = (
-            market_info
-            for market_info in markets_info
-            if len(market_info.get("baseTokenMeta", {}).get("symbol", "")) > 0
-            and len(market_info.get("quoteTokenMeta", {}).get("symbol", "")) > 0
-        )
+        self._tokens_by_denom.update(tokens_by_denom)
+        self._tokens_by_symbol.update(tokens_by_symbol)
 
-        for market_info in valid_markets:
-            base_token = self._token_representation(
-                token_meta=market_info["baseTokenMeta"],
-                denom=market_info["baseDenom"],
-                tokens_by_denom=tokens_by_denom,
-                tokens_by_symbol=tokens_by_symbol,
-            )
-            quote_token = self._token_representation(
-                token_meta=market_info["quoteTokenMeta"],
-                denom=market_info["quoteDenom"],
-                tokens_by_denom=tokens_by_denom,
-                tokens_by_symbol=tokens_by_symbol,
-            )
+        markets_info = (await self.fetch_chain_spot_markets_v2(status="Active"))["markets"]
+        for market_info in markets_info:
+            base_token = self._tokens_by_denom.get(market_info["baseDenom"])
+            quote_token = self._tokens_by_denom.get(market_info["quoteDenom"])
 
             market = SpotMarket(
                 id=market_info["marketId"],
-                status=market_info["marketStatus"],
+                status=market_info["status"],
                 ticker=market_info["ticker"],
                 base_token=base_token,
                 quote_token=quote_token,
-                maker_fee_rate=Decimal(market_info["makerFeeRate"]),
-                taker_fee_rate=Decimal(market_info["takerFeeRate"]),
-                service_provider_fee=Decimal(market_info["serviceProviderFee"]),
-                min_price_tick_size=Decimal(market_info["minPriceTickSize"]),
-                min_quantity_tick_size=Decimal(market_info["minQuantityTickSize"]),
-                min_notional=Decimal(market_info["minNotional"]),
+                maker_fee_rate=Token.convert_value_from_chain_format(Decimal(market_info["makerFeeRate"])),
+                taker_fee_rate=Token.convert_value_from_chain_format(Decimal(market_info["takerFeeRate"])),
+                service_provider_fee=Token.convert_value_from_chain_format(Decimal(market_info["relayerFeeShareRate"])),
+                min_price_tick_size=Token.convert_value_from_chain_format(Decimal(market_info["minPriceTickSize"])),
+                min_quantity_tick_size=Token.convert_value_from_chain_format(
+                    Decimal(market_info["minQuantityTickSize"])
+                ),
+                min_notional=Token.convert_value_from_chain_format(Decimal(market_info["minNotional"])),
             )
 
             spot_markets[market.id] = market
 
-        markets_info = (await self.fetch_derivative_markets(market_statuses=["active"]))["markets"]
-        valid_markets = (
-            market_info
-            for market_info in markets_info
-            if len(market_info.get("quoteTokenMeta", {}).get("symbol", "")) > 0
-        )
-
-        for market_info in valid_markets:
-            quote_token = self._token_representation(
-                token_meta=market_info["quoteTokenMeta"],
-                denom=market_info["quoteDenom"],
-                tokens_by_denom=tokens_by_denom,
-                tokens_by_symbol=tokens_by_symbol,
-            )
-
-            market = DerivativeMarket(
-                id=market_info["marketId"],
-                status=market_info["marketStatus"],
-                ticker=market_info["ticker"],
-                oracle_base=market_info["oracleBase"],
-                oracle_quote=market_info["oracleQuote"],
-                oracle_type=market_info["oracleType"],
-                oracle_scale_factor=market_info["oracleScaleFactor"],
-                initial_margin_ratio=Decimal(market_info["initialMarginRatio"]),
-                maintenance_margin_ratio=Decimal(market_info["maintenanceMarginRatio"]),
-                quote_token=quote_token,
-                maker_fee_rate=Decimal(market_info["makerFeeRate"]),
-                taker_fee_rate=Decimal(market_info["takerFeeRate"]),
-                service_provider_fee=Decimal(market_info["serviceProviderFee"]),
-                min_price_tick_size=Decimal(market_info["minPriceTickSize"]),
-                min_quantity_tick_size=Decimal(market_info["minQuantityTickSize"]),
-                min_notional=Decimal(market_info["minNotional"]),
-            )
-
-            derivative_markets[market.id] = market
-
-        markets_info = (await self.fetch_binary_options_markets(market_status="active"))["markets"]
+        markets_info = (await self.fetch_chain_derivative_markets_v2(status="Active", with_mid_price_and_tob=False))[
+            "markets"
+        ]
         for market_info in markets_info:
-            quote_token = tokens_by_denom.get(market_info["quoteDenom"], None)
+            market = market_info["market"]
+            quote_token = self._tokens_by_denom.get(market["quoteDenom"])
+
+            derivative_market = DerivativeMarket(
+                id=market["marketId"],
+                status=market["status"],
+                ticker=market["ticker"],
+                oracle_base=market["oracleBase"],
+                oracle_quote=market["oracleQuote"],
+                oracle_type=market["oracleType"],
+                oracle_scale_factor=market["oracleScaleFactor"],
+                initial_margin_ratio=Token.convert_value_from_chain_format(Decimal(market["initialMarginRatio"])),
+                maintenance_margin_ratio=Token.convert_value_from_chain_format(
+                    Decimal(market["maintenanceMarginRatio"])
+                ),
+                quote_token=quote_token,
+                maker_fee_rate=Token.convert_value_from_chain_format(Decimal(market["makerFeeRate"])),
+                taker_fee_rate=Token.convert_value_from_chain_format(Decimal(market["takerFeeRate"])),
+                service_provider_fee=Token.convert_value_from_chain_format(Decimal(market["relayerFeeShareRate"])),
+                min_price_tick_size=Token.convert_value_from_chain_format(Decimal(market["minPriceTickSize"])),
+                min_quantity_tick_size=Token.convert_value_from_chain_format(Decimal(market["minQuantityTickSize"])),
+                min_notional=Token.convert_value_from_chain_format(Decimal(market["minNotional"])),
+            )
+
+            derivative_markets[derivative_market.id] = derivative_market
+
+        markets_info = (await self.fetch_chain_binary_options_markets_v2(status="Active"))["markets"]
+        for market_info in markets_info:
+            quote_token = self._tokens_by_denom.get(market_info["quoteDenom"])
 
             market = BinaryOptionMarket(
                 id=market_info["marketId"],
-                status=market_info["marketStatus"],
+                status=market_info["status"],
                 ticker=market_info["ticker"],
                 oracle_symbol=market_info["oracleSymbol"],
                 oracle_provider=market_info["oracleProvider"],
@@ -2883,21 +2865,21 @@ class AsyncClient:
                 expiration_timestamp=market_info["expirationTimestamp"],
                 settlement_timestamp=market_info["settlementTimestamp"],
                 quote_token=quote_token,
-                maker_fee_rate=Decimal(market_info["makerFeeRate"]),
-                taker_fee_rate=Decimal(market_info["takerFeeRate"]),
-                service_provider_fee=Decimal(market_info["serviceProviderFee"]),
-                min_price_tick_size=Decimal(market_info["minPriceTickSize"]),
-                min_quantity_tick_size=Decimal(market_info["minQuantityTickSize"]),
-                min_notional=Decimal(market_info["minNotional"]),
+                maker_fee_rate=Token.convert_value_from_chain_format(Decimal(market_info["makerFeeRate"])),
+                taker_fee_rate=Token.convert_value_from_chain_format(Decimal(market_info["takerFeeRate"])),
+                service_provider_fee=Token.convert_value_from_chain_format(Decimal(market_info["relayerFeeShareRate"])),
+                min_price_tick_size=Token.convert_value_from_chain_format(Decimal(market_info["minPriceTickSize"])),
+                min_quantity_tick_size=Token.convert_value_from_chain_format(
+                    Decimal(market_info["minQuantityTickSize"])
+                ),
+                min_notional=Token.convert_value_from_chain_format(Decimal(market_info["minNotional"])),
                 settlement_price=None
                 if market_info["settlementPrice"] == ""
-                else Decimal(market_info["settlementPrice"]),
+                else Token.convert_value_from_chain_format(Decimal(market_info["settlementPrice"])),
             )
 
             binary_option_markets[market.id] = market
 
-        self._tokens_by_denom = tokens_by_denom
-        self._tokens_by_symbol = tokens_by_symbol
         self._spot_markets = spot_markets
         self._derivative_markets = derivative_markets
         self._binary_option_markets = binary_option_markets
