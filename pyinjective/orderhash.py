@@ -97,7 +97,7 @@ class OrderHashManager:
 
 
 def param_to_backend_go(param: str) -> str:
-    go_param = Token.convert_value_from_chain_format(value=Decimal(param))
+    go_param = Token.convert_value_from_extended_decimal_format(value=Decimal(param))
     return f"{go_param.normalize():.18f}"
 
 

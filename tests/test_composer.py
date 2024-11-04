@@ -228,7 +228,7 @@ class TestComposer:
         amount = 100
         denom = "inj"
 
-        expected_amount = Token.convert_value_to_chain_format(value=Decimal(str(amount)))
+        expected_amount = Token.convert_value_to_extended_decimal_format(value=Decimal(str(amount)))
 
         message = basic_composer.msg_deposit_v2(
             sender=sender,
@@ -268,7 +268,7 @@ class TestComposer:
             "sender": sender,
             "subaccountId": subaccount_id,
             "amount": {
-                "amount": f"{Token.convert_value_to_chain_format(value=Decimal(str(amount))):f}",
+                "amount": f"{Token.convert_value_to_extended_decimal_format(value=Decimal(str(amount))):f}",
                 "denom": denom,
             },
         }
@@ -301,9 +301,9 @@ class TestComposer:
             quote_decimals=quote_decimals,
         )
 
-        chain_min_price_tick_size = Token.convert_value_to_chain_format(value=min_price_tick_size)
-        chain_min_quantity_tick_size = Token.convert_value_to_chain_format(value=min_quantity_tick_size)
-        chain_min_notional = Token.convert_value_to_chain_format(value=min_notional)
+        chain_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=min_price_tick_size)
+        chain_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=min_quantity_tick_size)
+        chain_min_notional = Token.convert_value_to_extended_decimal_format(value=min_notional)
 
         expected_message = {
             "sender": sender,
@@ -402,13 +402,15 @@ class TestComposer:
         maintenance_margin_ratio = Decimal("0.03")
         min_notional = Decimal("2")
 
-        expected_min_price_tick_size = Token.convert_value_to_chain_format(value=min_price_tick_size)
-        expected_min_quantity_tick_size = Token.convert_value_to_chain_format(value=min_quantity_tick_size)
-        expected_maker_fee_rate = Token.convert_value_to_chain_format(value=maker_fee_rate)
-        expected_taker_fee_rate = Token.convert_value_to_chain_format(value=taker_fee_rate)
-        expected_initial_margin_ratio = Token.convert_value_to_chain_format(value=initial_margin_ratio)
-        expected_maintenance_margin_ratio = Token.convert_value_to_chain_format(value=maintenance_margin_ratio)
-        expected_min_notional = Token.convert_value_to_chain_format(value=min_notional)
+        expected_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=min_price_tick_size)
+        expected_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=min_quantity_tick_size)
+        expected_maker_fee_rate = Token.convert_value_to_extended_decimal_format(value=maker_fee_rate)
+        expected_taker_fee_rate = Token.convert_value_to_extended_decimal_format(value=taker_fee_rate)
+        expected_initial_margin_ratio = Token.convert_value_to_extended_decimal_format(value=initial_margin_ratio)
+        expected_maintenance_margin_ratio = Token.convert_value_to_extended_decimal_format(
+            value=maintenance_margin_ratio
+        )
+        expected_min_notional = Token.convert_value_to_extended_decimal_format(value=min_notional)
 
         message = basic_composer.msg_instant_expiry_futures_market_launch_v2(
             sender=sender,
@@ -564,9 +566,9 @@ class TestComposer:
             trigger_price=trigger_price,
         )
 
-        expected_price = Token.convert_value_to_chain_format(value=price)
-        expected_quantity = Token.convert_value_to_chain_format(value=quantity)
-        expected_trigger_price = Token.convert_value_to_chain_format(value=trigger_price)
+        expected_price = Token.convert_value_to_extended_decimal_format(value=price)
+        expected_quantity = Token.convert_value_to_extended_decimal_format(value=quantity)
+        expected_trigger_price = Token.convert_value_to_extended_decimal_format(value=trigger_price)
 
         assert "injective.exchange.v2.MsgCreateSpotLimitOrder" == message.DESCRIPTOR.full_name
         expected_message = {
@@ -658,12 +660,12 @@ class TestComposer:
                 "orderInfo": {
                     "subaccountId": subaccount_id,
                     "feeRecipient": fee_recipient,
-                    "price": f"{Token.convert_value_to_chain_format(value=price).normalize():f}",
-                    "quantity": f"{Token.convert_value_to_chain_format(value=quantity).normalize():f}",
+                    "price": f"{Token.convert_value_to_extended_decimal_format(value=price).normalize():f}",
+                    "quantity": f"{Token.convert_value_to_extended_decimal_format(value=quantity).normalize():f}",
                     "cid": cid,
                 },
                 "orderType": order_type,
-                "triggerPrice": f"{Token.convert_value_to_chain_format(value=trigger_price).normalize():f}",
+                "triggerPrice": f"{Token.convert_value_to_extended_decimal_format(value=trigger_price).normalize():f}",
             },
         }
         dict_message = json_format.MessageToDict(
@@ -887,13 +889,13 @@ class TestComposer:
                 "orderInfo": {
                     "subaccountId": subaccount_id,
                     "feeRecipient": fee_recipient,
-                    "price": f"{Token.convert_value_to_chain_format(value=price).normalize():f}",
-                    "quantity": f"{Token.convert_value_to_chain_format(value=quantity).normalize():f}",
+                    "price": f"{Token.convert_value_to_extended_decimal_format(value=price).normalize():f}",
+                    "quantity": f"{Token.convert_value_to_extended_decimal_format(value=quantity).normalize():f}",
                     "cid": cid,
                 },
-                "margin": f"{Token.convert_value_to_chain_format(value=margin).normalize():f}",
+                "margin": f"{Token.convert_value_to_extended_decimal_format(value=margin).normalize():f}",
                 "orderType": order_type,
-                "triggerPrice": f"{Token.convert_value_to_chain_format(value=trigger_price).normalize():f}",
+                "triggerPrice": f"{Token.convert_value_to_extended_decimal_format(value=trigger_price).normalize():f}",
             },
         }
         dict_message = json_format.MessageToDict(
@@ -972,13 +974,13 @@ class TestComposer:
                 "orderInfo": {
                     "subaccountId": subaccount_id,
                     "feeRecipient": fee_recipient,
-                    "price": f"{Token.convert_value_to_chain_format(value=price).normalize():f}",
-                    "quantity": f"{Token.convert_value_to_chain_format(value=quantity).normalize():f}",
+                    "price": f"{Token.convert_value_to_extended_decimal_format(value=price).normalize():f}",
+                    "quantity": f"{Token.convert_value_to_extended_decimal_format(value=quantity).normalize():f}",
                     "cid": cid,
                 },
-                "margin": f"{Token.convert_value_to_chain_format(value=margin).normalize():f}",
+                "margin": f"{Token.convert_value_to_extended_decimal_format(value=margin).normalize():f}",
                 "orderType": order_type,
-                "triggerPrice": f"{Token.convert_value_to_chain_format(value=trigger_price).normalize():f}",
+                "triggerPrice": f"{Token.convert_value_to_extended_decimal_format(value=trigger_price).normalize():f}",
             },
         }
         dict_message = json_format.MessageToDict(
@@ -1089,9 +1091,9 @@ class TestComposer:
             min_notional=min_notional,
         )
 
-        chain_min_price_tick_size = Token.convert_value_to_chain_format(value=min_price_tick_size)
-        chain_min_quantity_tick_size = Token.convert_value_to_chain_format(value=min_quantity_tick_size)
-        chain_min_notional = Token.convert_value_to_chain_format(value=min_notional)
+        chain_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=min_price_tick_size)
+        chain_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=min_quantity_tick_size)
+        chain_min_notional = Token.convert_value_to_extended_decimal_format(value=min_notional)
 
         expected_message = {
             "sender": sender,
@@ -1100,8 +1102,8 @@ class TestComposer:
             "oracleProvider": oracle_provider,
             "oracleType": oracle_type,
             "oracleScaleFactor": oracle_scale_factor,
-            "makerFeeRate": f"{Token.convert_value_to_chain_format(value=maker_fee_rate).normalize():f}",
-            "takerFeeRate": f"{Token.convert_value_to_chain_format(value=taker_fee_rate).normalize():f}",
+            "makerFeeRate": f"{Token.convert_value_to_extended_decimal_format(value=maker_fee_rate).normalize():f}",
+            "takerFeeRate": f"{Token.convert_value_to_extended_decimal_format(value=taker_fee_rate).normalize():f}",
             "expirationTimestamp": str(expiration_timestamp),
             "settlementTimestamp": str(settlement_timestamp),
             "admin": admin,
@@ -1141,10 +1143,10 @@ class TestComposer:
             trigger_price=trigger_price,
         )
 
-        expected_price = Token.convert_value_to_chain_format(value=price)
-        expected_quantity = Token.convert_value_to_chain_format(value=quantity)
-        expected_margin = Token.convert_value_to_chain_format(value=margin)
-        expected_trigger_price = Token.convert_value_to_chain_format(value=trigger_price)
+        expected_price = Token.convert_value_to_extended_decimal_format(value=price)
+        expected_quantity = Token.convert_value_to_extended_decimal_format(value=quantity)
+        expected_margin = Token.convert_value_to_extended_decimal_format(value=margin)
+        expected_trigger_price = Token.convert_value_to_extended_decimal_format(value=trigger_price)
 
         expected_message = {
             "sender": sender,
@@ -1200,13 +1202,13 @@ class TestComposer:
                 "orderInfo": {
                     "subaccountId": subaccount_id,
                     "feeRecipient": fee_recipient,
-                    "price": f"{Token.convert_value_to_chain_format(value=price).normalize():f}",
-                    "quantity": f"{Token.convert_value_to_chain_format(value=quantity).normalize():f}",
+                    "price": f"{Token.convert_value_to_extended_decimal_format(value=price).normalize():f}",
+                    "quantity": f"{Token.convert_value_to_extended_decimal_format(value=quantity).normalize():f}",
                     "cid": cid,
                 },
-                "margin": f"{Token.convert_value_to_chain_format(value=margin).normalize():f}",
+                "margin": f"{Token.convert_value_to_extended_decimal_format(value=margin).normalize():f}",
                 "orderType": order_type,
-                "triggerPrice": f"{Token.convert_value_to_chain_format(value=trigger_price).normalize():f}",
+                "triggerPrice": f"{Token.convert_value_to_extended_decimal_format(value=trigger_price).normalize():f}",
             },
         }
         dict_message = json_format.MessageToDict(
@@ -1276,7 +1278,7 @@ class TestComposer:
             "sourceSubaccountId": source_subaccount_id,
             "destinationSubaccountId": destination_subaccount_id,
             "amount": {
-                "amount": f"{Token.convert_value_to_chain_format(value=Decimal(str(amount))).normalize():f}",
+                "amount": f"{Token.convert_value_to_extended_decimal_format(value=Decimal(str(amount))).normalize():f}",
                 "denom": denom,
             },
         }
@@ -1306,7 +1308,7 @@ class TestComposer:
             "sourceSubaccountId": source_subaccount_id,
             "destinationSubaccountId": destination_subaccount_id,
             "amount": {
-                "amount": f"{Token.convert_value_to_chain_format(value=Decimal(str(amount))).normalize():f}",
+                "amount": f"{Token.convert_value_to_extended_decimal_format(value=Decimal(str(amount))).normalize():f}",
                 "denom": denom,
             },
         }
@@ -1378,7 +1380,7 @@ class TestComposer:
         destination_subaccount_id = "0xc6fe5d33615a1c52c08018c47e8bc53646a0e101000000000000000000000000"
         amount = Decimal(100)
 
-        expected_amount = Token.convert_value_to_chain_format(value=amount)
+        expected_amount = Token.convert_value_to_extended_decimal_format(value=amount)
 
         message = basic_composer.msg_increase_position_margin_v2(
             sender=sender,
@@ -1408,7 +1410,7 @@ class TestComposer:
         destination_subaccount_id = "0xc6fe5d33615a1c52c08018c47e8bc53646a0e101000000000000000000000000"
         amount = Decimal(100)
 
-        expected_amount = Token.convert_value_to_chain_format(value=amount)
+        expected_amount = Token.convert_value_to_extended_decimal_format(value=amount)
 
         message = basic_composer.msg_decrease_position_margin_v2(
             sender=sender,
@@ -1455,7 +1457,7 @@ class TestComposer:
         expiration_timestamp = 1630000000
         settlement_timestamp = 1660000000
 
-        expected_settlement_price = Token.convert_value_to_chain_format(value=settlement_price)
+        expected_settlement_price = Token.convert_value_to_extended_decimal_format(value=settlement_price)
 
         message = basic_composer.msg_admin_update_binary_options_market_v2(
             sender=sender,
@@ -1488,9 +1490,9 @@ class TestComposer:
         min_quantity_tick_size = Decimal("10")
         min_notional = Decimal("5")
 
-        expected_min_price_tick_size = Token.convert_value_to_chain_format(value=min_price_tick_size)
-        expected_min_quantity_tick_size = Token.convert_value_to_chain_format(value=min_quantity_tick_size)
-        expected_min_notional = Token.convert_value_to_chain_format(value=min_notional)
+        expected_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=min_price_tick_size)
+        expected_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=min_quantity_tick_size)
+        expected_min_notional = Token.convert_value_to_extended_decimal_format(value=min_notional)
 
         message = basic_composer.msg_update_spot_market_v2(
             admin=sender,
@@ -1525,11 +1527,13 @@ class TestComposer:
         initial_margin_ratio = Decimal("0.05")
         maintenance_margin_ratio = Decimal("0.009")
 
-        expected_min_price_tick_size = Token.convert_value_to_chain_format(value=min_price_tick_size)
-        expected_min_quantity_tick_size = Token.convert_value_to_chain_format(value=min_quantity_tick_size)
-        expected_min_notional = Token.convert_value_to_chain_format(value=min_notional)
-        expected_initial_margin_ratio = Token.convert_value_to_chain_format(value=initial_margin_ratio)
-        expected_maintenance_margin_ratio = Token.convert_value_to_chain_format(value=maintenance_margin_ratio)
+        expected_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=min_price_tick_size)
+        expected_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=min_quantity_tick_size)
+        expected_min_notional = Token.convert_value_to_extended_decimal_format(value=min_notional)
+        expected_initial_margin_ratio = Token.convert_value_to_extended_decimal_format(value=initial_margin_ratio)
+        expected_maintenance_margin_ratio = Token.convert_value_to_extended_decimal_format(
+            value=maintenance_margin_ratio
+        )
 
         message = basic_composer.msg_update_derivative_market_v2(
             admin=sender,
@@ -1938,7 +1942,7 @@ class TestComposer:
             "oracleType": "Band",
             "expiry": "-1",
             "initialDeposit": {
-                "amount": f"{Token.convert_value_to_chain_format(value=Decimal('1')).normalize():f}",
+                "amount": f"{Token.convert_value_to_extended_decimal_format(value=Decimal('1')).normalize():f}",
                 "denom": "peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7",
             },
         }
@@ -1961,11 +1965,11 @@ class TestComposer:
             "sender": "sender",
             "ethDest": "eth_dest",
             "amount": {
-                "amount": f"{Token.convert_value_to_chain_format(value=Decimal(1)).normalize():f}",
+                "amount": f"{Token.convert_value_to_extended_decimal_format(value=Decimal(1)).normalize():f}",
                 "denom": "peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7",
             },
             "bridgeFee": {
-                "amount": f"{Token.convert_value_to_chain_format(value=Decimal(2)).normalize():f}",
+                "amount": f"{Token.convert_value_to_extended_decimal_format(value=Decimal(2)).normalize():f}",
                 "denom": "peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7",
             },
         }
@@ -1987,7 +1991,7 @@ class TestComposer:
             "sender": "sender",
             "marketId": "market_id",
             "deposit": {
-                "amount": f"{Token.convert_value_to_chain_format(Decimal('1')).normalize():f}",
+                "amount": f"{Token.convert_value_to_extended_decimal_format(Decimal('1')).normalize():f}",
                 "denom": "peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7",
             },
         }
@@ -2010,7 +2014,7 @@ class TestComposer:
             "toAddress": "to_address",
             "amount": [
                 {
-                    "amount": f"{Token.convert_value_to_chain_format(Decimal('1')).normalize():f}",
+                    "amount": f"{Token.convert_value_to_extended_decimal_format(Decimal('1')).normalize():f}",
                     "denom": "peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7",
                 },
             ],

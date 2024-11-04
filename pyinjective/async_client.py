@@ -2808,14 +2808,18 @@ class AsyncClient:
                 ticker=market_info["ticker"],
                 base_token=base_token,
                 quote_token=quote_token,
-                maker_fee_rate=Token.convert_value_from_chain_format(Decimal(market_info["makerFeeRate"])),
-                taker_fee_rate=Token.convert_value_from_chain_format(Decimal(market_info["takerFeeRate"])),
-                service_provider_fee=Token.convert_value_from_chain_format(Decimal(market_info["relayerFeeShareRate"])),
-                min_price_tick_size=Token.convert_value_from_chain_format(Decimal(market_info["minPriceTickSize"])),
-                min_quantity_tick_size=Token.convert_value_from_chain_format(
+                maker_fee_rate=Token.convert_value_from_extended_decimal_format(Decimal(market_info["makerFeeRate"])),
+                taker_fee_rate=Token.convert_value_from_extended_decimal_format(Decimal(market_info["takerFeeRate"])),
+                service_provider_fee=Token.convert_value_from_extended_decimal_format(
+                    Decimal(market_info["relayerFeeShareRate"])
+                ),
+                min_price_tick_size=Token.convert_value_from_extended_decimal_format(
+                    Decimal(market_info["minPriceTickSize"])
+                ),
+                min_quantity_tick_size=Token.convert_value_from_extended_decimal_format(
                     Decimal(market_info["minQuantityTickSize"])
                 ),
-                min_notional=Token.convert_value_from_chain_format(Decimal(market_info["minNotional"])),
+                min_notional=Token.convert_value_from_extended_decimal_format(Decimal(market_info["minNotional"])),
             )
 
             spot_markets[market.id] = market
@@ -2835,17 +2839,25 @@ class AsyncClient:
                 oracle_quote=market["oracleQuote"],
                 oracle_type=market["oracleType"],
                 oracle_scale_factor=market["oracleScaleFactor"],
-                initial_margin_ratio=Token.convert_value_from_chain_format(Decimal(market["initialMarginRatio"])),
-                maintenance_margin_ratio=Token.convert_value_from_chain_format(
+                initial_margin_ratio=Token.convert_value_from_extended_decimal_format(
+                    Decimal(market["initialMarginRatio"])
+                ),
+                maintenance_margin_ratio=Token.convert_value_from_extended_decimal_format(
                     Decimal(market["maintenanceMarginRatio"])
                 ),
                 quote_token=quote_token,
-                maker_fee_rate=Token.convert_value_from_chain_format(Decimal(market["makerFeeRate"])),
-                taker_fee_rate=Token.convert_value_from_chain_format(Decimal(market["takerFeeRate"])),
-                service_provider_fee=Token.convert_value_from_chain_format(Decimal(market["relayerFeeShareRate"])),
-                min_price_tick_size=Token.convert_value_from_chain_format(Decimal(market["minPriceTickSize"])),
-                min_quantity_tick_size=Token.convert_value_from_chain_format(Decimal(market["minQuantityTickSize"])),
-                min_notional=Token.convert_value_from_chain_format(Decimal(market["minNotional"])),
+                maker_fee_rate=Token.convert_value_from_extended_decimal_format(Decimal(market["makerFeeRate"])),
+                taker_fee_rate=Token.convert_value_from_extended_decimal_format(Decimal(market["takerFeeRate"])),
+                service_provider_fee=Token.convert_value_from_extended_decimal_format(
+                    Decimal(market["relayerFeeShareRate"])
+                ),
+                min_price_tick_size=Token.convert_value_from_extended_decimal_format(
+                    Decimal(market["minPriceTickSize"])
+                ),
+                min_quantity_tick_size=Token.convert_value_from_extended_decimal_format(
+                    Decimal(market["minQuantityTickSize"])
+                ),
+                min_notional=Token.convert_value_from_extended_decimal_format(Decimal(market["minNotional"])),
             )
 
             derivative_markets[derivative_market.id] = derivative_market
@@ -2865,17 +2877,21 @@ class AsyncClient:
                 expiration_timestamp=market_info["expirationTimestamp"],
                 settlement_timestamp=market_info["settlementTimestamp"],
                 quote_token=quote_token,
-                maker_fee_rate=Token.convert_value_from_chain_format(Decimal(market_info["makerFeeRate"])),
-                taker_fee_rate=Token.convert_value_from_chain_format(Decimal(market_info["takerFeeRate"])),
-                service_provider_fee=Token.convert_value_from_chain_format(Decimal(market_info["relayerFeeShareRate"])),
-                min_price_tick_size=Token.convert_value_from_chain_format(Decimal(market_info["minPriceTickSize"])),
-                min_quantity_tick_size=Token.convert_value_from_chain_format(
+                maker_fee_rate=Token.convert_value_from_extended_decimal_format(Decimal(market_info["makerFeeRate"])),
+                taker_fee_rate=Token.convert_value_from_extended_decimal_format(Decimal(market_info["takerFeeRate"])),
+                service_provider_fee=Token.convert_value_from_extended_decimal_format(
+                    Decimal(market_info["relayerFeeShareRate"])
+                ),
+                min_price_tick_size=Token.convert_value_from_extended_decimal_format(
+                    Decimal(market_info["minPriceTickSize"])
+                ),
+                min_quantity_tick_size=Token.convert_value_from_extended_decimal_format(
                     Decimal(market_info["minQuantityTickSize"])
                 ),
-                min_notional=Token.convert_value_from_chain_format(Decimal(market_info["minNotional"])),
+                min_notional=Token.convert_value_from_extended_decimal_format(Decimal(market_info["minNotional"])),
                 settlement_price=None
                 if market_info["settlementPrice"] == ""
-                else Token.convert_value_from_chain_format(Decimal(market_info["settlementPrice"])),
+                else Token.convert_value_from_extended_decimal_format(Decimal(market_info["settlementPrice"])),
             )
 
             binary_option_markets[market.id] = market

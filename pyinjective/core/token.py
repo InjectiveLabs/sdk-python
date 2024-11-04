@@ -15,11 +15,11 @@ class Token:
     updated: int
 
     @staticmethod
-    def convert_value_to_chain_format(value: Decimal) -> Decimal:
+    def convert_value_to_extended_decimal_format(value: Decimal) -> Decimal:
         return value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
     @staticmethod
-    def convert_value_from_chain_format(value: Decimal) -> Decimal:
+    def convert_value_from_extended_decimal_format(value: Decimal) -> Decimal:
         return value / Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
     def chain_formatted_value(self, human_readable_value: Decimal) -> Decimal:
