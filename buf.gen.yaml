@@ -24,6 +24,6 @@ inputs:
 #    tag: v1.13.0
 #    subdir: proto
   - git_repo: https://github.com/InjectiveLabs/injective-core
-    branch: feat/chain_stream_exchange_v2
+    branch: feat/update_chain_stream_for_exchange_v2
     subdir: proto
   - directory: proto
