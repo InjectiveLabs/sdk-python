@@ -5,6 +5,8 @@ from eip712.messages import EIP712Message, EIP712Type
 from eth_account.messages import _hash_eip191_message as hash_eip191_message
 from hexbytes import HexBytes
 
+from pyinjective.core.token import Token
+
 
 class OrderInfo(EIP712Type):
     SubaccountId: "string"  # noqa: F821
@@ -94,9 +96,9 @@ class OrderHashManager:
         return order_hashes
 
 
-def param_to_backend_go(param) -> int:
-    go_param = Decimal(param) / pow(10, 18)
-    return format(go_param, ".18f")
+def param_to_backend_go(param: str) -> str:
+    go_param = Token.convert_value_from_extended_decimal_format(value=Decimal(param))
+    return f"{go_param.normalize():.18f}"
 
 
 def parse_order_type(order):
