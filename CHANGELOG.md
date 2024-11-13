@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.9.0] - 9999-99-99
+### Added
+- Added support for Exchange V2 proto queries and types
+- Updated all chain exchange module examples to use the new Exchange V2 proto queries and types
+
+### Removed
+- Removed all methods marked as deprecated in AsyncClient and Composer
+
+## [1.8.0] - 9999-99-99
+### Changed
+- The markets initialization in AsyncClient has been modified to get markets information from the chain endpoints instead of the Indexer endpoints
+
+### Removed
+- Removed the legacy deprecated markets and tokens initialization using the denoms INI files in the SDK. Removed also the INI files from the SDK
+
+## [1.7.2] - 2024-11-13
+### Fixed
+- Fixed link to official `ofac.json` file
+- Refreshed the local copy of the file after the update
+
 ## [1.7.1] - 2024-09-24
 ### Fixed
 - Fixed logic to get the absolute ofac.json file path

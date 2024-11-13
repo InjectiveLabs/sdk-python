@@ -3,12 +3,14 @@ from decimal import Decimal
 from pyinjective.constant import ADDITIONAL_CHAIN_FORMAT_DECIMALS
 from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from pyinjective.utils.denom import Denom
-from tests.model_fixtures.markets_fixtures import btc_usdt_perp_market  # noqa: F401
-from tests.model_fixtures.markets_fixtures import first_match_bet_market  # noqa: F401
-from tests.model_fixtures.markets_fixtures import inj_token  # noqa: F401
-from tests.model_fixtures.markets_fixtures import inj_usdt_spot_market  # noqa: F401
-from tests.model_fixtures.markets_fixtures import usdt_perp_token  # noqa: F401
-from tests.model_fixtures.markets_fixtures import usdt_token  # noqa: F401; noqa: F401
+from tests.model_fixtures.markets_fixtures import (  # noqa: F401
+    btc_usdt_perp_market,
+    first_match_bet_market,
+    inj_token,
+    inj_usdt_spot_market,
+    usdt_perp_token,
+    usdt_token,
+)
 
 
 class TestSpotMarket:
