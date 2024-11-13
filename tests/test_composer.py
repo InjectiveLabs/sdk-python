@@ -603,7 +603,7 @@ class TestComposer:
         cid = "test_cid"
         trigger_price = Decimal("43.5")
 
-        order = basic_composer.create_v2_spot_order(
+        order = basic_composer.create_spot_order_v2(
             market_id=spot_market.id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -707,7 +707,7 @@ class TestComposer:
         subaccount_id = "0x5e249f0e8cb406f41de16e1bd6f6b55e7bc75add000000000000000000000000"
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
 
-        order_data = basic_composer.create_v2_order_data_without_mask(
+        order_data = basic_composer.create_order_data_without_mask_v2(
             market_id=spot_market.id,
             subaccount_id=subaccount_id,
             order_hash="0x5e249f0e8cb406f41de16e1bd6f6b55e7bc75add000000000000000000000000",
@@ -739,22 +739,22 @@ class TestComposer:
         spot_market_id = spot_market.id
         derivative_market_id = derivative_market.id
         binary_options_market_id = binary_options_market.id
-        spot_order_to_cancel = basic_composer.create_v2_order_data_without_mask(
+        spot_order_to_cancel = basic_composer.create_order_data_without_mask_v2(
             market_id=spot_market_id,
             subaccount_id=subaccount_id,
             order_hash="0x5e249f0e8cb406f41de16e1bd6f6b55e7bc75add000000000000000000000000",
         )
-        derivative_order_to_cancel = basic_composer.create_v2_order_data_without_mask(
+        derivative_order_to_cancel = basic_composer.create_order_data_without_mask_v2(
             market_id=derivative_market_id,
             subaccount_id=subaccount_id,
             order_hash="0x222daa22f60fe9f075ed0ca583459e121c23e64431c3fbffdedda04598ede0d2",
         )
-        binary_options_order_to_cancel = basic_composer.create_v2_order_data_without_mask(
+        binary_options_order_to_cancel = basic_composer.create_order_data_without_mask_v2(
             market_id=binary_options_market_id,
             subaccount_id=subaccount_id,
             order_hash="0x7ee76255d7ca763c56b0eab9828fca89fdd3739645501c8a80f58b62b4f76da5",
         )
-        spot_order_to_create = basic_composer.create_v2_spot_order(
+        spot_order_to_create = basic_composer.create_spot_order_v2(
             market_id=spot_market_id,
             subaccount_id=subaccount_id,
             fee_recipient="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
@@ -764,7 +764,7 @@ class TestComposer:
             cid="test_cid",
             trigger_price=Decimal("43.5"),
         )
-        derivative_order_to_create = basic_composer.create_v2_derivative_order(
+        derivative_order_to_create = basic_composer.create_derivative_order_v2(
             market_id=derivative_market_id,
             subaccount_id=subaccount_id,
             fee_recipient="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
@@ -773,7 +773,7 @@ class TestComposer:
             margin=Decimal("36.1") * Decimal("100"),
             order_type="BUY",
         )
-        binary_options_order_to_create = basic_composer.create_v2_binary_options_order(
+        binary_options_order_to_create = basic_composer.create_binary_options_order_v2(
             market_id=binary_options_market_id,
             subaccount_id=subaccount_id,
             fee_recipient="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
@@ -915,7 +915,7 @@ class TestComposer:
         cid = "test_cid"
         trigger_price = Decimal("43.5")
 
-        order = basic_composer.create_v2_derivative_order(
+        order = basic_composer.create_derivative_order_v2(
             market_id=derivative_market.id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -1035,7 +1035,7 @@ class TestComposer:
         subaccount_id = "0x5e249f0e8cb406f41de16e1bd6f6b55e7bc75add000000000000000000000000"
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
 
-        order_data = basic_composer.create_v2_order_data_without_mask(
+        order_data = basic_composer.create_order_data_without_mask_v2(
             market_id=derivative_market.id,
             subaccount_id=subaccount_id,
             order_hash="0x5e249f0e8cb406f41de16e1bd6f6b55e7bc75add000000000000000000000000",
@@ -1322,7 +1322,7 @@ class TestComposer:
         market = list(basic_composer.derivative_markets.values())[0]
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
         subaccount_id = "0x893f2abf8034627e50cbc63923120b1122503ce0000000000000000000000001"
-        order = basic_composer.create_v2_derivative_order(
+        order = basic_composer.create_derivative_order_v2(
             market_id=market.id,
             subaccount_id=subaccount_id,
             fee_recipient="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
@@ -1874,8 +1874,8 @@ class TestComposer:
         )
         assert dict_message == expected_message
 
-    def test_create_v2_order_data_without_mask(self, basic_composer):
-        order_data = basic_composer.create_v2_order_data_without_mask(
+    def test_create_order_data_without_mask_v2(self, basic_composer):
+        order_data = basic_composer.create_order_data_without_mask_v2(
             market_id=list(basic_composer.spot_markets.keys())[0],
             subaccount_id="subaccount_id",
             order_hash="0x5e249f0e8cb406f41de16e1bd6f6b55e7bc75add000000000000000000000000",

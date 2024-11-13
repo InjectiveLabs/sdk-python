@@ -405,7 +405,7 @@ class Composer:
             cid=cid,
         )
 
-    def create_v2_order_data(
+    def create_order_data_v2(
         self,
         market_id: str,
         subaccount_id: str,
@@ -425,7 +425,7 @@ class Composer:
             cid=cid,
         )
 
-    def create_v2_order_data_without_mask(
+    def create_order_data_without_mask_v2(
         self,
         market_id: str,
         subaccount_id: str,
@@ -479,7 +479,7 @@ class Composer:
             trigger_price=chain_trigger_price,
         )
 
-    def create_v2_spot_order(
+    def create_spot_order_v2(
         self,
         market_id: str,
         subaccount_id: str,
@@ -557,7 +557,7 @@ class Composer:
             chain_trigger_price=chain_trigger_price,
         )
 
-    def create_v2_derivative_order(
+    def create_derivative_order_v2(
         self,
         market_id: str,
         subaccount_id: str,
@@ -571,7 +571,7 @@ class Composer:
     ) -> injective_order_v2_pb.DerivativeOrder:
         trigger_price = trigger_price or Decimal(0)
 
-        return self._basic_v2_derivative_order(
+        return self._basic_derivative_order_v2(
             market_id=market_id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -622,7 +622,7 @@ class Composer:
             chain_trigger_price=chain_trigger_price,
         )
 
-    def create_v2_binary_options_order(
+    def create_binary_options_order_v2(
         self,
         market_id: str,
         subaccount_id: str,
@@ -636,7 +636,7 @@ class Composer:
     ) -> injective_order_v2_pb.DerivativeOrder:
         trigger_price = trigger_price or Decimal(0)
 
-        return self._basic_v2_derivative_order(
+        return self._basic_derivative_order_v2(
             market_id=market_id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -1113,7 +1113,7 @@ class Composer:
     ) -> injective_exchange_tx_v2_pb.MsgCreateSpotLimitOrder:
         return injective_exchange_tx_v2_pb.MsgCreateSpotLimitOrder(
             sender=sender,
-            order=self.create_v2_spot_order(
+            order=self.create_spot_order_v2(
                 market_id=market_id,
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,
@@ -1189,7 +1189,7 @@ class Composer:
     ) -> injective_exchange_tx_v2_pb.MsgCreateSpotMarketOrder:
         return injective_exchange_tx_v2_pb.MsgCreateSpotMarketOrder(
             sender=sender,
-            order=self.create_v2_spot_order(
+            order=self.create_spot_order_v2(
                 market_id=market_id,
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,
@@ -1404,7 +1404,7 @@ class Composer:
     ) -> injective_exchange_tx_v2_pb.MsgCreateDerivativeLimitOrder:
         return injective_exchange_tx_v2_pb.MsgCreateDerivativeLimitOrder(
             sender=sender,
-            order=self.create_v2_derivative_order(
+            order=self.create_derivative_order_v2(
                 market_id=market_id,
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,
@@ -1493,7 +1493,7 @@ class Composer:
     ) -> injective_exchange_tx_v2_pb.MsgCreateDerivativeMarketOrder:
         return injective_exchange_tx_v2_pb.MsgCreateDerivativeMarketOrder(
             sender=sender,
-            order=self.create_v2_derivative_order(
+            order=self.create_derivative_order_v2(
                 market_id=market_id,
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,
@@ -1730,7 +1730,7 @@ class Composer:
     ) -> injective_exchange_tx_v2_pb.MsgCreateDerivativeLimitOrder:
         return injective_exchange_tx_v2_pb.MsgCreateDerivativeLimitOrder(
             sender=sender,
-            order=self.create_v2_binary_options_order(
+            order=self.create_binary_options_order_v2(
                 market_id=market_id,
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,
@@ -1798,7 +1798,7 @@ class Composer:
     ) -> injective_exchange_tx_v2_pb.MsgCreateBinaryOptionsMarketOrder:
         return injective_exchange_tx_v2_pb.MsgCreateBinaryOptionsMarketOrder(
             sender=sender,
-            order=self.create_v2_binary_options_order(
+            order=self.create_binary_options_order_v2(
                 market_id=market_id,
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,
@@ -3056,7 +3056,7 @@ class Composer:
             trigger_price=formatted_trigger_price,
         )
 
-    def _basic_v2_derivative_order(
+    def _basic_derivative_order_v2(
         self,
         market_id: str,
         subaccount_id: str,

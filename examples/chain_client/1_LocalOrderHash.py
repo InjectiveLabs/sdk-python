@@ -41,7 +41,7 @@ async def main() -> None:
     fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
 
     spot_orders = [
-        composer.create_v2_spot_order(
+        composer.create_spot_order_v2(
             market_id=spot_market_id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -50,7 +50,7 @@ async def main() -> None:
             order_type="BUY",
             cid=str(uuid.uuid4()),
         ),
-        composer.create_v2_spot_order(
+        composer.create_spot_order_v2(
             market_id=spot_market_id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -62,7 +62,7 @@ async def main() -> None:
     ]
 
     derivative_orders = [
-        composer.create_v2_derivative_order(
+        composer.create_derivative_order_v2(
             market_id=deriv_market_id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -74,7 +74,7 @@ async def main() -> None:
             order_type="BUY",
             cid=str(uuid.uuid4()),
         ),
-        composer.create_v2_derivative_order(
+        composer.create_derivative_order_v2(
             market_id=deriv_market_id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,

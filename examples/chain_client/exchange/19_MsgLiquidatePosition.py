@@ -37,7 +37,7 @@ async def main() -> None:
     fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
     cid = str(uuid.uuid4())
 
-    order = composer.create_v2_derivative_order(
+    order = composer.create_derivative_order_v2(
         market_id=market_id,
         subaccount_id=subaccount_id,
         fee_recipient=fee_recipient,

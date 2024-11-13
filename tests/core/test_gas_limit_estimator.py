@@ -548,7 +548,7 @@ class TestGasLimitEstimatorForV2ExchangeMessages:
         spot_market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
         composer = Composer(network="testnet")
         orders = [
-            composer.create_v2_spot_order(
+            composer.create_spot_order_v2(
                 market_id=spot_market_id,
                 subaccount_id="subaccount_id",
                 fee_recipient="fee_recipient",
@@ -556,7 +556,7 @@ class TestGasLimitEstimatorForV2ExchangeMessages:
                 quantity=Decimal("1"),
                 order_type="BUY",
             ),
-            composer.create_v2_spot_order(
+            composer.create_spot_order_v2(
                 market_id=spot_market_id,
                 subaccount_id="subaccount_id",
                 fee_recipient="fee_recipient",
@@ -577,17 +577,17 @@ class TestGasLimitEstimatorForV2ExchangeMessages:
         spot_market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
         composer = Composer(network="testnet")
         orders = [
-            composer.create_v2_order_data_without_mask(
+            composer.create_order_data_without_mask_v2(
                 market_id=spot_market_id,
                 subaccount_id="subaccount_id",
                 order_hash="0x3870fbdd91f07d54425147b1bb96404f4f043ba6335b422a6d494d285b387f2d",
             ),
-            composer.create_v2_order_data_without_mask(
+            composer.create_order_data_without_mask_v2(
                 market_id=spot_market_id,
                 subaccount_id="subaccount_id",
                 order_hash="0x222daa22f60fe9f075ed0ca583459e121c23e64431c3fbffdedda04598ede0d2",
             ),
-            composer.create_v2_order_data_without_mask(
+            composer.create_order_data_without_mask_v2(
                 market_id=spot_market_id,
                 subaccount_id="subaccount_id",
                 order_hash="0x7ee76255d7ca763c56b0eab9828fca89fdd3739645501c8a80f58b62b4f76da5",
@@ -605,7 +605,7 @@ class TestGasLimitEstimatorForV2ExchangeMessages:
         market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
         composer = Composer(network="testnet")
         orders = [
-            composer.create_v2_derivative_order(
+            composer.create_derivative_order_v2(
                 market_id=market_id,
                 subaccount_id="subaccount_id",
                 fee_recipient="fee_recipient",
@@ -614,7 +614,7 @@ class TestGasLimitEstimatorForV2ExchangeMessages:
                 margin=Decimal(3),
                 order_type="BUY",
             ),
-            composer.create_v2_derivative_order(
+            composer.create_derivative_order_v2(
                 market_id=market_id,
                 subaccount_id="subaccount_id",
                 fee_recipient="fee_recipient",
@@ -636,17 +636,17 @@ class TestGasLimitEstimatorForV2ExchangeMessages:
         spot_market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
         composer = Composer(network="testnet")
         orders = [
-            composer.create_v2_order_data_without_mask(
+            composer.create_order_data_without_mask_v2(
                 market_id=spot_market_id,
                 subaccount_id="subaccount_id",
                 order_hash="0x3870fbdd91f07d54425147b1bb96404f4f043ba6335b422a6d494d285b387f2d",
             ),
-            composer.create_v2_order_data_without_mask(
+            composer.create_order_data_without_mask_v2(
                 market_id=spot_market_id,
                 subaccount_id="subaccount_id",
                 order_hash="0x222daa22f60fe9f075ed0ca583459e121c23e64431c3fbffdedda04598ede0d2",
             ),
-            composer.create_v2_order_data_without_mask(
+            composer.create_order_data_without_mask_v2(
                 market_id=spot_market_id,
                 subaccount_id="subaccount_id",
                 order_hash="0x7ee76255d7ca763c56b0eab9828fca89fdd3739645501c8a80f58b62b4f76da5",
@@ -664,7 +664,7 @@ class TestGasLimitEstimatorForV2ExchangeMessages:
         market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
         composer = Composer(network="testnet")
         orders = [
-            composer.create_v2_spot_order(
+            composer.create_spot_order_v2(
                 market_id=market_id,
                 subaccount_id="subaccount_id",
                 fee_recipient="fee_recipient",
@@ -672,7 +672,7 @@ class TestGasLimitEstimatorForV2ExchangeMessages:
                 quantity=Decimal("1"),
                 order_type="BUY",
             ),
-            composer.create_v2_spot_order(
+            composer.create_spot_order_v2(
                 market_id=market_id,
                 subaccount_id="subaccount_id",
                 fee_recipient="fee_recipient",
@@ -699,7 +699,7 @@ class TestGasLimitEstimatorForV2ExchangeMessages:
         market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
         composer = Composer(network="testnet")
         orders = [
-            composer.create_v2_derivative_order(
+            composer.create_derivative_order_v2(
                 market_id=market_id,
                 subaccount_id="subaccount_id",
                 fee_recipient="fee_recipient",
@@ -708,7 +708,7 @@ class TestGasLimitEstimatorForV2ExchangeMessages:
                 margin=Decimal(3),
                 order_type="BUY",
             ),
-            composer.create_v2_derivative_order(
+            composer.create_derivative_order_v2(
                 market_id=market_id,
                 subaccount_id="subaccount_id",
                 fee_recipient="fee_recipient",
@@ -755,7 +755,7 @@ class TestGasLimitEstimatorForV2ExchangeMessages:
         )
         composer.binary_option_markets[market.id] = market
         orders = [
-            composer.create_v2_binary_options_order(
+            composer.create_binary_options_order_v2(
                 market_id=market_id,
                 subaccount_id="subaccount_id",
                 fee_recipient="fee_recipient",
@@ -764,7 +764,7 @@ class TestGasLimitEstimatorForV2ExchangeMessages:
                 margin=Decimal(3),
                 order_type="BUY",
             ),
-            composer.create_v2_binary_options_order(
+            composer.create_binary_options_order_v2(
                 market_id=market_id,
                 subaccount_id="subaccount_id",
                 fee_recipient="fee_recipient",
@@ -793,17 +793,17 @@ class TestGasLimitEstimatorForV2ExchangeMessages:
         market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
         composer = Composer(network="testnet")
         orders = [
-            composer.create_v2_order_data_without_mask(
+            composer.create_order_data_without_mask_v2(
                 market_id=market_id,
                 subaccount_id="subaccount_id",
                 order_hash="0x3870fbdd91f07d54425147b1bb96404f4f043ba6335b422a6d494d285b387f2d",
             ),
-            composer.create_v2_order_data_without_mask(
+            composer.create_order_data_without_mask_v2(
                 market_id=market_id,
                 subaccount_id="subaccount_id",
                 order_hash="0x222daa22f60fe9f075ed0ca583459e121c23e64431c3fbffdedda04598ede0d2",
             ),
-            composer.create_v2_order_data_without_mask(
+            composer.create_order_data_without_mask_v2(
                 market_id=market_id,
                 subaccount_id="subaccount_id",
                 order_hash="0x7ee76255d7ca763c56b0eab9828fca89fdd3739645501c8a80f58b62b4f76da5",
@@ -827,17 +827,17 @@ class TestGasLimitEstimatorForV2ExchangeMessages:
         market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
         composer = Composer(network="testnet")
         orders = [
-            composer.create_v2_order_data_without_mask(
+            composer.create_order_data_without_mask_v2(
                 market_id=market_id,
                 subaccount_id="subaccount_id",
                 order_hash="0x3870fbdd91f07d54425147b1bb96404f4f043ba6335b422a6d494d285b387f2d",
             ),
-            composer.create_v2_order_data_without_mask(
+            composer.create_order_data_without_mask_v2(
                 market_id=market_id,
                 subaccount_id="subaccount_id",
                 order_hash="0x222daa22f60fe9f075ed0ca583459e121c23e64431c3fbffdedda04598ede0d2",
             ),
-            composer.create_v2_order_data_without_mask(
+            composer.create_order_data_without_mask_v2(
                 market_id=market_id,
                 subaccount_id="subaccount_id",
                 order_hash="0x7ee76255d7ca763c56b0eab9828fca89fdd3739645501c8a80f58b62b4f76da5",
@@ -861,17 +861,17 @@ class TestGasLimitEstimatorForV2ExchangeMessages:
         market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
         composer = Composer(network="testnet")
         orders = [
-            composer.create_v2_order_data_without_mask(
+            composer.create_order_data_without_mask_v2(
                 market_id=market_id,
                 subaccount_id="subaccount_id",
                 order_hash="0x3870fbdd91f07d54425147b1bb96404f4f043ba6335b422a6d494d285b387f2d",
             ),
-            composer.create_v2_order_data_without_mask(
+            composer.create_order_data_without_mask_v2(
                 market_id=market_id,
                 subaccount_id="subaccount_id",
                 order_hash="0x222daa22f60fe9f075ed0ca583459e121c23e64431c3fbffdedda04598ede0d2",
             ),
-            composer.create_v2_order_data_without_mask(
+            composer.create_order_data_without_mask_v2(
                 market_id=market_id,
                 subaccount_id="subaccount_id",
                 order_hash="0x7ee76255d7ca763c56b0eab9828fca89fdd3739645501c8a80f58b62b4f76da5",
@@ -956,7 +956,7 @@ class TestGasLimitEstimatorForV2ExchangeMessages:
         market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
         composer = Composer(network="testnet")
         orders = [
-            composer.create_v2_spot_order(
+            composer.create_spot_order_v2(
                 market_id=market_id,
                 subaccount_id="subaccount_id",
                 fee_recipient="fee_recipient",
