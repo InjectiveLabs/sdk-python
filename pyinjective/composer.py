@@ -1,5 +1,4 @@
 import json
-from configparser import ConfigParser
 from decimal import Decimal
 from time import time
 from typing import Any, Dict, List, Optional
@@ -7,7 +6,6 @@ from warnings import warn
 
 from google.protobuf import any_pb2, json_format, timestamp_pb2
 
-from pyinjective import constant
 from pyinjective.constant import ADDITIONAL_CHAIN_FORMAT_DECIMALS, INJ_DECIMALS, INJ_DENOM
 from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from pyinjective.core.token import Token
@@ -137,17 +135,11 @@ class Composer:
 
         """
         self.network = network
-        self.spot_markets = dict()
-        self.derivative_markets = dict()
-        self.binary_option_markets = dict()
-        self.tokens = dict()
-        if spot_markets is None or derivative_markets is None or binary_option_markets is None or tokens is None:
-            self._initialize_markets_and_tokens_from_files()
-        else:
-            self.spot_markets = spot_markets
-            self.derivative_markets = derivative_markets
-            self.binary_option_markets = binary_option_markets
-            self.tokens = tokens
+        self.spot_markets = spot_markets or dict()
+        self.derivative_markets = derivative_markets or dict()
+        self.binary_option_markets = binary_option_markets or dict()
+        self.tokens = tokens or dict()
+
         self._ofac_checker = OfacChecker()
 
     def Coin(self, amount: int, denom: str):
@@ -2555,91 +2547,6 @@ class Composer:
             )
 
         return msgs
-
-    def _initialize_markets_and_tokens_from_files(self):
-        config: ConfigParser = constant.CONFIGS[self.network]
-        spot_markets = dict()
-        derivative_markets = dict()
-        tokens = dict()
-
-        for section_name, configuration_section in config.items():
-            if section_name.startswith("0x"):
-                description = configuration_section["description"]
-
-                quote_token = Token(
-                    name="",
-                    symbol="",
-                    denom="",
-                    address="",
-                    decimals=int(configuration_section["quote"]),
-                    logo="",
-                    updated=-1,
-                )
-
-                if "Spot" in description:
-                    base_token = Token(
-                        name="",
-                        symbol="",
-                        denom="",
-                        address="",
-                        decimals=int(configuration_section["base"]),
-                        logo="",
-                        updated=-1,
-                    )
-
-                    market = SpotMarket(
-                        id=section_name,
-                        status="",
-                        ticker=description,
-                        base_token=base_token,
-                        quote_token=quote_token,
-                        maker_fee_rate=None,
-                        taker_fee_rate=None,
-                        service_provider_fee=None,
-                        min_price_tick_size=Decimal(str(configuration_section["min_price_tick_size"])),
-                        min_quantity_tick_size=Decimal(str(configuration_section["min_quantity_tick_size"])),
-                        min_notional=Decimal(str(configuration_section.get("min_notional", "0"))),
-                    )
-                    spot_markets[market.id] = market
-                else:
-                    market = DerivativeMarket(
-                        id=section_name,
-                        status="",
-                        ticker=description,
-                        oracle_base="",
-                        oracle_quote="",
-                        oracle_type="",
-                        oracle_scale_factor=1,
-                        initial_margin_ratio=None,
-                        maintenance_margin_ratio=None,
-                        quote_token=quote_token,
-                        maker_fee_rate=None,
-                        taker_fee_rate=None,
-                        service_provider_fee=None,
-                        min_price_tick_size=Decimal(str(configuration_section["min_price_tick_size"])),
-                        min_quantity_tick_size=Decimal(str(configuration_section["min_quantity_tick_size"])),
-                        min_notional=Decimal(str(configuration_section.get("min_notional", "0"))),
-                    )
-
-                    derivative_markets[market.id] = market
-
-            elif section_name != "DEFAULT":
-                token = Token(
-                    name=section_name,
-                    symbol=section_name,
-                    denom=configuration_section["peggy_denom"],
-                    address="",
-                    decimals=int(configuration_section["decimals"]),
-                    logo="",
-                    updated=-1,
-                )
-
-                tokens[token.symbol] = token
-
-        self.tokens = tokens
-        self.spot_markets = spot_markets
-        self.derivative_markets = derivative_markets
-        self.binary_option_markets = dict()
 
     def _order_mask(self, is_conditional: bool, is_buy: bool, is_market_order: bool) -> int:
         order_mask = 0

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.8.0] - 9999-99-99
+### Changed
+- The markets initialization in AsyncClient has been modified to get markets information from the chain endpoints instead of the Indexer endpoints
+
+### Removed
+- Removed the legacy deprecated markets and tokens initialization using the denoms INI files in the SDK. Removed also the INI files from the SDK
+
 ## [1.7.2] - 2024-11-13
 ### Fixed
 - Fixed link to official `ofac.json` file
