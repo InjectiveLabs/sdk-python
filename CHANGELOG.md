@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.7.2] - 2024-11-13
+### Fixed
+- Fixed link to official `ofac.json` file
+- Refreshed the local copy of the file after the update
+
 ## [1.7.1] - 2024-09-24
 ### Fixed
 - Fixed logic to get the absolute ofac.json file path
