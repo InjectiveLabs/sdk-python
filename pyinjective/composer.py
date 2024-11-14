@@ -2395,7 +2395,7 @@ class Composer:
         oracle_prices = []
 
         for price in prices:
-            scale_price = Decimal((price) * pow(10, 18))
+            scale_price = Decimal(price * pow(10, 18))
             price_to_bytes = bytes(str(scale_price), "utf-8")
             oracle_prices.append(price_to_bytes)
 

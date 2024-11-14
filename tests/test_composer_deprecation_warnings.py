@@ -5,6 +5,7 @@ import pytest
 
 from pyinjective.composer import Composer
 from pyinjective.core.network import Network
+from pyinjective.proto.injective.oracle.v1beta1 import oracle_pb2 as oracle_pb
 from tests.model_fixtures.markets_fixtures import (  # noqa: F401
     btc_usdt_perp_market,
     first_match_bet_market,
@@ -481,7 +482,7 @@ class TestComposerDeprecationWarnings:
                 quote_denom="INJ",
                 oracle_base="oracle_base",
                 oracle_quote="oracle_quote",
-                oracle_type="Band",
+                oracle_type=oracle_pb.OracleType.Band,
                 expiry=-1,
                 initial_deposit=1,
             )
