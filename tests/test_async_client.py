@@ -6,13 +6,9 @@ from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
 from pyinjective.proto.cosmos.bank.v1beta1 import query_pb2 as bank_query_pb
 from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagination_pb
-from pyinjective.proto.exchange import (
-    injective_derivative_exchange_rpc_pb2 as derivative_exchange_pb,
-    injective_spot_exchange_rpc_pb2 as spot_exchange_pb,
-)
+from pyinjective.proto.injective.exchange.v1beta1 import query_pb2 as exchange_query_pb
 from tests.client.chain.grpc.configurable_bank_query_servicer import ConfigurableBankQueryServicer
-from tests.client.indexer.configurable_derivative_query_servicer import ConfigurableDerivativeQueryServicer
-from tests.client.indexer.configurable_spot_query_servicer import ConfigurableSpotQueryServicer
+from tests.client.chain.grpc.configurable_exchange_query_servicer import ConfigurableExchangeQueryServicer
 from tests.rpc_fixtures.markets_fixtures import (  # noqa: F401
     ape_token_meta,
     ape_usdt_spot_market_meta,
@@ -33,13 +29,8 @@ def bank_servicer():
 
 
 @pytest.fixture
-def spot_servicer():
-    return ConfigurableSpotQueryServicer()
-
-
-@pytest.fixture
-def derivative_servicer():
-    return ConfigurableDerivativeQueryServicer()
+def exchange_servicer():
+    return ConfigurableExchangeQueryServicer()
 
 
 class TestAsyncClient:
@@ -47,7 +38,6 @@ class TestAsyncClient:
     async def test_sync_timeout_height_logs_exception(self, caplog):
         client = AsyncClient(
             network=Network.local(),
-            insecure=False,
         )
 
         with caplog.at_level(logging.DEBUG):
@@ -66,7 +56,6 @@ class TestAsyncClient:
     async def test_get_account_logs_exception(self, caplog):
         client = AsyncClient(
             network=Network.local(),
-            insecure=False,
         )
 
         with caplog.at_level(logging.DEBUG):
@@ -84,8 +73,7 @@ class TestAsyncClient:
     @pytest.mark.asyncio
     async def test_initialize_tokens_and_markets(
         self,
-        spot_servicer,
-        derivative_servicer,
+        exchange_servicer,
         inj_usdt_spot_market_meta,
         ape_usdt_spot_market_meta,
         btc_usdt_perp_market_meta,
@@ -93,25 +81,88 @@ class TestAsyncClient:
         aioresponses,
     ):
         test_network = Network.local()
-        aioresponses.get(test_network.official_tokens_list_url, payload=[])
+        tokens_list = [
+            {
+                "address": "0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7",
+                "isNative": False,
+                "tokenVerification": "verified",
+                "decimals": 6,
+                "symbol": "APE",
+                "name": "Ape",
+                "logo": "https://imagedelivery.net/lPzngbR8EltRfBOi_WYaXw/6f015260-c589-499f-b692-a57964af9900/public",
+                "coinGeckoId": "",
+                "denom": "peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7",
+                "tokenType": "erc20",
+                "externalLogo": "unknown.png",
+            },
+            {
+                "address": "0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
+                "isNative": False,
+                "tokenVerification": "verified",
+                "decimals": 6,
+                "symbol": "USDT",
+                "name": "Tether",
+                "logo": "https://imagedelivery.net/lPzngbR8EltRfBOi_WYaXw/a0bd252b-1005-47ef-d209-7c1c4a3cbf00/public",
+                "coinGeckoId": "tether",
+                "denom": "peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
+                "tokenType": "erc20",
+                "externalLogo": "usdt.png",
+            },
+            {
+                "decimals": 6,
+                "symbol": "USDT",
+                "name": "Other USDT",
+                "logo": "https://imagedelivery.net/lPzngbR8EltRfBOi_WYaXw/6f015260-c589-499f-b692-a57964af9900/public",
+                "coinGeckoId": "",
+                "address": "factory/inj10vkkttgxdeqcgeppu20x9qtyvuaxxev8qh0awq/usdt",
+                "denom": "factory/inj10vkkttgxdeqcgeppu20x9qtyvuaxxev8qh0awq/usdt",
+                "externalLogo": "unknown.png",
+                "tokenType": "tokenFactory",
+                "tokenVerification": "internal",
+            },
+            {
+                "address": "inj",
+                "isNative": True,
+                "tokenVerification": "verified",
+                "decimals": 18,
+                "symbol": "INJ",
+                "name": "Injective",
+                "logo": "https://imagedelivery.net/lPzngbR8EltRfBOi_WYaXw/18984c0b-3e61-431d-241d-dfbb60b57600/public",
+                "coinGeckoId": "injective-protocol",
+                "denom": "inj",
+                "tokenType": "native",
+                "externalLogo": "injective-v3.png",
+            },
+            {
+                "decimals": 6,
+                "symbol": "USDTPERP",
+                "name": "USDT PERP",
+                "logo": "https://static.alchemyapi.io/images/assets/825.png",
+                "coinGeckoId": "",
+                "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+                "denom": "peggy0xdAC17F958D2ee523a2206206994597C13D831ec7",
+                "externalLogo": "unknown.png",
+                "tokenType": "tokenFactory",
+                "tokenVerification": "internal",
+            },
+        ]
+        aioresponses.get(test_network.official_tokens_list_url, payload=tokens_list)
 
-        spot_servicer.markets_responses.append(
-            spot_exchange_pb.MarketsResponse(markets=[inj_usdt_spot_market_meta, ape_usdt_spot_market_meta])
+        exchange_servicer.spot_markets_responses.append(
+            exchange_query_pb.QuerySpotMarketsResponse(markets=[inj_usdt_spot_market_meta, ape_usdt_spot_market_meta])
         )
-        derivative_servicer.markets_responses.append(
-            derivative_exchange_pb.MarketsResponse(markets=[btc_usdt_perp_market_meta])
+        exchange_servicer.derivative_markets_responses.append(
+            exchange_query_pb.QueryDerivativeMarketsResponse(markets=[btc_usdt_perp_market_meta])
         )
-        derivative_servicer.binary_options_markets_responses.append(
-            derivative_exchange_pb.BinaryOptionsMarketsResponse(markets=[first_match_bet_market_meta])
+        exchange_servicer.binary_options_markets_responses.append(
+            exchange_query_pb.QueryBinaryMarketsResponse(markets=[first_match_bet_market_meta])
         )
 
         client = AsyncClient(
             network=test_network,
-            insecure=False,
         )
 
-        client.exchange_spot_api._stub = spot_servicer
-        client.exchange_derivative_api._stub = derivative_servicer
+        client.chain_exchange_api._stub = exchange_servicer
 
         await client._initialize_tokens_and_markets()
 
@@ -119,8 +170,8 @@ class TestAsyncClient:
         assert 5 == len(all_tokens)
         inj_symbol, usdt_symbol = inj_usdt_spot_market_meta.ticker.split("/")
         ape_symbol, _ = ape_usdt_spot_market_meta.ticker.split("/")
-        alternative_usdt_name = ape_usdt_spot_market_meta.quote_token_meta.name
-        usdt_perp_symbol = btc_usdt_perp_market_meta.quote_token_meta.symbol
+        alternative_usdt_name = "Other USDT"
+        usdt_perp_symbol = "USDTPERP"
         assert inj_symbol in all_tokens
         assert usdt_symbol in all_tokens
         assert alternative_usdt_name in all_tokens
@@ -134,7 +185,9 @@ class TestAsyncClient:
 
         all_derivative_markets = await client.all_derivative_markets()
         assert 1 == len(all_derivative_markets)
-        assert any((btc_usdt_perp_market_meta.market_id == market.id for market in all_derivative_markets.values()))
+        assert any(
+            (btc_usdt_perp_market_meta.market.market_id == market.id for market in all_derivative_markets.values())
+        )
 
         all_binary_option_markets = await client.all_binary_option_markets()
         assert 1 == len(all_binary_option_markets)
@@ -145,8 +198,7 @@ class TestAsyncClient:
     @pytest.mark.asyncio
     async def test_tokens_and_markets_initialization_read_tokens_from_official_list(
         self,
-        spot_servicer,
-        derivative_servicer,
+        exchange_servicer,
         inj_usdt_spot_market_meta,
         ape_usdt_spot_market_meta,
         btc_usdt_perp_market_meta,
@@ -190,19 +242,19 @@ class TestAsyncClient:
         ]
         aioresponses.get(test_network.official_tokens_list_url, payload=tokens_list)
 
-        spot_servicer.markets_responses.append(spot_exchange_pb.MarketsResponse(markets=[]))
-        derivative_servicer.markets_responses.append(derivative_exchange_pb.MarketsResponse(markets=[]))
-        derivative_servicer.binary_options_markets_responses.append(
-            derivative_exchange_pb.BinaryOptionsMarketsResponse(markets=[])
+        exchange_servicer.spot_markets_responses.append(exchange_query_pb.QuerySpotMarketsResponse(markets=[]))
+        exchange_servicer.derivative_markets_responses.append(
+            exchange_query_pb.QueryDerivativeMarketsResponse(markets=[])
+        )
+        exchange_servicer.binary_options_markets_responses.append(
+            exchange_query_pb.QueryBinaryMarketsResponse(markets=[])
         )
 
         client = AsyncClient(
             network=test_network,
-            insecure=False,
         )
 
-        client.exchange_spot_api._stub = spot_servicer
-        client.exchange_derivative_api._stub = derivative_servicer
+        client.chain_exchange_api._stub = exchange_servicer
 
         await client._initialize_tokens_and_markets()
 
@@ -214,8 +266,7 @@ class TestAsyncClient:
     async def test_initialize_tokens_from_chain_denoms(
         self,
         bank_servicer,
-        spot_servicer,
-        derivative_servicer,
+        exchange_servicer,
         smart_denom_metadata,
         aioresponses,
     ):
@@ -233,20 +284,20 @@ class TestAsyncClient:
             )
         )
 
-        spot_servicer.markets_responses.append(spot_exchange_pb.MarketsResponse(markets=[]))
-        derivative_servicer.markets_responses.append(derivative_exchange_pb.MarketsResponse(markets=[]))
-        derivative_servicer.binary_options_markets_responses.append(
-            derivative_exchange_pb.BinaryOptionsMarketsResponse(markets=[])
+        exchange_servicer.spot_markets_responses.append(exchange_query_pb.QuerySpotMarketsResponse(markets=[]))
+        exchange_servicer.derivative_markets_responses.append(
+            exchange_query_pb.QueryDerivativeMarketsResponse(markets=[])
+        )
+        exchange_servicer.binary_options_markets_responses.append(
+            exchange_query_pb.QueryBinaryMarketsResponse(markets=[])
         )
 
         client = AsyncClient(
             network=test_network,
-            insecure=False,
         )
 
+        client.chain_exchange_api._stub = exchange_servicer
         client.bank_api._stub = bank_servicer
-        client.exchange_spot_api._stub = spot_servicer
-        client.exchange_derivative_api._stub = derivative_servicer
 
         await client._initialize_tokens_and_markets()
         await client.initialize_tokens_from_chain_denoms()

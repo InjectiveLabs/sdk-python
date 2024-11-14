@@ -30,21 +30,17 @@ class TestComposerDeprecationWarnings:
 
         return composer
 
-    def test_msg_deposit_deprecation_warning(self):
-        composer = Composer(network=Network.devnet().string())
-
+    def test_msg_deposit_deprecation_warning(self, basic_composer):
         with warnings.catch_warnings(record=True) as all_warnings:
-            composer.MsgDeposit(sender="sender", subaccount_id="subaccount id", amount=1, denom="INJ")
+            basic_composer.MsgDeposit(sender="sender", subaccount_id="subaccount id", amount=1, denom="INJ")
 
         deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
         assert len(deprecation_warnings) == 1
         assert str(deprecation_warnings[0].message) == "This method is deprecated. Use msg_deposit instead"
 
-    def test_msg_withdraw_deprecation_warning(self):
-        composer = Composer(network=Network.devnet().string())
-
+    def test_msg_withdraw_deprecation_warning(self, basic_composer):
         with warnings.catch_warnings(record=True) as all_warnings:
-            composer.MsgWithdraw(sender="sender", subaccount_id="subaccount id", amount=1, denom="USDT")
+            basic_composer.MsgWithdraw(sender="sender", subaccount_id="subaccount id", amount=1, denom="USDT")
 
         deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
         assert len(deprecation_warnings) == 1
@@ -77,12 +73,11 @@ class TestComposerDeprecationWarnings:
         assert len(deprecation_warnings) == 1
         assert str(deprecation_warnings[0].message) == "This method is deprecated. Use order_data instead"
 
-    def test_spot_order_deprecation_warning(self):
-        composer = Composer(network=Network.devnet().string())
-
+    def test_spot_order_deprecation_warning(self, basic_composer):
         with warnings.catch_warnings(record=True) as all_warnings:
-            composer.SpotOrder(
-                market_id="0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0",
+            market_id = list(basic_composer.spot_markets.keys())[0]
+            basic_composer.SpotOrder(
+                market_id=market_id,
                 subaccount_id="subaccount id",
                 fee_recipient="fee recipient",
                 price=1,
@@ -95,12 +90,11 @@ class TestComposerDeprecationWarnings:
         assert len(deprecation_warnings) == 1
         assert str(deprecation_warnings[0].message) == "This method is deprecated. Use spot_order instead"
 
-    def test_derivative_order_deprecation_warning(self):
-        composer = Composer(network=Network.devnet().string())
-
+    def test_derivative_order_deprecation_warning(self, basic_composer):
+        market_id = list(basic_composer.derivative_markets.keys())[0]
         with warnings.catch_warnings(record=True) as all_warnings:
-            composer.DerivativeOrder(
-                market_id="0x7cc8b10d7deb61e744ef83bdec2bbcf4a056867e89b062c6a453020ca82bd4e4",
+            basic_composer.DerivativeOrder(
+                market_id=market_id,
                 subaccount_id="subaccount id",
                 fee_recipient="fee recipient",
                 price=1,
@@ -114,12 +108,11 @@ class TestComposerDeprecationWarnings:
         assert len(deprecation_warnings) == 1
         assert str(deprecation_warnings[0].message) == "This method is deprecated. Use derivative_order instead"
 
-    def test_msg_create_spot_limit_order_deprecation_warning(self):
-        composer = Composer(network=Network.devnet().string())
-
+    def test_msg_create_spot_limit_order_deprecation_warning(self, basic_composer):
+        market_id = list(basic_composer.spot_markets.keys())[0]
         with warnings.catch_warnings(record=True) as all_warnings:
-            composer.MsgCreateSpotLimitOrder(
-                market_id="0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0",
+            basic_composer.MsgCreateSpotLimitOrder(
+                market_id=market_id,
                 sender="sender",
                 subaccount_id="subaccount id",
                 fee_recipient="fee recipient",
@@ -134,10 +127,10 @@ class TestComposerDeprecationWarnings:
             str(deprecation_warnings[0].message) == "This method is deprecated. Use msg_create_spot_limit_order instead"
         )
 
-    def test_msg_batch_create_spot_limit_orders_deprecation_warning(self):
-        composer = Composer(network=Network.devnet().string())
-        order = composer.spot_order(
-            market_id="0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0",
+    def test_msg_batch_create_spot_limit_orders_deprecation_warning(self, basic_composer):
+        market_id = list(basic_composer.spot_markets.keys())[0]
+        order = basic_composer.spot_order(
+            market_id=market_id,
             subaccount_id="subaccount id",
             fee_recipient="fee recipient",
             price=Decimal(1),
@@ -146,7 +139,7 @@ class TestComposerDeprecationWarnings:
         )
 
         with warnings.catch_warnings(record=True) as all_warnings:
-            composer.MsgBatchCreateSpotLimitOrders(
+            basic_composer.MsgBatchCreateSpotLimitOrders(
                 sender="sender",
                 orders=[order],
             )
@@ -158,12 +151,11 @@ class TestComposerDeprecationWarnings:
             == "This method is deprecated. Use msg_batch_create_spot_limit_orders instead"
         )
 
-    def test_msg_create_spot_market_order_deprecation_warning(self):
-        composer = Composer(network=Network.devnet().string())
-
+    def test_msg_create_spot_market_order_deprecation_warning(self, basic_composer):
+        market_id = list(basic_composer.spot_markets.keys())[0]
         with warnings.catch_warnings(record=True) as all_warnings:
-            composer.MsgCreateSpotMarketOrder(
-                market_id="0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0",
+            basic_composer.MsgCreateSpotMarketOrder(
+                market_id=market_id,
                 sender="sender",
                 subaccount_id="subaccount id",
                 fee_recipient="fee recipient",
@@ -242,12 +234,11 @@ class TestComposerDeprecationWarnings:
             == "This method is deprecated. Use msg_privileged_execute_contract instead"
         )
 
-    def test_msg_create_derivative_limit_order_deprecation_warning(self):
-        composer = Composer(network=Network.devnet().string())
-
+    def test_msg_create_derivative_limit_order_deprecation_warning(self, basic_composer):
+        market_id = list(basic_composer.derivative_markets.keys())[0]
         with warnings.catch_warnings(record=True) as all_warnings:
-            composer.MsgCreateDerivativeLimitOrder(
-                market_id="0x7cc8b10d7deb61e744ef83bdec2bbcf4a056867e89b062c6a453020ca82bd4e4",
+            basic_composer.MsgCreateDerivativeLimitOrder(
+                market_id=market_id,
                 sender="sender",
                 subaccount_id="subaccount id",
                 fee_recipient="fee recipient",
@@ -264,10 +255,10 @@ class TestComposerDeprecationWarnings:
             == "This method is deprecated. Use msg_create_derivative_limit_order instead"
         )
 
-    def test_msg_batch_create_derivative_limit_orders_deprecation_warning(self):
-        composer = Composer(network=Network.devnet().string())
-        order = composer.derivative_order(
-            market_id="0x7cc8b10d7deb61e744ef83bdec2bbcf4a056867e89b062c6a453020ca82bd4e4",
+    def test_msg_batch_create_derivative_limit_orders_deprecation_warning(self, basic_composer):
+        market_id = list(basic_composer.derivative_markets.keys())[0]
+        order = basic_composer.derivative_order(
+            market_id=market_id,
             subaccount_id="subaccount id",
             fee_recipient="fee recipient",
             price=Decimal(1),
@@ -277,7 +268,7 @@ class TestComposerDeprecationWarnings:
         )
 
         with warnings.catch_warnings(record=True) as all_warnings:
-            composer.MsgBatchCreateDerivativeLimitOrders(
+            basic_composer.MsgBatchCreateDerivativeLimitOrders(
                 sender="sender",
                 orders=[order],
             )
@@ -289,12 +280,11 @@ class TestComposerDeprecationWarnings:
             == "This method is deprecated. Use msg_batch_create_derivative_limit_orders instead"
         )
 
-    def test_msg_create_derivative_market_order_deprecation_warning(self):
-        composer = Composer(network=Network.devnet().string())
-
+    def test_msg_create_derivative_market_order_deprecation_warning(self, basic_composer):
+        market_id = list(basic_composer.derivative_markets.keys())[0]
         with warnings.catch_warnings(record=True) as all_warnings:
-            composer.MsgCreateDerivativeMarketOrder(
-                market_id="0x7cc8b10d7deb61e744ef83bdec2bbcf4a056867e89b062c6a453020ca82bd4e4",
+            basic_composer.MsgCreateDerivativeMarketOrder(
+                market_id=market_id,
                 sender="sender",
                 subaccount_id="subaccount id",
                 fee_recipient="fee recipient",
@@ -440,11 +430,9 @@ class TestComposerDeprecationWarnings:
             == "This method is deprecated. Use msg_cancel_binary_options_order instead"
         )
 
-    def test_msg_subaccount_transfer_deprecation_warning(self):
-        composer = Composer(network=Network.devnet().string())
-
+    def test_msg_subaccount_transfer_deprecation_warning(self, basic_composer):
         with warnings.catch_warnings(record=True) as all_warnings:
-            composer.MsgSubaccountTransfer(
+            basic_composer.MsgSubaccountTransfer(
                 sender="sender",
                 source_subaccount_id="source subaccount id",
                 destination_subaccount_id="destination subaccount id",
@@ -456,11 +444,9 @@ class TestComposerDeprecationWarnings:
         assert len(deprecation_warnings) == 1
         assert str(deprecation_warnings[0].message) == "This method is deprecated. Use msg_subaccount_transfer instead"
 
-    def test_msg_external_transfer_deprecation_warning(self):
-        composer = Composer(network=Network.devnet().string())
-
+    def test_msg_external_transfer_deprecation_warning(self, basic_composer):
         with warnings.catch_warnings(record=True) as all_warnings:
-            composer.MsgExternalTransfer(
+            basic_composer.MsgExternalTransfer(
                 sender="sender",
                 source_subaccount_id="source subaccount id",
                 destination_subaccount_id="destination subaccount id",
@@ -486,15 +472,14 @@ class TestComposerDeprecationWarnings:
         assert len(deprecation_warnings) == 1
         assert str(deprecation_warnings[0].message) == "This method is deprecated. Use msg_liquidate_position instead"
 
-    def test_msg_increase_position_margin_deprecation_warning(self):
-        composer = Composer(network=Network.devnet().string())
-
+    def test_msg_increase_position_margin_deprecation_warning(self, basic_composer):
+        market_id = list(basic_composer.derivative_markets.keys())[0]
         with warnings.catch_warnings(record=True) as all_warnings:
-            composer.MsgIncreasePositionMargin(
+            basic_composer.MsgIncreasePositionMargin(
                 sender="sender",
                 source_subaccount_id="source_subaccount id",
                 destination_subaccount_id="destination_subaccount id",
-                market_id="0x7cc8b10d7deb61e744ef83bdec2bbcf4a056867e89b062c6a453020ca82bd4e4",
+                market_id=market_id,
                 amount=1,
             )
 

@@ -7,12 +7,14 @@ from google.protobuf import json_format
 from pyinjective.composer import Composer
 from pyinjective.constant import ADDITIONAL_CHAIN_FORMAT_DECIMALS, INJ_DECIMALS
 from pyinjective.core.network import Network
-from tests.model_fixtures.markets_fixtures import btc_usdt_perp_market  # noqa: F401
-from tests.model_fixtures.markets_fixtures import first_match_bet_market  # noqa: F401
-from tests.model_fixtures.markets_fixtures import inj_token  # noqa: F401
-from tests.model_fixtures.markets_fixtures import inj_usdt_spot_market  # noqa: F401
-from tests.model_fixtures.markets_fixtures import usdt_perp_token  # noqa: F401
-from tests.model_fixtures.markets_fixtures import usdt_token  # noqa: F401
+from tests.model_fixtures.markets_fixtures import (  # noqa: F401
+    btc_usdt_perp_market,
+    first_match_bet_market,
+    inj_token,
+    inj_usdt_spot_market,
+    usdt_perp_token,
+    usdt_token,
+)
 
 
 class TestComposer:
@@ -35,26 +37,6 @@ class TestComposer:
         )
 
         return composer
-
-    def test_composer_initialization_from_ini_files(self):
-        composer = Composer(network=Network.devnet().string())
-
-        inj_token = composer.tokens["INJ"]
-        inj_usdt_spot_market = next(
-            (market for market in composer.spot_markets.values() if market.ticker == "'Devnet Spot INJ/USDT'")
-        )
-        inj_usdt_perp_market = next(
-            (
-                market
-                for market in composer.derivative_markets.values()
-                if market.ticker == "'Devnet Derivative INJ/USDT PERP'"
-            )
-        )
-
-        assert 18 == inj_token.decimals
-        assert 18 == inj_usdt_spot_market.base_token.decimals
-        assert 6 == inj_usdt_spot_market.quote_token.decimals
-        assert 6 == inj_usdt_perp_market.quote_token.decimals
 
     def test_msg_create_denom(self, basic_composer: Composer):
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
