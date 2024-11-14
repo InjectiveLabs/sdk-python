@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.8.0] - 9999-99-99
+## [1.8.0] - 2024-11-14
 ### Changed
 - The markets initialization in AsyncClient has been modified to get markets information from the chain endpoints instead of the Indexer endpoints
 
