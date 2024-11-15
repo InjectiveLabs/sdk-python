@@ -35,8 +35,14 @@ async def main() -> None:
     order_hash = "a975fbd72b874bdbf5caf5e1e8e2653937f33ce6dd14d241c06c8b1f7b56be46"
 
     # prepare tx msg
-    msg = composer.msg_cancel_binary_options_order(
-        sender=address.to_acc_bech32(), market_id=market_id, subaccount_id=subaccount_id, order_hash=order_hash
+    msg = composer.msg_cancel_binary_options_order_v2(
+        sender=address.to_acc_bech32(),
+        market_id=market_id,
+        subaccount_id=subaccount_id,
+        order_hash=order_hash,
+        is_buy=True,
+        is_market_order=False,
+        is_conditional=False,
     )
     # build sim tx
     tx = (

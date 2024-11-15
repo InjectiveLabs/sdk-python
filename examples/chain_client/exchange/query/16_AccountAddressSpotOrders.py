@@ -24,7 +24,7 @@ async def main() -> None:
     address = pub_key.to_address()
     await client.fetch_account(address.to_acc_bech32())
 
-    orders = await client.fetch_chain_account_address_spot_orders(
+    orders = await client.fetch_chain_account_address_spot_orders_v2(
         market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
         account_address=address.to_acc_bech32(),
     )

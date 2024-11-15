@@ -8,7 +8,7 @@ from pyinjective.client.chain.grpc_stream.chain_grpc_chain_stream import ChainGr
 from pyinjective.composer import Composer
 from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb
-from pyinjective.proto.injective.exchange.v1beta1 import exchange_pb2 as exchange_pb
+from pyinjective.proto.injective.exchange.v2 import exchange_pb2 as exchange_v2_pb, order_pb2 as order_v2_pb
 from pyinjective.proto.injective.stream.v1beta1 import query_pb2 as chain_stream_pb
 from tests.client.chain.stream_grpc.configurable_chain_stream_query_servicer import ConfigurableChainStreamQueryServicer
 
@@ -34,7 +34,7 @@ class TestChainGrpcChainStream:
             account="inj1qaq7mkvuc474k2nyjm2suwyes06fdm4kt26ks4",
             balances=[balance_coin],
         )
-        deposit = exchange_pb.Deposit(
+        deposit = exchange_v2_pb.Deposit(
             available_balance="112292968420000000000000",
             total_balance="73684013968420000000000000",
         )
@@ -54,12 +54,12 @@ class TestChainGrpcChainStream:
             price="18215000",
             subaccount_id="0x893f2abf8034627e50cbc63923120b1122503ce0000000000000000000000001",
             fee="76503000000000000000",
-            order_hash=b"\xaa\xb0Ju\xa3)@\xfe\xd58N\xba\xdfG\xfd\xd8}\xe4\r\xf4\xf8a\xd9\n\xa9\xd6x+V\x9b\x02&",
+            order_hash="0xce0d9b701f77cd6ddfda5dd3a4fe7b2d53ba83e5d6c054fb2e9e886200b7b7bb",
             fee_recipient_address="inj13ylj40uqx338u5xtccujxystzy39q08q2gz3dx",
             cid="HBOTSIJUT60b77b9c56f0456af96c5c6c0d8",
             trade_id=f"{block_height}_0",
         )
-        position_delta = exchange_pb.PositionDelta(
+        position_delta = exchange_v2_pb.PositionDelta(
             is_long=True,
             execution_quantity="5000000",
             execution_price="13945600",
@@ -78,16 +78,16 @@ class TestChainGrpcChainStream:
             cid="cid1",
             trade_id=f"{block_height}_1",
         )
-        spot_order_info = exchange_pb.OrderInfo(
+        spot_order_info = order_v2_pb.OrderInfo(
             subaccount_id="0x5e249f0e8cb406f41de16e1bd6f6b55e7bc75add000000000000000000000004",
             fee_recipient="inj1tcjf7r5vksr0g80pdcdada44teauwkkahelyfy",
             price="18775000",
             quantity="54606542000000000000000000000000000000000",
             cid="cid2",
         )
-        spot_limit_order = exchange_pb.SpotLimitOrder(
+        spot_limit_order = order_v2_pb.SpotLimitOrder(
             order_info=spot_order_info,
-            order_type=exchange_pb.OrderType.SELL_PO,
+            order_type=order_v2_pb.OrderType.SELL_PO,
             fillable="54606542000000000000000000000000000000000",
             trigger_price="",
             order_hash=(
@@ -100,22 +100,20 @@ class TestChainGrpcChainStream:
         )
         spot_order_update = chain_stream_pb.SpotOrderUpdate(
             status="Booked",
-            order_hash=(
-                b"\xf9\xc7\xd8v8\x84-\x9b\x99s\xf5\xdfX\xc9\xf9V\x9a\xf7\xf9\xc3\xa1\x00h\t\xc17<\xd1k\x9d\x12\xed"
-            ),
+            order_hash="0x7ee76255d7ca763c56b0eab9828fca89fdd3739645501c8a80f58b62b4f76da5",
             cid="cid2",
             order=spot_order,
         )
-        derivative_order_info = exchange_pb.OrderInfo(
+        derivative_order_info = order_v2_pb.OrderInfo(
             subaccount_id="0x5e249f0e8cb406f41de16e1bd6f6b55e7bc75add000000000000000000000004",
             fee_recipient="inj1tcjf7r5vksr0g80pdcdada44teauwkkahelyfy",
             price="18775000",
             quantity="54606542000000000000000000000000000000000",
             cid="cid2",
         )
-        derivative_limit_order = exchange_pb.DerivativeLimitOrder(
+        derivative_limit_order = order_v2_pb.DerivativeLimitOrder(
             order_info=derivative_order_info,
-            order_type=exchange_pb.OrderType.SELL_PO,
+            order_type=order_v2_pb.OrderType.SELL_PO,
             margin="54606542000000000000000000000000000000000",
             fillable="54606542000000000000000000000000000000000",
             trigger_price="",
@@ -128,12 +126,12 @@ class TestChainGrpcChainStream:
         )
         derivative_order_update = chain_stream_pb.DerivativeOrderUpdate(
             status="Booked",
-            order_hash=b"\x03\xc9\xf8G*Q-G%\xf1\xbcF3\xe89g\xbe\xeag\xd8Y\x7f\x87\x8a\xa5\xac\x8ew\x8a\x91\xa2F",
+            order_hash="0x48690013c382d5dbaff9989db04629a16a5818d7524e027d517ccc89fd068103",
             cid="cid3",
             order=derivative_order,
         )
-        spot_buy_level = exchange_pb.Level(p="17280000", q="44557734000000000000000000000000000000000")
-        spot_sell_level = exchange_pb.Level(
+        spot_buy_level = exchange_v2_pb.Level(p="17280000", q="44557734000000000000000000000000000000000")
+        spot_sell_level = exchange_v2_pb.Level(
             p="18207000",
             q="22196395000000000000000000000000000000000",
         )
@@ -146,8 +144,8 @@ class TestChainGrpcChainStream:
             seq=6645013,
             orderbook=spot_orderbook,
         )
-        derivative_buy_level = exchange_pb.Level(p="17280000", q="44557734000000000000000000000000000000000")
-        derivative_sell_level = exchange_pb.Level(
+        derivative_buy_level = exchange_v2_pb.Level(p="17280000", q="44557734000000000000000000000000000000000")
+        derivative_sell_level = exchange_v2_pb.Level(
             p="18207000",
             q="22196395000000000000000000000000000000000",
         )
@@ -251,7 +249,7 @@ class TestChainGrpcChainStream:
                     "price": spot_trade.price,
                     "subaccountId": spot_trade.subaccount_id,
                     "fee": spot_trade.fee,
-                    "orderHash": base64.b64encode(spot_trade.order_hash).decode(),
+                    "orderHash": spot_trade.order_hash,
                     "feeRecipientAddress": spot_trade.fee_recipient_address,
                     "cid": spot_trade.cid,
                     "tradeId": spot_trade.trade_id,
@@ -280,7 +278,7 @@ class TestChainGrpcChainStream:
             "spotOrders": [
                 {
                     "status": "Booked",
-                    "orderHash": base64.b64encode(spot_order_update.order_hash).decode(),
+                    "orderHash": spot_order_update.order_hash,
                     "cid": spot_order_update.cid,
                     "order": {
                         "marketId": spot_order.market_id,
@@ -303,7 +301,7 @@ class TestChainGrpcChainStream:
             "derivativeOrders": [
                 {
                     "status": "Booked",
-                    "orderHash": base64.b64encode(derivative_order_update.order_hash).decode(),
+                    "orderHash": derivative_order_update.order_hash,
                     "cid": derivative_order_update.cid,
                     "order": {
                         "marketId": derivative_order.market_id,

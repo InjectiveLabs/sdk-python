@@ -14,7 +14,7 @@ async def main() -> None:
 
     pagination = PaginationOption(limit=2)
 
-    orderbook = await client.fetch_chain_derivative_orderbook(
+    orderbook = await client.fetch_chain_derivative_orderbook_v2(
         market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
         pagination=pagination,
     )

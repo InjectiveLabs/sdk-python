@@ -26,7 +26,7 @@ async def main() -> None:
 
     subaccount_id = address.get_subaccount_id(index=0)
 
-    positions = await client.fetch_chain_subaccount_positions(
+    positions = await client.fetch_chain_subaccount_positions_v2(
         subaccount_id=subaccount_id,
     )
     print(positions)

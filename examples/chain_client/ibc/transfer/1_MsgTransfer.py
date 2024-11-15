@@ -36,7 +36,10 @@ async def main() -> None:
 
     source_port = "transfer"
     source_channel = "channel-126"
-    token_amount = composer.create_coin_amount(amount=Decimal("0.1"), token_name="INJ")
+    token_decimals = 18
+    transfer_amount = Decimal("0.1") * Decimal(f"1e{token_decimals}")
+    inj_chain_denom = "inj"
+    token_amount = composer.coin(amount=int(transfer_amount), denom=inj_chain_denom)
     sender = address.to_acc_bech32()
     receiver = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
     timeout_height = 10

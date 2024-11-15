@@ -6,9 +6,9 @@ from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
 from pyinjective.proto.cosmos.bank.v1beta1 import query_pb2 as bank_query_pb
 from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagination_pb
-from pyinjective.proto.injective.exchange.v1beta1 import query_pb2 as exchange_query_pb
+from pyinjective.proto.injective.exchange.v2 import query_pb2 as exchange_query_pb
 from tests.client.chain.grpc.configurable_bank_query_servicer import ConfigurableBankQueryServicer
-from tests.client.chain.grpc.configurable_exchange_query_servicer import ConfigurableExchangeQueryServicer
+from tests.client.chain.grpc.configurable_exchange_v2_query_servicer import ConfigurableExchangeV2QueryServicer
 from tests.rpc_fixtures.markets_fixtures import (  # noqa: F401
     ape_token_meta,
     ape_usdt_spot_market_meta,
@@ -30,7 +30,7 @@ def bank_servicer():
 
 @pytest.fixture
 def exchange_servicer():
-    return ConfigurableExchangeQueryServicer()
+    return ConfigurableExchangeV2QueryServicer()
 
 
 class TestAsyncClient:
@@ -162,7 +162,7 @@ class TestAsyncClient:
             network=test_network,
         )
 
-        client.chain_exchange_api._stub = exchange_servicer
+        client.chain_exchange_v2_api._stub = exchange_servicer
 
         await client._initialize_tokens_and_markets()
 
@@ -254,7 +254,7 @@ class TestAsyncClient:
             network=test_network,
         )
 
-        client.chain_exchange_api._stub = exchange_servicer
+        client.chain_exchange_v2_api._stub = exchange_servicer
 
         await client._initialize_tokens_and_markets()
 
@@ -296,7 +296,7 @@ class TestAsyncClient:
             network=test_network,
         )
 
-        client.chain_exchange_api._stub = exchange_servicer
+        client.chain_exchange_v2_api._stub = exchange_servicer
         client.bank_api._stub = bank_servicer
 
         await client._initialize_tokens_and_markets()

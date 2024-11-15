@@ -30,13 +30,13 @@ async def main() -> None:
     address = pub_key.to_address()
     await client.fetch_account(address.to_acc_bech32())
 
-    msg = composer.MsgCreateInsuranceFund(
+    msg = composer.msg_create_insurance_fund(
         sender=address.to_acc_bech32(),
         ticker="5202d32a9-1701406800-SF",
-        quote_denom="USDT",
+        quote_denom="peggy0xdAC17F958D2ee523a2206206994597C13D831ec7",
         oracle_base="Frontrunner",
         oracle_quote="Frontrunner",
-        oracle_type=11,
+        oracle_type="Band",
         expiry=-2,
         initial_deposit=1000,
     )

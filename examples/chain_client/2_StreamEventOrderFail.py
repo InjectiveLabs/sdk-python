@@ -11,8 +11,8 @@ async def main() -> None:
     network = Network.mainnet()
     event_filter = (
         "tm.event='Tx' AND message.sender='inj1rwv4zn3jptsqs7l8lpa3uvzhs57y8duemete9e' "
-        "AND message.action='/injective.exchange.v1beta1.MsgBatchUpdateOrders' "
-        "AND injective.exchange.v1beta1.EventOrderFail.flags EXISTS"
+        "AND message.action='/injective.exchange.v2.MsgBatchUpdateOrders' "
+        "AND injective.exchange.v2.EventOrderFail.flags EXISTS"
     )
     query = json.dumps(
         {
@@ -32,8 +32,8 @@ async def main() -> None:
             if result == {}:
                 continue
 
-            failed_order_hashes = json.loads(result["events"]["injective.exchange.v1beta1.EventOrderFail.hashes"][0])
-            failed_order_codes = json.loads(result["events"]["injective.exchange.v1beta1.EventOrderFail.flags"][0])
+            failed_order_hashes = json.loads(result["events"]["injective.exchange.v2.EventOrderFail.hashes"][0])
+            failed_order_codes = json.loads(result["events"]["injective.exchange.v2.EventOrderFail.flags"][0])
 
             dict = {}
             for i, order_hash in enumerate(failed_order_hashes):

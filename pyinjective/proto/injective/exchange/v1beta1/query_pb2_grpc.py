@@ -15,6 +15,16 @@ class QueryStub(object):
         Args:
             channel: A grpc.Channel.
         """
+        self.L3DerivativeOrderBook = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/L3DerivativeOrderBook',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFullDerivativeOrderbookRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFullDerivativeOrderbookResponse.FromString,
+                _registered_method=True)
+        self.L3SpotOrderBook = channel.unary_unary(
+                '/injective.exchange.v1beta1.Query/L3SpotOrderBook',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFullSpotOrderbookRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFullSpotOrderbookResponse.FromString,
+                _registered_method=True)
         self.QueryExchangeParams = channel.unary_unary(
                 '/injective.exchange.v1beta1.Query/QueryExchangeParams',
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryExchangeParamsRequest.SerializeToString,
@@ -320,6 +330,18 @@ class QueryStub(object):
 class QueryServicer(object):
     """Query defines the gRPC querier service.
     """
+
+    def L3DerivativeOrderBook(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def L3SpotOrderBook(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def QueryExchangeParams(self, request, context):
         """Retrieves exchange params
@@ -748,6 +770,16 @@ class QueryServicer(object):
 
 def add_QueryServicer_to_server(servicer, server):
     rpc_method_handlers = {
+            'L3DerivativeOrderBook': grpc.unary_unary_rpc_method_handler(
+                    servicer.L3DerivativeOrderBook,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFullDerivativeOrderbookRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFullDerivativeOrderbookResponse.SerializeToString,
+            ),
+            'L3SpotOrderBook': grpc.unary_unary_rpc_method_handler(
+                    servicer.L3SpotOrderBook,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFullSpotOrderbookRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFullSpotOrderbookResponse.SerializeToString,
+            ),
             'QueryExchangeParams': grpc.unary_unary_rpc_method_handler(
                     servicer.QueryExchangeParams,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryExchangeParamsRequest.FromString,
@@ -1059,6 +1091,60 @@ def add_QueryServicer_to_server(servicer, server):
 class Query(object):
     """Query defines the gRPC querier service.
     """
+
+    @staticmethod
+    def L3DerivativeOrderBook(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v1beta1.Query/L3DerivativeOrderBook',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFullDerivativeOrderbookRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFullDerivativeOrderbookResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def L3SpotOrderBook(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v1beta1.Query/L3SpotOrderBook',
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFullSpotOrderbookRequest.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_query__pb2.QueryFullSpotOrderbookResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def QueryExchangeParams(request,

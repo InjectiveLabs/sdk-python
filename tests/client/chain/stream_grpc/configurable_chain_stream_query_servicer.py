@@ -7,6 +7,7 @@ class ConfigurableChainStreamQueryServicer(chain_stream_grpc.StreamServicer):
     def __init__(self):
         super().__init__()
         self.stream_responses = deque()
+        self.stream_v2_responses = deque()
 
     async def Stream(self, request: chain_stream_pb.StreamRequest, context=None, metadata=None):
         for event in self.stream_responses:

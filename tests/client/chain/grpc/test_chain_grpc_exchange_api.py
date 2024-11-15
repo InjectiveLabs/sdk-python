@@ -446,6 +446,8 @@ class TestChainGrpcBankApi:
             min_notional="5000000000000000000",
             admin="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
             admin_permissions=1,
+            base_decimals=18,
+            quote_decimals=6,
         )
         exchange_servicer.spot_markets_responses.append(
             exchange_query_pb.QuerySpotMarketsResponse(
@@ -476,6 +478,8 @@ class TestChainGrpcBankApi:
                     "minNotional": market.min_notional,
                     "admin": market.admin,
                     "adminPermissions": market.admin_permissions,
+                    "baseDecimals": market.base_decimals,
+                    "quoteDecimals": market.quote_decimals,
                 }
             ]
         }
@@ -501,6 +505,8 @@ class TestChainGrpcBankApi:
             min_notional="5000000000000000000",
             admin="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
             admin_permissions=1,
+            base_decimals=18,
+            quote_decimals=6,
         )
         exchange_servicer.spot_market_responses.append(
             exchange_query_pb.QuerySpotMarketResponse(
@@ -528,6 +534,8 @@ class TestChainGrpcBankApi:
                 "minNotional": market.min_notional,
                 "admin": market.admin,
                 "adminPermissions": market.admin_permissions,
+                "baseDecimals": market.base_decimals,
+                "quoteDecimals": market.quote_decimals,
             }
         }
 
@@ -552,6 +560,8 @@ class TestChainGrpcBankApi:
             min_notional="5000000000000000000",
             admin="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
             admin_permissions=1,
+            base_decimals=18,
+            quote_decimals=6,
         )
         mid_price_and_tob = exchange_pb.MidPriceAndTOB(
             mid_price="2000000000000000000",
@@ -593,6 +603,8 @@ class TestChainGrpcBankApi:
                         "minNotional": market.min_notional,
                         "admin": market.admin,
                         "adminPermissions": market.admin_permissions,
+                        "baseDecimals": market.base_decimals,
+                        "quoteDecimals": market.quote_decimals,
                     },
                     "midPriceAndTob": {
                         "midPrice": mid_price_and_tob.mid_price,
@@ -624,6 +636,8 @@ class TestChainGrpcBankApi:
             min_notional="5000000000000000000",
             admin="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
             admin_permissions=1,
+            base_decimals=18,
+            quote_decimals=6,
         )
         mid_price_and_tob = exchange_pb.MidPriceAndTOB(
             mid_price="2000000000000000000",
@@ -663,6 +677,8 @@ class TestChainGrpcBankApi:
                     "minNotional": market.min_notional,
                     "admin": market.admin,
                     "adminPermissions": market.admin_permissions,
+                    "baseDecimals": market.base_decimals,
+                    "quoteDecimals": market.quote_decimals,
                 },
                 "midPriceAndTob": {
                     "midPrice": mid_price_and_tob.mid_price,
@@ -1234,6 +1250,7 @@ class TestChainGrpcBankApi:
             min_notional="5000000000000000000",
             admin="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
             admin_permissions=1,
+            quote_decimals=6,
         )
         market_info = exchange_pb.PerpetualMarketInfo(
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
@@ -1298,6 +1315,7 @@ class TestChainGrpcBankApi:
                         "minNotional": market.min_notional,
                         "admin": market.admin,
                         "adminPermissions": market.admin_permissions,
+                        "quoteDecimals": market.quote_decimals,
                     },
                     "perpetualInfo": {
                         "marketInfo": {
@@ -1350,6 +1368,7 @@ class TestChainGrpcBankApi:
             min_notional="5000000000000000000",
             admin="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
             admin_permissions=1,
+            quote_decimals=6,
         )
         market_info = exchange_pb.PerpetualMarketInfo(
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
@@ -1412,6 +1431,7 @@ class TestChainGrpcBankApi:
                     "minNotional": market.min_notional,
                     "admin": market.admin,
                     "adminPermissions": market.admin_permissions,
+                    "quoteDecimals": market.quote_decimals,
                 },
                 "perpetualInfo": {
                     "marketInfo": {
@@ -2323,6 +2343,7 @@ class TestChainGrpcBankApi:
             settlement_price="2000000000000000000",
             min_notional="5000000000000000000",
             admin_permissions=1,
+            quote_decimals=6,
         )
         response = exchange_query_pb.QueryBinaryMarketsResponse(
             markets=[market],
@@ -2354,6 +2375,7 @@ class TestChainGrpcBankApi:
                     "settlementPrice": market.settlement_price,
                     "minNotional": market.min_notional,
                     "adminPermissions": market.admin_permissions,
+                    "quoteDecimals": market.quote_decimals,
                 },
             ]
         }
@@ -2421,6 +2443,197 @@ class TestChainGrpcBankApi:
         }
 
         assert multiplier == expected_multiplier
+
+    @pytest.mark.asyncio
+    async def test_fetch_active_stake_grant(
+        self,
+        exchange_servicer,
+    ):
+        grant = exchange_pb.ActiveGrant(
+            granter="inj1zlh5sqevkfphtwnu9cul8p89vseme2eqt0snn9",
+            amount="1000000000000000",
+        )
+        effective_grant = exchange_pb.EffectiveGrant(
+            granter="inj1zlh5sqevkfphtwnu9cul8p89vseme2eqt0snn9",
+            net_granted_stake="2000000000000000",
+            is_valid=True,
+        )
+        response = exchange_query_pb.QueryActiveStakeGrantResponse(
+            grant=grant,
+            effective_grant=effective_grant,
+        )
+        exchange_servicer.active_stake_grant_responses.append(response)
+
+        api = self._api_instance(servicer=exchange_servicer)
+
+        active_grant = await api.fetch_active_stake_grant(
+            grantee="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
+        )
+        expected_grant = {
+            "grant": {
+                "granter": grant.granter,
+                "amount": grant.amount,
+            },
+            "effectiveGrant": {
+                "granter": effective_grant.granter,
+                "netGrantedStake": effective_grant.net_granted_stake,
+                "isValid": effective_grant.is_valid,
+            },
+        }
+
+        assert active_grant == expected_grant
+
+    @pytest.mark.asyncio
+    async def test_fetch_grant_authorization(
+        self,
+        exchange_servicer,
+    ):
+        response = exchange_query_pb.QueryGrantAuthorizationResponse(
+            amount="1000000000000000",
+        )
+        exchange_servicer.grant_authorization_responses.append(response)
+
+        api = self._api_instance(servicer=exchange_servicer)
+
+        active_grant = await api.fetch_grant_authorization(
+            granter="inj1zlh5sqevkfphtwnu9cul8p89vseme2eqt0snn9",
+            grantee="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
+        )
+        expected_grant = {
+            "amount": response.amount,
+        }
+
+        assert active_grant == expected_grant
+
+    @pytest.mark.asyncio
+    async def test_fetch_grant_authorizations(
+        self,
+        exchange_servicer,
+    ):
+        grant = exchange_pb.GrantAuthorization(
+            grantee="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
+            amount="1000000000000000",
+        )
+        response = exchange_query_pb.QueryGrantAuthorizationsResponse(
+            total_grant_amount="1000000000000000",
+            grants=[grant],
+        )
+        exchange_servicer.grant_authorizations_responses.append(response)
+
+        api = self._api_instance(servicer=exchange_servicer)
+
+        active_grant = await api.fetch_grant_authorizations(
+            granter="inj1zlh5sqevkfphtwnu9cul8p89vseme2eqt0snn9",
+        )
+        expected_grant = {
+            "totalGrantAmount": response.total_grant_amount,
+            "grants": [
+                {
+                    "grantee": grant.grantee,
+                    "amount": grant.amount,
+                },
+            ],
+        }
+
+        assert active_grant == expected_grant
+
+    @pytest.mark.asyncio
+    async def test_fetch_l3_derivative_orderbook(
+        self,
+        exchange_servicer,
+    ):
+        bid = exchange_query_pb.TrimmedLimitOrder(
+            price="2000000000000000000",
+            quantity="1000000000000000",
+            order_hash="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+            subaccount_id="0x5303d92e49a619bb29de8fb6f59c0e7589213cc8000000000000000000000001",
+        )
+        ask = exchange_query_pb.TrimmedLimitOrder(
+            price="5000000000000000000",
+            quantity="3000000000000000",
+            order_hash="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abf7",
+            subaccount_id="0x5303d92e49a619bb29de8fb6f59c0e7589213cc8000000000000000000000002",
+        )
+        response = exchange_query_pb.QueryFullDerivativeOrderbookResponse(
+            Bids=[bid],
+            Asks=[ask],
+        )
+        exchange_servicer.l3_derivative_orderbook_responses.append(response)
+
+        api = self._api_instance(servicer=exchange_servicer)
+
+        orderbook = await api.fetch_l3_derivative_orderbook(
+            market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+        )
+        expected_orderbook = {
+            "Bids": [
+                {
+                    "price": bid.price,
+                    "quantity": bid.quantity,
+                    "orderHash": bid.order_hash,
+                    "subaccountId": bid.subaccount_id,
+                }
+            ],
+            "Asks": [
+                {
+                    "price": ask.price,
+                    "quantity": ask.quantity,
+                    "orderHash": ask.order_hash,
+                    "subaccountId": ask.subaccount_id,
+                }
+            ],
+        }
+
+        assert orderbook == expected_orderbook
+
+    @pytest.mark.asyncio
+    async def test_fetch_l3_spot_orderbook(
+        self,
+        exchange_servicer,
+    ):
+        bid = exchange_query_pb.TrimmedLimitOrder(
+            price="2000000000000000000",
+            quantity="1000000000000000",
+            order_hash="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+            subaccount_id="0x5303d92e49a619bb29de8fb6f59c0e7589213cc8000000000000000000000001",
+        )
+        ask = exchange_query_pb.TrimmedLimitOrder(
+            price="5000000000000000000",
+            quantity="3000000000000000",
+            order_hash="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abf7",
+            subaccount_id="0x5303d92e49a619bb29de8fb6f59c0e7589213cc8000000000000000000000002",
+        )
+        response = exchange_query_pb.QueryFullSpotOrderbookResponse(
+            Bids=[bid],
+            Asks=[ask],
+        )
+        exchange_servicer.l3_spot_orderbook_responses.append(response)
+
+        api = self._api_instance(servicer=exchange_servicer)
+
+        orderbook = await api.fetch_l3_spot_orderbook(
+            market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+        )
+        expected_orderbook = {
+            "Bids": [
+                {
+                    "price": bid.price,
+                    "quantity": bid.quantity,
+                    "orderHash": bid.order_hash,
+                    "subaccountId": bid.subaccount_id,
+                }
+            ],
+            "Asks": [
+                {
+                    "price": ask.price,
+                    "quantity": ask.quantity,
+                    "orderHash": ask.order_hash,
+                    "subaccountId": ask.subaccount_id,
+                }
+            ],
+        }
+
+        assert orderbook == expected_orderbook
 
     def _api_instance(self, servicer):
         network = Network.devnet()

@@ -26,7 +26,7 @@ async def main() -> None:
 
     subaccount_id = address.get_subaccount_id(index=0)
 
-    orders = await client.fetch_chain_trader_spot_transient_orders(
+    orders = await client.fetch_chain_trader_spot_transient_orders_v2(
         market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
         subaccount_id=subaccount_id,
     )

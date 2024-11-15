@@ -29,9 +29,10 @@ async def main() -> None:
     address = pub_key.to_address()
     await client.fetch_account(address.to_acc_bech32())
     subaccount_id = address.get_subaccount_id(index=0)
+    denom = "peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5"
 
     # prepare tx msg
-    msg = composer.msg_withdraw(sender=address.to_acc_bech32(), subaccount_id=subaccount_id, amount=1, denom="USDT")
+    msg = composer.msg_withdraw_v2(sender=address.to_acc_bech32(), subaccount_id=subaccount_id, amount=1, denom=denom)
 
     # build sim tx
     tx = (

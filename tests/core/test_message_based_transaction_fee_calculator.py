@@ -17,31 +17,9 @@ from pyinjective.core.network import Network
 from pyinjective.proto.cosmos.gov.v1beta1 import tx_pb2 as gov_tx_pb2
 from pyinjective.proto.cosmwasm.wasm.v1 import tx_pb2 as wasm_tx_pb2
 from pyinjective.proto.injective.exchange.v1beta1 import tx_pb2
-from tests.model_fixtures.markets_fixtures import btc_usdt_perp_market  # noqa: F401
-from tests.model_fixtures.markets_fixtures import first_match_bet_market  # noqa: F401
-from tests.model_fixtures.markets_fixtures import inj_token  # noqa: F401
-from tests.model_fixtures.markets_fixtures import inj_usdt_spot_market  # noqa: F401
-from tests.model_fixtures.markets_fixtures import usdt_perp_token  # noqa: F401
-from tests.model_fixtures.markets_fixtures import usdt_token  # noqa: F401
 
 
 class TestMessageBasedTransactionFeeCalculator:
-    @pytest.fixture
-    def basic_composer(self, inj_usdt_spot_market, btc_usdt_perp_market, first_match_bet_market):
-        composer = Composer(
-            network=Network.devnet().string(),
-            spot_markets={inj_usdt_spot_market.id: inj_usdt_spot_market},
-            derivative_markets={btc_usdt_perp_market.id: btc_usdt_perp_market},
-            binary_option_markets={first_match_bet_market.id: first_match_bet_market},
-            tokens={
-                inj_usdt_spot_market.base_token.symbol: inj_usdt_spot_market.base_token,
-                inj_usdt_spot_market.quote_token.symbol: inj_usdt_spot_market.quote_token,
-                btc_usdt_perp_market.quote_token.symbol: btc_usdt_perp_market.quote_token,
-            },
-        )
-
-        return composer
-
     @pytest.mark.asyncio
     async def test_gas_fee_for_privileged_execute_contract_message(self):
         network = Network.testnet(node="sentry")
@@ -137,20 +115,19 @@ class TestMessageBasedTransactionFeeCalculator:
         assert str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount
 
     @pytest.mark.asyncio
-    async def test_gas_fee_for_exchange_message(self, basic_composer):
+    async def test_gas_fee_for_exchange_message(self):
         network = Network.testnet(node="sentry")
         client = AsyncClient(network=network)
+        composer = Composer(network=network.string())
         calculator = MessageBasedTransactionFeeCalculator(
             client=client,
-            composer=basic_composer,
+            composer=composer,
             gas_price=5_000_000,
         )
 
-        market_id = list(basic_composer.spot_markets.keys())[0]
-
-        message = basic_composer.msg_create_spot_limit_order(
+        message = composer.msg_create_spot_limit_order_v2(
             sender="sender",
-            market_id=market_id,
+            market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
             subaccount_id="subaccount_id",
             fee_recipient="fee_recipient",
             price=Decimal("7.523"),
@@ -168,27 +145,26 @@ class TestMessageBasedTransactionFeeCalculator:
         assert str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount
 
     @pytest.mark.asyncio
-    async def test_gas_fee_for_msg_exec_message(self, basic_composer):
+    async def test_gas_fee_for_msg_exec_message(self):
         network = Network.testnet(node="sentry")
         client = AsyncClient(network=network)
+        composer = Composer(network=network.string())
         calculator = MessageBasedTransactionFeeCalculator(
             client=client,
-            composer=basic_composer,
+            composer=composer,
             gas_price=5_000_000,
         )
 
-        market_id = list(basic_composer.spot_markets.keys())[0]
-
-        inner_message = basic_composer.msg_create_spot_limit_order(
+        inner_message = composer.msg_create_spot_limit_order_v2(
             sender="sender",
-            market_id=market_id,
+            market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
             subaccount_id="subaccount_id",
             fee_recipient="fee_recipient",
             price=Decimal("7.523"),
             quantity=Decimal("0.01"),
             order_type="BUY",
         )
-        message = basic_composer.MsgExec(grantee="grantee", msgs=[inner_message])
+        message = composer.MsgExec(grantee="grantee", msgs=[inner_message])
         transaction = Transaction()
         transaction.with_messages(message)
 
@@ -204,29 +180,28 @@ class TestMessageBasedTransactionFeeCalculator:
         assert str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount
 
     @pytest.mark.asyncio
-    async def test_gas_fee_for_two_messages_in_one_transaction(self, basic_composer):
+    async def test_gas_fee_for_two_messages_in_one_transaction(self):
         network = Network.testnet(node="sentry")
         client = AsyncClient(network=network)
+        composer = Composer(network=network.string())
         calculator = MessageBasedTransactionFeeCalculator(
             client=client,
-            composer=basic_composer,
+            composer=composer,
             gas_price=5_000_000,
         )
 
-        market_id = list(basic_composer.spot_markets.keys())[0]
-
-        inner_message = basic_composer.msg_create_spot_limit_order(
+        inner_message = composer.msg_create_spot_limit_order_v2(
             sender="sender",
-            market_id=market_id,
+            market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
             subaccount_id="subaccount_id",
             fee_recipient="fee_recipient",
             price=Decimal("7.523"),
             quantity=Decimal("0.01"),
             order_type="BUY",
         )
-        message = basic_composer.MsgExec(grantee="grantee", msgs=[inner_message])
+        message = composer.MsgExec(grantee="grantee", msgs=[inner_message])
 
-        send_message = basic_composer.MsgSend(from_address="address", to_address="to_address", amount=1, denom="INJ")
+        send_message = composer.msg_send(from_address="address", to_address="to_address", amount=1, denom="INJ")
 
         transaction = Transaction()
         transaction.with_messages(message, send_message)

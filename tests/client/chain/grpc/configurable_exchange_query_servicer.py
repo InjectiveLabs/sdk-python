@@ -65,6 +65,11 @@ class ConfigurableExchangeQueryServicer(exchange_query_grpc.QueryServicer):
         self.binary_options_markets_responses = deque()
         self.trader_derivative_conditional_orders_responses = deque()
         self.market_atomic_execution_fee_multiplier_responses = deque()
+        self.active_stake_grant_responses = deque()
+        self.grant_authorization_responses = deque()
+        self.grant_authorizations_responses = deque()
+        self.l3_derivative_orderbook_responses = deque()
+        self.l3_spot_orderbook_responses = deque()
 
     async def QueryExchangeParams(
         self, request: exchange_query_pb.QueryExchangeParamsRequest, context=None, metadata=None
@@ -329,3 +334,28 @@ class ConfigurableExchangeQueryServicer(exchange_query_grpc.QueryServicer):
         self, request: exchange_query_pb.QueryMarketAtomicExecutionFeeMultiplierRequest, context=None, metadata=None
     ):
         return self.market_atomic_execution_fee_multiplier_responses.pop()
+
+    async def ActiveStakeGrant(
+        self, request: exchange_query_pb.QueryActiveStakeGrantRequest, context=None, metadata=None
+    ):
+        return self.active_stake_grant_responses.pop()
+
+    async def GrantAuthorization(
+        self, request: exchange_query_pb.QueryGrantAuthorizationRequest, context=None, metadata=None
+    ):
+        return self.grant_authorization_responses.pop()
+
+    async def GrantAuthorizations(
+        self, request: exchange_query_pb.QueryGrantAuthorizationsRequest, context=None, metadata=None
+    ):
+        return self.grant_authorizations_responses.pop()
+
+    async def L3DerivativeOrderBook(
+        self, request: exchange_query_pb.QueryFullDerivativeOrderbookRequest, context=None, metadata=None
+    ):
+        return self.l3_derivative_orderbook_responses.pop()
+
+    async def L3SpotOrderBook(
+        self, request: exchange_query_pb.QueryFullSpotOrderbookRequest, context=None, metadata=None
+    ):
+        return self.l3_spot_orderbook_responses.pop()

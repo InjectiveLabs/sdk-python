@@ -9,7 +9,7 @@ from pyinjective.utils.grpc_api_stream_assistant import GrpcApiStreamAssistant
 
 class ChainGrpcChainStream:
     def __init__(self, channel: Channel, cookie_assistant: CookieAssistant):
-        self._stub = self._stub = chain_stream_grpc.StreamStub(channel)
+        self._stub = chain_stream_grpc.StreamStub(channel)
         self._assistant = GrpcApiStreamAssistant(cookie_assistant=cookie_assistant)
 
     async def stream(
