@@ -63,7 +63,7 @@ class TestComposerDeprecationWarnings:
 
         deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
         assert len(deprecation_warnings) == 1
-        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use create_v2_spot_order instead"
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use create_spot_order_v2 instead"
 
     def test_basic_derivative_order_deprecation_warning(self, basic_composer):
         with warnings.catch_warnings(record=True) as all_warnings:
@@ -81,7 +81,7 @@ class TestComposerDeprecationWarnings:
         deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
         assert len(deprecation_warnings) == 1
         assert (
-            str(deprecation_warnings[0].message) == "This method is deprecated. Use _basic_v2_derivative_order instead"
+            str(deprecation_warnings[0].message) == "This method is deprecated. Use _basic_derivative_order_v2 instead"
         )
 
     def test_derivative_order_deprecation_warning(self, basic_composer):
@@ -100,7 +100,7 @@ class TestComposerDeprecationWarnings:
         deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
         assert len(deprecation_warnings) == 2
         assert (
-            str(deprecation_warnings[0].message) == "This method is deprecated. Use create_v2_derivative_order instead"
+            str(deprecation_warnings[0].message) == "This method is deprecated. Use create_derivative_order_v2 instead"
         )
 
     def test_binary_options_order_deprecation_warning(self, basic_composer):
@@ -120,7 +120,7 @@ class TestComposerDeprecationWarnings:
         assert len(deprecation_warnings) == 2
         assert (
             str(deprecation_warnings[0].message)
-            == "This method is deprecated. Use create_v2_binary_options_order instead"
+            == "This method is deprecated. Use create_binary_options_order_v2 instead"
         )
 
     def test_msg_batch_create_spot_limit_orders_deprecation_warning(self, basic_composer):
@@ -206,7 +206,7 @@ class TestComposerDeprecationWarnings:
 
         deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
         assert len(deprecation_warnings) == 1
-        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use create_v2_order_data instead"
+        assert str(deprecation_warnings[0].message) == "This method is deprecated. Use create_order_data_v2 instead"
 
     def test_order_data_without_mask_deprecation_warning(self, basic_composer):
         with warnings.catch_warnings(record=True) as all_warnings:
@@ -220,7 +220,7 @@ class TestComposerDeprecationWarnings:
         assert len(deprecation_warnings) == 1
         assert (
             str(deprecation_warnings[0].message)
-            == "This method is deprecated. Use create_v2_order_data_without_mask instead"
+            == "This method is deprecated. Use create_order_data_without_mask_v2 instead"
         )
 
     def test_msg_batch_update_orders_deprecation_warning(self, basic_composer):

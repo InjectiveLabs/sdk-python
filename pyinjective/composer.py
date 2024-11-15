@@ -369,9 +369,9 @@ class Composer:
         is_market_order: Optional[bool] = False,
     ) -> injective_exchange_tx_pb.OrderData:
         """
-        This method is deprecated and will be removed soon. Please use `create_v2_order_data` instead
+        This method is deprecated and will be removed soon. Please use `create_order_data_v2` instead
         """
-        warn("This method is deprecated. Use create_v2_order_data instead", DeprecationWarning, stacklevel=2)
+        warn("This method is deprecated. Use create_order_data_v2 instead", DeprecationWarning, stacklevel=2)
 
         order_mask = self._order_mask(is_conditional=is_conditional, is_buy=is_buy, is_market_order=is_market_order)
 
@@ -391,10 +391,10 @@ class Composer:
         cid: Optional[str] = None,
     ) -> injective_exchange_tx_pb.OrderData:
         """
-        This method is deprecated and will be removed soon. Please use `create_v2_order_data_without_mask` instead
+        This method is deprecated and will be removed soon. Please use `create_order_data_without_mask_v2` instead
         """
         warn(
-            "This method is deprecated. Use create_v2_order_data_without_mask instead", DeprecationWarning, stacklevel=2
+            "This method is deprecated. Use create_order_data_without_mask_v2 instead", DeprecationWarning, stacklevel=2
         )
 
         return injective_exchange_tx_pb.OrderData(
@@ -452,9 +452,9 @@ class Composer:
         trigger_price: Optional[Decimal] = None,
     ) -> injective_exchange_pb.SpotOrder:
         """
-        This method is deprecated and will be removed soon. Please use `create_v2_spot_order` instead
+        This method is deprecated and will be removed soon. Please use `create_spot_order_v2` instead
         """
-        warn("This method is deprecated. Use create_v2_spot_order instead", DeprecationWarning, stacklevel=2)
+        warn("This method is deprecated. Use create_spot_order_v2 instead", DeprecationWarning, stacklevel=2)
 
         market = self.spot_markets[market_id]
 
@@ -532,9 +532,9 @@ class Composer:
         trigger_price: Optional[Decimal] = None,
     ) -> injective_exchange_pb.DerivativeOrder:
         """
-        This method is deprecated and will be removed soon. Please use `create_v2_derivative_order` instead
+        This method is deprecated and will be removed soon. Please use `create_derivative_order_v2` instead
         """
-        warn("This method is deprecated. Use create_v2_derivative_order instead", DeprecationWarning, stacklevel=2)
+        warn("This method is deprecated. Use create_derivative_order_v2 instead", DeprecationWarning, stacklevel=2)
 
         market = self.derivative_markets[market_id]
 
@@ -597,9 +597,9 @@ class Composer:
         denom: Optional[Denom] = None,
     ) -> injective_exchange_pb.DerivativeOrder:
         """
-        This method is deprecated and will be removed soon. Please use `create_v2_binary_options_order` instead
+        This method is deprecated and will be removed soon. Please use `create_binary_options_order_v2` instead
         """
-        warn("This method is deprecated. Use create_v2_binary_options_order instead", DeprecationWarning, stacklevel=2)
+        warn("This method is deprecated. Use create_binary_options_order_v2 instead", DeprecationWarning, stacklevel=2)
 
         market = self.binary_option_markets[market_id]
 
@@ -717,8 +717,7 @@ class Composer:
         )
 
     def msg_send(self, from_address: str, to_address: str, amount: int, denom: str):
-        chain_amount = Token.convert_value_to_extended_decimal_format(value=Decimal(str(amount)))
-        coin = self.coin(amount=int(chain_amount), denom=denom)
+        coin = self.coin(amount=int(amount), denom=denom)
 
         return cosmos_bank_tx_pb.MsgSend(
             from_address=from_address,
@@ -748,8 +747,7 @@ class Composer:
     def msg_deposit_v2(
         self, sender: str, subaccount_id: str, amount: int, denom: str
     ) -> injective_exchange_tx_v2_pb.MsgDeposit:
-        chain_amount = Token.convert_value_to_extended_decimal_format(value=Decimal(str(amount)))
-        coin = self.coin(amount=int(chain_amount), denom=denom)
+        coin = self.coin(amount=int(amount), denom=denom)
 
         return injective_exchange_tx_v2_pb.MsgDeposit(
             sender=sender,
@@ -780,8 +778,7 @@ class Composer:
         amount: int,
         denom: str,
     ) -> injective_exchange_tx_v2_pb.MsgWithdraw:
-        chain_amount = Token.convert_value_to_extended_decimal_format(value=Decimal(str(amount)))
-        coin = self.coin(amount=int(chain_amount), denom=denom)
+        coin = self.coin(amount=int(amount), denom=denom)
 
         return injective_exchange_tx_v2_pb.MsgWithdraw(
             sender=sender,
@@ -1894,8 +1891,7 @@ class Composer:
         amount: int,
         denom: str,
     ) -> injective_exchange_tx_v2_pb.MsgSubaccountTransfer:
-        chain_amount = Token.convert_value_to_extended_decimal_format(value=Decimal(str(amount)))
-        amount_coin = self.coin(amount=int(chain_amount), denom=denom)
+        amount_coin = self.coin(amount=int(amount), denom=denom)
 
         return injective_exchange_tx_v2_pb.MsgSubaccountTransfer(
             sender=sender,
@@ -1934,8 +1930,7 @@ class Composer:
         amount: int,
         denom: str,
     ) -> injective_exchange_tx_v2_pb.MsgExternalTransfer:
-        chain_amount = Token.convert_value_to_extended_decimal_format(value=Decimal(str(amount)))
-        coin = self.coin(amount=int(chain_amount), denom=denom)
+        coin = self.coin(amount=int(amount), denom=denom)
 
         return injective_exchange_tx_v2_pb.MsgExternalTransfer(
             sender=sender,
@@ -2131,13 +2126,13 @@ class Composer:
         market_id: str,
         amount: Decimal,
     ) -> injective_exchange_tx_v2_pb.MsgDecreasePositionMargin:
-        additional_margin = Token.convert_value_to_extended_decimal_format(value=amount)
+        margin_to_remove = Token.convert_value_to_extended_decimal_format(value=amount)
         return injective_exchange_tx_v2_pb.MsgDecreasePositionMargin(
             sender=sender,
             source_subaccount_id=source_subaccount_id,
             destination_subaccount_id=destination_subaccount_id,
             market_id=market_id,
-            amount=f"{additional_margin.normalize():f}",
+            amount=f"{margin_to_remove.normalize():f}",
         )
 
     def msg_update_spot_market(
@@ -2324,8 +2319,7 @@ class Composer:
         expiry: int,
         initial_deposit: int,
     ) -> injective_insurance_tx_pb.MsgCreateInsuranceFund:
-        chain_initial_deposit = Token.convert_value_to_extended_decimal_format(value=Decimal(str(initial_deposit)))
-        deposit = self.coin(amount=int(chain_initial_deposit), denom=quote_denom)
+        deposit = self.coin(amount=int(initial_deposit), denom=quote_denom)
 
         return injective_insurance_tx_pb.MsgCreateInsuranceFund(
             sender=sender,
@@ -2365,8 +2359,7 @@ class Composer:
         quote_denom: str,
         amount: int,
     ):
-        chain_amount = Token.convert_value_to_extended_decimal_format(value=Decimal(str(amount)))
-        coin = self.coin(amount=int(chain_amount), denom=quote_denom)
+        coin = self.coin(amount=int(amount), denom=quote_denom)
 
         return injective_insurance_tx_pb.MsgUnderwrite(
             sender=sender,
@@ -2426,10 +2419,8 @@ class Composer:
         )
 
     def msg_send_to_eth(self, denom: str, sender: str, eth_dest: str, amount: int, bridge_fee: int):
-        chain_amount = Token.convert_value_to_extended_decimal_format(value=Decimal(str(amount)))
-        chain_bridge_fee = Token.convert_value_to_extended_decimal_format(value=Decimal(str(bridge_fee)))
-        amount_coin = self.coin(amount=int(chain_amount), denom=denom)
-        bridge_fee_coin = self.coin(amount=int(chain_bridge_fee), denom=denom)
+        amount_coin = self.coin(amount=int(amount), denom=denom)
+        bridge_fee_coin = self.coin(amount=int(bridge_fee), denom=denom)
 
         return injective_peggy_tx_pb.MsgSendToEth(
             sender=sender,
@@ -3029,9 +3020,9 @@ class Composer:
         chain_trigger_price: Optional[Decimal] = None,
     ) -> injective_exchange_pb.DerivativeOrder:
         """
-        This method is deprecated and will be removed soon. Please use `_basic_v2_derivative_order` instead
+        This method is deprecated and will be removed soon. Please use `_basic_derivative_order_v2` instead
         """
-        warn("This method is deprecated. Use _basic_v2_derivative_order instead", DeprecationWarning, stacklevel=2)
+        warn("This method is deprecated. Use _basic_derivative_order_v2 instead", DeprecationWarning, stacklevel=2)
 
         formatted_quantity = f"{chain_quantity.normalize():f}"
         formatted_price = f"{chain_price.normalize():f}"

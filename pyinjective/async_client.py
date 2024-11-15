@@ -2481,11 +2481,6 @@ class AsyncClient:
         positions_filter: Optional[chain_stream_query.PositionsFilter] = None,
         oracle_price_filter: Optional[chain_stream_query.OraclePriceFilter] = None,
     ):
-        """
-        This method is deprecated and will be removed soon. Please use `listen_chain_stream_v2_updates` instead
-        """
-        warn("This method is deprecated. Use listen_chain_stream_v2_updates instead", DeprecationWarning, stacklevel=2)
-
         return await self.chain_stream_api.stream(
             callback=callback,
             on_end_callback=on_end_callback,

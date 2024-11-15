@@ -5,7 +5,6 @@ import pytest
 from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
 from pyinjective.proto.injective.exchange.v1beta1 import query_pb2 as exchange_query_pb
-from pyinjective.proto.injective.stream.v1beta1 import query_pb2 as chain_stream_pb
 from tests.client.chain.grpc.configurable_exchange_query_servicer import ConfigurableExchangeQueryServicer
 from tests.client.chain.stream_grpc.configurable_chain_stream_query_servicer import ConfigurableChainStreamQueryServicer
 
@@ -21,30 +20,6 @@ def exchange_servicer():
 
 
 class TestAsyncClientDeprecationWarnings:
-    @pytest.mark.asyncio
-    async def test_listen_chain_stream_updates_deprecation_warning(
-        self,
-        chain_stream_servicer,
-    ):
-        async def callback(event):
-            pass
-
-        client = AsyncClient(
-            network=Network.local(),
-        )
-        client.chain_stream_api._stub = chain_stream_servicer
-        chain_stream_servicer.stream_responses.append(chain_stream_pb.StreamResponse())
-
-        with catch_warnings(record=True) as all_warnings:
-            await client.listen_chain_stream_updates(callback=callback)
-
-        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
-        assert len(deprecation_warnings) == 1
-        assert (
-            str(deprecation_warnings[0].message)
-            == "This method is deprecated. Use listen_chain_stream_v2_updates instead"
-        )
-
     @pytest.mark.asyncio
     async def test_fetch_aggregate_volume_deprecation_warning(
         self,

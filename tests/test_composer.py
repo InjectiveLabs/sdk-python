@@ -230,7 +230,7 @@ class TestComposer:
         amount = 100
         denom = "inj"
 
-        expected_amount = Token.convert_value_to_extended_decimal_format(value=Decimal(str(amount)))
+        expected_amount = Decimal(str(amount))
 
         message = basic_composer.msg_deposit_v2(
             sender=sender,
@@ -270,7 +270,7 @@ class TestComposer:
             "sender": sender,
             "subaccountId": subaccount_id,
             "amount": {
-                "amount": f"{Token.convert_value_to_extended_decimal_format(value=Decimal(str(amount))):f}",
+                "amount": f"{Decimal(str(amount)):f}",
                 "denom": denom,
             },
         }
@@ -1280,7 +1280,7 @@ class TestComposer:
             "sourceSubaccountId": source_subaccount_id,
             "destinationSubaccountId": destination_subaccount_id,
             "amount": {
-                "amount": f"{Token.convert_value_to_extended_decimal_format(value=Decimal(str(amount))).normalize():f}",
+                "amount": f"{Decimal(str(amount)).normalize():f}",
                 "denom": denom,
             },
         }
@@ -1310,7 +1310,7 @@ class TestComposer:
             "sourceSubaccountId": source_subaccount_id,
             "destinationSubaccountId": destination_subaccount_id,
             "amount": {
-                "amount": f"{Token.convert_value_to_extended_decimal_format(value=Decimal(str(amount))).normalize():f}",
+                "amount": f"{Decimal(str(amount)).normalize():f}",
                 "denom": denom,
             },
         }
@@ -1944,7 +1944,7 @@ class TestComposer:
             "oracleType": "Band",
             "expiry": "-1",
             "initialDeposit": {
-                "amount": f"{Token.convert_value_to_extended_decimal_format(value=Decimal('1')).normalize():f}",
+                "amount": f"{Decimal('1').normalize():f}",
                 "denom": "peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7",
             },
         }
@@ -1967,11 +1967,11 @@ class TestComposer:
             "sender": "sender",
             "ethDest": "eth_dest",
             "amount": {
-                "amount": f"{Token.convert_value_to_extended_decimal_format(value=Decimal(1)).normalize():f}",
+                "amount": f"{Decimal(1).normalize():f}",
                 "denom": "peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7",
             },
             "bridgeFee": {
-                "amount": f"{Token.convert_value_to_extended_decimal_format(value=Decimal(2)).normalize():f}",
+                "amount": f"{Decimal(2).normalize():f}",
                 "denom": "peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7",
             },
         }
@@ -1993,7 +1993,7 @@ class TestComposer:
             "sender": "sender",
             "marketId": "market_id",
             "deposit": {
-                "amount": f"{Token.convert_value_to_extended_decimal_format(Decimal('1')).normalize():f}",
+                "amount": f"{Decimal('1').normalize():f}",
                 "denom": "peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7",
             },
         }
@@ -2016,7 +2016,7 @@ class TestComposer:
             "toAddress": "to_address",
             "amount": [
                 {
-                    "amount": f"{Token.convert_value_to_extended_decimal_format(Decimal('1')).normalize():f}",
+                    "amount": f"{Decimal('1').normalize():f}",
                     "denom": "peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7",
                 },
             ],
