@@ -3462,3 +3462,6 @@ class AsyncClient:
         if self._timeout_height_sync_task is not None:
             self._timeout_height_sync_task.cancel()
         self._timeout_height_sync_task = None
+
+    def __del__(self):
+        self._cancel_timeout_height_sync_task()
