@@ -56,6 +56,7 @@ from pyinjective.proto.ibc.lightclients.tendermint.v1 import (  # noqa: F401 for
     tendermint_pb2 as ibc_tendermint,
 )
 from pyinjective.proto.injective.stream.v1beta1 import query_pb2 as chain_stream_query
+from pyinjective.proto.injective.stream.v2 import query_pb2 as chain_stream_v2_query
 from pyinjective.proto.injective.types.v1beta1 import account_pb2
 from pyinjective.utils.logger import LoggerProvider
 
@@ -2481,7 +2482,44 @@ class AsyncClient:
         positions_filter: Optional[chain_stream_query.PositionsFilter] = None,
         oracle_price_filter: Optional[chain_stream_query.OraclePriceFilter] = None,
     ):
+        """
+        This method is deprecated and will be removed soon. Please use `listen_chain_stream_v2_updates` instead
+        """
+        warn("This method is deprecated. Use listen_chain_stream_v2_updates instead", DeprecationWarning, stacklevel=2)
+
         return await self.chain_stream_api.stream(
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+            bank_balances_filter=bank_balances_filter,
+            subaccount_deposits_filter=subaccount_deposits_filter,
+            spot_trades_filter=spot_trades_filter,
+            derivative_trades_filter=derivative_trades_filter,
+            spot_orders_filter=spot_orders_filter,
+            derivative_orders_filter=derivative_orders_filter,
+            spot_orderbooks_filter=spot_orderbooks_filter,
+            derivative_orderbooks_filter=derivative_orderbooks_filter,
+            positions_filter=positions_filter,
+            oracle_price_filter=oracle_price_filter,
+        )
+
+    async def listen_chain_stream_v2_updates(
+        self,
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+        bank_balances_filter: Optional[chain_stream_v2_query.BankBalancesFilter] = None,
+        subaccount_deposits_filter: Optional[chain_stream_v2_query.SubaccountDepositsFilter] = None,
+        spot_trades_filter: Optional[chain_stream_v2_query.TradesFilter] = None,
+        derivative_trades_filter: Optional[chain_stream_v2_query.TradesFilter] = None,
+        spot_orders_filter: Optional[chain_stream_v2_query.OrdersFilter] = None,
+        derivative_orders_filter: Optional[chain_stream_v2_query.OrdersFilter] = None,
+        spot_orderbooks_filter: Optional[chain_stream_v2_query.OrderbookFilter] = None,
+        derivative_orderbooks_filter: Optional[chain_stream_v2_query.OrderbookFilter] = None,
+        positions_filter: Optional[chain_stream_v2_query.PositionsFilter] = None,
+        oracle_price_filter: Optional[chain_stream_v2_query.OraclePriceFilter] = None,
+    ):
+        return await self.chain_stream_api.stream_v2(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,

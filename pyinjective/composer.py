@@ -46,6 +46,7 @@ from pyinjective.proto.injective.permissions.v1beta1 import (
     tx_pb2 as injective_permissions_tx_pb,
 )
 from pyinjective.proto.injective.stream.v1beta1 import query_pb2 as chain_stream_query
+from pyinjective.proto.injective.stream.v2 import query_pb2 as chain_stream_v2_query
 from pyinjective.proto.injective.tokenfactory.v1beta1 import tx_pb2 as token_factory_tx_pb
 from pyinjective.proto.injective.wasmx.v1 import tx_pb2 as wasmx_tx_pb
 from pyinjective.utils.denom import Denom
@@ -2703,6 +2704,14 @@ class Composer:
     def chain_stream_bank_balances_filter(
         self, accounts: Optional[List[str]] = None
     ) -> chain_stream_query.BankBalancesFilter:
+        """
+        This method is deprecated and will be removed soon. Please use `chain_stream_bank_balances_v2_filter` instead
+        """
+        warn(
+            "This method is deprecated. Use chain_stream_bank_balances_v2_filter instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         accounts = accounts or ["*"]
         return chain_stream_query.BankBalancesFilter(accounts=accounts)
 
@@ -2710,6 +2719,15 @@ class Composer:
         self,
         subaccount_ids: Optional[List[str]] = None,
     ) -> chain_stream_query.SubaccountDepositsFilter:
+        """
+        This method is deprecated and will be removed soon.
+        Please use `chain_stream_subaccount_deposits_v2_filter` instead
+        """
+        warn(
+            "This method is deprecated. Use chain_stream_subaccount_deposits_v2_filter instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         subaccount_ids = subaccount_ids or ["*"]
         return chain_stream_query.SubaccountDepositsFilter(subaccount_ids=subaccount_ids)
 
@@ -2718,6 +2736,11 @@ class Composer:
         subaccount_ids: Optional[List[str]] = None,
         market_ids: Optional[List[str]] = None,
     ) -> chain_stream_query.TradesFilter:
+        """
+        This method is deprecated and will be removed soon. Please use `chain_stream_trades_v2_filter` instead
+        """
+        warn("This method is deprecated. Use chain_stream_trades_v2_filter instead", DeprecationWarning, stacklevel=2)
+
         subaccount_ids = subaccount_ids or ["*"]
         market_ids = market_ids or ["*"]
         return chain_stream_query.TradesFilter(subaccount_ids=subaccount_ids, market_ids=market_ids)
@@ -2727,6 +2750,11 @@ class Composer:
         subaccount_ids: Optional[List[str]] = None,
         market_ids: Optional[List[str]] = None,
     ) -> chain_stream_query.OrdersFilter:
+        """
+        This method is deprecated and will be removed soon. Please use `chain_stream_orders_v2_filter` instead
+        """
+        warn("This method is deprecated. Use chain_stream_orders_v2_filter instead", DeprecationWarning, stacklevel=2)
+
         subaccount_ids = subaccount_ids or ["*"]
         market_ids = market_ids or ["*"]
         return chain_stream_query.OrdersFilter(subaccount_ids=subaccount_ids, market_ids=market_ids)
@@ -2735,6 +2763,13 @@ class Composer:
         self,
         market_ids: Optional[List[str]] = None,
     ) -> chain_stream_query.OrderbookFilter:
+        """
+        This method is deprecated and will be removed soon. Please use `chain_stream_orderbooks_v2_filter` instead
+        """
+        warn(
+            "This method is deprecated. Use chain_stream_orderbooks_v2_filter instead", DeprecationWarning, stacklevel=2
+        )
+
         market_ids = market_ids or ["*"]
         return chain_stream_query.OrderbookFilter(market_ids=market_ids)
 
@@ -2743,6 +2778,13 @@ class Composer:
         subaccount_ids: Optional[List[str]] = None,
         market_ids: Optional[List[str]] = None,
     ) -> chain_stream_query.PositionsFilter:
+        """
+        This method is deprecated and will be removed soon. Please use `chain_stream_positions_v2_filter` instead
+        """
+        warn(
+            "This method is deprecated. Use chain_stream_positions_v2_filter instead", DeprecationWarning, stacklevel=2
+        )
+
         subaccount_ids = subaccount_ids or ["*"]
         market_ids = market_ids or ["*"]
         return chain_stream_query.PositionsFilter(subaccount_ids=subaccount_ids, market_ids=market_ids)
@@ -2751,8 +2793,71 @@ class Composer:
         self,
         symbols: Optional[List[str]] = None,
     ) -> chain_stream_query.PositionsFilter:
+        """
+        This method is deprecated and will be removed soon. Please use `chain_stream_oracle_price_v2_filter` instead
+        """
+        warn(
+            "This method is deprecated. Use chain_stream_oracle_price_v2_filter instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
         symbols = symbols or ["*"]
         return chain_stream_query.OraclePriceFilter(symbol=symbols)
+
+    def chain_stream_bank_balances_v2_filter(
+        self, accounts: Optional[List[str]] = None
+    ) -> chain_stream_v2_query.BankBalancesFilter:
+        accounts = accounts or ["*"]
+        return chain_stream_v2_query.BankBalancesFilter(accounts=accounts)
+
+    def chain_stream_subaccount_deposits_v2_filter(
+        self,
+        subaccount_ids: Optional[List[str]] = None,
+    ) -> chain_stream_v2_query.SubaccountDepositsFilter:
+        subaccount_ids = subaccount_ids or ["*"]
+        return chain_stream_v2_query.SubaccountDepositsFilter(subaccount_ids=subaccount_ids)
+
+    def chain_stream_trades_v2_filter(
+        self,
+        subaccount_ids: Optional[List[str]] = None,
+        market_ids: Optional[List[str]] = None,
+    ) -> chain_stream_v2_query.TradesFilter:
+        subaccount_ids = subaccount_ids or ["*"]
+        market_ids = market_ids or ["*"]
+        return chain_stream_v2_query.TradesFilter(subaccount_ids=subaccount_ids, market_ids=market_ids)
+
+    def chain_stream_orders_v2_filter(
+        self,
+        subaccount_ids: Optional[List[str]] = None,
+        market_ids: Optional[List[str]] = None,
+    ) -> chain_stream_v2_query.OrdersFilter:
+        subaccount_ids = subaccount_ids or ["*"]
+        market_ids = market_ids or ["*"]
+        return chain_stream_v2_query.OrdersFilter(subaccount_ids=subaccount_ids, market_ids=market_ids)
+
+    def chain_stream_orderbooks_v2_filter(
+        self,
+        market_ids: Optional[List[str]] = None,
+    ) -> chain_stream_v2_query.OrderbookFilter:
+        market_ids = market_ids or ["*"]
+        return chain_stream_v2_query.OrderbookFilter(market_ids=market_ids)
+
+    def chain_stream_positions_v2_filter(
+        self,
+        subaccount_ids: Optional[List[str]] = None,
+        market_ids: Optional[List[str]] = None,
+    ) -> chain_stream_v2_query.PositionsFilter:
+        subaccount_ids = subaccount_ids or ["*"]
+        market_ids = market_ids or ["*"]
+        return chain_stream_v2_query.PositionsFilter(subaccount_ids=subaccount_ids, market_ids=market_ids)
+
+    def chain_stream_oracle_price_v2_filter(
+        self,
+        symbols: Optional[List[str]] = None,
+    ) -> chain_stream_v2_query.PositionsFilter:
+        symbols = symbols or ["*"]
+        return chain_stream_v2_query.OraclePriceFilter(symbol=symbols)
 
     # endregion
 
