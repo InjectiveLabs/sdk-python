@@ -2559,7 +2559,7 @@ class Composer:
         **kwargs,
     ):
         """
-        This method is deprecated and will be removed soon. Please use `fetch_l3_spot_orderbook_v2` instead
+        This method is deprecated and will be removed soon. Please use `create_typed_msg_grant` instead
         """
         warn("This method is deprecated. Use create_typed_msg_grant instead", DeprecationWarning, stacklevel=2)
 
