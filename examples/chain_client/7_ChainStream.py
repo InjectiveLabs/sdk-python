@@ -31,29 +31,29 @@ async def main() -> None:
     inj_usdt_market = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
     inj_usdt_perp_market = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
 
-    bank_balances_filter = composer.chain_stream_bank_balances_filter(
+    bank_balances_filter = composer.chain_stream_bank_balances_v2_filter(
         accounts=["inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"]
     )
-    subaccount_deposits_filter = composer.chain_stream_subaccount_deposits_filter(subaccount_ids=[subaccount_id])
-    spot_trades_filter = composer.chain_stream_trades_filter(subaccount_ids=["*"], market_ids=[inj_usdt_market])
-    derivative_trades_filter = composer.chain_stream_trades_filter(
+    subaccount_deposits_filter = composer.chain_stream_subaccount_deposits_v2_filter(subaccount_ids=[subaccount_id])
+    spot_trades_filter = composer.chain_stream_trades_v2_filter(subaccount_ids=["*"], market_ids=[inj_usdt_market])
+    derivative_trades_filter = composer.chain_stream_trades_v2_filter(
         subaccount_ids=["*"], market_ids=[inj_usdt_perp_market]
     )
-    spot_orders_filter = composer.chain_stream_orders_filter(
+    spot_orders_filter = composer.chain_stream_orders_v2_filter(
         subaccount_ids=[subaccount_id], market_ids=[inj_usdt_market]
     )
-    derivative_orders_filter = composer.chain_stream_orders_filter(
+    derivative_orders_filter = composer.chain_stream_orders_v2_filter(
         subaccount_ids=[subaccount_id], market_ids=[inj_usdt_perp_market]
     )
-    spot_orderbooks_filter = composer.chain_stream_orderbooks_filter(market_ids=[inj_usdt_market])
-    derivative_orderbooks_filter = composer.chain_stream_orderbooks_filter(market_ids=[inj_usdt_perp_market])
-    positions_filter = composer.chain_stream_positions_filter(
+    spot_orderbooks_filter = composer.chain_stream_orderbooks_v2_filter(market_ids=[inj_usdt_market])
+    derivative_orderbooks_filter = composer.chain_stream_orderbooks_v2_filter(market_ids=[inj_usdt_perp_market])
+    positions_filter = composer.chain_stream_positions_v2_filter(
         subaccount_ids=[subaccount_id], market_ids=[inj_usdt_perp_market]
     )
-    oracle_price_filter = composer.chain_stream_oracle_price_filter(symbols=["INJ", "USDT"])
+    oracle_price_filter = composer.chain_stream_oracle_price_v2_filter(symbols=["INJ", "USDT"])
 
     task = asyncio.get_event_loop().create_task(
-        client.listen_chain_stream_updates(
+        client.listen_chain_stream_v2_updates(
             callback=chain_stream_event_processor,
             on_end_callback=stream_closed_processor,
             on_status_callback=stream_error_processor,

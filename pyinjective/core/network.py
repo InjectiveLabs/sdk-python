@@ -2,7 +2,6 @@ import datetime
 from abc import ABC, abstractmethod
 from http.cookies import SimpleCookie
 from typing import List, Optional
-from warnings import warn
 
 import grpc
 from grpc import ChannelCredentials
@@ -119,20 +118,11 @@ class Network:
         exchange_cookie_assistant: CookieAssistant,
         explorer_cookie_assistant: CookieAssistant,
         official_tokens_list_url: str,
-        use_secure_connection: Optional[bool] = None,
         grpc_channel_credentials: Optional[ChannelCredentials] = None,
         grpc_exchange_channel_credentials: Optional[ChannelCredentials] = None,
         grpc_explorer_channel_credentials: Optional[ChannelCredentials] = None,
         chain_stream_channel_credentials: Optional[ChannelCredentials] = None,
     ):
-        # the `use_secure_connection` parameter is ignored and will be deprecated soon.
-        if use_secure_connection is not None:
-            warn(
-                "use_secure_connection parameter in Network is no longer used and will be deprecated",
-                DeprecationWarning,
-                stacklevel=2,
-            )
-
         self.lcd_endpoint = lcd_endpoint
         self.tm_websocket_endpoint = tm_websocket_endpoint
         self.grpc_endpoint = grpc_endpoint
@@ -299,20 +289,11 @@ class Network:
         chain_cookie_assistant: Optional[CookieAssistant] = None,
         exchange_cookie_assistant: Optional[CookieAssistant] = None,
         explorer_cookie_assistant: Optional[CookieAssistant] = None,
-        use_secure_connection: Optional[bool] = None,
         grpc_channel_credentials: Optional[ChannelCredentials] = None,
         grpc_exchange_channel_credentials: Optional[ChannelCredentials] = None,
         grpc_explorer_channel_credentials: Optional[ChannelCredentials] = None,
         chain_stream_channel_credentials: Optional[ChannelCredentials] = None,
     ):
-        # the `use_secure_connection` parameter is ignored and will be deprecated soon.
-        if use_secure_connection is not None:
-            warn(
-                "use_secure_connection parameter in Network is no longer used and will be deprecated",
-                DeprecationWarning,
-                stacklevel=2,
-            )
-
         chain_assistant = chain_cookie_assistant or DisabledCookieAssistant()
         exchange_assistant = exchange_cookie_assistant or DisabledCookieAssistant()
         explorer_assistant = explorer_cookie_assistant or DisabledCookieAssistant()

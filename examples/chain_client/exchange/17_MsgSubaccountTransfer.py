@@ -1,6 +1,5 @@
 import asyncio
 import os
-from decimal import Decimal
 
 import dotenv
 from grpc import RpcError
@@ -33,12 +32,12 @@ async def main() -> None:
     dest_subaccount_id = address.get_subaccount_id(index=1)
 
     # prepare tx msg
-    msg = composer.msg_subaccount_transfer(
+    msg = composer.msg_subaccount_transfer_v2(
         sender=address.to_acc_bech32(),
         source_subaccount_id=subaccount_id,
         destination_subaccount_id=dest_subaccount_id,
-        amount=Decimal(100),
-        denom="INJ",
+        amount=100,
+        denom="inj",
     )
 
     # build sim tx

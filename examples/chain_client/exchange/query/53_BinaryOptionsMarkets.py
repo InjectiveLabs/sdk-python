@@ -11,7 +11,7 @@ async def main() -> None:
     # initialize grpc client
     client = AsyncClient(network)
 
-    markets = await client.fetch_chain_binary_options_markets(status="Active")
+    markets = await client.fetch_chain_binary_options_markets_v2(status="Active")
     print(markets)
 
 

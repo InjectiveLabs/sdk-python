@@ -1,5 +1,6 @@
 import asyncio
 import os
+from decimal import Decimal
 
 import dotenv
 import requests
@@ -36,14 +37,16 @@ async def main() -> None:
     token_price = requests.get(coingecko_endpoint).json()[asset]["usd"]
     minimum_bridge_fee_usd = 10
     bridge_fee = minimum_bridge_fee_usd / token_price
+    token_decimals = 6
+    chain_bridge_fee = int(Decimal(str(bridge_fee)) * Decimal(f"1e{token_decimals}"))
 
     # prepare tx msg
-    msg = composer.MsgSendToEth(
+    msg = composer.msg_send_to_eth(
         sender=address.to_acc_bech32(),
-        denom="INJ",
+        denom="inj",
         eth_dest="0xaf79152ac5df276d9a8e1e2e22822f9713474902",
         amount=23,
-        bridge_fee=bridge_fee,
+        bridge_fee=chain_bridge_fee,
     )
 
     # build sim tx

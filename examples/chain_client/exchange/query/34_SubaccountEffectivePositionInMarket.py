@@ -26,7 +26,7 @@ async def main() -> None:
 
     subaccount_id = address.get_subaccount_id(index=0)
 
-    position = await client.fetch_chain_subaccount_effective_position_in_market(
+    position = await client.fetch_chain_subaccount_effective_position_in_market_v2(
         subaccount_id=subaccount_id,
         market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
     )

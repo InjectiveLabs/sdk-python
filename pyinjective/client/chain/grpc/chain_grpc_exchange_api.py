@@ -575,5 +575,52 @@ class ChainGrpcExchangeApi:
 
         return response
 
+    async def fetch_active_stake_grant(self, grantee: str) -> Dict[str, Any]:
+        request = exchange_query_pb.QueryActiveStakeGrantRequest(grantee=grantee)
+        response = await self._execute_call(call=self._stub.ActiveStakeGrant, request=request)
+
+        return response
+
+    async def fetch_grant_authorization(
+        self,
+        granter: str,
+        grantee: str,
+    ) -> Dict[str, Any]:
+        request = exchange_query_pb.QueryGrantAuthorizationRequest(
+            granter=granter,
+            grantee=grantee,
+        )
+        response = await self._execute_call(call=self._stub.GrantAuthorization, request=request)
+
+        return response
+
+    async def fetch_grant_authorizations(self, granter: str) -> Dict[str, Any]:
+        request = exchange_query_pb.QueryGrantAuthorizationsRequest(granter=granter)
+        response = await self._execute_call(call=self._stub.GrantAuthorizations, request=request)
+
+        return response
+
+    async def fetch_l3_derivative_orderbook(
+        self,
+        market_id: str,
+    ) -> Dict[str, Any]:
+        request = exchange_query_pb.QueryFullDerivativeOrderbookRequest(
+            market_id=market_id,
+        )
+        response = await self._execute_call(call=self._stub.L3DerivativeOrderBook, request=request)
+
+        return response
+
+    async def fetch_l3_spot_orderbook(
+        self,
+        market_id: str,
+    ) -> Dict[str, Any]:
+        request = exchange_query_pb.QueryFullSpotOrderbookRequest(
+            market_id=market_id,
+        )
+        response = await self._execute_call(call=self._stub.L3SpotOrderBook, request=request)
+
+        return response
+
     async def _execute_call(self, call: Callable, request) -> Dict[str, Any]:
         return await self._assistant.execute_call(call=call, request=request)

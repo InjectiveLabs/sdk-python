@@ -23,7 +23,7 @@ async def main() -> None:
     pub_key = priv_key.to_public_key()
     address = pub_key.to_address()
 
-    volume = await client.fetch_aggregate_volumes(
+    volume = await client.fetch_aggregate_volumes_v2(
         accounts=[address.to_acc_bech32()],
         market_ids=["0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"],
     )

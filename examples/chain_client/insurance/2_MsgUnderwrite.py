@@ -1,5 +1,6 @@
 import asyncio
 import os
+from decimal import Decimal
 
 import dotenv
 from grpc import RpcError
@@ -30,11 +31,15 @@ async def main() -> None:
     address = pub_key.to_address()
     await client.fetch_account(address.to_acc_bech32())
 
-    msg = composer.MsgUnderwrite(
+    token_decimals = 6
+    amount = 100
+    chain_amount = Decimal(str(amount)) * Decimal(f"1e{token_decimals}")
+
+    msg = composer.msg_underwrite(
         sender=address.to_acc_bech32(),
         market_id="0x141e3c92ed55107067ceb60ee412b86256cedef67b1227d6367b4cdf30c55a74",
-        quote_denom="USDT",
-        amount=100,
+        quote_denom="peggy0xdAC17F958D2ee523a2206206994597C13D831ec7",
+        amount=int(chain_amount),
     )
 
     # build sim tx
