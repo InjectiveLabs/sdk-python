@@ -99,6 +99,7 @@ class AsyncClient:
         network: Network,
         insecure: Optional[bool] = None,
         credentials=None,
+        timeoutheight_sync_interval: Optional[int] = DEFAULT_TIMEOUTHEIGHT_SYNC_INTERVAL,
     ):
         # the `insecure` parameter is ignored and will be deprecated soon. The value is taken directly from `network`
         if insecure is not None:
@@ -154,6 +155,7 @@ class AsyncClient:
         self.chain_stream_stub = stream_rpc_grpc.StreamStub(channel=self.chain_stream_channel)
 
         self._timeout_height_sync_task = None
+        self._timeoutheight_sync_interval = timeoutheight_sync_interval
         self._initialize_timeout_height_sync_task()
 
         self._tokens_and_markets_initialization_lock = asyncio.Lock()
@@ -3450,13 +3452,14 @@ class AsyncClient:
         return tokens_by_symbol, tokens_by_denom
 
     def _initialize_timeout_height_sync_task(self):
-        self._cancel_timeout_height_sync_task()
-        self._timeout_height_sync_task = asyncio.get_event_loop().create_task(self._timeout_height_sync_process())
+        if self._timeoutheight_sync_interval is not None:
+            self._cancel_timeout_height_sync_task()
+            self._timeout_height_sync_task = asyncio.get_event_loop().create_task(self._timeout_height_sync_process())
 
     async def _timeout_height_sync_process(self):
         while True:
             await self.sync_timeout_height()
-            await asyncio.sleep(DEFAULT_TIMEOUTHEIGHT_SYNC_INTERVAL)
+            await asyncio.sleep(self._timeoutheight_sync_interval)
 
     def _cancel_timeout_height_sync_task(self):
         if self._timeout_height_sync_task is not None:
