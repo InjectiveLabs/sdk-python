@@ -5,7 +5,8 @@ import os
 import aiohttp
 
 OFAC_LIST_URL = (
-    "https://raw.githubusercontent.com/InjectiveLabs/injective-lists/refs/heads/master/json/wallets/ofac.json"
+    "https://raw.githubusercontent.com/InjectiveLabs/injective-lists/"
+    "refs/heads/master/json/wallets/ofacAndRestricted.json"
 )
 OFAC_LIST_FILENAME_DEFAULT = "ofac.json"
 OFAC_LIST_FILENAME = OFAC_LIST_FILENAME_DEFAULT
