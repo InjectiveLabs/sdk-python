@@ -7,6 +7,7 @@ from google.protobuf import json_format
 from pyinjective.composer import Composer
 from pyinjective.constant import ADDITIONAL_CHAIN_FORMAT_DECIMALS, INJ_DECIMALS
 from pyinjective.core.network import Network
+from pyinjective.proto.injective.permissions.v1beta1 import permissions_pb2 as permissions_pb
 from tests.model_fixtures.markets_fixtures import (  # noqa: F401
     btc_usdt_perp_market,
     first_match_bet_market,
@@ -44,6 +45,7 @@ class TestComposer:
         name = "Injective Test"
         symbol = "INJTEST"
         decimals = 18
+        allow_admin_burn = True
 
         message = basic_composer.msg_create_denom(
             sender=sender,
@@ -51,6 +53,7 @@ class TestComposer:
             name=name,
             symbol=symbol,
             decimals=decimals,
+            allow_admin_burn=allow_admin_burn,
         )
 
         expected_message = {
@@ -59,6 +62,7 @@ class TestComposer:
             "name": name,
             "symbol": symbol,
             "decimals": decimals,
+            "allowAdminBurn": allow_admin_burn,
         }
         dict_message = json_format.MessageToDict(
             message=message,
@@ -73,10 +77,12 @@ class TestComposer:
             amount=1_000_000,
             denom="factory/inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r/inj_test",
         )
+        receiver = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
 
         message = basic_composer.msg_mint(
             sender=sender,
             amount=amount,
+            receiver=receiver,
         )
 
         expected_message = {
@@ -85,6 +91,7 @@ class TestComposer:
                 "amount": str(amount.amount),
                 "denom": amount.denom,
             },
+            "receiver": receiver,
         }
         dict_message = json_format.MessageToDict(
             message=message,
@@ -99,10 +106,12 @@ class TestComposer:
             amount=100,
             denom="factory/inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r/inj_test",
         )
+        burn_from_address = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
 
         message = basic_composer.msg_burn(
             sender=sender,
             amount=amount,
+            burn_from_address=burn_from_address,
         )
 
         expected_message = {
@@ -111,6 +120,7 @@ class TestComposer:
                 "amount": str(amount.amount),
                 "denom": amount.denom,
             },
+            "burnFromAddress": burn_from_address,
         }
         dict_message = json_format.MessageToDict(
             message=message,
@@ -293,6 +303,8 @@ class TestComposer:
         min_price_tick_size = Decimal("0.01")
         min_quantity_tick_size = Decimal("1")
         min_notional = Decimal("2")
+        base_decimals = 18
+        quote_decimals = 6
 
         base_token = basic_composer.tokens[base_denom]
         quote_token = basic_composer.tokens[quote_denom]
@@ -313,6 +325,8 @@ class TestComposer:
             min_price_tick_size=min_price_tick_size,
             min_quantity_tick_size=min_quantity_tick_size,
             min_notional=min_notional,
+            base_decimals=base_decimals,
+            quote_decimals=quote_decimals,
         )
 
         expected_message = {
@@ -323,6 +337,8 @@ class TestComposer:
             "minPriceTickSize": f"{expected_min_price_tick_size.normalize():f}",
             "minQuantityTickSize": f"{expected_min_quantity_tick_size.normalize():f}",
             "minNotional": f"{expected_min_notional.normalize():f}",
+            "baseDecimals": base_decimals,
+            "quoteDecimals": quote_decimals,
         }
         dict_message = json_format.MessageToDict(
             message=message,
@@ -1708,79 +1724,131 @@ class TestComposer:
     def test_msg_create_namespace(self, basic_composer):
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
         denom = "inj"
-        wasmhook = "wasmhook"
-        mints_paused = True
-        sends_paused = False
-        burns_paused = True
+        contract_hook = "contrachook"
         permissions_role1 = basic_composer.permissions_role(
-            role="role1",
-            permissions=1,
+            name="role1",
+            role_id=1,
+            permissions=5,
         )
         permissions_role2 = basic_composer.permissions_role(
-            role="role2",
-            permissions=2,
+            name="role2",
+            role_id=2,
+            permissions=6,
         )
-        permissions_address_roles1 = basic_composer.permissions_address_roles(
-            address="inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0",
+        actor_roles1 = basic_composer.permissions_actor_roles(
+            actor="actor1",
             roles=["role1"],
         )
-        permissions_address_roles2 = basic_composer.permissions_address_roles(
-            address="inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0",
+        actor_roles2 = basic_composer.permissions_actor_roles(
+            actor="actor2",
             roles=["role2"],
+        )
+        role_manager1 = basic_composer.permissions_role_manager(
+            manager="manager1",
+            roles=["role1"],
+        )
+        role_manager2 = basic_composer.permissions_role_manager(
+            manager="manager2",
+            roles=["role2"],
+        )
+        policy_status1 = basic_composer.permissions_policy_status(
+            action=basic_composer.PERMISSIONS_ACTION["MINT"],
+            is_disabled=False,
+            is_sealed=True,
+        )
+        policy_status2 = basic_composer.permissions_policy_status(
+            action=basic_composer.PERMISSIONS_ACTION["SEND"] | basic_composer.PERMISSIONS_ACTION["BURN"],
+            is_disabled=True,
+            is_sealed=False,
+        )
+        policy_manager_capability1 = basic_composer.permissions_policy_manager_capability(
+            manager="manager1",
+            action=basic_composer.PERMISSIONS_ACTION["MINT"],
+            can_disable=False,
+            can_seal=True,
+        )
+        policy_manager_capability2 = basic_composer.permissions_policy_manager_capability(
+            manager="manager2",
+            action=basic_composer.PERMISSIONS_ACTION["SEND"] | basic_composer.PERMISSIONS_ACTION["BURN"],
+            can_disable=True,
+            can_seal=False,
         )
 
         message = basic_composer.msg_create_namespace(
             sender=sender,
             denom=denom,
-            wasm_hook=wasmhook,
-            mints_paused=mints_paused,
-            sends_paused=sends_paused,
-            burns_paused=burns_paused,
+            contract_hook=contract_hook,
             role_permissions=[permissions_role1, permissions_role2],
-            address_roles=[permissions_address_roles1, permissions_address_roles2],
+            actor_roles=[actor_roles1, actor_roles2],
+            role_managers=[role_manager1, role_manager2],
+            policy_statuses=[policy_status1, policy_status2],
+            policy_manager_capabilities=[policy_manager_capability1, policy_manager_capability2],
         )
 
         expected_message = {
             "sender": sender,
             "namespace": {
                 "denom": denom,
-                "wasmHook": wasmhook,
-                "mintsPaused": mints_paused,
-                "sendsPaused": sends_paused,
-                "burnsPaused": burns_paused,
+                "contractHook": contract_hook,
                 "rolePermissions": [
-                    json_format.MessageToDict(message=permissions_role1, always_print_fields_with_no_presence=True),
-                    json_format.MessageToDict(message=permissions_role2, always_print_fields_with_no_presence=True),
+                    {
+                        "name": permissions_role1.name,
+                        "roleId": permissions_role1.role_id,
+                        "permissions": permissions_role1.permissions,
+                    },
+                    {
+                        "name": permissions_role2.name,
+                        "roleId": permissions_role2.role_id,
+                        "permissions": permissions_role2.permissions,
+                    },
                 ],
-                "addressRoles": [
-                    json_format.MessageToDict(
-                        message=permissions_address_roles1, always_print_fields_with_no_presence=True
-                    ),
-                    json_format.MessageToDict(
-                        message=permissions_address_roles2, always_print_fields_with_no_presence=True
-                    ),
+                "actorRoles": [
+                    {
+                        "actor": actor_roles1.actor,
+                        "roles": actor_roles1.roles,
+                    },
+                    {
+                        "actor": actor_roles2.actor,
+                        "roles": actor_roles2.roles,
+                    },
+                ],
+                "roleManagers": [
+                    {
+                        "manager": role_manager1.manager,
+                        "roles": role_manager1.roles,
+                    },
+                    {
+                        "manager": role_manager2.manager,
+                        "roles": role_manager2.roles,
+                    },
+                ],
+                "policyStatuses": [
+                    {
+                        "action": permissions_pb.Action.Name(policy_status1.action),
+                        "isDisabled": policy_status1.is_disabled,
+                        "isSealed": policy_status1.is_sealed,
+                    },
+                    {
+                        "action": policy_status2.action,
+                        "isDisabled": policy_status2.is_disabled,
+                        "isSealed": policy_status2.is_sealed,
+                    },
+                ],
+                "policyManagerCapabilities": [
+                    {
+                        "manager": policy_manager_capability1.manager,
+                        "action": permissions_pb.Action.Name(policy_manager_capability1.action),
+                        "canDisable": policy_manager_capability1.can_disable,
+                        "canSeal": policy_manager_capability1.can_seal,
+                    },
+                    {
+                        "manager": policy_manager_capability2.manager,
+                        "action": policy_manager_capability2.action,
+                        "canDisable": policy_manager_capability2.can_disable,
+                        "canSeal": policy_manager_capability2.can_seal,
+                    },
                 ],
             },
-        }
-
-        dict_message = json_format.MessageToDict(
-            message=message,
-            always_print_fields_with_no_presence=True,
-        )
-        assert dict_message == expected_message
-
-    def test_msg_delete_namespace(self, basic_composer):
-        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
-        denom = "inj"
-
-        message = basic_composer.msg_delete_namespace(
-            sender=sender,
-            namespace_denom=denom,
-        )
-
-        expected_message = {
-            "sender": sender,
-            "namespaceDenom": denom,
         }
 
         dict_message = json_format.MessageToDict(
@@ -1792,76 +1860,111 @@ class TestComposer:
     def test_msg_update_namespace(self, basic_composer):
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
         denom = "inj"
-        wasmhook = "wasmhook"
-        mints_paused = True
-        sends_paused = False
-        burns_paused = True
+        contract_hook = "contracthook"
+        permissions_role1 = basic_composer.permissions_role(
+            name="role1",
+            role_id=1,
+            permissions=5,
+        )
+        permissions_role2 = basic_composer.permissions_role(
+            name="role2",
+            role_id=2,
+            permissions=6,
+        )
+        role_manager1 = basic_composer.permissions_role_manager(
+            manager="manager1",
+            roles=["role1"],
+        )
+        role_manager2 = basic_composer.permissions_role_manager(
+            manager="manager2",
+            roles=["role2"],
+        )
+        policy_status1 = basic_composer.permissions_policy_status(
+            action=basic_composer.PERMISSIONS_ACTION["MINT"],
+            is_disabled=False,
+            is_sealed=True,
+        )
+        policy_status2 = basic_composer.permissions_policy_status(
+            action=basic_composer.PERMISSIONS_ACTION["SEND"] | basic_composer.PERMISSIONS_ACTION["BURN"],
+            is_disabled=True,
+            is_sealed=False,
+        )
+        policy_manager_capability1 = basic_composer.permissions_policy_manager_capability(
+            manager="manager1",
+            action=basic_composer.PERMISSIONS_ACTION["MINT"],
+            can_disable=False,
+            can_seal=True,
+        )
+        policy_manager_capability2 = basic_composer.permissions_policy_manager_capability(
+            manager="manager2",
+            action=basic_composer.PERMISSIONS_ACTION["SEND"] | basic_composer.PERMISSIONS_ACTION["BURN"],
+            can_disable=True,
+            can_seal=False,
+        )
 
         message = basic_composer.msg_update_namespace(
             sender=sender,
-            namespace_denom=denom,
-            wasm_hook=wasmhook,
-            mints_paused=mints_paused,
-            sends_paused=sends_paused,
-            burns_paused=burns_paused,
-        )
-
-        expected_message = {
-            "sender": sender,
-            "namespaceDenom": denom,
-            "wasmHook": {"newValue": wasmhook},
-            "mintsPaused": {"newValue": mints_paused},
-            "sendsPaused": {"newValue": sends_paused},
-            "burnsPaused": {"newValue": burns_paused},
-        }
-
-        dict_message = json_format.MessageToDict(
-            message=message,
-            always_print_fields_with_no_presence=True,
-        )
-        assert dict_message == expected_message
-
-    def test_msg_update_namespace_roles(self, basic_composer):
-        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
-        denom = "inj"
-        permissions_role1 = basic_composer.permissions_role(
-            role="role1",
-            permissions=1,
-        )
-        permissions_role2 = basic_composer.permissions_role(
-            role="role2",
-            permissions=2,
-        )
-        permissions_address_roles1 = basic_composer.permissions_address_roles(
-            address="inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0",
-            roles=["role1"],
-        )
-        permissions_address_roles2 = basic_composer.permissions_address_roles(
-            address="inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0",
-            roles=["role2"],
-        )
-
-        message = basic_composer.msg_update_namespace_roles(
-            sender=sender,
-            namespace_denom=denom,
+            denom=denom,
+            contract_hook=contract_hook,
             role_permissions=[permissions_role1, permissions_role2],
-            address_roles=[permissions_address_roles1, permissions_address_roles2],
+            role_managers=[role_manager1, role_manager2],
+            policy_statuses=[policy_status1, policy_status2],
+            policy_manager_capabilities=[policy_manager_capability1, policy_manager_capability2],
         )
 
         expected_message = {
             "sender": sender,
-            "namespaceDenom": denom,
+            "denom": denom,
+            "contractHook": {
+                "newValue": contract_hook,
+            },
             "rolePermissions": [
-                json_format.MessageToDict(message=permissions_role1, always_print_fields_with_no_presence=True),
-                json_format.MessageToDict(message=permissions_role2, always_print_fields_with_no_presence=True),
+                {
+                    "name": permissions_role1.name,
+                    "roleId": permissions_role1.role_id,
+                    "permissions": permissions_role1.permissions,
+                },
+                {
+                    "name": permissions_role2.name,
+                    "roleId": permissions_role2.role_id,
+                    "permissions": permissions_role2.permissions,
+                },
             ],
-            "addressRoles": [
-                json_format.MessageToDict(
-                    message=permissions_address_roles1, always_print_fields_with_no_presence=True
-                ),
-                json_format.MessageToDict(
-                    message=permissions_address_roles2, always_print_fields_with_no_presence=True
-                ),
+            "roleManagers": [
+                {
+                    "manager": role_manager1.manager,
+                    "roles": role_manager1.roles,
+                },
+                {
+                    "manager": role_manager2.manager,
+                    "roles": role_manager2.roles,
+                },
+            ],
+            "policyStatuses": [
+                {
+                    "action": permissions_pb.Action.Name(policy_status1.action),
+                    "isDisabled": policy_status1.is_disabled,
+                    "isSealed": policy_status1.is_sealed,
+                },
+                {
+                    "action": policy_status2.action,
+                    "isDisabled": policy_status2.is_disabled,
+                    "isSealed": policy_status2.is_sealed,
+                },
+            ],
+            "policyManagerCapabilities": [
+                {
+                    "manager": policy_manager_capability1.manager,
+                    "action": permissions_pb.Action.Name(policy_manager_capability1.action),
+                    "canDisable": policy_manager_capability1.can_disable,
+                    "canSeal": policy_manager_capability1.can_seal,
+                },
+                {
+                    "manager": policy_manager_capability2.manager,
+                    "action": policy_manager_capability2.action,
+                    "canDisable": policy_manager_capability2.can_disable,
+                    "canSeal": policy_manager_capability2.can_seal,
+                },
             ],
         }
 
@@ -1871,33 +1974,55 @@ class TestComposer:
         )
         assert dict_message == expected_message
 
-    def test_msg_revoke_namespace_roles(self, basic_composer):
+    def test_msg_update_actor_roles(self, basic_composer):
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
         denom = "inj"
-        permissions_address_roles1 = basic_composer.permissions_address_roles(
-            address="inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0",
-            roles=["role1"],
+        role_actors1 = basic_composer.permissions_role_actors(
+            role="role1",
+            actors=["actor1"],
         )
-        permissions_address_roles2 = basic_composer.permissions_address_roles(
-            address="inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0",
-            roles=["role2"],
+        role_actors2 = basic_composer.permissions_role_actors(
+            role="role2",
+            actors=["actor2"],
         )
-        message = basic_composer.msg_revoke_namespace_roles(
+        role_actors3 = basic_composer.permissions_role_actors(
+            role="role3",
+            actors=["actor3"],
+        )
+        role_actors4 = basic_composer.permissions_role_actors(
+            role="role4",
+            actors=["actor4"],
+        )
+
+        message = basic_composer.msg_update_actor_roles(
             sender=sender,
-            namespace_denom=denom,
-            address_roles_to_revoke=[permissions_address_roles1, permissions_address_roles2],
+            denom=denom,
+            role_actors_to_add=[role_actors1, role_actors2],
+            role_actors_to_revoke=[role_actors3, role_actors4],
         )
 
         expected_message = {
             "sender": sender,
-            "namespaceDenom": denom,
-            "addressRolesToRevoke": [
-                json_format.MessageToDict(
-                    message=permissions_address_roles1, always_print_fields_with_no_presence=True
-                ),
-                json_format.MessageToDict(
-                    message=permissions_address_roles2, always_print_fields_with_no_presence=True
-                ),
+            "denom": denom,
+            "roleActorsToAdd": [
+                {
+                    "role": role_actors1.role,
+                    "actors": role_actors1.actors,
+                },
+                {
+                    "role": role_actors2.role,
+                    "actors": role_actors2.actors,
+                },
+            ],
+            "roleActorsToRevoke": [
+                {
+                    "role": role_actors3.role,
+                    "actors": role_actors3.actors,
+                },
+                {
+                    "role": role_actors4.role,
+                    "actors": role_actors4.actors,
+                },
             ],
         }
 

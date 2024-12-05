@@ -31,6 +31,7 @@ async def main() -> None:
     message = composer.msg_mint(
         sender=address.to_acc_bech32(),
         amount=amount,
+        receiver="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
     )
 
     # broadcast the transaction
