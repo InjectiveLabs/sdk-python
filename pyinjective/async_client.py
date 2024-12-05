@@ -3214,22 +3214,41 @@ class AsyncClient:
     # ------------------------------
     # region Permissions module
 
-    async def fetch_all_permissions_namespaces(self) -> Dict[str, Any]:
-        return await self.permissions_api.fetch_all_namespaces()
+    async def fetch_permissions_namespace_denoms(self) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_namespace_denoms()
 
-    async def fetch_permissions_namespace_by_denom(
-        self, denom: str, include_roles: Optional[bool] = None
-    ) -> Dict[str, Any]:
-        return await self.permissions_api.fetch_namespace_by_denom(denom=denom, include_roles=include_roles)
+    async def fetch_permissions_namespaces(self) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_namespaces()
 
-    async def fetch_permissions_address_roles(self, denom: str, address: str) -> Dict[str, Any]:
-        return await self.permissions_api.fetch_address_roles(denom=denom, address=address)
+    async def fetch_permissions_namespace(self, denom: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_namespace(denom=denom)
 
-    async def fetch_permissions_addresses_by_role(self, denom: str, role: str) -> Dict[str, Any]:
-        return await self.permissions_api.fetch_addresses_by_role(denom=denom, role=role)
+    async def fetch_permissions_roles_by_actor(self, denom: str, actor: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_roles_by_actor(denom=denom, actor=actor)
 
-    async def fetch_permissions_vouchers_for_address(self, address: str) -> Dict[str, Any]:
-        return await self.permissions_api.fetch_vouchers_for_address(address=address)
+    async def fetch_permissions_actors_by_role(self, denom: str, role: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_actors_by_role(denom=denom, role=role)
+
+    async def fetch_permissions_role_managers(self, denom: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_role_managers(denom=denom)
+
+    async def fetch_permissions_role_manager(self, denom: str, manager: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_role_manager(denom=denom, manager=manager)
+
+    async def fetch_permissions_policy_statuses(self, denom: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_policy_statuses(denom=denom)
+
+    async def fetch_permissions_policy_manager_capabilities(self, denom: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_policy_manager_capabilities(denom=denom)
+
+    async def fetch_permissions_vouchers(self, denom: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_vouchers(denom=denom)
+
+    async def fetch_permissions_voucher(self, denom: str, address: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_voucher(denom=denom, address=address)
+
+    async def fetch_permissions_module_state(self) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_permissions_module_state()
 
     # endregion
 

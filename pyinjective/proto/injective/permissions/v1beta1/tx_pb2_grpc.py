@@ -25,25 +25,15 @@ class MsgStub(object):
                 request_serializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgCreateNamespace.SerializeToString,
                 response_deserializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgCreateNamespaceResponse.FromString,
                 _registered_method=True)
-        self.DeleteNamespace = channel.unary_unary(
-                '/injective.permissions.v1beta1.Msg/DeleteNamespace',
-                request_serializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgDeleteNamespace.SerializeToString,
-                response_deserializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgDeleteNamespaceResponse.FromString,
-                _registered_method=True)
         self.UpdateNamespace = channel.unary_unary(
                 '/injective.permissions.v1beta1.Msg/UpdateNamespace',
                 request_serializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgUpdateNamespace.SerializeToString,
                 response_deserializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgUpdateNamespaceResponse.FromString,
                 _registered_method=True)
-        self.UpdateNamespaceRoles = channel.unary_unary(
-                '/injective.permissions.v1beta1.Msg/UpdateNamespaceRoles',
-                request_serializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgUpdateNamespaceRoles.SerializeToString,
-                response_deserializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgUpdateNamespaceRolesResponse.FromString,
-                _registered_method=True)
-        self.RevokeNamespaceRoles = channel.unary_unary(
-                '/injective.permissions.v1beta1.Msg/RevokeNamespaceRoles',
-                request_serializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgRevokeNamespaceRoles.SerializeToString,
-                response_deserializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgRevokeNamespaceRolesResponse.FromString,
+        self.UpdateActorRoles = channel.unary_unary(
+                '/injective.permissions.v1beta1.Msg/UpdateActorRoles',
+                request_serializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgUpdateActorRoles.SerializeToString,
+                response_deserializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgUpdateActorRolesResponse.FromString,
                 _registered_method=True)
         self.ClaimVoucher = channel.unary_unary(
                 '/injective.permissions.v1beta1.Msg/ClaimVoucher',
@@ -68,25 +58,13 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def DeleteNamespace(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def UpdateNamespace(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def UpdateNamespaceRoles(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def RevokeNamespaceRoles(self, request, context):
+    def UpdateActorRoles(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -111,25 +89,15 @@ def add_MsgServicer_to_server(servicer, server):
                     request_deserializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgCreateNamespace.FromString,
                     response_serializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgCreateNamespaceResponse.SerializeToString,
             ),
-            'DeleteNamespace': grpc.unary_unary_rpc_method_handler(
-                    servicer.DeleteNamespace,
-                    request_deserializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgDeleteNamespace.FromString,
-                    response_serializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgDeleteNamespaceResponse.SerializeToString,
-            ),
             'UpdateNamespace': grpc.unary_unary_rpc_method_handler(
                     servicer.UpdateNamespace,
                     request_deserializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgUpdateNamespace.FromString,
                     response_serializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgUpdateNamespaceResponse.SerializeToString,
             ),
-            'UpdateNamespaceRoles': grpc.unary_unary_rpc_method_handler(
-                    servicer.UpdateNamespaceRoles,
-                    request_deserializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgUpdateNamespaceRoles.FromString,
-                    response_serializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgUpdateNamespaceRolesResponse.SerializeToString,
-            ),
-            'RevokeNamespaceRoles': grpc.unary_unary_rpc_method_handler(
-                    servicer.RevokeNamespaceRoles,
-                    request_deserializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgRevokeNamespaceRoles.FromString,
-                    response_serializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgRevokeNamespaceRolesResponse.SerializeToString,
+            'UpdateActorRoles': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateActorRoles,
+                    request_deserializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgUpdateActorRoles.FromString,
+                    response_serializer=injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgUpdateActorRolesResponse.SerializeToString,
             ),
             'ClaimVoucher': grpc.unary_unary_rpc_method_handler(
                     servicer.ClaimVoucher,
@@ -203,33 +171,6 @@ class Msg(object):
             _registered_method=True)
 
     @staticmethod
-    def DeleteNamespace(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective.permissions.v1beta1.Msg/DeleteNamespace',
-            injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgDeleteNamespace.SerializeToString,
-            injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgDeleteNamespaceResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
     def UpdateNamespace(request,
             target,
             options=(),
@@ -257,7 +198,7 @@ class Msg(object):
             _registered_method=True)
 
     @staticmethod
-    def UpdateNamespaceRoles(request,
+    def UpdateActorRoles(request,
             target,
             options=(),
             channel_credentials=None,
@@ -270,36 +211,9 @@ class Msg(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/injective.permissions.v1beta1.Msg/UpdateNamespaceRoles',
-            injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgUpdateNamespaceRoles.SerializeToString,
-            injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgUpdateNamespaceRolesResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def RevokeNamespaceRoles(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective.permissions.v1beta1.Msg/RevokeNamespaceRoles',
-            injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgRevokeNamespaceRoles.SerializeToString,
-            injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgRevokeNamespaceRolesResponse.FromString,
+            '/injective.permissions.v1beta1.Msg/UpdateActorRoles',
+            injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgUpdateActorRoles.SerializeToString,
+            injective_dot_permissions_dot_v1beta1_dot_tx__pb2.MsgUpdateActorRolesResponse.FromString,
             options,
             channel_credentials,
             insecure,

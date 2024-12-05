@@ -32,6 +32,7 @@ async def main() -> None:
         name="Injective Test Token",
         symbol="INJTEST",
         decimals=18,
+        allow_admin_burn=False,
     )
 
     # broadcast the transaction

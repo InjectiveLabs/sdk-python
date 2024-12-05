@@ -8,8 +8,9 @@ async def main() -> None:
     network = Network.testnet()
     client = AsyncClient(network)
 
-    namespaces = await client.fetch_all_permissions_namespaces()
-    print(namespaces)
+    denom = "inj"
+    policy_statuses = await client.fetch_permissions_policy_statuses(denom=denom)
+    print(policy_statuses)
 
 
 if __name__ == "__main__":

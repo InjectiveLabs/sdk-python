@@ -125,6 +125,8 @@ def ape_usdt_spot_market_meta():
         min_notional="5",
         admin="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
         admin_permissions=1,
+        base_decimals=18,
+        quote_decimals=6,
     )
 
     return market
@@ -148,6 +150,8 @@ def inj_usdt_spot_market_meta(inj_token_meta, usdt_token_meta):
         min_notional="5",
         admin="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
         admin_permissions=1,
+        base_decimals=18,
+        quote_decimals=6,
     )
 
     return market
@@ -177,6 +181,7 @@ def btc_usdt_perp_market_meta(usdt_perp_token_meta):
         min_notional="5",
         admin="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
         admin_permissions=1,
+        quote_decimals=6,
     )
     market_info = exchange_pb.PerpetualMarketInfo(
         market_id="0x4ca0f92fc28be0c9761326016b5a1a2177dd6375558365116b5bdda9abc229ce",
@@ -233,6 +238,7 @@ def first_match_bet_market_meta(inj_usdt_spot_market_meta):
         settlement_price="1",
         min_notional="1",
         admin_permissions=1,
+        quote_decimals=6,
     )
 
     return market

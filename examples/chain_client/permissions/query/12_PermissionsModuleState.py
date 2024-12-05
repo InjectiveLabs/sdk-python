@@ -8,10 +8,8 @@ async def main() -> None:
     network = Network.testnet()
     client = AsyncClient(network)
 
-    denom = "inj"
-    address = "inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr"
-    roles = await client.fetch_permissions_address_roles(denom=denom, address=address)
-    print(roles)
+    state = await client.fetch_permissions_module_state()
+    print(state)
 
 
 if __name__ == "__main__":

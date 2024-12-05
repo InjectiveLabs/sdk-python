@@ -8,9 +8,9 @@ async def main() -> None:
     network = Network.testnet()
     client = AsyncClient(network)
 
-    address = "inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr"
-    addresses = await client.fetch_permissions_vouchers_for_address(address=address)
-    print(addresses)
+    denom = "inj"
+    vouchers = await client.fetch_permissions_vouchers(denom=denom)
+    print(vouchers)
 
 
 if __name__ == "__main__":

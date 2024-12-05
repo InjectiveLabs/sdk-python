@@ -26,20 +26,30 @@ async def main() -> None:
     pub_key = priv_key.to_public_key()
     address = pub_key.to_address()
 
-    blocked_address = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
     denom = "factory/inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r/inj_test"
-    role1 = composer.permissions_role(
-        role=composer.DEFAULT_PERMISSIONS_EVERYONE_ROLE,
-        permissions=composer.RECEIVE_ACTION_PERMISSION,
-    )
-    role2 = composer.permissions_role(role="blacklisted", permissions=composer.UNDEFINED_ACTION_PERMISSION)
-    address_role1 = composer.permissions_address_roles(address=blocked_address, roles=["blacklisted"])
 
-    message = composer.msg_update_namespace_roles(
+    role_actors1 = composer.permissions_role_actors(
+        role="admin",
+        actors=["inj1actoraddress1", "inj1actoraddress2"],
+    )
+    role_actors2 = composer.permissions_role_actors(
+        role="user",
+        actors=["inj1actoraddress3"],
+    )
+    role_actors3 = composer.permissions_role_actors(
+        role="user",
+        actors=["inj1actoraddress4"],
+    )
+    role_actors4 = composer.permissions_role_actors(
+        role="admin",
+        actors=["inj1actoraddress5"],
+    )
+
+    message = composer.msg_update_actor_roles(
         sender=address.to_acc_bech32(),
-        namespace_denom=denom,
-        role_permissions=[role1, role2],
-        address_roles=[address_role1],
+        denom=denom,
+        role_actors_to_add=[role_actors1, role_actors2],
+        role_actors_to_revoke=[role_actors3, role_actors4],
     )
 
     # broadcast the transaction

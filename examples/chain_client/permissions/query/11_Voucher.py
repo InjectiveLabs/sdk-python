@@ -9,9 +9,9 @@ async def main() -> None:
     client = AsyncClient(network)
 
     denom = "inj"
-    role = "roleName"
-    addresses = await client.fetch_permissions_addresses_by_role(denom=denom, role=role)
-    print(addresses)
+    address = "inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr"
+    voucher = await client.fetch_permissions_voucher(denom=denom, address=address)
+    print(voucher)
 
 
 if __name__ == "__main__":

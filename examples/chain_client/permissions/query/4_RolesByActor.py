@@ -9,8 +9,9 @@ async def main() -> None:
     client = AsyncClient(network)
 
     denom = "inj"
-    namespace = await client.fetch_permissions_namespace_by_denom(denom=denom, include_roles=True)
-    print(namespace)
+    actor = "actor"
+    roles = await client.fetch_permissions_roles_by_actor(denom=denom, actor=actor)
+    print(roles)
 
 
 if __name__ == "__main__":
