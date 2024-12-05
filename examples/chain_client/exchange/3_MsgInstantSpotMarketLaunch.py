@@ -43,6 +43,8 @@ async def main() -> None:
         min_price_tick_size=Decimal("0.001"),
         min_quantity_tick_size=Decimal("0.01"),
         min_notional=Decimal("1"),
+        base_decimals=18,
+        quote_decimals=6,
     )
 
     # broadcast the transaction
