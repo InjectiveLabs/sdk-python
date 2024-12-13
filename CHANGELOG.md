@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.8.2] - 2024-12-13
+### Changed
+- Updated `protobuf` dependency version to make it more flexible
 
 ## [1.8.1] - 2024-12-04
 ### Changed
