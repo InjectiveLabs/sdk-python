@@ -4,7 +4,7 @@ managed:
 plugins:
   - remote: buf.build/protocolbuffers/python:v26.1
     out: ./pyinjective/proto/
-  - remote: buf.build/grpc/python:v1.65.4
+  - remote: buf.build/grpc/python:v1.65.5
     out: ./pyinjective/proto/
 inputs:
   - module: buf.build/cosmos/cosmos-proto
