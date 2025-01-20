@@ -26,7 +26,6 @@ class ConfigurableDerivativeQueryServicer(exchange_derivative_grpc.InjectiveDeri
         self.subaccount_orders_list_responses = deque()
         self.subaccount_trades_list_responses = deque()
         self.orders_history_responses = deque()
-
         self.stream_market_responses = deque()
         self.stream_orderbook_v2_responses = deque()
         self.stream_orderbook_update_responses = deque()
@@ -35,6 +34,7 @@ class ConfigurableDerivativeQueryServicer(exchange_derivative_grpc.InjectiveDeri
         self.stream_trades_responses = deque()
         self.stream_trades_v2_responses = deque()
         self.stream_orders_history_responses = deque()
+        self.stream_positions_v2_responses = deque()
 
     async def Markets(self, request: exchange_derivative_pb.MarketsRequest, context=None, metadata=None):
         return self.markets_responses.pop()
@@ -137,4 +137,10 @@ class ConfigurableDerivativeQueryServicer(exchange_derivative_grpc.InjectiveDeri
         self, request: exchange_derivative_pb.StreamOrdersHistoryRequest, context=None, metadata=None
     ):
         for event in self.stream_orders_history_responses:
+            yield event
+
+    async def StreamPositionsV2(
+        self, request: exchange_derivative_pb.StreamPositionsV2Request, context=None, metadata=None
+    ):
+        for event in self.stream_positions_v2_responses:
             yield event

@@ -89,6 +89,7 @@ class IndexerGrpcSpotApi:
         trade_id: Optional[str] = None,
         account_address: Optional[str] = None,
         cid: Optional[str] = None,
+        fee_recipient: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
         pagination = pagination or PaginationOption()
@@ -105,6 +106,7 @@ class IndexerGrpcSpotApi:
             trade_id=trade_id,
             account_address=account_address,
             cid=cid,
+            fee_recipient=fee_recipient,
         )
 
         response = await self._execute_call(call=self._stub.Trades, request=request)
@@ -215,6 +217,7 @@ class IndexerGrpcSpotApi:
         trade_id: Optional[str] = None,
         account_address: Optional[str] = None,
         cid: Optional[str] = None,
+        fee_recipient: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
         pagination = pagination or PaginationOption()
@@ -231,6 +234,7 @@ class IndexerGrpcSpotApi:
             trade_id=trade_id,
             account_address=account_address,
             cid=cid,
+            fee_recipient=fee_recipient,
         )
 
         response = await self._execute_call(call=self._stub.TradesV2, request=request)

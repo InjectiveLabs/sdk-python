@@ -6,7 +6,7 @@ from pyinjective.proto.injective.tokenfactory.v1beta1 import tx_pb2 as injective
 
 
 class MsgStub(object):
-    """Msg defines the tokefactory module's gRPC message service.
+    """Msg defines the tokenfactory module's gRPC message service.
     """
 
     def __init__(self, channel):
@@ -48,7 +48,7 @@ class MsgStub(object):
 
 
 class MsgServicer(object):
-    """Msg defines the tokefactory module's gRPC message service.
+    """Msg defines the tokenfactory module's gRPC message service.
     """
 
     def CreateDenom(self, request, context):
@@ -129,7 +129,7 @@ def add_MsgServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class Msg(object):
-    """Msg defines the tokefactory module's gRPC message service.
+    """Msg defines the tokenfactory module's gRPC message service.
     """
 
     @staticmethod

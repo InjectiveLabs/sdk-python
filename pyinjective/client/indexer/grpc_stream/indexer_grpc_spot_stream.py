@@ -119,6 +119,7 @@ class IndexerGrpcSpotStream:
         trade_id: Optional[str] = None,
         account_address: Optional[str] = None,
         cid: Optional[str] = None,
+        fee_recipient: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ):
         pagination = pagination or PaginationOption()
@@ -135,6 +136,7 @@ class IndexerGrpcSpotStream:
             trade_id=trade_id,
             account_address=account_address,
             cid=cid,
+            fee_recipient=fee_recipient,
         )
 
         await self._assistant.listen_stream(
@@ -187,6 +189,7 @@ class IndexerGrpcSpotStream:
         trade_id: Optional[str] = None,
         account_address: Optional[str] = None,
         cid: Optional[str] = None,
+        fee_recipient: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ):
         pagination = pagination or PaginationOption()
@@ -203,6 +206,7 @@ class IndexerGrpcSpotStream:
             trade_id=trade_id,
             account_address=account_address,
             cid=cid,
+            fee_recipient=fee_recipient,
         )
 
         await self._assistant.listen_stream(

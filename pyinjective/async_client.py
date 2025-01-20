@@ -1005,6 +1005,24 @@ class AsyncClient:
             market_id=market_id,
         )
 
+    async def fetch_l3_derivative_orderbook(self, market_id: str) -> Dict[str, Any]:
+        return await self.chain_exchange_api.fetch_l3_derivative_orderbook(market_id=market_id)
+
+    async def fetch_l3_spot_orderbook(self, market_id: str) -> Dict[str, Any]:
+        return await self.chain_exchange_api.fetch_l3_spot_orderbook(market_id=market_id)
+
+    async def fetch_market_balance(self, market_id: str) -> Dict[str, Any]:
+        return await self.chain_exchange_api.fetch_market_balance(market_id=market_id)
+
+    async def fetch_market_balances(self) -> Dict[str, Any]:
+        return await self.chain_exchange_api.fetch_market_balances()
+
+    async def fetch_denom_min_notional(self, denom: str) -> Dict[str, Any]:
+        return await self.chain_exchange_api.fetch_denom_min_notional(denom=denom)
+
+    async def fetch_denom_min_notionals(self) -> Dict[str, Any]:
+        return await self.chain_exchange_api.fetch_denom_min_notionals()
+
     # Injective Exchange client methods
 
     # Auction RPC
@@ -1050,6 +1068,9 @@ class AsyncClient:
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
         )
+
+    async def fetch_inj_burnt(self) -> Dict[str, Any]:
+        return await self.exchange_auction_api.fetch_inj_burnt()
 
     # Meta RPC
 
@@ -1973,6 +1994,7 @@ class AsyncClient:
         trade_id: Optional[str] = None,
         account_address: Optional[str] = None,
         cid: Optional[str] = None,
+        fee_recipient: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
         return await self.exchange_spot_api.fetch_trades_v2(
@@ -1984,6 +2006,7 @@ class AsyncClient:
             trade_id=trade_id,
             account_address=account_address,
             cid=cid,
+            fee_recipient=fee_recipient,
             pagination=pagination,
         )
 
@@ -2209,6 +2232,7 @@ class AsyncClient:
         trade_id: Optional[str] = None,
         account_address: Optional[str] = None,
         cid: Optional[str] = None,
+        fee_recipient: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ):
         await self.exchange_spot_stream_api.stream_trades_v2(
@@ -2223,6 +2247,7 @@ class AsyncClient:
             trade_id=trade_id,
             account_address=account_address,
             cid=cid,
+            fee_recipient=fee_recipient,
             pagination=pagination,
         )
 
@@ -2505,6 +2530,7 @@ class AsyncClient:
         trade_id: Optional[str] = None,
         account_address: Optional[str] = None,
         cid: Optional[str] = None,
+        fee_recipient: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
         return await self.exchange_derivative_api.fetch_trades_v2(
@@ -2516,6 +2542,7 @@ class AsyncClient:
             trade_id=trade_id,
             account_address=account_address,
             cid=cid,
+            fee_recipient=fee_recipient,
             pagination=pagination,
         )
 
@@ -2670,6 +2697,7 @@ class AsyncClient:
         trade_id: Optional[str] = None,
         account_address: Optional[str] = None,
         cid: Optional[str] = None,
+        fee_recipient: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ):
         return await self.exchange_derivative_stream_api.stream_trades_v2(
@@ -2684,6 +2712,7 @@ class AsyncClient:
             trade_id=trade_id,
             account_address=account_address,
             cid=cid,
+            fee_recipient=fee_recipient,
             pagination=pagination,
         )
 
@@ -2745,12 +2774,54 @@ class AsyncClient:
         market_ids: Optional[List[str]] = None,
         subaccount_ids: Optional[List[str]] = None,
     ):
+        """
+        This method is deprecated and will be removed soon. Please use `listen_derivative_positions_v2_updates` instead.
+        """
+        warn(
+            "This method is deprecated. Use listen_derivative_positions_v2_updates instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         await self.exchange_derivative_stream_api.stream_positions(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
             market_ids=market_ids,
             subaccount_ids=subaccount_ids,
+        )
+
+    async def listen_derivative_positions_v2_updates(
+        self,
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+        subaccount_id: Optional[str] = None,
+        market_id: Optional[str] = None,
+        market_ids: Optional[List[str]] = None,
+        subaccount_ids: Optional[List[str]] = None,
+        account_address: Optional[str] = None,
+    ):
+        """
+        Listen to derivative positions V2 updates.
+
+        :param callback: Callback function to process each update
+        :param on_end_callback: Optional callback when the stream ends
+        :param on_status_callback: Optional callback for handling stream status
+        :param subaccount_id: Optional subaccount ID to filter positions
+        :param market_id: Optional market ID to filter positions
+        :param market_ids: Optional list of market IDs to filter positions
+        :param subaccount_ids: Optional list of subaccount IDs to filter positions
+        :param account_address: Optional account address to filter positions
+        """
+        await self.indexer_derivative_stream.stream_positions_v2(
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+            subaccount_id=subaccount_id,
+            market_id=market_id,
+            market_ids=market_ids,
+            subaccount_ids=subaccount_ids,
+            account_address=account_address,
         )
 
     async def get_derivative_liquidable_positions(self, **kwargs):
@@ -3214,22 +3285,41 @@ class AsyncClient:
     # ------------------------------
     # region Permissions module
 
-    async def fetch_all_permissions_namespaces(self) -> Dict[str, Any]:
-        return await self.permissions_api.fetch_all_namespaces()
+    async def fetch_permissions_namespace_denoms(self) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_namespace_denoms()
 
-    async def fetch_permissions_namespace_by_denom(
-        self, denom: str, include_roles: Optional[bool] = None
-    ) -> Dict[str, Any]:
-        return await self.permissions_api.fetch_namespace_by_denom(denom=denom, include_roles=include_roles)
+    async def fetch_permissions_namespaces(self) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_namespaces()
 
-    async def fetch_permissions_address_roles(self, denom: str, address: str) -> Dict[str, Any]:
-        return await self.permissions_api.fetch_address_roles(denom=denom, address=address)
+    async def fetch_permissions_namespace(self, denom: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_namespace(denom=denom)
 
-    async def fetch_permissions_addresses_by_role(self, denom: str, role: str) -> Dict[str, Any]:
-        return await self.permissions_api.fetch_addresses_by_role(denom=denom, role=role)
+    async def fetch_permissions_roles_by_actor(self, denom: str, actor: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_roles_by_actor(denom=denom, actor=actor)
 
-    async def fetch_permissions_vouchers_for_address(self, address: str) -> Dict[str, Any]:
-        return await self.permissions_api.fetch_vouchers_for_address(address=address)
+    async def fetch_permissions_actors_by_role(self, denom: str, role: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_actors_by_role(denom=denom, role=role)
+
+    async def fetch_permissions_role_managers(self, denom: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_role_managers(denom=denom)
+
+    async def fetch_permissions_role_manager(self, denom: str, manager: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_role_manager(denom=denom, manager=manager)
+
+    async def fetch_permissions_policy_statuses(self, denom: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_policy_statuses(denom=denom)
+
+    async def fetch_permissions_policy_manager_capabilities(self, denom: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_policy_manager_capabilities(denom=denom)
+
+    async def fetch_permissions_vouchers(self, denom: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_vouchers(denom=denom)
+
+    async def fetch_permissions_voucher(self, denom: str, address: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_voucher(denom=denom, address=address)
+
+    async def fetch_permissions_module_state(self) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_permissions_module_state()
 
     # endregion
 

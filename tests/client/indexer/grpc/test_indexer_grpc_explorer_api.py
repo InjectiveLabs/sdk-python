@@ -376,6 +376,12 @@ class TestIndexerGrpcExplorerApi:
         self,
         explorer_servicer,
     ):
+        signature = exchange_explorer_pb.Signature(
+            pubkey="02c33c539e2aea9f97137e8168f6e22f57b829876823fa04b878a2b7c2010465d9",
+            address="inj1phd706jqzd9wznkk5hgsfkrc8jqxv0kmlj0kex",
+            sequence=223460,
+            signature="gFXPJ5QENzq9SUHshE8g++aRLIlRCRVcOsYq+EOr3T4QgAAs5bVHf8NhugBjJP9B+AfQjQNNneHXPF9dEp4Uehs=",
+        )
         tx_data = exchange_explorer_pb.TxData(
             id="tx id",
             block_number=5825046,
@@ -384,6 +390,7 @@ class TestIndexerGrpcExplorerApi:
             messages=b"null",
             tx_number=994979,
             tx_msg_types=b'["/injective.exchange.v1beta1.MsgCreateBinaryOptionsLimitOrder"]',
+            signatures=[signature],
         )
         block_info = exchange_explorer_pb.BlockDetailInfo(
             height=19034578,
@@ -435,6 +442,14 @@ class TestIndexerGrpcExplorerApi:
                         "txMsgTypes": base64.b64encode(tx_data.tx_msg_types).decode(),
                         "logs": base64.b64encode(tx_data.logs).decode(),
                         "claimIds": tx_data.claim_ids,
+                        "signatures": [
+                            {
+                                "pubkey": signature.pubkey,
+                                "address": signature.address,
+                                "sequence": str(signature.sequence),
+                                "signature": signature.signature,
+                            }
+                        ],
                     }
                 ],
                 "timestamp": block_info.timestamp,
@@ -645,6 +660,12 @@ class TestIndexerGrpcExplorerApi:
         code = 5
         claim_id = 100
 
+        signature = exchange_explorer_pb.Signature(
+            pubkey="02c33c539e2aea9f97137e8168f6e22f57b829876823fa04b878a2b7c2010465d9",
+            address="inj1phd706jqzd9wznkk5hgsfkrc8jqxv0kmlj0kex",
+            sequence=223460,
+            signature="gFXPJ5QENzq9SUHshE8g++aRLIlRCRVcOsYq+EOr3T4QgAAs5bVHf8NhugBjJP9B+AfQjQNNneHXPF9dEp4Uehs=",
+        )
         tx_data = exchange_explorer_pb.TxData(
             id="test id",
             block_number=18138926,
@@ -676,6 +697,7 @@ class TestIndexerGrpcExplorerApi:
             b']},{"type":"message","attributes":['
             b'{"key":"sender","value":"inj1phd706jqzd9wznkk5hgsfkrc8jqxv0kmlj0kex"}]}]}]',
             claim_ids=[claim_id],
+            signatures=[signature],
         )
 
         paging = exchange_explorer_pb.Paging(total=5, to=5, count_by_subaccount=10, next=["next1", "next2"])
@@ -720,6 +742,14 @@ class TestIndexerGrpcExplorerApi:
                     "txMsgTypes": base64.b64encode(tx_data.tx_msg_types).decode(),
                     "logs": base64.b64encode(tx_data.logs).decode(),
                     "claimIds": [str(claim_id)],
+                    "signatures": [
+                        {
+                            "pubkey": signature.pubkey,
+                            "address": signature.address,
+                            "sequence": str(signature.sequence),
+                            "signature": signature.signature,
+                        }
+                    ],
                 },
             ],
             "paging": {

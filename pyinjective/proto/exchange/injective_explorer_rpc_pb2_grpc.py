@@ -125,6 +125,11 @@ class InjectiveExplorerRPCStub(object):
                 request_serializer=exchange_dot_injective__explorer__rpc__pb2.StreamBlocksRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__explorer__rpc__pb2.StreamBlocksResponse.FromString,
                 _registered_method=True)
+        self.GetStats = channel.unary_unary(
+                '/injective_explorer_rpc.InjectiveExplorerRPC/GetStats',
+                request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetStatsRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetStatsResponse.FromString,
+                _registered_method=True)
 
 
 class InjectiveExplorerRPCServicer(object):
@@ -289,6 +294,13 @@ class InjectiveExplorerRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetStats(self, request, context):
+        """GetStats returns global exchange statistics in the last 24hs
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_InjectiveExplorerRPCServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -401,6 +413,11 @@ def add_InjectiveExplorerRPCServicer_to_server(servicer, server):
                     servicer.StreamBlocks,
                     request_deserializer=exchange_dot_injective__explorer__rpc__pb2.StreamBlocksRequest.FromString,
                     response_serializer=exchange_dot_injective__explorer__rpc__pb2.StreamBlocksResponse.SerializeToString,
+            ),
+            'GetStats': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetStats,
+                    request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetStatsRequest.FromString,
+                    response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetStatsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -998,6 +1015,33 @@ class InjectiveExplorerRPC(object):
             '/injective_explorer_rpc.InjectiveExplorerRPC/StreamBlocks',
             exchange_dot_injective__explorer__rpc__pb2.StreamBlocksRequest.SerializeToString,
             exchange_dot_injective__explorer__rpc__pb2.StreamBlocksResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetStats(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_explorer_rpc.InjectiveExplorerRPC/GetStats',
+            exchange_dot_injective__explorer__rpc__pb2.GetStatsRequest.SerializeToString,
+            exchange_dot_injective__explorer__rpc__pb2.GetStatsResponse.FromString,
             options,
             channel_credentials,
             insecure,

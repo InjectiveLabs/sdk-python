@@ -25,6 +25,11 @@ class InjectiveExchangeRPCStub(object):
                 request_serializer=exchange_dot_injective__exchange__rpc__pb2.PrepareTxRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__exchange__rpc__pb2.PrepareTxResponse.FromString,
                 _registered_method=True)
+        self.PrepareEip712 = channel.unary_unary(
+                '/injective_exchange_rpc.InjectiveExchangeRPC/PrepareEip712',
+                request_serializer=exchange_dot_injective__exchange__rpc__pb2.PrepareEip712Request.SerializeToString,
+                response_deserializer=exchange_dot_injective__exchange__rpc__pb2.PrepareEip712Response.FromString,
+                _registered_method=True)
         self.BroadcastTx = channel.unary_unary(
                 '/injective_exchange_rpc.InjectiveExchangeRPC/BroadcastTx',
                 request_serializer=exchange_dot_injective__exchange__rpc__pb2.BroadcastTxRequest.SerializeToString,
@@ -60,6 +65,13 @@ class InjectiveExchangeRPCServicer(object):
 
     def PrepareTx(self, request, context):
         """PrepareTx generates a Web3-signable body for a Cosmos transaction
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def PrepareEip712(self, request, context):
+        """prepareEip712 generates EIP712 for an Injective Message
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -105,6 +117,11 @@ def add_InjectiveExchangeRPCServicer_to_server(servicer, server):
                     servicer.PrepareTx,
                     request_deserializer=exchange_dot_injective__exchange__rpc__pb2.PrepareTxRequest.FromString,
                     response_serializer=exchange_dot_injective__exchange__rpc__pb2.PrepareTxResponse.SerializeToString,
+            ),
+            'PrepareEip712': grpc.unary_unary_rpc_method_handler(
+                    servicer.PrepareEip712,
+                    request_deserializer=exchange_dot_injective__exchange__rpc__pb2.PrepareEip712Request.FromString,
+                    response_serializer=exchange_dot_injective__exchange__rpc__pb2.PrepareEip712Response.SerializeToString,
             ),
             'BroadcastTx': grpc.unary_unary_rpc_method_handler(
                     servicer.BroadcastTx,
@@ -182,6 +199,33 @@ class InjectiveExchangeRPC(object):
             '/injective_exchange_rpc.InjectiveExchangeRPC/PrepareTx',
             exchange_dot_injective__exchange__rpc__pb2.PrepareTxRequest.SerializeToString,
             exchange_dot_injective__exchange__rpc__pb2.PrepareTxResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def PrepareEip712(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_exchange_rpc.InjectiveExchangeRPC/PrepareEip712',
+            exchange_dot_injective__exchange__rpc__pb2.PrepareEip712Request.SerializeToString,
+            exchange_dot_injective__exchange__rpc__pb2.PrepareEip712Response.FromString,
             options,
             channel_credentials,
             insecure,

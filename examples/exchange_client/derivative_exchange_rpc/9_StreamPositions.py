@@ -27,7 +27,7 @@ async def main() -> None:
     subaccount_ids = ["0xea98e3aa091a6676194df40ac089e40ab4604bf9000000000000000000000000"]
 
     task = asyncio.get_event_loop().create_task(
-        client.listen_derivative_positions_updates(
+        client.listen_derivative_positions_v2_updates(
             callback=positions_event_processor,
             on_end_callback=stream_closed_processor,
             on_status_callback=stream_error_processor,

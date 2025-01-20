@@ -533,7 +533,7 @@ class TestIndexerGrpcDerivativeStream:
         error_callback = lambda exception: pytest.fail(str(exception))
         end_callback = lambda: end_event.set()
 
-        asyncio.get_event_loop().create_task(
+        task = asyncio.get_event_loop().create_task(
             api.stream_trades(
                 callback=callback,
                 on_end_callback=end_callback,
@@ -546,6 +546,7 @@ class TestIndexerGrpcDerivativeStream:
                 trade_id="7959737_3_0",
                 account_address="inj1clw20s2uxeyxtam6f7m84vgae92s9eh7vygagt",
                 cid=trade.cid,
+                fee_recipient=trade.fee_recipient,
                 pagination=PaginationOption(
                     skip=0,
                     limit=100,
@@ -581,6 +582,7 @@ class TestIndexerGrpcDerivativeStream:
 
         first_update = await asyncio.wait_for(trade_updates.get(), timeout=1)
 
+        task.cancel("Test finishing")
         assert first_update == expected_update
         assert end_event.is_set()
 
@@ -727,7 +729,7 @@ class TestIndexerGrpcDerivativeStream:
         error_callback = lambda exception: pytest.fail(str(exception))
         end_callback = lambda: end_event.set()
 
-        asyncio.get_event_loop().create_task(
+        task = asyncio.get_event_loop().create_task(
             api.stream_trades_v2(
                 callback=callback,
                 on_end_callback=end_callback,
@@ -740,6 +742,7 @@ class TestIndexerGrpcDerivativeStream:
                 trade_id="7959737_3_0",
                 account_address="inj1clw20s2uxeyxtam6f7m84vgae92s9eh7vygagt",
                 cid=trade.cid,
+                fee_recipient=trade.fee_recipient,
                 pagination=PaginationOption(
                     skip=0,
                     limit=100,
@@ -774,6 +777,81 @@ class TestIndexerGrpcDerivativeStream:
         }
 
         first_update = await asyncio.wait_for(trade_updates.get(), timeout=1)
+
+        task.cancel("Test finishing")
+        assert first_update == expected_update
+        assert end_event.is_set()
+
+    @pytest.mark.asyncio
+    async def test_stream_positions_v2(
+        self,
+        derivative_servicer,
+    ):
+        timestamp = 1672218001897
+
+        position = exchange_derivative_pb.DerivativePositionV2(
+            ticker="INJ/USDT PERP",
+            market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+            subaccount_id="0x1383dabde57e5aed55960ee43e158ae7118057d3000000000000000000000000",
+            direction="short",
+            quantity="0.070294765766186502",
+            entry_price="15980281.340438795311756847",
+            margin="561065.540974",
+            liquidation_price="23492052.224777",
+            mark_price="16197000",
+            updated_at=1700161202147,
+            denom="inj",
+        )
+
+        derivative_servicer.stream_positions_v2_responses.append(
+            exchange_derivative_pb.StreamPositionsV2Response(
+                position=position,
+                timestamp=timestamp,
+            )
+        )
+
+        api = self._api_instance(servicer=derivative_servicer)
+
+        positions = asyncio.Queue()
+        end_event = asyncio.Event()
+
+        callback = lambda update: positions.put_nowait(update)
+        error_callback = lambda exception: pytest.fail(str(exception))
+        end_callback = lambda: end_event.set()
+
+        stream_task = asyncio.get_event_loop().create_task(
+            api.stream_positions_v2(
+                callback=callback,
+                on_end_callback=end_callback,
+                on_status_callback=error_callback,
+                market_ids=[position.market_id],
+                subaccount_ids=[position.subaccount_id],
+                subaccount_id=position.subaccount_id,
+                market_id=position.market_id,
+                account_address="inj1address",
+            )
+        )
+        expected_update = {
+            "position": {
+                "ticker": position.ticker,
+                "marketId": position.market_id,
+                "subaccountId": position.subaccount_id,
+                "direction": position.direction,
+                "quantity": position.quantity,
+                "entryPrice": position.entry_price,
+                "margin": position.margin,
+                "liquidationPrice": position.liquidation_price,
+                "markPrice": position.mark_price,
+                "updatedAt": str(position.updated_at),
+                "denom": position.denom,
+            },
+            "timestamp": str(timestamp),
+        }
+
+        first_update = await asyncio.wait_for(positions.get(), timeout=1)
+
+        # Optional: cancel the task if needed
+        stream_task.cancel()
 
         assert first_update == expected_update
         assert end_event.is_set()

@@ -15,7 +15,7 @@ _sym_db = _symbol_database.Default()
 from google.protobuf import duration_pb2 as google_dot_protobuf_dot_duration__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1egoogle/rpc/error_details.proto\x12\ngoogle.rpc\x1a\x1egoogle/protobuf/duration.proto\"\xb9\x01\n\tErrorInfo\x12\x16\n\x06reason\x18\x01 \x01(\tR\x06reason\x12\x16\n\x06\x64omain\x18\x02 \x01(\tR\x06\x64omain\x12?\n\x08metadata\x18\x03 \x03(\x0b\x32#.google.rpc.ErrorInfo.MetadataEntryR\x08metadata\x1a;\n\rMetadataEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n\x05value\x18\x02 \x01(\tR\x05value:\x02\x38\x01\"G\n\tRetryInfo\x12:\n\x0bretry_delay\x18\x01 \x01(\x0b\x32\x19.google.protobuf.DurationR\nretryDelay\"H\n\tDebugInfo\x12#\n\rstack_entries\x18\x01 \x03(\tR\x0cstackEntries\x12\x16\n\x06\x64\x65tail\x18\x02 \x01(\tR\x06\x64\x65tail\"\x9b\x01\n\x0cQuotaFailure\x12\x42\n\nviolations\x18\x01 \x03(\x0b\x32\".google.rpc.QuotaFailure.ViolationR\nviolations\x1aG\n\tViolation\x12\x18\n\x07subject\x18\x01 \x01(\tR\x07subject\x12 \n\x0b\x64\x65scription\x18\x02 \x01(\tR\x0b\x64\x65scription\"\xbd\x01\n\x13PreconditionFailure\x12I\n\nviolations\x18\x01 \x03(\x0b\x32).google.rpc.PreconditionFailure.ViolationR\nviolations\x1a[\n\tViolation\x12\x12\n\x04type\x18\x01 \x01(\tR\x04type\x12\x18\n\x07subject\x18\x02 \x01(\tR\x07subject\x12 \n\x0b\x64\x65scription\x18\x03 \x01(\tR\x0b\x64\x65scription\"\xa8\x01\n\nBadRequest\x12P\n\x10\x66ield_violations\x18\x01 \x03(\x0b\x32%.google.rpc.BadRequest.FieldViolationR\x0f\x66ieldViolations\x1aH\n\x0e\x46ieldViolation\x12\x14\n\x05\x66ield\x18\x01 \x01(\tR\x05\x66ield\x12 \n\x0b\x64\x65scription\x18\x02 \x01(\tR\x0b\x64\x65scription\"O\n\x0bRequestInfo\x12\x1d\n\nrequest_id\x18\x01 \x01(\tR\trequestId\x12!\n\x0cserving_data\x18\x02 \x01(\tR\x0bservingData\"\x90\x01\n\x0cResourceInfo\x12#\n\rresource_type\x18\x01 \x01(\tR\x0cresourceType\x12#\n\rresource_name\x18\x02 \x01(\tR\x0cresourceName\x12\x14\n\x05owner\x18\x03 \x01(\tR\x05owner\x12 \n\x0b\x64\x65scription\x18\x04 \x01(\tR\x0b\x64\x65scription\"o\n\x04Help\x12+\n\x05links\x18\x01 \x03(\x0b\x32\x15.google.rpc.Help.LinkR\x05links\x1a:\n\x04Link\x12 \n\x0b\x64\x65scription\x18\x01 \x01(\tR\x0b\x64\x65scription\x12\x10\n\x03url\x18\x02 \x01(\tR\x03url\"D\n\x10LocalizedMessage\x12\x16\n\x06locale\x18\x01 \x01(\tR\x06locale\x12\x18\n\x07message\x18\x02 \x01(\tR\x07messageB\xad\x01\n\x0e\x63om.google.rpcB\x11\x45rrorDetailsProtoP\x01Z?google.golang.org/genproto/googleapis/rpc/errdetails;errdetails\xa2\x02\x03GRX\xaa\x02\nGoogle.Rpc\xca\x02\nGoogle\\Rpc\xe2\x02\x16Google\\Rpc\\GPBMetadata\xea\x02\x0bGoogle::Rpcb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1egoogle/rpc/error_details.proto\x12\ngoogle.rpc\x1a\x1egoogle/protobuf/duration.proto\"\xb9\x01\n\tErrorInfo\x12\x16\n\x06reason\x18\x01 \x01(\tR\x06reason\x12\x16\n\x06\x64omain\x18\x02 \x01(\tR\x06\x64omain\x12?\n\x08metadata\x18\x03 \x03(\x0b\x32#.google.rpc.ErrorInfo.MetadataEntryR\x08metadata\x1a;\n\rMetadataEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n\x05value\x18\x02 \x01(\tR\x05value:\x02\x38\x01\"G\n\tRetryInfo\x12:\n\x0bretry_delay\x18\x01 \x01(\x0b\x32\x19.google.protobuf.DurationR\nretryDelay\"H\n\tDebugInfo\x12#\n\rstack_entries\x18\x01 \x03(\tR\x0cstackEntries\x12\x16\n\x06\x64\x65tail\x18\x02 \x01(\tR\x06\x64\x65tail\"\x9b\x01\n\x0cQuotaFailure\x12\x42\n\nviolations\x18\x01 \x03(\x0b\x32\".google.rpc.QuotaFailure.ViolationR\nviolations\x1aG\n\tViolation\x12\x18\n\x07subject\x18\x01 \x01(\tR\x07subject\x12 \n\x0b\x64\x65scription\x18\x02 \x01(\tR\x0b\x64\x65scription\"\xbd\x01\n\x13PreconditionFailure\x12I\n\nviolations\x18\x01 \x03(\x0b\x32).google.rpc.PreconditionFailure.ViolationR\nviolations\x1a[\n\tViolation\x12\x12\n\x04type\x18\x01 \x01(\tR\x04type\x12\x18\n\x07subject\x18\x02 \x01(\tR\x07subject\x12 \n\x0b\x64\x65scription\x18\x03 \x01(\tR\x0b\x64\x65scription\"\x8c\x02\n\nBadRequest\x12P\n\x10\x66ield_violations\x18\x01 \x03(\x0b\x32%.google.rpc.BadRequest.FieldViolationR\x0f\x66ieldViolations\x1a\xab\x01\n\x0e\x46ieldViolation\x12\x14\n\x05\x66ield\x18\x01 \x01(\tR\x05\x66ield\x12 \n\x0b\x64\x65scription\x18\x02 \x01(\tR\x0b\x64\x65scription\x12\x16\n\x06reason\x18\x03 \x01(\tR\x06reason\x12I\n\x11localized_message\x18\x04 \x01(\x0b\x32\x1c.google.rpc.LocalizedMessageR\x10localizedMessage\"O\n\x0bRequestInfo\x12\x1d\n\nrequest_id\x18\x01 \x01(\tR\trequestId\x12!\n\x0cserving_data\x18\x02 \x01(\tR\x0bservingData\"\x90\x01\n\x0cResourceInfo\x12#\n\rresource_type\x18\x01 \x01(\tR\x0cresourceType\x12#\n\rresource_name\x18\x02 \x01(\tR\x0cresourceName\x12\x14\n\x05owner\x18\x03 \x01(\tR\x05owner\x12 \n\x0b\x64\x65scription\x18\x04 \x01(\tR\x0b\x64\x65scription\"o\n\x04Help\x12+\n\x05links\x18\x01 \x03(\x0b\x32\x15.google.rpc.Help.LinkR\x05links\x1a:\n\x04Link\x12 \n\x0b\x64\x65scription\x18\x01 \x01(\tR\x0b\x64\x65scription\x12\x10\n\x03url\x18\x02 \x01(\tR\x03url\"D\n\x10LocalizedMessage\x12\x16\n\x06locale\x18\x01 \x01(\tR\x06locale\x12\x18\n\x07message\x18\x02 \x01(\tR\x07messageB\xad\x01\n\x0e\x63om.google.rpcB\x11\x45rrorDetailsProtoP\x01Z?google.golang.org/genproto/googleapis/rpc/errdetails;errdetails\xa2\x02\x03GRX\xaa\x02\nGoogle.Rpc\xca\x02\nGoogle\\Rpc\xe2\x02\x16Google\\Rpc\\GPBMetadata\xea\x02\x0bGoogle::Rpcb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -42,17 +42,17 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_PRECONDITIONFAILURE_VIOLATION']._serialized_start=670
   _globals['_PRECONDITIONFAILURE_VIOLATION']._serialized_end=761
   _globals['_BADREQUEST']._serialized_start=764
-  _globals['_BADREQUEST']._serialized_end=932
-  _globals['_BADREQUEST_FIELDVIOLATION']._serialized_start=860
-  _globals['_BADREQUEST_FIELDVIOLATION']._serialized_end=932
-  _globals['_REQUESTINFO']._serialized_start=934
-  _globals['_REQUESTINFO']._serialized_end=1013
-  _globals['_RESOURCEINFO']._serialized_start=1016
-  _globals['_RESOURCEINFO']._serialized_end=1160
-  _globals['_HELP']._serialized_start=1162
-  _globals['_HELP']._serialized_end=1273
-  _globals['_HELP_LINK']._serialized_start=1215
-  _globals['_HELP_LINK']._serialized_end=1273
-  _globals['_LOCALIZEDMESSAGE']._serialized_start=1275
-  _globals['_LOCALIZEDMESSAGE']._serialized_end=1343
+  _globals['_BADREQUEST']._serialized_end=1032
+  _globals['_BADREQUEST_FIELDVIOLATION']._serialized_start=861
+  _globals['_BADREQUEST_FIELDVIOLATION']._serialized_end=1032
+  _globals['_REQUESTINFO']._serialized_start=1034
+  _globals['_REQUESTINFO']._serialized_end=1113
+  _globals['_RESOURCEINFO']._serialized_start=1116
+  _globals['_RESOURCEINFO']._serialized_end=1260
+  _globals['_HELP']._serialized_start=1262
+  _globals['_HELP']._serialized_end=1373
+  _globals['_HELP_LINK']._serialized_start=1315
+  _globals['_HELP_LINK']._serialized_end=1373
+  _globals['_LOCALIZEDMESSAGE']._serialized_start=1375
+  _globals['_LOCALIZEDMESSAGE']._serialized_end=1443
 # @@protoc_insertion_point(module_scope)
