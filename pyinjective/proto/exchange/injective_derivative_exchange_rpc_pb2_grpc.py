@@ -96,6 +96,11 @@ class InjectiveDerivativeExchangeRPCStub(object):
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamPositionsRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamPositionsResponse.FromString,
                 _registered_method=True)
+        self.StreamPositionsV2 = channel.unary_stream(
+                '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamPositionsV2',
+                request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamPositionsV2Request.SerializeToString,
+                response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamPositionsV2Response.FromString,
+                _registered_method=True)
         self.StreamOrders = channel.unary_stream(
                 '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamOrders',
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrdersRequest.SerializeToString,
@@ -255,7 +260,15 @@ class InjectiveDerivativeExchangeRPCServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def StreamPositions(self, request, context):
-        """StreamPositions streams derivatives position updates.
+        """StreamPositions streams derivatives position updates. This is the legacy
+        version of the streamPositionsV2 endpoint. Use streamPositionsV2 instead.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def StreamPositionsV2(self, request, context):
+        """StreamPositionsV2 streams derivatives position updates.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -407,6 +420,11 @@ def add_InjectiveDerivativeExchangeRPCServicer_to_server(servicer, server):
                     servicer.StreamPositions,
                     request_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamPositionsRequest.FromString,
                     response_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamPositionsResponse.SerializeToString,
+            ),
+            'StreamPositionsV2': grpc.unary_stream_rpc_method_handler(
+                    servicer.StreamPositionsV2,
+                    request_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamPositionsV2Request.FromString,
+                    response_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamPositionsV2Response.SerializeToString,
             ),
             'StreamOrders': grpc.unary_stream_rpc_method_handler(
                     servicer.StreamOrders,
@@ -888,6 +906,33 @@ class InjectiveDerivativeExchangeRPC(object):
             '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamPositions',
             exchange_dot_injective__derivative__exchange__rpc__pb2.StreamPositionsRequest.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.StreamPositionsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def StreamPositionsV2(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamPositionsV2',
+            exchange_dot_injective__derivative__exchange__rpc__pb2.StreamPositionsV2Request.SerializeToString,
+            exchange_dot_injective__derivative__exchange__rpc__pb2.StreamPositionsV2Response.FromString,
             options,
             channel_credentials,
             insecure,

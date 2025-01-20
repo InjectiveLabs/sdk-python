@@ -2444,6 +2444,206 @@ class TestChainGrpcBankApi:
 
         assert multiplier == expected_multiplier
 
+    @pytest.mark.asyncio
+    async def test_fetch_l3_derivative_orderbook(
+        self,
+        exchange_servicer,
+    ):
+        bid = exchange_query_pb.TrimmedLimitOrder(
+            price="2000000000000000000",
+            quantity="1000000000000000",
+            order_hash="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+            subaccount_id="0x5303d92e49a619bb29de8fb6f59c0e7589213cc8000000000000000000000001",
+        )
+        ask = exchange_query_pb.TrimmedLimitOrder(
+            price="3000000000000000000",
+            quantity="2000000000000000",
+            order_hash="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe7",
+            subaccount_id="0x5303d92e49a619bb29de8fb6f59c0e7589213cc8000000000000000000000002",
+        )
+        response = exchange_query_pb.QueryFullDerivativeOrderbookResponse(
+            Bids=[bid],
+            Asks=[ask],
+        )
+        exchange_servicer.l3_derivative_orderbook_responses.append(response)
+
+        api = self._api_instance(servicer=exchange_servicer)
+
+        orderbook = await api.fetch_l3_derivative_orderbook(
+            market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+        )
+        expected_orderbook = {
+            "Bids": [
+                {
+                    "price": bid.price,
+                    "quantity": bid.quantity,
+                    "orderHash": bid.order_hash,
+                    "subaccountId": bid.subaccount_id,
+                }
+            ],
+            "Asks": [
+                {
+                    "price": ask.price,
+                    "quantity": ask.quantity,
+                    "orderHash": ask.order_hash,
+                    "subaccountId": ask.subaccount_id,
+                }
+            ],
+        }
+
+        assert orderbook == expected_orderbook
+
+    @pytest.mark.asyncio
+    async def test_fetch_l3_spot_orderbook(
+        self,
+        exchange_servicer,
+    ):
+        bid = exchange_query_pb.TrimmedLimitOrder(
+            price="2000000000000000000",
+            quantity="1000000000000000",
+            order_hash="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+            subaccount_id="0x5303d92e49a619bb29de8fb6f59c0e7589213cc8000000000000000000000001",
+        )
+        ask = exchange_query_pb.TrimmedLimitOrder(
+            price="3000000000000000000",
+            quantity="2000000000000000",
+            order_hash="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe7",
+            subaccount_id="0x5303d92e49a619bb29de8fb6f59c0e7589213cc8000000000000000000000002",
+        )
+        response = exchange_query_pb.QueryFullSpotOrderbookResponse(
+            Bids=[bid],
+            Asks=[ask],
+        )
+        exchange_servicer.l3_spot_orderbook_responses.append(response)
+
+        api = self._api_instance(servicer=exchange_servicer)
+
+        orderbook = await api.fetch_l3_spot_orderbook(
+            market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+        )
+        expected_orderbook = {
+            "Bids": [
+                {
+                    "price": bid.price,
+                    "quantity": bid.quantity,
+                    "orderHash": bid.order_hash,
+                    "subaccountId": bid.subaccount_id,
+                }
+            ],
+            "Asks": [
+                {
+                    "price": ask.price,
+                    "quantity": ask.quantity,
+                    "orderHash": ask.order_hash,
+                    "subaccountId": ask.subaccount_id,
+                }
+            ],
+        }
+
+        assert orderbook == expected_orderbook
+
+    @pytest.mark.asyncio
+    async def test_fetch_market_balance(
+        self,
+        exchange_servicer,
+    ):
+        balance = "1000000000000000000"  # Decimal as a string
+        response = exchange_query_pb.QueryMarketBalanceResponse(
+            balance=balance,
+        )
+        exchange_servicer.market_balance_responses.append(response)
+
+        api = self._api_instance(servicer=exchange_servicer)
+
+        market_balance_response = await api.fetch_market_balance(
+            market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
+        )
+        expected_market_balance = {"balance": balance}
+
+        assert market_balance_response == expected_market_balance
+
+    @pytest.mark.asyncio
+    async def test_fetch_market_balances(
+        self,
+        exchange_servicer,
+    ):
+        balance1 = exchange_query_pb.MarketBalance(
+            market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
+            balance="1000000000000000000",
+        )
+        balance2 = exchange_query_pb.MarketBalance(
+            market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+            balance="2000000000000000000",
+        )
+        response = exchange_query_pb.QueryMarketBalancesResponse(balances=[balance1, balance2])
+        exchange_servicer.market_balances_responses.append(response)
+
+        api = self._api_instance(servicer=exchange_servicer)
+
+        market_balances_response = await api.fetch_market_balances()
+        expected_market_balances = {
+            "balances": [
+                {
+                    "marketId": balance1.market_id,
+                    "balance": balance1.balance,
+                },
+                {
+                    "marketId": balance2.market_id,
+                    "balance": balance2.balance,
+                },
+            ]
+        }
+
+        assert market_balances_response == expected_market_balances
+
+    @pytest.mark.asyncio
+    async def test_fetch_denom_min_notional(
+        self,
+        exchange_servicer,
+    ):
+        amount = "1"  # Decimal as a string
+        response = exchange_query_pb.QueryDenomMinNotionalResponse(
+            amount=amount,
+        )
+        exchange_servicer.denom_min_notional_responses.append(response)
+
+        api = self._api_instance(servicer=exchange_servicer)
+
+        denom_min_notional_response = await api.fetch_denom_min_notional(
+            denom="peggy0xf9152067989BDc8783fF586624124C05A529A5D1"
+        )
+        expected_denom_min_notional = {"amount": amount}
+
+        assert denom_min_notional_response == expected_denom_min_notional
+
+    @pytest.mark.asyncio
+    async def test_fetch_denom_min_notionals(
+        self,
+        exchange_servicer,
+    ):
+        denom_min_notional = exchange_pb.DenomMinNotional(
+            denom="inj",
+            min_notional="5000000000000000000",
+        )
+        response = exchange_query_pb.QueryDenomMinNotionalsResponse(
+            denom_min_notionals=[denom_min_notional],
+        )
+        exchange_servicer.denom_min_notionals_responses.append(response)
+
+        api = self._api_instance(servicer=exchange_servicer)
+
+        denom_min_notionals_response = await api.fetch_denom_min_notionals()
+        expected_denom_min_notionals = {
+            "denomMinNotionals": [
+                {
+                    "denom": denom_min_notional.denom,
+                    "minNotional": denom_min_notional.min_notional,
+                }
+            ]
+        }
+
+        assert denom_min_notionals_response == expected_denom_min_notionals
+
     def _api_instance(self, servicer):
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)

@@ -952,6 +952,7 @@ class TestIndexerGrpcDerivativeApi:
             trade_id=trade.trade_id,
             account_address="inj1clw20s2uxeyxtam6f7m84vgae92s9eh7vygagt",
             cid=trade.cid,
+            fee_recipient=trade.fee_recipient,
             pagination=PaginationOption(
                 skip=0,
                 limit=100,
@@ -1299,6 +1300,7 @@ class TestIndexerGrpcDerivativeApi:
             trade_id=trade.trade_id,
             account_address="inj1clw20s2uxeyxtam6f7m84vgae92s9eh7vygagt",
             cid=trade.cid,
+            fee_recipient=trade.fee_recipient,
             pagination=PaginationOption(
                 skip=0,
                 limit=100,

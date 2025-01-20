@@ -27,5 +27,11 @@ class IndexerGrpcAuctionApi:
 
         return response
 
+    async def fetch_inj_burnt(self) -> Dict[str, Any]:
+        request = exchange_auction_pb.InjBurntEndpointRequest()
+        response = await self._execute_call(call=self._stub.InjBurntEndpoint, request=request)
+
+        return response
+
     async def _execute_call(self, call: Callable, request) -> Dict[str, Any]:
         return await self._assistant.execute_call(call=call, request=request)

@@ -190,6 +190,11 @@ class MsgStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgActivateStakeGrant.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgActivateStakeGrantResponse.FromString,
                 _registered_method=True)
+        self.BatchExchangeModification = channel.unary_unary(
+                '/injective.exchange.v1beta1.Msg/BatchExchangeModification',
+                request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgBatchExchangeModification.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgBatchExchangeModificationResponse.FromString,
+                _registered_method=True)
 
 
 class MsgServicer(object):
@@ -459,6 +464,12 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def BatchExchangeModification(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -636,6 +647,11 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.ActivateStakeGrant,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgActivateStakeGrant.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgActivateStakeGrantResponse.SerializeToString,
+            ),
+            'BatchExchangeModification': grpc.unary_unary_rpc_method_handler(
+                    servicer.BatchExchangeModification,
+                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgBatchExchangeModification.FromString,
+                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgBatchExchangeModificationResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -1584,6 +1600,33 @@ class Msg(object):
             '/injective.exchange.v1beta1.Msg/ActivateStakeGrant',
             injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgActivateStakeGrant.SerializeToString,
             injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgActivateStakeGrantResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def BatchExchangeModification(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v1beta1.Msg/BatchExchangeModification',
+            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgBatchExchangeModification.SerializeToString,
+            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgBatchExchangeModificationResponse.FromString,
             options,
             channel_credentials,
             insecure,

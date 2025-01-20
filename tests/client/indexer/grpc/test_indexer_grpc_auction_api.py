@@ -109,6 +109,24 @@ class TestIndexerGrpcAuctionApi:
 
         assert result_auctions == expected_auctions
 
+    @pytest.mark.asyncio
+    async def test_fetch_inj_burnt(
+        self,
+        auction_servicer,
+    ):
+        total_inj_burnt = "1234567890000000000"  # Example decimal value as string
+
+        auction_servicer.inj_burnt_responses.append(
+            exchange_auction_pb.InjBurntEndpointResponse(total_inj_burnt=total_inj_burnt)
+        )
+
+        api = self._api_instance(servicer=auction_servicer)
+
+        result_inj_burnt = await api.fetch_inj_burnt()
+        expected_inj_burnt = {"totalInjBurnt": total_inj_burnt}
+
+        assert result_inj_burnt == expected_inj_burnt
+
     def _api_instance(self, servicer):
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)
