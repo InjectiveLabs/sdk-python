@@ -1539,6 +1539,20 @@ class AsyncClient:
             on_status_callback=on_status_callback,
         )
 
+    async def listen_spot_orderbook_updates(
+        self,
+        market_ids: List[str],
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+    ):
+        await self.exchange_spot_stream_api.stream_orderbook_update(
+            market_ids=market_ids,
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+        )
+
     async def listen_spot_orders_updates(
         self,
         callback: Callable,
