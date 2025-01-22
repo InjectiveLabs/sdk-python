@@ -22,12 +22,16 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
 
+      - name: Set ARCHFLAGS for macOS
+        if: runner.os == 'macOS'
+        run: echo "ARCHFLAGS=-arch arm64" >> $GITHUB_ENV
+
       - name: Install poetry
         run: python -m pip install poetry
 
       - name: Set poetry installer config
         if: runner.os == 'macOS'
-        run: echo "POETRY_INSTALLER_NO_BINARY=:all:" >> $GITHUB_ENV
+        run: echo "POETRY_INSTALLER_NO_BINARY=:none:" >> $GITHUB_ENV
 
       - name: Cache the virtualenv
         id: cache-venv
