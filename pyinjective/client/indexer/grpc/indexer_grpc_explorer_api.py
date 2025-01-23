@@ -68,6 +68,29 @@ class IndexerGrpcExplorerApi:
 
         return response
 
+    async def fetch_contract_txs_v2(
+        self,
+        address: str,
+        height: Optional[int] = None,
+        token: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        pagination = pagination or PaginationOption()
+        request = exchange_explorer_pb.GetContractTxsV2Request(
+            address=address,
+            token=token,
+        )
+        if height is not None:
+            request.height = height
+        if pagination is not None:
+            setattr(request, "from", pagination.start_time)
+            request.to = pagination.end_time
+            request.limit = pagination.limit
+
+        response = await self._execute_call(call=self._stub.GetContractTxsV2, request=request)
+
+        return response
+
     async def fetch_blocks(
         self,
         before: Optional[int] = None,
@@ -214,15 +237,13 @@ class IndexerGrpcExplorerApi:
 
     async def fetch_wasm_codes(
         self,
-        from_number: Optional[int] = None,
-        to_number: Optional[int] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
         pagination = pagination or PaginationOption()
         request = exchange_explorer_pb.GetWasmCodesRequest(
             limit=pagination.limit,
-            from_number=from_number,
-            to_number=to_number,
+            from_number=pagination.from_number,
+            to_number=pagination.to_number,
         )
 
         response = await self._execute_call(call=self._stub.GetWasmCodes, request=request)
@@ -242,8 +263,6 @@ class IndexerGrpcExplorerApi:
     async def fetch_wasm_contracts(
         self,
         code_id: Optional[int] = None,
-        from_number: Optional[int] = None,
-        to_number: Optional[int] = None,
         assets_only: Optional[bool] = None,
         label: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
@@ -252,8 +271,8 @@ class IndexerGrpcExplorerApi:
         request = exchange_explorer_pb.GetWasmContractsRequest(
             limit=pagination.limit,
             code_id=code_id,
-            from_number=from_number,
-            to_number=to_number,
+            from_number=pagination.from_number,
+            to_number=pagination.to_number,
             assets_only=assets_only,
             skip=pagination.skip,
             label=label,

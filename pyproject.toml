@@ -35,22 +35,22 @@ protobuf = "^5.26.1"
 requests = "*"
 safe-pysha3 = "*"
 websockets = "*"
-web3 = "^6.0"
+web3 = "^7.0.0"
 
 [tool.poetry.group.test.dependencies]
 pytest = "*"
 pytest-asyncio = "*"
 pytest-grpc = "*"
 requests-mock = "*"
-pytest-cov = "^4.1.0"
-pytest-aioresponses = "^0.2.0"
+pytest-cov = ">=4.1.0"
+pytest-aioresponses = ">=0.2.0"
 
 [tool.poetry.group.dev.dependencies]
-pre-commit = "^3.4.0"
-flakeheaven = "^3.3.0"
-isort = "^5.12.0"
-black = "^23.9.1"
-python-dotenv = "^1.0.1"
+pre-commit = ">=3.4.0"
+flakeheaven = ">=3.3.0"
+isort = ">=5.12.0"
+black = ">=23.9.1"
+python-dotenv = ">=1.0.1"
 importlib-metadata = "<5.0"
 
 
