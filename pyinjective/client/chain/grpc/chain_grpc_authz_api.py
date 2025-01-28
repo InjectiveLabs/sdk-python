@@ -2,7 +2,7 @@ from typing import Any, Callable, Dict, Optional
 
 from grpc.aio import Channel
 
-from pyinjective.client.model.pagination import PaginationOption
+from pyinjective.client.model import PaginationOption
 from pyinjective.core.network import CookieAssistant
 from pyinjective.proto.cosmos.authz.v1beta1 import query_pb2 as authz_query, query_pb2_grpc as authz_query_grpc
 from pyinjective.utils.grpc_api_request_assistant import GrpcApiRequestAssistant

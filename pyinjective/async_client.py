@@ -16,36 +16,19 @@ from pyinjective.client.chain.grpc.chain_grpc_exchange_api import ChainGrpcExcha
 from pyinjective.client.chain.grpc.chain_grpc_permissions_api import ChainGrpcPermissionsApi
 from pyinjective.client.chain.grpc.chain_grpc_token_factory_api import ChainGrpcTokenFactoryApi
 from pyinjective.client.chain.grpc.chain_grpc_wasm_api import ChainGrpcWasmApi
-from pyinjective.client.chain.grpc_stream.chain_grpc_chain_stream import ChainGrpcChainStream
-from pyinjective.client.indexer.grpc.indexer_grpc_account_api import IndexerGrpcAccountApi
-from pyinjective.client.indexer.grpc.indexer_grpc_auction_api import IndexerGrpcAuctionApi
-from pyinjective.client.indexer.grpc.indexer_grpc_derivative_api import IndexerGrpcDerivativeApi
-from pyinjective.client.indexer.grpc.indexer_grpc_explorer_api import IndexerGrpcExplorerApi
-from pyinjective.client.indexer.grpc.indexer_grpc_insurance_api import IndexerGrpcInsuranceApi
-from pyinjective.client.indexer.grpc.indexer_grpc_meta_api import IndexerGrpcMetaApi
-from pyinjective.client.indexer.grpc.indexer_grpc_oracle_api import IndexerGrpcOracleApi
-from pyinjective.client.indexer.grpc.indexer_grpc_portfolio_api import IndexerGrpcPortfolioApi
-from pyinjective.client.indexer.grpc.indexer_grpc_spot_api import IndexerGrpcSpotApi
-from pyinjective.client.indexer.grpc_stream.indexer_grpc_account_stream import IndexerGrpcAccountStream
-from pyinjective.client.indexer.grpc_stream.indexer_grpc_auction_stream import IndexerGrpcAuctionStream
-from pyinjective.client.indexer.grpc_stream.indexer_grpc_derivative_stream import IndexerGrpcDerivativeStream
-from pyinjective.client.indexer.grpc_stream.indexer_grpc_explorer_stream import IndexerGrpcExplorerStream
-from pyinjective.client.indexer.grpc_stream.indexer_grpc_meta_stream import IndexerGrpcMetaStream
-from pyinjective.client.indexer.grpc_stream.indexer_grpc_oracle_stream import IndexerGrpcOracleStream
-from pyinjective.client.indexer.grpc_stream.indexer_grpc_portfolio_stream import IndexerGrpcPortfolioStream
-from pyinjective.client.indexer.grpc_stream.indexer_grpc_spot_stream import IndexerGrpcSpotStream
-from pyinjective.client.model.pagination import PaginationOption
+from pyinjective.client.chain.grpc_stream import ChainGrpcChainStream
+from pyinjective.client.model import PaginationOption
 from pyinjective.composer import Composer
-from pyinjective.core.ibc.channel.grpc.ibc_channel_grpc_api import IBCChannelGrpcApi
-from pyinjective.core.ibc.client.grpc.ibc_client_grpc_api import IBCClientGrpcApi
-from pyinjective.core.ibc.connection.grpc.ibc_connection_grpc_api import IBCConnectionGrpcApi
-from pyinjective.core.ibc.transfer.grpc.ibc_transfer_grpc_api import IBCTransferGrpcApi
+from pyinjective.core.ibc.channel.grpc import IBCChannelGrpcApi
+from pyinjective.core.ibc.client.grpc import IBCClientGrpcApi
+from pyinjective.core.ibc.connection.grpc import IBCConnectionGrpcApi
+from pyinjective.core.ibc.transfer.grpc import IBCTransferGrpcApi
 from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from pyinjective.core.network import Network
-from pyinjective.core.tendermint.grpc.tendermint_grpc_api import TendermintGrpcApi
+from pyinjective.core.tendermint.grpc import TendermintGrpcApi
 from pyinjective.core.token import Token
 from pyinjective.core.tokens_file_loader import TokensFileLoader
-from pyinjective.core.tx.grpc.tx_grpc_api import TxGrpcApi
+from pyinjective.core.tx.grpc import TxGrpcApi
 from pyinjective.exceptions import NotFoundError
 from pyinjective.proto.cosmos.auth.v1beta1 import query_pb2 as auth_query, query_pb2_grpc as auth_query_grpc
 from pyinjective.proto.cosmos.authz.v1beta1 import query_pb2 as authz_query, query_pb2_grpc as authz_query_grpc
@@ -57,26 +40,7 @@ from pyinjective.proto.cosmos.base.tendermint.v1beta1 import (
 )
 from pyinjective.proto.cosmos.crypto.ed25519 import keys_pb2 as ed25519_keys  # noqa: F401 for validator set responses
 from pyinjective.proto.cosmos.tx.v1beta1 import service_pb2 as tx_service, service_pb2_grpc as tx_service_grpc
-from pyinjective.proto.exchange import (
-    injective_accounts_rpc_pb2 as exchange_accounts_rpc_pb,
-    injective_accounts_rpc_pb2_grpc as exchange_accounts_rpc_grpc,
-    injective_auction_rpc_pb2 as auction_rpc_pb,
-    injective_auction_rpc_pb2_grpc as auction_rpc_grpc,
-    injective_derivative_exchange_rpc_pb2 as derivative_exchange_rpc_pb,
-    injective_derivative_exchange_rpc_pb2_grpc as derivative_exchange_rpc_grpc,
-    injective_explorer_rpc_pb2 as explorer_rpc_pb,
-    injective_explorer_rpc_pb2_grpc as explorer_rpc_grpc,
-    injective_insurance_rpc_pb2 as insurance_rpc_pb,
-    injective_insurance_rpc_pb2_grpc as insurance_rpc_grpc,
-    injective_meta_rpc_pb2 as exchange_meta_rpc_pb,
-    injective_meta_rpc_pb2_grpc as exchange_meta_rpc_grpc,
-    injective_oracle_rpc_pb2 as oracle_rpc_pb,
-    injective_oracle_rpc_pb2_grpc as oracle_rpc_grpc,
-    injective_portfolio_rpc_pb2 as portfolio_rpc_pb,
-    injective_portfolio_rpc_pb2_grpc as portfolio_rpc_grpc,
-    injective_spot_exchange_rpc_pb2 as spot_exchange_rpc_pb,
-    injective_spot_exchange_rpc_pb2_grpc as spot_exchange_rpc_grpc,
-)
+
 from pyinjective.proto.ibc.lightclients.tendermint.v1 import (  # noqa: F401 for validator set responses
     tendermint_pb2 as ibc_tendermint,
 )
@@ -146,9 +110,6 @@ class AsyncClient:
         self.stubAuction = auction_rpc_grpc.InjectiveAuctionRPCStub(self.exchange_channel)
         self.stubPortfolio = portfolio_rpc_grpc.InjectivePortfolioRPCStub(self.exchange_channel)
 
-        # explorer stubs
-        self.explorer_channel = self.network.create_explorer_grpc_channel()
-        self.stubExplorer = explorer_rpc_grpc.InjectiveExplorerRPCStub(self.explorer_channel)
 
         self.chain_stream_channel = self.network.create_chain_stream_grpc_channel()
         self.chain_stream_stub = stream_rpc_grpc.StreamStub(channel=self.chain_stream_channel)
@@ -225,76 +186,67 @@ class AsyncClient:
             cookie_assistant=network.chain_cookie_assistant,
         )
 
-        self.exchange_account_api = IndexerGrpcAccountApi(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_auction_api = IndexerGrpcAuctionApi(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_derivative_api = IndexerGrpcDerivativeApi(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_insurance_api = IndexerGrpcInsuranceApi(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_meta_api = IndexerGrpcMetaApi(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_oracle_api = IndexerGrpcOracleApi(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_portfolio_api = IndexerGrpcPortfolioApi(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_spot_api = IndexerGrpcSpotApi(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-
-        self.exchange_account_stream_api = IndexerGrpcAccountStream(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_auction_stream_api = IndexerGrpcAuctionStream(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_derivative_stream_api = IndexerGrpcDerivativeStream(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_meta_stream_api = IndexerGrpcMetaStream(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_oracle_stream_api = IndexerGrpcOracleStream(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_portfolio_stream_api = IndexerGrpcPortfolioStream(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_spot_stream_api = IndexerGrpcSpotStream(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-
-        self.exchange_explorer_api = IndexerGrpcExplorerApi(
-            channel=self.explorer_channel,
-            cookie_assistant=network.explorer_cookie_assistant,
-        )
-        self.exchange_explorer_stream_api = IndexerGrpcExplorerStream(
-            channel=self.explorer_channel,
-            cookie_assistant=network.explorer_cookie_assistant,
-        )
+        # self.exchange_account_api = IndexerGrpcAccountApi(
+        #     channel=self.exchange_channel,
+        #     cookie_assistant=network.exchange_cookie_assistant,
+        # )
+        # self.exchange_auction_api = IndexerGrpcAuctionApi(
+        #     channel=self.exchange_channel,
+        #     cookie_assistant=network.exchange_cookie_assistant,
+        # )
+        # self.exchange_derivative_api = IndexerGrpcDerivativeApi(
+        #     channel=self.exchange_channel,
+        #     cookie_assistant=network.exchange_cookie_assistant,
+        # )
+        # self.exchange_insurance_api = IndexerGrpcInsuranceApi(
+        #     channel=self.exchange_channel,
+        #     cookie_assistant=network.exchange_cookie_assistant,
+        # )
+        # self.exchange_meta_api = IndexerGrpcMetaApi(
+        #     channel=self.exchange_channel,
+        #     cookie_assistant=network.exchange_cookie_assistant,
+        # )
+        # self.exchange_oracle_api = IndexerGrpcOracleApi(
+        #     channel=self.exchange_channel,
+        #     cookie_assistant=network.exchange_cookie_assistant,
+        # )
+        # self.exchange_portfolio_api = IndexerGrpcPortfolioApi(
+        #     channel=self.exchange_channel,
+        #     cookie_assistant=network.exchange_cookie_assistant,
+        # )
+        # self.exchange_spot_api = IndexerGrpcSpotApi(
+        #     channel=self.exchange_channel,
+        #     cookie_assistant=network.exchange_cookie_assistant,
+        # )
+# 
+        # self.exchange_account_stream_api = IndexerGrpcAccountStream(
+        #     channel=self.exchange_channel,
+        #     cookie_assistant=network.exchange_cookie_assistant,
+        # )
+        # self.exchange_auction_stream_api = IndexerGrpcAuctionStream(
+        #     channel=self.exchange_channel,
+        #     cookie_assistant=network.exchange_cookie_assistant,
+        # )
+        # self.exchange_derivative_stream_api = IndexerGrpcDerivativeStream(
+        #     channel=self.exchange_channel,
+        #     cookie_assistant=network.exchange_cookie_assistant,
+        # )
+        # self.exchange_meta_stream_api = IndexerGrpcMetaStream(
+        #     channel=self.exchange_channel,
+        #     cookie_assistant=network.exchange_cookie_assistant,
+        # )
+        # self.exchange_oracle_stream_api = IndexerGrpcOracleStream(
+        #     channel=self.exchange_channel,
+        #     cookie_assistant=network.exchange_cookie_assistant,
+        # )
+        # self.exchange_portfolio_stream_api = IndexerGrpcPortfolioStream(
+        #     channel=self.exchange_channel,
+        #     cookie_assistant=network.exchange_cookie_assistant,
+        # )
+        # self.exchange_spot_stream_api = IndexerGrpcSpotStream(
+        #     channel=self.exchange_channel,
+        #     cookie_assistant=network.exchange_cookie_assistant,
+        # )
 
     async def all_tokens(self) -> Dict[str, Token]:
         if self._tokens_by_symbol is None:
@@ -1234,254 +1186,6 @@ class AsyncClient:
 
     # ------------------------------
     # Explorer RPC
-
-    async def get_tx_by_hash(self, tx_hash: str):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_tx_by_tx_hash` instead
-        """
-        warn("This method is deprecated. Use fetch_tx_by_tx_hash instead", DeprecationWarning, stacklevel=2)
-
-        req = explorer_rpc_pb.GetTxByTxHashRequest(hash=tx_hash)
-        return await self.stubExplorer.GetTxByTxHash(req)
-
-    async def fetch_tx_by_tx_hash(self, tx_hash: str) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_tx_by_tx_hash(tx_hash=tx_hash)
-
-    async def get_account_txs(self, address: str, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_account_txs` instead
-        """
-        warn("This method is deprecated. Use fetch_account_txs instead", DeprecationWarning, stacklevel=2)
-        req = explorer_rpc_pb.GetAccountTxsRequest(
-            address=address,
-            before=kwargs.get("before"),
-            after=kwargs.get("after"),
-            limit=kwargs.get("limit"),
-            skip=kwargs.get("skip"),
-            type=kwargs.get("type"),
-            module=kwargs.get("module"),
-        )
-        return await self.stubExplorer.GetAccountTxs(req)
-
-    async def fetch_account_txs(
-        self,
-        address: str,
-        before: Optional[int] = None,
-        after: Optional[int] = None,
-        message_type: Optional[str] = None,
-        module: Optional[str] = None,
-        from_number: Optional[int] = None,
-        to_number: Optional[int] = None,
-        status: Optional[str] = None,
-        pagination: Optional[PaginationOption] = None,
-    ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_account_txs(
-            address=address,
-            before=before,
-            after=after,
-            message_type=message_type,
-            module=module,
-            from_number=from_number,
-            to_number=to_number,
-            status=status,
-            pagination=pagination,
-        )
-
-    async def get_blocks(self, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_blocks` instead
-        """
-        warn("This method is deprecated. Use fetch_blocks instead", DeprecationWarning, stacklevel=2)
-        req = explorer_rpc_pb.GetBlocksRequest(
-            before=kwargs.get("before"),
-            after=kwargs.get("after"),
-            limit=kwargs.get("limit"),
-        )
-        return await self.stubExplorer.GetBlocks(req)
-
-    async def fetch_blocks(
-        self,
-        before: Optional[int] = None,
-        after: Optional[int] = None,
-        pagination: Optional[PaginationOption] = None,
-    ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_blocks(before=before, after=after, pagination=pagination)
-
-    async def get_block(self, block_height: str):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_block` instead
-        """
-        warn("This method is deprecated. Use fetch_block instead", DeprecationWarning, stacklevel=2)
-        req = explorer_rpc_pb.GetBlockRequest(id=block_height)
-        return await self.stubExplorer.GetBlock(req)
-
-    async def fetch_block(self, block_id: str) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_block(block_id=block_id)
-
-    async def get_txs(self, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_txs` instead
-        """
-        warn("This method is deprecated. Use fetch_txs instead", DeprecationWarning, stacklevel=2)
-        req = explorer_rpc_pb.GetTxsRequest(
-            before=kwargs.get("before"),
-            after=kwargs.get("after"),
-            limit=kwargs.get("limit"),
-            skip=kwargs.get("skip"),
-            type=kwargs.get("type"),
-            module=kwargs.get("module"),
-        )
-        return await self.stubExplorer.GetTxs(req)
-
-    async def fetch_txs(
-        self,
-        before: Optional[int] = None,
-        after: Optional[int] = None,
-        message_type: Optional[str] = None,
-        module: Optional[str] = None,
-        from_number: Optional[int] = None,
-        to_number: Optional[int] = None,
-        status: Optional[str] = None,
-        pagination: Optional[PaginationOption] = None,
-    ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_txs(
-            before=before,
-            after=after,
-            message_type=message_type,
-            module=module,
-            from_number=from_number,
-            to_number=to_number,
-            status=status,
-            pagination=pagination,
-        )
-
-    async def stream_txs(self):
-        """
-        This method is deprecated and will be removed soon. Please use `listen_txs_updates` instead
-        """
-        warn("This method is deprecated. Use listen_txs_updates instead", DeprecationWarning, stacklevel=2)
-        req = explorer_rpc_pb.StreamTxsRequest()
-        return self.stubExplorer.StreamTxs(req)
-
-    async def listen_txs_updates(
-        self,
-        callback: Callable,
-        on_end_callback: Optional[Callable] = None,
-        on_status_callback: Optional[Callable] = None,
-    ):
-        await self.exchange_explorer_stream_api.stream_txs(
-            callback=callback,
-            on_end_callback=on_end_callback,
-            on_status_callback=on_status_callback,
-        )
-
-    async def stream_blocks(self):
-        """
-        This method is deprecated and will be removed soon. Please use `listen_blocks_updates` instead
-        """
-        warn("This method is deprecated. Use listen_blocks_updates instead", DeprecationWarning, stacklevel=2)
-        req = explorer_rpc_pb.StreamBlocksRequest()
-        return self.stubExplorer.StreamBlocks(req)
-
-    async def listen_blocks_updates(
-        self,
-        callback: Callable,
-        on_end_callback: Optional[Callable] = None,
-        on_status_callback: Optional[Callable] = None,
-    ):
-        await self.exchange_explorer_stream_api.stream_blocks(
-            callback=callback,
-            on_end_callback=on_end_callback,
-            on_status_callback=on_status_callback,
-        )
-
-    async def get_peggy_deposits(self, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_peggy_deposit_txs` instead
-        """
-        warn("This method is deprecated. Use fetch_peggy_deposit_txs instead", DeprecationWarning, stacklevel=2)
-        req = explorer_rpc_pb.GetPeggyDepositTxsRequest(
-            sender=kwargs.get("sender"),
-            receiver=kwargs.get("receiver"),
-            limit=kwargs.get("limit"),
-            skip=kwargs.get("skip"),
-        )
-        return await self.stubExplorer.GetPeggyDepositTxs(req)
-
-    async def fetch_peggy_deposit_txs(
-        self,
-        sender: Optional[str] = None,
-        receiver: Optional[str] = None,
-        pagination: Optional[PaginationOption] = None,
-    ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_peggy_deposit_txs(
-            sender=sender,
-            receiver=receiver,
-            pagination=pagination,
-        )
-
-    async def get_peggy_withdrawals(self, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_peggy_withdrawal_txs` instead
-        """
-        warn("This method is deprecated. Use fetch_peggy_withdrawal_txs instead", DeprecationWarning, stacklevel=2)
-        req = explorer_rpc_pb.GetPeggyWithdrawalTxsRequest(
-            sender=kwargs.get("sender"),
-            receiver=kwargs.get("receiver"),
-            limit=kwargs.get("limit"),
-            skip=kwargs.get("skip"),
-        )
-        return await self.stubExplorer.GetPeggyWithdrawalTxs(req)
-
-    async def fetch_peggy_withdrawal_txs(
-        self,
-        sender: Optional[str] = None,
-        receiver: Optional[str] = None,
-        pagination: Optional[PaginationOption] = None,
-    ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_peggy_withdrawal_txs(
-            sender=sender,
-            receiver=receiver,
-            pagination=pagination,
-        )
-
-    async def get_ibc_transfers(self, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_ibc_transfer_txs` instead
-        """
-        warn("This method is deprecated. Use fetch_ibc_transfer_txs instead", DeprecationWarning, stacklevel=2)
-        req = explorer_rpc_pb.GetIBCTransferTxsRequest(
-            sender=kwargs.get("sender"),
-            receiver=kwargs.get("receiver"),
-            src_channel=kwargs.get("src_channel"),
-            src_port=kwargs.get("src_port"),
-            dest_channel=kwargs.get("dest_channel"),
-            dest_port=kwargs.get("dest_port"),
-            limit=kwargs.get("limit"),
-            skip=kwargs.get("skip"),
-        )
-        return await self.stubExplorer.GetIBCTransferTxs(req)
-
-    async def fetch_ibc_transfer_txs(
-        self,
-        sender: Optional[str] = None,
-        receiver: Optional[str] = None,
-        src_channel: Optional[str] = None,
-        src_port: Optional[str] = None,
-        dest_channel: Optional[str] = None,
-        dest_port: Optional[str] = None,
-        pagination: Optional[PaginationOption] = None,
-    ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_ibc_transfer_txs(
-            sender=sender,
-            receiver=receiver,
-            src_channel=src_channel,
-            src_port=src_port,
-            dest_channel=dest_channel,
-            dest_port=dest_port,
-            pagination=pagination,
-        )
-
     # AccountsRPC
 
     async def stream_subaccount_balance(self, subaccount_id: str, **kwargs):
@@ -1511,144 +1215,6 @@ class AsyncClient:
             on_status_callback=on_status_callback,
             denoms=denoms,
         )
-
-    async def get_subaccount_balance(self, subaccount_id: str, denom: str):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_subaccount_balance` instead
-        """
-        warn("This method is deprecated. Use fetch_subaccount_balance instead", DeprecationWarning, stacklevel=2)
-        req = exchange_accounts_rpc_pb.SubaccountBalanceEndpointRequest(subaccount_id=subaccount_id, denom=denom)
-        return await self.stubExchangeAccount.SubaccountBalanceEndpoint(req)
-
-    async def fetch_subaccount_balance(self, subaccount_id: str, denom: str) -> Dict[str, Any]:
-        return await self.exchange_account_api.fetch_subaccount_balance(subaccount_id=subaccount_id, denom=denom)
-
-    async def get_subaccount_list(self, account_address: str):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_subaccounts_list` instead
-        """
-        warn("This method is deprecated. Use fetch_subaccounts_list instead", DeprecationWarning, stacklevel=2)
-        req = exchange_accounts_rpc_pb.SubaccountsListRequest(account_address=account_address)
-        return await self.stubExchangeAccount.SubaccountsList(req)
-
-    async def fetch_subaccounts_list(self, address: str) -> Dict[str, Any]:
-        return await self.exchange_account_api.fetch_subaccounts_list(address=address)
-
-    async def get_subaccount_balances_list(self, subaccount_id: str, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_subaccount_balances_list` instead
-        """
-        warn("This method is deprecated. Use fetch_subaccount_balances_list instead", DeprecationWarning, stacklevel=2)
-        req = exchange_accounts_rpc_pb.SubaccountBalancesListRequest(
-            subaccount_id=subaccount_id, denoms=kwargs.get("denoms")
-        )
-        return await self.stubExchangeAccount.SubaccountBalancesList(req)
-
-    async def fetch_subaccount_balances_list(
-        self, subaccount_id: str, denoms: Optional[List[str]] = None
-    ) -> Dict[str, Any]:
-        return await self.exchange_account_api.fetch_subaccount_balances_list(
-            subaccount_id=subaccount_id, denoms=denoms
-        )
-
-    async def get_subaccount_history(self, subaccount_id: str, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_subaccount_history` instead
-        """
-        warn("This method is deprecated. Use fetch_subaccount_history instead", DeprecationWarning, stacklevel=2)
-        req = exchange_accounts_rpc_pb.SubaccountHistoryRequest(
-            subaccount_id=subaccount_id,
-            denom=kwargs.get("denom"),
-            transfer_types=kwargs.get("transfer_types"),
-            skip=kwargs.get("skip"),
-            limit=kwargs.get("limit"),
-            end_time=kwargs.get("end_time"),
-        )
-        return await self.stubExchangeAccount.SubaccountHistory(req)
-
-    async def fetch_subaccount_history(
-        self,
-        subaccount_id: str,
-        denom: Optional[str] = None,
-        transfer_types: Optional[List[str]] = None,
-        pagination: Optional[PaginationOption] = None,
-    ) -> Dict[str, Any]:
-        return await self.exchange_account_api.fetch_subaccount_history(
-            subaccount_id=subaccount_id,
-            denom=denom,
-            transfer_types=transfer_types,
-            pagination=pagination,
-        )
-
-    async def get_subaccount_order_summary(self, subaccount_id: str, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_subaccount_order_summary` instead
-        """
-        warn("This method is deprecated. Use fetch_subaccount_order_summary instead", DeprecationWarning, stacklevel=2)
-        req = exchange_accounts_rpc_pb.SubaccountOrderSummaryRequest(
-            subaccount_id=subaccount_id,
-            order_direction=kwargs.get("order_direction"),
-            market_id=kwargs.get("market_id"),
-        )
-        return await self.stubExchangeAccount.SubaccountOrderSummary(req)
-
-    async def fetch_subaccount_order_summary(
-        self,
-        subaccount_id: str,
-        market_id: Optional[str] = None,
-        order_direction: Optional[str] = None,
-    ) -> Dict[str, Any]:
-        return await self.exchange_account_api.fetch_subaccount_order_summary(
-            subaccount_id=subaccount_id,
-            market_id=market_id,
-            order_direction=order_direction,
-        )
-
-    async def get_order_states(self, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_order_states` instead
-        """
-        warn("This method is deprecated. Use fetch_order_states instead", DeprecationWarning, stacklevel=2)
-        req = exchange_accounts_rpc_pb.OrderStatesRequest(
-            spot_order_hashes=kwargs.get("spot_order_hashes"),
-            derivative_order_hashes=kwargs.get("derivative_order_hashes"),
-        )
-        return await self.stubExchangeAccount.OrderStates(req)
-
-    async def fetch_order_states(
-        self,
-        spot_order_hashes: Optional[List[str]] = None,
-        derivative_order_hashes: Optional[List[str]] = None,
-    ) -> Dict[str, Any]:
-        return await self.exchange_account_api.fetch_order_states(
-            spot_order_hashes=spot_order_hashes,
-            derivative_order_hashes=derivative_order_hashes,
-        )
-
-    async def get_portfolio(self, account_address: str):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_portfolio` instead
-        """
-        warn("This method is deprecated. Use fetch_portfolio instead", DeprecationWarning, stacklevel=2)
-
-        req = exchange_accounts_rpc_pb.PortfolioRequest(account_address=account_address)
-        return await self.stubExchangeAccount.Portfolio(req)
-
-    async def fetch_portfolio(self, account_address: str) -> Dict[str, Any]:
-        return await self.exchange_account_api.fetch_portfolio(account_address=account_address)
-
-    async def get_rewards(self, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_rewards` instead
-        """
-        warn("This method is deprecated. Use fetch_rewards instead", DeprecationWarning, stacklevel=2)
-        req = exchange_accounts_rpc_pb.RewardsRequest(
-            account_address=kwargs.get("account_address"), epoch=kwargs.get("epoch")
-        )
-        return await self.stubExchangeAccount.Rewards(req)
-
-    async def fetch_rewards(self, account_address: Optional[str] = None, epoch: Optional[int] = None) -> Dict[str, Any]:
-        return await self.exchange_account_api.fetch_rewards(account_address=account_address, epoch=epoch)
 
     # OracleRPC
 
@@ -1762,29 +1328,8 @@ class AsyncClient:
         )
 
     # SpotRPC
-
-    async def get_spot_market(self, market_id: str):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_spot_market` instead
-        """
-        warn("This method is deprecated. Use fetch_spot_market instead", DeprecationWarning, stacklevel=2)
-        req = spot_exchange_rpc_pb.MarketRequest(market_id=market_id)
-        return await self.stubSpotExchange.Market(req)
-
     async def fetch_spot_market(self, market_id: str) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_market(market_id=market_id)
-
-    async def get_spot_markets(self, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_spot_markets` instead
-        """
-        warn("This method is deprecated. Use fetch_spot_markets instead", DeprecationWarning, stacklevel=2)
-        req = spot_exchange_rpc_pb.MarketsRequest(
-            market_status=kwargs.get("market_status"),
-            base_denom=kwargs.get("base_denom"),
-            quote_denom=kwargs.get("quote_denom"),
-        )
-        return await self.stubSpotExchange.Markets(req)
+        return await self.chain_exchange_api.fetch_market(market_id=market_id)
 
     async def fetch_spot_markets(
         self,
@@ -1792,497 +1337,14 @@ class AsyncClient:
         base_denom: Optional[str] = None,
         quote_denom: Optional[str] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_markets(
+        return await self.chain_exchange_api.fetch_markets(
             market_statuses=market_statuses, base_denom=base_denom, quote_denom=quote_denom
         )
 
-    async def stream_spot_markets(self, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `listen_spot_markets_updates` instead
-        """
-        warn("This method is deprecated. Use listen_spot_markets_updates instead", DeprecationWarning, stacklevel=2)
+    async def fetch_spot_orderbook(self, market_id: str) -> Dict[str, Any]:
+        return await self.chain_exchange_api.fetch_orderbook_v2(market_id=market_id)
 
-        req = spot_exchange_rpc_pb.StreamMarketsRequest(market_ids=kwargs.get("market_ids"))
-        metadata = self.network.exchange_cookie_assistant.metadata()
-        return self.stubSpotExchange.StreamMarkets(request=req, metadata=metadata)
 
-    async def listen_spot_markets_updates(
-        self,
-        callback: Callable,
-        on_end_callback: Optional[Callable] = None,
-        on_status_callback: Optional[Callable] = None,
-        market_ids: Optional[List[str]] = None,
-    ):
-        await self.exchange_spot_stream_api.stream_markets(
-            callback=callback,
-            on_end_callback=on_end_callback,
-            on_status_callback=on_status_callback,
-            market_ids=market_ids,
-        )
-
-    async def get_spot_orderbookV2(self, market_id: str):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_spot_orderbook_v2` instead
-        """
-        warn("This method is deprecated. Use fetch_spot_orderbook_v2 instead", DeprecationWarning, stacklevel=2)
-        req = spot_exchange_rpc_pb.OrderbookV2Request(market_id=market_id)
-        return await self.stubSpotExchange.OrderbookV2(req)
-
-    async def fetch_spot_orderbook_v2(self, market_id: str) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_orderbook_v2(market_id=market_id)
-
-    async def get_spot_orderbooksV2(self, market_ids: List):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_spot_orderbooks_v2` instead
-        """
-        warn("This method is deprecated. Use fetch_spot_orderbooks_v2 instead", DeprecationWarning, stacklevel=2)
-        req = spot_exchange_rpc_pb.OrderbooksV2Request(market_ids=market_ids)
-        return await self.stubSpotExchange.OrderbooksV2(req)
-
-    async def fetch_spot_orderbooks_v2(self, market_ids: List[str]) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_orderbooks_v2(market_ids=market_ids)
-
-    async def get_spot_orders(self, market_id: str, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_spot_orders` instead
-        """
-        warn("This method is deprecated. Use fetch_spot_orders instead", DeprecationWarning, stacklevel=2)
-        req = spot_exchange_rpc_pb.OrdersRequest(
-            market_id=market_id,
-            order_side=kwargs.get("order_side"),
-            subaccount_id=kwargs.get("subaccount_id"),
-            skip=kwargs.get("skip"),
-            limit=kwargs.get("limit"),
-            start_time=kwargs.get("start_time"),
-            end_time=kwargs.get("end_time"),
-            market_ids=kwargs.get("market_ids"),
-            include_inactive=kwargs.get("include_inactive"),
-            subaccount_total_orders=kwargs.get("subaccount_total_orders"),
-            trade_id=kwargs.get("trade_id"),
-            cid=kwargs.get("cid"),
-        )
-        return await self.stubSpotExchange.Orders(req)
-
-    async def fetch_spot_orders(
-        self,
-        market_ids: Optional[List[str]] = None,
-        order_side: Optional[str] = None,
-        subaccount_id: Optional[str] = None,
-        include_inactive: Optional[bool] = None,
-        subaccount_total_orders: Optional[bool] = None,
-        trade_id: Optional[str] = None,
-        cid: Optional[str] = None,
-        pagination: Optional[PaginationOption] = None,
-    ) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_orders(
-            market_ids=market_ids,
-            order_side=order_side,
-            subaccount_id=subaccount_id,
-            include_inactive=include_inactive,
-            subaccount_total_orders=subaccount_total_orders,
-            trade_id=trade_id,
-            cid=cid,
-            pagination=pagination,
-        )
-
-    async def get_historical_spot_orders(self, market_id: Optional[str] = None, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_spot_orders_history` instead
-        """
-        warn("This method is deprecated. Use fetch_spot_orders_history instead", DeprecationWarning, stacklevel=2)
-        market_ids = kwargs.get("market_ids", [])
-        if market_id is not None:
-            market_ids.append(market_id)
-        order_types = kwargs.get("order_types", [])
-        order_type = kwargs.get("order_type")
-        if order_type is not None:
-            order_types.append(market_id)
-        req = spot_exchange_rpc_pb.OrdersHistoryRequest(
-            subaccount_id=kwargs.get("subaccount_id"),
-            skip=kwargs.get("skip"),
-            limit=kwargs.get("limit"),
-            order_types=order_types,
-            direction=kwargs.get("direction"),
-            start_time=kwargs.get("start_time"),
-            end_time=kwargs.get("end_time"),
-            state=kwargs.get("state"),
-            execution_types=kwargs.get("execution_types", []),
-            market_ids=market_ids,
-            trade_id=kwargs.get("trade_id"),
-            active_markets_only=kwargs.get("active_markets_only"),
-            cid=kwargs.get("cid"),
-        )
-        return await self.stubSpotExchange.OrdersHistory(req)
-
-    async def fetch_spot_orders_history(
-        self,
-        subaccount_id: Optional[str] = None,
-        market_ids: Optional[List[str]] = None,
-        order_types: Optional[List[str]] = None,
-        direction: Optional[str] = None,
-        state: Optional[str] = None,
-        execution_types: Optional[List[str]] = None,
-        trade_id: Optional[str] = None,
-        active_markets_only: Optional[bool] = None,
-        cid: Optional[str] = None,
-        pagination: Optional[PaginationOption] = None,
-    ) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_orders_history(
-            subaccount_id=subaccount_id,
-            market_ids=market_ids,
-            order_types=order_types,
-            direction=direction,
-            state=state,
-            execution_types=execution_types,
-            trade_id=trade_id,
-            active_markets_only=active_markets_only,
-            cid=cid,
-            pagination=pagination,
-        )
-
-    async def get_spot_trades(self, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_spot_trades` instead
-        """
-        warn("This method is deprecated. Use fetch_spot_trades instead", DeprecationWarning, stacklevel=2)
-        req = spot_exchange_rpc_pb.TradesRequest(
-            market_id=kwargs.get("market_id"),
-            execution_side=kwargs.get("execution_side"),
-            direction=kwargs.get("direction"),
-            subaccount_id=kwargs.get("subaccount_id"),
-            skip=kwargs.get("skip"),
-            limit=kwargs.get("limit"),
-            start_time=kwargs.get("start_time"),
-            end_time=kwargs.get("end_time"),
-            market_ids=kwargs.get("market_ids"),
-            subaccount_ids=kwargs.get("subaccount_ids"),
-            execution_types=kwargs.get("execution_types"),
-            trade_id=kwargs.get("trade_id"),
-            account_address=kwargs.get("account_address"),
-            cid=kwargs.get("cid"),
-        )
-        return await self.stubSpotExchange.Trades(req)
-
-    async def fetch_spot_trades(
-        self,
-        market_ids: Optional[List[str]] = None,
-        subaccount_ids: Optional[List[str]] = None,
-        execution_side: Optional[str] = None,
-        direction: Optional[str] = None,
-        execution_types: Optional[List[str]] = None,
-        trade_id: Optional[str] = None,
-        account_address: Optional[str] = None,
-        cid: Optional[str] = None,
-        pagination: Optional[PaginationOption] = None,
-    ) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_trades_v2(
-            market_ids=market_ids,
-            subaccount_ids=subaccount_ids,
-            execution_side=execution_side,
-            direction=direction,
-            execution_types=execution_types,
-            trade_id=trade_id,
-            account_address=account_address,
-            cid=cid,
-            pagination=pagination,
-        )
-
-    async def stream_spot_orderbook_snapshot(self, market_ids: List[str]):
-        """
-        This method is deprecated and will be removed soon. Please use `listen_spot_orderbook_snapshots` instead
-        """
-        warn("This method is deprecated. Use listen_spot_orderbook_snapshots instead", DeprecationWarning, stacklevel=2)
-        req = spot_exchange_rpc_pb.StreamOrderbookV2Request(market_ids=market_ids)
-        metadata = self.network.exchange_cookie_assistant.metadata()
-        return self.stubSpotExchange.StreamOrderbookV2(request=req, metadata=metadata)
-
-    async def listen_spot_orderbook_snapshots(
-        self,
-        market_ids: List[str],
-        callback: Callable,
-        on_end_callback: Optional[Callable] = None,
-        on_status_callback: Optional[Callable] = None,
-    ):
-        await self.exchange_spot_stream_api.stream_orderbook_v2(
-            market_ids=market_ids,
-            callback=callback,
-            on_end_callback=on_end_callback,
-            on_status_callback=on_status_callback,
-        )
-
-    async def stream_spot_orderbook_update(self, market_ids: List[str]):
-        """
-        This method is deprecated and will be removed soon. Please use `listen_spot_orderbook_updates` instead
-        """
-        warn("This method is deprecated. Use listen_spot_orderbook_updates instead", DeprecationWarning, stacklevel=2)
-        req = spot_exchange_rpc_pb.StreamOrderbookUpdateRequest(market_ids=market_ids)
-        metadata = self.network.exchange_cookie_assistant.metadata()
-        return self.stubSpotExchange.StreamOrderbookUpdate(request=req, metadata=metadata)
-
-    async def listen_spot_orderbook_updates(
-        self,
-        market_ids: List[str],
-        callback: Callable,
-        on_end_callback: Optional[Callable] = None,
-        on_status_callback: Optional[Callable] = None,
-    ):
-        await self.exchange_spot_stream_api.stream_orderbook_update(
-            market_ids=market_ids,
-            callback=callback,
-            on_end_callback=on_end_callback,
-            on_status_callback=on_status_callback,
-        )
-
-    async def stream_spot_orders(self, market_id: str, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `listen_spot_orders_updates` instead
-        """
-        warn("This method is deprecated. Use listen_spot_orders_updates instead", DeprecationWarning, stacklevel=2)
-        req = spot_exchange_rpc_pb.StreamOrdersRequest(
-            market_id=market_id,
-            order_side=kwargs.get("order_side"),
-            subaccount_id=kwargs.get("subaccount_id"),
-            skip=kwargs.get("skip"),
-            limit=kwargs.get("limit"),
-            start_time=kwargs.get("start_time"),
-            end_time=kwargs.get("end_time"),
-            market_ids=kwargs.get("market_ids"),
-            include_inactive=kwargs.get("include_inactive"),
-            subaccount_total_orders=kwargs.get("subaccount_total_orders"),
-            trade_id=kwargs.get("trade_id"),
-            cid=kwargs.get("cid"),
-        )
-        metadata = self.network.exchange_cookie_assistant.metadata()
-        return self.stubSpotExchange.StreamOrders(request=req, metadata=metadata)
-
-    async def listen_spot_orders_updates(
-        self,
-        callback: Callable,
-        on_end_callback: Optional[Callable] = None,
-        on_status_callback: Optional[Callable] = None,
-        market_ids: Optional[List[str]] = None,
-        order_side: Optional[str] = None,
-        subaccount_id: Optional[PaginationOption] = None,
-        include_inactive: Optional[bool] = None,
-        subaccount_total_orders: Optional[bool] = None,
-        trade_id: Optional[str] = None,
-        cid: Optional[str] = None,
-        pagination: Optional[PaginationOption] = None,
-    ):
-        await self.exchange_spot_stream_api.stream_orders(
-            callback=callback,
-            on_end_callback=on_end_callback,
-            on_status_callback=on_status_callback,
-            market_ids=market_ids,
-            order_side=order_side,
-            subaccount_id=subaccount_id,
-            include_inactive=include_inactive,
-            subaccount_total_orders=subaccount_total_orders,
-            trade_id=trade_id,
-            cid=cid,
-            pagination=pagination,
-        )
-
-    async def stream_historical_spot_orders(self, market_id: str, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `listen_spot_orders_history_updates` instead
-        """
-        warn(
-            "This method is deprecated. Use listen_spot_orders_history_updates instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        req = spot_exchange_rpc_pb.StreamOrdersHistoryRequest(
-            market_id=market_id,
-            direction=kwargs.get("direction"),
-            subaccount_id=kwargs.get("subaccount_id"),
-            order_types=kwargs.get("order_types"),
-            state=kwargs.get("state"),
-            execution_types=kwargs.get("execution_types"),
-        )
-        metadata = self.network.exchange_cookie_assistant.metadata()
-        return self.stubSpotExchange.StreamOrdersHistory(request=req, metadata=metadata)
-
-    async def listen_spot_orders_history_updates(
-        self,
-        callback: Callable,
-        on_end_callback: Optional[Callable] = None,
-        on_status_callback: Optional[Callable] = None,
-        subaccount_id: Optional[str] = None,
-        market_id: Optional[str] = None,
-        order_types: Optional[List[str]] = None,
-        direction: Optional[str] = None,
-        state: Optional[str] = None,
-        execution_types: Optional[List[str]] = None,
-    ):
-        await self.exchange_spot_stream_api.stream_orders_history(
-            callback=callback,
-            on_end_callback=on_end_callback,
-            on_status_callback=on_status_callback,
-            subaccount_id=subaccount_id,
-            market_id=market_id,
-            order_types=order_types,
-            direction=direction,
-            state=state,
-            execution_types=execution_types,
-        )
-
-    async def stream_historical_derivative_orders(self, market_id: str, **kwargs):
-        """
-        This method is deprecated and will be removed soon.
-        Please use `listen_derivative_orders_history_updates` instead
-        """
-        warn(
-            "This method is deprecated. Use listen_derivative_orders_history_updates instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        req = derivative_exchange_rpc_pb.StreamOrdersHistoryRequest(
-            market_id=market_id,
-            direction=kwargs.get("direction"),
-            subaccount_id=kwargs.get("subaccount_id"),
-            order_types=kwargs.get("order_types"),
-            state=kwargs.get("state"),
-            execution_types=kwargs.get("execution_types"),
-        )
-        metadata = self.network.exchange_cookie_assistant.metadata()
-        return self.stubDerivativeExchange.StreamOrdersHistory(request=req, metadata=metadata)
-
-    async def listen_derivative_orders_history_updates(
-        self,
-        callback: Callable,
-        on_end_callback: Optional[Callable] = None,
-        on_status_callback: Optional[Callable] = None,
-        subaccount_id: Optional[str] = None,
-        market_id: Optional[str] = None,
-        order_types: Optional[List[str]] = None,
-        direction: Optional[str] = None,
-        state: Optional[str] = None,
-        execution_types: Optional[List[str]] = None,
-    ):
-        await self.exchange_derivative_stream_api.stream_orders_history(
-            callback=callback,
-            on_end_callback=on_end_callback,
-            on_status_callback=on_status_callback,
-            subaccount_id=subaccount_id,
-            market_id=market_id,
-            order_types=order_types,
-            direction=direction,
-            state=state,
-            execution_types=execution_types,
-        )
-
-    async def stream_spot_trades(self, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `listen_spot_trades_updates` instead
-        """
-        warn("This method is deprecated. Use listen_spot_trades_updates instead", DeprecationWarning, stacklevel=2)
-        req = spot_exchange_rpc_pb.StreamTradesRequest(
-            market_id=kwargs.get("market_id"),
-            execution_side=kwargs.get("execution_side"),
-            direction=kwargs.get("direction"),
-            subaccount_id=kwargs.get("subaccount_id"),
-            skip=kwargs.get("skip"),
-            limit=kwargs.get("limit"),
-            start_time=kwargs.get("start_time"),
-            end_time=kwargs.get("end_time"),
-            market_ids=kwargs.get("market_ids"),
-            subaccount_ids=kwargs.get("subaccount_ids"),
-            execution_types=kwargs.get("execution_types"),
-            trade_id=kwargs.get("trade_id"),
-            account_address=kwargs.get("account_address"),
-            cid=kwargs.get("cid"),
-        )
-        metadata = self.network.exchange_cookie_assistant.metadata()
-        return self.stubSpotExchange.StreamTrades(request=req, metadata=metadata)
-
-    async def listen_spot_trades_updates(
-        self,
-        callback: Callable,
-        on_end_callback: Optional[Callable] = None,
-        on_status_callback: Optional[Callable] = None,
-        market_ids: Optional[List[str]] = None,
-        subaccount_ids: Optional[List[str]] = None,
-        execution_side: Optional[str] = None,
-        direction: Optional[str] = None,
-        execution_types: Optional[List[str]] = None,
-        trade_id: Optional[str] = None,
-        account_address: Optional[str] = None,
-        cid: Optional[str] = None,
-        pagination: Optional[PaginationOption] = None,
-    ):
-        await self.exchange_spot_stream_api.stream_trades_v2(
-            callback=callback,
-            on_end_callback=on_end_callback,
-            on_status_callback=on_status_callback,
-            market_ids=market_ids,
-            subaccount_ids=subaccount_ids,
-            execution_side=execution_side,
-            direction=direction,
-            execution_types=execution_types,
-            trade_id=trade_id,
-            account_address=account_address,
-            cid=cid,
-            pagination=pagination,
-        )
-
-    async def get_spot_subaccount_orders(self, subaccount_id: str, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_spot_subaccount_orders_list` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_spot_subaccount_orders_list instead", DeprecationWarning, stacklevel=2
-        )
-        req = spot_exchange_rpc_pb.SubaccountOrdersListRequest(
-            subaccount_id=subaccount_id,
-            market_id=kwargs.get("market_id"),
-            skip=kwargs.get("skip"),
-            limit=kwargs.get("limit"),
-        )
-        return await self.stubSpotExchange.SubaccountOrdersList(req)
-
-    async def fetch_spot_subaccount_orders_list(
-        self,
-        subaccount_id: str,
-        market_id: Optional[str] = None,
-        pagination: Optional[PaginationOption] = None,
-    ) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_subaccount_orders_list(
-            subaccount_id=subaccount_id, market_id=market_id, pagination=pagination
-        )
-
-    async def get_spot_subaccount_trades(self, subaccount_id: str, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_spot_subaccount_trades_list` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_spot_subaccount_trades_list instead", DeprecationWarning, stacklevel=2
-        )
-        req = spot_exchange_rpc_pb.SubaccountTradesListRequest(
-            subaccount_id=subaccount_id,
-            market_id=kwargs.get("market_id"),
-            execution_type=kwargs.get("execution_type"),
-            direction=kwargs.get("direction"),
-            skip=kwargs.get("skip"),
-            limit=kwargs.get("limit"),
-        )
-        return await self.stubSpotExchange.SubaccountTradesList(req)
-
-    async def fetch_spot_subaccount_trades_list(
-        self,
-        subaccount_id: str,
-        market_id: Optional[str] = None,
-        execution_type: Optional[str] = None,
-        direction: Optional[str] = None,
-        pagination: Optional[PaginationOption] = None,
-    ) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_subaccount_trades_list(
-            subaccount_id=subaccount_id,
-            market_id=market_id,
-            execution_type=execution_type,
-            direction=direction,
-            pagination=pagination,
-        )
 
     # DerivativeRPC
 
@@ -2329,19 +1391,6 @@ class AsyncClient:
         metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubDerivativeExchange.StreamMarket(request=req, metadata=metadata)
 
-    async def listen_derivative_market_updates(
-        self,
-        callback: Callable,
-        on_end_callback: Optional[Callable] = None,
-        on_status_callback: Optional[Callable] = None,
-        market_ids: Optional[List[str]] = None,
-    ):
-        await self.exchange_derivative_stream_api.stream_market(
-            callback=callback,
-            on_end_callback=on_end_callback,
-            on_status_callback=on_status_callback,
-            market_ids=market_ids,
-        )
 
     async def get_derivative_orderbook(self, market_id: str):
         """
@@ -2532,20 +1581,7 @@ class AsyncClient:
         metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubDerivativeExchange.StreamOrderbookV2(request=req, metadata=metadata)
 
-    async def listen_derivative_orderbook_snapshots(
-        self,
-        market_ids: List[str],
-        callback: Callable,
-        on_end_callback: Optional[Callable] = None,
-        on_status_callback: Optional[Callable] = None,
-    ):
-        await self.exchange_derivative_stream_api.stream_orderbook_v2(
-            market_ids=market_ids,
-            callback=callback,
-            on_end_callback=on_end_callback,
-            on_status_callback=on_status_callback,
-        )
-
+    
     async def stream_derivative_orderbook_update(self, market_ids: List[str]):
         """
         This method is deprecated and will be removed soon. Please use `listen_derivative_orderbook_updates` instead
@@ -2559,20 +1595,7 @@ class AsyncClient:
         metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubDerivativeExchange.StreamOrderbookUpdate(request=req, metadata=metadata)
 
-    async def listen_derivative_orderbook_updates(
-        self,
-        market_ids: List[str],
-        callback: Callable,
-        on_end_callback: Optional[Callable] = None,
-        on_status_callback: Optional[Callable] = None,
-    ):
-        await self.exchange_derivative_stream_api.stream_orderbook_update(
-            market_ids=market_ids,
-            callback=callback,
-            on_end_callback=on_end_callback,
-            on_status_callback=on_status_callback,
-        )
-
+    
     async def stream_derivative_orders(self, market_id: str, **kwargs):
         """
         This method is deprecated and will be removed soon. Please use `listen_derivative_orders_updates` instead
@@ -2599,38 +1622,7 @@ class AsyncClient:
         metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubDerivativeExchange.StreamOrders(request=req, metadata=metadata)
 
-    async def listen_derivative_orders_updates(
-        self,
-        callback: Callable,
-        on_end_callback: Optional[Callable] = None,
-        on_status_callback: Optional[Callable] = None,
-        market_ids: Optional[List[str]] = None,
-        order_side: Optional[str] = None,
-        subaccount_id: Optional[PaginationOption] = None,
-        is_conditional: Optional[str] = None,
-        order_type: Optional[str] = None,
-        include_inactive: Optional[bool] = None,
-        subaccount_total_orders: Optional[bool] = None,
-        trade_id: Optional[str] = None,
-        cid: Optional[str] = None,
-        pagination: Optional[PaginationOption] = None,
-    ):
-        await self.exchange_derivative_stream_api.stream_orders(
-            callback=callback,
-            on_end_callback=on_end_callback,
-            on_status_callback=on_status_callback,
-            market_ids=market_ids,
-            order_side=order_side,
-            subaccount_id=subaccount_id,
-            is_conditional=is_conditional,
-            order_type=order_type,
-            include_inactive=include_inactive,
-            subaccount_total_orders=subaccount_total_orders,
-            trade_id=trade_id,
-            cid=cid,
-            pagination=pagination,
-        )
-
+    
     async def stream_derivative_trades(self, **kwargs):
         """
         This method is deprecated and will be removed soon. Please use `listen_derivative_trades_updates` instead
@@ -2657,36 +1649,7 @@ class AsyncClient:
         metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubDerivativeExchange.StreamTrades(request=req, metadata=metadata)
 
-    async def listen_derivative_trades_updates(
-        self,
-        callback: Callable,
-        on_end_callback: Optional[Callable] = None,
-        on_status_callback: Optional[Callable] = None,
-        market_ids: Optional[List[str]] = None,
-        execution_side: Optional[str] = None,
-        direction: Optional[str] = None,
-        subaccount_ids: Optional[List[str]] = None,
-        execution_types: Optional[List[str]] = None,
-        trade_id: Optional[str] = None,
-        account_address: Optional[str] = None,
-        cid: Optional[str] = None,
-        pagination: Optional[PaginationOption] = None,
-    ):
-        return await self.exchange_derivative_stream_api.stream_trades_v2(
-            callback=callback,
-            on_end_callback=on_end_callback,
-            on_status_callback=on_status_callback,
-            market_ids=market_ids,
-            subaccount_ids=subaccount_ids,
-            execution_side=execution_side,
-            direction=direction,
-            execution_types=execution_types,
-            trade_id=trade_id,
-            account_address=account_address,
-            cid=cid,
-            pagination=pagination,
-        )
-
+    
     async def get_derivative_positions(self, **kwargs):
         """
         This method is deprecated and will be removed soon. Please use `fetch_derivative_positions_v2` instead
@@ -2737,47 +1700,32 @@ class AsyncClient:
         metadata = self.network.exchange_cookie_assistant.metadata()
         return self.stubDerivativeExchange.StreamPositions(request=req, metadata=metadata)
 
-    async def listen_derivative_positions_updates(
-        self,
-        callback: Callable,
-        on_end_callback: Optional[Callable] = None,
-        on_status_callback: Optional[Callable] = None,
-        market_ids: Optional[List[str]] = None,
-        subaccount_ids: Optional[List[str]] = None,
-    ):
-        await self.exchange_derivative_stream_api.stream_positions(
-            callback=callback,
-            on_end_callback=on_end_callback,
-            on_status_callback=on_status_callback,
-            market_ids=market_ids,
-            subaccount_ids=subaccount_ids,
-        )
+    ####MASSIVE TODO : NEED TO WRITE A LIQUIDABLE POSITIONS WATCHER#######
+    #async def get_derivative_liquidable_positions(self, **kwargs):
+    #    """
+    #    This method is deprecated and will be removed soon. Please use `fetch_derivative_liquidable_positions` instead
+    #    """
+    #    warn(
+    #        "This method is deprecated. Use fetch_derivative_liquidable_positions instead",
+    #        DeprecationWarning,
+    #        stacklevel=2,
+    #    )
+    #    req = derivative_exchange_rpc_pb.LiquidablePositionsRequest(
+    #        market_id=kwargs.get("market_id"),
+    #        skip=kwargs.get("skip"),
+    #        limit=kwargs.get("limit"),
+    #    )
+    #    return await self.stubDerivativeExchange.LiquidablePositions(req)
 
-    async def get_derivative_liquidable_positions(self, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_derivative_liquidable_positions` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_derivative_liquidable_positions instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        req = derivative_exchange_rpc_pb.LiquidablePositionsRequest(
-            market_id=kwargs.get("market_id"),
-            skip=kwargs.get("skip"),
-            limit=kwargs.get("limit"),
-        )
-        return await self.stubDerivativeExchange.LiquidablePositions(req)
-
-    async def fetch_derivative_liquidable_positions(
-        self,
-        market_id: Optional[str] = None,
-        pagination: Optional[PaginationOption] = None,
-    ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_liquidable_positions(
-            market_id=market_id,
-            pagination=pagination,
-        )
+    #async def fetch_derivative_liquidable_positions(
+    #    self,
+    #    market_id: Optional[str] = None,
+    #    pagination: Optional[PaginationOption] = None,
+    #) -> Dict[str, Any]:
+    #    return await self.exchange_derivative_api.fetch_liquidable_positions(
+    #        market_id=market_id,
+    #        pagination=pagination,
+    #    )
 
     async def get_derivative_subaccount_orders(self, subaccount_id: str, **kwargs):
         """
