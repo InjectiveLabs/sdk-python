@@ -20,7 +20,6 @@ from pyinjective.proto.cosmos.distribution.v1beta1 import (
 from pyinjective.proto.cosmos.gov.v1beta1 import tx_pb2 as cosmos_gov_tx_pb
 from pyinjective.proto.cosmos.staking.v1beta1 import tx_pb2 as cosmos_staking_tx_pb
 from pyinjective.proto.cosmwasm.wasm.v1 import tx_pb2 as wasm_tx_pb
-from pyinjective.proto.exchange import injective_explorer_rpc_pb2 as explorer_pb2
 from pyinjective.proto.ibc.applications.transfer.v1 import tx_pb2 as ibc_transfer_tx_pb
 from pyinjective.proto.ibc.core.client.v1 import client_pb2 as ibc_core_client_pb
 from pyinjective.proto.injective.auction.v1beta1 import tx_pb2 as injective_auction_tx_pb
@@ -2527,24 +2526,6 @@ class Composer:
         for msg in meta_messages:
             msg_as_string_dict = json.dumps(msg["value"])
             msgs.append(json_format.Parse(msg_as_string_dict, header_map[msg["type"]]()))
-
-        return msgs
-
-    @staticmethod
-    def unpack_transaction_messages(transaction_data: Dict[str, Any]) -> List[Dict[str, Any]]:
-        grpc_tx = explorer_pb2.TxDetailData()
-        json_format.ParseDict(js_dict=transaction_data, message=grpc_tx, ignore_unknown_fields=True)
-        meta_messages = json.loads(grpc_tx.messages.decode())
-        msgs = []
-        for msg in meta_messages:
-            msg_as_string_dict = json.dumps(msg["value"])
-            grpc_message = json_format.Parse(msg_as_string_dict, GRPC_MESSAGE_TYPE_TO_CLASS_MAP[msg["type"]]())
-            msgs.append(
-                {
-                    "type": msg["type"],
-                    "value": json_format.MessageToDict(message=grpc_message, always_print_fields_with_no_presence=True),
-                }
-            )
 
         return msgs
 

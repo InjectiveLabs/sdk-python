@@ -2,7 +2,7 @@ from typing import Any, Callable, Dict, Optional
 
 from grpc.aio import Channel
 
-from pyinjective.client.model.pagination import PaginationOption
+from pyinjective.client.model import PaginationOption
 from pyinjective.core.network import CookieAssistant
 from pyinjective.proto.ibc.applications.transfer.v1 import (
     query_pb2 as ibc_transfer_query,

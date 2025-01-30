@@ -98,19 +98,7 @@ class AsyncClient:
         self.timeout_height = 1
 
         # exchange stubs
-        self.exchange_channel = self.network.create_exchange_grpc_channel()
-        self.stubMeta = exchange_meta_rpc_grpc.InjectiveMetaRPCStub(self.exchange_channel)
-        self.stubExchangeAccount = exchange_accounts_rpc_grpc.InjectiveAccountsRPCStub(self.exchange_channel)
-        self.stubOracle = oracle_rpc_grpc.InjectiveOracleRPCStub(self.exchange_channel)
-        self.stubInsurance = insurance_rpc_grpc.InjectiveInsuranceRPCStub(self.exchange_channel)
-        self.stubSpotExchange = spot_exchange_rpc_grpc.InjectiveSpotExchangeRPCStub(self.exchange_channel)
-        self.stubDerivativeExchange = derivative_exchange_rpc_grpc.InjectiveDerivativeExchangeRPCStub(
-            self.exchange_channel
-        )
-        self.stubAuction = auction_rpc_grpc.InjectiveAuctionRPCStub(self.exchange_channel)
-        self.stubPortfolio = portfolio_rpc_grpc.InjectivePortfolioRPCStub(self.exchange_channel)
-
-
+        
         self.chain_stream_channel = self.network.create_chain_stream_grpc_channel()
         self.chain_stream_stub = stream_rpc_grpc.StreamStub(channel=self.chain_stream_channel)
 
@@ -218,7 +206,7 @@ class AsyncClient:
         #     channel=self.exchange_channel,
         #     cookie_assistant=network.exchange_cookie_assistant,
         # )
-# 
+        # 
         # self.exchange_account_stream_api = IndexerGrpcAccountStream(
         #     channel=self.exchange_channel,
         #     cookie_assistant=network.exchange_cookie_assistant,
@@ -630,7 +618,7 @@ class AsyncClient:
     async def fetch_denom_decimals(self, denoms: Optional[List[str]] = None) -> Dict[str, Any]:
         return await self.chain_exchange_api.fetch_denom_decimals(denoms=denoms)
 
-    async def fetch_chain_spot_markets(
+    async def fetch_spot_markets(
         self,
         status: Optional[str] = None,
         market_ids: Optional[List[str]] = None,
@@ -640,7 +628,7 @@ class AsyncClient:
             market_ids=market_ids,
         )
 
-    async def fetch_chain_spot_market(
+    async def fetch_spot_market(
         self,
         market_id: str,
     ) -> Dict[str, Any]:
@@ -648,7 +636,7 @@ class AsyncClient:
             market_id=market_id,
         )
 
-    async def fetch_chain_full_spot_markets(
+    async def fetch_full_spot_markets(
         self,
         status: Optional[str] = None,
         market_ids: Optional[List[str]] = None,
@@ -660,7 +648,7 @@ class AsyncClient:
             with_mid_price_and_tob=with_mid_price_and_tob,
         )
 
-    async def fetch_chain_full_spot_market(
+    async def fetch_full_spot_market(
         self,
         market_id: str,
         with_mid_price_and_tob: Optional[bool] = None,
@@ -670,7 +658,7 @@ class AsyncClient:
             with_mid_price_and_tob=with_mid_price_and_tob,
         )
 
-    async def fetch_chain_spot_orderbook(
+    async def fetch_spot_orderbook(
         self,
         market_id: str,
         order_side: Optional[str] = None,
@@ -687,7 +675,7 @@ class AsyncClient:
             pagination=pagination,
         )
 
-    async def fetch_chain_trader_spot_orders(
+    async def fetch_trader_spot_orders(
         self,
         market_id: str,
         subaccount_id: str,
@@ -697,7 +685,7 @@ class AsyncClient:
             subaccount_id=subaccount_id,
         )
 
-    async def fetch_chain_account_address_spot_orders(
+    async def fetch_account_address_spot_orders(
         self,
         market_id: str,
         account_address: str,
@@ -707,7 +695,7 @@ class AsyncClient:
             account_address=account_address,
         )
 
-    async def fetch_chain_spot_orders_by_hashes(
+    async def fetch_spot_orders_by_hashes(
         self,
         market_id: str,
         subaccount_id: str,
@@ -719,7 +707,7 @@ class AsyncClient:
             order_hashes=order_hashes,
         )
 
-    async def fetch_chain_subaccount_orders(
+    async def fetch_subaccount_orders(
         self,
         subaccount_id: str,
         market_id: str,
@@ -729,7 +717,7 @@ class AsyncClient:
             market_id=market_id,
         )
 
-    async def fetch_chain_trader_spot_transient_orders(
+    async def fetch_trader_spot_transient_orders(
         self,
         market_id: str,
         subaccount_id: str,
@@ -755,7 +743,7 @@ class AsyncClient:
             market_id=market_id,
         )
 
-    async def fetch_chain_derivative_orderbook(
+    async def fetch_derivative_orderbook(
         self,
         market_id: str,
         limit_cumulative_notional: Optional[str] = None,
@@ -767,7 +755,7 @@ class AsyncClient:
             pagination=pagination,
         )
 
-    async def fetch_chain_trader_derivative_orders(
+    async def fetch_trader_derivative_orders(
         self,
         market_id: str,
         subaccount_id: str,
@@ -777,7 +765,7 @@ class AsyncClient:
             subaccount_id=subaccount_id,
         )
 
-    async def fetch_chain_account_address_derivative_orders(
+    async def fetch_account_address_derivative_orders(
         self,
         market_id: str,
         account_address: str,
@@ -787,7 +775,7 @@ class AsyncClient:
             account_address=account_address,
         )
 
-    async def fetch_chain_derivative_orders_by_hashes(
+    async def fetch_derivative_orders_by_hashes(
         self,
         market_id: str,
         subaccount_id: str,
@@ -799,7 +787,7 @@ class AsyncClient:
             order_hashes=order_hashes,
         )
 
-    async def fetch_chain_trader_derivative_transient_orders(
+    async def fetch_trader_derivative_transient_orders(
         self,
         market_id: str,
         subaccount_id: str,
@@ -809,7 +797,7 @@ class AsyncClient:
             subaccount_id=subaccount_id,
         )
 
-    async def fetch_chain_derivative_markets(
+    async def fetch_derivative_markets(
         self,
         status: Optional[str] = None,
         market_ids: Optional[List[str]] = None,
@@ -821,7 +809,7 @@ class AsyncClient:
             with_mid_price_and_tob=with_mid_price_and_tob,
         )
 
-    async def fetch_chain_derivative_market(
+    async def fetch_derivative_market(
         self,
         market_id: str,
     ) -> Dict[str, Any]:
@@ -835,19 +823,19 @@ class AsyncClient:
     async def fetch_subaccount_trade_nonce(self, subaccount_id: str) -> Dict[str, Any]:
         return await self.chain_exchange_api.fetch_subaccount_trade_nonce(subaccount_id=subaccount_id)
 
-    async def fetch_chain_positions(self) -> Dict[str, Any]:
+    async def fetch_positions(self) -> Dict[str, Any]:
         return await self.chain_exchange_api.fetch_positions()
 
-    async def fetch_chain_subaccount_positions(self, subaccount_id: str) -> Dict[str, Any]:
+    async def fetch_subaccount_positions(self, subaccount_id: str) -> Dict[str, Any]:
         return await self.chain_exchange_api.fetch_subaccount_positions(subaccount_id=subaccount_id)
 
-    async def fetch_chain_subaccount_position_in_market(self, subaccount_id: str, market_id: str) -> Dict[str, Any]:
+    async def fetch_subaccount_position_in_market(self, subaccount_id: str, market_id: str) -> Dict[str, Any]:
         return await self.chain_exchange_api.fetch_subaccount_position_in_market(
             subaccount_id=subaccount_id,
             market_id=market_id,
         )
 
-    async def fetch_chain_subaccount_effective_position_in_market(
+    async def fetch_subaccount_effective_position_in_market(
         self, subaccount_id: str, market_id: str
     ) -> Dict[str, Any]:
         return await self.chain_exchange_api.fetch_subaccount_effective_position_in_market(
@@ -855,13 +843,13 @@ class AsyncClient:
             market_id=market_id,
         )
 
-    async def fetch_chain_perpetual_market_info(self, market_id: str) -> Dict[str, Any]:
+    async def fetch_perpetual_market_info(self, market_id: str) -> Dict[str, Any]:
         return await self.chain_exchange_api.fetch_perpetual_market_info(market_id=market_id)
 
-    async def fetch_chain_expiry_futures_market_info(self, market_id: str) -> Dict[str, Any]:
+    async def fetch_expiry_futures_market_info(self, market_id: str) -> Dict[str, Any]:
         return await self.chain_exchange_api.fetch_expiry_futures_market_info(market_id=market_id)
 
-    async def fetch_chain_perpetual_market_funding(self, market_id: str) -> Dict[str, Any]:
+    async def fetch_perpetual_market_funding(self, market_id: str) -> Dict[str, Any]:
         return await self.chain_exchange_api.fetch_perpetual_market_funding(market_id=market_id)
 
     async def fetch_subaccount_order_metadata(self, subaccount_id: str) -> Dict[str, Any]:
@@ -936,7 +924,7 @@ class AsyncClient:
             include_metadata=include_metadata,
         )
 
-    async def fetch_chain_binary_options_markets(self, status: Optional[str] = None) -> Dict[str, Any]:
+    async def fetch_binary_options_markets(self, status: Optional[str] = None) -> Dict[str, Any]:
         return await self.chain_exchange_api.fetch_binary_options_markets(status=status)
 
     async def fetch_trader_derivative_conditional_orders(
@@ -959,38 +947,6 @@ class AsyncClient:
 
     # Injective Exchange client methods
 
-    # Auction RPC
-
-    async def get_auction(self, bid_round: int):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_auction` instead
-        """
-        warn("This method is deprecated. Use fetch_auction instead", DeprecationWarning, stacklevel=2)
-        req = auction_rpc_pb.AuctionEndpointRequest(round=bid_round)
-        return await self.stubAuction.AuctionEndpoint(req)
-
-    async def fetch_auction(self, round: int) -> Dict[str, Any]:
-        return await self.exchange_auction_api.fetch_auction(round=round)
-
-    async def get_auctions(self):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_auctions` instead
-        """
-        warn("This method is deprecated. Use fetch_auctions instead", DeprecationWarning, stacklevel=2)
-        req = auction_rpc_pb.AuctionsRequest()
-        return await self.stubAuction.Auctions(req)
-
-    async def fetch_auctions(self) -> Dict[str, Any]:
-        return await self.exchange_auction_api.fetch_auctions()
-
-    async def stream_bids(self):
-        """
-        This method is deprecated and will be removed soon. Please use `listen_bids_updates` instead
-        """
-        warn("This method is deprecated. Use listen_bids_updates instead", DeprecationWarning, stacklevel=2)
-        req = auction_rpc_pb.StreamBidsRequest()
-        return self.stubAuction.StreamBids(req)
-
     async def listen_bids_updates(
         self,
         callback: Callable,
@@ -1004,50 +960,6 @@ class AsyncClient:
         )
 
     # Meta RPC
-
-    async def ping(self):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_ping` instead
-        """
-        warn("This method is deprecated. Use fetch_ping instead", DeprecationWarning, stacklevel=2)
-        req = exchange_meta_rpc_pb.PingRequest()
-        return await self.stubMeta.Ping(req)
-
-    async def fetch_ping(self) -> Dict[str, Any]:
-        return await self.exchange_meta_api.fetch_ping()
-
-    async def version(self):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_version` instead
-        """
-        warn("This method is deprecated. Use fetch_version instead", DeprecationWarning, stacklevel=2)
-        req = exchange_meta_rpc_pb.VersionRequest()
-        return await self.stubMeta.Version(req)
-
-    async def fetch_version(self) -> Dict[str, Any]:
-        return await self.exchange_meta_api.fetch_version()
-
-    async def info(self):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_info` instead
-        """
-        warn("This method is deprecated. Use fetch_info instead", DeprecationWarning, stacklevel=2)
-        req = exchange_meta_rpc_pb.InfoRequest(
-            timestamp=int(time.time() * 1000),
-        )
-        return await self.stubMeta.Info(req)
-
-    async def fetch_info(self) -> Dict[str, Any]:
-        return await self.exchange_meta_api.fetch_info()
-
-    async def stream_keepalive(self):
-        """
-        This method is deprecated and will be removed soon. Please use `listen_keepalive` instead
-        """
-        warn("This method is deprecated. Use listen_keepalive instead", DeprecationWarning, stacklevel=2)
-        req = exchange_meta_rpc_pb.StreamKeepaliveRequest()
-        return self.stubMeta.StreamKeepalive(req)
-
     async def listen_keepalive(
         self,
         callback: Callable,
@@ -1187,146 +1099,8 @@ class AsyncClient:
     # ------------------------------
     # Explorer RPC
     # AccountsRPC
-
-    async def stream_subaccount_balance(self, subaccount_id: str, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `listen_subaccount_balance_updates` instead
-        """
-        warn(
-            "This method is deprecated. Use listen_subaccount_balance_updates instead", DeprecationWarning, stacklevel=2
-        )
-        req = exchange_accounts_rpc_pb.StreamSubaccountBalanceRequest(
-            subaccount_id=subaccount_id, denoms=kwargs.get("denoms")
-        )
-        return self.stubExchangeAccount.StreamSubaccountBalance(req)
-
-    async def listen_subaccount_balance_updates(
-        self,
-        subaccount_id: str,
-        callback: Callable,
-        on_end_callback: Optional[Callable] = None,
-        on_status_callback: Optional[Callable] = None,
-        denoms: Optional[List[str]] = None,
-    ):
-        await self.exchange_account_stream_api.stream_subaccount_balance(
-            subaccount_id=subaccount_id,
-            callback=callback,
-            on_end_callback=on_end_callback,
-            on_status_callback=on_status_callback,
-            denoms=denoms,
-        )
-
     # OracleRPC
-
-    async def stream_oracle_prices(self, base_symbol: str, quote_symbol: str, oracle_type: str):
-        """
-        This method is deprecated and will be removed soon. Please use `listen_subaccount_balance_updates` instead
-        """
-        warn("This method is deprecated. Use listen_oracle_prices_updates instead", DeprecationWarning, stacklevel=2)
-        req = oracle_rpc_pb.StreamPricesRequest(
-            base_symbol=base_symbol, quote_symbol=quote_symbol, oracle_type=oracle_type
-        )
-        return self.stubOracle.StreamPrices(req)
-
-    async def listen_oracle_prices_updates(
-        self,
-        callback: Callable,
-        on_end_callback: Optional[Callable] = None,
-        on_status_callback: Optional[Callable] = None,
-        base_symbol: Optional[str] = None,
-        quote_symbol: Optional[str] = None,
-        oracle_type: Optional[str] = None,
-    ):
-        await self.exchange_oracle_stream_api.stream_oracle_prices(
-            callback=callback,
-            on_end_callback=on_end_callback,
-            on_status_callback=on_status_callback,
-            base_symbol=base_symbol,
-            quote_symbol=quote_symbol,
-            oracle_type=oracle_type,
-        )
-
-    async def get_oracle_prices(
-        self,
-        base_symbol: str,
-        quote_symbol: str,
-        oracle_type: str,
-        oracle_scale_factor: int,
-    ):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_oracle_price` instead
-        """
-        warn("This method is deprecated. Use fetch_oracle_price instead", DeprecationWarning, stacklevel=2)
-        req = oracle_rpc_pb.PriceRequest(
-            base_symbol=base_symbol,
-            quote_symbol=quote_symbol,
-            oracle_type=oracle_type,
-            oracle_scale_factor=oracle_scale_factor,
-        )
-        return await self.stubOracle.Price(req)
-
-    async def fetch_oracle_price(
-        self,
-        base_symbol: Optional[str] = None,
-        quote_symbol: Optional[str] = None,
-        oracle_type: Optional[str] = None,
-        oracle_scale_factor: Optional[int] = None,
-    ) -> Dict[str, Any]:
-        return await self.exchange_oracle_api.fetch_oracle_price(
-            base_symbol=base_symbol,
-            quote_symbol=quote_symbol,
-            oracle_type=oracle_type,
-            oracle_scale_factor=oracle_scale_factor,
-        )
-
-    async def get_oracle_list(self):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_oracle_list` instead
-        """
-        warn("This method is deprecated. Use fetch_oracle_list instead", DeprecationWarning, stacklevel=2)
-        req = oracle_rpc_pb.OracleListRequest()
-        return await self.stubOracle.OracleList(req)
-
-    async def fetch_oracle_list(self) -> Dict[str, Any]:
-        return await self.exchange_oracle_api.fetch_oracle_list()
-
     # InsuranceRPC
-
-    async def get_insurance_funds(self):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_insurance_funds` instead
-        """
-        warn("This method is deprecated. Use fetch_insurance_funds instead", DeprecationWarning, stacklevel=2)
-        req = insurance_rpc_pb.FundsRequest()
-        return await self.stubInsurance.Funds(req)
-
-    async def fetch_insurance_funds(self) -> Dict[str, Any]:
-        return await self.exchange_insurance_api.fetch_insurance_funds()
-
-    async def get_redemptions(self, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_redemptions` instead
-        """
-        warn("This method is deprecated. Use fetch_redemptions instead", DeprecationWarning, stacklevel=2)
-        req = insurance_rpc_pb.RedemptionsRequest(
-            redeemer=kwargs.get("redeemer"),
-            redemption_denom=kwargs.get("redemption_denom"),
-            status=kwargs.get("status"),
-        )
-        return await self.stubInsurance.Redemptions(req)
-
-    async def fetch_redemptions(
-        self,
-        address: Optional[str] = None,
-        denom: Optional[str] = None,
-        status: Optional[str] = None,
-    ) -> Dict[str, Any]:
-        return await self.exchange_insurance_api.fetch_redemptions(
-            address=address,
-            denom=denom,
-            status=status,
-        )
-
     # SpotRPC
     async def fetch_spot_market(self, market_id: str) -> Dict[str, Any]:
         return await self.chain_exchange_api.fetch_market(market_id=market_id)
@@ -1347,359 +1121,6 @@ class AsyncClient:
 
 
     # DerivativeRPC
-
-    async def get_derivative_market(self, market_id: str):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_derivative_market` instead
-        """
-        warn("This method is deprecated. Use fetch_derivative_market instead", DeprecationWarning, stacklevel=2)
-        req = derivative_exchange_rpc_pb.MarketRequest(market_id=market_id)
-        return await self.stubDerivativeExchange.Market(req)
-
-    async def fetch_derivative_market(self, market_id: str) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_market(market_id=market_id)
-
-    async def get_derivative_markets(self, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_derivative_markets` instead
-        """
-        warn("This method is deprecated. Use fetch_derivative_markets instead", DeprecationWarning, stacklevel=2)
-        req = derivative_exchange_rpc_pb.MarketsRequest(
-            market_status=kwargs.get("market_status"),
-            quote_denom=kwargs.get("quote_denom"),
-        )
-        return await self.stubDerivativeExchange.Markets(req)
-
-    async def fetch_derivative_markets(
-        self,
-        market_statuses: Optional[List[str]] = None,
-        quote_denom: Optional[str] = None,
-    ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_markets(
-            market_statuses=market_statuses,
-            quote_denom=quote_denom,
-        )
-
-    async def stream_derivative_markets(self, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `listen_derivative_market_updates` instead
-        """
-        warn(
-            "This method is deprecated. Use listen_derivative_market_updates instead", DeprecationWarning, stacklevel=2
-        )
-        req = derivative_exchange_rpc_pb.StreamMarketRequest(market_ids=kwargs.get("market_ids"))
-        metadata = self.network.exchange_cookie_assistant.metadata()
-        return self.stubDerivativeExchange.StreamMarket(request=req, metadata=metadata)
-
-
-    async def get_derivative_orderbook(self, market_id: str):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_derivative_orderbook_v2` instead
-        """
-        warn("This method is deprecated. Use fetch_derivative_orderbook_v2 instead", DeprecationWarning, stacklevel=2)
-        req = derivative_exchange_rpc_pb.OrderbookV2Request(market_id=market_id)
-        return await self.stubDerivativeExchange.OrderbookV2(req)
-
-    async def fetch_derivative_orderbook_v2(self, market_id: str) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_orderbook_v2(market_id=market_id)
-
-    async def get_derivative_orderbooksV2(self, market_ids: List[str]):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_derivative_orderbooks_v2` instead
-        """
-        warn("This method is deprecated. Use fetch_derivative_orderbooks_v2 instead", DeprecationWarning, stacklevel=2)
-        req = derivative_exchange_rpc_pb.OrderbooksV2Request(market_ids=market_ids)
-        return await self.stubDerivativeExchange.OrderbooksV2(req)
-
-    async def fetch_derivative_orderbooks_v2(self, market_ids: List[str]) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_orderbooks_v2(market_ids=market_ids)
-
-    async def get_derivative_orders(self, market_id: str, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_derivative_orders` instead
-        """
-        warn("This method is deprecated. Use fetch_derivative_orders instead", DeprecationWarning, stacklevel=2)
-        req = derivative_exchange_rpc_pb.OrdersRequest(
-            market_id=market_id,
-            order_side=kwargs.get("order_side"),
-            subaccount_id=kwargs.get("subaccount_id"),
-            skip=kwargs.get("skip"),
-            limit=kwargs.get("limit"),
-            start_time=kwargs.get("start_time"),
-            end_time=kwargs.get("end_time"),
-            market_ids=kwargs.get("market_ids"),
-            is_conditional=kwargs.get("is_conditional"),
-            order_type=kwargs.get("order_type"),
-            include_inactive=kwargs.get("include_inactive"),
-            subaccount_total_orders=kwargs.get("subaccount_total_orders"),
-            trade_id=kwargs.get("trade_id"),
-            cid=kwargs.get("cid"),
-        )
-        return await self.stubDerivativeExchange.Orders(req)
-
-    async def fetch_derivative_orders(
-        self,
-        market_ids: Optional[List[str]] = None,
-        order_side: Optional[str] = None,
-        subaccount_id: Optional[str] = None,
-        is_conditional: Optional[str] = None,
-        order_type: Optional[str] = None,
-        include_inactive: Optional[bool] = None,
-        subaccount_total_orders: Optional[bool] = None,
-        trade_id: Optional[str] = None,
-        cid: Optional[str] = None,
-        pagination: Optional[PaginationOption] = None,
-    ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_orders(
-            market_ids=market_ids,
-            order_side=order_side,
-            subaccount_id=subaccount_id,
-            is_conditional=is_conditional,
-            order_type=order_type,
-            include_inactive=include_inactive,
-            subaccount_total_orders=subaccount_total_orders,
-            trade_id=trade_id,
-            cid=cid,
-            pagination=pagination,
-        )
-
-    async def get_historical_derivative_orders(self, market_id: Optional[str] = None, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_derivative_orders_history` instead
-        """
-        warn("This method is deprecated. Use fetch_derivative_orders_history instead", DeprecationWarning, stacklevel=2)
-        market_ids = kwargs.get("market_ids", [])
-        if market_id is not None:
-            market_ids.append(market_id)
-        order_types = kwargs.get("order_types", [])
-        order_type = kwargs.get("order_type")
-        if order_type is not None:
-            order_types.append(market_id)
-        req = derivative_exchange_rpc_pb.OrdersHistoryRequest(
-            subaccount_id=kwargs.get("subaccount_id"),
-            skip=kwargs.get("skip"),
-            limit=kwargs.get("limit"),
-            order_types=order_types,
-            direction=kwargs.get("direction"),
-            start_time=kwargs.get("start_time"),
-            end_time=kwargs.get("end_time"),
-            is_conditional=kwargs.get("is_conditional"),
-            state=kwargs.get("state"),
-            execution_types=kwargs.get("execution_types", []),
-            market_ids=market_ids,
-            trade_id=kwargs.get("trade_id"),
-            active_markets_only=kwargs.get("active_markets_only"),
-            cid=kwargs.get("cid"),
-        )
-        return await self.stubDerivativeExchange.OrdersHistory(req)
-
-    async def fetch_derivative_orders_history(
-        self,
-        subaccount_id: Optional[str] = None,
-        market_ids: Optional[List[str]] = None,
-        order_types: Optional[List[str]] = None,
-        direction: Optional[str] = None,
-        is_conditional: Optional[str] = None,
-        state: Optional[str] = None,
-        execution_types: Optional[List[str]] = None,
-        trade_id: Optional[str] = None,
-        active_markets_only: Optional[bool] = None,
-        cid: Optional[str] = None,
-        pagination: Optional[PaginationOption] = None,
-    ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_orders_history(
-            subaccount_id=subaccount_id,
-            market_ids=market_ids,
-            order_types=order_types,
-            direction=direction,
-            is_conditional=is_conditional,
-            state=state,
-            execution_types=execution_types,
-            trade_id=trade_id,
-            active_markets_only=active_markets_only,
-            cid=cid,
-            pagination=pagination,
-        )
-
-    async def get_derivative_trades(self, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_derivative_trades` instead
-        """
-        warn("This method is deprecated. Use fetch_derivative_trades instead", DeprecationWarning, stacklevel=2)
-        req = derivative_exchange_rpc_pb.TradesRequest(
-            market_id=kwargs.get("market_id"),
-            execution_side=kwargs.get("execution_side"),
-            direction=kwargs.get("direction"),
-            subaccount_id=kwargs.get("subaccount_id"),
-            skip=kwargs.get("skip"),
-            limit=kwargs.get("limit"),
-            start_time=kwargs.get("start_time"),
-            end_time=kwargs.get("end_time"),
-            market_ids=kwargs.get("market_ids"),
-            subaccount_ids=kwargs.get("subaccount_ids"),
-            execution_types=kwargs.get("execution_types"),
-            trade_id=kwargs.get("trade_id"),
-            account_address=kwargs.get("account_address"),
-            cid=kwargs.get("cid"),
-        )
-        return await self.stubDerivativeExchange.Trades(req)
-
-    async def fetch_derivative_trades(
-        self,
-        market_ids: Optional[List[str]] = None,
-        subaccount_ids: Optional[List[str]] = None,
-        execution_side: Optional[str] = None,
-        direction: Optional[str] = None,
-        execution_types: Optional[List[str]] = None,
-        trade_id: Optional[str] = None,
-        account_address: Optional[str] = None,
-        cid: Optional[str] = None,
-        pagination: Optional[PaginationOption] = None,
-    ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_trades_v2(
-            market_ids=market_ids,
-            subaccount_ids=subaccount_ids,
-            execution_side=execution_side,
-            direction=direction,
-            execution_types=execution_types,
-            trade_id=trade_id,
-            account_address=account_address,
-            cid=cid,
-            pagination=pagination,
-        )
-
-    async def stream_derivative_orderbook_snapshot(self, market_ids: List[str]):
-        """
-        This method is deprecated and will be removed soon. Please use `listen_derivative_orderbook_snapshots` instead
-        """
-        warn(
-            "This method is deprecated. Use listen_derivative_orderbook_snapshots instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        req = derivative_exchange_rpc_pb.StreamOrderbookV2Request(market_ids=market_ids)
-        metadata = self.network.exchange_cookie_assistant.metadata()
-        return self.stubDerivativeExchange.StreamOrderbookV2(request=req, metadata=metadata)
-
-    
-    async def stream_derivative_orderbook_update(self, market_ids: List[str]):
-        """
-        This method is deprecated and will be removed soon. Please use `listen_derivative_orderbook_updates` instead
-        """
-        warn(
-            "This method is deprecated. Use listen_derivative_orderbook_updates instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        req = derivative_exchange_rpc_pb.StreamOrderbookUpdateRequest(market_ids=market_ids)
-        metadata = self.network.exchange_cookie_assistant.metadata()
-        return self.stubDerivativeExchange.StreamOrderbookUpdate(request=req, metadata=metadata)
-
-    
-    async def stream_derivative_orders(self, market_id: str, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `listen_derivative_orders_updates` instead
-        """
-        warn(
-            "This method is deprecated. Use listen_derivative_orders_updates instead", DeprecationWarning, stacklevel=2
-        )
-        req = derivative_exchange_rpc_pb.StreamOrdersRequest(
-            market_id=market_id,
-            order_side=kwargs.get("order_side"),
-            subaccount_id=kwargs.get("subaccount_id"),
-            skip=kwargs.get("skip"),
-            limit=kwargs.get("limit"),
-            start_time=kwargs.get("start_time"),
-            end_time=kwargs.get("end_time"),
-            market_ids=kwargs.get("market_ids"),
-            is_conditional=kwargs.get("is_conditional"),
-            order_type=kwargs.get("order_type"),
-            include_inactive=kwargs.get("include_inactive"),
-            subaccount_total_orders=kwargs.get("subaccount_total_orders"),
-            trade_id=kwargs.get("trade_id"),
-            cid=kwargs.get("cid"),
-        )
-        metadata = self.network.exchange_cookie_assistant.metadata()
-        return self.stubDerivativeExchange.StreamOrders(request=req, metadata=metadata)
-
-    
-    async def stream_derivative_trades(self, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `listen_derivative_trades_updates` instead
-        """
-        warn(
-            "This method is deprecated. Use listen_derivative_trades_updates instead", DeprecationWarning, stacklevel=2
-        )
-        req = derivative_exchange_rpc_pb.StreamTradesRequest(
-            market_id=kwargs.get("market_id"),
-            execution_side=kwargs.get("execution_side"),
-            direction=kwargs.get("direction"),
-            subaccount_id=kwargs.get("subaccount_id"),
-            skip=kwargs.get("skip"),
-            limit=kwargs.get("limit"),
-            start_time=kwargs.get("start_time"),
-            end_time=kwargs.get("end_time"),
-            market_ids=kwargs.get("market_ids"),
-            subaccount_ids=kwargs.get("subaccount_ids"),
-            execution_types=kwargs.get("execution_types"),
-            trade_id=kwargs.get("trade_id"),
-            account_address=kwargs.get("account_address"),
-            cid=kwargs.get("cid"),
-        )
-        metadata = self.network.exchange_cookie_assistant.metadata()
-        return self.stubDerivativeExchange.StreamTrades(request=req, metadata=metadata)
-
-    
-    async def get_derivative_positions(self, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_derivative_positions_v2` instead
-        """
-        warn("This method is deprecated. Use fetch_derivative_positions_v2 instead", DeprecationWarning, stacklevel=2)
-        req = derivative_exchange_rpc_pb.PositionsRequest(
-            market_id=kwargs.get("market_id"),
-            market_ids=kwargs.get("market_ids"),
-            subaccount_id=kwargs.get("subaccount_id"),
-            direction=kwargs.get("direction"),
-            subaccount_total_positions=kwargs.get("subaccount_total_positions"),
-            skip=kwargs.get("skip"),
-            limit=kwargs.get("limit"),
-        )
-        return await self.stubDerivativeExchange.Positions(req)
-
-    async def fetch_derivative_positions_v2(
-        self,
-        market_ids: Optional[List[str]] = None,
-        subaccount_id: Optional[str] = None,
-        direction: Optional[str] = None,
-        subaccount_total_positions: Optional[bool] = None,
-        pagination: Optional[PaginationOption] = None,
-    ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_positions_v2(
-            market_ids=market_ids,
-            subaccount_id=subaccount_id,
-            direction=direction,
-            subaccount_total_positions=subaccount_total_positions,
-            pagination=pagination,
-        )
-
-    async def stream_derivative_positions(self, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `listen_derivative_positions_updates` instead
-        """
-        warn(
-            "This method is deprecated. Use listen_derivative_positions_updates instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        req = derivative_exchange_rpc_pb.StreamPositionsRequest(
-            market_id=kwargs.get("market_id"),
-            market_ids=kwargs.get("market_ids"),
-            subaccount_id=kwargs.get("subaccount_id"),
-            subaccount_ids=kwargs.get("subaccount_ids"),
-        )
-        metadata = self.network.exchange_cookie_assistant.metadata()
-        return self.stubDerivativeExchange.StreamPositions(request=req, metadata=metadata)
-
     ####MASSIVE TODO : NEED TO WRITE A LIQUIDABLE POSITIONS WATCHER#######
     #async def get_derivative_liquidable_positions(self, **kwargs):
     #    """
@@ -1726,196 +1147,7 @@ class AsyncClient:
     #        market_id=market_id,
     #        pagination=pagination,
     #    )
-
-    async def get_derivative_subaccount_orders(self, subaccount_id: str, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_derivative_subaccount_orders` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_derivative_subaccount_orders instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        req = derivative_exchange_rpc_pb.SubaccountOrdersListRequest(
-            subaccount_id=subaccount_id,
-            market_id=kwargs.get("market_id"),
-            skip=kwargs.get("skip"),
-            limit=kwargs.get("limit"),
-        )
-        return await self.stubDerivativeExchange.SubaccountOrdersList(req)
-
-    async def fetch_subaccount_orders_list(
-        self,
-        subaccount_id: str,
-        market_id: Optional[str] = None,
-        pagination: Optional[PaginationOption] = None,
-    ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_subaccount_orders_list(
-            subaccount_id=subaccount_id, market_id=market_id, pagination=pagination
-        )
-
-    async def get_derivative_subaccount_trades(self, subaccount_id: str, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_derivative_subaccount_trades` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_derivative_subaccount_trades instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        req = derivative_exchange_rpc_pb.SubaccountTradesListRequest(
-            subaccount_id=subaccount_id,
-            market_id=kwargs.get("market_id"),
-            execution_type=kwargs.get("execution_type"),
-            direction=kwargs.get("direction"),
-            skip=kwargs.get("skip"),
-            limit=kwargs.get("limit"),
-        )
-        return await self.stubDerivativeExchange.SubaccountTradesList(req)
-
-    async def fetch_derivative_subaccount_trades_list(
-        self,
-        subaccount_id: str,
-        market_id: Optional[str] = None,
-        execution_type: Optional[str] = None,
-        direction: Optional[str] = None,
-        pagination: Optional[PaginationOption] = None,
-    ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_subaccount_trades_list(
-            subaccount_id=subaccount_id,
-            market_id=market_id,
-            execution_type=execution_type,
-            direction=direction,
-            pagination=pagination,
-        )
-
-    async def get_funding_payments(self, subaccount_id: str, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_funding_payments` instead
-        """
-        warn("This method is deprecated. Use fetch_funding_payments instead", DeprecationWarning, stacklevel=2)
-        req = derivative_exchange_rpc_pb.FundingPaymentsRequest(
-            subaccount_id=subaccount_id,
-            market_id=kwargs.get("market_id"),
-            market_ids=kwargs.get("market_ids"),
-            skip=kwargs.get("skip"),
-            end_time=kwargs.get("end_time"),
-            limit=kwargs.get("limit"),
-        )
-        return await self.stubDerivativeExchange.FundingPayments(req)
-
-    async def fetch_funding_payments(
-        self,
-        market_ids: Optional[List[str]] = None,
-        subaccount_id: Optional[str] = None,
-        pagination: Optional[PaginationOption] = None,
-    ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_funding_payments(
-            market_ids=market_ids, subaccount_id=subaccount_id, pagination=pagination
-        )
-
-    async def get_funding_rates(self, market_id: str, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_funding_rates` instead
-        """
-        warn("This method is deprecated. Use fetch_funding_rates instead", DeprecationWarning, stacklevel=2)
-        req = derivative_exchange_rpc_pb.FundingRatesRequest(
-            market_id=market_id,
-            skip=kwargs.get("skip"),
-            limit=kwargs.get("limit"),
-            end_time=kwargs.get("end_time"),
-        )
-        return await self.stubDerivativeExchange.FundingRates(req)
-
-    async def fetch_funding_rates(
-        self,
-        market_id: str,
-        pagination: Optional[PaginationOption] = None,
-    ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_funding_rates(market_id=market_id, pagination=pagination)
-
-    async def get_binary_options_markets(self, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_binary_options_markets` instead
-        """
-        warn("This method is deprecated. Use fetch_binary_options_markets instead", DeprecationWarning, stacklevel=2)
-        req = derivative_exchange_rpc_pb.BinaryOptionsMarketsRequest(
-            market_status=kwargs.get("market_status"),
-            quote_denom=kwargs.get("quote_denom"),
-            skip=kwargs.get("skip"),
-            limit=kwargs.get("limit"),
-        )
-        return await self.stubDerivativeExchange.BinaryOptionsMarkets(req)
-
-    async def fetch_binary_options_markets(
-        self,
-        market_status: Optional[str] = None,
-        quote_denom: Optional[str] = None,
-        pagination: Optional[PaginationOption] = None,
-    ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_binary_options_markets(
-            market_status=market_status,
-            quote_denom=quote_denom,
-            pagination=pagination,
-        )
-
-    async def get_binary_options_market(self, market_id: str):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_binary_options_market` instead
-        """
-        warn("This method is deprecated. Use fetch_binary_options_market instead", DeprecationWarning, stacklevel=2)
-        req = derivative_exchange_rpc_pb.BinaryOptionsMarketRequest(market_id=market_id)
-        return await self.stubDerivativeExchange.BinaryOptionsMarket(req)
-
-    async def fetch_binary_options_market(self, market_id: str) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_binary_options_market(market_id=market_id)
-
-    # PortfolioRPC
-
-    async def get_account_portfolio(self, account_address: str):
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_account_portfolio_balances` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_account_portfolio_balances instead", DeprecationWarning, stacklevel=2
-        )
-        req = portfolio_rpc_pb.AccountPortfolioRequest(account_address=account_address)
-        return await self.stubPortfolio.AccountPortfolio(req)
-
-    async def fetch_account_portfolio_balances(self, account_address: str) -> Dict[str, Any]:
-        return await self.exchange_portfolio_api.fetch_account_portfolio_balances(account_address=account_address)
-
-    async def stream_account_portfolio(self, account_address: str, **kwargs):
-        """
-        This method is deprecated and will be removed soon. Please use `listen_account_portfolio_updates` instead
-        """
-        warn(
-            "This method is deprecated. Use listen_account_portfolio_updates instead", DeprecationWarning, stacklevel=2
-        )
-        req = portfolio_rpc_pb.StreamAccountPortfolioRequest(
-            account_address=account_address, subaccount_id=kwargs.get("subaccount_id"), type=kwargs.get("type")
-        )
-        metadata = self.network.exchange_cookie_assistant.metadata()
-        return self.stubPortfolio.StreamAccountPortfolio(request=req, metadata=metadata)
-
-    async def listen_account_portfolio_updates(
-        self,
-        account_address: str,
-        callback: Callable,
-        on_end_callback: Optional[Callable] = None,
-        on_status_callback: Optional[Callable] = None,
-        subaccount_id: Optional[str] = None,
-        update_type: Optional[str] = None,
-    ):
-        await self.exchange_portfolio_stream_api.stream_account_portfolio(
-            account_address=account_address,
-            callback=callback,
-            on_end_callback=on_end_callback,
-            on_status_callback=on_status_callback,
-            subaccount_id=subaccount_id,
-            update_type=update_type,
-        )
-
+   # PortfolioRPC
     async def chain_stream(
         self,
         bank_balances_filter: Optional[chain_stream_query.BankBalancesFilter] = None,
@@ -2242,7 +1474,7 @@ class AsyncClient:
         self._tokens_by_denom.update(tokens_by_denom)
         self._tokens_by_symbol.update(tokens_by_symbol)
 
-        markets_info = (await self.fetch_chain_spot_markets(status="Active"))["markets"]
+        markets_info = (await self.fetch_spot_markets(status="Active"))["markets"]
         for market_info in markets_info:
             base_token = self._tokens_by_denom.get(market_info["baseDenom"])
             quote_token = self._tokens_by_denom.get(market_info["quoteDenom"])
@@ -2269,7 +1501,7 @@ class AsyncClient:
 
             spot_markets[market.id] = market
 
-        markets_info = (await self.fetch_chain_derivative_markets(status="Active", with_mid_price_and_tob=False))[
+        markets_info = (await self.fetch_derivative_markets(status="Active", with_mid_price_and_tob=False))[
             "markets"
         ]
         for market_info in markets_info:
@@ -2307,7 +1539,7 @@ class AsyncClient:
 
             derivative_markets[derivative_market.id] = derivative_market
 
-        markets_info = (await self.fetch_chain_binary_options_markets(status="Active"))["markets"]
+        markets_info = (await self.fetch_binary_options_markets(status="Active"))["markets"]
         for market_info in markets_info:
             quote_token = self._tokens_by_denom.get(market_info["quoteDenom"])
 
