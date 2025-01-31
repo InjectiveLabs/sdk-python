@@ -4,7 +4,7 @@ import base64
 import grpc
 import pytest
 
-from pyinjective.client.chain.grpc_stream.chain_grpc_chain_stream import ChainGrpcChainStream
+from pyinjective.client.chain.grpc_stream import ChainGrpcChainStream
 from pyinjective.composer import Composer
 from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb

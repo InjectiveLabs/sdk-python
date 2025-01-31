@@ -6,7 +6,8 @@ from pyinjective.proto.cosmos.mint.v1beta1 import query_pb2 as cosmos_dot_mint_d
 
 
 class QueryStub(object):
-    """Query provides defines the gRPC querier service."""
+    """Query provides defines the gRPC querier service.
+    """
 
     def __init__(self, channel):
         """Constructor.
@@ -15,91 +16,92 @@ class QueryStub(object):
             channel: A grpc.Channel.
         """
         self.Params = channel.unary_unary(
-            "/cosmos.mint.v1beta1.Query/Params",
-            request_serializer=cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryParamsRequest.SerializeToString,
-            response_deserializer=cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryParamsResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmos.mint.v1beta1.Query/Params',
+                request_serializer=cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryParamsRequest.SerializeToString,
+                response_deserializer=cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryParamsResponse.FromString,
+                _registered_method=True)
         self.Inflation = channel.unary_unary(
-            "/cosmos.mint.v1beta1.Query/Inflation",
-            request_serializer=cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryInflationRequest.SerializeToString,
-            response_deserializer=cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryInflationResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmos.mint.v1beta1.Query/Inflation',
+                request_serializer=cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryInflationRequest.SerializeToString,
+                response_deserializer=cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryInflationResponse.FromString,
+                _registered_method=True)
         self.AnnualProvisions = channel.unary_unary(
-            "/cosmos.mint.v1beta1.Query/AnnualProvisions",
-            request_serializer=cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryAnnualProvisionsRequest.SerializeToString,
-            response_deserializer=cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryAnnualProvisionsResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmos.mint.v1beta1.Query/AnnualProvisions',
+                request_serializer=cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryAnnualProvisionsRequest.SerializeToString,
+                response_deserializer=cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryAnnualProvisionsResponse.FromString,
+                _registered_method=True)
 
 
 class QueryServicer(object):
-    """Query provides defines the gRPC querier service."""
+    """Query provides defines the gRPC querier service.
+    """
 
     def Params(self, request, context):
-        """Params returns the total set of minting parameters."""
+        """Params returns the total set of minting parameters.
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def Inflation(self, request, context):
-        """Inflation returns the current minting inflation value."""
+        """Inflation returns the current minting inflation value.
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def AnnualProvisions(self, request, context):
-        """AnnualProvisions current minting annual provisions value."""
+        """AnnualProvisions current minting annual provisions value.
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
 
 def add_QueryServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        "Params": grpc.unary_unary_rpc_method_handler(
-            servicer.Params,
-            request_deserializer=cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryParamsRequest.FromString,
-            response_serializer=cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryParamsResponse.SerializeToString,
-        ),
-        "Inflation": grpc.unary_unary_rpc_method_handler(
-            servicer.Inflation,
-            request_deserializer=cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryInflationRequest.FromString,
-            response_serializer=cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryInflationResponse.SerializeToString,
-        ),
-        "AnnualProvisions": grpc.unary_unary_rpc_method_handler(
-            servicer.AnnualProvisions,
-            request_deserializer=cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryAnnualProvisionsRequest.FromString,
-            response_serializer=cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryAnnualProvisionsResponse.SerializeToString,
-        ),
+            'Params': grpc.unary_unary_rpc_method_handler(
+                    servicer.Params,
+                    request_deserializer=cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryParamsRequest.FromString,
+                    response_serializer=cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryParamsResponse.SerializeToString,
+            ),
+            'Inflation': grpc.unary_unary_rpc_method_handler(
+                    servicer.Inflation,
+                    request_deserializer=cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryInflationRequest.FromString,
+                    response_serializer=cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryInflationResponse.SerializeToString,
+            ),
+            'AnnualProvisions': grpc.unary_unary_rpc_method_handler(
+                    servicer.AnnualProvisions,
+                    request_deserializer=cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryAnnualProvisionsRequest.FromString,
+                    response_serializer=cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryAnnualProvisionsResponse.SerializeToString,
+            ),
     }
-    generic_handler = grpc.method_handlers_generic_handler("cosmos.mint.v1beta1.Query", rpc_method_handlers)
+    generic_handler = grpc.method_handlers_generic_handler(
+            'cosmos.mint.v1beta1.Query', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers("cosmos.mint.v1beta1.Query", rpc_method_handlers)
+    server.add_registered_method_handlers('cosmos.mint.v1beta1.Query', rpc_method_handlers)
 
 
-# This class is part of an EXPERIMENTAL API.
+ # This class is part of an EXPERIMENTAL API.
 class Query(object):
-    """Query provides defines the gRPC querier service."""
+    """Query provides defines the gRPC querier service.
+    """
 
     @staticmethod
-    def Params(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def Params(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmos.mint.v1beta1.Query/Params",
+            '/cosmos.mint.v1beta1.Query/Params',
             cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryParamsRequest.SerializeToString,
             cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryParamsResponse.FromString,
             options,
@@ -110,26 +112,23 @@ class Query(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def Inflation(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def Inflation(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmos.mint.v1beta1.Query/Inflation",
+            '/cosmos.mint.v1beta1.Query/Inflation',
             cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryInflationRequest.SerializeToString,
             cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryInflationResponse.FromString,
             options,
@@ -140,26 +139,23 @@ class Query(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def AnnualProvisions(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def AnnualProvisions(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmos.mint.v1beta1.Query/AnnualProvisions",
+            '/cosmos.mint.v1beta1.Query/AnnualProvisions',
             cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryAnnualProvisionsRequest.SerializeToString,
             cosmos_dot_mint_dot_v1beta1_dot_query__pb2.QueryAnnualProvisionsResponse.FromString,
             options,
@@ -170,5 +166,4 @@ class Query(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)

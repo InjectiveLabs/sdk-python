@@ -3,7 +3,7 @@ import pytest
 from google.protobuf import any_pb2
 
 from pyinjective.client.chain.grpc.chain_grpc_authz_api import ChainGrpcAuthZApi
-from pyinjective.client.model.pagination import PaginationOption
+from pyinjective.client.model import PaginationOption
 from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.cosmos.authz.v1beta1 import authz_pb2, query_pb2 as authz_query
 from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagination_pb

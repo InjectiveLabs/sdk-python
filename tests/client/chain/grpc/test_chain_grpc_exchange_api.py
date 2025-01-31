@@ -4,7 +4,7 @@ import grpc
 import pytest
 
 from pyinjective.client.chain.grpc.chain_grpc_exchange_api import ChainGrpcExchangeApi
-from pyinjective.client.model.pagination import PaginationOption
+from pyinjective.client.model import PaginationOption
 from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb
 from pyinjective.proto.injective.exchange.v1beta1 import (

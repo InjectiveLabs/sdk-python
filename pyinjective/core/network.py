@@ -112,13 +112,9 @@ class Network:
         fee_denom: str,
         env: str,
         chain_cookie_assistant: CookieAssistant,
-        exchange_cookie_assistant: CookieAssistant,
-        explorer_cookie_assistant: CookieAssistant,
         official_tokens_list_url: str,
         use_secure_connection: Optional[bool] = None,
         grpc_channel_credentials: Optional[ChannelCredentials] = None,
-        grpc_exchange_channel_credentials: Optional[ChannelCredentials] = None,
-        grpc_explorer_channel_credentials: Optional[ChannelCredentials] = None,
         chain_stream_channel_credentials: Optional[ChannelCredentials] = None,
     ):
         # the `use_secure_connection` parameter is ignored and will be deprecated soon.
@@ -137,8 +133,6 @@ class Network:
         self.fee_denom = fee_denom
         self.env = env
         self.chain_cookie_assistant = chain_cookie_assistant
-        self.exchange_cookie_assistant = exchange_cookie_assistant
-        self.explorer_cookie_assistant = explorer_cookie_assistant
         self.official_tokens_list_url = official_tokens_list_url
         self.grpc_channel_credentials = grpc_channel_credentials
         self.chain_stream_channel_credentials = chain_stream_channel_credentials
@@ -233,14 +227,11 @@ class Network:
             tm_websocket_endpoint="ws://localhost:26657/websocket",
             grpc_endpoint="localhost:9900",
             grpc_exchange_endpoint="localhost:9910",
-            grpc_explorer_endpoint="localhost:9911",
             chain_stream_endpoint="localhost:9999",
             chain_id="injective-1",
             fee_denom="inj",
             env="local",
             chain_cookie_assistant=DisabledCookieAssistant(),
-            exchange_cookie_assistant=DisabledCookieAssistant(),
-            explorer_cookie_assistant=DisabledCookieAssistant(),
             official_tokens_list_url="https://github.com/InjectiveLabs/injective-lists/raw/master/tokens/mainnet.json",
         )
 

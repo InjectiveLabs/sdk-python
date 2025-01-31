@@ -6,7 +6,8 @@ from pyinjective.proto.cosmos.distribution.v1beta1 import tx_pb2 as cosmos_dot_d
 
 
 class MsgStub(object):
-    """Msg defines the distribution Msg service."""
+    """Msg defines the distribution Msg service.
+    """
 
     def __init__(self, channel):
         """Constructor.
@@ -15,83 +16,77 @@ class MsgStub(object):
             channel: A grpc.Channel.
         """
         self.SetWithdrawAddress = channel.unary_unary(
-            "/cosmos.distribution.v1beta1.Msg/SetWithdrawAddress",
-            request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgSetWithdrawAddress.SerializeToString,
-            response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgSetWithdrawAddressResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmos.distribution.v1beta1.Msg/SetWithdrawAddress',
+                request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgSetWithdrawAddress.SerializeToString,
+                response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgSetWithdrawAddressResponse.FromString,
+                _registered_method=True)
         self.WithdrawDelegatorReward = channel.unary_unary(
-            "/cosmos.distribution.v1beta1.Msg/WithdrawDelegatorReward",
-            request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgWithdrawDelegatorReward.SerializeToString,
-            response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgWithdrawDelegatorRewardResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmos.distribution.v1beta1.Msg/WithdrawDelegatorReward',
+                request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgWithdrawDelegatorReward.SerializeToString,
+                response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgWithdrawDelegatorRewardResponse.FromString,
+                _registered_method=True)
         self.WithdrawValidatorCommission = channel.unary_unary(
-            "/cosmos.distribution.v1beta1.Msg/WithdrawValidatorCommission",
-            request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgWithdrawValidatorCommission.SerializeToString,
-            response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgWithdrawValidatorCommissionResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmos.distribution.v1beta1.Msg/WithdrawValidatorCommission',
+                request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgWithdrawValidatorCommission.SerializeToString,
+                response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgWithdrawValidatorCommissionResponse.FromString,
+                _registered_method=True)
         self.FundCommunityPool = channel.unary_unary(
-            "/cosmos.distribution.v1beta1.Msg/FundCommunityPool",
-            request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgFundCommunityPool.SerializeToString,
-            response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgFundCommunityPoolResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmos.distribution.v1beta1.Msg/FundCommunityPool',
+                request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgFundCommunityPool.SerializeToString,
+                response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgFundCommunityPoolResponse.FromString,
+                _registered_method=True)
         self.UpdateParams = channel.unary_unary(
-            "/cosmos.distribution.v1beta1.Msg/UpdateParams",
-            request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
-            response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmos.distribution.v1beta1.Msg/UpdateParams',
+                request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
+                response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
+                _registered_method=True)
         self.CommunityPoolSpend = channel.unary_unary(
-            "/cosmos.distribution.v1beta1.Msg/CommunityPoolSpend",
-            request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgCommunityPoolSpend.SerializeToString,
-            response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgCommunityPoolSpendResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmos.distribution.v1beta1.Msg/CommunityPoolSpend',
+                request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgCommunityPoolSpend.SerializeToString,
+                response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgCommunityPoolSpendResponse.FromString,
+                _registered_method=True)
         self.DepositValidatorRewardsPool = channel.unary_unary(
-            "/cosmos.distribution.v1beta1.Msg/DepositValidatorRewardsPool",
-            request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgDepositValidatorRewardsPool.SerializeToString,
-            response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgDepositValidatorRewardsPoolResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmos.distribution.v1beta1.Msg/DepositValidatorRewardsPool',
+                request_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgDepositValidatorRewardsPool.SerializeToString,
+                response_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgDepositValidatorRewardsPoolResponse.FromString,
+                _registered_method=True)
 
 
 class MsgServicer(object):
-    """Msg defines the distribution Msg service."""
+    """Msg defines the distribution Msg service.
+    """
 
     def SetWithdrawAddress(self, request, context):
         """SetWithdrawAddress defines a method to change the withdraw address
         for a delegator (or validator self-delegation).
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def WithdrawDelegatorReward(self, request, context):
         """WithdrawDelegatorReward defines a method to withdraw rewards of delegator
         from a single validator.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def WithdrawValidatorCommission(self, request, context):
         """WithdrawValidatorCommission defines a method to withdraw the
         full commission to the validator address.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def FundCommunityPool(self, request, context):
         """FundCommunityPool defines a method to allow an account to directly
         fund the community pool.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def UpdateParams(self, request, context):
         """UpdateParams defines a governance operation for updating the x/distribution
@@ -100,8 +95,8 @@ class MsgServicer(object):
         Since: cosmos-sdk 0.47
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def CommunityPoolSpend(self, request, context):
         """CommunityPoolSpend defines a governance operation for sending tokens from
@@ -112,8 +107,8 @@ class MsgServicer(object):
         Since: cosmos-sdk 0.47
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def DepositValidatorRewardsPool(self, request, context):
         """DepositValidatorRewardsPool defines a method to provide additional rewards
@@ -122,74 +117,74 @@ class MsgServicer(object):
         Since: cosmos-sdk 0.50
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        "SetWithdrawAddress": grpc.unary_unary_rpc_method_handler(
-            servicer.SetWithdrawAddress,
-            request_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgSetWithdrawAddress.FromString,
-            response_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgSetWithdrawAddressResponse.SerializeToString,
-        ),
-        "WithdrawDelegatorReward": grpc.unary_unary_rpc_method_handler(
-            servicer.WithdrawDelegatorReward,
-            request_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgWithdrawDelegatorReward.FromString,
-            response_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgWithdrawDelegatorRewardResponse.SerializeToString,
-        ),
-        "WithdrawValidatorCommission": grpc.unary_unary_rpc_method_handler(
-            servicer.WithdrawValidatorCommission,
-            request_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgWithdrawValidatorCommission.FromString,
-            response_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgWithdrawValidatorCommissionResponse.SerializeToString,
-        ),
-        "FundCommunityPool": grpc.unary_unary_rpc_method_handler(
-            servicer.FundCommunityPool,
-            request_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgFundCommunityPool.FromString,
-            response_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgFundCommunityPoolResponse.SerializeToString,
-        ),
-        "UpdateParams": grpc.unary_unary_rpc_method_handler(
-            servicer.UpdateParams,
-            request_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.FromString,
-            response_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.SerializeToString,
-        ),
-        "CommunityPoolSpend": grpc.unary_unary_rpc_method_handler(
-            servicer.CommunityPoolSpend,
-            request_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgCommunityPoolSpend.FromString,
-            response_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgCommunityPoolSpendResponse.SerializeToString,
-        ),
-        "DepositValidatorRewardsPool": grpc.unary_unary_rpc_method_handler(
-            servicer.DepositValidatorRewardsPool,
-            request_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgDepositValidatorRewardsPool.FromString,
-            response_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgDepositValidatorRewardsPoolResponse.SerializeToString,
-        ),
+            'SetWithdrawAddress': grpc.unary_unary_rpc_method_handler(
+                    servicer.SetWithdrawAddress,
+                    request_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgSetWithdrawAddress.FromString,
+                    response_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgSetWithdrawAddressResponse.SerializeToString,
+            ),
+            'WithdrawDelegatorReward': grpc.unary_unary_rpc_method_handler(
+                    servicer.WithdrawDelegatorReward,
+                    request_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgWithdrawDelegatorReward.FromString,
+                    response_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgWithdrawDelegatorRewardResponse.SerializeToString,
+            ),
+            'WithdrawValidatorCommission': grpc.unary_unary_rpc_method_handler(
+                    servicer.WithdrawValidatorCommission,
+                    request_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgWithdrawValidatorCommission.FromString,
+                    response_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgWithdrawValidatorCommissionResponse.SerializeToString,
+            ),
+            'FundCommunityPool': grpc.unary_unary_rpc_method_handler(
+                    servicer.FundCommunityPool,
+                    request_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgFundCommunityPool.FromString,
+                    response_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgFundCommunityPoolResponse.SerializeToString,
+            ),
+            'UpdateParams': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateParams,
+                    request_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.FromString,
+                    response_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.SerializeToString,
+            ),
+            'CommunityPoolSpend': grpc.unary_unary_rpc_method_handler(
+                    servicer.CommunityPoolSpend,
+                    request_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgCommunityPoolSpend.FromString,
+                    response_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgCommunityPoolSpendResponse.SerializeToString,
+            ),
+            'DepositValidatorRewardsPool': grpc.unary_unary_rpc_method_handler(
+                    servicer.DepositValidatorRewardsPool,
+                    request_deserializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgDepositValidatorRewardsPool.FromString,
+                    response_serializer=cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgDepositValidatorRewardsPoolResponse.SerializeToString,
+            ),
     }
-    generic_handler = grpc.method_handlers_generic_handler("cosmos.distribution.v1beta1.Msg", rpc_method_handlers)
+    generic_handler = grpc.method_handlers_generic_handler(
+            'cosmos.distribution.v1beta1.Msg', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers("cosmos.distribution.v1beta1.Msg", rpc_method_handlers)
+    server.add_registered_method_handlers('cosmos.distribution.v1beta1.Msg', rpc_method_handlers)
 
 
-# This class is part of an EXPERIMENTAL API.
+ # This class is part of an EXPERIMENTAL API.
 class Msg(object):
-    """Msg defines the distribution Msg service."""
+    """Msg defines the distribution Msg service.
+    """
 
     @staticmethod
-    def SetWithdrawAddress(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def SetWithdrawAddress(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmos.distribution.v1beta1.Msg/SetWithdrawAddress",
+            '/cosmos.distribution.v1beta1.Msg/SetWithdrawAddress',
             cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgSetWithdrawAddress.SerializeToString,
             cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgSetWithdrawAddressResponse.FromString,
             options,
@@ -200,26 +195,23 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def WithdrawDelegatorReward(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def WithdrawDelegatorReward(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmos.distribution.v1beta1.Msg/WithdrawDelegatorReward",
+            '/cosmos.distribution.v1beta1.Msg/WithdrawDelegatorReward',
             cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgWithdrawDelegatorReward.SerializeToString,
             cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgWithdrawDelegatorRewardResponse.FromString,
             options,
@@ -230,26 +222,23 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def WithdrawValidatorCommission(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def WithdrawValidatorCommission(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmos.distribution.v1beta1.Msg/WithdrawValidatorCommission",
+            '/cosmos.distribution.v1beta1.Msg/WithdrawValidatorCommission',
             cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgWithdrawValidatorCommission.SerializeToString,
             cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgWithdrawValidatorCommissionResponse.FromString,
             options,
@@ -260,26 +249,23 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def FundCommunityPool(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def FundCommunityPool(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmos.distribution.v1beta1.Msg/FundCommunityPool",
+            '/cosmos.distribution.v1beta1.Msg/FundCommunityPool',
             cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgFundCommunityPool.SerializeToString,
             cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgFundCommunityPoolResponse.FromString,
             options,
@@ -290,26 +276,23 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def UpdateParams(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def UpdateParams(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmos.distribution.v1beta1.Msg/UpdateParams",
+            '/cosmos.distribution.v1beta1.Msg/UpdateParams',
             cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
             cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
             options,
@@ -320,26 +303,23 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def CommunityPoolSpend(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def CommunityPoolSpend(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmos.distribution.v1beta1.Msg/CommunityPoolSpend",
+            '/cosmos.distribution.v1beta1.Msg/CommunityPoolSpend',
             cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgCommunityPoolSpend.SerializeToString,
             cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgCommunityPoolSpendResponse.FromString,
             options,
@@ -350,26 +330,23 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def DepositValidatorRewardsPool(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def DepositValidatorRewardsPool(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmos.distribution.v1beta1.Msg/DepositValidatorRewardsPool",
+            '/cosmos.distribution.v1beta1.Msg/DepositValidatorRewardsPool',
             cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgDepositValidatorRewardsPool.SerializeToString,
             cosmos_dot_distribution_dot_v1beta1_dot_tx__pb2.MsgDepositValidatorRewardsPoolResponse.FromString,
             options,
@@ -380,5 +357,4 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)

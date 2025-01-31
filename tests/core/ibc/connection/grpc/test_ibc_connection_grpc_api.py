@@ -4,8 +4,8 @@ import grpc
 import pytest
 from google.protobuf import any_pb2
 
-from pyinjective.client.model.pagination import PaginationOption
-from pyinjective.core.ibc.connection.grpc.ibc_connection_grpc_api import IBCConnectionGrpcApi
+from pyinjective.client.model import PaginationOption
+from pyinjective.core.ibc.connection.grpc import IBCConnectionGrpcApi
 from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagination_pb
 from pyinjective.proto.cosmos.ics23.v1 import proofs_pb2 as ics23_proofs

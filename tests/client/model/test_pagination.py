@@ -1,6 +1,6 @@
 import base64
 
-from pyinjective.client.model.pagination import PaginationOption
+from pyinjective.client.model import PaginationOption
 
 
 class TestPaginationOption:

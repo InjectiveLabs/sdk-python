@@ -9,18 +9,6 @@ from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagina
 from pyinjective.proto.injective.exchange.v1beta1 import query_pb2 as exchange_query_pb
 from tests.client.chain.grpc.configurable_bank_query_servicer import ConfigurableBankQueryServicer
 from tests.client.chain.grpc.configurable_exchange_query_servicer import ConfigurableExchangeQueryServicer
-from tests.rpc_fixtures.markets_fixtures import (  # noqa: F401
-    ape_token_meta,
-    ape_usdt_spot_market_meta,
-    btc_usdt_perp_market_meta,
-    first_match_bet_market_meta,
-    inj_token_meta,
-    inj_usdt_spot_market_meta,
-    smart_denom_metadata,
-    usdt_perp_token_meta,
-    usdt_token_meta,
-    usdt_token_meta_second_denom,
-)
 
 
 @pytest.fixture

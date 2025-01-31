@@ -6,7 +6,8 @@ from pyinjective.proto.cosmos.authz.v1beta1 import query_pb2 as cosmos_dot_authz
 
 
 class QueryStub(object):
-    """Query defines the gRPC querier service."""
+    """Query defines the gRPC querier service.
+    """
 
     def __init__(self, channel):
         """Constructor.
@@ -15,33 +16,32 @@ class QueryStub(object):
             channel: A grpc.Channel.
         """
         self.Grants = channel.unary_unary(
-            "/cosmos.authz.v1beta1.Query/Grants",
-            request_serializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGrantsRequest.SerializeToString,
-            response_deserializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGrantsResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmos.authz.v1beta1.Query/Grants',
+                request_serializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGrantsRequest.SerializeToString,
+                response_deserializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGrantsResponse.FromString,
+                _registered_method=True)
         self.GranterGrants = channel.unary_unary(
-            "/cosmos.authz.v1beta1.Query/GranterGrants",
-            request_serializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGranterGrantsRequest.SerializeToString,
-            response_deserializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGranterGrantsResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmos.authz.v1beta1.Query/GranterGrants',
+                request_serializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGranterGrantsRequest.SerializeToString,
+                response_deserializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGranterGrantsResponse.FromString,
+                _registered_method=True)
         self.GranteeGrants = channel.unary_unary(
-            "/cosmos.authz.v1beta1.Query/GranteeGrants",
-            request_serializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGranteeGrantsRequest.SerializeToString,
-            response_deserializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGranteeGrantsResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmos.authz.v1beta1.Query/GranteeGrants',
+                request_serializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGranteeGrantsRequest.SerializeToString,
+                response_deserializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGranteeGrantsResponse.FromString,
+                _registered_method=True)
 
 
 class QueryServicer(object):
-    """Query defines the gRPC querier service."""
+    """Query defines the gRPC querier service.
+    """
 
     def Grants(self, request, context):
-        """Returns list of `Authorization`, granted to the grantee by the granter."""
+        """Returns list of `Authorization`, granted to the grantee by the granter.
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def GranterGrants(self, request, context):
         """GranterGrants returns list of `GrantAuthorization`, granted by granter.
@@ -49,8 +49,8 @@ class QueryServicer(object):
         Since: cosmos-sdk 0.46
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def GranteeGrants(self, request, context):
         """GranteeGrants returns a list of `GrantAuthorization` by grantee.
@@ -58,54 +58,54 @@ class QueryServicer(object):
         Since: cosmos-sdk 0.46
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
 
 def add_QueryServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        "Grants": grpc.unary_unary_rpc_method_handler(
-            servicer.Grants,
-            request_deserializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGrantsRequest.FromString,
-            response_serializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGrantsResponse.SerializeToString,
-        ),
-        "GranterGrants": grpc.unary_unary_rpc_method_handler(
-            servicer.GranterGrants,
-            request_deserializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGranterGrantsRequest.FromString,
-            response_serializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGranterGrantsResponse.SerializeToString,
-        ),
-        "GranteeGrants": grpc.unary_unary_rpc_method_handler(
-            servicer.GranteeGrants,
-            request_deserializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGranteeGrantsRequest.FromString,
-            response_serializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGranteeGrantsResponse.SerializeToString,
-        ),
+            'Grants': grpc.unary_unary_rpc_method_handler(
+                    servicer.Grants,
+                    request_deserializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGrantsRequest.FromString,
+                    response_serializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGrantsResponse.SerializeToString,
+            ),
+            'GranterGrants': grpc.unary_unary_rpc_method_handler(
+                    servicer.GranterGrants,
+                    request_deserializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGranterGrantsRequest.FromString,
+                    response_serializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGranterGrantsResponse.SerializeToString,
+            ),
+            'GranteeGrants': grpc.unary_unary_rpc_method_handler(
+                    servicer.GranteeGrants,
+                    request_deserializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGranteeGrantsRequest.FromString,
+                    response_serializer=cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGranteeGrantsResponse.SerializeToString,
+            ),
     }
-    generic_handler = grpc.method_handlers_generic_handler("cosmos.authz.v1beta1.Query", rpc_method_handlers)
+    generic_handler = grpc.method_handlers_generic_handler(
+            'cosmos.authz.v1beta1.Query', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers("cosmos.authz.v1beta1.Query", rpc_method_handlers)
+    server.add_registered_method_handlers('cosmos.authz.v1beta1.Query', rpc_method_handlers)
 
 
-# This class is part of an EXPERIMENTAL API.
+ # This class is part of an EXPERIMENTAL API.
 class Query(object):
-    """Query defines the gRPC querier service."""
+    """Query defines the gRPC querier service.
+    """
 
     @staticmethod
-    def Grants(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def Grants(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmos.authz.v1beta1.Query/Grants",
+            '/cosmos.authz.v1beta1.Query/Grants',
             cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGrantsRequest.SerializeToString,
             cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGrantsResponse.FromString,
             options,
@@ -116,26 +116,23 @@ class Query(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def GranterGrants(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def GranterGrants(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmos.authz.v1beta1.Query/GranterGrants",
+            '/cosmos.authz.v1beta1.Query/GranterGrants',
             cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGranterGrantsRequest.SerializeToString,
             cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGranterGrantsResponse.FromString,
             options,
@@ -146,26 +143,23 @@ class Query(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def GranteeGrants(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def GranteeGrants(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmos.authz.v1beta1.Query/GranteeGrants",
+            '/cosmos.authz.v1beta1.Query/GranteeGrants',
             cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGranteeGrantsRequest.SerializeToString,
             cosmos_dot_authz_dot_v1beta1_dot_query__pb2.QueryGranteeGrantsResponse.FromString,
             options,
@@ -176,5 +170,4 @@ class Query(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)

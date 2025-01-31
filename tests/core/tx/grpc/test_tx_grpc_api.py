@@ -5,7 +5,7 @@ import pytest
 from google.protobuf import any_pb2
 
 from pyinjective.core.network import DisabledCookieAssistant, Network
-from pyinjective.core.tx.grpc.tx_grpc_api import TxGrpcApi
+from pyinjective.core.tx.grpc import TxGrpcApi
 from pyinjective.proto.cosmos.base.abci.v1beta1 import abci_pb2 as abci_type
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb
 from pyinjective.proto.cosmos.tx.v1beta1 import service_pb2 as tx_service, tx_pb2

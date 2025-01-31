@@ -6,7 +6,8 @@ from pyinjective.proto.ibc.lightclients.wasm.v1 import query_pb2 as ibc_dot_ligh
 
 
 class QueryStub(object):
-    """Query service for wasm module"""
+    """Query service for wasm module
+    """
 
     def __init__(self, channel):
         """Constructor.
@@ -15,74 +16,75 @@ class QueryStub(object):
             channel: A grpc.Channel.
         """
         self.Checksums = channel.unary_unary(
-            "/ibc.lightclients.wasm.v1.Query/Checksums",
-            request_serializer=ibc_dot_lightclients_dot_wasm_dot_v1_dot_query__pb2.QueryChecksumsRequest.SerializeToString,
-            response_deserializer=ibc_dot_lightclients_dot_wasm_dot_v1_dot_query__pb2.QueryChecksumsResponse.FromString,
-            _registered_method=True,
-        )
+                '/ibc.lightclients.wasm.v1.Query/Checksums',
+                request_serializer=ibc_dot_lightclients_dot_wasm_dot_v1_dot_query__pb2.QueryChecksumsRequest.SerializeToString,
+                response_deserializer=ibc_dot_lightclients_dot_wasm_dot_v1_dot_query__pb2.QueryChecksumsResponse.FromString,
+                _registered_method=True)
         self.Code = channel.unary_unary(
-            "/ibc.lightclients.wasm.v1.Query/Code",
-            request_serializer=ibc_dot_lightclients_dot_wasm_dot_v1_dot_query__pb2.QueryCodeRequest.SerializeToString,
-            response_deserializer=ibc_dot_lightclients_dot_wasm_dot_v1_dot_query__pb2.QueryCodeResponse.FromString,
-            _registered_method=True,
-        )
+                '/ibc.lightclients.wasm.v1.Query/Code',
+                request_serializer=ibc_dot_lightclients_dot_wasm_dot_v1_dot_query__pb2.QueryCodeRequest.SerializeToString,
+                response_deserializer=ibc_dot_lightclients_dot_wasm_dot_v1_dot_query__pb2.QueryCodeResponse.FromString,
+                _registered_method=True)
 
 
 class QueryServicer(object):
-    """Query service for wasm module"""
+    """Query service for wasm module
+    """
 
     def Checksums(self, request, context):
-        """Get all Wasm checksums"""
+        """Get all Wasm checksums
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def Code(self, request, context):
-        """Get Wasm code for given checksum"""
+        """Get Wasm code for given checksum
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
 
 def add_QueryServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        "Checksums": grpc.unary_unary_rpc_method_handler(
-            servicer.Checksums,
-            request_deserializer=ibc_dot_lightclients_dot_wasm_dot_v1_dot_query__pb2.QueryChecksumsRequest.FromString,
-            response_serializer=ibc_dot_lightclients_dot_wasm_dot_v1_dot_query__pb2.QueryChecksumsResponse.SerializeToString,
-        ),
-        "Code": grpc.unary_unary_rpc_method_handler(
-            servicer.Code,
-            request_deserializer=ibc_dot_lightclients_dot_wasm_dot_v1_dot_query__pb2.QueryCodeRequest.FromString,
-            response_serializer=ibc_dot_lightclients_dot_wasm_dot_v1_dot_query__pb2.QueryCodeResponse.SerializeToString,
-        ),
+            'Checksums': grpc.unary_unary_rpc_method_handler(
+                    servicer.Checksums,
+                    request_deserializer=ibc_dot_lightclients_dot_wasm_dot_v1_dot_query__pb2.QueryChecksumsRequest.FromString,
+                    response_serializer=ibc_dot_lightclients_dot_wasm_dot_v1_dot_query__pb2.QueryChecksumsResponse.SerializeToString,
+            ),
+            'Code': grpc.unary_unary_rpc_method_handler(
+                    servicer.Code,
+                    request_deserializer=ibc_dot_lightclients_dot_wasm_dot_v1_dot_query__pb2.QueryCodeRequest.FromString,
+                    response_serializer=ibc_dot_lightclients_dot_wasm_dot_v1_dot_query__pb2.QueryCodeResponse.SerializeToString,
+            ),
     }
-    generic_handler = grpc.method_handlers_generic_handler("ibc.lightclients.wasm.v1.Query", rpc_method_handlers)
+    generic_handler = grpc.method_handlers_generic_handler(
+            'ibc.lightclients.wasm.v1.Query', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers("ibc.lightclients.wasm.v1.Query", rpc_method_handlers)
+    server.add_registered_method_handlers('ibc.lightclients.wasm.v1.Query', rpc_method_handlers)
 
 
-# This class is part of an EXPERIMENTAL API.
+ # This class is part of an EXPERIMENTAL API.
 class Query(object):
-    """Query service for wasm module"""
+    """Query service for wasm module
+    """
 
     @staticmethod
-    def Checksums(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def Checksums(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/ibc.lightclients.wasm.v1.Query/Checksums",
+            '/ibc.lightclients.wasm.v1.Query/Checksums',
             ibc_dot_lightclients_dot_wasm_dot_v1_dot_query__pb2.QueryChecksumsRequest.SerializeToString,
             ibc_dot_lightclients_dot_wasm_dot_v1_dot_query__pb2.QueryChecksumsResponse.FromString,
             options,
@@ -93,26 +95,23 @@ class Query(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def Code(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def Code(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/ibc.lightclients.wasm.v1.Query/Code",
+            '/ibc.lightclients.wasm.v1.Query/Code',
             ibc_dot_lightclients_dot_wasm_dot_v1_dot_query__pb2.QueryCodeRequest.SerializeToString,
             ibc_dot_lightclients_dot_wasm_dot_v1_dot_query__pb2.QueryCodeResponse.FromString,
             options,
@@ -123,5 +122,4 @@ class Query(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)

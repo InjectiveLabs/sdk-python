@@ -6,7 +6,8 @@ from pyinjective.proto.cosmwasm.wasm.v1 import tx_pb2 as cosmwasm_dot_wasm_dot_v
 
 
 class MsgStub(object):
-    """Msg defines the wasm Msg service."""
+    """Msg defines the wasm Msg service.
+    """
 
     def __init__(self, channel):
         """Constructor.
@@ -15,163 +16,153 @@ class MsgStub(object):
             channel: A grpc.Channel.
         """
         self.StoreCode = channel.unary_unary(
-            "/cosmwasm.wasm.v1.Msg/StoreCode",
-            request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreCode.SerializeToString,
-            response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreCodeResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmwasm.wasm.v1.Msg/StoreCode',
+                request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreCode.SerializeToString,
+                response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreCodeResponse.FromString,
+                _registered_method=True)
         self.InstantiateContract = channel.unary_unary(
-            "/cosmwasm.wasm.v1.Msg/InstantiateContract",
-            request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgInstantiateContract.SerializeToString,
-            response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgInstantiateContractResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmwasm.wasm.v1.Msg/InstantiateContract',
+                request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgInstantiateContract.SerializeToString,
+                response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgInstantiateContractResponse.FromString,
+                _registered_method=True)
         self.InstantiateContract2 = channel.unary_unary(
-            "/cosmwasm.wasm.v1.Msg/InstantiateContract2",
-            request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgInstantiateContract2.SerializeToString,
-            response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgInstantiateContract2Response.FromString,
-            _registered_method=True,
-        )
+                '/cosmwasm.wasm.v1.Msg/InstantiateContract2',
+                request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgInstantiateContract2.SerializeToString,
+                response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgInstantiateContract2Response.FromString,
+                _registered_method=True)
         self.ExecuteContract = channel.unary_unary(
-            "/cosmwasm.wasm.v1.Msg/ExecuteContract",
-            request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgExecuteContract.SerializeToString,
-            response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgExecuteContractResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmwasm.wasm.v1.Msg/ExecuteContract',
+                request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgExecuteContract.SerializeToString,
+                response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgExecuteContractResponse.FromString,
+                _registered_method=True)
         self.MigrateContract = channel.unary_unary(
-            "/cosmwasm.wasm.v1.Msg/MigrateContract",
-            request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgMigrateContract.SerializeToString,
-            response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgMigrateContractResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmwasm.wasm.v1.Msg/MigrateContract',
+                request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgMigrateContract.SerializeToString,
+                response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgMigrateContractResponse.FromString,
+                _registered_method=True)
         self.UpdateAdmin = channel.unary_unary(
-            "/cosmwasm.wasm.v1.Msg/UpdateAdmin",
-            request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateAdmin.SerializeToString,
-            response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateAdminResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmwasm.wasm.v1.Msg/UpdateAdmin',
+                request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateAdmin.SerializeToString,
+                response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateAdminResponse.FromString,
+                _registered_method=True)
         self.ClearAdmin = channel.unary_unary(
-            "/cosmwasm.wasm.v1.Msg/ClearAdmin",
-            request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgClearAdmin.SerializeToString,
-            response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgClearAdminResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmwasm.wasm.v1.Msg/ClearAdmin',
+                request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgClearAdmin.SerializeToString,
+                response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgClearAdminResponse.FromString,
+                _registered_method=True)
         self.UpdateInstantiateConfig = channel.unary_unary(
-            "/cosmwasm.wasm.v1.Msg/UpdateInstantiateConfig",
-            request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateInstantiateConfig.SerializeToString,
-            response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateInstantiateConfigResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmwasm.wasm.v1.Msg/UpdateInstantiateConfig',
+                request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateInstantiateConfig.SerializeToString,
+                response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateInstantiateConfigResponse.FromString,
+                _registered_method=True)
         self.UpdateParams = channel.unary_unary(
-            "/cosmwasm.wasm.v1.Msg/UpdateParams",
-            request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
-            response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmwasm.wasm.v1.Msg/UpdateParams',
+                request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
+                response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
+                _registered_method=True)
         self.SudoContract = channel.unary_unary(
-            "/cosmwasm.wasm.v1.Msg/SudoContract",
-            request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgSudoContract.SerializeToString,
-            response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgSudoContractResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmwasm.wasm.v1.Msg/SudoContract',
+                request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgSudoContract.SerializeToString,
+                response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgSudoContractResponse.FromString,
+                _registered_method=True)
         self.PinCodes = channel.unary_unary(
-            "/cosmwasm.wasm.v1.Msg/PinCodes",
-            request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgPinCodes.SerializeToString,
-            response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgPinCodesResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmwasm.wasm.v1.Msg/PinCodes',
+                request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgPinCodes.SerializeToString,
+                response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgPinCodesResponse.FromString,
+                _registered_method=True)
         self.UnpinCodes = channel.unary_unary(
-            "/cosmwasm.wasm.v1.Msg/UnpinCodes",
-            request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUnpinCodes.SerializeToString,
-            response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUnpinCodesResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmwasm.wasm.v1.Msg/UnpinCodes',
+                request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUnpinCodes.SerializeToString,
+                response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUnpinCodesResponse.FromString,
+                _registered_method=True)
         self.StoreAndInstantiateContract = channel.unary_unary(
-            "/cosmwasm.wasm.v1.Msg/StoreAndInstantiateContract",
-            request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndInstantiateContract.SerializeToString,
-            response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndInstantiateContractResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmwasm.wasm.v1.Msg/StoreAndInstantiateContract',
+                request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndInstantiateContract.SerializeToString,
+                response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndInstantiateContractResponse.FromString,
+                _registered_method=True)
         self.RemoveCodeUploadParamsAddresses = channel.unary_unary(
-            "/cosmwasm.wasm.v1.Msg/RemoveCodeUploadParamsAddresses",
-            request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgRemoveCodeUploadParamsAddresses.SerializeToString,
-            response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgRemoveCodeUploadParamsAddressesResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmwasm.wasm.v1.Msg/RemoveCodeUploadParamsAddresses',
+                request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgRemoveCodeUploadParamsAddresses.SerializeToString,
+                response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgRemoveCodeUploadParamsAddressesResponse.FromString,
+                _registered_method=True)
         self.AddCodeUploadParamsAddresses = channel.unary_unary(
-            "/cosmwasm.wasm.v1.Msg/AddCodeUploadParamsAddresses",
-            request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgAddCodeUploadParamsAddresses.SerializeToString,
-            response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgAddCodeUploadParamsAddressesResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmwasm.wasm.v1.Msg/AddCodeUploadParamsAddresses',
+                request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgAddCodeUploadParamsAddresses.SerializeToString,
+                response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgAddCodeUploadParamsAddressesResponse.FromString,
+                _registered_method=True)
         self.StoreAndMigrateContract = channel.unary_unary(
-            "/cosmwasm.wasm.v1.Msg/StoreAndMigrateContract",
-            request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndMigrateContract.SerializeToString,
-            response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndMigrateContractResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmwasm.wasm.v1.Msg/StoreAndMigrateContract',
+                request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndMigrateContract.SerializeToString,
+                response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndMigrateContractResponse.FromString,
+                _registered_method=True)
         self.UpdateContractLabel = channel.unary_unary(
-            "/cosmwasm.wasm.v1.Msg/UpdateContractLabel",
-            request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateContractLabel.SerializeToString,
-            response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateContractLabelResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmwasm.wasm.v1.Msg/UpdateContractLabel',
+                request_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateContractLabel.SerializeToString,
+                response_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateContractLabelResponse.FromString,
+                _registered_method=True)
 
 
 class MsgServicer(object):
-    """Msg defines the wasm Msg service."""
+    """Msg defines the wasm Msg service.
+    """
 
     def StoreCode(self, request, context):
-        """StoreCode to submit Wasm code to the system"""
+        """StoreCode to submit Wasm code to the system
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def InstantiateContract(self, request, context):
         """InstantiateContract creates a new smart contract instance for the given
         code id.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def InstantiateContract2(self, request, context):
         """InstantiateContract2 creates a new smart contract instance for the given
         code id with a predictable address
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def ExecuteContract(self, request, context):
-        """Execute submits the given message data to a smart contract"""
+        """Execute submits the given message data to a smart contract
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def MigrateContract(self, request, context):
-        """Migrate runs a code upgrade/ downgrade for a smart contract"""
+        """Migrate runs a code upgrade/ downgrade for a smart contract
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def UpdateAdmin(self, request, context):
-        """UpdateAdmin sets a new admin for a smart contract"""
+        """UpdateAdmin sets a new admin for a smart contract
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def ClearAdmin(self, request, context):
-        """ClearAdmin removes any admin stored for a smart contract"""
+        """ClearAdmin removes any admin stored for a smart contract
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def UpdateInstantiateConfig(self, request, context):
-        """UpdateInstantiateConfig updates instantiate config for a smart contract"""
+        """UpdateInstantiateConfig updates instantiate config for a smart contract
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def UpdateParams(self, request, context):
         """UpdateParams defines a governance operation for updating the x/wasm
@@ -180,8 +171,8 @@ class MsgServicer(object):
         Since: 0.40
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def SudoContract(self, request, context):
         """SudoContract defines a governance operation for calling sudo
@@ -190,8 +181,8 @@ class MsgServicer(object):
         Since: 0.40
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def PinCodes(self, request, context):
         """PinCodes defines a governance operation for pinning a set of
@@ -200,8 +191,8 @@ class MsgServicer(object):
         Since: 0.40
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def UnpinCodes(self, request, context):
         """UnpinCodes defines a governance operation for unpinning a set of
@@ -210,8 +201,8 @@ class MsgServicer(object):
         Since: 0.40
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def StoreAndInstantiateContract(self, request, context):
         """StoreAndInstantiateContract defines a governance operation for storing
@@ -220,8 +211,8 @@ class MsgServicer(object):
         Since: 0.40
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def RemoveCodeUploadParamsAddresses(self, request, context):
         """RemoveCodeUploadParamsAddresses defines a governance operation for
@@ -229,8 +220,8 @@ class MsgServicer(object):
         The authority is defined in the keeper.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def AddCodeUploadParamsAddresses(self, request, context):
         """AddCodeUploadParamsAddresses defines a governance operation for
@@ -238,8 +229,8 @@ class MsgServicer(object):
         The authority is defined in the keeper.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def StoreAndMigrateContract(self, request, context):
         """StoreAndMigrateContract defines a governance operation for storing
@@ -248,8 +239,8 @@ class MsgServicer(object):
         Since: 0.42
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def UpdateContractLabel(self, request, context):
         """UpdateContractLabel sets a new label for a smart contract
@@ -257,124 +248,124 @@ class MsgServicer(object):
         Since: 0.43
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        "StoreCode": grpc.unary_unary_rpc_method_handler(
-            servicer.StoreCode,
-            request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreCode.FromString,
-            response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreCodeResponse.SerializeToString,
-        ),
-        "InstantiateContract": grpc.unary_unary_rpc_method_handler(
-            servicer.InstantiateContract,
-            request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgInstantiateContract.FromString,
-            response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgInstantiateContractResponse.SerializeToString,
-        ),
-        "InstantiateContract2": grpc.unary_unary_rpc_method_handler(
-            servicer.InstantiateContract2,
-            request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgInstantiateContract2.FromString,
-            response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgInstantiateContract2Response.SerializeToString,
-        ),
-        "ExecuteContract": grpc.unary_unary_rpc_method_handler(
-            servicer.ExecuteContract,
-            request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgExecuteContract.FromString,
-            response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgExecuteContractResponse.SerializeToString,
-        ),
-        "MigrateContract": grpc.unary_unary_rpc_method_handler(
-            servicer.MigrateContract,
-            request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgMigrateContract.FromString,
-            response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgMigrateContractResponse.SerializeToString,
-        ),
-        "UpdateAdmin": grpc.unary_unary_rpc_method_handler(
-            servicer.UpdateAdmin,
-            request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateAdmin.FromString,
-            response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateAdminResponse.SerializeToString,
-        ),
-        "ClearAdmin": grpc.unary_unary_rpc_method_handler(
-            servicer.ClearAdmin,
-            request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgClearAdmin.FromString,
-            response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgClearAdminResponse.SerializeToString,
-        ),
-        "UpdateInstantiateConfig": grpc.unary_unary_rpc_method_handler(
-            servicer.UpdateInstantiateConfig,
-            request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateInstantiateConfig.FromString,
-            response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateInstantiateConfigResponse.SerializeToString,
-        ),
-        "UpdateParams": grpc.unary_unary_rpc_method_handler(
-            servicer.UpdateParams,
-            request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateParams.FromString,
-            response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.SerializeToString,
-        ),
-        "SudoContract": grpc.unary_unary_rpc_method_handler(
-            servicer.SudoContract,
-            request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgSudoContract.FromString,
-            response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgSudoContractResponse.SerializeToString,
-        ),
-        "PinCodes": grpc.unary_unary_rpc_method_handler(
-            servicer.PinCodes,
-            request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgPinCodes.FromString,
-            response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgPinCodesResponse.SerializeToString,
-        ),
-        "UnpinCodes": grpc.unary_unary_rpc_method_handler(
-            servicer.UnpinCodes,
-            request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUnpinCodes.FromString,
-            response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUnpinCodesResponse.SerializeToString,
-        ),
-        "StoreAndInstantiateContract": grpc.unary_unary_rpc_method_handler(
-            servicer.StoreAndInstantiateContract,
-            request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndInstantiateContract.FromString,
-            response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndInstantiateContractResponse.SerializeToString,
-        ),
-        "RemoveCodeUploadParamsAddresses": grpc.unary_unary_rpc_method_handler(
-            servicer.RemoveCodeUploadParamsAddresses,
-            request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgRemoveCodeUploadParamsAddresses.FromString,
-            response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgRemoveCodeUploadParamsAddressesResponse.SerializeToString,
-        ),
-        "AddCodeUploadParamsAddresses": grpc.unary_unary_rpc_method_handler(
-            servicer.AddCodeUploadParamsAddresses,
-            request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgAddCodeUploadParamsAddresses.FromString,
-            response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgAddCodeUploadParamsAddressesResponse.SerializeToString,
-        ),
-        "StoreAndMigrateContract": grpc.unary_unary_rpc_method_handler(
-            servicer.StoreAndMigrateContract,
-            request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndMigrateContract.FromString,
-            response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndMigrateContractResponse.SerializeToString,
-        ),
-        "UpdateContractLabel": grpc.unary_unary_rpc_method_handler(
-            servicer.UpdateContractLabel,
-            request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateContractLabel.FromString,
-            response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateContractLabelResponse.SerializeToString,
-        ),
+            'StoreCode': grpc.unary_unary_rpc_method_handler(
+                    servicer.StoreCode,
+                    request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreCode.FromString,
+                    response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreCodeResponse.SerializeToString,
+            ),
+            'InstantiateContract': grpc.unary_unary_rpc_method_handler(
+                    servicer.InstantiateContract,
+                    request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgInstantiateContract.FromString,
+                    response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgInstantiateContractResponse.SerializeToString,
+            ),
+            'InstantiateContract2': grpc.unary_unary_rpc_method_handler(
+                    servicer.InstantiateContract2,
+                    request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgInstantiateContract2.FromString,
+                    response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgInstantiateContract2Response.SerializeToString,
+            ),
+            'ExecuteContract': grpc.unary_unary_rpc_method_handler(
+                    servicer.ExecuteContract,
+                    request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgExecuteContract.FromString,
+                    response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgExecuteContractResponse.SerializeToString,
+            ),
+            'MigrateContract': grpc.unary_unary_rpc_method_handler(
+                    servicer.MigrateContract,
+                    request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgMigrateContract.FromString,
+                    response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgMigrateContractResponse.SerializeToString,
+            ),
+            'UpdateAdmin': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateAdmin,
+                    request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateAdmin.FromString,
+                    response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateAdminResponse.SerializeToString,
+            ),
+            'ClearAdmin': grpc.unary_unary_rpc_method_handler(
+                    servicer.ClearAdmin,
+                    request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgClearAdmin.FromString,
+                    response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgClearAdminResponse.SerializeToString,
+            ),
+            'UpdateInstantiateConfig': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateInstantiateConfig,
+                    request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateInstantiateConfig.FromString,
+                    response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateInstantiateConfigResponse.SerializeToString,
+            ),
+            'UpdateParams': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateParams,
+                    request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateParams.FromString,
+                    response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.SerializeToString,
+            ),
+            'SudoContract': grpc.unary_unary_rpc_method_handler(
+                    servicer.SudoContract,
+                    request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgSudoContract.FromString,
+                    response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgSudoContractResponse.SerializeToString,
+            ),
+            'PinCodes': grpc.unary_unary_rpc_method_handler(
+                    servicer.PinCodes,
+                    request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgPinCodes.FromString,
+                    response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgPinCodesResponse.SerializeToString,
+            ),
+            'UnpinCodes': grpc.unary_unary_rpc_method_handler(
+                    servicer.UnpinCodes,
+                    request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUnpinCodes.FromString,
+                    response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUnpinCodesResponse.SerializeToString,
+            ),
+            'StoreAndInstantiateContract': grpc.unary_unary_rpc_method_handler(
+                    servicer.StoreAndInstantiateContract,
+                    request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndInstantiateContract.FromString,
+                    response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndInstantiateContractResponse.SerializeToString,
+            ),
+            'RemoveCodeUploadParamsAddresses': grpc.unary_unary_rpc_method_handler(
+                    servicer.RemoveCodeUploadParamsAddresses,
+                    request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgRemoveCodeUploadParamsAddresses.FromString,
+                    response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgRemoveCodeUploadParamsAddressesResponse.SerializeToString,
+            ),
+            'AddCodeUploadParamsAddresses': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddCodeUploadParamsAddresses,
+                    request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgAddCodeUploadParamsAddresses.FromString,
+                    response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgAddCodeUploadParamsAddressesResponse.SerializeToString,
+            ),
+            'StoreAndMigrateContract': grpc.unary_unary_rpc_method_handler(
+                    servicer.StoreAndMigrateContract,
+                    request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndMigrateContract.FromString,
+                    response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndMigrateContractResponse.SerializeToString,
+            ),
+            'UpdateContractLabel': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateContractLabel,
+                    request_deserializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateContractLabel.FromString,
+                    response_serializer=cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateContractLabelResponse.SerializeToString,
+            ),
     }
-    generic_handler = grpc.method_handlers_generic_handler("cosmwasm.wasm.v1.Msg", rpc_method_handlers)
+    generic_handler = grpc.method_handlers_generic_handler(
+            'cosmwasm.wasm.v1.Msg', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers("cosmwasm.wasm.v1.Msg", rpc_method_handlers)
+    server.add_registered_method_handlers('cosmwasm.wasm.v1.Msg', rpc_method_handlers)
 
 
-# This class is part of an EXPERIMENTAL API.
+ # This class is part of an EXPERIMENTAL API.
 class Msg(object):
-    """Msg defines the wasm Msg service."""
+    """Msg defines the wasm Msg service.
+    """
 
     @staticmethod
-    def StoreCode(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def StoreCode(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmwasm.wasm.v1.Msg/StoreCode",
+            '/cosmwasm.wasm.v1.Msg/StoreCode',
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreCode.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreCodeResponse.FromString,
             options,
@@ -385,26 +376,23 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def InstantiateContract(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def InstantiateContract(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmwasm.wasm.v1.Msg/InstantiateContract",
+            '/cosmwasm.wasm.v1.Msg/InstantiateContract',
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgInstantiateContract.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgInstantiateContractResponse.FromString,
             options,
@@ -415,26 +403,23 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def InstantiateContract2(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def InstantiateContract2(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmwasm.wasm.v1.Msg/InstantiateContract2",
+            '/cosmwasm.wasm.v1.Msg/InstantiateContract2',
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgInstantiateContract2.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgInstantiateContract2Response.FromString,
             options,
@@ -445,26 +430,23 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def ExecuteContract(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def ExecuteContract(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmwasm.wasm.v1.Msg/ExecuteContract",
+            '/cosmwasm.wasm.v1.Msg/ExecuteContract',
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgExecuteContract.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgExecuteContractResponse.FromString,
             options,
@@ -475,26 +457,23 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def MigrateContract(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def MigrateContract(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmwasm.wasm.v1.Msg/MigrateContract",
+            '/cosmwasm.wasm.v1.Msg/MigrateContract',
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgMigrateContract.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgMigrateContractResponse.FromString,
             options,
@@ -505,26 +484,23 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def UpdateAdmin(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def UpdateAdmin(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmwasm.wasm.v1.Msg/UpdateAdmin",
+            '/cosmwasm.wasm.v1.Msg/UpdateAdmin',
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateAdmin.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateAdminResponse.FromString,
             options,
@@ -535,26 +511,23 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def ClearAdmin(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def ClearAdmin(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmwasm.wasm.v1.Msg/ClearAdmin",
+            '/cosmwasm.wasm.v1.Msg/ClearAdmin',
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgClearAdmin.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgClearAdminResponse.FromString,
             options,
@@ -565,26 +538,23 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def UpdateInstantiateConfig(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def UpdateInstantiateConfig(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmwasm.wasm.v1.Msg/UpdateInstantiateConfig",
+            '/cosmwasm.wasm.v1.Msg/UpdateInstantiateConfig',
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateInstantiateConfig.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateInstantiateConfigResponse.FromString,
             options,
@@ -595,26 +565,23 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def UpdateParams(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def UpdateParams(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmwasm.wasm.v1.Msg/UpdateParams",
+            '/cosmwasm.wasm.v1.Msg/UpdateParams',
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
             options,
@@ -625,26 +592,23 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def SudoContract(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def SudoContract(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmwasm.wasm.v1.Msg/SudoContract",
+            '/cosmwasm.wasm.v1.Msg/SudoContract',
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgSudoContract.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgSudoContractResponse.FromString,
             options,
@@ -655,26 +619,23 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def PinCodes(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def PinCodes(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmwasm.wasm.v1.Msg/PinCodes",
+            '/cosmwasm.wasm.v1.Msg/PinCodes',
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgPinCodes.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgPinCodesResponse.FromString,
             options,
@@ -685,26 +646,23 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def UnpinCodes(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def UnpinCodes(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmwasm.wasm.v1.Msg/UnpinCodes",
+            '/cosmwasm.wasm.v1.Msg/UnpinCodes',
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUnpinCodes.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUnpinCodesResponse.FromString,
             options,
@@ -715,26 +673,23 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def StoreAndInstantiateContract(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def StoreAndInstantiateContract(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmwasm.wasm.v1.Msg/StoreAndInstantiateContract",
+            '/cosmwasm.wasm.v1.Msg/StoreAndInstantiateContract',
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndInstantiateContract.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndInstantiateContractResponse.FromString,
             options,
@@ -745,26 +700,23 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def RemoveCodeUploadParamsAddresses(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def RemoveCodeUploadParamsAddresses(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmwasm.wasm.v1.Msg/RemoveCodeUploadParamsAddresses",
+            '/cosmwasm.wasm.v1.Msg/RemoveCodeUploadParamsAddresses',
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgRemoveCodeUploadParamsAddresses.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgRemoveCodeUploadParamsAddressesResponse.FromString,
             options,
@@ -775,26 +727,23 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def AddCodeUploadParamsAddresses(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def AddCodeUploadParamsAddresses(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmwasm.wasm.v1.Msg/AddCodeUploadParamsAddresses",
+            '/cosmwasm.wasm.v1.Msg/AddCodeUploadParamsAddresses',
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgAddCodeUploadParamsAddresses.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgAddCodeUploadParamsAddressesResponse.FromString,
             options,
@@ -805,26 +754,23 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def StoreAndMigrateContract(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def StoreAndMigrateContract(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmwasm.wasm.v1.Msg/StoreAndMigrateContract",
+            '/cosmwasm.wasm.v1.Msg/StoreAndMigrateContract',
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndMigrateContract.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgStoreAndMigrateContractResponse.FromString,
             options,
@@ -835,26 +781,23 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def UpdateContractLabel(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def UpdateContractLabel(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmwasm.wasm.v1.Msg/UpdateContractLabel",
+            '/cosmwasm.wasm.v1.Msg/UpdateContractLabel',
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateContractLabel.SerializeToString,
             cosmwasm_dot_wasm_dot_v1_dot_tx__pb2.MsgUpdateContractLabelResponse.FromString,
             options,
@@ -865,5 +808,4 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)

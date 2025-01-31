@@ -6,7 +6,8 @@ from pyinjective.proto.injective.ocr.v1beta1 import query_pb2 as injective_dot_o
 
 
 class QueryStub(object):
-    """Query defines the gRPC querier service for OCR module."""
+    """Query defines the gRPC querier service for OCR module.
+    """
 
     def __init__(self, channel):
         """Constructor.
@@ -15,161 +16,160 @@ class QueryStub(object):
             channel: A grpc.Channel.
         """
         self.Params = channel.unary_unary(
-            "/injective.ocr.v1beta1.Query/Params",
-            request_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryParamsRequest.SerializeToString,
-            response_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryParamsResponse.FromString,
-            _registered_method=True,
-        )
+                '/injective.ocr.v1beta1.Query/Params',
+                request_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryParamsRequest.SerializeToString,
+                response_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryParamsResponse.FromString,
+                _registered_method=True)
         self.FeedConfig = channel.unary_unary(
-            "/injective.ocr.v1beta1.Query/FeedConfig",
-            request_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryFeedConfigRequest.SerializeToString,
-            response_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryFeedConfigResponse.FromString,
-            _registered_method=True,
-        )
+                '/injective.ocr.v1beta1.Query/FeedConfig',
+                request_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryFeedConfigRequest.SerializeToString,
+                response_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryFeedConfigResponse.FromString,
+                _registered_method=True)
         self.FeedConfigInfo = channel.unary_unary(
-            "/injective.ocr.v1beta1.Query/FeedConfigInfo",
-            request_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryFeedConfigInfoRequest.SerializeToString,
-            response_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryFeedConfigInfoResponse.FromString,
-            _registered_method=True,
-        )
+                '/injective.ocr.v1beta1.Query/FeedConfigInfo',
+                request_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryFeedConfigInfoRequest.SerializeToString,
+                response_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryFeedConfigInfoResponse.FromString,
+                _registered_method=True)
         self.LatestRound = channel.unary_unary(
-            "/injective.ocr.v1beta1.Query/LatestRound",
-            request_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryLatestRoundRequest.SerializeToString,
-            response_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryLatestRoundResponse.FromString,
-            _registered_method=True,
-        )
+                '/injective.ocr.v1beta1.Query/LatestRound',
+                request_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryLatestRoundRequest.SerializeToString,
+                response_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryLatestRoundResponse.FromString,
+                _registered_method=True)
         self.LatestTransmissionDetails = channel.unary_unary(
-            "/injective.ocr.v1beta1.Query/LatestTransmissionDetails",
-            request_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryLatestTransmissionDetailsRequest.SerializeToString,
-            response_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryLatestTransmissionDetailsResponse.FromString,
-            _registered_method=True,
-        )
+                '/injective.ocr.v1beta1.Query/LatestTransmissionDetails',
+                request_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryLatestTransmissionDetailsRequest.SerializeToString,
+                response_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryLatestTransmissionDetailsResponse.FromString,
+                _registered_method=True)
         self.OwedAmount = channel.unary_unary(
-            "/injective.ocr.v1beta1.Query/OwedAmount",
-            request_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryOwedAmountRequest.SerializeToString,
-            response_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryOwedAmountResponse.FromString,
-            _registered_method=True,
-        )
+                '/injective.ocr.v1beta1.Query/OwedAmount',
+                request_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryOwedAmountRequest.SerializeToString,
+                response_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryOwedAmountResponse.FromString,
+                _registered_method=True)
         self.OcrModuleState = channel.unary_unary(
-            "/injective.ocr.v1beta1.Query/OcrModuleState",
-            request_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryModuleStateRequest.SerializeToString,
-            response_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryModuleStateResponse.FromString,
-            _registered_method=True,
-        )
+                '/injective.ocr.v1beta1.Query/OcrModuleState',
+                request_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryModuleStateRequest.SerializeToString,
+                response_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryModuleStateResponse.FromString,
+                _registered_method=True)
 
 
 class QueryServicer(object):
-    """Query defines the gRPC querier service for OCR module."""
+    """Query defines the gRPC querier service for OCR module.
+    """
 
     def Params(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def FeedConfig(self, request, context):
-        """Retrieves the OCR FeedConfig for a given FeedId"""
+        """Retrieves the OCR FeedConfig for a given FeedId
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def FeedConfigInfo(self, request, context):
-        """Retrieves the OCR FeedConfigInfo for a given FeedId"""
+        """Retrieves the OCR FeedConfigInfo for a given FeedId
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def LatestRound(self, request, context):
-        """Retrieves latest round ID and data, including median answer for that round"""
+        """Retrieves latest round ID and data, including median answer for that round
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def LatestTransmissionDetails(self, request, context):
         """LatestTransmissionDetails returns details about the latest trasmission
         recorded on chain for the given feed ID.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def OwedAmount(self, request, context):
-        """Retrieves transmitter's owed amount"""
+        """Retrieves transmitter's owed amount
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def OcrModuleState(self, request, context):
-        """Retrieves the entire OCR module's state"""
+        """Retrieves the entire OCR module's state
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
 
 def add_QueryServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        "Params": grpc.unary_unary_rpc_method_handler(
-            servicer.Params,
-            request_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryParamsRequest.FromString,
-            response_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryParamsResponse.SerializeToString,
-        ),
-        "FeedConfig": grpc.unary_unary_rpc_method_handler(
-            servicer.FeedConfig,
-            request_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryFeedConfigRequest.FromString,
-            response_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryFeedConfigResponse.SerializeToString,
-        ),
-        "FeedConfigInfo": grpc.unary_unary_rpc_method_handler(
-            servicer.FeedConfigInfo,
-            request_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryFeedConfigInfoRequest.FromString,
-            response_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryFeedConfigInfoResponse.SerializeToString,
-        ),
-        "LatestRound": grpc.unary_unary_rpc_method_handler(
-            servicer.LatestRound,
-            request_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryLatestRoundRequest.FromString,
-            response_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryLatestRoundResponse.SerializeToString,
-        ),
-        "LatestTransmissionDetails": grpc.unary_unary_rpc_method_handler(
-            servicer.LatestTransmissionDetails,
-            request_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryLatestTransmissionDetailsRequest.FromString,
-            response_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryLatestTransmissionDetailsResponse.SerializeToString,
-        ),
-        "OwedAmount": grpc.unary_unary_rpc_method_handler(
-            servicer.OwedAmount,
-            request_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryOwedAmountRequest.FromString,
-            response_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryOwedAmountResponse.SerializeToString,
-        ),
-        "OcrModuleState": grpc.unary_unary_rpc_method_handler(
-            servicer.OcrModuleState,
-            request_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryModuleStateRequest.FromString,
-            response_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryModuleStateResponse.SerializeToString,
-        ),
+            'Params': grpc.unary_unary_rpc_method_handler(
+                    servicer.Params,
+                    request_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryParamsRequest.FromString,
+                    response_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryParamsResponse.SerializeToString,
+            ),
+            'FeedConfig': grpc.unary_unary_rpc_method_handler(
+                    servicer.FeedConfig,
+                    request_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryFeedConfigRequest.FromString,
+                    response_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryFeedConfigResponse.SerializeToString,
+            ),
+            'FeedConfigInfo': grpc.unary_unary_rpc_method_handler(
+                    servicer.FeedConfigInfo,
+                    request_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryFeedConfigInfoRequest.FromString,
+                    response_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryFeedConfigInfoResponse.SerializeToString,
+            ),
+            'LatestRound': grpc.unary_unary_rpc_method_handler(
+                    servicer.LatestRound,
+                    request_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryLatestRoundRequest.FromString,
+                    response_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryLatestRoundResponse.SerializeToString,
+            ),
+            'LatestTransmissionDetails': grpc.unary_unary_rpc_method_handler(
+                    servicer.LatestTransmissionDetails,
+                    request_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryLatestTransmissionDetailsRequest.FromString,
+                    response_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryLatestTransmissionDetailsResponse.SerializeToString,
+            ),
+            'OwedAmount': grpc.unary_unary_rpc_method_handler(
+                    servicer.OwedAmount,
+                    request_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryOwedAmountRequest.FromString,
+                    response_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryOwedAmountResponse.SerializeToString,
+            ),
+            'OcrModuleState': grpc.unary_unary_rpc_method_handler(
+                    servicer.OcrModuleState,
+                    request_deserializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryModuleStateRequest.FromString,
+                    response_serializer=injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryModuleStateResponse.SerializeToString,
+            ),
     }
-    generic_handler = grpc.method_handlers_generic_handler("injective.ocr.v1beta1.Query", rpc_method_handlers)
+    generic_handler = grpc.method_handlers_generic_handler(
+            'injective.ocr.v1beta1.Query', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers("injective.ocr.v1beta1.Query", rpc_method_handlers)
+    server.add_registered_method_handlers('injective.ocr.v1beta1.Query', rpc_method_handlers)
 
 
-# This class is part of an EXPERIMENTAL API.
+ # This class is part of an EXPERIMENTAL API.
 class Query(object):
-    """Query defines the gRPC querier service for OCR module."""
+    """Query defines the gRPC querier service for OCR module.
+    """
 
     @staticmethod
-    def Params(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def Params(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/injective.ocr.v1beta1.Query/Params",
+            '/injective.ocr.v1beta1.Query/Params',
             injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryParamsRequest.SerializeToString,
             injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryParamsResponse.FromString,
             options,
@@ -180,26 +180,23 @@ class Query(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def FeedConfig(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def FeedConfig(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/injective.ocr.v1beta1.Query/FeedConfig",
+            '/injective.ocr.v1beta1.Query/FeedConfig',
             injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryFeedConfigRequest.SerializeToString,
             injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryFeedConfigResponse.FromString,
             options,
@@ -210,26 +207,23 @@ class Query(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def FeedConfigInfo(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def FeedConfigInfo(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/injective.ocr.v1beta1.Query/FeedConfigInfo",
+            '/injective.ocr.v1beta1.Query/FeedConfigInfo',
             injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryFeedConfigInfoRequest.SerializeToString,
             injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryFeedConfigInfoResponse.FromString,
             options,
@@ -240,26 +234,23 @@ class Query(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def LatestRound(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def LatestRound(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/injective.ocr.v1beta1.Query/LatestRound",
+            '/injective.ocr.v1beta1.Query/LatestRound',
             injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryLatestRoundRequest.SerializeToString,
             injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryLatestRoundResponse.FromString,
             options,
@@ -270,26 +261,23 @@ class Query(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def LatestTransmissionDetails(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def LatestTransmissionDetails(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/injective.ocr.v1beta1.Query/LatestTransmissionDetails",
+            '/injective.ocr.v1beta1.Query/LatestTransmissionDetails',
             injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryLatestTransmissionDetailsRequest.SerializeToString,
             injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryLatestTransmissionDetailsResponse.FromString,
             options,
@@ -300,26 +288,23 @@ class Query(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def OwedAmount(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def OwedAmount(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/injective.ocr.v1beta1.Query/OwedAmount",
+            '/injective.ocr.v1beta1.Query/OwedAmount',
             injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryOwedAmountRequest.SerializeToString,
             injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryOwedAmountResponse.FromString,
             options,
@@ -330,26 +315,23 @@ class Query(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def OcrModuleState(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def OcrModuleState(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/injective.ocr.v1beta1.Query/OcrModuleState",
+            '/injective.ocr.v1beta1.Query/OcrModuleState',
             injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryModuleStateRequest.SerializeToString,
             injective_dot_ocr_dot_v1beta1_dot_query__pb2.QueryModuleStateResponse.FromString,
             options,
@@ -360,5 +342,4 @@ class Query(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)

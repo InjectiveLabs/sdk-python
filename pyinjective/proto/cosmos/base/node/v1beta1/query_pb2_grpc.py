@@ -6,7 +6,8 @@ from pyinjective.proto.cosmos.base.node.v1beta1 import query_pb2 as cosmos_dot_b
 
 
 class ServiceStub(object):
-    """Service defines the gRPC querier service for node related queries."""
+    """Service defines the gRPC querier service for node related queries.
+    """
 
     def __init__(self, channel):
         """Constructor.
@@ -15,74 +16,75 @@ class ServiceStub(object):
             channel: A grpc.Channel.
         """
         self.Config = channel.unary_unary(
-            "/cosmos.base.node.v1beta1.Service/Config",
-            request_serializer=cosmos_dot_base_dot_node_dot_v1beta1_dot_query__pb2.ConfigRequest.SerializeToString,
-            response_deserializer=cosmos_dot_base_dot_node_dot_v1beta1_dot_query__pb2.ConfigResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmos.base.node.v1beta1.Service/Config',
+                request_serializer=cosmos_dot_base_dot_node_dot_v1beta1_dot_query__pb2.ConfigRequest.SerializeToString,
+                response_deserializer=cosmos_dot_base_dot_node_dot_v1beta1_dot_query__pb2.ConfigResponse.FromString,
+                _registered_method=True)
         self.Status = channel.unary_unary(
-            "/cosmos.base.node.v1beta1.Service/Status",
-            request_serializer=cosmos_dot_base_dot_node_dot_v1beta1_dot_query__pb2.StatusRequest.SerializeToString,
-            response_deserializer=cosmos_dot_base_dot_node_dot_v1beta1_dot_query__pb2.StatusResponse.FromString,
-            _registered_method=True,
-        )
+                '/cosmos.base.node.v1beta1.Service/Status',
+                request_serializer=cosmos_dot_base_dot_node_dot_v1beta1_dot_query__pb2.StatusRequest.SerializeToString,
+                response_deserializer=cosmos_dot_base_dot_node_dot_v1beta1_dot_query__pb2.StatusResponse.FromString,
+                _registered_method=True)
 
 
 class ServiceServicer(object):
-    """Service defines the gRPC querier service for node related queries."""
+    """Service defines the gRPC querier service for node related queries.
+    """
 
     def Config(self, request, context):
-        """Config queries for the operator configuration."""
+        """Config queries for the operator configuration.
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def Status(self, request, context):
-        """Status queries for the node status."""
+        """Status queries for the node status.
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
 
 def add_ServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        "Config": grpc.unary_unary_rpc_method_handler(
-            servicer.Config,
-            request_deserializer=cosmos_dot_base_dot_node_dot_v1beta1_dot_query__pb2.ConfigRequest.FromString,
-            response_serializer=cosmos_dot_base_dot_node_dot_v1beta1_dot_query__pb2.ConfigResponse.SerializeToString,
-        ),
-        "Status": grpc.unary_unary_rpc_method_handler(
-            servicer.Status,
-            request_deserializer=cosmos_dot_base_dot_node_dot_v1beta1_dot_query__pb2.StatusRequest.FromString,
-            response_serializer=cosmos_dot_base_dot_node_dot_v1beta1_dot_query__pb2.StatusResponse.SerializeToString,
-        ),
+            'Config': grpc.unary_unary_rpc_method_handler(
+                    servicer.Config,
+                    request_deserializer=cosmos_dot_base_dot_node_dot_v1beta1_dot_query__pb2.ConfigRequest.FromString,
+                    response_serializer=cosmos_dot_base_dot_node_dot_v1beta1_dot_query__pb2.ConfigResponse.SerializeToString,
+            ),
+            'Status': grpc.unary_unary_rpc_method_handler(
+                    servicer.Status,
+                    request_deserializer=cosmos_dot_base_dot_node_dot_v1beta1_dot_query__pb2.StatusRequest.FromString,
+                    response_serializer=cosmos_dot_base_dot_node_dot_v1beta1_dot_query__pb2.StatusResponse.SerializeToString,
+            ),
     }
-    generic_handler = grpc.method_handlers_generic_handler("cosmos.base.node.v1beta1.Service", rpc_method_handlers)
+    generic_handler = grpc.method_handlers_generic_handler(
+            'cosmos.base.node.v1beta1.Service', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers("cosmos.base.node.v1beta1.Service", rpc_method_handlers)
+    server.add_registered_method_handlers('cosmos.base.node.v1beta1.Service', rpc_method_handlers)
 
 
-# This class is part of an EXPERIMENTAL API.
+ # This class is part of an EXPERIMENTAL API.
 class Service(object):
-    """Service defines the gRPC querier service for node related queries."""
+    """Service defines the gRPC querier service for node related queries.
+    """
 
     @staticmethod
-    def Config(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def Config(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmos.base.node.v1beta1.Service/Config",
+            '/cosmos.base.node.v1beta1.Service/Config',
             cosmos_dot_base_dot_node_dot_v1beta1_dot_query__pb2.ConfigRequest.SerializeToString,
             cosmos_dot_base_dot_node_dot_v1beta1_dot_query__pb2.ConfigResponse.FromString,
             options,
@@ -93,26 +95,23 @@ class Service(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def Status(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def Status(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/cosmos.base.node.v1beta1.Service/Status",
+            '/cosmos.base.node.v1beta1.Service/Status',
             cosmos_dot_base_dot_node_dot_v1beta1_dot_query__pb2.StatusRequest.SerializeToString,
             cosmos_dot_base_dot_node_dot_v1beta1_dot_query__pb2.StatusResponse.FromString,
             options,
@@ -123,5 +122,4 @@ class Service(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)

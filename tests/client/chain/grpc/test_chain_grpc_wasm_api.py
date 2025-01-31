@@ -5,7 +5,7 @@ import grpc
 import pytest
 
 from pyinjective.client.chain.grpc.chain_grpc_wasm_api import ChainGrpcWasmApi
-from pyinjective.client.model.pagination import PaginationOption
+from pyinjective.client.model import PaginationOption
 from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagination_pb
 from pyinjective.proto.cosmwasm.wasm.v1 import query_pb2 as wasm_query_pb, types_pb2 as wasm_types_pb

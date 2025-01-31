@@ -38,23 +38,20 @@ class ByteStreamStub(object):
             channel: A grpc.Channel.
         """
         self.Read = channel.unary_stream(
-            "/google.bytestream.ByteStream/Read",
-            request_serializer=google_dot_bytestream_dot_bytestream__pb2.ReadRequest.SerializeToString,
-            response_deserializer=google_dot_bytestream_dot_bytestream__pb2.ReadResponse.FromString,
-            _registered_method=True,
-        )
+                '/google.bytestream.ByteStream/Read',
+                request_serializer=google_dot_bytestream_dot_bytestream__pb2.ReadRequest.SerializeToString,
+                response_deserializer=google_dot_bytestream_dot_bytestream__pb2.ReadResponse.FromString,
+                _registered_method=True)
         self.Write = channel.stream_unary(
-            "/google.bytestream.ByteStream/Write",
-            request_serializer=google_dot_bytestream_dot_bytestream__pb2.WriteRequest.SerializeToString,
-            response_deserializer=google_dot_bytestream_dot_bytestream__pb2.WriteResponse.FromString,
-            _registered_method=True,
-        )
+                '/google.bytestream.ByteStream/Write',
+                request_serializer=google_dot_bytestream_dot_bytestream__pb2.WriteRequest.SerializeToString,
+                response_deserializer=google_dot_bytestream_dot_bytestream__pb2.WriteResponse.FromString,
+                _registered_method=True)
         self.QueryWriteStatus = channel.unary_unary(
-            "/google.bytestream.ByteStream/QueryWriteStatus",
-            request_serializer=google_dot_bytestream_dot_bytestream__pb2.QueryWriteStatusRequest.SerializeToString,
-            response_deserializer=google_dot_bytestream_dot_bytestream__pb2.QueryWriteStatusResponse.FromString,
-            _registered_method=True,
-        )
+                '/google.bytestream.ByteStream/QueryWriteStatus',
+                request_serializer=google_dot_bytestream_dot_bytestream__pb2.QueryWriteStatusRequest.SerializeToString,
+                response_deserializer=google_dot_bytestream_dot_bytestream__pb2.QueryWriteStatusResponse.FromString,
+                _registered_method=True)
 
 
 class ByteStreamServicer(object):
@@ -89,8 +86,8 @@ class ByteStreamServicer(object):
         responses are delivered as the results of a server-side streaming RPC.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def Write(self, request_iterator, context):
         """`Write()` is used to send the contents of a resource as a sequence of
@@ -117,8 +114,8 @@ class ByteStreamServicer(object):
         `complete` or not.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def QueryWriteStatus(self, request, context):
         """`QueryWriteStatus()` is used to find the `committed_size` for a resource
@@ -137,34 +134,35 @@ class ByteStreamServicer(object):
         non-decreasing.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
 
 def add_ByteStreamServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        "Read": grpc.unary_stream_rpc_method_handler(
-            servicer.Read,
-            request_deserializer=google_dot_bytestream_dot_bytestream__pb2.ReadRequest.FromString,
-            response_serializer=google_dot_bytestream_dot_bytestream__pb2.ReadResponse.SerializeToString,
-        ),
-        "Write": grpc.stream_unary_rpc_method_handler(
-            servicer.Write,
-            request_deserializer=google_dot_bytestream_dot_bytestream__pb2.WriteRequest.FromString,
-            response_serializer=google_dot_bytestream_dot_bytestream__pb2.WriteResponse.SerializeToString,
-        ),
-        "QueryWriteStatus": grpc.unary_unary_rpc_method_handler(
-            servicer.QueryWriteStatus,
-            request_deserializer=google_dot_bytestream_dot_bytestream__pb2.QueryWriteStatusRequest.FromString,
-            response_serializer=google_dot_bytestream_dot_bytestream__pb2.QueryWriteStatusResponse.SerializeToString,
-        ),
+            'Read': grpc.unary_stream_rpc_method_handler(
+                    servicer.Read,
+                    request_deserializer=google_dot_bytestream_dot_bytestream__pb2.ReadRequest.FromString,
+                    response_serializer=google_dot_bytestream_dot_bytestream__pb2.ReadResponse.SerializeToString,
+            ),
+            'Write': grpc.stream_unary_rpc_method_handler(
+                    servicer.Write,
+                    request_deserializer=google_dot_bytestream_dot_bytestream__pb2.WriteRequest.FromString,
+                    response_serializer=google_dot_bytestream_dot_bytestream__pb2.WriteResponse.SerializeToString,
+            ),
+            'QueryWriteStatus': grpc.unary_unary_rpc_method_handler(
+                    servicer.QueryWriteStatus,
+                    request_deserializer=google_dot_bytestream_dot_bytestream__pb2.QueryWriteStatusRequest.FromString,
+                    response_serializer=google_dot_bytestream_dot_bytestream__pb2.QueryWriteStatusResponse.SerializeToString,
+            ),
     }
-    generic_handler = grpc.method_handlers_generic_handler("google.bytestream.ByteStream", rpc_method_handlers)
+    generic_handler = grpc.method_handlers_generic_handler(
+            'google.bytestream.ByteStream', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers("google.bytestream.ByteStream", rpc_method_handlers)
+    server.add_registered_method_handlers('google.bytestream.ByteStream', rpc_method_handlers)
 
 
-# This class is part of an EXPERIMENTAL API.
+ # This class is part of an EXPERIMENTAL API.
 class ByteStream(object):
     """#### Introduction
 
@@ -192,22 +190,20 @@ class ByteStream(object):
     """
 
     @staticmethod
-    def Read(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def Read(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_stream(
             request,
             target,
-            "/google.bytestream.ByteStream/Read",
+            '/google.bytestream.ByteStream/Read',
             google_dot_bytestream_dot_bytestream__pb2.ReadRequest.SerializeToString,
             google_dot_bytestream_dot_bytestream__pb2.ReadResponse.FromString,
             options,
@@ -218,26 +214,23 @@ class ByteStream(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def Write(
-        request_iterator,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def Write(request_iterator,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.stream_unary(
             request_iterator,
             target,
-            "/google.bytestream.ByteStream/Write",
+            '/google.bytestream.ByteStream/Write',
             google_dot_bytestream_dot_bytestream__pb2.WriteRequest.SerializeToString,
             google_dot_bytestream_dot_bytestream__pb2.WriteResponse.FromString,
             options,
@@ -248,26 +241,23 @@ class ByteStream(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
 
     @staticmethod
-    def QueryWriteStatus(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
+    def QueryWriteStatus(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/google.bytestream.ByteStream/QueryWriteStatus",
+            '/google.bytestream.ByteStream/QueryWriteStatus',
             google_dot_bytestream_dot_bytestream__pb2.QueryWriteStatusRequest.SerializeToString,
             google_dot_bytestream_dot_bytestream__pb2.QueryWriteStatusResponse.FromString,
             options,
@@ -278,5 +268,4 @@ class ByteStream(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True,
-        )
+            _registered_method=True)
