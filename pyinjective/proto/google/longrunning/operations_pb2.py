@@ -12,8 +12,8 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
-from google.api import client_pb2 as google_dot_api_dot_client__pb2
+from pyinjective.proto.google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
+from pyinjective.proto.google.api import client_pb2 as google_dot_api_dot_client__pb2
 from google.protobuf import any_pb2 as google_dot_protobuf_dot_any__pb2
 from google.protobuf import descriptor_pb2 as google_dot_protobuf_dot_descriptor__pb2
 from google.protobuf import duration_pb2 as google_dot_protobuf_dot_duration__pb2

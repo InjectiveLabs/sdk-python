@@ -12,7 +12,7 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from google.api import launch_stage_pb2 as google_dot_api_dot_launch__stage__pb2
+from pyinjective.proto.google.api import launch_stage_pb2 as google_dot_api_dot_launch__stage__pb2
 from google.protobuf import descriptor_pb2 as google_dot_protobuf_dot_descriptor__pb2
 from google.protobuf import duration_pb2 as google_dot_protobuf_dot_duration__pb2
 

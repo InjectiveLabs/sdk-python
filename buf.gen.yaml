@@ -20,10 +20,11 @@ inputs:
 #  - git_repo: https://github.com/InjectiveLabs/wasmd
 #    branch: v0.51.x-inj
 #    subdir: proto
-  - git_repo: https://github.com/InjectiveLabs/injective-core
-    tag: v1.13.2
+  - git_repo: https://github.com/enigmarikki/injective-core
+    #tag: v1.13.2
+    branch: master
     subdir: proto
 #  - git_repo: https://github.com/InjectiveLabs/injective-core
 #    branch: master
 #    subdir: proto
-  - directory: proto
+#- directory: proto

@@ -1,26 +1,29 @@
-all:
+all: gen
 
 gen: gen-client
 
 gen-client:
-	git clone --depth 1 --branch v1.13.2 https://github.com/InjectiveLabs/injective-core
-	mkdir -p proto
-	
-	cp -r injective-core/proto/* proto/
 	mkdir -p ./pyinjective/proto
 	buf generate --template buf.gen.yaml
 	rm -rf proto
 	$(call clean_repos)
-	$(MAKE) fix-generated-proto-imports
+	$(MAKE) fix-generated-proto-imports-1
 
 PROTO_MODULES := cosmwasm gogoproto cosmos_proto cosmos testpb ibc amino tendermint injective
 
-fix-generated-proto-imports:
+fix-generated-proto-imports-1:
 	@touch pyinjective/proto/__init__.py
 	@for module in $(PROTO_MODULES); do \
-  		find ./pyinjective/proto -type f -name "*.py" -exec sed -i "" -e "s/from $${module}/from pyinjective.proto.$${module}/g" {} \; ; \
+		find ./pyinjective/proto -type f -name "*.py" -exec sed -i "s/from $${module}/from pyinjective.proto.$${module}/g" {} \; ; \
 	done
-	@find ./pyinjective/proto -type f -name "*.py" -exec sed -i "" -e "s/from google.api/from pyinjective.proto.google.api/g" {} \;
+	@find ./pyinjective/proto -type f -name "*.py" -exec sed -i "s/from google.api/from pyinjective.proto.google.api/g" {} \;
+fix-generated-proto-imports:
+	@echo "Listing all Python files in pyinjective/proto:"
+	@find ./pyinjective/proto -type f -name "*.py" -ls
+	@echo "\nModules that will be processed:"
+	@for module in $(PROTO_MODULES); do \
+		echo "$$module"; \
+	done
 
 define clean_repos
 	rm -Rf cosmos-sdk
@@ -28,7 +31,6 @@ define clean_repos
 	rm -Rf cometbft
 	rm -Rf wasmd
 	rm -Rf injective-core
-	rm -Rf injective-indexer
 endef
 
 clean-all:
