@@ -18,22 +18,18 @@ from pyinjective.ofac import OfacChecker
 class BroadcasterAccountConfig(ABC):
     @property
     @abstractmethod
-    def trading_injective_address(self) -> str:
-        ...
+    def trading_injective_address(self) -> str: ...
 
     @property
     @abstractmethod
-    def trading_private_key(self) -> PrivateKey:
-        ...
+    def trading_private_key(self) -> PrivateKey: ...
 
     @property
     @abstractmethod
-    def trading_public_key(self) -> PublicKey:
-        ...
+    def trading_public_key(self) -> PublicKey: ...
 
     @abstractmethod
-    def messages_prepared_for_transaction(self, messages: List[any_pb2.Any]) -> List[any_pb2.Any]:
-        ...
+    def messages_prepared_for_transaction(self, messages: List[any_pb2.Any]) -> List[any_pb2.Any]: ...
 
 
 class TransactionFeeCalculator(ABC):
@@ -45,8 +41,7 @@ class TransactionFeeCalculator(ABC):
         transaction: Transaction,
         private_key: PrivateKey,
         public_key: PublicKey,
-    ):
-        ...
+    ): ...
 
 
 class MsgBroadcasterWithPk:

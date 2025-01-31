@@ -2,14 +2,18 @@ all:
 
 gen: gen-client
 
-gen-client: clone-all copy-proto
+gen-client:
+	git clone --depth 1 --branch v1.13.2 https://github.com/InjectiveLabs/injective-core
+	mkdir -p proto
+	
+	cp -r injective-core/proto/* proto/
 	mkdir -p ./pyinjective/proto
 	buf generate --template buf.gen.yaml
 	rm -rf proto
 	$(call clean_repos)
 	$(MAKE) fix-generated-proto-imports
 
-PROTO_MODULES := cosmwasm exchange gogoproto cosmos_proto cosmos testpb ibc amino tendermint injective
+PROTO_MODULES := cosmwasm gogoproto cosmos_proto cosmos testpb ibc amino tendermint injective
 
 fix-generated-proto-imports:
 	@touch pyinjective/proto/__init__.py
@@ -29,17 +33,6 @@ endef
 
 clean-all:
 	$(call clean_repos)
-
-clone-injective-indexer:
-	git clone https://github.com/InjectiveLabs/injective-indexer.git -b v1.13.4 --depth 1 --single-branch
-
-clone-all: clone-injective-indexer
-
-copy-proto:
-	rm -rf pyinjective/proto
-	mkdir -p proto/exchange
-	find ./injective-indexer/api/gen/grpc -type f -name "*.proto" -exec cp {} ./proto/exchange/ \;
-
 tests:
 	poetry run pytest -v
 

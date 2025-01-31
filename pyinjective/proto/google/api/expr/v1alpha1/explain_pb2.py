@@ -12,7 +12,7 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from pyinjective.proto.google.api.expr.v1alpha1 import value_pb2 as google_dot_api_dot_expr_dot_v1alpha1_dot_value__pb2
+from google.api.expr.v1alpha1 import value_pb2 as google_dot_api_dot_expr_dot_v1alpha1_dot_value__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n&google/api/expr/v1alpha1/explain.proto\x12\x18google.api.expr.v1alpha1\x1a$google/api/expr/v1alpha1/value.proto\"\xce\x01\n\x07\x45xplain\x12\x37\n\x06values\x18\x01 \x03(\x0b\x32\x1f.google.api.expr.v1alpha1.ValueR\x06values\x12I\n\nexpr_steps\x18\x02 \x03(\x0b\x32*.google.api.expr.v1alpha1.Explain.ExprStepR\texprSteps\x1a;\n\x08\x45xprStep\x12\x0e\n\x02id\x18\x01 \x01(\x03R\x02id\x12\x1f\n\x0bvalue_index\x18\x02 \x01(\x05R\nvalueIndex:\x02\x18\x01\x42\xf0\x01\n\x1c\x63om.google.api.expr.v1alpha1B\x0c\x45xplainProtoP\x01Z<google.golang.org/genproto/googleapis/api/expr/v1alpha1;expr\xf8\x01\x01\xa2\x02\x03GAE\xaa\x02\x18Google.Api.Expr.V1alpha1\xca\x02\x18Google\\Api\\Expr\\V1alpha1\xe2\x02$Google\\Api\\Expr\\V1alpha1\\GPBMetadata\xea\x02\x1bGoogle::Api::Expr::V1alpha1b\x06proto3')

@@ -11,12 +11,10 @@ from grpc.aio import Call, Metadata
 
 class CookieAssistant(ABC):
     @abstractmethod
-    def cookie(self) -> Optional[str]:
-        ...
+    def cookie(self) -> Optional[str]: ...
 
     @abstractmethod
-    async def process_response_metadata(self, grpc_call: Call):
-        ...
+    async def process_response_metadata(self, grpc_call: Call): ...
 
     def metadata(self) -> Metadata:
         cookie = self.cookie()

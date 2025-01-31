@@ -937,7 +937,7 @@ class Composer:
             sender=sender,
             contract_address=contract,
             data=msg,
-            funds=kwargs.get("funds")  # funds is a string of Coin strings, comma separated,
+            funds=kwargs.get("funds"),  # funds is a string of Coin strings, comma separated,
             # e.g. 100000inj,20000000000usdt
         )
 
@@ -2105,7 +2105,7 @@ class Composer:
             sender=sender,
             contract=contract,
             msg=bytes(msg, "utf-8"),
-            funds=kwargs.get("funds")  # funds is a list of base_coin_pb.Coin.
+            funds=kwargs.get("funds"),  # funds is a list of base_coin_pb.Coin.
             # The coins in the list must be sorted in alphabetical order by denoms.
         )
 

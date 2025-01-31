@@ -27,8 +27,7 @@ class GasLimitEstimator(ABC):
 
     @classmethod
     @abstractmethod
-    def applies_to(cls, message: any_pb2.Any) -> bool:
-        ...
+    def applies_to(cls, message: any_pb2.Any) -> bool: ...
 
     @classmethod
     def for_message(cls, message: any_pb2.Any):
@@ -48,8 +47,7 @@ class GasLimitEstimator(ABC):
         return estimator
 
     @abstractmethod
-    def gas_limit(self) -> int:
-        ...
+    def gas_limit(self) -> int: ...
 
     @staticmethod
     def message_type(message: any_pb2.Any) -> str:
@@ -60,8 +58,7 @@ class GasLimitEstimator(ABC):
         return message_type
 
     @abstractmethod
-    def _message_class(self, message: any_pb2.Any):
-        ...
+    def _message_class(self, message: any_pb2.Any): ...
 
     def _parsed_message(self, message: any_pb2.Any) -> any_pb2.Any:
         if isinstance(message, any_pb2.Any):

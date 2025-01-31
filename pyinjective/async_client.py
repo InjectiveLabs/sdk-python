@@ -98,7 +98,7 @@ class AsyncClient:
         self.timeout_height = 1
 
         # exchange stubs
-        
+
         self.chain_stream_channel = self.network.create_chain_stream_grpc_channel()
         self.chain_stream_stub = stream_rpc_grpc.StreamStub(channel=self.chain_stream_channel)
 
@@ -173,68 +173,6 @@ class AsyncClient:
             channel=self.chain_stream_channel,
             cookie_assistant=network.chain_cookie_assistant,
         )
-
-        # self.exchange_account_api = IndexerGrpcAccountApi(
-        #     channel=self.exchange_channel,
-        #     cookie_assistant=network.exchange_cookie_assistant,
-        # )
-        # self.exchange_auction_api = IndexerGrpcAuctionApi(
-        #     channel=self.exchange_channel,
-        #     cookie_assistant=network.exchange_cookie_assistant,
-        # )
-        # self.exchange_derivative_api = IndexerGrpcDerivativeApi(
-        #     channel=self.exchange_channel,
-        #     cookie_assistant=network.exchange_cookie_assistant,
-        # )
-        # self.exchange_insurance_api = IndexerGrpcInsuranceApi(
-        #     channel=self.exchange_channel,
-        #     cookie_assistant=network.exchange_cookie_assistant,
-        # )
-        # self.exchange_meta_api = IndexerGrpcMetaApi(
-        #     channel=self.exchange_channel,
-        #     cookie_assistant=network.exchange_cookie_assistant,
-        # )
-        # self.exchange_oracle_api = IndexerGrpcOracleApi(
-        #     channel=self.exchange_channel,
-        #     cookie_assistant=network.exchange_cookie_assistant,
-        # )
-        # self.exchange_portfolio_api = IndexerGrpcPortfolioApi(
-        #     channel=self.exchange_channel,
-        #     cookie_assistant=network.exchange_cookie_assistant,
-        # )
-        # self.exchange_spot_api = IndexerGrpcSpotApi(
-        #     channel=self.exchange_channel,
-        #     cookie_assistant=network.exchange_cookie_assistant,
-        # )
-        # 
-        # self.exchange_account_stream_api = IndexerGrpcAccountStream(
-        #     channel=self.exchange_channel,
-        #     cookie_assistant=network.exchange_cookie_assistant,
-        # )
-        # self.exchange_auction_stream_api = IndexerGrpcAuctionStream(
-        #     channel=self.exchange_channel,
-        #     cookie_assistant=network.exchange_cookie_assistant,
-        # )
-        # self.exchange_derivative_stream_api = IndexerGrpcDerivativeStream(
-        #     channel=self.exchange_channel,
-        #     cookie_assistant=network.exchange_cookie_assistant,
-        # )
-        # self.exchange_meta_stream_api = IndexerGrpcMetaStream(
-        #     channel=self.exchange_channel,
-        #     cookie_assistant=network.exchange_cookie_assistant,
-        # )
-        # self.exchange_oracle_stream_api = IndexerGrpcOracleStream(
-        #     channel=self.exchange_channel,
-        #     cookie_assistant=network.exchange_cookie_assistant,
-        # )
-        # self.exchange_portfolio_stream_api = IndexerGrpcPortfolioStream(
-        #     channel=self.exchange_channel,
-        #     cookie_assistant=network.exchange_cookie_assistant,
-        # )
-        # self.exchange_spot_stream_api = IndexerGrpcSpotStream(
-        #     channel=self.exchange_channel,
-        #     cookie_assistant=network.exchange_cookie_assistant,
-        # )
 
     async def all_tokens(self) -> Dict[str, Token]:
         if self._tokens_by_symbol is None:
@@ -835,9 +773,7 @@ class AsyncClient:
             market_id=market_id,
         )
 
-    async def fetch_subaccount_effective_position_in_market(
-        self, subaccount_id: str, market_id: str
-    ) -> Dict[str, Any]:
+    async def fetch_subaccount_effective_position_in_market(self, subaccount_id: str, market_id: str) -> Dict[str, Any]:
         return await self.chain_exchange_api.fetch_subaccount_effective_position_in_market(
             subaccount_id=subaccount_id,
             market_id=market_id,
@@ -1118,11 +1054,9 @@ class AsyncClient:
     async def fetch_spot_orderbook(self, market_id: str) -> Dict[str, Any]:
         return await self.chain_exchange_api.fetch_orderbook_v2(market_id=market_id)
 
-
-
     # DerivativeRPC
     ####MASSIVE TODO : NEED TO WRITE A LIQUIDABLE POSITIONS WATCHER#######
-    #async def get_derivative_liquidable_positions(self, **kwargs):
+    # async def get_derivative_liquidable_positions(self, **kwargs):
     #    """
     #    This method is deprecated and will be removed soon. Please use `fetch_derivative_liquidable_positions` instead
     #    """
@@ -1138,16 +1072,16 @@ class AsyncClient:
     #    )
     #    return await self.stubDerivativeExchange.LiquidablePositions(req)
 
-    #async def fetch_derivative_liquidable_positions(
+    # async def fetch_derivative_liquidable_positions(
     #    self,
     #    market_id: Optional[str] = None,
     #    pagination: Optional[PaginationOption] = None,
-    #) -> Dict[str, Any]:
+    # ) -> Dict[str, Any]:
     #    return await self.exchange_derivative_api.fetch_liquidable_positions(
     #        market_id=market_id,
     #        pagination=pagination,
     #    )
-   # PortfolioRPC
+    # PortfolioRPC
     async def chain_stream(
         self,
         bank_balances_filter: Optional[chain_stream_query.BankBalancesFilter] = None,
@@ -1501,9 +1435,7 @@ class AsyncClient:
 
             spot_markets[market.id] = market
 
-        markets_info = (await self.fetch_derivative_markets(status="Active", with_mid_price_and_tob=False))[
-            "markets"
-        ]
+        markets_info = (await self.fetch_derivative_markets(status="Active", with_mid_price_and_tob=False))["markets"]
         for market_info in markets_info:
             market = market_info["market"]
             quote_token = self._tokens_by_denom.get(market["quoteDenom"])
@@ -1566,9 +1498,11 @@ class AsyncClient:
                     Decimal(market_info["minQuantityTickSize"])
                 ),
                 min_notional=Token.convert_value_from_extended_decimal_format(Decimal(market_info["minNotional"])),
-                settlement_price=None
-                if market_info["settlementPrice"] == ""
-                else Token.convert_value_from_extended_decimal_format(Decimal(market_info["settlementPrice"])),
+                settlement_price=(
+                    None
+                    if market_info["settlementPrice"] == ""
+                    else Token.convert_value_from_extended_decimal_format(Decimal(market_info["settlementPrice"]))
+                ),
             )
 
             binary_option_markets[market.id] = market
