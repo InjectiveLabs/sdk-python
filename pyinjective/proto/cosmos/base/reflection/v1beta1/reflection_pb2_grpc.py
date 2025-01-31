@@ -2,12 +2,13 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from pyinjective.proto.cosmos.base.reflection.v1beta1 import reflection_pb2 as cosmos_dot_base_dot_reflection_dot_v1beta1_dot_reflection__pb2
+from pyinjective.proto.cosmos.base.reflection.v1beta1 import (
+    reflection_pb2 as cosmos_dot_base_dot_reflection_dot_v1beta1_dot_reflection__pb2,
+)
 
 
 class ReflectionServiceStub(object):
-    """ReflectionService defines a service for interface reflection.
-    """
+    """ReflectionService defines a service for interface reflection."""
 
     def __init__(self, channel):
         """Constructor.
@@ -16,77 +17,80 @@ class ReflectionServiceStub(object):
             channel: A grpc.Channel.
         """
         self.ListAllInterfaces = channel.unary_unary(
-                '/cosmos.base.reflection.v1beta1.ReflectionService/ListAllInterfaces',
-                request_serializer=cosmos_dot_base_dot_reflection_dot_v1beta1_dot_reflection__pb2.ListAllInterfacesRequest.SerializeToString,
-                response_deserializer=cosmos_dot_base_dot_reflection_dot_v1beta1_dot_reflection__pb2.ListAllInterfacesResponse.FromString,
-                _registered_method=True)
+            "/cosmos.base.reflection.v1beta1.ReflectionService/ListAllInterfaces",
+            request_serializer=cosmos_dot_base_dot_reflection_dot_v1beta1_dot_reflection__pb2.ListAllInterfacesRequest.SerializeToString,
+            response_deserializer=cosmos_dot_base_dot_reflection_dot_v1beta1_dot_reflection__pb2.ListAllInterfacesResponse.FromString,
+            _registered_method=True,
+        )
         self.ListImplementations = channel.unary_unary(
-                '/cosmos.base.reflection.v1beta1.ReflectionService/ListImplementations',
-                request_serializer=cosmos_dot_base_dot_reflection_dot_v1beta1_dot_reflection__pb2.ListImplementationsRequest.SerializeToString,
-                response_deserializer=cosmos_dot_base_dot_reflection_dot_v1beta1_dot_reflection__pb2.ListImplementationsResponse.FromString,
-                _registered_method=True)
+            "/cosmos.base.reflection.v1beta1.ReflectionService/ListImplementations",
+            request_serializer=cosmos_dot_base_dot_reflection_dot_v1beta1_dot_reflection__pb2.ListImplementationsRequest.SerializeToString,
+            response_deserializer=cosmos_dot_base_dot_reflection_dot_v1beta1_dot_reflection__pb2.ListImplementationsResponse.FromString,
+            _registered_method=True,
+        )
 
 
 class ReflectionServiceServicer(object):
-    """ReflectionService defines a service for interface reflection.
-    """
+    """ReflectionService defines a service for interface reflection."""
 
     def ListAllInterfaces(self, request, context):
         """ListAllInterfaces lists all the interfaces registered in the interface
         registry.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
     def ListImplementations(self, request, context):
         """ListImplementations list all the concrete types that implement a given
         interface.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
 
 def add_ReflectionServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'ListAllInterfaces': grpc.unary_unary_rpc_method_handler(
-                    servicer.ListAllInterfaces,
-                    request_deserializer=cosmos_dot_base_dot_reflection_dot_v1beta1_dot_reflection__pb2.ListAllInterfacesRequest.FromString,
-                    response_serializer=cosmos_dot_base_dot_reflection_dot_v1beta1_dot_reflection__pb2.ListAllInterfacesResponse.SerializeToString,
-            ),
-            'ListImplementations': grpc.unary_unary_rpc_method_handler(
-                    servicer.ListImplementations,
-                    request_deserializer=cosmos_dot_base_dot_reflection_dot_v1beta1_dot_reflection__pb2.ListImplementationsRequest.FromString,
-                    response_serializer=cosmos_dot_base_dot_reflection_dot_v1beta1_dot_reflection__pb2.ListImplementationsResponse.SerializeToString,
-            ),
+        "ListAllInterfaces": grpc.unary_unary_rpc_method_handler(
+            servicer.ListAllInterfaces,
+            request_deserializer=cosmos_dot_base_dot_reflection_dot_v1beta1_dot_reflection__pb2.ListAllInterfacesRequest.FromString,
+            response_serializer=cosmos_dot_base_dot_reflection_dot_v1beta1_dot_reflection__pb2.ListAllInterfacesResponse.SerializeToString,
+        ),
+        "ListImplementations": grpc.unary_unary_rpc_method_handler(
+            servicer.ListImplementations,
+            request_deserializer=cosmos_dot_base_dot_reflection_dot_v1beta1_dot_reflection__pb2.ListImplementationsRequest.FromString,
+            response_serializer=cosmos_dot_base_dot_reflection_dot_v1beta1_dot_reflection__pb2.ListImplementationsResponse.SerializeToString,
+        ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'cosmos.base.reflection.v1beta1.ReflectionService', rpc_method_handlers)
+        "cosmos.base.reflection.v1beta1.ReflectionService", rpc_method_handlers
+    )
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('cosmos.base.reflection.v1beta1.ReflectionService', rpc_method_handlers)
+    server.add_registered_method_handlers("cosmos.base.reflection.v1beta1.ReflectionService", rpc_method_handlers)
 
 
- # This class is part of an EXPERIMENTAL API.
+# This class is part of an EXPERIMENTAL API.
 class ReflectionService(object):
-    """ReflectionService defines a service for interface reflection.
-    """
+    """ReflectionService defines a service for interface reflection."""
 
     @staticmethod
-    def ListAllInterfaces(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def ListAllInterfaces(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/cosmos.base.reflection.v1beta1.ReflectionService/ListAllInterfaces',
+            "/cosmos.base.reflection.v1beta1.ReflectionService/ListAllInterfaces",
             cosmos_dot_base_dot_reflection_dot_v1beta1_dot_reflection__pb2.ListAllInterfacesRequest.SerializeToString,
             cosmos_dot_base_dot_reflection_dot_v1beta1_dot_reflection__pb2.ListAllInterfacesResponse.FromString,
             options,
@@ -97,23 +101,26 @@ class ReflectionService(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )
 
     @staticmethod
-    def ListImplementations(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def ListImplementations(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/cosmos.base.reflection.v1beta1.ReflectionService/ListImplementations',
+            "/cosmos.base.reflection.v1beta1.ReflectionService/ListImplementations",
             cosmos_dot_base_dot_reflection_dot_v1beta1_dot_reflection__pb2.ListImplementationsRequest.SerializeToString,
             cosmos_dot_base_dot_reflection_dot_v1beta1_dot_reflection__pb2.ListImplementationsResponse.FromString,
             options,
@@ -124,4 +131,5 @@ class ReflectionService(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )

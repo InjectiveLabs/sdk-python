@@ -118,6 +118,11 @@ class ChainGrpcExchangeApi:
 
         return response
 
+    async def fetch_l3_spot_orderbook(self, market_id: str) -> Dict[str, Any]:
+        request = exchange_query_pb.QueryFullSpotOrderbookRequest(market_id=market_id)
+        response = await self._execute_call(call=self._stub.L3SpotOrderBook, request=request)
+        return response
+
     async def fetch_full_spot_markets(
         self,
         status: Optional[str] = None,
@@ -273,6 +278,11 @@ class ChainGrpcExchangeApi:
         )
         response = await self._execute_call(call=self._stub.DerivativeOrderbook, request=request)
 
+        return response
+
+    async def fetch_l3_derivative_orderbook(self, market_id: str) -> Dict[str, Any]:
+        request = exchange_query_pb.QueryFullDerivativeOrderbookRequest(market_id=market_id)
+        response = await self._execute_call(call=self._stub.L3DerivativeOrderBook, request=request)
         return response
 
     async def fetch_trader_derivative_orders(

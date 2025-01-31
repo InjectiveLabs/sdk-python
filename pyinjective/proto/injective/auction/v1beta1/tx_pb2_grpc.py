@@ -6,8 +6,7 @@ from pyinjective.proto.injective.auction.v1beta1 import tx_pb2 as injective_dot_
 
 
 class MsgStub(object):
-    """Msg defines the auction Msg service.
-    """
+    """Msg defines the auction Msg service."""
 
     def __init__(self, channel):
         """Constructor.
@@ -16,74 +15,74 @@ class MsgStub(object):
             channel: A grpc.Channel.
         """
         self.Bid = channel.unary_unary(
-                '/injective.auction.v1beta1.Msg/Bid',
-                request_serializer=injective_dot_auction_dot_v1beta1_dot_tx__pb2.MsgBid.SerializeToString,
-                response_deserializer=injective_dot_auction_dot_v1beta1_dot_tx__pb2.MsgBidResponse.FromString,
-                _registered_method=True)
+            "/injective.auction.v1beta1.Msg/Bid",
+            request_serializer=injective_dot_auction_dot_v1beta1_dot_tx__pb2.MsgBid.SerializeToString,
+            response_deserializer=injective_dot_auction_dot_v1beta1_dot_tx__pb2.MsgBidResponse.FromString,
+            _registered_method=True,
+        )
         self.UpdateParams = channel.unary_unary(
-                '/injective.auction.v1beta1.Msg/UpdateParams',
-                request_serializer=injective_dot_auction_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
-                response_deserializer=injective_dot_auction_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
-                _registered_method=True)
+            "/injective.auction.v1beta1.Msg/UpdateParams",
+            request_serializer=injective_dot_auction_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
+            response_deserializer=injective_dot_auction_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
+            _registered_method=True,
+        )
 
 
 class MsgServicer(object):
-    """Msg defines the auction Msg service.
-    """
+    """Msg defines the auction Msg service."""
 
     def Bid(self, request, context):
-        """Bid defines a method for placing a bid for an auction
-        """
+        """Bid defines a method for placing a bid for an auction"""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
     def UpdateParams(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'Bid': grpc.unary_unary_rpc_method_handler(
-                    servicer.Bid,
-                    request_deserializer=injective_dot_auction_dot_v1beta1_dot_tx__pb2.MsgBid.FromString,
-                    response_serializer=injective_dot_auction_dot_v1beta1_dot_tx__pb2.MsgBidResponse.SerializeToString,
-            ),
-            'UpdateParams': grpc.unary_unary_rpc_method_handler(
-                    servicer.UpdateParams,
-                    request_deserializer=injective_dot_auction_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.FromString,
-                    response_serializer=injective_dot_auction_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.SerializeToString,
-            ),
+        "Bid": grpc.unary_unary_rpc_method_handler(
+            servicer.Bid,
+            request_deserializer=injective_dot_auction_dot_v1beta1_dot_tx__pb2.MsgBid.FromString,
+            response_serializer=injective_dot_auction_dot_v1beta1_dot_tx__pb2.MsgBidResponse.SerializeToString,
+        ),
+        "UpdateParams": grpc.unary_unary_rpc_method_handler(
+            servicer.UpdateParams,
+            request_deserializer=injective_dot_auction_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.FromString,
+            response_serializer=injective_dot_auction_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.SerializeToString,
+        ),
     }
-    generic_handler = grpc.method_handlers_generic_handler(
-            'injective.auction.v1beta1.Msg', rpc_method_handlers)
+    generic_handler = grpc.method_handlers_generic_handler("injective.auction.v1beta1.Msg", rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('injective.auction.v1beta1.Msg', rpc_method_handlers)
+    server.add_registered_method_handlers("injective.auction.v1beta1.Msg", rpc_method_handlers)
 
 
- # This class is part of an EXPERIMENTAL API.
+# This class is part of an EXPERIMENTAL API.
 class Msg(object):
-    """Msg defines the auction Msg service.
-    """
+    """Msg defines the auction Msg service."""
 
     @staticmethod
-    def Bid(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def Bid(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/injective.auction.v1beta1.Msg/Bid',
+            "/injective.auction.v1beta1.Msg/Bid",
             injective_dot_auction_dot_v1beta1_dot_tx__pb2.MsgBid.SerializeToString,
             injective_dot_auction_dot_v1beta1_dot_tx__pb2.MsgBidResponse.FromString,
             options,
@@ -94,23 +93,26 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )
 
     @staticmethod
-    def UpdateParams(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def UpdateParams(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/injective.auction.v1beta1.Msg/UpdateParams',
+            "/injective.auction.v1beta1.Msg/UpdateParams",
             injective_dot_auction_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
             injective_dot_auction_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
             options,
@@ -121,4 +123,5 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )

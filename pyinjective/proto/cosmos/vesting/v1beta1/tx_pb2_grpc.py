@@ -6,8 +6,7 @@ from pyinjective.proto.cosmos.vesting.v1beta1 import tx_pb2 as cosmos_dot_vestin
 
 
 class MsgStub(object):
-    """Msg defines the bank Msg service.
-    """
+    """Msg defines the bank Msg service."""
 
     def __init__(self, channel):
         """Constructor.
@@ -16,33 +15,35 @@ class MsgStub(object):
             channel: A grpc.Channel.
         """
         self.CreateVestingAccount = channel.unary_unary(
-                '/cosmos.vesting.v1beta1.Msg/CreateVestingAccount',
-                request_serializer=cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreateVestingAccount.SerializeToString,
-                response_deserializer=cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreateVestingAccountResponse.FromString,
-                _registered_method=True)
+            "/cosmos.vesting.v1beta1.Msg/CreateVestingAccount",
+            request_serializer=cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreateVestingAccount.SerializeToString,
+            response_deserializer=cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreateVestingAccountResponse.FromString,
+            _registered_method=True,
+        )
         self.CreatePermanentLockedAccount = channel.unary_unary(
-                '/cosmos.vesting.v1beta1.Msg/CreatePermanentLockedAccount',
-                request_serializer=cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreatePermanentLockedAccount.SerializeToString,
-                response_deserializer=cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreatePermanentLockedAccountResponse.FromString,
-                _registered_method=True)
+            "/cosmos.vesting.v1beta1.Msg/CreatePermanentLockedAccount",
+            request_serializer=cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreatePermanentLockedAccount.SerializeToString,
+            response_deserializer=cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreatePermanentLockedAccountResponse.FromString,
+            _registered_method=True,
+        )
         self.CreatePeriodicVestingAccount = channel.unary_unary(
-                '/cosmos.vesting.v1beta1.Msg/CreatePeriodicVestingAccount',
-                request_serializer=cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreatePeriodicVestingAccount.SerializeToString,
-                response_deserializer=cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreatePeriodicVestingAccountResponse.FromString,
-                _registered_method=True)
+            "/cosmos.vesting.v1beta1.Msg/CreatePeriodicVestingAccount",
+            request_serializer=cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreatePeriodicVestingAccount.SerializeToString,
+            response_deserializer=cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreatePeriodicVestingAccountResponse.FromString,
+            _registered_method=True,
+        )
 
 
 class MsgServicer(object):
-    """Msg defines the bank Msg service.
-    """
+    """Msg defines the bank Msg service."""
 
     def CreateVestingAccount(self, request, context):
         """CreateVestingAccount defines a method that enables creating a vesting
         account.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
     def CreatePermanentLockedAccount(self, request, context):
         """CreatePermanentLockedAccount defines a method that enables creating a permanent
@@ -51,8 +52,8 @@ class MsgServicer(object):
         Since: cosmos-sdk 0.46
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
     def CreatePeriodicVestingAccount(self, request, context):
         """CreatePeriodicVestingAccount defines a method that enables creating a
@@ -61,54 +62,54 @@ class MsgServicer(object):
         Since: cosmos-sdk 0.46
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'CreateVestingAccount': grpc.unary_unary_rpc_method_handler(
-                    servicer.CreateVestingAccount,
-                    request_deserializer=cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreateVestingAccount.FromString,
-                    response_serializer=cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreateVestingAccountResponse.SerializeToString,
-            ),
-            'CreatePermanentLockedAccount': grpc.unary_unary_rpc_method_handler(
-                    servicer.CreatePermanentLockedAccount,
-                    request_deserializer=cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreatePermanentLockedAccount.FromString,
-                    response_serializer=cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreatePermanentLockedAccountResponse.SerializeToString,
-            ),
-            'CreatePeriodicVestingAccount': grpc.unary_unary_rpc_method_handler(
-                    servicer.CreatePeriodicVestingAccount,
-                    request_deserializer=cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreatePeriodicVestingAccount.FromString,
-                    response_serializer=cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreatePeriodicVestingAccountResponse.SerializeToString,
-            ),
+        "CreateVestingAccount": grpc.unary_unary_rpc_method_handler(
+            servicer.CreateVestingAccount,
+            request_deserializer=cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreateVestingAccount.FromString,
+            response_serializer=cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreateVestingAccountResponse.SerializeToString,
+        ),
+        "CreatePermanentLockedAccount": grpc.unary_unary_rpc_method_handler(
+            servicer.CreatePermanentLockedAccount,
+            request_deserializer=cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreatePermanentLockedAccount.FromString,
+            response_serializer=cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreatePermanentLockedAccountResponse.SerializeToString,
+        ),
+        "CreatePeriodicVestingAccount": grpc.unary_unary_rpc_method_handler(
+            servicer.CreatePeriodicVestingAccount,
+            request_deserializer=cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreatePeriodicVestingAccount.FromString,
+            response_serializer=cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreatePeriodicVestingAccountResponse.SerializeToString,
+        ),
     }
-    generic_handler = grpc.method_handlers_generic_handler(
-            'cosmos.vesting.v1beta1.Msg', rpc_method_handlers)
+    generic_handler = grpc.method_handlers_generic_handler("cosmos.vesting.v1beta1.Msg", rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('cosmos.vesting.v1beta1.Msg', rpc_method_handlers)
+    server.add_registered_method_handlers("cosmos.vesting.v1beta1.Msg", rpc_method_handlers)
 
 
- # This class is part of an EXPERIMENTAL API.
+# This class is part of an EXPERIMENTAL API.
 class Msg(object):
-    """Msg defines the bank Msg service.
-    """
+    """Msg defines the bank Msg service."""
 
     @staticmethod
-    def CreateVestingAccount(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def CreateVestingAccount(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/cosmos.vesting.v1beta1.Msg/CreateVestingAccount',
+            "/cosmos.vesting.v1beta1.Msg/CreateVestingAccount",
             cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreateVestingAccount.SerializeToString,
             cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreateVestingAccountResponse.FromString,
             options,
@@ -119,23 +120,26 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )
 
     @staticmethod
-    def CreatePermanentLockedAccount(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def CreatePermanentLockedAccount(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/cosmos.vesting.v1beta1.Msg/CreatePermanentLockedAccount',
+            "/cosmos.vesting.v1beta1.Msg/CreatePermanentLockedAccount",
             cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreatePermanentLockedAccount.SerializeToString,
             cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreatePermanentLockedAccountResponse.FromString,
             options,
@@ -146,23 +150,26 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )
 
     @staticmethod
-    def CreatePeriodicVestingAccount(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def CreatePeriodicVestingAccount(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/cosmos.vesting.v1beta1.Msg/CreatePeriodicVestingAccount',
+            "/cosmos.vesting.v1beta1.Msg/CreatePeriodicVestingAccount",
             cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreatePeriodicVestingAccount.SerializeToString,
             cosmos_dot_vesting_dot_v1beta1_dot_tx__pb2.MsgCreatePeriodicVestingAccountResponse.FromString,
             options,
@@ -173,4 +180,5 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )

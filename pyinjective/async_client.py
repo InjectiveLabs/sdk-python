@@ -613,6 +613,9 @@ class AsyncClient:
             pagination=pagination,
         )
 
+    async def fetch_full_spot_orderbook(self, market_id: str) -> Dict[str, any]:
+        return await self.chain_exchange_api.fetch_l3_spot_orderbook(market_id=market_id)
+
     async def fetch_trader_spot_orders(
         self,
         market_id: str,
@@ -692,6 +695,12 @@ class AsyncClient:
             limit_cumulative_notional=limit_cumulative_notional,
             pagination=pagination,
         )
+
+    async def fetch_full_derivative_orderbook(
+        self,
+        market_id: str,
+    ) -> Dict[str, Any]:
+        return await self.chain_exchange_api.fetch_l3_derivative_orderbook(market_id=market_id)
 
     async def fetch_trader_derivative_orders(
         self,
@@ -1038,49 +1047,8 @@ class AsyncClient:
     # OracleRPC
     # InsuranceRPC
     # SpotRPC
-    async def fetch_spot_market(self, market_id: str) -> Dict[str, Any]:
-        return await self.chain_exchange_api.fetch_market(market_id=market_id)
 
-    async def fetch_spot_markets(
-        self,
-        market_statuses: Optional[List[str]] = None,
-        base_denom: Optional[str] = None,
-        quote_denom: Optional[str] = None,
-    ) -> Dict[str, Any]:
-        return await self.chain_exchange_api.fetch_markets(
-            market_statuses=market_statuses, base_denom=base_denom, quote_denom=quote_denom
-        )
-
-    async def fetch_spot_orderbook(self, market_id: str) -> Dict[str, Any]:
-        return await self.chain_exchange_api.fetch_orderbook_v2(market_id=market_id)
-
-    # DerivativeRPC
-    ####MASSIVE TODO : NEED TO WRITE A LIQUIDABLE POSITIONS WATCHER#######
-    # async def get_derivative_liquidable_positions(self, **kwargs):
-    #    """
-    #    This method is deprecated and will be removed soon. Please use `fetch_derivative_liquidable_positions` instead
-    #    """
-    #    warn(
-    #        "This method is deprecated. Use fetch_derivative_liquidable_positions instead",
-    #        DeprecationWarning,
-    #        stacklevel=2,
-    #    )
-    #    req = derivative_exchange_rpc_pb.LiquidablePositionsRequest(
-    #        market_id=kwargs.get("market_id"),
-    #        skip=kwargs.get("skip"),
-    #        limit=kwargs.get("limit"),
-    #    )
-    #    return await self.stubDerivativeExchange.LiquidablePositions(req)
-
-    # async def fetch_derivative_liquidable_positions(
-    #    self,
-    #    market_id: Optional[str] = None,
-    #    pagination: Optional[PaginationOption] = None,
-    # ) -> Dict[str, Any]:
-    #    return await self.exchange_derivative_api.fetch_liquidable_positions(
-    #        market_id=market_id,
-    #        pagination=pagination,
-    #    )
+    # TODO (Hrishikesh) : add liquidable positions
     # PortfolioRPC
     async def chain_stream(
         self,

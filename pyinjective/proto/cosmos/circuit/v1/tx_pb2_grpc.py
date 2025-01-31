@@ -6,8 +6,7 @@ from pyinjective.proto.cosmos.circuit.v1 import tx_pb2 as cosmos_dot_circuit_dot
 
 
 class MsgStub(object):
-    """Msg defines the circuit Msg service.
-    """
+    """Msg defines the circuit Msg service."""
 
     def __init__(self, channel):
         """Constructor.
@@ -16,94 +15,95 @@ class MsgStub(object):
             channel: A grpc.Channel.
         """
         self.AuthorizeCircuitBreaker = channel.unary_unary(
-                '/cosmos.circuit.v1.Msg/AuthorizeCircuitBreaker',
-                request_serializer=cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgAuthorizeCircuitBreaker.SerializeToString,
-                response_deserializer=cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgAuthorizeCircuitBreakerResponse.FromString,
-                _registered_method=True)
+            "/cosmos.circuit.v1.Msg/AuthorizeCircuitBreaker",
+            request_serializer=cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgAuthorizeCircuitBreaker.SerializeToString,
+            response_deserializer=cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgAuthorizeCircuitBreakerResponse.FromString,
+            _registered_method=True,
+        )
         self.TripCircuitBreaker = channel.unary_unary(
-                '/cosmos.circuit.v1.Msg/TripCircuitBreaker',
-                request_serializer=cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgTripCircuitBreaker.SerializeToString,
-                response_deserializer=cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgTripCircuitBreakerResponse.FromString,
-                _registered_method=True)
+            "/cosmos.circuit.v1.Msg/TripCircuitBreaker",
+            request_serializer=cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgTripCircuitBreaker.SerializeToString,
+            response_deserializer=cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgTripCircuitBreakerResponse.FromString,
+            _registered_method=True,
+        )
         self.ResetCircuitBreaker = channel.unary_unary(
-                '/cosmos.circuit.v1.Msg/ResetCircuitBreaker',
-                request_serializer=cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgResetCircuitBreaker.SerializeToString,
-                response_deserializer=cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgResetCircuitBreakerResponse.FromString,
-                _registered_method=True)
+            "/cosmos.circuit.v1.Msg/ResetCircuitBreaker",
+            request_serializer=cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgResetCircuitBreaker.SerializeToString,
+            response_deserializer=cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgResetCircuitBreakerResponse.FromString,
+            _registered_method=True,
+        )
 
 
 class MsgServicer(object):
-    """Msg defines the circuit Msg service.
-    """
+    """Msg defines the circuit Msg service."""
 
     def AuthorizeCircuitBreaker(self, request, context):
         """AuthorizeCircuitBreaker allows a super-admin to grant (or revoke) another
         account's circuit breaker permissions.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
     def TripCircuitBreaker(self, request, context):
-        """TripCircuitBreaker pauses processing of Msg's in the state machine.
-        """
+        """TripCircuitBreaker pauses processing of Msg's in the state machine."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
     def ResetCircuitBreaker(self, request, context):
         """ResetCircuitBreaker resumes processing of Msg's in the state machine that
         have been been paused using TripCircuitBreaker.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'AuthorizeCircuitBreaker': grpc.unary_unary_rpc_method_handler(
-                    servicer.AuthorizeCircuitBreaker,
-                    request_deserializer=cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgAuthorizeCircuitBreaker.FromString,
-                    response_serializer=cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgAuthorizeCircuitBreakerResponse.SerializeToString,
-            ),
-            'TripCircuitBreaker': grpc.unary_unary_rpc_method_handler(
-                    servicer.TripCircuitBreaker,
-                    request_deserializer=cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgTripCircuitBreaker.FromString,
-                    response_serializer=cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgTripCircuitBreakerResponse.SerializeToString,
-            ),
-            'ResetCircuitBreaker': grpc.unary_unary_rpc_method_handler(
-                    servicer.ResetCircuitBreaker,
-                    request_deserializer=cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgResetCircuitBreaker.FromString,
-                    response_serializer=cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgResetCircuitBreakerResponse.SerializeToString,
-            ),
+        "AuthorizeCircuitBreaker": grpc.unary_unary_rpc_method_handler(
+            servicer.AuthorizeCircuitBreaker,
+            request_deserializer=cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgAuthorizeCircuitBreaker.FromString,
+            response_serializer=cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgAuthorizeCircuitBreakerResponse.SerializeToString,
+        ),
+        "TripCircuitBreaker": grpc.unary_unary_rpc_method_handler(
+            servicer.TripCircuitBreaker,
+            request_deserializer=cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgTripCircuitBreaker.FromString,
+            response_serializer=cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgTripCircuitBreakerResponse.SerializeToString,
+        ),
+        "ResetCircuitBreaker": grpc.unary_unary_rpc_method_handler(
+            servicer.ResetCircuitBreaker,
+            request_deserializer=cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgResetCircuitBreaker.FromString,
+            response_serializer=cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgResetCircuitBreakerResponse.SerializeToString,
+        ),
     }
-    generic_handler = grpc.method_handlers_generic_handler(
-            'cosmos.circuit.v1.Msg', rpc_method_handlers)
+    generic_handler = grpc.method_handlers_generic_handler("cosmos.circuit.v1.Msg", rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('cosmos.circuit.v1.Msg', rpc_method_handlers)
+    server.add_registered_method_handlers("cosmos.circuit.v1.Msg", rpc_method_handlers)
 
 
- # This class is part of an EXPERIMENTAL API.
+# This class is part of an EXPERIMENTAL API.
 class Msg(object):
-    """Msg defines the circuit Msg service.
-    """
+    """Msg defines the circuit Msg service."""
 
     @staticmethod
-    def AuthorizeCircuitBreaker(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def AuthorizeCircuitBreaker(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/cosmos.circuit.v1.Msg/AuthorizeCircuitBreaker',
+            "/cosmos.circuit.v1.Msg/AuthorizeCircuitBreaker",
             cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgAuthorizeCircuitBreaker.SerializeToString,
             cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgAuthorizeCircuitBreakerResponse.FromString,
             options,
@@ -114,23 +114,26 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )
 
     @staticmethod
-    def TripCircuitBreaker(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def TripCircuitBreaker(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/cosmos.circuit.v1.Msg/TripCircuitBreaker',
+            "/cosmos.circuit.v1.Msg/TripCircuitBreaker",
             cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgTripCircuitBreaker.SerializeToString,
             cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgTripCircuitBreakerResponse.FromString,
             options,
@@ -141,23 +144,26 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )
 
     @staticmethod
-    def ResetCircuitBreaker(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def ResetCircuitBreaker(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/cosmos.circuit.v1.Msg/ResetCircuitBreaker',
+            "/cosmos.circuit.v1.Msg/ResetCircuitBreaker",
             cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgResetCircuitBreaker.SerializeToString,
             cosmos_dot_circuit_dot_v1_dot_tx__pb2.MsgResetCircuitBreakerResponse.FromString,
             options,
@@ -168,4 +174,5 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )

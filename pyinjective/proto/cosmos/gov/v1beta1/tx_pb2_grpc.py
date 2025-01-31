@@ -6,8 +6,7 @@ from pyinjective.proto.cosmos.gov.v1beta1 import tx_pb2 as cosmos_dot_gov_dot_v1
 
 
 class MsgStub(object):
-    """Msg defines the gov Msg service.
-    """
+    """Msg defines the gov Msg service."""
 
     def __init__(self, channel):
         """Constructor.
@@ -16,44 +15,45 @@ class MsgStub(object):
             channel: A grpc.Channel.
         """
         self.SubmitProposal = channel.unary_unary(
-                '/cosmos.gov.v1beta1.Msg/SubmitProposal',
-                request_serializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgSubmitProposal.SerializeToString,
-                response_deserializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgSubmitProposalResponse.FromString,
-                _registered_method=True)
+            "/cosmos.gov.v1beta1.Msg/SubmitProposal",
+            request_serializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgSubmitProposal.SerializeToString,
+            response_deserializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgSubmitProposalResponse.FromString,
+            _registered_method=True,
+        )
         self.Vote = channel.unary_unary(
-                '/cosmos.gov.v1beta1.Msg/Vote',
-                request_serializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgVote.SerializeToString,
-                response_deserializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgVoteResponse.FromString,
-                _registered_method=True)
+            "/cosmos.gov.v1beta1.Msg/Vote",
+            request_serializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgVote.SerializeToString,
+            response_deserializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgVoteResponse.FromString,
+            _registered_method=True,
+        )
         self.VoteWeighted = channel.unary_unary(
-                '/cosmos.gov.v1beta1.Msg/VoteWeighted',
-                request_serializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgVoteWeighted.SerializeToString,
-                response_deserializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgVoteWeightedResponse.FromString,
-                _registered_method=True)
+            "/cosmos.gov.v1beta1.Msg/VoteWeighted",
+            request_serializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgVoteWeighted.SerializeToString,
+            response_deserializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgVoteWeightedResponse.FromString,
+            _registered_method=True,
+        )
         self.Deposit = channel.unary_unary(
-                '/cosmos.gov.v1beta1.Msg/Deposit',
-                request_serializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgDeposit.SerializeToString,
-                response_deserializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgDepositResponse.FromString,
-                _registered_method=True)
+            "/cosmos.gov.v1beta1.Msg/Deposit",
+            request_serializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgDeposit.SerializeToString,
+            response_deserializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgDepositResponse.FromString,
+            _registered_method=True,
+        )
 
 
 class MsgServicer(object):
-    """Msg defines the gov Msg service.
-    """
+    """Msg defines the gov Msg service."""
 
     def SubmitProposal(self, request, context):
-        """SubmitProposal defines a method to create new proposal given a content.
-        """
+        """SubmitProposal defines a method to create new proposal given a content."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
     def Vote(self, request, context):
-        """Vote defines a method to add a vote on a specific proposal.
-        """
+        """Vote defines a method to add a vote on a specific proposal."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
     def VoteWeighted(self, request, context):
         """VoteWeighted defines a method to add a weighted vote on a specific proposal.
@@ -61,66 +61,65 @@ class MsgServicer(object):
         Since: cosmos-sdk 0.43
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
     def Deposit(self, request, context):
-        """Deposit defines a method to add deposit on a specific proposal.
-        """
+        """Deposit defines a method to add deposit on a specific proposal."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'SubmitProposal': grpc.unary_unary_rpc_method_handler(
-                    servicer.SubmitProposal,
-                    request_deserializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgSubmitProposal.FromString,
-                    response_serializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgSubmitProposalResponse.SerializeToString,
-            ),
-            'Vote': grpc.unary_unary_rpc_method_handler(
-                    servicer.Vote,
-                    request_deserializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgVote.FromString,
-                    response_serializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgVoteResponse.SerializeToString,
-            ),
-            'VoteWeighted': grpc.unary_unary_rpc_method_handler(
-                    servicer.VoteWeighted,
-                    request_deserializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgVoteWeighted.FromString,
-                    response_serializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgVoteWeightedResponse.SerializeToString,
-            ),
-            'Deposit': grpc.unary_unary_rpc_method_handler(
-                    servicer.Deposit,
-                    request_deserializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgDeposit.FromString,
-                    response_serializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgDepositResponse.SerializeToString,
-            ),
+        "SubmitProposal": grpc.unary_unary_rpc_method_handler(
+            servicer.SubmitProposal,
+            request_deserializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgSubmitProposal.FromString,
+            response_serializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgSubmitProposalResponse.SerializeToString,
+        ),
+        "Vote": grpc.unary_unary_rpc_method_handler(
+            servicer.Vote,
+            request_deserializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgVote.FromString,
+            response_serializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgVoteResponse.SerializeToString,
+        ),
+        "VoteWeighted": grpc.unary_unary_rpc_method_handler(
+            servicer.VoteWeighted,
+            request_deserializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgVoteWeighted.FromString,
+            response_serializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgVoteWeightedResponse.SerializeToString,
+        ),
+        "Deposit": grpc.unary_unary_rpc_method_handler(
+            servicer.Deposit,
+            request_deserializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgDeposit.FromString,
+            response_serializer=cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgDepositResponse.SerializeToString,
+        ),
     }
-    generic_handler = grpc.method_handlers_generic_handler(
-            'cosmos.gov.v1beta1.Msg', rpc_method_handlers)
+    generic_handler = grpc.method_handlers_generic_handler("cosmos.gov.v1beta1.Msg", rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('cosmos.gov.v1beta1.Msg', rpc_method_handlers)
+    server.add_registered_method_handlers("cosmos.gov.v1beta1.Msg", rpc_method_handlers)
 
 
- # This class is part of an EXPERIMENTAL API.
+# This class is part of an EXPERIMENTAL API.
 class Msg(object):
-    """Msg defines the gov Msg service.
-    """
+    """Msg defines the gov Msg service."""
 
     @staticmethod
-    def SubmitProposal(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def SubmitProposal(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/cosmos.gov.v1beta1.Msg/SubmitProposal',
+            "/cosmos.gov.v1beta1.Msg/SubmitProposal",
             cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgSubmitProposal.SerializeToString,
             cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgSubmitProposalResponse.FromString,
             options,
@@ -131,23 +130,26 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )
 
     @staticmethod
-    def Vote(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def Vote(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/cosmos.gov.v1beta1.Msg/Vote',
+            "/cosmos.gov.v1beta1.Msg/Vote",
             cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgVote.SerializeToString,
             cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgVoteResponse.FromString,
             options,
@@ -158,23 +160,26 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )
 
     @staticmethod
-    def VoteWeighted(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def VoteWeighted(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/cosmos.gov.v1beta1.Msg/VoteWeighted',
+            "/cosmos.gov.v1beta1.Msg/VoteWeighted",
             cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgVoteWeighted.SerializeToString,
             cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgVoteWeightedResponse.FromString,
             options,
@@ -185,23 +190,26 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )
 
     @staticmethod
-    def Deposit(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def Deposit(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/cosmos.gov.v1beta1.Msg/Deposit',
+            "/cosmos.gov.v1beta1.Msg/Deposit",
             cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgDeposit.SerializeToString,
             cosmos_dot_gov_dot_v1beta1_dot_tx__pb2.MsgDepositResponse.FromString,
             options,
@@ -212,4 +220,5 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )

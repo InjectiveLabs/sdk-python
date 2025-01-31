@@ -300,6 +300,7 @@ class Composer:
             trigger_price=chain_trigger_price,
         )
 
+    # TODO (Hrishikesh): I noticed that this is very inconsistent
     def calculate_margin(
         self, quantity: Decimal, price: Decimal, leverage: Decimal, is_reduce_only: bool = False
     ) -> Decimal:

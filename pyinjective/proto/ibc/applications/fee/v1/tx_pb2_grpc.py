@@ -6,8 +6,7 @@ from pyinjective.proto.ibc.applications.fee.v1 import tx_pb2 as ibc_dot_applicat
 
 
 class MsgStub(object):
-    """Msg defines the ICS29 Msg service.
-    """
+    """Msg defines the ICS29 Msg service."""
 
     def __init__(self, channel):
         """Constructor.
@@ -16,30 +15,33 @@ class MsgStub(object):
             channel: A grpc.Channel.
         """
         self.RegisterPayee = channel.unary_unary(
-                '/ibc.applications.fee.v1.Msg/RegisterPayee',
-                request_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgRegisterPayee.SerializeToString,
-                response_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgRegisterPayeeResponse.FromString,
-                _registered_method=True)
+            "/ibc.applications.fee.v1.Msg/RegisterPayee",
+            request_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgRegisterPayee.SerializeToString,
+            response_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgRegisterPayeeResponse.FromString,
+            _registered_method=True,
+        )
         self.RegisterCounterpartyPayee = channel.unary_unary(
-                '/ibc.applications.fee.v1.Msg/RegisterCounterpartyPayee',
-                request_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgRegisterCounterpartyPayee.SerializeToString,
-                response_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgRegisterCounterpartyPayeeResponse.FromString,
-                _registered_method=True)
+            "/ibc.applications.fee.v1.Msg/RegisterCounterpartyPayee",
+            request_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgRegisterCounterpartyPayee.SerializeToString,
+            response_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgRegisterCounterpartyPayeeResponse.FromString,
+            _registered_method=True,
+        )
         self.PayPacketFee = channel.unary_unary(
-                '/ibc.applications.fee.v1.Msg/PayPacketFee',
-                request_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgPayPacketFee.SerializeToString,
-                response_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgPayPacketFeeResponse.FromString,
-                _registered_method=True)
+            "/ibc.applications.fee.v1.Msg/PayPacketFee",
+            request_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgPayPacketFee.SerializeToString,
+            response_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgPayPacketFeeResponse.FromString,
+            _registered_method=True,
+        )
         self.PayPacketFeeAsync = channel.unary_unary(
-                '/ibc.applications.fee.v1.Msg/PayPacketFeeAsync',
-                request_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgPayPacketFeeAsync.SerializeToString,
-                response_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgPayPacketFeeAsyncResponse.FromString,
-                _registered_method=True)
+            "/ibc.applications.fee.v1.Msg/PayPacketFeeAsync",
+            request_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgPayPacketFeeAsync.SerializeToString,
+            response_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgPayPacketFeeAsyncResponse.FromString,
+            _registered_method=True,
+        )
 
 
 class MsgServicer(object):
-    """Msg defines the ICS29 Msg service.
-    """
+    """Msg defines the ICS29 Msg service."""
 
     def RegisterPayee(self, request, context):
         """RegisterPayee defines a rpc handler method for MsgRegisterPayee
@@ -49,8 +51,8 @@ class MsgServicer(object):
         called more than once by a relayer, in which case, the latest payee is always used.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
     def RegisterCounterpartyPayee(self, request, context):
         """RegisterCounterpartyPayee defines a rpc handler method for MsgRegisterCounterpartyPayee
@@ -60,8 +62,8 @@ class MsgServicer(object):
         may be called more than once by a relayer, in which case, the latest counterparty payee address is always used.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
     def PayPacketFee(self, request, context):
         """PayPacketFee defines a rpc handler method for MsgPayPacketFee
@@ -71,8 +73,8 @@ class MsgServicer(object):
         initiates the lifecycle of the incentivized packet
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
     def PayPacketFeeAsync(self, request, context):
         """PayPacketFeeAsync defines a rpc handler method for MsgPayPacketFeeAsync
@@ -80,59 +82,59 @@ class MsgServicer(object):
         incentivize the relaying of a known packet (i.e. at a particular sequence)
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'RegisterPayee': grpc.unary_unary_rpc_method_handler(
-                    servicer.RegisterPayee,
-                    request_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgRegisterPayee.FromString,
-                    response_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgRegisterPayeeResponse.SerializeToString,
-            ),
-            'RegisterCounterpartyPayee': grpc.unary_unary_rpc_method_handler(
-                    servicer.RegisterCounterpartyPayee,
-                    request_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgRegisterCounterpartyPayee.FromString,
-                    response_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgRegisterCounterpartyPayeeResponse.SerializeToString,
-            ),
-            'PayPacketFee': grpc.unary_unary_rpc_method_handler(
-                    servicer.PayPacketFee,
-                    request_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgPayPacketFee.FromString,
-                    response_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgPayPacketFeeResponse.SerializeToString,
-            ),
-            'PayPacketFeeAsync': grpc.unary_unary_rpc_method_handler(
-                    servicer.PayPacketFeeAsync,
-                    request_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgPayPacketFeeAsync.FromString,
-                    response_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgPayPacketFeeAsyncResponse.SerializeToString,
-            ),
+        "RegisterPayee": grpc.unary_unary_rpc_method_handler(
+            servicer.RegisterPayee,
+            request_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgRegisterPayee.FromString,
+            response_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgRegisterPayeeResponse.SerializeToString,
+        ),
+        "RegisterCounterpartyPayee": grpc.unary_unary_rpc_method_handler(
+            servicer.RegisterCounterpartyPayee,
+            request_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgRegisterCounterpartyPayee.FromString,
+            response_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgRegisterCounterpartyPayeeResponse.SerializeToString,
+        ),
+        "PayPacketFee": grpc.unary_unary_rpc_method_handler(
+            servicer.PayPacketFee,
+            request_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgPayPacketFee.FromString,
+            response_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgPayPacketFeeResponse.SerializeToString,
+        ),
+        "PayPacketFeeAsync": grpc.unary_unary_rpc_method_handler(
+            servicer.PayPacketFeeAsync,
+            request_deserializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgPayPacketFeeAsync.FromString,
+            response_serializer=ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgPayPacketFeeAsyncResponse.SerializeToString,
+        ),
     }
-    generic_handler = grpc.method_handlers_generic_handler(
-            'ibc.applications.fee.v1.Msg', rpc_method_handlers)
+    generic_handler = grpc.method_handlers_generic_handler("ibc.applications.fee.v1.Msg", rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('ibc.applications.fee.v1.Msg', rpc_method_handlers)
+    server.add_registered_method_handlers("ibc.applications.fee.v1.Msg", rpc_method_handlers)
 
 
- # This class is part of an EXPERIMENTAL API.
+# This class is part of an EXPERIMENTAL API.
 class Msg(object):
-    """Msg defines the ICS29 Msg service.
-    """
+    """Msg defines the ICS29 Msg service."""
 
     @staticmethod
-    def RegisterPayee(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def RegisterPayee(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/ibc.applications.fee.v1.Msg/RegisterPayee',
+            "/ibc.applications.fee.v1.Msg/RegisterPayee",
             ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgRegisterPayee.SerializeToString,
             ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgRegisterPayeeResponse.FromString,
             options,
@@ -143,23 +145,26 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )
 
     @staticmethod
-    def RegisterCounterpartyPayee(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def RegisterCounterpartyPayee(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/ibc.applications.fee.v1.Msg/RegisterCounterpartyPayee',
+            "/ibc.applications.fee.v1.Msg/RegisterCounterpartyPayee",
             ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgRegisterCounterpartyPayee.SerializeToString,
             ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgRegisterCounterpartyPayeeResponse.FromString,
             options,
@@ -170,23 +175,26 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )
 
     @staticmethod
-    def PayPacketFee(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def PayPacketFee(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/ibc.applications.fee.v1.Msg/PayPacketFee',
+            "/ibc.applications.fee.v1.Msg/PayPacketFee",
             ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgPayPacketFee.SerializeToString,
             ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgPayPacketFeeResponse.FromString,
             options,
@@ -197,23 +205,26 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )
 
     @staticmethod
-    def PayPacketFeeAsync(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def PayPacketFeeAsync(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/ibc.applications.fee.v1.Msg/PayPacketFeeAsync',
+            "/ibc.applications.fee.v1.Msg/PayPacketFeeAsync",
             ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgPayPacketFeeAsync.SerializeToString,
             ibc_dot_applications_dot_fee_dot_v1_dot_tx__pb2.MsgPayPacketFeeAsyncResponse.FromString,
             options,
@@ -224,4 +235,5 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )

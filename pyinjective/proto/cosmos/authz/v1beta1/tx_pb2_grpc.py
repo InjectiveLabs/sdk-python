@@ -6,8 +6,7 @@ from pyinjective.proto.cosmos.authz.v1beta1 import tx_pb2 as cosmos_dot_authz_do
 
 
 class MsgStub(object):
-    """Msg defines the authz Msg service.
-    """
+    """Msg defines the authz Msg service."""
 
     def __init__(self, channel):
         """Constructor.
@@ -16,30 +15,33 @@ class MsgStub(object):
             channel: A grpc.Channel.
         """
         self.Grant = channel.unary_unary(
-                '/cosmos.authz.v1beta1.Msg/Grant',
-                request_serializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgGrant.SerializeToString,
-                response_deserializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgGrantResponse.FromString,
-                _registered_method=True)
+            "/cosmos.authz.v1beta1.Msg/Grant",
+            request_serializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgGrant.SerializeToString,
+            response_deserializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgGrantResponse.FromString,
+            _registered_method=True,
+        )
         self.Exec = channel.unary_unary(
-                '/cosmos.authz.v1beta1.Msg/Exec',
-                request_serializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgExec.SerializeToString,
-                response_deserializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgExecResponse.FromString,
-                _registered_method=True)
+            "/cosmos.authz.v1beta1.Msg/Exec",
+            request_serializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgExec.SerializeToString,
+            response_deserializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgExecResponse.FromString,
+            _registered_method=True,
+        )
         self.Revoke = channel.unary_unary(
-                '/cosmos.authz.v1beta1.Msg/Revoke',
-                request_serializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgRevoke.SerializeToString,
-                response_deserializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgRevokeResponse.FromString,
-                _registered_method=True)
+            "/cosmos.authz.v1beta1.Msg/Revoke",
+            request_serializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgRevoke.SerializeToString,
+            response_deserializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgRevokeResponse.FromString,
+            _registered_method=True,
+        )
         self.ExecCompat = channel.unary_unary(
-                '/cosmos.authz.v1beta1.Msg/ExecCompat',
-                request_serializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgExecCompat.SerializeToString,
-                response_deserializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgExecCompatResponse.FromString,
-                _registered_method=True)
+            "/cosmos.authz.v1beta1.Msg/ExecCompat",
+            request_serializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgExecCompat.SerializeToString,
+            response_deserializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgExecCompatResponse.FromString,
+            _registered_method=True,
+        )
 
 
 class MsgServicer(object):
-    """Msg defines the authz Msg service.
-    """
+    """Msg defines the authz Msg service."""
 
     def Grant(self, request, context):
         """Grant grants the provided authorization to the grantee on the granter's
@@ -48,8 +50,8 @@ class MsgServicer(object):
         will be overwritten.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
     def Exec(self, request, context):
         """Exec attempts to execute the provided messages using
@@ -57,74 +59,73 @@ class MsgServicer(object):
         one signer corresponding to the granter of the authorization.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
     def Revoke(self, request, context):
         """Revoke revokes any authorization corresponding to the provided method name on the
         granter's account that has been granted to the grantee.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
     def ExecCompat(self, request, context):
-        """ExecCompat has same functionality as Exec but accepts array of json-encoded message string instead of []*Any
-        """
+        """ExecCompat has same functionality as Exec but accepts array of json-encoded message string instead of []*Any"""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'Grant': grpc.unary_unary_rpc_method_handler(
-                    servicer.Grant,
-                    request_deserializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgGrant.FromString,
-                    response_serializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgGrantResponse.SerializeToString,
-            ),
-            'Exec': grpc.unary_unary_rpc_method_handler(
-                    servicer.Exec,
-                    request_deserializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgExec.FromString,
-                    response_serializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgExecResponse.SerializeToString,
-            ),
-            'Revoke': grpc.unary_unary_rpc_method_handler(
-                    servicer.Revoke,
-                    request_deserializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgRevoke.FromString,
-                    response_serializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgRevokeResponse.SerializeToString,
-            ),
-            'ExecCompat': grpc.unary_unary_rpc_method_handler(
-                    servicer.ExecCompat,
-                    request_deserializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgExecCompat.FromString,
-                    response_serializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgExecCompatResponse.SerializeToString,
-            ),
+        "Grant": grpc.unary_unary_rpc_method_handler(
+            servicer.Grant,
+            request_deserializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgGrant.FromString,
+            response_serializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgGrantResponse.SerializeToString,
+        ),
+        "Exec": grpc.unary_unary_rpc_method_handler(
+            servicer.Exec,
+            request_deserializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgExec.FromString,
+            response_serializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgExecResponse.SerializeToString,
+        ),
+        "Revoke": grpc.unary_unary_rpc_method_handler(
+            servicer.Revoke,
+            request_deserializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgRevoke.FromString,
+            response_serializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgRevokeResponse.SerializeToString,
+        ),
+        "ExecCompat": grpc.unary_unary_rpc_method_handler(
+            servicer.ExecCompat,
+            request_deserializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgExecCompat.FromString,
+            response_serializer=cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgExecCompatResponse.SerializeToString,
+        ),
     }
-    generic_handler = grpc.method_handlers_generic_handler(
-            'cosmos.authz.v1beta1.Msg', rpc_method_handlers)
+    generic_handler = grpc.method_handlers_generic_handler("cosmos.authz.v1beta1.Msg", rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('cosmos.authz.v1beta1.Msg', rpc_method_handlers)
+    server.add_registered_method_handlers("cosmos.authz.v1beta1.Msg", rpc_method_handlers)
 
 
- # This class is part of an EXPERIMENTAL API.
+# This class is part of an EXPERIMENTAL API.
 class Msg(object):
-    """Msg defines the authz Msg service.
-    """
+    """Msg defines the authz Msg service."""
 
     @staticmethod
-    def Grant(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def Grant(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/cosmos.authz.v1beta1.Msg/Grant',
+            "/cosmos.authz.v1beta1.Msg/Grant",
             cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgGrant.SerializeToString,
             cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgGrantResponse.FromString,
             options,
@@ -135,23 +136,26 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )
 
     @staticmethod
-    def Exec(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def Exec(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/cosmos.authz.v1beta1.Msg/Exec',
+            "/cosmos.authz.v1beta1.Msg/Exec",
             cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgExec.SerializeToString,
             cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgExecResponse.FromString,
             options,
@@ -162,23 +166,26 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )
 
     @staticmethod
-    def Revoke(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def Revoke(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/cosmos.authz.v1beta1.Msg/Revoke',
+            "/cosmos.authz.v1beta1.Msg/Revoke",
             cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgRevoke.SerializeToString,
             cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgRevokeResponse.FromString,
             options,
@@ -189,23 +196,26 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )
 
     @staticmethod
-    def ExecCompat(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def ExecCompat(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/cosmos.authz.v1beta1.Msg/ExecCompat',
+            "/cosmos.authz.v1beta1.Msg/ExecCompat",
             cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgExecCompat.SerializeToString,
             cosmos_dot_authz_dot_v1beta1_dot_tx__pb2.MsgExecCompatResponse.FromString,
             options,
@@ -216,4 +226,5 @@ class Msg(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )
