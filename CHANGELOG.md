@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.9.0] - 9999-99-99
+## [1.9.0] - 2025-02-13
 ### Added
 - Added support for all new queries and messages from the new Permissions module
 
