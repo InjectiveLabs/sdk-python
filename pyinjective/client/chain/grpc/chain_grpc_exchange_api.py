@@ -575,5 +575,40 @@ class ChainGrpcExchangeApi:
 
         return response
 
+    async def fetch_l3_derivative_orderbook(self, market_id: str) -> Dict[str, Any]:
+        request = exchange_query_pb.QueryFullDerivativeOrderbookRequest(market_id=market_id)
+        response = await self._execute_call(call=self._stub.L3DerivativeOrderBook, request=request)
+
+        return response
+
+    async def fetch_l3_spot_orderbook(self, market_id: str) -> Dict[str, Any]:
+        request = exchange_query_pb.QueryFullSpotOrderbookRequest(market_id=market_id)
+        response = await self._execute_call(call=self._stub.L3SpotOrderBook, request=request)
+
+        return response
+
+    async def fetch_market_balance(self, market_id: str) -> Dict[str, Any]:
+        request = exchange_query_pb.QueryMarketBalanceRequest(market_id=market_id)
+        response = await self._execute_call(call=self._stub.MarketBalance, request=request)
+
+        return response
+
+    async def fetch_market_balances(self) -> Dict[str, Any]:
+        request = exchange_query_pb.QueryMarketBalancesRequest()
+        response = await self._execute_call(call=self._stub.MarketBalances, request=request)
+
+        return response
+
+    async def fetch_denom_min_notional(self, denom: str) -> Dict[str, Any]:
+        request = exchange_query_pb.QueryDenomMinNotionalRequest(denom=denom)
+        response = await self._execute_call(call=self._stub.DenomMinNotional, request=request)
+
+        return response
+
+    async def fetch_denom_min_notionals(self) -> Dict[str, Any]:
+        request = exchange_query_pb.QueryDenomMinNotionalsRequest()
+        response = await self._execute_call(call=self._stub.DenomMinNotionals, request=request)
+        return response
+
     async def _execute_call(self, call: Callable, request) -> Dict[str, Any]:
         return await self._assistant.execute_call(call=call, request=request)

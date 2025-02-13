@@ -12,6 +12,7 @@ class ConfigurableAuctionQueryServicer(exchange_auction_grpc.InjectiveAuctionRPC
         self.auction_endpoint_responses = deque()
         self.auctions_responses = deque()
         self.stream_bids_responses = deque()
+        self.inj_burnt_responses = deque()  # Add this line to store InjBurntEndpoint responses
 
     async def AuctionEndpoint(self, request: exchange_auction_pb.AuctionEndpointRequest, context=None, metadata=None):
         return self.auction_endpoint_responses.pop()
@@ -22,3 +23,6 @@ class ConfigurableAuctionQueryServicer(exchange_auction_grpc.InjectiveAuctionRPC
     async def StreamBids(self, request: exchange_auction_pb.StreamBidsRequest, context=None, metadata=None):
         for event in self.stream_bids_responses:
             yield event
+
+    async def InjBurntEndpoint(self, request: exchange_auction_pb.InjBurntEndpointRequest, context=None, metadata=None):
+        return self.inj_burnt_responses.pop()

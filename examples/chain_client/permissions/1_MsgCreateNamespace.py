@@ -26,26 +26,68 @@ async def main() -> None:
     pub_key = priv_key.to_public_key()
     address = pub_key.to_address()
 
-    blocked_address = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
     denom = "factory/inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r/inj_test"
     role1 = composer.permissions_role(
-        role=composer.DEFAULT_PERMISSIONS_EVERYONE_ROLE,
-        permissions=composer.MINT_ACTION_PERMISSION
-        | composer.RECEIVE_ACTION_PERMISSION
-        | composer.BURN_ACTION_PERMISSION,
+        name="EVERYONE",
+        role_id=0,
+        permissions=composer.PERMISSIONS_ACTION["RECEIVE"] | composer.PERMISSIONS_ACTION["SEND"],
     )
-    role2 = composer.permissions_role(role="blacklisted", permissions=composer.UNDEFINED_ACTION_PERMISSION)
-    address_role1 = composer.permissions_address_roles(address=blocked_address, roles=["blacklisted"])
+    role2 = composer.permissions_role(
+        name="admin",
+        role_id=1,
+        permissions=composer.PERMISSIONS_ACTION["MODIFY_ROLE_PERMISSIONS"]
+        | composer.PERMISSIONS_ACTION["MODIFY_ADDRESS_ROLES"],
+    )
+    role3 = composer.permissions_role(
+        name="user",
+        role_id=2,
+        permissions=composer.PERMISSIONS_ACTION["MINT"]
+        | composer.PERMISSIONS_ACTION["RECEIVE"]
+        | composer.PERMISSIONS_ACTION["BURN"]
+        | composer.PERMISSIONS_ACTION["SEND"],
+    )
+
+    actor_role1 = composer.permissions_actor_roles(
+        actor="inj1specificactoraddress",
+        roles=["admin"],
+    )
+    actor_role2 = composer.permissions_actor_roles(
+        actor="inj1anotheractoraddress",
+        roles=["user"],
+    )
+
+    role_manager = composer.permissions_role_manager(
+        manager="inj1manageraddress",
+        roles=["admin"],
+    )
+
+    policy_status1 = composer.permissions_policy_status(
+        action=composer.PERMISSIONS_ACTION["MINT"],
+        is_disabled=False,
+        is_sealed=False,
+    )
+    policy_status2 = composer.permissions_policy_status(
+        action=composer.PERMISSIONS_ACTION["BURN"],
+        is_disabled=False,
+        is_sealed=False,
+    )
+
+    policy_manager_capability = composer.permissions_policy_manager_capability(
+        manager="inj1policymanageraddress",
+        action=composer.PERMISSIONS_ACTION["MODIFY_CONTRACT_HOOK"],
+        can_disable=True,
+        can_seal=False,
+    )
 
     message = composer.msg_create_namespace(
         sender=address.to_acc_bech32(),
         denom=denom,
-        wasm_hook="",
-        mints_paused=False,
-        sends_paused=False,
-        burns_paused=False,
-        role_permissions=[role1, role2],
-        address_roles=[address_role1],
+        contract_hook="",
+        role_permissions=[role1, role2, role3],
+        actor_roles=[actor_role1, actor_role2],
+        role_managers=[role_manager],
+        policy_statuses=[policy_status1, policy_status2],
+        policy_manager_capabilities=[policy_manager_capability],
     )
 
     # broadcast the transaction

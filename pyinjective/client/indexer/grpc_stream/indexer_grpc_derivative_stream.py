@@ -141,6 +141,7 @@ class IndexerGrpcDerivativeStream:
         trade_id: Optional[str] = None,
         account_address: Optional[str] = None,
         cid: Optional[str] = None,
+        fee_recipient: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ):
         pagination = pagination or PaginationOption()
@@ -156,6 +157,7 @@ class IndexerGrpcDerivativeStream:
             execution_types=execution_types,
             trade_id=trade_id,
             account_address=account_address,
+            fee_recipient=fee_recipient,
             cid=cid,
         )
 
@@ -209,6 +211,7 @@ class IndexerGrpcDerivativeStream:
         trade_id: Optional[str] = None,
         account_address: Optional[str] = None,
         cid: Optional[str] = None,
+        fee_recipient: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ):
         pagination = pagination or PaginationOption()
@@ -225,10 +228,38 @@ class IndexerGrpcDerivativeStream:
             trade_id=trade_id,
             account_address=account_address,
             cid=cid,
+            fee_recipient=fee_recipient,
         )
 
         await self._assistant.listen_stream(
             call=self._stub.StreamTradesV2,
+            request=request,
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+        )
+
+    async def stream_positions_v2(
+        self,
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+        subaccount_id: Optional[str] = None,
+        market_id: Optional[str] = None,
+        market_ids: Optional[List[str]] = None,
+        subaccount_ids: Optional[List[str]] = None,
+        account_address: Optional[str] = None,
+    ):
+        request = exchange_derivative_pb.StreamPositionsV2Request(
+            subaccount_id=subaccount_id,
+            market_id=market_id,
+            market_ids=market_ids,
+            subaccount_ids=subaccount_ids,
+            account_address=account_address,
+        )
+
+        await self._assistant.listen_stream(
+            call=self._stub.StreamPositionsV2,
             request=request,
             callback=callback,
             on_end_callback=on_end_callback,

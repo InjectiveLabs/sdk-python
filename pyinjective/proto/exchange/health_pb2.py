@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x15\x65xchange/health.proto\x12\x06\x61pi.v1\"\x12\n\x10GetStatusRequest\"{\n\x11GetStatusResponse\x12\x0c\n\x01s\x18\x01 \x01(\tR\x01s\x12\x16\n\x06\x65rrmsg\x18\x02 \x01(\tR\x06\x65rrmsg\x12(\n\x04\x64\x61ta\x18\x03 \x01(\x0b\x32\x14.api.v1.HealthStatusR\x04\x64\x61ta\x12\x16\n\x06status\x18\x04 \x01(\tR\x06status\"\xae\x01\n\x0cHealthStatus\x12!\n\x0clocal_height\x18\x01 \x01(\x11R\x0blocalHeight\x12\'\n\x0flocal_timestamp\x18\x02 \x01(\x11R\x0elocalTimestamp\x12%\n\x0ehoracle_height\x18\x03 \x01(\x11R\rhoracleHeight\x12+\n\x11horacle_timestamp\x18\x04 \x01(\x11R\x10horacleTimestamp2J\n\x06Health\x12@\n\tGetStatus\x12\x18.api.v1.GetStatusRequest\x1a\x19.api.v1.GetStatusResponseB]\n\ncom.api.v1B\x0bHealthProtoP\x01Z\t/api.v1pb\xa2\x02\x03\x41XX\xaa\x02\x06\x41pi.V1\xca\x02\x06\x41pi\\V1\xe2\x02\x12\x41pi\\V1\\GPBMetadata\xea\x02\x07\x41pi::V1b\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x15\x65xchange/health.proto\x12\x06\x61pi.v1\"\x12\n\x10GetStatusRequest\"{\n\x11GetStatusResponse\x12\x0c\n\x01s\x18\x01 \x01(\tR\x01s\x12\x16\n\x06\x65rrmsg\x18\x02 \x01(\tR\x06\x65rrmsg\x12(\n\x04\x64\x61ta\x18\x03 \x01(\x0b\x32\x14.api.v1.HealthStatusR\x04\x64\x61ta\x12\x16\n\x06status\x18\x04 \x01(\tR\x06status\"\xa4\x02\n\x0cHealthStatus\x12!\n\x0clocal_height\x18\x01 \x01(\x11R\x0blocalHeight\x12\'\n\x0flocal_timestamp\x18\x02 \x01(\x11R\x0elocalTimestamp\x12%\n\x0ehoracle_height\x18\x03 \x01(\x11R\rhoracleHeight\x12+\n\x11horacle_timestamp\x18\x04 \x01(\x11R\x10horacleTimestamp\x12\x34\n\x16migration_last_version\x18\x05 \x01(\x11R\x14migrationLastVersion\x12\x1b\n\tep_height\x18\x06 \x01(\x11R\x08\x65pHeight\x12!\n\x0c\x65p_timestamp\x18\x07 \x01(\x11R\x0b\x65pTimestamp2J\n\x06Health\x12@\n\tGetStatus\x12\x18.api.v1.GetStatusRequest\x1a\x19.api.v1.GetStatusResponseB]\n\ncom.api.v1B\x0bHealthProtoP\x01Z\t/api.v1pb\xa2\x02\x03\x41XX\xaa\x02\x06\x41pi.V1\xca\x02\x06\x41pi\\V1\xe2\x02\x12\x41pi\\V1\\GPBMetadata\xea\x02\x07\x41pi::V1b\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -27,7 +27,7 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_GETSTATUSRESPONSE']._serialized_start=53
   _globals['_GETSTATUSRESPONSE']._serialized_end=176
   _globals['_HEALTHSTATUS']._serialized_start=179
-  _globals['_HEALTHSTATUS']._serialized_end=353
-  _globals['_HEALTH']._serialized_start=355
-  _globals['_HEALTH']._serialized_end=429
+  _globals['_HEALTHSTATUS']._serialized_end=471
+  _globals['_HEALTH']._serialized_start=473
+  _globals['_HEALTH']._serialized_end=547
 # @@protoc_insertion_point(module_scope)

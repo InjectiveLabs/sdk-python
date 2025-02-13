@@ -50,6 +50,7 @@ class TestChainGrpcTokenFactoryApi:
     ):
         authority_metadata = token_factory_authority_metadata_pb.DenomAuthorityMetadata(
             admin="inj1ady3s7whq30l4fx8sj3x6muv5mx4dfdlcpv8n7",
+            admin_burn_allowed=True,
         )
         token_factory_query_servicer.denom_authority_metadata_responses.append(
             token_factory_query_pb.QueryDenomAuthorityMetadataResponse(
@@ -66,6 +67,7 @@ class TestChainGrpcTokenFactoryApi:
         expected_metadata = {
             "authorityMetadata": {
                 "admin": authority_metadata.admin,
+                "adminBurnAllowed": authority_metadata.admin_burn_allowed,
             },
         }
 
@@ -99,6 +101,7 @@ class TestChainGrpcTokenFactoryApi:
         )
         authority_metadata = token_factory_authority_metadata_pb.DenomAuthorityMetadata(
             admin="inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0",
+            admin_burn_allowed=True,
         )
         genesis_denom = token_factory_genesis_pb.GenesisDenom(
             denom="factory/inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0/ninja",
@@ -130,6 +133,7 @@ class TestChainGrpcTokenFactoryApi:
                         "denom": genesis_denom.denom,
                         "authorityMetadata": {
                             "admin": authority_metadata.admin,
+                            "adminBurnAllowed": authority_metadata.admin_burn_allowed,
                         },
                         "name": genesis_denom.name,
                         "symbol": genesis_denom.symbol,

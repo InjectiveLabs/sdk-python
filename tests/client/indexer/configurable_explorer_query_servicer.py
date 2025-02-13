@@ -32,6 +32,9 @@ class ConfigurableExplorerQueryServicer(exchange_explorer_grpc.InjectiveExplorer
         self.stream_txs_responses = deque()
         self.stream_blocks_responses = deque()
 
+        # Add new attribute for contract_txs_v2_responses
+        self.contract_txs_v2_responses = deque()
+
     async def GetAccountTxs(self, request: exchange_explorer_pb.GetAccountTxsRequest, context=None, metadata=None):
         return self.account_txs_responses.pop()
 
@@ -110,3 +113,8 @@ class ConfigurableExplorerQueryServicer(exchange_explorer_grpc.InjectiveExplorer
     async def StreamBlocks(self, request: exchange_explorer_pb.StreamBlocksRequest, context=None, metadata=None):
         for event in self.stream_blocks_responses:
             yield event
+
+    async def GetContractTxsV2(
+        self, request: exchange_explorer_pb.GetContractTxsV2Request, context=None, metadata=None
+    ):
+        return self.contract_txs_v2_responses.pop()
