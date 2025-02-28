@@ -14,7 +14,7 @@ async def main() -> None:
     skip = 1
     limit = 2
     pagination = PaginationOption(skip=skip, limit=limit)
-    orders = await client.fetch_subaccount_orders_list(
+    orders = await client.fetch_derivative_subaccount_orders_list(
         subaccount_id=subaccount_id, market_id=market_id, pagination=pagination
     )
     print(orders)
