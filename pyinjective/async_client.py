@@ -1978,7 +1978,7 @@ class AsyncClient:
             pagination=pagination,
         )
 
-    async def fetch_subaccount_orders_list(
+    async def fetch_derivative_subaccount_orders_list(
         self,
         subaccount_id: str,
         market_id: Optional[str] = None,
