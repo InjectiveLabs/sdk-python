@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.9.1] - 2025-03-03
+### Fixed
+- Added quantization in the functions that convert notional values to chain format
+
 ## [1.9.0] - 2025-02-13
 ### Added
 - Added support for all new queries and messages from the new Permissions module
