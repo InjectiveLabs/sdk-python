@@ -701,8 +701,16 @@ class TestIndexerGrpcSpotApi:
         self,
         spot_servicer,
     ):
-        source_coin = exchange_spot_pb.Coin(denom="inj", amount="988987297011197594664")
-        dest_coin = exchange_spot_pb.Coin(denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5", amount="54497408")
+        source_coin = exchange_spot_pb.Coin(
+            denom="inj",
+            amount="988987297011197594664",
+            usd_value="1000000000000000000000",
+        )
+        dest_coin = exchange_spot_pb.Coin(
+            denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
+            amount="54497408",
+            usd_value="200000000000000000",
+        )
         fee = exchange_spot_pb.Coin(denom="inj", amount="100000")
 
         atomic_swap = exchange_spot_pb.AtomicSwap(
@@ -744,15 +752,19 @@ class TestIndexerGrpcSpotApi:
             "data": [
                 {
                     "contractAddress": atomic_swap.contract_address,
-                    "destCoin": {"amount": dest_coin.amount, "denom": dest_coin.denom},
+                    "destCoin": {"amount": dest_coin.amount, "denom": dest_coin.denom, "usdValue": dest_coin.usd_value},
                     "executedAt": str(atomic_swap.executed_at),
-                    "fees": [{"amount": fee.amount, "denom": fee.denom}],
+                    "fees": [{"amount": fee.amount, "denom": fee.denom, "usdValue": fee.usd_value}],
                     "indexBySender": atomic_swap.index_by_sender,
                     "indexBySenderContract": atomic_swap.index_by_sender_contract,
                     "refundAmount": atomic_swap.refund_amount,
                     "route": atomic_swap.route,
                     "sender": atomic_swap.sender,
-                    "sourceCoin": {"amount": source_coin.amount, "denom": source_coin.denom},
+                    "sourceCoin": {
+                        "amount": source_coin.amount,
+                        "denom": source_coin.denom,
+                        "usdValue": source_coin.usd_value,
+                    },
                     "txHash": atomic_swap.tx_hash,
                 }
             ],

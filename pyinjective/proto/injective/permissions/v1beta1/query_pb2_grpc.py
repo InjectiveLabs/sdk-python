@@ -95,7 +95,8 @@ class QueryServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def NamespaceDenoms(self, request, context):
-        """NamespaceDenoms defines a gRPC query method that returns the denoms for which a namespace exists
+        """NamespaceDenoms defines a gRPC query method that returns the denoms for
+        which a namespace exists
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -118,42 +119,48 @@ class QueryServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def RolesByActor(self, request, context):
-        """RolesByActor defines a gRPC query method that returns roles for the actor in the namespace
+        """RolesByActor defines a gRPC query method that returns roles for the actor
+        in the namespace
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def ActorsByRole(self, request, context):
-        """ActorsByRole defines a gRPC query method that returns a namespace's roles associated with the provided actor.
+        """ActorsByRole defines a gRPC query method that returns a namespace's roles
+        associated with the provided actor.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def RoleManagers(self, request, context):
-        """RoleManagers defines a gRPC query method that returns a namespace's role managers
+        """RoleManagers defines a gRPC query method that returns a namespace's role
+        managers
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def RoleManager(self, request, context):
-        """RoleManager defines a gRPC query method that returns the roles a given role manager manages for a given namespace
+        """RoleManager defines a gRPC query method that returns the roles a given role
+        manager manages for a given namespace
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def PolicyStatuses(self, request, context):
-        """PolicyStatuses defines a gRPC query method that returns a namespace's policy statuses
+        """PolicyStatuses defines a gRPC query method that returns a namespace's
+        policy statuses
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def PolicyManagerCapabilities(self, request, context):
-        """PolicyManagerCapabilities defines a gRPC query method that returns a namespace's policy manager capabilities
+        """PolicyManagerCapabilities defines a gRPC query method that returns a
+        namespace's policy manager capabilities
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -167,7 +174,8 @@ class QueryServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def Voucher(self, request, context):
-        """Voucher defines a gRPC query method for the vouchers for a given denom and address
+        """Voucher defines a gRPC query method for the vouchers for a given denom and
+        address
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')

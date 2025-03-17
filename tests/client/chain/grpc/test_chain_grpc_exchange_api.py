@@ -60,6 +60,7 @@ class TestChainGrpcBankApi:
             margin_decrease_price_timestamp_threshold_seconds=10,
             exchange_admins=[admin],
             inj_auction_max_cap="1000000000000000000000",
+            fixed_gas_enabled=True,
         )
         exchange_servicer.exchange_params.append(exchange_query_pb.QueryExchangeParamsResponse(params=params))
 
@@ -109,6 +110,7 @@ class TestChainGrpcBankApi:
                 ),
                 "exchangeAdmins": [admin],
                 "injAuctionMaxCap": params.inj_auction_max_cap,
+                "fixedGasEnabled": params.fixed_gas_enabled,
             }
         }
 

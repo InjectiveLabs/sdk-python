@@ -2037,8 +2037,12 @@ class AsyncClient:
         return await self.exchange_derivative_api.fetch_binary_options_market(market_id=market_id)
 
     # PortfolioRPC
-    async def fetch_account_portfolio_balances(self, account_address: str) -> Dict[str, Any]:
-        return await self.exchange_portfolio_api.fetch_account_portfolio_balances(account_address=account_address)
+    async def fetch_account_portfolio_balances(
+        self, account_address: str, usd: Optional[bool] = None
+    ) -> Dict[str, Any]:
+        return await self.exchange_portfolio_api.fetch_account_portfolio_balances(
+            account_address=account_address, usd=usd
+        )
 
     async def listen_account_portfolio_updates(
         self,
