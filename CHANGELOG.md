@@ -6,7 +6,11 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Update in the implementation of the gas limit estimator to use the same values as the chain for the fixed gas messages
 
-## [1.9.0] - 9999-99-99
+## [1.9.1] - 2025-03-03
+### Fixed
+- Added quantization in the functions that convert notional values to chain format
+
+## [1.9.0] - 2025-02-13
 ### Added
 - Added support for all new queries and messages from the new Permissions module
 
