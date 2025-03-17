@@ -8,9 +8,9 @@ from pyinjective.async_client import AsyncClient
 from pyinjective.composer import Composer
 from pyinjective.core.broadcaster import MessageBasedTransactionFeeCalculator
 from pyinjective.core.gas_limit_estimator import (
+    SPOT_ORDER_CREATION_GAS_LIMIT,
     DefaultGasLimitEstimator,
     ExecGasLimitEstimator,
-    GenericExchangeGasLimitEstimator,
     PrivilegedExecuteContractGasLimitEstimator,
 )
 from pyinjective.core.network import Network
@@ -59,7 +59,7 @@ class TestMessageBasedTransactionFeeCalculator:
 
         await calculator.configure_gas_fee_for_transaction(transaction=transaction, private_key=None, public_key=None)
 
-        expected_transaction_gas_limit = MessageBasedTransactionFeeCalculator.TRANSACTION_GAS_LIMIT
+        expected_transaction_gas_limit = MessageBasedTransactionFeeCalculator.TRANSACTION_ANTE_GAS_LIMIT
         expected_gas_limit = math.ceil(
             PrivilegedExecuteContractGasLimitEstimator.BASIC_REFERENCE_GAS_LIMIT * 6 + expected_transaction_gas_limit
         )
@@ -87,7 +87,7 @@ class TestMessageBasedTransactionFeeCalculator:
 
         await calculator.configure_gas_fee_for_transaction(transaction=transaction, private_key=None, public_key=None)
 
-        expected_transaction_gas_limit = MessageBasedTransactionFeeCalculator.TRANSACTION_GAS_LIMIT
+        expected_transaction_gas_limit = MessageBasedTransactionFeeCalculator.TRANSACTION_ANTE_GAS_LIMIT
         expected_gas_limit = math.ceil(Decimal(2.5) * 150_000 + expected_transaction_gas_limit)
         assert expected_gas_limit == transaction.fee.gas_limit
         assert str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount
@@ -109,7 +109,7 @@ class TestMessageBasedTransactionFeeCalculator:
 
         await calculator.configure_gas_fee_for_transaction(transaction=transaction, private_key=None, public_key=None)
 
-        expected_transaction_gas_limit = MessageBasedTransactionFeeCalculator.TRANSACTION_GAS_LIMIT
+        expected_transaction_gas_limit = MessageBasedTransactionFeeCalculator.TRANSACTION_ANTE_GAS_LIMIT
         expected_gas_limit = math.ceil(Decimal(1.5) * 150_000 + expected_transaction_gas_limit)
         assert expected_gas_limit == transaction.fee.gas_limit
         assert str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount
@@ -131,7 +131,7 @@ class TestMessageBasedTransactionFeeCalculator:
 
         await calculator.configure_gas_fee_for_transaction(transaction=transaction, private_key=None, public_key=None)
 
-        expected_transaction_gas_limit = MessageBasedTransactionFeeCalculator.TRANSACTION_GAS_LIMIT
+        expected_transaction_gas_limit = MessageBasedTransactionFeeCalculator.TRANSACTION_ANTE_GAS_LIMIT
         expected_gas_limit = math.ceil(Decimal(15) * 150_000 + expected_transaction_gas_limit)
         assert expected_gas_limit == transaction.fee.gas_limit
         assert str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount
@@ -148,21 +148,17 @@ class TestMessageBasedTransactionFeeCalculator:
 
         market_id = list(basic_composer.spot_markets.keys())[0]
 
-        message = basic_composer.msg_create_spot_limit_order(
+        message = basic_composer.msg_liquidate_position(
             sender="sender",
-            market_id=market_id,
             subaccount_id="subaccount_id",
-            fee_recipient="fee_recipient",
-            price=Decimal("7.523"),
-            quantity=Decimal("0.01"),
-            order_type="BUY",
+            market_id=market_id,
         )
         transaction = Transaction()
         transaction.with_messages(message)
 
         await calculator.configure_gas_fee_for_transaction(transaction=transaction, private_key=None, public_key=None)
 
-        expected_transaction_gas_limit = MessageBasedTransactionFeeCalculator.TRANSACTION_GAS_LIMIT
+        expected_transaction_gas_limit = MessageBasedTransactionFeeCalculator.TRANSACTION_ANTE_GAS_LIMIT
         expected_gas_limit = math.ceil(Decimal(1) * 120_000 + expected_transaction_gas_limit)
         assert expected_gas_limit == transaction.fee.gas_limit
         assert str(expected_gas_limit * 5_000_000) == transaction.fee.amount[0].amount
@@ -194,8 +190,8 @@ class TestMessageBasedTransactionFeeCalculator:
 
         await calculator.configure_gas_fee_for_transaction(transaction=transaction, private_key=None, public_key=None)
 
-        expected_transaction_gas_limit = MessageBasedTransactionFeeCalculator.TRANSACTION_GAS_LIMIT
-        expected_inner_message_gas_limit = GenericExchangeGasLimitEstimator.BASIC_REFERENCE_GAS_LIMIT
+        expected_transaction_gas_limit = MessageBasedTransactionFeeCalculator.TRANSACTION_ANTE_GAS_LIMIT
+        expected_inner_message_gas_limit = SPOT_ORDER_CREATION_GAS_LIMIT
         expected_exec_message_gas_limit = ExecGasLimitEstimator.DEFAULT_GAS_LIMIT
         expected_gas_limit = math.ceil(
             expected_exec_message_gas_limit + expected_inner_message_gas_limit + expected_transaction_gas_limit
@@ -233,8 +229,8 @@ class TestMessageBasedTransactionFeeCalculator:
 
         await calculator.configure_gas_fee_for_transaction(transaction=transaction, private_key=None, public_key=None)
 
-        expected_transaction_gas_limit = MessageBasedTransactionFeeCalculator.TRANSACTION_GAS_LIMIT
-        expected_inner_message_gas_limit = GenericExchangeGasLimitEstimator.BASIC_REFERENCE_GAS_LIMIT
+        expected_transaction_gas_limit = MessageBasedTransactionFeeCalculator.TRANSACTION_ANTE_GAS_LIMIT
+        expected_inner_message_gas_limit = SPOT_ORDER_CREATION_GAS_LIMIT
         expected_exec_message_gas_limit = ExecGasLimitEstimator.DEFAULT_GAS_LIMIT
         expected_send_message_gas_limit = DefaultGasLimitEstimator.DEFAULT_GAS_LIMIT
         expected_gas_limit = math.ceil(

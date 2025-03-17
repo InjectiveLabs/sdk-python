@@ -280,7 +280,7 @@ class SimulatedTransactionFeeCalculator(TransactionFeeCalculator):
 
 
 class MessageBasedTransactionFeeCalculator(TransactionFeeCalculator):
-    TRANSACTION_GAS_LIMIT = 60_000
+    TRANSACTION_ANTE_GAS_LIMIT = 105_000
 
     def __init__(self, client: AsyncClient, composer: Composer, gas_price: Optional[int] = None):
         self._client = client
@@ -294,7 +294,7 @@ class MessageBasedTransactionFeeCalculator(TransactionFeeCalculator):
         public_key: PublicKey,
     ):
         messages_gas_limit = math.ceil(self._calculate_gas_limit(messages=transaction.msgs))
-        transaction_gas_limit = messages_gas_limit + self.TRANSACTION_GAS_LIMIT
+        transaction_gas_limit = messages_gas_limit + self.TRANSACTION_ANTE_GAS_LIMIT
 
         fee = [
             self._composer.coin(

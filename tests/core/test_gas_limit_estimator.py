@@ -4,14 +4,24 @@ import pytest
 
 from pyinjective.composer import Composer
 from pyinjective.core.gas_limit_estimator import (
+    BINARY_OPTIONS_MARKET_ORDER_CREATION_GAS_LIMIT,
+    BINARY_OPTIONS_ORDER_CANCELATION_GAS_LIMIT,
+    BINARY_OPTIONS_ORDER_CREATION_GAS_LIMIT,
+    DECREASE_POSITION_MARGIN_TRANSFER_GAS_LIMIT,
+    DEPOSIT_GAS_LIMIT,
+    DERIVATIVE_MARKET_ORDER_CREATION_GAS_LIMIT,
     DERIVATIVE_ORDER_CANCELATION_GAS_LIMIT,
     DERIVATIVE_ORDER_CREATION_GAS_LIMIT,
+    EXTERNAL_TRANSFER_GAS_LIMIT,
+    INCREASE_POSITION_MARGIN_TRANSFER_GAS_LIMIT,
+    POST_ONLY_BINARY_OPTIONS_ORDER_CREATION_GAS_LIMIT,
+    POST_ONLY_DERIVATIVE_ORDER_CREATION_GAS_LIMIT,
+    POST_ONLY_SPOT_ORDER_CREATION_GAS_LIMIT,
+    SPOT_MARKET_ORDER_CREATION_GAS_LIMIT,
     SPOT_ORDER_CANCELATION_GAS_LIMIT,
     SPOT_ORDER_CREATION_GAS_LIMIT,
-    BatchCancelDerivativeOrdersGasLimitEstimator,
-    BatchCancelSpotOrdersGasLimitEstimator,
-    BatchCreateDerivativeLimitOrdersGasLimitEstimator,
-    BatchCreateSpotLimitOrdersGasLimitEstimator,
+    SUBACCOUNT_TRANSFER_GAS_LIMIT,
+    WITHDRAW_GAS_LIMIT,
     BatchUpdateOrdersGasLimitEstimator,
     ExecGasLimitEstimator,
     GasLimitEstimator,
@@ -79,9 +89,8 @@ class TestGasLimitEstimator:
         estimator = GasLimitEstimator.for_message(message=message)
 
         expected_order_gas_limit = SPOT_ORDER_CREATION_GAS_LIMIT
-        expected_message_gas_limit = BatchCreateSpotLimitOrdersGasLimitEstimator.GENERAL_MESSAGE_GAS_LIMIT
 
-        assert (expected_order_gas_limit * 2) + expected_message_gas_limit == estimator.gas_limit()
+        assert (expected_order_gas_limit * 2) == estimator.gas_limit()
 
     def test_estimation_for_batch_cancel_spot_orders(self):
         spot_market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
@@ -107,9 +116,8 @@ class TestGasLimitEstimator:
         estimator = GasLimitEstimator.for_message(message=message)
 
         expected_order_gas_limit = SPOT_ORDER_CANCELATION_GAS_LIMIT
-        expected_message_gas_limit = BatchCancelSpotOrdersGasLimitEstimator.GENERAL_MESSAGE_GAS_LIMIT
 
-        assert (expected_order_gas_limit * 3) + expected_message_gas_limit == estimator.gas_limit()
+        assert (expected_order_gas_limit * 3) == estimator.gas_limit()
 
     def test_estimation_for_batch_create_derivative_limit_orders(self, basic_composer):
         market_id = list(basic_composer.derivative_markets.keys())[0]
@@ -137,9 +145,8 @@ class TestGasLimitEstimator:
         estimator = GasLimitEstimator.for_message(message=message)
 
         expected_order_gas_limit = DERIVATIVE_ORDER_CREATION_GAS_LIMIT
-        expected_message_gas_limit = BatchCreateDerivativeLimitOrdersGasLimitEstimator.GENERAL_MESSAGE_GAS_LIMIT
 
-        assert (expected_order_gas_limit * 2) + expected_message_gas_limit == estimator.gas_limit()
+        assert (expected_order_gas_limit * 2) == estimator.gas_limit()
 
     def test_estimation_for_batch_cancel_derivative_orders(self):
         spot_market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
@@ -165,9 +172,8 @@ class TestGasLimitEstimator:
         estimator = GasLimitEstimator.for_message(message=message)
 
         expected_order_gas_limit = DERIVATIVE_ORDER_CANCELATION_GAS_LIMIT
-        expected_message_gas_limit = BatchCancelDerivativeOrdersGasLimitEstimator.GENERAL_MESSAGE_GAS_LIMIT
 
-        assert (expected_order_gas_limit * 3) + expected_message_gas_limit == estimator.gas_limit()
+        assert (expected_order_gas_limit * 3) == estimator.gas_limit()
 
     def test_estimation_for_batch_update_orders_to_create_spot_orders(self, basic_composer):
         market_id = list(basic_composer.spot_markets.keys())[0]
@@ -199,9 +205,8 @@ class TestGasLimitEstimator:
         estimator = GasLimitEstimator.for_message(message=message)
 
         expected_order_gas_limit = SPOT_ORDER_CREATION_GAS_LIMIT
-        expected_message_gas_limit = BatchUpdateOrdersGasLimitEstimator.MESSAGE_GAS_LIMIT
 
-        assert (expected_order_gas_limit * 2) + expected_message_gas_limit == estimator.gas_limit()
+        assert (expected_order_gas_limit * 2) == estimator.gas_limit()
 
     def test_estimation_for_batch_update_orders_to_create_derivative_orders(self, basic_composer):
         market_id = list(basic_composer.derivative_markets.keys())[0]
@@ -235,9 +240,8 @@ class TestGasLimitEstimator:
         estimator = GasLimitEstimator.for_message(message=message)
 
         expected_order_gas_limit = DERIVATIVE_ORDER_CREATION_GAS_LIMIT
-        expected_message_gas_limit = BatchUpdateOrdersGasLimitEstimator.MESSAGE_GAS_LIMIT
 
-        assert (expected_order_gas_limit * 2) + expected_message_gas_limit == estimator.gas_limit()
+        assert (expected_order_gas_limit * 2) == estimator.gas_limit()
 
     def test_estimation_for_batch_update_orders_to_create_binary_orders(self, usdt_token):
         market_id = "0x230dcce315364ff6360097838701b14713e2f4007d704df20ed3d81d09eec957"
@@ -291,10 +295,9 @@ class TestGasLimitEstimator:
         )
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_order_gas_limit = DERIVATIVE_ORDER_CREATION_GAS_LIMIT
-        expected_message_gas_limit = BatchUpdateOrdersGasLimitEstimator.MESSAGE_GAS_LIMIT
+        expected_order_gas_limit = BINARY_OPTIONS_ORDER_CREATION_GAS_LIMIT
 
-        assert (expected_order_gas_limit * 2) + expected_message_gas_limit == estimator.gas_limit()
+        assert (expected_order_gas_limit * 2) == estimator.gas_limit()
 
     def test_estimation_for_batch_update_orders_to_cancel_spot_orders(self):
         market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
@@ -326,9 +329,8 @@ class TestGasLimitEstimator:
         estimator = GasLimitEstimator.for_message(message=message)
 
         expected_order_gas_limit = SPOT_ORDER_CANCELATION_GAS_LIMIT
-        expected_message_gas_limit = BatchUpdateOrdersGasLimitEstimator.MESSAGE_GAS_LIMIT
 
-        assert (expected_order_gas_limit * 3) + expected_message_gas_limit == estimator.gas_limit()
+        assert (expected_order_gas_limit * 3) == estimator.gas_limit()
 
     def test_estimation_for_batch_update_orders_to_cancel_derivative_orders(self):
         market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
@@ -360,9 +362,8 @@ class TestGasLimitEstimator:
         estimator = GasLimitEstimator.for_message(message=message)
 
         expected_order_gas_limit = DERIVATIVE_ORDER_CANCELATION_GAS_LIMIT
-        expected_message_gas_limit = BatchUpdateOrdersGasLimitEstimator.MESSAGE_GAS_LIMIT
 
-        assert (expected_order_gas_limit * 3) + expected_message_gas_limit == estimator.gas_limit()
+        assert (expected_order_gas_limit * 3) == estimator.gas_limit()
 
     def test_estimation_for_batch_update_orders_to_cancel_binary_orders(self):
         market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
@@ -394,10 +395,9 @@ class TestGasLimitEstimator:
         )
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_order_gas_limit = DERIVATIVE_ORDER_CANCELATION_GAS_LIMIT
-        expected_message_gas_limit = BatchUpdateOrdersGasLimitEstimator.MESSAGE_GAS_LIMIT
+        expected_order_gas_limit = BINARY_OPTIONS_ORDER_CANCELATION_GAS_LIMIT
 
-        assert (expected_order_gas_limit * 3) + expected_message_gas_limit == estimator.gas_limit()
+        assert (expected_order_gas_limit * 3) == estimator.gas_limit()
 
     def test_estimation_for_batch_update_orders_to_cancel_all_for_spot_market(self):
         market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
@@ -414,10 +414,11 @@ class TestGasLimitEstimator:
         )
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_gas_limit = BatchUpdateOrdersGasLimitEstimator.CANCEL_ALL_SPOT_MARKET_GAS_LIMIT * 20
-        expected_message_gas_limit = BatchUpdateOrdersGasLimitEstimator.MESSAGE_GAS_LIMIT
+        expected_gas_limit = (
+            BatchUpdateOrdersGasLimitEstimator.AVERAGE_CANCEL_ALL_AFFECTED_ORDERS * SPOT_ORDER_CANCELATION_GAS_LIMIT
+        )
 
-        assert expected_gas_limit + expected_message_gas_limit == estimator.gas_limit()
+        assert expected_gas_limit == estimator.gas_limit()
 
     def test_estimation_for_batch_update_orders_to_cancel_all_for_derivative_market(self):
         market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
@@ -434,10 +435,12 @@ class TestGasLimitEstimator:
         )
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_gas_limit = BatchUpdateOrdersGasLimitEstimator.CANCEL_ALL_DERIVATIVE_MARKET_GAS_LIMIT * 20
-        expected_message_gas_limit = BatchUpdateOrdersGasLimitEstimator.MESSAGE_GAS_LIMIT
+        expected_gas_limit = (
+            BatchUpdateOrdersGasLimitEstimator.AVERAGE_CANCEL_ALL_AFFECTED_ORDERS
+            * DERIVATIVE_ORDER_CANCELATION_GAS_LIMIT
+        )
 
-        assert expected_gas_limit + expected_message_gas_limit == estimator.gas_limit()
+        assert expected_gas_limit == estimator.gas_limit()
 
     def test_estimation_for_batch_update_orders_to_cancel_all_for_binary_options_market(self):
         market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
@@ -454,10 +457,319 @@ class TestGasLimitEstimator:
         )
         estimator = GasLimitEstimator.for_message(message=message)
 
-        expected_gas_limit = BatchUpdateOrdersGasLimitEstimator.CANCEL_ALL_DERIVATIVE_MARKET_GAS_LIMIT * 20
-        expected_message_gas_limit = BatchUpdateOrdersGasLimitEstimator.MESSAGE_GAS_LIMIT
+        expected_gas_limit = (
+            BatchUpdateOrdersGasLimitEstimator.AVERAGE_CANCEL_ALL_AFFECTED_ORDERS
+            * BINARY_OPTIONS_ORDER_CANCELATION_GAS_LIMIT
+        )
 
-        assert expected_gas_limit + expected_message_gas_limit == estimator.gas_limit()
+        assert expected_gas_limit == estimator.gas_limit()
+
+    def test_estimation_for_create_spot_limit_order(self, basic_composer, inj_usdt_spot_market):
+        composer = basic_composer
+        market_id = inj_usdt_spot_market.id
+
+        message = composer.msg_create_spot_limit_order(
+            market_id=market_id,
+            sender="senders",
+            subaccount_id="subaccount_id",
+            fee_recipient="fee_recipient",
+            price=Decimal("7.523"),
+            quantity=Decimal("0.01"),
+            order_type="BUY",
+        )
+        estimator = GasLimitEstimator.for_message(message=message)
+
+        expected_gas_cost = SPOT_ORDER_CREATION_GAS_LIMIT
+
+        assert expected_gas_cost == estimator.gas_limit()
+
+        po_order_message = composer.msg_create_spot_limit_order(
+            market_id=market_id,
+            sender="senders",
+            subaccount_id="subaccount_id",
+            fee_recipient="fee_recipient",
+            price=Decimal("7.523"),
+            quantity=Decimal("0.01"),
+            order_type="BUY_PO",
+        )
+        estimator = GasLimitEstimator.for_message(message=po_order_message)
+
+        expected_gas_cost = POST_ONLY_SPOT_ORDER_CREATION_GAS_LIMIT
+
+        assert expected_gas_cost == estimator.gas_limit()
+
+    def test_estimation_for_create_spot_market_order(self, basic_composer, inj_usdt_spot_market):
+        composer = basic_composer
+        market_id = inj_usdt_spot_market.id
+
+        message = composer.msg_create_spot_market_order(
+            market_id=market_id,
+            sender="senders",
+            subaccount_id="subaccount_id",
+            fee_recipient="fee_recipient",
+            price=Decimal("7.523"),
+            quantity=Decimal("0.01"),
+            order_type="BUY",
+        )
+        estimator = GasLimitEstimator.for_message(message=message)
+
+        expected_gas_cost = SPOT_MARKET_ORDER_CREATION_GAS_LIMIT
+
+        assert expected_gas_cost == estimator.gas_limit()
+
+    def test_estimation_for_cancel_spot_order(self, basic_composer, inj_usdt_spot_market):
+        composer = basic_composer
+        market_id = inj_usdt_spot_market.id
+
+        message = composer.msg_cancel_spot_order(
+            market_id=market_id,
+            sender="senders",
+            subaccount_id="subaccount_id",
+            cid="cid",
+        )
+        estimator = GasLimitEstimator.for_message(message=message)
+
+        expected_gas_cost = SPOT_ORDER_CANCELATION_GAS_LIMIT
+
+        assert expected_gas_cost == estimator.gas_limit()
+
+    def test_estimation_for_create_derivative_limit_order(self, basic_composer, btc_usdt_perp_market):
+        composer = basic_composer
+        market_id = btc_usdt_perp_market.id
+
+        message = composer.msg_create_derivative_limit_order(
+            market_id=market_id,
+            sender="senders",
+            subaccount_id="subaccount_id",
+            fee_recipient="fee_recipient",
+            price=Decimal("7.523"),
+            quantity=Decimal("0.01"),
+            margin=Decimal("7.523") * Decimal("0.01"),
+            order_type="BUY",
+        )
+        estimator = GasLimitEstimator.for_message(message=message)
+
+        expected_gas_cost = DERIVATIVE_ORDER_CREATION_GAS_LIMIT
+
+        assert expected_gas_cost == estimator.gas_limit()
+
+        po_order_message = composer.msg_create_derivative_limit_order(
+            market_id=market_id,
+            sender="senders",
+            subaccount_id="subaccount_id",
+            fee_recipient="fee_recipient",
+            price=Decimal("7.523"),
+            quantity=Decimal("0.01"),
+            margin=Decimal("7.523") * Decimal("0.01"),
+            order_type="BUY_PO",
+        )
+        estimator = GasLimitEstimator.for_message(message=po_order_message)
+
+        expected_gas_cost = POST_ONLY_DERIVATIVE_ORDER_CREATION_GAS_LIMIT
+
+        assert expected_gas_cost == estimator.gas_limit()
+
+    def test_estimation_for_create_derivative_market_order(self, basic_composer, btc_usdt_perp_market):
+        composer = basic_composer
+        market_id = btc_usdt_perp_market.id
+
+        message = composer.msg_create_derivative_market_order(
+            market_id=market_id,
+            sender="senders",
+            subaccount_id="subaccount_id",
+            fee_recipient="fee_recipient",
+            price=Decimal("7.523"),
+            quantity=Decimal("0.01"),
+            margin=Decimal("7.523") * Decimal("0.01"),
+            order_type="BUY",
+        )
+        estimator = GasLimitEstimator.for_message(message=message)
+
+        expected_gas_cost = DERIVATIVE_MARKET_ORDER_CREATION_GAS_LIMIT
+
+        assert expected_gas_cost == estimator.gas_limit()
+
+    def test_estimation_for_cancel_derivative_order(self, basic_composer, btc_usdt_perp_market):
+        composer = basic_composer
+        market_id = btc_usdt_perp_market.id
+
+        message = composer.msg_cancel_derivative_order(
+            market_id=market_id,
+            sender="senders",
+            subaccount_id="subaccount_id",
+            cid="cid",
+        )
+        estimator = GasLimitEstimator.for_message(message=message)
+
+        expected_gas_cost = DERIVATIVE_ORDER_CANCELATION_GAS_LIMIT
+
+        assert expected_gas_cost == estimator.gas_limit()
+
+    def test_estimation_for_create_binary_options_limit_order(self, basic_composer, first_match_bet_market):
+        composer = basic_composer
+        market_id = first_match_bet_market.id
+
+        message = composer.msg_create_binary_options_limit_order(
+            market_id=market_id,
+            sender="senders",
+            subaccount_id="subaccount_id",
+            fee_recipient="fee_recipient",
+            price=Decimal("0.5"),
+            quantity=Decimal("10"),
+            margin=Decimal("0.5") * Decimal("10"),
+            order_type="BUY",
+        )
+        estimator = GasLimitEstimator.for_message(message=message)
+
+        expected_gas_cost = BINARY_OPTIONS_ORDER_CREATION_GAS_LIMIT
+
+        assert expected_gas_cost == estimator.gas_limit()
+
+        po_order_message = composer.msg_create_binary_options_limit_order(
+            market_id=market_id,
+            sender="senders",
+            subaccount_id="subaccount_id",
+            fee_recipient="fee_recipient",
+            price=Decimal("0.5"),
+            quantity=Decimal("10"),
+            margin=Decimal("0.5") * Decimal("10"),
+            order_type="BUY_PO",
+        )
+        estimator = GasLimitEstimator.for_message(message=po_order_message)
+
+        expected_gas_cost = POST_ONLY_BINARY_OPTIONS_ORDER_CREATION_GAS_LIMIT
+
+        assert expected_gas_cost == estimator.gas_limit()
+
+    def test_estimation_for_create_binary_options_market_order(self, basic_composer, first_match_bet_market):
+        composer = basic_composer
+        market_id = first_match_bet_market.id
+
+        message = composer.msg_create_binary_options_market_order(
+            market_id=market_id,
+            sender="senders",
+            subaccount_id="subaccount_id",
+            fee_recipient="fee_recipient",
+            price=Decimal("0.5"),
+            quantity=Decimal("10"),
+            margin=Decimal("0.5") * Decimal("10"),
+            order_type="BUY",
+        )
+        estimator = GasLimitEstimator.for_message(message=message)
+
+        expected_gas_cost = BINARY_OPTIONS_MARKET_ORDER_CREATION_GAS_LIMIT
+
+        assert expected_gas_cost == estimator.gas_limit()
+
+    def test_estimation_for_cancel_binary_options_order(self, basic_composer, first_match_bet_market):
+        composer = basic_composer
+        market_id = first_match_bet_market.id
+
+        message = composer.msg_cancel_binary_options_order(
+            market_id=market_id,
+            sender="senders",
+            subaccount_id="subaccount_id",
+            cid="cid",
+        )
+        estimator = GasLimitEstimator.for_message(message=message)
+
+        expected_gas_cost = BINARY_OPTIONS_ORDER_CANCELATION_GAS_LIMIT
+
+        assert expected_gas_cost == estimator.gas_limit()
+
+    def test_estimation_for_deposit(self, basic_composer):
+        composer = basic_composer
+
+        message = composer.msg_deposit(
+            sender="senders",
+            subaccount_id="subaccount_id",
+            amount=Decimal("10"),
+            denom=list(composer.tokens.keys())[0],
+        )
+        estimator = GasLimitEstimator.for_message(message=message)
+
+        expected_gas_cost = DEPOSIT_GAS_LIMIT
+
+        assert expected_gas_cost == estimator.gas_limit()
+
+    def test_estimation_for_withdraw(self, basic_composer):
+        composer = basic_composer
+
+        message = composer.msg_withdraw(
+            sender="senders",
+            subaccount_id="subaccount_id",
+            amount=Decimal("10"),
+            denom=list(composer.tokens.keys())[0],
+        )
+        estimator = GasLimitEstimator.for_message(message=message)
+
+        expected_gas_cost = WITHDRAW_GAS_LIMIT
+
+        assert expected_gas_cost == estimator.gas_limit()
+
+    def test_estimation_for_subaccount_transfer(self, basic_composer):
+        composer = basic_composer
+
+        message = composer.msg_subaccount_transfer(
+            sender="senders",
+            source_subaccount_id="subaccount_id",
+            destination_subaccount_id="destination_subaccount_id",
+            amount=Decimal("10"),
+            denom=list(composer.tokens.keys())[0],
+        )
+        estimator = GasLimitEstimator.for_message(message=message)
+
+        expected_gas_cost = SUBACCOUNT_TRANSFER_GAS_LIMIT
+
+        assert expected_gas_cost == estimator.gas_limit()
+
+    def test_estimation_for_external_transfer(self, basic_composer):
+        composer = basic_composer
+
+        message = composer.msg_external_transfer(
+            sender="senders",
+            source_subaccount_id="subaccount_id",
+            destination_subaccount_id="destination_subaccount_id",
+            amount=Decimal("10"),
+            denom=list(composer.tokens.keys())[0],
+        )
+        estimator = GasLimitEstimator.for_message(message=message)
+
+        expected_gas_cost = EXTERNAL_TRANSFER_GAS_LIMIT
+
+        assert expected_gas_cost == estimator.gas_limit()
+
+    def test_estimation_for_increase_position_margin(self, basic_composer, btc_usdt_perp_market):
+        composer = basic_composer
+
+        message = composer.msg_increase_position_margin(
+            sender="senders",
+            source_subaccount_id="subaccount_id",
+            destination_subaccount_id="destination_subaccount_id",
+            market_id=btc_usdt_perp_market.id,
+            amount=Decimal("10"),
+        )
+        estimator = GasLimitEstimator.for_message(message=message)
+
+        expected_gas_cost = INCREASE_POSITION_MARGIN_TRANSFER_GAS_LIMIT
+
+        assert expected_gas_cost == estimator.gas_limit()
+
+    def test_estimation_for_decrease_position_margin(self, basic_composer, btc_usdt_perp_market):
+        composer = basic_composer
+
+        message = composer.msg_decrease_position_margin(
+            sender="senders",
+            source_subaccount_id="subaccount_id",
+            destination_subaccount_id="destination_subaccount_id",
+            market_id=btc_usdt_perp_market.id,
+            amount=Decimal("10"),
+        )
+        estimator = GasLimitEstimator.for_message(message=message)
+
+        expected_gas_cost = DECREASE_POSITION_MARGIN_TRANSFER_GAS_LIMIT
+
+        assert expected_gas_cost == estimator.gas_limit()
 
     def test_estimation_for_exec_message(self, basic_composer):
         market_id = list(basic_composer.spot_markets.keys())[0]
@@ -483,13 +795,9 @@ class TestGasLimitEstimator:
         estimator = GasLimitEstimator.for_message(message=message)
 
         expected_order_gas_limit = SPOT_ORDER_CREATION_GAS_LIMIT
-        expected_inner_message_gas_limit = BatchUpdateOrdersGasLimitEstimator.MESSAGE_GAS_LIMIT
         expected_exec_message_gas_limit = ExecGasLimitEstimator.DEFAULT_GAS_LIMIT
 
-        assert (
-            expected_order_gas_limit + expected_inner_message_gas_limit + expected_exec_message_gas_limit
-            == estimator.gas_limit()
-        )
+        assert expected_order_gas_limit + expected_exec_message_gas_limit == estimator.gas_limit()
 
     def test_estimation_for_privileged_execute_contract_message(self):
         message = injective_exchange_tx_pb.MsgPrivilegedExecuteContract()
@@ -529,15 +837,11 @@ class TestGasLimitEstimator:
         assert expected_gas_limit == estimator.gas_limit()
 
     def test_estimation_for_generic_exchange_message(self, basic_composer):
-        market_id = list(basic_composer.spot_markets.keys())[0]
-        message = basic_composer.msg_create_spot_limit_order(
+        market_id = list(basic_composer.derivative_markets.keys())[0]
+        message = basic_composer.msg_liquidate_position(
             sender="sender",
             market_id=market_id,
             subaccount_id="subaccount_id",
-            fee_recipient="fee_recipient",
-            price=Decimal("7.523"),
-            quantity=Decimal("0.01"),
-            order_type="BUY",
         )
         estimator = GasLimitEstimator.for_message(message=message)
 
