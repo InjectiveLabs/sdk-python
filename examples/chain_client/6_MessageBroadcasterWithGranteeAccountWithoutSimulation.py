@@ -33,9 +33,9 @@ async def main() -> None:
     # adjust gas price to make it valid even if it changes between the time it is requested and the TX is broadcasted
     gas_price = int(gas_price * 1.1)
 
-    message_broadcaster = MsgBroadcasterWithPk.new_using_simulation(
+    message_broadcaster = MsgBroadcasterWithPk.new_for_grantee_account_without_simulation(
         network=network,
-        private_key=private_key_in_hexa,
+        grantee_private_key=private_key_in_hexa,
         gas_price=gas_price,
         client=client,
         composer=composer,
