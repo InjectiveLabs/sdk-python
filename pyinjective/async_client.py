@@ -13,6 +13,7 @@ from pyinjective.client.chain.grpc.chain_grpc_distribution_api import ChainGrpcD
 from pyinjective.client.chain.grpc.chain_grpc_exchange_api import ChainGrpcExchangeApi
 from pyinjective.client.chain.grpc.chain_grpc_permissions_api import ChainGrpcPermissionsApi
 from pyinjective.client.chain.grpc.chain_grpc_token_factory_api import ChainGrpcTokenFactoryApi
+from pyinjective.client.chain.grpc.chain_grpc_txfees_api import ChainGrpcTxfeesApi
 from pyinjective.client.chain.grpc.chain_grpc_wasm_api import ChainGrpcWasmApi
 from pyinjective.client.chain.grpc_stream.chain_grpc_chain_stream import ChainGrpcChainStream
 from pyinjective.client.indexer.grpc.indexer_grpc_account_api import IndexerGrpcAccountApi
@@ -34,6 +35,7 @@ from pyinjective.client.indexer.grpc_stream.indexer_grpc_portfolio_stream import
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_spot_stream import IndexerGrpcSpotStream
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.composer import Composer
+from pyinjective.constant import GAS_PRICE
 from pyinjective.core.ibc.channel.grpc.ibc_channel_grpc_api import IBCChannelGrpcApi
 from pyinjective.core.ibc.client.grpc.ibc_client_grpc_api import IBCClientGrpcApi
 from pyinjective.core.ibc.connection.grpc.ibc_connection_grpc_api import IBCConnectionGrpcApi
@@ -180,6 +182,10 @@ class AsyncClient:
             cookie_assistant=network.chain_cookie_assistant,
         )
         self.tx_api = TxGrpcApi(
+            channel=self.chain_channel,
+            cookie_assistant=network.chain_cookie_assistant,
+        )
+        self.txfees_api = ChainGrpcTxfeesApi(
             channel=self.chain_channel,
             cookie_assistant=network.chain_cookie_assistant,
         )
@@ -2314,6 +2320,13 @@ class AsyncClient:
 
     # endregion
 
+    # -------------------------
+    # region IBC Channel module
+    async def fetch_eip_base_fee(self) -> Dict[str, Any]:
+        return await self.txfees_api.fetch_eip_base_fee()
+
+    # endregion
+
     async def composer(self):
         return Composer(
             network=self.network.string(),
@@ -2322,6 +2335,20 @@ class AsyncClient:
             binary_option_markets=await self.all_binary_option_markets(),
             tokens=await self.all_tokens(),
         )
+
+    async def current_chain_gas_price(self) -> int:
+        gas_price = GAS_PRICE
+        try:
+            eip_base_fee_response = await self.fetch_eip_base_fee()
+            gas_price = int(
+                Token.convert_value_from_extended_decimal_format(Decimal(eip_base_fee_response["baseFee"]["baseFee"]))
+            )
+        except Exception as e:
+            logger = LoggerProvider().logger_for_class(logging_class=self.__class__)
+            logger.error("an error occurred when querying the gas price from the chain, using the default gas price")
+            logger.debug(f"error querying the gas price from chain {e}")
+
+        return gas_price
 
     async def initialize_tokens_from_chain_denoms(self):
         # force initialization of markets and tokens
