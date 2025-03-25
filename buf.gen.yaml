@@ -24,6 +24,6 @@ inputs:
 #    tag: v1.15.0-alpha
 #    subdir: proto
   - git_repo: https://github.com/InjectiveLabs/injective-core
-    branch: master
+    branch: release/v1.15.x
     subdir: proto
   - directory: proto
