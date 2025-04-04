@@ -29,7 +29,7 @@ async def main() -> None:
 
     base_symbol = market.oracle_base
     quote_symbol = market.oracle_quote
-    oracle_type = market.oracle_type
+    oracle_type = market.oracle_type.lower()
 
     task = asyncio.get_event_loop().create_task(
         client.listen_oracle_prices_updates(

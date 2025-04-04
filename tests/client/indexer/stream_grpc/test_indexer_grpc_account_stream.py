@@ -23,6 +23,8 @@ class TestIndexerGrpcAccountStream:
         deposit = exchange_accounts_pb.SubaccountDeposit(
             total_balance="20",
             available_balance="10",
+            total_balance_usd="1000000000000000000",
+            available_balance_usd="500000000000000000",
         )
         balance = exchange_accounts_pb.SubaccountBalance(
             subaccount_id="0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000",
@@ -59,6 +61,8 @@ class TestIndexerGrpcAccountStream:
                 "deposit": {
                     "availableBalance": balance.deposit.available_balance,
                     "totalBalance": balance.deposit.total_balance,
+                    "totalBalanceUsd": balance.deposit.total_balance_usd,
+                    "availableBalanceUsd": balance.deposit.available_balance_usd,
                 },
                 "subaccountId": balance.subaccount_id,
             },

@@ -1,4 +1,5 @@
 import asyncio
+import json
 import os
 
 import dotenv
@@ -20,11 +21,17 @@ async def main() -> None:
     client = AsyncClient(network)
     await client.initialize_tokens_from_chain_denoms()
     composer = await client.composer()
-    await client.sync_timeout_height()
+
+    gas_price = await client.current_chain_gas_price()
+    # adjust gas price to make it valid even if it changes between the time it is requested and the TX is broadcasted
+    gas_price = int(gas_price * 1.1)
 
     message_broadcaster = MsgBroadcasterWithPk.new_using_simulation(
         network=network,
         private_key=configured_private_key,
+        gas_price=gas_price,
+        client=client,
+        composer=composer,
     )
 
     # load account
@@ -41,7 +48,12 @@ async def main() -> None:
     # broadcast the transaction
     result = await message_broadcaster.broadcast([message])
     print("---Transaction Response---")
-    print(result)
+    print(json.dumps(result, indent=2))
+
+    gas_price = await client.current_chain_gas_price()
+    # adjust gas price to make it valid even if it changes between the time it is requested and the TX is broadcasted
+    gas_price = int(gas_price * 1.1)
+    message_broadcaster.update_gas_price(gas_price=gas_price)
 
 
 if __name__ == "__main__":

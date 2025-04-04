@@ -35,6 +35,11 @@ class InjectiveExplorerRPCStub(object):
                 request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetBlocksRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetBlocksResponse.FromString,
                 _registered_method=True)
+        self.GetBlocksV2 = channel.unary_unary(
+                '/injective_explorer_rpc.InjectiveExplorerRPC/GetBlocksV2',
+                request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetBlocksV2Request.SerializeToString,
+                response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetBlocksV2Response.FromString,
+                _registered_method=True)
         self.GetBlock = channel.unary_unary(
                 '/injective_explorer_rpc.InjectiveExplorerRPC/GetBlock',
                 request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetBlockRequest.SerializeToString,
@@ -59,6 +64,11 @@ class InjectiveExplorerRPCStub(object):
                 '/injective_explorer_rpc.InjectiveExplorerRPC/GetTxs',
                 request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetTxsRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetTxsResponse.FromString,
+                _registered_method=True)
+        self.GetTxsV2 = channel.unary_unary(
+                '/injective_explorer_rpc.InjectiveExplorerRPC/GetTxsV2',
+                request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetTxsV2Request.SerializeToString,
+                response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetTxsV2Response.FromString,
                 _registered_method=True)
         self.GetTxByTxHash = channel.unary_unary(
                 '/injective_explorer_rpc.InjectiveExplorerRPC/GetTxByTxHash',
@@ -164,6 +174,13 @@ class InjectiveExplorerRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetBlocksV2(self, request, context):
+        """GetBlocks returns blocks based upon the request params
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def GetBlock(self, request, context):
         """GetBlock returns block based upon the height or hash
         """
@@ -193,6 +210,13 @@ class InjectiveExplorerRPCServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetTxs(self, request, context):
+        """GetTxs returns transactions based upon the request params
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetTxsV2(self, request, context):
         """GetTxs returns transactions based upon the request params
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -324,6 +348,11 @@ def add_InjectiveExplorerRPCServicer_to_server(servicer, server):
                     request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetBlocksRequest.FromString,
                     response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetBlocksResponse.SerializeToString,
             ),
+            'GetBlocksV2': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetBlocksV2,
+                    request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetBlocksV2Request.FromString,
+                    response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetBlocksV2Response.SerializeToString,
+            ),
             'GetBlock': grpc.unary_unary_rpc_method_handler(
                     servicer.GetBlock,
                     request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetBlockRequest.FromString,
@@ -348,6 +377,11 @@ def add_InjectiveExplorerRPCServicer_to_server(servicer, server):
                     servicer.GetTxs,
                     request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetTxsRequest.FromString,
                     response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetTxsResponse.SerializeToString,
+            ),
+            'GetTxsV2': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetTxsV2,
+                    request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetTxsV2Request.FromString,
+                    response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetTxsV2Response.SerializeToString,
             ),
             'GetTxByTxHash': grpc.unary_unary_rpc_method_handler(
                     servicer.GetTxByTxHash,
@@ -540,6 +574,33 @@ class InjectiveExplorerRPC(object):
             _registered_method=True)
 
     @staticmethod
+    def GetBlocksV2(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_explorer_rpc.InjectiveExplorerRPC/GetBlocksV2',
+            exchange_dot_injective__explorer__rpc__pb2.GetBlocksV2Request.SerializeToString,
+            exchange_dot_injective__explorer__rpc__pb2.GetBlocksV2Response.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
     def GetBlock(request,
             target,
             options=(),
@@ -664,6 +725,33 @@ class InjectiveExplorerRPC(object):
             '/injective_explorer_rpc.InjectiveExplorerRPC/GetTxs',
             exchange_dot_injective__explorer__rpc__pb2.GetTxsRequest.SerializeToString,
             exchange_dot_injective__explorer__rpc__pb2.GetTxsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetTxsV2(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_explorer_rpc.InjectiveExplorerRPC/GetTxsV2',
+            exchange_dot_injective__explorer__rpc__pb2.GetTxsV2Request.SerializeToString,
+            exchange_dot_injective__explorer__rpc__pb2.GetTxsV2Response.FromString,
             options,
             channel_credentials,
             insecure,

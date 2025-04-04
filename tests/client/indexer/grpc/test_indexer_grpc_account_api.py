@@ -133,6 +133,8 @@ class TestIndexerGrpcAccountApi:
         deposit = exchange_accounts_pb.SubaccountDeposit(
             total_balance="20",
             available_balance="10",
+            total_balance_usd="100",
+            available_balance_usd="50",
         )
         balance = exchange_accounts_pb.SubaccountBalance(
             subaccount_id="0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000",
@@ -158,6 +160,8 @@ class TestIndexerGrpcAccountApi:
                     "deposit": {
                         "totalBalance": deposit.total_balance,
                         "availableBalance": deposit.available_balance,
+                        "totalBalanceUsd": deposit.total_balance_usd,
+                        "availableBalanceUsd": deposit.available_balance_usd,
                     },
                 },
             ]
@@ -173,6 +177,8 @@ class TestIndexerGrpcAccountApi:
         deposit = exchange_accounts_pb.SubaccountDeposit(
             total_balance="20",
             available_balance="10",
+            total_balance_usd="100",
+            available_balance_usd="50",
         )
         balance = exchange_accounts_pb.SubaccountBalance(
             subaccount_id="0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000",
@@ -198,6 +204,8 @@ class TestIndexerGrpcAccountApi:
                 "deposit": {
                     "totalBalance": deposit.total_balance,
                     "availableBalance": deposit.available_balance,
+                    "totalBalanceUsd": deposit.total_balance_usd,
+                    "availableBalanceUsd": deposit.available_balance_usd,
                 },
             },
         }
@@ -330,6 +338,7 @@ class TestIndexerGrpcAccountApi:
         single_reward = exchange_accounts_pb.Coin(
             denom="inj",
             amount="2000000000000000000",
+            usd_value="3000000000000000000",
         )
 
         reward = exchange_accounts_pb.Reward(
@@ -351,6 +360,7 @@ class TestIndexerGrpcAccountApi:
                         {
                             "denom": single_reward.denom,
                             "amount": single_reward.amount,
+                            "usdValue": single_reward.usd_value,
                         }
                     ],
                     "distributedAt": str(reward.distributed_at),

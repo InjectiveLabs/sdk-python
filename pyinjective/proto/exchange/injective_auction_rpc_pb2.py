@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n$exchange/injective_auction_rpc.proto\x12\x15injective_auction_rpc\".\n\x16\x41uctionEndpointRequest\x12\x14\n\x05round\x18\x01 \x01(\x12R\x05round\"\x83\x01\n\x17\x41uctionEndpointResponse\x12\x38\n\x07\x61uction\x18\x01 \x01(\x0b\x32\x1e.injective_auction_rpc.AuctionR\x07\x61uction\x12.\n\x04\x62ids\x18\x02 \x03(\x0b\x32\x1a.injective_auction_rpc.BidR\x04\x62ids\"\xde\x01\n\x07\x41uction\x12\x16\n\x06winner\x18\x01 \x01(\tR\x06winner\x12\x33\n\x06\x62\x61sket\x18\x02 \x03(\x0b\x32\x1b.injective_auction_rpc.CoinR\x06\x62\x61sket\x12,\n\x12winning_bid_amount\x18\x03 \x01(\tR\x10winningBidAmount\x12\x14\n\x05round\x18\x04 \x01(\x04R\x05round\x12#\n\rend_timestamp\x18\x05 \x01(\x12R\x0c\x65ndTimestamp\x12\x1d\n\nupdated_at\x18\x06 \x01(\x12R\tupdatedAt\"4\n\x04\x43oin\x12\x14\n\x05\x64\x65nom\x18\x01 \x01(\tR\x05\x64\x65nom\x12\x16\n\x06\x61mount\x18\x02 \x01(\tR\x06\x61mount\"S\n\x03\x42id\x12\x16\n\x06\x62idder\x18\x01 \x01(\tR\x06\x62idder\x12\x16\n\x06\x61mount\x18\x02 \x01(\tR\x06\x61mount\x12\x1c\n\ttimestamp\x18\x03 \x01(\x12R\ttimestamp\"\x11\n\x0f\x41uctionsRequest\"N\n\x10\x41uctionsResponse\x12:\n\x08\x61uctions\x18\x01 \x03(\x0b\x32\x1e.injective_auction_rpc.AuctionR\x08\x61uctions\"\x13\n\x11StreamBidsRequest\"\x7f\n\x12StreamBidsResponse\x12\x16\n\x06\x62idder\x18\x01 \x01(\tR\x06\x62idder\x12\x1d\n\nbid_amount\x18\x02 \x01(\tR\tbidAmount\x12\x14\n\x05round\x18\x03 \x01(\x04R\x05round\x12\x1c\n\ttimestamp\x18\x04 \x01(\x12R\ttimestamp\"\x19\n\x17InjBurntEndpointRequest\"B\n\x18InjBurntEndpointResponse\x12&\n\x0ftotal_inj_burnt\x18\x01 \x01(\tR\rtotalInjBurnt2\xbe\x03\n\x13InjectiveAuctionRPC\x12p\n\x0f\x41uctionEndpoint\x12-.injective_auction_rpc.AuctionEndpointRequest\x1a..injective_auction_rpc.AuctionEndpointResponse\x12[\n\x08\x41uctions\x12&.injective_auction_rpc.AuctionsRequest\x1a\'.injective_auction_rpc.AuctionsResponse\x12\x63\n\nStreamBids\x12(.injective_auction_rpc.StreamBidsRequest\x1a).injective_auction_rpc.StreamBidsResponse0\x01\x12s\n\x10InjBurntEndpoint\x12..injective_auction_rpc.InjBurntEndpointRequest\x1a/.injective_auction_rpc.InjBurntEndpointResponseB\xbb\x01\n\x19\x63om.injective_auction_rpcB\x18InjectiveAuctionRpcProtoP\x01Z\x18/injective_auction_rpcpb\xa2\x02\x03IXX\xaa\x02\x13InjectiveAuctionRpc\xca\x02\x13InjectiveAuctionRpc\xe2\x02\x1fInjectiveAuctionRpc\\GPBMetadata\xea\x02\x13InjectiveAuctionRpcb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n$exchange/injective_auction_rpc.proto\x12\x15injective_auction_rpc\".\n\x16\x41uctionEndpointRequest\x12\x14\n\x05round\x18\x01 \x01(\x12R\x05round\"\x83\x01\n\x17\x41uctionEndpointResponse\x12\x38\n\x07\x61uction\x18\x01 \x01(\x0b\x32\x1e.injective_auction_rpc.AuctionR\x07\x61uction\x12.\n\x04\x62ids\x18\x02 \x03(\x0b\x32\x1a.injective_auction_rpc.BidR\x04\x62ids\"\xde\x01\n\x07\x41uction\x12\x16\n\x06winner\x18\x01 \x01(\tR\x06winner\x12\x33\n\x06\x62\x61sket\x18\x02 \x03(\x0b\x32\x1b.injective_auction_rpc.CoinR\x06\x62\x61sket\x12,\n\x12winning_bid_amount\x18\x03 \x01(\tR\x10winningBidAmount\x12\x14\n\x05round\x18\x04 \x01(\x04R\x05round\x12#\n\rend_timestamp\x18\x05 \x01(\x12R\x0c\x65ndTimestamp\x12\x1d\n\nupdated_at\x18\x06 \x01(\x12R\tupdatedAt\"Q\n\x04\x43oin\x12\x14\n\x05\x64\x65nom\x18\x01 \x01(\tR\x05\x64\x65nom\x12\x16\n\x06\x61mount\x18\x02 \x01(\tR\x06\x61mount\x12\x1b\n\tusd_value\x18\x03 \x01(\tR\x08usdValue\"S\n\x03\x42id\x12\x16\n\x06\x62idder\x18\x01 \x01(\tR\x06\x62idder\x12\x16\n\x06\x61mount\x18\x02 \x01(\tR\x06\x61mount\x12\x1c\n\ttimestamp\x18\x03 \x01(\x12R\ttimestamp\"\x11\n\x0f\x41uctionsRequest\"N\n\x10\x41uctionsResponse\x12:\n\x08\x61uctions\x18\x01 \x03(\x0b\x32\x1e.injective_auction_rpc.AuctionR\x08\x61uctions\"\x13\n\x11StreamBidsRequest\"\x7f\n\x12StreamBidsResponse\x12\x16\n\x06\x62idder\x18\x01 \x01(\tR\x06\x62idder\x12\x1d\n\nbid_amount\x18\x02 \x01(\tR\tbidAmount\x12\x14\n\x05round\x18\x03 \x01(\x04R\x05round\x12\x1c\n\ttimestamp\x18\x04 \x01(\x12R\ttimestamp\"\x19\n\x17InjBurntEndpointRequest\"B\n\x18InjBurntEndpointResponse\x12&\n\x0ftotal_inj_burnt\x18\x01 \x01(\tR\rtotalInjBurnt2\xbe\x03\n\x13InjectiveAuctionRPC\x12p\n\x0f\x41uctionEndpoint\x12-.injective_auction_rpc.AuctionEndpointRequest\x1a..injective_auction_rpc.AuctionEndpointResponse\x12[\n\x08\x41uctions\x12&.injective_auction_rpc.AuctionsRequest\x1a\'.injective_auction_rpc.AuctionsResponse\x12\x63\n\nStreamBids\x12(.injective_auction_rpc.StreamBidsRequest\x1a).injective_auction_rpc.StreamBidsResponse0\x01\x12s\n\x10InjBurntEndpoint\x12..injective_auction_rpc.InjBurntEndpointRequest\x1a/.injective_auction_rpc.InjBurntEndpointResponseB\xbb\x01\n\x19\x63om.injective_auction_rpcB\x18InjectiveAuctionRpcProtoP\x01Z\x18/injective_auction_rpcpb\xa2\x02\x03IXX\xaa\x02\x13InjectiveAuctionRpc\xca\x02\x13InjectiveAuctionRpc\xe2\x02\x1fInjectiveAuctionRpc\\GPBMetadata\xea\x02\x13InjectiveAuctionRpcb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -29,21 +29,21 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_AUCTION']._serialized_start=246
   _globals['_AUCTION']._serialized_end=468
   _globals['_COIN']._serialized_start=470
-  _globals['_COIN']._serialized_end=522
-  _globals['_BID']._serialized_start=524
-  _globals['_BID']._serialized_end=607
-  _globals['_AUCTIONSREQUEST']._serialized_start=609
-  _globals['_AUCTIONSREQUEST']._serialized_end=626
-  _globals['_AUCTIONSRESPONSE']._serialized_start=628
-  _globals['_AUCTIONSRESPONSE']._serialized_end=706
-  _globals['_STREAMBIDSREQUEST']._serialized_start=708
-  _globals['_STREAMBIDSREQUEST']._serialized_end=727
-  _globals['_STREAMBIDSRESPONSE']._serialized_start=729
-  _globals['_STREAMBIDSRESPONSE']._serialized_end=856
-  _globals['_INJBURNTENDPOINTREQUEST']._serialized_start=858
-  _globals['_INJBURNTENDPOINTREQUEST']._serialized_end=883
-  _globals['_INJBURNTENDPOINTRESPONSE']._serialized_start=885
-  _globals['_INJBURNTENDPOINTRESPONSE']._serialized_end=951
-  _globals['_INJECTIVEAUCTIONRPC']._serialized_start=954
-  _globals['_INJECTIVEAUCTIONRPC']._serialized_end=1400
+  _globals['_COIN']._serialized_end=551
+  _globals['_BID']._serialized_start=553
+  _globals['_BID']._serialized_end=636
+  _globals['_AUCTIONSREQUEST']._serialized_start=638
+  _globals['_AUCTIONSREQUEST']._serialized_end=655
+  _globals['_AUCTIONSRESPONSE']._serialized_start=657
+  _globals['_AUCTIONSRESPONSE']._serialized_end=735
+  _globals['_STREAMBIDSREQUEST']._serialized_start=737
+  _globals['_STREAMBIDSREQUEST']._serialized_end=756
+  _globals['_STREAMBIDSRESPONSE']._serialized_start=758
+  _globals['_STREAMBIDSRESPONSE']._serialized_end=885
+  _globals['_INJBURNTENDPOINTREQUEST']._serialized_start=887
+  _globals['_INJBURNTENDPOINTREQUEST']._serialized_end=912
+  _globals['_INJBURNTENDPOINTRESPONSE']._serialized_start=914
+  _globals['_INJBURNTENDPOINTRESPONSE']._serialized_end=980
+  _globals['_INJECTIVEAUCTIONRPC']._serialized_start=983
+  _globals['_INJECTIVEAUCTIONRPC']._serialized_end=1429
 # @@protoc_insertion_point(module_scope)

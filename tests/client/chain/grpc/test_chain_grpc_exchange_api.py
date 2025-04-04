@@ -60,6 +60,7 @@ class TestChainGrpcBankApi:
             margin_decrease_price_timestamp_threshold_seconds=10,
             exchange_admins=[admin],
             inj_auction_max_cap="1000000000000000000000",
+            fixed_gas_enabled=True,
         )
         exchange_servicer.exchange_params.append(exchange_query_pb.QueryExchangeParamsResponse(params=params))
 
@@ -109,6 +110,7 @@ class TestChainGrpcBankApi:
                 ),
                 "exchangeAdmins": [admin],
                 "injAuctionMaxCap": params.inj_auction_max_cap,
+                "fixedGasEnabled": params.fixed_gas_enabled,
             }
         }
 
@@ -2547,9 +2549,12 @@ class TestChainGrpcBankApi:
         self,
         exchange_servicer,
     ):
-        balance = "1000000000000000000"  # Decimal as a string
+        market_balance = exchange_query_pb.MarketBalance(
+            market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
+            balance="1000000000000000000",
+        )
         response = exchange_query_pb.QueryMarketBalanceResponse(
-            balance=balance,
+            balance=market_balance,
         )
         exchange_servicer.market_balance_responses.append(response)
 
@@ -2558,7 +2563,12 @@ class TestChainGrpcBankApi:
         market_balance_response = await api.fetch_market_balance(
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
         )
-        expected_market_balance = {"balance": balance}
+        expected_market_balance = {
+            "balance": {
+                "marketId": market_balance.market_id,
+                "balance": market_balance.balance,
+            }
+        }
 
         assert market_balance_response == expected_market_balance
 

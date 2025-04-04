@@ -25,6 +25,26 @@ class InjectiveChartRPCStub(object):
                 request_serializer=exchange_dot_injective__chart__rpc__pb2.DerivativeMarketHistoryRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__chart__rpc__pb2.DerivativeMarketHistoryResponse.FromString,
                 _registered_method=True)
+        self.SpotMarketSummary = channel.unary_unary(
+                '/injective_chart_rpc.InjectiveChartRPC/SpotMarketSummary',
+                request_serializer=exchange_dot_injective__chart__rpc__pb2.SpotMarketSummaryRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__chart__rpc__pb2.SpotMarketSummaryResponse.FromString,
+                _registered_method=True)
+        self.AllSpotMarketSummary = channel.unary_unary(
+                '/injective_chart_rpc.InjectiveChartRPC/AllSpotMarketSummary',
+                request_serializer=exchange_dot_injective__chart__rpc__pb2.AllSpotMarketSummaryRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__chart__rpc__pb2.AllSpotMarketSummaryResponse.FromString,
+                _registered_method=True)
+        self.DerivativeMarketSummary = channel.unary_unary(
+                '/injective_chart_rpc.InjectiveChartRPC/DerivativeMarketSummary',
+                request_serializer=exchange_dot_injective__chart__rpc__pb2.DerivativeMarketSummaryRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__chart__rpc__pb2.DerivativeMarketSummaryResponse.FromString,
+                _registered_method=True)
+        self.AllDerivativeMarketSummary = channel.unary_unary(
+                '/injective_chart_rpc.InjectiveChartRPC/AllDerivativeMarketSummary',
+                request_serializer=exchange_dot_injective__chart__rpc__pb2.AllDerivativeMarketSummaryRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__chart__rpc__pb2.AllDerivativeMarketSummaryResponse.FromString,
+                _registered_method=True)
 
 
 class InjectiveChartRPCServicer(object):
@@ -45,6 +65,36 @@ class InjectiveChartRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def SpotMarketSummary(self, request, context):
+        """Gets spot market summary for the latest interval (hour, day, month)
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AllSpotMarketSummary(self, request, context):
+        """Gets batch summary for all active markets, for the latest interval (hour,
+        day, month)
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DerivativeMarketSummary(self, request, context):
+        """Gets derivative market summary for the latest interval (hour, day, month)
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AllDerivativeMarketSummary(self, request, context):
+        """Gets batch summary for all active markets, for the latest interval (hour,
+        day, month)
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_InjectiveChartRPCServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -57,6 +107,26 @@ def add_InjectiveChartRPCServicer_to_server(servicer, server):
                     servicer.DerivativeMarketHistory,
                     request_deserializer=exchange_dot_injective__chart__rpc__pb2.DerivativeMarketHistoryRequest.FromString,
                     response_serializer=exchange_dot_injective__chart__rpc__pb2.DerivativeMarketHistoryResponse.SerializeToString,
+            ),
+            'SpotMarketSummary': grpc.unary_unary_rpc_method_handler(
+                    servicer.SpotMarketSummary,
+                    request_deserializer=exchange_dot_injective__chart__rpc__pb2.SpotMarketSummaryRequest.FromString,
+                    response_serializer=exchange_dot_injective__chart__rpc__pb2.SpotMarketSummaryResponse.SerializeToString,
+            ),
+            'AllSpotMarketSummary': grpc.unary_unary_rpc_method_handler(
+                    servicer.AllSpotMarketSummary,
+                    request_deserializer=exchange_dot_injective__chart__rpc__pb2.AllSpotMarketSummaryRequest.FromString,
+                    response_serializer=exchange_dot_injective__chart__rpc__pb2.AllSpotMarketSummaryResponse.SerializeToString,
+            ),
+            'DerivativeMarketSummary': grpc.unary_unary_rpc_method_handler(
+                    servicer.DerivativeMarketSummary,
+                    request_deserializer=exchange_dot_injective__chart__rpc__pb2.DerivativeMarketSummaryRequest.FromString,
+                    response_serializer=exchange_dot_injective__chart__rpc__pb2.DerivativeMarketSummaryResponse.SerializeToString,
+            ),
+            'AllDerivativeMarketSummary': grpc.unary_unary_rpc_method_handler(
+                    servicer.AllDerivativeMarketSummary,
+                    request_deserializer=exchange_dot_injective__chart__rpc__pb2.AllDerivativeMarketSummaryRequest.FromString,
+                    response_serializer=exchange_dot_injective__chart__rpc__pb2.AllDerivativeMarketSummaryResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -114,6 +184,114 @@ class InjectiveChartRPC(object):
             '/injective_chart_rpc.InjectiveChartRPC/DerivativeMarketHistory',
             exchange_dot_injective__chart__rpc__pb2.DerivativeMarketHistoryRequest.SerializeToString,
             exchange_dot_injective__chart__rpc__pb2.DerivativeMarketHistoryResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def SpotMarketSummary(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_chart_rpc.InjectiveChartRPC/SpotMarketSummary',
+            exchange_dot_injective__chart__rpc__pb2.SpotMarketSummaryRequest.SerializeToString,
+            exchange_dot_injective__chart__rpc__pb2.SpotMarketSummaryResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AllSpotMarketSummary(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_chart_rpc.InjectiveChartRPC/AllSpotMarketSummary',
+            exchange_dot_injective__chart__rpc__pb2.AllSpotMarketSummaryRequest.SerializeToString,
+            exchange_dot_injective__chart__rpc__pb2.AllSpotMarketSummaryResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DerivativeMarketSummary(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_chart_rpc.InjectiveChartRPC/DerivativeMarketSummary',
+            exchange_dot_injective__chart__rpc__pb2.DerivativeMarketSummaryRequest.SerializeToString,
+            exchange_dot_injective__chart__rpc__pb2.DerivativeMarketSummaryResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AllDerivativeMarketSummary(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_chart_rpc.InjectiveChartRPC/AllDerivativeMarketSummary',
+            exchange_dot_injective__chart__rpc__pb2.AllDerivativeMarketSummaryRequest.SerializeToString,
+            exchange_dot_injective__chart__rpc__pb2.AllDerivativeMarketSummaryResponse.FromString,
             options,
             channel_credentials,
             insecure,

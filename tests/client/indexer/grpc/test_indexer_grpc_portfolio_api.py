@@ -21,10 +21,13 @@ class TestIndexerGrpcPortfolioApi:
         coin = exchange_portfolio_pb.Coin(
             denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
             amount="2322098",
+            usd_value="1000000000000000000",
         )
         subaccount_deposit = exchange_portfolio_pb.SubaccountDeposit(
             total_balance="0.170858923182467801",
             available_balance="0.170858923182467801",
+            total_balance_usd="200.000000000000000000",
+            available_balance_usd="112.000000000000000000",
         )
         subaccount_balance = exchange_portfolio_pb.SubaccountBalanceV2(
             subaccount_id="0xc7dca7c15c364865f77a4fb67ab11dc95502e6fe000000000000000000000000",
@@ -73,6 +76,7 @@ class TestIndexerGrpcPortfolioApi:
                     {
                         "denom": coin.denom,
                         "amount": coin.amount,
+                        "usdValue": coin.usd_value,
                     }
                 ],
                 "subaccounts": [
@@ -82,6 +86,8 @@ class TestIndexerGrpcPortfolioApi:
                         "deposit": {
                             "totalBalance": subaccount_deposit.total_balance,
                             "availableBalance": subaccount_deposit.available_balance,
+                            "totalBalanceUsd": subaccount_deposit.total_balance_usd,
+                            "availableBalanceUsd": subaccount_deposit.available_balance_usd,
                         },
                     }
                 ],
@@ -117,10 +123,13 @@ class TestIndexerGrpcPortfolioApi:
         coin = exchange_portfolio_pb.Coin(
             denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
             amount="2322098",
+            usd_value="120.000000000000000000",
         )
         subaccount_deposit = exchange_portfolio_pb.SubaccountDeposit(
             total_balance="0.170858923182467801",
             available_balance="0.170858923182467801",
+            total_balance_usd="120.000000000000000000",
+            available_balance_usd="120.000000000000000000",
         )
         subaccount_balance = exchange_portfolio_pb.SubaccountBalanceV2(
             subaccount_id="0xc7dca7c15c364865f77a4fb67ab11dc95502e6fe000000000000000000000000",
@@ -132,6 +141,7 @@ class TestIndexerGrpcPortfolioApi:
             account_address="inj1clw20s2uxeyxtam6f7m84vgae92s9eh7vygagt",
             bank_balances=[coin],
             subaccounts=[subaccount_balance],
+            total_usd="300.000000000000000000",
         )
 
         portfolio_servicer.account_portfolio_balances_responses.append(
@@ -142,7 +152,7 @@ class TestIndexerGrpcPortfolioApi:
 
         api = self._api_instance(servicer=portfolio_servicer)
 
-        result_auction = await api.fetch_account_portfolio_balances(account_address=portfolio.account_address)
+        result_auction = await api.fetch_account_portfolio_balances(account_address=portfolio.account_address, usd=True)
         expected_auction = {
             "portfolio": {
                 "accountAddress": portfolio.account_address,
@@ -150,6 +160,7 @@ class TestIndexerGrpcPortfolioApi:
                     {
                         "denom": coin.denom,
                         "amount": coin.amount,
+                        "usdValue": coin.usd_value,
                     }
                 ],
                 "subaccounts": [
@@ -159,9 +170,12 @@ class TestIndexerGrpcPortfolioApi:
                         "deposit": {
                             "totalBalance": subaccount_deposit.total_balance,
                             "availableBalance": subaccount_deposit.available_balance,
+                            "totalBalanceUsd": subaccount_deposit.total_balance_usd,
+                            "availableBalanceUsd": subaccount_deposit.available_balance_usd,
                         },
                     }
                 ],
+                "totalUsd": portfolio.total_usd,
             }
         }
 

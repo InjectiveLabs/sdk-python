@@ -89,6 +89,7 @@ class TestIndexerGrpcAuctionStream:
             num_pre_commits=20,
             num_txs=4,
             timestamp="2023-11-29 20:23:33.842 +0000 UTC",
+            block_unix_timestamp=1699744939364,
         )
 
         explorer_servicer.stream_blocks_responses.append(block_info)
@@ -119,6 +120,7 @@ class TestIndexerGrpcAuctionStream:
             "numTxs": str(block_info.num_txs),
             "txs": [],
             "timestamp": block_info.timestamp,
+            "blockUnixTimestamp": str(block_info.block_unix_timestamp),
         }
 
         first_update = await asyncio.wait_for(blocks_updates.get(), timeout=1)
