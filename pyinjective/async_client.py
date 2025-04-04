@@ -270,6 +270,21 @@ class AsyncClient:
             cookie_assistant=network.explorer_cookie_assistant,
         )
 
+    def __del__(self):
+        self._cancel_timeout_height_sync_task()
+
+    async def close_exchange_channel(self):
+        await self.exchange_channel.close()
+        self._cancel_timeout_height_sync_task()
+
+    async def close_chain_channel(self):
+        await self.chain_channel.close()
+        self._cancel_timeout_height_sync_task()
+
+    async def close_chain_stream_channel(self):
+        await self.chain_stream_channel.close()
+        self._cancel_timeout_height_sync_task()
+
     async def all_tokens(self) -> Dict[str, Token]:
         if self._tokens_by_symbol is None:
             async with self._tokens_and_markets_initialization_lock:
@@ -308,14 +323,6 @@ class AsyncClient:
 
     async def fetch_tx(self, hash: str) -> Dict[str, Any]:
         return await self.tx_api.fetch_tx(hash=hash)
-
-    async def close_exchange_channel(self):
-        await self.exchange_channel.close()
-        self._cancel_timeout_height_sync_task()
-
-    async def close_chain_channel(self):
-        await self.chain_channel.close()
-        self._cancel_timeout_height_sync_task()
 
     async def sync_timeout_height(self):
         try:
@@ -2568,5 +2575,11 @@ class AsyncClient:
 
     def _cancel_timeout_height_sync_task(self):
         if self._timeout_height_sync_task is not None:
-            self._timeout_height_sync_task.cancel()
+            try:
+                self._timeout_height_sync_task.cancel()
+                asyncio.get_event_loop().run_until_complete(asyncio.wait_for(self._timeout_height_sync_task, timeout=1))
+            except Exception as e:
+                logger = LoggerProvider().logger_for_class(logging_class=self.__class__)
+                logger.warning("error canceling timeout height sync task")
+                logger.debug("error canceling timeout height sync task", exc_info=e)
         self._timeout_height_sync_task = None
