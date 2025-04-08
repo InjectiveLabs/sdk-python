@@ -263,7 +263,7 @@ class BatchCreateSpotLimitOrdersGasLimitEstimator(GasHeuristicsGasLimitEstimator
         post_only_orders = self._select_post_only_orders(orders=self._message.orders)
 
         total = 0
-        total += len(self._message.orders) * SPOT_ORDER_CREATION_GAS_LIMIT
+        total += (len(self._message.orders) - len(post_only_orders)) * SPOT_ORDER_CREATION_GAS_LIMIT
         total += math.ceil(len(post_only_orders) * POST_ONLY_SPOT_ORDER_CREATION_GAS_LIMIT)
 
         return total
@@ -302,7 +302,7 @@ class BatchCreateDerivativeLimitOrdersGasLimitEstimator(GasHeuristicsGasLimitEst
         post_only_orders = self._select_post_only_orders(orders=self._message.orders)
 
         total = 0
-        total += len(self._message.orders) * DERIVATIVE_ORDER_CREATION_GAS_LIMIT
+        total += (len(self._message.orders) - len(post_only_orders)) * DERIVATIVE_ORDER_CREATION_GAS_LIMIT
         total += math.ceil(len(post_only_orders) * POST_ONLY_DERIVATIVE_ORDER_CREATION_GAS_LIMIT)
 
         return total
@@ -347,9 +347,13 @@ class BatchUpdateOrdersGasLimitEstimator(GasHeuristicsGasLimitEstimator):
         )
 
         total = 0
-        total += len(self._message.spot_orders_to_create) * SPOT_ORDER_CREATION_GAS_LIMIT
-        total += len(self._message.derivative_orders_to_create) * DERIVATIVE_ORDER_CREATION_GAS_LIMIT
-        total += len(self._message.binary_options_orders_to_create) * BINARY_OPTIONS_ORDER_CREATION_GAS_LIMIT
+        total += (len(self._message.spot_orders_to_create) - len(post_only_spot_orders)) * SPOT_ORDER_CREATION_GAS_LIMIT
+        total += (
+            len(self._message.derivative_orders_to_create) - len(post_only_derivative_orders)
+        ) * DERIVATIVE_ORDER_CREATION_GAS_LIMIT
+        total += (
+            len(self._message.binary_options_orders_to_create) - len(post_only_binary_options_orders)
+        ) * BINARY_OPTIONS_ORDER_CREATION_GAS_LIMIT
 
         total += math.ceil(len(post_only_spot_orders) * POST_ONLY_SPOT_ORDER_CREATION_GAS_LIMIT)
         total += math.ceil(len(post_only_derivative_orders) * POST_ONLY_DERIVATIVE_ORDER_CREATION_GAS_LIMIT)
