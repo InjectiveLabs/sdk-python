@@ -135,10 +135,44 @@ class MsgBroadcasterWithPk:
         Returns:
             MsgBroadcasterWithPk: A configured broadcaster instance using message-based fee calculation
         """
+        return cls.new_using_gas_heuristics(
+            network=network,
+            private_key=private_key,
+            gas_price=gas_price,
+            client=client,
+            composer=composer,
+        )
+
+    @classmethod
+    def new_using_gas_heuristics(
+        cls,
+        network: Network,
+        private_key: str,
+        gas_price: Optional[int] = None,
+        client: Optional[AsyncClient] = None,
+        composer: Optional[Composer] = None,
+    ):
+        """Creates a new broadcaster instance that uses gas heuristics for gas calculation
+
+        Args:
+            network (Network): The network configuration to use (mainnet, testnet, etc.)
+            private_key (str): The private key in hex format for signing transactions
+            gas_price (Optional[int]): Custom gas price in chain format (e.g. 500000000000000000 for 0.5 INJ).
+                Defaults to None
+            client (Optional[AsyncClient]): Custom AsyncClient instance. Defaults to None
+            composer (Optional[Composer]): Custom Composer instance. Defaults to None
+
+        Returns:
+            MsgBroadcasterWithPk: A configured broadcaster instance using message-based fee calculation
+        """
         client = client or AsyncClient(network=network)
         composer = composer or Composer(network=client.network.string())
         account_config = StandardAccountBroadcasterConfig(private_key=private_key)
-        fee_calculator = MessageBasedTransactionFeeCalculator(client=client, composer=composer, gas_price=gas_price)
+        fee_calculator = MessageBasedTransactionFeeCalculator.new_using_gas_heuristics(
+            client=client,
+            composer=composer,
+            gas_price=gas_price,
+        )
         instance = cls(
             network=network,
             account_config=account_config,
@@ -149,7 +183,7 @@ class MsgBroadcasterWithPk:
         return instance
 
     @classmethod
-    def new_using_gas_heuristics(
+    def new_using_estimate_gas(
         cls,
         network: Network,
         private_key: str,
@@ -173,7 +207,7 @@ class MsgBroadcasterWithPk:
         client = client or AsyncClient(network=network)
         composer = composer or Composer(network=client.network.string())
         account_config = StandardAccountBroadcasterConfig(private_key=private_key)
-        fee_calculator = MessageBasedTransactionFeeCalculator.new_using_gas_heuristics(
+        fee_calculator = MessageBasedTransactionFeeCalculator.new_using_gas_estimation(
             client=client,
             composer=composer,
             gas_price=gas_price,
@@ -232,8 +266,38 @@ class MsgBroadcasterWithPk:
         client: Optional[AsyncClient] = None,
         composer: Optional[Composer] = None,
     ):
-        """Creates a new broadcaster instance for a grantee account that uses message-based gas estimation without
-            simulation.
+        """Creates a new broadcaster instance for a grantee account that uses gas estimator using gas heuristics.
+
+        Args:
+            network (Network): The network configuration to use (mainnet, testnet, etc.)
+            grantee_private_key (str): The grantee's private key in hex format for signing transactions
+            gas_price (Optional[int]): Custom gas price in chain format (e.g. 500000000000000000 for 0.5 INJ).
+                Defaults to None
+            client (Optional[AsyncClient]): Custom AsyncClient instance. Defaults to None
+            composer (Optional[Composer]): Custom Composer instance. Defaults to None
+
+        Returns:
+            MsgBroadcasterWithPk: A configured broadcaster instance using message-based fee calculation for a grantee
+            account
+        """
+        return cls.new_for_grantee_account_using_gas_heuristics(
+            network=network,
+            grantee_private_key=grantee_private_key,
+            gas_price=gas_price,
+            client=client,
+            composer=composer,
+        )
+
+    @classmethod
+    def new_for_grantee_account_using_gas_heuristics(
+        cls,
+        network: Network,
+        grantee_private_key: str,
+        gas_price: Optional[int] = None,
+        client: Optional[AsyncClient] = None,
+        composer: Optional[Composer] = None,
+    ):
+        """Creates a new broadcaster instance for a grantee account that uses gas heuristics.
 
         Args:
             network (Network): The network configuration to use (mainnet, testnet, etc.)
@@ -250,7 +314,11 @@ class MsgBroadcasterWithPk:
         client = client or AsyncClient(network=network)
         composer = composer or Composer(network=client.network.string())
         account_config = GranteeAccountBroadcasterConfig(grantee_private_key=grantee_private_key, composer=composer)
-        fee_calculator = MessageBasedTransactionFeeCalculator(client=client, composer=composer, gas_price=gas_price)
+        fee_calculator = MessageBasedTransactionFeeCalculator.new_using_gas_heuristics(
+            client=client,
+            composer=composer,
+            gas_price=gas_price,
+        )
         instance = cls(
             network=network,
             account_config=account_config,
@@ -261,7 +329,7 @@ class MsgBroadcasterWithPk:
         return instance
 
     @classmethod
-    def new_for_grantee_account_using_gas_heuristics(
+    def new_for_grantee_account_using_estimated_gas(
         cls,
         network: Network,
         grantee_private_key: str,
@@ -287,7 +355,7 @@ class MsgBroadcasterWithPk:
         client = client or AsyncClient(network=network)
         composer = composer or Composer(network=client.network.string())
         account_config = GranteeAccountBroadcasterConfig(grantee_private_key=grantee_private_key, composer=composer)
-        fee_calculator = MessageBasedTransactionFeeCalculator.new_using_gas_heuristics(
+        fee_calculator = MessageBasedTransactionFeeCalculator.new_using_gas_estimation(
             client=client,
             composer=composer,
             gas_price=gas_price,
@@ -464,6 +532,10 @@ class MessageBasedTransactionFeeCalculator(TransactionFeeCalculator):
         return cls(
             client=client, composer=composer, gas_price=gas_price, estimator_class=GasHeuristicsGasLimitEstimator
         )
+
+    @classmethod
+    def new_using_gas_estimation(cls, client: AsyncClient, composer: Composer, gas_price: Optional[int] = None):
+        return cls(client=client, composer=composer, gas_price=gas_price, estimator_class=GasLimitEstimator)
 
     async def configure_gas_fee_for_transaction(
         self,
