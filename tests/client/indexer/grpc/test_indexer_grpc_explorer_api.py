@@ -461,6 +461,7 @@ class TestIndexerGrpcExplorerApi:
             num_pre_commits=20,
             num_txs=4,
             timestamp="2023-11-29 20:23:33.842 +0000 UTC",
+            block_unix_timestamp=1699744939364,
         )
 
         paging = exchange_explorer_pb.Paging(total=5, to=5, count_by_subaccount=10, next=["next1", "next2"])
@@ -494,6 +495,7 @@ class TestIndexerGrpcExplorerApi:
                     "numTxs": str(block_info.num_txs),
                     "txs": [],
                     "timestamp": block_info.timestamp,
+                    "blockUnixTimestamp": str(block_info.block_unix_timestamp),
                 },
             ],
             "paging": {
@@ -527,6 +529,7 @@ class TestIndexerGrpcExplorerApi:
             tx_number=994979,
             tx_msg_types=b'["/injective.exchange.v1beta1.MsgCreateBinaryOptionsLimitOrder"]',
             signatures=[signature],
+            block_unix_timestamp=1699744939364,
         )
         block_info = exchange_explorer_pb.BlockDetailInfo(
             height=19034578,
@@ -539,6 +542,7 @@ class TestIndexerGrpcExplorerApi:
             total_txs=5,
             txs=[tx_data],
             timestamp="2023-11-29 20:23:33.842 +0000 UTC",
+            block_unix_timestamp=123456789,
         )
 
         explorer_servicer.block_responses.append(
@@ -586,9 +590,11 @@ class TestIndexerGrpcExplorerApi:
                                 "signature": signature.signature,
                             }
                         ],
+                        "blockUnixTimestamp": str(tx_data.block_unix_timestamp),
                     }
                 ],
                 "timestamp": block_info.timestamp,
+                "blockUnixTimestamp": str(block_info.block_unix_timestamp),
             },
         }
 
@@ -834,6 +840,7 @@ class TestIndexerGrpcExplorerApi:
             b'{"key":"sender","value":"inj1phd706jqzd9wznkk5hgsfkrc8jqxv0kmlj0kex"}]}]}]',
             claim_ids=[claim_id],
             signatures=[signature],
+            block_unix_timestamp=1699744939364,
         )
 
         paging = exchange_explorer_pb.Paging(total=5, to=5, count_by_subaccount=10, next=["next1", "next2"])
@@ -886,6 +893,7 @@ class TestIndexerGrpcExplorerApi:
                             "signature": signature.signature,
                         }
                     ],
+                    "blockUnixTimestamp": str(tx_data.block_unix_timestamp),
                 },
             ],
             "paging": {
@@ -1610,6 +1618,7 @@ class TestIndexerGrpcExplorerApi:
         coin = exchange_explorer_pb.Coin(
             denom="inj",
             amount="200000000000000",
+            usd_value="300000000000000",
         )
         bank_transfer = exchange_explorer_pb.BankTransfer(
             sender="inj17xpfvakm2amg962yls6f84z3kell8c5l6s5ye9",
@@ -1651,6 +1660,7 @@ class TestIndexerGrpcExplorerApi:
                         {
                             "denom": coin.denom,
                             "amount": coin.amount,
+                            "usdValue": coin.usd_value,
                         }
                     ],
                     "blockNumber": str(bank_transfer.block_number),

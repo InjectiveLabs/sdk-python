@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict
+from typing import Any, Callable, Dict, Optional
 
 from grpc.aio import Channel
 
@@ -21,8 +21,10 @@ class IndexerGrpcPortfolioApi:
 
         return response
 
-    async def fetch_account_portfolio_balances(self, account_address: str) -> Dict[str, Any]:
-        request = exchange_portfolio_pb.AccountPortfolioBalancesRequest(account_address=account_address)
+    async def fetch_account_portfolio_balances(
+        self, account_address: str, usd: Optional[bool] = None
+    ) -> Dict[str, Any]:
+        request = exchange_portfolio_pb.AccountPortfolioBalancesRequest(account_address=account_address, usd=usd)
         response = await self._execute_call(call=self._stub.AccountPortfolioBalances, request=request)
 
         return response

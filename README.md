@@ -35,11 +35,11 @@ $ poetry install
 
 # connecting to Injective Exchange API
 # and listening for new orders from a specific spot market
-$ poetry run python examples/exchange_client/spot_exchange_rpc/8_StreamOrders.py
+$ poetry run python examples/exchange_client/spot_exchange_rpc/8_StreamOrderbookUpdate.py
 
 # sending a msg with bank transfer
 # signs and posts a transaction to the Injective Chain
-$ poetry run python examples/chain_client/1_MsgSend.py
+$ poetry run python examples/chain_client/bank/1_MsgSend.py
 ```
 Upgrade `pip` to the latest version, if you see these warnings:
   ```

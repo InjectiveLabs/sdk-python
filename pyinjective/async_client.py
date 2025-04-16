@@ -13,6 +13,7 @@ from pyinjective.client.chain.grpc.chain_grpc_distribution_api import ChainGrpcD
 from pyinjective.client.chain.grpc.chain_grpc_exchange_api import ChainGrpcExchangeApi
 from pyinjective.client.chain.grpc.chain_grpc_permissions_api import ChainGrpcPermissionsApi
 from pyinjective.client.chain.grpc.chain_grpc_token_factory_api import ChainGrpcTokenFactoryApi
+from pyinjective.client.chain.grpc.chain_grpc_txfees_api import ChainGrpcTxfeesApi
 from pyinjective.client.chain.grpc.chain_grpc_wasm_api import ChainGrpcWasmApi
 from pyinjective.client.chain.grpc_stream.chain_grpc_chain_stream import ChainGrpcChainStream
 from pyinjective.client.indexer.grpc.indexer_grpc_account_api import IndexerGrpcAccountApi
@@ -34,6 +35,7 @@ from pyinjective.client.indexer.grpc_stream.indexer_grpc_portfolio_stream import
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_spot_stream import IndexerGrpcSpotStream
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.composer import Composer
+from pyinjective.constant import GAS_PRICE
 from pyinjective.core.ibc.channel.grpc.ibc_channel_grpc_api import IBCChannelGrpcApi
 from pyinjective.core.ibc.client.grpc.ibc_client_grpc_api import IBCClientGrpcApi
 from pyinjective.core.ibc.connection.grpc.ibc_connection_grpc_api import IBCConnectionGrpcApi
@@ -183,6 +185,10 @@ class AsyncClient:
             channel=self.chain_channel,
             cookie_assistant=network.chain_cookie_assistant,
         )
+        self.txfees_api = ChainGrpcTxfeesApi(
+            channel=self.chain_channel,
+            cookie_assistant=network.chain_cookie_assistant,
+        )
         self.wasm_api = ChainGrpcWasmApi(
             channel=self.chain_channel,
             cookie_assistant=network.chain_cookie_assistant,
@@ -264,6 +270,21 @@ class AsyncClient:
             cookie_assistant=network.explorer_cookie_assistant,
         )
 
+    def __del__(self):
+        self._cancel_timeout_height_sync_task()
+
+    async def close_exchange_channel(self):
+        await self.exchange_channel.close()
+        self._cancel_timeout_height_sync_task()
+
+    async def close_chain_channel(self):
+        await self.chain_channel.close()
+        self._cancel_timeout_height_sync_task()
+
+    async def close_chain_stream_channel(self):
+        await self.chain_stream_channel.close()
+        self._cancel_timeout_height_sync_task()
+
     async def all_tokens(self) -> Dict[str, Token]:
         if self._tokens_by_symbol is None:
             async with self._tokens_and_markets_initialization_lock:
@@ -302,14 +323,6 @@ class AsyncClient:
 
     async def fetch_tx(self, hash: str) -> Dict[str, Any]:
         return await self.tx_api.fetch_tx(hash=hash)
-
-    async def close_exchange_channel(self):
-        await self.exchange_channel.close()
-        self._cancel_timeout_height_sync_task()
-
-    async def close_chain_channel(self):
-        await self.chain_channel.close()
-        self._cancel_timeout_height_sync_task()
 
     async def sync_timeout_height(self):
         try:
@@ -1978,7 +1991,7 @@ class AsyncClient:
             pagination=pagination,
         )
 
-    async def fetch_subaccount_orders_list(
+    async def fetch_derivative_subaccount_orders_list(
         self,
         subaccount_id: str,
         market_id: Optional[str] = None,
@@ -2037,8 +2050,12 @@ class AsyncClient:
         return await self.exchange_derivative_api.fetch_binary_options_market(market_id=market_id)
 
     # PortfolioRPC
-    async def fetch_account_portfolio_balances(self, account_address: str) -> Dict[str, Any]:
-        return await self.exchange_portfolio_api.fetch_account_portfolio_balances(account_address=account_address)
+    async def fetch_account_portfolio_balances(
+        self, account_address: str, usd: Optional[bool] = None
+    ) -> Dict[str, Any]:
+        return await self.exchange_portfolio_api.fetch_account_portfolio_balances(
+            account_address=account_address, usd=usd
+        )
 
     async def listen_account_portfolio_updates(
         self,
@@ -2310,6 +2327,13 @@ class AsyncClient:
 
     # endregion
 
+    # -------------------------
+    # region IBC Channel module
+    async def fetch_eip_base_fee(self) -> Dict[str, Any]:
+        return await self.txfees_api.fetch_eip_base_fee()
+
+    # endregion
+
     async def composer(self):
         return Composer(
             network=self.network.string(),
@@ -2318,6 +2342,20 @@ class AsyncClient:
             binary_option_markets=await self.all_binary_option_markets(),
             tokens=await self.all_tokens(),
         )
+
+    async def current_chain_gas_price(self) -> int:
+        gas_price = GAS_PRICE
+        try:
+            eip_base_fee_response = await self.fetch_eip_base_fee()
+            gas_price = int(
+                Token.convert_value_from_extended_decimal_format(Decimal(eip_base_fee_response["baseFee"]["baseFee"]))
+            )
+        except Exception as e:
+            logger = LoggerProvider().logger_for_class(logging_class=self.__class__)
+            logger.error("an error occurred when querying the gas price from the chain, using the default gas price")
+            logger.debug(f"error querying the gas price from chain {e}")
+
+        return gas_price
 
     async def initialize_tokens_from_chain_denoms(self):
         # force initialization of markets and tokens
@@ -2537,5 +2575,11 @@ class AsyncClient:
 
     def _cancel_timeout_height_sync_task(self):
         if self._timeout_height_sync_task is not None:
-            self._timeout_height_sync_task.cancel()
+            try:
+                self._timeout_height_sync_task.cancel()
+                asyncio.get_event_loop().run_until_complete(asyncio.wait_for(self._timeout_height_sync_task, timeout=1))
+            except Exception as e:
+                logger = LoggerProvider().logger_for_class(logging_class=self.__class__)
+                logger.warning("error canceling timeout height sync task")
+                logger.debug("error canceling timeout height sync task", exc_info=e)
         self._timeout_height_sync_task = None
