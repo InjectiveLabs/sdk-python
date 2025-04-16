@@ -542,6 +542,7 @@ class TestIndexerGrpcExplorerApi:
             total_txs=5,
             txs=[tx_data],
             timestamp="2023-11-29 20:23:33.842 +0000 UTC",
+            block_unix_timestamp=123456789,
         )
 
         explorer_servicer.block_responses.append(
@@ -593,6 +594,7 @@ class TestIndexerGrpcExplorerApi:
                     }
                 ],
                 "timestamp": block_info.timestamp,
+                "blockUnixTimestamp": str(block_info.block_unix_timestamp),
             },
         }
 
