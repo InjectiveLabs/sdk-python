@@ -2,13 +2,37 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.9.0] - 9999-99-99
+## [Unreleased] - 9999-99-99
 ### Added
 - Added support for Exchange V2 proto queries and types
 - Updated all chain exchange module examples to use the new Exchange V2 proto queries and types
 
 ### Removed
 - Removed all methods marked as deprecated in AsyncClient and Composer
+
+## [1.10.0] - 2025-04-16
+### Added
+- Added support for the queries in the new TXFees module
+
+### Changed
+- Update in the implementation of the gas limit estimator to use the same values as the chain for the fixed gas messages
+- Updated all compiled protos for compatibility with Injective core v1.15 and Indexer v1.15.6
+
+## [1.9.1] - 2025-03-03
+### Fixed
+- Added quantization in the functions that convert notional values to chain format
+
+## [1.9.0] - 2025-02-13
+### Added
+- Added support for all new queries and messages from the new Permissions module
+
+## [1.8.2] - 2024-12-13
+### Changed
+- Updated `protobuf` dependency version to make it more flexible
+
+## [1.8.1] - 2024-12-04
+### Changed
+- Updated OFAC list link and contents
 
 ## [1.8.0] - 2024-11-14
 ### Changed

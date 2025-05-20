@@ -312,6 +312,142 @@ class TestIndexerGrpcExplorerApi:
         assert result_contract_txs == expected_contract_txs
 
     @pytest.mark.asyncio
+    async def test_fetch_contract_txs_v2(
+        self,
+        explorer_servicer,
+    ):
+        code = 5
+        coin = exchange_explorer_pb.CosmosCoin(
+            denom="inj",
+            amount="200000000000000",
+        )
+        gas_fee = exchange_explorer_pb.GasFee(
+            amount=[coin], gas_limit=400000, payer="inj1phd706jqzd9wznkk5hgsfkrc8jqxv0kmlj0kex", granter="test granter"
+        )
+        event = exchange_explorer_pb.Event(type="test event type", attributes={"first_attribute": "attribute 1"})
+        signature = exchange_explorer_pb.Signature(
+            pubkey="02c33c539e2aea9f97137e8168f6e22f57b829876823fa04b878a2b7c2010465d9",
+            address="inj1phd706jqzd9wznkk5hgsfkrc8jqxv0kmlj0kex",
+            sequence=223460,
+            signature="gFXPJ5QENzq9SUHshE8g++aRLIlRCRVcOsYq+EOr3T4QgAAs5bVHf8NhugBjJP9B+AfQjQNNneHXPF9dEp4Uehs=",
+        )
+        claim_id = 100
+
+        tx_data = exchange_explorer_pb.TxDetailData(
+            id="test id",
+            block_number=18138926,
+            block_timestamp="2023-11-07 23:19:55.371 +0000 UTC",
+            hash="0x3790ade2bea6c8605851ec89fa968adf2a2037a5ecac11ca95e99260508a3b7e",
+            code=code,
+            data=b"\022&\n$/cosmos.bank.v1beta1.MsgSendResponse",
+            info="test info",
+            gas_wanted=400000,
+            gas_used=93696,
+            gas_fee=gas_fee,
+            codespace="test codespace",
+            events=[event],
+            tx_type="injective-web3",
+            messages=b'[{"type":"/cosmos.bank.v1beta1.MsgSend","value":{'
+            b'"from_address":"inj1phd706jqzd9wznkk5hgsfkrc8jqxv0kmlj0kex",'
+            b'"to_address":"inj1d6qx83nhx3a3gx7e654x4su8hur5s83u84h2xc",'
+            b'"amount":[{"denom":"factory/inj17vytdwqczqz72j65saukplrktd4gyfme5agf6c/weth",'
+            b'"amount":"100000000000000000"}]}}]',
+            signatures=[signature],
+            memo="test memo",
+            tx_number=221429,
+            block_unix_timestamp=1699399195371,
+            error_log="",
+            logs=b'[{"msg_index":0,"events":[{"type":"message","attributes":['
+            b'{"key":"action","value":"/cosmos.bank.v1beta1.MsgSend"},'
+            b'{"key":"sender","value":"inj1phd706jqzd9wznkk5hgsfkrc8jqxv0kmlj0kex"},'
+            b'{"key":"module","value":"bank"}]},{"type":"coin_spent","attributes":['
+            b'{"key":"spender","value":"inj1phd706jqzd9wznkk5hgsfkrc8jqxv0kmlj0kex"},'
+            b'{"key":"amount","value":"100000000000000000factory/inj17vytdwqczqz72j65saukplrktd4gyfme5agf6c/weth"}'
+            b']},{"type":"coin_received","attributes":['
+            b'{"key":"receiver","value":"inj1d6qx83nhx3a3gx7e654x4su8hur5s83u84h2xc"},'
+            b'{"key":"amount","value":"100000000000000000factory/inj17vytdwqczqz72j65saukplrktd4gyfme5agf6c/weth"}'
+            b']},{"type":"transfer","attributes":['
+            b'{"key":"recipient","value":"inj1d6qx83nhx3a3gx7e654x4su8hur5s83u84h2xc"},'
+            b'{"key":"sender","value":"inj1phd706jqzd9wznkk5hgsfkrc8jqxv0kmlj0kex"},'
+            b'{"key":"amount","value":"100000000000000000factory/inj17vytdwqczqz72j65saukplrktd4gyfme5agf6c/weth"}'
+            b']},{"type":"message","attributes":['
+            b'{"key":"sender","value":"inj1phd706jqzd9wznkk5hgsfkrc8jqxv0kmlj0kex"}]}]}]',
+            claim_ids=[claim_id],
+        )
+
+        explorer_servicer.contract_txs_v2_responses.append(
+            exchange_explorer_pb.GetContractTxsV2Response(
+                data=[tx_data],
+                next=["next-page"],
+            )
+        )
+
+        api = self._api_instance(servicer=explorer_servicer)
+
+        result_contract_txs = await api.fetch_contract_txs_v2(
+            address="inj1phd706jqzd9wznkk5hgsfkrc8jqxv0kmlj0kex",
+            height=8,
+            token="inj",
+            pagination=PaginationOption(
+                limit=100,
+                start_time=1699544939364,
+                end_time=1699744939364,
+            ),
+        )
+        expected_contract_txs = {
+            "data": [
+                {
+                    "id": tx_data.id,
+                    "blockNumber": str(tx_data.block_number),
+                    "blockTimestamp": tx_data.block_timestamp,
+                    "hash": tx_data.hash,
+                    "code": tx_data.code,
+                    "data": base64.b64encode(tx_data.data).decode(),
+                    "info": tx_data.info,
+                    "gasWanted": str(tx_data.gas_wanted),
+                    "gasUsed": str(tx_data.gas_used),
+                    "gasFee": {
+                        "amount": [
+                            {
+                                "denom": coin.denom,
+                                "amount": coin.amount,
+                            }
+                        ],
+                        "gasLimit": str(gas_fee.gas_limit),
+                        "payer": gas_fee.payer,
+                        "granter": gas_fee.granter,
+                    },
+                    "codespace": tx_data.codespace,
+                    "events": [
+                        {
+                            "type": event.type,
+                            "attributes": event.attributes,
+                        }
+                    ],
+                    "txType": tx_data.tx_type,
+                    "messages": base64.b64encode(tx_data.messages).decode(),
+                    "signatures": [
+                        {
+                            "pubkey": signature.pubkey,
+                            "address": signature.address,
+                            "sequence": str(signature.sequence),
+                            "signature": signature.signature,
+                        }
+                    ],
+                    "memo": tx_data.memo,
+                    "txNumber": str(tx_data.tx_number),
+                    "blockUnixTimestamp": str(tx_data.block_unix_timestamp),
+                    "errorLog": tx_data.error_log,
+                    "logs": base64.b64encode(tx_data.logs).decode(),
+                    "claimIds": [str(claim_id)],
+                },
+            ],
+            "next": ["next-page"],
+        }
+
+        assert result_contract_txs == expected_contract_txs
+
+    @pytest.mark.asyncio
     async def test_fetch_blocks(
         self,
         explorer_servicer,
@@ -325,6 +461,7 @@ class TestIndexerGrpcExplorerApi:
             num_pre_commits=20,
             num_txs=4,
             timestamp="2023-11-29 20:23:33.842 +0000 UTC",
+            block_unix_timestamp=1699744939364,
         )
 
         paging = exchange_explorer_pb.Paging(total=5, to=5, count_by_subaccount=10, next=["next1", "next2"])
@@ -358,6 +495,7 @@ class TestIndexerGrpcExplorerApi:
                     "numTxs": str(block_info.num_txs),
                     "txs": [],
                     "timestamp": block_info.timestamp,
+                    "blockUnixTimestamp": str(block_info.block_unix_timestamp),
                 },
             ],
             "paging": {
@@ -376,6 +514,12 @@ class TestIndexerGrpcExplorerApi:
         self,
         explorer_servicer,
     ):
+        signature = exchange_explorer_pb.Signature(
+            pubkey="02c33c539e2aea9f97137e8168f6e22f57b829876823fa04b878a2b7c2010465d9",
+            address="inj1phd706jqzd9wznkk5hgsfkrc8jqxv0kmlj0kex",
+            sequence=223460,
+            signature="gFXPJ5QENzq9SUHshE8g++aRLIlRCRVcOsYq+EOr3T4QgAAs5bVHf8NhugBjJP9B+AfQjQNNneHXPF9dEp4Uehs=",
+        )
         tx_data = exchange_explorer_pb.TxData(
             id="tx id",
             block_number=5825046,
@@ -384,6 +528,8 @@ class TestIndexerGrpcExplorerApi:
             messages=b"null",
             tx_number=994979,
             tx_msg_types=b'["/injective.exchange.v1beta1.MsgCreateBinaryOptionsLimitOrder"]',
+            signatures=[signature],
+            block_unix_timestamp=1699744939364,
         )
         block_info = exchange_explorer_pb.BlockDetailInfo(
             height=19034578,
@@ -396,6 +542,7 @@ class TestIndexerGrpcExplorerApi:
             total_txs=5,
             txs=[tx_data],
             timestamp="2023-11-29 20:23:33.842 +0000 UTC",
+            block_unix_timestamp=123456789,
         )
 
         explorer_servicer.block_responses.append(
@@ -435,9 +582,19 @@ class TestIndexerGrpcExplorerApi:
                         "txMsgTypes": base64.b64encode(tx_data.tx_msg_types).decode(),
                         "logs": base64.b64encode(tx_data.logs).decode(),
                         "claimIds": tx_data.claim_ids,
+                        "signatures": [
+                            {
+                                "pubkey": signature.pubkey,
+                                "address": signature.address,
+                                "sequence": str(signature.sequence),
+                                "signature": signature.signature,
+                            }
+                        ],
+                        "blockUnixTimestamp": str(tx_data.block_unix_timestamp),
                     }
                 ],
                 "timestamp": block_info.timestamp,
+                "blockUnixTimestamp": str(block_info.block_unix_timestamp),
             },
         }
 
@@ -645,6 +802,12 @@ class TestIndexerGrpcExplorerApi:
         code = 5
         claim_id = 100
 
+        signature = exchange_explorer_pb.Signature(
+            pubkey="02c33c539e2aea9f97137e8168f6e22f57b829876823fa04b878a2b7c2010465d9",
+            address="inj1phd706jqzd9wznkk5hgsfkrc8jqxv0kmlj0kex",
+            sequence=223460,
+            signature="gFXPJ5QENzq9SUHshE8g++aRLIlRCRVcOsYq+EOr3T4QgAAs5bVHf8NhugBjJP9B+AfQjQNNneHXPF9dEp4Uehs=",
+        )
         tx_data = exchange_explorer_pb.TxData(
             id="test id",
             block_number=18138926,
@@ -676,6 +839,8 @@ class TestIndexerGrpcExplorerApi:
             b']},{"type":"message","attributes":['
             b'{"key":"sender","value":"inj1phd706jqzd9wznkk5hgsfkrc8jqxv0kmlj0kex"}]}]}]',
             claim_ids=[claim_id],
+            signatures=[signature],
+            block_unix_timestamp=1699744939364,
         )
 
         paging = exchange_explorer_pb.Paging(total=5, to=5, count_by_subaccount=10, next=["next1", "next2"])
@@ -720,6 +885,15 @@ class TestIndexerGrpcExplorerApi:
                     "txMsgTypes": base64.b64encode(tx_data.tx_msg_types).decode(),
                     "logs": base64.b64encode(tx_data.logs).decode(),
                     "claimIds": [str(claim_id)],
+                    "signatures": [
+                        {
+                            "pubkey": signature.pubkey,
+                            "address": signature.address,
+                            "sequence": str(signature.sequence),
+                            "signature": signature.signature,
+                        }
+                    ],
+                    "blockUnixTimestamp": str(tx_data.block_unix_timestamp),
                 },
             ],
             "paging": {
@@ -1090,10 +1264,10 @@ class TestIndexerGrpcExplorerApi:
         api = self._api_instance(servicer=explorer_servicer)
 
         result_wasm_codes = await api.fetch_wasm_codes(
-            from_number=1,
-            to_number=1000,
             pagination=PaginationOption(
                 limit=100,
+                from_number=1,
+                to_number=1000,
             ),
         )
         expected_wasm_codes = {
@@ -1233,13 +1407,13 @@ class TestIndexerGrpcExplorerApi:
 
         result_wasm_contracts = await api.fetch_wasm_contracts(
             code_id=wasm_contract.code_id,
-            from_number=1,
-            to_number=1000,
             assets_only=False,
             label=wasm_contract.label,
             pagination=PaginationOption(
                 limit=100,
                 skip=10,
+                from_number=1,
+                to_number=1000,
             ),
         )
         expected_wasm_contracts = {
@@ -1444,6 +1618,7 @@ class TestIndexerGrpcExplorerApi:
         coin = exchange_explorer_pb.Coin(
             denom="inj",
             amount="200000000000000",
+            usd_value="300000000000000",
         )
         bank_transfer = exchange_explorer_pb.BankTransfer(
             sender="inj17xpfvakm2amg962yls6f84z3kell8c5l6s5ye9",
@@ -1485,6 +1660,7 @@ class TestIndexerGrpcExplorerApi:
                         {
                             "denom": coin.denom,
                             "amount": coin.amount,
+                            "usdValue": coin.usd_value,
                         }
                     ],
                     "blockNumber": str(bank_transfer.block_number),

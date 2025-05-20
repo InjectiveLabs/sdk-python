@@ -1,5 +1,6 @@
 import json
 from decimal import Decimal
+from enum import IntFlag
 from time import time
 from typing import Any, Dict, List, Optional
 from warnings import warn
@@ -303,11 +304,13 @@ GRPC_RESPONSE_TYPE_TO_CLASS_MAP = {
 
 
 class Composer:
-    DEFAULT_PERMISSIONS_EVERYONE_ROLE = "EVERYONE"
-    UNDEFINED_ACTION_PERMISSION = 0
-    MINT_ACTION_PERMISSION = 1
-    RECEIVE_ACTION_PERMISSION = 2
-    BURN_ACTION_PERMISSION = 4
+    PERMISSIONS_ACTION = IntFlag(
+        "PERMISSIONS_ACTION",
+        [
+            (permission_name, injective_permissions_pb.Action.Value(permission_name))
+            for permission_name in injective_permissions_pb.Action.keys()
+        ],
+    )
 
     def __init__(
         self,
@@ -1913,7 +1916,7 @@ class Composer:
             source_subaccount_id=source_subaccount_id,
             destination_subaccount_id=destination_subaccount_id,
             market_id=market_id,
-            amount=f"{additional_margin.normalize():f}",
+            amount=str(int(additional_margin)),
         )
 
     def msg_rewards_opt_out(self, sender: str) -> injective_exchange_tx_v2_pb.MsgRewardsOptOut:
@@ -2335,6 +2338,7 @@ class Composer:
         name: str,
         symbol: str,
         decimals: int,
+        allow_admin_burn: bool,
     ) -> token_factory_tx_pb.MsgCreateDenom:
         return token_factory_tx_pb.MsgCreateDenom(
             sender=sender,
@@ -2342,21 +2346,24 @@ class Composer:
             name=name,
             symbol=symbol,
             decimals=decimals,
+            allow_admin_burn=allow_admin_burn,
         )
 
     def msg_mint(
         self,
         sender: str,
         amount: base_coin_pb.Coin,
+        receiver: str,
     ) -> token_factory_tx_pb.MsgMint:
-        return token_factory_tx_pb.MsgMint(sender=sender, amount=amount)
+        return token_factory_tx_pb.MsgMint(sender=sender, amount=amount, receiver=receiver)
 
     def msg_burn(
         self,
         sender: str,
         amount: base_coin_pb.Coin,
+        burn_from_address: str,
     ) -> token_factory_tx_pb.MsgBurn:
-        return token_factory_tx_pb.MsgBurn(sender=sender, amount=amount)
+        return token_factory_tx_pb.MsgBurn(sender=sender, amount=amount, burnFromAddress=burn_from_address)
 
     def msg_set_denom_metadata(
         self,
@@ -2808,87 +2815,89 @@ class Composer:
     # endregion
 
     # region Permissions module
-    def permissions_role(self, role: str, permissions: int) -> injective_permissions_pb.Role:
-        return injective_permissions_pb.Role(role=role, permissions=permissions)
+    def permissions_role(self, name: str, role_id: int, permissions: int) -> injective_permissions_pb.Role:
+        return injective_permissions_pb.Role(name=name, role_id=role_id, permissions=permissions)
 
-    def permissions_address_roles(self, address: str, roles: List[str]) -> injective_permissions_pb.AddressRoles:
-        return injective_permissions_pb.AddressRoles(address=address, roles=roles)
+    def permissions_actor_roles(self, actor: str, roles: List[str]) -> injective_permissions_pb.ActorRoles:
+        return injective_permissions_pb.ActorRoles(actor=actor, roles=roles)
+
+    def permissions_role_manager(self, manager: str, roles: List[str]) -> injective_permissions_pb.RoleManager:
+        return injective_permissions_pb.RoleManager(manager=manager, roles=roles)
+
+    def permissions_policy_status(
+        self, action: int, is_disabled: bool, is_sealed: bool
+    ) -> injective_permissions_pb.PolicyStatus:
+        return injective_permissions_pb.PolicyStatus(action=action, is_disabled=is_disabled, is_sealed=is_sealed)
+
+    def permissions_policy_manager_capability(
+        self, manager: str, action: int, can_disable: bool, can_seal: bool
+    ) -> injective_permissions_pb.PolicyManagerCapability:
+        return injective_permissions_pb.PolicyManagerCapability(
+            manager=manager, action=action, can_disable=can_disable, can_seal=can_seal
+        )
+
+    def permissions_role_actors(self, role: str, actors: List[str]) -> injective_permissions_pb.RoleActors:
+        return injective_permissions_pb.RoleActors(role=role, actors=actors)
 
     def msg_create_namespace(
         self,
         sender: str,
         denom: str,
-        wasm_hook: str,
-        mints_paused: bool,
-        sends_paused: bool,
-        burns_paused: bool,
+        contract_hook: str,
         role_permissions: List[injective_permissions_pb.Role],
-        address_roles: List[injective_permissions_pb.AddressRoles],
+        actor_roles: List[injective_permissions_pb.ActorRoles],
+        role_managers: List[injective_permissions_pb.RoleManager],
+        policy_statuses: List[injective_permissions_pb.PolicyStatus],
+        policy_manager_capabilities: List[injective_permissions_pb.PolicyManagerCapability],
     ) -> injective_permissions_tx_pb.MsgCreateNamespace:
         namespace = injective_permissions_pb.Namespace(
             denom=denom,
-            wasm_hook=wasm_hook,
-            mints_paused=mints_paused,
-            sends_paused=sends_paused,
-            burns_paused=burns_paused,
+            contract_hook=contract_hook,
             role_permissions=role_permissions,
-            address_roles=address_roles,
+            actor_roles=actor_roles,
+            role_managers=role_managers,
+            policy_statuses=policy_statuses,
+            policy_manager_capabilities=policy_manager_capabilities,
         )
         return injective_permissions_tx_pb.MsgCreateNamespace(
             sender=sender,
             namespace=namespace,
         )
 
-    def msg_delete_namespace(self, sender: str, namespace_denom: str) -> injective_permissions_tx_pb.MsgDeleteNamespace:
-        return injective_permissions_tx_pb.MsgDeleteNamespace(sender=sender, namespace_denom=namespace_denom)
-
     def msg_update_namespace(
         self,
         sender: str,
-        namespace_denom: str,
-        wasm_hook: str,
-        mints_paused: bool,
-        sends_paused: bool,
-        burns_paused: bool,
+        denom: str,
+        contract_hook: str,
+        role_permissions: List[injective_permissions_pb.Role],
+        role_managers: List[injective_permissions_pb.RoleManager],
+        policy_statuses: List[injective_permissions_pb.PolicyStatus],
+        policy_manager_capabilities: List[injective_permissions_pb.PolicyManagerCapability],
     ) -> injective_permissions_tx_pb.MsgUpdateNamespace:
-        wasmhook_update = injective_permissions_tx_pb.MsgUpdateNamespace.MsgSetWasmHook(new_value=wasm_hook)
-        mints_paused_update = injective_permissions_tx_pb.MsgUpdateNamespace.MsgSetMintsPaused(new_value=mints_paused)
-        sends_paused_update = injective_permissions_tx_pb.MsgUpdateNamespace.MsgSetSendsPaused(new_value=sends_paused)
-        burns_paused_update = injective_permissions_tx_pb.MsgUpdateNamespace.MsgSetBurnsPaused(new_value=burns_paused)
+        contract_hook_update = injective_permissions_tx_pb.MsgUpdateNamespace.SetContractHook(new_value=contract_hook)
 
         return injective_permissions_tx_pb.MsgUpdateNamespace(
             sender=sender,
-            namespace_denom=namespace_denom,
-            wasm_hook=wasmhook_update,
-            mints_paused=mints_paused_update,
-            sends_paused=sends_paused_update,
-            burns_paused=burns_paused_update,
-        )
-
-    def msg_update_namespace_roles(
-        self,
-        sender: str,
-        namespace_denom: str,
-        role_permissions: List[injective_permissions_pb.Role],
-        address_roles: List[injective_permissions_pb.AddressRoles],
-    ) -> injective_permissions_tx_pb.MsgUpdateNamespaceRoles:
-        return injective_permissions_tx_pb.MsgUpdateNamespaceRoles(
-            sender=sender,
-            namespace_denom=namespace_denom,
+            denom=denom,
+            contract_hook=contract_hook_update,
             role_permissions=role_permissions,
-            address_roles=address_roles,
+            role_managers=role_managers,
+            policy_statuses=policy_statuses,
+            policy_manager_capabilities=policy_manager_capabilities,
         )
 
-    def msg_revoke_namespace_roles(
+    def msg_update_actor_roles(
         self,
         sender: str,
-        namespace_denom: str,
-        address_roles_to_revoke: List[injective_permissions_pb.AddressRoles],
-    ) -> injective_permissions_tx_pb.MsgRevokeNamespaceRoles:
-        return injective_permissions_tx_pb.MsgRevokeNamespaceRoles(
+        denom: str,
+        role_actors_to_add: List[injective_permissions_pb.RoleActors],
+        role_actors_to_revoke: List[injective_permissions_pb.RoleActors],
+    ) -> injective_permissions_tx_pb.MsgUpdateActorRoles:
+        return injective_permissions_tx_pb.MsgUpdateActorRoles(
             sender=sender,
-            namespace_denom=namespace_denom,
-            address_roles_to_revoke=address_roles_to_revoke,
+            denom=denom,
+            role_actors_to_add=role_actors_to_add,
+            role_actors_to_revoke=role_actors_to_revoke,
         )
 
     def msg_claim_voucher(

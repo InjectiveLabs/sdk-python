@@ -126,8 +126,8 @@ class TestChainGrpcAuctionApi:
         module_state = await api.fetch_module_state()
         expected_state = {
             "state": {
-                "auctionEndingTimestamp": "1687504387",
-                "auctionRound": "50",
+                "auctionEndingTimestamp": str(state.auction_ending_timestamp),
+                "auctionRound": str(state.auction_round),
                 "params": {
                     "auctionPeriod": str(params.auction_period),
                     "minNextBidIncrementRate": params.min_next_bid_increment_rate,

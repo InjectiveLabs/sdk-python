@@ -1,9 +1,10 @@
 import asyncio
+import json
 import os
 
 import dotenv
 
-from pyinjective.composer import Composer as ProtoMsgComposer
+from pyinjective.async_client import AsyncClient
 from pyinjective.core.broadcaster import MsgBroadcasterWithPk
 from pyinjective.core.network import Network
 from pyinjective.wallet import PrivateKey
@@ -15,37 +16,42 @@ async def main() -> None:
 
     # select network: local, testnet, mainnet
     network = Network.devnet()
-    composer = ProtoMsgComposer(network=network.string())
+
+    client = AsyncClient(network)
+    composer = await client.composer()
+
+    gas_price = await client.current_chain_gas_price()
+    # adjust gas price to make it valid even if it changes between the time it is requested and the TX is broadcasted
+    gas_price = int(gas_price * 1.1)
 
     message_broadcaster = MsgBroadcasterWithPk.new_using_simulation(
         network=network,
         private_key=private_key_in_hexa,
+        gas_price=gas_price,
+        client=client,
+        composer=composer,
     )
 
     priv_key = PrivateKey.from_hex(private_key_in_hexa)
     pub_key = priv_key.to_public_key()
     address = pub_key.to_address()
 
-    blocked_address = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
     denom = "factory/inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r/inj_test"
-    role1 = composer.permissions_role(
-        role=composer.DEFAULT_PERMISSIONS_EVERYONE_ROLE,
-        permissions=composer.RECEIVE_ACTION_PERMISSION,
-    )
-    role2 = composer.permissions_role(role="blacklisted", permissions=composer.UNDEFINED_ACTION_PERMISSION)
-    address_role1 = composer.permissions_address_roles(address=blocked_address, roles=["blacklisted"])
 
-    message = composer.msg_update_namespace_roles(
+    message = composer.msg_claim_voucher(
         sender=address.to_acc_bech32(),
-        namespace_denom=denom,
-        role_permissions=[role1, role2],
-        address_roles=[address_role1],
+        denom=denom,
     )
 
     # broadcast the transaction
     result = await message_broadcaster.broadcast([message])
     print("---Transaction Response---")
-    print(result)
+    print(json.dumps(result, indent=2))
+
+    gas_price = await client.current_chain_gas_price()
+    # adjust gas price to make it valid even if it changes between the time it is requested and the TX is broadcasted
+    gas_price = int(gas_price * 1.1)
+    message_broadcaster.update_gas_price(gas_price=gas_price)
 
 
 if __name__ == "__main__":

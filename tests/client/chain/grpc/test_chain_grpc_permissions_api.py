@@ -5,6 +5,7 @@ from pyinjective.client.chain.grpc.chain_grpc_permissions_api import ChainGrpcPe
 from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb
 from pyinjective.proto.injective.permissions.v1beta1 import (
+    genesis_pb2 as genesis_pb,
     params_pb2 as permissions_params_pb,
     permissions_pb2 as permissions_pb,
     query_pb2 as permissions_query_pb,
@@ -40,52 +41,104 @@ class TestChainGrpcPermissionsApi:
         assert module_params == expected_params
 
     @pytest.mark.asyncio
-    async def test_fetch_all_namespaces(
+    async def test_fetch_namespace_denoms(
         self,
         permissions_servicer,
     ):
-        role_permission = permissions_pb.Role(
-            role="role",
-            permissions=3,
-        )
-        address_roles = permissions_pb.AddressRoles(
-            address="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
-            roles=["role"],
-        )
-        namespace = permissions_pb.Namespace(
-            denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
-            wasm_hook="wasm_hook",
-            mints_paused=True,
-            sends_paused=False,
-            burns_paused=False,
-            role_permissions=[role_permission],
-            address_roles=[address_roles],
-        )
-        permissions_servicer.all_namespaces_responses.append(
-            permissions_query_pb.QueryAllNamespacesResponse(namespaces=[namespace])
+        denom = "peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5"
+        permissions_servicer.namespace_denoms_responses.append(
+            permissions_query_pb.QueryNamespaceDenomsResponse(denoms=[denom])
         )
 
         api = self._api_instance(servicer=permissions_servicer)
 
-        all_namespaces = await api.fetch_all_namespaces()
+        all_denoms = await api.fetch_namespace_denoms()
+        expected_denoms = {"denoms": [denom]}
+
+        assert all_denoms == expected_denoms
+
+    @pytest.mark.asyncio
+    async def test_fetch_namespaces(
+        self,
+        permissions_servicer,
+    ):
+        role_permission = permissions_pb.Role(
+            name="role1",
+            role_id=1,
+            permissions=3,
+        )
+        actor_role = permissions_pb.ActorRoles(
+            actor="actor",
+            roles=["role1"],
+        )
+        role_manager = permissions_pb.RoleManager(
+            manager="manager",
+            roles=["role1"],
+        )
+        policy_status = permissions_pb.PolicyStatus(
+            action=permissions_pb.Action.Value("MINT"),
+            is_disabled=False,
+            is_sealed=False,
+        )
+        policy_manager_capability = permissions_pb.PolicyManagerCapability(
+            manager="manager",
+            action=permissions_pb.Action.Value("RECEIVE"),
+            can_disable=True,
+            can_seal=False,
+        )
+        namespace = permissions_pb.Namespace(
+            denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
+            contract_hook="wasm_hook",
+            role_permissions=[role_permission],
+            actor_roles=[actor_role],
+            role_managers=[role_manager],
+            policy_statuses=[policy_status],
+            policy_manager_capabilities=[policy_manager_capability],
+        )
+        permissions_servicer.namespaces_responses.append(
+            permissions_query_pb.QueryNamespacesResponse(namespaces=[namespace])
+        )
+
+        api = self._api_instance(servicer=permissions_servicer)
+
+        all_namespaces = await api.fetch_namespaces()
         expected_namespaces = {
             "namespaces": [
                 {
                     "denom": namespace.denom,
-                    "wasmHook": namespace.wasm_hook,
-                    "mintsPaused": namespace.mints_paused,
-                    "sendsPaused": namespace.sends_paused,
-                    "burnsPaused": namespace.burns_paused,
+                    "contractHook": namespace.contract_hook,
                     "rolePermissions": [
                         {
-                            "role": role_permission.role,
+                            "name": role_permission.name,
+                            "roleId": role_permission.role_id,
                             "permissions": role_permission.permissions,
                         }
                     ],
-                    "addressRoles": [
+                    "actorRoles": [
                         {
-                            "address": address_roles.address,
-                            "roles": address_roles.roles,
+                            "actor": actor_role.actor,
+                            "roles": actor_role.roles,
+                        }
+                    ],
+                    "roleManagers": [
+                        {
+                            "manager": role_manager.manager,
+                            "roles": role_manager.roles,
+                        }
+                    ],
+                    "policyStatuses": [
+                        {
+                            "action": permissions_pb.Action.Name(policy_status.action),
+                            "isDisabled": policy_status.is_disabled,
+                            "isSealed": policy_status.is_sealed,
+                        }
+                    ],
+                    "policyManagerCapabilities": [
+                        {
+                            "manager": policy_manager_capability.manager,
+                            "action": permissions_pb.Action.Name(policy_manager_capability.action),
+                            "canDisable": policy_manager_capability.can_disable,
+                            "canSeal": policy_manager_capability.can_seal,
                         }
                     ],
                 }
@@ -95,121 +148,429 @@ class TestChainGrpcPermissionsApi:
         assert all_namespaces == expected_namespaces
 
     @pytest.mark.asyncio
-    async def test_fetch_namespace_by_denom(
+    async def test_fetch_namespace(
         self,
         permissions_servicer,
     ):
         role_permission = permissions_pb.Role(
-            role="role",
+            name="role1",
+            role_id=1,
             permissions=3,
         )
-        address_roles = permissions_pb.AddressRoles(
-            address="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
-            roles=["role"],
+        actor_role = permissions_pb.ActorRoles(
+            actor="actor",
+            roles=["role1"],
+        )
+        role_manager = permissions_pb.RoleManager(
+            manager="manager",
+            roles=["role1"],
+        )
+        policy_status = permissions_pb.PolicyStatus(
+            action=permissions_pb.Action.Value("MINT"),
+            is_disabled=False,
+            is_sealed=False,
+        )
+        policy_manager_capability = permissions_pb.PolicyManagerCapability(
+            manager="manager",
+            action=permissions_pb.Action.Value("RECEIVE"),
+            can_disable=True,
+            can_seal=False,
         )
         namespace = permissions_pb.Namespace(
             denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
-            wasm_hook="wasm_hook",
-            mints_paused=True,
-            sends_paused=False,
-            burns_paused=False,
+            contract_hook="wasm_hook",
             role_permissions=[role_permission],
-            address_roles=[address_roles],
+            actor_roles=[actor_role],
+            role_managers=[role_manager],
+            policy_statuses=[policy_status],
+            policy_manager_capabilities=[policy_manager_capability],
         )
-        permissions_servicer.namespace_by_denom_responses.append(
-            permissions_query_pb.QueryNamespaceByDenomResponse(namespace=namespace)
+        permissions_servicer.namespace_responses.append(
+            permissions_query_pb.QueryNamespaceResponse(namespace=namespace)
         )
 
         api = self._api_instance(servicer=permissions_servicer)
 
-        namespace_result = await api.fetch_namespace_by_denom(denom=namespace.denom, include_roles=True)
-        expected_namespace = {
+        all_namespaces = await api.fetch_namespace(denom=namespace.denom)
+        expected_namespaces = {
             "namespace": {
                 "denom": namespace.denom,
-                "wasmHook": namespace.wasm_hook,
-                "mintsPaused": namespace.mints_paused,
-                "sendsPaused": namespace.sends_paused,
-                "burnsPaused": namespace.burns_paused,
+                "contractHook": namespace.contract_hook,
                 "rolePermissions": [
                     {
-                        "role": role_permission.role,
+                        "name": role_permission.name,
+                        "roleId": role_permission.role_id,
                         "permissions": role_permission.permissions,
                     }
                 ],
-                "addressRoles": [
+                "actorRoles": [
                     {
-                        "address": address_roles.address,
-                        "roles": address_roles.roles,
+                        "actor": actor_role.actor,
+                        "roles": actor_role.roles,
+                    }
+                ],
+                "roleManagers": [
+                    {
+                        "manager": role_manager.manager,
+                        "roles": role_manager.roles,
+                    }
+                ],
+                "policyStatuses": [
+                    {
+                        "action": permissions_pb.Action.Name(policy_status.action),
+                        "isDisabled": policy_status.is_disabled,
+                        "isSealed": policy_status.is_sealed,
+                    }
+                ],
+                "policyManagerCapabilities": [
+                    {
+                        "manager": policy_manager_capability.manager,
+                        "action": permissions_pb.Action.Name(policy_manager_capability.action),
+                        "canDisable": policy_manager_capability.can_disable,
+                        "canSeal": policy_manager_capability.can_seal,
                     }
                 ],
             }
         }
 
-        assert namespace_result == expected_namespace
+        assert all_namespaces == expected_namespaces
 
     @pytest.mark.asyncio
-    async def test_fetch_address_roles(
+    async def test_fetch_roles_by_actor(
         self,
         permissions_servicer,
     ):
         roles = ["role1", "role2"]
-        permissions_servicer.address_roles_responses.append(permissions_query_pb.QueryAddressRolesResponse(roles=roles))
+        permissions_servicer.roles_by_actor_responses.append(
+            permissions_query_pb.QueryRolesByActorResponse(roles=roles)
+        )
 
         api = self._api_instance(servicer=permissions_servicer)
 
-        address_roles = await api.fetch_address_roles(
+        roles_by_actor = await api.fetch_roles_by_actor(
             denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
-            address="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
+            actor="actor",
         )
         expected_roles = {
             "roles": roles,
         }
 
-        assert address_roles == expected_roles
+        assert roles_by_actor == expected_roles
 
     @pytest.mark.asyncio
-    async def test_fetch_addresses_by_role(
+    async def test_fetch_actors_by_role(
         self,
         permissions_servicer,
     ):
-        addresses = ["inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr"]
-        permissions_servicer.addresses_by_role_responses.append(
-            permissions_query_pb.QueryAddressesByRoleResponse(addresses=addresses)
+        actors = ["actor1", "actor2"]
+        permissions_servicer.actors_by_role_responses.append(
+            permissions_query_pb.QueryActorsByRoleResponse(actors=actors)
         )
 
         api = self._api_instance(servicer=permissions_servicer)
 
-        addresses_response = await api.fetch_addresses_by_role(
+        actors_by_role = await api.fetch_actors_by_role(
             denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
             role="role1",
         )
-        expected_addresses = {
-            "addresses": addresses,
+        expected_actors = {
+            "actors": actors,
         }
 
-        assert addresses_response == expected_addresses
+        assert actors_by_role == expected_actors
 
     @pytest.mark.asyncio
-    async def test_fetch_vouchers_for_address(
+    async def test_fetch_role_managers(
         self,
         permissions_servicer,
     ):
-        coin = coin_pb.Coin(denom="inj", amount="988987297011197594664")
-
-        permissions_servicer.vouchers_for_address_responses.append(
-            permissions_query_pb.QueryVouchersForAddressResponse(vouchers=[coin])
+        role_manager = permissions_pb.RoleManager(
+            manager="manager",
+            roles=["role1"],
+        )
+        permissions_servicer.role_managers_responses.append(
+            permissions_query_pb.QueryRoleManagersResponse(role_managers=[role_manager])
         )
 
         api = self._api_instance(servicer=permissions_servicer)
 
-        vouchers = await api.fetch_vouchers_for_address(
-            address="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
+        managers = await api.fetch_role_managers(
+            denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
         )
-        expected_vouchers = {
-            "vouchers": [{"denom": coin.denom, "amount": coin.amount}],
+        expected_managers = {
+            "roleManagers": [
+                {
+                    "manager": role_manager.manager,
+                    "roles": role_manager.roles,
+                }
+            ],
         }
 
-        assert vouchers == expected_vouchers
+        assert managers == expected_managers
+
+    @pytest.mark.asyncio
+    async def test_fetch_role_manager(
+        self,
+        permissions_servicer,
+    ):
+        role_manager = permissions_pb.RoleManager(
+            manager="manager",
+            roles=["role1"],
+        )
+        permissions_servicer.role_manager_responses.append(
+            permissions_query_pb.QueryRoleManagerResponse(role_manager=role_manager)
+        )
+
+        api = self._api_instance(servicer=permissions_servicer)
+
+        managers = await api.fetch_role_manager(
+            denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5", manager=role_manager.manager
+        )
+        expected_managers = {
+            "roleManager": {
+                "manager": role_manager.manager,
+                "roles": role_manager.roles,
+            }
+        }
+
+        assert managers == expected_managers
+
+    @pytest.mark.asyncio
+    async def test_fetch_policy_statuses(
+        self,
+        permissions_servicer,
+    ):
+        policy_status = permissions_pb.PolicyStatus(
+            action=permissions_pb.Action.Value("MINT"),
+            is_disabled=False,
+            is_sealed=True,
+        )
+        permissions_servicer.policy_statuses_responses.append(
+            permissions_query_pb.QueryPolicyStatusesResponse(policy_statuses=[policy_status])
+        )
+
+        api = self._api_instance(servicer=permissions_servicer)
+
+        statuses = await api.fetch_policy_statuses(
+            denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
+        )
+        expected_statuses = {
+            "policyStatuses": [
+                {
+                    "action": permissions_pb.Action.Name(policy_status.action),
+                    "isDisabled": policy_status.is_disabled,
+                    "isSealed": policy_status.is_sealed,
+                }
+            ],
+        }
+
+        assert statuses == expected_statuses
+
+    @pytest.mark.asyncio
+    async def test_fetch_policy_manager_capabilities(
+        self,
+        permissions_servicer,
+    ):
+        policy_manager_capability = permissions_pb.PolicyManagerCapability(
+            manager="manager",
+            action=permissions_pb.Action.Value("RECEIVE"),
+            can_disable=True,
+            can_seal=False,
+        )
+        permissions_servicer.policy_manager_capabilities_responses.append(
+            permissions_query_pb.QueryPolicyManagerCapabilitiesResponse(
+                policy_manager_capabilities=[policy_manager_capability]
+            )
+        )
+
+        api = self._api_instance(servicer=permissions_servicer)
+
+        capabilities = await api.fetch_policy_manager_capabilities(
+            denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
+        )
+        expected_capabilities = {
+            "policyManagerCapabilities": [
+                {
+                    "manager": policy_manager_capability.manager,
+                    "action": permissions_pb.Action.Name(policy_manager_capability.action),
+                    "canDisable": policy_manager_capability.can_disable,
+                    "canSeal": policy_manager_capability.can_seal,
+                }
+            ],
+        }
+
+        assert capabilities == expected_capabilities
+
+    @pytest.mark.asyncio
+    async def test_fetch_vouchers(
+        self,
+        permissions_servicer,
+    ):
+        voucher = permissions_pb.AddressVoucher(
+            address="inj1ady3s7whq30l4fx8sj3x6muv5mx4dfdlcpv8n7",
+            voucher=coin_pb.Coin(denom="inj", amount="1000000000"),
+        )
+        permissions_servicer.vouchers_responses.append(permissions_query_pb.QueryVouchersResponse(vouchers=[voucher]))
+
+        api = self._api_instance(servicer=permissions_servicer)
+
+        all_vouchers = await api.fetch_vouchers(
+            denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
+        )
+        expected_vouchers = {
+            "vouchers": [
+                {
+                    "address": voucher.address,
+                    "voucher": {
+                        "denom": voucher.voucher.denom,
+                        "amount": voucher.voucher.amount,
+                    },
+                }
+            ],
+        }
+
+        assert all_vouchers == expected_vouchers
+
+    @pytest.mark.asyncio
+    async def test_fetch_voucher(
+        self,
+        permissions_servicer,
+    ):
+        voucher = coin_pb.Coin(denom="inj", amount="1000000000")
+        permissions_servicer.voucher_responses.append(permissions_query_pb.QueryVoucherResponse(voucher=voucher))
+
+        api = self._api_instance(servicer=permissions_servicer)
+
+        fetched_voucher = await api.fetch_voucher(
+            denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
+            address="inj1ady3s7whq30l4fx8sj3x6muv5mx4dfdlcpv8n7",
+        )
+        expected_voucher = {
+            "voucher": {
+                "denom": voucher.denom,
+                "amount": voucher.amount,
+            },
+        }
+
+        assert fetched_voucher == expected_voucher
+
+    @pytest.mark.asyncio
+    async def test_fetch_permissions_module_state(
+        self,
+        permissions_servicer,
+    ):
+        params = permissions_params_pb.Params(
+            wasm_hook_query_max_gas=1000000,
+        )
+        role_permission = permissions_pb.Role(
+            name="role1",
+            role_id=1,
+            permissions=3,
+        )
+        actor_role = permissions_pb.ActorRoles(
+            actor="actor",
+            roles=["role1"],
+        )
+        role_manager = permissions_pb.RoleManager(
+            manager="manager",
+            roles=["role1"],
+        )
+        policy_status = permissions_pb.PolicyStatus(
+            action=permissions_pb.Action.Value("MINT"),
+            is_disabled=False,
+            is_sealed=False,
+        )
+        policy_manager_capability = permissions_pb.PolicyManagerCapability(
+            manager="manager",
+            action=permissions_pb.Action.Value("RECEIVE"),
+            can_disable=True,
+            can_seal=False,
+        )
+        namespace = permissions_pb.Namespace(
+            denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
+            contract_hook="wasm_hook",
+            role_permissions=[role_permission],
+            actor_roles=[actor_role],
+            role_managers=[role_manager],
+            policy_statuses=[policy_status],
+            policy_manager_capabilities=[policy_manager_capability],
+        )
+        voucher = permissions_pb.AddressVoucher(
+            address="inj1ady3s7whq30l4fx8sj3x6muv5mx4dfdlcpv8n7",
+            voucher=coin_pb.Coin(denom="inj", amount="1000000000"),
+        )
+        module_state = genesis_pb.GenesisState(
+            params=params,
+            namespaces=[namespace],
+            vouchers=[voucher],
+        )
+        permissions_servicer.module_state_responses.append(
+            permissions_query_pb.QueryModuleStateResponse(
+                state=module_state,
+            )
+        )
+
+        api = self._api_instance(servicer=permissions_servicer)
+
+        fetched_module_state = await api.fetch_permissions_module_state()
+        expected_module_state = {
+            "state": {
+                "params": {
+                    "wasmHookQueryMaxGas": str(params.wasm_hook_query_max_gas),
+                },
+                "namespaces": [
+                    {
+                        "denom": namespace.denom,
+                        "contractHook": namespace.contract_hook,
+                        "rolePermissions": [
+                            {
+                                "name": role_permission.name,
+                                "roleId": role_permission.role_id,
+                                "permissions": role_permission.permissions,
+                            }
+                        ],
+                        "actorRoles": [
+                            {
+                                "actor": actor_role.actor,
+                                "roles": actor_role.roles,
+                            }
+                        ],
+                        "roleManagers": [
+                            {
+                                "manager": role_manager.manager,
+                                "roles": role_manager.roles,
+                            }
+                        ],
+                        "policyStatuses": [
+                            {
+                                "action": permissions_pb.Action.Name(policy_status.action),
+                                "isDisabled": policy_status.is_disabled,
+                                "isSealed": policy_status.is_sealed,
+                            }
+                        ],
+                        "policyManagerCapabilities": [
+                            {
+                                "manager": policy_manager_capability.manager,
+                                "action": permissions_pb.Action.Name(policy_manager_capability.action),
+                                "canDisable": policy_manager_capability.can_disable,
+                                "canSeal": policy_manager_capability.can_seal,
+                            }
+                        ],
+                    }
+                ],
+                "vouchers": [
+                    {
+                        "address": voucher.address,
+                        "voucher": {
+                            "denom": voucher.voucher.denom,
+                            "amount": voucher.voucher.amount,
+                        },
+                    }
+                ],
+            }
+        }
+
+        assert fetched_module_state == expected_module_state
 
     def _api_instance(self, servicer):
         network = Network.devnet()

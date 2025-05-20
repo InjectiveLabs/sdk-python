@@ -21,6 +21,7 @@ class TestIndexerGrpcAuctionApi:
         coin = exchange_auction_pb.Coin(
             denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
             amount="2322098",
+            usd_value="1000000000000000000",
         )
         auction = exchange_auction_pb.Auction(
             winner="inj1uyk56r3xdcf60jwrmn7p9rgla9dc4gam56ajrq",
@@ -54,6 +55,7 @@ class TestIndexerGrpcAuctionApi:
                     {
                         "denom": coin.denom,
                         "amount": coin.amount,
+                        "usdValue": coin.usd_value,
                     }
                 ],
                 "winningBidAmount": auction.winning_bid_amount,
@@ -74,6 +76,7 @@ class TestIndexerGrpcAuctionApi:
         coin = exchange_auction_pb.Coin(
             denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
             amount="2322098",
+            usd_value="1000000000000000000",
         )
         auction = exchange_auction_pb.Auction(
             winner="inj1uyk56r3xdcf60jwrmn7p9rgla9dc4gam56ajrq",
@@ -97,6 +100,7 @@ class TestIndexerGrpcAuctionApi:
                         {
                             "denom": coin.denom,
                             "amount": coin.amount,
+                            "usdValue": coin.usd_value,
                         }
                     ],
                     "winningBidAmount": auction.winning_bid_amount,
@@ -108,6 +112,24 @@ class TestIndexerGrpcAuctionApi:
         }
 
         assert result_auctions == expected_auctions
+
+    @pytest.mark.asyncio
+    async def test_fetch_inj_burnt(
+        self,
+        auction_servicer,
+    ):
+        total_inj_burnt = "1234567890000000000"  # Example decimal value as string
+
+        auction_servicer.inj_burnt_responses.append(
+            exchange_auction_pb.InjBurntEndpointResponse(total_inj_burnt=total_inj_burnt)
+        )
+
+        api = self._api_instance(servicer=auction_servicer)
+
+        result_inj_burnt = await api.fetch_inj_burnt()
+        expected_inj_burnt = {"totalInjBurnt": total_inj_burnt}
+
+        assert result_inj_burnt == expected_inj_burnt
 
     def _api_instance(self, servicer):
         network = Network.devnet()

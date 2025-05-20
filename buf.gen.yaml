@@ -4,7 +4,7 @@ managed:
 plugins:
   - remote: buf.build/protocolbuffers/python:v26.1
     out: ./pyinjective/proto/
-  - remote: buf.build/grpc/python:v1.65.4
+  - remote: buf.build/grpc/python:v1.65.5
     out: ./pyinjective/proto/
 inputs:
   - module: buf.build/cosmos/cosmos-proto
@@ -23,7 +23,7 @@ inputs:
 #    branch: v0.51.x-inj
 #    subdir: proto
 #  - git_repo: https://github.com/InjectiveLabs/injective-core
-#    tag: v1.13.0
+#    tag: v1.15.0
 #    subdir: proto
   - git_repo: https://github.com/InjectiveLabs/injective-core
     branch: master

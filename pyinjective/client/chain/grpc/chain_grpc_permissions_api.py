@@ -21,33 +21,75 @@ class ChainGrpcPermissionsApi:
 
         return response
 
-    async def fetch_all_namespaces(self) -> Dict[str, Any]:
-        request = permissions_query_pb.QueryAllNamespacesRequest()
-        response = await self._execute_call(call=self._stub.AllNamespaces, request=request)
+    async def fetch_namespace_denoms(self) -> Dict[str, Any]:
+        request = permissions_query_pb.QueryNamespaceDenomsRequest()
+        response = await self._execute_call(call=self._stub.NamespaceDenoms, request=request)
 
         return response
 
-    async def fetch_namespace_by_denom(self, denom: str, include_roles: bool) -> Dict[str, Any]:
-        request = permissions_query_pb.QueryNamespaceByDenomRequest(denom=denom, include_roles=include_roles)
-        response = await self._execute_call(call=self._stub.NamespaceByDenom, request=request)
+    async def fetch_namespaces(self) -> Dict[str, Any]:
+        request = permissions_query_pb.QueryNamespacesRequest()
+        response = await self._execute_call(call=self._stub.Namespaces, request=request)
 
         return response
 
-    async def fetch_address_roles(self, denom: str, address: str) -> Dict[str, Any]:
-        request = permissions_query_pb.QueryAddressRolesRequest(denom=denom, address=address)
-        response = await self._execute_call(call=self._stub.AddressRoles, request=request)
+    async def fetch_namespace(self, denom: str) -> Dict[str, Any]:
+        request = permissions_query_pb.QueryNamespaceRequest(denom=denom)
+        response = await self._execute_call(call=self._stub.Namespace, request=request)
 
         return response
 
-    async def fetch_addresses_by_role(self, denom: str, role: str) -> Dict[str, Any]:
-        request = permissions_query_pb.QueryAddressesByRoleRequest(denom=denom, role=role)
-        response = await self._execute_call(call=self._stub.AddressesByRole, request=request)
+    async def fetch_roles_by_actor(self, denom: str, actor: str) -> Dict[str, Any]:
+        request = permissions_query_pb.QueryRolesByActorRequest(denom=denom, actor=actor)
+        response = await self._execute_call(call=self._stub.RolesByActor, request=request)
 
         return response
 
-    async def fetch_vouchers_for_address(self, address: str) -> Dict[str, Any]:
-        request = permissions_query_pb.QueryVouchersForAddressRequest(address=address)
-        response = await self._execute_call(call=self._stub.VouchersForAddress, request=request)
+    async def fetch_actors_by_role(self, denom: str, role: str) -> Dict[str, Any]:
+        request = permissions_query_pb.QueryActorsByRoleRequest(denom=denom, role=role)
+        response = await self._execute_call(call=self._stub.ActorsByRole, request=request)
+
+        return response
+
+    async def fetch_role_managers(self, denom: str) -> Dict[str, Any]:
+        request = permissions_query_pb.QueryRoleManagersRequest(denom=denom)
+        response = await self._execute_call(call=self._stub.RoleManagers, request=request)
+
+        return response
+
+    async def fetch_role_manager(self, denom: str, manager: str) -> Dict[str, Any]:
+        request = permissions_query_pb.QueryRoleManagerRequest(denom=denom, manager=manager)
+        response = await self._execute_call(call=self._stub.RoleManager, request=request)
+
+        return response
+
+    async def fetch_policy_statuses(self, denom: str) -> Dict[str, Any]:
+        request = permissions_query_pb.QueryPolicyStatusesRequest(denom=denom)
+        response = await self._execute_call(call=self._stub.PolicyStatuses, request=request)
+
+        return response
+
+    async def fetch_policy_manager_capabilities(self, denom: str) -> Dict[str, Any]:
+        request = permissions_query_pb.QueryPolicyManagerCapabilitiesRequest(denom=denom)
+        response = await self._execute_call(call=self._stub.PolicyManagerCapabilities, request=request)
+
+        return response
+
+    async def fetch_vouchers(self, denom: str) -> Dict[str, Any]:
+        request = permissions_query_pb.QueryVouchersRequest(denom=denom)
+        response = await self._execute_call(call=self._stub.Vouchers, request=request)
+
+        return response
+
+    async def fetch_voucher(self, denom: str, address: str) -> Dict[str, Any]:
+        request = permissions_query_pb.QueryVoucherRequest(denom=denom, address=address)
+        response = await self._execute_call(call=self._stub.Voucher, request=request)
+
+        return response
+
+    async def fetch_permissions_module_state(self) -> Dict[str, Any]:
+        request = permissions_query_pb.QueryModuleStateRequest()
+        response = await self._execute_call(call=self._stub.PermissionsModuleState, request=request)
 
         return response
 

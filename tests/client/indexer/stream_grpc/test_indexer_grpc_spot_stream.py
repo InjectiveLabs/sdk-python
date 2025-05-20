@@ -424,7 +424,7 @@ class TestIndexerGrpcSpotStream:
         error_callback = lambda exception: pytest.fail(str(exception))
         end_callback = lambda: end_event.set()
 
-        asyncio.get_event_loop().create_task(
+        task = asyncio.get_event_loop().create_task(
             api.stream_trades(
                 callback=callback,
                 on_end_callback=end_callback,
@@ -437,6 +437,7 @@ class TestIndexerGrpcSpotStream:
                 trade_id="7959737_3_0",
                 account_address="inj1clw20s2uxeyxtam6f7m84vgae92s9eh7vygagt",
                 cid=trade.cid,
+                fee_recipient=trade.fee_recipient,
                 pagination=PaginationOption(
                     skip=0,
                     limit=100,
@@ -470,6 +471,7 @@ class TestIndexerGrpcSpotStream:
 
         first_update = await asyncio.wait_for(trade_updates.get(), timeout=1)
 
+        task.cancel()
         assert first_update == expected_update
         assert end_event.is_set()
 
@@ -604,7 +606,7 @@ class TestIndexerGrpcSpotStream:
         error_callback = lambda exception: pytest.fail(str(exception))
         end_callback = lambda: end_event.set()
 
-        asyncio.get_event_loop().create_task(
+        task = asyncio.get_event_loop().create_task(
             api.stream_trades_v2(
                 callback=callback,
                 on_end_callback=end_callback,
@@ -617,6 +619,7 @@ class TestIndexerGrpcSpotStream:
                 trade_id="7959737_3_0",
                 account_address="inj1clw20s2uxeyxtam6f7m84vgae92s9eh7vygagt",
                 cid=trade.cid,
+                fee_recipient=trade.fee_recipient,
                 pagination=PaginationOption(
                     skip=0,
                     limit=100,
@@ -650,6 +653,7 @@ class TestIndexerGrpcSpotStream:
 
         first_update = await asyncio.wait_for(trade_updates.get(), timeout=1)
 
+        task.cancel()
         assert first_update == expected_update
         assert end_event.is_set()
 

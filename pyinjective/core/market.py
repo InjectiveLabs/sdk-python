@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from decimal import Decimal
+from decimal import ROUND_UP, Decimal
 from typing import Optional
 
 from pyinjective.constant import ADDITIONAL_CHAIN_FORMAT_DECIMALS
@@ -39,7 +39,8 @@ class SpotMarket:
     def notional_to_chain_format(self, human_readable_value: Decimal) -> Decimal:
         decimals = self.quote_token.decimals
         chain_formatted_value = human_readable_value * Decimal(f"1e{decimals}")
-        extended_chain_formatted_value = chain_formatted_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        quantized_balue = chain_formatted_value.quantize(Decimal("1"), rounding=ROUND_UP)
+        extended_chain_formatted_value = quantized_balue * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         return extended_chain_formatted_value
 
@@ -117,7 +118,8 @@ class DerivativeMarket:
     def notional_to_chain_format(self, human_readable_value: Decimal) -> Decimal:
         decimals = self.quote_token.decimals
         chain_formatted_value = human_readable_value * Decimal(f"1e{decimals}")
-        extended_chain_formatted_value = chain_formatted_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        quantized_notional = chain_formatted_value.quantize(Decimal("1"), rounding=ROUND_UP)
+        extended_chain_formatted_value = quantized_notional * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         return extended_chain_formatted_value
 
@@ -225,7 +227,8 @@ class BinaryOptionMarket:
     def notional_to_chain_format(self, human_readable_value: Decimal) -> Decimal:
         decimals = self.quote_token.decimals
         chain_formatted_value = human_readable_value * Decimal(f"1e{decimals}")
-        extended_chain_formatted_value = chain_formatted_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        quantized_value = chain_formatted_value.quantize(Decimal("1"), rounding=ROUND_UP)
+        extended_chain_formatted_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         return extended_chain_formatted_value
 

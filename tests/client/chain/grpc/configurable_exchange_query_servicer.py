@@ -65,11 +65,15 @@ class ConfigurableExchangeQueryServicer(exchange_query_grpc.QueryServicer):
         self.binary_options_markets_responses = deque()
         self.trader_derivative_conditional_orders_responses = deque()
         self.market_atomic_execution_fee_multiplier_responses = deque()
+        self.l3_derivative_orderbook_responses = deque()
+        self.l3_spot_orderbook_responses = deque()
+        self.market_balance_responses = deque()
+        self.market_balances_responses = deque()
+        self.denom_min_notional_responses = deque()
+        self.denom_min_notionals_responses = deque()
         self.active_stake_grant_responses = deque()
         self.grant_authorization_responses = deque()
         self.grant_authorizations_responses = deque()
-        self.l3_derivative_orderbook_responses = deque()
-        self.l3_spot_orderbook_responses = deque()
 
     async def QueryExchangeParams(
         self, request: exchange_query_pb.QueryExchangeParamsRequest, context=None, metadata=None
@@ -335,6 +339,32 @@ class ConfigurableExchangeQueryServicer(exchange_query_grpc.QueryServicer):
     ):
         return self.market_atomic_execution_fee_multiplier_responses.pop()
 
+    async def L3DerivativeOrderBook(
+        self, request: exchange_query_pb.QueryFullDerivativeOrderbookRequest, context=None, metadata=None
+    ):
+        return self.l3_derivative_orderbook_responses.pop()
+
+    async def L3SpotOrderBook(
+        self, request: exchange_query_pb.QueryFullSpotOrderbookRequest, context=None, metadata=None
+    ):
+        return self.l3_spot_orderbook_responses.pop()
+
+    async def MarketBalance(self, request: exchange_query_pb.QueryMarketBalanceRequest, context=None, metadata=None):
+        return self.market_balance_responses.pop()
+
+    async def MarketBalances(self, request: exchange_query_pb.QueryMarketBalancesRequest, context=None, metadata=None):
+        return self.market_balances_responses.pop()
+
+    async def DenomMinNotional(
+        self, request: exchange_query_pb.QueryDenomMinNotionalRequest, context=None, metadata=None
+    ):
+        return self.denom_min_notional_responses.pop()
+
+    async def DenomMinNotionals(
+        self, request: exchange_query_pb.QueryDenomMinNotionalsRequest, context=None, metadata=None
+    ):
+        return self.denom_min_notionals_responses.pop()
+
     async def ActiveStakeGrant(
         self, request: exchange_query_pb.QueryActiveStakeGrantRequest, context=None, metadata=None
     ):
@@ -349,13 +379,3 @@ class ConfigurableExchangeQueryServicer(exchange_query_grpc.QueryServicer):
         self, request: exchange_query_pb.QueryGrantAuthorizationsRequest, context=None, metadata=None
     ):
         return self.grant_authorizations_responses.pop()
-
-    async def L3DerivativeOrderBook(
-        self, request: exchange_query_pb.QueryFullDerivativeOrderbookRequest, context=None, metadata=None
-    ):
-        return self.l3_derivative_orderbook_responses.pop()
-
-    async def L3SpotOrderBook(
-        self, request: exchange_query_pb.QueryFullSpotOrderbookRequest, context=None, metadata=None
-    ):
-        return self.l3_spot_orderbook_responses.pop()

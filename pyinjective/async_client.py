@@ -14,6 +14,7 @@ from pyinjective.client.chain.grpc.chain_grpc_exchange_api import ChainGrpcExcha
 from pyinjective.client.chain.grpc.chain_grpc_exchange_v2_api import ChainGrpcExchangeV2Api
 from pyinjective.client.chain.grpc.chain_grpc_permissions_api import ChainGrpcPermissionsApi
 from pyinjective.client.chain.grpc.chain_grpc_token_factory_api import ChainGrpcTokenFactoryApi
+from pyinjective.client.chain.grpc.chain_grpc_txfees_api import ChainGrpcTxfeesApi
 from pyinjective.client.chain.grpc.chain_grpc_wasm_api import ChainGrpcWasmApi
 from pyinjective.client.chain.grpc_stream.chain_grpc_chain_stream import ChainGrpcChainStream
 from pyinjective.client.indexer.grpc.indexer_grpc_account_api import IndexerGrpcAccountApi
@@ -35,6 +36,7 @@ from pyinjective.client.indexer.grpc_stream.indexer_grpc_portfolio_stream import
 from pyinjective.client.indexer.grpc_stream.indexer_grpc_spot_stream import IndexerGrpcSpotStream
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.composer import Composer
+from pyinjective.constant import GAS_PRICE
 from pyinjective.core.ibc.channel.grpc.ibc_channel_grpc_api import IBCChannelGrpcApi
 from pyinjective.core.ibc.client.grpc.ibc_client_grpc_api import IBCClientGrpcApi
 from pyinjective.core.ibc.connection.grpc.ibc_connection_grpc_api import IBCConnectionGrpcApi
@@ -161,6 +163,10 @@ class AsyncClient:
             channel=self.chain_channel,
             cookie_assistant=network.chain_cookie_assistant,
         )
+        self.txfees_api = ChainGrpcTxfeesApi(
+            channel=self.chain_channel,
+            cookie_assistant=network.chain_cookie_assistant,
+        )
         self.wasm_api = ChainGrpcWasmApi(
             channel=self.chain_channel,
             cookie_assistant=network.chain_cookie_assistant,
@@ -242,6 +248,25 @@ class AsyncClient:
             cookie_assistant=network.explorer_cookie_assistant,
         )
 
+    def __del__(self):
+        self._cancel_timeout_height_sync_task()
+
+    async def close_exchange_channel(self):
+        await self.exchange_channel.close()
+        self._cancel_timeout_height_sync_task()
+
+    async def close_explorer_channel(self):
+        await self.explorer_channel.close()
+        self._cancel_timeout_height_sync_task()
+
+    async def close_chain_channel(self):
+        await self.chain_channel.close()
+        self._cancel_timeout_height_sync_task()
+
+    async def close_chain_stream_channel(self):
+        await self.chain_stream_channel.close()
+        self._cancel_timeout_height_sync_task()
+
     async def all_tokens(self) -> Dict[str, Token]:
         if self._tokens_by_symbol is None:
             async with self._tokens_and_markets_initialization_lock:
@@ -280,14 +305,6 @@ class AsyncClient:
 
     async def fetch_tx(self, hash: str) -> Dict[str, Any]:
         return await self.tx_api.fetch_tx(hash=hash)
-
-    async def close_exchange_channel(self):
-        await self.exchange_channel.close()
-        self._cancel_timeout_height_sync_task()
-
-    async def close_chain_channel(self):
-        await self.chain_channel.close()
-        self._cancel_timeout_height_sync_task()
 
     async def sync_timeout_height(self):
         try:
@@ -1164,6 +1181,28 @@ class AsyncClient:
 
         return await self.chain_exchange_api.fetch_l3_spot_orderbook(market_id=market_id)
 
+    async def fetch_market_balance(self, market_id: str) -> Dict[str, Any]:
+        return await self.chain_exchange_v2_api.fetch_market_balance(market_id=market_id)
+
+    async def fetch_market_balances(self) -> Dict[str, Any]:
+        return await self.chain_exchange_v2_api.fetch_market_balances()
+
+    async def fetch_denom_min_notional(self, denom: str) -> Dict[str, Any]:
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_denom_min_notional_v2` instead
+        """
+        warn("This method is deprecated. Use fetch_denom_min_notional_v2 instead", DeprecationWarning, stacklevel=2)
+
+        return await self.chain_exchange_api.fetch_denom_min_notional(denom=denom)
+
+    async def fetch_denom_min_notionals(self) -> Dict[str, Any]:
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_denom_min_notionals_v2` instead
+        """
+        warn("This method is deprecated. Use fetch_denom_min_notionals_v2 instead", DeprecationWarning, stacklevel=2)
+
+        return await self.chain_exchange_api.fetch_denom_min_notionals()
+
     async def fetch_aggregate_volume_v2(self, account: str) -> Dict[str, Any]:
         return await self.chain_exchange_v2_api.fetch_aggregate_volume(account=account)
 
@@ -1465,6 +1504,12 @@ class AsyncClient:
     async def fetch_l3_spot_orderbook_v2(self, market_id: str) -> Dict[str, Any]:
         return await self.chain_exchange_v2_api.fetch_l3_spot_orderbook(market_id=market_id)
 
+    async def fetch_denom_min_notional_v2(self, denom: str) -> Dict[str, Any]:
+        return await self.chain_exchange_v2_api.fetch_denom_min_notional(denom=denom)
+
+    async def fetch_denom_min_notionals_v2(self) -> Dict[str, Any]:
+        return await self.chain_exchange_v2_api.fetch_denom_min_notionals()
+
     # Injective Exchange client methods
 
     # Auction RPC
@@ -1486,6 +1531,9 @@ class AsyncClient:
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
         )
+
+    async def fetch_inj_burnt(self) -> Dict[str, Any]:
+        return await self.exchange_auction_api.fetch_inj_burnt()
 
     # Meta RPC
 
@@ -1655,8 +1703,45 @@ class AsyncClient:
             pagination=pagination,
         )
 
+    async def fetch_contract_txs_v2(
+        self,
+        address: str,
+        height: Optional[int] = None,
+        token: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_explorer_api.fetch_contract_txs_v2(
+            address=address,
+            height=height,
+            token=token,
+            pagination=pagination,
+        )
+
+    async def fetch_blocks(
+        self,
+        before: Optional[int] = None,
+        after: Optional[int] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_explorer_api.fetch_blocks(before=before, after=after, pagination=pagination)
+
     async def fetch_block(self, block_id: str) -> Dict[str, Any]:
         return await self.exchange_explorer_api.fetch_block(block_id=block_id)
+
+    async def fetch_validators(self) -> Dict[str, Any]:
+        """
+        Fetch validators from the explorer API.
+
+        Returns:
+            Dict containing validator information
+        """
+        return await self.exchange_explorer_api.fetch_validators()
+
+    async def fetch_validator(self, address: str) -> Dict[str, Any]:
+        return await self.exchange_explorer_api.fetch_validator(address)
+
+    async def fetch_validator_uptime(self, address: str) -> Dict[str, Any]:
+        return await self.exchange_explorer_api.fetch_validator_uptime(address=address)
 
     async def fetch_txs(
         self,
@@ -1745,6 +1830,78 @@ class AsyncClient:
             src_port=src_port,
             dest_channel=dest_channel,
             dest_port=dest_port,
+            pagination=pagination,
+        )
+
+    async def fetch_wasm_codes(
+        self,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_explorer_api.fetch_wasm_codes(
+            pagination=pagination,
+        )
+
+    async def fetch_wasm_code_by_id(
+        self,
+        code_id: int,
+    ) -> Dict[str, Any]:
+        return await self.exchange_explorer_api.fetch_wasm_code_by_id(code_id=code_id)
+
+    async def fetch_wasm_contracts(
+        self,
+        code_id: Optional[int] = None,
+        assets_only: Optional[bool] = None,
+        label: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_explorer_api.fetch_wasm_contracts(
+            code_id=code_id,
+            assets_only=assets_only,
+            label=label,
+            pagination=pagination,
+        )
+
+    async def fetch_wasm_contract_by_address(
+        self,
+        address: str,
+    ) -> Dict[str, Any]:
+        return await self.exchange_explorer_api.fetch_wasm_contract_by_address(address=address)
+
+    async def fetch_cw20_balance(
+        self,
+        address: str,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_explorer_api.fetch_cw20_balance(
+            address=address,
+            pagination=pagination,
+        )
+
+    async def fetch_relayers(
+        self,
+        market_ids: Optional[List[str]] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_explorer_api.fetch_relayers(
+            market_ids=market_ids,
+        )
+
+    async def fetch_bank_transfers(
+        self,
+        senders: Optional[List[str]] = None,
+        recipients: Optional[List[str]] = None,
+        is_community_pool_related: Optional[bool] = None,
+        address: Optional[List[str]] = None,
+        per_page: Optional[int] = None,
+        token: Optional[str] = None,
+        pagination: Optional[PaginationOption] = None,
+    ) -> Dict[str, Any]:
+        return await self.exchange_explorer_api.fetch_bank_transfers(
+            senders=senders,
+            recipients=recipients,
+            is_community_pool_related=is_community_pool_related,
+            address=address,
+            per_page=per_page,
+            token=token,
             pagination=pagination,
         )
 
@@ -1968,6 +2125,7 @@ class AsyncClient:
         trade_id: Optional[str] = None,
         account_address: Optional[str] = None,
         cid: Optional[str] = None,
+        fee_recipient: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
         return await self.exchange_spot_api.fetch_trades_v2(
@@ -1979,6 +2137,7 @@ class AsyncClient:
             trade_id=trade_id,
             account_address=account_address,
             cid=cid,
+            fee_recipient=fee_recipient,
             pagination=pagination,
         )
 
@@ -2099,6 +2258,7 @@ class AsyncClient:
         trade_id: Optional[str] = None,
         account_address: Optional[str] = None,
         cid: Optional[str] = None,
+        fee_recipient: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ):
         await self.exchange_spot_stream_api.stream_trades_v2(
@@ -2113,6 +2273,7 @@ class AsyncClient:
             trade_id=trade_id,
             account_address=account_address,
             cid=cid,
+            fee_recipient=fee_recipient,
             pagination=pagination,
         )
 
@@ -2240,6 +2401,7 @@ class AsyncClient:
         trade_id: Optional[str] = None,
         account_address: Optional[str] = None,
         cid: Optional[str] = None,
+        fee_recipient: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
         return await self.exchange_derivative_api.fetch_trades_v2(
@@ -2251,6 +2413,7 @@ class AsyncClient:
             trade_id=trade_id,
             account_address=account_address,
             cid=cid,
+            fee_recipient=fee_recipient,
             pagination=pagination,
         )
 
@@ -2327,6 +2490,7 @@ class AsyncClient:
         trade_id: Optional[str] = None,
         account_address: Optional[str] = None,
         cid: Optional[str] = None,
+        fee_recipient: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ):
         return await self.exchange_derivative_stream_api.stream_trades_v2(
@@ -2341,6 +2505,7 @@ class AsyncClient:
             trade_id=trade_id,
             account_address=account_address,
             cid=cid,
+            fee_recipient=fee_recipient,
             pagination=pagination,
         )
 
@@ -2368,12 +2533,54 @@ class AsyncClient:
         market_ids: Optional[List[str]] = None,
         subaccount_ids: Optional[List[str]] = None,
     ):
+        """
+        This method is deprecated and will be removed soon. Please use `listen_derivative_positions_v2_updates` instead.
+        """
+        warn(
+            "This method is deprecated. Use listen_derivative_positions_v2_updates instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         await self.exchange_derivative_stream_api.stream_positions(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
             market_ids=market_ids,
             subaccount_ids=subaccount_ids,
+        )
+
+    async def listen_derivative_positions_v2_updates(
+        self,
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+        subaccount_id: Optional[str] = None,
+        market_id: Optional[str] = None,
+        market_ids: Optional[List[str]] = None,
+        subaccount_ids: Optional[List[str]] = None,
+        account_address: Optional[str] = None,
+    ):
+        """
+        Listen to derivative positions V2 updates.
+
+        :param callback: Callback function to process each update
+        :param on_end_callback: Optional callback when the stream ends
+        :param on_status_callback: Optional callback for handling stream status
+        :param subaccount_id: Optional subaccount ID to filter positions
+        :param market_id: Optional market ID to filter positions
+        :param market_ids: Optional list of market IDs to filter positions
+        :param subaccount_ids: Optional list of subaccount IDs to filter positions
+        :param account_address: Optional account address to filter positions
+        """
+        await self.indexer_derivative_stream.stream_positions_v2(
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+            subaccount_id=subaccount_id,
+            market_id=market_id,
+            market_ids=market_ids,
+            subaccount_ids=subaccount_ids,
+            account_address=account_address,
         )
 
     async def fetch_derivative_liquidable_positions(
@@ -2386,7 +2593,7 @@ class AsyncClient:
             pagination=pagination,
         )
 
-    async def fetch_subaccount_orders_list(
+    async def fetch_derivative_subaccount_orders_list(
         self,
         subaccount_id: str,
         market_id: Optional[str] = None,
@@ -2445,8 +2652,12 @@ class AsyncClient:
         return await self.exchange_derivative_api.fetch_binary_options_market(market_id=market_id)
 
     # PortfolioRPC
-    async def fetch_account_portfolio_balances(self, account_address: str) -> Dict[str, Any]:
-        return await self.exchange_portfolio_api.fetch_account_portfolio_balances(account_address=account_address)
+    async def fetch_account_portfolio_balances(
+        self, account_address: str, usd: Optional[bool] = None
+    ) -> Dict[str, Any]:
+        return await self.exchange_portfolio_api.fetch_account_portfolio_balances(
+            account_address=account_address, usd=usd
+        )
 
     async def listen_account_portfolio_updates(
         self,
@@ -2717,22 +2928,48 @@ class AsyncClient:
     # ------------------------------
     # region Permissions module
 
-    async def fetch_all_permissions_namespaces(self) -> Dict[str, Any]:
-        return await self.permissions_api.fetch_all_namespaces()
+    async def fetch_permissions_namespace_denoms(self) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_namespace_denoms()
 
-    async def fetch_permissions_namespace_by_denom(
-        self, denom: str, include_roles: Optional[bool] = None
-    ) -> Dict[str, Any]:
-        return await self.permissions_api.fetch_namespace_by_denom(denom=denom, include_roles=include_roles)
+    async def fetch_permissions_namespaces(self) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_namespaces()
 
-    async def fetch_permissions_address_roles(self, denom: str, address: str) -> Dict[str, Any]:
-        return await self.permissions_api.fetch_address_roles(denom=denom, address=address)
+    async def fetch_permissions_namespace(self, denom: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_namespace(denom=denom)
 
-    async def fetch_permissions_addresses_by_role(self, denom: str, role: str) -> Dict[str, Any]:
-        return await self.permissions_api.fetch_addresses_by_role(denom=denom, role=role)
+    async def fetch_permissions_roles_by_actor(self, denom: str, actor: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_roles_by_actor(denom=denom, actor=actor)
 
-    async def fetch_permissions_vouchers_for_address(self, address: str) -> Dict[str, Any]:
-        return await self.permissions_api.fetch_vouchers_for_address(address=address)
+    async def fetch_permissions_actors_by_role(self, denom: str, role: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_actors_by_role(denom=denom, role=role)
+
+    async def fetch_permissions_role_managers(self, denom: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_role_managers(denom=denom)
+
+    async def fetch_permissions_role_manager(self, denom: str, manager: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_role_manager(denom=denom, manager=manager)
+
+    async def fetch_permissions_policy_statuses(self, denom: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_policy_statuses(denom=denom)
+
+    async def fetch_permissions_policy_manager_capabilities(self, denom: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_policy_manager_capabilities(denom=denom)
+
+    async def fetch_permissions_vouchers(self, denom: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_vouchers(denom=denom)
+
+    async def fetch_permissions_voucher(self, denom: str, address: str) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_voucher(denom=denom, address=address)
+
+    async def fetch_permissions_module_state(self) -> Dict[str, Any]:
+        return await self.permissions_api.fetch_permissions_module_state()
+
+    # endregion
+
+    # -------------------------
+    # region IBC Channel module
+    async def fetch_eip_base_fee(self) -> Dict[str, Any]:
+        return await self.txfees_api.fetch_eip_base_fee()
 
     # endregion
 
@@ -2744,6 +2981,20 @@ class AsyncClient:
             binary_option_markets=await self.all_binary_option_markets(),
             tokens=await self.all_tokens(),
         )
+
+    async def current_chain_gas_price(self) -> int:
+        gas_price = GAS_PRICE
+        try:
+            eip_base_fee_response = await self.fetch_eip_base_fee()
+            gas_price = int(
+                Token.convert_value_from_extended_decimal_format(Decimal(eip_base_fee_response["baseFee"]["baseFee"]))
+            )
+        except Exception as e:
+            logger = LoggerProvider().logger_for_class(logging_class=self.__class__)
+            logger.error("an error occurred when querying the gas price from the chain, using the default gas price")
+            logger.debug(f"error querying the gas price from chain {e}")
+
+        return gas_price
 
     async def initialize_tokens_from_chain_denoms(self):
         # force initialization of markets and tokens
@@ -2963,5 +3214,11 @@ class AsyncClient:
 
     def _cancel_timeout_height_sync_task(self):
         if self._timeout_height_sync_task is not None:
-            self._timeout_height_sync_task.cancel()
+            try:
+                self._timeout_height_sync_task.cancel()
+                asyncio.get_event_loop().run_until_complete(asyncio.wait_for(self._timeout_height_sync_task, timeout=1))
+            except Exception as e:
+                logger = LoggerProvider().logger_for_class(logging_class=self.__class__)
+                logger.warning("error canceling timeout height sync task")
+                logger.debug("error canceling timeout height sync task", exc_info=e)
         self._timeout_height_sync_task = None
