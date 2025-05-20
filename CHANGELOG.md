@@ -2,9 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.10.0] - 9999-99-99
+## [Unreleased] - 9999-99-99
+
+## [1.10.0] - 2025-04-16
+### Added
+- Added support for the queries in the new TXFees module
+
 ### Changed
 - Update in the implementation of the gas limit estimator to use the same values as the chain for the fixed gas messages
+- Updated all compiled protos for compatibility with Injective core v1.15 and Indexer v1.15.6
 
 ## [1.9.1] - 2025-03-03
 ### Fixed
