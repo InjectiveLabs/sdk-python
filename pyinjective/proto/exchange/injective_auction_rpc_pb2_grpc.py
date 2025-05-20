@@ -30,6 +30,11 @@ class InjectiveAuctionRPCStub(object):
                 request_serializer=exchange_dot_injective__auction__rpc__pb2.StreamBidsRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__auction__rpc__pb2.StreamBidsResponse.FromString,
                 _registered_method=True)
+        self.InjBurntEndpoint = channel.unary_unary(
+                '/injective_auction_rpc.InjectiveAuctionRPC/InjBurntEndpoint',
+                request_serializer=exchange_dot_injective__auction__rpc__pb2.InjBurntEndpointRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__auction__rpc__pb2.InjBurntEndpointResponse.FromString,
+                _registered_method=True)
 
 
 class InjectiveAuctionRPCServicer(object):
@@ -57,6 +62,13 @@ class InjectiveAuctionRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def InjBurntEndpoint(self, request, context):
+        """InjBurntEndpoint returns the total amount of INJ burnt in auctions.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_InjectiveAuctionRPCServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -74,6 +86,11 @@ def add_InjectiveAuctionRPCServicer_to_server(servicer, server):
                     servicer.StreamBids,
                     request_deserializer=exchange_dot_injective__auction__rpc__pb2.StreamBidsRequest.FromString,
                     response_serializer=exchange_dot_injective__auction__rpc__pb2.StreamBidsResponse.SerializeToString,
+            ),
+            'InjBurntEndpoint': grpc.unary_unary_rpc_method_handler(
+                    servicer.InjBurntEndpoint,
+                    request_deserializer=exchange_dot_injective__auction__rpc__pb2.InjBurntEndpointRequest.FromString,
+                    response_serializer=exchange_dot_injective__auction__rpc__pb2.InjBurntEndpointResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -158,6 +175,33 @@ class InjectiveAuctionRPC(object):
             '/injective_auction_rpc.InjectiveAuctionRPC/StreamBids',
             exchange_dot_injective__auction__rpc__pb2.StreamBidsRequest.SerializeToString,
             exchange_dot_injective__auction__rpc__pb2.StreamBidsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def InjBurntEndpoint(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_auction_rpc.InjectiveAuctionRPC/InjBurntEndpoint',
+            exchange_dot_injective__auction__rpc__pb2.InjBurntEndpointRequest.SerializeToString,
+            exchange_dot_injective__auction__rpc__pb2.InjBurntEndpointResponse.FromString,
             options,
             channel_credentials,
             insecure,

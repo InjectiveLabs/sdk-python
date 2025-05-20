@@ -70,6 +70,11 @@ class QueryStub(object):
                 request_serializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryDelegatorValidatorRequest.SerializeToString,
                 response_deserializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryDelegatorValidatorResponse.FromString,
                 _registered_method=True)
+        self.AllowedDelegationTransferReceivers = channel.unary_unary(
+                '/cosmos.staking.v1beta1.Query/AllowedDelegationTransferReceivers',
+                request_serializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryAllowedDelegationTransferReceiversRequest.SerializeToString,
+                response_deserializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryAllowedDelegationTransferReceiversResponse.FromString,
+                _registered_method=True)
         self.HistoricalInfo = channel.unary_unary(
                 '/cosmos.staking.v1beta1.Query/HistoricalInfo',
                 request_serializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryHistoricalInfoRequest.SerializeToString,
@@ -193,6 +198,13 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def AllowedDelegationTransferReceivers(self, request, context):
+        """AllowedDelegationTransferReceivers queries the allowed delegation transfer receivers.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def HistoricalInfo(self, request, context):
         """HistoricalInfo queries the historical info for given height.
         """
@@ -271,6 +283,11 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.DelegatorValidator,
                     request_deserializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryDelegatorValidatorRequest.FromString,
                     response_serializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryDelegatorValidatorResponse.SerializeToString,
+            ),
+            'AllowedDelegationTransferReceivers': grpc.unary_unary_rpc_method_handler(
+                    servicer.AllowedDelegationTransferReceivers,
+                    request_deserializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryAllowedDelegationTransferReceiversRequest.FromString,
+                    response_serializer=cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryAllowedDelegationTransferReceiversResponse.SerializeToString,
             ),
             'HistoricalInfo': grpc.unary_unary_rpc_method_handler(
                     servicer.HistoricalInfo,
@@ -586,6 +603,33 @@ class Query(object):
             '/cosmos.staking.v1beta1.Query/DelegatorValidator',
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryDelegatorValidatorRequest.SerializeToString,
             cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryDelegatorValidatorResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AllowedDelegationTransferReceivers(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.staking.v1beta1.Query/AllowedDelegationTransferReceivers',
+            cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryAllowedDelegationTransferReceiversRequest.SerializeToString,
+            cosmos_dot_staking_dot_v1beta1_dot_query__pb2.QueryAllowedDelegationTransferReceiversResponse.FromString,
             options,
             channel_credentials,
             insecure,

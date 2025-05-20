@@ -11,12 +11,14 @@ inputs:
   - module: buf.build/cosmos/gogo-proto
   - module: buf.build/googleapis/googleapis
   - module: buf.build/cosmos/ics23
-  - git_repo: https://github.com/InjectiveLabs/cosmos-sdk
-    tag: v0.50.9-inj-2
   - git_repo: https://github.com/InjectiveLabs/ibc-go
-    tag: v8.3.2-inj-0
+    tag: v8.7.0-evm-comet1-inj
   - git_repo: https://github.com/InjectiveLabs/wasmd
-    tag: v0.52.0-inj-0
+    tag: v0.53.2-evm-comet1-inj
+  - git_repo: https://github.com/InjectiveLabs/cometbft
+    tag: v1.0.1-inj
+  - git_repo: https://github.com/InjectiveLabs/cosmos-sdk
+    tag: v0.50.13-evm-comet1-inj.2
 #  - git_repo: https://github.com/InjectiveLabs/wasmd
 #    branch: v0.51.x-inj
 #    subdir: proto
@@ -24,6 +26,6 @@ inputs:
 #    tag: v1.13.0
 #    subdir: proto
   - git_repo: https://github.com/InjectiveLabs/injective-core
-    branch: feat/add_exchange_v1_compatibility_to_chain_stream
+    branch: master
     subdir: proto
   - directory: proto

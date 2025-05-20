@@ -863,63 +863,6 @@ class Composer:
             quote_decimals=quote_decimals,
         )
 
-    def msg_instant_perpetual_market_launch(
-        self,
-        sender: str,
-        ticker: str,
-        quote_denom: str,
-        oracle_base: str,
-        oracle_quote: str,
-        oracle_scale_factor: int,
-        oracle_type: str,
-        maker_fee_rate: Decimal,
-        taker_fee_rate: Decimal,
-        initial_margin_ratio: Decimal,
-        maintenance_margin_ratio: Decimal,
-        min_price_tick_size: Decimal,
-        min_quantity_tick_size: Decimal,
-        min_notional: Decimal,
-    ) -> injective_exchange_tx_pb.MsgInstantPerpetualMarketLaunch:
-        """
-        This method is deprecated and will be removed soon. Please use `msg_instant_perpetual_market_launch_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use msg_instant_perpetual_market_launch_v2 instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-        quote_token = self.tokens[quote_denom]
-
-        chain_min_price_tick_size = quote_token.chain_formatted_value(min_price_tick_size) * Decimal(
-            f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
-        )
-        chain_min_quantity_tick_size = min_quantity_tick_size * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        chain_maker_fee_rate = maker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        chain_taker_fee_rate = taker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        chain_initial_margin_ratio = initial_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        chain_maintenance_margin_ratio = maintenance_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        chain_min_notional = quote_token.chain_formatted_value(min_notional) * Decimal(
-            f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
-        )
-
-        return injective_exchange_tx_pb.MsgInstantPerpetualMarketLaunch(
-            sender=sender,
-            ticker=ticker,
-            quote_denom=quote_token.denom,
-            oracle_base=oracle_base,
-            oracle_quote=oracle_quote,
-            oracle_scale_factor=oracle_scale_factor,
-            oracle_type=injective_oracle_pb.OracleType.Value(oracle_type),
-            maker_fee_rate=f"{chain_maker_fee_rate.normalize():f}",
-            taker_fee_rate=f"{chain_taker_fee_rate.normalize():f}",
-            initial_margin_ratio=f"{chain_initial_margin_ratio.normalize():f}",
-            maintenance_margin_ratio=f"{chain_maintenance_margin_ratio.normalize():f}",
-            min_price_tick_size=f"{chain_min_price_tick_size.normalize():f}",
-            min_quantity_tick_size=f"{chain_min_quantity_tick_size.normalize():f}",
-            min_notional=f"{chain_min_notional.normalize():f}",
-        )
-
     def msg_instant_perpetual_market_launch_v2(
         self,
         sender: str,
@@ -953,66 +896,6 @@ class Composer:
             oracle_quote=oracle_quote,
             oracle_scale_factor=oracle_scale_factor,
             oracle_type=injective_oracle_pb.OracleType.Value(oracle_type),
-            maker_fee_rate=f"{chain_maker_fee_rate.normalize():f}",
-            taker_fee_rate=f"{chain_taker_fee_rate.normalize():f}",
-            initial_margin_ratio=f"{chain_initial_margin_ratio.normalize():f}",
-            maintenance_margin_ratio=f"{chain_maintenance_margin_ratio.normalize():f}",
-            min_price_tick_size=f"{chain_min_price_tick_size.normalize():f}",
-            min_quantity_tick_size=f"{chain_min_quantity_tick_size.normalize():f}",
-            min_notional=f"{chain_min_notional.normalize():f}",
-        )
-
-    def msg_instant_expiry_futures_market_launch(
-        self,
-        sender: str,
-        ticker: str,
-        quote_denom: str,
-        oracle_base: str,
-        oracle_quote: str,
-        oracle_scale_factor: int,
-        oracle_type: str,
-        expiry: int,
-        maker_fee_rate: Decimal,
-        taker_fee_rate: Decimal,
-        initial_margin_ratio: Decimal,
-        maintenance_margin_ratio: Decimal,
-        min_price_tick_size: Decimal,
-        min_quantity_tick_size: Decimal,
-        min_notional: Decimal,
-    ) -> injective_exchange_tx_pb.MsgInstantPerpetualMarketLaunch:
-        """
-        This method is deprecated and will be removed soon.
-        Please use `msg_instant_expiry_futures_market_launch_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use msg_instant_expiry_futures_market_launch_v2 instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-        quote_token = self.tokens[quote_denom]
-
-        chain_min_price_tick_size = quote_token.chain_formatted_value(min_price_tick_size) * Decimal(
-            f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
-        )
-        chain_min_quantity_tick_size = min_quantity_tick_size * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        chain_maker_fee_rate = maker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        chain_taker_fee_rate = taker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        chain_initial_margin_ratio = initial_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        chain_maintenance_margin_ratio = maintenance_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        chain_min_notional = quote_token.chain_formatted_value(min_notional) * Decimal(
-            f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
-        )
-
-        return injective_exchange_tx_pb.MsgInstantExpiryFuturesMarketLaunch(
-            sender=sender,
-            ticker=ticker,
-            quote_denom=quote_token.denom,
-            oracle_base=oracle_base,
-            oracle_quote=oracle_quote,
-            oracle_scale_factor=oracle_scale_factor,
-            oracle_type=injective_oracle_pb.OracleType.Value(oracle_type),
-            expiry=expiry,
             maker_fee_rate=f"{chain_maker_fee_rate.normalize():f}",
             taker_fee_rate=f"{chain_taker_fee_rate.normalize():f}",
             initial_margin_ratio=f"{chain_initial_margin_ratio.normalize():f}",
@@ -1590,7 +1473,7 @@ class Composer:
         min_price_tick_size: Decimal,
         min_quantity_tick_size: Decimal,
         min_notional: Decimal,
-    ) -> injective_exchange_tx_pb.MsgInstantPerpetualMarketLaunch:
+    ) -> injective_exchange_tx_pb.MsgInstantBinaryOptionsMarketLaunch:
         """
         This method is deprecated and will be removed soon.
         Please use `msg_instant_binary_options_market_launch_v2` instead

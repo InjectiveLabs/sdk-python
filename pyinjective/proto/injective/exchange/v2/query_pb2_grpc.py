@@ -190,6 +190,11 @@ class QueryStub(object):
                 request_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryPositionsRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryPositionsResponse.FromString,
                 _registered_method=True)
+        self.PositionsInMarket = channel.unary_unary(
+                '/injective.exchange.v2.Query/PositionsInMarket',
+                request_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryPositionsInMarketRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryPositionsInMarketResponse.FromString,
+                _registered_method=True)
         self.SubaccountPositions = channel.unary_unary(
                 '/injective.exchange.v2.Query/SubaccountPositions',
                 request_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QuerySubaccountPositionsRequest.SerializeToString,
@@ -324,6 +329,26 @@ class QueryStub(object):
                 '/injective.exchange.v2.Query/GrantAuthorizations',
                 request_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryGrantAuthorizationsRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryGrantAuthorizationsResponse.FromString,
+                _registered_method=True)
+        self.MarketBalance = channel.unary_unary(
+                '/injective.exchange.v2.Query/MarketBalance',
+                request_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryMarketBalanceRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryMarketBalanceResponse.FromString,
+                _registered_method=True)
+        self.MarketBalances = channel.unary_unary(
+                '/injective.exchange.v2.Query/MarketBalances',
+                request_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryMarketBalancesRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryMarketBalancesResponse.FromString,
+                _registered_method=True)
+        self.DenomMinNotional = channel.unary_unary(
+                '/injective.exchange.v2.Query/DenomMinNotional',
+                request_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomMinNotionalRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomMinNotionalResponse.FromString,
+                _registered_method=True)
+        self.DenomMinNotionals = channel.unary_unary(
+                '/injective.exchange.v2.Query/DenomMinNotionals',
+                request_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomMinNotionalsRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomMinNotionalsResponse.FromString,
                 _registered_method=True)
 
 
@@ -577,6 +602,13 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def PositionsInMarket(self, request, context):
+        """Retrieves all positions in market
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def SubaccountPositions(self, request, context):
         """Retrieves subaccount's positions
         """
@@ -767,6 +799,34 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def MarketBalance(self, request, context):
+        """Retrieves a derivative or binary options market's balance
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def MarketBalances(self, request, context):
+        """Retrieves all derivative or binary options market balances
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DenomMinNotional(self, request, context):
+        """Retrieves the min notional for a denom
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DenomMinNotionals(self, request, context):
+        """Retrieves the min notionals for all denoms
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_QueryServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -945,6 +1005,11 @@ def add_QueryServicer_to_server(servicer, server):
                     request_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryPositionsRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryPositionsResponse.SerializeToString,
             ),
+            'PositionsInMarket': grpc.unary_unary_rpc_method_handler(
+                    servicer.PositionsInMarket,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryPositionsInMarketRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryPositionsInMarketResponse.SerializeToString,
+            ),
             'SubaccountPositions': grpc.unary_unary_rpc_method_handler(
                     servicer.SubaccountPositions,
                     request_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QuerySubaccountPositionsRequest.FromString,
@@ -1079,6 +1144,26 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.GrantAuthorizations,
                     request_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryGrantAuthorizationsRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryGrantAuthorizationsResponse.SerializeToString,
+            ),
+            'MarketBalance': grpc.unary_unary_rpc_method_handler(
+                    servicer.MarketBalance,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryMarketBalanceRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryMarketBalanceResponse.SerializeToString,
+            ),
+            'MarketBalances': grpc.unary_unary_rpc_method_handler(
+                    servicer.MarketBalances,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryMarketBalancesRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryMarketBalancesResponse.SerializeToString,
+            ),
+            'DenomMinNotional': grpc.unary_unary_rpc_method_handler(
+                    servicer.DenomMinNotional,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomMinNotionalRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomMinNotionalResponse.SerializeToString,
+            ),
+            'DenomMinNotionals': grpc.unary_unary_rpc_method_handler(
+                    servicer.DenomMinNotionals,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomMinNotionalsRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomMinNotionalsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -2038,6 +2123,33 @@ class Query(object):
             _registered_method=True)
 
     @staticmethod
+    def PositionsInMarket(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Query/PositionsInMarket',
+            injective_dot_exchange_dot_v2_dot_query__pb2.QueryPositionsInMarketRequest.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_query__pb2.QueryPositionsInMarketResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
     def SubaccountPositions(request,
             target,
             options=(),
@@ -2756,6 +2868,114 @@ class Query(object):
             '/injective.exchange.v2.Query/GrantAuthorizations',
             injective_dot_exchange_dot_v2_dot_query__pb2.QueryGrantAuthorizationsRequest.SerializeToString,
             injective_dot_exchange_dot_v2_dot_query__pb2.QueryGrantAuthorizationsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def MarketBalance(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Query/MarketBalance',
+            injective_dot_exchange_dot_v2_dot_query__pb2.QueryMarketBalanceRequest.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_query__pb2.QueryMarketBalanceResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def MarketBalances(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Query/MarketBalances',
+            injective_dot_exchange_dot_v2_dot_query__pb2.QueryMarketBalancesRequest.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_query__pb2.QueryMarketBalancesResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DenomMinNotional(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Query/DenomMinNotional',
+            injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomMinNotionalRequest.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomMinNotionalResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DenomMinNotionals(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Query/DenomMinNotionals',
+            injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomMinNotionalsRequest.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomMinNotionalsResponse.FromString,
             options,
             channel_credentials,
             insecure,

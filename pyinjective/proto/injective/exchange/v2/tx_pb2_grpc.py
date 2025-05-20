@@ -190,6 +190,86 @@ class MsgStub(object):
                 request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgActivateStakeGrant.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgActivateStakeGrantResponse.FromString,
                 _registered_method=True)
+        self.BatchExchangeModification = channel.unary_unary(
+                '/injective.exchange.v2.Msg/BatchExchangeModification',
+                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchExchangeModification.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchExchangeModificationResponse.FromString,
+                _registered_method=True)
+        self.LaunchSpotMarket = channel.unary_unary(
+                '/injective.exchange.v2.Msg/LaunchSpotMarket',
+                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgSpotMarketLaunch.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgSpotMarketLaunchResponse.FromString,
+                _registered_method=True)
+        self.LaunchPerpetualMarket = channel.unary_unary(
+                '/injective.exchange.v2.Msg/LaunchPerpetualMarket',
+                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgPerpetualMarketLaunch.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgPerpetualMarketLaunchResponse.FromString,
+                _registered_method=True)
+        self.LaunchExpiryFuturesMarket = channel.unary_unary(
+                '/injective.exchange.v2.Msg/LaunchExpiryFuturesMarket',
+                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgExpiryFuturesMarketLaunch.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgExpiryFuturesMarketLaunchResponse.FromString,
+                _registered_method=True)
+        self.LaunchBinaryOptionsMarket = channel.unary_unary(
+                '/injective.exchange.v2.Msg/LaunchBinaryOptionsMarket',
+                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBinaryOptionsMarketLaunch.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBinaryOptionsMarketLaunchResponse.FromString,
+                _registered_method=True)
+        self.BatchSpendCommunityPool = channel.unary_unary(
+                '/injective.exchange.v2.Msg/BatchSpendCommunityPool',
+                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchCommunityPoolSpend.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchCommunityPoolSpendResponse.FromString,
+                _registered_method=True)
+        self.SpotMarketParamUpdate = channel.unary_unary(
+                '/injective.exchange.v2.Msg/SpotMarketParamUpdate',
+                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgSpotMarketParamUpdate.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgSpotMarketParamUpdateResponse.FromString,
+                _registered_method=True)
+        self.DerivativeMarketParamUpdate = channel.unary_unary(
+                '/injective.exchange.v2.Msg/DerivativeMarketParamUpdate',
+                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgDerivativeMarketParamUpdate.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgDerivativeMarketParamUpdateResponse.FromString,
+                _registered_method=True)
+        self.BinaryOptionsMarketParamUpdate = channel.unary_unary(
+                '/injective.exchange.v2.Msg/BinaryOptionsMarketParamUpdate',
+                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBinaryOptionsMarketParamUpdate.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBinaryOptionsMarketParamUpdateResponse.FromString,
+                _registered_method=True)
+        self.ForceSettleMarket = channel.unary_unary(
+                '/injective.exchange.v2.Msg/ForceSettleMarket',
+                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgMarketForcedSettlement.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgMarketForcedSettlementResponse.FromString,
+                _registered_method=True)
+        self.LaunchTradingRewardCampaign = channel.unary_unary(
+                '/injective.exchange.v2.Msg/LaunchTradingRewardCampaign',
+                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardCampaignLaunch.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardCampaignLaunchResponse.FromString,
+                _registered_method=True)
+        self.EnableExchange = channel.unary_unary(
+                '/injective.exchange.v2.Msg/EnableExchange',
+                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgExchangeEnable.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgExchangeEnableResponse.FromString,
+                _registered_method=True)
+        self.UpdateTradingRewardCampaign = channel.unary_unary(
+                '/injective.exchange.v2.Msg/UpdateTradingRewardCampaign',
+                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardCampaignUpdate.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardCampaignUpdateResponse.FromString,
+                _registered_method=True)
+        self.UpdateTradingRewardPendingPoints = channel.unary_unary(
+                '/injective.exchange.v2.Msg/UpdateTradingRewardPendingPoints',
+                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardPendingPointsUpdate.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardPendingPointsUpdateResponse.FromString,
+                _registered_method=True)
+        self.UpdateFeeDiscount = channel.unary_unary(
+                '/injective.exchange.v2.Msg/UpdateFeeDiscount',
+                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgFeeDiscount.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgFeeDiscountResponse.FromString,
+                _registered_method=True)
+        self.UpdateAtomicMarketOrderFeeMultiplierSchedule = channel.unary_unary(
+                '/injective.exchange.v2.Msg/UpdateAtomicMarketOrderFeeMultiplierSchedule',
+                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgAtomicMarketOrderFeeMultiplierSchedule.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgAtomicMarketOrderFeeMultiplierScheduleResponse.FromString,
+                _registered_method=True)
 
 
 class MsgServicer(object):
@@ -459,6 +539,102 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def BatchExchangeModification(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def LaunchSpotMarket(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def LaunchPerpetualMarket(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def LaunchExpiryFuturesMarket(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def LaunchBinaryOptionsMarket(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def BatchSpendCommunityPool(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SpotMarketParamUpdate(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DerivativeMarketParamUpdate(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def BinaryOptionsMarketParamUpdate(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ForceSettleMarket(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def LaunchTradingRewardCampaign(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def EnableExchange(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateTradingRewardCampaign(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateTradingRewardPendingPoints(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateFeeDiscount(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateAtomicMarketOrderFeeMultiplierSchedule(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -636,6 +812,86 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.ActivateStakeGrant,
                     request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgActivateStakeGrant.FromString,
                     response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgActivateStakeGrantResponse.SerializeToString,
+            ),
+            'BatchExchangeModification': grpc.unary_unary_rpc_method_handler(
+                    servicer.BatchExchangeModification,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchExchangeModification.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchExchangeModificationResponse.SerializeToString,
+            ),
+            'LaunchSpotMarket': grpc.unary_unary_rpc_method_handler(
+                    servicer.LaunchSpotMarket,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgSpotMarketLaunch.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgSpotMarketLaunchResponse.SerializeToString,
+            ),
+            'LaunchPerpetualMarket': grpc.unary_unary_rpc_method_handler(
+                    servicer.LaunchPerpetualMarket,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgPerpetualMarketLaunch.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgPerpetualMarketLaunchResponse.SerializeToString,
+            ),
+            'LaunchExpiryFuturesMarket': grpc.unary_unary_rpc_method_handler(
+                    servicer.LaunchExpiryFuturesMarket,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgExpiryFuturesMarketLaunch.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgExpiryFuturesMarketLaunchResponse.SerializeToString,
+            ),
+            'LaunchBinaryOptionsMarket': grpc.unary_unary_rpc_method_handler(
+                    servicer.LaunchBinaryOptionsMarket,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBinaryOptionsMarketLaunch.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBinaryOptionsMarketLaunchResponse.SerializeToString,
+            ),
+            'BatchSpendCommunityPool': grpc.unary_unary_rpc_method_handler(
+                    servicer.BatchSpendCommunityPool,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchCommunityPoolSpend.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchCommunityPoolSpendResponse.SerializeToString,
+            ),
+            'SpotMarketParamUpdate': grpc.unary_unary_rpc_method_handler(
+                    servicer.SpotMarketParamUpdate,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgSpotMarketParamUpdate.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgSpotMarketParamUpdateResponse.SerializeToString,
+            ),
+            'DerivativeMarketParamUpdate': grpc.unary_unary_rpc_method_handler(
+                    servicer.DerivativeMarketParamUpdate,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgDerivativeMarketParamUpdate.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgDerivativeMarketParamUpdateResponse.SerializeToString,
+            ),
+            'BinaryOptionsMarketParamUpdate': grpc.unary_unary_rpc_method_handler(
+                    servicer.BinaryOptionsMarketParamUpdate,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBinaryOptionsMarketParamUpdate.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBinaryOptionsMarketParamUpdateResponse.SerializeToString,
+            ),
+            'ForceSettleMarket': grpc.unary_unary_rpc_method_handler(
+                    servicer.ForceSettleMarket,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgMarketForcedSettlement.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgMarketForcedSettlementResponse.SerializeToString,
+            ),
+            'LaunchTradingRewardCampaign': grpc.unary_unary_rpc_method_handler(
+                    servicer.LaunchTradingRewardCampaign,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardCampaignLaunch.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardCampaignLaunchResponse.SerializeToString,
+            ),
+            'EnableExchange': grpc.unary_unary_rpc_method_handler(
+                    servicer.EnableExchange,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgExchangeEnable.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgExchangeEnableResponse.SerializeToString,
+            ),
+            'UpdateTradingRewardCampaign': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateTradingRewardCampaign,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardCampaignUpdate.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardCampaignUpdateResponse.SerializeToString,
+            ),
+            'UpdateTradingRewardPendingPoints': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateTradingRewardPendingPoints,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardPendingPointsUpdate.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardPendingPointsUpdateResponse.SerializeToString,
+            ),
+            'UpdateFeeDiscount': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateFeeDiscount,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgFeeDiscount.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgFeeDiscountResponse.SerializeToString,
+            ),
+            'UpdateAtomicMarketOrderFeeMultiplierSchedule': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateAtomicMarketOrderFeeMultiplierSchedule,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgAtomicMarketOrderFeeMultiplierSchedule.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgAtomicMarketOrderFeeMultiplierScheduleResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -1584,6 +1840,438 @@ class Msg(object):
             '/injective.exchange.v2.Msg/ActivateStakeGrant',
             injective_dot_exchange_dot_v2_dot_tx__pb2.MsgActivateStakeGrant.SerializeToString,
             injective_dot_exchange_dot_v2_dot_tx__pb2.MsgActivateStakeGrantResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def BatchExchangeModification(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Msg/BatchExchangeModification',
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchExchangeModification.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchExchangeModificationResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def LaunchSpotMarket(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Msg/LaunchSpotMarket',
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgSpotMarketLaunch.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgSpotMarketLaunchResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def LaunchPerpetualMarket(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Msg/LaunchPerpetualMarket',
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgPerpetualMarketLaunch.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgPerpetualMarketLaunchResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def LaunchExpiryFuturesMarket(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Msg/LaunchExpiryFuturesMarket',
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgExpiryFuturesMarketLaunch.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgExpiryFuturesMarketLaunchResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def LaunchBinaryOptionsMarket(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Msg/LaunchBinaryOptionsMarket',
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBinaryOptionsMarketLaunch.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBinaryOptionsMarketLaunchResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def BatchSpendCommunityPool(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Msg/BatchSpendCommunityPool',
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchCommunityPoolSpend.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchCommunityPoolSpendResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def SpotMarketParamUpdate(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Msg/SpotMarketParamUpdate',
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgSpotMarketParamUpdate.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgSpotMarketParamUpdateResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DerivativeMarketParamUpdate(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Msg/DerivativeMarketParamUpdate',
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgDerivativeMarketParamUpdate.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgDerivativeMarketParamUpdateResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def BinaryOptionsMarketParamUpdate(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Msg/BinaryOptionsMarketParamUpdate',
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBinaryOptionsMarketParamUpdate.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBinaryOptionsMarketParamUpdateResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ForceSettleMarket(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Msg/ForceSettleMarket',
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgMarketForcedSettlement.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgMarketForcedSettlementResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def LaunchTradingRewardCampaign(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Msg/LaunchTradingRewardCampaign',
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardCampaignLaunch.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardCampaignLaunchResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def EnableExchange(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Msg/EnableExchange',
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgExchangeEnable.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgExchangeEnableResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateTradingRewardCampaign(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Msg/UpdateTradingRewardCampaign',
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardCampaignUpdate.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardCampaignUpdateResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateTradingRewardPendingPoints(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Msg/UpdateTradingRewardPendingPoints',
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardPendingPointsUpdate.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardPendingPointsUpdateResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateFeeDiscount(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Msg/UpdateFeeDiscount',
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgFeeDiscount.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgFeeDiscountResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateAtomicMarketOrderFeeMultiplierSchedule(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Msg/UpdateAtomicMarketOrderFeeMultiplierSchedule',
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgAtomicMarketOrderFeeMultiplierSchedule.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgAtomicMarketOrderFeeMultiplierScheduleResponse.FromString,
             options,
             channel_credentials,
             insecure,
