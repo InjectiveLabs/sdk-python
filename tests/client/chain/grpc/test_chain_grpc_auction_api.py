@@ -26,7 +26,7 @@ class TestChainGrpcAuctionApi:
         params = auction_pb.Params(
             auction_period=604800,
             min_next_bid_increment_rate="2500000000000000",
-            inj_basket_max_cap="1000000000000000000000",
+            inj_basket_max_cap="100000",
         )
         auction_servicer.auction_params.append(auction_query_pb.QueryAuctionParamsResponse(params=params))
 
@@ -37,7 +37,7 @@ class TestChainGrpcAuctionApi:
             "params": {
                 "auctionPeriod": str(params.auction_period),
                 "minNextBidIncrementRate": params.min_next_bid_increment_rate,
-                "injBasketMaxCap": params.inj_basket_max_cap,
+                "injBasketMaxCap": str(params.inj_basket_max_cap),
             }
         }
 
@@ -51,18 +51,24 @@ class TestChainGrpcAuctionApi:
         params = auction_pb.Params(
             auction_period=604800,
             min_next_bid_increment_rate="2500000000000000",
-            inj_basket_max_cap="1000000000000000000000",
+            inj_basket_max_cap="100000",
         )
-        bid_amount = coin_pb.Coin(amount="2347518723906280000", denom="inj")
+        coin = coin_pb.Coin(denom="inj", amount="988987297011197594664")
         highest_bid = auction_pb.Bid(
             bidder="inj1pvt70tt7epjudnurkqlxu62flfgy46j2ytj7j5",
-            amount=bid_amount,
+            amount=coin,
+        )
+        last_auction_result = auction_pb.LastAuctionResult(
+            winner="inj1pvt70tt7epjudnurkqlxu62flfgy46j2ytj7j5",
+            amount=coin,
+            round=3,
         )
         state = genesis_pb.GenesisState(
             params=params,
             auction_round=50,
             highest_bid=highest_bid,
             auction_ending_timestamp=1687504387,
+            last_auction_result=last_auction_result,
         )
         auction_servicer.module_states.append(auction_query_pb.QueryModuleStateResponse(state=state))
 
@@ -74,16 +80,24 @@ class TestChainGrpcAuctionApi:
                 "auctionEndingTimestamp": "1687504387",
                 "auctionRound": "50",
                 "highestBid": {
-                    "bidder": "inj1pvt70tt7epjudnurkqlxu62flfgy46j2ytj7j5",
                     "amount": {
-                        "amount": "2347518723906280000",
-                        "denom": "inj",
+                        "denom": coin.denom,
+                        "amount": coin.amount,
                     },
+                    "bidder": "inj1pvt70tt7epjudnurkqlxu62flfgy46j2ytj7j5",
                 },
                 "params": {
                     "auctionPeriod": str(params.auction_period),
                     "minNextBidIncrementRate": params.min_next_bid_increment_rate,
-                    "injBasketMaxCap": params.inj_basket_max_cap,
+                    "injBasketMaxCap": str(params.inj_basket_max_cap),
+                },
+                "lastAuctionResult": {
+                    "winner": last_auction_result.winner,
+                    "amount": {
+                        "denom": coin.denom,
+                        "amount": coin.amount,
+                    },
+                    "round": str(last_auction_result.round),
                 },
             }
         }
@@ -98,7 +112,7 @@ class TestChainGrpcAuctionApi:
         params = auction_pb.Params(
             auction_period=604800,
             min_next_bid_increment_rate="2500000000000000",
-            inj_basket_max_cap="1000000000000000000000",
+            inj_basket_max_cap="100000",
         )
         state = genesis_pb.GenesisState(
             params=params,
@@ -117,7 +131,7 @@ class TestChainGrpcAuctionApi:
                 "params": {
                     "auctionPeriod": str(params.auction_period),
                     "minNextBidIncrementRate": params.min_next_bid_increment_rate,
-                    "injBasketMaxCap": params.inj_basket_max_cap,
+                    "injBasketMaxCap": str(params.inj_basket_max_cap),
                 },
             }
         }

@@ -74,6 +74,48 @@ class TestIndexerGrpcOracleApi:
 
         assert result_oracle_list == expected_oracle_list
 
+    @pytest.mark.asyncio
+    async def test_fetch_oracle_price_v2(
+        self,
+        oracle_servicer,
+    ):
+        price_result = exchange_oracle_pb.PriceV2Result(
+            base_symbol="Gold",
+            quote_symbol="USDT",
+            oracle_type="pricefeed",
+            oracle_scale_factor=6,
+            price="10.56",
+            market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
+        )
+
+        price_response = exchange_oracle_pb.PriceV2Response(prices=[price_result])
+
+        oracle_servicer.price_v2_responses.append(price_response)
+
+        api = self._api_instance(servicer=oracle_servicer)
+
+        filter = exchange_oracle_pb.PricePayloadV2(
+            base_symbol="Gold",
+            quote_symbol="USDT",
+            oracle_type="pricefeed",
+            oracle_scale_factor=6,
+        )
+        result_oracle_list = await api.fetch_oracle_price_v2(filters=[filter])
+        expected_oracle_list = {
+            "prices": [
+                {
+                    "baseSymbol": price_result.base_symbol,
+                    "quoteSymbol": price_result.quote_symbol,
+                    "oracleType": price_result.oracle_type,
+                    "oracleScaleFactor": price_result.oracle_scale_factor,
+                    "price": price_result.price,
+                    "marketId": price_result.market_id,
+                }
+            ]
+        }
+
+        assert result_oracle_list == expected_oracle_list
+
     def _api_instance(self, servicer):
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)

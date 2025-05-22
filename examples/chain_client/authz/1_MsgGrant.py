@@ -38,7 +38,7 @@ async def main() -> None:
     msg = composer.MsgGrantGeneric(
         granter=address.to_acc_bech32(),
         grantee=grantee_public_address,
-        msg_type="/injective.exchange.v1beta1.MsgCreateSpotLimitOrder",
+        msg_type="/injective.exchange.v2.MsgCreateSpotLimitOrder",
         expire_in=31536000,  # 1 year
     )
 

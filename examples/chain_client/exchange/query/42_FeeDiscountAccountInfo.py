@@ -24,7 +24,7 @@ async def main() -> None:
     address = pub_key.to_address()
     await client.fetch_account(address.to_acc_bech32())
 
-    fee_discount = await client.fetch_fee_discount_account_info(
+    fee_discount = await client.fetch_fee_discount_account_info_v2(
         account=address.to_acc_bech32(),
     )
     print(fee_discount)

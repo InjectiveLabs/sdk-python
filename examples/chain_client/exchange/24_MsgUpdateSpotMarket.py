@@ -42,7 +42,7 @@ async def main() -> None:
     await client.fetch_account(address.to_acc_bech32())
 
     # prepare tx msg
-    message = composer.msg_update_spot_market(
+    message = composer.msg_update_spot_market_v2(
         admin=address.to_acc_bech32(),
         market_id="0x215970bfdea5c94d8e964a759d3ce6eae1d113900129cc8428267db5ccdb3d1a",
         new_ticker="INJ/USDC 2",

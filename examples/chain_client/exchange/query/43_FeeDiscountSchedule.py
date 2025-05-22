@@ -11,7 +11,7 @@ async def main() -> None:
     # initialize grpc client
     client = AsyncClient(network)
 
-    schedule = await client.fetch_fee_discount_schedule()
+    schedule = await client.fetch_fee_discount_schedule_v2()
     print(schedule)
 
 

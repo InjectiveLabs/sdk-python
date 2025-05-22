@@ -1,4 +1,5 @@
 import asyncio
+import json
 
 from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
@@ -12,8 +13,9 @@ async def main() -> None:
         "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
         "0xd5e4b12b19ecf176e4e14b42944731c27677819d2ed93be4104ad7025529c7ff",
     ]
-    orderbooks = await client.fetch_derivative_orderbooks_v2(market_ids=market_ids)
-    print(orderbooks)
+    depth = 1
+    orderbooks = await client.fetch_derivative_orderbooks_v2(market_ids=market_ids, depth=depth)
+    print(json.dumps(orderbooks, indent=2))
 
 
 if __name__ == "__main__":

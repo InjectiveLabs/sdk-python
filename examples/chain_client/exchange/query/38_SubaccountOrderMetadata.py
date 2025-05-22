@@ -26,7 +26,7 @@ async def main() -> None:
 
     subaccount_id = address.get_subaccount_id(index=0)
 
-    metadata = await client.fetch_subaccount_order_metadata(
+    metadata = await client.fetch_subaccount_order_metadata_v2(
         subaccount_id=subaccount_id,
     )
     print(metadata)

@@ -14,7 +14,7 @@ async def main() -> None:
 
     pagination = PaginationOption(limit=2)
 
-    orderbook = await client.fetch_chain_spot_orderbook(
+    orderbook = await client.fetch_chain_spot_orderbook_v2(
         market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
         order_side="Buy",
         pagination=pagination,

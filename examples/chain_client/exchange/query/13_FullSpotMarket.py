@@ -11,7 +11,7 @@ async def main() -> None:
     # initialize grpc client
     client = AsyncClient(network)
 
-    spot_market = await client.fetch_chain_full_spot_market(
+    spot_market = await client.fetch_chain_full_spot_market_v2(
         market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
         with_mid_price_and_tob=True,
     )

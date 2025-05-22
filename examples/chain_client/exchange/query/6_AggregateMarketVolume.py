@@ -13,7 +13,7 @@ async def main() -> None:
 
     market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
 
-    volume = await client.fetch_aggregate_market_volume(market_id=market_id)
+    volume = await client.fetch_aggregate_market_volume_v2(market_id=market_id)
     print(volume)
 
 

@@ -109,9 +109,9 @@ def usdt_perp_token_meta():
 
 @pytest.fixture
 def ape_usdt_spot_market_meta():
-    from pyinjective.proto.injective.exchange.v1beta1 import exchange_pb2 as exchange_pb
+    from pyinjective.proto.injective.exchange.v2 import market_pb2 as market_pb
 
-    market = exchange_pb.SpotMarket(
+    market = market_pb.SpotMarket(
         ticker="APE/USDT",
         base_denom="peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7",
         quote_denom="factory/inj10vkkttgxdeqcgeppu20x9qtyvuaxxev8qh0awq/usdt",
@@ -134,9 +134,9 @@ def ape_usdt_spot_market_meta():
 
 @pytest.fixture
 def inj_usdt_spot_market_meta(inj_token_meta, usdt_token_meta):
-    from pyinjective.proto.injective.exchange.v1beta1 import exchange_pb2 as exchange_pb
+    from pyinjective.proto.injective.exchange.v2 import market_pb2 as market_pb
 
-    market = exchange_pb.SpotMarket(
+    market = market_pb.SpotMarket(
         ticker="INJ/USDT",
         base_denom="inj",
         quote_denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
@@ -159,9 +159,13 @@ def inj_usdt_spot_market_meta(inj_token_meta, usdt_token_meta):
 
 @pytest.fixture
 def btc_usdt_perp_market_meta(usdt_perp_token_meta):
-    from pyinjective.proto.injective.exchange.v1beta1 import exchange_pb2 as exchange_pb, query_pb2 as exchange_query_pb
+    from pyinjective.proto.injective.exchange.v2 import (
+        exchange_pb2 as exchange_pb,
+        market_pb2 as market_pb,
+        query_pb2 as exchange_query_pb,
+    )
 
-    market = exchange_pb.DerivativeMarket(
+    market = market_pb.DerivativeMarket(
         ticker="BTC/USDT PERP",
         oracle_base="BTC",
         oracle_quote="USDT",
@@ -183,14 +187,14 @@ def btc_usdt_perp_market_meta(usdt_perp_token_meta):
         admin_permissions=1,
         quote_decimals=6,
     )
-    market_info = exchange_pb.PerpetualMarketInfo(
+    market_info = market_pb.PerpetualMarketInfo(
         market_id="0x4ca0f92fc28be0c9761326016b5a1a2177dd6375558365116b5bdda9abc229ce",
         hourly_funding_rate_cap="625000000000000",
         hourly_interest_rate="4166660000000",
         next_funding_timestamp=1708099200,
         funding_interval=3600,
     )
-    funding_info = exchange_pb.PerpetualMarketFunding(
+    funding_info = market_pb.PerpetualMarketFunding(
         cumulative_funding="-107853477278881692857461",
         cumulative_price="0",
         last_timestamp=1708099200,
@@ -216,9 +220,9 @@ def btc_usdt_perp_market_meta(usdt_perp_token_meta):
 
 @pytest.fixture
 def first_match_bet_market_meta(inj_usdt_spot_market_meta):
-    from pyinjective.proto.injective.exchange.v1beta1 import exchange_pb2 as exchange_pb
+    from pyinjective.proto.injective.exchange.v2 import market_pb2 as market_pb
 
-    market = exchange_pb.BinaryOptionsMarket(
+    market = market_pb.BinaryOptionsMarket(
         ticker="5fdbe0b1-1707800399-WAS",
         oracle_symbol="Frontrunner",
         oracle_provider="Frontrunner",

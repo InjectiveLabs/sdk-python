@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased] - 9999-99-99
+### Added
+- Added support for Exchange V2 proto queries and types
+- Updated all chain exchange module examples to use the new Exchange V2 proto queries and types
+
+### Removed
+- Removed all methods marked as deprecated in AsyncClient and Composer
 
 ## [1.10.0] - 2025-04-16
 ### Added

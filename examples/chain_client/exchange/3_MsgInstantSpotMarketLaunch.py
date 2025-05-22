@@ -42,11 +42,11 @@ async def main() -> None:
     await client.fetch_account(address.to_acc_bech32())
 
     # prepare tx msg
-    message = composer.msg_instant_spot_market_launch(
+    message = composer.msg_instant_spot_market_launch_v2(
         sender=address.to_acc_bech32(),
         ticker="INJ/USDC",
-        base_denom="INJ",
-        quote_denom="USDC",
+        base_denom="inj",
+        quote_denom="factory/inj17vytdwqczqz72j65saukplrktd4gyfme5agf6c/usdc",
         min_price_tick_size=Decimal("0.001"),
         min_quantity_tick_size=Decimal("0.01"),
         min_notional=Decimal("1"),

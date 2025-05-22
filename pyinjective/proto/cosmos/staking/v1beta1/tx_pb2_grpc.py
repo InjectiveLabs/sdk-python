@@ -30,6 +30,11 @@ class MsgStub(object):
                 request_serializer=cosmos_dot_staking_dot_v1beta1_dot_tx__pb2.MsgDelegate.SerializeToString,
                 response_deserializer=cosmos_dot_staking_dot_v1beta1_dot_tx__pb2.MsgDelegateResponse.FromString,
                 _registered_method=True)
+        self.TransferDelegation = channel.unary_unary(
+                '/cosmos.staking.v1beta1.Msg/TransferDelegation',
+                request_serializer=cosmos_dot_staking_dot_v1beta1_dot_tx__pb2.MsgTransferDelegation.SerializeToString,
+                response_deserializer=cosmos_dot_staking_dot_v1beta1_dot_tx__pb2.MsgTransferDelegationResponse.FromString,
+                _registered_method=True)
         self.BeginRedelegate = channel.unary_unary(
                 '/cosmos.staking.v1beta1.Msg/BeginRedelegate',
                 request_serializer=cosmos_dot_staking_dot_v1beta1_dot_tx__pb2.MsgBeginRedelegate.SerializeToString,
@@ -73,6 +78,14 @@ class MsgServicer(object):
     def Delegate(self, request, context):
         """Delegate defines a method for performing a delegation of coins
         from a delegator to a validator.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def TransferDelegation(self, request, context):
+        """TransferDelegation defines a method for transferring a delegation of coins
+        from a delegator to another address.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -130,6 +143,11 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.Delegate,
                     request_deserializer=cosmos_dot_staking_dot_v1beta1_dot_tx__pb2.MsgDelegate.FromString,
                     response_serializer=cosmos_dot_staking_dot_v1beta1_dot_tx__pb2.MsgDelegateResponse.SerializeToString,
+            ),
+            'TransferDelegation': grpc.unary_unary_rpc_method_handler(
+                    servicer.TransferDelegation,
+                    request_deserializer=cosmos_dot_staking_dot_v1beta1_dot_tx__pb2.MsgTransferDelegation.FromString,
+                    response_serializer=cosmos_dot_staking_dot_v1beta1_dot_tx__pb2.MsgTransferDelegationResponse.SerializeToString,
             ),
             'BeginRedelegate': grpc.unary_unary_rpc_method_handler(
                     servicer.BeginRedelegate,
@@ -234,6 +252,33 @@ class Msg(object):
             '/cosmos.staking.v1beta1.Msg/Delegate',
             cosmos_dot_staking_dot_v1beta1_dot_tx__pb2.MsgDelegate.SerializeToString,
             cosmos_dot_staking_dot_v1beta1_dot_tx__pb2.MsgDelegateResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def TransferDelegation(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/cosmos.staking.v1beta1.Msg/TransferDelegation',
+            cosmos_dot_staking_dot_v1beta1_dot_tx__pb2.MsgTransferDelegation.SerializeToString,
+            cosmos_dot_staking_dot_v1beta1_dot_tx__pb2.MsgTransferDelegationResponse.FromString,
             options,
             channel_credentials,
             insecure,

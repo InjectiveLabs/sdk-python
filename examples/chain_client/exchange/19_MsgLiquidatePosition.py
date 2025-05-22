@@ -37,7 +37,7 @@ async def main() -> None:
     fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
     cid = str(uuid.uuid4())
 
-    order = composer.derivative_order(
+    order = composer.create_derivative_order_v2(
         market_id=market_id,
         subaccount_id=subaccount_id,
         fee_recipient=fee_recipient,
@@ -51,7 +51,7 @@ async def main() -> None:
     )
 
     # prepare tx msg
-    msg = composer.msg_liquidate_position(
+    msg = composer.msg_liquidate_position_v2(
         sender=address.to_acc_bech32(),
         subaccount_id="0x156df4d5bc8e7dd9191433e54bd6a11eeb390921000000000000000000000000",
         market_id=market_id,

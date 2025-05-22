@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1f\x63osmos/autocli/v1/options.proto\x12\x11\x63osmos.autocli.v1\"\x8f\x01\n\rModuleOptions\x12;\n\x02tx\x18\x01 \x01(\x0b\x32+.cosmos.autocli.v1.ServiceCommandDescriptorR\x02tx\x12\x41\n\x05query\x18\x02 \x01(\x0b\x32+.cosmos.autocli.v1.ServiceCommandDescriptorR\x05query\"\xd8\x02\n\x18ServiceCommandDescriptor\x12\x18\n\x07service\x18\x01 \x01(\tR\x07service\x12T\n\x13rpc_command_options\x18\x02 \x03(\x0b\x32$.cosmos.autocli.v1.RpcCommandOptionsR\x11rpcCommandOptions\x12_\n\x0csub_commands\x18\x03 \x03(\x0b\x32<.cosmos.autocli.v1.ServiceCommandDescriptor.SubCommandsEntryR\x0bsubCommands\x1ak\n\x10SubCommandsEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x41\n\x05value\x18\x02 \x01(\x0b\x32+.cosmos.autocli.v1.ServiceCommandDescriptorR\x05value:\x02\x38\x01\"\x9c\x04\n\x11RpcCommandOptions\x12\x1d\n\nrpc_method\x18\x01 \x01(\tR\trpcMethod\x12\x10\n\x03use\x18\x02 \x01(\tR\x03use\x12\x12\n\x04long\x18\x03 \x01(\tR\x04long\x12\x14\n\x05short\x18\x04 \x01(\tR\x05short\x12\x18\n\x07\x65xample\x18\x05 \x01(\tR\x07\x65xample\x12\x14\n\x05\x61lias\x18\x06 \x03(\tR\x05\x61lias\x12\x1f\n\x0bsuggest_for\x18\x07 \x03(\tR\nsuggestFor\x12\x1e\n\ndeprecated\x18\x08 \x01(\tR\ndeprecated\x12\x18\n\x07version\x18\t \x01(\tR\x07version\x12X\n\x0c\x66lag_options\x18\n \x03(\x0b\x32\x35.cosmos.autocli.v1.RpcCommandOptions.FlagOptionsEntryR\x0b\x66lagOptions\x12S\n\x0fpositional_args\x18\x0b \x03(\x0b\x32*.cosmos.autocli.v1.PositionalArgDescriptorR\x0epositionalArgs\x12\x12\n\x04skip\x18\x0c \x01(\x08R\x04skip\x1a^\n\x10\x46lagOptionsEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x34\n\x05value\x18\x02 \x01(\x0b\x32\x1e.cosmos.autocli.v1.FlagOptionsR\x05value:\x02\x38\x01\"\xe5\x01\n\x0b\x46lagOptions\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12\x1c\n\tshorthand\x18\x02 \x01(\tR\tshorthand\x12\x14\n\x05usage\x18\x03 \x01(\tR\x05usage\x12#\n\rdefault_value\x18\x04 \x01(\tR\x0c\x64\x65\x66\x61ultValue\x12\x1e\n\ndeprecated\x18\x06 \x01(\tR\ndeprecated\x12\x31\n\x14shorthand_deprecated\x18\x07 \x01(\tR\x13shorthandDeprecated\x12\x16\n\x06hidden\x18\x08 \x01(\x08R\x06hidden\"T\n\x17PositionalArgDescriptor\x12\x1f\n\x0bproto_field\x18\x01 \x01(\tR\nprotoField\x12\x18\n\x07varargs\x18\x02 \x01(\x08R\x07varargsB\xb6\x01\n\x15\x63om.cosmos.autocli.v1B\x0cOptionsProtoP\x01Z)cosmossdk.io/api/cosmos/base/cli/v1;cliv1\xa2\x02\x03\x43\x41X\xaa\x02\x11\x43osmos.Autocli.V1\xca\x02\x11\x43osmos\\Autocli\\V1\xe2\x02\x1d\x43osmos\\Autocli\\V1\\GPBMetadata\xea\x02\x13\x43osmos::Autocli::V1b\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1f\x63osmos/autocli/v1/options.proto\x12\x11\x63osmos.autocli.v1\"\x8f\x01\n\rModuleOptions\x12;\n\x02tx\x18\x01 \x01(\x0b\x32+.cosmos.autocli.v1.ServiceCommandDescriptorR\x02tx\x12\x41\n\x05query\x18\x02 \x01(\x0b\x32+.cosmos.autocli.v1.ServiceCommandDescriptorR\x05query\"\xa4\x03\n\x18ServiceCommandDescriptor\x12\x18\n\x07service\x18\x01 \x01(\tR\x07service\x12T\n\x13rpc_command_options\x18\x02 \x03(\x0b\x32$.cosmos.autocli.v1.RpcCommandOptionsR\x11rpcCommandOptions\x12_\n\x0csub_commands\x18\x03 \x03(\x0b\x32<.cosmos.autocli.v1.ServiceCommandDescriptor.SubCommandsEntryR\x0bsubCommands\x12\x34\n\x16\x65nhance_custom_command\x18\x04 \x01(\x08R\x14\x65nhanceCustomCommand\x12\x14\n\x05short\x18\x05 \x01(\tR\x05short\x1ak\n\x10SubCommandsEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x41\n\x05value\x18\x02 \x01(\x0b\x32+.cosmos.autocli.v1.ServiceCommandDescriptorR\x05value:\x02\x38\x01\"\x9c\x04\n\x11RpcCommandOptions\x12\x1d\n\nrpc_method\x18\x01 \x01(\tR\trpcMethod\x12\x10\n\x03use\x18\x02 \x01(\tR\x03use\x12\x12\n\x04long\x18\x03 \x01(\tR\x04long\x12\x14\n\x05short\x18\x04 \x01(\tR\x05short\x12\x18\n\x07\x65xample\x18\x05 \x01(\tR\x07\x65xample\x12\x14\n\x05\x61lias\x18\x06 \x03(\tR\x05\x61lias\x12\x1f\n\x0bsuggest_for\x18\x07 \x03(\tR\nsuggestFor\x12\x1e\n\ndeprecated\x18\x08 \x01(\tR\ndeprecated\x12\x18\n\x07version\x18\t \x01(\tR\x07version\x12X\n\x0c\x66lag_options\x18\n \x03(\x0b\x32\x35.cosmos.autocli.v1.RpcCommandOptions.FlagOptionsEntryR\x0b\x66lagOptions\x12S\n\x0fpositional_args\x18\x0b \x03(\x0b\x32*.cosmos.autocli.v1.PositionalArgDescriptorR\x0epositionalArgs\x12\x12\n\x04skip\x18\x0c \x01(\x08R\x04skip\x1a^\n\x10\x46lagOptionsEntry\x12\x10\n\x03key\x18\x01 \x01(\tR\x03key\x12\x34\n\x05value\x18\x02 \x01(\x0b\x32\x1e.cosmos.autocli.v1.FlagOptionsR\x05value:\x02\x38\x01\"\xe5\x01\n\x0b\x46lagOptions\x12\x12\n\x04name\x18\x01 \x01(\tR\x04name\x12\x1c\n\tshorthand\x18\x02 \x01(\tR\tshorthand\x12\x14\n\x05usage\x18\x03 \x01(\tR\x05usage\x12#\n\rdefault_value\x18\x04 \x01(\tR\x0c\x64\x65\x66\x61ultValue\x12\x1e\n\ndeprecated\x18\x06 \x01(\tR\ndeprecated\x12\x31\n\x14shorthand_deprecated\x18\x07 \x01(\tR\x13shorthandDeprecated\x12\x16\n\x06hidden\x18\x08 \x01(\x08R\x06hidden\"p\n\x17PositionalArgDescriptor\x12\x1f\n\x0bproto_field\x18\x01 \x01(\tR\nprotoField\x12\x18\n\x07varargs\x18\x02 \x01(\x08R\x07varargs\x12\x1a\n\x08optional\x18\x03 \x01(\x08R\x08optionalB\xb6\x01\n\x15\x63om.cosmos.autocli.v1B\x0cOptionsProtoP\x01Z)cosmossdk.io/api/cosmos/base/cli/v1;cliv1\xa2\x02\x03\x43\x41X\xaa\x02\x11\x43osmos.Autocli.V1\xca\x02\x11\x43osmos\\Autocli\\V1\xe2\x02\x1d\x43osmos\\Autocli\\V1\\GPBMetadata\xea\x02\x13\x43osmos::Autocli::V1b\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -29,15 +29,15 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_MODULEOPTIONS']._serialized_start=55
   _globals['_MODULEOPTIONS']._serialized_end=198
   _globals['_SERVICECOMMANDDESCRIPTOR']._serialized_start=201
-  _globals['_SERVICECOMMANDDESCRIPTOR']._serialized_end=545
-  _globals['_SERVICECOMMANDDESCRIPTOR_SUBCOMMANDSENTRY']._serialized_start=438
-  _globals['_SERVICECOMMANDDESCRIPTOR_SUBCOMMANDSENTRY']._serialized_end=545
-  _globals['_RPCCOMMANDOPTIONS']._serialized_start=548
-  _globals['_RPCCOMMANDOPTIONS']._serialized_end=1088
-  _globals['_RPCCOMMANDOPTIONS_FLAGOPTIONSENTRY']._serialized_start=994
-  _globals['_RPCCOMMANDOPTIONS_FLAGOPTIONSENTRY']._serialized_end=1088
-  _globals['_FLAGOPTIONS']._serialized_start=1091
-  _globals['_FLAGOPTIONS']._serialized_end=1320
-  _globals['_POSITIONALARGDESCRIPTOR']._serialized_start=1322
-  _globals['_POSITIONALARGDESCRIPTOR']._serialized_end=1406
+  _globals['_SERVICECOMMANDDESCRIPTOR']._serialized_end=621
+  _globals['_SERVICECOMMANDDESCRIPTOR_SUBCOMMANDSENTRY']._serialized_start=514
+  _globals['_SERVICECOMMANDDESCRIPTOR_SUBCOMMANDSENTRY']._serialized_end=621
+  _globals['_RPCCOMMANDOPTIONS']._serialized_start=624
+  _globals['_RPCCOMMANDOPTIONS']._serialized_end=1164
+  _globals['_RPCCOMMANDOPTIONS_FLAGOPTIONSENTRY']._serialized_start=1070
+  _globals['_RPCCOMMANDOPTIONS_FLAGOPTIONSENTRY']._serialized_end=1164
+  _globals['_FLAGOPTIONS']._serialized_start=1167
+  _globals['_FLAGOPTIONS']._serialized_end=1396
+  _globals['_POSITIONALARGDESCRIPTOR']._serialized_start=1398
+  _globals['_POSITIONALARGDESCRIPTOR']._serialized_end=1510
 # @@protoc_insertion_point(module_scope)

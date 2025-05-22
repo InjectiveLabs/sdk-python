@@ -6,10 +6,10 @@ import pytest
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.core.tendermint.grpc.tendermint_grpc_api import TendermintGrpcApi
+from pyinjective.proto.cometbft.p2p.v1 import types_pb2 as cometbft_p2p_types
+from pyinjective.proto.cometbft.types.v1 import types_pb2 as cometbft_types
 from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagination_pb
 from pyinjective.proto.cosmos.base.tendermint.v1beta1 import query_pb2 as tendermint_query
-from pyinjective.proto.tendermint.p2p import types_pb2 as tendermint_p2p_types
-from pyinjective.proto.tendermint.types import types_pb2 as tendermint_types
 from tests.core.tendermint.grpc.configurable_tendermint_query_servicer import ConfigurableTendermintQueryServicer
 
 
@@ -24,16 +24,16 @@ class TestTxGrpcApi:
         self,
         tendermint_servicer,
     ):
-        protocol_version = tendermint_p2p_types.ProtocolVersion(
+        protocol_version = cometbft_p2p_types.ProtocolVersion(
             p2p=7,
             block=10,
             app=0,
         )
-        other = tendermint_p2p_types.DefaultNodeInfoOther(
+        other = cometbft_p2p_types.DefaultNodeInfoOther(
             tx_index="on",
             rpc_address="tcp://0.0.0.0:26657",
         )
-        node_info = tendermint_p2p_types.DefaultNodeInfo(
+        node_info = cometbft_p2p_types.DefaultNodeInfo(
             protocol_version=protocol_version,
             default_node_id="dda2a9ee6dc43955d0942be709a16a301f7ba318",
             listen_addr="tcp://0.0.0.0:26656",
@@ -132,9 +132,9 @@ class TestTxGrpcApi:
         self,
         tendermint_servicer,
     ):
-        block_id = tendermint_types.BlockID(
+        block_id = cometbft_types.BlockID(
             hash="bdc7f6e819864a8fd050dd4494dd560c1a1519fba3383dfabbec0ea271a34979".encode(),
-            part_set_header=tendermint_types.PartSetHeader(
+            part_set_header=cometbft_types.PartSetHeader(
                 total=1,
                 hash="859e00bfb56409cc182a308bd72d0816e24d57f18fe5f2c5748111daaeb19fbd".encode(),
             ),
@@ -166,9 +166,9 @@ class TestTxGrpcApi:
         self,
         tendermint_servicer,
     ):
-        block_id = tendermint_types.BlockID(
+        block_id = cometbft_types.BlockID(
             hash="bdc7f6e819864a8fd050dd4494dd560c1a1519fba3383dfabbec0ea271a34979".encode(),
-            part_set_header=tendermint_types.PartSetHeader(
+            part_set_header=cometbft_types.PartSetHeader(
                 total=1,
                 hash="859e00bfb56409cc182a308bd72d0816e24d57f18fe5f2c5748111daaeb19fbd".encode(),
             ),

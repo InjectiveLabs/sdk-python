@@ -26,6 +26,11 @@ class InjectiveTradingRPCStub(object):
                 request_serializer=exchange_dot_injective__trading__rpc__pb2.GetTradingStatsRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__trading__rpc__pb2.GetTradingStatsResponse.FromString,
                 _registered_method=True)
+        self.StreamStrategy = channel.unary_stream(
+                '/injective_trading_rpc.InjectiveTradingRPC/StreamStrategy',
+                request_serializer=exchange_dot_injective__trading__rpc__pb2.StreamStrategyRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__trading__rpc__pb2.StreamStrategyResponse.FromString,
+                _registered_method=True)
 
 
 class InjectiveTradingRPCServicer(object):
@@ -47,6 +52,13 @@ class InjectiveTradingRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def StreamStrategy(self, request, context):
+        """StreamStrategy streams the trading strategies on state change
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_InjectiveTradingRPCServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -59,6 +71,11 @@ def add_InjectiveTradingRPCServicer_to_server(servicer, server):
                     servicer.GetTradingStats,
                     request_deserializer=exchange_dot_injective__trading__rpc__pb2.GetTradingStatsRequest.FromString,
                     response_serializer=exchange_dot_injective__trading__rpc__pb2.GetTradingStatsResponse.SerializeToString,
+            ),
+            'StreamStrategy': grpc.unary_stream_rpc_method_handler(
+                    servicer.StreamStrategy,
+                    request_deserializer=exchange_dot_injective__trading__rpc__pb2.StreamStrategyRequest.FromString,
+                    response_serializer=exchange_dot_injective__trading__rpc__pb2.StreamStrategyResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -117,6 +134,33 @@ class InjectiveTradingRPC(object):
             '/injective_trading_rpc.InjectiveTradingRPC/GetTradingStats',
             exchange_dot_injective__trading__rpc__pb2.GetTradingStatsRequest.SerializeToString,
             exchange_dot_injective__trading__rpc__pb2.GetTradingStatsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def StreamStrategy(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/injective_trading_rpc.InjectiveTradingRPC/StreamStrategy',
+            exchange_dot_injective__trading__rpc__pb2.StreamStrategyRequest.SerializeToString,
+            exchange_dot_injective__trading__rpc__pb2.StreamStrategyResponse.FromString,
             options,
             channel_credentials,
             insecure,

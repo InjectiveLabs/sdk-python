@@ -42,7 +42,7 @@ async def main() -> None:
     await client.fetch_account(address.to_acc_bech32())
 
     # prepare tx msg
-    message = composer.msg_update_derivative_market(
+    message = composer.msg_update_derivative_market_v2(
         admin=address.to_acc_bech32(),
         market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
         new_ticker="INJ/USDT PERP 2",
@@ -51,6 +51,7 @@ async def main() -> None:
         new_min_notional=Decimal("2"),
         new_initial_margin_ratio=Decimal("0.40"),
         new_maintenance_margin_ratio=Decimal("0.085"),
+        new_reduce_margin_ratio=Decimal("3.5"),
     )
 
     # broadcast the transaction

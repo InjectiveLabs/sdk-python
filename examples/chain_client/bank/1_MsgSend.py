@@ -30,11 +30,11 @@ async def main() -> None:
     await client.fetch_account(address.to_acc_bech32())
 
     # prepare tx msg
-    msg = composer.MsgSend(
+    msg = composer.msg_send(
         from_address=address.to_acc_bech32(),
         to_address="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
-        amount=0.000000000000000001,
-        denom="INJ",
+        amount=1,
+        denom="inj",
     )
 
     # build sim tx

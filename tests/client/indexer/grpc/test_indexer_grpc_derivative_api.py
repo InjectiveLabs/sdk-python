@@ -417,7 +417,8 @@ class TestIndexerGrpcDerivativeApi:
         api = self._api_instance(servicer=derivative_servicer)
 
         result_orderbook = await api.fetch_orderbook_v2(
-            market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
+            market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+            depth=1,
         )
         expected_orderbook = {
             "orderbook": {
@@ -478,7 +479,7 @@ class TestIndexerGrpcDerivativeApi:
 
         api = self._api_instance(servicer=derivative_servicer)
 
-        result_orderbook = await api.fetch_orderbooks_v2(market_ids=[single_orderbook.market_id])
+        result_orderbook = await api.fetch_orderbooks_v2(market_ids=[single_orderbook.market_id], depth=1)
         expected_orderbook = {
             "orderbooks": [
                 {
@@ -1338,6 +1339,34 @@ class TestIndexerGrpcDerivativeApi:
                 "countBySubaccount": str(paging.count_by_subaccount),
                 "next": paging.next,
             },
+        }
+
+        assert result_trades == expected_trades
+
+    @pytest.mark.asyncio
+    async def test_fetch_open_interest(
+        self,
+        derivative_servicer,
+    ):
+        market_open_interest = exchange_derivative_pb.MarketOpenInterest(
+            market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+            open_interest="1.2343567898",
+        )
+
+        derivative_servicer.open_interest_responses.append(
+            exchange_derivative_pb.OpenInterestResponse(open_interests=[market_open_interest])
+        )
+
+        api = self._api_instance(servicer=derivative_servicer)
+
+        result_trades = await api.fetch_open_interest(market_ids=[market_open_interest.market_id])
+        expected_trades = {
+            "openInterests": [
+                {
+                    "marketId": market_open_interest.market_id,
+                    "openInterest": market_open_interest.open_interest,
+                },
+            ],
         }
 
         assert result_trades == expected_trades

@@ -9,7 +9,7 @@ gen-client: clone-all copy-proto
 	$(call clean_repos)
 	$(MAKE) fix-generated-proto-imports
 
-PROTO_MODULES := cosmwasm exchange gogoproto cosmos_proto cosmos testpb ibc amino tendermint injective
+PROTO_MODULES := cosmwasm exchange gogoproto cosmos_proto cosmos testpb ibc amino tendermint cometbft injective
 
 fix-generated-proto-imports:
 	@touch pyinjective/proto/__init__.py
@@ -31,7 +31,7 @@ clean-all:
 	$(call clean_repos)
 
 clone-injective-indexer:
-	git clone https://github.com/InjectiveLabs/injective-indexer.git -b v1.15.6 --depth 1 --single-branch
+	git clone https://github.com/InjectiveLabs/injective-indexer.git -b v1.16.0-rc2 --depth 1 --single-branch
 
 clone-all: clone-injective-indexer
 

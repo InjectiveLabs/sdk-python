@@ -214,7 +214,8 @@ class TestIndexerGrpcSpotApi:
         api = self._api_instance(servicer=spot_servicer)
 
         result_orderbook = await api.fetch_orderbook_v2(
-            market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
+            market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
+            depth=1,
         )
         expected_orderbook = {
             "orderbook": {
@@ -275,7 +276,7 @@ class TestIndexerGrpcSpotApi:
 
         api = self._api_instance(servicer=spot_servicer)
 
-        result_orderbook = await api.fetch_orderbooks_v2(market_ids=[single_orderbook.market_id])
+        result_orderbook = await api.fetch_orderbooks_v2(market_ids=[single_orderbook.market_id], depth=1)
         expected_orderbook = {
             "orderbooks": [
                 {
