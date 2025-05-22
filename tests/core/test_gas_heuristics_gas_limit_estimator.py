@@ -1,3 +1,4 @@
+import math
 from decimal import Decimal
 
 import pytest
@@ -13,6 +14,7 @@ from pyinjective.core.gas_heuristics_gas_limit_estimator import (
     DERIVATIVE_ORDER_CANCELATION_GAS_LIMIT,
     DERIVATIVE_ORDER_CREATION_GAS_LIMIT,
     EXTERNAL_TRANSFER_GAS_LIMIT,
+    GTB_ORDERS_GAS_MULTIPLIER,
     INCREASE_POSITION_MARGIN_TRANSFER_GAS_LIMIT,
     POST_ONLY_BINARY_OPTIONS_ORDER_CREATION_GAS_LIMIT,
     POST_ONLY_DERIVATIVE_ORDER_CREATION_GAS_LIMIT,
@@ -498,6 +500,44 @@ class TestGasLimitEstimator:
 
         assert expected_gas_cost == estimator.gas_limit()
 
+    def test_estimation_for_create_gtb_spot_limit_order(self, basic_composer, inj_usdt_spot_market):
+        composer = basic_composer
+        market_id = inj_usdt_spot_market.id
+
+        message = composer.msg_create_spot_limit_order_v2(
+            market_id=market_id,
+            sender="senders",
+            subaccount_id="subaccount_id",
+            fee_recipient="fee_recipient",
+            price=Decimal("7.523"),
+            quantity=Decimal("0.01"),
+            order_type="BUY",
+            expiration_block=1234567,
+        )
+        estimator = GasHeuristicsGasLimitEstimator.for_message(message=message)
+
+        expected_gas_cost = math.ceil(Decimal(SPOT_ORDER_CREATION_GAS_LIMIT) * Decimal(GTB_ORDERS_GAS_MULTIPLIER))
+
+        assert expected_gas_cost == estimator.gas_limit()
+
+        po_order_message = composer.msg_create_spot_limit_order_v2(
+            market_id=market_id,
+            sender="senders",
+            subaccount_id="subaccount_id",
+            fee_recipient="fee_recipient",
+            price=Decimal("7.523"),
+            quantity=Decimal("0.01"),
+            order_type="BUY_PO",
+            expiration_block=1234567,
+        )
+        estimator = GasHeuristicsGasLimitEstimator.for_message(message=po_order_message)
+
+        expected_gas_cost = math.ceil(
+            Decimal(POST_ONLY_SPOT_ORDER_CREATION_GAS_LIMIT) * Decimal(GTB_ORDERS_GAS_MULTIPLIER)
+        )
+
+        assert expected_gas_cost == estimator.gas_limit()
+
     def test_estimation_for_create_spot_market_order(self, basic_composer, inj_usdt_spot_market):
         composer = basic_composer
         market_id = inj_usdt_spot_market.id
@@ -566,6 +606,46 @@ class TestGasLimitEstimator:
         estimator = GasHeuristicsGasLimitEstimator.for_message(message=po_order_message)
 
         expected_gas_cost = POST_ONLY_DERIVATIVE_ORDER_CREATION_GAS_LIMIT
+
+        assert expected_gas_cost == estimator.gas_limit()
+
+    def test_estimation_for_create_gtb_derivative_limit_order(self, basic_composer, btc_usdt_perp_market):
+        composer = basic_composer
+        market_id = btc_usdt_perp_market.id
+
+        message = composer.msg_create_derivative_limit_order_v2(
+            market_id=market_id,
+            sender="senders",
+            subaccount_id="subaccount_id",
+            fee_recipient="fee_recipient",
+            price=Decimal("7.523"),
+            quantity=Decimal("0.01"),
+            margin=Decimal("7.523") * Decimal("0.01"),
+            order_type="BUY",
+            expiration_block=1234567,
+        )
+        estimator = GasHeuristicsGasLimitEstimator.for_message(message=message)
+
+        expected_gas_cost = math.ceil(Decimal(DERIVATIVE_ORDER_CREATION_GAS_LIMIT) * Decimal(GTB_ORDERS_GAS_MULTIPLIER))
+
+        assert expected_gas_cost == estimator.gas_limit()
+
+        po_order_message = composer.msg_create_derivative_limit_order_v2(
+            market_id=market_id,
+            sender="senders",
+            subaccount_id="subaccount_id",
+            fee_recipient="fee_recipient",
+            price=Decimal("7.523"),
+            quantity=Decimal("0.01"),
+            margin=Decimal("7.523") * Decimal("0.01"),
+            order_type="BUY_PO",
+            expiration_block=1234567,
+        )
+        estimator = GasHeuristicsGasLimitEstimator.for_message(message=po_order_message)
+
+        expected_gas_cost = math.ceil(
+            Decimal(POST_ONLY_DERIVATIVE_ORDER_CREATION_GAS_LIMIT) * Decimal(GTB_ORDERS_GAS_MULTIPLIER)
+        )
 
         assert expected_gas_cost == estimator.gas_limit()
 
@@ -638,6 +718,48 @@ class TestGasLimitEstimator:
         estimator = GasHeuristicsGasLimitEstimator.for_message(message=po_order_message)
 
         expected_gas_cost = POST_ONLY_BINARY_OPTIONS_ORDER_CREATION_GAS_LIMIT
+
+        assert expected_gas_cost == estimator.gas_limit()
+
+    def test_estimation_for_create_gtb_binary_options_limit_order(self, basic_composer, first_match_bet_market):
+        composer = basic_composer
+        market_id = first_match_bet_market.id
+
+        message = composer.msg_create_binary_options_limit_order_v2(
+            market_id=market_id,
+            sender="senders",
+            subaccount_id="subaccount_id",
+            fee_recipient="fee_recipient",
+            price=Decimal("0.5"),
+            quantity=Decimal("10"),
+            margin=Decimal("0.5") * Decimal("10"),
+            order_type="BUY",
+            expiration_block=1234567,
+        )
+        estimator = GasHeuristicsGasLimitEstimator.for_message(message=message)
+
+        expected_gas_cost = math.ceil(
+            Decimal(BINARY_OPTIONS_ORDER_CREATION_GAS_LIMIT) * Decimal(GTB_ORDERS_GAS_MULTIPLIER)
+        )
+
+        assert expected_gas_cost == estimator.gas_limit()
+
+        po_order_message = composer.msg_create_binary_options_limit_order_v2(
+            market_id=market_id,
+            sender="senders",
+            subaccount_id="subaccount_id",
+            fee_recipient="fee_recipient",
+            price=Decimal("0.5"),
+            quantity=Decimal("10"),
+            margin=Decimal("0.5") * Decimal("10"),
+            order_type="BUY_PO",
+            expiration_block=1234567,
+        )
+        estimator = GasHeuristicsGasLimitEstimator.for_message(message=po_order_message)
+
+        expected_gas_cost = math.ceil(
+            Decimal(POST_ONLY_BINARY_OPTIONS_ORDER_CREATION_GAS_LIMIT) * Decimal(GTB_ORDERS_GAS_MULTIPLIER)
+        )
 
         assert expected_gas_cost == estimator.gas_limit()
 
