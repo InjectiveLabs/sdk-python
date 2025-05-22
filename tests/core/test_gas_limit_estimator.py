@@ -498,7 +498,7 @@ class TestGasLimitEstimatorForV1ExchangeMessages:
     def test_estimation_for_exec_message(self, basic_composer):
         market_id = list(basic_composer.spot_markets.keys())[0]
         orders = [
-            basic_composer.spot_order(
+            basic_composer.create_spot_order_v2(
                 market_id=market_id,
                 subaccount_id="subaccount_id",
                 fee_recipient="fee_recipient",
@@ -507,7 +507,7 @@ class TestGasLimitEstimatorForV1ExchangeMessages:
                 order_type="BUY",
             ),
         ]
-        inner_message = basic_composer.msg_batch_update_orders(
+        inner_message = basic_composer.msg_batch_update_orders_v2(
             sender="senders",
             derivative_orders_to_create=[],
             spot_orders_to_create=orders,

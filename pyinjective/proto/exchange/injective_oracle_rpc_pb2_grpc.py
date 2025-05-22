@@ -25,6 +25,11 @@ class InjectiveOracleRPCStub(object):
                 request_serializer=exchange_dot_injective__oracle__rpc__pb2.PriceRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__oracle__rpc__pb2.PriceResponse.FromString,
                 _registered_method=True)
+        self.PriceV2 = channel.unary_unary(
+                '/injective_oracle_rpc.InjectiveOracleRPC/PriceV2',
+                request_serializer=exchange_dot_injective__oracle__rpc__pb2.PriceV2Request.SerializeToString,
+                response_deserializer=exchange_dot_injective__oracle__rpc__pb2.PriceV2Response.FromString,
+                _registered_method=True)
         self.StreamPrices = channel.unary_stream(
                 '/injective_oracle_rpc.InjectiveOracleRPC/StreamPrices',
                 request_serializer=exchange_dot_injective__oracle__rpc__pb2.StreamPricesRequest.SerializeToString,
@@ -50,6 +55,13 @@ class InjectiveOracleRPCServicer(object):
 
     def Price(self, request, context):
         """Gets the price of the oracle
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def PriceV2(self, request, context):
+        """Gets prices of the oracle
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -82,6 +94,11 @@ def add_InjectiveOracleRPCServicer_to_server(servicer, server):
                     servicer.Price,
                     request_deserializer=exchange_dot_injective__oracle__rpc__pb2.PriceRequest.FromString,
                     response_serializer=exchange_dot_injective__oracle__rpc__pb2.PriceResponse.SerializeToString,
+            ),
+            'PriceV2': grpc.unary_unary_rpc_method_handler(
+                    servicer.PriceV2,
+                    request_deserializer=exchange_dot_injective__oracle__rpc__pb2.PriceV2Request.FromString,
+                    response_serializer=exchange_dot_injective__oracle__rpc__pb2.PriceV2Response.SerializeToString,
             ),
             'StreamPrices': grpc.unary_stream_rpc_method_handler(
                     servicer.StreamPrices,
@@ -149,6 +166,33 @@ class InjectiveOracleRPC(object):
             '/injective_oracle_rpc.InjectiveOracleRPC/Price',
             exchange_dot_injective__oracle__rpc__pb2.PriceRequest.SerializeToString,
             exchange_dot_injective__oracle__rpc__pb2.PriceResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def PriceV2(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_oracle_rpc.InjectiveOracleRPC/PriceV2',
+            exchange_dot_injective__oracle__rpc__pb2.PriceV2Request.SerializeToString,
+            exchange_dot_injective__oracle__rpc__pb2.PriceV2Response.FromString,
             options,
             channel_credentials,
             insecure,

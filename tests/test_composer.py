@@ -349,6 +349,7 @@ class TestComposer:
         initial_margin_ratio = Decimal("0.05")
         maintenance_margin_ratio = Decimal("0.03")
         min_notional = Decimal("2")
+        reduce_margin_ratio = Decimal("3")
 
         expected_min_price_tick_size = min_price_tick_size * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         expected_min_quantity_tick_size = min_quantity_tick_size * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
@@ -356,6 +357,7 @@ class TestComposer:
         expected_taker_fee_rate = taker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         expected_initial_margin_ratio = initial_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         expected_maintenance_margin_ratio = maintenance_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        expected_reduce_margin_ratio = reduce_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
         expected_min_notional = min_notional * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         message = basic_composer.msg_instant_perpetual_market_launch_v2(
@@ -370,6 +372,7 @@ class TestComposer:
             taker_fee_rate=taker_fee_rate,
             initial_margin_ratio=initial_margin_ratio,
             maintenance_margin_ratio=maintenance_margin_ratio,
+            reduce_margin_ratio=reduce_margin_ratio,
             min_price_tick_size=min_price_tick_size,
             min_quantity_tick_size=min_quantity_tick_size,
             min_notional=min_notional,
@@ -387,6 +390,7 @@ class TestComposer:
             "takerFeeRate": f"{expected_taker_fee_rate.normalize():f}",
             "initialMarginRatio": f"{expected_initial_margin_ratio.normalize():f}",
             "maintenanceMarginRatio": f"{expected_maintenance_margin_ratio.normalize():f}",
+            "reduceMarginRatio": f"{expected_reduce_margin_ratio.normalize():f}",
             "minPriceTickSize": f"{expected_min_price_tick_size.normalize():f}",
             "minQuantityTickSize": f"{expected_min_quantity_tick_size.normalize():f}",
             "minNotional": f"{expected_min_notional.normalize():f}",
@@ -412,6 +416,7 @@ class TestComposer:
         taker_fee_rate = Decimal("-0.002")
         initial_margin_ratio = Decimal("0.05")
         maintenance_margin_ratio = Decimal("0.03")
+        reduce_margin_ratio = Decimal("3")
         min_notional = Decimal("2")
 
         expected_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=min_price_tick_size)
@@ -422,6 +427,7 @@ class TestComposer:
         expected_maintenance_margin_ratio = Token.convert_value_to_extended_decimal_format(
             value=maintenance_margin_ratio
         )
+        expected_reduce_margin_ratio = Token.convert_value_to_extended_decimal_format(value=reduce_margin_ratio)
         expected_min_notional = Token.convert_value_to_extended_decimal_format(value=min_notional)
 
         message = basic_composer.msg_instant_expiry_futures_market_launch_v2(
@@ -437,6 +443,7 @@ class TestComposer:
             taker_fee_rate=taker_fee_rate,
             initial_margin_ratio=initial_margin_ratio,
             maintenance_margin_ratio=maintenance_margin_ratio,
+            reduce_margin_ratio=reduce_margin_ratio,
             min_price_tick_size=min_price_tick_size,
             min_quantity_tick_size=min_quantity_tick_size,
             min_notional=min_notional,
@@ -455,6 +462,7 @@ class TestComposer:
             "takerFeeRate": f"{expected_taker_fee_rate.normalize():f}",
             "initialMarginRatio": f"{expected_initial_margin_ratio.normalize():f}",
             "maintenanceMarginRatio": f"{expected_maintenance_margin_ratio.normalize():f}",
+            "reduceMarginRatio": f"{expected_reduce_margin_ratio.normalize():f}",
             "minPriceTickSize": f"{expected_min_price_tick_size.normalize():f}",
             "minQuantityTickSize": f"{expected_min_quantity_tick_size.normalize():f}",
             "minNotional": f"{expected_min_notional.normalize():f}",
@@ -475,7 +483,7 @@ class TestComposer:
         cid = "test_cid"
         trigger_price = Decimal("43.5")
 
-        order = basic_composer.spot_order(
+        order = basic_composer.create_spot_order_v2(
             market_id=spot_market.id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -484,11 +492,12 @@ class TestComposer:
             order_type=order_type,
             cid=cid,
             trigger_price=trigger_price,
+            expiration_block=1234567,
         )
 
-        expected_price = spot_market.price_to_chain_format(human_readable_value=price)
-        expected_quantity = spot_market.quantity_to_chain_format(human_readable_value=quantity)
-        expected_trigger_price = spot_market.price_to_chain_format(human_readable_value=trigger_price)
+        expected_price = Token.convert_value_to_extended_decimal_format(value=price)
+        expected_quantity = Token.convert_value_to_extended_decimal_format(value=quantity)
+        expected_trigger_price = Token.convert_value_to_extended_decimal_format(value=trigger_price)
 
         expected_order = {
             "marketId": spot_market.id,
@@ -501,6 +510,7 @@ class TestComposer:
             },
             "orderType": order_type,
             "triggerPrice": f"{expected_trigger_price.normalize():f}",
+            "expirationBlock": "1234567",
         }
         dict_message = json_format.MessageToDict(
             message=order,
@@ -519,7 +529,7 @@ class TestComposer:
         cid = "test_cid"
         trigger_price = Decimal("43.5")
 
-        order = basic_composer.derivative_order(
+        order = basic_composer.create_derivative_order_v2(
             market_id=derivative_market.id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -529,12 +539,13 @@ class TestComposer:
             order_type=order_type,
             cid=cid,
             trigger_price=trigger_price,
+            expiration_block=1234567,
         )
 
-        expected_price = derivative_market.price_to_chain_format(human_readable_value=price)
-        expected_quantity = derivative_market.quantity_to_chain_format(human_readable_value=quantity)
-        expected_margin = derivative_market.margin_to_chain_format(human_readable_value=margin)
-        expected_trigger_price = derivative_market.price_to_chain_format(human_readable_value=trigger_price)
+        expected_price = Token.convert_value_to_extended_decimal_format(value=price)
+        expected_quantity = Token.convert_value_to_extended_decimal_format(value=quantity)
+        expected_margin = Token.convert_value_to_extended_decimal_format(value=margin)
+        expected_trigger_price = Token.convert_value_to_extended_decimal_format(value=trigger_price)
 
         expected_order = {
             "marketId": derivative_market.id,
@@ -548,6 +559,7 @@ class TestComposer:
             "orderType": order_type,
             "margin": f"{expected_margin.normalize():f}",
             "triggerPrice": f"{expected_trigger_price.normalize():f}",
+            "expirationBlock": "1234567",
         }
         dict_message = json_format.MessageToDict(
             message=order,
@@ -565,6 +577,7 @@ class TestComposer:
         order_type = "BUY"
         cid = "test_cid"
         trigger_price = Decimal("43.5")
+        expiration_block = 123456789
 
         message = basic_composer.msg_create_spot_limit_order_v2(
             market_id=spot_market.id,
@@ -576,6 +589,7 @@ class TestComposer:
             order_type=order_type,
             cid=cid,
             trigger_price=trigger_price,
+            expiration_block=expiration_block,
         )
 
         expected_price = Token.convert_value_to_extended_decimal_format(value=price)
@@ -596,6 +610,7 @@ class TestComposer:
                 },
                 "orderType": order_type,
                 "triggerPrice": f"{expected_trigger_price.normalize():f}",
+                "expirationBlock": str(expiration_block),
             },
         }
         dict_message = json_format.MessageToDict(
@@ -678,6 +693,7 @@ class TestComposer:
                 },
                 "orderType": order_type,
                 "triggerPrice": f"{Token.convert_value_to_extended_decimal_format(value=trigger_price).normalize():f}",
+                "expirationBlock": "0",
             },
         }
         dict_message = json_format.MessageToDict(
@@ -880,6 +896,7 @@ class TestComposer:
         order_type = "BUY"
         cid = "test_cid"
         trigger_price = Decimal("43.5")
+        expiration_block = 123456789
 
         message = basic_composer.msg_create_derivative_limit_order_v2(
             market_id=derivative_market.id,
@@ -892,6 +909,7 @@ class TestComposer:
             order_type=order_type,
             cid=cid,
             trigger_price=trigger_price,
+            expiration_block=expiration_block,
         )
 
         expected_message = {
@@ -908,6 +926,7 @@ class TestComposer:
                 "margin": f"{Token.convert_value_to_extended_decimal_format(value=margin).normalize():f}",
                 "orderType": order_type,
                 "triggerPrice": f"{Token.convert_value_to_extended_decimal_format(value=trigger_price).normalize():f}",
+                "expirationBlock": str(expiration_block),
             },
         }
         dict_message = json_format.MessageToDict(
@@ -993,6 +1012,7 @@ class TestComposer:
                 "margin": f"{Token.convert_value_to_extended_decimal_format(value=margin).normalize():f}",
                 "orderType": order_type,
                 "triggerPrice": f"{Token.convert_value_to_extended_decimal_format(value=trigger_price).normalize():f}",
+                "expirationBlock": "0",
             },
         }
         dict_message = json_format.MessageToDict(
@@ -1141,6 +1161,7 @@ class TestComposer:
         order_type = "BUY"
         cid = "test_cid"
         trigger_price = Decimal("43.5")
+        expiration_block = 123456789
 
         message = basic_composer.msg_create_binary_options_limit_order_v2(
             market_id=market.id,
@@ -1153,6 +1174,7 @@ class TestComposer:
             order_type=order_type,
             cid=cid,
             trigger_price=trigger_price,
+            expiration_block=expiration_block,
         )
 
         expected_price = Token.convert_value_to_extended_decimal_format(value=price)
@@ -1174,6 +1196,7 @@ class TestComposer:
                 "margin": f"{expected_margin.normalize():f}",
                 "orderType": order_type,
                 "triggerPrice": f"{expected_trigger_price.normalize():f}",
+                "expirationBlock": str(expiration_block),
             },
         }
         dict_message = json_format.MessageToDict(
@@ -1221,6 +1244,7 @@ class TestComposer:
                 "margin": f"{Token.convert_value_to_extended_decimal_format(value=margin).normalize():f}",
                 "orderType": order_type,
                 "triggerPrice": f"{Token.convert_value_to_extended_decimal_format(value=trigger_price).normalize():f}",
+                "expirationBlock": "0",
             },
         }
         dict_message = json_format.MessageToDict(
@@ -1538,6 +1562,7 @@ class TestComposer:
         min_notional = Decimal("5")
         initial_margin_ratio = Decimal("0.05")
         maintenance_margin_ratio = Decimal("0.009")
+        reduce_margin_ration = Decimal("3")
 
         expected_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=min_price_tick_size)
         expected_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=min_quantity_tick_size)
@@ -1546,6 +1571,7 @@ class TestComposer:
         expected_maintenance_margin_ratio = Token.convert_value_to_extended_decimal_format(
             value=maintenance_margin_ratio
         )
+        expected_reduce_margin_ratio = Token.convert_value_to_extended_decimal_format(value=reduce_margin_ration)
 
         message = basic_composer.msg_update_derivative_market_v2(
             admin=sender,
@@ -1556,6 +1582,7 @@ class TestComposer:
             new_min_notional=min_notional,
             new_initial_margin_ratio=initial_margin_ratio,
             new_maintenance_margin_ratio=maintenance_margin_ratio,
+            new_reduce_margin_ratio=reduce_margin_ration,
         )
 
         expected_message = {
@@ -1567,6 +1594,7 @@ class TestComposer:
             "newMinNotional": f"{expected_min_notional.normalize():f}",
             "newInitialMarginRatio": f"{expected_initial_margin_ratio.normalize():f}",
             "newMaintenanceMarginRatio": f"{expected_maintenance_margin_ratio.normalize():f}",
+            "newReduceMarginRatio": f"{expected_reduce_margin_ratio.normalize():f}",
         }
         dict_message = json_format.MessageToDict(
             message=message,

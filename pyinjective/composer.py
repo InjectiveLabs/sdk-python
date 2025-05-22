@@ -493,8 +493,10 @@ class Composer:
         order_type: str,
         cid: Optional[str] = None,
         trigger_price: Optional[Decimal] = None,
+        expiration_block: Optional[int] = None,
     ) -> injective_order_v2_pb.SpotOrder:
         trigger_price = trigger_price or Decimal(0)
+        expiration_block = expiration_block or 0
         chain_order_type = injective_order_v2_pb.OrderType.Value(order_type)
         chain_quantity = f"{Token.convert_value_to_extended_decimal_format(value=quantity).normalize():f}"
         chain_price = f"{Token.convert_value_to_extended_decimal_format(value=price).normalize():f}"
@@ -511,6 +513,7 @@ class Composer:
             ),
             order_type=chain_order_type,
             trigger_price=chain_trigger_price,
+            expiration_block=expiration_block,
         )
 
     def calculate_margin(
@@ -572,9 +575,8 @@ class Composer:
         order_type: str,
         cid: Optional[str] = None,
         trigger_price: Optional[Decimal] = None,
+        expiration_block: Optional[int] = None,
     ) -> injective_order_v2_pb.DerivativeOrder:
-        trigger_price = trigger_price or Decimal(0)
-
         return self._basic_derivative_order_v2(
             market_id=market_id,
             subaccount_id=subaccount_id,
@@ -585,6 +587,7 @@ class Composer:
             order_type=order_type,
             cid=cid,
             trigger_price=trigger_price,
+            expiration_block=expiration_block,
         )
 
     def binary_options_order(
@@ -637,9 +640,8 @@ class Composer:
         order_type: str,
         cid: Optional[str] = None,
         trigger_price: Optional[Decimal] = None,
+        expiration_block: Optional[int] = None,
     ) -> injective_order_v2_pb.DerivativeOrder:
-        trigger_price = trigger_price or Decimal(0)
-
         return self._basic_derivative_order_v2(
             market_id=market_id,
             subaccount_id=subaccount_id,
@@ -650,6 +652,7 @@ class Composer:
             order_type=order_type,
             cid=cid,
             trigger_price=trigger_price,
+            expiration_block=expiration_block,
         )
 
     def create_grant_authorization(self, grantee: str, amount: Decimal) -> injective_exchange_v2_pb.GrantAuthorization:
@@ -879,6 +882,7 @@ class Composer:
         taker_fee_rate: Decimal,
         initial_margin_ratio: Decimal,
         maintenance_margin_ratio: Decimal,
+        reduce_margin_ratio: Decimal,
         min_price_tick_size: Decimal,
         min_quantity_tick_size: Decimal,
         min_notional: Decimal,
@@ -889,6 +893,7 @@ class Composer:
         chain_taker_fee_rate = Token.convert_value_to_extended_decimal_format(value=taker_fee_rate)
         chain_initial_margin_ratio = Token.convert_value_to_extended_decimal_format(value=initial_margin_ratio)
         chain_maintenance_margin_ratio = Token.convert_value_to_extended_decimal_format(value=maintenance_margin_ratio)
+        chain_reduce_margin_ratio = Token.convert_value_to_extended_decimal_format(value=reduce_margin_ratio)
         chain_min_notional = Token.convert_value_to_extended_decimal_format(value=min_notional)
 
         return injective_exchange_tx_v2_pb.MsgInstantPerpetualMarketLaunch(
@@ -903,6 +908,7 @@ class Composer:
             taker_fee_rate=f"{chain_taker_fee_rate.normalize():f}",
             initial_margin_ratio=f"{chain_initial_margin_ratio.normalize():f}",
             maintenance_margin_ratio=f"{chain_maintenance_margin_ratio.normalize():f}",
+            reduce_margin_ratio=f"{chain_reduce_margin_ratio.normalize():f}",
             min_price_tick_size=f"{chain_min_price_tick_size.normalize():f}",
             min_quantity_tick_size=f"{chain_min_quantity_tick_size.normalize():f}",
             min_notional=f"{chain_min_notional.normalize():f}",
@@ -922,6 +928,7 @@ class Composer:
         taker_fee_rate: Decimal,
         initial_margin_ratio: Decimal,
         maintenance_margin_ratio: Decimal,
+        reduce_margin_ratio: Decimal,
         min_price_tick_size: Decimal,
         min_quantity_tick_size: Decimal,
         min_notional: Decimal,
@@ -932,6 +939,7 @@ class Composer:
         chain_taker_fee_rate = Token.convert_value_to_extended_decimal_format(value=taker_fee_rate)
         chain_initial_margin_ratio = Token.convert_value_to_extended_decimal_format(value=initial_margin_ratio)
         chain_maintenance_margin_ratio = Token.convert_value_to_extended_decimal_format(value=maintenance_margin_ratio)
+        chain_reduce_margin_ratio = Token.convert_value_to_extended_decimal_format(value=reduce_margin_ratio)
         chain_min_notional = Token.convert_value_to_extended_decimal_format(value=min_notional)
 
         return injective_exchange_tx_v2_pb.MsgInstantExpiryFuturesMarketLaunch(
@@ -947,6 +955,7 @@ class Composer:
             taker_fee_rate=f"{chain_taker_fee_rate.normalize():f}",
             initial_margin_ratio=f"{chain_initial_margin_ratio.normalize():f}",
             maintenance_margin_ratio=f"{chain_maintenance_margin_ratio.normalize():f}",
+            reduce_margin_ratio=f"{chain_reduce_margin_ratio.normalize():f}",
             min_price_tick_size=f"{chain_min_price_tick_size.normalize():f}",
             min_quantity_tick_size=f"{chain_min_quantity_tick_size.normalize():f}",
             min_notional=f"{chain_min_notional.normalize():f}",
@@ -994,6 +1003,7 @@ class Composer:
         order_type: str,
         cid: Optional[str] = None,
         trigger_price: Optional[Decimal] = None,
+        expiration_block: Optional[int] = None,
     ) -> injective_exchange_tx_v2_pb.MsgCreateSpotLimitOrder:
         return injective_exchange_tx_v2_pb.MsgCreateSpotLimitOrder(
             sender=sender,
@@ -1006,6 +1016,7 @@ class Composer:
                 order_type=order_type,
                 cid=cid,
                 trigger_price=trigger_price,
+                expiration_block=expiration_block,
             ),
         )
 
@@ -1285,6 +1296,7 @@ class Composer:
         order_type: str,
         cid: Optional[str] = None,
         trigger_price: Optional[Decimal] = None,
+        expiration_block: Optional[int] = None,
     ) -> injective_exchange_tx_v2_pb.MsgCreateDerivativeLimitOrder:
         return injective_exchange_tx_v2_pb.MsgCreateDerivativeLimitOrder(
             sender=sender,
@@ -1298,6 +1310,7 @@ class Composer:
                 order_type=order_type,
                 cid=cid,
                 trigger_price=trigger_price,
+                expiration_block=expiration_block,
             ),
         )
 
@@ -1611,6 +1624,7 @@ class Composer:
         order_type: str,
         cid: Optional[str] = None,
         trigger_price: Optional[Decimal] = None,
+        expiration_block: Optional[int] = None,
     ) -> injective_exchange_tx_v2_pb.MsgCreateDerivativeLimitOrder:
         return injective_exchange_tx_v2_pb.MsgCreateDerivativeLimitOrder(
             sender=sender,
@@ -1624,6 +1638,7 @@ class Composer:
                 order_type=order_type,
                 cid=cid,
                 trigger_price=trigger_price,
+                expiration_block=expiration_block,
             ),
         )
 
@@ -2128,6 +2143,7 @@ class Composer:
         new_min_notional: Decimal,
         new_initial_margin_ratio: Decimal,
         new_maintenance_margin_ratio: Decimal,
+        new_reduce_margin_ratio: Decimal,
     ) -> injective_exchange_tx_v2_pb.MsgUpdateDerivativeMarket:
         chain_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=new_min_price_tick_size)
         chain_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=new_min_quantity_tick_size)
@@ -2136,6 +2152,7 @@ class Composer:
         chain_maintenance_margin_ratio = Token.convert_value_to_extended_decimal_format(
             value=new_maintenance_margin_ratio
         )
+        chain_reduce_margin_ratio = Token.convert_value_to_extended_decimal_format(value=new_reduce_margin_ratio)
 
         return injective_exchange_tx_v2_pb.MsgUpdateDerivativeMarket(
             admin=admin,
@@ -2146,6 +2163,7 @@ class Composer:
             new_min_notional=f"{chain_min_notional.normalize():f}",
             new_initial_margin_ratio=f"{chain_initial_margin_ratio.normalize():f}",
             new_maintenance_margin_ratio=f"{chain_maintenance_margin_ratio.normalize():f}",
+            new_reduce_margin_ratio=f"{chain_reduce_margin_ratio.normalize():f}",
         )
 
     def msg_authorize_stake_grants(
@@ -3055,8 +3073,11 @@ class Composer:
         order_type: str,
         cid: Optional[str] = None,
         trigger_price: Optional[Decimal] = None,
+        expiration_block: Optional[int] = None,
     ) -> injective_order_v2_pb.DerivativeOrder:
         trigger_price = trigger_price or Decimal(0)
+        expiration_height = expiration_block or 0
+
         chain_quantity = f"{Token.convert_value_to_extended_decimal_format(value=quantity).normalize():f}"
         chain_price = f"{Token.convert_value_to_extended_decimal_format(value=price).normalize():f}"
         chain_margin = f"{Token.convert_value_to_extended_decimal_format(value=margin).normalize():f}"
@@ -3075,4 +3096,5 @@ class Composer:
             order_type=chain_order_type,
             margin=chain_margin,
             trigger_price=chain_trigger_price,
+            expiration_block=expiration_height,
         )

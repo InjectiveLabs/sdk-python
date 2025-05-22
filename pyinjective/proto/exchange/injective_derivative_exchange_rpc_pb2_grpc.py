@@ -146,6 +146,11 @@ class InjectiveDerivativeExchangeRPCStub(object):
                 request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrdersHistoryRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrdersHistoryResponse.FromString,
                 _registered_method=True)
+        self.OpenInterest = channel.unary_unary(
+                '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/OpenInterest',
+                request_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.OpenInterestRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.OpenInterestResponse.FromString,
+                _registered_method=True)
 
 
 class InjectiveDerivativeExchangeRPCServicer(object):
@@ -338,6 +343,13 @@ class InjectiveDerivativeExchangeRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def OpenInterest(self, request, context):
+        """OpenInterest gets the open interest for a derivative market.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_InjectiveDerivativeExchangeRPCServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -470,6 +482,11 @@ def add_InjectiveDerivativeExchangeRPCServicer_to_server(servicer, server):
                     servicer.StreamOrdersHistory,
                     request_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrdersHistoryRequest.FromString,
                     response_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrdersHistoryResponse.SerializeToString,
+            ),
+            'OpenInterest': grpc.unary_unary_rpc_method_handler(
+                    servicer.OpenInterest,
+                    request_deserializer=exchange_dot_injective__derivative__exchange__rpc__pb2.OpenInterestRequest.FromString,
+                    response_serializer=exchange_dot_injective__derivative__exchange__rpc__pb2.OpenInterestResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -1176,6 +1193,33 @@ class InjectiveDerivativeExchangeRPC(object):
             '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/StreamOrdersHistory',
             exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrdersHistoryRequest.SerializeToString,
             exchange_dot_injective__derivative__exchange__rpc__pb2.StreamOrdersHistoryResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def OpenInterest(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_derivative_exchange_rpc.InjectiveDerivativeExchangeRPC/OpenInterest',
+            exchange_dot_injective__derivative__exchange__rpc__pb2.OpenInterestRequest.SerializeToString,
+            exchange_dot_injective__derivative__exchange__rpc__pb2.OpenInterestResponse.FromString,
             options,
             channel_credentials,
             insecure,

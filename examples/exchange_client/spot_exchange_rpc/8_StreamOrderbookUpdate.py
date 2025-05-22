@@ -35,7 +35,7 @@ class Orderbook:
 
 async def load_orderbook_snapshot(async_client: AsyncClient, orderbook: Orderbook):
     # load the snapshot
-    res = await async_client.fetch_spot_orderbooks_v2(market_ids=[orderbook.market_id])
+    res = await async_client.fetch_spot_orderbooks_v2(market_ids=[orderbook.market_id], depth=0)
     for snapshot in res["orderbooks"]:
         if snapshot["marketId"] != orderbook.market_id:
             raise Exception("unexpected snapshot")

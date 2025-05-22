@@ -51,6 +51,7 @@ async def main() -> None:
         new_min_notional=Decimal("2"),
         new_initial_margin_ratio=Decimal("0.40"),
         new_maintenance_margin_ratio=Decimal("0.085"),
+        new_reduce_margin_ratio=Decimal("3.5"),
     )
 
     # broadcast the transaction

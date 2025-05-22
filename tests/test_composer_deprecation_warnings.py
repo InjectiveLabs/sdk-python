@@ -645,32 +645,6 @@ class TestComposerDeprecationWarnings:
             == "This method is deprecated. Use msg_instant_spot_market_launch_v2 instead"
         )
 
-    def test_msg_instant_perpetual_market_launch_deprecation_warning(self, basic_composer):
-        with warnings.catch_warnings(record=True) as all_warnings:
-            basic_composer.msg_instant_perpetual_market_launch(
-                sender="sender",
-                ticker="ticker",
-                quote_denom=list(basic_composer.spot_markets.values())[0].quote_token.symbol,
-                oracle_base="oracle_base",
-                oracle_quote="oracle_quote",
-                oracle_scale_factor=6,
-                oracle_type="Band",
-                maker_fee_rate=Decimal("0.1"),
-                taker_fee_rate=Decimal("0.1"),
-                initial_margin_ratio=Decimal("0.1"),
-                maintenance_margin_ratio=Decimal("0.1"),
-                min_price_tick_size=Decimal("1"),
-                min_quantity_tick_size=Decimal("1"),
-                min_notional=Decimal("1"),
-            )
-
-        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
-        assert len(deprecation_warnings) == 1
-        assert (
-            str(deprecation_warnings[0].message)
-            == "This method is deprecated. Use msg_instant_perpetual_market_launch_v2 instead"
-        )
-
     def test_msg_liquidate_position_deprecation_warning(self, basic_composer):
         with warnings.catch_warnings(record=True) as all_warnings:
             basic_composer.msg_liquidate_position(
@@ -683,33 +657,6 @@ class TestComposerDeprecationWarnings:
         assert len(deprecation_warnings) == 1
         assert (
             str(deprecation_warnings[0].message) == "This method is deprecated. Use msg_liquidate_position_v2 instead"
-        )
-
-    def test_msg_instant_expiry_futures_market_launch_deprecation_warning(self, basic_composer):
-        with warnings.catch_warnings(record=True) as all_warnings:
-            basic_composer.msg_instant_expiry_futures_market_launch(
-                sender="sender",
-                ticker="ticker",
-                quote_denom=list(basic_composer.spot_markets.values())[0].quote_token.symbol,
-                oracle_base="oracle_base",
-                oracle_quote="oracle_quote",
-                oracle_scale_factor=6,
-                oracle_type="Band",
-                expiry=1707800399,
-                maker_fee_rate=Decimal("0.1"),
-                taker_fee_rate=Decimal("0.1"),
-                initial_margin_ratio=Decimal("0.1"),
-                maintenance_margin_ratio=Decimal("0.1"),
-                min_price_tick_size=Decimal("1"),
-                min_quantity_tick_size=Decimal("1"),
-                min_notional=Decimal("1"),
-            )
-
-        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
-        assert len(deprecation_warnings) == 1
-        assert (
-            str(deprecation_warnings[0].message)
-            == "This method is deprecated. Use msg_instant_expiry_futures_market_launch_v2 instead"
         )
 
     def test_msg_create_spot_limit_order_deprecation_warning(self, basic_composer):

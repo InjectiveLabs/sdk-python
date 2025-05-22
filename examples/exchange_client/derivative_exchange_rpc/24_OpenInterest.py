@@ -11,11 +11,13 @@ async def main() -> None:
     client = AsyncClient(network)
     market_ids = [
         "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
-        "0xd5e4b12b19ecf176e4e14b42944731c27677819d2ed93be4104ad7025529c7ff",
+        "0xd97d0da6f6c11710ef06315971250e4e9aed4b7d4cd02059c9477ec8cf243782",
     ]
-    depth = 1
-    orderbooks = await client.fetch_derivative_orderbooks_v2(market_ids=market_ids, depth=depth)
-    print(json.dumps(orderbooks, indent=2))
+
+    result = await client.fetch_open_interest(
+        market_ids=market_ids,
+    )
+    print(json.dumps(result, indent=2))
 
 
 if __name__ == "__main__":

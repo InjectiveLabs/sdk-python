@@ -58,14 +58,14 @@ class IndexerGrpcDerivativeApi:
 
         return response
 
-    async def fetch_orderbook_v2(self, market_id: str) -> Dict[str, Any]:
-        request = exchange_derivative_pb.OrderbookV2Request(market_id=market_id)
+    async def fetch_orderbook_v2(self, market_id: str, depth: int) -> Dict[str, Any]:
+        request = exchange_derivative_pb.OrderbookV2Request(market_id=market_id, depth=depth)
         response = await self._execute_call(call=self._stub.OrderbookV2, request=request)
 
         return response
 
-    async def fetch_orderbooks_v2(self, market_ids: List[str]) -> Dict[str, Any]:
-        request = exchange_derivative_pb.OrderbooksV2Request(market_ids=market_ids)
+    async def fetch_orderbooks_v2(self, market_ids: List[str], depth: int) -> Dict[str, Any]:
+        request = exchange_derivative_pb.OrderbooksV2Request(market_ids=market_ids, depth=depth)
         response = await self._execute_call(call=self._stub.OrderbooksV2, request=request)
 
         return response
@@ -345,6 +345,12 @@ class IndexerGrpcDerivativeApi:
         )
 
         response = await self._execute_call(call=self._stub.TradesV2, request=request)
+
+        return response
+
+    async def fetch_open_interest(self, market_ids: List[str]) -> Dict[str, Any]:
+        request = exchange_derivative_pb.OpenInterestRequest(market_i_ds=market_ids)
+        response = await self._execute_call(call=self._stub.OpenInterest, request=request)
 
         return response
 

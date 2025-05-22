@@ -54,6 +54,7 @@ from pyinjective.proto.cosmos.bank.v1beta1 import query_pb2_grpc as bank_query_g
 from pyinjective.proto.cosmos.base.tendermint.v1beta1 import query_pb2_grpc as tendermint_query_grpc
 from pyinjective.proto.cosmos.crypto.ed25519 import keys_pb2 as ed25519_keys  # noqa: F401 for validator set responses
 from pyinjective.proto.cosmos.tx.v1beta1 import service_pb2 as tx_service, service_pb2_grpc as tx_service_grpc
+from pyinjective.proto.exchange import injective_oracle_rpc_pb2 as exchange_oracle_pb
 from pyinjective.proto.ibc.lightclients.tendermint.v1 import (  # noqa: F401 for validator set responses
     tendermint_pb2 as ibc_tendermint,
 )
@@ -2012,8 +2013,25 @@ class AsyncClient:
             oracle_scale_factor=oracle_scale_factor,
         )
 
+    async def fetch_oracle_price_v2(self, filters: List[exchange_oracle_pb.PricePayloadV2]) -> Dict[str, Any]:
+        return await self.exchange_oracle_api.fetch_oracle_price_v2(filters=filters)
+
     async def fetch_oracle_list(self) -> Dict[str, Any]:
         return await self.exchange_oracle_api.fetch_oracle_list()
+
+    def oracle_price_v2_filter(
+        self,
+        base_symbol: Optional[str] = None,
+        quote_symbol: Optional[str] = None,
+        oracle_type: Optional[str] = None,
+        oracle_scale_factor: Optional[int] = None,
+    ) -> exchange_oracle_pb.PricePayloadV2:
+        return exchange_oracle_pb.PricePayloadV2(
+            base_symbol=base_symbol,
+            quote_symbol=quote_symbol,
+            oracle_type=oracle_type,
+            oracle_scale_factor=oracle_scale_factor,
+        )
 
     # InsuranceRPC
 
@@ -2061,11 +2079,11 @@ class AsyncClient:
             market_ids=market_ids,
         )
 
-    async def fetch_spot_orderbook_v2(self, market_id: str) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_orderbook_v2(market_id=market_id)
+    async def fetch_spot_orderbook_v2(self, market_id: str, depth: int) -> Dict[str, Any]:
+        return await self.exchange_spot_api.fetch_orderbook_v2(market_id=market_id, depth=depth)
 
-    async def fetch_spot_orderbooks_v2(self, market_ids: List[str]) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_orderbooks_v2(market_ids=market_ids)
+    async def fetch_spot_orderbooks_v2(self, market_ids: List[str], depth: int) -> Dict[str, Any]:
+        return await self.exchange_spot_api.fetch_orderbooks_v2(market_ids=market_ids, depth=depth)
 
     async def fetch_spot_orders(
         self,
@@ -2331,11 +2349,11 @@ class AsyncClient:
             market_ids=market_ids,
         )
 
-    async def fetch_derivative_orderbook_v2(self, market_id: str) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_orderbook_v2(market_id=market_id)
+    async def fetch_derivative_orderbook_v2(self, market_id: str, depth: int) -> Dict[str, Any]:
+        return await self.exchange_derivative_api.fetch_orderbook_v2(market_id=market_id, depth=depth)
 
-    async def fetch_derivative_orderbooks_v2(self, market_ids: List[str]) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_orderbooks_v2(market_ids=market_ids)
+    async def fetch_derivative_orderbooks_v2(self, market_ids: List[str], depth: int) -> Dict[str, Any]:
+        return await self.exchange_derivative_api.fetch_orderbooks_v2(market_ids=market_ids, depth=depth)
 
     async def fetch_derivative_orders(
         self,
@@ -2650,6 +2668,9 @@ class AsyncClient:
 
     async def fetch_binary_options_market(self, market_id: str) -> Dict[str, Any]:
         return await self.exchange_derivative_api.fetch_binary_options_market(market_id=market_id)
+
+    async def fetch_open_interest(self, market_ids: List[str]) -> Dict[str, Any]:
+        return await self.exchange_derivative_api.fetch_open_interest(market_ids=market_ids)
 
     # PortfolioRPC
     async def fetch_account_portfolio_balances(

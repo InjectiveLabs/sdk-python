@@ -62,6 +62,9 @@ class TestChainGrpcBankApi:
             margin_decrease_price_timestamp_threshold_seconds=10,
             exchange_admins=[admin],
             inj_auction_max_cap="1000000000000000000000",
+            fixed_gas_enabled=False,
+            emit_legacy_version_events=True,
+            default_reduce_margin_ratio="3",
         )
         exchange_servicer.exchange_params.append(exchange_query_pb.QueryExchangeParamsResponse(params=params))
 
@@ -111,6 +114,9 @@ class TestChainGrpcBankApi:
                 ),
                 "exchangeAdmins": [admin],
                 "injAuctionMaxCap": params.inj_auction_max_cap,
+                "fixedGasEnabled": params.fixed_gas_enabled,
+                "emitLegacyVersionEvents": params.emit_legacy_version_events,
+                "defaultReduceMarginRatio": params.default_reduce_margin_ratio,
             }
         }
 
@@ -1242,6 +1248,7 @@ class TestChainGrpcBankApi:
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
             initial_margin_ratio="50000000000000000",
             maintenance_margin_ratio="20000000000000000",
+            reduce_margin_ratio="30000000000000000",
             maker_fee_rate="-0.0001",
             taker_fee_rate="0.001",
             relayer_fee_share_rate="400000000000000000",
@@ -1307,6 +1314,7 @@ class TestChainGrpcBankApi:
                         "marketId": market.market_id,
                         "initialMarginRatio": market.initial_margin_ratio,
                         "maintenanceMarginRatio": market.maintenance_margin_ratio,
+                        "reduceMarginRatio": market.reduce_margin_ratio,
                         "makerFeeRate": market.maker_fee_rate,
                         "takerFeeRate": market.taker_fee_rate,
                         "relayerFeeShareRate": market.relayer_fee_share_rate,
@@ -1360,6 +1368,7 @@ class TestChainGrpcBankApi:
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
             initial_margin_ratio="50000000000000000",
             maintenance_margin_ratio="20000000000000000",
+            reduce_margin_ratio="30000000000000000",
             maker_fee_rate="-0.0001",
             taker_fee_rate="0.001",
             relayer_fee_share_rate="400000000000000000",
@@ -1423,6 +1432,7 @@ class TestChainGrpcBankApi:
                     "marketId": market.market_id,
                     "initialMarginRatio": market.initial_margin_ratio,
                     "maintenanceMarginRatio": market.maintenance_margin_ratio,
+                    "reduceMarginRatio": market.reduce_margin_ratio,
                     "makerFeeRate": market.maker_fee_rate,
                     "takerFeeRate": market.taker_fee_rate,
                     "relayerFeeShareRate": market.relayer_fee_share_rate,

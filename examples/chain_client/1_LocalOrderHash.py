@@ -178,7 +178,7 @@ async def main() -> None:
     print("gas fee: {} INJ".format(gas_fee))
 
     spot_orders = [
-        composer.spot_order(
+        composer.create_spot_order_v2(
             market_id=spot_market_id,
             subaccount_id=subaccount_id_2,
             fee_recipient=fee_recipient,
@@ -187,7 +187,7 @@ async def main() -> None:
             order_type="BUY_PO",
             cid=str(uuid.uuid4()),
         ),
-        composer.spot_order(
+        composer.create_spot_order_v2(
             market_id=spot_market_id,
             subaccount_id=subaccount_id_2,
             fee_recipient=fee_recipient,
@@ -199,7 +199,7 @@ async def main() -> None:
     ]
 
     derivative_orders = [
-        composer.derivative_order(
+        composer.create_derivative_order_v2(
             market_id=deriv_market_id,
             subaccount_id=subaccount_id_2,
             fee_recipient=fee_recipient,
@@ -211,7 +211,7 @@ async def main() -> None:
             order_type="BUY",
             cid=str(uuid.uuid4()),
         ),
-        composer.derivative_order(
+        composer.create_derivative_order_v2(
             market_id=deriv_market_id,
             subaccount_id=subaccount_id_2,
             fee_recipient=fee_recipient,

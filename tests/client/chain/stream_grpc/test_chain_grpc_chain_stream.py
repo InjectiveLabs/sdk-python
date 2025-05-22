@@ -422,6 +422,7 @@ class TestChainGrpcChainStream:
     ):
         block_height = 19114391
         block_time = 1701457189786
+        gas_price = "1600000000"
         balance_coin = coin_pb.Coin(
             denom="inj",
             amount="6941221373191000000000",
@@ -573,6 +574,7 @@ class TestChainGrpcChainStream:
             chain_stream_v2_pb.StreamResponse(
                 block_height=block_height,
                 block_time=block_time,
+                gas_price=gas_price,
                 bank_balances=[bank_balance],
                 subaccount_deposits=[subaccount_deposits],
                 spot_trades=[spot_trade],
@@ -611,6 +613,7 @@ class TestChainGrpcChainStream:
         expected_update = {
             "blockHeight": str(block_height),
             "blockTime": str(block_time),
+            "gasPrice": gas_price,
             "bankBalances": [
                 {
                     "account": bank_balance.account,
@@ -689,6 +692,7 @@ class TestChainGrpcChainStream:
                             "orderType": "SELL_PO",
                             "fillable": spot_limit_order.fillable,
                             "triggerPrice": spot_limit_order.trigger_price,
+                            "expirationBlock": "0",
                             "orderHash": base64.b64encode(spot_limit_order.order_hash).decode(),
                         },
                     },
@@ -713,6 +717,7 @@ class TestChainGrpcChainStream:
                             "margin": derivative_limit_order.margin,
                             "fillable": derivative_limit_order.fillable,
                             "triggerPrice": derivative_limit_order.trigger_price,
+                            "expirationBlock": "0",
                             "orderHash": base64.b64encode(derivative_limit_order.order_hash).decode(),
                         },
                         "isMarket": derivative_order.is_market,

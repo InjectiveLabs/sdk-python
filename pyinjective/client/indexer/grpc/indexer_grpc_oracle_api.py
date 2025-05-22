@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, Optional
+from typing import Any, Callable, Dict, List, Optional
 
 from grpc.aio import Channel
 
@@ -35,6 +35,12 @@ class IndexerGrpcOracleApi:
             oracle_scale_factor=oracle_scale_factor,
         )
         response = await self._execute_call(call=self._stub.Price, request=request)
+
+        return response
+
+    async def fetch_oracle_price_v2(self, filters: List[exchange_oracle_pb.PricePayloadV2]) -> Dict[str, Any]:
+        request = exchange_oracle_pb.PriceV2Request(filters=filters)
+        response = await self._execute_call(call=self._stub.PriceV2, request=request)
 
         return response
 
