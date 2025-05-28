@@ -5,7 +5,11 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased] - 9999-99-99
 ### Added
 - Added support for Exchange V2 proto queries and types
+- Added support for ERC20 proto queries and types
+- Added support for EVM proto queries and types
 - Updated all chain exchange module examples to use the new Exchange V2 proto queries and types
+- Added examples for ERC20 queries and messages
+- Added examples for EVM queries
 
 ### Removed
 - Removed all methods marked as deprecated in AsyncClient and Composer
