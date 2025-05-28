@@ -18,7 +18,7 @@ def evm_servicer():
     return ConfigurableEVMQueryServicer()
 
 
-class TestChainGrpcBankApi:
+class TestChainGrpcEVMApi:
     @pytest.mark.asyncio
     async def test_fetch_evm_params(
         self,
@@ -231,13 +231,13 @@ class TestChainGrpcBankApi:
         )
 
         api = self._api_instance(evm_servicer)
-        resposne = await api.fetch_base_fee()
+        response = await api.fetch_base_fee()
 
         expected_response = {
             "baseFee": "160000000",
         }
 
-        assert resposne["baseFee"] == expected_response["baseFee"]
+        assert response == expected_response
 
     def _api_instance(self, servicer):
         network = Network.devnet()

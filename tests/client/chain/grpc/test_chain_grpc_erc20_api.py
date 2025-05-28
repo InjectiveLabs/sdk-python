@@ -16,7 +16,7 @@ def erc20_servicer():
     return ConfigurableERC20QueryServicer()
 
 
-class TestChainGrpcBankApi:
+class TestChainGrpcERC20Api:
     @pytest.mark.asyncio
     async def test_fetch_erc20_params(
         self,
