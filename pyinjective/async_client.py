@@ -10,6 +10,8 @@ from pyinjective.client.chain.grpc.chain_grpc_auth_api import ChainGrpcAuthApi
 from pyinjective.client.chain.grpc.chain_grpc_authz_api import ChainGrpcAuthZApi
 from pyinjective.client.chain.grpc.chain_grpc_bank_api import ChainGrpcBankApi
 from pyinjective.client.chain.grpc.chain_grpc_distribution_api import ChainGrpcDistributionApi
+from pyinjective.client.chain.grpc.chain_grpc_erc20_api import ChainGrpcERC20Api
+from pyinjective.client.chain.grpc.chain_grpc_evm_api import ChainGrpcEVMApi
 from pyinjective.client.chain.grpc.chain_grpc_exchange_api import ChainGrpcExchangeApi
 from pyinjective.client.chain.grpc.chain_grpc_exchange_v2_api import ChainGrpcExchangeV2Api
 from pyinjective.client.chain.grpc.chain_grpc_permissions_api import ChainGrpcPermissionsApi
@@ -121,6 +123,14 @@ class AsyncClient:
             cookie_assistant=network.chain_cookie_assistant,
         )
         self.distribution_api = ChainGrpcDistributionApi(
+            channel=self.chain_channel,
+            cookie_assistant=network.chain_cookie_assistant,
+        )
+        self.chain_erc20_api = ChainGrpcERC20Api(
+            channel=self.chain_channel,
+            cookie_assistant=network.chain_cookie_assistant,
+        )
+        self.chain_evm_api = ChainGrpcEVMApi(
             channel=self.chain_channel,
             cookie_assistant=network.chain_cookie_assistant,
         )
@@ -2991,6 +3001,44 @@ class AsyncClient:
     # region IBC Channel module
     async def fetch_eip_base_fee(self) -> Dict[str, Any]:
         return await self.txfees_api.fetch_eip_base_fee()
+
+    # endregion
+
+    # -------------------------
+    # region Chain ERC20 module
+    async def fetch_erc20_all_token_pairs(self) -> Dict[str, Any]:
+        return await self.chain_erc20_api.fetch_all_token_pairs()
+
+    async def fetch_erc20_token_pair_by_denom(self, bank_denom: str) -> Dict[str, Any]:
+        return await self.chain_erc20_api.fetch_token_pair_by_denom(bank_denom=bank_denom)
+
+    async def fetch_erc20_token_pair_by_erc20_address(self, erc20_address: str) -> Dict[str, Any]:
+        return await self.chain_erc20_api.fetch_token_pair_by_erc20_address(erc20_address=erc20_address)
+
+    # endregion
+
+    # -------------------------
+    # region Chain EVM module
+    async def fetch_evm_account(self, address: str) -> Dict[str, Any]:
+        return await self.chain_evm_api.fetch_account(address=address)
+
+    async def fetch_evm_cosmos_account(self, address: str) -> Dict[str, Any]:
+        return await self.chain_evm_api.fetch_cosmos_account(address=address)
+
+    async def fetch_evm_validator_account(self, cons_address: str) -> Dict[str, Any]:
+        return await self.chain_evm_api.fetch_validator_account(cons_address=cons_address)
+
+    async def fetch_evm_balance(self, address: str) -> Dict[str, Any]:
+        return await self.chain_evm_api.fetch_balance(address=address)
+
+    async def fetch_evm_storage(self, address: str, key: Optional[str] = None) -> Dict[str, Any]:
+        return await self.chain_evm_api.fetch_storage(address=address, key=key)
+
+    async def fetch_evm_code(self, address: str) -> Dict[str, Any]:
+        return await self.chain_evm_api.fetch_code(address=address)
+
+    async def fetch_evm_base_fee(self) -> Dict[str, Any]:
+        return await self.chain_evm_api.fetch_base_fee()
 
     # endregion
 

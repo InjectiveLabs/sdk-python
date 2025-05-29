@@ -25,6 +25,7 @@ from pyinjective.proto.exchange import injective_explorer_rpc_pb2 as explorer_pb
 from pyinjective.proto.ibc.applications.transfer.v1 import tx_pb2 as ibc_transfer_tx_pb
 from pyinjective.proto.ibc.core.client.v1 import client_pb2 as ibc_core_client_pb
 from pyinjective.proto.injective.auction.v1beta1 import tx_pb2 as injective_auction_tx_pb
+from pyinjective.proto.injective.erc20.v1beta1 import erc20_pb2 as injective_erc20_pb2, tx_pb2 as injective_erc20_tx_pb
 from pyinjective.proto.injective.exchange.v1beta1 import (
     authz_pb2 as injective_authz_pb,
     exchange_pb2 as injective_exchange_pb,
@@ -2926,6 +2927,27 @@ class Composer:
         return injective_permissions_tx_pb.MsgClaimVoucher(
             sender=sender,
             denom=denom,
+        )
+
+    # endregion
+
+    # region ERC20 module
+    def msg_create_token_pair(
+        self, sender: str, bank_denom: str, erc20_address: str
+    ) -> injective_erc20_tx_pb.MsgCreateTokenPair:
+        token_pair = injective_erc20_pb2.TokenPair(
+            bank_denom=bank_denom,
+            erc20_address=erc20_address,
+        )
+        return injective_erc20_tx_pb.MsgCreateTokenPair(
+            sender=sender,
+            token_pair=token_pair,
+        )
+
+    def msg_delete_token_pair(self, sender: str, bank_denom: str) -> injective_erc20_tx_pb.MsgDeleteTokenPair:
+        return injective_erc20_tx_pb.MsgDeleteTokenPair(
+            sender=sender,
+            bank_denom=bank_denom,
         )
 
     # endregion

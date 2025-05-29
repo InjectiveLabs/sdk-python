@@ -16,9 +16,9 @@ inputs:
   - git_repo: https://github.com/InjectiveLabs/wasmd
     tag: v0.53.2-evm-comet1-inj
   - git_repo: https://github.com/InjectiveLabs/cometbft
-    tag: v1.0.1-inj
+    tag: v1.0.1-inj.2
   - git_repo: https://github.com/InjectiveLabs/cosmos-sdk
-    tag: v0.50.13-evm-comet1-inj.2
+    tag: v0.50.13-evm-comet1-inj.3
 #  - git_repo: https://github.com/InjectiveLabs/wasmd
 #    branch: v0.51.x-inj
 #    subdir: proto

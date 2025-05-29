@@ -2173,3 +2173,41 @@ class TestComposer:
             always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
+
+    def test_msg_create_token_pair(self, basic_composer):
+        message = basic_composer.msg_create_token_pair(
+            sender="sender",
+            bank_denom="denom",
+            erc20_address="erc20_address",
+        )
+
+        expected_message = {
+            "sender": "sender",
+            "tokenPair": {
+                "bankDenom": "denom",
+                "erc20Address": "erc20_address",
+            },
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=message,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_msg_delete_token_pair(self, basic_composer):
+        message = basic_composer.msg_delete_token_pair(
+            sender="sender",
+            bank_denom="denom",
+        )
+
+        expected_message = {
+            "sender": "sender",
+            "bankDenom": "denom",
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=message,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message

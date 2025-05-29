@@ -1,8 +1,6 @@
 import asyncio
 import json
 import os
-import uuid
-from decimal import Decimal
 
 import dotenv
 
@@ -40,29 +38,15 @@ async def main() -> None:
     pub_key = priv_key.to_public_key()
     address = pub_key.to_address()
     await client.fetch_account(address.to_acc_bech32())
-    subaccount_id = address.get_subaccount_id(index=0)
 
-    latest_block = await client.fetch_latest_block()
-    latest_height = int(latest_block["block"]["header"]["height"])
-
-    # prepare trade info
-    market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
-    fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
+    usdt_denom = "factory/inj10vkkttgxdeqcgeppu20x9qtyvuaxxev8qh0awq/usdt"
+    usdt_erc20 = "0xdAC17F958D2ee523a2206206994597C13D831ec7"
 
     # prepare tx msg
-    msg = composer.msg_create_derivative_limit_order_v2(
+    msg = composer.msg_create_token_pair(
         sender=address.to_acc_bech32(),
-        market_id=market_id,
-        subaccount_id=subaccount_id,
-        fee_recipient=fee_recipient,
-        price=Decimal(50000),
-        quantity=Decimal(0.1),
-        margin=composer.calculate_margin(
-            quantity=Decimal(0.1), price=Decimal(50000), leverage=Decimal(1), is_reduce_only=False
-        ),
-        order_type="SELL",
-        cid=str(uuid.uuid4()),
-        expiration_block=latest_height + 10,
+        bank_denom=usdt_denom,
+        erc20_address=usdt_erc20,
     )
 
     # broadcast the transaction
