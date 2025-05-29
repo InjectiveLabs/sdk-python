@@ -9,6 +9,7 @@ from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagina
 from pyinjective.proto.injective.exchange.v2 import query_pb2 as exchange_query_pb
 from tests.client.chain.grpc.configurable_bank_query_servicer import ConfigurableBankQueryServicer
 from tests.client.chain.grpc.configurable_exchange_v2_query_servicer import ConfigurableExchangeV2QueryServicer
+from tests.core.tendermint.grpc.configurable_tendermint_query_servicer import ConfigurableTendermintQueryServicer
 from tests.rpc_fixtures.markets_fixtures import (  # noqa: F401
     ape_token_meta,
     ape_usdt_spot_market_meta,
@@ -33,12 +34,19 @@ def exchange_servicer():
     return ConfigurableExchangeV2QueryServicer()
 
 
+@pytest.fixture
+def tendermint_servicer():
+    return ConfigurableTendermintQueryServicer()
+
+
 class TestAsyncClient:
     @pytest.mark.asyncio
-    async def test_sync_timeout_height_logs_exception(self, caplog):
+    async def test_sync_timeout_height_logs_exception(self, caplog, tendermint_servicer):
         client = AsyncClient(
             network=Network.local(),
         )
+
+        client.tendermint_api._stub = tendermint_servicer
 
         with caplog.at_level(logging.DEBUG):
             await client.sync_timeout_height()
@@ -53,10 +61,12 @@ class TestAsyncClient:
         assert found_log[1] == logging.DEBUG
 
     @pytest.mark.asyncio
-    async def test_get_account_logs_exception(self, caplog):
+    async def test_get_account_logs_exception(self, caplog, tendermint_servicer):
         client = AsyncClient(
             network=Network.local(),
         )
+
+        client.tendermint_api._stub = tendermint_servicer
 
         with caplog.at_level(logging.DEBUG):
             await client.fetch_account(address="")
@@ -74,6 +84,7 @@ class TestAsyncClient:
     async def test_initialize_tokens_and_markets(
         self,
         exchange_servicer,
+        tendermint_servicer,
         inj_usdt_spot_market_meta,
         ape_usdt_spot_market_meta,
         btc_usdt_perp_market_meta,
@@ -163,6 +174,7 @@ class TestAsyncClient:
         )
 
         client.chain_exchange_v2_api._stub = exchange_servicer
+        client.tendermint_api._stub = tendermint_servicer
 
         await client._initialize_tokens_and_markets()
 
@@ -199,6 +211,7 @@ class TestAsyncClient:
     async def test_tokens_and_markets_initialization_read_tokens_from_official_list(
         self,
         exchange_servicer,
+        tendermint_servicer,
         inj_usdt_spot_market_meta,
         ape_usdt_spot_market_meta,
         btc_usdt_perp_market_meta,
@@ -255,6 +268,7 @@ class TestAsyncClient:
         )
 
         client.chain_exchange_v2_api._stub = exchange_servicer
+        client.tendermint_api._stub = tendermint_servicer
 
         await client._initialize_tokens_and_markets()
 
@@ -267,6 +281,7 @@ class TestAsyncClient:
         self,
         bank_servicer,
         exchange_servicer,
+        tendermint_servicer,
         smart_denom_metadata,
         aioresponses,
     ):
@@ -296,8 +311,9 @@ class TestAsyncClient:
             network=test_network,
         )
 
-        client.chain_exchange_v2_api._stub = exchange_servicer
         client.bank_api._stub = bank_servicer
+        client.chain_exchange_v2_api._stub = exchange_servicer
+        client.tendermint_api._stub = tendermint_servicer
 
         await client._initialize_tokens_and_markets()
         await client.initialize_tokens_from_chain_denoms()
