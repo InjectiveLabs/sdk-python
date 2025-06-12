@@ -1,6 +1,6 @@
 import asyncio
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import Network
 
@@ -14,7 +14,7 @@ async def main() -> None:
 
     pagination = PaginationOption(limit=2)
 
-    orderbook = await client.fetch_chain_spot_orderbook_v2(
+    orderbook = await client.fetch_chain_spot_orderbook(
         market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
         order_side="Buy",
         pagination=pagination,

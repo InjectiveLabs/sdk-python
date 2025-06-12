@@ -5,7 +5,7 @@ from decimal import Decimal
 import dotenv
 from grpc import RpcError
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.constant import GAS_FEE_BUFFER_AMOUNT
 from pyinjective.core.network import Network
 from pyinjective.transaction import Transaction
@@ -35,7 +35,7 @@ async def main() -> None:
     market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
 
     # prepare tx msg
-    msg = composer.msg_increase_position_margin_v2(
+    msg = composer.msg_increase_position_margin(
         sender=address.to_acc_bech32(),
         market_id=market_id,
         source_subaccount_id=subaccount_id,

@@ -1,12 +1,13 @@
 import asyncio
+import json
 
-from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
+from pyinjective.indexer_client import IndexerClient
 
 
 async def main() -> None:
     network = Network.testnet()
-    client = AsyncClient(network)
+    client = IndexerClient(network)
     spot_order_hashes = [
         "0xce0d9b701f77cd6ddfda5dd3a4fe7b2d53ba83e5d6c054fb2e9e886200b7b7bb",
         "0x2e2245b5431638d76c6e0cc6268970418a1b1b7df60a8e94b8cf37eae6105542",
@@ -18,7 +19,7 @@ async def main() -> None:
     orders = await client.fetch_order_states(
         spot_order_hashes=spot_order_hashes, derivative_order_hashes=derivative_order_hashes
     )
-    print(orders)
+    print(json.dumps(orders, indent=2))
 
 
 if __name__ == "__main__":

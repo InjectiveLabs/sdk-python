@@ -4,7 +4,7 @@ import os
 import dotenv
 from grpc import RpcError
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.constant import GAS_FEE_BUFFER_AMOUNT
 from pyinjective.core.network import Network
 from pyinjective.transaction import Transaction
@@ -30,7 +30,7 @@ async def main() -> None:
     await client.fetch_account(address.to_acc_bech32())
 
     # prepare tx msg
-    msg = composer.MsgBid(sender=address.to_acc_bech32(), round=16250, bid_amount=1)
+    msg = composer.msg_bid(sender=address.to_acc_bech32(), round=16250, bid_amount=1)
 
     # build sim tx
     tx = (

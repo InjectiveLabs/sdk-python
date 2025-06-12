@@ -4,7 +4,7 @@ import os
 import dotenv
 from grpc import RpcError
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.constant import GAS_FEE_BUFFER_AMOUNT
 from pyinjective.core.network import Network
 from pyinjective.transaction import Transaction
@@ -31,7 +31,7 @@ async def main() -> None:
     await client.fetch_account(address.to_acc_bech32())
 
     # prepare tx msg
-    msg = composer.MsgRevoke(
+    msg = composer.msg_revoke(
         granter=address.to_acc_bech32(),
         grantee=grantee_public_address,
         msg_type="/injective.exchange.v2.MsgCreateSpotLimitOrder",

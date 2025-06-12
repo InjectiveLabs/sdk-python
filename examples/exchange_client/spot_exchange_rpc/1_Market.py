@@ -1,15 +1,16 @@
 import asyncio
+import json
 
-from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
+from pyinjective.indexer_client import IndexerClient
 
 
 async def main() -> None:
     network = Network.testnet()
-    client = AsyncClient(network)
+    client = IndexerClient(network)
     market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
     market = await client.fetch_spot_market(market_id=market_id)
-    print(market)
+    print(json.dumps(market, indent=2))
 
 
 if __name__ == "__main__":

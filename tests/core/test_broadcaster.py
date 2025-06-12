@@ -7,8 +7,8 @@ import pytest
 
 import pyinjective.ofac as ofac
 from pyinjective import PrivateKey
-from pyinjective.async_client import AsyncClient
-from pyinjective.composer import Composer
+from pyinjective.async_client_v2 import AsyncClient
+from pyinjective.composer_v2 import Composer
 from pyinjective.core.broadcaster import MsgBroadcasterWithPk, StandardAccountBroadcasterConfig
 from pyinjective.core.network import Network
 

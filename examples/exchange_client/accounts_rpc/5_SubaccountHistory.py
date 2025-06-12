@@ -1,13 +1,14 @@
 import asyncio
+import json
 
-from pyinjective.async_client import AsyncClient
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import Network
+from pyinjective.indexer_client import IndexerClient
 
 
 async def main() -> None:
     network = Network.testnet()
-    client = AsyncClient(network)
+    client = IndexerClient(network)
     subaccount = "0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000"
     denom = "inj"
     transfer_types = ["withdraw", "deposit"]
@@ -21,7 +22,7 @@ async def main() -> None:
         transfer_types=transfer_types,
         pagination=pagination,
     )
-    print(subacc_history)
+    print(json.dumps(subacc_history, indent=2))
 
 
 if __name__ == "__main__":

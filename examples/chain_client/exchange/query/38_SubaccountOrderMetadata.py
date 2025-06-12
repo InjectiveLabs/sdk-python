@@ -4,7 +4,7 @@ import os
 import dotenv
 
 from pyinjective import PrivateKey
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.core.network import Network
 
 
@@ -26,7 +26,7 @@ async def main() -> None:
 
     subaccount_id = address.get_subaccount_id(index=0)
 
-    metadata = await client.fetch_subaccount_order_metadata_v2(
+    metadata = await client.fetch_subaccount_order_metadata(
         subaccount_id=subaccount_id,
     )
     print(metadata)

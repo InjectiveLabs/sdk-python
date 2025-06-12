@@ -1,9 +1,9 @@
 import asyncio
 import time
 
-from pyinjective.async_client import AsyncClient
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import Network
+from pyinjective.indexer_client import IndexerClient
 
 
 async def main() -> None:
@@ -11,7 +11,7 @@ async def main() -> None:
     network = Network.testnet()
 
     # Initialize client
-    client = AsyncClient(network)
+    client = IndexerClient(network=network)
 
     try:
         # Example parameters for fetching contract transactions

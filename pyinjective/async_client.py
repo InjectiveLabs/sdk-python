@@ -10,58 +10,40 @@ from pyinjective.client.chain.grpc.chain_grpc_auth_api import ChainGrpcAuthApi
 from pyinjective.client.chain.grpc.chain_grpc_authz_api import ChainGrpcAuthZApi
 from pyinjective.client.chain.grpc.chain_grpc_bank_api import ChainGrpcBankApi
 from pyinjective.client.chain.grpc.chain_grpc_distribution_api import ChainGrpcDistributionApi
-from pyinjective.client.chain.grpc.chain_grpc_erc20_api import ChainGrpcERC20Api
-from pyinjective.client.chain.grpc.chain_grpc_evm_api import ChainGrpcEVMApi
 from pyinjective.client.chain.grpc.chain_grpc_exchange_api import ChainGrpcExchangeApi
-from pyinjective.client.chain.grpc.chain_grpc_exchange_v2_api import ChainGrpcExchangeV2Api
 from pyinjective.client.chain.grpc.chain_grpc_permissions_api import ChainGrpcPermissionsApi
 from pyinjective.client.chain.grpc.chain_grpc_token_factory_api import ChainGrpcTokenFactoryApi
 from pyinjective.client.chain.grpc.chain_grpc_txfees_api import ChainGrpcTxfeesApi
 from pyinjective.client.chain.grpc.chain_grpc_wasm_api import ChainGrpcWasmApi
 from pyinjective.client.chain.grpc_stream.chain_grpc_chain_stream import ChainGrpcChainStream
-from pyinjective.client.indexer.grpc.indexer_grpc_account_api import IndexerGrpcAccountApi
-from pyinjective.client.indexer.grpc.indexer_grpc_auction_api import IndexerGrpcAuctionApi
-from pyinjective.client.indexer.grpc.indexer_grpc_derivative_api import IndexerGrpcDerivativeApi
-from pyinjective.client.indexer.grpc.indexer_grpc_explorer_api import IndexerGrpcExplorerApi
-from pyinjective.client.indexer.grpc.indexer_grpc_insurance_api import IndexerGrpcInsuranceApi
-from pyinjective.client.indexer.grpc.indexer_grpc_meta_api import IndexerGrpcMetaApi
-from pyinjective.client.indexer.grpc.indexer_grpc_oracle_api import IndexerGrpcOracleApi
-from pyinjective.client.indexer.grpc.indexer_grpc_portfolio_api import IndexerGrpcPortfolioApi
-from pyinjective.client.indexer.grpc.indexer_grpc_spot_api import IndexerGrpcSpotApi
-from pyinjective.client.indexer.grpc_stream.indexer_grpc_account_stream import IndexerGrpcAccountStream
-from pyinjective.client.indexer.grpc_stream.indexer_grpc_auction_stream import IndexerGrpcAuctionStream
-from pyinjective.client.indexer.grpc_stream.indexer_grpc_derivative_stream import IndexerGrpcDerivativeStream
-from pyinjective.client.indexer.grpc_stream.indexer_grpc_explorer_stream import IndexerGrpcExplorerStream
-from pyinjective.client.indexer.grpc_stream.indexer_grpc_meta_stream import IndexerGrpcMetaStream
-from pyinjective.client.indexer.grpc_stream.indexer_grpc_oracle_stream import IndexerGrpcOracleStream
-from pyinjective.client.indexer.grpc_stream.indexer_grpc_portfolio_stream import IndexerGrpcPortfolioStream
-from pyinjective.client.indexer.grpc_stream.indexer_grpc_spot_stream import IndexerGrpcSpotStream
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.composer import Composer
 from pyinjective.constant import GAS_PRICE
+from pyinjective.core.chain_formatted_market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from pyinjective.core.ibc.channel.grpc.ibc_channel_grpc_api import IBCChannelGrpcApi
 from pyinjective.core.ibc.client.grpc.ibc_client_grpc_api import IBCClientGrpcApi
 from pyinjective.core.ibc.connection.grpc.ibc_connection_grpc_api import IBCConnectionGrpcApi
 from pyinjective.core.ibc.transfer.grpc.ibc_transfer_grpc_api import IBCTransferGrpcApi
-from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from pyinjective.core.network import Network
 from pyinjective.core.tendermint.grpc.tendermint_grpc_api import TendermintGrpcApi
 from pyinjective.core.token import Token
 from pyinjective.core.tokens_file_loader import TokensFileLoader
 from pyinjective.core.tx.grpc.tx_grpc_api import TxGrpcApi
 from pyinjective.exceptions import NotFoundError
+from pyinjective.indexer_client import IndexerClient
 from pyinjective.proto.cosmos.auth.v1beta1 import query_pb2_grpc as auth_query_grpc
 from pyinjective.proto.cosmos.authz.v1beta1 import query_pb2_grpc as authz_query_grpc
 from pyinjective.proto.cosmos.bank.v1beta1 import query_pb2_grpc as bank_query_grpc
 from pyinjective.proto.cosmos.base.tendermint.v1beta1 import query_pb2_grpc as tendermint_query_grpc
 from pyinjective.proto.cosmos.crypto.ed25519 import keys_pb2 as ed25519_keys  # noqa: F401 for validator set responses
 from pyinjective.proto.cosmos.tx.v1beta1 import service_pb2 as tx_service, service_pb2_grpc as tx_service_grpc
-from pyinjective.proto.exchange import injective_oracle_rpc_pb2 as exchange_oracle_pb
 from pyinjective.proto.ibc.lightclients.tendermint.v1 import (  # noqa: F401 for validator set responses
     tendermint_pb2 as ibc_tendermint,
 )
-from pyinjective.proto.injective.stream.v1beta1 import query_pb2 as chain_stream_query
-from pyinjective.proto.injective.stream.v2 import query_pb2 as chain_stream_v2_query
+from pyinjective.proto.injective.stream.v1beta1 import (
+    query_pb2 as chain_stream_query,
+    query_pb2_grpc as stream_rpc_grpc,
+)
 from pyinjective.proto.injective.types.v1beta1 import account_pb2
 from pyinjective.utils.logger import LoggerProvider
 
@@ -81,6 +63,7 @@ class AsyncClient:
         self.sequence = 0
 
         self.network = network
+        self.indexer_client = IndexerClient(network=network)
 
         # chain stubs
         self.chain_channel = self.network.create_chain_grpc_channel()
@@ -91,14 +74,10 @@ class AsyncClient:
         self.stubBank = bank_query_grpc.QueryStub(self.chain_channel)
         self.stubTx = tx_service_grpc.ServiceStub(self.chain_channel)
 
-        self.exchange_cookie = ""
         self.timeout_height = 1
 
-        # exchange stubs
-        self.exchange_channel = self.network.create_exchange_grpc_channel()
-        # explorer stubs
-        self.explorer_channel = self.network.create_explorer_grpc_channel()
         self.chain_stream_channel = self.network.create_chain_stream_grpc_channel()
+        self.chain_stream_stub = stream_rpc_grpc.StreamStub(channel=self.chain_stream_channel)
 
         self._timeout_height_sync_task = None
         self._initialize_timeout_height_sync_task()
@@ -126,19 +105,7 @@ class AsyncClient:
             channel=self.chain_channel,
             cookie_assistant=network.chain_cookie_assistant,
         )
-        self.chain_erc20_api = ChainGrpcERC20Api(
-            channel=self.chain_channel,
-            cookie_assistant=network.chain_cookie_assistant,
-        )
-        self.chain_evm_api = ChainGrpcEVMApi(
-            channel=self.chain_channel,
-            cookie_assistant=network.chain_cookie_assistant,
-        )
         self.chain_exchange_api = ChainGrpcExchangeApi(
-            channel=self.chain_channel,
-            cookie_assistant=network.chain_cookie_assistant,
-        )
-        self.chain_exchange_v2_api = ChainGrpcExchangeV2Api(
             channel=self.chain_channel,
             cookie_assistant=network.chain_cookie_assistant,
         )
@@ -188,86 +155,7 @@ class AsyncClient:
             cookie_assistant=network.chain_cookie_assistant,
         )
 
-        self.exchange_account_api = IndexerGrpcAccountApi(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_auction_api = IndexerGrpcAuctionApi(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_derivative_api = IndexerGrpcDerivativeApi(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_insurance_api = IndexerGrpcInsuranceApi(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_meta_api = IndexerGrpcMetaApi(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_oracle_api = IndexerGrpcOracleApi(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_portfolio_api = IndexerGrpcPortfolioApi(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_spot_api = IndexerGrpcSpotApi(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-
-        self.exchange_account_stream_api = IndexerGrpcAccountStream(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_auction_stream_api = IndexerGrpcAuctionStream(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_derivative_stream_api = IndexerGrpcDerivativeStream(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_meta_stream_api = IndexerGrpcMetaStream(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_oracle_stream_api = IndexerGrpcOracleStream(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_portfolio_stream_api = IndexerGrpcPortfolioStream(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_spot_stream_api = IndexerGrpcSpotStream(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-
-        self.exchange_explorer_api = IndexerGrpcExplorerApi(
-            channel=self.explorer_channel,
-            cookie_assistant=network.explorer_cookie_assistant,
-        )
-        self.exchange_explorer_stream_api = IndexerGrpcExplorerStream(
-            channel=self.explorer_channel,
-            cookie_assistant=network.explorer_cookie_assistant,
-        )
-
     def __del__(self):
-        self._cancel_timeout_height_sync_task()
-
-    async def close_exchange_channel(self):
-        await self.exchange_channel.close()
-        self._cancel_timeout_height_sync_task()
-
-    async def close_explorer_channel(self):
-        await self.explorer_channel.close()
         self._cancel_timeout_height_sync_task()
 
     async def close_chain_channel(self):
@@ -500,7 +388,7 @@ class AsyncClient:
         subaccount_trader: Optional[str] = None,
         subaccount_nonce: Optional[int] = None,
     ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_subaccount_deposits(
+        return await self.chain_exchange_api.fetch_subaccount_deposits(
             subaccount_id=subaccount_id,
             subaccount_trader=subaccount_trader,
             subaccount_nonce=subaccount_nonce,
@@ -511,20 +399,15 @@ class AsyncClient:
         subaccount_id: str,
         denom: str,
     ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_subaccount_deposit(
+        return await self.chain_exchange_api.fetch_subaccount_deposit(
             subaccount_id=subaccount_id,
             denom=denom,
         )
 
     async def fetch_exchange_balances(self) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_exchange_balances()
+        return await self.chain_exchange_api.fetch_exchange_balances()
 
     async def fetch_aggregate_volume(self, account: str) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_aggregate_volume_v2` instead
-        """
-        warn("This method is deprecated. Use fetch_aggregate_volume_v2 instead", DeprecationWarning, stacklevel=2)
-
         return await self.chain_exchange_api.fetch_aggregate_volume(account=account)
 
     async def fetch_aggregate_volumes(
@@ -532,11 +415,6 @@ class AsyncClient:
         accounts: Optional[List[str]] = None,
         market_ids: Optional[List[str]] = None,
     ) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_aggregate_volumes_v2` instead
-        """
-        warn("This method is deprecated. Use fetch_aggregate_volumes_v2 instead", DeprecationWarning, stacklevel=2)
-
         return await self.chain_exchange_api.fetch_aggregate_volumes(
             accounts=accounts,
             market_ids=market_ids,
@@ -546,13 +424,6 @@ class AsyncClient:
         self,
         market_id: str,
     ) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_aggregate_market_volume_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_aggregate_market_volume_v2 instead", DeprecationWarning, stacklevel=2
-        )
-
         return await self.chain_exchange_api.fetch_aggregate_market_volume(
             market_id=market_id,
         )
@@ -561,33 +432,21 @@ class AsyncClient:
         self,
         market_ids: Optional[List[str]] = None,
     ) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_aggregate_market_volumes_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_aggregate_market_volumes_v2 instead", DeprecationWarning, stacklevel=2
-        )
-
         return await self.chain_exchange_api.fetch_aggregate_market_volumes(
             market_ids=market_ids,
         )
 
     async def fetch_denom_decimal(self, denom: str) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_denom_decimal(denom=denom)
+        return await self.chain_exchange_api.fetch_denom_decimal(denom=denom)
 
     async def fetch_denom_decimals(self, denoms: Optional[List[str]] = None) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_denom_decimals(denoms=denoms)
+        return await self.chain_exchange_api.fetch_denom_decimals(denoms=denoms)
 
     async def fetch_chain_spot_markets(
         self,
         status: Optional[str] = None,
         market_ids: Optional[List[str]] = None,
     ) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_chain_spot_markets_v2` instead
-        """
-        warn("This method is deprecated. Use fetch_chain_spot_markets_v2 instead", DeprecationWarning, stacklevel=2)
-
         return await self.chain_exchange_api.fetch_spot_markets(
             status=status,
             market_ids=market_ids,
@@ -597,11 +456,6 @@ class AsyncClient:
         self,
         market_id: str,
     ) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_chain_spot_market_v2` instead
-        """
-        warn("This method is deprecated. Use fetch_chain_spot_market_v2 instead", DeprecationWarning, stacklevel=2)
-
         return await self.chain_exchange_api.fetch_spot_market(
             market_id=market_id,
         )
@@ -612,13 +466,6 @@ class AsyncClient:
         market_ids: Optional[List[str]] = None,
         with_mid_price_and_tob: Optional[bool] = None,
     ) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_chain_full_spot_markets_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_chain_full_spot_markets_v2 instead", DeprecationWarning, stacklevel=2
-        )
-
         return await self.chain_exchange_api.fetch_full_spot_markets(
             status=status,
             market_ids=market_ids,
@@ -630,11 +477,6 @@ class AsyncClient:
         market_id: str,
         with_mid_price_and_tob: Optional[bool] = None,
     ) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_chain_full_spot_market_v2` instead
-        """
-        warn("This method is deprecated. Use fetch_chain_full_spot_market_v2 instead", DeprecationWarning, stacklevel=2)
-
         return await self.chain_exchange_api.fetch_full_spot_market(
             market_id=market_id,
             with_mid_price_and_tob=with_mid_price_and_tob,
@@ -648,11 +490,6 @@ class AsyncClient:
         limit_cumulative_quantity: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_chain_spot_orderbook_v2` instead
-        """
-        warn("This method is deprecated. Use fetch_chain_spot_orderbook_v2 instead", DeprecationWarning, stacklevel=2)
-
         # Order side could be "Side_Unspecified", "Buy", "Sell"
         return await self.chain_exchange_api.fetch_spot_orderbook(
             market_id=market_id,
@@ -667,13 +504,6 @@ class AsyncClient:
         market_id: str,
         subaccount_id: str,
     ) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_chain_trader_spot_orders_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_chain_trader_spot_orders_v2 instead", DeprecationWarning, stacklevel=2
-        )
-
         return await self.chain_exchange_api.fetch_trader_spot_orders(
             market_id=market_id,
             subaccount_id=subaccount_id,
@@ -684,16 +514,6 @@ class AsyncClient:
         market_id: str,
         account_address: str,
     ) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon.
-        Please use `fetch_chain_account_address_spot_orders_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_chain_account_address_spot_orders_v2 instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
         return await self.chain_exchange_api.fetch_account_address_spot_orders(
             market_id=market_id,
             account_address=account_address,
@@ -705,15 +525,6 @@ class AsyncClient:
         subaccount_id: str,
         order_hashes: List[str],
     ) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_chain_spot_orders_by_hashes_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_chain_spot_orders_by_hashes_v2 instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
         return await self.chain_exchange_api.fetch_spot_orders_by_hashes(
             market_id=market_id,
             subaccount_id=subaccount_id,
@@ -725,13 +536,6 @@ class AsyncClient:
         subaccount_id: str,
         market_id: str,
     ) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_chain_subaccount_orders_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_chain_subaccount_orders_v2 instead", DeprecationWarning, stacklevel=2
-        )
-
         return await self.chain_exchange_api.fetch_subaccount_orders(
             subaccount_id=subaccount_id,
             market_id=market_id,
@@ -742,16 +546,6 @@ class AsyncClient:
         market_id: str,
         subaccount_id: str,
     ) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon.
-        Please use `fetch_chain_trader_spot_transient_orders_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_chain_trader_spot_transient_orders_v2 instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
         return await self.chain_exchange_api.fetch_trader_spot_transient_orders(
             market_id=market_id,
             subaccount_id=subaccount_id,
@@ -761,11 +555,6 @@ class AsyncClient:
         self,
         market_id: str,
     ) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_spot_mid_price_and_tob_v2` instead
-        """
-        warn("This method is deprecated. Use fetch_spot_mid_price_and_tob_v2 instead", DeprecationWarning, stacklevel=2)
-
         return await self.chain_exchange_api.fetch_spot_mid_price_and_tob(
             market_id=market_id,
         )
@@ -774,15 +563,6 @@ class AsyncClient:
         self,
         market_id: str,
     ) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_derivative_mid_price_and_tob_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_derivative_mid_price_and_tob_v2 instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
         return await self.chain_exchange_api.fetch_derivative_mid_price_and_tob(
             market_id=market_id,
         )
@@ -793,15 +573,6 @@ class AsyncClient:
         limit_cumulative_notional: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_chain_derivative_orderbook_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_chain_derivative_orderbook_v2 instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
         return await self.chain_exchange_api.fetch_derivative_orderbook(
             market_id=market_id,
             limit_cumulative_notional=limit_cumulative_notional,
@@ -813,15 +584,6 @@ class AsyncClient:
         market_id: str,
         subaccount_id: str,
     ) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_chain_trader_derivative_orders_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_chain_trader_derivative_orders_v2 instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
         return await self.chain_exchange_api.fetch_trader_derivative_orders(
             market_id=market_id,
             subaccount_id=subaccount_id,
@@ -832,16 +594,6 @@ class AsyncClient:
         market_id: str,
         account_address: str,
     ) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon.
-        Please use `fetch_chain_account_address_derivative_orders_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_chain_account_address_derivative_orders_v2 instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
         return await self.chain_exchange_api.fetch_account_address_derivative_orders(
             market_id=market_id,
             account_address=account_address,
@@ -853,16 +605,6 @@ class AsyncClient:
         subaccount_id: str,
         order_hashes: List[str],
     ) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon.
-        Please use `fetch_chain_derivative_orders_by_hashes_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_chain_derivative_orders_by_hashes_v2 instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
         return await self.chain_exchange_api.fetch_derivative_orders_by_hashes(
             market_id=market_id,
             subaccount_id=subaccount_id,
@@ -874,16 +616,6 @@ class AsyncClient:
         market_id: str,
         subaccount_id: str,
     ) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon.
-        Please use `fetch_chain_trader_derivative_transient_orders_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_chain_trader_derivative_transient_orders_v2 instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
         return await self.chain_exchange_api.fetch_trader_derivative_transient_orders(
             market_id=market_id,
             subaccount_id=subaccount_id,
@@ -895,13 +627,6 @@ class AsyncClient:
         market_ids: Optional[List[str]] = None,
         with_mid_price_and_tob: Optional[bool] = None,
     ) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_chain_derivative_markets_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_chain_derivative_markets_v2 instead", DeprecationWarning, stacklevel=2
-        )
-
         return await self.chain_exchange_api.fetch_derivative_markets(
             status=status,
             market_ids=market_ids,
@@ -912,54 +637,23 @@ class AsyncClient:
         self,
         market_id: str,
     ) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_chain_derivative_market_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_chain_derivative_market_v2 instead", DeprecationWarning, stacklevel=2
-        )
-
         return await self.chain_exchange_api.fetch_derivative_market(
             market_id=market_id,
         )
 
     async def fetch_derivative_market_address(self, market_id: str) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_derivative_market_address(market_id=market_id)
+        return await self.chain_exchange_api.fetch_derivative_market_address(market_id=market_id)
 
     async def fetch_subaccount_trade_nonce(self, subaccount_id: str) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_subaccount_trade_nonce(subaccount_id=subaccount_id)
+        return await self.chain_exchange_api.fetch_subaccount_trade_nonce(subaccount_id=subaccount_id)
 
     async def fetch_chain_positions(self) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_chain_positions_v2` instead
-        """
-        warn("This method is deprecated. Use fetch_chain_positions_v2 instead", DeprecationWarning, stacklevel=2)
-
         return await self.chain_exchange_api.fetch_positions()
 
     async def fetch_chain_subaccount_positions(self, subaccount_id: str) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_chain_subaccount_positions_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_chain_subaccount_positions_v2 instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
         return await self.chain_exchange_api.fetch_subaccount_positions(subaccount_id=subaccount_id)
 
     async def fetch_chain_subaccount_position_in_market(self, subaccount_id: str, market_id: str) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon.
-        Please use `fetch_chain_subaccount_position_in_market_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_chain_subaccount_position_in_market_v2 instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
         return await self.chain_exchange_api.fetch_subaccount_position_in_market(
             subaccount_id=subaccount_id,
             market_id=market_id,
@@ -968,59 +662,21 @@ class AsyncClient:
     async def fetch_chain_subaccount_effective_position_in_market(
         self, subaccount_id: str, market_id: str
     ) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon.
-        Please use `fetch_chain_subaccount_effective_position_in_market_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_chain_subaccount_effective_position_in_market_v2 instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
         return await self.chain_exchange_api.fetch_subaccount_effective_position_in_market(
             subaccount_id=subaccount_id,
             market_id=market_id,
         )
 
     async def fetch_chain_perpetual_market_info(self, market_id: str) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_perpetual_market_info(market_id=market_id)
+        return await self.chain_exchange_api.fetch_perpetual_market_info(market_id=market_id)
 
     async def fetch_chain_expiry_futures_market_info(self, market_id: str) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon.
-        Please use `fetch_chain_expiry_futures_market_info_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_chain_expiry_futures_market_info_v2 instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
         return await self.chain_exchange_api.fetch_expiry_futures_market_info(market_id=market_id)
 
     async def fetch_chain_perpetual_market_funding(self, market_id: str) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_chain_perpetual_market_funding_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_chain_perpetual_market_funding_v2 instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
         return await self.chain_exchange_api.fetch_perpetual_market_funding(market_id=market_id)
 
     async def fetch_subaccount_order_metadata(self, subaccount_id: str) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_subaccount_order_metadata_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_subaccount_order_metadata_v2 instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
         return await self.chain_exchange_api.fetch_subaccount_order_metadata(subaccount_id=subaccount_id)
 
     async def fetch_trade_reward_points(
@@ -1028,7 +684,7 @@ class AsyncClient:
         accounts: Optional[List[str]] = None,
         pending_pool_timestamp: Optional[int] = None,
     ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_trade_reward_points(
+        return await self.chain_exchange_api.fetch_trade_reward_points(
             accounts=accounts,
             pending_pool_timestamp=pending_pool_timestamp,
         )
@@ -1038,64 +694,43 @@ class AsyncClient:
         accounts: Optional[List[str]] = None,
         pending_pool_timestamp: Optional[int] = None,
     ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_pending_trade_reward_points(
+        return await self.chain_exchange_api.fetch_pending_trade_reward_points(
             accounts=accounts,
             pending_pool_timestamp=pending_pool_timestamp,
         )
 
     async def fetch_trade_reward_campaign(self) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_trade_reward_campaign()
+        return await self.chain_exchange_api.fetch_trade_reward_campaign()
 
     async def fetch_fee_discount_account_info(self, account: str) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_fee_discount_account_info_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_fee_discount_account_info_v2 instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
         return await self.chain_exchange_api.fetch_fee_discount_account_info(account=account)
 
     async def fetch_fee_discount_schedule(self) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_fee_discount_schedule_v2` instead
-        """
-        warn("This method is deprecated. Use fetch_fee_discount_schedule_v2 instead", DeprecationWarning, stacklevel=2)
-
         return await self.chain_exchange_api.fetch_fee_discount_schedule()
 
     async def fetch_balance_mismatches(self, dust_factor: int) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_balance_mismatches(dust_factor=dust_factor)
+        return await self.chain_exchange_api.fetch_balance_mismatches(dust_factor=dust_factor)
 
     async def fetch_balance_with_balance_holds(self) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_balance_with_balance_holds()
+        return await self.chain_exchange_api.fetch_balance_with_balance_holds()
 
     async def fetch_fee_discount_tier_statistics(self) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_fee_discount_tier_statistics()
+        return await self.chain_exchange_api.fetch_fee_discount_tier_statistics()
 
     async def fetch_mito_vault_infos(self) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_mito_vault_infos()
+        return await self.chain_exchange_api.fetch_mito_vault_infos()
 
     async def fetch_market_id_from_vault(self, vault_address: str) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_market_id_from_vault(vault_address=vault_address)
+        return await self.chain_exchange_api.fetch_market_id_from_vault(vault_address=vault_address)
 
     async def fetch_historical_trade_records(self, market_id: str) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_historical_trade_records_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_historical_trade_records_v2 instead", DeprecationWarning, stacklevel=2
-        )
-
         return await self.chain_exchange_api.fetch_historical_trade_records(market_id=market_id)
 
     async def fetch_is_opted_out_of_rewards(self, account: str) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_is_opted_out_of_rewards(account=account)
+        return await self.chain_exchange_api.fetch_is_opted_out_of_rewards(account=account)
 
     async def fetch_opted_out_of_rewards_accounts(self) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_opted_out_of_rewards_accounts()
+        return await self.chain_exchange_api.fetch_opted_out_of_rewards_accounts()
 
     async def fetch_market_volatility(
         self,
@@ -1105,11 +740,6 @@ class AsyncClient:
         include_raw_history: Optional[bool] = None,
         include_metadata: Optional[bool] = None,
     ) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_market_volatility_v2` instead
-        """
-        warn("This method is deprecated. Use fetch_market_volatility_v2 instead", DeprecationWarning, stacklevel=2)
-
         return await self.chain_exchange_api.fetch_market_volatility(
             market_id=market_id,
             trade_grouping_sec=trade_grouping_sec,
@@ -1119,15 +749,6 @@ class AsyncClient:
         )
 
     async def fetch_chain_binary_options_markets(self, status: Optional[str] = None) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_chain_binary_options_markets_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_chain_binary_options_markets_v2 instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
         return await self.chain_exchange_api.fetch_binary_options_markets(status=status)
 
     async def fetch_trader_derivative_conditional_orders(
@@ -1135,16 +756,6 @@ class AsyncClient:
         subaccount_id: Optional[str] = None,
         market_id: Optional[str] = None,
     ) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon.
-        Please use `fetch_trader_derivative_conditional_orders_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_trader_derivative_conditional_orders_v2 instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
         return await self.chain_exchange_api.fetch_trader_derivative_conditional_orders(
             subaccount_id=subaccount_id,
             market_id=market_id,
@@ -1154,382 +765,37 @@ class AsyncClient:
         self,
         market_id: str,
     ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_market_atomic_execution_fee_multiplier(
+        return await self.chain_exchange_api.fetch_market_atomic_execution_fee_multiplier(
             market_id=market_id,
         )
 
-    async def fetch_active_stake_grant(self, grantee: str) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_active_stake_grant(grantee=grantee)
-
-    async def fetch_grant_authorization(
-        self,
-        granter: str,
-        grantee: str,
-    ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_grant_authorization(
-            granter=granter,
-            grantee=grantee,
-        )
-
-    async def fetch_grant_authorizations(self, granter: str) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_grant_authorizations(granter=granter)
-
     async def fetch_l3_derivative_orderbook(self, market_id: str) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_l3_derivative_orderbook_v2` instead
-        """
-        warn(
-            "This method is deprecated. Use fetch_l3_derivative_orderbook_v2 instead", DeprecationWarning, stacklevel=2
-        )
-
         return await self.chain_exchange_api.fetch_l3_derivative_orderbook(market_id=market_id)
 
     async def fetch_l3_spot_orderbook(self, market_id: str) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_l3_spot_orderbook_v2` instead
-        """
-        warn("This method is deprecated. Use fetch_l3_spot_orderbook_v2 instead", DeprecationWarning, stacklevel=2)
-
         return await self.chain_exchange_api.fetch_l3_spot_orderbook(market_id=market_id)
 
     async def fetch_market_balance(self, market_id: str) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_market_balance(market_id=market_id)
+        return await self.chain_exchange_api.fetch_market_balance(market_id=market_id)
 
     async def fetch_market_balances(self) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_market_balances()
+        return await self.chain_exchange_api.fetch_market_balances()
 
     async def fetch_denom_min_notional(self, denom: str) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_denom_min_notional_v2` instead
-        """
-        warn("This method is deprecated. Use fetch_denom_min_notional_v2 instead", DeprecationWarning, stacklevel=2)
-
         return await self.chain_exchange_api.fetch_denom_min_notional(denom=denom)
 
     async def fetch_denom_min_notionals(self) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_denom_min_notionals_v2` instead
-        """
-        warn("This method is deprecated. Use fetch_denom_min_notionals_v2 instead", DeprecationWarning, stacklevel=2)
-
         return await self.chain_exchange_api.fetch_denom_min_notionals()
-
-    async def fetch_aggregate_volume_v2(self, account: str) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_aggregate_volume(account=account)
-
-    async def fetch_aggregate_volumes_v2(
-        self,
-        accounts: Optional[List[str]] = None,
-        market_ids: Optional[List[str]] = None,
-    ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_aggregate_volumes(
-            accounts=accounts,
-            market_ids=market_ids,
-        )
-
-    async def fetch_aggregate_market_volume_v2(
-        self,
-        market_id: str,
-    ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_aggregate_market_volume(
-            market_id=market_id,
-        )
-
-    async def fetch_aggregate_market_volumes_v2(
-        self,
-        market_ids: Optional[List[str]] = None,
-    ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_aggregate_market_volumes(
-            market_ids=market_ids,
-        )
-
-    async def fetch_chain_spot_markets_v2(
-        self,
-        status: Optional[str] = None,
-        market_ids: Optional[List[str]] = None,
-    ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_spot_markets(
-            status=status,
-            market_ids=market_ids,
-        )
-
-    async def fetch_chain_spot_market_v2(
-        self,
-        market_id: str,
-    ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_spot_market(
-            market_id=market_id,
-        )
-
-    async def fetch_chain_full_spot_markets_v2(
-        self,
-        status: Optional[str] = None,
-        market_ids: Optional[List[str]] = None,
-        with_mid_price_and_tob: Optional[bool] = None,
-    ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_full_spot_markets(
-            status=status,
-            market_ids=market_ids,
-            with_mid_price_and_tob=with_mid_price_and_tob,
-        )
-
-    async def fetch_chain_full_spot_market_v2(
-        self,
-        market_id: str,
-        with_mid_price_and_tob: Optional[bool] = None,
-    ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_full_spot_market(
-            market_id=market_id,
-            with_mid_price_and_tob=with_mid_price_and_tob,
-        )
-
-    async def fetch_chain_spot_orderbook_v2(
-        self,
-        market_id: str,
-        order_side: Optional[str] = None,
-        limit_cumulative_notional: Optional[str] = None,
-        limit_cumulative_quantity: Optional[str] = None,
-        pagination: Optional[PaginationOption] = None,
-    ) -> Dict[str, Any]:
-        # Order side could be "Side_Unspecified", "Buy", "Sell"
-        return await self.chain_exchange_v2_api.fetch_spot_orderbook(
-            market_id=market_id,
-            order_side=order_side,
-            limit_cumulative_notional=limit_cumulative_notional,
-            limit_cumulative_quantity=limit_cumulative_quantity,
-            pagination=pagination,
-        )
-
-    async def fetch_chain_trader_spot_orders_v2(
-        self,
-        market_id: str,
-        subaccount_id: str,
-    ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_trader_spot_orders(
-            market_id=market_id,
-            subaccount_id=subaccount_id,
-        )
-
-    async def fetch_chain_account_address_spot_orders_v2(
-        self,
-        market_id: str,
-        account_address: str,
-    ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_account_address_spot_orders(
-            market_id=market_id,
-            account_address=account_address,
-        )
-
-    async def fetch_chain_spot_orders_by_hashes_v2(
-        self,
-        market_id: str,
-        subaccount_id: str,
-        order_hashes: List[str],
-    ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_spot_orders_by_hashes(
-            market_id=market_id,
-            subaccount_id=subaccount_id,
-            order_hashes=order_hashes,
-        )
-
-    async def fetch_chain_subaccount_orders_v2(
-        self,
-        subaccount_id: str,
-        market_id: str,
-    ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_subaccount_orders(
-            subaccount_id=subaccount_id,
-            market_id=market_id,
-        )
-
-    async def fetch_chain_trader_spot_transient_orders_v2(
-        self,
-        market_id: str,
-        subaccount_id: str,
-    ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_trader_spot_transient_orders(
-            market_id=market_id,
-            subaccount_id=subaccount_id,
-        )
-
-    async def fetch_spot_mid_price_and_tob_v2(
-        self,
-        market_id: str,
-    ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_spot_mid_price_and_tob(
-            market_id=market_id,
-        )
-
-    async def fetch_derivative_mid_price_and_tob_v2(
-        self,
-        market_id: str,
-    ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_derivative_mid_price_and_tob(
-            market_id=market_id,
-        )
-
-    async def fetch_chain_derivative_orderbook_v2(
-        self,
-        market_id: str,
-        limit_cumulative_notional: Optional[str] = None,
-        pagination: Optional[PaginationOption] = None,
-    ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_derivative_orderbook(
-            market_id=market_id,
-            limit_cumulative_notional=limit_cumulative_notional,
-            pagination=pagination,
-        )
-
-    async def fetch_chain_trader_derivative_orders_v2(
-        self,
-        market_id: str,
-        subaccount_id: str,
-    ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_trader_derivative_orders(
-            market_id=market_id,
-            subaccount_id=subaccount_id,
-        )
-
-    async def fetch_chain_account_address_derivative_orders_v2(
-        self,
-        market_id: str,
-        account_address: str,
-    ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_account_address_derivative_orders(
-            market_id=market_id,
-            account_address=account_address,
-        )
-
-    async def fetch_chain_derivative_orders_by_hashes_v2(
-        self,
-        market_id: str,
-        subaccount_id: str,
-        order_hashes: List[str],
-    ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_derivative_orders_by_hashes(
-            market_id=market_id,
-            subaccount_id=subaccount_id,
-            order_hashes=order_hashes,
-        )
-
-    async def fetch_chain_trader_derivative_transient_orders_v2(
-        self,
-        market_id: str,
-        subaccount_id: str,
-    ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_trader_derivative_transient_orders(
-            market_id=market_id,
-            subaccount_id=subaccount_id,
-        )
-
-    async def fetch_chain_derivative_markets_v2(
-        self,
-        status: Optional[str] = None,
-        market_ids: Optional[List[str]] = None,
-        with_mid_price_and_tob: Optional[bool] = None,
-    ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_derivative_markets(
-            status=status,
-            market_ids=market_ids,
-            with_mid_price_and_tob=with_mid_price_and_tob,
-        )
-
-    async def fetch_chain_derivative_market_v2(
-        self,
-        market_id: str,
-    ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_derivative_market(
-            market_id=market_id,
-        )
-
-    async def fetch_chain_positions_v2(self) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_positions()
-
-    async def fetch_chain_subaccount_positions_v2(self, subaccount_id: str) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_subaccount_positions(subaccount_id=subaccount_id)
-
-    async def fetch_chain_subaccount_position_in_market_v2(self, subaccount_id: str, market_id: str) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_subaccount_position_in_market(
-            subaccount_id=subaccount_id,
-            market_id=market_id,
-        )
-
-    async def fetch_chain_subaccount_effective_position_in_market_v2(
-        self, subaccount_id: str, market_id: str
-    ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_subaccount_effective_position_in_market(
-            subaccount_id=subaccount_id,
-            market_id=market_id,
-        )
-
-    async def fetch_chain_expiry_futures_market_info_v2(self, market_id: str) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_expiry_futures_market_info(market_id=market_id)
-
-    async def fetch_chain_perpetual_market_funding_v2(self, market_id: str) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_perpetual_market_funding(market_id=market_id)
-
-    async def fetch_subaccount_order_metadata_v2(self, subaccount_id: str) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_subaccount_order_metadata(subaccount_id=subaccount_id)
-
-    async def fetch_fee_discount_account_info_v2(self, account: str) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_fee_discount_account_info(account=account)
-
-    async def fetch_fee_discount_schedule_v2(self) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_fee_discount_schedule()
-
-    async def fetch_historical_trade_records_v2(self, market_id: str) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_historical_trade_records(market_id=market_id)
-
-    async def fetch_market_volatility_v2(
-        self,
-        market_id: str,
-        trade_grouping_sec: Optional[int] = None,
-        max_age: Optional[int] = None,
-        include_raw_history: Optional[bool] = None,
-        include_metadata: Optional[bool] = None,
-    ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_market_volatility(
-            market_id=market_id,
-            trade_grouping_sec=trade_grouping_sec,
-            max_age=max_age,
-            include_raw_history=include_raw_history,
-            include_metadata=include_metadata,
-        )
-
-    async def fetch_chain_binary_options_markets_v2(self, status: Optional[str] = None) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_binary_options_markets(status=status)
-
-    async def fetch_trader_derivative_conditional_orders_v2(
-        self,
-        subaccount_id: Optional[str] = None,
-        market_id: Optional[str] = None,
-    ) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_trader_derivative_conditional_orders(
-            subaccount_id=subaccount_id,
-            market_id=market_id,
-        )
-
-    async def fetch_l3_derivative_orderbook_v2(self, market_id: str) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_l3_derivative_orderbook(market_id=market_id)
-
-    async def fetch_l3_spot_orderbook_v2(self, market_id: str) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_l3_spot_orderbook(market_id=market_id)
-
-    async def fetch_denom_min_notional_v2(self, denom: str) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_denom_min_notional(denom=denom)
-
-    async def fetch_denom_min_notionals_v2(self) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_denom_min_notionals()
 
     # Injective Exchange client methods
 
     # Auction RPC
 
     async def fetch_auction(self, round: int) -> Dict[str, Any]:
-        return await self.exchange_auction_api.fetch_auction(round=round)
+        return await self.indexer_client.fetch_auction(round=round)
 
     async def fetch_auctions(self) -> Dict[str, Any]:
-        return await self.exchange_auction_api.fetch_auctions()
+        return await self.indexer_client.fetch_auctions()
 
     async def listen_bids_updates(
         self,
@@ -1537,25 +803,25 @@ class AsyncClient:
         on_end_callback: Optional[Callable] = None,
         on_status_callback: Optional[Callable] = None,
     ):
-        await self.exchange_auction_stream_api.stream_bids(
+        await self.indexer_client.listen_bids_updates(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
         )
 
     async def fetch_inj_burnt(self) -> Dict[str, Any]:
-        return await self.exchange_auction_api.fetch_inj_burnt()
+        return await self.indexer_client.fetch_inj_burnt()
 
     # Meta RPC
 
     async def fetch_ping(self) -> Dict[str, Any]:
-        return await self.exchange_meta_api.fetch_ping()
+        return await self.indexer_client.fetch_ping()
 
     async def fetch_version(self) -> Dict[str, Any]:
-        return await self.exchange_meta_api.fetch_version()
+        return await self.indexer_client.fetch_version()
 
     async def fetch_info(self) -> Dict[str, Any]:
-        return await self.exchange_meta_api.fetch_info()
+        return await self.indexer_client.fetch_info()
 
     async def listen_keepalive(
         self,
@@ -1563,7 +829,7 @@ class AsyncClient:
         on_end_callback: Optional[Callable] = None,
         on_status_callback: Optional[Callable] = None,
     ):
-        await self.exchange_meta_stream_api.stream_keepalive(
+        await self.indexer_client.listen_keepalive(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
@@ -1687,8 +953,9 @@ class AsyncClient:
 
     # ------------------------------
     # Explorer RPC
+
     async def fetch_tx_by_tx_hash(self, tx_hash: str) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_tx_by_tx_hash(tx_hash=tx_hash)
+        return await self.indexer_client.fetch_tx_by_tx_hash(tx_hash=tx_hash)
 
     async def fetch_account_txs(
         self,
@@ -1702,7 +969,7 @@ class AsyncClient:
         status: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_account_txs(
+        return await self.indexer_client.fetch_account_txs(
             address=address,
             before=before,
             after=after,
@@ -1721,7 +988,7 @@ class AsyncClient:
         token: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_contract_txs_v2(
+        return await self.indexer_client.fetch_contract_txs_v2(
             address=address,
             height=height,
             token=token,
@@ -1734,25 +1001,19 @@ class AsyncClient:
         after: Optional[int] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_blocks(before=before, after=after, pagination=pagination)
+        return await self.indexer_client.fetch_blocks(before=before, after=after, pagination=pagination)
 
     async def fetch_block(self, block_id: str) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_block(block_id=block_id)
+        return await self.indexer_client.fetch_block(block_id=block_id)
 
     async def fetch_validators(self) -> Dict[str, Any]:
-        """
-        Fetch validators from the explorer API.
-
-        Returns:
-            Dict containing validator information
-        """
-        return await self.exchange_explorer_api.fetch_validators()
+        return await self.indexer_client.fetch_validators()
 
     async def fetch_validator(self, address: str) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_validator(address)
+        return await self.indexer_client.fetch_validator(address=address)
 
     async def fetch_validator_uptime(self, address: str) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_validator_uptime(address=address)
+        return await self.indexer_client.fetch_validator_uptime(address=address)
 
     async def fetch_txs(
         self,
@@ -1765,7 +1026,7 @@ class AsyncClient:
         status: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_txs(
+        return await self.indexer_client.fetch_txs(
             before=before,
             after=after,
             message_type=message_type,
@@ -1782,7 +1043,7 @@ class AsyncClient:
         on_end_callback: Optional[Callable] = None,
         on_status_callback: Optional[Callable] = None,
     ):
-        await self.exchange_explorer_stream_api.stream_txs(
+        await self.indexer_client.listen_txs_updates(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
@@ -1794,7 +1055,7 @@ class AsyncClient:
         on_end_callback: Optional[Callable] = None,
         on_status_callback: Optional[Callable] = None,
     ):
-        await self.exchange_explorer_stream_api.stream_blocks(
+        await self.indexer_client.listen_blocks_updates(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
@@ -1806,7 +1067,7 @@ class AsyncClient:
         receiver: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_peggy_deposit_txs(
+        return await self.indexer_client.fetch_peggy_deposit_txs(
             sender=sender,
             receiver=receiver,
             pagination=pagination,
@@ -1818,7 +1079,7 @@ class AsyncClient:
         receiver: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_peggy_withdrawal_txs(
+        return await self.indexer_client.fetch_peggy_withdrawal_txs(
             sender=sender,
             receiver=receiver,
             pagination=pagination,
@@ -1834,7 +1095,7 @@ class AsyncClient:
         dest_port: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_ibc_transfer_txs(
+        return await self.indexer_client.fetch_ibc_transfer_txs(
             sender=sender,
             receiver=receiver,
             src_channel=src_channel,
@@ -1848,7 +1109,7 @@ class AsyncClient:
         self,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_wasm_codes(
+        return await self.indexer_client.fetch_wasm_codes(
             pagination=pagination,
         )
 
@@ -1856,7 +1117,7 @@ class AsyncClient:
         self,
         code_id: int,
     ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_wasm_code_by_id(code_id=code_id)
+        return await self.indexer_client.fetch_wasm_code_by_id(code_id=code_id)
 
     async def fetch_wasm_contracts(
         self,
@@ -1865,7 +1126,7 @@ class AsyncClient:
         label: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_wasm_contracts(
+        return await self.indexer_client.fetch_wasm_contracts(
             code_id=code_id,
             assets_only=assets_only,
             label=label,
@@ -1876,14 +1137,14 @@ class AsyncClient:
         self,
         address: str,
     ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_wasm_contract_by_address(address=address)
+        return await self.indexer_client.fetch_wasm_contract_by_address(address=address)
 
     async def fetch_cw20_balance(
         self,
         address: str,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_cw20_balance(
+        return await self.indexer_client.fetch_cw20_balance(
             address=address,
             pagination=pagination,
         )
@@ -1892,7 +1153,7 @@ class AsyncClient:
         self,
         market_ids: Optional[List[str]] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_relayers(
+        return await self.indexer_client.fetch_relayers(
             market_ids=market_ids,
         )
 
@@ -1906,7 +1167,7 @@ class AsyncClient:
         token: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_bank_transfers(
+        return await self.indexer_client.fetch_bank_transfers(
             senders=senders,
             recipients=recipients,
             is_community_pool_related=is_community_pool_related,
@@ -1926,7 +1187,7 @@ class AsyncClient:
         on_status_callback: Optional[Callable] = None,
         denoms: Optional[List[str]] = None,
     ):
-        await self.exchange_account_stream_api.stream_subaccount_balance(
+        await self.indexer_client.listen_subaccount_balance_updates(
             subaccount_id=subaccount_id,
             callback=callback,
             on_end_callback=on_end_callback,
@@ -1935,17 +1196,15 @@ class AsyncClient:
         )
 
     async def fetch_subaccount_balance(self, subaccount_id: str, denom: str) -> Dict[str, Any]:
-        return await self.exchange_account_api.fetch_subaccount_balance(subaccount_id=subaccount_id, denom=denom)
+        return await self.indexer_client.fetch_subaccount_balance(subaccount_id=subaccount_id, denom=denom)
 
     async def fetch_subaccounts_list(self, address: str) -> Dict[str, Any]:
-        return await self.exchange_account_api.fetch_subaccounts_list(address=address)
+        return await self.indexer_client.fetch_subaccounts_list(address=address)
 
     async def fetch_subaccount_balances_list(
         self, subaccount_id: str, denoms: Optional[List[str]] = None
     ) -> Dict[str, Any]:
-        return await self.exchange_account_api.fetch_subaccount_balances_list(
-            subaccount_id=subaccount_id, denoms=denoms
-        )
+        return await self.indexer_client.fetch_subaccount_balances_list(subaccount_id=subaccount_id, denoms=denoms)
 
     async def fetch_subaccount_history(
         self,
@@ -1954,7 +1213,7 @@ class AsyncClient:
         transfer_types: Optional[List[str]] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_account_api.fetch_subaccount_history(
+        return await self.indexer_client.fetch_subaccount_history(
             subaccount_id=subaccount_id,
             denom=denom,
             transfer_types=transfer_types,
@@ -1967,7 +1226,7 @@ class AsyncClient:
         market_id: Optional[str] = None,
         order_direction: Optional[str] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_account_api.fetch_subaccount_order_summary(
+        return await self.indexer_client.fetch_subaccount_order_summary(
             subaccount_id=subaccount_id,
             market_id=market_id,
             order_direction=order_direction,
@@ -1978,16 +1237,16 @@ class AsyncClient:
         spot_order_hashes: Optional[List[str]] = None,
         derivative_order_hashes: Optional[List[str]] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_account_api.fetch_order_states(
+        return await self.indexer_client.fetch_order_states(
             spot_order_hashes=spot_order_hashes,
             derivative_order_hashes=derivative_order_hashes,
         )
 
     async def fetch_portfolio(self, account_address: str) -> Dict[str, Any]:
-        return await self.exchange_account_api.fetch_portfolio(account_address=account_address)
+        return await self.indexer_client.fetch_portfolio(account_address=account_address)
 
     async def fetch_rewards(self, account_address: Optional[str] = None, epoch: Optional[int] = None) -> Dict[str, Any]:
-        return await self.exchange_account_api.fetch_rewards(account_address=account_address, epoch=epoch)
+        return await self.indexer_client.fetch_rewards(account_address=account_address, epoch=epoch)
 
     # OracleRPC
 
@@ -2000,7 +1259,7 @@ class AsyncClient:
         quote_symbol: Optional[str] = None,
         oracle_type: Optional[str] = None,
     ):
-        await self.exchange_oracle_stream_api.stream_oracle_prices(
+        await self.indexer_client.listen_oracle_prices_updates(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
@@ -2016,37 +1275,20 @@ class AsyncClient:
         oracle_type: Optional[str] = None,
         oracle_scale_factor: Optional[int] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_oracle_api.fetch_oracle_price(
+        return await self.indexer_client.fetch_oracle_price(
             base_symbol=base_symbol,
             quote_symbol=quote_symbol,
             oracle_type=oracle_type,
             oracle_scale_factor=oracle_scale_factor,
         )
-
-    async def fetch_oracle_price_v2(self, filters: List[exchange_oracle_pb.PricePayloadV2]) -> Dict[str, Any]:
-        return await self.exchange_oracle_api.fetch_oracle_price_v2(filters=filters)
 
     async def fetch_oracle_list(self) -> Dict[str, Any]:
-        return await self.exchange_oracle_api.fetch_oracle_list()
-
-    def oracle_price_v2_filter(
-        self,
-        base_symbol: Optional[str] = None,
-        quote_symbol: Optional[str] = None,
-        oracle_type: Optional[str] = None,
-        oracle_scale_factor: Optional[int] = None,
-    ) -> exchange_oracle_pb.PricePayloadV2:
-        return exchange_oracle_pb.PricePayloadV2(
-            base_symbol=base_symbol,
-            quote_symbol=quote_symbol,
-            oracle_type=oracle_type,
-            oracle_scale_factor=oracle_scale_factor,
-        )
+        return await self.indexer_client.fetch_oracle_list()
 
     # InsuranceRPC
 
     async def fetch_insurance_funds(self) -> Dict[str, Any]:
-        return await self.exchange_insurance_api.fetch_insurance_funds()
+        return await self.indexer_client.fetch_insurance_funds()
 
     async def fetch_redemptions(
         self,
@@ -2054,7 +1296,7 @@ class AsyncClient:
         denom: Optional[str] = None,
         status: Optional[str] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_insurance_api.fetch_redemptions(
+        return await self.indexer_client.fetch_redemptions(
             address=address,
             denom=denom,
             status=status,
@@ -2063,7 +1305,7 @@ class AsyncClient:
     # SpotRPC
 
     async def fetch_spot_market(self, market_id: str) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_market(market_id=market_id)
+        return await self.indexer_client.fetch_spot_market(market_id=market_id)
 
     async def fetch_spot_markets(
         self,
@@ -2071,7 +1313,7 @@ class AsyncClient:
         base_denom: Optional[str] = None,
         quote_denom: Optional[str] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_markets(
+        return await self.indexer_client.fetch_spot_markets(
             market_statuses=market_statuses, base_denom=base_denom, quote_denom=quote_denom
         )
 
@@ -2082,18 +1324,18 @@ class AsyncClient:
         on_status_callback: Optional[Callable] = None,
         market_ids: Optional[List[str]] = None,
     ):
-        await self.exchange_spot_stream_api.stream_markets(
+        await self.indexer_client.listen_spot_markets_updates(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
             market_ids=market_ids,
         )
 
-    async def fetch_spot_orderbook_v2(self, market_id: str, depth: int) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_orderbook_v2(market_id=market_id, depth=depth)
+    async def fetch_spot_orderbook_v2(self, market_id: str) -> Dict[str, Any]:
+        return await self.indexer_client.fetch_spot_orderbook_v2(market_id=market_id)
 
-    async def fetch_spot_orderbooks_v2(self, market_ids: List[str], depth: int) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_orderbooks_v2(market_ids=market_ids, depth=depth)
+    async def fetch_spot_orderbooks_v2(self, market_ids: List[str]) -> Dict[str, Any]:
+        return await self.indexer_client.fetch_spot_orderbooks_v2(market_ids=market_ids)
 
     async def fetch_spot_orders(
         self,
@@ -2106,7 +1348,7 @@ class AsyncClient:
         cid: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_orders(
+        return await self.indexer_client.fetch_spot_orders(
             market_ids=market_ids,
             order_side=order_side,
             subaccount_id=subaccount_id,
@@ -2130,7 +1372,7 @@ class AsyncClient:
         cid: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_orders_history(
+        return await self.indexer_client.fetch_spot_orders_history(
             subaccount_id=subaccount_id,
             market_ids=market_ids,
             order_types=order_types,
@@ -2156,7 +1398,7 @@ class AsyncClient:
         fee_recipient: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_trades_v2(
+        return await self.indexer_client.fetch_spot_trades(
             market_ids=market_ids,
             subaccount_ids=subaccount_ids,
             execution_side=execution_side,
@@ -2176,7 +1418,7 @@ class AsyncClient:
         on_end_callback: Optional[Callable] = None,
         on_status_callback: Optional[Callable] = None,
     ):
-        await self.exchange_spot_stream_api.stream_orderbook_v2(
+        await self.indexer_client.listen_spot_orderbook_snapshots(
             market_ids=market_ids,
             callback=callback,
             on_end_callback=on_end_callback,
@@ -2190,7 +1432,7 @@ class AsyncClient:
         on_end_callback: Optional[Callable] = None,
         on_status_callback: Optional[Callable] = None,
     ):
-        await self.exchange_spot_stream_api.stream_orderbook_update(
+        await self.indexer_client.listen_spot_orderbook_updates(
             market_ids=market_ids,
             callback=callback,
             on_end_callback=on_end_callback,
@@ -2211,7 +1453,7 @@ class AsyncClient:
         cid: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ):
-        await self.exchange_spot_stream_api.stream_orders(
+        await self.indexer_client.listen_spot_orders_updates(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
@@ -2237,7 +1479,7 @@ class AsyncClient:
         state: Optional[str] = None,
         execution_types: Optional[List[str]] = None,
     ):
-        await self.exchange_spot_stream_api.stream_orders_history(
+        await self.indexer_client.listen_spot_orders_history_updates(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
@@ -2261,7 +1503,7 @@ class AsyncClient:
         state: Optional[str] = None,
         execution_types: Optional[List[str]] = None,
     ):
-        await self.exchange_derivative_stream_api.stream_orders_history(
+        await self.indexer_client.listen_derivative_orders_history_updates(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
@@ -2289,7 +1531,7 @@ class AsyncClient:
         fee_recipient: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ):
-        await self.exchange_spot_stream_api.stream_trades_v2(
+        await self.indexer_client.listen_spot_trades_updates(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
@@ -2311,7 +1553,7 @@ class AsyncClient:
         market_id: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_subaccount_orders_list(
+        return await self.indexer_client.fetch_spot_subaccount_orders_list(
             subaccount_id=subaccount_id, market_id=market_id, pagination=pagination
         )
 
@@ -2323,7 +1565,7 @@ class AsyncClient:
         direction: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_subaccount_trades_list(
+        return await self.indexer_client.fetch_spot_subaccount_trades_list(
             subaccount_id=subaccount_id,
             market_id=market_id,
             execution_type=execution_type,
@@ -2332,15 +1574,16 @@ class AsyncClient:
         )
 
     # DerivativeRPC
+
     async def fetch_derivative_market(self, market_id: str) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_market(market_id=market_id)
+        return await self.indexer_client.fetch_derivative_market(market_id=market_id)
 
     async def fetch_derivative_markets(
         self,
         market_statuses: Optional[List[str]] = None,
         quote_denom: Optional[str] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_markets(
+        return await self.indexer_client.fetch_derivative_markets(
             market_statuses=market_statuses,
             quote_denom=quote_denom,
         )
@@ -2352,18 +1595,18 @@ class AsyncClient:
         on_status_callback: Optional[Callable] = None,
         market_ids: Optional[List[str]] = None,
     ):
-        await self.exchange_derivative_stream_api.stream_market(
+        await self.indexer_client.listen_derivative_market_updates(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
             market_ids=market_ids,
         )
 
-    async def fetch_derivative_orderbook_v2(self, market_id: str, depth: int) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_orderbook_v2(market_id=market_id, depth=depth)
+    async def fetch_derivative_orderbook_v2(self, market_id: str) -> Dict[str, Any]:
+        return await self.indexer_client.fetch_derivative_orderbook_v2(market_id=market_id)
 
-    async def fetch_derivative_orderbooks_v2(self, market_ids: List[str], depth: int) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_orderbooks_v2(market_ids=market_ids, depth=depth)
+    async def fetch_derivative_orderbooks_v2(self, market_ids: List[str]) -> Dict[str, Any]:
+        return await self.indexer_client.fetch_derivative_orderbooks_v2(market_ids=market_ids)
 
     async def fetch_derivative_orders(
         self,
@@ -2378,7 +1621,7 @@ class AsyncClient:
         cid: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_orders(
+        return await self.indexer_client.fetch_derivative_orders(
             market_ids=market_ids,
             order_side=order_side,
             subaccount_id=subaccount_id,
@@ -2405,7 +1648,7 @@ class AsyncClient:
         cid: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_orders_history(
+        return await self.indexer_client.fetch_derivative_orders_history(
             subaccount_id=subaccount_id,
             market_ids=market_ids,
             order_types=order_types,
@@ -2432,7 +1675,7 @@ class AsyncClient:
         fee_recipient: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_trades_v2(
+        return await self.indexer_client.fetch_derivative_trades(
             market_ids=market_ids,
             subaccount_ids=subaccount_ids,
             execution_side=execution_side,
@@ -2452,7 +1695,7 @@ class AsyncClient:
         on_end_callback: Optional[Callable] = None,
         on_status_callback: Optional[Callable] = None,
     ):
-        await self.exchange_derivative_stream_api.stream_orderbook_v2(
+        await self.indexer_client.listen_derivative_orderbook_snapshots(
             market_ids=market_ids,
             callback=callback,
             on_end_callback=on_end_callback,
@@ -2466,7 +1709,7 @@ class AsyncClient:
         on_end_callback: Optional[Callable] = None,
         on_status_callback: Optional[Callable] = None,
     ):
-        await self.exchange_derivative_stream_api.stream_orderbook_update(
+        await self.indexer_client.listen_derivative_orderbook_updates(
             market_ids=market_ids,
             callback=callback,
             on_end_callback=on_end_callback,
@@ -2489,7 +1732,7 @@ class AsyncClient:
         cid: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ):
-        await self.exchange_derivative_stream_api.stream_orders(
+        await self.indexer_client.listen_derivative_orders_updates(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
@@ -2521,7 +1764,7 @@ class AsyncClient:
         fee_recipient: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ):
-        return await self.exchange_derivative_stream_api.stream_trades_v2(
+        return await self.indexer_client.listen_derivative_trades_updates(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
@@ -2545,7 +1788,7 @@ class AsyncClient:
         subaccount_total_positions: Optional[bool] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_positions_v2(
+        return await self.indexer_client.fetch_derivative_positions_v2(
             market_ids=market_ids,
             subaccount_id=subaccount_id,
             direction=direction,
@@ -2569,7 +1812,7 @@ class AsyncClient:
             DeprecationWarning,
             stacklevel=2,
         )
-        await self.exchange_derivative_stream_api.stream_positions(
+        await self.indexer_client.listen_derivative_positions_updates(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
@@ -2600,7 +1843,7 @@ class AsyncClient:
         :param subaccount_ids: Optional list of subaccount IDs to filter positions
         :param account_address: Optional account address to filter positions
         """
-        await self.indexer_derivative_stream.stream_positions_v2(
+        await self.indexer_client.listen_derivative_positions_v2_updates(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
@@ -2616,7 +1859,7 @@ class AsyncClient:
         market_id: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_liquidable_positions(
+        return await self.indexer_client.fetch_derivative_liquidable_positions(
             market_id=market_id,
             pagination=pagination,
         )
@@ -2627,7 +1870,7 @@ class AsyncClient:
         market_id: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_subaccount_orders_list(
+        return await self.indexer_client.fetch_derivative_subaccount_orders_list(
             subaccount_id=subaccount_id, market_id=market_id, pagination=pagination
         )
 
@@ -2639,7 +1882,7 @@ class AsyncClient:
         direction: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_subaccount_trades_list(
+        return await self.indexer_client.fetch_derivative_subaccount_trades_list(
             subaccount_id=subaccount_id,
             market_id=market_id,
             execution_type=execution_type,
@@ -2653,7 +1896,7 @@ class AsyncClient:
         subaccount_id: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_funding_payments(
+        return await self.indexer_client.fetch_funding_payments(
             market_ids=market_ids, subaccount_id=subaccount_id, pagination=pagination
         )
 
@@ -2662,7 +1905,7 @@ class AsyncClient:
         market_id: str,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_funding_rates(market_id=market_id, pagination=pagination)
+        return await self.indexer_client.fetch_funding_rates(market_id=market_id, pagination=pagination)
 
     async def fetch_binary_options_markets(
         self,
@@ -2670,25 +1913,20 @@ class AsyncClient:
         quote_denom: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_binary_options_markets(
+        return await self.indexer_client.fetch_binary_options_markets(
             market_status=market_status,
             quote_denom=quote_denom,
             pagination=pagination,
         )
 
     async def fetch_binary_options_market(self, market_id: str) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_binary_options_market(market_id=market_id)
-
-    async def fetch_open_interest(self, market_ids: List[str]) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_open_interest(market_ids=market_ids)
+        return await self.indexer_client.fetch_binary_options_market(market_id=market_id)
 
     # PortfolioRPC
     async def fetch_account_portfolio_balances(
         self, account_address: str, usd: Optional[bool] = None
     ) -> Dict[str, Any]:
-        return await self.exchange_portfolio_api.fetch_account_portfolio_balances(
-            account_address=account_address, usd=usd
-        )
+        return await self.indexer_client.fetch_account_portfolio_balances(account_address=account_address, usd=usd)
 
     async def listen_account_portfolio_updates(
         self,
@@ -2699,7 +1937,7 @@ class AsyncClient:
         subaccount_id: Optional[str] = None,
         update_type: Optional[str] = None,
     ):
-        await self.exchange_portfolio_stream_api.stream_account_portfolio(
+        await self.indexer_client.listen_account_portfolio_updates(
             account_address=account_address,
             callback=callback,
             on_end_callback=on_end_callback,
@@ -2724,44 +1962,7 @@ class AsyncClient:
         positions_filter: Optional[chain_stream_query.PositionsFilter] = None,
         oracle_price_filter: Optional[chain_stream_query.OraclePriceFilter] = None,
     ):
-        """
-        This method is deprecated and will be removed soon. Please use `listen_chain_stream_v2_updates` instead
-        """
-        warn("This method is deprecated. Use listen_chain_stream_v2_updates instead", DeprecationWarning, stacklevel=2)
-
         return await self.chain_stream_api.stream(
-            callback=callback,
-            on_end_callback=on_end_callback,
-            on_status_callback=on_status_callback,
-            bank_balances_filter=bank_balances_filter,
-            subaccount_deposits_filter=subaccount_deposits_filter,
-            spot_trades_filter=spot_trades_filter,
-            derivative_trades_filter=derivative_trades_filter,
-            spot_orders_filter=spot_orders_filter,
-            derivative_orders_filter=derivative_orders_filter,
-            spot_orderbooks_filter=spot_orderbooks_filter,
-            derivative_orderbooks_filter=derivative_orderbooks_filter,
-            positions_filter=positions_filter,
-            oracle_price_filter=oracle_price_filter,
-        )
-
-    async def listen_chain_stream_v2_updates(
-        self,
-        callback: Callable,
-        on_end_callback: Optional[Callable] = None,
-        on_status_callback: Optional[Callable] = None,
-        bank_balances_filter: Optional[chain_stream_v2_query.BankBalancesFilter] = None,
-        subaccount_deposits_filter: Optional[chain_stream_v2_query.SubaccountDepositsFilter] = None,
-        spot_trades_filter: Optional[chain_stream_v2_query.TradesFilter] = None,
-        derivative_trades_filter: Optional[chain_stream_v2_query.TradesFilter] = None,
-        spot_orders_filter: Optional[chain_stream_v2_query.OrdersFilter] = None,
-        derivative_orders_filter: Optional[chain_stream_v2_query.OrdersFilter] = None,
-        spot_orderbooks_filter: Optional[chain_stream_v2_query.OrderbookFilter] = None,
-        derivative_orderbooks_filter: Optional[chain_stream_v2_query.OrderbookFilter] = None,
-        positions_filter: Optional[chain_stream_v2_query.PositionsFilter] = None,
-        oracle_price_filter: Optional[chain_stream_v2_query.OraclePriceFilter] = None,
-    ):
-        return await self.chain_stream_api.stream_v2(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
@@ -3004,44 +2205,6 @@ class AsyncClient:
 
     # endregion
 
-    # -------------------------
-    # region Chain ERC20 module
-    async def fetch_erc20_all_token_pairs(self) -> Dict[str, Any]:
-        return await self.chain_erc20_api.fetch_all_token_pairs()
-
-    async def fetch_erc20_token_pair_by_denom(self, bank_denom: str) -> Dict[str, Any]:
-        return await self.chain_erc20_api.fetch_token_pair_by_denom(bank_denom=bank_denom)
-
-    async def fetch_erc20_token_pair_by_erc20_address(self, erc20_address: str) -> Dict[str, Any]:
-        return await self.chain_erc20_api.fetch_token_pair_by_erc20_address(erc20_address=erc20_address)
-
-    # endregion
-
-    # -------------------------
-    # region Chain EVM module
-    async def fetch_evm_account(self, address: str) -> Dict[str, Any]:
-        return await self.chain_evm_api.fetch_account(address=address)
-
-    async def fetch_evm_cosmos_account(self, address: str) -> Dict[str, Any]:
-        return await self.chain_evm_api.fetch_cosmos_account(address=address)
-
-    async def fetch_evm_validator_account(self, cons_address: str) -> Dict[str, Any]:
-        return await self.chain_evm_api.fetch_validator_account(cons_address=cons_address)
-
-    async def fetch_evm_balance(self, address: str) -> Dict[str, Any]:
-        return await self.chain_evm_api.fetch_balance(address=address)
-
-    async def fetch_evm_storage(self, address: str, key: Optional[str] = None) -> Dict[str, Any]:
-        return await self.chain_evm_api.fetch_storage(address=address, key=key)
-
-    async def fetch_evm_code(self, address: str) -> Dict[str, Any]:
-        return await self.chain_evm_api.fetch_code(address=address)
-
-    async def fetch_evm_base_fee(self) -> Dict[str, Any]:
-        return await self.chain_evm_api.fetch_base_fee()
-
-    # endregion
-
     async def composer(self):
         return Composer(
             network=self.network.string(),
@@ -3117,7 +2280,7 @@ class AsyncClient:
         self._tokens_by_denom.update(tokens_by_denom)
         self._tokens_by_symbol.update(tokens_by_symbol)
 
-        markets_info = (await self.fetch_chain_spot_markets_v2(status="Active"))["markets"]
+        markets_info = (await self.fetch_chain_spot_markets(status="Active"))["markets"]
         for market_info in markets_info:
             base_token = self._tokens_by_denom.get(market_info["baseDenom"])
             quote_token = self._tokens_by_denom.get(market_info["quoteDenom"])
@@ -3144,7 +2307,7 @@ class AsyncClient:
 
             spot_markets[market.id] = market
 
-        markets_info = (await self.fetch_chain_derivative_markets_v2(status="Active", with_mid_price_and_tob=False))[
+        markets_info = (await self.fetch_chain_derivative_markets(status="Active", with_mid_price_and_tob=False))[
             "markets"
         ]
         for market_info in markets_info:
@@ -3182,7 +2345,7 @@ class AsyncClient:
 
             derivative_markets[derivative_market.id] = derivative_market
 
-        markets_info = (await self.fetch_chain_binary_options_markets_v2(status="Active"))["markets"]
+        markets_info = (await self.fetch_chain_binary_options_markets(status="Active"))["markets"]
         for market_info in markets_info:
             quote_token = self._tokens_by_denom.get(market_info["quoteDenom"])
 

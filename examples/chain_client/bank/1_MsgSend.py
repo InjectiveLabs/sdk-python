@@ -4,7 +4,7 @@ import os
 import dotenv
 from grpc import RpcError
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.constant import GAS_FEE_BUFFER_AMOUNT
 from pyinjective.core.network import Network
 from pyinjective.transaction import Transaction
@@ -33,7 +33,7 @@ async def main() -> None:
     msg = composer.msg_send(
         from_address=address.to_acc_bech32(),
         to_address="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
-        amount=1,
+        amount=100000000000000000,
         denom="inj",
     )
 

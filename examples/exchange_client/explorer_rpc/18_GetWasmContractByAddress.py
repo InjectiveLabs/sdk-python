@@ -1,20 +1,20 @@
 import asyncio
+import json
 import logging
 
-from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
+from pyinjective.indexer_client import IndexerClient
 
 
 async def main() -> None:
-    # network: Network = Network.testnet()
-    network: Network = Network.testnet()
-    client: AsyncClient = AsyncClient(network)
+    network = Network.testnet()
+    client = IndexerClient(network=network)
 
     address = "inj1yhz4e7df95908jhs9erl87vdzjkdsc24q7afjf"
 
     wasm_contract = await client.fetch_wasm_contract_by_address(address=address)
     print("Wasm contract:")
-    print(wasm_contract)
+    print(json.dumps(wasm_contract, indent=2))
 
 
 if __name__ == "__main__":

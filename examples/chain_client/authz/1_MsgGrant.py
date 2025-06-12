@@ -4,7 +4,7 @@ import os
 import dotenv
 from grpc import RpcError
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.constant import GAS_FEE_BUFFER_AMOUNT
 from pyinjective.core.network import Network
 from pyinjective.transaction import Transaction
@@ -35,7 +35,7 @@ async def main() -> None:
     # prepare tx msg
 
     # GENERIC AUTHZ
-    msg = composer.MsgGrantGeneric(
+    msg = composer.msg_grant_generic(
         granter=address.to_acc_bech32(),
         grantee=grantee_public_address,
         msg_type="/injective.exchange.v2.MsgCreateSpotLimitOrder",
@@ -43,7 +43,7 @@ async def main() -> None:
     )
 
     # TYPED AUTHZ
-    # msg = composer.MsgGrantTyped(
+    # msg = composer.msg_grant_typed(
     #     granter = "inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku",
     #     grantee = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
     #     msg_type = "CreateSpotLimitOrderAuthz",

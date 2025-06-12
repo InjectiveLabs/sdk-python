@@ -1,15 +1,16 @@
 import asyncio
+import json
 import logging
 
-from pyinjective.async_client import AsyncClient
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import Network
+from pyinjective.indexer_client import IndexerClient
 
 
 async def main() -> None:
     # network: Network = Network.testnet()
-    network: Network = Network.testnet()
-    client: AsyncClient = AsyncClient(network)
+    network = Network.testnet()
+    client = IndexerClient(network=network)
 
     pagination = PaginationOption(
         limit=10,
@@ -21,7 +22,7 @@ async def main() -> None:
         pagination=pagination,
     )
     print("Wasm codes:")
-    print(wasm_codes)
+    print(json.dumps(wasm_codes, indent=2))
 
 
 if __name__ == "__main__":

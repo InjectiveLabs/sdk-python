@@ -1,16 +1,17 @@
 import asyncio
+import json
 
-from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
+from pyinjective.indexer_client import IndexerClient
 
 
 async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
-    client = AsyncClient(network)
+    client = IndexerClient(network=network)
     block_height = "5825046"
     block = await client.fetch_block(block_id=block_height)
-    print(block)
+    print(json.dumps(block, indent=2))
 
 
 if __name__ == "__main__":

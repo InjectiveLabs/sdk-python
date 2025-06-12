@@ -1,13 +1,14 @@
 import asyncio
+import json
 
-from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
+from pyinjective.indexer_client import IndexerClient
 
 
 async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
-    client = AsyncClient(network)
+    client = IndexerClient(network)
     market = (await client.all_derivative_markets())[
         "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
     ]
@@ -21,7 +22,7 @@ async def main() -> None:
         quote_symbol=quote_symbol,
         oracle_type=oracle_type,
     )
-    print(oracle_prices)
+    print(json.dumps(oracle_prices, indent=2))
 
 
 if __name__ == "__main__":
