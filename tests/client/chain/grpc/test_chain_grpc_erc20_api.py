@@ -1,8 +1,12 @@
+import base64
+
 import grpc
 import pytest
 
 from pyinjective.client.chain.grpc.chain_grpc_erc20_api import ChainGrpcERC20Api
+from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import DisabledCookieAssistant, Network
+from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagination_pb
 from pyinjective.proto.injective.erc20.v1beta1 import (
     erc20_pb2 as erc20_pb,
     params_pb2 as erc20_params_pb,
@@ -43,12 +47,25 @@ class TestChainGrpcERC20Api:
             bank_denom="denom",
             erc20_address="0xd2C6753F6B1783EF0a3857275e16e79D91b539a3",
         )
+        result_pagination = pagination_pb.PageResponse(
+            next_key=b"\001\032\264\007Z\224$]\377s8\343\004-\265\267\314?B\341",
+            total=16036,
+        )
+
         erc20_servicer.all_token_pairs_responses.append(
-            erc20_query_pb.QueryAllTokenPairsResponse(token_pairs=[token_pair])
+            erc20_query_pb.QueryAllTokenPairsResponse(
+                token_pairs=[token_pair],
+                pagination=result_pagination,
+            )
         )
 
         api = self._api_instance(erc20_servicer)
-        response = await api.fetch_all_token_pairs()
+        response = await api.fetch_all_token_pairs(
+            pagination=PaginationOption(
+                skip=0,
+                limit=100,
+            ),
+        )
 
         expected_token_pairs = {
             "tokenPairs": [
@@ -56,7 +73,11 @@ class TestChainGrpcERC20Api:
                     "bankDenom": token_pair.bank_denom,
                     "erc20Address": token_pair.erc20_address,
                 }
-            ]
+            ],
+            "pagination": {
+                "nextKey": base64.b64encode(result_pagination.next_key).decode(),
+                "total": str(result_pagination.total),
+            },
         }
 
         assert response == expected_token_pairs

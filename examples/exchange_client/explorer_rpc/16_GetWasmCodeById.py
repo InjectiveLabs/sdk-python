@@ -1,14 +1,14 @@
 import asyncio
+import json
 import logging
 
-from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
+from pyinjective.indexer_client import IndexerClient
 
 
 async def main() -> None:
-    # network: Network = Network.testnet()
-    network: Network = Network.testnet()
-    client: AsyncClient = AsyncClient(network)
+    network = Network.testnet()
+    client = IndexerClient(network=network)
 
     code_id = 2008
 
@@ -16,7 +16,7 @@ async def main() -> None:
         code_id=code_id,
     )
     print("Wasm code:")
-    print(wasm_code)
+    print(json.dumps(wasm_code, indent=2))
 
 
 if __name__ == "__main__":

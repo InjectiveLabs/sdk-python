@@ -1,7 +1,7 @@
 from decimal import Decimal
 
 from pyinjective import PrivateKey
-from pyinjective.composer import Composer
+from pyinjective.composer_v2 import Composer
 from pyinjective.core.network import Network
 from pyinjective.orderhash import OrderHashManager
 
@@ -24,7 +24,7 @@ class TestOrderHashManager:
         fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
 
         spot_orders = [
-            composer.create_spot_order_v2(
+            composer.spot_order(
                 market_id=spot_market_id,
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,
@@ -32,7 +32,7 @@ class TestOrderHashManager:
                 quantity=Decimal("0.01"),
                 order_type="BUY",
             ),
-            composer.create_spot_order_v2(
+            composer.spot_order(
                 market_id=spot_market_id,
                 subaccount_id=subaccount_id,
                 fee_recipient=fee_recipient,

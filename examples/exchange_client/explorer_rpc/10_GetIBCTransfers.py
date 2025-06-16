@@ -1,14 +1,15 @@
 import asyncio
+import json
 
-from pyinjective.async_client import AsyncClient
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import Network
+from pyinjective.indexer_client import IndexerClient
 
 
 async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
-    client = AsyncClient(network)
+    client = IndexerClient(network=network)
     sender = "inj1cll5cv3ezgal30gagkhnq2um6zf6qrmhw4r6c8"
     receiver = "cosmos1usr9g5a4s2qrwl63sdjtrs2qd4a7huh622pg82"
     src_channel = "channel-2"
@@ -27,7 +28,7 @@ async def main() -> None:
         dest_port=dest_port,
         pagination=pagination,
     )
-    print(ibc_transfers)
+    print(json.dumps(ibc_transfers, indent=2))
 
 
 if __name__ == "__main__":

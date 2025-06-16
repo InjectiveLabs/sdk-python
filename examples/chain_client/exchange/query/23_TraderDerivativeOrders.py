@@ -4,7 +4,7 @@ import os
 import dotenv
 
 from pyinjective import PrivateKey
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.core.network import Network
 
 
@@ -26,7 +26,7 @@ async def main() -> None:
 
     subaccount_id = address.get_subaccount_id(index=0)
 
-    orders = await client.fetch_chain_trader_derivative_orders_v2(
+    orders = await client.fetch_chain_trader_derivative_orders(
         market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
         subaccount_id=subaccount_id,
     )

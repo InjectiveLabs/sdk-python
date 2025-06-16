@@ -4,7 +4,7 @@ import os
 import dotenv
 
 from pyinjective import PrivateKey
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.core.network import Network
 
 
@@ -24,7 +24,7 @@ async def main() -> None:
     address = pub_key.to_address()
     await client.fetch_account(address.to_acc_bech32())
 
-    fee_discount = await client.fetch_fee_discount_account_info_v2(
+    fee_discount = await client.fetch_fee_discount_account_info(
         account=address.to_acc_bech32(),
     )
     print(fee_discount)

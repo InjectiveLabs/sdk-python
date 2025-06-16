@@ -1,15 +1,16 @@
 import asyncio
+import json
 
-from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
+from pyinjective.indexer_client import IndexerClient
 
 
 async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
-    client = AsyncClient(network)
+    client = IndexerClient(network)
     resp = await client.fetch_ping()
-    print("Health OK?", resp)
+    print(json.dumps(resp, indent=2))
 
 
 if __name__ == "__main__":

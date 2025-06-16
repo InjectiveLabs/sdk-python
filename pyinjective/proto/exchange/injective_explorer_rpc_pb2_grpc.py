@@ -20,6 +20,11 @@ class InjectiveExplorerRPCStub(object):
                 request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetAccountTxsRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetAccountTxsResponse.FromString,
                 _registered_method=True)
+        self.GetAccountTxsV2 = channel.unary_unary(
+                '/injective_explorer_rpc.InjectiveExplorerRPC/GetAccountTxsV2',
+                request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetAccountTxsV2Request.SerializeToString,
+                response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetAccountTxsV2Response.FromString,
+                _registered_method=True)
         self.GetContractTxs = channel.unary_unary(
                 '/injective_explorer_rpc.InjectiveExplorerRPC/GetContractTxs',
                 request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetContractTxsRequest.SerializeToString,
@@ -147,6 +152,13 @@ class InjectiveExplorerRPCServicer(object):
     """
 
     def GetAccountTxs(self, request, context):
+        """GetAccountTxs returns tranctions involving in an account based upon params.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetAccountTxsV2(self, request, context):
         """GetAccountTxs returns tranctions involving in an account based upon params.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -333,6 +345,11 @@ def add_InjectiveExplorerRPCServicer_to_server(servicer, server):
                     request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetAccountTxsRequest.FromString,
                     response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetAccountTxsResponse.SerializeToString,
             ),
+            'GetAccountTxsV2': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetAccountTxsV2,
+                    request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetAccountTxsV2Request.FromString,
+                    response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetAccountTxsV2Response.SerializeToString,
+            ),
             'GetContractTxs': grpc.unary_unary_rpc_method_handler(
                     servicer.GetContractTxs,
                     request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetContractTxsRequest.FromString,
@@ -482,6 +499,33 @@ class InjectiveExplorerRPC(object):
             '/injective_explorer_rpc.InjectiveExplorerRPC/GetAccountTxs',
             exchange_dot_injective__explorer__rpc__pb2.GetAccountTxsRequest.SerializeToString,
             exchange_dot_injective__explorer__rpc__pb2.GetAccountTxsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetAccountTxsV2(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_explorer_rpc.InjectiveExplorerRPC/GetAccountTxsV2',
+            exchange_dot_injective__explorer__rpc__pb2.GetAccountTxsV2Request.SerializeToString,
+            exchange_dot_injective__explorer__rpc__pb2.GetAccountTxsV2Response.FromString,
             options,
             channel_credentials,
             insecure,

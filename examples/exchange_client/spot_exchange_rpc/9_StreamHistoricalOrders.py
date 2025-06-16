@@ -3,8 +3,8 @@ from typing import Any, Dict
 
 from grpc import RpcError
 
-from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
+from pyinjective.indexer_client import IndexerClient
 
 
 async def order_event_processor(event: Dict[str, Any]):
@@ -21,7 +21,7 @@ def stream_closed_processor():
 
 async def main() -> None:
     network = Network.testnet()
-    client = AsyncClient(network)
+    client = IndexerClient(network)
     market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
     order_direction = "buy"
 

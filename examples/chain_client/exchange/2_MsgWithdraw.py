@@ -4,7 +4,7 @@ import os
 import dotenv
 from grpc import RpcError
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.constant import GAS_FEE_BUFFER_AMOUNT
 from pyinjective.core.network import Network
 from pyinjective.transaction import Transaction
@@ -32,7 +32,7 @@ async def main() -> None:
     denom = "peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5"
 
     # prepare tx msg
-    msg = composer.msg_withdraw_v2(sender=address.to_acc_bech32(), subaccount_id=subaccount_id, amount=1, denom=denom)
+    msg = composer.msg_withdraw(sender=address.to_acc_bech32(), subaccount_id=subaccount_id, amount=1, denom=denom)
 
     # build sim tx
     tx = (

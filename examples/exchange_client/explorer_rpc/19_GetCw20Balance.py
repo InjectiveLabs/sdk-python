@@ -1,20 +1,20 @@
 import asyncio
+import json
 import logging
 
-from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
+from pyinjective.indexer_client import IndexerClient
 
 
 async def main() -> None:
-    # network: Network = Network.testnet()
-    network: Network = Network.testnet()
-    client: AsyncClient = AsyncClient(network)
+    network = Network.testnet()
+    client = IndexerClient(network=network)
 
     address = "inj1phd706jqzd9wznkk5hgsfkrc8jqxv0kmlj0kex"
 
     balance = await client.fetch_cw20_balance(address=address)
     print("Cw20 balance:")
-    print(balance)
+    print(json.dumps(balance, indent=2))
 
 
 if __name__ == "__main__":

@@ -6,7 +6,7 @@ from decimal import Decimal
 
 import dotenv
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.core.broadcaster import MsgBroadcasterWithPk
 from pyinjective.core.network import Network
 from pyinjective.wallet import PrivateKey
@@ -46,7 +46,7 @@ async def main() -> None:
     spot_market_id_create = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
 
     spot_orders_to_create = [
-        composer.create_spot_order_v2(
+        composer.spot_order(
             market_id=spot_market_id_create,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -55,7 +55,7 @@ async def main() -> None:
             order_type="BUY",
             cid=str(uuid.uuid4()),
         ),
-        composer.create_spot_order_v2(
+        composer.spot_order(
             market_id=spot_market_id_create,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -67,7 +67,7 @@ async def main() -> None:
     ]
 
     # prepare tx msg
-    msg = composer.msg_batch_update_orders_v2(
+    msg = composer.msg_batch_update_orders(
         sender=address.to_acc_bech32(),
         spot_orders_to_create=spot_orders_to_create,
     )

@@ -4,7 +4,7 @@ import os
 import dotenv
 from grpc import RpcError
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.constant import GAS_FEE_BUFFER_AMOUNT
 from pyinjective.core.network import Network
 from pyinjective.transaction import Transaction
@@ -33,7 +33,7 @@ async def main() -> None:
     validator_address = "injvaloper1ultw9r29l8nxy5u6thcgusjn95vsy2caw722q5"
     amount = 100
 
-    msg = composer.MsgDelegate(
+    msg = composer.msg_delegate(
         delegator_address=address.to_acc_bech32(), validator_address=validator_address, amount=amount
     )
 

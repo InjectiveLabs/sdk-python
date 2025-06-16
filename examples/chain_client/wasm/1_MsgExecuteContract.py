@@ -4,7 +4,7 @@ import os
 import dotenv
 from grpc import RpcError
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.constant import GAS_FEE_BUFFER_AMOUNT
 from pyinjective.core.network import Network
 from pyinjective.transaction import Transaction
@@ -40,7 +40,7 @@ async def main() -> None:
         composer.coin(amount=420, denom="peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7"),
         composer.coin(amount=1, denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5"),
     ]
-    msg = composer.MsgExecuteContract(
+    msg = composer.msg_execute_contract(
         sender=address.to_acc_bech32(),
         contract="inj1ady3s7whq30l4fx8sj3x6muv5mx4dfdlcpv8n7",
         msg='{"increment":{}}',

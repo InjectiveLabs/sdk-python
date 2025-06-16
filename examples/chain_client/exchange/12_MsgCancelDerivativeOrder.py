@@ -4,7 +4,7 @@ import os
 import dotenv
 from grpc import RpcError
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.constant import GAS_FEE_BUFFER_AMOUNT
 from pyinjective.core.network import Network
 from pyinjective.transaction import Transaction
@@ -35,7 +35,7 @@ async def main() -> None:
     order_hash = "0x667ee6f37f6d06bf473f4e1434e92ac98ff43c785405e2a511a0843daeca2de9"
 
     # prepare tx msg
-    msg = composer.msg_cancel_derivative_order_v2(
+    msg = composer.msg_cancel_derivative_order(
         sender=address.to_acc_bech32(),
         market_id=market_id,
         subaccount_id=subaccount_id,

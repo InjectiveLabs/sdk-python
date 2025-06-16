@@ -3,8 +3,8 @@ from typing import Any, Dict
 
 from grpc import RpcError
 
-from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
+from pyinjective.indexer_client import IndexerClient
 
 
 async def bid_event_processor(event: Dict[str, Any]):
@@ -22,7 +22,7 @@ def stream_closed_processor():
 async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
-    client = AsyncClient(network)
+    client = IndexerClient(network)
 
     task = asyncio.get_event_loop().create_task(
         client.listen_bids_updates(

@@ -6,7 +6,7 @@ from decimal import Decimal
 import dotenv
 from grpc import RpcError
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.constant import GAS_FEE_BUFFER_AMOUNT
 from pyinjective.core.network import Network
 from pyinjective.transaction import Transaction
@@ -44,12 +44,12 @@ async def main() -> None:
     spot_market_id_cancel_2 = "0x7a57e705bb4e09c88aecfc295569481dbf2fe1d5efe364651fbe72385938e9b0"
 
     derivative_orders_to_cancel = [
-        composer.create_order_data_without_mask_v2(
+        composer.create_order_data_without_mask(
             market_id=derivative_market_id_cancel,
             subaccount_id=subaccount_id,
             order_hash="0x48690013c382d5dbaff9989db04629a16a5818d7524e027d517ccc89fd068103",
         ),
-        composer.create_order_data_without_mask_v2(
+        composer.create_order_data_without_mask(
             market_id=derivative_market_id_cancel_2,
             subaccount_id=subaccount_id,
             order_hash="0x7ee76255d7ca763c56b0eab9828fca89fdd3739645501c8a80f58b62b4f76da5",
@@ -57,12 +57,12 @@ async def main() -> None:
     ]
 
     spot_orders_to_cancel = [
-        composer.create_order_data_without_mask_v2(
+        composer.create_order_data_without_mask(
             market_id=spot_market_id_cancel,
             subaccount_id=subaccount_id,
             cid="0e5c3ad5-2cc4-4a2a-bbe5-b12697739163",
         ),
-        composer.create_order_data_without_mask_v2(
+        composer.create_order_data_without_mask(
             market_id=spot_market_id_cancel_2,
             subaccount_id=subaccount_id,
             order_hash="0x222daa22f60fe9f075ed0ca583459e121c23e64431c3fbffdedda04598ede0d2",
@@ -70,7 +70,7 @@ async def main() -> None:
     ]
 
     derivative_orders_to_create = [
-        composer.create_derivative_order_v2(
+        composer.derivative_order(
             market_id=derivative_market_id_create,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -82,7 +82,7 @@ async def main() -> None:
             order_type="BUY",
             cid=str(uuid.uuid4()),
         ),
-        composer.create_derivative_order_v2(
+        composer.derivative_order(
             market_id=derivative_market_id_create,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -97,7 +97,7 @@ async def main() -> None:
     ]
 
     spot_orders_to_create = [
-        composer.create_spot_order_v2(
+        composer.spot_order(
             market_id=spot_market_id_create,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -106,7 +106,7 @@ async def main() -> None:
             order_type="BUY",
             cid=str(uuid.uuid4()),
         ),
-        composer.create_spot_order_v2(
+        composer.spot_order(
             market_id=spot_market_id_create,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -118,7 +118,7 @@ async def main() -> None:
     ]
 
     # prepare tx msg
-    msg = composer.msg_batch_update_orders_v2(
+    msg = composer.msg_batch_update_orders(
         sender=address.to_acc_bech32(),
         derivative_orders_to_create=derivative_orders_to_create,
         spot_orders_to_create=spot_orders_to_create,

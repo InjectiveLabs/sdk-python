@@ -5,7 +5,7 @@ from decimal import Decimal
 
 import dotenv
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.constant import GAS_FEE_BUFFER_AMOUNT
 from pyinjective.core.network import Network
 from pyinjective.orderhash import OrderHashManager
@@ -41,7 +41,7 @@ async def main() -> None:
     fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
 
     spot_orders = [
-        composer.create_spot_order_v2(
+        composer.spot_order(
             market_id=spot_market_id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -50,7 +50,7 @@ async def main() -> None:
             order_type="BUY",
             cid=str(uuid.uuid4()),
         ),
-        composer.create_spot_order_v2(
+        composer.spot_order(
             market_id=spot_market_id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -62,7 +62,7 @@ async def main() -> None:
     ]
 
     derivative_orders = [
-        composer.create_derivative_order_v2(
+        composer.derivative_order(
             market_id=deriv_market_id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -74,7 +74,7 @@ async def main() -> None:
             order_type="BUY",
             cid=str(uuid.uuid4()),
         ),
-        composer.create_derivative_order_v2(
+        composer.derivative_order(
             market_id=deriv_market_id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -89,9 +89,9 @@ async def main() -> None:
     ]
 
     # prepare tx msg
-    spot_msg = composer.msg_batch_create_spot_limit_orders_v2(sender=address.to_acc_bech32(), orders=spot_orders)
+    spot_msg = composer.msg_batch_create_spot_limit_orders(sender=address.to_acc_bech32(), orders=spot_orders)
 
-    deriv_msg = composer.msg_batch_create_derivative_limit_orders_v2(
+    deriv_msg = composer.msg_batch_create_derivative_limit_orders(
         sender=address.to_acc_bech32(), orders=derivative_orders
     )
 
@@ -178,7 +178,7 @@ async def main() -> None:
     print("gas fee: {} INJ".format(gas_fee))
 
     spot_orders = [
-        composer.create_spot_order_v2(
+        composer.spot_order(
             market_id=spot_market_id,
             subaccount_id=subaccount_id_2,
             fee_recipient=fee_recipient,
@@ -187,7 +187,7 @@ async def main() -> None:
             order_type="BUY_PO",
             cid=str(uuid.uuid4()),
         ),
-        composer.create_spot_order_v2(
+        composer.spot_order(
             market_id=spot_market_id,
             subaccount_id=subaccount_id_2,
             fee_recipient=fee_recipient,
@@ -199,7 +199,7 @@ async def main() -> None:
     ]
 
     derivative_orders = [
-        composer.create_derivative_order_v2(
+        composer.derivative_order(
             market_id=deriv_market_id,
             subaccount_id=subaccount_id_2,
             fee_recipient=fee_recipient,
@@ -211,7 +211,7 @@ async def main() -> None:
             order_type="BUY",
             cid=str(uuid.uuid4()),
         ),
-        composer.create_derivative_order_v2(
+        composer.derivative_order(
             market_id=deriv_market_id,
             subaccount_id=subaccount_id_2,
             fee_recipient=fee_recipient,
@@ -226,9 +226,9 @@ async def main() -> None:
     ]
 
     # prepare tx msg
-    spot_msg = composer.msg_batch_create_spot_limit_orders_v2(sender=address.to_acc_bech32(), orders=spot_orders)
+    spot_msg = composer.msg_batch_create_spot_limit_orders(sender=address.to_acc_bech32(), orders=spot_orders)
 
-    deriv_msg = composer.msg_batch_create_derivative_limit_orders_v2(
+    deriv_msg = composer.msg_batch_create_derivative_limit_orders(
         sender=address.to_acc_bech32(), orders=derivative_orders
     )
 

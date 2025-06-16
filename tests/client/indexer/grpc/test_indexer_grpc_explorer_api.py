@@ -374,11 +374,14 @@ class TestIndexerGrpcExplorerApi:
             b'{"key":"sender","value":"inj1phd706jqzd9wznkk5hgsfkrc8jqxv0kmlj0kex"}]}]}]',
             claim_ids=[claim_id],
         )
+        response_paging = exchange_explorer_pb.Cursor(
+            next=["next-page"],
+        )
 
         explorer_servicer.contract_txs_v2_responses.append(
             exchange_explorer_pb.GetContractTxsV2Response(
                 data=[tx_data],
-                next=["next-page"],
+                paging=response_paging,
             )
         )
 
@@ -388,6 +391,7 @@ class TestIndexerGrpcExplorerApi:
             address="inj1phd706jqzd9wznkk5hgsfkrc8jqxv0kmlj0kex",
             height=8,
             token="inj",
+            status="status",
             pagination=PaginationOption(
                 limit=100,
                 start_time=1699544939364,
@@ -442,7 +446,9 @@ class TestIndexerGrpcExplorerApi:
                     "claimIds": [str(claim_id)],
                 },
             ],
-            "next": ["next-page"],
+            "paging": {
+                "next": ["next-page"],
+            },
         }
 
         assert result_contract_txs == expected_contract_txs
@@ -1409,6 +1415,8 @@ class TestIndexerGrpcExplorerApi:
             code_id=wasm_contract.code_id,
             assets_only=False,
             label=wasm_contract.label,
+            token="inj",
+            lookup="lookup text",
             pagination=PaginationOption(
                 limit=100,
                 skip=10,

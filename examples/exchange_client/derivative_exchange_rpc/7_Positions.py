@@ -1,14 +1,15 @@
 import asyncio
+import json
 
-from pyinjective.async_client import AsyncClient
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import Network
+from pyinjective.indexer_client import IndexerClient
 
 
 async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
-    client = AsyncClient(network)
+    client = IndexerClient(network)
     market_ids = [
         "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
         "0xd97d0da6f6c11710ef06315971250e4e9aed4b7d4cd02059c9477ec8cf243782",
@@ -26,7 +27,7 @@ async def main() -> None:
         subaccount_total_positions=subaccount_total_positions,
         pagination=pagination,
     )
-    print(positions)
+    print(json.dumps(positions, indent=2))
 
 
 if __name__ == "__main__":

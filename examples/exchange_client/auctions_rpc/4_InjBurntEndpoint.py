@@ -1,21 +1,20 @@
 import asyncio
+import json
 
-from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
+from pyinjective.indexer_client import IndexerClient
 
 
 async def main():
     # Select network: testnet, mainnet, or local
     network = Network.testnet()
-
-    # Initialize AsyncClient
-    client = AsyncClient(network)
+    client = IndexerClient(network)
 
     try:
         # Fetch INJ burnt amount
         inj_burnt_response = await client.fetch_inj_burnt()
         print("INJ Burnt Endpoint Response:")
-        print(inj_burnt_response)
+        print(json.dumps(inj_burnt_response, indent=2))
 
     except Exception as e:
         print(f"Error fetching INJ burnt amount: {e}")

@@ -1,15 +1,16 @@
 import asyncio
+import json
 
-from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
+from pyinjective.indexer_client import IndexerClient
 
 
 async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
-    client = AsyncClient(network)
+    client = IndexerClient(network)
     insurance_funds = await client.fetch_insurance_funds()
-    print(insurance_funds)
+    print(json.dumps(insurance_funds, indent=2))
 
 
 if __name__ == "__main__":

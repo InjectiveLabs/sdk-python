@@ -2,15 +2,14 @@ import asyncio
 import json
 import logging
 
-from pyinjective.async_client import AsyncClient
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import Network
+from pyinjective.indexer_client import IndexerClient
 
 
 async def main() -> None:
-    # network: Network = Network.testnet()
-    network: Network = Network.testnet()
-    client: AsyncClient = AsyncClient(network)
+    network = Network.testnet()
+    client = IndexerClient(network=network)
 
     pagination = PaginationOption(limit=5)
     senders = ["inj17xpfvakm2amg962yls6f84z3kell8c5l6s5ye9"]

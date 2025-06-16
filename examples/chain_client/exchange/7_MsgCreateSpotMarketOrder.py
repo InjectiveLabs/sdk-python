@@ -6,7 +6,7 @@ from decimal import Decimal
 import dotenv
 from grpc import RpcError
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.constant import GAS_FEE_BUFFER_AMOUNT
 from pyinjective.core.network import Network
 from pyinjective.transaction import Transaction
@@ -37,7 +37,7 @@ async def main() -> None:
     fee_recipient = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
 
     # prepare tx msg
-    msg = composer.msg_create_spot_market_order_v2(
+    msg = composer.msg_create_spot_market_order(
         market_id=market_id,
         sender=address.to_acc_bech32(),
         subaccount_id=subaccount_id,

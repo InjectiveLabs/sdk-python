@@ -5,7 +5,7 @@ from decimal import Decimal
 
 import dotenv
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.core.broadcaster import MsgBroadcasterWithPk
 from pyinjective.core.network import Network
 from pyinjective.wallet import PrivateKey
@@ -41,7 +41,7 @@ async def main() -> None:
     await client.fetch_account(address.to_acc_bech32())
 
     # prepare tx msg
-    message = composer.msg_instant_binary_options_market_launch_v2(
+    message = composer.msg_instant_binary_options_market_launch(
         sender=address.to_acc_bech32(),
         ticker="UFC-KHABIB-TKO-05/30/2023",
         oracle_symbol="UFC-KHABIB-TKO-05/30/2023",

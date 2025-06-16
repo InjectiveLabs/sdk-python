@@ -7,9 +7,8 @@ from google.protobuf import json_format
 from pyinjective.composer import Composer
 from pyinjective.constant import ADDITIONAL_CHAIN_FORMAT_DECIMALS, INJ_DECIMALS
 from pyinjective.core.network import Network
-from pyinjective.core.token import Token
 from pyinjective.proto.injective.permissions.v1beta1 import permissions_pb2 as permissions_pb
-from tests.model_fixtures.markets_fixtures import (  # noqa: F401
+from tests.model_fixtures.chain_formatted_markets_fixtures import (  # noqa: F401
     btc_usdt_perp_market,
     first_match_bet_market,
     inj_token,
@@ -237,12 +236,14 @@ class TestComposer:
     def test_msg_deposit(self, basic_composer):
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
         subaccount_id = "0x893f2abf8034627e50cbc63923120b1122503ce0000000000000000000000001"
-        amount = 100
-        denom = "inj"
+        amount = Decimal(100)
+        denom = "INJ"
 
-        expected_amount = Decimal(str(amount))
+        token = basic_composer.tokens[denom]
 
-        message = basic_composer.msg_deposit_v2(
+        expected_amount = token.chain_formatted_value(human_readable_value=Decimal(amount))
+
+        message = basic_composer.msg_deposit(
             sender=sender,
             subaccount_id=subaccount_id,
             amount=amount,
@@ -254,7 +255,7 @@ class TestComposer:
             "subaccountId": subaccount_id,
             "amount": {
                 "amount": f"{expected_amount.normalize():f}",
-                "denom": denom,
+                "denom": token.denom,
             },
         }
         dict_message = json_format.MessageToDict(
@@ -266,10 +267,14 @@ class TestComposer:
     def test_msg_withdraw(self, basic_composer):
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
         subaccount_id = "0x893f2abf8034627e50cbc63923120b1122503ce0000000000000000000000001"
-        amount = 100
-        denom = "inj"
+        amount = Decimal(100)
+        denom = "INJ"
 
-        message = basic_composer.msg_withdraw_v2(
+        token = basic_composer.tokens[denom]
+
+        expected_amount = token.chain_formatted_value(human_readable_value=Decimal(amount))
+
+        message = basic_composer.msg_withdraw(
             sender=sender,
             subaccount_id=subaccount_id,
             amount=amount,
@@ -280,8 +285,8 @@ class TestComposer:
             "sender": sender,
             "subaccountId": subaccount_id,
             "amount": {
-                "amount": f"{Decimal(str(amount)):f}",
-                "denom": denom,
+                "amount": f"{expected_amount.normalize():f}",
+                "denom": token.denom,
             },
         }
         dict_message = json_format.MessageToDict(
@@ -293,15 +298,26 @@ class TestComposer:
     def test_msg_instant_spot_market_launch(self, basic_composer):
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
         ticker = "INJ/USDT"
-        base_denom = "inj"
-        quote_denom = "peggy0xdAC17F958D2ee523a2206206994597C13D831ec7"
+        base_denom = "INJ"
+        quote_denom = "USDT"
         min_price_tick_size = Decimal("0.01")
         min_quantity_tick_size = Decimal("1")
         min_notional = Decimal("2")
         base_decimals = 18
         quote_decimals = 6
 
-        message = basic_composer.msg_instant_spot_market_launch_v2(
+        base_token = basic_composer.tokens[base_denom]
+        quote_token = basic_composer.tokens[quote_denom]
+
+        expected_min_price_tick_size = min_price_tick_size * Decimal(
+            f"1e{quote_token.decimals - base_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        )
+        expected_min_quantity_tick_size = min_quantity_tick_size * Decimal(
+            f"1e{base_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        )
+        expected_min_notional = min_notional * Decimal(f"1e{quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+
+        message = basic_composer.msg_instant_spot_market_launch(
             sender=sender,
             ticker=ticker,
             base_denom=base_denom,
@@ -313,159 +329,16 @@ class TestComposer:
             quote_decimals=quote_decimals,
         )
 
-        chain_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=min_price_tick_size)
-        chain_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=min_quantity_tick_size)
-        chain_min_notional = Token.convert_value_to_extended_decimal_format(value=min_notional)
-
         expected_message = {
             "sender": sender,
             "ticker": ticker,
-            "baseDenom": base_denom,
-            "quoteDenom": quote_denom,
-            "minPriceTickSize": f"{chain_min_price_tick_size.normalize():f}",
-            "minQuantityTickSize": f"{chain_min_quantity_tick_size.normalize():f}",
-            "minNotional": f"{chain_min_notional.normalize():f}",
+            "baseDenom": base_token.denom,
+            "quoteDenom": quote_token.denom,
+            "minPriceTickSize": f"{expected_min_price_tick_size.normalize():f}",
+            "minQuantityTickSize": f"{expected_min_quantity_tick_size.normalize():f}",
+            "minNotional": f"{expected_min_notional.normalize():f}",
             "baseDecimals": base_decimals,
             "quoteDecimals": quote_decimals,
-        }
-        dict_message = json_format.MessageToDict(
-            message=message,
-            always_print_fields_with_no_presence=True,
-        )
-        assert dict_message == expected_message
-
-    def test_msg_instant_perpetual_market_launch(self, basic_composer):
-        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
-        ticker = "BTC/INJ PERP"
-        quote_denom = "inj"
-        oracle_base = "BTC"
-        oracle_quote = "INJ"
-        oracle_scale_factor = 6
-        oracle_type = "Band"
-        min_price_tick_size = Decimal("0.01")
-        min_quantity_tick_size = Decimal("1")
-        maker_fee_rate = Decimal("0.001")
-        taker_fee_rate = Decimal("-0.002")
-        initial_margin_ratio = Decimal("0.05")
-        maintenance_margin_ratio = Decimal("0.03")
-        min_notional = Decimal("2")
-        reduce_margin_ratio = Decimal("3")
-
-        expected_min_price_tick_size = min_price_tick_size * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        expected_min_quantity_tick_size = min_quantity_tick_size * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        expected_maker_fee_rate = maker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        expected_taker_fee_rate = taker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        expected_initial_margin_ratio = initial_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        expected_maintenance_margin_ratio = maintenance_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        expected_reduce_margin_ratio = reduce_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        expected_min_notional = min_notional * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-
-        message = basic_composer.msg_instant_perpetual_market_launch_v2(
-            sender=sender,
-            ticker=ticker,
-            quote_denom=quote_denom,
-            oracle_base=oracle_base,
-            oracle_quote=oracle_quote,
-            oracle_scale_factor=oracle_scale_factor,
-            oracle_type=oracle_type,
-            maker_fee_rate=maker_fee_rate,
-            taker_fee_rate=taker_fee_rate,
-            initial_margin_ratio=initial_margin_ratio,
-            maintenance_margin_ratio=maintenance_margin_ratio,
-            reduce_margin_ratio=reduce_margin_ratio,
-            min_price_tick_size=min_price_tick_size,
-            min_quantity_tick_size=min_quantity_tick_size,
-            min_notional=min_notional,
-        )
-
-        expected_message = {
-            "sender": sender,
-            "ticker": ticker,
-            "quoteDenom": quote_denom,
-            "oracleBase": oracle_base,
-            "oracleQuote": oracle_quote,
-            "oracleScaleFactor": oracle_scale_factor,
-            "oracleType": oracle_type,
-            "makerFeeRate": f"{expected_maker_fee_rate.normalize():f}",
-            "takerFeeRate": f"{expected_taker_fee_rate.normalize():f}",
-            "initialMarginRatio": f"{expected_initial_margin_ratio.normalize():f}",
-            "maintenanceMarginRatio": f"{expected_maintenance_margin_ratio.normalize():f}",
-            "reduceMarginRatio": f"{expected_reduce_margin_ratio.normalize():f}",
-            "minPriceTickSize": f"{expected_min_price_tick_size.normalize():f}",
-            "minQuantityTickSize": f"{expected_min_quantity_tick_size.normalize():f}",
-            "minNotional": f"{expected_min_notional.normalize():f}",
-        }
-        dict_message = json_format.MessageToDict(
-            message=message,
-            always_print_fields_with_no_presence=True,
-        )
-        assert dict_message == expected_message
-
-    def test_msg_instant_expiry_futures_market_launch(self, basic_composer):
-        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
-        ticker = "BTC/INJ PERP"
-        quote_denom = "inj"
-        oracle_base = "BTC"
-        oracle_quote = "INJ"
-        oracle_scale_factor = 6
-        oracle_type = "Band"
-        expiry = 1630000000
-        min_price_tick_size = Decimal("0.01")
-        min_quantity_tick_size = Decimal("1")
-        maker_fee_rate = Decimal("0.001")
-        taker_fee_rate = Decimal("-0.002")
-        initial_margin_ratio = Decimal("0.05")
-        maintenance_margin_ratio = Decimal("0.03")
-        reduce_margin_ratio = Decimal("3")
-        min_notional = Decimal("2")
-
-        expected_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=min_price_tick_size)
-        expected_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=min_quantity_tick_size)
-        expected_maker_fee_rate = Token.convert_value_to_extended_decimal_format(value=maker_fee_rate)
-        expected_taker_fee_rate = Token.convert_value_to_extended_decimal_format(value=taker_fee_rate)
-        expected_initial_margin_ratio = Token.convert_value_to_extended_decimal_format(value=initial_margin_ratio)
-        expected_maintenance_margin_ratio = Token.convert_value_to_extended_decimal_format(
-            value=maintenance_margin_ratio
-        )
-        expected_reduce_margin_ratio = Token.convert_value_to_extended_decimal_format(value=reduce_margin_ratio)
-        expected_min_notional = Token.convert_value_to_extended_decimal_format(value=min_notional)
-
-        message = basic_composer.msg_instant_expiry_futures_market_launch_v2(
-            sender=sender,
-            ticker=ticker,
-            quote_denom=quote_denom,
-            oracle_base=oracle_base,
-            oracle_quote=oracle_quote,
-            oracle_scale_factor=oracle_scale_factor,
-            oracle_type=oracle_type,
-            expiry=expiry,
-            maker_fee_rate=maker_fee_rate,
-            taker_fee_rate=taker_fee_rate,
-            initial_margin_ratio=initial_margin_ratio,
-            maintenance_margin_ratio=maintenance_margin_ratio,
-            reduce_margin_ratio=reduce_margin_ratio,
-            min_price_tick_size=min_price_tick_size,
-            min_quantity_tick_size=min_quantity_tick_size,
-            min_notional=min_notional,
-        )
-
-        expected_message = {
-            "sender": sender,
-            "ticker": ticker,
-            "quoteDenom": quote_denom,
-            "oracleBase": oracle_base,
-            "oracleQuote": oracle_quote,
-            "oracleType": oracle_type,
-            "oracleScaleFactor": oracle_scale_factor,
-            "expiry": str(expiry),
-            "makerFeeRate": f"{expected_maker_fee_rate.normalize():f}",
-            "takerFeeRate": f"{expected_taker_fee_rate.normalize():f}",
-            "initialMarginRatio": f"{expected_initial_margin_ratio.normalize():f}",
-            "maintenanceMarginRatio": f"{expected_maintenance_margin_ratio.normalize():f}",
-            "reduceMarginRatio": f"{expected_reduce_margin_ratio.normalize():f}",
-            "minPriceTickSize": f"{expected_min_price_tick_size.normalize():f}",
-            "minQuantityTickSize": f"{expected_min_quantity_tick_size.normalize():f}",
-            "minNotional": f"{expected_min_notional.normalize():f}",
         }
         dict_message = json_format.MessageToDict(
             message=message,
@@ -483,7 +356,7 @@ class TestComposer:
         cid = "test_cid"
         trigger_price = Decimal("43.5")
 
-        order = basic_composer.create_spot_order_v2(
+        order = basic_composer.spot_order(
             market_id=spot_market.id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -492,12 +365,11 @@ class TestComposer:
             order_type=order_type,
             cid=cid,
             trigger_price=trigger_price,
-            expiration_block=1234567,
         )
 
-        expected_price = Token.convert_value_to_extended_decimal_format(value=price)
-        expected_quantity = Token.convert_value_to_extended_decimal_format(value=quantity)
-        expected_trigger_price = Token.convert_value_to_extended_decimal_format(value=trigger_price)
+        expected_price = spot_market.price_to_chain_format(human_readable_value=price)
+        expected_quantity = spot_market.quantity_to_chain_format(human_readable_value=quantity)
+        expected_trigger_price = spot_market.price_to_chain_format(human_readable_value=trigger_price)
 
         expected_order = {
             "marketId": spot_market.id,
@@ -510,7 +382,6 @@ class TestComposer:
             },
             "orderType": order_type,
             "triggerPrice": f"{expected_trigger_price.normalize():f}",
-            "expirationBlock": "1234567",
         }
         dict_message = json_format.MessageToDict(
             message=order,
@@ -529,7 +400,7 @@ class TestComposer:
         cid = "test_cid"
         trigger_price = Decimal("43.5")
 
-        order = basic_composer.create_derivative_order_v2(
+        order = basic_composer.derivative_order(
             market_id=derivative_market.id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -539,13 +410,12 @@ class TestComposer:
             order_type=order_type,
             cid=cid,
             trigger_price=trigger_price,
-            expiration_block=1234567,
         )
 
-        expected_price = Token.convert_value_to_extended_decimal_format(value=price)
-        expected_quantity = Token.convert_value_to_extended_decimal_format(value=quantity)
-        expected_margin = Token.convert_value_to_extended_decimal_format(value=margin)
-        expected_trigger_price = Token.convert_value_to_extended_decimal_format(value=trigger_price)
+        expected_price = derivative_market.price_to_chain_format(human_readable_value=price)
+        expected_quantity = derivative_market.quantity_to_chain_format(human_readable_value=quantity)
+        expected_margin = derivative_market.margin_to_chain_format(human_readable_value=margin)
+        expected_trigger_price = derivative_market.price_to_chain_format(human_readable_value=trigger_price)
 
         expected_order = {
             "marketId": derivative_market.id,
@@ -559,7 +429,6 @@ class TestComposer:
             "orderType": order_type,
             "margin": f"{expected_margin.normalize():f}",
             "triggerPrice": f"{expected_trigger_price.normalize():f}",
-            "expirationBlock": "1234567",
         }
         dict_message = json_format.MessageToDict(
             message=order,
@@ -577,9 +446,8 @@ class TestComposer:
         order_type = "BUY"
         cid = "test_cid"
         trigger_price = Decimal("43.5")
-        expiration_block = 123456789
 
-        message = basic_composer.msg_create_spot_limit_order_v2(
+        message = basic_composer.msg_create_spot_limit_order(
             market_id=spot_market.id,
             sender=sender,
             subaccount_id=subaccount_id,
@@ -589,14 +457,13 @@ class TestComposer:
             order_type=order_type,
             cid=cid,
             trigger_price=trigger_price,
-            expiration_block=expiration_block,
         )
 
-        expected_price = Token.convert_value_to_extended_decimal_format(value=price)
-        expected_quantity = Token.convert_value_to_extended_decimal_format(value=quantity)
-        expected_trigger_price = Token.convert_value_to_extended_decimal_format(value=trigger_price)
+        expected_price = spot_market.price_to_chain_format(human_readable_value=price)
+        expected_quantity = spot_market.quantity_to_chain_format(human_readable_value=quantity)
+        expected_trigger_price = spot_market.price_to_chain_format(human_readable_value=trigger_price)
 
-        assert "injective.exchange.v2.MsgCreateSpotLimitOrder" == message.DESCRIPTOR.full_name
+        assert "injective.exchange.v1beta1.MsgCreateSpotLimitOrder" == message.DESCRIPTOR.full_name
         expected_message = {
             "sender": sender,
             "order": {
@@ -610,7 +477,6 @@ class TestComposer:
                 },
                 "orderType": order_type,
                 "triggerPrice": f"{expected_trigger_price.normalize():f}",
-                "expirationBlock": str(expiration_block),
             },
         }
         dict_message = json_format.MessageToDict(
@@ -630,7 +496,7 @@ class TestComposer:
         cid = "test_cid"
         trigger_price = Decimal("43.5")
 
-        order = basic_composer.create_spot_order_v2(
+        order = basic_composer.spot_order(
             market_id=spot_market.id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -641,7 +507,7 @@ class TestComposer:
             trigger_price=trigger_price,
         )
 
-        message = basic_composer.msg_batch_create_spot_limit_orders_v2(
+        message = basic_composer.msg_batch_create_spot_limit_orders(
             sender=sender,
             orders=[order],
         )
@@ -667,7 +533,7 @@ class TestComposer:
         cid = "test_cid"
         trigger_price = Decimal("43.5")
 
-        message = basic_composer.msg_create_spot_market_order_v2(
+        message = basic_composer.msg_create_spot_market_order(
             market_id=spot_market.id,
             sender=sender,
             subaccount_id=subaccount_id,
@@ -679,7 +545,11 @@ class TestComposer:
             trigger_price=trigger_price,
         )
 
-        assert "injective.exchange.v2.MsgCreateSpotMarketOrder" == message.DESCRIPTOR.full_name
+        expected_price = spot_market.price_to_chain_format(human_readable_value=price)
+        expected_quantity = spot_market.quantity_to_chain_format(human_readable_value=quantity)
+        expected_trigger_price = spot_market.price_to_chain_format(human_readable_value=trigger_price)
+
+        assert "injective.exchange.v1beta1.MsgCreateSpotMarketOrder" == message.DESCRIPTOR.full_name
         expected_message = {
             "sender": sender,
             "order": {
@@ -687,13 +557,12 @@ class TestComposer:
                 "orderInfo": {
                     "subaccountId": subaccount_id,
                     "feeRecipient": fee_recipient,
-                    "price": f"{Token.convert_value_to_extended_decimal_format(value=price).normalize():f}",
-                    "quantity": f"{Token.convert_value_to_extended_decimal_format(value=quantity).normalize():f}",
+                    "price": f"{expected_price.normalize():f}",
+                    "quantity": f"{expected_quantity.normalize():f}",
                     "cid": cid,
                 },
                 "orderType": order_type,
-                "triggerPrice": f"{Token.convert_value_to_extended_decimal_format(value=trigger_price).normalize():f}",
-                "expirationBlock": "0",
+                "triggerPrice": f"{expected_trigger_price.normalize():f}",
             },
         }
         dict_message = json_format.MessageToDict(
@@ -709,7 +578,7 @@ class TestComposer:
         order_hash = "0x5e249f0e8cb406f41de16e1bd6f6b55e7bc75add000000000000000000000000"
         cid = "test_cid"
 
-        message = basic_composer.msg_cancel_spot_order_v2(
+        message = basic_composer.msg_cancel_spot_order(
             market_id=spot_market.id,
             sender=sender,
             subaccount_id=subaccount_id,
@@ -735,18 +604,18 @@ class TestComposer:
         subaccount_id = "0x5e249f0e8cb406f41de16e1bd6f6b55e7bc75add000000000000000000000000"
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
 
-        order_data = basic_composer.create_order_data_without_mask_v2(
+        order_data = basic_composer.order_data(
             market_id=spot_market.id,
             subaccount_id=subaccount_id,
             order_hash="0x5e249f0e8cb406f41de16e1bd6f6b55e7bc75add000000000000000000000000",
         )
 
-        message = basic_composer.msg_batch_cancel_spot_orders_v2(
+        message = basic_composer.msg_batch_cancel_spot_orders(
             sender=sender,
             orders_data=[order_data],
         )
 
-        assert "injective.exchange.v2.MsgBatchCancelSpotOrders" == message.DESCRIPTOR.full_name
+        assert "injective.exchange.v1beta1.MsgBatchCancelSpotOrders" == message.DESCRIPTOR.full_name
         expected_message = {
             "sender": sender,
             "data": [json_format.MessageToDict(message=order_data, always_print_fields_with_no_presence=True)],
@@ -767,22 +636,22 @@ class TestComposer:
         spot_market_id = spot_market.id
         derivative_market_id = derivative_market.id
         binary_options_market_id = binary_options_market.id
-        spot_order_to_cancel = basic_composer.create_order_data_without_mask_v2(
+        spot_order_to_cancel = basic_composer.order_data(
             market_id=spot_market_id,
             subaccount_id=subaccount_id,
             order_hash="0x5e249f0e8cb406f41de16e1bd6f6b55e7bc75add000000000000000000000000",
         )
-        derivative_order_to_cancel = basic_composer.create_order_data_without_mask_v2(
+        derivative_order_to_cancel = basic_composer.order_data(
             market_id=derivative_market_id,
             subaccount_id=subaccount_id,
             order_hash="0x222daa22f60fe9f075ed0ca583459e121c23e64431c3fbffdedda04598ede0d2",
         )
-        binary_options_order_to_cancel = basic_composer.create_order_data_without_mask_v2(
+        binary_options_order_to_cancel = basic_composer.order_data(
             market_id=binary_options_market_id,
             subaccount_id=subaccount_id,
             order_hash="0x7ee76255d7ca763c56b0eab9828fca89fdd3739645501c8a80f58b62b4f76da5",
         )
-        spot_order_to_create = basic_composer.create_spot_order_v2(
+        spot_order_to_create = basic_composer.spot_order(
             market_id=spot_market_id,
             subaccount_id=subaccount_id,
             fee_recipient="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
@@ -792,7 +661,7 @@ class TestComposer:
             cid="test_cid",
             trigger_price=Decimal("43.5"),
         )
-        derivative_order_to_create = basic_composer.create_derivative_order_v2(
+        derivative_order_to_create = basic_composer.derivative_order(
             market_id=derivative_market_id,
             subaccount_id=subaccount_id,
             fee_recipient="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
@@ -801,7 +670,7 @@ class TestComposer:
             margin=Decimal("36.1") * Decimal("100"),
             order_type="BUY",
         )
-        binary_options_order_to_create = basic_composer.create_binary_options_order_v2(
+        binary_options_order_to_create = basic_composer.binary_options_order(
             market_id=binary_options_market_id,
             subaccount_id=subaccount_id,
             fee_recipient="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
@@ -811,7 +680,7 @@ class TestComposer:
             order_type="BUY",
         )
 
-        message = basic_composer.msg_batch_update_orders_v2(
+        message = basic_composer.msg_batch_update_orders(
             sender=sender,
             subaccount_id=subaccount_id,
             spot_market_ids_to_cancel_all=[spot_market_id],
@@ -896,9 +765,8 @@ class TestComposer:
         order_type = "BUY"
         cid = "test_cid"
         trigger_price = Decimal("43.5")
-        expiration_block = 123456789
 
-        message = basic_composer.msg_create_derivative_limit_order_v2(
+        message = basic_composer.msg_create_derivative_limit_order(
             market_id=derivative_market.id,
             sender=sender,
             subaccount_id=subaccount_id,
@@ -909,8 +777,12 @@ class TestComposer:
             order_type=order_type,
             cid=cid,
             trigger_price=trigger_price,
-            expiration_block=expiration_block,
         )
+
+        expected_price = derivative_market.price_to_chain_format(human_readable_value=price)
+        expected_quantity = derivative_market.quantity_to_chain_format(human_readable_value=quantity)
+        expected_margin = derivative_market.margin_to_chain_format(human_readable_value=margin)
+        expected_trigger_price = derivative_market.price_to_chain_format(human_readable_value=trigger_price)
 
         expected_message = {
             "sender": sender,
@@ -919,14 +791,13 @@ class TestComposer:
                 "orderInfo": {
                     "subaccountId": subaccount_id,
                     "feeRecipient": fee_recipient,
-                    "price": f"{Token.convert_value_to_extended_decimal_format(value=price).normalize():f}",
-                    "quantity": f"{Token.convert_value_to_extended_decimal_format(value=quantity).normalize():f}",
+                    "price": f"{expected_price.normalize():f}",
+                    "quantity": f"{expected_quantity.normalize():f}",
                     "cid": cid,
                 },
-                "margin": f"{Token.convert_value_to_extended_decimal_format(value=margin).normalize():f}",
+                "margin": f"{expected_margin.normalize():f}",
                 "orderType": order_type,
-                "triggerPrice": f"{Token.convert_value_to_extended_decimal_format(value=trigger_price).normalize():f}",
-                "expirationBlock": str(expiration_block),
+                "triggerPrice": f"{expected_trigger_price.normalize():f}",
             },
         }
         dict_message = json_format.MessageToDict(
@@ -946,7 +817,7 @@ class TestComposer:
         cid = "test_cid"
         trigger_price = Decimal("43.5")
 
-        order = basic_composer.create_derivative_order_v2(
+        order = basic_composer.derivative_order(
             market_id=derivative_market.id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -958,7 +829,7 @@ class TestComposer:
             trigger_price=trigger_price,
         )
 
-        message = basic_composer.msg_batch_create_derivative_limit_orders_v2(
+        message = basic_composer.msg_batch_create_derivative_limit_orders(
             sender=sender,
             orders=[order],
         )
@@ -985,7 +856,7 @@ class TestComposer:
         cid = "test_cid"
         trigger_price = Decimal("43.5")
 
-        message = basic_composer.msg_create_derivative_market_order_v2(
+        message = basic_composer.msg_create_derivative_market_order(
             market_id=derivative_market.id,
             sender=sender,
             subaccount_id=subaccount_id,
@@ -998,6 +869,11 @@ class TestComposer:
             trigger_price=trigger_price,
         )
 
+        expected_price = derivative_market.price_to_chain_format(human_readable_value=price)
+        expected_quantity = derivative_market.quantity_to_chain_format(human_readable_value=quantity)
+        expected_margin = derivative_market.margin_to_chain_format(human_readable_value=margin)
+        expected_trigger_price = derivative_market.price_to_chain_format(human_readable_value=trigger_price)
+
         expected_message = {
             "sender": sender,
             "order": {
@@ -1005,14 +881,13 @@ class TestComposer:
                 "orderInfo": {
                     "subaccountId": subaccount_id,
                     "feeRecipient": fee_recipient,
-                    "price": f"{Token.convert_value_to_extended_decimal_format(value=price).normalize():f}",
-                    "quantity": f"{Token.convert_value_to_extended_decimal_format(value=quantity).normalize():f}",
+                    "price": f"{expected_price.normalize():f}",
+                    "quantity": f"{expected_quantity.normalize():f}",
                     "cid": cid,
                 },
-                "margin": f"{Token.convert_value_to_extended_decimal_format(value=margin).normalize():f}",
+                "margin": f"{expected_margin.normalize():f}",
                 "orderType": order_type,
-                "triggerPrice": f"{Token.convert_value_to_extended_decimal_format(value=trigger_price).normalize():f}",
-                "expirationBlock": "0",
+                "triggerPrice": f"{expected_trigger_price.normalize():f}",
             },
         }
         dict_message = json_format.MessageToDict(
@@ -1037,7 +912,7 @@ class TestComposer:
             is_market_order=is_market_order,
         )
 
-        message = basic_composer.msg_cancel_derivative_order_v2(
+        message = basic_composer.msg_cancel_derivative_order(
             market_id=derivative_market.id,
             sender=sender,
             subaccount_id=subaccount_id,
@@ -1067,13 +942,13 @@ class TestComposer:
         subaccount_id = "0x5e249f0e8cb406f41de16e1bd6f6b55e7bc75add000000000000000000000000"
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
 
-        order_data = basic_composer.create_order_data_without_mask_v2(
+        order_data = basic_composer.order_data(
             market_id=derivative_market.id,
             subaccount_id=subaccount_id,
             order_hash="0x5e249f0e8cb406f41de16e1bd6f6b55e7bc75add000000000000000000000000",
         )
 
-        message = basic_composer.msg_batch_cancel_derivative_orders_v2(
+        message = basic_composer.msg_batch_cancel_derivative_orders(
             sender=sender,
             orders_data=[order_data],
         )
@@ -1095,7 +970,7 @@ class TestComposer:
         oracle_provider = "Injective"
         oracle_scale_factor = 6
         oracle_type = "Band"
-        quote_denom = "inj"
+        quote_denom = "INJ"
         min_price_tick_size = Decimal("0.01")
         min_quantity_tick_size = Decimal("1")
         maker_fee_rate = Decimal("0.001")
@@ -1105,7 +980,17 @@ class TestComposer:
         admin = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
         min_notional = Decimal("2")
 
-        message = basic_composer.msg_instant_binary_options_market_launch_v2(
+        quote_token = basic_composer.tokens[quote_denom]
+
+        expected_min_price_tick_size = min_price_tick_size * Decimal(
+            f"1e{quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        )
+        expected_min_quantity_tick_size = min_quantity_tick_size * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        expected_maker_fee_rate = maker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        expected_taker_fee_rate = taker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        expected_min_notional = min_notional * Decimal(f"1e{quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+
+        message = basic_composer.msg_instant_binary_options_market_launch(
             sender=sender,
             ticker=ticker,
             oracle_symbol=oracle_symbol,
@@ -1123,10 +1008,6 @@ class TestComposer:
             min_notional=min_notional,
         )
 
-        chain_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=min_price_tick_size)
-        chain_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=min_quantity_tick_size)
-        chain_min_notional = Token.convert_value_to_extended_decimal_format(value=min_notional)
-
         expected_message = {
             "sender": sender,
             "ticker": ticker,
@@ -1134,15 +1015,15 @@ class TestComposer:
             "oracleProvider": oracle_provider,
             "oracleType": oracle_type,
             "oracleScaleFactor": oracle_scale_factor,
-            "makerFeeRate": f"{Token.convert_value_to_extended_decimal_format(value=maker_fee_rate).normalize():f}",
-            "takerFeeRate": f"{Token.convert_value_to_extended_decimal_format(value=taker_fee_rate).normalize():f}",
+            "makerFeeRate": f"{expected_maker_fee_rate.normalize():f}",
+            "takerFeeRate": f"{expected_taker_fee_rate.normalize():f}",
             "expirationTimestamp": str(expiration_timestamp),
             "settlementTimestamp": str(settlement_timestamp),
             "admin": admin,
-            "quoteDenom": quote_denom,
-            "minPriceTickSize": f"{chain_min_price_tick_size.normalize():f}",
-            "minQuantityTickSize": f"{chain_min_quantity_tick_size.normalize():f}",
-            "minNotional": f"{chain_min_notional.normalize():f}",
+            "quoteDenom": quote_token.denom,
+            "minPriceTickSize": f"{expected_min_price_tick_size.normalize():f}",
+            "minQuantityTickSize": f"{expected_min_quantity_tick_size.normalize():f}",
+            "minNotional": f"{expected_min_notional.normalize():f}",
         }
         dict_message = json_format.MessageToDict(
             message=message,
@@ -1161,9 +1042,8 @@ class TestComposer:
         order_type = "BUY"
         cid = "test_cid"
         trigger_price = Decimal("43.5")
-        expiration_block = 123456789
 
-        message = basic_composer.msg_create_binary_options_limit_order_v2(
+        message = basic_composer.msg_create_binary_options_limit_order(
             market_id=market.id,
             sender=sender,
             subaccount_id=subaccount_id,
@@ -1174,13 +1054,12 @@ class TestComposer:
             order_type=order_type,
             cid=cid,
             trigger_price=trigger_price,
-            expiration_block=expiration_block,
         )
 
-        expected_price = Token.convert_value_to_extended_decimal_format(value=price)
-        expected_quantity = Token.convert_value_to_extended_decimal_format(value=quantity)
-        expected_margin = Token.convert_value_to_extended_decimal_format(value=margin)
-        expected_trigger_price = Token.convert_value_to_extended_decimal_format(value=trigger_price)
+        expected_price = market.price_to_chain_format(human_readable_value=price)
+        expected_quantity = market.quantity_to_chain_format(human_readable_value=quantity)
+        expected_margin = market.margin_to_chain_format(human_readable_value=margin)
+        expected_trigger_price = market.price_to_chain_format(human_readable_value=trigger_price)
 
         expected_message = {
             "sender": sender,
@@ -1196,7 +1075,6 @@ class TestComposer:
                 "margin": f"{expected_margin.normalize():f}",
                 "orderType": order_type,
                 "triggerPrice": f"{expected_trigger_price.normalize():f}",
-                "expirationBlock": str(expiration_block),
             },
         }
         dict_message = json_format.MessageToDict(
@@ -1217,7 +1095,7 @@ class TestComposer:
         cid = "test_cid"
         trigger_price = Decimal("43.5")
 
-        message = basic_composer.msg_create_binary_options_market_order_v2(
+        message = basic_composer.msg_create_binary_options_market_order(
             market_id=market.id,
             sender=sender,
             subaccount_id=subaccount_id,
@@ -1230,6 +1108,11 @@ class TestComposer:
             trigger_price=trigger_price,
         )
 
+        expected_price = market.price_to_chain_format(human_readable_value=price)
+        expected_quantity = market.quantity_to_chain_format(human_readable_value=quantity)
+        expected_margin = market.margin_to_chain_format(human_readable_value=margin)
+        expected_trigger_price = market.price_to_chain_format(human_readable_value=trigger_price)
+
         expected_message = {
             "sender": sender,
             "order": {
@@ -1237,14 +1120,13 @@ class TestComposer:
                 "orderInfo": {
                     "subaccountId": subaccount_id,
                     "feeRecipient": fee_recipient,
-                    "price": f"{Token.convert_value_to_extended_decimal_format(value=price).normalize():f}",
-                    "quantity": f"{Token.convert_value_to_extended_decimal_format(value=quantity).normalize():f}",
+                    "price": f"{expected_price.normalize():f}",
+                    "quantity": f"{expected_quantity.normalize():f}",
                     "cid": cid,
                 },
-                "margin": f"{Token.convert_value_to_extended_decimal_format(value=margin).normalize():f}",
+                "margin": f"{expected_margin.normalize():f}",
                 "orderType": order_type,
-                "triggerPrice": f"{Token.convert_value_to_extended_decimal_format(value=trigger_price).normalize():f}",
-                "expirationBlock": "0",
+                "triggerPrice": f"{expected_trigger_price.normalize():f}",
             },
         }
         dict_message = json_format.MessageToDict(
@@ -1269,7 +1151,7 @@ class TestComposer:
             is_market_order=is_market_order,
         )
 
-        message = basic_composer.msg_cancel_derivative_order_v2(
+        message = basic_composer.msg_cancel_derivative_order(
             market_id=market.id,
             sender=sender,
             subaccount_id=subaccount_id,
@@ -1298,10 +1180,14 @@ class TestComposer:
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
         source_subaccount_id = "0x893f2abf8034627e50cbc63923120b1122503ce0000000000000000000000001"
         destination_subaccount_id = "0x893f2abf8034627e50cbc63923120b1122503ce0000000000000000000000002"
-        amount = 100
-        denom = "inj"
+        amount = Decimal(100)
+        denom = "INJ"
 
-        message = basic_composer.msg_subaccount_transfer_v2(
+        token = basic_composer.tokens[denom]
+
+        expected_amount = token.chain_formatted_value(human_readable_value=amount)
+
+        message = basic_composer.msg_subaccount_transfer(
             sender=sender,
             source_subaccount_id=source_subaccount_id,
             destination_subaccount_id=destination_subaccount_id,
@@ -1314,8 +1200,8 @@ class TestComposer:
             "sourceSubaccountId": source_subaccount_id,
             "destinationSubaccountId": destination_subaccount_id,
             "amount": {
-                "amount": f"{Decimal(str(amount)).normalize():f}",
-                "denom": denom,
+                "amount": f"{expected_amount.normalize():f}",
+                "denom": token.denom,
             },
         }
         dict_message = json_format.MessageToDict(
@@ -1328,14 +1214,18 @@ class TestComposer:
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
         source_subaccount_id = "0x893f2abf8034627e50cbc63923120b1122503ce0000000000000000000000001"
         destination_subaccount_id = "0xc6fe5d33615a1c52c08018c47e8bc53646a0e101000000000000000000000000"
-        amount = 100
-        denom = "inj"
+        amount = Decimal(100)
+        denom = "INJ"
 
-        message = basic_composer.msg_external_transfer_v2(
+        token = basic_composer.tokens[denom]
+
+        expected_amount = token.chain_formatted_value(human_readable_value=amount)
+
+        message = basic_composer.msg_subaccount_transfer(
             sender=sender,
             source_subaccount_id=source_subaccount_id,
             destination_subaccount_id=destination_subaccount_id,
-            amount=100,
+            amount=amount,
             denom=denom,
         )
 
@@ -1344,8 +1234,8 @@ class TestComposer:
             "sourceSubaccountId": source_subaccount_id,
             "destinationSubaccountId": destination_subaccount_id,
             "amount": {
-                "amount": f"{Decimal(str(amount)).normalize():f}",
-                "denom": denom,
+                "amount": f"{expected_amount.normalize():f}",
+                "denom": token.denom,
             },
         }
         dict_message = json_format.MessageToDict(
@@ -1358,7 +1248,7 @@ class TestComposer:
         market = list(basic_composer.derivative_markets.values())[0]
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
         subaccount_id = "0x893f2abf8034627e50cbc63923120b1122503ce0000000000000000000000001"
-        order = basic_composer.create_derivative_order_v2(
+        order = basic_composer.derivative_order(
             market_id=market.id,
             subaccount_id=subaccount_id,
             fee_recipient="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
@@ -1368,7 +1258,7 @@ class TestComposer:
             order_type="BUY",
         )
 
-        message = basic_composer.msg_liquidate_position_v2(
+        message = basic_composer.msg_liquidate_position(
             sender=sender,
             subaccount_id=subaccount_id,
             market_id=market.id,
@@ -1392,7 +1282,7 @@ class TestComposer:
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
         subaccount_id = "0x893f2abf8034627e50cbc63923120b1122503ce0000000000000000000000001"
 
-        message = basic_composer.msg_emergency_settle_market_v2(
+        message = basic_composer.msg_emergency_settle_market(
             sender=sender,
             subaccount_id=subaccount_id,
             market_id=market.id,
@@ -1416,9 +1306,9 @@ class TestComposer:
         destination_subaccount_id = "0xc6fe5d33615a1c52c08018c47e8bc53646a0e101000000000000000000000000"
         amount = Decimal(100)
 
-        expected_amount = Token.convert_value_to_extended_decimal_format(value=amount)
+        expected_amount = market.margin_to_chain_format(human_readable_value=amount)
 
-        message = basic_composer.msg_increase_position_margin_v2(
+        message = basic_composer.msg_increase_position_margin(
             sender=sender,
             source_subaccount_id=source_subaccount_id,
             destination_subaccount_id=destination_subaccount_id,
@@ -1446,9 +1336,9 @@ class TestComposer:
         destination_subaccount_id = "0xc6fe5d33615a1c52c08018c47e8bc53646a0e101000000000000000000000000"
         amount = Decimal(100)
 
-        expected_amount = Token.convert_value_to_extended_decimal_format(value=amount)
+        expected_amount = market.margin_to_chain_format(human_readable_value=amount)
 
-        message = basic_composer.msg_decrease_position_margin_v2(
+        message = basic_composer.msg_decrease_position_margin(
             sender=sender,
             source_subaccount_id=source_subaccount_id,
             destination_subaccount_id=destination_subaccount_id,
@@ -1493,9 +1383,9 @@ class TestComposer:
         expiration_timestamp = 1630000000
         settlement_timestamp = 1660000000
 
-        expected_settlement_price = Token.convert_value_to_extended_decimal_format(value=settlement_price)
+        expected_settlement_price = market.price_to_chain_format(human_readable_value=settlement_price)
 
-        message = basic_composer.msg_admin_update_binary_options_market_v2(
+        message = basic_composer.msg_admin_update_binary_options_market(
             sender=sender,
             market_id=market.id,
             status=status,
@@ -1526,11 +1416,17 @@ class TestComposer:
         min_quantity_tick_size = Decimal("10")
         min_notional = Decimal("5")
 
-        expected_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=min_price_tick_size)
-        expected_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=min_quantity_tick_size)
-        expected_min_notional = Token.convert_value_to_extended_decimal_format(value=min_notional)
+        expected_min_price_tick_size = min_price_tick_size * Decimal(
+            f"1e{market.quote_token.decimals - market.base_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        )
+        expected_min_quantity_tick_size = min_quantity_tick_size * Decimal(
+            f"1e{market.base_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        )
+        expected_min_notional = min_notional * Decimal(
+            f"1e{market.quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        )
 
-        message = basic_composer.msg_update_spot_market_v2(
+        message = basic_composer.msg_update_spot_market(
             admin=sender,
             market_id=market.id,
             new_ticker=new_ticker,
@@ -1562,18 +1458,18 @@ class TestComposer:
         min_notional = Decimal("5")
         initial_margin_ratio = Decimal("0.05")
         maintenance_margin_ratio = Decimal("0.009")
-        reduce_margin_ration = Decimal("3")
 
-        expected_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=min_price_tick_size)
-        expected_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=min_quantity_tick_size)
-        expected_min_notional = Token.convert_value_to_extended_decimal_format(value=min_notional)
-        expected_initial_margin_ratio = Token.convert_value_to_extended_decimal_format(value=initial_margin_ratio)
-        expected_maintenance_margin_ratio = Token.convert_value_to_extended_decimal_format(
-            value=maintenance_margin_ratio
+        expected_min_price_tick_size = min_price_tick_size * Decimal(
+            f"1e{market.quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
         )
-        expected_reduce_margin_ratio = Token.convert_value_to_extended_decimal_format(value=reduce_margin_ration)
+        expected_min_quantity_tick_size = min_quantity_tick_size * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        expected_min_notional = min_notional * Decimal(
+            f"1e{market.quote_token.decimals + ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
+        )
+        expected_initial_margin_ratio = initial_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        expected_maintenance_margin_ratio = maintenance_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
-        message = basic_composer.msg_update_derivative_market_v2(
+        message = basic_composer.msg_update_derivative_market(
             admin=sender,
             market_id=market.id,
             new_ticker=new_ticker,
@@ -1582,7 +1478,6 @@ class TestComposer:
             new_min_notional=min_notional,
             new_initial_margin_ratio=initial_margin_ratio,
             new_maintenance_margin_ratio=maintenance_margin_ratio,
-            new_reduce_margin_ratio=reduce_margin_ration,
         )
 
         expected_message = {
@@ -1594,7 +1489,6 @@ class TestComposer:
             "newMinNotional": f"{expected_min_notional.normalize():f}",
             "newInitialMarginRatio": f"{expected_initial_margin_ratio.normalize():f}",
             "newMaintenanceMarginRatio": f"{expected_maintenance_margin_ratio.normalize():f}",
-            "newReduceMarginRatio": f"{expected_reduce_margin_ratio.normalize():f}",
         }
         dict_message = json_format.MessageToDict(
             message=message,
@@ -1654,10 +1548,7 @@ class TestComposer:
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
         source_port = "transfer"
         source_channel = "channel-126"
-        token_decimals = 18
-        transfer_amount = Decimal("0.1") * Decimal(f"1e{token_decimals}")
-        inj_chain_denom = "inj"
-        token_amount = basic_composer.coin(amount=int(transfer_amount), denom=inj_chain_denom)
+        token_amount = basic_composer.create_coin_amount(amount=Decimal("0.1"), token_name="INJ")
         receiver = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
         timeout_height = 10
         timeout_timestamp = 1630000000
@@ -2015,195 +1906,6 @@ class TestComposer:
         expected_message = {
             "sender": sender,
             "denom": denom,
-        }
-
-        dict_message = json_format.MessageToDict(
-            message=message,
-            always_print_fields_with_no_presence=True,
-        )
-        assert dict_message == expected_message
-
-    def test_create_order_data_without_mask_v2(self, basic_composer):
-        order_data = basic_composer.create_order_data_without_mask_v2(
-            market_id=list(basic_composer.spot_markets.keys())[0],
-            subaccount_id="subaccount_id",
-            order_hash="0x5e249f0e8cb406f41de16e1bd6f6b55e7bc75add000000000000000000000000",
-        )
-
-        expected_message = {
-            "marketId": list(basic_composer.spot_markets.keys())[0],
-            "subaccountId": "subaccount_id",
-            "orderHash": "0x5e249f0e8cb406f41de16e1bd6f6b55e7bc75add000000000000000000000000",
-            "orderMask": 1,
-            "cid": "",
-        }
-
-        dict_message = json_format.MessageToDict(
-            message=order_data,
-            always_print_fields_with_no_presence=True,
-        )
-
-        assert dict_message == expected_message
-
-    def test_msg_privileged_execute_contract_v2(self, basic_composer):
-        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
-        contract_address = "inj1ady3s7whq30l4fx8sj3x6muv5mx4dfdlcpv8n7"
-        data = "test_data"
-        funds = "100inj,420peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7"
-
-        message = basic_composer.msg_privileged_execute_contract_v2(
-            sender=sender,
-            contract_address=contract_address,
-            data=data,
-            funds=funds,
-        )
-
-        expected_message = {
-            "sender": sender,
-            "funds": funds,
-            "contractAddress": contract_address,
-            "data": data,
-        }
-        dict_message = json_format.MessageToDict(
-            message=message,
-            always_print_fields_with_no_presence=True,
-        )
-        assert dict_message == expected_message
-
-    def test_msg_create_insurance_fund(self, basic_composer):
-        message = basic_composer.msg_create_insurance_fund(
-            sender="sender",
-            ticker="AAVE/USDT PERP",
-            quote_denom="peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7",
-            oracle_base="0x2b9ab1e972a281585084148ba1389800799bd4be63b957507db1349314e47445",
-            oracle_quote="0x2b89b9dc8fdf9f34709a5b106b472f0f39bb6ca9ce04b0fd7f2e971688e2e53b",
-            oracle_type="Band",
-            expiry=-1,
-            initial_deposit=1,
-        )
-
-        expected_message = {
-            "sender": "sender",
-            "ticker": "AAVE/USDT PERP",
-            "quoteDenom": "peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7",
-            "oracleBase": "0x2b9ab1e972a281585084148ba1389800799bd4be63b957507db1349314e47445",
-            "oracleQuote": "0x2b89b9dc8fdf9f34709a5b106b472f0f39bb6ca9ce04b0fd7f2e971688e2e53b",
-            "oracleType": "Band",
-            "expiry": "-1",
-            "initialDeposit": {
-                "amount": f"{Decimal('1').normalize():f}",
-                "denom": "peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7",
-            },
-        }
-        dict_message = json_format.MessageToDict(
-            message=message,
-            always_print_fields_with_no_presence=True,
-        )
-        assert dict_message == expected_message
-
-    def test_msg_send_to_eth_fund(self, basic_composer):
-        message = basic_composer.msg_send_to_eth(
-            denom="peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7",
-            sender="sender",
-            eth_dest="eth_dest",
-            amount=1,
-            bridge_fee=2,
-        )
-
-        expected_message = {
-            "sender": "sender",
-            "ethDest": "eth_dest",
-            "amount": {
-                "amount": f"{Decimal(1).normalize():f}",
-                "denom": "peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7",
-            },
-            "bridgeFee": {
-                "amount": f"{Decimal(2).normalize():f}",
-                "denom": "peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7",
-            },
-        }
-        dict_message = json_format.MessageToDict(
-            message=message,
-            always_print_fields_with_no_presence=True,
-        )
-        assert dict_message == expected_message
-
-    def test_msg_underwrite(self, basic_composer):
-        message = basic_composer.msg_underwrite(
-            sender="sender",
-            market_id="market_id",
-            quote_denom="peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7",
-            amount=1,
-        )
-
-        expected_message = {
-            "sender": "sender",
-            "marketId": "market_id",
-            "deposit": {
-                "amount": f"{Decimal('1').normalize():f}",
-                "denom": "peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7",
-            },
-        }
-        dict_message = json_format.MessageToDict(
-            message=message,
-            always_print_fields_with_no_presence=True,
-        )
-        assert dict_message == expected_message
-
-    def test_msg_send(self, basic_composer):
-        message = basic_composer.msg_send(
-            from_address="from_address",
-            to_address="to_address",
-            amount=1,
-            denom="peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7",
-        )
-
-        expected_message = {
-            "fromAddress": "from_address",
-            "toAddress": "to_address",
-            "amount": [
-                {
-                    "amount": f"{Decimal('1').normalize():f}",
-                    "denom": "peggy0x44C21afAaF20c270EBbF5914Cfc3b5022173FEB7",
-                },
-            ],
-        }
-        dict_message = json_format.MessageToDict(
-            message=message,
-            always_print_fields_with_no_presence=True,
-        )
-        assert dict_message == expected_message
-
-    def test_msg_create_token_pair(self, basic_composer):
-        message = basic_composer.msg_create_token_pair(
-            sender="sender",
-            bank_denom="denom",
-            erc20_address="erc20_address",
-        )
-
-        expected_message = {
-            "sender": "sender",
-            "tokenPair": {
-                "bankDenom": "denom",
-                "erc20Address": "erc20_address",
-            },
-        }
-
-        dict_message = json_format.MessageToDict(
-            message=message,
-            always_print_fields_with_no_presence=True,
-        )
-        assert dict_message == expected_message
-
-    def test_msg_delete_token_pair(self, basic_composer):
-        message = basic_composer.msg_delete_token_pair(
-            sender="sender",
-            bank_denom="denom",
-        )
-
-        expected_message = {
-            "sender": "sender",
-            "bankDenom": "denom",
         }
 
         dict_message = json_format.MessageToDict(

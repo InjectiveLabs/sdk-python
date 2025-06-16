@@ -6,7 +6,7 @@ from decimal import Decimal
 import dotenv
 from grpc import RpcError
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.constant import GAS_FEE_BUFFER_AMOUNT
 from pyinjective.core.network import Network
 from pyinjective.transaction import Transaction
@@ -38,7 +38,7 @@ async def main() -> None:
 
     granter_address = Address.from_acc_bech32(granter_inj_address)
     granter_subaccount_id = granter_address.get_subaccount_id(index=0)
-    msg0 = composer.msg_create_spot_limit_order_v2(
+    msg0 = composer.msg_create_spot_limit_order(
         sender=granter_inj_address,
         market_id=market_id,
         subaccount_id=granter_subaccount_id,
@@ -49,7 +49,7 @@ async def main() -> None:
         cid=str(uuid.uuid4()),
     )
 
-    msg = composer.MsgExec(grantee=grantee, msgs=[msg0])
+    msg = composer.msg_exec(grantee=grantee, msgs=[msg0])
 
     # build sim tx
     tx = (

@@ -4,7 +4,7 @@ import os
 import dotenv
 from grpc import RpcError
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.constant import GAS_FEE_BUFFER_AMOUNT
 from pyinjective.core.network import Network
 from pyinjective.transaction import Transaction
@@ -35,7 +35,9 @@ async def main() -> None:
     quote = ["WETH"]
 
     # prepare tx msg
-    msg = composer.MsgRelayPriceFeedPrice(sender=address.to_acc_bech32(), price=price_to_send, base=base, quote=quote)
+    msg = composer.msg_relay_price_feed_price(
+        sender=address.to_acc_bech32(), price=price_to_send, base=base, quote=quote
+    )
 
     # build sim tx
     tx = (

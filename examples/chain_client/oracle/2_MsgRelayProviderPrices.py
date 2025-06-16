@@ -4,7 +4,7 @@ import os
 import dotenv
 from grpc import RpcError
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.constant import GAS_FEE_BUFFER_AMOUNT
 from pyinjective.core.network import Network
 from pyinjective.transaction import Transaction
@@ -34,7 +34,7 @@ async def main() -> None:
     prices = [0.5, 0.8]
 
     # prepare tx msg
-    msg = composer.MsgRelayProviderPrices(
+    msg = composer.msg_relay_provider_prices(
         sender=address.to_acc_bech32(), provider=provider, symbols=symbols, prices=prices
     )
 

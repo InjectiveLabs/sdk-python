@@ -4,7 +4,7 @@ import os
 import dotenv
 from grpc import RpcError
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.constant import GAS_FEE_BUFFER_AMOUNT
 from pyinjective.core.network import Network
 from pyinjective.transaction import Transaction
@@ -30,7 +30,7 @@ async def main() -> None:
     address = pub_key.to_address()
     await client.fetch_account(address.to_acc_bech32())
 
-    msg = composer.MsgRequestRedemption(
+    msg = composer.msg_request_redemption(
         sender=address.to_acc_bech32(),
         market_id="0x141e3c92ed55107067ceb60ee412b86256cedef67b1227d6367b4cdf30c55a74",
         share_denom="share15",

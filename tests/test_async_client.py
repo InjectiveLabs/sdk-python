@@ -2,7 +2,7 @@ import logging
 
 import pytest
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.core.network import Network
 from pyinjective.proto.cosmos.bank.v1beta1 import query_pb2 as bank_query_pb
 from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagination_pb
@@ -57,7 +57,7 @@ class TestAsyncClient:
             None,
         )
         assert found_log is not None
-        assert found_log[0] == "pyinjective.async_client.AsyncClient"
+        assert found_log[0] == "pyinjective.async_client_v2.AsyncClient"
         assert found_log[1] == logging.DEBUG
 
     @pytest.mark.asyncio
@@ -77,7 +77,7 @@ class TestAsyncClient:
             None,
         )
         assert found_log is not None
-        assert found_log[0] == "pyinjective.async_client.AsyncClient"
+        assert found_log[0] == "pyinjective.async_client_v2.AsyncClient"
         assert found_log[1] == logging.DEBUG
 
     @pytest.mark.asyncio

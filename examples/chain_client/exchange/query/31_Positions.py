@@ -1,6 +1,6 @@
 import asyncio
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.core.network import Network
 
 
@@ -11,7 +11,7 @@ async def main() -> None:
     # initialize grpc client
     client = AsyncClient(network)
 
-    positions = await client.fetch_chain_positions_v2()
+    positions = await client.fetch_chain_positions()
     print(positions)
 
 

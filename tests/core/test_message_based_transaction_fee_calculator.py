@@ -4,8 +4,8 @@ from decimal import Decimal
 import pytest
 
 from pyinjective import Transaction
-from pyinjective.async_client import AsyncClient
-from pyinjective.composer import Composer
+from pyinjective.async_client_v2 import AsyncClient
+from pyinjective.composer_v2 import Composer
 from pyinjective.core.broadcaster import MessageBasedTransactionFeeCalculator
 from pyinjective.core.gas_limit_estimator import (
     DefaultGasLimitEstimator,
@@ -55,7 +55,7 @@ class TestMessageBasedTransactionFeeCalculator:
             gas_price=5_000_000,
         )
 
-        message = composer.MsgExecuteContract(
+        message = composer.msg_execute_contract(
             sender="",
             contract="",
             msg="",
@@ -125,7 +125,7 @@ class TestMessageBasedTransactionFeeCalculator:
             gas_price=5_000_000,
         )
 
-        message = composer.msg_create_spot_limit_order_v2(
+        message = composer.msg_create_spot_limit_order(
             sender="sender",
             market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
             subaccount_id="subaccount_id",
@@ -155,7 +155,7 @@ class TestMessageBasedTransactionFeeCalculator:
             gas_price=5_000_000,
         )
 
-        inner_message = composer.msg_create_spot_limit_order_v2(
+        inner_message = composer.msg_create_spot_limit_order(
             sender="sender",
             market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
             subaccount_id="subaccount_id",
@@ -164,7 +164,7 @@ class TestMessageBasedTransactionFeeCalculator:
             quantity=Decimal("0.01"),
             order_type="BUY",
         )
-        message = composer.MsgExec(grantee="grantee", msgs=[inner_message])
+        message = composer.msg_exec(grantee="grantee", msgs=[inner_message])
         transaction = Transaction()
         transaction.with_messages(message)
 
@@ -190,7 +190,7 @@ class TestMessageBasedTransactionFeeCalculator:
             gas_price=5_000_000,
         )
 
-        inner_message = composer.msg_create_spot_limit_order_v2(
+        inner_message = composer.msg_create_spot_limit_order(
             sender="sender",
             market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
             subaccount_id="subaccount_id",
@@ -199,7 +199,7 @@ class TestMessageBasedTransactionFeeCalculator:
             quantity=Decimal("0.01"),
             order_type="BUY",
         )
-        message = composer.MsgExec(grantee="grantee", msgs=[inner_message])
+        message = composer.msg_exec(grantee="grantee", msgs=[inner_message])
 
         send_message = composer.msg_send(from_address="address", to_address="to_address", amount=1, denom="INJ")
 

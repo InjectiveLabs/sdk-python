@@ -3,8 +3,8 @@ from typing import Any, Dict
 
 from grpc import RpcError
 
-from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
+from pyinjective.indexer_client import IndexerClient
 
 
 async def account_portfolio_event_processor(event: Dict[str, Any]):
@@ -21,7 +21,7 @@ def stream_closed_processor():
 
 async def main() -> None:
     network = Network.testnet()
-    client = AsyncClient(network)
+    client = IndexerClient(network)
     account_address = "inj1clw20s2uxeyxtam6f7m84vgae92s9eh7vygagt"
 
     task = asyncio.get_event_loop().create_task(

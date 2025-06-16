@@ -518,6 +518,7 @@ class TestIndexerGrpcDerivativeStream:
             trade_id="8662464_1_0",
             execution_side="taker",
             cid="cid1",
+            pnl="1000.123456789",
         )
 
         derivative_servicer.stream_trades_responses.append(
@@ -579,6 +580,7 @@ class TestIndexerGrpcDerivativeStream:
                 "tradeId": trade.trade_id,
                 "executionSide": trade.execution_side,
                 "cid": trade.cid,
+                "pnl": trade.pnl,
             },
             "operationType": operation_type,
             "timestamp": str(timestamp),
@@ -714,6 +716,7 @@ class TestIndexerGrpcDerivativeStream:
             trade_id="8662464_1_0",
             execution_side="taker",
             cid="cid1",
+            pnl="1000.123456789",
         )
 
         derivative_servicer.stream_trades_v2_responses.append(
@@ -775,6 +778,7 @@ class TestIndexerGrpcDerivativeStream:
                 "tradeId": trade.trade_id,
                 "executionSide": trade.execution_side,
                 "cid": trade.cid,
+                "pnl": trade.pnl,
             },
             "operationType": operation_type,
             "timestamp": str(timestamp),

@@ -4,8 +4,8 @@ from typing import Any, Dict
 
 from grpc import RpcError
 
-from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
+from pyinjective.indexer_client import IndexerClient
 
 
 def stream_error_processor(exception: RpcError):
@@ -33,9 +33,9 @@ class Orderbook:
         self.levels = {"buys": {}, "sells": {}}
 
 
-async def load_orderbook_snapshot(async_client: AsyncClient, orderbook: Orderbook):
+async def load_orderbook_snapshot(client: IndexerClient, orderbook: Orderbook):
     # load the snapshot
-    res = await async_client.fetch_spot_orderbooks_v2(market_ids=[orderbook.market_id], depth=0)
+    res = await client.fetch_spot_orderbooks_v2(market_ids=[orderbook.market_id], depth=0)
     for snapshot in res["orderbooks"]:
         if snapshot["marketId"] != orderbook.market_id:
             raise Exception("unexpected snapshot")
@@ -54,13 +54,12 @@ async def load_orderbook_snapshot(async_client: AsyncClient, orderbook: Orderboo
                 quantity=Decimal(sell["quantity"]),
                 timestamp=int(sell["timestamp"]),
             )
-        break
 
 
 async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
-    async_client = AsyncClient(network)
+    client = IndexerClient(network)
 
     market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
     orderbook = Orderbook(market_id=market_id)
@@ -72,7 +71,7 @@ async def main() -> None:
 
     # start getting price levels updates
     task = asyncio.get_event_loop().create_task(
-        async_client.listen_spot_orderbook_updates(
+        client.listen_spot_orderbook_updates(
             market_ids=[market_id],
             callback=queue_event,
             on_end_callback=stream_closed_processor,
@@ -82,7 +81,7 @@ async def main() -> None:
     tasks.append(task)
 
     # load the snapshot once we are already receiving updates, so we don't miss any
-    await load_orderbook_snapshot(async_client=async_client, orderbook=orderbook)
+    await load_orderbook_snapshot(client=client, orderbook=orderbook)
 
     task = asyncio.get_event_loop().create_task(
         apply_orderbook_update(orderbook=orderbook, updates_queue=updates_queue)

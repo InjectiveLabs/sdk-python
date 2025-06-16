@@ -1,6 +1,6 @@
 import asyncio
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.core.network import Network
 
 
@@ -11,7 +11,7 @@ async def main() -> None:
     # initialize grpc client
     client = AsyncClient(network)
 
-    spot_market = await client.fetch_chain_full_spot_market_v2(
+    spot_market = await client.fetch_chain_full_spot_market(
         market_id="0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
         with_mid_price_and_tob=True,
     )

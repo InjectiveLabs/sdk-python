@@ -5,7 +5,8 @@ import grpc
 import pytest
 
 from pyinjective.client.chain.grpc_stream.chain_grpc_chain_stream import ChainGrpcChainStream
-from pyinjective.composer import Composer
+from pyinjective.composer import Composer as ComposerV1
+from pyinjective.composer_v2 import Composer as ComposerV2
 from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb
 from pyinjective.proto.injective.exchange.v1beta1 import exchange_pb2 as exchange_pb
@@ -202,7 +203,7 @@ class TestChainGrpcChainStream:
         )
 
         network = Network.devnet()
-        composer = Composer(network=network.string())
+        composer = ComposerV1(network=network.string())
         api = self._api_instance(servicer=chain_stream_servicer, servicer_v2=chain_stream_v2_servicer)
 
         events = asyncio.Queue()
@@ -589,7 +590,7 @@ class TestChainGrpcChainStream:
         )
 
         network = Network.devnet()
-        composer = Composer(network=network.string())
+        composer = ComposerV2(network=network.string())
         api = self._api_instance(servicer=chain_stream_servicer, servicer_v2=chain_stream_v2_servicer)
 
         events = asyncio.Queue()
@@ -599,16 +600,16 @@ class TestChainGrpcChainStream:
         error_callback = lambda exception: pytest.fail(str(exception))
         end_callback = lambda: end_event.set()
 
-        bank_balances_filter = composer.chain_stream_bank_balances_v2_filter()
-        subaccount_deposits_filter = composer.chain_stream_subaccount_deposits_v2_filter()
-        spot_trades_filter = composer.chain_stream_trades_v2_filter()
-        derivative_trades_filter = composer.chain_stream_trades_v2_filter()
-        spot_orders_filter = composer.chain_stream_orders_v2_filter()
-        derivative_orders_filter = composer.chain_stream_orders_v2_filter()
-        spot_orderbooks_filter = composer.chain_stream_orderbooks_v2_filter()
-        derivative_orderbooks_filter = composer.chain_stream_orderbooks_v2_filter()
-        positions_filter = composer.chain_stream_positions_v2_filter()
-        oracle_price_filter = composer.chain_stream_oracle_price_v2_filter()
+        bank_balances_filter = composer.chain_stream_bank_balances_filter()
+        subaccount_deposits_filter = composer.chain_stream_subaccount_deposits_filter()
+        spot_trades_filter = composer.chain_stream_trades_filter()
+        derivative_trades_filter = composer.chain_stream_trades_filter()
+        spot_orders_filter = composer.chain_stream_orders_filter()
+        derivative_orders_filter = composer.chain_stream_orders_filter()
+        spot_orderbooks_filter = composer.chain_stream_orderbooks_filter()
+        derivative_orderbooks_filter = composer.chain_stream_orderbooks_filter()
+        positions_filter = composer.chain_stream_positions_filter()
+        oracle_price_filter = composer.chain_stream_oracle_price_filter()
 
         expected_update = {
             "blockHeight": str(block_height),
