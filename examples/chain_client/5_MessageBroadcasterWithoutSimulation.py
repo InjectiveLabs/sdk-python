@@ -46,7 +46,7 @@ async def main() -> None:
     spot_market_id_create = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
 
     spot_orders_to_create = [
-        composer.composer.spot_order(
+        composer.spot_order(
             market_id=spot_market_id_create,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
@@ -55,7 +55,7 @@ async def main() -> None:
             order_type="BUY",
             cid=str(uuid.uuid4()),
         ),
-        composer.composer.spot_order(
+        composer.spot_order(
             market_id=spot_market_id_create,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
