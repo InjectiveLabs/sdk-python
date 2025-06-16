@@ -938,6 +938,7 @@ class TestIndexerGrpcDerivativeApi:
             trade_id="8662464_1_0",
             execution_side="taker",
             cid="cid1",
+            pnl="1000.123456789",
         )
 
         paging = exchange_derivative_pb.Paging(total=5, to=5, count_by_subaccount=10, next=["next1", "next2"])
@@ -990,6 +991,7 @@ class TestIndexerGrpcDerivativeApi:
                     "tradeId": trade.trade_id,
                     "executionSide": trade.execution_side,
                     "cid": trade.cid,
+                    "pnl": trade.pnl,
                 },
             ],
             "paging": {
@@ -1117,6 +1119,7 @@ class TestIndexerGrpcDerivativeApi:
             trade_id="8662464_1_0",
             execution_side="taker",
             cid="cid1",
+            pnl="1000.123456789",
         )
 
         derivative_servicer.subaccount_trades_list_responses.append(
@@ -1158,6 +1161,7 @@ class TestIndexerGrpcDerivativeApi:
                     "tradeId": trade.trade_id,
                     "executionSide": trade.execution_side,
                     "cid": trade.cid,
+                    "pnl": trade.pnl,
                 },
             ],
         }
@@ -1286,6 +1290,7 @@ class TestIndexerGrpcDerivativeApi:
             trade_id="8662464_1_0",
             execution_side="taker",
             cid="cid1",
+            pnl="1000.123456789",
         )
 
         paging = exchange_derivative_pb.Paging(total=5, to=5, count_by_subaccount=10, next=["next1", "next2"])
@@ -1338,6 +1343,7 @@ class TestIndexerGrpcDerivativeApi:
                     "tradeId": trade.trade_id,
                     "executionSide": trade.execution_side,
                     "cid": trade.cid,
+                    "pnl": trade.pnl,
                 },
             ],
             "paging": {

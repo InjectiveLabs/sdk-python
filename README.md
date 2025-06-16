@@ -70,6 +70,62 @@ Upgrade `pip` to the latest version, if you see these warnings:
 poetry run pytest -v
 ```
 
+---
+
+## Choose Exchange V1 or Exchange V2 queries
+
+The Injective Python SDK provides two different clients for interacting with the exchange:
+
+1. **Exchange V1 Client** (`async_client` module):
+   - Use this client if you need to interact with the original Injective Exchange API
+   - Import using: `from injective.async_client import AsyncClient`
+   - Suitable for applications that need to maintain compatibility with the original exchange interface
+   - Example:
+   ```python
+   from injective.async_client import AsyncClient
+   from injective.network import Network
+
+   async def main():
+       # Initialize client with mainnet
+       client = AsyncClient(network=Network.mainnet())
+       # Or use testnet
+       # client = AsyncClient(network=Network.testnet())
+       # Use V1 exchange queries here
+   ```
+
+2. **Exchange V2 Client** (`async_client_v2` module):
+   - Use this client for the latest exchange features and improvements
+   - Import using: `from injective.async_client_v2 import AsyncClient`
+   - Recommended for new applications and when you need access to the latest exchange features
+   - Example:
+   ```python
+   from injective.async_client_v2 import AsyncClient
+   from injective.network import Network
+
+   async def main():
+       # Initialize client with mainnet
+       client = AsyncClient(network=Network.mainnet())
+       # Or use testnet
+       # client = AsyncClient(network=Network.testnet())
+       # Use V2 exchange queries here
+   ```
+
+Both clients provide similar interfaces but with different underlying implementations. Choose V2 for new projects unless you have specific requirements for V1 compatibility.
+
+> **Market Format Differences**:
+> - V1 AsyncClient: Markets are initialized with values in chain format (raw blockchain values)
+> - V2 AsyncClient: Markets are initialized with values in human-readable format (converted to standard decimal numbers)
+>
+> **Exchange Endpoint Format Differences**:
+> - V1 Exchange endpoints: All values (amounts, prices, margins, notionals) are returned in chain format
+> - V2 Exchange endpoints:
+>   - Human-readable format for: amounts, prices, margins, and notionals
+>   - Chain format for: deposit-related information (to maintain consistency with the Bank module)
+>
+> **Important Note**: The ChainClient (V1) will not receive any new endpoints added to the Exchange module. If you need access to new exchange-related endpoints or features, you should migrate to the V2 client. The V2 client ensures you have access to all the latest exchange functionality and improvements.
+
+___
+
 ## License
 
 Copyright © 2021 - 2025 Injective Labs Inc. (https://injectivelabs.org/)

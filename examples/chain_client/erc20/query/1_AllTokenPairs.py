@@ -6,6 +6,7 @@ import dotenv
 
 from pyinjective import PrivateKey
 from pyinjective.async_client_v2 import AsyncClient
+from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import Network
 
 
@@ -25,7 +26,12 @@ async def main() -> None:
     address = pub_key.to_address()
     await client.fetch_account(address.to_acc_bech32())
 
-    pairs = await client.fetch_erc20_all_token_pairs()
+    pairs = await client.fetch_erc20_all_token_pairs(
+        pagination=PaginationOption(
+            skip=0,
+            limit=100,
+        ),
+    )
     print(json.dumps(pairs, indent=2))
 
 

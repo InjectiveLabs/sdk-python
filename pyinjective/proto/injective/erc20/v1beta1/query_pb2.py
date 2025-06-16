@@ -21,7 +21,7 @@ from pyinjective.proto.injective.erc20.v1beta1 import genesis_pb2 as injective_d
 from pyinjective.proto.injective.erc20.v1beta1 import erc20_pb2 as injective_dot_erc20_dot_v1beta1_dot_erc20__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n#injective/erc20/v1beta1/query.proto\x12\x17injective.erc20.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1cgoogle/api/annotations.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a*cosmos/base/query/v1beta1/pagination.proto\x1a$injective/erc20/v1beta1/params.proto\x1a%injective/erc20/v1beta1/genesis.proto\x1a#injective/erc20/v1beta1/erc20.proto\"\x14\n\x12QueryParamsRequest\"T\n\x13QueryParamsResponse\x12=\n\x06params\x18\x01 \x01(\x0b\x32\x1f.injective.erc20.v1beta1.ParamsB\x04\xc8\xde\x1f\x00R\x06params\"\x1b\n\x19QueryAllTokenPairsRequest\"a\n\x1aQueryAllTokenPairsResponse\x12\x43\n\x0btoken_pairs\x18\x01 \x03(\x0b\x32\".injective.erc20.v1beta1.TokenPairR\ntokenPairs\"=\n\x1cQueryTokenPairByDenomRequest\x12\x1d\n\nbank_denom\x18\x01 \x01(\tR\tbankDenom\"b\n\x1dQueryTokenPairByDenomResponse\x12\x41\n\ntoken_pair\x18\x01 \x01(\x0b\x32\".injective.erc20.v1beta1.TokenPairR\ttokenPair\"J\n#QueryTokenPairByERC20AddressRequest\x12#\n\rerc20_address\x18\x01 \x01(\tR\x0c\x65rc20Address\"i\n$QueryTokenPairByERC20AddressResponse\x12\x41\n\ntoken_pair\x18\x01 \x01(\x0b\x32\".injective.erc20.v1beta1.TokenPairR\ttokenPair2\xd4\x05\n\x05Query\x12\x8c\x01\n\x06Params\x12+.injective.erc20.v1beta1.QueryParamsRequest\x1a,.injective.erc20.v1beta1.QueryParamsResponse\"\'\x82\xd3\xe4\x93\x02!\x12\x1f/injective/erc20/v1beta1/params\x12\xaa\x01\n\rAllTokenPairs\x12\x32.injective.erc20.v1beta1.QueryAllTokenPairsRequest\x1a\x33.injective.erc20.v1beta1.QueryAllTokenPairsResponse\"0\x82\xd3\xe4\x93\x02*\x12(/injective/erc20/v1beta1/all_token_pairs\x12\xb7\x01\n\x10TokenPairByDenom\x12\x35.injective.erc20.v1beta1.QueryTokenPairByDenomRequest\x1a\x36.injective.erc20.v1beta1.QueryTokenPairByDenomResponse\"4\x82\xd3\xe4\x93\x02.\x12,/injective/erc20/v1beta1/token_pair_by_denom\x12\xd4\x01\n\x17TokenPairByERC20Address\x12<.injective.erc20.v1beta1.QueryTokenPairByERC20AddressRequest\x1a=.injective.erc20.v1beta1.QueryTokenPairByERC20AddressResponse\"<\x82\xd3\xe4\x93\x02\x36\x12\x34/injective/erc20/v1beta1/token_pair_by_erc20_addressB\xf4\x01\n\x1b\x63om.injective.erc20.v1beta1B\nQueryProtoP\x01ZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/erc20/types\xa2\x02\x03IEX\xaa\x02\x17Injective.Erc20.V1beta1\xca\x02\x17Injective\\Erc20\\V1beta1\xe2\x02#Injective\\Erc20\\V1beta1\\GPBMetadata\xea\x02\x19Injective::Erc20::V1beta1b\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n#injective/erc20/v1beta1/query.proto\x12\x17injective.erc20.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1cgoogle/api/annotations.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a*cosmos/base/query/v1beta1/pagination.proto\x1a$injective/erc20/v1beta1/params.proto\x1a%injective/erc20/v1beta1/genesis.proto\x1a#injective/erc20/v1beta1/erc20.proto\"\x14\n\x12QueryParamsRequest\"T\n\x13QueryParamsResponse\x12=\n\x06params\x18\x01 \x01(\x0b\x32\x1f.injective.erc20.v1beta1.ParamsB\x04\xc8\xde\x1f\x00R\x06params\"c\n\x19QueryAllTokenPairsRequest\x12\x46\n\npagination\x18\x01 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequestR\npagination\"\xaa\x01\n\x1aQueryAllTokenPairsResponse\x12\x43\n\x0btoken_pairs\x18\x01 \x03(\x0b\x32\".injective.erc20.v1beta1.TokenPairR\ntokenPairs\x12G\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponseR\npagination\"=\n\x1cQueryTokenPairByDenomRequest\x12\x1d\n\nbank_denom\x18\x01 \x01(\tR\tbankDenom\"b\n\x1dQueryTokenPairByDenomResponse\x12\x41\n\ntoken_pair\x18\x01 \x01(\x0b\x32\".injective.erc20.v1beta1.TokenPairR\ttokenPair\"J\n#QueryTokenPairByERC20AddressRequest\x12#\n\rerc20_address\x18\x01 \x01(\tR\x0c\x65rc20Address\"i\n$QueryTokenPairByERC20AddressResponse\x12\x41\n\ntoken_pair\x18\x01 \x01(\x0b\x32\".injective.erc20.v1beta1.TokenPairR\ttokenPair2\xd4\x05\n\x05Query\x12\x8c\x01\n\x06Params\x12+.injective.erc20.v1beta1.QueryParamsRequest\x1a,.injective.erc20.v1beta1.QueryParamsResponse\"\'\x82\xd3\xe4\x93\x02!\x12\x1f/injective/erc20/v1beta1/params\x12\xaa\x01\n\rAllTokenPairs\x12\x32.injective.erc20.v1beta1.QueryAllTokenPairsRequest\x1a\x33.injective.erc20.v1beta1.QueryAllTokenPairsResponse\"0\x82\xd3\xe4\x93\x02*\x12(/injective/erc20/v1beta1/all_token_pairs\x12\xb7\x01\n\x10TokenPairByDenom\x12\x35.injective.erc20.v1beta1.QueryTokenPairByDenomRequest\x1a\x36.injective.erc20.v1beta1.QueryTokenPairByDenomResponse\"4\x82\xd3\xe4\x93\x02.\x12,/injective/erc20/v1beta1/token_pair_by_denom\x12\xd4\x01\n\x17TokenPairByERC20Address\x12<.injective.erc20.v1beta1.QueryTokenPairByERC20AddressRequest\x1a=.injective.erc20.v1beta1.QueryTokenPairByERC20AddressResponse\"<\x82\xd3\xe4\x93\x02\x36\x12\x34/injective/erc20/v1beta1/token_pair_by_erc20_addressB\xf4\x01\n\x1b\x63om.injective.erc20.v1beta1B\nQueryProtoP\x01ZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/erc20/types\xa2\x02\x03IEX\xaa\x02\x17Injective.Erc20.V1beta1\xca\x02\x17Injective\\Erc20\\V1beta1\xe2\x02#Injective\\Erc20\\V1beta1\\GPBMetadata\xea\x02\x19Injective::Erc20::V1beta1b\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -44,17 +44,17 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_QUERYPARAMSRESPONSE']._serialized_start=328
   _globals['_QUERYPARAMSRESPONSE']._serialized_end=412
   _globals['_QUERYALLTOKENPAIRSREQUEST']._serialized_start=414
-  _globals['_QUERYALLTOKENPAIRSREQUEST']._serialized_end=441
-  _globals['_QUERYALLTOKENPAIRSRESPONSE']._serialized_start=443
-  _globals['_QUERYALLTOKENPAIRSRESPONSE']._serialized_end=540
-  _globals['_QUERYTOKENPAIRBYDENOMREQUEST']._serialized_start=542
-  _globals['_QUERYTOKENPAIRBYDENOMREQUEST']._serialized_end=603
-  _globals['_QUERYTOKENPAIRBYDENOMRESPONSE']._serialized_start=605
-  _globals['_QUERYTOKENPAIRBYDENOMRESPONSE']._serialized_end=703
-  _globals['_QUERYTOKENPAIRBYERC20ADDRESSREQUEST']._serialized_start=705
-  _globals['_QUERYTOKENPAIRBYERC20ADDRESSREQUEST']._serialized_end=779
-  _globals['_QUERYTOKENPAIRBYERC20ADDRESSRESPONSE']._serialized_start=781
-  _globals['_QUERYTOKENPAIRBYERC20ADDRESSRESPONSE']._serialized_end=886
-  _globals['_QUERY']._serialized_start=889
-  _globals['_QUERY']._serialized_end=1613
+  _globals['_QUERYALLTOKENPAIRSREQUEST']._serialized_end=513
+  _globals['_QUERYALLTOKENPAIRSRESPONSE']._serialized_start=516
+  _globals['_QUERYALLTOKENPAIRSRESPONSE']._serialized_end=686
+  _globals['_QUERYTOKENPAIRBYDENOMREQUEST']._serialized_start=688
+  _globals['_QUERYTOKENPAIRBYDENOMREQUEST']._serialized_end=749
+  _globals['_QUERYTOKENPAIRBYDENOMRESPONSE']._serialized_start=751
+  _globals['_QUERYTOKENPAIRBYDENOMRESPONSE']._serialized_end=849
+  _globals['_QUERYTOKENPAIRBYERC20ADDRESSREQUEST']._serialized_start=851
+  _globals['_QUERYTOKENPAIRBYERC20ADDRESSREQUEST']._serialized_end=925
+  _globals['_QUERYTOKENPAIRBYERC20ADDRESSRESPONSE']._serialized_start=927
+  _globals['_QUERYTOKENPAIRBYERC20ADDRESSRESPONSE']._serialized_end=1032
+  _globals['_QUERY']._serialized_start=1035
+  _globals['_QUERY']._serialized_end=1759
 # @@protoc_insertion_point(module_scope)

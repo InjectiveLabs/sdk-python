@@ -73,6 +73,7 @@ class IndexerGrpcExplorerApi:
         address: str,
         height: Optional[int] = None,
         token: Optional[str] = None,
+        status: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
         pagination = pagination or PaginationOption()
@@ -85,7 +86,9 @@ class IndexerGrpcExplorerApi:
         if pagination is not None:
             setattr(request, "from", pagination.start_time)
             request.to = pagination.end_time
-            request.limit = pagination.limit
+            request.per_page = pagination.limit
+        if status is not None:
+            request.status = status
 
         response = await self._execute_call(call=self._stub.GetContractTxsV2, request=request)
 
@@ -265,6 +268,8 @@ class IndexerGrpcExplorerApi:
         code_id: Optional[int] = None,
         assets_only: Optional[bool] = None,
         label: Optional[str] = None,
+        token: Optional[str] = None,
+        lookup: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
         pagination = pagination or PaginationOption()
@@ -276,6 +281,8 @@ class IndexerGrpcExplorerApi:
             assets_only=assets_only,
             skip=pagination.skip,
             label=label,
+            token=token,
+            lookup=lookup,
         )
 
         response = await self._execute_call(call=self._stub.GetWasmContracts, request=request)

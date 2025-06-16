@@ -989,12 +989,14 @@ class IndexerClient:
         address: str,
         height: Optional[int] = None,
         token: Optional[str] = None,
+        status: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
         return await self.explorer_api.fetch_contract_txs_v2(
             address=address,
             height=height,
             token=token,
+            status=status,
             pagination=pagination,
         )
 
@@ -1103,12 +1105,16 @@ class IndexerClient:
         code_id: Optional[int] = None,
         assets_only: Optional[bool] = None,
         label: Optional[str] = None,
+        token: Optional[str] = None,
+        lookup: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
         return await self.explorer_api.fetch_wasm_contracts(
             code_id=code_id,
             assets_only=assets_only,
             label=label,
+            token=token,
+            lookup=lookup,
             pagination=pagination,
         )
 

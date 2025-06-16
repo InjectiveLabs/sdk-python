@@ -1187,8 +1187,8 @@ class AsyncClient:
 
     # -------------------------
     # region Chain ERC20 module
-    async def fetch_erc20_all_token_pairs(self) -> Dict[str, Any]:
-        return await self.chain_erc20_api.fetch_all_token_pairs()
+    async def fetch_erc20_all_token_pairs(self, pagination: Optional[PaginationOption] = None) -> Dict[str, Any]:
+        return await self.chain_erc20_api.fetch_all_token_pairs(pagination=pagination)
 
     async def fetch_erc20_token_pair_by_denom(self, bank_denom: str) -> Dict[str, Any]:
         return await self.chain_erc20_api.fetch_token_pair_by_denom(bank_denom=bank_denom)
