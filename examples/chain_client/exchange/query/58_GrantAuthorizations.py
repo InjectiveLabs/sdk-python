@@ -1,4 +1,5 @@
 import asyncio
+import json
 import os
 
 import dotenv
@@ -25,7 +26,7 @@ async def main() -> None:
     active_grant = await client.fetch_grant_authorizations(
         granter=address.to_acc_bech32(),
     )
-    print(active_grant)
+    print(json.dumps(active_grant, indent=4))
 
 
 if __name__ == "__main__":

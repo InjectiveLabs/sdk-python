@@ -1,4 +1,5 @@
 import asyncio
+import json
 
 from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.client.model.pagination import PaginationOption
@@ -11,7 +12,7 @@ async def main() -> None:
     denoms = await client.fetch_denoms_metadata(
         pagination=PaginationOption(limit=10),
     )
-    print(denoms)
+    print(json.dumps(denoms, indent=2))
 
 
 if __name__ == "__main__":

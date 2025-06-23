@@ -1,4 +1,5 @@
 import asyncio
+import json
 
 from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.core.network import Network
@@ -23,7 +24,7 @@ async def main() -> None:
         include_raw_history=include_raw_history,
         include_metadata=include_metadata,
     )
-    print(volatility)
+    print(json.dumps(volatility, indent=4))
 
 
 if __name__ == "__main__":

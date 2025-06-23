@@ -1,4 +1,5 @@
 import asyncio
+import json
 
 from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.core.network import Network
@@ -9,7 +10,7 @@ async def main() -> None:
     client = AsyncClient(network)
     validator_address = "injvaloper1jue5dpr9lerjn6wlwtrywxrsenrf28ru89z99z"
     commission = await client.fetch_validator_commission(validator_address=validator_address)
-    print(commission)
+    print(json.dumps(commission, indent=2))
 
 
 if __name__ == "__main__":
