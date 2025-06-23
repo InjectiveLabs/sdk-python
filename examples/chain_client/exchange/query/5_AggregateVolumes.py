@@ -1,4 +1,5 @@
 import asyncio
+import json
 import os
 
 import dotenv
@@ -27,7 +28,7 @@ async def main() -> None:
         accounts=[address.to_acc_bech32()],
         market_ids=["0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"],
     )
-    print(volume)
+    print(json.dumps(volume, indent=2))
 
 
 if __name__ == "__main__":

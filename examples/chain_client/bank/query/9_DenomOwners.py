@@ -1,4 +1,5 @@
 import asyncio
+import json
 
 from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.client.model.pagination import PaginationOption
@@ -13,7 +14,7 @@ async def main() -> None:
         denom=denom,
         pagination=PaginationOption(limit=10),
     )
-    print(owners)
+    print(json.dumps(owners, indent=2))
 
 
 if __name__ == "__main__":

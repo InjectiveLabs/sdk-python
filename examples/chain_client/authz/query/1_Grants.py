@@ -1,4 +1,5 @@
 import asyncio
+import json
 import os
 
 import dotenv
@@ -16,7 +17,7 @@ async def main() -> None:
     client = AsyncClient(network)
     msg_type_url = "/injective.exchange.v2.MsgCreateDerivativeLimitOrder"
     authorizations = await client.fetch_grants(granter=granter, grantee=grantee, msg_type_url=msg_type_url)
-    print(authorizations)
+    print(json.dumps(authorizations, indent=2))
 
 
 if __name__ == "__main__":

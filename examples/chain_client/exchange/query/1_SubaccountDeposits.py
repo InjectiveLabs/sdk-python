@@ -1,4 +1,5 @@
 import asyncio
+import json
 import os
 
 import dotenv
@@ -27,7 +28,7 @@ async def main() -> None:
     subaccount_id = address.get_subaccount_id(index=0)
 
     deposits = await client.fetch_subaccount_deposits(subaccount_id=subaccount_id)
-    print(deposits)
+    print(json.dumps(deposits, indent=2))
 
 
 if __name__ == "__main__":
