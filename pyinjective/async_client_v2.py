@@ -734,6 +734,9 @@ class AsyncClient:
     async def fetch_chain_positions(self) -> Dict[str, Any]:
         return await self.chain_exchange_v2_api.fetch_positions()
 
+    async def fetch_chain_positions_in_market(self, market_id: str) -> Dict[str, Any]:
+        return await self.chain_exchange_v2_api.fetch_positions_in_market(market_id=market_id)
+
     async def fetch_chain_subaccount_positions(self, subaccount_id: str) -> Dict[str, Any]:
         return await self.chain_exchange_v2_api.fetch_subaccount_positions(subaccount_id=subaccount_id)
 
