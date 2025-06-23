@@ -378,6 +378,12 @@ class ChainGrpcExchangeV2Api:
 
         return response
 
+    async def fetch_positions_in_market(self, market_id: str) -> Dict[str, Any]:
+        request = exchange_query_pb.QueryPositionsInMarketRequest(market_id=market_id)
+        response = await self._execute_call(call=self._stub.PositionsInMarket, request=request)
+
+        return response
+
     async def fetch_subaccount_positions(self, subaccount_id: str) -> Dict[str, Any]:
         request = exchange_query_pb.QuerySubaccountPositionsRequest(subaccount_id=subaccount_id)
         response = await self._execute_call(call=self._stub.SubaccountPositions, request=request)

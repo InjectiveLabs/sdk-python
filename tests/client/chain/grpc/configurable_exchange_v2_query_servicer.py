@@ -41,6 +41,7 @@ class ConfigurableExchangeV2QueryServicer(exchange_query_grpc.QueryServicer):
         self.derivative_market_address_responses = deque()
         self.subaccount_trade_nonce_responses = deque()
         self.positions_responses = deque()
+        self.positions_in_market_responses = deque()
         self.subaccount_positions_responses = deque()
         self.subaccount_position_in_market_responses = deque()
         self.subaccount_effective_position_in_market_responses = deque()
@@ -220,6 +221,11 @@ class ConfigurableExchangeV2QueryServicer(exchange_query_grpc.QueryServicer):
 
     async def Positions(self, request: exchange_query_pb.QueryPositionsRequest, context=None, metadata=None):
         return self.positions_responses.pop()
+
+    async def PositionsInMarket(
+        self, request: exchange_query_pb.QueryPositionsInMarketRequest, context=None, metadata=None
+    ):
+        return self.positions_in_market_responses.pop()
 
     async def SubaccountPositions(
         self, request: exchange_query_pb.QuerySubaccountPositionsRequest, context=None, metadata=None

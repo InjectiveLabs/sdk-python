@@ -23,7 +23,7 @@ def exchange_servicer():
     return ConfigurableExchangeV2QueryServicer()
 
 
-class TestChainGrpcBankApi:
+class TestChainGrpcExchangeV2Api:
     @pytest.mark.asyncio
     async def test_fetch_exchange_params(
         self,
@@ -1536,6 +1536,50 @@ class TestChainGrpcBankApi:
         api = self._api_instance(servicer=exchange_servicer)
 
         positions = await api.fetch_positions()
+        expected_positions = {
+            "state": [
+                {
+                    "subaccountId": derivative_position.subaccount_id,
+                    "marketId": derivative_position.market_id,
+                    "position": {
+                        "isLong": position.isLong,
+                        "quantity": position.quantity,
+                        "entryPrice": position.entry_price,
+                        "margin": position.margin,
+                        "cumulativeFundingEntry": position.cumulative_funding_entry,
+                    },
+                },
+            ],
+        }
+
+        assert positions == expected_positions
+
+    @pytest.mark.asyncio
+    async def test_fetch_positions_in_market(
+        self,
+        exchange_servicer,
+    ):
+        position = exchange_pb.Position(
+            isLong=True,
+            quantity="1000000000000000",
+            entry_price="2000000000000000000",
+            margin="2000000000000000000000000000000000",
+            cumulative_funding_entry="4000000",
+        )
+        derivative_position = exchange_pb.DerivativePosition(
+            subaccount_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20000000000000000000000000",
+            market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+            position=position,
+        )
+        exchange_servicer.positions_in_market_responses.append(
+            exchange_query_pb.QueryPositionsInMarketResponse(state=[derivative_position])
+        )
+
+        api = self._api_instance(servicer=exchange_servicer)
+
+        positions = await api.fetch_positions_in_market(
+            market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+        )
         expected_positions = {
             "state": [
                 {
