@@ -22,17 +22,17 @@ class SpotMarket:
     min_notional: Decimal
 
     def quantity_to_chain_format(self, human_readable_value: Decimal) -> Decimal:
-        quantized_value = human_readable_value // self.min_quantity_tick_size * self.min_quantity_tick_size
-        chain_formatted_value = quantized_value * Decimal(f"1e{self.base_token.decimals}")
-        extended_chain_formatted_value = chain_formatted_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        chain_formatted_value = human_readable_value * Decimal(f"1e{self.base_token.decimals}")
+        quantized_value = chain_formatted_value // self.min_quantity_tick_size * self.min_quantity_tick_size
+        extended_chain_formatted_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         return extended_chain_formatted_value
 
     def price_to_chain_format(self, human_readable_value: Decimal) -> Decimal:
-        quantized_value = (human_readable_value // self.min_price_tick_size) * self.min_price_tick_size
         decimals = self.quote_token.decimals - self.base_token.decimals
-        chain_formatted_value = quantized_value * Decimal(f"1e{decimals}")
-        extended_chain_formatted_value = chain_formatted_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        chain_formatted_value = human_readable_value * Decimal(f"1e{decimals}")
+        quantized_value = (chain_formatted_value // self.min_price_tick_size) * self.min_price_tick_size
+        extended_chain_formatted_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         return extended_chain_formatted_value
 
@@ -88,17 +88,17 @@ class DerivativeMarket:
 
     def quantity_to_chain_format(self, human_readable_value: Decimal) -> Decimal:
         # Derivative markets do not have a base market to provide the number of decimals
-        quantized_value = human_readable_value // self.min_quantity_tick_size * self.min_quantity_tick_size
-        chain_formatted_value = quantized_value
-        extended_chain_formatted_value = chain_formatted_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        chain_formatted_value = human_readable_value
+        quantized_value = chain_formatted_value // self.min_quantity_tick_size * self.min_quantity_tick_size
+        extended_chain_formatted_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         return extended_chain_formatted_value
 
     def price_to_chain_format(self, human_readable_value: Decimal) -> Decimal:
-        quantized_value = (human_readable_value // self.min_price_tick_size) * self.min_price_tick_size
         decimals = self.quote_token.decimals
-        chain_formatted_value = quantized_value * Decimal(f"1e{decimals}")
-        extended_chain_formatted_value = chain_formatted_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        chain_formatted_value = human_readable_value * Decimal(f"1e{decimals}")
+        quantized_value = (chain_formatted_value // self.min_price_tick_size) * self.min_price_tick_size
+        extended_chain_formatted_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         return extended_chain_formatted_value
 
@@ -108,12 +108,15 @@ class DerivativeMarket:
     def calculate_margin_in_chain_format(
         self, human_readable_quantity: Decimal, human_readable_price: Decimal, leverage: Decimal
     ) -> Decimal:
-        margin = (human_readable_price * human_readable_quantity) / leverage
+        chain_formatted_quantity = human_readable_quantity
+        chain_formatted_price = human_readable_price * Decimal(f"1e{self.quote_token.decimals}")
+        margin = (chain_formatted_price * chain_formatted_quantity) / leverage
         # We are using the min_quantity_tick_size to quantize the margin because that is the way margin is validated
         # in the chain (it might be changed to a min_notional in the future)
         quantized_margin = (margin // self.min_quantity_tick_size) * self.min_quantity_tick_size
+        extended_chain_formatted_margin = quantized_margin * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
-        return self.notional_to_chain_format(human_readable_value=quantized_margin)
+        return extended_chain_formatted_margin
 
     def notional_to_chain_format(self, human_readable_value: Decimal) -> Decimal:
         decimals = self.quote_token.decimals
@@ -177,18 +180,18 @@ class BinaryOptionMarket:
         min_quantity_tick_size = (
             self.min_quantity_tick_size if special_denom is None else special_denom.min_quantity_tick_size
         )
-        quantized_value = human_readable_value // min_quantity_tick_size * min_quantity_tick_size
-        chain_formatted_value = quantized_value * Decimal(f"1e{decimals}")
-        extended_chain_formatted_value = chain_formatted_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        chain_formatted_value = human_readable_value * Decimal(f"1e{decimals}")
+        quantized_value = chain_formatted_value // min_quantity_tick_size * min_quantity_tick_size
+        extended_chain_formatted_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         return extended_chain_formatted_value
 
     def price_to_chain_format(self, human_readable_value: Decimal, special_denom: Optional[Denom] = None) -> Decimal:
         decimals = self.quote_token.decimals if special_denom is None else special_denom.quote
         min_price_tick_size = self.min_price_tick_size if special_denom is None else special_denom.min_price_tick_size
-        quantized_value = (human_readable_value // min_price_tick_size) * min_price_tick_size
-        chain_formatted_value = quantized_value * Decimal(f"1e{decimals}")
-        extended_chain_formatted_value = chain_formatted_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        chain_formatted_value = human_readable_value * Decimal(f"1e{decimals}")
+        quantized_value = (chain_formatted_value // min_price_tick_size) * min_price_tick_size
+        extended_chain_formatted_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         return extended_chain_formatted_value
 
@@ -197,9 +200,9 @@ class BinaryOptionMarket:
         min_quantity_tick_size = (
             self.min_quantity_tick_size if special_denom is None else special_denom.min_quantity_tick_size
         )
-        quantized_value = (human_readable_value // min_quantity_tick_size) * min_quantity_tick_size
-        chain_formatted_value = quantized_value * Decimal(f"1e{decimals}")
-        extended_chain_formatted_value = chain_formatted_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        chain_formatted_value = human_readable_value * Decimal(f"1e{decimals}")
+        quantized_value = (chain_formatted_value // min_quantity_tick_size) * min_quantity_tick_size
+        extended_chain_formatted_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         return extended_chain_formatted_value
 
@@ -210,17 +213,19 @@ class BinaryOptionMarket:
         is_buy: bool,
         special_denom: Optional[Denom] = None,
     ) -> Decimal:
-        quote_decimals = self.quote_token.decimals if special_denom is None else special_denom.quote
+        quantity_decimals = 0 if special_denom is None else special_denom.base
+        price_decimals = self.quote_token.decimals if special_denom is None else special_denom.quote
         min_quantity_tick_size = (
             self.min_quantity_tick_size if special_denom is None else special_denom.min_quantity_tick_size
         )
         price = human_readable_price if is_buy else 1 - human_readable_price
-        margin = price * human_readable_quantity
+        chain_formatted_quantity = human_readable_quantity * Decimal(f"1e{quantity_decimals}")
+        chain_formatted_price = price * Decimal(f"1e{price_decimals}")
+        margin = chain_formatted_price * chain_formatted_quantity
         # We are using the min_quantity_tick_size to quantize the margin because that is the way margin is validated
         # in the chain (it might be changed to a min_notional in the future)
         quantized_margin = (margin // min_quantity_tick_size) * min_quantity_tick_size
-        chain_formatted_margin = quantized_margin * Decimal(f"1e{quote_decimals}")
-        extended_chain_formatted_margin = chain_formatted_margin * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        extended_chain_formatted_margin = quantized_margin * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         return extended_chain_formatted_margin
 

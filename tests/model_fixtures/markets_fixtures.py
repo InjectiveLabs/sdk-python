@@ -3,52 +3,9 @@ from decimal import Decimal
 import pytest
 
 from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
-from pyinjective.core.token import Token
-
-
-@pytest.fixture
-def inj_token():
-    token = Token(
-        name="Injective Protocol",
-        symbol="INJ",
-        denom="inj",
-        address="0xe28b3B32B6c345A34Ff64674606124Dd5Aceca30",
-        decimals=18,
-        logo="https://static.alchemyapi.io/images/assets/7226.png",
-        updated=1681739137644,
-    )
-
-    return token
-
-
-@pytest.fixture
-def usdt_token():
-    token = Token(
-        name="USDT",
-        symbol="USDT",
-        denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
-        address="0x0000000000000000000000000000000000000000",
-        decimals=6,
-        logo="https://static.alchemyapi.io/images/assets/825.png",
-        updated=1681739137645,
-    )
-
-    return token
-
-
-@pytest.fixture
-def usdt_perp_token():
-    token = Token(
-        name="USDT PERP",
-        symbol="USDT",
-        denom="peggy0xdAC17F958D2ee523a2206206994597C13D831ec7",
-        address="0xdAC17F958D2ee523a2206206994597C13D831ec7",
-        decimals=6,
-        logo="https://static.alchemyapi.io/images/assets/825.png",
-        updated=1681739137645,
-    )
-
-    return token
+from tests.model_fixtures.markets_v2_fixtures import inj_token  # noqa: F401
+from tests.model_fixtures.markets_v2_fixtures import usdt_perp_token  # noqa: F401
+from tests.model_fixtures.markets_v2_fixtures import usdt_token  # noqa: F401; noqa: F401
 
 
 @pytest.fixture
@@ -62,9 +19,9 @@ def inj_usdt_spot_market(inj_token, usdt_token):
         maker_fee_rate=Decimal("-0.0001"),
         taker_fee_rate=Decimal("0.001"),
         service_provider_fee=Decimal("0.4"),
-        min_price_tick_size=Decimal("0.01"),
-        min_quantity_tick_size=Decimal("0.001"),
-        min_notional=Decimal("1"),
+        min_price_tick_size=Decimal("0.000000000000001"),
+        min_quantity_tick_size=Decimal("1000000000000000"),
+        min_notional=Decimal("0.000000000001"),
     )
 
     return market
@@ -86,9 +43,9 @@ def btc_usdt_perp_market(usdt_perp_token):
         maker_fee_rate=Decimal("-0.0001"),
         taker_fee_rate=Decimal("0.001"),
         service_provider_fee=Decimal("0.4"),
-        min_price_tick_size=Decimal("0.01"),
+        min_price_tick_size=Decimal("1000000"),
         min_quantity_tick_size=Decimal("0.0001"),
-        min_notional=Decimal("1"),
+        min_notional=Decimal("0.000001"),
     )
 
     return market
@@ -110,7 +67,7 @@ def first_match_bet_market(usdt_token):
         maker_fee_rate=Decimal("0"),
         taker_fee_rate=Decimal("0"),
         service_provider_fee=Decimal("0.4"),
-        min_price_tick_size=Decimal("0.01"),
+        min_price_tick_size=Decimal("10000"),
         min_quantity_tick_size=Decimal("1"),
         min_notional=Decimal("0.000001"),
     )

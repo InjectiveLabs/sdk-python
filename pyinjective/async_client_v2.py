@@ -24,7 +24,7 @@ from pyinjective.core.ibc.channel.grpc.ibc_channel_grpc_api import IBCChannelGrp
 from pyinjective.core.ibc.client.grpc.ibc_client_grpc_api import IBCClientGrpcApi
 from pyinjective.core.ibc.connection.grpc.ibc_connection_grpc_api import IBCConnectionGrpcApi
 from pyinjective.core.ibc.transfer.grpc.ibc_transfer_grpc_api import IBCTransferGrpcApi
-from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
+from pyinjective.core.market_v2 import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from pyinjective.core.network import Network
 from pyinjective.core.tendermint.grpc.tendermint_grpc_api import TendermintGrpcApi
 from pyinjective.core.token import Token

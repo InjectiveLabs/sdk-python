@@ -4,7 +4,7 @@ import pytest
 
 from pyinjective.composer import Composer as ComposerV1
 from pyinjective.core.network import Network
-from tests.model_fixtures.chain_formatted_markets_fixtures import (  # noqa: F401
+from tests.model_fixtures.markets_fixtures import (  # noqa: F401
     btc_usdt_perp_market,
     first_match_bet_market,
     inj_token,

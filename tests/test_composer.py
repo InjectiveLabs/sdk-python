@@ -8,7 +8,7 @@ from pyinjective.composer import Composer
 from pyinjective.constant import ADDITIONAL_CHAIN_FORMAT_DECIMALS, INJ_DECIMALS
 from pyinjective.core.network import Network
 from pyinjective.proto.injective.permissions.v1beta1 import permissions_pb2 as permissions_pb
-from tests.model_fixtures.chain_formatted_markets_fixtures import (  # noqa: F401
+from tests.model_fixtures.markets_fixtures import (  # noqa: F401
     btc_usdt_perp_market,
     first_match_bet_market,
     inj_token,

@@ -32,7 +32,7 @@ from pyinjective.core.network import Network
 from pyinjective.proto.cosmos.gov.v1beta1 import tx_pb2 as gov_tx_pb
 from pyinjective.proto.cosmwasm.wasm.v1 import tx_pb2 as wasm_tx_pb
 from pyinjective.proto.injective.exchange.v1beta1 import tx_pb2 as injective_exchange_tx_pb
-from tests.model_fixtures.markets_fixtures import (  # noqa: F401
+from tests.model_fixtures.markets_v2_fixtures import (  # noqa: F401
     btc_usdt_perp_market,
     first_match_bet_market,
     inj_token,
