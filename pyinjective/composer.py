@@ -8,7 +8,7 @@ from warnings import warn
 from google.protobuf import any_pb2, json_format, timestamp_pb2
 
 from pyinjective.constant import ADDITIONAL_CHAIN_FORMAT_DECIMALS, INJ_DECIMALS, INJ_DENOM
-from pyinjective.core.chain_formatted_market import BinaryOptionMarket, DerivativeMarket, SpotMarket
+from pyinjective.core.market import BinaryOptionMarket, DerivativeMarket, SpotMarket
 from pyinjective.core.token import Token
 from pyinjective.ofac import OfacChecker
 from pyinjective.proto.cosmos.authz.v1beta1 import authz_pb2 as cosmos_authz_pb, tx_pb2 as cosmos_authz_tx_pb
