@@ -47,6 +47,7 @@ class TestTokensFileLoader:
             assert token.address == token_info["address"]
             assert token.decimals == token_info["decimals"]
             assert token.logo == token_info["logo"]
+            assert token.unique_symbol == ""
 
     @pytest.mark.asyncio
     async def test_load_tokens_from_url(self, aioresponses):
@@ -96,6 +97,7 @@ class TestTokensFileLoader:
             assert token.address == token_info["address"]
             assert token.decimals == token_info["decimals"]
             assert token.logo == token_info["logo"]
+            assert token.unique_symbol == ""
 
     @pytest.mark.asyncio
     async def test_load_tokens_from_url_returns_nothing_when_request_fails(self, aioresponses):

@@ -1284,6 +1284,7 @@ class AsyncClient:
                     decimals=decimals,
                     logo=token_metadata["uri"],
                     updated=-1,
+                    unique_symbol=unique_symbol,
                 )
 
                 self._tokens_by_denom[denom] = token
@@ -1422,6 +1423,7 @@ class AsyncClient:
                 decimals=token_meta["decimals"],
                 logo=token_meta["logo"],
                 updated=int(token_meta["updatedAt"]),
+                unique_symbol=unique_symbol,
             )
 
             tokens_by_denom[denom] = token
@@ -1447,8 +1449,19 @@ class AsyncClient:
                         unique_symbol = symbol_candidate
                         break
 
-                tokens_by_denom[token.denom] = token
-                tokens_by_symbol[unique_symbol] = token
+                new_token = Token(
+                    name=token.name,
+                    symbol=token.symbol,
+                    denom=token.denom,
+                    address=token.address,
+                    decimals=token.decimals,
+                    logo=token.logo,
+                    updated=token.updated,
+                    unique_symbol=unique_symbol,
+                )
+
+                tokens_by_denom[new_token.denom] = new_token
+                tokens_by_symbol[unique_symbol] = new_token
 
         return tokens_by_symbol, tokens_by_denom
 

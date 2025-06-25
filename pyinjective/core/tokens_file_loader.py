@@ -19,6 +19,7 @@ class TokensFileLoader:
                 decimals=token_info["decimals"],
                 logo=token_info["logo"],
                 updated=-1,
+                unique_symbol="",
             )
 
             loaded_tokens.append(token)

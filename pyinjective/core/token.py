@@ -13,6 +13,7 @@ class Token:
     decimals: int
     logo: str
     updated: int
+    unique_symbol: str
 
     @staticmethod
     def convert_value_to_extended_decimal_format(value: Decimal) -> Decimal:
