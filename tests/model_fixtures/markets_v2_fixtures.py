@@ -16,6 +16,7 @@ def inj_token():
         decimals=18,
         logo="https://static.alchemyapi.io/images/assets/7226.png",
         updated=1681739137644,
+        unique_symbol="INJ",
     )
 
     return token
@@ -31,6 +32,7 @@ def usdt_token():
         decimals=6,
         logo="https://static.alchemyapi.io/images/assets/825.png",
         updated=1681739137645,
+        unique_symbol="USDT",
     )
 
     return token
@@ -46,6 +48,7 @@ def usdt_perp_token():
         decimals=6,
         logo="https://static.alchemyapi.io/images/assets/825.png",
         updated=1681739137645,
+        unique_symbol="peggy0xdAC17F958D2ee523a2206206994597C13D831ec7",
     )
 
     return token
