@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "injective-py"
-version = "1.11.0-rc5"
+version = "1.11.0-rc6"
 description = "Injective Python SDK, with Exchange API Client"
 authors = ["Injective Labs <contact@injectivelabs.org>"]
 license = "Apache-2.0"
@@ -21,7 +21,7 @@ include = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 aiohttp = "^3.9.4" # Version dependency due to https://github.com/InjectiveLabs/sdk-python/security/dependabot/18
 bech32 = "*"
 bip32 = "*"

@@ -25,3 +25,6 @@ class Token:
 
     def chain_formatted_value(self, human_readable_value: Decimal) -> Decimal:
         return human_readable_value * Decimal(f"1e{self.decimals}")
+
+    def human_readable_value(self, chain_formatted_value: Decimal) -> Decimal:
+        return chain_formatted_value / Decimal(f"1e{self.decimals}")
