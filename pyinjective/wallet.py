@@ -232,6 +232,13 @@ class Address:
         """Create an address instance from a bech32-encoded consensus address"""
         return cls._from_bech32(bech, BECH32_ADDR_CONS_PREFIX)
 
+    @classmethod
+    def from_eth_address(cls, eth_address: str) -> "Address":
+        """Create an address instance from a hex-encoded Ethereum address"""
+        eth_address_without_prefix = eth_address[2:] if eth_address.startswith("0x") else eth_address
+        bytes_representation = bytes.fromhex(eth_address_without_prefix)
+        return cls(bytes_representation)
+
     def _to_bech32(self, prefix: str) -> str:
         five_bit_r = convertbits(self.addr, 8, 5)
         assert five_bit_r is not None, "Unsuccessful bech32.convertbits call"
