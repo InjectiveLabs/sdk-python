@@ -28,3 +28,19 @@ class TestPublicKey:
         expected_address = Address(hashed_value[12:])
 
         assert expected_address == address
+
+
+class TestAddress:
+    def test_from_acc_bech32(self):
+        address = Address.from_acc_bech32("inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r")
+        assert address.to_acc_bech32() == "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
+
+        eth_address = address.get_ethereum_address()
+        assert eth_address == "0xbdaedec95d563fb05240d6e01821008454c24c36"
+
+    def test_from_eth(self):
+        address = Address.from_eth_address("0xbdaedec95d563fb05240d6e01821008454c24c36")
+        assert address.to_acc_bech32() == "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
+
+        eth_address = address.get_ethereum_address()
+        assert eth_address == "0xbdaedec95d563fb05240d6e01821008454c24c36"
