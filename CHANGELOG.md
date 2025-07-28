@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased] - 9999-99-99
+## [1.11.0] - 2025-07-29
 ### Added
 - Added support for Exchange V2 proto queries and types
 - Added support for ERC20 proto queries and types
