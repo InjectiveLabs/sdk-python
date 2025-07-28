@@ -1,6 +1,7 @@
 import asyncio
+import json
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.core.network import Network
 
 
@@ -11,7 +12,7 @@ async def main() -> None:
     rewards = await client.fetch_delegation_total_rewards(
         delegator_address=delegator_address,
     )
-    print(rewards)
+    print(json.dumps(rewards, indent=2))
 
 
 if __name__ == "__main__":

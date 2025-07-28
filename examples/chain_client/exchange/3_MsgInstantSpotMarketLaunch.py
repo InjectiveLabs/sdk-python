@@ -5,7 +5,7 @@ from decimal import Decimal
 
 import dotenv
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.core.broadcaster import MsgBroadcasterWithPk
 from pyinjective.core.network import Network
 from pyinjective.wallet import PrivateKey
@@ -45,8 +45,8 @@ async def main() -> None:
     message = composer.msg_instant_spot_market_launch(
         sender=address.to_acc_bech32(),
         ticker="INJ/USDC",
-        base_denom="INJ",
-        quote_denom="USDC",
+        base_denom="inj",
+        quote_denom="factory/inj17vytdwqczqz72j65saukplrktd4gyfme5agf6c/usdc",
         min_price_tick_size=Decimal("0.001"),
         min_quantity_tick_size=Decimal("0.01"),
         min_notional=Decimal("1"),

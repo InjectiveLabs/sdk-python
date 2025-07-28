@@ -311,7 +311,15 @@ class Composer:
         return injective_exchange_pb.GrantAuthorization(grantee=grantee, amount=str(chain_formatted_amount))
 
     # region Auction module
-    def MsgBid(self, sender: str, bid_amount: float, round: float):
+    def MsgBid(self, sender: str, bid_amount: float, round: float) -> injective_auction_tx_pb.MsgBid:
+        """
+        This method is deprecated and will be removed soon. Please use `msg_bid` instead
+        """
+        warn("This method is deprecated. Use msg_bid instead", DeprecationWarning, stacklevel=2)
+
+        return self.msg_bid(sender=sender, bid_amount=bid_amount, round=round)
+
+    def msg_bid(self, sender: str, bid_amount: float, round: float) -> injective_auction_tx_pb.MsgBid:
         be_amount = Decimal(str(bid_amount)) * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         return injective_auction_tx_pb.MsgBid(
@@ -323,7 +331,17 @@ class Composer:
     # endregion
 
     # region Authz module
-    def MsgGrantGeneric(self, granter: str, grantee: str, msg_type: str, expire_in: int):
+    def MsgGrantGeneric(self, granter: str, grantee: str, msg_type: str, expire_in: int) -> cosmos_authz_tx_pb.MsgGrant:
+        """
+        This method is deprecated and will be removed soon. Please use `msg_grant_generic` instead
+        """
+        warn("This method is deprecated. Use msg_grant_generic instead", DeprecationWarning, stacklevel=2)
+
+        return self.msg_grant_generic(granter=granter, grantee=grantee, msg_type=msg_type, expire_in=expire_in)
+
+    def msg_grant_generic(
+        self, granter: str, grantee: str, msg_type: str, expire_in: int
+    ) -> cosmos_authz_tx_pb.MsgGrant:
         if self._ofac_checker.is_blacklisted(granter):
             raise Exception(f"Address {granter} is in the OFAC list")
         auth = cosmos_authz_pb.GenericAuthorization(msg=msg_type)
@@ -338,6 +356,14 @@ class Composer:
         return cosmos_authz_tx_pb.MsgGrant(granter=granter, grantee=grantee, grant=grant)
 
     def MsgExec(self, grantee: str, msgs: List):
+        """
+        This method is deprecated and will be removed soon. Please use `msg_exec` instead
+        """
+        warn("This method is deprecated. Use msg_exec instead", DeprecationWarning, stacklevel=2)
+
+        return self.msg_exec(grantee=grantee, msgs=msgs)
+
+    def msg_exec(self, grantee: str, msgs: List):
         any_msgs: List[any_pb2.Any] = []
         for msg in msgs:
             any_msg = any_pb2.Any()
@@ -346,7 +372,15 @@ class Composer:
 
         return cosmos_authz_tx_pb.MsgExec(grantee=grantee, msgs=any_msgs)
 
-    def MsgRevoke(self, granter: str, grantee: str, msg_type: str):
+    def MsgRevoke(self, granter: str, grantee: str, msg_type: str) -> cosmos_authz_tx_pb.MsgRevoke:
+        """
+        This method is deprecated and will be removed soon. Please use `msg_revoke` instead
+        """
+        warn("This method is deprecated. Use msg_revoke instead", DeprecationWarning, stacklevel=2)
+
+        return self.msg_revoke(granter=granter, grantee=grantee, msg_type=msg_type)
+
+    def msg_revoke(self, granter: str, grantee: str, msg_type: str) -> cosmos_authz_tx_pb.MsgRevoke:
         return cosmos_authz_tx_pb.MsgRevoke(granter=granter, grantee=grantee, msg_type_url=msg_type)
 
     def msg_execute_contract_compat(self, sender: str, contract: str, msg: str, funds: str):
@@ -360,7 +394,15 @@ class Composer:
     # endregion
 
     # region Bank module
-    def MsgSend(self, from_address: str, to_address: str, amount: float, denom: str):
+    def MsgSend(self, from_address: str, to_address: str, amount: float, denom: str) -> cosmos_bank_tx_pb.MsgSend:
+        """
+        This method is deprecated and will be removed soon. Please use `msg_send` instead
+        """
+        warn("This method is deprecated. Use msg_send instead", DeprecationWarning, stacklevel=2)
+
+        return self.msg_send(from_address=from_address, to_address=to_address, amount=amount, denom=denom)
+
+    def msg_send(self, from_address: str, to_address: str, amount: float, denom: str) -> cosmos_bank_tx_pb.MsgSend:
         coin = self.create_coin_amount(amount=Decimal(str(amount)), token_name=denom)
 
         return cosmos_bank_tx_pb.MsgSend(
@@ -426,104 +468,6 @@ class Composer:
             min_notional=f"{chain_min_notional.normalize():f}",
             base_decimals=base_decimals,
             quote_decimals=quote_decimals,
-        )
-
-    def msg_instant_perpetual_market_launch(
-        self,
-        sender: str,
-        ticker: str,
-        quote_denom: str,
-        oracle_base: str,
-        oracle_quote: str,
-        oracle_scale_factor: int,
-        oracle_type: str,
-        maker_fee_rate: Decimal,
-        taker_fee_rate: Decimal,
-        initial_margin_ratio: Decimal,
-        maintenance_margin_ratio: Decimal,
-        min_price_tick_size: Decimal,
-        min_quantity_tick_size: Decimal,
-        min_notional: Decimal,
-    ) -> injective_exchange_tx_pb.MsgInstantPerpetualMarketLaunch:
-        quote_token = self.tokens[quote_denom]
-
-        chain_min_price_tick_size = quote_token.chain_formatted_value(min_price_tick_size) * Decimal(
-            f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
-        )
-        chain_min_quantity_tick_size = min_quantity_tick_size * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        chain_maker_fee_rate = maker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        chain_taker_fee_rate = taker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        chain_initial_margin_ratio = initial_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        chain_maintenance_margin_ratio = maintenance_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        chain_min_notional = quote_token.chain_formatted_value(min_notional) * Decimal(
-            f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
-        )
-
-        return injective_exchange_tx_pb.MsgInstantPerpetualMarketLaunch(
-            sender=sender,
-            ticker=ticker,
-            quote_denom=quote_token.denom,
-            oracle_base=oracle_base,
-            oracle_quote=oracle_quote,
-            oracle_scale_factor=oracle_scale_factor,
-            oracle_type=injective_oracle_pb.OracleType.Value(oracle_type),
-            maker_fee_rate=f"{chain_maker_fee_rate.normalize():f}",
-            taker_fee_rate=f"{chain_taker_fee_rate.normalize():f}",
-            initial_margin_ratio=f"{chain_initial_margin_ratio.normalize():f}",
-            maintenance_margin_ratio=f"{chain_maintenance_margin_ratio.normalize():f}",
-            min_price_tick_size=f"{chain_min_price_tick_size.normalize():f}",
-            min_quantity_tick_size=f"{chain_min_quantity_tick_size.normalize():f}",
-            min_notional=f"{chain_min_notional.normalize():f}",
-        )
-
-    def msg_instant_expiry_futures_market_launch(
-        self,
-        sender: str,
-        ticker: str,
-        quote_denom: str,
-        oracle_base: str,
-        oracle_quote: str,
-        oracle_scale_factor: int,
-        oracle_type: str,
-        expiry: int,
-        maker_fee_rate: Decimal,
-        taker_fee_rate: Decimal,
-        initial_margin_ratio: Decimal,
-        maintenance_margin_ratio: Decimal,
-        min_price_tick_size: Decimal,
-        min_quantity_tick_size: Decimal,
-        min_notional: Decimal,
-    ) -> injective_exchange_tx_pb.MsgInstantPerpetualMarketLaunch:
-        quote_token = self.tokens[quote_denom]
-
-        chain_min_price_tick_size = quote_token.chain_formatted_value(min_price_tick_size) * Decimal(
-            f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
-        )
-        chain_min_quantity_tick_size = min_quantity_tick_size * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        chain_maker_fee_rate = maker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        chain_taker_fee_rate = taker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        chain_initial_margin_ratio = initial_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        chain_maintenance_margin_ratio = maintenance_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        chain_min_notional = quote_token.chain_formatted_value(min_notional) * Decimal(
-            f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}"
-        )
-
-        return injective_exchange_tx_pb.MsgInstantExpiryFuturesMarketLaunch(
-            sender=sender,
-            ticker=ticker,
-            quote_denom=quote_token.denom,
-            oracle_base=oracle_base,
-            oracle_quote=oracle_quote,
-            oracle_scale_factor=oracle_scale_factor,
-            oracle_type=injective_oracle_pb.OracleType.Value(oracle_type),
-            expiry=expiry,
-            maker_fee_rate=f"{chain_maker_fee_rate.normalize():f}",
-            taker_fee_rate=f"{chain_taker_fee_rate.normalize():f}",
-            initial_margin_ratio=f"{chain_initial_margin_ratio.normalize():f}",
-            maintenance_margin_ratio=f"{chain_maintenance_margin_ratio.normalize():f}",
-            min_price_tick_size=f"{chain_min_price_tick_size.normalize():f}",
-            min_quantity_tick_size=f"{chain_min_quantity_tick_size.normalize():f}",
-            min_notional=f"{chain_min_notional.normalize():f}",
         )
 
     def msg_create_spot_limit_order(
@@ -754,7 +698,7 @@ class Composer:
         min_price_tick_size: Decimal,
         min_quantity_tick_size: Decimal,
         min_notional: Decimal,
-    ) -> injective_exchange_tx_pb.MsgInstantPerpetualMarketLaunch:
+    ) -> injective_exchange_tx_pb.MsgInstantBinaryOptionsMarketLaunch:
         quote_token = self.tokens[quote_denom]
 
         chain_min_price_tick_size = min_price_tick_size * Decimal(
@@ -1080,7 +1024,34 @@ class Composer:
         oracle_type: int,
         expiry: int,
         initial_deposit: int,
-    ):
+    ) -> injective_insurance_tx_pb.MsgCreateInsuranceFund:
+        """
+        This method is deprecated and will be removed soon. Please use `msg_create_insurance_fund` instead
+        """
+        warn("This method is deprecated. Use msg_create_insurance_fund instead", DeprecationWarning, stacklevel=2)
+
+        return self.msg_create_insurance_fund(
+            sender=sender,
+            ticker=ticker,
+            quote_denom=quote_denom,
+            oracle_base=oracle_base,
+            oracle_quote=oracle_quote,
+            oracle_type=oracle_type,
+            expiry=expiry,
+            initial_deposit=initial_deposit,
+        )
+
+    def msg_create_insurance_fund(
+        self,
+        sender: str,
+        ticker: str,
+        quote_denom: str,
+        oracle_base: str,
+        oracle_quote: str,
+        oracle_type: int,
+        expiry: int,
+        initial_deposit: int,
+    ) -> injective_insurance_tx_pb.MsgCreateInsuranceFund:
         token = self.tokens[quote_denom]
         deposit = self.create_coin_amount(Decimal(str(initial_deposit)), quote_denom)
 
@@ -1101,7 +1072,26 @@ class Composer:
         market_id: str,
         quote_denom: str,
         amount: int,
-    ):
+    ) -> injective_insurance_tx_pb.MsgUnderwrite:
+        """
+        This method is deprecated and will be removed soon. Please use `msg_underwrite` instead
+        """
+        warn("This method is deprecated. Use msg_underwrite instead", DeprecationWarning, stacklevel=2)
+
+        return self.msg_underwrite(
+            sender=sender,
+            market_id=market_id,
+            quote_denom=quote_denom,
+            amount=amount,
+        )
+
+    def msg_underwrite(
+        self,
+        sender: str,
+        market_id: str,
+        quote_denom: str,
+        amount: int,
+    ) -> injective_insurance_tx_pb.MsgUnderwrite:
         be_amount = self.create_coin_amount(amount=Decimal(str(amount)), token_name=quote_denom)
 
         return injective_insurance_tx_pb.MsgUnderwrite(
@@ -1116,7 +1106,26 @@ class Composer:
         market_id: str,
         share_denom: str,
         amount: int,
-    ):
+    ) -> injective_insurance_tx_pb.MsgRequestRedemption:
+        """
+        This method is deprecated and will be removed soon. Please use `msg_request_redemption` instead
+        """
+        warn("This method is deprecated. Use msg_request_redemption instead", DeprecationWarning, stacklevel=2)
+
+        return self.msg_request_redemption(
+            sender=sender,
+            market_id=market_id,
+            share_denom=share_denom,
+            amount=amount,
+        )
+
+    def msg_request_redemption(
+        self,
+        sender: str,
+        market_id: str,
+        share_denom: str,
+        amount: int,
+    ) -> injective_insurance_tx_pb.MsgRequestRedemption:
         return injective_insurance_tx_pb.MsgRequestRedemption(
             sender=sender,
             market_id=market_id,
@@ -1127,6 +1136,14 @@ class Composer:
 
     # region Oracle module
     def MsgRelayProviderPrices(self, sender: str, provider: str, symbols: list, prices: list):
+        """
+        This method is deprecated and will be removed soon. Please use `msg_relay_provider_prices` instead
+        """
+        warn("This method is deprecated. Use msg_relay_provider_prices instead", DeprecationWarning, stacklevel=2)
+
+        return self.msg_relay_provider_prices(sender=sender, provider=provider, symbols=symbols, prices=prices)
+
+    def msg_relay_provider_prices(self, sender: str, provider: str, symbols: list, prices: list):
         oracle_prices = []
 
         for price in prices:
@@ -1138,13 +1155,37 @@ class Composer:
             sender=sender, provider=provider, symbols=symbols, prices=oracle_prices
         )
 
-    def MsgRelayPriceFeedPrice(self, sender: list, base: list, quote: list, price: list):
+    def MsgRelayPriceFeedPrice(
+        self, sender: list, base: list, quote: list, price: list
+    ) -> injective_oracle_tx_pb.MsgRelayPriceFeedPrice:
+        """
+        This method is deprecated and will be removed soon. Please use `msg_relay_price_feed_price` instead
+        """
+        warn("This method is deprecated. Use msg_relay_price_feed_price instead", DeprecationWarning, stacklevel=2)
+
+        return self.msg_relay_price_feed_price(sender=sender, base=base, quote=quote, price=price)
+
+    def msg_relay_price_feed_price(
+        self, sender: list, base: list, quote: list, price: list
+    ) -> injective_oracle_tx_pb.MsgRelayPriceFeedPrice:
         return injective_oracle_tx_pb.MsgRelayPriceFeedPrice(sender=sender, base=base, quote=quote, price=price)
 
     # endregion
 
     # region Peggy module
-    def MsgSendToEth(self, denom: str, sender: str, eth_dest: str, amount: float, bridge_fee: float):
+    def MsgSendToEth(
+        self, denom: str, sender: str, eth_dest: str, amount: float, bridge_fee: float
+    ) -> injective_peggy_tx_pb.MsgSendToEth:
+        """
+        This method is deprecated and will be removed soon. Please use `msg_send_to_eth` instead
+        """
+        warn("This method is deprecated. Use msg_send_to_eth instead", DeprecationWarning, stacklevel=2)
+
+        return self.msg_send_to_eth(denom=denom, sender=sender, eth_dest=eth_dest, amount=amount, bridge_fee=bridge_fee)
+
+    def msg_send_to_eth(
+        self, denom: str, sender: str, eth_dest: str, amount: float, bridge_fee: float
+    ) -> injective_peggy_tx_pb.MsgSendToEth:
         be_amount = self.create_coin_amount(amount=Decimal(str(amount)), token_name=denom)
         be_bridge_fee = self.create_coin_amount(amount=Decimal(str(bridge_fee)), token_name=denom)
 
@@ -1158,7 +1199,21 @@ class Composer:
     # endregion
 
     # region Staking module
-    def MsgDelegate(self, delegator_address: str, validator_address: str, amount: float):
+    def MsgDelegate(
+        self, delegator_address: str, validator_address: str, amount: float
+    ) -> cosmos_staking_tx_pb.MsgDelegate:
+        """
+        This method is deprecated and will be removed soon. Please use `msg_delegate` instead
+        """
+        warn("This method is deprecated. Use msg_delegate instead", DeprecationWarning, stacklevel=2)
+
+        return self.msg_delegate(
+            delegator_address=delegator_address, validator_address=validator_address, amount=amount
+        )
+
+    def msg_delegate(
+        self, delegator_address: str, validator_address: str, amount: float
+    ) -> cosmos_staking_tx_pb.MsgDelegate:
         be_amount = Decimal(str(amount)) * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         return cosmos_staking_tx_pb.MsgDelegate(
@@ -1257,23 +1312,53 @@ class Composer:
     def MsgInstantiateContract(
         self, sender: str, admin: str, code_id: int, label: str, message: bytes, **kwargs
     ) -> wasm_tx_pb.MsgInstantiateContract:
+        """
+        This method is deprecated and will be removed soon. Please use `msg_instantiate_contract` instead
+        """
+        warn("This method is deprecated. Use msg_instantiate_contract instead", DeprecationWarning, stacklevel=2)
+
+        return self.msg_instantiate_contract(
+            sender=sender, admin=admin, code_id=code_id, label=label, message=message, funds=kwargs.get("funds")
+        )
+
+    def msg_instantiate_contract(
+        self,
+        sender: str,
+        admin: str,
+        code_id: int,
+        label: str,
+        message: bytes,
+        funds: Optional[List[base_coin_pb.Coin]] = None,
+    ) -> wasm_tx_pb.MsgInstantiateContract:
         return wasm_tx_pb.MsgInstantiateContract(
             sender=sender,
             admin=admin,
             code_id=code_id,
             label=label,
             msg=message,
-            funds=kwargs.get("funds"),  # funds is a list of base_coin_pb.Coin.
-            # The coins in the list must be sorted in alphabetical order by denoms.
+            funds=funds,  # The coins in the list must be sorted in alphabetical order by denoms.
         )
 
     def MsgExecuteContract(self, sender: str, contract: str, msg: str, **kwargs):
+        """
+        This method is deprecated and will be removed soon. Please use `msg_execute_contract` instead
+        """
+        warn("This method is deprecated. Use msg_execute_contract instead", DeprecationWarning, stacklevel=2)
+
+        return self.msg_execute_contract(sender=sender, contract=contract, msg=msg, funds=kwargs.get("funds"))
+
+    def msg_execute_contract(
+        self,
+        sender: str,
+        contract: str,
+        msg: str,
+        funds: Optional[List[base_coin_pb.Coin]] = None,
+    ) -> wasm_tx_pb.MsgExecuteContract:
         return wasm_tx_pb.MsgExecuteContract(
             sender=sender,
             contract=contract,
             msg=bytes(msg, "utf-8"),
-            funds=kwargs.get("funds")  # funds is a list of base_coin_pb.Coin.
-            # The coins in the list must be sorted in alphabetical order by denoms.
+            funds=funds,  # The coins in the list must be sorted in alphabetical order by denoms.
         )
 
     # endregion
@@ -1286,56 +1371,77 @@ class Composer:
         expire_in: int,
         subaccount_id: str,
         **kwargs,
-    ):
+    ) -> cosmos_authz_tx_pb.MsgGrant:
+        """
+        This method is deprecated and will be removed soon. Please use `msg_grant_typed` instead
+        """
+        warn("This method is deprecated. Use msg_grant_typed instead", DeprecationWarning, stacklevel=2)
+
+        return self.msg_grant_typed(
+            granter=granter,
+            grantee=grantee,
+            msg_type=msg_type,
+            expiration_time_seconds=expire_in,
+            subaccount_id=subaccount_id,
+            market_ids=kwargs.get("market_ids"),
+            spot_markets=kwargs.get("spot_markets"),
+            derivative_markets=kwargs.get("derivative_markets"),
+        )
+
+    def msg_grant_typed(
+        self,
+        granter: str,
+        grantee: str,
+        msg_type: str,
+        expiration_time_seconds: int,
+        subaccount_id: str,
+        market_ids: Optional[List[str]] = None,
+        spot_markets: Optional[List[str]] = None,
+        derivative_markets: Optional[List[str]] = None,
+    ) -> cosmos_authz_tx_pb.MsgGrant:
         if self._ofac_checker.is_blacklisted(granter):
             raise Exception(f"Address {granter} is in the OFAC list")
 
+        market_ids = market_ids or []
         auth = None
         if msg_type == "CreateSpotLimitOrderAuthz":
-            auth = injective_authz_pb.CreateSpotLimitOrderAuthz(
-                subaccount_id=subaccount_id, market_ids=kwargs.get("market_ids")
-            )
+            auth = injective_authz_pb.CreateSpotLimitOrderAuthz(subaccount_id=subaccount_id, market_ids=market_ids)
         elif msg_type == "CreateSpotMarketOrderAuthz":
-            auth = injective_authz_pb.CreateSpotMarketOrderAuthz(
-                subaccount_id=subaccount_id, market_ids=kwargs.get("market_ids")
-            )
+            auth = injective_authz_pb.CreateSpotMarketOrderAuthz(subaccount_id=subaccount_id, market_ids=market_ids)
         elif msg_type == "BatchCreateSpotLimitOrdersAuthz":
             auth = injective_authz_pb.BatchCreateSpotLimitOrdersAuthz(
-                subaccount_id=subaccount_id, market_ids=kwargs.get("market_ids")
+                subaccount_id=subaccount_id, market_ids=market_ids
             )
         elif msg_type == "CancelSpotOrderAuthz":
-            auth = injective_authz_pb.CancelSpotOrderAuthz(
-                subaccount_id=subaccount_id, market_ids=kwargs.get("market_ids")
-            )
+            auth = injective_authz_pb.CancelSpotOrderAuthz(subaccount_id=subaccount_id, market_ids=market_ids)
         elif msg_type == "BatchCancelSpotOrdersAuthz":
-            auth = injective_authz_pb.BatchCancelSpotOrdersAuthz(
-                subaccount_id=subaccount_id, market_ids=kwargs.get("market_ids")
-            )
+            auth = injective_authz_pb.BatchCancelSpotOrdersAuthz(subaccount_id=subaccount_id, market_ids=market_ids)
         elif msg_type == "CreateDerivativeLimitOrderAuthz":
             auth = injective_authz_pb.CreateDerivativeLimitOrderAuthz(
-                subaccount_id=subaccount_id, market_ids=kwargs.get("market_ids")
+                subaccount_id=subaccount_id, market_ids=market_ids
             )
         elif msg_type == "CreateDerivativeMarketOrderAuthz":
             auth = injective_authz_pb.CreateDerivativeMarketOrderAuthz(
-                subaccount_id=subaccount_id, market_ids=kwargs.get("market_ids")
+                subaccount_id=subaccount_id, market_ids=market_ids
             )
         elif msg_type == "BatchCreateDerivativeLimitOrdersAuthz":
             auth = injective_authz_pb.BatchCreateDerivativeLimitOrdersAuthz(
-                subaccount_id=subaccount_id, market_ids=kwargs.get("market_ids")
+                subaccount_id=subaccount_id, market_ids=market_ids
             )
         elif msg_type == "CancelDerivativeOrderAuthz":
-            auth = injective_authz_pb.CancelDerivativeOrderAuthz(
-                subaccount_id=subaccount_id, market_ids=kwargs.get("market_ids")
-            )
+            auth = injective_authz_pb.CancelDerivativeOrderAuthz(subaccount_id=subaccount_id, market_ids=market_ids)
         elif msg_type == "BatchCancelDerivativeOrdersAuthz":
             auth = injective_authz_pb.BatchCancelDerivativeOrdersAuthz(
-                subaccount_id=subaccount_id, market_ids=kwargs.get("market_ids")
+                subaccount_id=subaccount_id, market_ids=market_ids
             )
         elif msg_type == "BatchUpdateOrdersAuthz":
+            spot_markets_ids = spot_markets or []
+            derivative_markets_ids = derivative_markets or []
+
             auth = injective_authz_pb.BatchUpdateOrdersAuthz(
                 subaccount_id=subaccount_id,
-                spot_markets=kwargs.get("spot_markets"),
-                derivative_markets=kwargs.get("derivative_markets"),
+                spot_markets=spot_markets_ids,
+                derivative_markets=derivative_markets_ids,
             )
 
         any_auth = any_pb2.Any()
@@ -1343,17 +1449,30 @@ class Composer:
 
         grant = cosmos_authz_pb.Grant(
             authorization=any_auth,
-            expiration=timestamp_pb2.Timestamp(seconds=(int(time()) + expire_in)),
+            expiration=timestamp_pb2.Timestamp(seconds=(int(time()) + expiration_time_seconds)),
         )
 
         return cosmos_authz_tx_pb.MsgGrant(granter=granter, grantee=grantee, grant=grant)
 
     def MsgVote(
         self,
-        proposal_id: str,
+        proposal_id: int,
         voter: str,
         option: int,
-    ):
+    ) -> cosmos_gov_tx_pb.MsgVote:
+        """
+        This method is deprecated and will be removed soon. Please use `msg_vote` instead
+        """
+        warn("This method is deprecated. Use msg_vote instead", DeprecationWarning, stacklevel=2)
+
+        return self.msg_vote(proposal_id=proposal_id, voter=voter, option=option)
+
+    def msg_vote(
+        self,
+        proposal_id: int,
+        voter: str,
+        option: int,
+    ) -> cosmos_gov_tx_pb.MsgVote:
         return cosmos_gov_tx_pb.MsgVote(proposal_id=proposal_id, voter=voter, option=option)
 
     def chain_stream_bank_balances_filter(
@@ -1422,15 +1541,6 @@ class Composer:
         return cosmos_distribution_tx_pb.MsgWithdrawDelegatorReward(
             delegator_address=delegator_address, validator_address=validator_address
         )
-
-    def MsgWithdrawValidatorCommission(self, validator_address: str):
-        """
-        This method is deprecated and will be removed soon. Please use `msg_withdraw_validator_commission` instead
-        """
-        warn(
-            "This method is deprecated. Use msg_withdraw_validator_commission instead", DeprecationWarning, stacklevel=2
-        )
-        return cosmos_distribution_tx_pb.MsgWithdrawValidatorCommission(validator_address=validator_address)
 
     def msg_withdraw_validator_commission(self, validator_address: str):
         return cosmos_distribution_tx_pb.MsgWithdrawValidatorCommission(validator_address=validator_address)

@@ -5,7 +5,7 @@ from decimal import Decimal
 
 import dotenv
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.core.broadcaster import MsgBroadcasterWithPk
 from pyinjective.core.network import Network
 from pyinjective.wallet import PrivateKey
@@ -42,10 +42,10 @@ async def main() -> None:
     await client.fetch_account(address.to_acc_bech32())
 
     # prepare tx msg
-    message = composer.msg_instant_perpetual_market_launch(
+    message = composer.msg_instant_perpetual_market_launch_v2(
         sender=address.to_acc_bech32(),
         ticker="INJ/USDC PERP",
-        quote_denom="USDC",
+        quote_denom="factory/inj17vytdwqczqz72j65saukplrktd4gyfme5agf6c/usdc",
         oracle_base="INJ",
         oracle_quote="USDC",
         oracle_scale_factor=6,
@@ -54,6 +54,7 @@ async def main() -> None:
         taker_fee_rate=Decimal("0.001"),
         initial_margin_ratio=Decimal("0.33"),
         maintenance_margin_ratio=Decimal("0.095"),
+        reduce_margin_ratio=Decimal("3"),
         min_price_tick_size=Decimal("0.001"),
         min_quantity_tick_size=Decimal("0.01"),
         min_notional=Decimal("1"),

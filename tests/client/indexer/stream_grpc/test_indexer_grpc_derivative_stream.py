@@ -42,6 +42,7 @@ class TestIndexerGrpcDerivativeStream:
             cumulative_funding="-82680.076492986572881307",
             cumulative_price="-78.41752505919454668",
             last_timestamp=1700004260,
+            last_funding_rate="0.12345",
         )
 
         market = exchange_derivative_pb.DerivativeMarketInfo(
@@ -54,6 +55,7 @@ class TestIndexerGrpcDerivativeStream:
             oracle_scale_factor=6,
             initial_margin_ratio="0.05",
             maintenance_margin_ratio="0.02",
+            reduce_margin_ratio="0.3",
             quote_denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
             quote_token_meta=quote_token_meta,
             maker_fee_rate="-0.0001",
@@ -103,6 +105,7 @@ class TestIndexerGrpcDerivativeStream:
                 "oracleScaleFactor": market.oracle_scale_factor,
                 "initialMarginRatio": market.initial_margin_ratio,
                 "maintenanceMarginRatio": market.maintenance_margin_ratio,
+                "reduceMarginRatio": market.reduce_margin_ratio,
                 "quoteDenom": market.quote_denom,
                 "quoteTokenMeta": {
                     "name": market.quote_token_meta.name,
@@ -129,6 +132,7 @@ class TestIndexerGrpcDerivativeStream:
                     "cumulativeFunding": perpetual_market_funding.cumulative_funding,
                     "cumulativePrice": perpetual_market_funding.cumulative_price,
                     "lastTimestamp": str(perpetual_market_funding.last_timestamp),
+                    "lastFundingRate": perpetual_market_funding.last_funding_rate,
                 },
             },
             "operationType": operation_type,
@@ -514,6 +518,7 @@ class TestIndexerGrpcDerivativeStream:
             trade_id="8662464_1_0",
             execution_side="taker",
             cid="cid1",
+            pnl="1000.123456789",
         )
 
         derivative_servicer.stream_trades_responses.append(
@@ -575,6 +580,7 @@ class TestIndexerGrpcDerivativeStream:
                 "tradeId": trade.trade_id,
                 "executionSide": trade.execution_side,
                 "cid": trade.cid,
+                "pnl": trade.pnl,
             },
             "operationType": operation_type,
             "timestamp": str(timestamp),
@@ -710,6 +716,7 @@ class TestIndexerGrpcDerivativeStream:
             trade_id="8662464_1_0",
             execution_side="taker",
             cid="cid1",
+            pnl="1000.123456789",
         )
 
         derivative_servicer.stream_trades_v2_responses.append(
@@ -771,6 +778,7 @@ class TestIndexerGrpcDerivativeStream:
                 "tradeId": trade.trade_id,
                 "executionSide": trade.execution_side,
                 "cid": trade.cid,
+                "pnl": trade.pnl,
             },
             "operationType": operation_type,
             "timestamp": str(timestamp),

@@ -37,6 +37,7 @@ class TestIndexerGrpcDerivativeApi:
             cumulative_funding="-82680.076492986572881307",
             cumulative_price="-78.41752505919454668",
             last_timestamp=1700004260,
+            last_funding_rate="0.12345",
         )
 
         market = exchange_derivative_pb.DerivativeMarketInfo(
@@ -49,6 +50,7 @@ class TestIndexerGrpcDerivativeApi:
             oracle_scale_factor=6,
             initial_margin_ratio="0.05",
             maintenance_margin_ratio="0.02",
+            reduce_margin_ratio="0.3",
             quote_denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
             quote_token_meta=quote_token_meta,
             maker_fee_rate="-0.0001",
@@ -86,6 +88,7 @@ class TestIndexerGrpcDerivativeApi:
                     "oracleScaleFactor": market.oracle_scale_factor,
                     "initialMarginRatio": market.initial_margin_ratio,
                     "maintenanceMarginRatio": market.maintenance_margin_ratio,
+                    "reduceMarginRatio": market.reduce_margin_ratio,
                     "quoteDenom": market.quote_denom,
                     "quoteTokenMeta": {
                         "name": market.quote_token_meta.name,
@@ -112,6 +115,7 @@ class TestIndexerGrpcDerivativeApi:
                         "cumulativeFunding": perpetual_market_funding.cumulative_funding,
                         "cumulativePrice": perpetual_market_funding.cumulative_price,
                         "lastTimestamp": str(perpetual_market_funding.last_timestamp),
+                        "lastFundingRate": perpetual_market_funding.last_funding_rate,
                     },
                 }
             ]
@@ -142,6 +146,7 @@ class TestIndexerGrpcDerivativeApi:
             cumulative_funding="-82680.076492986572881307",
             cumulative_price="-78.41752505919454668",
             last_timestamp=1700004260,
+            last_funding_rate="0.12345",
         )
 
         market = exchange_derivative_pb.DerivativeMarketInfo(
@@ -154,6 +159,7 @@ class TestIndexerGrpcDerivativeApi:
             oracle_scale_factor=6,
             initial_margin_ratio="0.05",
             maintenance_margin_ratio="0.02",
+            reduce_margin_ratio="0.3",
             quote_denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
             quote_token_meta=quote_token_meta,
             maker_fee_rate="-0.0001",
@@ -187,6 +193,7 @@ class TestIndexerGrpcDerivativeApi:
                 "oracleScaleFactor": market.oracle_scale_factor,
                 "initialMarginRatio": market.initial_margin_ratio,
                 "maintenanceMarginRatio": market.maintenance_margin_ratio,
+                "reduceMarginRatio": market.reduce_margin_ratio,
                 "quoteDenom": market.quote_denom,
                 "quoteTokenMeta": {
                     "name": market.quote_token_meta.name,
@@ -213,6 +220,7 @@ class TestIndexerGrpcDerivativeApi:
                     "cumulativeFunding": perpetual_market_funding.cumulative_funding,
                     "cumulativePrice": perpetual_market_funding.cumulative_price,
                     "lastTimestamp": str(perpetual_market_funding.last_timestamp),
+                    "lastFundingRate": perpetual_market_funding.last_funding_rate,
                 },
             }
         }
@@ -417,7 +425,8 @@ class TestIndexerGrpcDerivativeApi:
         api = self._api_instance(servicer=derivative_servicer)
 
         result_orderbook = await api.fetch_orderbook_v2(
-            market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
+            market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+            depth=1,
         )
         expected_orderbook = {
             "orderbook": {
@@ -478,7 +487,7 @@ class TestIndexerGrpcDerivativeApi:
 
         api = self._api_instance(servicer=derivative_servicer)
 
-        result_orderbook = await api.fetch_orderbooks_v2(market_ids=[single_orderbook.market_id])
+        result_orderbook = await api.fetch_orderbooks_v2(market_ids=[single_orderbook.market_id], depth=1)
         expected_orderbook = {
             "orderbooks": [
                 {
@@ -929,6 +938,7 @@ class TestIndexerGrpcDerivativeApi:
             trade_id="8662464_1_0",
             execution_side="taker",
             cid="cid1",
+            pnl="1000.123456789",
         )
 
         paging = exchange_derivative_pb.Paging(total=5, to=5, count_by_subaccount=10, next=["next1", "next2"])
@@ -981,6 +991,7 @@ class TestIndexerGrpcDerivativeApi:
                     "tradeId": trade.trade_id,
                     "executionSide": trade.execution_side,
                     "cid": trade.cid,
+                    "pnl": trade.pnl,
                 },
             ],
             "paging": {
@@ -1108,6 +1119,7 @@ class TestIndexerGrpcDerivativeApi:
             trade_id="8662464_1_0",
             execution_side="taker",
             cid="cid1",
+            pnl="1000.123456789",
         )
 
         derivative_servicer.subaccount_trades_list_responses.append(
@@ -1149,6 +1161,7 @@ class TestIndexerGrpcDerivativeApi:
                     "tradeId": trade.trade_id,
                     "executionSide": trade.execution_side,
                     "cid": trade.cid,
+                    "pnl": trade.pnl,
                 },
             ],
         }
@@ -1277,6 +1290,7 @@ class TestIndexerGrpcDerivativeApi:
             trade_id="8662464_1_0",
             execution_side="taker",
             cid="cid1",
+            pnl="1000.123456789",
         )
 
         paging = exchange_derivative_pb.Paging(total=5, to=5, count_by_subaccount=10, next=["next1", "next2"])
@@ -1329,6 +1343,7 @@ class TestIndexerGrpcDerivativeApi:
                     "tradeId": trade.trade_id,
                     "executionSide": trade.execution_side,
                     "cid": trade.cid,
+                    "pnl": trade.pnl,
                 },
             ],
             "paging": {
@@ -1338,6 +1353,34 @@ class TestIndexerGrpcDerivativeApi:
                 "countBySubaccount": str(paging.count_by_subaccount),
                 "next": paging.next,
             },
+        }
+
+        assert result_trades == expected_trades
+
+    @pytest.mark.asyncio
+    async def test_fetch_open_interest(
+        self,
+        derivative_servicer,
+    ):
+        market_open_interest = exchange_derivative_pb.MarketOpenInterest(
+            market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+            open_interest="1.2343567898",
+        )
+
+        derivative_servicer.open_interest_responses.append(
+            exchange_derivative_pb.OpenInterestResponse(open_interests=[market_open_interest])
+        )
+
+        api = self._api_instance(servicer=derivative_servicer)
+
+        result_trades = await api.fetch_open_interest(market_ids=[market_open_interest.market_id])
+        expected_trades = {
+            "openInterests": [
+                {
+                    "marketId": market_open_interest.market_id,
+                    "openInterest": market_open_interest.open_interest,
+                },
+            ],
         }
 
         assert result_trades == expected_trades

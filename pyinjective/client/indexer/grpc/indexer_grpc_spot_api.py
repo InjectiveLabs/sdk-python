@@ -37,14 +37,14 @@ class IndexerGrpcSpotApi:
 
         return response
 
-    async def fetch_orderbook_v2(self, market_id: str) -> Dict[str, Any]:
-        request = exchange_spot_pb.OrderbookV2Request(market_id=market_id)
+    async def fetch_orderbook_v2(self, market_id: str, depth: int) -> Dict[str, Any]:
+        request = exchange_spot_pb.OrderbookV2Request(market_id=market_id, depth=depth)
         response = await self._execute_call(call=self._stub.OrderbookV2, request=request)
 
         return response
 
-    async def fetch_orderbooks_v2(self, market_ids: List[str]) -> Dict[str, Any]:
-        request = exchange_spot_pb.OrderbooksV2Request(market_ids=market_ids)
+    async def fetch_orderbooks_v2(self, market_ids: List[str], depth: int) -> Dict[str, Any]:
+        request = exchange_spot_pb.OrderbooksV2Request(market_ids=market_ids, depth=depth)
         response = await self._execute_call(call=self._stub.OrderbooksV2, request=request)
 
         return response

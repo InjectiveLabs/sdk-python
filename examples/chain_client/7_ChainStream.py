@@ -3,8 +3,7 @@ from typing import Any, Dict
 
 from grpc import RpcError
 
-from pyinjective.async_client import AsyncClient
-from pyinjective.composer import Composer
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.core.network import Network
 
 
@@ -24,7 +23,7 @@ async def main() -> None:
     network = Network.testnet()
 
     client = AsyncClient(network)
-    composer = Composer(network=network.string())
+    composer = await client.composer()
 
     subaccount_id = "0xbdaedec95d563fb05240d6e01821008454c24c36000000000000000000000000"
 

@@ -1,10 +1,11 @@
 import asyncio
+import json
 import os
 
 import dotenv
 
 from pyinjective import PrivateKey
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.core.network import Network
 
 
@@ -27,7 +28,7 @@ async def main() -> None:
     subaccount_id = address.get_subaccount_id(index=0)
 
     deposits = await client.fetch_subaccount_deposits(subaccount_id=subaccount_id)
-    print(deposits)
+    print(json.dumps(deposits, indent=2))
 
 
 if __name__ == "__main__":

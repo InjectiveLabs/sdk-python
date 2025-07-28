@@ -20,6 +20,11 @@ class EventProviderAPIStub(object):
                 request_serializer=exchange_dot_event__provider__api__pb2.GetLatestHeightRequest.SerializeToString,
                 response_deserializer=exchange_dot_event__provider__api__pb2.GetLatestHeightResponse.FromString,
                 _registered_method=True)
+        self.StreamLatestHeight = channel.unary_stream(
+                '/event_provider_api.EventProviderAPI/StreamLatestHeight',
+                request_serializer=exchange_dot_event__provider__api__pb2.StreamLatestHeightRequest.SerializeToString,
+                response_deserializer=exchange_dot_event__provider__api__pb2.StreamLatestHeightResponse.FromString,
+                _registered_method=True)
         self.StreamBlockEvents = channel.unary_stream(
                 '/event_provider_api.EventProviderAPI/StreamBlockEvents',
                 request_serializer=exchange_dot_event__provider__api__pb2.StreamBlockEventsRequest.SerializeToString,
@@ -53,6 +58,13 @@ class EventProviderAPIServicer(object):
 
     def GetLatestHeight(self, request, context):
         """Get latest block from event provider
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def StreamLatestHeight(self, request, context):
+        """Stream latest block information
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -100,6 +112,11 @@ def add_EventProviderAPIServicer_to_server(servicer, server):
                     servicer.GetLatestHeight,
                     request_deserializer=exchange_dot_event__provider__api__pb2.GetLatestHeightRequest.FromString,
                     response_serializer=exchange_dot_event__provider__api__pb2.GetLatestHeightResponse.SerializeToString,
+            ),
+            'StreamLatestHeight': grpc.unary_stream_rpc_method_handler(
+                    servicer.StreamLatestHeight,
+                    request_deserializer=exchange_dot_event__provider__api__pb2.StreamLatestHeightRequest.FromString,
+                    response_serializer=exchange_dot_event__provider__api__pb2.StreamLatestHeightResponse.SerializeToString,
             ),
             'StreamBlockEvents': grpc.unary_stream_rpc_method_handler(
                     servicer.StreamBlockEvents,
@@ -155,6 +172,33 @@ class EventProviderAPI(object):
             '/event_provider_api.EventProviderAPI/GetLatestHeight',
             exchange_dot_event__provider__api__pb2.GetLatestHeightRequest.SerializeToString,
             exchange_dot_event__provider__api__pb2.GetLatestHeightResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def StreamLatestHeight(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/event_provider_api.EventProviderAPI/StreamLatestHeight',
+            exchange_dot_event__provider__api__pb2.StreamLatestHeightRequest.SerializeToString,
+            exchange_dot_event__provider__api__pb2.StreamLatestHeightResponse.FromString,
             options,
             channel_credentials,
             insecure,

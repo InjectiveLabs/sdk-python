@@ -1242,6 +1242,7 @@ class TestChainGrpcBankApi:
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
             initial_margin_ratio="50000000000000000",
             maintenance_margin_ratio="20000000000000000",
+            reduce_margin_ratio="10000000000000000",
             maker_fee_rate="-0.0001",
             taker_fee_rate="0.001",
             relayer_fee_share_rate="400000000000000000",
@@ -1307,6 +1308,7 @@ class TestChainGrpcBankApi:
                         "marketId": market.market_id,
                         "initialMarginRatio": market.initial_margin_ratio,
                         "maintenanceMarginRatio": market.maintenance_margin_ratio,
+                        "reduceMarginRatio": market.reduce_margin_ratio,
                         "makerFeeRate": market.maker_fee_rate,
                         "takerFeeRate": market.taker_fee_rate,
                         "relayerFeeShareRate": market.relayer_fee_share_rate,
@@ -1360,6 +1362,7 @@ class TestChainGrpcBankApi:
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
             initial_margin_ratio="50000000000000000",
             maintenance_margin_ratio="20000000000000000",
+            reduce_margin_ratio="10000000000000000",
             maker_fee_rate="-0.0001",
             taker_fee_rate="0.001",
             relayer_fee_share_rate="400000000000000000",
@@ -1423,6 +1426,7 @@ class TestChainGrpcBankApi:
                     "marketId": market.market_id,
                     "initialMarginRatio": market.initial_margin_ratio,
                     "maintenanceMarginRatio": market.maintenance_margin_ratio,
+                    "reduceMarginRatio": market.reduce_margin_ratio,
                     "makerFeeRate": market.maker_fee_rate,
                     "takerFeeRate": market.taker_fee_rate,
                     "relayerFeeShareRate": market.relayer_fee_share_rate,
@@ -2445,6 +2449,99 @@ class TestChainGrpcBankApi:
         }
 
         assert multiplier == expected_multiplier
+
+    @pytest.mark.asyncio
+    async def test_fetch_active_stake_grant(
+        self,
+        exchange_servicer,
+    ):
+        grant = exchange_pb.ActiveGrant(
+            granter="inj1zlh5sqevkfphtwnu9cul8p89vseme2eqt0snn9",
+            amount="1000000000000000",
+        )
+        effective_grant = exchange_pb.EffectiveGrant(
+            granter="inj1zlh5sqevkfphtwnu9cul8p89vseme2eqt0snn9",
+            net_granted_stake="2000000000000000",
+            is_valid=True,
+        )
+        response = exchange_query_pb.QueryActiveStakeGrantResponse(
+            grant=grant,
+            effective_grant=effective_grant,
+        )
+        exchange_servicer.active_stake_grant_responses.append(response)
+
+        api = self._api_instance(servicer=exchange_servicer)
+
+        active_grant = await api.fetch_active_stake_grant(
+            grantee="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
+        )
+        expected_grant = {
+            "grant": {
+                "granter": grant.granter,
+                "amount": grant.amount,
+            },
+            "effectiveGrant": {
+                "granter": effective_grant.granter,
+                "netGrantedStake": effective_grant.net_granted_stake,
+                "isValid": effective_grant.is_valid,
+            },
+        }
+
+        assert active_grant == expected_grant
+
+    @pytest.mark.asyncio
+    async def test_fetch_grant_authorization(
+        self,
+        exchange_servicer,
+    ):
+        response = exchange_query_pb.QueryGrantAuthorizationResponse(
+            amount="1000000000000000",
+        )
+        exchange_servicer.grant_authorization_responses.append(response)
+
+        api = self._api_instance(servicer=exchange_servicer)
+
+        active_grant = await api.fetch_grant_authorization(
+            granter="inj1zlh5sqevkfphtwnu9cul8p89vseme2eqt0snn9",
+            grantee="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
+        )
+        expected_grant = {
+            "amount": response.amount,
+        }
+
+        assert active_grant == expected_grant
+
+    @pytest.mark.asyncio
+    async def test_fetch_grant_authorizations(
+        self,
+        exchange_servicer,
+    ):
+        grant = exchange_pb.GrantAuthorization(
+            grantee="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
+            amount="1000000000000000",
+        )
+        response = exchange_query_pb.QueryGrantAuthorizationsResponse(
+            total_grant_amount="1000000000000000",
+            grants=[grant],
+        )
+        exchange_servicer.grant_authorizations_responses.append(response)
+
+        api = self._api_instance(servicer=exchange_servicer)
+
+        active_grant = await api.fetch_grant_authorizations(
+            granter="inj1zlh5sqevkfphtwnu9cul8p89vseme2eqt0snn9",
+        )
+        expected_grant = {
+            "totalGrantAmount": response.total_grant_amount,
+            "grants": [
+                {
+                    "grantee": grant.grantee,
+                    "amount": grant.amount,
+                },
+            ],
+        }
+
+        assert active_grant == expected_grant
 
     @pytest.mark.asyncio
     async def test_fetch_l3_derivative_orderbook(

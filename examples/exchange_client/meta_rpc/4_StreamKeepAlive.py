@@ -3,8 +3,8 @@ from typing import Any, Dict
 
 from grpc import RpcError
 
-from pyinjective.async_client import AsyncClient
 from pyinjective.core.network import Network
+from pyinjective.indexer_client import IndexerClient
 
 
 def stream_error_processor(exception: RpcError):
@@ -18,7 +18,7 @@ def stream_closed_processor():
 async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
-    client = AsyncClient(network)
+    client = IndexerClient(network)
     tasks = []
 
     async def keepalive_event_processor(event: Dict[str, Any]):

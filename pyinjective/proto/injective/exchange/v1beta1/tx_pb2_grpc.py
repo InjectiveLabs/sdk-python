@@ -30,16 +30,6 @@ class MsgStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgInstantSpotMarketLaunch.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgInstantSpotMarketLaunchResponse.FromString,
                 _registered_method=True)
-        self.InstantPerpetualMarketLaunch = channel.unary_unary(
-                '/injective.exchange.v1beta1.Msg/InstantPerpetualMarketLaunch',
-                request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgInstantPerpetualMarketLaunch.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgInstantPerpetualMarketLaunchResponse.FromString,
-                _registered_method=True)
-        self.InstantExpiryFuturesMarketLaunch = channel.unary_unary(
-                '/injective.exchange.v1beta1.Msg/InstantExpiryFuturesMarketLaunch',
-                request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgInstantExpiryFuturesMarketLaunch.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgInstantExpiryFuturesMarketLaunchResponse.FromString,
-                _registered_method=True)
         self.CreateSpotLimitOrder = channel.unary_unary(
                 '/injective.exchange.v1beta1.Msg/CreateSpotLimitOrder',
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgCreateSpotLimitOrder.SerializeToString,
@@ -220,22 +210,6 @@ class MsgServicer(object):
     def InstantSpotMarketLaunch(self, request, context):
         """InstantSpotMarketLaunch defines method for creating a spot market by paying
         listing fee without governance
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def InstantPerpetualMarketLaunch(self, request, context):
-        """InstantPerpetualMarketLaunch defines a method for creating a new perpetual
-        futures market by paying listing fee without governance
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def InstantExpiryFuturesMarketLaunch(self, request, context):
-        """InstantExpiryFuturesMarketLaunch defines a method for creating a new expiry
-        futures market by paying listing fee without governance
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -488,16 +462,6 @@ def add_MsgServicer_to_server(servicer, server):
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgInstantSpotMarketLaunch.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgInstantSpotMarketLaunchResponse.SerializeToString,
             ),
-            'InstantPerpetualMarketLaunch': grpc.unary_unary_rpc_method_handler(
-                    servicer.InstantPerpetualMarketLaunch,
-                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgInstantPerpetualMarketLaunch.FromString,
-                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgInstantPerpetualMarketLaunchResponse.SerializeToString,
-            ),
-            'InstantExpiryFuturesMarketLaunch': grpc.unary_unary_rpc_method_handler(
-                    servicer.InstantExpiryFuturesMarketLaunch,
-                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgInstantExpiryFuturesMarketLaunch.FromString,
-                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgInstantExpiryFuturesMarketLaunchResponse.SerializeToString,
-            ),
             'CreateSpotLimitOrder': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateSpotLimitOrder,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgCreateSpotLimitOrder.FromString,
@@ -736,60 +700,6 @@ class Msg(object):
             '/injective.exchange.v1beta1.Msg/InstantSpotMarketLaunch',
             injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgInstantSpotMarketLaunch.SerializeToString,
             injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgInstantSpotMarketLaunchResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def InstantPerpetualMarketLaunch(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective.exchange.v1beta1.Msg/InstantPerpetualMarketLaunch',
-            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgInstantPerpetualMarketLaunch.SerializeToString,
-            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgInstantPerpetualMarketLaunchResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def InstantExpiryFuturesMarketLaunch(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective.exchange.v1beta1.Msg/InstantExpiryFuturesMarketLaunch',
-            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgInstantExpiryFuturesMarketLaunch.SerializeToString,
-            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgInstantExpiryFuturesMarketLaunchResponse.FromString,
             options,
             channel_credentials,
             insecure,

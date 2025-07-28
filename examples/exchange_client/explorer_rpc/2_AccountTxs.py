@@ -1,16 +1,18 @@
 import asyncio
+import json
 
-from pyinjective.async_client import AsyncClient
 from pyinjective.client.model.pagination import PaginationOption
-from pyinjective.composer import Composer
+from pyinjective.composer_v2 import Composer
 from pyinjective.core.network import Network
+from pyinjective.indexer_client import IndexerClient
 
 
 async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
-    client = AsyncClient(network)
-    composer = Composer(network=network.string())
+    client = IndexerClient(network=network)
+    composer = Composer(network=network)
+
     address = "inj1phd706jqzd9wznkk5hgsfkrc8jqxv0kmlj0kex"
     message_type = "cosmos.bank.v1beta1.MsgSend"
     limit = 2
@@ -20,11 +22,14 @@ async def main() -> None:
         message_type=message_type,
         pagination=pagination,
     )
-    print(transactions_response)
+    print("Transactions response:")
+    print(f"{json.dumps(transactions_response, indent=2)}\n")
     first_transaction_messages = composer.unpack_transaction_messages(transaction_data=transactions_response["data"][0])
-    print(first_transaction_messages)
+    print("First transaction messages:")
+    print(f"{json.dumps(first_transaction_messages, indent=2)}\n")
     first_message = first_transaction_messages[0]
-    print(first_message)
+    print("First message:")
+    print(f"{json.dumps(first_message, indent=2)}\n")
 
 
 if __name__ == "__main__":

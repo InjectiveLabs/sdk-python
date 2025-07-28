@@ -1,10 +1,11 @@
 import asyncio
+import json
 import os
 
 import dotenv
 
 from pyinjective import PrivateKey
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.core.network import Network
 
 
@@ -26,10 +27,10 @@ async def main() -> None:
     subaccount_id = address.get_subaccount_id(index=0)
 
     volume = await client.fetch_aggregate_volume(account=address.to_acc_bech32())
-    print(volume)
+    print(json.dumps(volume, indent=2))
 
     volume = await client.fetch_aggregate_volume(account=subaccount_id)
-    print(volume)
+    print(json.dumps(volume, indent=2))
 
 
 if __name__ == "__main__":

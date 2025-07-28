@@ -1,6 +1,7 @@
 import asyncio
+import json
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.core.network import Network
 
 
@@ -10,7 +11,7 @@ async def main() -> None:
     address = "inj1cml96vmptgw99syqrrz8az79xer2pcgp0a885r"
     denom = "inj"
     bank_balance = await client.fetch_bank_balance(address=address, denom=denom)
-    print(bank_balance)
+    print(json.dumps(bank_balance, indent=2))
 
 
 if __name__ == "__main__":

@@ -1,13 +1,13 @@
 import asyncio
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.core.network import Network
 
 
 async def main() -> None:
-    network = Network.testnet()
+    network = Network.devnet()
     client = AsyncClient(network)
-    tx_hash = "D265527E3171C47D01D7EC9B839A95F8F794D4E683F26F5564025961C96EFDDA"
+    tx_hash = "EA598BB5297341636DD62D378DEB87ECE6F95AFB4F45966AA6A53D36EF022DA5"
     tx_logs = await client.fetch_tx(hash=tx_hash)
     print(tx_logs)
 

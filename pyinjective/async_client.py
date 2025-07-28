@@ -16,23 +16,6 @@ from pyinjective.client.chain.grpc.chain_grpc_token_factory_api import ChainGrpc
 from pyinjective.client.chain.grpc.chain_grpc_txfees_api import ChainGrpcTxfeesApi
 from pyinjective.client.chain.grpc.chain_grpc_wasm_api import ChainGrpcWasmApi
 from pyinjective.client.chain.grpc_stream.chain_grpc_chain_stream import ChainGrpcChainStream
-from pyinjective.client.indexer.grpc.indexer_grpc_account_api import IndexerGrpcAccountApi
-from pyinjective.client.indexer.grpc.indexer_grpc_auction_api import IndexerGrpcAuctionApi
-from pyinjective.client.indexer.grpc.indexer_grpc_derivative_api import IndexerGrpcDerivativeApi
-from pyinjective.client.indexer.grpc.indexer_grpc_explorer_api import IndexerGrpcExplorerApi
-from pyinjective.client.indexer.grpc.indexer_grpc_insurance_api import IndexerGrpcInsuranceApi
-from pyinjective.client.indexer.grpc.indexer_grpc_meta_api import IndexerGrpcMetaApi
-from pyinjective.client.indexer.grpc.indexer_grpc_oracle_api import IndexerGrpcOracleApi
-from pyinjective.client.indexer.grpc.indexer_grpc_portfolio_api import IndexerGrpcPortfolioApi
-from pyinjective.client.indexer.grpc.indexer_grpc_spot_api import IndexerGrpcSpotApi
-from pyinjective.client.indexer.grpc_stream.indexer_grpc_account_stream import IndexerGrpcAccountStream
-from pyinjective.client.indexer.grpc_stream.indexer_grpc_auction_stream import IndexerGrpcAuctionStream
-from pyinjective.client.indexer.grpc_stream.indexer_grpc_derivative_stream import IndexerGrpcDerivativeStream
-from pyinjective.client.indexer.grpc_stream.indexer_grpc_explorer_stream import IndexerGrpcExplorerStream
-from pyinjective.client.indexer.grpc_stream.indexer_grpc_meta_stream import IndexerGrpcMetaStream
-from pyinjective.client.indexer.grpc_stream.indexer_grpc_oracle_stream import IndexerGrpcOracleStream
-from pyinjective.client.indexer.grpc_stream.indexer_grpc_portfolio_stream import IndexerGrpcPortfolioStream
-from pyinjective.client.indexer.grpc_stream.indexer_grpc_spot_stream import IndexerGrpcSpotStream
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.composer import Composer
 from pyinjective.constant import GAS_PRICE
@@ -47,23 +30,13 @@ from pyinjective.core.token import Token
 from pyinjective.core.tokens_file_loader import TokensFileLoader
 from pyinjective.core.tx.grpc.tx_grpc_api import TxGrpcApi
 from pyinjective.exceptions import NotFoundError
+from pyinjective.indexer_client import IndexerClient
 from pyinjective.proto.cosmos.auth.v1beta1 import query_pb2_grpc as auth_query_grpc
 from pyinjective.proto.cosmos.authz.v1beta1 import query_pb2_grpc as authz_query_grpc
 from pyinjective.proto.cosmos.bank.v1beta1 import query_pb2_grpc as bank_query_grpc
 from pyinjective.proto.cosmos.base.tendermint.v1beta1 import query_pb2_grpc as tendermint_query_grpc
 from pyinjective.proto.cosmos.crypto.ed25519 import keys_pb2 as ed25519_keys  # noqa: F401 for validator set responses
 from pyinjective.proto.cosmos.tx.v1beta1 import service_pb2 as tx_service, service_pb2_grpc as tx_service_grpc
-from pyinjective.proto.exchange import (
-    injective_accounts_rpc_pb2_grpc as exchange_accounts_rpc_grpc,
-    injective_auction_rpc_pb2_grpc as auction_rpc_grpc,
-    injective_derivative_exchange_rpc_pb2_grpc as derivative_exchange_rpc_grpc,
-    injective_explorer_rpc_pb2_grpc as explorer_rpc_grpc,
-    injective_insurance_rpc_pb2_grpc as insurance_rpc_grpc,
-    injective_meta_rpc_pb2_grpc as exchange_meta_rpc_grpc,
-    injective_oracle_rpc_pb2_grpc as oracle_rpc_grpc,
-    injective_portfolio_rpc_pb2_grpc as portfolio_rpc_grpc,
-    injective_spot_exchange_rpc_pb2_grpc as spot_exchange_rpc_grpc,
-)
 from pyinjective.proto.ibc.lightclients.tendermint.v1 import (  # noqa: F401 for validator set responses
     tendermint_pb2 as ibc_tendermint,
 )
@@ -90,6 +63,7 @@ class AsyncClient:
         self.sequence = 0
 
         self.network = network
+        self.indexer_client = IndexerClient(network=network)
 
         # chain stubs
         self.chain_channel = self.network.create_chain_grpc_channel()
@@ -100,25 +74,7 @@ class AsyncClient:
         self.stubBank = bank_query_grpc.QueryStub(self.chain_channel)
         self.stubTx = tx_service_grpc.ServiceStub(self.chain_channel)
 
-        self.exchange_cookie = ""
         self.timeout_height = 1
-
-        # exchange stubs
-        self.exchange_channel = self.network.create_exchange_grpc_channel()
-        self.stubMeta = exchange_meta_rpc_grpc.InjectiveMetaRPCStub(self.exchange_channel)
-        self.stubExchangeAccount = exchange_accounts_rpc_grpc.InjectiveAccountsRPCStub(self.exchange_channel)
-        self.stubOracle = oracle_rpc_grpc.InjectiveOracleRPCStub(self.exchange_channel)
-        self.stubInsurance = insurance_rpc_grpc.InjectiveInsuranceRPCStub(self.exchange_channel)
-        self.stubSpotExchange = spot_exchange_rpc_grpc.InjectiveSpotExchangeRPCStub(self.exchange_channel)
-        self.stubDerivativeExchange = derivative_exchange_rpc_grpc.InjectiveDerivativeExchangeRPCStub(
-            self.exchange_channel
-        )
-        self.stubAuction = auction_rpc_grpc.InjectiveAuctionRPCStub(self.exchange_channel)
-        self.stubPortfolio = portfolio_rpc_grpc.InjectivePortfolioRPCStub(self.exchange_channel)
-
-        # explorer stubs
-        self.explorer_channel = self.network.create_explorer_grpc_channel()
-        self.stubExplorer = explorer_rpc_grpc.InjectiveExplorerRPCStub(self.explorer_channel)
 
         self.chain_stream_channel = self.network.create_chain_stream_grpc_channel()
         self.chain_stream_stub = stream_rpc_grpc.StreamStub(channel=self.chain_stream_channel)
@@ -199,82 +155,7 @@ class AsyncClient:
             cookie_assistant=network.chain_cookie_assistant,
         )
 
-        self.exchange_account_api = IndexerGrpcAccountApi(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_auction_api = IndexerGrpcAuctionApi(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_derivative_api = IndexerGrpcDerivativeApi(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_insurance_api = IndexerGrpcInsuranceApi(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_meta_api = IndexerGrpcMetaApi(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_oracle_api = IndexerGrpcOracleApi(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_portfolio_api = IndexerGrpcPortfolioApi(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_spot_api = IndexerGrpcSpotApi(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-
-        self.exchange_account_stream_api = IndexerGrpcAccountStream(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_auction_stream_api = IndexerGrpcAuctionStream(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_derivative_stream_api = IndexerGrpcDerivativeStream(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_meta_stream_api = IndexerGrpcMetaStream(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_oracle_stream_api = IndexerGrpcOracleStream(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_portfolio_stream_api = IndexerGrpcPortfolioStream(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-        self.exchange_spot_stream_api = IndexerGrpcSpotStream(
-            channel=self.exchange_channel,
-            cookie_assistant=network.exchange_cookie_assistant,
-        )
-
-        self.exchange_explorer_api = IndexerGrpcExplorerApi(
-            channel=self.explorer_channel,
-            cookie_assistant=network.explorer_cookie_assistant,
-        )
-        self.exchange_explorer_stream_api = IndexerGrpcExplorerStream(
-            channel=self.explorer_channel,
-            cookie_assistant=network.explorer_cookie_assistant,
-        )
-
     def __del__(self):
-        self._cancel_timeout_height_sync_task()
-
-    async def close_exchange_channel(self):
-        await self.exchange_channel.close()
         self._cancel_timeout_height_sync_task()
 
     async def close_chain_channel(self):
@@ -911,10 +792,10 @@ class AsyncClient:
     # Auction RPC
 
     async def fetch_auction(self, round: int) -> Dict[str, Any]:
-        return await self.exchange_auction_api.fetch_auction(round=round)
+        return await self.indexer_client.fetch_auction(round=round)
 
     async def fetch_auctions(self) -> Dict[str, Any]:
-        return await self.exchange_auction_api.fetch_auctions()
+        return await self.indexer_client.fetch_auctions()
 
     async def listen_bids_updates(
         self,
@@ -922,25 +803,25 @@ class AsyncClient:
         on_end_callback: Optional[Callable] = None,
         on_status_callback: Optional[Callable] = None,
     ):
-        await self.exchange_auction_stream_api.stream_bids(
+        await self.indexer_client.listen_bids_updates(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
         )
 
     async def fetch_inj_burnt(self) -> Dict[str, Any]:
-        return await self.exchange_auction_api.fetch_inj_burnt()
+        return await self.indexer_client.fetch_inj_burnt()
 
     # Meta RPC
 
     async def fetch_ping(self) -> Dict[str, Any]:
-        return await self.exchange_meta_api.fetch_ping()
+        return await self.indexer_client.fetch_ping()
 
     async def fetch_version(self) -> Dict[str, Any]:
-        return await self.exchange_meta_api.fetch_version()
+        return await self.indexer_client.fetch_version()
 
     async def fetch_info(self) -> Dict[str, Any]:
-        return await self.exchange_meta_api.fetch_info()
+        return await self.indexer_client.fetch_info()
 
     async def listen_keepalive(
         self,
@@ -948,7 +829,7 @@ class AsyncClient:
         on_end_callback: Optional[Callable] = None,
         on_status_callback: Optional[Callable] = None,
     ):
-        await self.exchange_meta_stream_api.stream_keepalive(
+        await self.indexer_client.listen_keepalive(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
@@ -1074,7 +955,7 @@ class AsyncClient:
     # Explorer RPC
 
     async def fetch_tx_by_tx_hash(self, tx_hash: str) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_tx_by_tx_hash(tx_hash=tx_hash)
+        return await self.indexer_client.fetch_tx_by_tx_hash(tx_hash=tx_hash)
 
     async def fetch_account_txs(
         self,
@@ -1088,7 +969,7 @@ class AsyncClient:
         status: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_account_txs(
+        return await self.indexer_client.fetch_account_txs(
             address=address,
             before=before,
             after=after,
@@ -1105,12 +986,14 @@ class AsyncClient:
         address: str,
         height: Optional[int] = None,
         token: Optional[str] = None,
+        status: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_contract_txs_v2(
+        return await self.indexer_client.fetch_contract_txs_v2(
             address=address,
             height=height,
             token=token,
+            status=status,
             pagination=pagination,
         )
 
@@ -1120,25 +1003,19 @@ class AsyncClient:
         after: Optional[int] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_blocks(before=before, after=after, pagination=pagination)
+        return await self.indexer_client.fetch_blocks(before=before, after=after, pagination=pagination)
 
     async def fetch_block(self, block_id: str) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_block(block_id=block_id)
+        return await self.indexer_client.fetch_block(block_id=block_id)
 
     async def fetch_validators(self) -> Dict[str, Any]:
-        """
-        Fetch validators from the explorer API.
-
-        Returns:
-            Dict containing validator information
-        """
-        return await self.exchange_explorer_api.fetch_validators()
+        return await self.indexer_client.fetch_validators()
 
     async def fetch_validator(self, address: str) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_validator(address)
+        return await self.indexer_client.fetch_validator(address=address)
 
     async def fetch_validator_uptime(self, address: str) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_validator_uptime(address=address)
+        return await self.indexer_client.fetch_validator_uptime(address=address)
 
     async def fetch_txs(
         self,
@@ -1151,7 +1028,7 @@ class AsyncClient:
         status: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_txs(
+        return await self.indexer_client.fetch_txs(
             before=before,
             after=after,
             message_type=message_type,
@@ -1168,7 +1045,7 @@ class AsyncClient:
         on_end_callback: Optional[Callable] = None,
         on_status_callback: Optional[Callable] = None,
     ):
-        await self.exchange_explorer_stream_api.stream_txs(
+        await self.indexer_client.listen_txs_updates(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
@@ -1180,7 +1057,7 @@ class AsyncClient:
         on_end_callback: Optional[Callable] = None,
         on_status_callback: Optional[Callable] = None,
     ):
-        await self.exchange_explorer_stream_api.stream_blocks(
+        await self.indexer_client.listen_blocks_updates(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
@@ -1192,7 +1069,7 @@ class AsyncClient:
         receiver: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_peggy_deposit_txs(
+        return await self.indexer_client.fetch_peggy_deposit_txs(
             sender=sender,
             receiver=receiver,
             pagination=pagination,
@@ -1204,7 +1081,7 @@ class AsyncClient:
         receiver: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_peggy_withdrawal_txs(
+        return await self.indexer_client.fetch_peggy_withdrawal_txs(
             sender=sender,
             receiver=receiver,
             pagination=pagination,
@@ -1220,7 +1097,7 @@ class AsyncClient:
         dest_port: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_ibc_transfer_txs(
+        return await self.indexer_client.fetch_ibc_transfer_txs(
             sender=sender,
             receiver=receiver,
             src_channel=src_channel,
@@ -1234,7 +1111,7 @@ class AsyncClient:
         self,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_wasm_codes(
+        return await self.indexer_client.fetch_wasm_codes(
             pagination=pagination,
         )
 
@@ -1242,19 +1119,23 @@ class AsyncClient:
         self,
         code_id: int,
     ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_wasm_code_by_id(code_id=code_id)
+        return await self.indexer_client.fetch_wasm_code_by_id(code_id=code_id)
 
     async def fetch_wasm_contracts(
         self,
         code_id: Optional[int] = None,
         assets_only: Optional[bool] = None,
         label: Optional[str] = None,
+        token: Optional[str] = None,
+        lookup: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_wasm_contracts(
+        return await self.indexer_client.fetch_wasm_contracts(
             code_id=code_id,
             assets_only=assets_only,
             label=label,
+            token=token,
+            lookup=lookup,
             pagination=pagination,
         )
 
@@ -1262,14 +1143,14 @@ class AsyncClient:
         self,
         address: str,
     ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_wasm_contract_by_address(address=address)
+        return await self.indexer_client.fetch_wasm_contract_by_address(address=address)
 
     async def fetch_cw20_balance(
         self,
         address: str,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_cw20_balance(
+        return await self.indexer_client.fetch_cw20_balance(
             address=address,
             pagination=pagination,
         )
@@ -1278,7 +1159,7 @@ class AsyncClient:
         self,
         market_ids: Optional[List[str]] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_relayers(
+        return await self.indexer_client.fetch_relayers(
             market_ids=market_ids,
         )
 
@@ -1292,7 +1173,7 @@ class AsyncClient:
         token: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_explorer_api.fetch_bank_transfers(
+        return await self.indexer_client.fetch_bank_transfers(
             senders=senders,
             recipients=recipients,
             is_community_pool_related=is_community_pool_related,
@@ -1312,7 +1193,7 @@ class AsyncClient:
         on_status_callback: Optional[Callable] = None,
         denoms: Optional[List[str]] = None,
     ):
-        await self.exchange_account_stream_api.stream_subaccount_balance(
+        await self.indexer_client.listen_subaccount_balance_updates(
             subaccount_id=subaccount_id,
             callback=callback,
             on_end_callback=on_end_callback,
@@ -1321,17 +1202,15 @@ class AsyncClient:
         )
 
     async def fetch_subaccount_balance(self, subaccount_id: str, denom: str) -> Dict[str, Any]:
-        return await self.exchange_account_api.fetch_subaccount_balance(subaccount_id=subaccount_id, denom=denom)
+        return await self.indexer_client.fetch_subaccount_balance(subaccount_id=subaccount_id, denom=denom)
 
     async def fetch_subaccounts_list(self, address: str) -> Dict[str, Any]:
-        return await self.exchange_account_api.fetch_subaccounts_list(address=address)
+        return await self.indexer_client.fetch_subaccounts_list(address=address)
 
     async def fetch_subaccount_balances_list(
         self, subaccount_id: str, denoms: Optional[List[str]] = None
     ) -> Dict[str, Any]:
-        return await self.exchange_account_api.fetch_subaccount_balances_list(
-            subaccount_id=subaccount_id, denoms=denoms
-        )
+        return await self.indexer_client.fetch_subaccount_balances_list(subaccount_id=subaccount_id, denoms=denoms)
 
     async def fetch_subaccount_history(
         self,
@@ -1340,7 +1219,7 @@ class AsyncClient:
         transfer_types: Optional[List[str]] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_account_api.fetch_subaccount_history(
+        return await self.indexer_client.fetch_subaccount_history(
             subaccount_id=subaccount_id,
             denom=denom,
             transfer_types=transfer_types,
@@ -1353,7 +1232,7 @@ class AsyncClient:
         market_id: Optional[str] = None,
         order_direction: Optional[str] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_account_api.fetch_subaccount_order_summary(
+        return await self.indexer_client.fetch_subaccount_order_summary(
             subaccount_id=subaccount_id,
             market_id=market_id,
             order_direction=order_direction,
@@ -1364,16 +1243,16 @@ class AsyncClient:
         spot_order_hashes: Optional[List[str]] = None,
         derivative_order_hashes: Optional[List[str]] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_account_api.fetch_order_states(
+        return await self.indexer_client.fetch_order_states(
             spot_order_hashes=spot_order_hashes,
             derivative_order_hashes=derivative_order_hashes,
         )
 
     async def fetch_portfolio(self, account_address: str) -> Dict[str, Any]:
-        return await self.exchange_account_api.fetch_portfolio(account_address=account_address)
+        return await self.indexer_client.fetch_portfolio(account_address=account_address)
 
     async def fetch_rewards(self, account_address: Optional[str] = None, epoch: Optional[int] = None) -> Dict[str, Any]:
-        return await self.exchange_account_api.fetch_rewards(account_address=account_address, epoch=epoch)
+        return await self.indexer_client.fetch_rewards(account_address=account_address, epoch=epoch)
 
     # OracleRPC
 
@@ -1386,7 +1265,7 @@ class AsyncClient:
         quote_symbol: Optional[str] = None,
         oracle_type: Optional[str] = None,
     ):
-        await self.exchange_oracle_stream_api.stream_oracle_prices(
+        await self.indexer_client.listen_oracle_prices_updates(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
@@ -1402,7 +1281,7 @@ class AsyncClient:
         oracle_type: Optional[str] = None,
         oracle_scale_factor: Optional[int] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_oracle_api.fetch_oracle_price(
+        return await self.indexer_client.fetch_oracle_price(
             base_symbol=base_symbol,
             quote_symbol=quote_symbol,
             oracle_type=oracle_type,
@@ -1410,12 +1289,12 @@ class AsyncClient:
         )
 
     async def fetch_oracle_list(self) -> Dict[str, Any]:
-        return await self.exchange_oracle_api.fetch_oracle_list()
+        return await self.indexer_client.fetch_oracle_list()
 
     # InsuranceRPC
 
     async def fetch_insurance_funds(self) -> Dict[str, Any]:
-        return await self.exchange_insurance_api.fetch_insurance_funds()
+        return await self.indexer_client.fetch_insurance_funds()
 
     async def fetch_redemptions(
         self,
@@ -1423,7 +1302,7 @@ class AsyncClient:
         denom: Optional[str] = None,
         status: Optional[str] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_insurance_api.fetch_redemptions(
+        return await self.indexer_client.fetch_redemptions(
             address=address,
             denom=denom,
             status=status,
@@ -1432,7 +1311,7 @@ class AsyncClient:
     # SpotRPC
 
     async def fetch_spot_market(self, market_id: str) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_market(market_id=market_id)
+        return await self.indexer_client.fetch_spot_market(market_id=market_id)
 
     async def fetch_spot_markets(
         self,
@@ -1440,7 +1319,7 @@ class AsyncClient:
         base_denom: Optional[str] = None,
         quote_denom: Optional[str] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_markets(
+        return await self.indexer_client.fetch_spot_markets(
             market_statuses=market_statuses, base_denom=base_denom, quote_denom=quote_denom
         )
 
@@ -1451,7 +1330,7 @@ class AsyncClient:
         on_status_callback: Optional[Callable] = None,
         market_ids: Optional[List[str]] = None,
     ):
-        await self.exchange_spot_stream_api.stream_markets(
+        await self.indexer_client.listen_spot_markets_updates(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
@@ -1459,10 +1338,10 @@ class AsyncClient:
         )
 
     async def fetch_spot_orderbook_v2(self, market_id: str) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_orderbook_v2(market_id=market_id)
+        return await self.indexer_client.fetch_spot_orderbook_v2(market_id=market_id)
 
     async def fetch_spot_orderbooks_v2(self, market_ids: List[str]) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_orderbooks_v2(market_ids=market_ids)
+        return await self.indexer_client.fetch_spot_orderbooks_v2(market_ids=market_ids)
 
     async def fetch_spot_orders(
         self,
@@ -1475,7 +1354,7 @@ class AsyncClient:
         cid: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_orders(
+        return await self.indexer_client.fetch_spot_orders(
             market_ids=market_ids,
             order_side=order_side,
             subaccount_id=subaccount_id,
@@ -1499,7 +1378,7 @@ class AsyncClient:
         cid: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_orders_history(
+        return await self.indexer_client.fetch_spot_orders_history(
             subaccount_id=subaccount_id,
             market_ids=market_ids,
             order_types=order_types,
@@ -1525,7 +1404,7 @@ class AsyncClient:
         fee_recipient: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_trades_v2(
+        return await self.indexer_client.fetch_spot_trades(
             market_ids=market_ids,
             subaccount_ids=subaccount_ids,
             execution_side=execution_side,
@@ -1545,7 +1424,7 @@ class AsyncClient:
         on_end_callback: Optional[Callable] = None,
         on_status_callback: Optional[Callable] = None,
     ):
-        await self.exchange_spot_stream_api.stream_orderbook_v2(
+        await self.indexer_client.listen_spot_orderbook_snapshots(
             market_ids=market_ids,
             callback=callback,
             on_end_callback=on_end_callback,
@@ -1559,7 +1438,7 @@ class AsyncClient:
         on_end_callback: Optional[Callable] = None,
         on_status_callback: Optional[Callable] = None,
     ):
-        await self.exchange_spot_stream_api.stream_orderbook_update(
+        await self.indexer_client.listen_spot_orderbook_updates(
             market_ids=market_ids,
             callback=callback,
             on_end_callback=on_end_callback,
@@ -1580,7 +1459,7 @@ class AsyncClient:
         cid: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ):
-        await self.exchange_spot_stream_api.stream_orders(
+        await self.indexer_client.listen_spot_orders_updates(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
@@ -1606,7 +1485,7 @@ class AsyncClient:
         state: Optional[str] = None,
         execution_types: Optional[List[str]] = None,
     ):
-        await self.exchange_spot_stream_api.stream_orders_history(
+        await self.indexer_client.listen_spot_orders_history_updates(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
@@ -1630,7 +1509,7 @@ class AsyncClient:
         state: Optional[str] = None,
         execution_types: Optional[List[str]] = None,
     ):
-        await self.exchange_derivative_stream_api.stream_orders_history(
+        await self.indexer_client.listen_derivative_orders_history_updates(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
@@ -1658,7 +1537,7 @@ class AsyncClient:
         fee_recipient: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ):
-        await self.exchange_spot_stream_api.stream_trades_v2(
+        await self.indexer_client.listen_spot_trades_updates(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
@@ -1680,7 +1559,7 @@ class AsyncClient:
         market_id: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_subaccount_orders_list(
+        return await self.indexer_client.fetch_spot_subaccount_orders_list(
             subaccount_id=subaccount_id, market_id=market_id, pagination=pagination
         )
 
@@ -1692,7 +1571,7 @@ class AsyncClient:
         direction: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_spot_api.fetch_subaccount_trades_list(
+        return await self.indexer_client.fetch_spot_subaccount_trades_list(
             subaccount_id=subaccount_id,
             market_id=market_id,
             execution_type=execution_type,
@@ -1703,14 +1582,14 @@ class AsyncClient:
     # DerivativeRPC
 
     async def fetch_derivative_market(self, market_id: str) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_market(market_id=market_id)
+        return await self.indexer_client.fetch_derivative_market(market_id=market_id)
 
     async def fetch_derivative_markets(
         self,
         market_statuses: Optional[List[str]] = None,
         quote_denom: Optional[str] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_markets(
+        return await self.indexer_client.fetch_derivative_markets(
             market_statuses=market_statuses,
             quote_denom=quote_denom,
         )
@@ -1722,7 +1601,7 @@ class AsyncClient:
         on_status_callback: Optional[Callable] = None,
         market_ids: Optional[List[str]] = None,
     ):
-        await self.exchange_derivative_stream_api.stream_market(
+        await self.indexer_client.listen_derivative_market_updates(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
@@ -1730,10 +1609,10 @@ class AsyncClient:
         )
 
     async def fetch_derivative_orderbook_v2(self, market_id: str) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_orderbook_v2(market_id=market_id)
+        return await self.indexer_client.fetch_derivative_orderbook_v2(market_id=market_id)
 
     async def fetch_derivative_orderbooks_v2(self, market_ids: List[str]) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_orderbooks_v2(market_ids=market_ids)
+        return await self.indexer_client.fetch_derivative_orderbooks_v2(market_ids=market_ids)
 
     async def fetch_derivative_orders(
         self,
@@ -1748,7 +1627,7 @@ class AsyncClient:
         cid: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_orders(
+        return await self.indexer_client.fetch_derivative_orders(
             market_ids=market_ids,
             order_side=order_side,
             subaccount_id=subaccount_id,
@@ -1775,7 +1654,7 @@ class AsyncClient:
         cid: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_orders_history(
+        return await self.indexer_client.fetch_derivative_orders_history(
             subaccount_id=subaccount_id,
             market_ids=market_ids,
             order_types=order_types,
@@ -1802,7 +1681,7 @@ class AsyncClient:
         fee_recipient: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_trades_v2(
+        return await self.indexer_client.fetch_derivative_trades(
             market_ids=market_ids,
             subaccount_ids=subaccount_ids,
             execution_side=execution_side,
@@ -1822,7 +1701,7 @@ class AsyncClient:
         on_end_callback: Optional[Callable] = None,
         on_status_callback: Optional[Callable] = None,
     ):
-        await self.exchange_derivative_stream_api.stream_orderbook_v2(
+        await self.indexer_client.listen_derivative_orderbook_snapshots(
             market_ids=market_ids,
             callback=callback,
             on_end_callback=on_end_callback,
@@ -1836,7 +1715,7 @@ class AsyncClient:
         on_end_callback: Optional[Callable] = None,
         on_status_callback: Optional[Callable] = None,
     ):
-        await self.exchange_derivative_stream_api.stream_orderbook_update(
+        await self.indexer_client.listen_derivative_orderbook_updates(
             market_ids=market_ids,
             callback=callback,
             on_end_callback=on_end_callback,
@@ -1859,7 +1738,7 @@ class AsyncClient:
         cid: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ):
-        await self.exchange_derivative_stream_api.stream_orders(
+        await self.indexer_client.listen_derivative_orders_updates(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
@@ -1891,7 +1770,7 @@ class AsyncClient:
         fee_recipient: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ):
-        return await self.exchange_derivative_stream_api.stream_trades_v2(
+        return await self.indexer_client.listen_derivative_trades_updates(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
@@ -1915,7 +1794,7 @@ class AsyncClient:
         subaccount_total_positions: Optional[bool] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_positions_v2(
+        return await self.indexer_client.fetch_derivative_positions_v2(
             market_ids=market_ids,
             subaccount_id=subaccount_id,
             direction=direction,
@@ -1939,7 +1818,7 @@ class AsyncClient:
             DeprecationWarning,
             stacklevel=2,
         )
-        await self.exchange_derivative_stream_api.stream_positions(
+        await self.indexer_client.listen_derivative_positions_updates(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
@@ -1970,7 +1849,7 @@ class AsyncClient:
         :param subaccount_ids: Optional list of subaccount IDs to filter positions
         :param account_address: Optional account address to filter positions
         """
-        await self.indexer_derivative_stream.stream_positions_v2(
+        await self.indexer_client.listen_derivative_positions_v2_updates(
             callback=callback,
             on_end_callback=on_end_callback,
             on_status_callback=on_status_callback,
@@ -1986,7 +1865,7 @@ class AsyncClient:
         market_id: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_liquidable_positions(
+        return await self.indexer_client.fetch_derivative_liquidable_positions(
             market_id=market_id,
             pagination=pagination,
         )
@@ -1997,7 +1876,7 @@ class AsyncClient:
         market_id: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_subaccount_orders_list(
+        return await self.indexer_client.fetch_derivative_subaccount_orders_list(
             subaccount_id=subaccount_id, market_id=market_id, pagination=pagination
         )
 
@@ -2009,7 +1888,7 @@ class AsyncClient:
         direction: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_subaccount_trades_list(
+        return await self.indexer_client.fetch_derivative_subaccount_trades_list(
             subaccount_id=subaccount_id,
             market_id=market_id,
             execution_type=execution_type,
@@ -2023,7 +1902,7 @@ class AsyncClient:
         subaccount_id: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_funding_payments(
+        return await self.indexer_client.fetch_funding_payments(
             market_ids=market_ids, subaccount_id=subaccount_id, pagination=pagination
         )
 
@@ -2032,7 +1911,7 @@ class AsyncClient:
         market_id: str,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_funding_rates(market_id=market_id, pagination=pagination)
+        return await self.indexer_client.fetch_funding_rates(market_id=market_id, pagination=pagination)
 
     async def fetch_binary_options_markets(
         self,
@@ -2040,22 +1919,20 @@ class AsyncClient:
         quote_denom: Optional[str] = None,
         pagination: Optional[PaginationOption] = None,
     ) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_binary_options_markets(
+        return await self.indexer_client.fetch_binary_options_markets(
             market_status=market_status,
             quote_denom=quote_denom,
             pagination=pagination,
         )
 
     async def fetch_binary_options_market(self, market_id: str) -> Dict[str, Any]:
-        return await self.exchange_derivative_api.fetch_binary_options_market(market_id=market_id)
+        return await self.indexer_client.fetch_binary_options_market(market_id=market_id)
 
     # PortfolioRPC
     async def fetch_account_portfolio_balances(
         self, account_address: str, usd: Optional[bool] = None
     ) -> Dict[str, Any]:
-        return await self.exchange_portfolio_api.fetch_account_portfolio_balances(
-            account_address=account_address, usd=usd
-        )
+        return await self.indexer_client.fetch_account_portfolio_balances(account_address=account_address, usd=usd)
 
     async def listen_account_portfolio_updates(
         self,
@@ -2066,7 +1943,7 @@ class AsyncClient:
         subaccount_id: Optional[str] = None,
         update_type: Optional[str] = None,
     ):
-        await self.exchange_portfolio_stream_api.stream_account_portfolio(
+        await self.indexer_client.listen_account_portfolio_updates(
             account_address=account_address,
             callback=callback,
             on_end_callback=on_end_callback,
@@ -2396,6 +2273,7 @@ class AsyncClient:
                     decimals=decimals,
                     logo=token_metadata["uri"],
                     updated=-1,
+                    unique_symbol=unique_symbol,
                 )
 
                 self._tokens_by_denom[denom] = token
@@ -2534,6 +2412,7 @@ class AsyncClient:
                 decimals=token_meta["decimals"],
                 logo=token_meta["logo"],
                 updated=int(token_meta["updatedAt"]),
+                unique_symbol=unique_symbol,
             )
 
             tokens_by_denom[denom] = token
@@ -2559,8 +2438,19 @@ class AsyncClient:
                         unique_symbol = symbol_candidate
                         break
 
-                tokens_by_denom[token.denom] = token
-                tokens_by_symbol[unique_symbol] = token
+                new_token = Token(
+                    name=token.name,
+                    symbol=token.symbol,
+                    denom=token.denom,
+                    address=token.address,
+                    decimals=token.decimals,
+                    logo=token.logo,
+                    updated=token.updated,
+                    unique_symbol=unique_symbol,
+                )
+
+                tokens_by_denom[new_token.denom] = new_token
+                tokens_by_symbol[unique_symbol] = new_token
 
         return tokens_by_symbol, tokens_by_denom
 

@@ -145,3 +145,4 @@ cython_debug/
 .exchange_cookie
 
 .flakeheaven_cache
+.vscode/settings.json

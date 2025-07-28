@@ -4,7 +4,7 @@ import os
 
 import dotenv
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.core.broadcaster import MsgBroadcasterWithPk
 from pyinjective.core.network import Network
 from pyinjective.wallet import PrivateKey
@@ -24,7 +24,7 @@ async def main() -> None:
     # adjust gas price to make it valid even if it changes between the time it is requested and the TX is broadcasted
     gas_price = int(gas_price * 1.1)
 
-    message_broadcaster = MsgBroadcasterWithPk.new_without_simulation(
+    message_broadcaster = MsgBroadcasterWithPk.new_using_gas_heuristics(
         network=network,
         private_key=private_key_in_hexa,
         gas_price=gas_price,

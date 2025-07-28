@@ -1,9 +1,10 @@
 import asyncio
+import json
 import os
 
 import dotenv
 
-from pyinjective.async_client import AsyncClient
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.core.network import Network
 
 
@@ -14,9 +15,9 @@ async def main() -> None:
 
     network = Network.testnet()
     client = AsyncClient(network)
-    msg_type_url = "/injective.exchange.v1beta1.MsgCreateDerivativeLimitOrder"
+    msg_type_url = "/injective.exchange.v2.MsgCreateDerivativeLimitOrder"
     authorizations = await client.fetch_grants(granter=granter, grantee=grantee, msg_type_url=msg_type_url)
-    print(authorizations)
+    print(json.dumps(authorizations, indent=2))
 
 
 if __name__ == "__main__":

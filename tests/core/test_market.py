@@ -20,7 +20,7 @@ class TestSpotMarket:
         quantized_value = (
             expected_value // inj_usdt_spot_market.min_quantity_tick_size
         ) * inj_usdt_spot_market.min_quantity_tick_size
-        quantized_chain_format_value = quantized_value * Decimal("1e18")
+        quantized_chain_format_value = quantized_value * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
 
         assert quantized_chain_format_value == chain_value
 

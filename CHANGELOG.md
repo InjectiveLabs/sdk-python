@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.11.0] - 2025-07-29
+### Added
+- Added support for Exchange V2 proto queries and types
+- Added support for ERC20 proto queries and types
+- Added support for EVM proto queries and types
+- Updated all chain exchange module examples to use the new Exchange V2 proto queries and types
+- Added examples for ERC20 queries and messages
+- Added examples for EVM queries
+- Created a new AsyncClient in the pyinjective.async_client_v2 module. This new AsyncClient provides support for the new v2 exchange endpoints. AsyncClient in pyinjective.async_client module still provides access to the v1 exchange endpoints.
+- Created a new Composer in the pyinjective.composer_v2 module. This new Composer provides support to create exchange v2 objects. Composer in pyinjective.composer module still provides access to the v1 exchange objects.
+- Created the IndexerClient class to have all indexer queries. AsyncClient v2 now does not include any logic related to the indexer endpoints. The original AsyncClient still does support indexer endpoints (for backwards compatibility) but it does that by using an instance of the IndexerClient
+
+### Removed
+- Removed all methods marked as deprecated in AsyncClient and Composer
+
 ## [1.10.0] - 2025-04-16
 ### Added
 - Added support for the queries in the new TXFees module

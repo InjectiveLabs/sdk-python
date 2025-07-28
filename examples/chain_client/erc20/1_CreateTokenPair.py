@@ -1,0 +1,64 @@
+import asyncio
+import json
+import os
+
+import dotenv
+
+from pyinjective.async_client_v2 import AsyncClient
+from pyinjective.core.broadcaster import MsgBroadcasterWithPk
+from pyinjective.core.network import Network
+from pyinjective.wallet import PrivateKey
+
+
+async def main() -> None:
+    dotenv.load_dotenv()
+    configured_private_key = os.getenv("INJECTIVE_PRIVATE_KEY")
+
+    # select network: local, testnet, mainnet
+    network = Network.testnet()
+
+    # initialize grpc client
+    client = AsyncClient(network)
+    composer = await client.composer()
+
+    gas_price = await client.current_chain_gas_price()
+    # adjust gas price to make it valid even if it changes between the time it is requested and the TX is broadcasted
+    gas_price = int(gas_price * 1.1)
+
+    message_broadcaster = MsgBroadcasterWithPk.new_using_gas_heuristics(
+        network=network,
+        private_key=configured_private_key,
+        gas_price=gas_price,
+        client=client,
+        composer=composer,
+    )
+
+    # load account
+    priv_key = PrivateKey.from_hex(configured_private_key)
+    pub_key = priv_key.to_public_key()
+    address = pub_key.to_address()
+    await client.fetch_account(address.to_acc_bech32())
+
+    usdt_denom = "factory/inj10vkkttgxdeqcgeppu20x9qtyvuaxxev8qh0awq/usdt"
+    usdt_erc20 = "0xdAC17F958D2ee523a2206206994597C13D831ec7"
+
+    # prepare tx msg
+    msg = composer.msg_create_token_pair(
+        sender=address.to_acc_bech32(),
+        bank_denom=usdt_denom,
+        erc20_address=usdt_erc20,
+    )
+
+    # broadcast the transaction
+    result = await message_broadcaster.broadcast([msg])
+    print("---Transaction Response---")
+    print(json.dumps(result, indent=2))
+
+    gas_price = await client.current_chain_gas_price()
+    # adjust gas price to make it valid even if it changes between the time it is requested and the TX is broadcasted
+    gas_price = int(gas_price * 1.1)
+    message_broadcaster.update_gas_price(gas_price=gas_price)
+
+
+if __name__ == "__main__":
+    asyncio.get_event_loop().run_until_complete(main())

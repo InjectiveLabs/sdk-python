@@ -11,6 +11,7 @@ class ConfigurableOracleQueryServicer(exchange_oracle_grpc.InjectiveOracleRPCSer
         super().__init__()
         self.oracle_list_responses = deque()
         self.price_responses = deque()
+        self.price_v2_responses = deque()
         self.stream_prices_responses = deque()
         self.stream_prices_by_markets_responses = deque()
 
@@ -19,6 +20,9 @@ class ConfigurableOracleQueryServicer(exchange_oracle_grpc.InjectiveOracleRPCSer
 
     async def Price(self, request: exchange_oracle_pb.PriceRequest, context=None, metadata=None):
         return self.price_responses.pop()
+
+    async def PriceV2(self, request: exchange_oracle_pb.PriceV2Request, context=None, metadata=None):
+        return self.price_v2_responses.pop()
 
     async def StreamPrices(self, request: exchange_oracle_pb.StreamPricesRequest, context=None, metadata=None):
         for event in self.stream_prices_responses:
