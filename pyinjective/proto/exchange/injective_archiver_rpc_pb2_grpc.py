@@ -20,6 +20,11 @@ class InjectiveArchiverRPCStub(object):
                 request_serializer=exchange_dot_injective__archiver__rpc__pb2.BalanceRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__archiver__rpc__pb2.BalanceResponse.FromString,
                 _registered_method=True)
+        self.AccountStats = channel.unary_unary(
+                '/injective_archiver_rpc.InjectiveArchiverRPC/AccountStats',
+                request_serializer=exchange_dot_injective__archiver__rpc__pb2.AccountStatsRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__archiver__rpc__pb2.AccountStatsResponse.FromString,
+                _registered_method=True)
         self.Rpnl = channel.unary_unary(
                 '/injective_archiver_rpc.InjectiveArchiverRPC/Rpnl',
                 request_serializer=exchange_dot_injective__archiver__rpc__pb2.RpnlRequest.SerializeToString,
@@ -68,6 +73,13 @@ class InjectiveArchiverRPCServicer(object):
 
     def Balance(self, request, context):
         """Provide historical balance data for a given account address.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AccountStats(self, request, context):
+        """Provide all-time stats for a given account address.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -136,6 +148,11 @@ def add_InjectiveArchiverRPCServicer_to_server(servicer, server):
                     servicer.Balance,
                     request_deserializer=exchange_dot_injective__archiver__rpc__pb2.BalanceRequest.FromString,
                     response_serializer=exchange_dot_injective__archiver__rpc__pb2.BalanceResponse.SerializeToString,
+            ),
+            'AccountStats': grpc.unary_unary_rpc_method_handler(
+                    servicer.AccountStats,
+                    request_deserializer=exchange_dot_injective__archiver__rpc__pb2.AccountStatsRequest.FromString,
+                    response_serializer=exchange_dot_injective__archiver__rpc__pb2.AccountStatsResponse.SerializeToString,
             ),
             'Rpnl': grpc.unary_unary_rpc_method_handler(
                     servicer.Rpnl,
@@ -206,6 +223,33 @@ class InjectiveArchiverRPC(object):
             '/injective_archiver_rpc.InjectiveArchiverRPC/Balance',
             exchange_dot_injective__archiver__rpc__pb2.BalanceRequest.SerializeToString,
             exchange_dot_injective__archiver__rpc__pb2.BalanceResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AccountStats(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_archiver_rpc.InjectiveArchiverRPC/AccountStats',
+            exchange_dot_injective__archiver__rpc__pb2.AccountStatsRequest.SerializeToString,
+            exchange_dot_injective__archiver__rpc__pb2.AccountStatsResponse.FromString,
             options,
             channel_credentials,
             insecure,
