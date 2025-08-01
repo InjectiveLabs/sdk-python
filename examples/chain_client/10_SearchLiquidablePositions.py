@@ -5,7 +5,7 @@ from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.core.network import Network
 
 def adjusted_margin(quantity: Decimal, margin: Decimal, is_long: bool, cumulative_funding_entry: Decimal, cumulative_funding: Decimal) -> Decimal:
-    unrealized_funding_payment = (cumulative_funding - cumulative_funding_entry) * quantity * (1 if is_long else -1)
+    unrealized_funding_payment = (cumulative_funding - cumulative_funding_entry) * quantity * (-1 if is_long else 1)
     return margin + unrealized_funding_payment
 
 async def main() -> None:
