@@ -42,14 +42,15 @@ async def main() -> None:
             market_cumulative_funding = client_market._from_extended_chain_format(Decimal(market["perpetualInfo"]["fundingInfo"]["cumulativeFunding"]))
 
             adj_margin = adjusted_margin(quantity, margin, is_long, cumulative_funding_entry, market_cumulative_funding)
-            adjusted_unit_margin = (adj_margin / quantity) * (1 if is_long else -1)
-
+            adjusted_unit_margin = (adj_margin / quantity) * (-1 if is_long else 1)
             maintenance_margin_ratio = client_market.maintenance_margin_ratio * (-1 if is_long else 1)
+
             liquidation_price = (entry_price + adjusted_unit_margin) / (Decimal(1) + maintenance_margin_ratio)
 
             should_be_liquidated = (is_long and market_mark_price <= liquidation_price) or (not is_long and market_mark_price >= liquidation_price)
 
             if should_be_liquidated:
+                print(f"Test {(Decimal(1) + maintenance_margin_ratio)} || market mantainance margin ratio: {client_market.maintenance_margin_ratio}")
                 print(f"{'Long' if is_long else 'Short'} position for market {client_market.id} and subaccount {position['subaccountId']} should be liquidated (liquidation price: {liquidation_price.normalize()} / mark price: {market_mark_price.normalize()})")
                 liquidable_positions.append(position)
 
