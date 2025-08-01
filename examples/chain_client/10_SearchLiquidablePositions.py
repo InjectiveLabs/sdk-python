@@ -4,9 +4,13 @@ from decimal import Decimal
 from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.core.network import Network
 
-def adjusted_margin(quantity: Decimal, margin: Decimal, is_long: bool, cumulative_funding_entry: Decimal, cumulative_funding: Decimal) -> Decimal:
+
+def adjusted_margin(
+    quantity: Decimal, margin: Decimal, is_long: bool, cumulative_funding_entry: Decimal, cumulative_funding: Decimal
+) -> Decimal:
     unrealized_funding_payment = (cumulative_funding - cumulative_funding_entry) * quantity * (-1 if is_long else 1)
     return margin + unrealized_funding_payment
+
 
 async def main() -> None:
     # select network: local, testnet, mainnet
@@ -38,8 +42,12 @@ async def main() -> None:
             quantity = client_market._from_extended_chain_format(Decimal(position["position"]["quantity"]))
             entry_price = client_market._from_extended_chain_format(Decimal(position["position"]["entryPrice"]))
             margin = client_market._from_extended_chain_format(Decimal(position["position"]["margin"]))
-            cumulative_funding_entry = client_market._from_extended_chain_format(Decimal(position["position"]["cumulativeFundingEntry"]))
-            market_cumulative_funding = client_market._from_extended_chain_format(Decimal(market["perpetualInfo"]["fundingInfo"]["cumulativeFunding"]))
+            cumulative_funding_entry = client_market._from_extended_chain_format(
+                Decimal(position["position"]["cumulativeFundingEntry"])
+            )
+            market_cumulative_funding = client_market._from_extended_chain_format(
+                Decimal(market["perpetualInfo"]["fundingInfo"]["cumulativeFunding"])
+            )
 
             adj_margin = adjusted_margin(quantity, margin, is_long, cumulative_funding_entry, market_cumulative_funding)
             adjusted_unit_margin = (adj_margin / quantity) * (-1 if is_long else 1)
@@ -47,14 +55,22 @@ async def main() -> None:
 
             liquidation_price = (entry_price + adjusted_unit_margin) / (Decimal(1) + maintenance_margin_ratio)
 
-            should_be_liquidated = (is_long and market_mark_price <= liquidation_price) or (not is_long and market_mark_price >= liquidation_price)
+            should_be_liquidated = (is_long and market_mark_price <= liquidation_price) or (
+                not is_long and market_mark_price >= liquidation_price
+            )
 
             if should_be_liquidated:
-                print(f"{'Long' if is_long else 'Short'} position for market {client_market.id} and subaccount {position['subaccountId']} should be liquidated (liquidation price: {liquidation_price.normalize()} / mark price: {market_mark_price.normalize()})")
+                position_side = "Long" if is_long else "Short"
+                print(
+                    f"{position_side} position for market {client_market.id} and subaccount "
+                    f"{position['subaccountId']} should be liquidated (liquidation price: "
+                    f"{liquidation_price.normalize()} / mark price: {market_mark_price.normalize()})"
+                )
                 liquidable_positions.append(position)
 
     # print(f"\n\n\n")
     # print(json.dumps(liquidable_positions, indent=4))
+
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())
