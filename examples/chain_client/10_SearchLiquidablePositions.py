@@ -50,7 +50,6 @@ async def main() -> None:
             should_be_liquidated = (is_long and market_mark_price <= liquidation_price) or (not is_long and market_mark_price >= liquidation_price)
 
             if should_be_liquidated:
-                print(f"Test {(Decimal(1) + maintenance_margin_ratio)} || market mantainance margin ratio: {client_market.maintenance_margin_ratio}")
                 print(f"{'Long' if is_long else 'Short'} position for market {client_market.id} and subaccount {position['subaccountId']} should be liquidated (liquidation price: {liquidation_price.normalize()} / mark price: {market_mark_price.normalize()})")
                 liquidable_positions.append(position)
 
