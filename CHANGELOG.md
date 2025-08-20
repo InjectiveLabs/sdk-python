@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.11.1] - 2025-08-20
+### Changed
+- Marked the v1 AsyncClient as deprecated
+
+### Fixed
+- Fixed the Indexer orderbooks queries in the v1 AsyncClient to include the depth parameter
+
 ## [1.11.0] - 2025-07-29
 ### Added
 - Added support for Exchange V2 proto queries and types
