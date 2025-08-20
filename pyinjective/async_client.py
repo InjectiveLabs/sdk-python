@@ -58,6 +58,12 @@ class AsyncClient:
         self,
         network: Network,
     ):
+        warn(
+            "AsyncClient from pyinjective.async_client is deprecated. "
+            "Please use AsyncClient from pyinjective.async_client_v2 instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         self.addr = ""
         self.number = 0
         self.sequence = 0
@@ -1337,11 +1343,11 @@ class AsyncClient:
             market_ids=market_ids,
         )
 
-    async def fetch_spot_orderbook_v2(self, market_id: str) -> Dict[str, Any]:
-        return await self.indexer_client.fetch_spot_orderbook_v2(market_id=market_id)
+    async def fetch_spot_orderbook_v2(self, market_id: str, depth: Optional[int] = None) -> Dict[str, Any]:
+        return await self.indexer_client.fetch_spot_orderbook_v2(market_id=market_id, depth=depth or 0)
 
-    async def fetch_spot_orderbooks_v2(self, market_ids: List[str]) -> Dict[str, Any]:
-        return await self.indexer_client.fetch_spot_orderbooks_v2(market_ids=market_ids)
+    async def fetch_spot_orderbooks_v2(self, market_ids: List[str], depth: Optional[int] = None) -> Dict[str, Any]:
+        return await self.indexer_client.fetch_spot_orderbooks_v2(market_ids=market_ids, depth=depth or 0)
 
     async def fetch_spot_orders(
         self,
@@ -1608,11 +1614,11 @@ class AsyncClient:
             market_ids=market_ids,
         )
 
-    async def fetch_derivative_orderbook_v2(self, market_id: str) -> Dict[str, Any]:
-        return await self.indexer_client.fetch_derivative_orderbook_v2(market_id=market_id)
+    async def fetch_derivative_orderbook_v2(self, market_id: str, depth: Optional[int] = None) -> Dict[str, Any]:
+        return await self.indexer_client.fetch_derivative_orderbook_v2(market_id=market_id, depth=depth or 0)
 
-    async def fetch_derivative_orderbooks_v2(self, market_ids: List[str]) -> Dict[str, Any]:
-        return await self.indexer_client.fetch_derivative_orderbooks_v2(market_ids=market_ids)
+    async def fetch_derivative_orderbooks_v2(self, market_ids: List[str], depth: Optional[int] = None) -> Dict[str, Any]:
+        return await self.indexer_client.fetch_derivative_orderbooks_v2(market_ids=market_ids, depth=depth or 0)
 
     async def fetch_derivative_orders(
         self,
