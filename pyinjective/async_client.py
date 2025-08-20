@@ -1617,7 +1617,9 @@ class AsyncClient:
     async def fetch_derivative_orderbook_v2(self, market_id: str, depth: Optional[int] = None) -> Dict[str, Any]:
         return await self.indexer_client.fetch_derivative_orderbook_v2(market_id=market_id, depth=depth or 0)
 
-    async def fetch_derivative_orderbooks_v2(self, market_ids: List[str], depth: Optional[int] = None) -> Dict[str, Any]:
+    async def fetch_derivative_orderbooks_v2(
+        self, market_ids: List[str], depth: Optional[int] = None
+    ) -> Dict[str, Any]:
         return await self.indexer_client.fetch_derivative_orderbooks_v2(market_ids=market_ids, depth=depth or 0)
 
     async def fetch_derivative_orders(
