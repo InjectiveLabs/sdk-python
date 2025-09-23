@@ -48,7 +48,7 @@ async def main() -> None:
         quote_denom="factory/inj17vytdwqczqz72j65saukplrktd4gyfme5agf6c/usdc",
         oracle_base="INJ",
         oracle_quote="USDC",
-        oracle_scale_factor=6,
+        oracle_scale_factor=0,
         oracle_type="Band",
         expiry=2000000000,
         maker_fee_rate=Decimal("-0.0001"),

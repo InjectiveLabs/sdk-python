@@ -203,6 +203,7 @@ class TestIndexerGrpcSpotApi:
             sells=[sell],
             sequence=5506752,
             timestamp=1698982083606,
+            height=1000,
         )
 
         spot_servicer.orderbook_v2_responses.append(
@@ -235,6 +236,7 @@ class TestIndexerGrpcSpotApi:
                 ],
                 "sequence": str(orderbook.sequence),
                 "timestamp": str(orderbook.timestamp),
+                "height": str(orderbook.height),
             }
         }
 
@@ -261,6 +263,7 @@ class TestIndexerGrpcSpotApi:
             sells=[sell],
             sequence=5506752,
             timestamp=1698982083606,
+            height=1000,
         )
 
         single_orderbook = exchange_spot_pb.SingleSpotLimitOrderbookV2(
@@ -298,6 +301,7 @@ class TestIndexerGrpcSpotApi:
                         ],
                         "sequence": str(orderbook.sequence),
                         "timestamp": str(orderbook.timestamp),
+                        "height": str(orderbook.height),
                     },
                 }
             ]
