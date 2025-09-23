@@ -47,7 +47,7 @@ async def main() -> None:
         oracle_symbol="UFC-KHABIB-TKO-05/30/2023",
         oracle_provider="UFC",
         oracle_type="Provider",
-        oracle_scale_factor=6,
+        oracle_scale_factor=0,
         maker_fee_rate=Decimal("0.0005"),  # 0.05%
         taker_fee_rate=Decimal("0.0010"),  # 0.10%
         expiration_timestamp=1680730982,

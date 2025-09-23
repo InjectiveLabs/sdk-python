@@ -137,6 +137,13 @@ class Composer:
 
 
         """
+
+        warn(
+            "Composer from pyinjective.composer is deprecated. "
+            "Please use Composer from pyinjective.composer_v2 instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         self.network = network
         self.spot_markets = spot_markets or dict()
         self.derivative_markets = derivative_markets or dict()

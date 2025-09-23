@@ -1189,6 +1189,9 @@ class Composer:
             granter=granter,
         )
 
+    def msg_cancel_post_only_mode(self, sender: str) -> injective_exchange_tx_v2_pb.MsgCancelPostOnlyMode:
+        return injective_exchange_tx_v2_pb.MsgCancelPostOnlyMode(sender=sender)
+
     # endregion
 
     # region Insurance module

@@ -25,6 +25,21 @@ class InjectiveAuctionRPCStub(object):
                 request_serializer=exchange_dot_injective__auction__rpc__pb2.AuctionsRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__auction__rpc__pb2.AuctionsResponse.FromString,
                 _registered_method=True)
+        self.AuctionsHistoryV2 = channel.unary_unary(
+                '/injective_auction_rpc.InjectiveAuctionRPC/AuctionsHistoryV2',
+                request_serializer=exchange_dot_injective__auction__rpc__pb2.AuctionsHistoryV2Request.SerializeToString,
+                response_deserializer=exchange_dot_injective__auction__rpc__pb2.AuctionsHistoryV2Response.FromString,
+                _registered_method=True)
+        self.AuctionV2 = channel.unary_unary(
+                '/injective_auction_rpc.InjectiveAuctionRPC/AuctionV2',
+                request_serializer=exchange_dot_injective__auction__rpc__pb2.AuctionV2Request.SerializeToString,
+                response_deserializer=exchange_dot_injective__auction__rpc__pb2.AuctionV2Response.FromString,
+                _registered_method=True)
+        self.AccountAuctionsV2 = channel.unary_unary(
+                '/injective_auction_rpc.InjectiveAuctionRPC/AccountAuctionsV2',
+                request_serializer=exchange_dot_injective__auction__rpc__pb2.AccountAuctionsV2Request.SerializeToString,
+                response_deserializer=exchange_dot_injective__auction__rpc__pb2.AccountAuctionsV2Response.FromString,
+                _registered_method=True)
         self.StreamBids = channel.unary_stream(
                 '/injective_auction_rpc.InjectiveAuctionRPC/StreamBids',
                 request_serializer=exchange_dot_injective__auction__rpc__pb2.StreamBidsRequest.SerializeToString,
@@ -50,6 +65,27 @@ class InjectiveAuctionRPCServicer(object):
 
     def Auctions(self, request, context):
         """Provide the historical auctions info
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AuctionsHistoryV2(self, request, context):
+        """Provide the historical auctions info
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AuctionV2(self, request, context):
+        """Provide historical auction info for a given auction
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AccountAuctionsV2(self, request, context):
+        """Provide the historical auctions info for a given account
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -81,6 +117,21 @@ def add_InjectiveAuctionRPCServicer_to_server(servicer, server):
                     servicer.Auctions,
                     request_deserializer=exchange_dot_injective__auction__rpc__pb2.AuctionsRequest.FromString,
                     response_serializer=exchange_dot_injective__auction__rpc__pb2.AuctionsResponse.SerializeToString,
+            ),
+            'AuctionsHistoryV2': grpc.unary_unary_rpc_method_handler(
+                    servicer.AuctionsHistoryV2,
+                    request_deserializer=exchange_dot_injective__auction__rpc__pb2.AuctionsHistoryV2Request.FromString,
+                    response_serializer=exchange_dot_injective__auction__rpc__pb2.AuctionsHistoryV2Response.SerializeToString,
+            ),
+            'AuctionV2': grpc.unary_unary_rpc_method_handler(
+                    servicer.AuctionV2,
+                    request_deserializer=exchange_dot_injective__auction__rpc__pb2.AuctionV2Request.FromString,
+                    response_serializer=exchange_dot_injective__auction__rpc__pb2.AuctionV2Response.SerializeToString,
+            ),
+            'AccountAuctionsV2': grpc.unary_unary_rpc_method_handler(
+                    servicer.AccountAuctionsV2,
+                    request_deserializer=exchange_dot_injective__auction__rpc__pb2.AccountAuctionsV2Request.FromString,
+                    response_serializer=exchange_dot_injective__auction__rpc__pb2.AccountAuctionsV2Response.SerializeToString,
             ),
             'StreamBids': grpc.unary_stream_rpc_method_handler(
                     servicer.StreamBids,
@@ -148,6 +199,87 @@ class InjectiveAuctionRPC(object):
             '/injective_auction_rpc.InjectiveAuctionRPC/Auctions',
             exchange_dot_injective__auction__rpc__pb2.AuctionsRequest.SerializeToString,
             exchange_dot_injective__auction__rpc__pb2.AuctionsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AuctionsHistoryV2(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_auction_rpc.InjectiveAuctionRPC/AuctionsHistoryV2',
+            exchange_dot_injective__auction__rpc__pb2.AuctionsHistoryV2Request.SerializeToString,
+            exchange_dot_injective__auction__rpc__pb2.AuctionsHistoryV2Response.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AuctionV2(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_auction_rpc.InjectiveAuctionRPC/AuctionV2',
+            exchange_dot_injective__auction__rpc__pb2.AuctionV2Request.SerializeToString,
+            exchange_dot_injective__auction__rpc__pb2.AuctionV2Response.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AccountAuctionsV2(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_auction_rpc.InjectiveAuctionRPC/AccountAuctionsV2',
+            exchange_dot_injective__auction__rpc__pb2.AccountAuctionsV2Request.SerializeToString,
+            exchange_dot_injective__auction__rpc__pb2.AccountAuctionsV2Response.FromString,
             options,
             channel_credentials,
             insecure,

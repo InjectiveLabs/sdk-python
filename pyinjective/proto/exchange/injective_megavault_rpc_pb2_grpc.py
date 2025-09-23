@@ -20,6 +20,36 @@ class InjectiveMegavaultRPCStub(object):
                 request_serializer=exchange_dot_injective__megavault__rpc__pb2.GetVaultRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__megavault__rpc__pb2.GetVaultResponse.FromString,
                 _registered_method=True)
+        self.GetUser = channel.unary_unary(
+                '/injective_megavault_rpc.InjectiveMegavaultRPC/GetUser',
+                request_serializer=exchange_dot_injective__megavault__rpc__pb2.GetUserRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__megavault__rpc__pb2.GetUserResponse.FromString,
+                _registered_method=True)
+        self.ListSubscriptions = channel.unary_unary(
+                '/injective_megavault_rpc.InjectiveMegavaultRPC/ListSubscriptions',
+                request_serializer=exchange_dot_injective__megavault__rpc__pb2.ListSubscriptionsRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__megavault__rpc__pb2.ListSubscriptionsResponse.FromString,
+                _registered_method=True)
+        self.ListRedemptions = channel.unary_unary(
+                '/injective_megavault_rpc.InjectiveMegavaultRPC/ListRedemptions',
+                request_serializer=exchange_dot_injective__megavault__rpc__pb2.ListRedemptionsRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__megavault__rpc__pb2.ListRedemptionsResponse.FromString,
+                _registered_method=True)
+        self.GetOperatorRedemptionBuckets = channel.unary_unary(
+                '/injective_megavault_rpc.InjectiveMegavaultRPC/GetOperatorRedemptionBuckets',
+                request_serializer=exchange_dot_injective__megavault__rpc__pb2.GetOperatorRedemptionBucketsRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__megavault__rpc__pb2.GetOperatorRedemptionBucketsResponse.FromString,
+                _registered_method=True)
+        self.TvlHistory = channel.unary_unary(
+                '/injective_megavault_rpc.InjectiveMegavaultRPC/TvlHistory',
+                request_serializer=exchange_dot_injective__megavault__rpc__pb2.TvlHistoryRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__megavault__rpc__pb2.TvlHistoryResponse.FromString,
+                _registered_method=True)
+        self.PnlHistory = channel.unary_unary(
+                '/injective_megavault_rpc.InjectiveMegavaultRPC/PnlHistory',
+                request_serializer=exchange_dot_injective__megavault__rpc__pb2.PnlHistoryRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__megavault__rpc__pb2.PnlHistoryResponse.FromString,
+                _registered_method=True)
 
 
 class InjectiveMegavaultRPCServicer(object):
@@ -33,6 +63,48 @@ class InjectiveMegavaultRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetUser(self, request, context):
+        """Get the user information for a vault
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListSubscriptions(self, request, context):
+        """List the subscriptions for a vault
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListRedemptions(self, request, context):
+        """List the redemptions for a vault
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetOperatorRedemptionBuckets(self, request, context):
+        """Get the redemptions buckets for an operator
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def TvlHistory(self, request, context):
+        """Provide historical TVL data.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def PnlHistory(self, request, context):
+        """Provide historical PnL data.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_InjectiveMegavaultRPCServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -40,6 +112,36 @@ def add_InjectiveMegavaultRPCServicer_to_server(servicer, server):
                     servicer.GetVault,
                     request_deserializer=exchange_dot_injective__megavault__rpc__pb2.GetVaultRequest.FromString,
                     response_serializer=exchange_dot_injective__megavault__rpc__pb2.GetVaultResponse.SerializeToString,
+            ),
+            'GetUser': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetUser,
+                    request_deserializer=exchange_dot_injective__megavault__rpc__pb2.GetUserRequest.FromString,
+                    response_serializer=exchange_dot_injective__megavault__rpc__pb2.GetUserResponse.SerializeToString,
+            ),
+            'ListSubscriptions': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListSubscriptions,
+                    request_deserializer=exchange_dot_injective__megavault__rpc__pb2.ListSubscriptionsRequest.FromString,
+                    response_serializer=exchange_dot_injective__megavault__rpc__pb2.ListSubscriptionsResponse.SerializeToString,
+            ),
+            'ListRedemptions': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListRedemptions,
+                    request_deserializer=exchange_dot_injective__megavault__rpc__pb2.ListRedemptionsRequest.FromString,
+                    response_serializer=exchange_dot_injective__megavault__rpc__pb2.ListRedemptionsResponse.SerializeToString,
+            ),
+            'GetOperatorRedemptionBuckets': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetOperatorRedemptionBuckets,
+                    request_deserializer=exchange_dot_injective__megavault__rpc__pb2.GetOperatorRedemptionBucketsRequest.FromString,
+                    response_serializer=exchange_dot_injective__megavault__rpc__pb2.GetOperatorRedemptionBucketsResponse.SerializeToString,
+            ),
+            'TvlHistory': grpc.unary_unary_rpc_method_handler(
+                    servicer.TvlHistory,
+                    request_deserializer=exchange_dot_injective__megavault__rpc__pb2.TvlHistoryRequest.FromString,
+                    response_serializer=exchange_dot_injective__megavault__rpc__pb2.TvlHistoryResponse.SerializeToString,
+            ),
+            'PnlHistory': grpc.unary_unary_rpc_method_handler(
+                    servicer.PnlHistory,
+                    request_deserializer=exchange_dot_injective__megavault__rpc__pb2.PnlHistoryRequest.FromString,
+                    response_serializer=exchange_dot_injective__megavault__rpc__pb2.PnlHistoryResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -70,6 +172,168 @@ class InjectiveMegavaultRPC(object):
             '/injective_megavault_rpc.InjectiveMegavaultRPC/GetVault',
             exchange_dot_injective__megavault__rpc__pb2.GetVaultRequest.SerializeToString,
             exchange_dot_injective__megavault__rpc__pb2.GetVaultResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetUser(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_megavault_rpc.InjectiveMegavaultRPC/GetUser',
+            exchange_dot_injective__megavault__rpc__pb2.GetUserRequest.SerializeToString,
+            exchange_dot_injective__megavault__rpc__pb2.GetUserResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ListSubscriptions(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_megavault_rpc.InjectiveMegavaultRPC/ListSubscriptions',
+            exchange_dot_injective__megavault__rpc__pb2.ListSubscriptionsRequest.SerializeToString,
+            exchange_dot_injective__megavault__rpc__pb2.ListSubscriptionsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ListRedemptions(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_megavault_rpc.InjectiveMegavaultRPC/ListRedemptions',
+            exchange_dot_injective__megavault__rpc__pb2.ListRedemptionsRequest.SerializeToString,
+            exchange_dot_injective__megavault__rpc__pb2.ListRedemptionsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetOperatorRedemptionBuckets(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_megavault_rpc.InjectiveMegavaultRPC/GetOperatorRedemptionBuckets',
+            exchange_dot_injective__megavault__rpc__pb2.GetOperatorRedemptionBucketsRequest.SerializeToString,
+            exchange_dot_injective__megavault__rpc__pb2.GetOperatorRedemptionBucketsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def TvlHistory(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_megavault_rpc.InjectiveMegavaultRPC/TvlHistory',
+            exchange_dot_injective__megavault__rpc__pb2.TvlHistoryRequest.SerializeToString,
+            exchange_dot_injective__megavault__rpc__pb2.TvlHistoryResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def PnlHistory(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_megavault_rpc.InjectiveMegavaultRPC/PnlHistory',
+            exchange_dot_injective__megavault__rpc__pb2.PnlHistoryRequest.SerializeToString,
+            exchange_dot_injective__megavault__rpc__pb2.PnlHistoryResponse.FromString,
             options,
             channel_credentials,
             insecure,
