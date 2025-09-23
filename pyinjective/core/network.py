@@ -156,7 +156,7 @@ class Network:
             chain_cookie_assistant=DisabledCookieAssistant(),
             exchange_cookie_assistant=DisabledCookieAssistant(),
             explorer_cookie_assistant=DisabledCookieAssistant(),
-            official_tokens_list_url="https://github.com/InjectiveLabs/injective-lists/raw/master/tokens/devnet.json",
+            official_tokens_list_url="https://github.com/InjectiveLabs/injective-lists/raw/master/json/tokens/devnet.json",
         )
 
     @classmethod
@@ -211,7 +211,7 @@ class Network:
             grpc_exchange_channel_credentials=grpc_exchange_channel_credentials,
             grpc_explorer_channel_credentials=grpc_explorer_channel_credentials,
             chain_stream_channel_credentials=chain_stream_channel_credentials,
-            official_tokens_list_url="https://github.com/InjectiveLabs/injective-lists/raw/master/tokens/testnet.json",
+            official_tokens_list_url="https://github.com/InjectiveLabs/injective-lists/raw/master/json/tokens/testnet.json",
         )
 
     @classmethod
@@ -253,7 +253,7 @@ class Network:
             grpc_exchange_channel_credentials=grpc_exchange_channel_credentials,
             grpc_explorer_channel_credentials=grpc_explorer_channel_credentials,
             chain_stream_channel_credentials=chain_stream_channel_credentials,
-            official_tokens_list_url="https://github.com/InjectiveLabs/injective-lists/raw/master/tokens/mainnet.json",
+            official_tokens_list_url="https://github.com/InjectiveLabs/injective-lists/raw/master/json/tokens/mainnet.json",
         )
 
     @classmethod
@@ -271,7 +271,7 @@ class Network:
             chain_cookie_assistant=DisabledCookieAssistant(),
             exchange_cookie_assistant=DisabledCookieAssistant(),
             explorer_cookie_assistant=DisabledCookieAssistant(),
-            official_tokens_list_url="https://github.com/InjectiveLabs/injective-lists/raw/master/tokens/mainnet.json",
+            official_tokens_list_url="https://github.com/InjectiveLabs/injective-lists/raw/master/json/tokens/mainnet.json",
         )
 
     @classmethod

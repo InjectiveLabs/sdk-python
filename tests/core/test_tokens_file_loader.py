@@ -82,10 +82,10 @@ class TestTokensFileLoader:
         ]
 
         aioresponses.get(
-            "https://github.com/InjectiveLabs/injective-lists/raw/master/tokens/mainnet.json", payload=tokens_list
+            "https://github.com/InjectiveLabs/injective-lists/raw/master/json/tokens/mainnet.json", payload=tokens_list
         )
         loaded_tokens = await loader.load_tokens(
-            tokens_file_url="https://github.com/InjectiveLabs/injective-lists/raw/master/tokens/mainnet.json"
+            tokens_file_url="https://github.com/InjectiveLabs/injective-lists/raw/master/json/tokens/mainnet.json"
         )
 
         assert len(loaded_tokens) == 2
@@ -104,11 +104,11 @@ class TestTokensFileLoader:
         loader = TokensFileLoader()
 
         aioresponses.get(
-            "https://github.com/InjectiveLabs/injective-lists/raw/master/tokens/mainnet.json",
+            "https://github.com/InjectiveLabs/injective-lists/raw/master/json/tokens/mainnet.json",
             status=404,
         )
         loaded_tokens = await loader.load_tokens(
-            tokens_file_url="https://github.com/InjectiveLabs/injective-lists/raw/master/tokens/mainnet.json"
+            tokens_file_url="https://github.com/InjectiveLabs/injective-lists/raw/master/json/tokens/mainnet.json"
         )
 
         assert len(loaded_tokens) == 0
