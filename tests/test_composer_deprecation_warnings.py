@@ -227,8 +227,11 @@ class TestComposerDeprecationWarnings:
 
     def test_composer_v1_constructor_deprecation_warning(self):
         with warnings.catch_warnings(record=True) as all_warnings:
-            composer = ComposerV1(network=Network.devnet().string())
+            ComposerV1(network=Network.devnet().string())
 
         deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
         assert len(deprecation_warnings) == 1
-        assert str(deprecation_warnings[0].message) == "Composer from pyinjective.composer is deprecated. Please use Composer from pyinjective.composer_v2 instead."
+        assert str(deprecation_warnings[0].message) == (
+            "Composer from pyinjective.composer is deprecated. "
+            + "Please use Composer from pyinjective.composer_v2 instead."
+        )
