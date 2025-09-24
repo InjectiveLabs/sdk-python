@@ -414,6 +414,7 @@ class TestIndexerGrpcDerivativeApi:
             sells=[sell],
             sequence=5506752,
             timestamp=1698982083606,
+            height=1000,
         )
 
         derivative_servicer.orderbook_v2_responses.append(
@@ -446,6 +447,7 @@ class TestIndexerGrpcDerivativeApi:
                 ],
                 "sequence": str(orderbook.sequence),
                 "timestamp": str(orderbook.timestamp),
+                "height": str(orderbook.height),
             }
         }
 
@@ -472,6 +474,7 @@ class TestIndexerGrpcDerivativeApi:
             sells=[sell],
             sequence=5506752,
             timestamp=1698982083606,
+            height=1000,
         )
 
         single_orderbook = exchange_derivative_pb.SingleDerivativeLimitOrderbookV2(
@@ -509,6 +512,7 @@ class TestIndexerGrpcDerivativeApi:
                         ],
                         "sequence": str(orderbook.sequence),
                         "timestamp": str(orderbook.timestamp),
+                        "height": str(orderbook.height),
                     },
                 }
             ]

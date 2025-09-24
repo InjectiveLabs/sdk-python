@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased] - 9999-99-99
 
+## [1.11.2] - 2025-09-24
+### Added
+- Added support in v2 Composer to create the new exchange module MsgCancelPostOnlyMode message
+
+### Changed
+- Updated all compiled protos for compatibility with Injective core v1.16.4 and Indexer v1.16.91
+- Marked the v1 Composer as deprecated
+
+## [1.11.1] - 2025-08-20
+### Changed
+- Marked the v1 AsyncClient as deprecated
+
+### Fixed
+- Fixed the Indexer orderbooks queries in the v1 AsyncClient to include the depth parameter
+
 ## [1.11.0] - 2025-07-29
 ### Added
 - Added support for Exchange V2 proto queries and types

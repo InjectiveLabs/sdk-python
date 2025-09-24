@@ -78,12 +78,12 @@ The Injective Python SDK provides two different clients for interacting with the
 
 1. **Exchange V1 Client** (`async_client` module):
    - Use this client if you need to interact with the original Injective Exchange API
-   - Import using: `from injective.async_client import AsyncClient`
+   - Import using: `from pyinjective.async_client import AsyncClient`
    - Suitable for applications that need to maintain compatibility with the original exchange interface
    - Example:
    ```python
-   from injective.async_client import AsyncClient
-   from injective.network import Network
+   from pyinjective.async_client import AsyncClient
+   from pyinjective.network import Network
 
    async def main():
        # Initialize client with mainnet
@@ -95,12 +95,12 @@ The Injective Python SDK provides two different clients for interacting with the
 
 2. **Exchange V2 Client** (`async_client_v2` module):
    - Use this client for the latest exchange features and improvements
-   - Import using: `from injective.async_client_v2 import AsyncClient`
+   - Import using: `from pyinjective.async_client_v2 import AsyncClient`
    - Recommended for new applications and when you need access to the latest exchange features
    - Example:
    ```python
-   from injective.async_client_v2 import AsyncClient
-   from injective.network import Network
+   from pyinjective.async_client_v2 import AsyncClient
+   from pyinjective.network import Network
 
    async def main():
        # Initialize client with mainnet

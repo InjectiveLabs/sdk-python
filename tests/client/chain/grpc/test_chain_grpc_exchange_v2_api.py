@@ -65,6 +65,9 @@ class TestChainGrpcExchangeV2Api:
             fixed_gas_enabled=False,
             emit_legacy_version_events=True,
             default_reduce_margin_ratio="3",
+            human_readable_upgrade_block_height=1000,
+            post_only_mode_blocks_amount=2000,
+            min_post_only_mode_downtime_duration="DURATION_10M",
         )
         exchange_servicer.exchange_params.append(exchange_query_pb.QueryExchangeParamsResponse(params=params))
 
@@ -117,6 +120,9 @@ class TestChainGrpcExchangeV2Api:
                 "fixedGasEnabled": params.fixed_gas_enabled,
                 "emitLegacyVersionEvents": params.emit_legacy_version_events,
                 "defaultReduceMarginRatio": params.default_reduce_margin_ratio,
+                "humanReadableUpgradeBlockHeight": str(params.human_readable_upgrade_block_height),
+                "postOnlyModeBlocksAmount": str(params.post_only_mode_blocks_amount),
+                "minPostOnlyModeDowntimeDuration": params.min_post_only_mode_downtime_duration,
             }
         }
 
