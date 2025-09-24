@@ -169,6 +169,7 @@ class TestIndexerGrpcDerivativeStream:
             sells=[sell],
             sequence=5506752,
             timestamp=1698982083606,
+            height=1000,
         )
 
         derivative_servicer.stream_orderbook_v2_responses.append(
@@ -215,6 +216,7 @@ class TestIndexerGrpcDerivativeStream:
                 ],
                 "sequence": str(orderbook.sequence),
                 "timestamp": str(orderbook.timestamp),
+                "height": str(orderbook.height),
             },
             "operationType": operation_type,
             "timestamp": str(timestamp),

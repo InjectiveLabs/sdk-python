@@ -2207,3 +2207,21 @@ class TestComposer:
             always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
+
+    def test_msg_cancel_post_only_mode(self, basic_composer):
+        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
+
+        message = basic_composer.msg_cancel_post_only_mode(
+            sender=sender,
+        )
+
+        assert "injective.exchange.v2.MsgCancelPostOnlyMode" == message.DESCRIPTOR.full_name
+        expected_message = {
+            "sender": sender,
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=message,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message

@@ -27,6 +27,7 @@ class TestChainGrpcAuctionApi:
             auction_period=604800,
             min_next_bid_increment_rate="2500000000000000",
             inj_basket_max_cap="100000",
+            bidders_whitelist=["inj1pvt70tt7epjudnurkqlxu62flfgy46j2ytj7j5"],
         )
         auction_servicer.auction_params.append(auction_query_pb.QueryAuctionParamsResponse(params=params))
 
@@ -38,6 +39,7 @@ class TestChainGrpcAuctionApi:
                 "auctionPeriod": str(params.auction_period),
                 "minNextBidIncrementRate": params.min_next_bid_increment_rate,
                 "injBasketMaxCap": str(params.inj_basket_max_cap),
+                "biddersWhitelist": params.bidders_whitelist,
             }
         }
 
@@ -52,6 +54,7 @@ class TestChainGrpcAuctionApi:
             auction_period=604800,
             min_next_bid_increment_rate="2500000000000000",
             inj_basket_max_cap="100000",
+            bidders_whitelist=["inj1pvt70tt7epjudnurkqlxu62flfgy46j2ytj7j5"],
         )
         coin = coin_pb.Coin(denom="inj", amount="988987297011197594664")
         highest_bid = auction_pb.Bid(
@@ -90,6 +93,7 @@ class TestChainGrpcAuctionApi:
                     "auctionPeriod": str(params.auction_period),
                     "minNextBidIncrementRate": params.min_next_bid_increment_rate,
                     "injBasketMaxCap": str(params.inj_basket_max_cap),
+                    "biddersWhitelist": params.bidders_whitelist,
                 },
                 "lastAuctionResult": {
                     "winner": last_auction_result.winner,
@@ -113,6 +117,7 @@ class TestChainGrpcAuctionApi:
             auction_period=604800,
             min_next_bid_increment_rate="2500000000000000",
             inj_basket_max_cap="100000",
+            bidders_whitelist=["inj1pvt70tt7epjudnurkqlxu62flfgy46j2ytj7j5"],
         )
         state = genesis_pb.GenesisState(
             params=params,
@@ -132,6 +137,7 @@ class TestChainGrpcAuctionApi:
                     "auctionPeriod": str(params.auction_period),
                     "minNextBidIncrementRate": params.min_next_bid_increment_rate,
                     "injBasketMaxCap": str(params.inj_basket_max_cap),
+                    "biddersWhitelist": params.bidders_whitelist,
                 },
             }
         }
