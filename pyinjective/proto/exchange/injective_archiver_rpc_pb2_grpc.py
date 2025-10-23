@@ -65,6 +65,11 @@ class InjectiveArchiverRPCStub(object):
                 request_serializer=exchange_dot_injective__archiver__rpc__pb2.HistoricalTradesRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__archiver__rpc__pb2.HistoricalTradesResponse.FromString,
                 _registered_method=True)
+        self.StreamSpotAverageEntries = channel.unary_stream(
+                '/injective_archiver_rpc.InjectiveArchiverRPC/StreamSpotAverageEntries',
+                request_serializer=exchange_dot_injective__archiver__rpc__pb2.StreamSpotAverageEntriesRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__archiver__rpc__pb2.StreamSpotAverageEntriesResponse.FromString,
+                _registered_method=True)
 
 
 class InjectiveArchiverRPCServicer(object):
@@ -141,6 +146,13 @@ class InjectiveArchiverRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def StreamSpotAverageEntries(self, request, context):
+        """Stream spot markets average entries for a given account address.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_InjectiveArchiverRPCServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -193,6 +205,11 @@ def add_InjectiveArchiverRPCServicer_to_server(servicer, server):
                     servicer.HistoricalTrades,
                     request_deserializer=exchange_dot_injective__archiver__rpc__pb2.HistoricalTradesRequest.FromString,
                     response_serializer=exchange_dot_injective__archiver__rpc__pb2.HistoricalTradesResponse.SerializeToString,
+            ),
+            'StreamSpotAverageEntries': grpc.unary_stream_rpc_method_handler(
+                    servicer.StreamSpotAverageEntries,
+                    request_deserializer=exchange_dot_injective__archiver__rpc__pb2.StreamSpotAverageEntriesRequest.FromString,
+                    response_serializer=exchange_dot_injective__archiver__rpc__pb2.StreamSpotAverageEntriesResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -466,6 +483,33 @@ class InjectiveArchiverRPC(object):
             '/injective_archiver_rpc.InjectiveArchiverRPC/HistoricalTrades',
             exchange_dot_injective__archiver__rpc__pb2.HistoricalTradesRequest.SerializeToString,
             exchange_dot_injective__archiver__rpc__pb2.HistoricalTradesResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def StreamSpotAverageEntries(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/injective_archiver_rpc.InjectiveArchiverRPC/StreamSpotAverageEntries',
+            exchange_dot_injective__archiver__rpc__pb2.StreamSpotAverageEntriesRequest.SerializeToString,
+            exchange_dot_injective__archiver__rpc__pb2.StreamSpotAverageEntriesResponse.FromString,
             options,
             channel_credentials,
             insecure,

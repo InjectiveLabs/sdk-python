@@ -747,7 +747,7 @@ class QueryServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def BinaryOptionsMarkets(self, request, context):
-        """Retrieves a spot market's orderbook by marketID
+        """Retrieves all binary options markets
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')

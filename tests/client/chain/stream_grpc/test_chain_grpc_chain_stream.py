@@ -570,6 +570,20 @@ class TestChainGrpcChainStream:
             price="99.991086",
             type="pyth",
         )
+        order_failure_update = chain_stream_v2_pb.OrderFailureUpdate(
+            account="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
+            order_hash="0xce0d9b701f77cd6ddfda5dd3a4fe7b2d53ba83e5d6c054fb2e9e886200b7b7bb",
+            cid="cid1",
+            error_code=1,
+        )
+        conditional_order_trigger_failure_update = chain_stream_v2_pb.ConditionalOrderTriggerFailureUpdate(
+            market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+            subaccount_id="0x5e249f0e8cb406f41de16e1bd6f6b55e7bc75add000000000000000000000004",
+            mark_price="1234",
+            order_hash="0xce0d9b701f77cd6ddfda5dd3a4fe7b2d53ba83e5d6c054fb2e9e886200b7b7bc",
+            cid="cid2",
+            error_description="error description",
+        )
 
         chain_stream_v2_servicer.stream_responses.append(
             chain_stream_v2_pb.StreamResponse(
@@ -586,6 +600,8 @@ class TestChainGrpcChainStream:
                 derivative_orderbook_updates=[derivative_orderbook_update],
                 positions=[position],
                 oracle_prices=[oracle_price],
+                order_failures=[order_failure_update],
+                conditional_order_trigger_failures=[conditional_order_trigger_failure_update],
             )
         )
 
@@ -610,6 +626,8 @@ class TestChainGrpcChainStream:
         derivative_orderbooks_filter = composer.chain_stream_orderbooks_filter()
         positions_filter = composer.chain_stream_positions_filter()
         oracle_price_filter = composer.chain_stream_oracle_price_filter()
+        order_failures_filter = composer.chain_stream_order_failures_filter()
+        conditional_order_trigger_failures_filter = composer.chain_stream_conditional_order_trigger_failures_filter()
 
         expected_update = {
             "blockHeight": str(block_height),
@@ -780,6 +798,24 @@ class TestChainGrpcChainStream:
                     "type": oracle_price.type,
                 },
             ],
+            "orderFailures": [
+                {
+                    "account": order_failure_update.account,
+                    "orderHash": order_failure_update.order_hash,
+                    "cid": order_failure_update.cid,
+                    "errorCode": order_failure_update.error_code,
+                },
+            ],
+            "conditionalOrderTriggerFailures": [
+                {
+                    "subaccountId": conditional_order_trigger_failure_update.subaccount_id,
+                    "marketId": conditional_order_trigger_failure_update.market_id,
+                    "markPrice": conditional_order_trigger_failure_update.mark_price,
+                    "orderHash": conditional_order_trigger_failure_update.order_hash,
+                    "cid": conditional_order_trigger_failure_update.cid,
+                    "errorDescription": conditional_order_trigger_failure_update.error_description,
+                },
+            ],
         }
 
         asyncio.get_event_loop().create_task(
@@ -797,6 +833,8 @@ class TestChainGrpcChainStream:
                 derivative_orderbooks_filter=derivative_orderbooks_filter,
                 positions_filter=positions_filter,
                 oracle_price_filter=oracle_price_filter,
+                order_failures_filter=order_failures_filter,
+                conditional_order_trigger_failures_filter=conditional_order_trigger_failures_filter,
             )
         )
 

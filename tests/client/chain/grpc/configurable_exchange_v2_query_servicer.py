@@ -17,8 +17,8 @@ class ConfigurableExchangeV2QueryServicer(exchange_query_grpc.QueryServicer):
         self.aggregate_volumes_responses = deque()
         self.aggregate_market_volume_responses = deque()
         self.aggregate_market_volumes_responses = deque()
-        self.denom_decimal_responses = deque()
-        self.denom_decimals_responses = deque()
+        self.auction_exchange_transfer_denom_decimal_responses = deque()
+        self.auction_exchange_transfer_denom_decimals_responses = deque()
         self.spot_markets_responses = deque()
         self.spot_market_responses = deque()
         self.full_spot_markets_responses = deque()
@@ -75,6 +75,7 @@ class ConfigurableExchangeV2QueryServicer(exchange_query_grpc.QueryServicer):
         self.market_balances_responses = deque()
         self.denom_min_notional_responses = deque()
         self.denom_min_notionals_responses = deque()
+        self.open_interest_responses = deque()
 
     async def QueryExchangeParams(
         self, request: exchange_query_pb.QueryExchangeParamsRequest, context=None, metadata=None
@@ -116,11 +117,15 @@ class ConfigurableExchangeV2QueryServicer(exchange_query_grpc.QueryServicer):
     ):
         return self.aggregate_market_volumes_responses.pop()
 
-    async def DenomDecimal(self, request: exchange_query_pb.QueryDenomDecimalRequest, context=None, metadata=None):
-        return self.denom_decimal_responses.pop()
+    async def AuctionExchangeTransferDenomDecimal(
+        self, request: exchange_query_pb.QueryAuctionExchangeTransferDenomDecimalRequest, context=None, metadata=None
+    ):
+        return self.auction_exchange_transfer_denom_decimal_responses.pop()
 
-    async def DenomDecimals(self, request: exchange_query_pb.QueryDenomDecimalsRequest, context=None, metadata=None):
-        return self.denom_decimals_responses.pop()
+    async def AuctionExchangeTransferDenomDecimals(
+        self, request: exchange_query_pb.QueryAuctionExchangeTransferDenomDecimalsRequest, context=None, metadata=None
+    ):
+        return self.auction_exchange_transfer_denom_decimals_responses.pop()
 
     async def SpotMarkets(self, request: exchange_query_pb.QuerySpotMarketsRequest, context=None, metadata=None):
         return self.spot_markets_responses.pop()
@@ -385,3 +390,6 @@ class ConfigurableExchangeV2QueryServicer(exchange_query_grpc.QueryServicer):
         self, request: exchange_query_pb.QueryDenomMinNotionalsRequest, context=None, metadata=None
     ):
         return self.denom_min_notionals_responses.pop()
+
+    async def OpenInterest(self, request: exchange_query_pb.QueryOpenInterestRequest, context=None, metadata=None):
+        return self.open_interest_responses.pop()

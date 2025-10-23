@@ -2,6 +2,7 @@ import asyncio
 from copy import deepcopy
 from decimal import Decimal
 from typing import Any, Callable, Dict, List, Optional, Tuple
+from warnings import warn
 
 from google.protobuf import json_format
 
@@ -415,10 +416,38 @@ class AsyncClient:
         return await self.chain_exchange_v2_api.fetch_exchange_balances()
 
     async def fetch_denom_decimal(self, denom: str) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_denom_decimal(denom=denom)
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_auction_exchange_transfer_denom_decimal`
+        instead.
+        """
+        warn(
+            "This method is deprecated. Use fetch_auction_exchange_transfer_denom_decimal instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
+        return await self.chain_exchange_v2_api.fetch_auction_exchange_transfer_denom_decimal(denom=denom)
 
     async def fetch_denom_decimals(self, denoms: Optional[List[str]] = None) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_denom_decimals(denoms=denoms)
+        """
+        This method is deprecated and will be removed soon. Please use `fetch_auction_exchange_transfer_denom_decimals`
+        instead.
+        """
+        warn(
+            "This method is deprecated. Use fetch_auction_exchange_transfer_denom_decimals instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
+        return await self.chain_exchange_v2_api.fetch_auction_exchange_transfer_denom_decimals(denoms=denoms)
+
+    async def fetch_auction_exchange_transfer_denom_decimal(self, denom: str) -> Dict[str, Any]:
+        return await self.chain_exchange_v2_api.fetch_auction_exchange_transfer_denom_decimal(denom=denom)
+
+    async def fetch_auction_exchange_transfer_denom_decimals(
+        self, denoms: Optional[List[str]] = None
+    ) -> Dict[str, Any]:
+        return await self.chain_exchange_v2_api.fetch_auction_exchange_transfer_denom_decimals(denoms=denoms)
 
     async def fetch_derivative_market_address(self, market_id: str) -> Dict[str, Any]:
         return await self.chain_exchange_v2_api.fetch_derivative_market_address(market_id=market_id)
@@ -813,6 +842,9 @@ class AsyncClient:
     async def fetch_denom_min_notionals(self) -> Dict[str, Any]:
         return await self.chain_exchange_v2_api.fetch_denom_min_notionals()
 
+    async def fetch_open_interest(self, market_id: str) -> Dict[str, Any]:
+        return await self.chain_exchange_v2_api.fetch_open_interest(market_id=market_id)
+
     # Wasm module
     async def fetch_contract_info(self, address: str) -> Dict[str, Any]:
         return await self.wasm_api.fetch_contract_info(address=address)
@@ -944,6 +976,10 @@ class AsyncClient:
         derivative_orderbooks_filter: Optional[chain_stream_v2_query.OrderbookFilter] = None,
         positions_filter: Optional[chain_stream_v2_query.PositionsFilter] = None,
         oracle_price_filter: Optional[chain_stream_v2_query.OraclePriceFilter] = None,
+        order_failures_filter: Optional[chain_stream_v2_query.OrderFailuresFilter] = None,
+        conditional_order_trigger_failures_filter: Optional[
+            chain_stream_v2_query.ConditionalOrderTriggerFailuresFilter
+        ] = None,
     ):
         return await self.chain_stream_api.stream_v2(
             callback=callback,
@@ -959,6 +995,8 @@ class AsyncClient:
             derivative_orderbooks_filter=derivative_orderbooks_filter,
             positions_filter=positions_filter,
             oracle_price_filter=oracle_price_filter,
+            order_failures_filter=order_failures_filter,
+            conditional_order_trigger_failures_filter=conditional_order_trigger_failures_filter,
         )
 
     # region IBC Transfer module
