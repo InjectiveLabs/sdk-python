@@ -28,6 +28,7 @@ from pyinjective.proto.injective.exchange.v1beta1 import tx_pb2 as injective_exc
 from pyinjective.proto.injective.exchange.v2 import (
     authz_pb2 as injective_authz_v2_pb,
     exchange_pb2 as injective_exchange_v2_pb,
+    market_pb2 as injective_market_v2_pb,
     order_pb2 as injective_order_v2_pb,
     tx_pb2 as injective_exchange_tx_v2_pb,
 )
@@ -594,6 +595,7 @@ class Composer:
         min_price_tick_size: Decimal,
         min_quantity_tick_size: Decimal,
         min_notional: Decimal,
+        open_notional_cap: Optional[injective_market_v2_pb.OpenNotionalCap] = None,
     ) -> injective_exchange_tx_v2_pb.MsgInstantPerpetualMarketLaunch:
         chain_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=min_price_tick_size)
         chain_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=min_quantity_tick_size)
@@ -620,6 +622,7 @@ class Composer:
             min_price_tick_size=f"{chain_min_price_tick_size.normalize():f}",
             min_quantity_tick_size=f"{chain_min_quantity_tick_size.normalize():f}",
             min_notional=f"{chain_min_notional.normalize():f}",
+            open_notional_cap=open_notional_cap,
         )
 
     def msg_instant_expiry_futures_market_launch_v2(
@@ -640,7 +643,8 @@ class Composer:
         min_price_tick_size: Decimal,
         min_quantity_tick_size: Decimal,
         min_notional: Decimal,
-    ) -> injective_exchange_tx_v2_pb.MsgInstantPerpetualMarketLaunch:
+        open_notional_cap: Optional[injective_market_v2_pb.OpenNotionalCap] = None,
+    ) -> injective_exchange_tx_v2_pb.MsgInstantExpiryFuturesMarketLaunch:
         chain_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=min_price_tick_size)
         chain_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=min_quantity_tick_size)
         chain_maker_fee_rate = Token.convert_value_to_extended_decimal_format(value=maker_fee_rate)
@@ -667,6 +671,7 @@ class Composer:
             min_price_tick_size=f"{chain_min_price_tick_size.normalize():f}",
             min_quantity_tick_size=f"{chain_min_quantity_tick_size.normalize():f}",
             min_notional=f"{chain_min_notional.normalize():f}",
+            open_notional_cap=open_notional_cap,
         )
 
     def msg_create_spot_limit_order(
@@ -762,6 +767,9 @@ class Composer:
         binary_options_orders_to_cancel: Optional[List[injective_exchange_tx_v2_pb.OrderData]] = None,
         binary_options_market_ids_to_cancel_all: Optional[List[str]] = None,
         binary_options_orders_to_create: Optional[List[injective_order_v2_pb.DerivativeOrder]] = None,
+        spot_market_orders_to_create: Optional[List[injective_order_v2_pb.SpotOrder]] = None,
+        derivative_market_orders_to_create: Optional[List[injective_order_v2_pb.DerivativeOrder]] = None,
+        binary_options_market_orders_to_create: Optional[List[injective_order_v2_pb.DerivativeOrder]] = None,
     ) -> injective_exchange_tx_v2_pb.MsgBatchUpdateOrders:
         return injective_exchange_tx_v2_pb.MsgBatchUpdateOrders(
             sender=sender,
@@ -775,6 +783,9 @@ class Composer:
             binary_options_orders_to_cancel=binary_options_orders_to_cancel,
             binary_options_market_ids_to_cancel_all=binary_options_market_ids_to_cancel_all,
             binary_options_orders_to_create=binary_options_orders_to_create,
+            spot_market_orders_to_create=spot_market_orders_to_create,
+            derivative_market_orders_to_create=derivative_market_orders_to_create,
+            binary_options_market_orders_to_create=binary_options_market_orders_to_create,
         )
 
     def msg_privileged_execute_contract(
@@ -900,7 +911,8 @@ class Composer:
         min_price_tick_size: Decimal,
         min_quantity_tick_size: Decimal,
         min_notional: Decimal,
-    ) -> injective_exchange_tx_v2_pb.MsgInstantPerpetualMarketLaunch:
+        open_notional_cap: Optional[injective_market_v2_pb.OpenNotionalCap] = None,
+    ) -> injective_exchange_tx_v2_pb.MsgInstantBinaryOptionsMarketLaunch:
         chain_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=min_price_tick_size)
         chain_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=min_quantity_tick_size)
         chain_maker_fee_rate = Token.convert_value_to_extended_decimal_format(value=maker_fee_rate)
@@ -923,6 +935,7 @@ class Composer:
             min_price_tick_size=f"{chain_min_price_tick_size.normalize():f}",
             min_quantity_tick_size=f"{chain_min_quantity_tick_size.normalize():f}",
             min_notional=f"{chain_min_notional.normalize():f}",
+            open_notional_cap=open_notional_cap,
         )
 
     def msg_create_binary_options_limit_order(
@@ -1153,6 +1166,7 @@ class Composer:
         new_initial_margin_ratio: Decimal,
         new_maintenance_margin_ratio: Decimal,
         new_reduce_margin_ratio: Decimal,
+        new_open_notional_cap: Optional[injective_market_v2_pb.OpenNotionalCap] = None,
     ) -> injective_exchange_tx_v2_pb.MsgUpdateDerivativeMarket:
         chain_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=new_min_price_tick_size)
         chain_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=new_min_quantity_tick_size)
@@ -1173,6 +1187,7 @@ class Composer:
             new_initial_margin_ratio=f"{chain_initial_margin_ratio.normalize():f}",
             new_maintenance_margin_ratio=f"{chain_maintenance_margin_ratio.normalize():f}",
             new_reduce_margin_ratio=f"{chain_reduce_margin_ratio.normalize():f}",
+            new_open_notional_cap=new_open_notional_cap,
         )
 
     def msg_authorize_stake_grants(
@@ -1191,6 +1206,27 @@ class Composer:
 
     def msg_cancel_post_only_mode(self, sender: str) -> injective_exchange_tx_v2_pb.MsgCancelPostOnlyMode:
         return injective_exchange_tx_v2_pb.MsgCancelPostOnlyMode(sender=sender)
+
+    def msg_offset_position(self, sender: str, subaccount_id: str, market_id: str, offsetting_subaccount_ids: List[str]) -> injective_exchange_tx_v2_pb.MsgOffsetPosition:
+        return injective_exchange_tx_v2_pb.MsgOffsetPosition(
+            sender=sender,
+            subaccount_id=subaccount_id,
+            market_id=market_id,
+            offsetting_subaccount_ids=offsetting_subaccount_ids,
+        )
+
+    def open_notional_cap(self, value: Decimal) -> injective_market_v2_pb.OpenNotionalCap:
+        chain_value = Token.convert_value_to_extended_decimal_format(value=value)
+        return injective_market_v2_pb.OpenNotionalCap(
+            capped=injective_market_v2_pb.OpenNotionalCapCapped(
+                value=f"{chain_value.normalize():f}",
+            ),
+        )
+
+    def uncapped_open_notional_cap(self) -> injective_market_v2_pb.OpenNotionalCap:
+        return injective_market_v2_pb.OpenNotionalCap(
+            uncapped=injective_market_v2_pb.OpenNotionalCapUncapped()
+        )
 
     # endregion
 
@@ -1546,6 +1582,22 @@ class Composer:
     ) -> chain_stream_v2_query.PositionsFilter:
         symbols = symbols or ["*"]
         return chain_stream_v2_query.OraclePriceFilter(symbol=symbols)
+
+    def chain_stream_order_failures_filter(
+        self,
+        accounts: Optional[List[str]] = None,
+    ) -> chain_stream_v2_query.OrderFailuresFilter:
+        accounts = accounts or ["*"]
+        return chain_stream_v2_query.OrderFailuresFilter(accounts=accounts)
+
+    def chain_stream_conditional_order_trigger_failures_filter(
+        self,
+        subaccount_ids: Optional[List[str]] = None,
+        market_ids: Optional[List[str]] = None,
+    ) -> chain_stream_v2_query.ConditionalOrderTriggerFailuresFilter:
+        subaccount_ids = subaccount_ids or ["*"]
+        market_ids = market_ids or ["*"]
+        return chain_stream_v2_query.ConditionalOrderTriggerFailuresFilter(subaccount_ids=subaccount_ids, market_ids=market_ids)
 
     # endregion
 

@@ -87,15 +87,15 @@ class ChainGrpcExchangeV2Api:
 
         return response
 
-    async def fetch_denom_decimal(self, denom: str) -> Dict[str, Any]:
-        request = exchange_query_pb.QueryDenomDecimalRequest(denom=denom)
-        response = await self._execute_call(call=self._stub.DenomDecimal, request=request)
+    async def fetch_auction_exchange_transfer_denom_decimal(self, denom: str) -> Dict[str, Any]:
+        request = exchange_query_pb.QueryAuctionExchangeTransferDenomDecimalRequest(denom=denom)
+        response = await self._execute_call(call=self._stub.AuctionExchangeTransferDenomDecimal, request=request)
 
         return response
 
-    async def fetch_denom_decimals(self, denoms: Optional[List[str]] = None) -> Dict[str, Any]:
-        request = exchange_query_pb.QueryDenomDecimalsRequest(denoms=denoms)
-        response = await self._execute_call(call=self._stub.DenomDecimals, request=request)
+    async def fetch_auction_exchange_transfer_denom_decimals(self, denoms: Optional[List[str]] = None) -> Dict[str, Any]:
+        request = exchange_query_pb.QueryAuctionExchangeTransferDenomDecimalsRequest(denoms=denoms)
+        response = await self._execute_call(call=self._stub.AuctionExchangeTransferDenomDecimals, request=request)
 
         return response
 
@@ -648,6 +648,12 @@ class ChainGrpcExchangeV2Api:
     async def fetch_grant_authorizations(self, granter: str) -> Dict[str, Any]:
         request = exchange_query_pb.QueryGrantAuthorizationsRequest(granter=granter)
         response = await self._execute_call(call=self._stub.GrantAuthorizations, request=request)
+
+        return response
+
+    async def fetch_open_interest(self, market_id: str) -> Dict[str, Any]:
+        request = exchange_query_pb.QueryOpenInterestRequest(market_id=market_id)
+        response = await self._execute_call(call=self._stub.OpenInterest, request=request)
 
         return response
 

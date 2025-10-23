@@ -104,6 +104,21 @@ async def main() -> None:
         ),
     ]
 
+    derivative_market_orders_to_create = [
+        composer.derivative_order(
+            market_id=derivative_market_id_create,
+            subaccount_id=subaccount_id,
+            fee_recipient=fee_recipient,
+            price=Decimal(25100),
+            quantity=Decimal(0.1),
+            margin=composer.calculate_margin(
+                quantity=Decimal(0.1), price=Decimal(25100), leverage=Decimal(1), is_reduce_only=False
+            ),
+            order_type="BUY",
+            cid=str(uuid.uuid4()),
+        ),
+    ]
+
     spot_orders_to_create = [
         composer.spot_order(
             market_id=spot_market_id_create,
@@ -125,6 +140,18 @@ async def main() -> None:
         ),
     ]
 
+    spot_market_orders_to_create = [
+        composer.spot_order(
+            market_id=spot_market_id_create,
+            subaccount_id=subaccount_id,
+            fee_recipient=fee_recipient,
+            price=Decimal("3.5"),
+            quantity=Decimal("1"),
+            order_type="BUY",
+            cid=str(uuid.uuid4()),
+        ),
+    ]
+
     # prepare tx msg
     msg = composer.msg_batch_update_orders(
         sender=address.to_acc_bech32(),
@@ -132,6 +159,8 @@ async def main() -> None:
         spot_orders_to_create=spot_orders_to_create,
         derivative_orders_to_cancel=derivative_orders_to_cancel,
         spot_orders_to_cancel=spot_orders_to_cancel,
+        spot_market_orders_to_create=spot_market_orders_to_create,
+        derivative_market_orders_to_create=derivative_market_orders_to_create,
     )
 
     # broadcast the transaction

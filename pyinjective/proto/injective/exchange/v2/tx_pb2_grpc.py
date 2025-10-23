@@ -145,6 +145,11 @@ class MsgStub(object):
                 request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgEmergencySettleMarket.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgEmergencySettleMarketResponse.FromString,
                 _registered_method=True)
+        self.OffsetPosition = channel.unary_unary(
+                '/injective.exchange.v2.Msg/OffsetPosition',
+                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgOffsetPosition.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgOffsetPositionResponse.FromString,
+                _registered_method=True)
         self.IncreasePositionMargin = channel.unary_unary(
                 '/injective.exchange.v2.Msg/IncreasePositionMargin',
                 request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgIncreasePositionMargin.SerializeToString,
@@ -269,11 +274,6 @@ class MsgStub(object):
                 '/injective.exchange.v2.Msg/UpdateAtomicMarketOrderFeeMultiplierSchedule',
                 request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgAtomicMarketOrderFeeMultiplierSchedule.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgAtomicMarketOrderFeeMultiplierScheduleResponse.FromString,
-                _registered_method=True)
-        self.SetDelegationTransferReceivers = channel.unary_unary(
-                '/injective.exchange.v2.Msg/SetDelegationTransferReceivers',
-                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgSetDelegationTransferReceivers.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgSetDelegationTransferReceiversResponse.FromString,
                 _registered_method=True)
         self.CancelPostOnlyMode = channel.unary_unary(
                 '/injective.exchange.v2.Msg/CancelPostOnlyMode',
@@ -487,6 +487,13 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def OffsetPosition(self, request, context):
+        """OffsetPosition defines a method for offsetting a position
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def IncreasePositionMargin(self, request, context):
         """IncreasePositionMargin defines a method for increasing margin of a position
         """
@@ -645,12 +652,6 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def SetDelegationTransferReceivers(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def CancelPostOnlyMode(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -790,6 +791,11 @@ def add_MsgServicer_to_server(servicer, server):
                     request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgEmergencySettleMarket.FromString,
                     response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgEmergencySettleMarketResponse.SerializeToString,
             ),
+            'OffsetPosition': grpc.unary_unary_rpc_method_handler(
+                    servicer.OffsetPosition,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgOffsetPosition.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgOffsetPositionResponse.SerializeToString,
+            ),
             'IncreasePositionMargin': grpc.unary_unary_rpc_method_handler(
                     servicer.IncreasePositionMargin,
                     request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgIncreasePositionMargin.FromString,
@@ -914,11 +920,6 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.UpdateAtomicMarketOrderFeeMultiplierSchedule,
                     request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgAtomicMarketOrderFeeMultiplierSchedule.FromString,
                     response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgAtomicMarketOrderFeeMultiplierScheduleResponse.SerializeToString,
-            ),
-            'SetDelegationTransferReceivers': grpc.unary_unary_rpc_method_handler(
-                    servicer.SetDelegationTransferReceivers,
-                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgSetDelegationTransferReceivers.FromString,
-                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgSetDelegationTransferReceiversResponse.SerializeToString,
             ),
             'CancelPostOnlyMode': grpc.unary_unary_rpc_method_handler(
                     servicer.CancelPostOnlyMode,
@@ -1640,6 +1641,33 @@ class Msg(object):
             _registered_method=True)
 
     @staticmethod
+    def OffsetPosition(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Msg/OffsetPosition',
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgOffsetPosition.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgOffsetPositionResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
     def IncreasePositionMargin(request,
             target,
             options=(),
@@ -2304,33 +2332,6 @@ class Msg(object):
             '/injective.exchange.v2.Msg/UpdateAtomicMarketOrderFeeMultiplierSchedule',
             injective_dot_exchange_dot_v2_dot_tx__pb2.MsgAtomicMarketOrderFeeMultiplierSchedule.SerializeToString,
             injective_dot_exchange_dot_v2_dot_tx__pb2.MsgAtomicMarketOrderFeeMultiplierScheduleResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def SetDelegationTransferReceivers(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective.exchange.v2.Msg/SetDelegationTransferReceivers',
-            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgSetDelegationTransferReceivers.SerializeToString,
-            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgSetDelegationTransferReceiversResponse.FromString,
             options,
             channel_credentials,
             insecure,

@@ -50,6 +50,12 @@ async def main() -> None:
         subaccount_ids=[subaccount_id], market_ids=[inj_usdt_perp_market]
     )
     oracle_price_filter = composer.chain_stream_oracle_price_filter(symbols=["INJ", "USDT"])
+    order_failures_filter = composer.chain_stream_order_failures_filter(
+        accounts=["inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"]
+    )
+    conditional_order_trigger_failures_filter = composer.chain_stream_conditional_order_trigger_failures_filter(
+        subaccount_ids=[subaccount_id], market_ids=[inj_usdt_perp_market]
+    )
 
     task = asyncio.get_event_loop().create_task(
         client.listen_chain_stream_updates(
@@ -66,6 +72,8 @@ async def main() -> None:
             derivative_orderbooks_filter=derivative_orderbooks_filter,
             positions_filter=positions_filter,
             oracle_price_filter=oracle_price_filter,
+            order_failures_filter=order_failures_filter,
+            conditional_order_trigger_failures_filter=conditional_order_trigger_failures_filter,
         )
     )
 

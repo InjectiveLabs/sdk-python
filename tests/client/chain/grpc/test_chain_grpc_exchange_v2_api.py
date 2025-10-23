@@ -65,9 +65,9 @@ class TestChainGrpcExchangeV2Api:
             fixed_gas_enabled=False,
             emit_legacy_version_events=True,
             default_reduce_margin_ratio="3",
-            human_readable_upgrade_block_height=1000,
             post_only_mode_blocks_amount=2000,
             min_post_only_mode_downtime_duration="DURATION_10M",
+            post_only_mode_blocks_amount_after_downtime=3000,
         )
         exchange_servicer.exchange_params.append(exchange_query_pb.QueryExchangeParamsResponse(params=params))
 
@@ -120,9 +120,9 @@ class TestChainGrpcExchangeV2Api:
                 "fixedGasEnabled": params.fixed_gas_enabled,
                 "emitLegacyVersionEvents": params.emit_legacy_version_events,
                 "defaultReduceMarginRatio": params.default_reduce_margin_ratio,
-                "humanReadableUpgradeBlockHeight": str(params.human_readable_upgrade_block_height),
                 "postOnlyModeBlocksAmount": str(params.post_only_mode_blocks_amount),
                 "minPostOnlyModeDowntimeDuration": params.min_post_only_mode_downtime_duration,
+                "postOnlyModeBlocksAmountAfterDowntime": str(params.post_only_mode_blocks_amount_after_downtime),
             }
         }
 
@@ -394,26 +394,26 @@ class TestChainGrpcExchangeV2Api:
         assert volume_response == expected_volume
 
     @pytest.mark.asyncio
-    async def test_fetch_denom_decimal(
+    async def test_fetch_auction_exchange_transfer_denom_decimal(
         self,
         exchange_servicer,
     ):
         decimal = 18
-        exchange_servicer.denom_decimal_responses.append(
-            exchange_query_pb.QueryDenomDecimalResponse(
+        exchange_servicer.auction_exchange_transfer_denom_decimal_responses.append(
+            exchange_query_pb.QueryAuctionExchangeTransferDenomDecimalResponse(
                 decimal=decimal,
             )
         )
 
         api = self._api_instance(servicer=exchange_servicer)
 
-        denom_decimal = await api.fetch_denom_decimal(denom="inj")
+        denom_decimal = await api.fetch_auction_exchange_transfer_denom_decimal(denom="inj")
         expected_decimal = {"decimal": str(decimal)}
 
         assert denom_decimal == expected_decimal
 
     @pytest.mark.asyncio
-    async def test_fetch_denom_decimals(
+    async def test_fetch_auction_exchange_transfer_denom_decimals(
         self,
         exchange_servicer,
     ):
@@ -421,15 +421,15 @@ class TestChainGrpcExchangeV2Api:
             denom="inj",
             decimals=18,
         )
-        exchange_servicer.denom_decimals_responses.append(
-            exchange_query_pb.QueryDenomDecimalsResponse(
+        exchange_servicer.auction_exchange_transfer_denom_decimals_responses.append(
+            exchange_query_pb.QueryAuctionExchangeTransferDenomDecimalsResponse(
                 denom_decimals=[denom_decimal],
             )
         )
 
         api = self._api_instance(servicer=exchange_servicer)
 
-        denom_decimals = await api.fetch_denom_decimals(denoms=[denom_decimal.denom])
+        denom_decimals = await api.fetch_auction_exchange_transfer_denom_decimals(denoms=[denom_decimal.denom])
         expected_decimals = {
             "denomDecimals": [
                 {
@@ -721,6 +721,7 @@ class TestChainGrpcExchangeV2Api:
             exchange_query_pb.QuerySpotOrderbookResponse(
                 buys_price_level=[buy_price_level],
                 sells_price_level=[sell_price_level],
+                seq=100,
             )
         )
 
@@ -746,6 +747,7 @@ class TestChainGrpcExchangeV2Api:
                     "q": sell_price_level.q,
                 }
             ],
+            "seq": "100",
         }
 
         assert orderbook == expected_orderbook
@@ -1043,6 +1045,7 @@ class TestChainGrpcExchangeV2Api:
             exchange_query_pb.QueryDerivativeOrderbookResponse(
                 buys_price_level=[buy_price_level],
                 sells_price_level=[sell_price_level],
+                seq=100,
             )
         )
 
@@ -1066,6 +1069,7 @@ class TestChainGrpcExchangeV2Api:
                     "q": sell_price_level.q,
                 }
             ],
+            "seq": "100",
         }
 
         assert orderbook == expected_orderbook
@@ -1244,6 +1248,11 @@ class TestChainGrpcExchangeV2Api:
         self,
         exchange_servicer,
     ):
+        open_notional_cap = market_pb.OpenNotionalCap(
+            uncapped=market_pb.OpenNotionalCapUncapped()
+        )
+        with_mid_price_and_tob = True
+        
         market = market_pb.DerivativeMarket(
             ticker="20250608/USDT",
             oracle_base="0x2d9315a88f3019f8efa88dfe9c0f0843712da0bac814461e27733f6b83eb51b3",
@@ -1266,6 +1275,7 @@ class TestChainGrpcExchangeV2Api:
             admin="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
             admin_permissions=1,
             quote_decimals=6,
+            open_notional_cap=open_notional_cap,
         )
         market_info = market_pb.PerpetualMarketInfo(
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
@@ -1332,6 +1342,9 @@ class TestChainGrpcExchangeV2Api:
                         "admin": market.admin,
                         "adminPermissions": market.admin_permissions,
                         "quoteDecimals": market.quote_decimals,
+                        "openNotionalCap": {
+                            "uncapped": {},
+                        },
                     },
                     "perpetualInfo": {
                         "marketInfo": {
@@ -2385,6 +2398,10 @@ class TestChainGrpcExchangeV2Api:
         self,
         exchange_servicer,
     ):
+        open_notional_cap = market_pb.OpenNotionalCap(
+            uncapped=market_pb.OpenNotionalCapUncapped()
+        )
+
         market = market_pb.BinaryOptionsMarket(
             ticker="20250608/USDT",
             oracle_symbol="0x2d9315a88f3019f8efa88dfe9c0f0843712da0bac814461e27733f6b83eb51b3",
@@ -2619,6 +2636,7 @@ class TestChainGrpcExchangeV2Api:
         response = exchange_query_pb.QueryFullDerivativeOrderbookResponse(
             Bids=[bid],
             Asks=[ask],
+            seq=100,
         )
         exchange_servicer.l3_derivative_orderbook_responses.append(response)
 
@@ -2644,6 +2662,7 @@ class TestChainGrpcExchangeV2Api:
                     "subaccountId": ask.subaccount_id,
                 }
             ],
+            "seq": "100",
         }
 
         assert orderbook == expected_orderbook
@@ -2668,6 +2687,7 @@ class TestChainGrpcExchangeV2Api:
         response = exchange_query_pb.QueryFullSpotOrderbookResponse(
             Bids=[bid],
             Asks=[ask],
+            seq=100,
         )
         exchange_servicer.l3_spot_orderbook_responses.append(response)
 
@@ -2693,6 +2713,7 @@ class TestChainGrpcExchangeV2Api:
                     "subaccountId": ask.subaccount_id,
                 }
             ],
+            "seq": "100",
         }
 
         assert orderbook == expected_orderbook
@@ -2806,6 +2827,32 @@ class TestChainGrpcExchangeV2Api:
         }
 
         assert denom_min_notionals_response == expected_denom_min_notionals
+
+    @pytest.mark.asyncio
+    async def test_fetch_open_interest(
+        self,
+        exchange_servicer,
+    ):
+        amount = exchange_query_pb.OpenInterest(
+            market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+            balance="1000000000000000000",
+        )
+        response = exchange_query_pb.QueryOpenInterestResponse(
+            amount=amount,
+        )
+        exchange_servicer.open_interest_responses.append(response)
+
+        api = self._api_instance(servicer=exchange_servicer)
+
+        open_interest_response = await api.fetch_open_interest(market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6")
+        expected_open_interest = {
+            "amount": {
+                "marketId": amount.market_id,
+                "balance": amount.balance,
+            },
+        }
+
+        assert open_interest_response == expected_open_interest
 
     def _api_instance(self, servicer):
         network = Network.devnet()

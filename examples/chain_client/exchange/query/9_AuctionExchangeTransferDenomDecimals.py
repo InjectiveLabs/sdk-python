@@ -11,7 +11,7 @@ async def main() -> None:
     # initialize grpc client
     client = AsyncClient(network)
 
-    deposits = await client.fetch_denom_decimals(denoms=["inj", "peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5"])
+    deposits = await client.fetch_auction_exchange_transfer_denom_decimals(denoms=["inj", "peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5"])
     print(deposits)
 
 

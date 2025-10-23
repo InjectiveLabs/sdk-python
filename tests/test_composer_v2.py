@@ -334,15 +334,18 @@ class TestComposer:
         maintenance_margin_ratio = Decimal("0.03")
         min_notional = Decimal("2")
         reduce_margin_ratio = Decimal("3")
+        cap_value = Decimal("1000")
+        open_notional_cap = basic_composer.open_notional_cap(value=cap_value)
 
-        expected_min_price_tick_size = min_price_tick_size * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        expected_min_quantity_tick_size = min_quantity_tick_size * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        expected_maker_fee_rate = maker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        expected_taker_fee_rate = taker_fee_rate * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        expected_initial_margin_ratio = initial_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        expected_maintenance_margin_ratio = maintenance_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        expected_reduce_margin_ratio = reduce_margin_ratio * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
-        expected_min_notional = min_notional * Decimal(f"1e{ADDITIONAL_CHAIN_FORMAT_DECIMALS}")
+        expected_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=min_price_tick_size)
+        expected_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=min_quantity_tick_size)
+        expected_maker_fee_rate = Token.convert_value_to_extended_decimal_format(value=maker_fee_rate)
+        expected_taker_fee_rate = Token.convert_value_to_extended_decimal_format(value=taker_fee_rate)
+        expected_initial_margin_ratio = Token.convert_value_to_extended_decimal_format(value=initial_margin_ratio)
+        expected_maintenance_margin_ratio = Token.convert_value_to_extended_decimal_format(value=maintenance_margin_ratio)
+        expected_reduce_margin_ratio = Token.convert_value_to_extended_decimal_format(value=reduce_margin_ratio)
+        expected_min_notional = Token.convert_value_to_extended_decimal_format(value=min_notional)
+        expected_open_notional_cap_value = Token.convert_value_to_extended_decimal_format(value=cap_value)
 
         message = basic_composer.msg_instant_perpetual_market_launch_v2(
             sender=sender,
@@ -360,6 +363,7 @@ class TestComposer:
             min_price_tick_size=min_price_tick_size,
             min_quantity_tick_size=min_quantity_tick_size,
             min_notional=min_notional,
+            open_notional_cap=open_notional_cap,
         )
 
         expected_message = {
@@ -378,6 +382,11 @@ class TestComposer:
             "minPriceTickSize": f"{expected_min_price_tick_size.normalize():f}",
             "minQuantityTickSize": f"{expected_min_quantity_tick_size.normalize():f}",
             "minNotional": f"{expected_min_notional.normalize():f}",
+            "openNotionalCap": {
+                "capped": {
+                    "value": f"{expected_open_notional_cap_value.normalize():f}",
+                },
+            },
         }
         dict_message = json_format.MessageToDict(
             message=message,
@@ -402,6 +411,8 @@ class TestComposer:
         maintenance_margin_ratio = Decimal("0.03")
         reduce_margin_ratio = Decimal("3")
         min_notional = Decimal("2")
+        cap_value = Decimal("1000")
+        open_notional_cap = basic_composer.open_notional_cap(value=cap_value)
 
         expected_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=min_price_tick_size)
         expected_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=min_quantity_tick_size)
@@ -413,6 +424,7 @@ class TestComposer:
         )
         expected_reduce_margin_ratio = Token.convert_value_to_extended_decimal_format(value=reduce_margin_ratio)
         expected_min_notional = Token.convert_value_to_extended_decimal_format(value=min_notional)
+        expected_open_notional_cap_value = Token.convert_value_to_extended_decimal_format(value=cap_value)
 
         message = basic_composer.msg_instant_expiry_futures_market_launch_v2(
             sender=sender,
@@ -431,6 +443,7 @@ class TestComposer:
             min_price_tick_size=min_price_tick_size,
             min_quantity_tick_size=min_quantity_tick_size,
             min_notional=min_notional,
+            open_notional_cap=open_notional_cap,
         )
 
         expected_message = {
@@ -450,6 +463,11 @@ class TestComposer:
             "minPriceTickSize": f"{expected_min_price_tick_size.normalize():f}",
             "minQuantityTickSize": f"{expected_min_quantity_tick_size.normalize():f}",
             "minNotional": f"{expected_min_notional.normalize():f}",
+            "openNotionalCap": {
+                "capped": {
+                    "value": f"{expected_open_notional_cap_value.normalize():f}",
+                },
+            },
         }
         dict_message = json_format.MessageToDict(
             message=message,
@@ -792,6 +810,33 @@ class TestComposer:
             margin=Decimal("36.1") * Decimal("100"),
             order_type="BUY",
         )
+        spot_market_order_to_create = basic_composer.spot_order(
+            market_id=spot_market_id,
+            subaccount_id=subaccount_id,
+            fee_recipient="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q4r",
+            price=Decimal("37"),
+            quantity=Decimal("1"),
+            order_type="BUY",
+            cid="test_cid_spot_market",
+        )
+        derivative_market_order_to_create = basic_composer.derivative_order(
+            market_id=derivative_market_id,
+            subaccount_id=subaccount_id,
+            fee_recipient="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q5r",
+            price=Decimal("38"),
+            quantity=Decimal("1"),
+            margin=Decimal("38") * Decimal("1"),
+            order_type="BUY",
+        )
+        binary_options_market_order_to_create = basic_composer.binary_options_order(
+            market_id=binary_options_market_id,
+            subaccount_id=subaccount_id,
+            fee_recipient="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q6r",
+            price=Decimal("39"),
+            quantity=Decimal("1"),
+            margin=Decimal("39") * Decimal("1"),
+            order_type="BUY",
+        )
 
         message = basic_composer.msg_batch_update_orders(
             sender=sender,
@@ -805,6 +850,9 @@ class TestComposer:
             binary_options_orders_to_cancel=[binary_options_order_to_cancel],
             binary_options_market_ids_to_cancel_all=[binary_options_market_id],
             binary_options_orders_to_create=[binary_options_order_to_create],
+            spot_market_orders_to_create=[spot_market_order_to_create],
+            derivative_market_orders_to_create=[derivative_market_order_to_create],
+            binary_options_market_orders_to_create=[binary_options_market_order_to_create],
         )
 
         expected_message = {
@@ -835,11 +883,21 @@ class TestComposer:
                     message=binary_options_order_to_create, always_print_fields_with_no_presence=True
                 )
             ],
+            "spotMarketOrdersToCreate": [
+                json_format.MessageToDict(message=spot_market_order_to_create, always_print_fields_with_no_presence=True)
+            ],
+            "derivativeMarketOrdersToCreate": [
+                json_format.MessageToDict(message=derivative_market_order_to_create, always_print_fields_with_no_presence=True)
+            ],
+            "binaryOptionsMarketOrdersToCreate": [
+                json_format.MessageToDict(message=binary_options_market_order_to_create, always_print_fields_with_no_presence=True)
+            ],
         }
         dict_message = json_format.MessageToDict(
             message=message,
             always_print_fields_with_no_presence=True,
         )
+        
         assert dict_message == expected_message
 
     def test_msg_privileged_execute_contract(self, basic_composer):
@@ -1089,6 +1147,8 @@ class TestComposer:
         settlement_timestamp = 1660000000
         admin = "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"
         min_notional = Decimal("2")
+        cap_value = Decimal("1000")
+        open_notional_cap = basic_composer.open_notional_cap(value=cap_value)
 
         message = basic_composer.msg_instant_binary_options_market_launch(
             sender=sender,
@@ -1106,11 +1166,13 @@ class TestComposer:
             min_price_tick_size=min_price_tick_size,
             min_quantity_tick_size=min_quantity_tick_size,
             min_notional=min_notional,
+            open_notional_cap=open_notional_cap,
         )
 
         chain_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=min_price_tick_size)
         chain_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=min_quantity_tick_size)
         chain_min_notional = Token.convert_value_to_extended_decimal_format(value=min_notional)
+        expected_open_notional_cap_value = Token.convert_value_to_extended_decimal_format(value=cap_value)
 
         expected_message = {
             "sender": sender,
@@ -1128,6 +1190,11 @@ class TestComposer:
             "minPriceTickSize": f"{chain_min_price_tick_size.normalize():f}",
             "minQuantityTickSize": f"{chain_min_quantity_tick_size.normalize():f}",
             "minNotional": f"{chain_min_notional.normalize():f}",
+            "openNotionalCap": {
+                "capped": {
+                    "value": f"{expected_open_notional_cap_value.normalize():f}",
+                },
+            },
         }
         dict_message = json_format.MessageToDict(
             message=message,
@@ -1566,6 +1633,9 @@ class TestComposer:
             value=maintenance_margin_ratio
         )
         expected_reduce_margin_ratio = Token.convert_value_to_extended_decimal_format(value=reduce_margin_ration)
+        open_notional_cap_value = Decimal("100000")
+        expected_open_notional_cap_value = Token.convert_value_to_extended_decimal_format(value=open_notional_cap_value)
+        open_notional_cap = basic_composer.open_notional_cap(value=open_notional_cap_value)
 
         message = basic_composer.msg_update_derivative_market(
             admin=sender,
@@ -1577,6 +1647,7 @@ class TestComposer:
             new_initial_margin_ratio=initial_margin_ratio,
             new_maintenance_margin_ratio=maintenance_margin_ratio,
             new_reduce_margin_ratio=reduce_margin_ration,
+            new_open_notional_cap=open_notional_cap,
         )
 
         expected_message = {
@@ -1589,6 +1660,11 @@ class TestComposer:
             "newInitialMarginRatio": f"{expected_initial_margin_ratio.normalize():f}",
             "newMaintenanceMarginRatio": f"{expected_maintenance_margin_ratio.normalize():f}",
             "newReduceMarginRatio": f"{expected_reduce_margin_ratio.normalize():f}",
+            "newOpenNotionalCap": {
+                "capped": {
+                    "value": f"{expected_open_notional_cap_value.normalize():f}",
+                },
+            },
         }
         dict_message = json_format.MessageToDict(
             message=message,
@@ -2222,6 +2298,339 @@ class TestComposer:
 
         dict_message = json_format.MessageToDict(
             message=message,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_open_notional_cap(self, basic_composer):
+        cap_value = Decimal("100000")
+        expected_cap_value = Token.convert_value_to_extended_decimal_format(value=cap_value)
+
+        open_notional_cap = basic_composer.open_notional_cap(value=cap_value)
+
+        expected_message = {
+            "capped": {
+                "value": f"{expected_cap_value.normalize():f}",
+            },
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=open_notional_cap,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_uncapped_open_notional_cap(self, basic_composer):
+        open_notional_cap = basic_composer.uncapped_open_notional_cap()
+
+        expected_message = {
+            "uncapped": {},
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=open_notional_cap,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_chain_stream_bank_balances_filter(self, basic_composer):
+        accounts = ["inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0", "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"]
+
+        filter_result = basic_composer.chain_stream_bank_balances_filter(accounts=accounts)
+
+        expected_message = {
+            "accounts": accounts,
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=filter_result,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_chain_stream_bank_balances_filter_default(self, basic_composer):
+        filter_result = basic_composer.chain_stream_bank_balances_filter()
+
+        expected_message = {
+            "accounts": ["*"],
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=filter_result,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_chain_stream_subaccount_deposits_filter(self, basic_composer):
+        subaccount_ids = [
+            "0x893f2abf8034627e50cbc63923120b1122503ce0000000000000000000000001",
+            "0x893f2abf8034627e50cbc63923120b1122503ce0000000000000000000000002",
+        ]
+
+        filter_result = basic_composer.chain_stream_subaccount_deposits_filter(subaccount_ids=subaccount_ids)
+
+        expected_message = {
+            "subaccountIds": subaccount_ids,
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=filter_result,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_chain_stream_subaccount_deposits_filter_default(self, basic_composer):
+        filter_result = basic_composer.chain_stream_subaccount_deposits_filter()
+
+        expected_message = {
+            "subaccountIds": ["*"],
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=filter_result,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_chain_stream_trades_filter(self, basic_composer):
+        subaccount_ids = [
+            "0x893f2abf8034627e50cbc63923120b1122503ce0000000000000000000000001",
+            "0x893f2abf8034627e50cbc63923120b1122503ce0000000000000000000000002",
+        ]
+        market_ids = [
+            "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
+            "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+        ]
+
+        filter_result = basic_composer.chain_stream_trades_filter(
+            subaccount_ids=subaccount_ids, market_ids=market_ids
+        )
+
+        expected_message = {
+            "subaccountIds": subaccount_ids,
+            "marketIds": market_ids,
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=filter_result,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_chain_stream_trades_filter_default(self, basic_composer):
+        filter_result = basic_composer.chain_stream_trades_filter()
+
+        expected_message = {
+            "subaccountIds": ["*"],
+            "marketIds": ["*"],
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=filter_result,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_chain_stream_orders_filter(self, basic_composer):
+        subaccount_ids = [
+            "0x893f2abf8034627e50cbc63923120b1122503ce0000000000000000000000001",
+            "0x893f2abf8034627e50cbc63923120b1122503ce0000000000000000000000002",
+        ]
+        market_ids = [
+            "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
+            "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+        ]
+
+        filter_result = basic_composer.chain_stream_orders_filter(
+            subaccount_ids=subaccount_ids, market_ids=market_ids
+        )
+
+        expected_message = {
+            "subaccountIds": subaccount_ids,
+            "marketIds": market_ids,
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=filter_result,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_chain_stream_orders_filter_default(self, basic_composer):
+        filter_result = basic_composer.chain_stream_orders_filter()
+
+        expected_message = {
+            "subaccountIds": ["*"],
+            "marketIds": ["*"],
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=filter_result,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_chain_stream_orderbooks_filter(self, basic_composer):
+        market_ids = [
+            "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
+            "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+        ]
+
+        filter_result = basic_composer.chain_stream_orderbooks_filter(market_ids=market_ids)
+
+        expected_message = {
+            "marketIds": market_ids,
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=filter_result,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_chain_stream_orderbooks_filter_default(self, basic_composer):
+        filter_result = basic_composer.chain_stream_orderbooks_filter()
+
+        expected_message = {
+            "marketIds": ["*"],
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=filter_result,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_chain_stream_positions_filter(self, basic_composer):
+        subaccount_ids = [
+            "0x893f2abf8034627e50cbc63923120b1122503ce0000000000000000000000001",
+            "0x893f2abf8034627e50cbc63923120b1122503ce0000000000000000000000002",
+        ]
+        market_ids = [
+            "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
+            "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+        ]
+
+        filter_result = basic_composer.chain_stream_positions_filter(
+            subaccount_ids=subaccount_ids, market_ids=market_ids
+        )
+
+        expected_message = {
+            "subaccountIds": subaccount_ids,
+            "marketIds": market_ids,
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=filter_result,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_chain_stream_positions_filter_default(self, basic_composer):
+        filter_result = basic_composer.chain_stream_positions_filter()
+
+        expected_message = {
+            "subaccountIds": ["*"],
+            "marketIds": ["*"],
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=filter_result,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_chain_stream_oracle_price_filter(self, basic_composer):
+        symbols = ["BTC/USD", "ETH/USD", "INJ/USD"]
+
+        filter_result = basic_composer.chain_stream_oracle_price_filter(symbols=symbols)
+
+        expected_message = {
+            "symbol": symbols,
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=filter_result,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_chain_stream_oracle_price_filter_default(self, basic_composer):
+        filter_result = basic_composer.chain_stream_oracle_price_filter()
+
+        expected_message = {
+            "symbol": ["*"],
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=filter_result,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_chain_stream_order_failures_filter(self, basic_composer):
+        accounts = ["inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0", "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r"]
+
+        filter_result = basic_composer.chain_stream_order_failures_filter(accounts=accounts)
+
+        expected_message = {
+            "accounts": accounts,
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=filter_result,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_chain_stream_order_failures_filter_default(self, basic_composer):
+        filter_result = basic_composer.chain_stream_order_failures_filter()
+
+        expected_message = {
+            "accounts": ["*"],
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=filter_result,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_chain_stream_conditional_order_trigger_failures_filter(self, basic_composer):
+        subaccount_ids = [
+            "0x893f2abf8034627e50cbc63923120b1122503ce0000000000000000000000001",
+            "0x893f2abf8034627e50cbc63923120b1122503ce0000000000000000000000002",
+        ]
+        market_ids = [
+            "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe",
+            "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
+        ]
+
+        filter_result = basic_composer.chain_stream_conditional_order_trigger_failures_filter(
+            subaccount_ids=subaccount_ids, market_ids=market_ids
+        )
+
+        expected_message = {
+            "subaccountIds": subaccount_ids,
+            "marketIds": market_ids,
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=filter_result,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_chain_stream_conditional_order_trigger_failures_filter_default(self, basic_composer):
+        filter_result = basic_composer.chain_stream_conditional_order_trigger_failures_filter()
+
+        expected_message = {
+            "subaccountIds": ["*"],
+            "marketIds": ["*"],
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=filter_result,
             always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
