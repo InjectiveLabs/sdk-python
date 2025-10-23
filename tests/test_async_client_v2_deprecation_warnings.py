@@ -4,8 +4,7 @@ import pytest
 
 from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.core.network import Network
-from pyinjective.proto.injective.exchange.v2 import exchange_pb2 as exchange_pb
-from pyinjective.proto.injective.exchange.v2 import query_pb2 as exchange_query_pb
+from pyinjective.proto.injective.exchange.v2 import exchange_pb2 as exchange_pb, query_pb2 as exchange_query_pb
 from tests.client.chain.grpc.configurable_exchange_v2_query_servicer import ConfigurableExchangeV2QueryServicer
 
 
@@ -37,9 +36,7 @@ class TestAsyncClientV2DeprecationWarnings:
         assert result == {"decimal": str(decimal)}
 
         # Verify deprecation warning was issued
-        deprecation_warnings = [
-            warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)
-        ]
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
         assert len(deprecation_warnings) == 1
         assert (
             str(deprecation_warnings[0].message)
@@ -79,9 +76,7 @@ class TestAsyncClientV2DeprecationWarnings:
         assert result == expected_result
 
         # Verify deprecation warning was issued
-        deprecation_warnings = [
-            warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)
-        ]
+        deprecation_warnings = [warning for warning in all_warnings if issubclass(warning.category, DeprecationWarning)]
         assert len(deprecation_warnings) == 1
         assert (
             str(deprecation_warnings[0].message)

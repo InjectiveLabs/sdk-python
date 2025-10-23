@@ -1248,11 +1248,8 @@ class TestChainGrpcExchangeV2Api:
         self,
         exchange_servicer,
     ):
-        open_notional_cap = market_pb.OpenNotionalCap(
-            uncapped=market_pb.OpenNotionalCapUncapped()
-        )
-        with_mid_price_and_tob = True
-        
+        open_notional_cap = market_pb.OpenNotionalCap(uncapped=market_pb.OpenNotionalCapUncapped())
+
         market = market_pb.DerivativeMarket(
             ticker="20250608/USDT",
             oracle_base="0x2d9315a88f3019f8efa88dfe9c0f0843712da0bac814461e27733f6b83eb51b3",
@@ -2398,9 +2395,7 @@ class TestChainGrpcExchangeV2Api:
         self,
         exchange_servicer,
     ):
-        open_notional_cap = market_pb.OpenNotionalCap(
-            uncapped=market_pb.OpenNotionalCapUncapped()
-        )
+        open_notional_cap = market_pb.OpenNotionalCap(uncapped=market_pb.OpenNotionalCapUncapped())
 
         market = market_pb.BinaryOptionsMarket(
             ticker="20250608/USDT",
@@ -2423,6 +2418,7 @@ class TestChainGrpcExchangeV2Api:
             min_notional="5000000000000000000",
             admin_permissions=1,
             quote_decimals=6,
+            open_notional_cap=open_notional_cap,
         )
         response = exchange_query_pb.QueryBinaryMarketsResponse(
             markets=[market],
@@ -2455,6 +2451,9 @@ class TestChainGrpcExchangeV2Api:
                     "minNotional": market.min_notional,
                     "adminPermissions": market.admin_permissions,
                     "quoteDecimals": market.quote_decimals,
+                    "openNotionalCap": {
+                        "uncapped": {},
+                    },
                 },
             ]
         }
@@ -2844,7 +2843,9 @@ class TestChainGrpcExchangeV2Api:
 
         api = self._api_instance(servicer=exchange_servicer)
 
-        open_interest_response = await api.fetch_open_interest(market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6")
+        open_interest_response = await api.fetch_open_interest(
+            market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
+        )
         expected_open_interest = {
             "amount": {
                 "marketId": amount.market_id,

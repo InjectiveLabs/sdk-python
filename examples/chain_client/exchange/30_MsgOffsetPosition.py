@@ -1,7 +1,6 @@
 import asyncio
 import json
 import os
-from decimal import Decimal
 
 import dotenv
 
@@ -42,9 +41,9 @@ async def main() -> None:
     await client.fetch_account(address.to_acc_bech32())
 
     offsetting_subaccount_ids = {
-		"0xbdaedec95d563fb05240d6e01821008454c24c36000000000000000000000000",
-		"0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000",
-	}
+        "0xbdaedec95d563fb05240d6e01821008454c24c36000000000000000000000000",
+        "0xaf79152ac5df276d9a8e1e2e22822f9713474902000000000000000000000000",
+    }
 
     # prepare tx msg
     message = composer.msg_offset_position(

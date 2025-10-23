@@ -93,7 +93,9 @@ class ChainGrpcExchangeV2Api:
 
         return response
 
-    async def fetch_auction_exchange_transfer_denom_decimals(self, denoms: Optional[List[str]] = None) -> Dict[str, Any]:
+    async def fetch_auction_exchange_transfer_denom_decimals(
+        self, denoms: Optional[List[str]] = None
+    ) -> Dict[str, Any]:
         request = exchange_query_pb.QueryAuctionExchangeTransferDenomDecimalsRequest(denoms=denoms)
         response = await self._execute_call(call=self._stub.AuctionExchangeTransferDenomDecimals, request=request)
 

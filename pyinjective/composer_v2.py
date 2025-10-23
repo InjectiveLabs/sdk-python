@@ -1207,7 +1207,9 @@ class Composer:
     def msg_cancel_post_only_mode(self, sender: str) -> injective_exchange_tx_v2_pb.MsgCancelPostOnlyMode:
         return injective_exchange_tx_v2_pb.MsgCancelPostOnlyMode(sender=sender)
 
-    def msg_offset_position(self, sender: str, subaccount_id: str, market_id: str, offsetting_subaccount_ids: List[str]) -> injective_exchange_tx_v2_pb.MsgOffsetPosition:
+    def msg_offset_position(
+        self, sender: str, subaccount_id: str, market_id: str, offsetting_subaccount_ids: List[str]
+    ) -> injective_exchange_tx_v2_pb.MsgOffsetPosition:
         return injective_exchange_tx_v2_pb.MsgOffsetPosition(
             sender=sender,
             subaccount_id=subaccount_id,
@@ -1224,9 +1226,7 @@ class Composer:
         )
 
     def uncapped_open_notional_cap(self) -> injective_market_v2_pb.OpenNotionalCap:
-        return injective_market_v2_pb.OpenNotionalCap(
-            uncapped=injective_market_v2_pb.OpenNotionalCapUncapped()
-        )
+        return injective_market_v2_pb.OpenNotionalCap(uncapped=injective_market_v2_pb.OpenNotionalCapUncapped())
 
     # endregion
 
@@ -1597,7 +1597,9 @@ class Composer:
     ) -> chain_stream_v2_query.ConditionalOrderTriggerFailuresFilter:
         subaccount_ids = subaccount_ids or ["*"]
         market_ids = market_ids or ["*"]
-        return chain_stream_v2_query.ConditionalOrderTriggerFailuresFilter(subaccount_ids=subaccount_ids, market_ids=market_ids)
+        return chain_stream_v2_query.ConditionalOrderTriggerFailuresFilter(
+            subaccount_ids=subaccount_ids, market_ids=market_ids
+        )
 
     # endregion
 

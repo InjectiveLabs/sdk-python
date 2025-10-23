@@ -70,7 +70,9 @@ class ChainGrpcChainStream:
         positions_filter: Optional[chain_stream_v2_pb.PositionsFilter] = None,
         oracle_price_filter: Optional[chain_stream_v2_pb.OraclePriceFilter] = None,
         order_failures_filter: Optional[chain_stream_v2_pb.OrderFailuresFilter] = None,
-        conditional_order_trigger_failures_filter: Optional[chain_stream_v2_pb.ConditionalOrderTriggerFailuresFilter] = None,
+        conditional_order_trigger_failures_filter: Optional[
+            chain_stream_v2_pb.ConditionalOrderTriggerFailuresFilter
+        ] = None,
     ):
         request = chain_stream_v2_pb.StreamRequest(
             bank_balances_filter=bank_balances_filter,

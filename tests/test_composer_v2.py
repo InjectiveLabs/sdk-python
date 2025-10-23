@@ -5,7 +5,7 @@ import pytest
 from google.protobuf import json_format
 
 from pyinjective.composer_v2 import Composer
-from pyinjective.constant import ADDITIONAL_CHAIN_FORMAT_DECIMALS, INJ_DECIMALS
+from pyinjective.constant import INJ_DECIMALS
 from pyinjective.core.network import Network
 from pyinjective.core.token import Token
 from pyinjective.proto.injective.permissions.v1beta1 import permissions_pb2 as permissions_pb
@@ -342,7 +342,9 @@ class TestComposer:
         expected_maker_fee_rate = Token.convert_value_to_extended_decimal_format(value=maker_fee_rate)
         expected_taker_fee_rate = Token.convert_value_to_extended_decimal_format(value=taker_fee_rate)
         expected_initial_margin_ratio = Token.convert_value_to_extended_decimal_format(value=initial_margin_ratio)
-        expected_maintenance_margin_ratio = Token.convert_value_to_extended_decimal_format(value=maintenance_margin_ratio)
+        expected_maintenance_margin_ratio = Token.convert_value_to_extended_decimal_format(
+            value=maintenance_margin_ratio
+        )
         expected_reduce_margin_ratio = Token.convert_value_to_extended_decimal_format(value=reduce_margin_ratio)
         expected_min_notional = Token.convert_value_to_extended_decimal_format(value=min_notional)
         expected_open_notional_cap_value = Token.convert_value_to_extended_decimal_format(value=cap_value)
@@ -884,20 +886,26 @@ class TestComposer:
                 )
             ],
             "spotMarketOrdersToCreate": [
-                json_format.MessageToDict(message=spot_market_order_to_create, always_print_fields_with_no_presence=True)
+                json_format.MessageToDict(
+                    message=spot_market_order_to_create, always_print_fields_with_no_presence=True
+                )
             ],
             "derivativeMarketOrdersToCreate": [
-                json_format.MessageToDict(message=derivative_market_order_to_create, always_print_fields_with_no_presence=True)
+                json_format.MessageToDict(
+                    message=derivative_market_order_to_create, always_print_fields_with_no_presence=True
+                )
             ],
             "binaryOptionsMarketOrdersToCreate": [
-                json_format.MessageToDict(message=binary_options_market_order_to_create, always_print_fields_with_no_presence=True)
+                json_format.MessageToDict(
+                    message=binary_options_market_order_to_create, always_print_fields_with_no_presence=True
+                )
             ],
         }
         dict_message = json_format.MessageToDict(
             message=message,
             always_print_fields_with_no_presence=True,
         )
-        
+
         assert dict_message == expected_message
 
     def test_msg_privileged_execute_contract(self, basic_composer):
@@ -2402,9 +2410,7 @@ class TestComposer:
             "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
         ]
 
-        filter_result = basic_composer.chain_stream_trades_filter(
-            subaccount_ids=subaccount_ids, market_ids=market_ids
-        )
+        filter_result = basic_composer.chain_stream_trades_filter(subaccount_ids=subaccount_ids, market_ids=market_ids)
 
         expected_message = {
             "subaccountIds": subaccount_ids,
@@ -2441,9 +2447,7 @@ class TestComposer:
             "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
         ]
 
-        filter_result = basic_composer.chain_stream_orders_filter(
-            subaccount_ids=subaccount_ids, market_ids=market_ids
-        )
+        filter_result = basic_composer.chain_stream_orders_filter(subaccount_ids=subaccount_ids, market_ids=market_ids)
 
         expected_message = {
             "subaccountIds": subaccount_ids,

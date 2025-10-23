@@ -117,10 +117,14 @@ class ConfigurableExchangeV2QueryServicer(exchange_query_grpc.QueryServicer):
     ):
         return self.aggregate_market_volumes_responses.pop()
 
-    async def AuctionExchangeTransferDenomDecimal(self, request: exchange_query_pb.QueryAuctionExchangeTransferDenomDecimalRequest, context=None, metadata=None):
+    async def AuctionExchangeTransferDenomDecimal(
+        self, request: exchange_query_pb.QueryAuctionExchangeTransferDenomDecimalRequest, context=None, metadata=None
+    ):
         return self.auction_exchange_transfer_denom_decimal_responses.pop()
 
-    async def AuctionExchangeTransferDenomDecimals(self, request: exchange_query_pb.QueryAuctionExchangeTransferDenomDecimalsRequest, context=None, metadata=None):
+    async def AuctionExchangeTransferDenomDecimals(
+        self, request: exchange_query_pb.QueryAuctionExchangeTransferDenomDecimalsRequest, context=None, metadata=None
+    ):
         return self.auction_exchange_transfer_denom_decimals_responses.pop()
 
     async def SpotMarkets(self, request: exchange_query_pb.QuerySpotMarketsRequest, context=None, metadata=None):

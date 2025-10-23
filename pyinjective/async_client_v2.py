@@ -415,10 +415,10 @@ class AsyncClient:
     async def fetch_exchange_balances(self) -> Dict[str, Any]:
         return await self.chain_exchange_v2_api.fetch_exchange_balances()
 
-    
     async def fetch_denom_decimal(self, denom: str) -> Dict[str, Any]:
         """
-        This method is deprecated and will be removed soon. Please use `fetch_auction_exchange_transfer_denom_decimal` instead.
+        This method is deprecated and will be removed soon. Please use `fetch_auction_exchange_transfer_denom_decimal`
+        instead.
         """
         warn(
             "This method is deprecated. Use fetch_auction_exchange_transfer_denom_decimal instead",
@@ -430,7 +430,8 @@ class AsyncClient:
 
     async def fetch_denom_decimals(self, denoms: Optional[List[str]] = None) -> Dict[str, Any]:
         """
-        This method is deprecated and will be removed soon. Please use `fetch_auction_exchange_transfer_denom_decimals` instead.
+        This method is deprecated and will be removed soon. Please use `fetch_auction_exchange_transfer_denom_decimals`
+        instead.
         """
         warn(
             "This method is deprecated. Use fetch_auction_exchange_transfer_denom_decimals instead",
@@ -443,7 +444,9 @@ class AsyncClient:
     async def fetch_auction_exchange_transfer_denom_decimal(self, denom: str) -> Dict[str, Any]:
         return await self.chain_exchange_v2_api.fetch_auction_exchange_transfer_denom_decimal(denom=denom)
 
-    async def fetch_auction_exchange_transfer_denom_decimals(self, denoms: Optional[List[str]] = None) -> Dict[str, Any]:
+    async def fetch_auction_exchange_transfer_denom_decimals(
+        self, denoms: Optional[List[str]] = None
+    ) -> Dict[str, Any]:
         return await self.chain_exchange_v2_api.fetch_auction_exchange_transfer_denom_decimals(denoms=denoms)
 
     async def fetch_derivative_market_address(self, market_id: str) -> Dict[str, Any]:
@@ -974,7 +977,9 @@ class AsyncClient:
         positions_filter: Optional[chain_stream_v2_query.PositionsFilter] = None,
         oracle_price_filter: Optional[chain_stream_v2_query.OraclePriceFilter] = None,
         order_failures_filter: Optional[chain_stream_v2_query.OrderFailuresFilter] = None,
-        conditional_order_trigger_failures_filter: Optional[chain_stream_v2_query.ConditionalOrderTriggerFailuresFilter] = None,
+        conditional_order_trigger_failures_filter: Optional[
+            chain_stream_v2_query.ConditionalOrderTriggerFailuresFilter
+        ] = None,
     ):
         return await self.chain_stream_api.stream_v2(
             callback=callback,
