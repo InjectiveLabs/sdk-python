@@ -84,6 +84,21 @@ class MsgStub(object):
                 request_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgRevokeEthereumBlacklist.SerializeToString,
                 response_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgRevokeEthereumBlacklistResponse.FromString,
                 _registered_method=True)
+        self.CreateRateLimit = channel.unary_unary(
+                '/injective.peggy.v1.Msg/CreateRateLimit',
+                request_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgCreateRateLimit.SerializeToString,
+                response_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgCreateRateLimitResponse.FromString,
+                _registered_method=True)
+        self.UpdateRateLimit = channel.unary_unary(
+                '/injective.peggy.v1.Msg/UpdateRateLimit',
+                request_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgUpdateRateLimit.SerializeToString,
+                response_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgUpdateRateLimitResponse.FromString,
+                _registered_method=True)
+        self.RemoveRateLimit = channel.unary_unary(
+                '/injective.peggy.v1.Msg/RemoveRateLimit',
+                request_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgRemoveRateLimit.SerializeToString,
+                response_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgRemoveRateLimitResponse.FromString,
+                _registered_method=True)
 
 
 class MsgServicer(object):
@@ -176,6 +191,29 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def CreateRateLimit(self, request, context):
+        """CreateRateLimit imposes a (notional) limit on withdrawals for a particular
+        Peggy asset
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateRateLimit(self, request, context):
+        """UpdateRateLimit updates the rate limit's metadata for a particular Peggy
+        asset
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def RemoveRateLimit(self, request, context):
+        """RemoveRateLimit lifts the rate limit for a particular Peggy asset
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -248,6 +286,21 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.RevokeEthereumBlacklist,
                     request_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgRevokeEthereumBlacklist.FromString,
                     response_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgRevokeEthereumBlacklistResponse.SerializeToString,
+            ),
+            'CreateRateLimit': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateRateLimit,
+                    request_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgCreateRateLimit.FromString,
+                    response_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgCreateRateLimitResponse.SerializeToString,
+            ),
+            'UpdateRateLimit': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateRateLimit,
+                    request_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgUpdateRateLimit.FromString,
+                    response_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgUpdateRateLimitResponse.SerializeToString,
+            ),
+            'RemoveRateLimit': grpc.unary_unary_rpc_method_handler(
+                    servicer.RemoveRateLimit,
+                    request_deserializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgRemoveRateLimit.FromString,
+                    response_serializer=injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgRemoveRateLimitResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -628,6 +681,87 @@ class Msg(object):
             '/injective.peggy.v1.Msg/RevokeEthereumBlacklist',
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgRevokeEthereumBlacklist.SerializeToString,
             injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgRevokeEthereumBlacklistResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def CreateRateLimit(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Msg/CreateRateLimit',
+            injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgCreateRateLimit.SerializeToString,
+            injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgCreateRateLimitResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateRateLimit(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Msg/UpdateRateLimit',
+            injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgUpdateRateLimit.SerializeToString,
+            injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgUpdateRateLimitResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def RemoveRateLimit(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.peggy.v1.Msg/RemoveRateLimit',
+            injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgRemoveRateLimit.SerializeToString,
+            injective_dot_peggy_dot_v1_dot_msgs__pb2.MsgRemoveRateLimitResponse.FromString,
             options,
             channel_credentials,
             insecure,

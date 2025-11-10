@@ -635,6 +635,8 @@ class TestIndexerGrpcDerivativeApi:
             aggregate_reduce_only_quantity="0",
             updated_at=1700161202147,
             created_at=-62135596800000,
+            funding_last="1000.123456789",
+            funding_sum="9999.123456789",
         )
 
         paging = exchange_derivative_pb.Paging(total=5, to=5, count_by_subaccount=10, next=["next1", "next2"])
@@ -676,6 +678,8 @@ class TestIndexerGrpcDerivativeApi:
                     "aggregateReduceOnlyQuantity": position.aggregate_reduce_only_quantity,
                     "createdAt": str(position.created_at),
                     "updatedAt": str(position.updated_at),
+                    "fundingLast": position.funding_last,
+                    "fundingSum": position.funding_sum,
                 },
             ],
             "paging": {
@@ -706,6 +710,8 @@ class TestIndexerGrpcDerivativeApi:
             mark_price="16197000",
             updated_at=1700161202147,
             denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
+            funding_last="1000.123456789",
+            funding_sum="9999.123456789",
         )
 
         paging = exchange_derivative_pb.Paging(total=5, to=5, count_by_subaccount=10, next=["next1", "next2"])
@@ -746,6 +752,8 @@ class TestIndexerGrpcDerivativeApi:
                     "markPrice": position.mark_price,
                     "updatedAt": str(position.updated_at),
                     "denom": position.denom,
+                    "fundingLast": position.funding_last,
+                    "fundingSum": position.funding_sum,
                 },
             ],
             "paging": {
@@ -777,6 +785,8 @@ class TestIndexerGrpcDerivativeApi:
             aggregate_reduce_only_quantity="0",
             updated_at=1700161202147,
             created_at=-62135596800000,
+            funding_last="1000.123456789",
+            funding_sum="9999.123456789",
         )
 
         derivative_servicer.liquidable_positions_responses.append(
@@ -807,6 +817,8 @@ class TestIndexerGrpcDerivativeApi:
                     "aggregateReduceOnlyQuantity": position.aggregate_reduce_only_quantity,
                     "createdAt": str(position.created_at),
                     "updatedAt": str(position.updated_at),
+                    "fundingLast": position.funding_last,
+                    "fundingSum": position.funding_sum,
                 },
             ]
         }

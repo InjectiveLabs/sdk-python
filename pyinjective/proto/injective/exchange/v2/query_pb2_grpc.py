@@ -65,15 +65,15 @@ class QueryStub(object):
                 request_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryAggregateMarketVolumesRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryAggregateMarketVolumesResponse.FromString,
                 _registered_method=True)
-        self.DenomDecimal = channel.unary_unary(
-                '/injective.exchange.v2.Query/DenomDecimal',
-                request_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomDecimalRequest.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomDecimalResponse.FromString,
+        self.AuctionExchangeTransferDenomDecimal = channel.unary_unary(
+                '/injective.exchange.v2.Query/AuctionExchangeTransferDenomDecimal',
+                request_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryAuctionExchangeTransferDenomDecimalRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryAuctionExchangeTransferDenomDecimalResponse.FromString,
                 _registered_method=True)
-        self.DenomDecimals = channel.unary_unary(
-                '/injective.exchange.v2.Query/DenomDecimals',
-                request_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomDecimalsRequest.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomDecimalsResponse.FromString,
+        self.AuctionExchangeTransferDenomDecimals = channel.unary_unary(
+                '/injective.exchange.v2.Query/AuctionExchangeTransferDenomDecimals',
+                request_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryAuctionExchangeTransferDenomDecimalsRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryAuctionExchangeTransferDenomDecimalsResponse.FromString,
                 _registered_method=True)
         self.SpotMarkets = channel.unary_unary(
                 '/injective.exchange.v2.Query/SpotMarkets',
@@ -350,6 +350,11 @@ class QueryStub(object):
                 request_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomMinNotionalsRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomMinNotionalsResponse.FromString,
                 _registered_method=True)
+        self.OpenInterest = channel.unary_unary(
+                '/injective.exchange.v2.Query/OpenInterest',
+                request_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryOpenInterestRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryOpenInterestResponse.FromString,
+                _registered_method=True)
 
 
 class QueryServicer(object):
@@ -424,14 +429,14 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def DenomDecimal(self, request, context):
+    def AuctionExchangeTransferDenomDecimal(self, request, context):
         """Retrieves the denom decimals for a denom.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def DenomDecimals(self, request, context):
+    def AuctionExchangeTransferDenomDecimals(self, request, context):
         """Retrieves the denom decimals for multiple denoms. Returns all denom
         decimals if unspecified.
         """
@@ -759,7 +764,7 @@ class QueryServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def BinaryOptionsMarkets(self, request, context):
-        """Retrieves a spot market's orderbook by marketID
+        """Retrieves all binary options markets
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -827,6 +832,13 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def OpenInterest(self, request, context):
+        """Retrieves a market's open interest
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_QueryServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -880,15 +892,15 @@ def add_QueryServicer_to_server(servicer, server):
                     request_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryAggregateMarketVolumesRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryAggregateMarketVolumesResponse.SerializeToString,
             ),
-            'DenomDecimal': grpc.unary_unary_rpc_method_handler(
-                    servicer.DenomDecimal,
-                    request_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomDecimalRequest.FromString,
-                    response_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomDecimalResponse.SerializeToString,
+            'AuctionExchangeTransferDenomDecimal': grpc.unary_unary_rpc_method_handler(
+                    servicer.AuctionExchangeTransferDenomDecimal,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryAuctionExchangeTransferDenomDecimalRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryAuctionExchangeTransferDenomDecimalResponse.SerializeToString,
             ),
-            'DenomDecimals': grpc.unary_unary_rpc_method_handler(
-                    servicer.DenomDecimals,
-                    request_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomDecimalsRequest.FromString,
-                    response_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomDecimalsResponse.SerializeToString,
+            'AuctionExchangeTransferDenomDecimals': grpc.unary_unary_rpc_method_handler(
+                    servicer.AuctionExchangeTransferDenomDecimals,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryAuctionExchangeTransferDenomDecimalsRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryAuctionExchangeTransferDenomDecimalsResponse.SerializeToString,
             ),
             'SpotMarkets': grpc.unary_unary_rpc_method_handler(
                     servicer.SpotMarkets,
@@ -1164,6 +1176,11 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.DenomMinNotionals,
                     request_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomMinNotionalsRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomMinNotionalsResponse.SerializeToString,
+            ),
+            'OpenInterest': grpc.unary_unary_rpc_method_handler(
+                    servicer.OpenInterest,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryOpenInterestRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryOpenInterestResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -1448,7 +1465,7 @@ class Query(object):
             _registered_method=True)
 
     @staticmethod
-    def DenomDecimal(request,
+    def AuctionExchangeTransferDenomDecimal(request,
             target,
             options=(),
             channel_credentials=None,
@@ -1461,9 +1478,9 @@ class Query(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/injective.exchange.v2.Query/DenomDecimal',
-            injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomDecimalRequest.SerializeToString,
-            injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomDecimalResponse.FromString,
+            '/injective.exchange.v2.Query/AuctionExchangeTransferDenomDecimal',
+            injective_dot_exchange_dot_v2_dot_query__pb2.QueryAuctionExchangeTransferDenomDecimalRequest.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_query__pb2.QueryAuctionExchangeTransferDenomDecimalResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -1475,7 +1492,7 @@ class Query(object):
             _registered_method=True)
 
     @staticmethod
-    def DenomDecimals(request,
+    def AuctionExchangeTransferDenomDecimals(request,
             target,
             options=(),
             channel_credentials=None,
@@ -1488,9 +1505,9 @@ class Query(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/injective.exchange.v2.Query/DenomDecimals',
-            injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomDecimalsRequest.SerializeToString,
-            injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomDecimalsResponse.FromString,
+            '/injective.exchange.v2.Query/AuctionExchangeTransferDenomDecimals',
+            injective_dot_exchange_dot_v2_dot_query__pb2.QueryAuctionExchangeTransferDenomDecimalsRequest.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_query__pb2.QueryAuctionExchangeTransferDenomDecimalsResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -2976,6 +2993,33 @@ class Query(object):
             '/injective.exchange.v2.Query/DenomMinNotionals',
             injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomMinNotionalsRequest.SerializeToString,
             injective_dot_exchange_dot_v2_dot_query__pb2.QueryDenomMinNotionalsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def OpenInterest(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Query/OpenInterest',
+            injective_dot_exchange_dot_v2_dot_query__pb2.QueryOpenInterestRequest.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_query__pb2.QueryOpenInterestResponse.FromString,
             options,
             channel_credentials,
             insecure,

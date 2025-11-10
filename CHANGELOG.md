@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.12.0] - 2025-11-10
+### Changed
+- Updated all compiled protos for compatibility with Injective core v1.17.0 and Indexer v1.17.16
+- Included the OpenNotionalCap in derivative markets
+- Added support for market orders creation with the MsgBatchUpdateOrders message
+- Support for order failure events and conditional orders trigger failures in the chainstrem updates
+
 ## [1.11.2] - 2025-09-24
 ### Added
 - Added support in v2 Composer to create the new exchange module MsgCancelPostOnlyMode message

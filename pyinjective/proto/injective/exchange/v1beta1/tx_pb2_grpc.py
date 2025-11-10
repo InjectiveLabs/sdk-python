@@ -155,11 +155,6 @@ class MsgStub(object):
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgAdminUpdateBinaryOptionsMarket.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgAdminUpdateBinaryOptionsMarketResponse.FromString,
                 _registered_method=True)
-        self.UpdateParams = channel.unary_unary(
-                '/injective.exchange.v1beta1.Msg/UpdateParams',
-                request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
-                _registered_method=True)
         self.UpdateSpotMarket = channel.unary_unary(
                 '/injective.exchange.v1beta1.Msg/UpdateSpotMarket',
                 request_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateSpotMarket.SerializeToString,
@@ -405,12 +400,6 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def UpdateParams(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def UpdateSpotMarket(self, request, context):
         """UpdateSpotMarket modifies certain spot market fields (admin only)
         """
@@ -586,11 +575,6 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.AdminUpdateBinaryOptionsMarket,
                     request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgAdminUpdateBinaryOptionsMarket.FromString,
                     response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgAdminUpdateBinaryOptionsMarketResponse.SerializeToString,
-            ),
-            'UpdateParams': grpc.unary_unary_rpc_method_handler(
-                    servicer.UpdateParams,
-                    request_deserializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.FromString,
-                    response_serializer=injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.SerializeToString,
             ),
             'UpdateSpotMarket': grpc.unary_unary_rpc_method_handler(
                     servicer.UpdateSpotMarket,
@@ -1375,33 +1359,6 @@ class Msg(object):
             '/injective.exchange.v1beta1.Msg/AdminUpdateBinaryOptionsMarket',
             injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgAdminUpdateBinaryOptionsMarket.SerializeToString,
             injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgAdminUpdateBinaryOptionsMarketResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def UpdateParams(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective.exchange.v1beta1.Msg/UpdateParams',
-            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
-            injective_dot_exchange_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
             options,
             channel_credentials,
             insecure,

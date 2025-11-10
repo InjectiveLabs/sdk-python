@@ -47,6 +47,8 @@ class TestIndexerGrpcPortfolioApi:
             aggregate_reduce_only_quantity="0",
             updated_at=1700161202147,
             created_at=-62135596800000,
+            funding_last="1000.123456789",
+            funding_sum="9999.123456789",
         )
         positions_with_upnl = exchange_portfolio_pb.PositionsWithUPNL(
             position=position,
@@ -106,6 +108,8 @@ class TestIndexerGrpcPortfolioApi:
                             "aggregateReduceOnlyQuantity": position.aggregate_reduce_only_quantity,
                             "createdAt": str(position.created_at),
                             "updatedAt": str(position.updated_at),
+                            "fundingLast": position.funding_last,
+                            "fundingSum": position.funding_sum,
                         },
                         "unrealizedPnl": positions_with_upnl.unrealized_pnl,
                     },

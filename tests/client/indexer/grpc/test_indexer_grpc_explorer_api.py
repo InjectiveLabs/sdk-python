@@ -536,6 +536,7 @@ class TestIndexerGrpcExplorerApi:
             tx_msg_types=b'["/injective.exchange.v1beta1.MsgCreateBinaryOptionsLimitOrder"]',
             signatures=[signature],
             block_unix_timestamp=1699744939364,
+            ethereum_tx_hash_hex="0xbe8c8ca9a41196adf59b88fe9efd78e7532e04169152e779be3dc14ba7c360d9",
         )
         block_info = exchange_explorer_pb.BlockDetailInfo(
             height=19034578,
@@ -597,6 +598,7 @@ class TestIndexerGrpcExplorerApi:
                             }
                         ],
                         "blockUnixTimestamp": str(tx_data.block_unix_timestamp),
+                        "ethereumTxHashHex": tx_data.ethereum_tx_hash_hex,
                     }
                 ],
                 "timestamp": block_info.timestamp,
@@ -847,6 +849,7 @@ class TestIndexerGrpcExplorerApi:
             claim_ids=[claim_id],
             signatures=[signature],
             block_unix_timestamp=1699744939364,
+            ethereum_tx_hash_hex="0xbe8c8ca9a41196adf59b88fe9efd78e7532e04169152e779be3dc14ba7c360d9",
         )
 
         paging = exchange_explorer_pb.Paging(total=5, to=5, count_by_subaccount=10, next=["next1", "next2"])
@@ -900,6 +903,7 @@ class TestIndexerGrpcExplorerApi:
                         }
                     ],
                     "blockUnixTimestamp": str(tx_data.block_unix_timestamp),
+                    "ethereumTxHashHex": tx_data.ethereum_tx_hash_hex,
                 },
             ],
             "paging": {

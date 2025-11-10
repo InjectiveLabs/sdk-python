@@ -52,6 +52,7 @@ async def main() -> None:
         new_initial_margin_ratio=Decimal("0.40"),
         new_maintenance_margin_ratio=Decimal("0.085"),
         new_reduce_margin_ratio=Decimal("3.5"),
+        new_open_notional_cap=composer.uncapped_open_notional_cap(),
     )
 
     # broadcast the transaction
