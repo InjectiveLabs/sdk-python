@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.12.0] - 2025-11-10 
+## [1.12.0] - 2025-11-10
 ### Changed
 - Updated all compiled protos for compatibility with Injective core v1.17.0 and Indexer v1.17.16
 - Included the OpenNotionalCap in derivative markets
