@@ -26,7 +26,7 @@ inputs:
     tag: v1.0.1-inj
     subdir: proto
   - git_repo: https://github.com/InjectiveLabs/injective-core
-    tag: v1.17.0-beta.3
+    tag: v1.17.0
     subdir: proto
 #  - git_repo: https://github.com/InjectiveLabs/injective-core
 #    branch: master

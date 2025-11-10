@@ -152,7 +152,8 @@ class InjectiveExplorerRPCServicer(object):
     """
 
     def GetAccountTxs(self, request, context):
-        """GetAccountTxs returns tranctions involving in an account based upon params.
+        """GetAccountTxs returns transactions involving in an account based upon
+        params. Deprecated: use GetAccountTxsV2 instead.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -166,7 +167,8 @@ class InjectiveExplorerRPCServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetContractTxs(self, request, context):
-        """GetContractTxs returns contract-related transactions
+        """GetContractTxs returns contract-related transactions. Deprecated: use
+        GetContractTxsV2 instead.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -180,7 +182,8 @@ class InjectiveExplorerRPCServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetBlocks(self, request, context):
-        """GetBlocks returns blocks based upon the request params
+        """GetBlocks returns blocks based upon the request params. Deprecated: use
+        GetBlocksV2 instead.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -222,7 +225,8 @@ class InjectiveExplorerRPCServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetTxs(self, request, context):
-        """GetTxs returns transactions based upon the request params
+        """GetTxs returns transactions based upon the request params. Deprecated: use
+        GetTxsV2 instead.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
