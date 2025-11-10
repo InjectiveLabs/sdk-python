@@ -19,11 +19,6 @@ fix-generated-proto-imports:
 	@find ./pyinjective/proto -type f -name "*.py" -exec sed -i "" -e "s/from google.api/from pyinjective.proto.google.api/g" {} \;
 
 define clean_repos
-	rm -Rf cosmos-sdk
-	rm -Rf ibc-go
-	rm -Rf cometbft
-	rm -Rf wasmd
-	rm -Rf injective-core
 	rm -Rf injective-indexer
 endef
 
@@ -31,7 +26,7 @@ clean-all:
 	$(call clean_repos)
 
 clone-injective-indexer:
-	git clone https://github.com/InjectiveLabs/injective-indexer.git -b v1.16.91 --depth 1 --single-branch
+	git clone https://github.com/InjectiveLabs/injective-indexer.git -b v1.17.16 --depth 1 --single-branch
 
 clone-all: clone-injective-indexer
 

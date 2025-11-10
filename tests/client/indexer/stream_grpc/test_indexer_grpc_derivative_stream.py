@@ -335,6 +335,8 @@ class TestIndexerGrpcDerivativeStream:
             aggregate_reduce_only_quantity="0",
             updated_at=1700161202147,
             created_at=-62135596800000,
+            funding_last="1000.123456789",
+            funding_sum="9999.123456789",
         )
 
         derivative_servicer.stream_positions_responses.append(
@@ -376,6 +378,8 @@ class TestIndexerGrpcDerivativeStream:
                 "aggregateReduceOnlyQuantity": position.aggregate_reduce_only_quantity,
                 "createdAt": str(position.created_at),
                 "updatedAt": str(position.updated_at),
+                "fundingLast": position.funding_last,
+                "fundingSum": position.funding_sum,
             },
             "timestamp": str(timestamp),
         }
@@ -811,6 +815,8 @@ class TestIndexerGrpcDerivativeStream:
             mark_price="16197000",
             updated_at=1700161202147,
             denom="inj",
+            funding_last="1000.123456789",
+            funding_sum="9999.123456789",
         )
 
         derivative_servicer.stream_positions_v2_responses.append(
@@ -854,6 +860,8 @@ class TestIndexerGrpcDerivativeStream:
                 "markPrice": position.mark_price,
                 "updatedAt": str(position.updated_at),
                 "denom": position.denom,
+                "fundingLast": position.funding_last,
+                "fundingSum": position.funding_sum,
             },
             "timestamp": str(timestamp),
         }
