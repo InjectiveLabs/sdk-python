@@ -9,7 +9,7 @@ async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
     client = IndexerClient(network)
-    oracle_list = await client.fetch_oracle_list()
+    oracle_list = await client.fetch_oracle_list(symbol="TIA", oracle_type="provider")
     print(json.dumps(oracle_list, indent=2))
 
 

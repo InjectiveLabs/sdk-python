@@ -16,19 +16,19 @@ inputs:
   - git_repo: https://github.com/InjectiveLabs/wasmd
     tag: v0.53.3-inj.2
   - git_repo: https://github.com/InjectiveLabs/cometbft
-    tag: v1.0.1-inj.4
+    tag: v1.0.1-inj.3
   - git_repo: https://github.com/InjectiveLabs/cosmos-sdk
-    tag: v0.50.14-inj
+    tag: v0.50.14-inj.3
 #  - git_repo: https://github.com/InjectiveLabs/wasmd
 #    branch: v0.51.x-inj
 #    subdir: proto
   - git_repo: https://github.com/InjectiveLabs/hyperlane-cosmos
     tag: v1.0.1-inj
     subdir: proto
+  # - git_repo: https://github.com/InjectiveLabs/injective-core
+  #   tag: v1.17.0
+  #   subdir: proto
   - git_repo: https://github.com/InjectiveLabs/injective-core
-    tag: v1.17.0
+    branch: c-655/add_chainlink_data_streams_oracle
     subdir: proto
-#  - git_repo: https://github.com/InjectiveLabs/injective-core
-#    branch: master
-#    subdir: proto
   - directory: proto

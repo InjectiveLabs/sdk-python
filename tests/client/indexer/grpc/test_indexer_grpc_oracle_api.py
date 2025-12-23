@@ -34,7 +34,7 @@ class TestIndexerGrpcOracleApi:
 
         api = self._api_instance(servicer=oracle_servicer)
 
-        result_oracle_list = await api.fetch_oracle_list()
+        result_oracle_list = await api.fetch_oracle_list(symbol="Gold/USDT", oracle_type="pricefeed")
         expected_oracle_list = {
             "oracles": [
                 {

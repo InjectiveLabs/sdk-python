@@ -659,8 +659,10 @@ class IndexerClient:
     async def fetch_oracle_price_v2(self, filters: List[exchange_oracle_pb.PricePayloadV2]) -> Dict[str, Any]:
         return await self.oracle_api.fetch_oracle_price_v2(filters=filters)
 
-    async def fetch_oracle_list(self) -> Dict[str, Any]:
-        return await self.oracle_api.fetch_oracle_list()
+    async def fetch_oracle_list(
+        self, symbol: Optional[str] = None, oracle_type: Optional[str] = None
+    ) -> Dict[str, Any]:
+        return await self.oracle_api.fetch_oracle_list(symbol=symbol, oracle_type=oracle_type)
 
     async def listen_oracle_prices_updates(
         self,

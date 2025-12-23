@@ -1294,8 +1294,10 @@ class AsyncClient:
             oracle_scale_factor=oracle_scale_factor,
         )
 
-    async def fetch_oracle_list(self) -> Dict[str, Any]:
-        return await self.indexer_client.fetch_oracle_list()
+    async def fetch_oracle_list(
+        self, symbol: Optional[str] = None, oracle_type: Optional[str] = None
+    ) -> Dict[str, Any]:
+        return await self.indexer_client.fetch_oracle_list(symbol=symbol, oracle_type=oracle_type)
 
     # InsuranceRPC
 
