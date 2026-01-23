@@ -16,8 +16,8 @@ class IndexerGrpcOracleApi:
         self._assistant = GrpcApiRequestAssistant(cookie_assistant=cookie_assistant)
 
     async def fetch_oracle_list(
-        self, 
-        symbol: Optional[str] = None, 
+        self,
+        symbol: Optional[str] = None,
         oracle_type: Optional[str] = None,
         per_page: Optional[int] = None,
         token: Optional[str] = None,
