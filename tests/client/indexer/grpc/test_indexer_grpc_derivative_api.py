@@ -637,6 +637,8 @@ class TestIndexerGrpcDerivativeApi:
             created_at=-62135596800000,
             funding_last="1000.123456789",
             funding_sum="9999.123456789",
+            cumulative_funding_entry="20000.123456789",
+            effective_cumulative_funding_entry="30000.123456789",
         )
 
         paging = exchange_derivative_pb.Paging(total=5, to=5, count_by_subaccount=10, next=["next1", "next2"])
@@ -680,6 +682,8 @@ class TestIndexerGrpcDerivativeApi:
                     "updatedAt": str(position.updated_at),
                     "fundingLast": position.funding_last,
                     "fundingSum": position.funding_sum,
+                    "cumulativeFundingEntry": position.cumulative_funding_entry,
+                    "effectiveCumulativeFundingEntry": position.effective_cumulative_funding_entry,
                 },
             ],
             "paging": {
@@ -712,6 +716,8 @@ class TestIndexerGrpcDerivativeApi:
             denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
             funding_last="1000.123456789",
             funding_sum="9999.123456789",
+            cumulative_funding_entry="20000.123456789",
+            effective_cumulative_funding_entry="30000.123456789",
         )
 
         paging = exchange_derivative_pb.Paging(total=5, to=5, count_by_subaccount=10, next=["next1", "next2"])
@@ -754,6 +760,8 @@ class TestIndexerGrpcDerivativeApi:
                     "denom": position.denom,
                     "fundingLast": position.funding_last,
                     "fundingSum": position.funding_sum,
+                    "cumulativeFundingEntry": position.cumulative_funding_entry,
+                    "effectiveCumulativeFundingEntry": position.effective_cumulative_funding_entry,
                 },
             ],
             "paging": {
@@ -787,6 +795,8 @@ class TestIndexerGrpcDerivativeApi:
             created_at=-62135596800000,
             funding_last="1000.123456789",
             funding_sum="9999.123456789",
+            cumulative_funding_entry="20000.123456789",
+            effective_cumulative_funding_entry="30000.123456789",
         )
 
         derivative_servicer.liquidable_positions_responses.append(
@@ -819,6 +829,8 @@ class TestIndexerGrpcDerivativeApi:
                     "updatedAt": str(position.updated_at),
                     "fundingLast": position.funding_last,
                     "fundingSum": position.funding_sum,
+                    "cumulativeFundingEntry": position.cumulative_funding_entry,
+                    "effectiveCumulativeFundingEntry": position.effective_cumulative_funding_entry,
                 },
             ]
         }

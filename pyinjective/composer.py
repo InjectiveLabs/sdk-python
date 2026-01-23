@@ -1626,21 +1626,23 @@ class Composer:
         self,
         sender: str,
         denom: str,
-        contract_hook: str,
+        wasm_hook: str,
         role_permissions: List[injective_permissions_pb.Role],
         actor_roles: List[injective_permissions_pb.ActorRoles],
         role_managers: List[injective_permissions_pb.RoleManager],
         policy_statuses: List[injective_permissions_pb.PolicyStatus],
         policy_manager_capabilities: List[injective_permissions_pb.PolicyManagerCapability],
+        evm_hook: str,
     ) -> injective_permissions_tx_pb.MsgCreateNamespace:
         namespace = injective_permissions_pb.Namespace(
             denom=denom,
-            contract_hook=contract_hook,
+            wasm_hook=wasm_hook,
             role_permissions=role_permissions,
             actor_roles=actor_roles,
             role_managers=role_managers,
             policy_statuses=policy_statuses,
             policy_manager_capabilities=policy_manager_capabilities,
+            evm_hook=evm_hook,
         )
         return injective_permissions_tx_pb.MsgCreateNamespace(
             sender=sender,
@@ -1651,22 +1653,25 @@ class Composer:
         self,
         sender: str,
         denom: str,
-        contract_hook: str,
+        wasm_hook: str,
         role_permissions: List[injective_permissions_pb.Role],
         role_managers: List[injective_permissions_pb.RoleManager],
         policy_statuses: List[injective_permissions_pb.PolicyStatus],
         policy_manager_capabilities: List[injective_permissions_pb.PolicyManagerCapability],
+        evm_hook: str,
     ) -> injective_permissions_tx_pb.MsgUpdateNamespace:
-        contract_hook_update = injective_permissions_tx_pb.MsgUpdateNamespace.SetContractHook(new_value=contract_hook)
+        wasm_hook_update = injective_permissions_tx_pb.MsgUpdateNamespace.SetContractHook(new_value=wasm_hook)
+        evm_hook_update = injective_permissions_tx_pb.MsgUpdateNamespace.SetContractHook(new_value=evm_hook)
 
         return injective_permissions_tx_pb.MsgUpdateNamespace(
             sender=sender,
             denom=denom,
-            contract_hook=contract_hook_update,
+            wasm_hook=wasm_hook_update,
             role_permissions=role_permissions,
             role_managers=role_managers,
             policy_statuses=policy_statuses,
             policy_manager_capabilities=policy_manager_capabilities,
+            evm_hook=evm_hook_update,
         )
 
     def msg_update_actor_roles(

@@ -27,14 +27,14 @@ class TestIndexerGrpcOracleApi:
         )
 
         oracle_servicer.oracle_list_responses.append(
-            exchange_oracle_pb.OracleListResponse(
-                oracles=[oracle],
-            )
+            exchange_oracle_pb.OracleListResponse(oracles=[oracle], next=["token2"])
         )
 
         api = self._api_instance(servicer=oracle_servicer)
 
-        result_oracle_list = await api.fetch_oracle_list()
+        result_oracle_list = await api.fetch_oracle_list(
+            symbol="Gold/USDT", oracle_type="pricefeed", per_page=100, token="token1"
+        )
         expected_oracle_list = {
             "oracles": [
                 {
@@ -44,7 +44,8 @@ class TestIndexerGrpcOracleApi:
                     "oracleType": oracle.oracle_type,
                     "price": oracle.price,
                 }
-            ]
+            ],
+            "next": ["token2"],
         }
 
         assert result_oracle_list == expected_oracle_list
