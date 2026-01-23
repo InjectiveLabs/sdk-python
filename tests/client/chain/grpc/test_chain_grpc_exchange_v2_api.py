@@ -68,6 +68,7 @@ class TestChainGrpcExchangeV2Api:
             post_only_mode_blocks_amount=2000,
             min_post_only_mode_downtime_duration="DURATION_10M",
             post_only_mode_blocks_amount_after_downtime=3000,
+            enforced_restrictions_contracts=["inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr"],
         )
         exchange_servicer.exchange_params.append(exchange_query_pb.QueryExchangeParamsResponse(params=params))
 
@@ -123,6 +124,7 @@ class TestChainGrpcExchangeV2Api:
                 "postOnlyModeBlocksAmount": str(params.post_only_mode_blocks_amount),
                 "minPostOnlyModeDowntimeDuration": params.min_post_only_mode_downtime_duration,
                 "postOnlyModeBlocksAmountAfterDowntime": str(params.post_only_mode_blocks_amount_after_downtime),
+                "enforcedRestrictionsContracts": params.enforced_restrictions_contracts,
             }
         }
 

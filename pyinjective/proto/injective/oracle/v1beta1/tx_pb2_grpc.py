@@ -25,16 +25,6 @@ class MsgStub(object):
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPriceFeedPrice.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPriceFeedPriceResponse.FromString,
                 _registered_method=True)
-        self.RelayBandRates = channel.unary_unary(
-                '/injective.oracle.v1beta1.Msg/RelayBandRates',
-                request_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayBandRates.SerializeToString,
-                response_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayBandRatesResponse.FromString,
-                _registered_method=True)
-        self.RequestBandIBCRates = channel.unary_unary(
-                '/injective.oracle.v1beta1.Msg/RequestBandIBCRates',
-                request_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRequestBandIBCRates.SerializeToString,
-                response_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRequestBandIBCRatesResponse.FromString,
-                _registered_method=True)
         self.RelayCoinbaseMessages = channel.unary_unary(
                 '/injective.oracle.v1beta1.Msg/RelayCoinbaseMessages',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayCoinbaseMessages.SerializeToString,
@@ -77,20 +67,6 @@ class MsgServicer(object):
     def RelayPriceFeedPrice(self, request, context):
         """RelayPriceFeedPrice defines a method for relaying a price for a price
         feeder-based oracle
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def RelayBandRates(self, request, context):
-        """RelayBandRates defines a method for relaying rates from Band
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def RequestBandIBCRates(self, request, context):
-        """RequestBandIBCRates defines a method for fetching rates from Band ibc
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -146,16 +122,6 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.RelayPriceFeedPrice,
                     request_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPriceFeedPrice.FromString,
                     response_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPriceFeedPriceResponse.SerializeToString,
-            ),
-            'RelayBandRates': grpc.unary_unary_rpc_method_handler(
-                    servicer.RelayBandRates,
-                    request_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayBandRates.FromString,
-                    response_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayBandRatesResponse.SerializeToString,
-            ),
-            'RequestBandIBCRates': grpc.unary_unary_rpc_method_handler(
-                    servicer.RequestBandIBCRates,
-                    request_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRequestBandIBCRates.FromString,
-                    response_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRequestBandIBCRatesResponse.SerializeToString,
             ),
             'RelayCoinbaseMessages': grpc.unary_unary_rpc_method_handler(
                     servicer.RelayCoinbaseMessages,
@@ -238,60 +204,6 @@ class Msg(object):
             '/injective.oracle.v1beta1.Msg/RelayPriceFeedPrice',
             injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPriceFeedPrice.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPriceFeedPriceResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def RelayBandRates(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective.oracle.v1beta1.Msg/RelayBandRates',
-            injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayBandRates.SerializeToString,
-            injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayBandRatesResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def RequestBandIBCRates(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective.oracle.v1beta1.Msg/RequestBandIBCRates',
-            injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRequestBandIBCRates.SerializeToString,
-            injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRequestBandIBCRatesResponse.FromString,
             options,
             channel_credentials,
             insecure,

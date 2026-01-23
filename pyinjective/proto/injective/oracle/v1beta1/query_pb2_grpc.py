@@ -182,7 +182,7 @@ class QueryServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def ChainlinkDataStreamsPriceStates(self, request, context):
-        """Retrieves the state for all Chainlink Data Streamsprice feeds
+        """Retrieves the state for all Chainlink Data Streams price feeds
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')

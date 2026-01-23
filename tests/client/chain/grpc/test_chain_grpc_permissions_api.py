@@ -26,6 +26,7 @@ class TestChainGrpcPermissionsApi:
     ):
         params = permissions_params_pb.Params(
             contract_hook_max_gas=1000000,
+            enforced_restrictions_contracts=["inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr"],
         )
         permissions_servicer.permissions_params.append(permissions_query_pb.QueryParamsResponse(params=params))
 
@@ -35,6 +36,7 @@ class TestChainGrpcPermissionsApi:
         expected_params = {
             "params": {
                 "contractHookMaxGas": str(params.contract_hook_max_gas),
+                "enforcedRestrictionsContracts": params.enforced_restrictions_contracts,
             }
         }
 
@@ -465,6 +467,7 @@ class TestChainGrpcPermissionsApi:
     ):
         params = permissions_params_pb.Params(
             contract_hook_max_gas=1000000,
+            enforced_restrictions_contracts=["inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr"],
         )
         role_permission = permissions_pb.Role(
             name="role1",
@@ -522,6 +525,7 @@ class TestChainGrpcPermissionsApi:
             "state": {
                 "params": {
                     "contractHookMaxGas": str(params.contract_hook_max_gas),
+                    "enforcedRestrictionsContracts": params.enforced_restrictions_contracts,
                 },
                 "namespaces": [
                     {

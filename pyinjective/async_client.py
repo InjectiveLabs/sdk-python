@@ -1295,9 +1295,13 @@ class AsyncClient:
         )
 
     async def fetch_oracle_list(
-        self, symbol: Optional[str] = None, oracle_type: Optional[str] = None
+        self, 
+        symbol: Optional[str] = None, 
+        oracle_type: Optional[str] = None,
+        per_page: Optional[int] = None,
+        token: Optional[str] = None,
     ) -> Dict[str, Any]:
-        return await self.indexer_client.fetch_oracle_list(symbol=symbol, oracle_type=oracle_type)
+        return await self.indexer_client.fetch_oracle_list(symbol=symbol, oracle_type=oracle_type, per_page=per_page, token=token)
 
     # InsuranceRPC
 

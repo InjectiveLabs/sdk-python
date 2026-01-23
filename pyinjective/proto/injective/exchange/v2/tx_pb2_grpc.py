@@ -280,6 +280,11 @@ class MsgStub(object):
                 request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgCancelPostOnlyMode.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgCancelPostOnlyModeResponse.FromString,
                 _registered_method=True)
+        self.ActivatePostOnlyMode = channel.unary_unary(
+                '/injective.exchange.v2.Msg/ActivatePostOnlyMode',
+                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgActivatePostOnlyMode.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgActivatePostOnlyModeResponse.FromString,
+                _registered_method=True)
 
 
 class MsgServicer(object):
@@ -653,7 +658,16 @@ class MsgServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def CancelPostOnlyMode(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """MsgCancelPostOnlyMode defines a message to turn off the post-only mode
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ActivatePostOnlyMode(self, request, context):
+        """MsgActivatePostOnlyMode defines a message to turn on the post-only mode for
+        a number of blocks
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -925,6 +939,11 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.CancelPostOnlyMode,
                     request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgCancelPostOnlyMode.FromString,
                     response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgCancelPostOnlyModeResponse.SerializeToString,
+            ),
+            'ActivatePostOnlyMode': grpc.unary_unary_rpc_method_handler(
+                    servicer.ActivatePostOnlyMode,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgActivatePostOnlyMode.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgActivatePostOnlyModeResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -2359,6 +2378,33 @@ class Msg(object):
             '/injective.exchange.v2.Msg/CancelPostOnlyMode',
             injective_dot_exchange_dot_v2_dot_tx__pb2.MsgCancelPostOnlyMode.SerializeToString,
             injective_dot_exchange_dot_v2_dot_tx__pb2.MsgCancelPostOnlyModeResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ActivatePostOnlyMode(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Msg/ActivatePostOnlyMode',
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgActivatePostOnlyMode.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgActivatePostOnlyModeResponse.FromString,
             options,
             channel_credentials,
             insecure,
