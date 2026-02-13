@@ -22,7 +22,7 @@ from pyinjective.proto.injective.evm.v1 import log_pb2 as injective_dot_evm_dot_
 from pyinjective.proto.injective.evm.v1 import params_pb2 as injective_dot_evm_dot_v1_dot_params__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x19injective/evm/v1/tx.proto\x12\x10injective.evm.v1\x1a\x17\x63osmos/msg/v1/msg.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x14gogoproto/gogo.proto\x1a\x1cgoogle/api/annotations.proto\x1a\x19google/protobuf/any.proto\x1a#injective/evm/v1/access_tuple.proto\x1a\x1ainjective/evm/v1/log.proto\x1a\x1dinjective/evm/v1/params.proto\"\x80\x02\n\rMsgEthereumTx\x12(\n\x04\x64\x61ta\x18\x01 \x01(\x0b\x32\x14.google.protobuf.AnyR\x04\x64\x61ta\x12\x19\n\x04size\x18\x02 \x01(\x01\x42\x05\xea\xde\x1f\x01-R\x04size\x12\x34\n\x0f\x64\x65precated_hash\x18\x03 \x01(\tB\x0b\xf2\xde\x1f\x07rlp:\"-\"R\x0e\x64\x65precatedHash\x12+\n\x0f\x64\x65precated_from\x18\x04 \x01(\tB\x02\x18\x01R\x0e\x64\x65precatedFrom\x12\x12\n\x04\x66rom\x18\x05 \x01(\x0cR\x04\x66rom\x12$\n\x03raw\x18\x06 \x01(\x0c\x42\x12\xc8\xde\x1f\x00\xda\xde\x1f\nEthereumTxR\x03raw:\r\x88\xa0\x1f\x00\x82\xe7\xb0*\x04\x66rom\"\x91\x02\n\x08LegacyTx\x12\x14\n\x05nonce\x18\x01 \x01(\x04R\x05nonce\x12\x36\n\tgas_price\x18\x02 \x01(\tB\x19\xda\xde\x1f\x15\x63osmossdk.io/math.IntR\x08gasPrice\x12\x1e\n\x03gas\x18\x03 \x01(\x04\x42\x0c\xe2\xde\x1f\x08GasLimitR\x03gas\x12\x0e\n\x02to\x18\x04 \x01(\tR\x02to\x12\x39\n\x05value\x18\x05 \x01(\tB#\xda\xde\x1f\x15\x63osmossdk.io/math.Int\xe2\xde\x1f\x06\x41mountR\x05value\x12\x12\n\x04\x64\x61ta\x18\x06 \x01(\x0cR\x04\x64\x61ta\x12\x0c\n\x01v\x18\x07 \x01(\x0cR\x01v\x12\x0c\n\x01r\x18\x08 \x01(\x0cR\x01r\x12\x0c\n\x01s\x18\t \x01(\x0cR\x01s:\x0e\x88\xa0\x1f\x00\xca\xb4-\x06TxData\"\xbe\x03\n\x0c\x41\x63\x63\x65ssListTx\x12J\n\x08\x63hain_id\x18\x01 \x01(\tB/\xda\xde\x1f\x15\x63osmossdk.io/math.Int\xe2\xde\x1f\x07\x43hainID\xea\xde\x1f\x07\x63hainIDR\x07\x63hainId\x12\x14\n\x05nonce\x18\x02 \x01(\x04R\x05nonce\x12\x36\n\tgas_price\x18\x03 \x01(\tB\x19\xda\xde\x1f\x15\x63osmossdk.io/math.IntR\x08gasPrice\x12\x1e\n\x03gas\x18\x04 \x01(\x04\x42\x0c\xe2\xde\x1f\x08GasLimitR\x03gas\x12\x0e\n\x02to\x18\x05 \x01(\tR\x02to\x12\x39\n\x05value\x18\x06 \x01(\tB#\xda\xde\x1f\x15\x63osmossdk.io/math.Int\xe2\xde\x1f\x06\x41mountR\x05value\x12\x12\n\x04\x64\x61ta\x18\x07 \x01(\x0cR\x04\x64\x61ta\x12[\n\x08\x61\x63\x63\x65sses\x18\x08 \x03(\x0b\x32\x1d.injective.evm.v1.AccessTupleB \xc8\xde\x1f\x00\xea\xde\x1f\naccessList\xaa\xdf\x1f\nAccessListR\x08\x61\x63\x63\x65sses\x12\x0c\n\x01v\x18\t \x01(\x0cR\x01v\x12\x0c\n\x01r\x18\n \x01(\x0cR\x01r\x12\x0c\n\x01s\x18\x0b \x01(\x0cR\x01s:\x0e\x88\xa0\x1f\x00\xca\xb4-\x06TxData\"\xfc\x03\n\x0c\x44ynamicFeeTx\x12J\n\x08\x63hain_id\x18\x01 \x01(\tB/\xda\xde\x1f\x15\x63osmossdk.io/math.Int\xe2\xde\x1f\x07\x43hainID\xea\xde\x1f\x07\x63hainIDR\x07\x63hainId\x12\x14\n\x05nonce\x18\x02 \x01(\x04R\x05nonce\x12\x39\n\x0bgas_tip_cap\x18\x03 \x01(\tB\x19\xda\xde\x1f\x15\x63osmossdk.io/math.IntR\tgasTipCap\x12\x39\n\x0bgas_fee_cap\x18\x04 \x01(\tB\x19\xda\xde\x1f\x15\x63osmossdk.io/math.IntR\tgasFeeCap\x12\x1e\n\x03gas\x18\x05 \x01(\x04\x42\x0c\xe2\xde\x1f\x08GasLimitR\x03gas\x12\x0e\n\x02to\x18\x06 \x01(\tR\x02to\x12\x39\n\x05value\x18\x07 \x01(\tB#\xda\xde\x1f\x15\x63osmossdk.io/math.Int\xe2\xde\x1f\x06\x41mountR\x05value\x12\x12\n\x04\x64\x61ta\x18\x08 \x01(\x0cR\x04\x64\x61ta\x12[\n\x08\x61\x63\x63\x65sses\x18\t \x03(\x0b\x32\x1d.injective.evm.v1.AccessTupleB \xc8\xde\x1f\x00\xea\xde\x1f\naccessList\xaa\xdf\x1f\nAccessListR\x08\x61\x63\x63\x65sses\x12\x0c\n\x01v\x18\n \x01(\x0cR\x01v\x12\x0c\n\x01r\x18\x0b \x01(\x0cR\x01r\x12\x0c\n\x01s\x18\x0c \x01(\x0cR\x01s:\x0e\x88\xa0\x1f\x00\xca\xb4-\x06TxData\"\"\n\x1a\x45xtensionOptionsEthereumTx:\x04\x88\xa0\x1f\x00\"\xf1\x01\n\x15MsgEthereumTxResponse\x12\x12\n\x04hash\x18\x01 \x01(\tR\x04hash\x12)\n\x04logs\x18\x02 \x03(\x0b\x32\x15.injective.evm.v1.LogR\x04logs\x12\x10\n\x03ret\x18\x03 \x01(\x0cR\x03ret\x12\x19\n\x08vm_error\x18\x04 \x01(\tR\x07vmError\x12\x19\n\x08gas_used\x18\x05 \x01(\x04R\x07gasUsed\x12\x1d\n\nblock_hash\x18\x06 \x01(\x0cR\tblockHash\x12,\n\x12\x65xecution_gas_used\x18\x07 \x01(\x04R\x10\x65xecutionGasUsed:\x04\x88\xa0\x1f\x00\"\x91\x01\n\x0fMsgUpdateParams\x12\x36\n\tauthority\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressStringR\tauthority\x12\x36\n\x06params\x18\x02 \x01(\x0b\x32\x18.injective.evm.v1.ParamsB\x04\xc8\xde\x1f\x00R\x06params:\x0e\x82\xe7\xb0*\tauthority\"\x19\n\x17MsgUpdateParamsResponse2\xe9\x01\n\x03Msg\x12}\n\nEthereumTx\x12\x1f.injective.evm.v1.MsgEthereumTx\x1a\'.injective.evm.v1.MsgEthereumTxResponse\"%\x82\xd3\xe4\x93\x02\x1f\"\x1d/injective/evm/v1/ethereum_tx\x12\\\n\x0cUpdateParams\x12!.injective.evm.v1.MsgUpdateParams\x1a).injective.evm.v1.MsgUpdateParamsResponse\x1a\x05\x80\xe7\xb0*\x01\x42\xcc\x01\n\x14\x63om.injective.evm.v1B\x07TxProtoP\x01ZIgithub.com/InjectiveLabs/injective-core/injective-chain/modules/evm/types\xa2\x02\x03IEX\xaa\x02\x10Injective.Evm.V1\xca\x02\x10Injective\\Evm\\V1\xe2\x02\x1cInjective\\Evm\\V1\\GPBMetadata\xea\x02\x12Injective::Evm::V1b\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x19injective/evm/v1/tx.proto\x12\x10injective.evm.v1\x1a\x17\x63osmos/msg/v1/msg.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x14gogoproto/gogo.proto\x1a\x1cgoogle/api/annotations.proto\x1a\x19google/protobuf/any.proto\x1a#injective/evm/v1/access_tuple.proto\x1a\x1ainjective/evm/v1/log.proto\x1a\x1dinjective/evm/v1/params.proto\"\x9d\x02\n\rMsgEthereumTx\x12\x45\n\x04\x64\x61ta\x18\x01 \x01(\x0b\x32\x14.google.protobuf.AnyB\x1b\xca\xb4-\x17injective.evm.v1.TxDataR\x04\x64\x61ta\x12\x19\n\x04size\x18\x02 \x01(\x01\x42\x05\xea\xde\x1f\x01-R\x04size\x12\x34\n\x0f\x64\x65precated_hash\x18\x03 \x01(\tB\x0b\xf2\xde\x1f\x07rlp:\"-\"R\x0e\x64\x65precatedHash\x12+\n\x0f\x64\x65precated_from\x18\x04 \x01(\tB\x02\x18\x01R\x0e\x64\x65precatedFrom\x12\x12\n\x04\x66rom\x18\x05 \x01(\x0cR\x04\x66rom\x12$\n\x03raw\x18\x06 \x01(\x0c\x42\x12\xc8\xde\x1f\x00\xda\xde\x1f\nEthereumTxR\x03raw:\r\x88\xa0\x1f\x00\x82\xe7\xb0*\x04\x66rom\"\xa2\x02\n\x08LegacyTx\x12\x14\n\x05nonce\x18\x01 \x01(\x04R\x05nonce\x12\x36\n\tgas_price\x18\x02 \x01(\tB\x19\xda\xde\x1f\x15\x63osmossdk.io/math.IntR\x08gasPrice\x12\x1e\n\x03gas\x18\x03 \x01(\x04\x42\x0c\xe2\xde\x1f\x08GasLimitR\x03gas\x12\x0e\n\x02to\x18\x04 \x01(\tR\x02to\x12\x39\n\x05value\x18\x05 \x01(\tB#\xda\xde\x1f\x15\x63osmossdk.io/math.Int\xe2\xde\x1f\x06\x41mountR\x05value\x12\x12\n\x04\x64\x61ta\x18\x06 \x01(\x0cR\x04\x64\x61ta\x12\x0c\n\x01v\x18\x07 \x01(\x0cR\x01v\x12\x0c\n\x01r\x18\x08 \x01(\x0cR\x01r\x12\x0c\n\x01s\x18\t \x01(\x0cR\x01s:\x1f\x88\xa0\x1f\x00\xca\xb4-\x17injective.evm.v1.TxData\"\xcf\x03\n\x0c\x41\x63\x63\x65ssListTx\x12J\n\x08\x63hain_id\x18\x01 \x01(\tB/\xda\xde\x1f\x15\x63osmossdk.io/math.Int\xe2\xde\x1f\x07\x43hainID\xea\xde\x1f\x07\x63hainIDR\x07\x63hainId\x12\x14\n\x05nonce\x18\x02 \x01(\x04R\x05nonce\x12\x36\n\tgas_price\x18\x03 \x01(\tB\x19\xda\xde\x1f\x15\x63osmossdk.io/math.IntR\x08gasPrice\x12\x1e\n\x03gas\x18\x04 \x01(\x04\x42\x0c\xe2\xde\x1f\x08GasLimitR\x03gas\x12\x0e\n\x02to\x18\x05 \x01(\tR\x02to\x12\x39\n\x05value\x18\x06 \x01(\tB#\xda\xde\x1f\x15\x63osmossdk.io/math.Int\xe2\xde\x1f\x06\x41mountR\x05value\x12\x12\n\x04\x64\x61ta\x18\x07 \x01(\x0cR\x04\x64\x61ta\x12[\n\x08\x61\x63\x63\x65sses\x18\x08 \x03(\x0b\x32\x1d.injective.evm.v1.AccessTupleB \xc8\xde\x1f\x00\xea\xde\x1f\naccessList\xaa\xdf\x1f\nAccessListR\x08\x61\x63\x63\x65sses\x12\x0c\n\x01v\x18\t \x01(\x0cR\x01v\x12\x0c\n\x01r\x18\n \x01(\x0cR\x01r\x12\x0c\n\x01s\x18\x0b \x01(\x0cR\x01s:\x1f\x88\xa0\x1f\x00\xca\xb4-\x17injective.evm.v1.TxData\"\x8d\x04\n\x0c\x44ynamicFeeTx\x12J\n\x08\x63hain_id\x18\x01 \x01(\tB/\xda\xde\x1f\x15\x63osmossdk.io/math.Int\xe2\xde\x1f\x07\x43hainID\xea\xde\x1f\x07\x63hainIDR\x07\x63hainId\x12\x14\n\x05nonce\x18\x02 \x01(\x04R\x05nonce\x12\x39\n\x0bgas_tip_cap\x18\x03 \x01(\tB\x19\xda\xde\x1f\x15\x63osmossdk.io/math.IntR\tgasTipCap\x12\x39\n\x0bgas_fee_cap\x18\x04 \x01(\tB\x19\xda\xde\x1f\x15\x63osmossdk.io/math.IntR\tgasFeeCap\x12\x1e\n\x03gas\x18\x05 \x01(\x04\x42\x0c\xe2\xde\x1f\x08GasLimitR\x03gas\x12\x0e\n\x02to\x18\x06 \x01(\tR\x02to\x12\x39\n\x05value\x18\x07 \x01(\tB#\xda\xde\x1f\x15\x63osmossdk.io/math.Int\xe2\xde\x1f\x06\x41mountR\x05value\x12\x12\n\x04\x64\x61ta\x18\x08 \x01(\x0cR\x04\x64\x61ta\x12[\n\x08\x61\x63\x63\x65sses\x18\t \x03(\x0b\x32\x1d.injective.evm.v1.AccessTupleB \xc8\xde\x1f\x00\xea\xde\x1f\naccessList\xaa\xdf\x1f\nAccessListR\x08\x61\x63\x63\x65sses\x12\x0c\n\x01v\x18\n \x01(\x0cR\x01v\x12\x0c\n\x01r\x18\x0b \x01(\x0cR\x01r\x12\x0c\n\x01s\x18\x0c \x01(\x0cR\x01s:\x1f\x88\xa0\x1f\x00\xca\xb4-\x17injective.evm.v1.TxData\"\"\n\x1a\x45xtensionOptionsEthereumTx:\x04\x88\xa0\x1f\x00\"\xf1\x01\n\x15MsgEthereumTxResponse\x12\x12\n\x04hash\x18\x01 \x01(\tR\x04hash\x12)\n\x04logs\x18\x02 \x03(\x0b\x32\x15.injective.evm.v1.LogR\x04logs\x12\x10\n\x03ret\x18\x03 \x01(\x0cR\x03ret\x12\x19\n\x08vm_error\x18\x04 \x01(\tR\x07vmError\x12\x19\n\x08gas_used\x18\x05 \x01(\x04R\x07gasUsed\x12\x1d\n\nblock_hash\x18\x06 \x01(\x0cR\tblockHash\x12,\n\x12\x65xecution_gas_used\x18\x07 \x01(\x04R\x10\x65xecutionGasUsed:\x04\x88\xa0\x1f\x00\"\x91\x01\n\x0fMsgUpdateParams\x12\x36\n\tauthority\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressStringR\tauthority\x12\x36\n\x06params\x18\x02 \x01(\x0b\x32\x18.injective.evm.v1.ParamsB\x04\xc8\xde\x1f\x00R\x06params:\x0e\x82\xe7\xb0*\tauthority\"\x19\n\x17MsgUpdateParamsResponse2\xe9\x01\n\x03Msg\x12}\n\nEthereumTx\x12\x1f.injective.evm.v1.MsgEthereumTx\x1a\'.injective.evm.v1.MsgEthereumTxResponse\"%\x82\xd3\xe4\x93\x02\x1f\"\x1d/injective/evm/v1/ethereum_tx\x12\\\n\x0cUpdateParams\x12!.injective.evm.v1.MsgUpdateParams\x1a).injective.evm.v1.MsgUpdateParamsResponse\x1a\x05\x80\xe7\xb0*\x01\x42\xcc\x01\n\x14\x63om.injective.evm.v1B\x07TxProtoP\x01ZIgithub.com/InjectiveLabs/injective-core/injective-chain/modules/evm/types\xa2\x02\x03IEX\xaa\x02\x10Injective.Evm.V1\xca\x02\x10Injective\\Evm\\V1\xe2\x02\x1cInjective\\Evm\\V1\\GPBMetadata\xea\x02\x12Injective::Evm::V1b\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -30,6 +30,8 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'injective.evm.v1.tx_pb2', _
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'\n\024com.injective.evm.v1B\007TxProtoP\001ZIgithub.com/InjectiveLabs/injective-core/injective-chain/modules/evm/types\242\002\003IEX\252\002\020Injective.Evm.V1\312\002\020Injective\\Evm\\V1\342\002\034Injective\\Evm\\V1\\GPBMetadata\352\002\022Injective::Evm::V1'
+  _globals['_MSGETHEREUMTX'].fields_by_name['data']._loaded_options = None
+  _globals['_MSGETHEREUMTX'].fields_by_name['data']._serialized_options = b'\312\264-\027injective.evm.v1.TxData'
   _globals['_MSGETHEREUMTX'].fields_by_name['size']._loaded_options = None
   _globals['_MSGETHEREUMTX'].fields_by_name['size']._serialized_options = b'\352\336\037\001-'
   _globals['_MSGETHEREUMTX'].fields_by_name['deprecated_hash']._loaded_options = None
@@ -47,7 +49,7 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_LEGACYTX'].fields_by_name['value']._loaded_options = None
   _globals['_LEGACYTX'].fields_by_name['value']._serialized_options = b'\332\336\037\025cosmossdk.io/math.Int\342\336\037\006Amount'
   _globals['_LEGACYTX']._loaded_options = None
-  _globals['_LEGACYTX']._serialized_options = b'\210\240\037\000\312\264-\006TxData'
+  _globals['_LEGACYTX']._serialized_options = b'\210\240\037\000\312\264-\027injective.evm.v1.TxData'
   _globals['_ACCESSLISTTX'].fields_by_name['chain_id']._loaded_options = None
   _globals['_ACCESSLISTTX'].fields_by_name['chain_id']._serialized_options = b'\332\336\037\025cosmossdk.io/math.Int\342\336\037\007ChainID\352\336\037\007chainID'
   _globals['_ACCESSLISTTX'].fields_by_name['gas_price']._loaded_options = None
@@ -59,7 +61,7 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_ACCESSLISTTX'].fields_by_name['accesses']._loaded_options = None
   _globals['_ACCESSLISTTX'].fields_by_name['accesses']._serialized_options = b'\310\336\037\000\352\336\037\naccessList\252\337\037\nAccessList'
   _globals['_ACCESSLISTTX']._loaded_options = None
-  _globals['_ACCESSLISTTX']._serialized_options = b'\210\240\037\000\312\264-\006TxData'
+  _globals['_ACCESSLISTTX']._serialized_options = b'\210\240\037\000\312\264-\027injective.evm.v1.TxData'
   _globals['_DYNAMICFEETX'].fields_by_name['chain_id']._loaded_options = None
   _globals['_DYNAMICFEETX'].fields_by_name['chain_id']._serialized_options = b'\332\336\037\025cosmossdk.io/math.Int\342\336\037\007ChainID\352\336\037\007chainID'
   _globals['_DYNAMICFEETX'].fields_by_name['gas_tip_cap']._loaded_options = None
@@ -73,7 +75,7 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_DYNAMICFEETX'].fields_by_name['accesses']._loaded_options = None
   _globals['_DYNAMICFEETX'].fields_by_name['accesses']._serialized_options = b'\310\336\037\000\352\336\037\naccessList\252\337\037\nAccessList'
   _globals['_DYNAMICFEETX']._loaded_options = None
-  _globals['_DYNAMICFEETX']._serialized_options = b'\210\240\037\000\312\264-\006TxData'
+  _globals['_DYNAMICFEETX']._serialized_options = b'\210\240\037\000\312\264-\027injective.evm.v1.TxData'
   _globals['_EXTENSIONOPTIONSETHEREUMTX']._loaded_options = None
   _globals['_EXTENSIONOPTIONSETHEREUMTX']._serialized_options = b'\210\240\037\000'
   _globals['_MSGETHEREUMTXRESPONSE']._loaded_options = None
@@ -89,21 +91,21 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_MSG'].methods_by_name['EthereumTx']._loaded_options = None
   _globals['_MSG'].methods_by_name['EthereumTx']._serialized_options = b'\202\323\344\223\002\037\"\035/injective/evm/v1/ethereum_tx'
   _globals['_MSGETHEREUMTX']._serialized_start=275
-  _globals['_MSGETHEREUMTX']._serialized_end=531
-  _globals['_LEGACYTX']._serialized_start=534
-  _globals['_LEGACYTX']._serialized_end=807
-  _globals['_ACCESSLISTTX']._serialized_start=810
-  _globals['_ACCESSLISTTX']._serialized_end=1256
-  _globals['_DYNAMICFEETX']._serialized_start=1259
-  _globals['_DYNAMICFEETX']._serialized_end=1767
-  _globals['_EXTENSIONOPTIONSETHEREUMTX']._serialized_start=1769
-  _globals['_EXTENSIONOPTIONSETHEREUMTX']._serialized_end=1803
-  _globals['_MSGETHEREUMTXRESPONSE']._serialized_start=1806
-  _globals['_MSGETHEREUMTXRESPONSE']._serialized_end=2047
-  _globals['_MSGUPDATEPARAMS']._serialized_start=2050
-  _globals['_MSGUPDATEPARAMS']._serialized_end=2195
-  _globals['_MSGUPDATEPARAMSRESPONSE']._serialized_start=2197
-  _globals['_MSGUPDATEPARAMSRESPONSE']._serialized_end=2222
-  _globals['_MSG']._serialized_start=2225
-  _globals['_MSG']._serialized_end=2458
+  _globals['_MSGETHEREUMTX']._serialized_end=560
+  _globals['_LEGACYTX']._serialized_start=563
+  _globals['_LEGACYTX']._serialized_end=853
+  _globals['_ACCESSLISTTX']._serialized_start=856
+  _globals['_ACCESSLISTTX']._serialized_end=1319
+  _globals['_DYNAMICFEETX']._serialized_start=1322
+  _globals['_DYNAMICFEETX']._serialized_end=1847
+  _globals['_EXTENSIONOPTIONSETHEREUMTX']._serialized_start=1849
+  _globals['_EXTENSIONOPTIONSETHEREUMTX']._serialized_end=1883
+  _globals['_MSGETHEREUMTXRESPONSE']._serialized_start=1886
+  _globals['_MSGETHEREUMTXRESPONSE']._serialized_end=2127
+  _globals['_MSGUPDATEPARAMS']._serialized_start=2130
+  _globals['_MSGUPDATEPARAMS']._serialized_end=2275
+  _globals['_MSGUPDATEPARAMSRESPONSE']._serialized_start=2277
+  _globals['_MSGUPDATEPARAMSRESPONSE']._serialized_end=2302
+  _globals['_MSG']._serialized_start=2305
+  _globals['_MSG']._serialized_end=2538
 # @@protoc_insertion_point(module_scope)

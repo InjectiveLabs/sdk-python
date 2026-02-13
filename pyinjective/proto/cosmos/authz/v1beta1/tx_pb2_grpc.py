@@ -70,6 +70,7 @@ class MsgServicer(object):
 
     def ExecCompat(self, request, context):
         """ExecCompat has same functionality as Exec but accepts array of json-encoded message string instead of []*Any
+        Deprecated: This RPC is deprecated and will be removed in a future version.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
