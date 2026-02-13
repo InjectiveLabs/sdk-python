@@ -67,11 +67,9 @@ async def main() -> None:
             market_id=deriv_market_id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
-            price=Decimal(10500),
-            quantity=Decimal(0.01),
-            margin=composer.calculate_margin(
-                quantity=Decimal(0.01), price=Decimal(10500), leverage=Decimal(2), is_reduce_only=False
-            ),
+            price=Decimal("10500"),
+            quantity=Decimal("0.01"),
+            margin=Decimal("52.5"),
             order_type="BUY",
             cid=str(uuid.uuid4()),
         ),
@@ -79,11 +77,9 @@ async def main() -> None:
             market_id=deriv_market_id,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
-            price=Decimal(65111),
-            quantity=Decimal(0.01),
-            margin=composer.calculate_margin(
-                quantity=Decimal(0.01), price=Decimal(65111), leverage=Decimal(2), is_reduce_only=False
-            ),
+            price=Decimal("65111"),
+            quantity=Decimal("0.01"),
+            margin=Decimal("325.555"),
             order_type="SELL",
             cid=str(uuid.uuid4()),
         ),
@@ -204,11 +200,9 @@ async def main() -> None:
             market_id=deriv_market_id,
             subaccount_id=subaccount_id_2,
             fee_recipient=fee_recipient,
-            price=Decimal(25111),
-            quantity=Decimal(0.01),
-            margin=composer.calculate_margin(
-                quantity=Decimal(0.01), price=Decimal(25111), leverage=Decimal("1.5"), is_reduce_only=False
-            ),
+            price=Decimal("25111"),
+            quantity=Decimal("0.01"),
+            margin=Decimal("167.406666666666666667"),
             order_type="BUY",
             cid=str(uuid.uuid4()),
         ),
@@ -216,11 +210,9 @@ async def main() -> None:
             market_id=deriv_market_id,
             subaccount_id=subaccount_id_2,
             fee_recipient=fee_recipient,
-            price=Decimal(65111),
-            quantity=Decimal(0.01),
-            margin=composer.calculate_margin(
-                quantity=Decimal(0.01), price=Decimal(25111), leverage=Decimal(2), is_reduce_only=False
-            ),
+            price=Decimal("65111"),
+            quantity=Decimal("0.01"),
+            margin=Decimal("125.555"),
             order_type="SELL",
             cid=str(uuid.uuid4()),
         ),

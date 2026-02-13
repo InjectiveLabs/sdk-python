@@ -41,7 +41,7 @@ async def main() -> None:
     # prepare trade info
     market_id = "0xfafec40a7b93331c1fc89c23f66d11fbb48f38dfdd78f7f4fc4031fad90f6896"
     status = "Demolished"
-    settlement_price = Decimal(1)
+    settlement_price = Decimal("1")
     expiration_timestamp = 1685460582
     settlement_timestamp = 1690730982
 

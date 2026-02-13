@@ -50,7 +50,7 @@ async def main() -> None:
         market_id=market_id,
         source_subaccount_id=subaccount_id,
         destination_subaccount_id=subaccount_id,
-        amount=Decimal(2),
+        amount=Decimal("2"),
     )
 
     # broadcast the transaction

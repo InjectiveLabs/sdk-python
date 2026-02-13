@@ -82,11 +82,9 @@ async def main() -> None:
             market_id=derivative_market_id_create,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
-            price=Decimal(25000),
-            quantity=Decimal(0.1),
-            margin=composer.calculate_margin(
-                quantity=Decimal(0.1), price=Decimal(25000), leverage=Decimal(1), is_reduce_only=False
-            ),
+            price=Decimal("25000"),
+            quantity=Decimal("0.1"),
+            margin=Decimal("2500"),
             order_type="BUY",
             cid=str(uuid.uuid4()),
         ),
@@ -94,11 +92,9 @@ async def main() -> None:
             market_id=derivative_market_id_create,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
-            price=Decimal(50000),
-            quantity=Decimal(0.01),
-            margin=composer.calculate_margin(
-                quantity=Decimal(0.01), price=Decimal(50000), leverage=Decimal(1), is_reduce_only=False
-            ),
+            price=Decimal("50000"),
+            quantity=Decimal("0.01"),
+            margin=Decimal("500"),
             order_type="SELL",
             cid=str(uuid.uuid4()),
         ),
@@ -109,11 +105,9 @@ async def main() -> None:
             market_id=derivative_market_id_create,
             subaccount_id=subaccount_id,
             fee_recipient=fee_recipient,
-            price=Decimal(25100),
-            quantity=Decimal(0.1),
-            margin=composer.calculate_margin(
-                quantity=Decimal(0.1), price=Decimal(25100), leverage=Decimal(1), is_reduce_only=False
-            ),
+            price=Decimal("25100"),
+            quantity=Decimal("0.1"),
+            margin=Decimal("2510"),
             order_type="BUY",
             cid=str(uuid.uuid4()),
         ),
