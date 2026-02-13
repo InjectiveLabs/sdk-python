@@ -75,11 +75,12 @@ async def main() -> None:
     message = composer.msg_update_namespace(
         sender=address.to_acc_bech32(),
         denom=denom,
-        contract_hook="inj19ld6swyldyujcn72j7ugnu9twafhs9wxlyye5m",
+        wasm_hook="inj19ld6swyldyujcn72j7ugnu9twafhs9wxlyye5m",
         role_permissions=[role1, role2],
         role_managers=[role_manager],
         policy_statuses=[policy_status1, policy_status2],
         policy_manager_capabilities=[policy_manager_capability],
+        evm_hook="",
     )
 
     # broadcast the transaction

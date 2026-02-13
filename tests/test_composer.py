@@ -1587,7 +1587,8 @@ class TestComposer:
     def test_msg_create_namespace(self, basic_composer):
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
         denom = "inj"
-        contract_hook = "contrachook"
+        wasm_hook = "wasmhook"
+        evm_hook = "evmhook"
         permissions_role1 = basic_composer.permissions_role(
             name="role1",
             role_id=1,
@@ -1640,19 +1641,20 @@ class TestComposer:
         message = basic_composer.msg_create_namespace(
             sender=sender,
             denom=denom,
-            contract_hook=contract_hook,
+            wasm_hook=wasm_hook,
             role_permissions=[permissions_role1, permissions_role2],
             actor_roles=[actor_roles1, actor_roles2],
             role_managers=[role_manager1, role_manager2],
             policy_statuses=[policy_status1, policy_status2],
             policy_manager_capabilities=[policy_manager_capability1, policy_manager_capability2],
+            evm_hook=evm_hook,
         )
 
         expected_message = {
             "sender": sender,
             "namespace": {
                 "denom": denom,
-                "contractHook": contract_hook,
+                "wasmHook": wasm_hook,
                 "rolePermissions": [
                     {
                         "name": permissions_role1.name,
@@ -1711,6 +1713,7 @@ class TestComposer:
                         "canSeal": policy_manager_capability2.can_seal,
                     },
                 ],
+                "evmHook": evm_hook,
             },
         }
 
@@ -1723,7 +1726,8 @@ class TestComposer:
     def test_msg_update_namespace(self, basic_composer):
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
         denom = "inj"
-        contract_hook = "contracthook"
+        wasm_hook = "wasmhook"
+        evm_hook = "evmhook"
         permissions_role1 = basic_composer.permissions_role(
             name="role1",
             role_id=1,
@@ -1768,18 +1772,19 @@ class TestComposer:
         message = basic_composer.msg_update_namespace(
             sender=sender,
             denom=denom,
-            contract_hook=contract_hook,
+            wasm_hook=wasm_hook,
             role_permissions=[permissions_role1, permissions_role2],
             role_managers=[role_manager1, role_manager2],
             policy_statuses=[policy_status1, policy_status2],
             policy_manager_capabilities=[policy_manager_capability1, policy_manager_capability2],
+            evm_hook=evm_hook,
         )
 
         expected_message = {
             "sender": sender,
             "denom": denom,
-            "contractHook": {
-                "newValue": contract_hook,
+            "wasmHook": {
+                "newValue": wasm_hook,
             },
             "rolePermissions": [
                 {
@@ -1829,6 +1834,9 @@ class TestComposer:
                     "canSeal": policy_manager_capability2.can_seal,
                 },
             ],
+            "evmHook": {
+                "newValue": evm_hook,
+            },
         }
 
         dict_message = json_format.MessageToDict(

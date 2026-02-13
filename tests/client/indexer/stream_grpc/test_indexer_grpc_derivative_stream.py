@@ -337,6 +337,8 @@ class TestIndexerGrpcDerivativeStream:
             created_at=-62135596800000,
             funding_last="1000.123456789",
             funding_sum="9999.123456789",
+            cumulative_funding_entry="20000.123456789",
+            effective_cumulative_funding_entry="30000.123456789",
         )
 
         derivative_servicer.stream_positions_responses.append(
@@ -380,6 +382,8 @@ class TestIndexerGrpcDerivativeStream:
                 "updatedAt": str(position.updated_at),
                 "fundingLast": position.funding_last,
                 "fundingSum": position.funding_sum,
+                "cumulativeFundingEntry": position.cumulative_funding_entry,
+                "effectiveCumulativeFundingEntry": position.effective_cumulative_funding_entry,
             },
             "timestamp": str(timestamp),
         }
@@ -817,6 +821,8 @@ class TestIndexerGrpcDerivativeStream:
             denom="inj",
             funding_last="1000.123456789",
             funding_sum="9999.123456789",
+            cumulative_funding_entry="20000.123456789",
+            effective_cumulative_funding_entry="30000.123456789",
         )
 
         derivative_servicer.stream_positions_v2_responses.append(
@@ -862,6 +868,8 @@ class TestIndexerGrpcDerivativeStream:
                 "denom": position.denom,
                 "fundingLast": position.funding_last,
                 "fundingSum": position.funding_sum,
+                "cumulativeFundingEntry": position.cumulative_funding_entry,
+                "effectiveCumulativeFundingEntry": position.effective_cumulative_funding_entry,
             },
             "timestamp": str(timestamp),
         }

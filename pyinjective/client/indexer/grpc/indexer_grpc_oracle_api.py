@@ -15,8 +15,19 @@ class IndexerGrpcOracleApi:
         self._stub = self._stub = exchange_oracle_grpc.InjectiveOracleRPCStub(channel)
         self._assistant = GrpcApiRequestAssistant(cookie_assistant=cookie_assistant)
 
-    async def fetch_oracle_list(self) -> Dict[str, Any]:
-        request = exchange_oracle_pb.OracleListRequest()
+    async def fetch_oracle_list(
+        self,
+        symbol: Optional[str] = None,
+        oracle_type: Optional[str] = None,
+        per_page: Optional[int] = None,
+        token: Optional[str] = None,
+    ) -> Dict[str, Any]:
+        request = exchange_oracle_pb.OracleListRequest(
+            symbol=symbol,
+            oracle_type=oracle_type,
+            per_page=per_page,
+            token=token,
+        )
         response = await self._execute_call(call=self._stub.OracleList, request=request)
 
         return response

@@ -25,7 +25,8 @@ class TestChainGrpcPermissionsApi:
         permissions_servicer,
     ):
         params = permissions_params_pb.Params(
-            wasm_hook_query_max_gas=1000000,
+            contract_hook_max_gas=1000000,
+            enforced_restrictions_contracts=["inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr"],
         )
         permissions_servicer.permissions_params.append(permissions_query_pb.QueryParamsResponse(params=params))
 
@@ -34,7 +35,8 @@ class TestChainGrpcPermissionsApi:
         module_params = await api.fetch_module_params()
         expected_params = {
             "params": {
-                "wasmHookQueryMaxGas": str(params.wasm_hook_query_max_gas),
+                "contractHookMaxGas": str(params.contract_hook_max_gas),
+                "enforcedRestrictionsContracts": params.enforced_restrictions_contracts,
             }
         }
 
@@ -88,12 +90,13 @@ class TestChainGrpcPermissionsApi:
         )
         namespace = permissions_pb.Namespace(
             denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
-            contract_hook="wasm_hook",
+            wasm_hook="wasm_hook",
             role_permissions=[role_permission],
             actor_roles=[actor_role],
             role_managers=[role_manager],
             policy_statuses=[policy_status],
             policy_manager_capabilities=[policy_manager_capability],
+            evm_hook="evm_hook",
         )
         permissions_servicer.namespaces_responses.append(
             permissions_query_pb.QueryNamespacesResponse(namespaces=[namespace])
@@ -106,7 +109,7 @@ class TestChainGrpcPermissionsApi:
             "namespaces": [
                 {
                     "denom": namespace.denom,
-                    "contractHook": namespace.contract_hook,
+                    "wasmHook": namespace.wasm_hook,
                     "rolePermissions": [
                         {
                             "name": role_permission.name,
@@ -141,6 +144,7 @@ class TestChainGrpcPermissionsApi:
                             "canSeal": policy_manager_capability.can_seal,
                         }
                     ],
+                    "evmHook": namespace.evm_hook,
                 }
             ]
         }
@@ -178,12 +182,13 @@ class TestChainGrpcPermissionsApi:
         )
         namespace = permissions_pb.Namespace(
             denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
-            contract_hook="wasm_hook",
+            wasm_hook="wasm_hook",
             role_permissions=[role_permission],
             actor_roles=[actor_role],
             role_managers=[role_manager],
             policy_statuses=[policy_status],
             policy_manager_capabilities=[policy_manager_capability],
+            evm_hook="evm_hook",
         )
         permissions_servicer.namespace_responses.append(
             permissions_query_pb.QueryNamespaceResponse(namespace=namespace)
@@ -195,7 +200,7 @@ class TestChainGrpcPermissionsApi:
         expected_namespaces = {
             "namespace": {
                 "denom": namespace.denom,
-                "contractHook": namespace.contract_hook,
+                "wasmHook": namespace.wasm_hook,
                 "rolePermissions": [
                     {
                         "name": role_permission.name,
@@ -230,6 +235,7 @@ class TestChainGrpcPermissionsApi:
                         "canSeal": policy_manager_capability.can_seal,
                     }
                 ],
+                "evmHook": namespace.evm_hook,
             }
         }
 
@@ -460,7 +466,8 @@ class TestChainGrpcPermissionsApi:
         permissions_servicer,
     ):
         params = permissions_params_pb.Params(
-            wasm_hook_query_max_gas=1000000,
+            contract_hook_max_gas=1000000,
+            enforced_restrictions_contracts=["inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr"],
         )
         role_permission = permissions_pb.Role(
             name="role1",
@@ -488,12 +495,13 @@ class TestChainGrpcPermissionsApi:
         )
         namespace = permissions_pb.Namespace(
             denom="peggy0x87aB3B4C8661e07D6372361211B96ed4Dc36B1B5",
-            contract_hook="wasm_hook",
+            wasm_hook="wasm_hook",
             role_permissions=[role_permission],
             actor_roles=[actor_role],
             role_managers=[role_manager],
             policy_statuses=[policy_status],
             policy_manager_capabilities=[policy_manager_capability],
+            evm_hook="evm_hook",
         )
         voucher = permissions_pb.AddressVoucher(
             address="inj1ady3s7whq30l4fx8sj3x6muv5mx4dfdlcpv8n7",
@@ -516,12 +524,13 @@ class TestChainGrpcPermissionsApi:
         expected_module_state = {
             "state": {
                 "params": {
-                    "wasmHookQueryMaxGas": str(params.wasm_hook_query_max_gas),
+                    "contractHookMaxGas": str(params.contract_hook_max_gas),
+                    "enforcedRestrictionsContracts": params.enforced_restrictions_contracts,
                 },
                 "namespaces": [
                     {
                         "denom": namespace.denom,
-                        "contractHook": namespace.contract_hook,
+                        "wasmHook": namespace.wasm_hook,
                         "rolePermissions": [
                             {
                                 "name": role_permission.name,
@@ -556,6 +565,7 @@ class TestChainGrpcPermissionsApi:
                                 "canSeal": policy_manager_capability.can_seal,
                             }
                         ],
+                        "evmHook": namespace.evm_hook,
                     }
                 ],
                 "vouchers": [

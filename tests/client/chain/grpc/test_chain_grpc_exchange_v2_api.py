@@ -33,6 +33,10 @@ class TestChainGrpcExchangeV2Api:
         derivative_market_instant_listing_fee = coin_pb.Coin(denom="inj", amount="2000000000000000000000")
         binary_options_market_instant_listing_fee = coin_pb.Coin(denom="inj", amount="30000000000000000000")
         admin = "inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr"
+        enforced_restrictions_contract = exchange_pb.EnforcedRestrictionsContract(
+            contract_address="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
+            pause_event_signature="Pause(address)",
+        )
         params = exchange_pb.Params(
             spot_market_instant_listing_fee=spot_market_instant_listing_fee,
             derivative_market_instant_listing_fee=derivative_market_instant_listing_fee,
@@ -68,6 +72,7 @@ class TestChainGrpcExchangeV2Api:
             post_only_mode_blocks_amount=2000,
             min_post_only_mode_downtime_duration="DURATION_10M",
             post_only_mode_blocks_amount_after_downtime=3000,
+            enforced_restrictions_contracts=[enforced_restrictions_contract],
         )
         exchange_servicer.exchange_params.append(exchange_query_pb.QueryExchangeParamsResponse(params=params))
 
@@ -123,6 +128,12 @@ class TestChainGrpcExchangeV2Api:
                 "postOnlyModeBlocksAmount": str(params.post_only_mode_blocks_amount),
                 "minPostOnlyModeDowntimeDuration": params.min_post_only_mode_downtime_duration,
                 "postOnlyModeBlocksAmountAfterDowntime": str(params.post_only_mode_blocks_amount_after_downtime),
+                "enforcedRestrictionsContracts": [
+                    {
+                        "contractAddress": enforced_restrictions_contract.contract_address,
+                        "pauseEventSignature": enforced_restrictions_contract.pause_event_signature,
+                    },
+                ],
             }
         }
 
@@ -462,6 +473,7 @@ class TestChainGrpcExchangeV2Api:
             admin_permissions=1,
             base_decimals=18,
             quote_decimals=6,
+            has_disabled_minimal_protocol_fee=False,
         )
         exchange_servicer.spot_markets_responses.append(
             exchange_query_pb.QuerySpotMarketsResponse(
@@ -494,6 +506,7 @@ class TestChainGrpcExchangeV2Api:
                     "adminPermissions": market.admin_permissions,
                     "baseDecimals": market.base_decimals,
                     "quoteDecimals": market.quote_decimals,
+                    "hasDisabledMinimalProtocolFee": market.has_disabled_minimal_protocol_fee,
                 }
             ]
         }
@@ -521,6 +534,7 @@ class TestChainGrpcExchangeV2Api:
             admin_permissions=1,
             base_decimals=18,
             quote_decimals=6,
+            has_disabled_minimal_protocol_fee=False,
         )
         exchange_servicer.spot_market_responses.append(
             exchange_query_pb.QuerySpotMarketResponse(
@@ -550,6 +564,7 @@ class TestChainGrpcExchangeV2Api:
                 "adminPermissions": market.admin_permissions,
                 "baseDecimals": market.base_decimals,
                 "quoteDecimals": market.quote_decimals,
+                "hasDisabledMinimalProtocolFee": market.has_disabled_minimal_protocol_fee,
             }
         }
 
@@ -576,6 +591,7 @@ class TestChainGrpcExchangeV2Api:
             admin_permissions=1,
             base_decimals=18,
             quote_decimals=6,
+            has_disabled_minimal_protocol_fee=False,
         )
         mid_price_and_tob = exchange_pb.MidPriceAndTOB(
             mid_price="2000000000000000000",
@@ -619,6 +635,7 @@ class TestChainGrpcExchangeV2Api:
                         "adminPermissions": market.admin_permissions,
                         "baseDecimals": market.base_decimals,
                         "quoteDecimals": market.quote_decimals,
+                        "hasDisabledMinimalProtocolFee": market.has_disabled_minimal_protocol_fee,
                     },
                     "midPriceAndTob": {
                         "midPrice": mid_price_and_tob.mid_price,
@@ -652,6 +669,7 @@ class TestChainGrpcExchangeV2Api:
             admin_permissions=1,
             base_decimals=18,
             quote_decimals=6,
+            has_disabled_minimal_protocol_fee=False,
         )
         mid_price_and_tob = exchange_pb.MidPriceAndTOB(
             mid_price="2000000000000000000",
@@ -693,6 +711,7 @@ class TestChainGrpcExchangeV2Api:
                     "adminPermissions": market.admin_permissions,
                     "baseDecimals": market.base_decimals,
                     "quoteDecimals": market.quote_decimals,
+                    "hasDisabledMinimalProtocolFee": market.has_disabled_minimal_protocol_fee,
                 },
                 "midPriceAndTob": {
                     "midPrice": mid_price_and_tob.mid_price,
@@ -1273,6 +1292,7 @@ class TestChainGrpcExchangeV2Api:
             admin_permissions=1,
             quote_decimals=6,
             open_notional_cap=open_notional_cap,
+            has_disabled_minimal_protocol_fee=False,
         )
         market_info = market_pb.PerpetualMarketInfo(
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
@@ -1342,6 +1362,7 @@ class TestChainGrpcExchangeV2Api:
                         "openNotionalCap": {
                             "uncapped": {},
                         },
+                        "hasDisabledMinimalProtocolFee": market.has_disabled_minimal_protocol_fee,
                     },
                     "perpetualInfo": {
                         "marketInfo": {
@@ -1396,6 +1417,7 @@ class TestChainGrpcExchangeV2Api:
             admin="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
             admin_permissions=1,
             quote_decimals=6,
+            has_disabled_minimal_protocol_fee=False,
         )
         market_info = market_pb.PerpetualMarketInfo(
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
@@ -1460,6 +1482,7 @@ class TestChainGrpcExchangeV2Api:
                     "admin": market.admin,
                     "adminPermissions": market.admin_permissions,
                     "quoteDecimals": market.quote_decimals,
+                    "hasDisabledMinimalProtocolFee": market.has_disabled_minimal_protocol_fee,
                 },
                 "perpetualInfo": {
                     "marketInfo": {
@@ -1769,6 +1792,8 @@ class TestChainGrpcExchangeV2Api:
             twap_start_timestamp=1705566200,
             expiration_twap_start_price_cumulative="1000000000000000000",
             settlement_price="2000000000000000000",
+            expiration_twap_start_base_cumulative_price="1500000000000000000",
+            expiration_twap_start_quote_cumulative_price="2000000000000000000",
         )
         exchange_servicer.expiry_futures_market_info_responses.append(
             exchange_query_pb.QueryExpiryFuturesMarketInfoResponse(info=expiry_futures_market_info)
@@ -1784,6 +1809,12 @@ class TestChainGrpcExchangeV2Api:
                 "twapStartTimestamp": str(expiry_futures_market_info.twap_start_timestamp),
                 "expirationTwapStartPriceCumulative": expiry_futures_market_info.expiration_twap_start_price_cumulative,
                 "settlementPrice": expiry_futures_market_info.settlement_price,
+                "expirationTwapStartBaseCumulativePrice": (
+                    expiry_futures_market_info.expiration_twap_start_base_cumulative_price
+                ),
+                "expirationTwapStartQuoteCumulativePrice": (
+                    expiry_futures_market_info.expiration_twap_start_quote_cumulative_price
+                ),
             }
         }
 
@@ -2419,6 +2450,7 @@ class TestChainGrpcExchangeV2Api:
             admin_permissions=1,
             quote_decimals=6,
             open_notional_cap=open_notional_cap,
+            has_disabled_minimal_protocol_fee=False,
         )
         response = exchange_query_pb.QueryBinaryMarketsResponse(
             markets=[market],
@@ -2454,6 +2486,7 @@ class TestChainGrpcExchangeV2Api:
                     "openNotionalCap": {
                         "uncapped": {},
                     },
+                    "hasDisabledMinimalProtocolFee": market.has_disabled_minimal_protocol_fee,
                 },
             ]
         }

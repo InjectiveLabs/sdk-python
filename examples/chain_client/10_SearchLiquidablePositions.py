@@ -53,7 +53,7 @@ async def main() -> None:
             adjusted_unit_margin = (adj_margin / quantity) * (-1 if is_long else 1)
             maintenance_margin_ratio = client_market.maintenance_margin_ratio * (-1 if is_long else 1)
 
-            liquidation_price = (entry_price + adjusted_unit_margin) / (Decimal(1) + maintenance_margin_ratio)
+            liquidation_price = (entry_price + adjusted_unit_margin) / (Decimal("1") + maintenance_margin_ratio)
 
             should_be_liquidated = (is_long and market_mark_price <= liquidation_price) or (
                 not is_long and market_mark_price >= liquidation_price

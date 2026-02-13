@@ -20,7 +20,7 @@ from pyinjective.proto.cosmos.msg.v1 import msg_pb2 as cosmos_dot_msg_dot_v1_dot
 from pyinjective.proto.amino import amino_pb2 as amino_dot_amino__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1d\x63osmos/authz/v1beta1/tx.proto\x12\x14\x63osmos.authz.v1beta1\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x14gogoproto/gogo.proto\x1a\x19google/protobuf/any.proto\x1a cosmos/authz/v1beta1/authz.proto\x1a\x17\x63osmos/msg/v1/msg.proto\x1a\x11\x61mino/amino.proto\"\xd6\x01\n\x08MsgGrant\x12\x32\n\x07granter\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressStringR\x07granter\x12\x32\n\x07grantee\x18\x02 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressStringR\x07grantee\x12<\n\x05grant\x18\x03 \x01(\x0b\x32\x1b.cosmos.authz.v1beta1.GrantB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01R\x05grant:$\x82\xe7\xb0*\x07granter\x8a\xe7\xb0*\x13\x63osmos-sdk/MsgGrant\"\x12\n\x10MsgGrantResponse\"\xa9\x01\n\x07MsgExec\x12\x32\n\x07grantee\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressStringR\x07grantee\x12\x45\n\x04msgs\x18\x02 \x03(\x0b\x32\x14.google.protobuf.AnyB\x1b\xca\xb4-\x17\x63osmos.base.v1beta1.MsgR\x04msgs:#\x82\xe7\xb0*\x07grantee\x8a\xe7\xb0*\x12\x63osmos-sdk/MsgExec\"+\n\x0fMsgExecResponse\x12\x18\n\x07results\x18\x01 \x03(\x0cR\x07results\"\xbc\x01\n\tMsgRevoke\x12\x32\n\x07granter\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressStringR\x07granter\x12\x32\n\x07grantee\x18\x02 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressStringR\x07grantee\x12 \n\x0cmsg_type_url\x18\x03 \x01(\tR\nmsgTypeUrl:%\x82\xe7\xb0*\x07granter\x8a\xe7\xb0*\x14\x63osmos-sdk/MsgRevoke\"\x13\n\x11MsgRevokeResponse\"1\n\x15MsgExecCompatResponse\x12\x18\n\x07results\x18\x01 \x03(\x0cR\x07results\"|\n\rMsgExecCompat\x12\x32\n\x07grantee\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressStringR\x07grantee\x12\x12\n\x04msgs\x18\x02 \x03(\tR\x04msgs:#\x82\xe7\xb0*\x07grantee\x8a\xe7\xb0*\x12\x63osmos-sdk/MsgExec2\xdf\x02\n\x03Msg\x12O\n\x05Grant\x12\x1e.cosmos.authz.v1beta1.MsgGrant\x1a&.cosmos.authz.v1beta1.MsgGrantResponse\x12L\n\x04\x45xec\x12\x1d.cosmos.authz.v1beta1.MsgExec\x1a%.cosmos.authz.v1beta1.MsgExecResponse\x12R\n\x06Revoke\x12\x1f.cosmos.authz.v1beta1.MsgRevoke\x1a\'.cosmos.authz.v1beta1.MsgRevokeResponse\x12^\n\nExecCompat\x12#.cosmos.authz.v1beta1.MsgExecCompat\x1a+.cosmos.authz.v1beta1.MsgExecCompatResponse\x1a\x05\x80\xe7\xb0*\x01\x42\xbf\x01\n\x18\x63om.cosmos.authz.v1beta1B\x07TxProtoP\x01Z$github.com/cosmos/cosmos-sdk/x/authz\xa2\x02\x03\x43\x41X\xaa\x02\x14\x43osmos.Authz.V1beta1\xca\x02\x14\x43osmos\\Authz\\V1beta1\xe2\x02 Cosmos\\Authz\\V1beta1\\GPBMetadata\xea\x02\x16\x43osmos::Authz::V1beta1\xc8\xe1\x1e\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1d\x63osmos/authz/v1beta1/tx.proto\x12\x14\x63osmos.authz.v1beta1\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x14gogoproto/gogo.proto\x1a\x19google/protobuf/any.proto\x1a cosmos/authz/v1beta1/authz.proto\x1a\x17\x63osmos/msg/v1/msg.proto\x1a\x11\x61mino/amino.proto\"\xd6\x01\n\x08MsgGrant\x12\x32\n\x07granter\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressStringR\x07granter\x12\x32\n\x07grantee\x18\x02 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressStringR\x07grantee\x12<\n\x05grant\x18\x03 \x01(\x0b\x32\x1b.cosmos.authz.v1beta1.GrantB\t\xc8\xde\x1f\x00\xa8\xe7\xb0*\x01R\x05grant:$\x82\xe7\xb0*\x07granter\x8a\xe7\xb0*\x13\x63osmos-sdk/MsgGrant\"\x12\n\x10MsgGrantResponse\"\xa9\x01\n\x07MsgExec\x12\x32\n\x07grantee\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressStringR\x07grantee\x12\x45\n\x04msgs\x18\x02 \x03(\x0b\x32\x14.google.protobuf.AnyB\x1b\xca\xb4-\x17\x63osmos.base.v1beta1.MsgR\x04msgs:#\x82\xe7\xb0*\x07grantee\x8a\xe7\xb0*\x12\x63osmos-sdk/MsgExec\"+\n\x0fMsgExecResponse\x12\x18\n\x07results\x18\x01 \x03(\x0cR\x07results\"\xbc\x01\n\tMsgRevoke\x12\x32\n\x07granter\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressStringR\x07granter\x12\x32\n\x07grantee\x18\x02 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressStringR\x07grantee\x12 \n\x0cmsg_type_url\x18\x03 \x01(\tR\nmsgTypeUrl:%\x82\xe7\xb0*\x07granter\x8a\xe7\xb0*\x14\x63osmos-sdk/MsgRevoke\"\x13\n\x11MsgRevokeResponse\"5\n\x15MsgExecCompatResponse\x12\x18\n\x07results\x18\x01 \x03(\x0cR\x07results:\x02\x18\x01\"~\n\rMsgExecCompat\x12\x32\n\x07grantee\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressStringR\x07grantee\x12\x12\n\x04msgs\x18\x02 \x03(\tR\x04msgs:%\x18\x01\x82\xe7\xb0*\x07grantee\x8a\xe7\xb0*\x12\x63osmos-sdk/MsgExec2\xe4\x02\n\x03Msg\x12O\n\x05Grant\x12\x1e.cosmos.authz.v1beta1.MsgGrant\x1a&.cosmos.authz.v1beta1.MsgGrantResponse\x12L\n\x04\x45xec\x12\x1d.cosmos.authz.v1beta1.MsgExec\x1a%.cosmos.authz.v1beta1.MsgExecResponse\x12R\n\x06Revoke\x12\x1f.cosmos.authz.v1beta1.MsgRevoke\x1a\'.cosmos.authz.v1beta1.MsgRevokeResponse\x12\x63\n\nExecCompat\x12#.cosmos.authz.v1beta1.MsgExecCompat\x1a+.cosmos.authz.v1beta1.MsgExecCompatResponse\"\x03\x88\x02\x01\x1a\x05\x80\xe7\xb0*\x01\x42\xbf\x01\n\x18\x63om.cosmos.authz.v1beta1B\x07TxProtoP\x01Z$github.com/cosmos/cosmos-sdk/x/authz\xa2\x02\x03\x43\x41X\xaa\x02\x14\x43osmos.Authz.V1beta1\xca\x02\x14\x43osmos\\Authz\\V1beta1\xe2\x02 Cosmos\\Authz\\V1beta1\\GPBMetadata\xea\x02\x16\x43osmos::Authz::V1beta1\xc8\xe1\x1e\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -48,12 +48,16 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_MSGREVOKE'].fields_by_name['grantee']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _globals['_MSGREVOKE']._loaded_options = None
   _globals['_MSGREVOKE']._serialized_options = b'\202\347\260*\007granter\212\347\260*\024cosmos-sdk/MsgRevoke'
+  _globals['_MSGEXECCOMPATRESPONSE']._loaded_options = None
+  _globals['_MSGEXECCOMPATRESPONSE']._serialized_options = b'\030\001'
   _globals['_MSGEXECCOMPAT'].fields_by_name['grantee']._loaded_options = None
   _globals['_MSGEXECCOMPAT'].fields_by_name['grantee']._serialized_options = b'\322\264-\024cosmos.AddressString'
   _globals['_MSGEXECCOMPAT']._loaded_options = None
-  _globals['_MSGEXECCOMPAT']._serialized_options = b'\202\347\260*\007grantee\212\347\260*\022cosmos-sdk/MsgExec'
+  _globals['_MSGEXECCOMPAT']._serialized_options = b'\030\001\202\347\260*\007grantee\212\347\260*\022cosmos-sdk/MsgExec'
   _globals['_MSG']._loaded_options = None
   _globals['_MSG']._serialized_options = b'\200\347\260*\001'
+  _globals['_MSG'].methods_by_name['ExecCompat']._loaded_options = None
+  _globals['_MSG'].methods_by_name['ExecCompat']._serialized_options = b'\210\002\001'
   _globals['_MSGGRANT']._serialized_start=210
   _globals['_MSGGRANT']._serialized_end=424
   _globals['_MSGGRANTRESPONSE']._serialized_start=426
@@ -67,9 +71,9 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_MSGREVOKERESPONSE']._serialized_start=854
   _globals['_MSGREVOKERESPONSE']._serialized_end=873
   _globals['_MSGEXECCOMPATRESPONSE']._serialized_start=875
-  _globals['_MSGEXECCOMPATRESPONSE']._serialized_end=924
-  _globals['_MSGEXECCOMPAT']._serialized_start=926
-  _globals['_MSGEXECCOMPAT']._serialized_end=1050
-  _globals['_MSG']._serialized_start=1053
-  _globals['_MSG']._serialized_end=1404
+  _globals['_MSGEXECCOMPATRESPONSE']._serialized_end=928
+  _globals['_MSGEXECCOMPAT']._serialized_start=930
+  _globals['_MSGEXECCOMPAT']._serialized_end=1056
+  _globals['_MSG']._serialized_start=1059
+  _globals['_MSG']._serialized_end=1415
 # @@protoc_insertion_point(module_scope)

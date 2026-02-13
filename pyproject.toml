@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "injective-py"
-version = "1.12.0"
+version = "1.13.0"
 description = "Injective Python SDK, with Exchange API Client"
 authors = ["Injective Labs <contact@injectivelabs.org>"]
 license = "Apache-2.0"
@@ -26,7 +26,8 @@ aiohttp = "^3.9.4" # Version dependency due to https://github.com/InjectiveLabs/
 bech32 = "*"
 bip32 = "*"
 ecdsa = "*"
-eip712 = "*"
+eip712 = "^0.3.0"
+eth-pydantic-types = "^0.2.4"
 grpcio = "*"
 grpcio-tools = "*"
 hdwallets = "*"

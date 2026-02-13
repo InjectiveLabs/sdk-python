@@ -49,11 +49,9 @@ async def main() -> None:
         market_id=market_id,
         subaccount_id=subaccount_id,
         fee_recipient=fee_recipient,
-        price=Decimal(39.01),  # This should be the liquidation price
-        quantity=Decimal(0.147),
-        margin=composer.calculate_margin(
-            quantity=Decimal(0.147), price=Decimal(39.01), leverage=Decimal(1), is_reduce_only=False
-        ),
+        price=Decimal("39.01"),  # This should be the liquidation price
+        quantity=Decimal("0.147"),
+        margin=Decimal("5.73447"),
         order_type="SELL",
         cid=cid,
     )

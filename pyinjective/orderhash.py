@@ -1,47 +1,52 @@
 from decimal import Decimal
 
 import requests
-from eip712.messages import EIP712Message, EIP712Type
+from eip712.messages import EIP712Domain, EIP712Message, EIP712Type
 from eth_account.messages import _hash_eip191_message as hash_eip191_message
+from eth_pydantic_types import abi
 from hexbytes import HexBytes
 
 from pyinjective.core.token import Token
 
 
 class OrderInfo(EIP712Type):
-    SubaccountId: "string"  # noqa: F821
-    FeeRecipient: "string"  # noqa: F821
-    Price: "string"  # noqa: F821
-    Quantity: "string"  # noqa: F821
+    SubaccountId: abi.string
+    FeeRecipient: abi.string
+    Price: abi.string
+    Quantity: abi.string
 
 
 class SpotOrder(EIP712Message):
-    _name_ = "Injective Protocol"
-    _version_ = "2.0.0"
-    _chainId_ = 888
-    _verifyingContract_ = "0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC"
-    _salt_ = HexBytes("0x0000000000000000000000000000000000000000000000000000000000000000")
+    eip712_domain = EIP712Domain(
+        name="Injective Protocol",
+        version="2.0.0",
+        chainId=888,
+        verifyingContract="0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC",
+        salt=HexBytes("0x0000000000000000000000000000000000000000000000000000000000000000"),
+    )
 
-    MarketId: "string"  # noqa: F821
+    MarketId: abi.string
     OrderInfo: OrderInfo
-    Salt: "string"  # noqa: F821
-    OrderType: "string"  # noqa: F821
-    TriggerPrice: "string"  # noqa: F821
+    Salt: abi.string
+    OrderType: abi.string
+    TriggerPrice: abi.string
 
 
 class DerivativeOrder(EIP712Message):
-    _name_ = "Injective Protocol"
-    _version_ = "2.0.0"
-    _chainId_ = 888
-    _verifyingContract_ = "0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC"
-    _salt_ = HexBytes("0x0000000000000000000000000000000000000000000000000000000000000000")
+    eip712_domain = EIP712Domain(
+        name="Injective Protocol",
+        version="2.0.0",
+        chainId=888,
+        verifyingContract="0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC",
+        salt=HexBytes("0x0000000000000000000000000000000000000000000000000000000000000000"),
+    )
 
-    MarketId: "string"  # noqa: F821
+    MarketId: abi.string
     OrderInfo: OrderInfo
-    OrderType: "string"  # noqa: F821
-    Margin: "string"  # noqa: F821
-    TriggerPrice: "string"  # noqa: F821
-    Salt: "string"  # noqa: F821
+    OrderType: abi.string
+    Margin: abi.string
+    TriggerPrice: abi.string
+    Salt: abi.string
 
 
 # domain_separator = EIP712_domain.hash_struct()

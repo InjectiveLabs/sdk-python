@@ -65,6 +65,11 @@ class QueryStub(object):
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStateRequest.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStateResponse.FromString,
                 _registered_method=True)
+        self.ChainlinkDataStreamsPriceStates = channel.unary_unary(
+                '/injective.oracle.v1beta1.Query/ChainlinkDataStreamsPriceStates',
+                request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryChainlinkDataStreamsPriceStatesRequest.SerializeToString,
+                response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryChainlinkDataStreamsPriceStatesResponse.FromString,
+                _registered_method=True)
         self.OracleModuleState = channel.unary_unary(
                 '/injective.oracle.v1beta1.Query/OracleModuleState',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryModuleStateRequest.SerializeToString,
@@ -176,6 +181,13 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ChainlinkDataStreamsPriceStates(self, request, context):
+        """Retrieves the state for all Chainlink Data Streams price feeds
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def OracleModuleState(self, request, context):
         """Retrieves the entire oracle module's state
         """
@@ -273,6 +285,11 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.ProviderPriceState,
                     request_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStateRequest.FromString,
                     response_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStateResponse.SerializeToString,
+            ),
+            'ChainlinkDataStreamsPriceStates': grpc.unary_unary_rpc_method_handler(
+                    servicer.ChainlinkDataStreamsPriceStates,
+                    request_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryChainlinkDataStreamsPriceStatesRequest.FromString,
+                    response_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryChainlinkDataStreamsPriceStatesResponse.SerializeToString,
             ),
             'OracleModuleState': grpc.unary_unary_rpc_method_handler(
                     servicer.OracleModuleState,
@@ -581,6 +598,33 @@ class Query(object):
             '/injective.oracle.v1beta1.Query/ProviderPriceState',
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStateRequest.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryProviderPriceStateResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ChainlinkDataStreamsPriceStates(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Query/ChainlinkDataStreamsPriceStates',
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryChainlinkDataStreamsPriceStatesRequest.SerializeToString,
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryChainlinkDataStreamsPriceStatesResponse.FromString,
             options,
             channel_credentials,
             insecure,

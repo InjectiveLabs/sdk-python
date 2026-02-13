@@ -91,12 +91,13 @@ async def main() -> None:
     message = composer.msg_create_namespace(
         sender=address.to_acc_bech32(),
         denom=denom,
-        contract_hook="",
+        wasm_hook="",
         role_permissions=[role1, role2, role3],
         actor_roles=[actor_role1, actor_role2],
         role_managers=[role_manager],
         policy_statuses=[policy_status1, policy_status2],
         policy_manager_capabilities=[policy_manager_capability],
+        evm_hook="",
     )
 
     # broadcast the transaction
