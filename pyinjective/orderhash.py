@@ -1,16 +1,15 @@
 from decimal import Decimal
 
 import requests
-from eip712.messages import EIP712Domain, EIP712Message
+from eip712.messages import EIP712Domain, EIP712Message, EIP712Type
 from eth_account.messages import _hash_eip191_message as hash_eip191_message
 from eth_pydantic_types import abi
 from hexbytes import HexBytes
-from pydantic import BaseModel
 
 from pyinjective.core.token import Token
 
 
-class OrderInfo(BaseModel):
+class OrderInfo(EIP712Type):
     SubaccountId: abi.string
     FeeRecipient: abi.string
     Price: abi.string
