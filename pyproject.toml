@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "injective-py"
-version = "1.13.0-rc1"
+version = "1.14.0-rc1"
 description = "Injective Python SDK, with Exchange API Client"
 authors = ["Injective Labs <contact@injectivelabs.org>"]
 license = "Apache-2.0"
@@ -21,12 +21,13 @@ include = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = ">=3.10,<3.13"
 aiohttp = "^3.9.4" # Version dependency due to https://github.com/InjectiveLabs/sdk-python/security/dependabot/18
 bech32 = "*"
 bip32 = "*"
 ecdsa = "*"
-eip712 = "*"
+eip712 = "^0.3.0"
+eth-pydantic-types = "^0.2.4"
 grpcio = "*"
 grpcio-tools = "*"
 hdwallets = "*"
@@ -81,7 +82,7 @@ skip_glob = ["pyinjective/proto/*", ".idea/*"]
 
 [tool.black]
 line-length = 120
-target-version = ["py39", "py310", "py311"]
+target-version = ["py310", "py311", "py312"]
 include = '\.pyi?$'
 # 'extend-exclude' excludes files or directories in addition to the defaults
 extend-exclude = '''
