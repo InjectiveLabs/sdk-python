@@ -5,6 +5,8 @@ from grpc.aio import Channel
 from pyinjective.core.network import CookieAssistant
 from pyinjective.proto.injective.auction.v1beta1 import (
     query_pb2 as auction_query_pb,
+)
+from pyinjective.proto.injective.auction.v1beta1 import (
     query_pb2_grpc as auction_query_grpc,
 )
 from pyinjective.utils.grpc_api_request_assistant import GrpcApiRequestAssistant
@@ -30,6 +32,18 @@ class ChainGrpcAuctionApi:
     async def fetch_current_basket(self) -> Dict[str, Any]:
         request = auction_query_pb.QueryCurrentAuctionBasketRequest()
         response = await self._execute_call(call=self._stub.CurrentAuctionBasket, request=request)
+
+        return response
+
+    async def fetch_vouchers(self, denom: str) -> Dict[str, Any]:
+        request = auction_query_pb.QueryVouchersRequest(denom=denom)
+        response = await self._execute_call(call=self._stub.Vouchers, request=request)
+
+        return response
+
+    async def fetch_voucher(self, denom: str, address: str) -> Dict[str, Any]:
+        request = auction_query_pb.QueryVoucherRequest(denom=denom, address=address)
+        response = await self._execute_call(call=self._stub.Voucher, request=request)
 
         return response
 

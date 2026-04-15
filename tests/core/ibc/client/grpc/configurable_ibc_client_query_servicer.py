@@ -1,6 +1,7 @@
 from collections import deque
 
-from pyinjective.proto.ibc.core.client.v1 import query_pb2 as ibc_client_query, query_pb2_grpc as ibc_client_query_grpc
+from pyinjective.proto.ibc.core.client.v1 import query_pb2 as ibc_client_query
+from pyinjective.proto.ibc.core.client.v1 import query_pb2_grpc as ibc_client_query_grpc
 
 
 class ConfigurableIBCClientQueryServicer(ibc_client_query_grpc.QueryServicer):

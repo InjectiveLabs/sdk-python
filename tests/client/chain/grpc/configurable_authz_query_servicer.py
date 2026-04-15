@@ -1,6 +1,7 @@
 from collections import deque
 
-from pyinjective.proto.cosmos.authz.v1beta1 import query_pb2 as authz_query, query_pb2_grpc as authz_query_grpc
+from pyinjective.proto.cosmos.authz.v1beta1 import query_pb2 as authz_query
+from pyinjective.proto.cosmos.authz.v1beta1 import query_pb2_grpc as authz_query_grpc
 
 
 class ConfigurableAuthZQueryServicer(authz_query_grpc.QueryServicer):

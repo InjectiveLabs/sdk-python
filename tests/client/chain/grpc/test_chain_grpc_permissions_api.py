@@ -4,10 +4,17 @@ import pytest
 from pyinjective.client.chain.grpc.chain_grpc_permissions_api import ChainGrpcPermissionsApi
 from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb
+from pyinjective.proto.injective.common.vouchers.v1 import vouchers_pb2 as vouchers_pb
 from pyinjective.proto.injective.permissions.v1beta1 import (
     genesis_pb2 as genesis_pb,
+)
+from pyinjective.proto.injective.permissions.v1beta1 import (
     params_pb2 as permissions_params_pb,
+)
+from pyinjective.proto.injective.permissions.v1beta1 import (
     permissions_pb2 as permissions_pb,
+)
+from pyinjective.proto.injective.permissions.v1beta1 import (
     query_pb2 as permissions_query_pb,
 )
 from tests.client.chain.grpc.configurable_permissions_query_servicer import ConfigurablePermissionsQueryServicer
@@ -24,9 +31,17 @@ class TestChainGrpcPermissionsApi:
         self,
         permissions_servicer,
     ):
+        enforced_restrictions_evm_contract = permissions_params_pb.EnforcedRestrictionsEVMContract(
+            contract_address="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
+            pause_event_signature="0x1234567890",
+            unpause_event_signature="0x1234567890",
+            blacklist_event_signature="0x1234567890",
+            unblacklist_event_signature="0x1234567890",
+        )
         params = permissions_params_pb.Params(
             contract_hook_max_gas=1000000,
-            enforced_restrictions_contracts=["inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr"],
+            deprecated_enforced_restrictions_contracts=["inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr"],
+            enforced_restrictions_evm_contracts=[enforced_restrictions_evm_contract],
         )
         permissions_servicer.permissions_params.append(permissions_query_pb.QueryParamsResponse(params=params))
 
@@ -36,7 +51,16 @@ class TestChainGrpcPermissionsApi:
         expected_params = {
             "params": {
                 "contractHookMaxGas": str(params.contract_hook_max_gas),
-                "enforcedRestrictionsContracts": params.enforced_restrictions_contracts,
+                "deprecatedEnforcedRestrictionsContracts": params.deprecated_enforced_restrictions_contracts,
+                "enforcedRestrictionsEvmContracts": [
+                    {
+                        "contractAddress": enforced_restrictions_evm_contract.contract_address,
+                        "pauseEventSignature": enforced_restrictions_evm_contract.pause_event_signature,
+                        "unpauseEventSignature": enforced_restrictions_evm_contract.unpause_event_signature,
+                        "blacklistEventSignature": enforced_restrictions_evm_contract.blacklist_event_signature,
+                        "unblacklistEventSignature": enforced_restrictions_evm_contract.unblacklist_event_signature,
+                    }
+                ],
             }
         }
 
@@ -412,7 +436,7 @@ class TestChainGrpcPermissionsApi:
         self,
         permissions_servicer,
     ):
-        voucher = permissions_pb.AddressVoucher(
+        voucher = vouchers_pb.AddressVoucher(
             address="inj1ady3s7whq30l4fx8sj3x6muv5mx4dfdlcpv8n7",
             voucher=coin_pb.Coin(denom="inj", amount="1000000000"),
         )
@@ -465,9 +489,17 @@ class TestChainGrpcPermissionsApi:
         self,
         permissions_servicer,
     ):
+        enforced_restrictions_evm_contract = permissions_params_pb.EnforcedRestrictionsEVMContract(
+            contract_address="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
+            pause_event_signature="0x1234567890",
+            unpause_event_signature="0x1234567891",
+            blacklist_event_signature="0x1234567892",
+            unblacklist_event_signature="0x1234567893",
+        )
         params = permissions_params_pb.Params(
             contract_hook_max_gas=1000000,
-            enforced_restrictions_contracts=["inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr"],
+            deprecated_enforced_restrictions_contracts=["inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr"],
+            enforced_restrictions_evm_contracts=[enforced_restrictions_evm_contract],
         )
         role_permission = permissions_pb.Role(
             name="role1",
@@ -503,7 +535,7 @@ class TestChainGrpcPermissionsApi:
             policy_manager_capabilities=[policy_manager_capability],
             evm_hook="evm_hook",
         )
-        voucher = permissions_pb.AddressVoucher(
+        voucher = vouchers_pb.AddressVoucher(
             address="inj1ady3s7whq30l4fx8sj3x6muv5mx4dfdlcpv8n7",
             voucher=coin_pb.Coin(denom="inj", amount="1000000000"),
         )
@@ -525,7 +557,16 @@ class TestChainGrpcPermissionsApi:
             "state": {
                 "params": {
                     "contractHookMaxGas": str(params.contract_hook_max_gas),
-                    "enforcedRestrictionsContracts": params.enforced_restrictions_contracts,
+                    "deprecatedEnforcedRestrictionsContracts": params.deprecated_enforced_restrictions_contracts,
+                    "enforcedRestrictionsEvmContracts": [
+                        {
+                            "contractAddress": enforced_restrictions_evm_contract.contract_address,
+                            "pauseEventSignature": enforced_restrictions_evm_contract.pause_event_signature,
+                            "unpauseEventSignature": enforced_restrictions_evm_contract.unpause_event_signature,
+                            "blacklistEventSignature": enforced_restrictions_evm_contract.blacklist_event_signature,
+                            "unblacklistEventSignature": enforced_restrictions_evm_contract.unblacklist_event_signature,
+                        }
+                    ],
                 },
                 "namespaces": [
                     {

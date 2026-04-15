@@ -9,9 +9,17 @@ from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb
 from pyinjective.proto.injective.exchange.v2 import (
     exchange_pb2 as exchange_pb,
+)
+from pyinjective.proto.injective.exchange.v2 import (
     market_pb2 as market_pb,
+)
+from pyinjective.proto.injective.exchange.v2 import (
     order_pb2 as order_pb,
+)
+from pyinjective.proto.injective.exchange.v2 import (
     orderbook_pb2 as orderbook_pb,
+)
+from pyinjective.proto.injective.exchange.v2 import (
     query_pb2 as exchange_query_pb,
 )
 from pyinjective.proto.injective.oracle.v1beta1 import oracle_pb2 as oracle_pb
@@ -33,10 +41,7 @@ class TestChainGrpcExchangeV2Api:
         derivative_market_instant_listing_fee = coin_pb.Coin(denom="inj", amount="2000000000000000000000")
         binary_options_market_instant_listing_fee = coin_pb.Coin(denom="inj", amount="30000000000000000000")
         admin = "inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr"
-        enforced_restrictions_contract = exchange_pb.EnforcedRestrictionsContract(
-            contract_address="inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr",
-            pause_event_signature="Pause(address)",
-        )
+        white_knight_liquidators = ["inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr2"]
         params = exchange_pb.Params(
             spot_market_instant_listing_fee=spot_market_instant_listing_fee,
             derivative_market_instant_listing_fee=derivative_market_instant_listing_fee,
@@ -72,7 +77,9 @@ class TestChainGrpcExchangeV2Api:
             post_only_mode_blocks_amount=2000,
             min_post_only_mode_downtime_duration="DURATION_10M",
             post_only_mode_blocks_amount_after_downtime=3000,
-            enforced_restrictions_contracts=[enforced_restrictions_contract],
+            deprecated_enforced_restrictions_contracts=[],
+            white_knight_liquidators=white_knight_liquidators,
+            white_knight_liquidator_reward_share_rate="0.050000000000000000",
         )
         exchange_servicer.exchange_params.append(exchange_query_pb.QueryExchangeParamsResponse(params=params))
 
@@ -128,12 +135,9 @@ class TestChainGrpcExchangeV2Api:
                 "postOnlyModeBlocksAmount": str(params.post_only_mode_blocks_amount),
                 "minPostOnlyModeDowntimeDuration": params.min_post_only_mode_downtime_duration,
                 "postOnlyModeBlocksAmountAfterDowntime": str(params.post_only_mode_blocks_amount_after_downtime),
-                "enforcedRestrictionsContracts": [
-                    {
-                        "contractAddress": enforced_restrictions_contract.contract_address,
-                        "pauseEventSignature": enforced_restrictions_contract.pause_event_signature,
-                    },
-                ],
+                "deprecatedEnforcedRestrictionsContracts": params.deprecated_enforced_restrictions_contracts,
+                "whiteKnightLiquidators": params.white_knight_liquidators,
+                "whiteKnightLiquidatorRewardShareRate": params.white_knight_liquidator_reward_share_rate,
             }
         }
 

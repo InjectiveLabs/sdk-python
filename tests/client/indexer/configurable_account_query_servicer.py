@@ -2,6 +2,8 @@ from collections import deque
 
 from pyinjective.proto.exchange import (
     injective_accounts_rpc_pb2 as exchange_accounts_pb,
+)
+from pyinjective.proto.exchange import (
     injective_accounts_rpc_pb2_grpc as exchange_accounts_grpc,
 )
 

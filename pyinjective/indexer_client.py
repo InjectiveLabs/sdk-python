@@ -1,5 +1,4 @@
 from typing import Any, Callable, Dict, List, Optional
-from warnings import warn
 
 from pyinjective.client.indexer.grpc.indexer_grpc_account_api import IndexerGrpcAccountApi
 from pyinjective.client.indexer.grpc.indexer_grpc_auction_api import IndexerGrpcAuctionApi
@@ -523,30 +522,6 @@ class IndexerClient:
             cid=cid,
             fee_recipient=fee_recipient,
             pagination=pagination,
-        )
-
-    async def listen_derivative_positions_updates(
-        self,
-        callback: Callable,
-        on_end_callback: Optional[Callable] = None,
-        on_status_callback: Optional[Callable] = None,
-        market_ids: Optional[List[str]] = None,
-        subaccount_ids: Optional[List[str]] = None,
-    ):
-        """
-        This method is deprecated and will be removed soon. Please use `listen_derivative_positions_v2_updates` instead.
-        """
-        warn(
-            "This method is deprecated. Use listen_derivative_positions_v2_updates instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        await self.derivative_stream_api.stream_positions(
-            callback=callback,
-            on_end_callback=on_end_callback,
-            on_status_callback=on_status_callback,
-            market_ids=market_ids,
-            subaccount_ids=subaccount_ids,
         )
 
     async def listen_derivative_positions_v2_updates(

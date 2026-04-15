@@ -2,10 +2,10 @@ import asyncio
 from copy import deepcopy
 from decimal import Decimal
 from typing import Any, Callable, Dict, List, Optional, Tuple
-from warnings import warn
 
 from google.protobuf import json_format
 
+from pyinjective.client.chain.grpc.chain_grpc_auction_api import ChainGrpcAuctionApi
 from pyinjective.client.chain.grpc.chain_grpc_auth_api import ChainGrpcAuthApi
 from pyinjective.client.chain.grpc.chain_grpc_authz_api import ChainGrpcAuthZApi
 from pyinjective.client.chain.grpc.chain_grpc_bank_api import ChainGrpcBankApi
@@ -13,6 +13,7 @@ from pyinjective.client.chain.grpc.chain_grpc_distribution_api import ChainGrpcD
 from pyinjective.client.chain.grpc.chain_grpc_erc20_api import ChainGrpcERC20Api
 from pyinjective.client.chain.grpc.chain_grpc_evm_api import ChainGrpcEVMApi
 from pyinjective.client.chain.grpc.chain_grpc_exchange_v2_api import ChainGrpcExchangeV2Api
+from pyinjective.client.chain.grpc.chain_grpc_insurance_api import ChainGrpcInsuranceApi
 from pyinjective.client.chain.grpc.chain_grpc_permissions_api import ChainGrpcPermissionsApi
 from pyinjective.client.chain.grpc.chain_grpc_token_factory_api import ChainGrpcTokenFactoryApi
 from pyinjective.client.chain.grpc.chain_grpc_txfees_api import ChainGrpcTxfeesApi
@@ -37,7 +38,8 @@ from pyinjective.proto.cosmos.authz.v1beta1 import query_pb2_grpc as authz_query
 from pyinjective.proto.cosmos.bank.v1beta1 import query_pb2_grpc as bank_query_grpc
 from pyinjective.proto.cosmos.base.tendermint.v1beta1 import query_pb2_grpc as tendermint_query_grpc
 from pyinjective.proto.cosmos.crypto.ed25519 import keys_pb2 as ed25519_keys  # noqa: F401 for validator set responses
-from pyinjective.proto.cosmos.tx.v1beta1 import service_pb2 as tx_service, service_pb2_grpc as tx_service_grpc
+from pyinjective.proto.cosmos.tx.v1beta1 import service_pb2 as tx_service
+from pyinjective.proto.cosmos.tx.v1beta1 import service_pb2_grpc as tx_service_grpc
 from pyinjective.proto.ibc.lightclients.tendermint.v1 import (  # noqa: F401 for validator set responses
     tendermint_pb2 as ibc_tendermint,
 )
@@ -154,6 +156,14 @@ class AsyncClient:
             cookie_assistant=network.chain_cookie_assistant,
         )
         self.wasm_api = ChainGrpcWasmApi(
+            channel=self.chain_channel,
+            cookie_assistant=network.chain_cookie_assistant,
+        )
+        self.auction_chain_api = ChainGrpcAuctionApi(
+            channel=self.chain_channel,
+            cookie_assistant=network.chain_cookie_assistant,
+        )
+        self.insurance_chain_api = ChainGrpcInsuranceApi(
             channel=self.chain_channel,
             cookie_assistant=network.chain_cookie_assistant,
         )
@@ -414,32 +424,6 @@ class AsyncClient:
 
     async def fetch_exchange_balances(self) -> Dict[str, Any]:
         return await self.chain_exchange_v2_api.fetch_exchange_balances()
-
-    async def fetch_denom_decimal(self, denom: str) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_auction_exchange_transfer_denom_decimal`
-        instead.
-        """
-        warn(
-            "This method is deprecated. Use fetch_auction_exchange_transfer_denom_decimal instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-        return await self.chain_exchange_v2_api.fetch_auction_exchange_transfer_denom_decimal(denom=denom)
-
-    async def fetch_denom_decimals(self, denoms: Optional[List[str]] = None) -> Dict[str, Any]:
-        """
-        This method is deprecated and will be removed soon. Please use `fetch_auction_exchange_transfer_denom_decimals`
-        instead.
-        """
-        warn(
-            "This method is deprecated. Use fetch_auction_exchange_transfer_denom_decimals instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-        return await self.chain_exchange_v2_api.fetch_auction_exchange_transfer_denom_decimals(denoms=denoms)
 
     async def fetch_auction_exchange_transfer_denom_decimal(self, denom: str) -> Dict[str, Any]:
         return await self.chain_exchange_v2_api.fetch_auction_exchange_transfer_denom_decimal(denom=denom)
@@ -1219,6 +1203,52 @@ class AsyncClient:
 
     # endregion
 
+    # ------------------------------
+    # region Auction module (chain)
+
+    async def fetch_auction_module_params(self) -> Dict[str, Any]:
+        return await self.auction_chain_api.fetch_module_params()
+
+    async def fetch_current_auction_basket(self) -> Dict[str, Any]:
+        return await self.auction_chain_api.fetch_current_basket()
+
+    async def fetch_auction_vouchers(self, denom: str) -> Dict[str, Any]:
+        return await self.auction_chain_api.fetch_vouchers(denom=denom)
+
+    async def fetch_auction_voucher(self, denom: str, address: str) -> Dict[str, Any]:
+        return await self.auction_chain_api.fetch_voucher(denom=denom, address=address)
+
+    # endregion
+
+    # ------------------------------
+    # region Insurance module (chain)
+
+    async def fetch_insurance_module_params(self) -> Dict[str, Any]:
+        return await self.insurance_chain_api.fetch_module_params()
+
+    async def fetch_insurance_fund(self, market_id: str) -> Dict[str, Any]:
+        return await self.insurance_chain_api.fetch_insurance_fund(market_id=market_id)
+
+    async def fetch_insurance_funds(self) -> Dict[str, Any]:
+        return await self.insurance_chain_api.fetch_insurance_funds()
+
+    async def fetch_estimated_redemptions(self, market_id: str, address: str) -> Dict[str, Any]:
+        return await self.insurance_chain_api.fetch_estimated_redemptions(market_id=market_id, address=address)
+
+    async def fetch_pending_redemptions(self, market_id: str, address: str) -> Dict[str, Any]:
+        return await self.insurance_chain_api.fetch_pending_redemptions(market_id=market_id, address=address)
+
+    async def fetch_failed_redemptions(self) -> Dict[str, Any]:
+        return await self.insurance_chain_api.fetch_failed_redemptions()
+
+    async def fetch_insurance_vouchers(self, denom: str) -> Dict[str, Any]:
+        return await self.insurance_chain_api.fetch_vouchers(denom=denom)
+
+    async def fetch_insurance_voucher(self, denom: str, address: str) -> Dict[str, Any]:
+        return await self.insurance_chain_api.fetch_voucher(denom=denom, address=address)
+
+    # endregion
+
     # -------------------------
     # region IBC Channel module
     async def fetch_eip_base_fee(self) -> Dict[str, Any]:
@@ -1514,11 +1544,5 @@ class AsyncClient:
 
     def _cancel_timeout_height_sync_task(self):
         if self._timeout_height_sync_task is not None:
-            try:
-                self._timeout_height_sync_task.cancel()
-                asyncio.get_event_loop().run_until_complete(asyncio.wait_for(self._timeout_height_sync_task, timeout=1))
-            except Exception as e:
-                logger = LoggerProvider().logger_for_class(logging_class=self.__class__)
-                logger.warning("error canceling timeout height sync task")
-                logger.debug("error canceling timeout height sync task", exc_info=e)
+            self._timeout_height_sync_task.cancel()
         self._timeout_height_sync_task = None

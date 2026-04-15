@@ -5,6 +5,8 @@ from grpc.aio import Channel
 from pyinjective.core.network import CookieAssistant
 from pyinjective.proto.injective.permissions.v1beta1 import (
     query_pb2 as permissions_query_pb,
+)
+from pyinjective.proto.injective.permissions.v1beta1 import (
     query_pb2_grpc as permissions_query_grpc,
 )
 from pyinjective.utils.grpc_api_request_assistant import GrpcApiRequestAssistant

@@ -161,7 +161,11 @@ def inj_usdt_spot_market_meta(inj_token_meta, usdt_token_meta):
 def btc_usdt_perp_market_meta(usdt_perp_token_meta):
     from pyinjective.proto.injective.exchange.v2 import (
         exchange_pb2 as exchange_pb,
+    )
+    from pyinjective.proto.injective.exchange.v2 import (
         market_pb2 as market_pb,
+    )
+    from pyinjective.proto.injective.exchange.v2 import (
         query_pb2 as exchange_query_pb,
     )
 

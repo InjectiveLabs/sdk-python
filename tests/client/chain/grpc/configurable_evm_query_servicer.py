@@ -1,6 +1,7 @@
 from collections import deque
 
-from pyinjective.proto.injective.evm.v1 import query_pb2 as evm_query_pb, query_pb2_grpc as evm_query_grpc
+from pyinjective.proto.injective.evm.v1 import query_pb2 as evm_query_pb
+from pyinjective.proto.injective.evm.v1 import query_pb2_grpc as evm_query_grpc
 
 
 class ConfigurableEVMQueryServicer(evm_query_grpc.QueryServicer):

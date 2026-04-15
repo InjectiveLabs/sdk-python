@@ -2,6 +2,8 @@ from collections import deque
 
 from pyinjective.proto.injective.exchange.v2 import (
     query_pb2 as exchange_query_pb,
+)
+from pyinjective.proto.injective.exchange.v2 import (
     query_pb2_grpc as exchange_query_grpc,
 )
 

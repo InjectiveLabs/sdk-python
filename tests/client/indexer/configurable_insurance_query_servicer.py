@@ -2,6 +2,8 @@ from collections import deque
 
 from pyinjective.proto.exchange import (
     injective_insurance_rpc_pb2 as exchange_insurance_pb,
+)
+from pyinjective.proto.exchange import (
     injective_insurance_rpc_pb2_grpc as exchange_insurance_grpc,
 )
 

@@ -718,6 +718,7 @@ class TestIndexerGrpcDerivativeApi:
             funding_sum="9999.123456789",
             cumulative_funding_entry="20000.123456789",
             effective_cumulative_funding_entry="30000.123456789",
+            upnl="10.123456789",
         )
 
         paging = exchange_derivative_pb.Paging(total=5, to=5, count_by_subaccount=10, next=["next1", "next2"])
@@ -762,6 +763,7 @@ class TestIndexerGrpcDerivativeApi:
                     "fundingSum": position.funding_sum,
                     "cumulativeFundingEntry": position.cumulative_funding_entry,
                     "effectiveCumulativeFundingEntry": position.effective_cumulative_funding_entry,
+                    "upnl": position.upnl,
                 },
             ],
             "paging": {

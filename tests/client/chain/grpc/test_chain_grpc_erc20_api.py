@@ -9,7 +9,11 @@ from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagination_pb
 from pyinjective.proto.injective.erc20.v1beta1 import (
     erc20_pb2 as erc20_pb,
+)
+from pyinjective.proto.injective.erc20.v1beta1 import (
     params_pb2 as erc20_params_pb,
+)
+from pyinjective.proto.injective.erc20.v1beta1 import (
     query_pb2 as erc20_query_pb,
 )
 from tests.client.chain.grpc.configurable_erc20_query_servicer import ConfigurableERC20QueryServicer

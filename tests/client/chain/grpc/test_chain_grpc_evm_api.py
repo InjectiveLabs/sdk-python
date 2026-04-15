@@ -7,7 +7,11 @@ from pyinjective.client.chain.grpc.chain_grpc_evm_api import ChainGrpcEVMApi
 from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.injective.evm.v1 import (
     chain_config_pb2 as evm_chain_config_pb,
+)
+from pyinjective.proto.injective.evm.v1 import (
     params_pb2 as evm_params_pb,
+)
+from pyinjective.proto.injective.evm.v1 import (
     query_pb2 as evm_query_pb,
 )
 from tests.client.chain.grpc.configurable_evm_query_servicer import ConfigurableEVMQueryServicer

@@ -6,6 +6,8 @@ from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import CookieAssistant
 from pyinjective.proto.ibc.applications.transfer.v1 import (
     query_pb2 as ibc_transfer_query,
+)
+from pyinjective.proto.ibc.applications.transfer.v1 import (
     query_pb2_grpc as ibc_transfer_query_grpc,
 )
 from pyinjective.utils.grpc_api_request_assistant import GrpcApiRequestAssistant

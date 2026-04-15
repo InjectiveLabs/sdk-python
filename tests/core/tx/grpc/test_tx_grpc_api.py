@@ -8,7 +8,8 @@ from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.core.tx.grpc.tx_grpc_api import TxGrpcApi
 from pyinjective.proto.cosmos.base.abci.v1beta1 import abci_pb2 as abci_type
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb
-from pyinjective.proto.cosmos.tx.v1beta1 import service_pb2 as tx_service, tx_pb2
+from pyinjective.proto.cosmos.tx.v1beta1 import service_pb2 as tx_service
+from pyinjective.proto.cosmos.tx.v1beta1 import tx_pb2
 from pyinjective.proto.injective.crypto.v1beta1.ethsecp256k1 import keys_pb2 as keys_pb
 from tests.core.tx.grpc.configurable_tx_query_servicer import ConfigurableTxQueryServicer
 

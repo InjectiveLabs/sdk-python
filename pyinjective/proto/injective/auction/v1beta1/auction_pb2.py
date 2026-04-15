@@ -15,9 +15,10 @@ _sym_db = _symbol_database.Default()
 from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
 from pyinjective.proto.amino import amino_pb2 as amino_dot_amino__pb2
+from pyinjective.proto.injective.common.vouchers.v1 import vouchers_pb2 as injective_dot_common_dot_vouchers_dot_v1_dot_vouchers__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\'injective/auction/v1beta1/auction.proto\x12\x19injective.auction.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a\x11\x61mino/amino.proto\"\xa4\x02\n\x06Params\x12%\n\x0e\x61uction_period\x18\x01 \x01(\x03R\rauctionPeriod\x12\x61\n\x1bmin_next_bid_increment_rate\x18\x02 \x01(\tB#\xc8\xde\x1f\x00\xda\xde\x1f\x1b\x63osmossdk.io/math.LegacyDecR\x17minNextBidIncrementRate\x12J\n\x12inj_basket_max_cap\x18\x03 \x01(\tB\x1d\xc8\xde\x1f\x00\xda\xde\x1f\x15\x63osmossdk.io/math.IntR\x0finjBasketMaxCap\x12+\n\x11\x62idders_whitelist\x18\x04 \x03(\tR\x10\x62iddersWhitelist:\x17\xe8\xa0\x1f\x01\x8a\xe7\xb0*\x0e\x61uction/Params\"\x9e\x01\n\x03\x42id\x12\x33\n\x06\x62idder\x18\x01 \x01(\tB\x1b\xea\xde\x1f\x06\x62idder\xf2\xde\x1f\ryaml:\"bidder\"R\x06\x62idder\x12\x62\n\x06\x61mount\x18\x02 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB/\xc8\xde\x1f\x00\xda\xde\x1f\'github.com/cosmos/cosmos-sdk/types.CoinR\x06\x61mount\"\xa5\x01\n\x11LastAuctionResult\x12\x16\n\x06winner\x18\x01 \x01(\tR\x06winner\x12\x62\n\x06\x61mount\x18\x02 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB/\xc8\xde\x1f\x00\xda\xde\x1f\'github.com/cosmos/cosmos-sdk/types.CoinR\x06\x61mount\x12\x14\n\x05round\x18\x03 \x01(\x04R\x05round\"\x9c\x01\n\x08\x45ventBid\x12\x16\n\x06\x62idder\x18\x01 \x01(\tR\x06\x62idder\x12\x62\n\x06\x61mount\x18\x02 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB/\xc8\xde\x1f\x00\xda\xde\x1f\'github.com/cosmos/cosmos-sdk/types.CoinR\x06\x61mount\x12\x14\n\x05round\x18\x03 \x01(\x04R\x05round\"\xa6\x01\n\x12\x45ventAuctionResult\x12\x16\n\x06winner\x18\x01 \x01(\tR\x06winner\x12\x62\n\x06\x61mount\x18\x02 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB/\xc8\xde\x1f\x00\xda\xde\x1f\'github.com/cosmos/cosmos-sdk/types.CoinR\x06\x61mount\x12\x14\n\x05round\x18\x03 \x01(\x04R\x05round\"\xc0\x01\n\x11\x45ventAuctionStart\x12\x14\n\x05round\x18\x01 \x01(\x04R\x05round\x12)\n\x10\x65nding_timestamp\x18\x02 \x01(\x03R\x0f\x65ndingTimestamp\x12j\n\nnew_basket\x18\x03 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.CoinsR\tnewBasketB\x82\x02\n\x1d\x63om.injective.auction.v1beta1B\x0c\x41uctionProtoP\x01ZMgithub.com/InjectiveLabs/injective-core/injective-chain/modules/auction/types\xa2\x02\x03IAX\xaa\x02\x19Injective.Auction.V1beta1\xca\x02\x19Injective\\Auction\\V1beta1\xe2\x02%Injective\\Auction\\V1beta1\\GPBMetadata\xea\x02\x1bInjective::Auction::V1beta1b\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\'injective/auction/v1beta1/auction.proto\x12\x19injective.auction.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a\x11\x61mino/amino.proto\x1a+injective/common/vouchers/v1/vouchers.proto\"\x8b\x01\n\x0f\x45ventSetVoucher\x12\x12\n\x04\x61\x64\x64r\x18\x01 \x01(\tR\x04\x61\x64\x64r\x12\x64\n\x07voucher\x18\x02 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB/\xc8\xde\x1f\x00\xda\xde\x1f\'github.com/cosmos/cosmos-sdk/types.CoinR\x07voucher\"\xa4\x02\n\x06Params\x12%\n\x0e\x61uction_period\x18\x01 \x01(\x03R\rauctionPeriod\x12\x61\n\x1bmin_next_bid_increment_rate\x18\x02 \x01(\tB#\xc8\xde\x1f\x00\xda\xde\x1f\x1b\x63osmossdk.io/math.LegacyDecR\x17minNextBidIncrementRate\x12J\n\x12inj_basket_max_cap\x18\x03 \x01(\tB\x1d\xc8\xde\x1f\x00\xda\xde\x1f\x15\x63osmossdk.io/math.IntR\x0finjBasketMaxCap\x12+\n\x11\x62idders_whitelist\x18\x04 \x03(\tR\x10\x62iddersWhitelist:\x17\xe8\xa0\x1f\x01\x8a\xe7\xb0*\x0e\x61uction/Params\"\x9e\x01\n\x03\x42id\x12\x33\n\x06\x62idder\x18\x01 \x01(\tB\x1b\xea\xde\x1f\x06\x62idder\xf2\xde\x1f\ryaml:\"bidder\"R\x06\x62idder\x12\x62\n\x06\x61mount\x18\x02 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB/\xc8\xde\x1f\x00\xda\xde\x1f\'github.com/cosmos/cosmos-sdk/types.CoinR\x06\x61mount\"\xa5\x01\n\x11LastAuctionResult\x12\x16\n\x06winner\x18\x01 \x01(\tR\x06winner\x12\x62\n\x06\x61mount\x18\x02 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB/\xc8\xde\x1f\x00\xda\xde\x1f\'github.com/cosmos/cosmos-sdk/types.CoinR\x06\x61mount\x12\x14\n\x05round\x18\x03 \x01(\x04R\x05round\"\x9c\x01\n\x08\x45ventBid\x12\x16\n\x06\x62idder\x18\x01 \x01(\tR\x06\x62idder\x12\x62\n\x06\x61mount\x18\x02 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB/\xc8\xde\x1f\x00\xda\xde\x1f\'github.com/cosmos/cosmos-sdk/types.CoinR\x06\x61mount\x12\x14\n\x05round\x18\x03 \x01(\x04R\x05round\"\xa6\x01\n\x12\x45ventAuctionResult\x12\x16\n\x06winner\x18\x01 \x01(\tR\x06winner\x12\x62\n\x06\x61mount\x18\x02 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB/\xc8\xde\x1f\x00\xda\xde\x1f\'github.com/cosmos/cosmos-sdk/types.CoinR\x06\x61mount\x12\x14\n\x05round\x18\x03 \x01(\x04R\x05round\"\xc0\x01\n\x11\x45ventAuctionStart\x12\x14\n\x05round\x18\x01 \x01(\x04R\x05round\x12)\n\x10\x65nding_timestamp\x18\x02 \x01(\x03R\x0f\x65ndingTimestamp\x12j\n\nnew_basket\x18\x03 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB0\xc8\xde\x1f\x00\xaa\xdf\x1f(github.com/cosmos/cosmos-sdk/types.CoinsR\tnewBasketB\x82\x02\n\x1d\x63om.injective.auction.v1beta1B\x0c\x41uctionProtoP\x01ZMgithub.com/InjectiveLabs/injective-core/injective-chain/modules/auction/types\xa2\x02\x03IAX\xaa\x02\x19Injective.Auction.V1beta1\xca\x02\x19Injective\\Auction\\V1beta1\xe2\x02%Injective\\Auction\\V1beta1\\GPBMetadata\xea\x02\x1bInjective::Auction::V1beta1b\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -25,6 +26,8 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'injective.auction.v1beta1.a
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'\n\035com.injective.auction.v1beta1B\014AuctionProtoP\001ZMgithub.com/InjectiveLabs/injective-core/injective-chain/modules/auction/types\242\002\003IAX\252\002\031Injective.Auction.V1beta1\312\002\031Injective\\Auction\\V1beta1\342\002%Injective\\Auction\\V1beta1\\GPBMetadata\352\002\033Injective::Auction::V1beta1'
+  _globals['_EVENTSETVOUCHER'].fields_by_name['voucher']._loaded_options = None
+  _globals['_EVENTSETVOUCHER'].fields_by_name['voucher']._serialized_options = b'\310\336\037\000\332\336\037\'github.com/cosmos/cosmos-sdk/types.Coin'
   _globals['_PARAMS'].fields_by_name['min_next_bid_increment_rate']._loaded_options = None
   _globals['_PARAMS'].fields_by_name['min_next_bid_increment_rate']._serialized_options = b'\310\336\037\000\332\336\037\033cosmossdk.io/math.LegacyDec'
   _globals['_PARAMS'].fields_by_name['inj_basket_max_cap']._loaded_options = None
@@ -43,16 +46,18 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_EVENTAUCTIONRESULT'].fields_by_name['amount']._serialized_options = b'\310\336\037\000\332\336\037\'github.com/cosmos/cosmos-sdk/types.Coin'
   _globals['_EVENTAUCTIONSTART'].fields_by_name['new_basket']._loaded_options = None
   _globals['_EVENTAUCTIONSTART'].fields_by_name['new_basket']._serialized_options = b'\310\336\037\000\252\337\037(github.com/cosmos/cosmos-sdk/types.Coins'
-  _globals['_PARAMS']._serialized_start=144
-  _globals['_PARAMS']._serialized_end=436
-  _globals['_BID']._serialized_start=439
-  _globals['_BID']._serialized_end=597
-  _globals['_LASTAUCTIONRESULT']._serialized_start=600
-  _globals['_LASTAUCTIONRESULT']._serialized_end=765
-  _globals['_EVENTBID']._serialized_start=768
-  _globals['_EVENTBID']._serialized_end=924
-  _globals['_EVENTAUCTIONRESULT']._serialized_start=927
-  _globals['_EVENTAUCTIONRESULT']._serialized_end=1093
-  _globals['_EVENTAUCTIONSTART']._serialized_start=1096
-  _globals['_EVENTAUCTIONSTART']._serialized_end=1288
+  _globals['_EVENTSETVOUCHER']._serialized_start=189
+  _globals['_EVENTSETVOUCHER']._serialized_end=328
+  _globals['_PARAMS']._serialized_start=331
+  _globals['_PARAMS']._serialized_end=623
+  _globals['_BID']._serialized_start=626
+  _globals['_BID']._serialized_end=784
+  _globals['_LASTAUCTIONRESULT']._serialized_start=787
+  _globals['_LASTAUCTIONRESULT']._serialized_end=952
+  _globals['_EVENTBID']._serialized_start=955
+  _globals['_EVENTBID']._serialized_end=1111
+  _globals['_EVENTAUCTIONRESULT']._serialized_start=1114
+  _globals['_EVENTAUCTIONRESULT']._serialized_end=1280
+  _globals['_EVENTAUCTIONSTART']._serialized_start=1283
+  _globals['_EVENTAUCTIONSTART']._serialized_end=1475
 # @@protoc_insertion_point(module_scope)

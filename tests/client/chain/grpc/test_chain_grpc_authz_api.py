@@ -5,8 +5,10 @@ from google.protobuf import any_pb2
 from pyinjective.client.chain.grpc.chain_grpc_authz_api import ChainGrpcAuthZApi
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import DisabledCookieAssistant, Network
-from pyinjective.proto.cosmos.authz.v1beta1 import authz_pb2, query_pb2 as authz_query
+from pyinjective.proto.cosmos.authz.v1beta1 import authz_pb2
+from pyinjective.proto.cosmos.authz.v1beta1 import query_pb2 as authz_query
 from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagination_pb
+from pyinjective.proto.injective.exchange.v2 import authz_pb2 as exchange_authz_pb
 from tests.client.chain.grpc.configurable_authz_query_servicer import ConfigurableAuthZQueryServicer
 
 
@@ -21,13 +23,12 @@ class TestChainGrpcAuthZApi:
         self,
         authz_servicer,
     ):
-        authorization = any_pb2.Any(
-            type_url="/injective.exchange.v1beta1.CreateSpotMarketOrderAuthz",
-            value=(
-                "\nB0xf5099d25e6e7e8c6584b67826127b04c9de3e554000000000000000000000000\022"
-                "B0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
-            ).encode(),
+        authz_msg = exchange_authz_pb.CreateSpotMarketOrderAuthz(
+            subaccount_id="0xf5099d25e6e7e8c6584b67826127b04c9de3e554000000000000000000000000",
+            market_ids=["0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"],
         )
+        authorization = any_pb2.Any()
+        authorization.Pack(authz_msg)
 
         grant = authz_pb2.Grant(authorization=authorization)
 
@@ -75,13 +76,12 @@ class TestChainGrpcAuthZApi:
         self,
         authz_servicer,
     ):
-        authorization = any_pb2.Any(
-            type_url="/injective.exchange.v1beta1.CreateSpotMarketOrderAuthz",
-            value=(
-                "\nB0xf5099d25e6e7e8c6584b67826127b04c9de3e554000000000000000000000000\022"
-                "B0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
-            ).encode(),
+        authz_msg = exchange_authz_pb.CreateSpotMarketOrderAuthz(
+            subaccount_id="0xf5099d25e6e7e8c6584b67826127b04c9de3e554000000000000000000000000",
+            market_ids=["0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"],
         )
+        authorization = any_pb2.Any()
+        authorization.Pack(authz_msg)
 
         grant_authorization = authz_pb2.GrantAuthorization(
             granter="inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku",
@@ -133,13 +133,12 @@ class TestChainGrpcAuthZApi:
         self,
         authz_servicer,
     ):
-        authorization = any_pb2.Any(
-            type_url="/injective.exchange.v1beta1.CreateSpotMarketOrderAuthz",
-            value=(
-                "\nB0xf5099d25e6e7e8c6584b67826127b04c9de3e554000000000000000000000000\022"
-                "B0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
-            ).encode(),
+        authz_msg = exchange_authz_pb.CreateSpotMarketOrderAuthz(
+            subaccount_id="0xf5099d25e6e7e8c6584b67826127b04c9de3e554000000000000000000000000",
+            market_ids=["0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"],
         )
+        authorization = any_pb2.Any()
+        authorization.Pack(authz_msg)
 
         grant_authorization = authz_pb2.GrantAuthorization(
             granter="inj14au322k9munkmx5wrchz9q30juf5wjgz2cfqku",

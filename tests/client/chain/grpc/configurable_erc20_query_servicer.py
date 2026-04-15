@@ -1,6 +1,7 @@
 from collections import deque
 
-from pyinjective.proto.injective.erc20.v1beta1 import query_pb2 as erc20_query_pb, query_pb2_grpc as erc20_query_grpc
+from pyinjective.proto.injective.erc20.v1beta1 import query_pb2 as erc20_query_pb
+from pyinjective.proto.injective.erc20.v1beta1 import query_pb2_grpc as erc20_query_grpc
 
 
 class ConfigurableERC20QueryServicer(erc20_query_grpc.QueryServicer):

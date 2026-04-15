@@ -2,6 +2,8 @@ from collections import deque
 
 from pyinjective.proto.cosmos.base.tendermint.v1beta1 import (
     query_pb2 as tendermint_query,
+)
+from pyinjective.proto.cosmos.base.tendermint.v1beta1 import (
     query_pb2_grpc as tendermint_query_grpc,
 )
 

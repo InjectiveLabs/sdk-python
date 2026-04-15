@@ -5,6 +5,8 @@ from grpc.aio import Channel
 from pyinjective.core.network import CookieAssistant
 from pyinjective.proto.exchange import (
     injective_explorer_rpc_pb2 as exchange_explorer_pb,
+)
+from pyinjective.proto.exchange import (
     injective_explorer_rpc_pb2_grpc as exchange_explorer_grpc,
 )
 from pyinjective.utils.grpc_api_stream_assistant import GrpcApiStreamAssistant

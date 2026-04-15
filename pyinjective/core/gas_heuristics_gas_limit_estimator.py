@@ -9,6 +9,8 @@ from pyinjective.core.gas_limit_estimator import GasLimitEstimator
 from pyinjective.proto.cosmos.authz.v1beta1 import tx_pb2 as cosmos_authz_tx_pb
 from pyinjective.proto.injective.exchange.v2 import (
     order_pb2 as injective_order_v2_pb,
+)
+from pyinjective.proto.injective.exchange.v2 import (
     tx_pb2 as injective_exchange_tx_pb,
 )
 

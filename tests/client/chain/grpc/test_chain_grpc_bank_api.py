@@ -6,7 +6,8 @@ import pytest
 from pyinjective.client.chain.grpc.chain_grpc_bank_api import ChainGrpcBankApi
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import DisabledCookieAssistant, Network
-from pyinjective.proto.cosmos.bank.v1beta1 import bank_pb2 as bank_pb, query_pb2 as bank_query_pb
+from pyinjective.proto.cosmos.bank.v1beta1 import bank_pb2 as bank_pb
+from pyinjective.proto.cosmos.bank.v1beta1 import query_pb2 as bank_query_pb
 from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagination_pb
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb
 from tests.client.chain.grpc.configurable_bank_query_servicer import ConfigurableBankQueryServicer

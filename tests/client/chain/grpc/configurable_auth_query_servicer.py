@@ -1,6 +1,7 @@
 from collections import deque
 
-from pyinjective.proto.cosmos.auth.v1beta1 import query_pb2 as auth_query_pb, query_pb2_grpc as auth_query_grpc
+from pyinjective.proto.cosmos.auth.v1beta1 import query_pb2 as auth_query_pb
+from pyinjective.proto.cosmos.auth.v1beta1 import query_pb2_grpc as auth_query_grpc
 
 
 class ConfigurableAuthQueryServicer(auth_query_grpc.QueryServicer):

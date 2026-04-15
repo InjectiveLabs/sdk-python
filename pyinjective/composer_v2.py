@@ -9,11 +9,15 @@ from google.protobuf import any_pb2, json_format, timestamp_pb2
 from pyinjective.constant import INJ_DECIMALS, INJ_DENOM
 from pyinjective.core.token import Token
 from pyinjective.ofac import OfacChecker
-from pyinjective.proto.cosmos.authz.v1beta1 import authz_pb2 as cosmos_authz_pb, tx_pb2 as cosmos_authz_tx_pb
-from pyinjective.proto.cosmos.bank.v1beta1 import bank_pb2 as bank_pb, tx_pb2 as cosmos_bank_tx_pb
+from pyinjective.proto.cosmos.authz.v1beta1 import authz_pb2 as cosmos_authz_pb
+from pyinjective.proto.cosmos.authz.v1beta1 import tx_pb2 as cosmos_authz_tx_pb
+from pyinjective.proto.cosmos.bank.v1beta1 import bank_pb2 as bank_pb
+from pyinjective.proto.cosmos.bank.v1beta1 import tx_pb2 as cosmos_bank_tx_pb
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as base_coin_pb
 from pyinjective.proto.cosmos.distribution.v1beta1 import (
     distribution_pb2 as cosmos_distribution_pb2,
+)
+from pyinjective.proto.cosmos.distribution.v1beta1 import (
     tx_pb2 as cosmos_distribution_tx_pb,
 )
 from pyinjective.proto.cosmos.gov.v1beta1 import tx_pb2 as cosmos_gov_tx_pb
@@ -23,23 +27,36 @@ from pyinjective.proto.exchange import injective_explorer_rpc_pb2 as explorer_pb
 from pyinjective.proto.ibc.applications.transfer.v1 import tx_pb2 as ibc_transfer_tx_pb
 from pyinjective.proto.ibc.core.client.v1 import client_pb2 as ibc_core_client_pb
 from pyinjective.proto.injective.auction.v1beta1 import tx_pb2 as injective_auction_tx_pb
-from pyinjective.proto.injective.erc20.v1beta1 import erc20_pb2 as injective_erc20_pb2, tx_pb2 as injective_erc20_tx_pb
+from pyinjective.proto.injective.erc20.v1beta1 import erc20_pb2 as injective_erc20_pb2
+from pyinjective.proto.injective.erc20.v1beta1 import tx_pb2 as injective_erc20_tx_pb
 from pyinjective.proto.injective.exchange.v1beta1 import tx_pb2 as injective_exchange_tx_pb
 from pyinjective.proto.injective.exchange.v2 import (
     authz_pb2 as injective_authz_v2_pb,
+)
+from pyinjective.proto.injective.exchange.v2 import (
     exchange_pb2 as injective_exchange_v2_pb,
+)
+from pyinjective.proto.injective.exchange.v2 import (
     market_pb2 as injective_market_v2_pb,
+)
+from pyinjective.proto.injective.exchange.v2 import (
     order_pb2 as injective_order_v2_pb,
+)
+from pyinjective.proto.injective.exchange.v2 import (
     tx_pb2 as injective_exchange_tx_v2_pb,
 )
 from pyinjective.proto.injective.insurance.v1beta1 import tx_pb2 as injective_insurance_tx_pb
 from pyinjective.proto.injective.oracle.v1beta1 import (
     oracle_pb2 as injective_oracle_pb,
+)
+from pyinjective.proto.injective.oracle.v1beta1 import (
     tx_pb2 as injective_oracle_tx_pb,
 )
 from pyinjective.proto.injective.peggy.v1 import msgs_pb2 as injective_peggy_tx_pb
 from pyinjective.proto.injective.permissions.v1beta1 import (
     permissions_pb2 as injective_permissions_pb,
+)
+from pyinjective.proto.injective.permissions.v1beta1 import (
     tx_pb2 as injective_permissions_tx_pb,
 )
 from pyinjective.proto.injective.stream.v2 import query_pb2 as chain_stream_v2_query
@@ -112,7 +129,7 @@ GRPC_MESSAGE_TYPE_TO_CLASS_MAP = {
     "/injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrders":
         injective_exchange_tx_pb.MsgBatchCreateSpotLimitOrders,
     "/injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrders":
-        injective_exchange_tx_pb.MsgBatchCreateDerivativeLimitOrders,  # noqa: 121
+        injective_exchange_tx_pb.MsgBatchCreateDerivativeLimitOrders,
     "/injective.exchange.v1beta1.MsgBatchUpdateOrders":
         injective_exchange_tx_pb.MsgBatchUpdateOrders,
     "/injective.exchange.v1beta1.MsgDeposit":
@@ -464,6 +481,12 @@ class Composer:
             sender=sender,
             round=round,
             bid_amount=self.coin(amount=int(be_amount), denom=INJ_DENOM),
+        )
+
+    def msg_auction_claim_voucher(self, sender: str, denom: str) -> injective_auction_tx_pb.MsgClaimVoucher:
+        return injective_auction_tx_pb.MsgClaimVoucher(
+            sender=sender,
+            denom=denom,
         )
 
     # endregion
@@ -1283,6 +1306,12 @@ class Composer:
             sender=sender,
             market_id=market_id,
             amount=self.coin(amount=int(chain_amount), denom=share_denom),
+        )
+
+    def msg_insurance_claim_voucher(self, sender: str, denom: str) -> injective_insurance_tx_pb.MsgClaimVoucher:
+        return injective_insurance_tx_pb.MsgClaimVoucher(
+            sender=sender,
+            denom=denom,
         )
 
     # endregion

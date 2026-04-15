@@ -6,6 +6,8 @@ from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import CookieAssistant
 from pyinjective.proto.exchange import (
     injective_accounts_rpc_pb2 as exchange_accounts_pb,
+)
+from pyinjective.proto.exchange import (
     injective_accounts_rpc_pb2_grpc as exchange_accounts_grpc,
 )
 from pyinjective.utils.grpc_api_request_assistant import GrpcApiRequestAssistant

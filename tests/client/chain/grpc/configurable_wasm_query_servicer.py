@@ -1,6 +1,7 @@
 from collections import deque
 
-from pyinjective.proto.cosmwasm.wasm.v1 import query_pb2 as wasm_query_pb, query_pb2_grpc as wasm_query_grpc
+from pyinjective.proto.cosmwasm.wasm.v1 import query_pb2 as wasm_query_pb
+from pyinjective.proto.cosmwasm.wasm.v1 import query_pb2_grpc as wasm_query_grpc
 
 
 class ConfigurableWasmQueryServicer(wasm_query_grpc.QueryServicer):
