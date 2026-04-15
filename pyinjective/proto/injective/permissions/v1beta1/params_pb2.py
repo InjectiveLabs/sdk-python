@@ -18,7 +18,7 @@ from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_do
 from pyinjective.proto.amino import amino_pb2 as amino_dot_amino__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n*injective/permissions/v1beta1/params.proto\x12\x1dinjective.permissions.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a\x11\x61mino/amino.proto\"\xa0\x01\n\x06Params\x12\x31\n\x15\x63ontract_hook_max_gas\x18\x01 \x01(\x04R\x12\x63ontractHookMaxGas\x12\x46\n\x1f\x65nforced_restrictions_contracts\x18\x02 \x03(\tR\x1d\x65nforcedRestrictionsContracts:\x1b\xe8\xa0\x1f\x01\x8a\xe7\xb0*\x12permissions/ParamsB\x99\x02\n!com.injective.permissions.v1beta1B\x0bParamsProtoP\x01ZQgithub.com/InjectiveLabs/injective-core/injective-chain/modules/permissions/types\xa2\x02\x03IPX\xaa\x02\x1dInjective.Permissions.V1beta1\xca\x02\x1dInjective\\Permissions\\V1beta1\xe2\x02)Injective\\Permissions\\V1beta1\\GPBMetadata\xea\x02\x1fInjective::Permissions::V1beta1b\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n*injective/permissions/v1beta1/params.proto\x12\x1dinjective.permissions.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x19\x63osmos_proto/cosmos.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a\x11\x61mino/amino.proto\"\xd4\x02\n\x1f\x45nforcedRestrictionsEVMContract\x12\x43\n\x10\x63ontract_address\x18\x01 \x01(\tB\x18\xd2\xb4-\x14\x63osmos.AddressStringR\x0f\x63ontractAddress\x12\x32\n\x15pause_event_signature\x18\x02 \x01(\tR\x13pauseEventSignature\x12\x36\n\x17unpause_event_signature\x18\x03 \x01(\tR\x15unpauseEventSignature\x12:\n\x19\x62lacklist_event_signature\x18\x04 \x01(\tR\x17\x62lacklistEventSignature\x12>\n\x1bunblacklist_event_signature\x18\x05 \x01(\tR\x19unblacklistEventSignature:\x04\xe8\xa0\x1f\x01\"\xcb\x02\n\x06Params\x12\x31\n\x15\x63ontract_hook_max_gas\x18\x01 \x01(\x04R\x12\x63ontractHookMaxGas\x12[\n*deprecated_enforced_restrictions_contracts\x18\x02 \x03(\tR\'deprecatedEnforcedRestrictionsContracts\x12\x93\x01\n#enforced_restrictions_evm_contracts\x18\x03 \x03(\x0b\x32>.injective.permissions.v1beta1.EnforcedRestrictionsEVMContractB\x04\xc8\xde\x1f\x00R enforcedRestrictionsEvmContracts:\x1b\xe8\xa0\x1f\x01\x8a\xe7\xb0*\x12permissions/ParamsB\x99\x02\n!com.injective.permissions.v1beta1B\x0bParamsProtoP\x01ZQgithub.com/InjectiveLabs/injective-core/injective-chain/modules/permissions/types\xa2\x02\x03IPX\xaa\x02\x1dInjective.Permissions.V1beta1\xca\x02\x1dInjective\\Permissions\\V1beta1\xe2\x02)Injective\\Permissions\\V1beta1\\GPBMetadata\xea\x02\x1fInjective::Permissions::V1beta1b\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -26,8 +26,16 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'injective.permissions.v1bet
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'\n!com.injective.permissions.v1beta1B\013ParamsProtoP\001ZQgithub.com/InjectiveLabs/injective-core/injective-chain/modules/permissions/types\242\002\003IPX\252\002\035Injective.Permissions.V1beta1\312\002\035Injective\\Permissions\\V1beta1\342\002)Injective\\Permissions\\V1beta1\\GPBMetadata\352\002\037Injective::Permissions::V1beta1'
+  _globals['_ENFORCEDRESTRICTIONSEVMCONTRACT'].fields_by_name['contract_address']._loaded_options = None
+  _globals['_ENFORCEDRESTRICTIONSEVMCONTRACT'].fields_by_name['contract_address']._serialized_options = b'\322\264-\024cosmos.AddressString'
+  _globals['_ENFORCEDRESTRICTIONSEVMCONTRACT']._loaded_options = None
+  _globals['_ENFORCEDRESTRICTIONSEVMCONTRACT']._serialized_options = b'\350\240\037\001'
+  _globals['_PARAMS'].fields_by_name['enforced_restrictions_evm_contracts']._loaded_options = None
+  _globals['_PARAMS'].fields_by_name['enforced_restrictions_evm_contracts']._serialized_options = b'\310\336\037\000'
   _globals['_PARAMS']._loaded_options = None
   _globals['_PARAMS']._serialized_options = b'\350\240\037\001\212\347\260*\022permissions/Params'
-  _globals['_PARAMS']._serialized_start=178
-  _globals['_PARAMS']._serialized_end=338
+  _globals['_ENFORCEDRESTRICTIONSEVMCONTRACT']._serialized_start=178
+  _globals['_ENFORCEDRESTRICTIONSEVMCONTRACT']._serialized_end=518
+  _globals['_PARAMS']._serialized_start=521
+  _globals['_PARAMS']._serialized_end=852
 # @@protoc_insertion_point(module_scope)

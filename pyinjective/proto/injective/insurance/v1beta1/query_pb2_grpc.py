@@ -45,6 +45,21 @@ class QueryStub(object):
                 request_serializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryModuleStateRequest.SerializeToString,
                 response_deserializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryModuleStateResponse.FromString,
                 _registered_method=True)
+        self.FailedRedemptions = channel.unary_unary(
+                '/injective.insurance.v1beta1.Query/FailedRedemptions',
+                request_serializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryFailedRedemptionsRequest.SerializeToString,
+                response_deserializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryFailedRedemptionsResponse.FromString,
+                _registered_method=True)
+        self.Vouchers = channel.unary_unary(
+                '/injective.insurance.v1beta1.Query/Vouchers',
+                request_serializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryVouchersRequest.SerializeToString,
+                response_deserializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryVouchersResponse.FromString,
+                _registered_method=True)
+        self.Voucher = channel.unary_unary(
+                '/injective.insurance.v1beta1.Query/Voucher',
+                request_serializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryVoucherRequest.SerializeToString,
+                response_deserializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryVoucherResponse.FromString,
+                _registered_method=True)
 
 
 class QueryServicer(object):
@@ -94,6 +109,27 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def FailedRedemptions(self, request, context):
+        """Retrieves all failed redemption schedules
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Vouchers(self, request, context):
+        """Vouchers retrieves all outstanding vouchers; pass an empty denom to get all
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Voucher(self, request, context):
+        """Voucher retrieves a single voucher for a given denom and address
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_QueryServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -126,6 +162,21 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.InsuranceModuleState,
                     request_deserializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryModuleStateRequest.FromString,
                     response_serializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryModuleStateResponse.SerializeToString,
+            ),
+            'FailedRedemptions': grpc.unary_unary_rpc_method_handler(
+                    servicer.FailedRedemptions,
+                    request_deserializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryFailedRedemptionsRequest.FromString,
+                    response_serializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryFailedRedemptionsResponse.SerializeToString,
+            ),
+            'Vouchers': grpc.unary_unary_rpc_method_handler(
+                    servicer.Vouchers,
+                    request_deserializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryVouchersRequest.FromString,
+                    response_serializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryVouchersResponse.SerializeToString,
+            ),
+            'Voucher': grpc.unary_unary_rpc_method_handler(
+                    servicer.Voucher,
+                    request_deserializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryVoucherRequest.FromString,
+                    response_serializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryVoucherResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -291,6 +342,87 @@ class Query(object):
             '/injective.insurance.v1beta1.Query/InsuranceModuleState',
             injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryModuleStateRequest.SerializeToString,
             injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryModuleStateResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def FailedRedemptions(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.insurance.v1beta1.Query/FailedRedemptions',
+            injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryFailedRedemptionsRequest.SerializeToString,
+            injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryFailedRedemptionsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Vouchers(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.insurance.v1beta1.Query/Vouchers',
+            injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryVouchersRequest.SerializeToString,
+            injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryVouchersResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Voucher(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.insurance.v1beta1.Query/Voucher',
+            injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryVoucherRequest.SerializeToString,
+            injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryVoucherResponse.FromString,
             options,
             channel_credentials,
             insecure,

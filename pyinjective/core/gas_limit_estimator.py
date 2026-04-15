@@ -7,8 +7,8 @@ from google.protobuf import any_pb2
 from pyinjective.proto.cosmos.authz.v1beta1 import tx_pb2 as cosmos_authz_tx_pb
 from pyinjective.proto.cosmos.gov.v1beta1 import tx_pb2 as gov_tx_pb
 from pyinjective.proto.cosmwasm.wasm.v1 import tx_pb2 as wasm_tx_pb
-from pyinjective.proto.injective.exchange.v1beta1 import (
-    exchange_pb2 as injective_exchange_pb,
+from pyinjective.proto.injective.exchange.v2 import (
+    order_pb2 as injective_order_v2_pb,
     tx_pb2 as injective_exchange_tx_pb,
 )
 
@@ -72,12 +72,12 @@ class GasLimitEstimator(ABC):
 
     def _select_post_only_orders(
         self,
-        orders: List[Union[injective_exchange_pb.SpotOrder, injective_exchange_pb.DerivativeOrder]],
-    ) -> List[Union[injective_exchange_pb.SpotOrder, injective_exchange_pb.DerivativeOrder]]:
+        orders: List[Union[injective_order_v2_pb.SpotOrder, injective_order_v2_pb.DerivativeOrder]],
+    ) -> List[Union[injective_order_v2_pb.SpotOrder, injective_order_v2_pb.DerivativeOrder]]:
         return [
             order
             for order in orders
-            if order.order_type in [injective_exchange_pb.OrderType.BUY_PO, injective_exchange_pb.OrderType.SELL_PO]
+            if order.order_type in [injective_order_v2_pb.OrderType.BUY_PO, injective_order_v2_pb.OrderType.SELL_PO]
         ]
 
 

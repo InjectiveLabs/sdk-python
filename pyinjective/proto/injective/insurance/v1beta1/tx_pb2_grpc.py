@@ -35,6 +35,11 @@ class MsgStub(object):
                 request_serializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
                 response_deserializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
                 _registered_method=True)
+        self.ClaimVoucher = channel.unary_unary(
+                '/injective.insurance.v1beta1.Msg/ClaimVoucher',
+                request_serializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgClaimVoucher.SerializeToString,
+                response_deserializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgClaimVoucherResponse.FromString,
+                _registered_method=True)
 
 
 class MsgServicer(object):
@@ -70,6 +75,13 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ClaimVoucher(self, request, context):
+        """ClaimVoucher defines a method for claiming an outstanding voucher
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -92,6 +104,11 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.UpdateParams,
                     request_deserializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.FromString,
                     response_serializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.SerializeToString,
+            ),
+            'ClaimVoucher': grpc.unary_unary_rpc_method_handler(
+                    servicer.ClaimVoucher,
+                    request_deserializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgClaimVoucher.FromString,
+                    response_serializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgClaimVoucherResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -203,6 +220,33 @@ class Msg(object):
             '/injective.insurance.v1beta1.Msg/UpdateParams',
             injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
             injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUpdateParamsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ClaimVoucher(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.insurance.v1beta1.Msg/ClaimVoucher',
+            injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgClaimVoucher.SerializeToString,
+            injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgClaimVoucherResponse.FromString,
             options,
             channel_credentials,
             insecure,

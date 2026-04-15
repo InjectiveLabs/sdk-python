@@ -1,16 +1,14 @@
 import math
 from abc import ABC, abstractmethod
 from decimal import Decimal
-from typing import List, Optional, Type, Union
+from typing import List, Optional, Type
 
 from google.protobuf import any_pb2
 from grpc import RpcError
 
 from pyinjective import PrivateKey, PublicKey, Transaction
-from pyinjective.async_client import AsyncClient
-from pyinjective.async_client_v2 import AsyncClient as AsyncClientV2
-from pyinjective.composer import Composer
-from pyinjective.composer_v2 import Composer as ComposerV2
+from pyinjective.async_client_v2 import AsyncClient
+from pyinjective.composer_v2 import Composer
 from pyinjective.constant import GAS_PRICE
 from pyinjective.core.gas_heuristics_gas_limit_estimator import GasHeuristicsGasLimitEstimator
 from pyinjective.core.gas_limit_estimator import GasLimitEstimator
@@ -66,7 +64,7 @@ class MsgBroadcasterWithPk:
         self,
         network: Network,
         account_config: BroadcasterAccountConfig,
-        client: Union[AsyncClient, AsyncClientV2],
+        client: AsyncClient,
         fee_calculator: TransactionFeeCalculator,
     ):
         self._network = network
@@ -84,8 +82,8 @@ class MsgBroadcasterWithPk:
         network: Network,
         private_key: str,
         gas_price: Optional[int] = None,
-        client: Optional[Union[AsyncClient, AsyncClientV2]] = None,
-        composer: Optional[Union[Composer, ComposerV2]] = None,
+        client: Optional[AsyncClient] = None,
+        composer: Optional[Composer] = None,
     ):
         """Creates a new broadcaster instance that uses transaction simulation for gas estimation.
 
@@ -94,14 +92,14 @@ class MsgBroadcasterWithPk:
             private_key (str): The private key in hex format for signing transactions
             gas_price (Optional[int]): Custom gas price in chain format (e.g. 500000000000000000 for 0.5 INJ).
                 Defaults to None
-            client (Optional[Union[AsyncClient, AsyncClientV2]]): Custom AsyncClient instance. Defaults to None
-            composer (Optional[Union[Composer, ComposerV2]]): Custom Composer instance. Defaults to None
+            client (Optional[AsyncClient]): Custom AsyncClient instance. Defaults to None
+            composer (Optional[Composer]): Custom Composer instance. Defaults to None
 
         Returns:
             MsgBroadcasterWithPk: A configured broadcaster instance using simulation-based fee calculation
         """
-        client = client or AsyncClientV2(network=network)
-        composer = composer or ComposerV2(network=client.network.string())
+        client = client or AsyncClient(network=network)
+        composer = composer or Composer(network=client.network.string())
         account_config = StandardAccountBroadcasterConfig(private_key=private_key)
         fee_calculator = SimulatedTransactionFeeCalculator(client=client, composer=composer, gas_price=gas_price)
         instance = cls(
@@ -118,7 +116,7 @@ class MsgBroadcasterWithPk:
         network: Network,
         private_key: str,
         gas_price: Optional[int] = None,
-        client: Optional[Union[AsyncClient, AsyncClientV2]] = None,
+        client: Optional[AsyncClient] = None,
     ):
         """Creates a new broadcaster instance that uses message-based gas estimation without simulation.
 
@@ -127,7 +125,7 @@ class MsgBroadcasterWithPk:
             private_key (str): The private key in hex format for signing transactions
             gas_price (Optional[int]): Custom gas price in chain format (e.g. 500000000000000000 for 0.5 INJ).
                 Defaults to None
-            client (Optional[Union[AsyncClient, AsyncClientV2]]): Custom AsyncClient instance. Defaults to None
+            client (Optional[AsyncClient]): Custom AsyncClient instance. Defaults to None
 
         Returns:
             MsgBroadcasterWithPk: A configured broadcaster instance using message-based fee calculation
@@ -145,8 +143,8 @@ class MsgBroadcasterWithPk:
         network: Network,
         private_key: str,
         gas_price: Optional[int] = None,
-        client: Optional[Union[AsyncClient, AsyncClientV2]] = None,
-        composer: Optional[Union[Composer, ComposerV2]] = None,
+        client: Optional[AsyncClient] = None,
+        composer: Optional[Composer] = None,
     ):
         """Creates a new broadcaster instance that uses gas heuristics for gas calculation
 
@@ -155,14 +153,14 @@ class MsgBroadcasterWithPk:
             private_key (str): The private key in hex format for signing transactions
             gas_price (Optional[int]): Custom gas price in chain format (e.g. 500000000000000000 for 0.5 INJ).
                 Defaults to None
-            client (Optional[Union[AsyncClient, AsyncClientV2]]): Custom AsyncClient instance. Defaults to None
-            composer (Optional[Union[Composer, ComposerV2]]): Custom Composer instance. Defaults to None
+            client (Optional[AsyncClient]): Custom AsyncClient instance. Defaults to None
+            composer (Optional[Composer]): Custom Composer instance. Defaults to None
 
         Returns:
             MsgBroadcasterWithPk: A configured broadcaster instance using message-based fee calculation
         """
-        client = client or AsyncClientV2(network=network)
-        composer = composer or ComposerV2(network=client.network.string())
+        client = client or AsyncClient(network=network)
+        composer = composer or Composer(network=client.network.string())
         account_config = StandardAccountBroadcasterConfig(private_key=private_key)
         fee_calculator = MessageBasedTransactionFeeCalculator.new_using_gas_heuristics(
             client=client,
@@ -183,8 +181,8 @@ class MsgBroadcasterWithPk:
         network: Network,
         private_key: str,
         gas_price: Optional[int] = None,
-        client: Optional[Union[AsyncClient, AsyncClientV2]] = None,
-        composer: Optional[Union[Composer, ComposerV2]] = None,
+        client: Optional[AsyncClient] = None,
+        composer: Optional[Composer] = None,
     ):
         """Creates a new broadcaster instance that uses message-based gas estimation without simulation.
 
@@ -193,14 +191,14 @@ class MsgBroadcasterWithPk:
             private_key (str): The private key in hex format for signing transactions
             gas_price (Optional[int]): Custom gas price in chain format (e.g. 500000000000000000 for 0.5 INJ).
                 Defaults to None
-            client (Optional[Union[AsyncClient, AsyncClientV2]]): Custom AsyncClient instance. Defaults to None
-            composer (Optional[Union[Composer, ComposerV2]]): Custom Composer instance. Defaults to None
+            client (Optional[AsyncClient]): Custom AsyncClient instance. Defaults to None
+            composer (Optional[Composer]): Custom Composer instance. Defaults to None
 
         Returns:
             MsgBroadcasterWithPk: A configured broadcaster instance using message-based fee calculation
         """
-        client = client or AsyncClientV2(network=network)
-        composer = composer or ComposerV2(network=client.network.string())
+        client = client or AsyncClient(network=network)
+        composer = composer or Composer(network=client.network.string())
         account_config = StandardAccountBroadcasterConfig(private_key=private_key)
         fee_calculator = MessageBasedTransactionFeeCalculator.new_using_gas_estimation(
             client=client,
@@ -221,8 +219,8 @@ class MsgBroadcasterWithPk:
         network: Network,
         grantee_private_key: str,
         gas_price: Optional[int] = None,
-        client: Optional[Union[AsyncClient, AsyncClientV2]] = None,
-        composer: Optional[Union[Composer, ComposerV2]] = None,
+        client: Optional[AsyncClient] = None,
+        composer: Optional[Composer] = None,
     ):
         """Creates a new broadcaster instance for a grantee account that uses transaction simulation for gas estimation.
 
@@ -231,15 +229,15 @@ class MsgBroadcasterWithPk:
             grantee_private_key (str): The grantee's private key in hex format for signing transactions
             gas_price (Optional[int]): Custom gas price in chain format (e.g. 500000000000000000 for 0.5 INJ).
                 Defaults to None
-            client (Optional[Union[AsyncClient, AsyncClientV2]]): Custom AsyncClient instance. Defaults to None
-            composer (Optional[Union[Composer, ComposerV2]]): Custom Composer instance. Defaults to None
+            client (Optional[AsyncClient]): Custom AsyncClient instance. Defaults to None
+            composer (Optional[Composer]): Custom Composer instance. Defaults to None
 
         Returns:
             MsgBroadcasterWithPk: A configured broadcaster instance using simulation-based fee calculation for a grantee
             account
         """
-        client = client or AsyncClientV2(network=network)
-        composer = composer or ComposerV2(network=client.network.string())
+        client = client or AsyncClient(network=network)
+        composer = composer or Composer(network=client.network.string())
         account_config = GranteeAccountBroadcasterConfig(grantee_private_key=grantee_private_key, composer=composer)
         fee_calculator = SimulatedTransactionFeeCalculator(client=client, composer=composer, gas_price=gas_price)
         instance = cls(
@@ -256,8 +254,8 @@ class MsgBroadcasterWithPk:
         network: Network,
         grantee_private_key: str,
         gas_price: Optional[int] = None,
-        client: Optional[Union[AsyncClient, AsyncClientV2]] = None,
-        composer: Optional[Union[Composer, ComposerV2]] = None,
+        client: Optional[AsyncClient] = None,
+        composer: Optional[Composer] = None,
     ):
         """Creates a new broadcaster instance for a grantee account that uses gas estimator using gas heuristics.
 
@@ -266,8 +264,8 @@ class MsgBroadcasterWithPk:
             grantee_private_key (str): The grantee's private key in hex format for signing transactions
             gas_price (Optional[int]): Custom gas price in chain format (e.g. 500000000000000000 for 0.5 INJ).
                 Defaults to None
-            client (Optional[Union[AsyncClient, AsyncClientV2]]): Custom AsyncClient instance. Defaults to None
-            composer (Optional[Union[Composer, ComposerV2]]): Custom Composer instance. Defaults to None
+            client (Optional[AsyncClient]): Custom AsyncClient instance. Defaults to None
+            composer (Optional[Composer]): Custom Composer instance. Defaults to None
 
         Returns:
             MsgBroadcasterWithPk: A configured broadcaster instance using message-based fee calculation for a grantee
@@ -287,8 +285,8 @@ class MsgBroadcasterWithPk:
         network: Network,
         grantee_private_key: str,
         gas_price: Optional[int] = None,
-        client: Optional[Union[AsyncClient, AsyncClientV2]] = None,
-        composer: Optional[Union[Composer, ComposerV2]] = None,
+        client: Optional[AsyncClient] = None,
+        composer: Optional[Composer] = None,
     ):
         """Creates a new broadcaster instance for a grantee account that uses gas heuristics.
 
@@ -297,15 +295,15 @@ class MsgBroadcasterWithPk:
             grantee_private_key (str): The grantee's private key in hex format for signing transactions
             gas_price (Optional[int]): Custom gas price in chain format (e.g. 500000000000000000 for 0.5 INJ).
                 Defaults to None
-            client (Optional[Union[AsyncClient, AsyncClientV2]]): Custom AsyncClient instance. Defaults to None
-            composer (Optional[Union[Composer, ComposerV2]]): Custom Composer instance. Defaults to None
+            client (Optional[AsyncClient]): Custom AsyncClient instance. Defaults to None
+            composer (Optional[Composer]): Custom Composer instance. Defaults to None
 
         Returns:
             MsgBroadcasterWithPk: A configured broadcaster instance using message-based fee calculation for a grantee
             account
         """
-        client = client or AsyncClientV2(network=network)
-        composer = composer or ComposerV2(network=client.network.string())
+        client = client or AsyncClient(network=network)
+        composer = composer or Composer(network=client.network.string())
         account_config = GranteeAccountBroadcasterConfig(grantee_private_key=grantee_private_key, composer=composer)
         fee_calculator = MessageBasedTransactionFeeCalculator.new_using_gas_heuristics(
             client=client,
@@ -326,8 +324,8 @@ class MsgBroadcasterWithPk:
         network: Network,
         grantee_private_key: str,
         gas_price: Optional[int] = None,
-        client: Optional[Union[AsyncClient, AsyncClientV2]] = None,
-        composer: Optional[Union[Composer, ComposerV2]] = None,
+        client: Optional[AsyncClient] = None,
+        composer: Optional[Composer] = None,
     ):
         """Creates a new broadcaster instance for a grantee account that uses message-based gas estimation without
             simulation.
@@ -337,15 +335,15 @@ class MsgBroadcasterWithPk:
             grantee_private_key (str): The grantee's private key in hex format for signing transactions
             gas_price (Optional[int]): Custom gas price in chain format (e.g. 500000000000000000 for 0.5 INJ).
                 Defaults to None
-            client (Optional[Union[AsyncClient, AsyncClientV2]]): Custom AsyncClient instance. Defaults to None
-            composer (Optional[Union[Composer, ComposerV2]]): Custom Composer instance. Defaults to None
+            client (Optional[AsyncClient]): Custom AsyncClient instance. Defaults to None
+            composer (Optional[Composer]): Custom Composer instance. Defaults to None
 
         Returns:
             MsgBroadcasterWithPk: A configured broadcaster instance using message-based fee calculation for a grantee
             account
         """
-        client = client or AsyncClientV2(network=network)
-        composer = composer or ComposerV2(network=client.network.string())
+        client = client or AsyncClient(network=network)
+        composer = composer or Composer(network=client.network.string())
         account_config = GranteeAccountBroadcasterConfig(grantee_private_key=grantee_private_key, composer=composer)
         fee_calculator = MessageBasedTransactionFeeCalculator.new_using_gas_estimation(
             client=client,
@@ -426,7 +424,7 @@ class StandardAccountBroadcasterConfig(BroadcasterAccountConfig):
 
 
 class GranteeAccountBroadcasterConfig(BroadcasterAccountConfig):
-    def __init__(self, grantee_private_key: str, composer: Union[Composer, ComposerV2]):
+    def __init__(self, grantee_private_key: str, composer: Composer):
         self._grantee_private_key = PrivateKey.from_hex(grantee_private_key)
         self._grantee_public_key = self._grantee_private_key.to_public_key()
         self._grantee_address = self._grantee_public_key.to_address()
@@ -456,8 +454,8 @@ class GranteeAccountBroadcasterConfig(BroadcasterAccountConfig):
 class SimulatedTransactionFeeCalculator(TransactionFeeCalculator):
     def __init__(
         self,
-        client: Union[AsyncClient, AsyncClientV2],
-        composer: Union[Composer, ComposerV2],
+        client: AsyncClient,
+        composer: Composer,
         gas_price: Optional[int] = None,
         gas_limit_adjustment_multiplier: Optional[Decimal] = None,
     ):
@@ -508,8 +506,8 @@ class MessageBasedTransactionFeeCalculator(TransactionFeeCalculator):
 
     def __init__(
         self,
-        client: Union[AsyncClient, AsyncClientV2],
-        composer: Union[Composer, ComposerV2],
+        client: AsyncClient,
+        composer: Composer,
         gas_price: Optional[int] = None,
         estimator_class: Optional[Type] = None,
     ):

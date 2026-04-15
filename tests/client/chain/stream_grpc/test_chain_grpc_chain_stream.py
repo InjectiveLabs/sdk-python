@@ -5,7 +5,6 @@ import grpc
 import pytest
 
 from pyinjective.client.chain.grpc_stream.chain_grpc_chain_stream import ChainGrpcChainStream
-from pyinjective.composer import Composer as ComposerV1
 from pyinjective.composer_v2 import Composer as ComposerV2
 from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb
@@ -202,8 +201,6 @@ class TestChainGrpcChainStream:
             )
         )
 
-        network = Network.devnet()
-        composer = ComposerV1(network=network.string())
         api = self._api_instance(servicer=chain_stream_servicer, servicer_v2=chain_stream_v2_servicer)
 
         events = asyncio.Queue()
@@ -213,16 +210,16 @@ class TestChainGrpcChainStream:
         error_callback = lambda exception: pytest.fail(str(exception))
         end_callback = lambda: end_event.set()
 
-        bank_balances_filter = composer.chain_stream_bank_balances_filter()
-        subaccount_deposits_filter = composer.chain_stream_subaccount_deposits_filter()
-        spot_trades_filter = composer.chain_stream_trades_filter()
-        derivative_trades_filter = composer.chain_stream_trades_filter()
-        spot_orders_filter = composer.chain_stream_orders_filter()
-        derivative_orders_filter = composer.chain_stream_orders_filter()
-        spot_orderbooks_filter = composer.chain_stream_orderbooks_filter()
-        derivative_orderbooks_filter = composer.chain_stream_orderbooks_filter()
-        positions_filter = composer.chain_stream_positions_filter()
-        oracle_price_filter = composer.chain_stream_oracle_price_filter()
+        bank_balances_filter = chain_stream_pb.BankBalancesFilter(accounts=["*"])
+        subaccount_deposits_filter = chain_stream_pb.SubaccountDepositsFilter(subaccount_ids=["*"])
+        spot_trades_filter = chain_stream_pb.TradesFilter(subaccount_ids=["*"], market_ids=["*"])
+        derivative_trades_filter = chain_stream_pb.TradesFilter(subaccount_ids=["*"], market_ids=["*"])
+        spot_orders_filter = chain_stream_pb.OrdersFilter(subaccount_ids=["*"], market_ids=["*"])
+        derivative_orders_filter = chain_stream_pb.OrdersFilter(subaccount_ids=["*"], market_ids=["*"])
+        spot_orderbooks_filter = chain_stream_pb.OrderbookFilter(market_ids=["*"])
+        derivative_orderbooks_filter = chain_stream_pb.OrderbookFilter(market_ids=["*"])
+        positions_filter = chain_stream_pb.PositionsFilter(subaccount_ids=["*"], market_ids=["*"])
+        oracle_price_filter = chain_stream_pb.OraclePriceFilter(symbol=["*"])
 
         expected_update = {
             "blockHeight": str(block_height),
@@ -392,25 +389,26 @@ class TestChainGrpcChainStream:
             ],
         }
 
-        asyncio.get_event_loop().create_task(
-            api.stream(
-                callback=callback,
-                on_end_callback=end_callback,
-                on_status_callback=error_callback,
-                bank_balances_filter=bank_balances_filter,
-                subaccount_deposits_filter=subaccount_deposits_filter,
-                spot_trades_filter=spot_trades_filter,
-                derivative_trades_filter=derivative_trades_filter,
-                spot_orders_filter=spot_orders_filter,
-                derivative_orders_filter=derivative_orders_filter,
-                spot_orderbooks_filter=spot_orderbooks_filter,
-                derivative_orderbooks_filter=derivative_orderbooks_filter,
-                positions_filter=positions_filter,
-                oracle_price_filter=oracle_price_filter,
+        with pytest.warns(DeprecationWarning, match="stream is deprecated"):
+            asyncio.get_event_loop().create_task(
+                api.stream(
+                    callback=callback,
+                    on_end_callback=end_callback,
+                    on_status_callback=error_callback,
+                    bank_balances_filter=bank_balances_filter,
+                    subaccount_deposits_filter=subaccount_deposits_filter,
+                    spot_trades_filter=spot_trades_filter,
+                    derivative_trades_filter=derivative_trades_filter,
+                    spot_orders_filter=spot_orders_filter,
+                    derivative_orders_filter=derivative_orders_filter,
+                    spot_orderbooks_filter=spot_orderbooks_filter,
+                    derivative_orderbooks_filter=derivative_orderbooks_filter,
+                    positions_filter=positions_filter,
+                    oracle_price_filter=oracle_price_filter,
+                )
             )
-        )
 
-        first_update = await asyncio.wait_for(events.get(), timeout=1)
+            first_update = await asyncio.wait_for(events.get(), timeout=1)
 
         assert first_update == expected_update
         assert end_event.is_set()

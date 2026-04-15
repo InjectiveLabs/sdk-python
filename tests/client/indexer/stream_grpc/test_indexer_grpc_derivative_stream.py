@@ -823,6 +823,7 @@ class TestIndexerGrpcDerivativeStream:
             funding_sum="9999.123456789",
             cumulative_funding_entry="20000.123456789",
             effective_cumulative_funding_entry="30000.123456789",
+            upnl="10.123456789",
         )
 
         derivative_servicer.stream_positions_v2_responses.append(
@@ -870,6 +871,7 @@ class TestIndexerGrpcDerivativeStream:
                 "fundingSum": position.funding_sum,
                 "cumulativeFundingEntry": position.cumulative_funding_entry,
                 "effectiveCumulativeFundingEntry": position.effective_cumulative_funding_entry,
+                "upnl": position.upnl,
             },
             "timestamp": str(timestamp),
         }
