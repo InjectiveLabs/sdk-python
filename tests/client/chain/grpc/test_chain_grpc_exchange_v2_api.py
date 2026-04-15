@@ -9,17 +9,9 @@ from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb
 from pyinjective.proto.injective.exchange.v2 import (
     exchange_pb2 as exchange_pb,
-)
-from pyinjective.proto.injective.exchange.v2 import (
     market_pb2 as market_pb,
-)
-from pyinjective.proto.injective.exchange.v2 import (
     order_pb2 as order_pb,
-)
-from pyinjective.proto.injective.exchange.v2 import (
     orderbook_pb2 as orderbook_pb,
-)
-from pyinjective.proto.injective.exchange.v2 import (
     query_pb2 as exchange_query_pb,
 )
 from pyinjective.proto.injective.oracle.v1beta1 import oracle_pb2 as oracle_pb

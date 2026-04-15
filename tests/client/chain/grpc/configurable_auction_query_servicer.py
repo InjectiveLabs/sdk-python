@@ -2,8 +2,6 @@ from collections import deque
 
 from pyinjective.proto.injective.auction.v1beta1 import (
     query_pb2 as auction_query_pb,
-)
-from pyinjective.proto.injective.auction.v1beta1 import (
     query_pb2_grpc as auction_query_grpc,
 )
 

@@ -9,8 +9,7 @@ from pyinjective.composer_v2 import Composer as ComposerV2
 from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb
 from pyinjective.proto.injective.exchange.v1beta1 import exchange_pb2 as exchange_pb
-from pyinjective.proto.injective.exchange.v2 import exchange_pb2 as exchange_v2_pb
-from pyinjective.proto.injective.exchange.v2 import order_pb2 as order_v2_pb
+from pyinjective.proto.injective.exchange.v2 import exchange_pb2 as exchange_v2_pb, order_pb2 as order_v2_pb
 from pyinjective.proto.injective.stream.v1beta1 import query_pb2 as chain_stream_pb
 from pyinjective.proto.injective.stream.v2 import query_pb2 as chain_stream_v2_pb
 from tests.client.chain.stream_grpc.configurable_chain_stream_query_servicer import (

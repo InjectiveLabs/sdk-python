@@ -2,8 +2,6 @@ from collections import deque
 
 from pyinjective.proto.cosmos.distribution.v1beta1 import (
     query_pb2 as distribution_query_pb,
-)
-from pyinjective.proto.cosmos.distribution.v1beta1 import (
     query_pb2_grpc as distribution_query_grpc,
 )
 

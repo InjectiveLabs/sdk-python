@@ -8,8 +8,7 @@ from pyinjective.core.ibc.transfer.grpc.ibc_transfer_grpc_api import IBCTransfer
 from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagination_pb
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb
-from pyinjective.proto.ibc.applications.transfer.v1 import query_pb2 as ibc_transfer_query
-from pyinjective.proto.ibc.applications.transfer.v1 import transfer_pb2 as ibc_transfer
+from pyinjective.proto.ibc.applications.transfer.v1 import query_pb2 as ibc_transfer_query, transfer_pb2 as ibc_transfer
 from tests.core.ibc.transfer.grpc.configurable_ibc_transfer_query_servicer import ConfigurableIBCTransferQueryServicer
 
 

@@ -6,11 +6,7 @@ from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb
 from pyinjective.proto.injective.auction.v1beta1 import (
     auction_pb2 as auction_pb,
-)
-from pyinjective.proto.injective.auction.v1beta1 import (
     genesis_pb2 as genesis_pb,
-)
-from pyinjective.proto.injective.auction.v1beta1 import (
     query_pb2 as auction_query_pb,
 )
 from pyinjective.proto.injective.common.vouchers.v1 import vouchers_pb2 as vouchers_pb

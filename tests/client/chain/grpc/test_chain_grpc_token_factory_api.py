@@ -6,14 +6,8 @@ from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb
 from pyinjective.proto.injective.tokenfactory.v1beta1 import (
     authorityMetadata_pb2 as token_factory_authority_metadata_pb,
-)
-from pyinjective.proto.injective.tokenfactory.v1beta1 import (
     genesis_pb2 as token_factory_genesis_pb,
-)
-from pyinjective.proto.injective.tokenfactory.v1beta1 import (
     params_pb2 as token_factory_params_pb,
-)
-from pyinjective.proto.injective.tokenfactory.v1beta1 import (
     query_pb2 as token_factory_query_pb,
 )
 from tests.client.chain.grpc.configurable_token_factory_query_servicer import ConfigurableTokenFactoryQueryServicer

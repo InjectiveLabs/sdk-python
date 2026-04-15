@@ -4,8 +4,7 @@ from grpc.aio import Channel
 
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import CookieAssistant
-from pyinjective.proto.cosmos.auth.v1beta1 import query_pb2 as auth_query_pb
-from pyinjective.proto.cosmos.auth.v1beta1 import query_pb2_grpc as auth_query_grpc
+from pyinjective.proto.cosmos.auth.v1beta1 import query_pb2 as auth_query_pb, query_pb2_grpc as auth_query_grpc
 from pyinjective.utils.grpc_api_request_assistant import GrpcApiRequestAssistant
 
 

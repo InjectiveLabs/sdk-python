@@ -3,8 +3,7 @@ from typing import Any, Callable, Dict
 from grpc.aio import Channel
 
 from pyinjective.core.network import CookieAssistant
-from pyinjective.proto.cosmos.tx.v1beta1 import service_pb2 as tx_service
-from pyinjective.proto.cosmos.tx.v1beta1 import service_pb2_grpc as tx_service_grpc
+from pyinjective.proto.cosmos.tx.v1beta1 import service_pb2 as tx_service, service_pb2_grpc as tx_service_grpc
 from pyinjective.utils.grpc_api_request_assistant import GrpcApiRequestAssistant
 
 

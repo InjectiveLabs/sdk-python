@@ -2,8 +2,6 @@ from collections import deque
 
 from pyinjective.proto.injective.permissions.v1beta1 import (
     query_pb2 as permissions_query_pb,
-)
-from pyinjective.proto.injective.permissions.v1beta1 import (
     query_pb2_grpc as permissions_query_grpc,
 )
 

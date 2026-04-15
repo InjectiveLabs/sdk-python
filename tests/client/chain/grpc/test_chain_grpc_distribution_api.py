@@ -10,8 +10,6 @@ from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagina
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb
 from pyinjective.proto.cosmos.distribution.v1beta1 import (
     distribution_pb2 as distribution_pb,
-)
-from pyinjective.proto.cosmos.distribution.v1beta1 import (
     query_pb2 as distribution_query_pb,
 )
 from tests.client.chain.grpc.configurable_distribution_query_servicer import ConfigurableDistributionQueryServicer

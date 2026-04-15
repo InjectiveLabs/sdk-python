@@ -1,11 +1,8 @@
 from collections import deque
 
-from pyinjective.proto.injective.stream.v1beta1 import query_pb2 as chain_stream_pb
-from pyinjective.proto.injective.stream.v1beta1 import query_pb2_grpc as chain_stream_grpc
+from pyinjective.proto.injective.stream.v1beta1 import query_pb2 as chain_stream_pb, query_pb2_grpc as chain_stream_grpc
 from pyinjective.proto.injective.stream.v2 import (
     query_pb2 as chain_stream_v2_pb,
-)
-from pyinjective.proto.injective.stream.v2 import (
     query_pb2_grpc as chain_stream_v2_grpc,
 )
 

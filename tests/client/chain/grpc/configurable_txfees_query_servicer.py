@@ -1,7 +1,6 @@
 from collections import deque
 
-from pyinjective.proto.injective.txfees.v1beta1 import query_pb2 as txfees_query_pb
-from pyinjective.proto.injective.txfees.v1beta1 import query_pb2_grpc as txfees_query_grpc
+from pyinjective.proto.injective.txfees.v1beta1 import query_pb2 as txfees_query_pb, query_pb2_grpc as txfees_query_grpc
 
 
 class ConfigurableTxfeesQueryServicer(txfees_query_grpc.QueryServicer):

@@ -2,8 +2,6 @@ from collections import deque
 
 from pyinjective.proto.ibc.core.channel.v1 import (
     query_pb2 as ibc_channel_query,
-)
-from pyinjective.proto.ibc.core.channel.v1 import (
     query_pb2_grpc as ibc_channel_query_grpc,
 )
 

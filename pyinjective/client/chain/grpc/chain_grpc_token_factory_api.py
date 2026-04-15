@@ -5,8 +5,6 @@ from grpc.aio import Channel
 from pyinjective.core.network import CookieAssistant
 from pyinjective.proto.injective.tokenfactory.v1beta1 import (
     query_pb2 as token_factory_query_pb,
-)
-from pyinjective.proto.injective.tokenfactory.v1beta1 import (
     query_pb2_grpc as token_factory_query_grpc,
 )
 from pyinjective.utils.grpc_api_request_assistant import GrpcApiRequestAssistant

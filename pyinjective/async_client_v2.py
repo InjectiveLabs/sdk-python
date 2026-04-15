@@ -38,8 +38,7 @@ from pyinjective.proto.cosmos.authz.v1beta1 import query_pb2_grpc as authz_query
 from pyinjective.proto.cosmos.bank.v1beta1 import query_pb2_grpc as bank_query_grpc
 from pyinjective.proto.cosmos.base.tendermint.v1beta1 import query_pb2_grpc as tendermint_query_grpc
 from pyinjective.proto.cosmos.crypto.ed25519 import keys_pb2 as ed25519_keys  # noqa: F401 for validator set responses
-from pyinjective.proto.cosmos.tx.v1beta1 import service_pb2 as tx_service
-from pyinjective.proto.cosmos.tx.v1beta1 import service_pb2_grpc as tx_service_grpc
+from pyinjective.proto.cosmos.tx.v1beta1 import service_pb2 as tx_service, service_pb2_grpc as tx_service_grpc
 from pyinjective.proto.ibc.lightclients.tendermint.v1 import (  # noqa: F401 for validator set responses
     tendermint_pb2 as ibc_tendermint,
 )

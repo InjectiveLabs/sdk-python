@@ -3,8 +3,7 @@ import pytest
 
 from pyinjective.client.chain.grpc.chain_grpc_txfees_api import ChainGrpcTxfeesApi
 from pyinjective.core.network import DisabledCookieAssistant, Network
-from pyinjective.proto.injective.txfees.v1beta1 import query_pb2 as txfees_query_pb
-from pyinjective.proto.injective.txfees.v1beta1 import txfees_pb2 as txfees_pb
+from pyinjective.proto.injective.txfees.v1beta1 import query_pb2 as txfees_query_pb, txfees_pb2 as txfees_pb
 from tests.client.chain.grpc.configurable_txfees_query_servicer import ConfigurableTxfeesQueryServicer
 
 

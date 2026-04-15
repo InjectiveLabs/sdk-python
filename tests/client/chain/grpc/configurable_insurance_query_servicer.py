@@ -24,14 +24,10 @@ class ConfigurableInsuranceQueryServicer(insurance_query_grpc.QueryServicer):
     ):
         return self.insurance_params.pop()
 
-    async def InsuranceFund(
-        self, request: insurance_query_pb.QueryInsuranceFundRequest, context=None, metadata=None
-    ):
+    async def InsuranceFund(self, request: insurance_query_pb.QueryInsuranceFundRequest, context=None, metadata=None):
         return self.insurance_fund_responses.pop()
 
-    async def InsuranceFunds(
-        self, request: insurance_query_pb.QueryInsuranceFundsRequest, context=None, metadata=None
-    ):
+    async def InsuranceFunds(self, request: insurance_query_pb.QueryInsuranceFundsRequest, context=None, metadata=None):
         return self.insurance_funds_responses.pop()
 
     async def EstimatedRedemptions(

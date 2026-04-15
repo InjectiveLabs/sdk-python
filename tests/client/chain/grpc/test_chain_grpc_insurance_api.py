@@ -1,7 +1,6 @@
 import grpc
 import pytest
-from google.protobuf import duration_pb2
-from google.protobuf import timestamp_pb2
+from google.protobuf import duration_pb2, timestamp_pb2
 
 from pyinjective.client.chain.grpc.chain_grpc_insurance_api import ChainGrpcInsuranceApi
 from pyinjective.core.network import DisabledCookieAssistant, Network
@@ -26,9 +25,7 @@ class TestChainGrpcInsuranceApi:
     async def test_fetch_module_params(self, insurance_servicer):
         dur = duration_pb2.Duration(seconds=3600)
         params = insurance_pb.Params(default_redemption_notice_period_duration=dur)
-        insurance_servicer.insurance_params.append(
-            insurance_query_pb.QueryInsuranceParamsResponse(params=params)
-        )
+        insurance_servicer.insurance_params.append(insurance_query_pb.QueryInsuranceParamsResponse(params=params))
 
         api = self._api_instance(servicer=insurance_servicer)
         result = await api.fetch_module_params()
@@ -55,9 +52,7 @@ class TestChainGrpcInsuranceApi:
             oracle_type=oracle_pb.OracleType.Value("Band"),
             expiry=123,
         )
-        insurance_servicer.insurance_fund_responses.append(
-            insurance_query_pb.QueryInsuranceFundResponse(fund=fund)
-        )
+        insurance_servicer.insurance_fund_responses.append(insurance_query_pb.QueryInsuranceFundResponse(fund=fund))
 
         api = self._api_instance(servicer=insurance_servicer)
         result = await api.fetch_insurance_fund(market_id="m1")
@@ -122,9 +117,7 @@ class TestChainGrpcInsuranceApi:
     @pytest.mark.asyncio
     async def test_fetch_estimated_redemptions(self, insurance_servicer):
         insurance_servicer.estimated_redemptions_responses.append(
-            insurance_query_pb.QueryEstimatedRedemptionsResponse(
-                amount=[coin_pb.Coin(denom="inj", amount="1")]
-            )
+            insurance_query_pb.QueryEstimatedRedemptionsResponse(amount=[coin_pb.Coin(denom="inj", amount="1")])
         )
 
         api = self._api_instance(servicer=insurance_servicer)
@@ -142,9 +135,7 @@ class TestChainGrpcInsuranceApi:
     @pytest.mark.asyncio
     async def test_fetch_pending_redemptions(self, insurance_servicer):
         insurance_servicer.pending_redemptions_responses.append(
-            insurance_query_pb.QueryPendingRedemptionsResponse(
-                amount=[coin_pb.Coin(denom="inj", amount="2")]
-            )
+            insurance_query_pb.QueryPendingRedemptionsResponse(amount=[coin_pb.Coin(denom="inj", amount="2")])
         )
 
         api = self._api_instance(servicer=insurance_servicer)
@@ -222,9 +213,7 @@ class TestChainGrpcInsuranceApi:
             address="inj1ady3s7whq30l4fx8sj3x6muv5mx4dfdlcpv8n7",
             voucher=coin_pb.Coin(denom="inj", amount="1000000000"),
         )
-        insurance_servicer.vouchers_responses.append(
-            insurance_query_pb.QueryVouchersResponse(vouchers=[voucher])
-        )
+        insurance_servicer.vouchers_responses.append(insurance_query_pb.QueryVouchersResponse(vouchers=[voucher]))
 
         api = self._api_instance(servicer=insurance_servicer)
         result = await api.fetch_vouchers(denom="inj")

@@ -11,8 +11,7 @@ from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as pagina
 from pyinjective.proto.cosmos.ics23.v1 import proofs_pb2 as ics23_proofs
 from pyinjective.proto.ibc.core.client.v1 import client_pb2 as ibc_client
 from pyinjective.proto.ibc.core.commitment.v1 import commitment_pb2 as ibc_commitment
-from pyinjective.proto.ibc.core.connection.v1 import connection_pb2 as ibc_connection
-from pyinjective.proto.ibc.core.connection.v1 import query_pb2 as ibc_connection_query
+from pyinjective.proto.ibc.core.connection.v1 import connection_pb2 as ibc_connection, query_pb2 as ibc_connection_query
 from pyinjective.proto.ibc.lightclients.tendermint.v1 import tendermint_pb2 as ibc_tendermint
 from tests.core.ibc.connection.grpc.configurable_ibc_connection_query_servicer import (
     ConfigurableIBCConnectionQueryServicer,
