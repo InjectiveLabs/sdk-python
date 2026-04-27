@@ -12,34 +12,24 @@ async def price_event_processor(event: Dict[str, Any]):
 
 
 def stream_error_processor(exception: RpcError):
-    print(f"There was an error listening to oracle prices updates ({exception})")
+    print(f"There was an error listening to oracle prices by markets updates ({exception})")
 
 
 def stream_closed_processor():
-    print("The oracle prices updates stream has been closed")
+    print("The oracle prices by markets updates stream has been closed")
 
 
 async def main() -> None:
-    # select network: local, testnet, mainnet
     network = Network.testnet()
     client = IndexerClient(network)
-    market_response = await client.fetch_derivative_market(
-        market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
-    )
-    market = market_response["market"]
-
-    base_symbol = market["oracleBase"]
-    quote_symbol = market["oracleQuote"]
-    oracle_type = market["oracleType"].lower()
+    market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
 
     task = asyncio.get_event_loop().create_task(
-        client.listen_oracle_prices_updates(
+        client.listen_oracle_prices_by_markets_updates(
+            market_ids=[market_id],
             callback=price_event_processor,
             on_end_callback=stream_closed_processor,
             on_status_callback=stream_error_processor,
-            base_symbol=base_symbol,
-            quote_symbol=quote_symbol,
-            oracle_type=oracle_type,
         )
     )
 

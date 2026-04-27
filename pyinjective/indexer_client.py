@@ -663,6 +663,36 @@ class IndexerClient:
             oracle_type=oracle_type,
         )
 
+    async def listen_oracle_list_updates(
+        self,
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+        oracle_type: Optional[str] = None,
+        symbols: Optional[List[str]] = None,
+    ):
+        await self.oracle_stream_api.stream_oracle_list(
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+            oracle_type=oracle_type,
+            symbols=symbols,
+        )
+
+    async def listen_oracle_prices_by_markets_updates(
+        self,
+        market_ids: List[str],
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+    ):
+        await self.oracle_stream_api.stream_oracle_prices_by_markets(
+            market_ids=market_ids,
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+        )
+
     # endregion
 
     # region portfolio
