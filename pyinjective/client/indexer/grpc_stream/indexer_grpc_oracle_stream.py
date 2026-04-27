@@ -12,7 +12,7 @@ from pyinjective.utils.grpc_api_stream_assistant import GrpcApiStreamAssistant
 
 class IndexerGrpcOracleStream:
     def __init__(self, channel: Channel, cookie_assistant: CookieAssistant):
-        self._stub = self._stub = exchange_oracle_grpc.InjectiveOracleRPCStub(channel)
+        self._stub = exchange_oracle_grpc.InjectiveOracleRPCStub(channel)
         self._assistant = GrpcApiStreamAssistant(cookie_assistant=cookie_assistant)
 
     async def stream_oracle_prices(
@@ -32,6 +32,27 @@ class IndexerGrpcOracleStream:
 
         await self._assistant.listen_stream(
             call=self._stub.StreamPrices,
+            request=request,
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+        )
+
+    async def stream_oracle_list(
+        self,
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+        oracle_type: Optional[str] = None,
+        symbols: Optional[List[str]] = None,
+    ):
+        request = exchange_oracle_pb.StreamOracleListRequest(
+            oracle_type=oracle_type,
+            symbols=symbols or [],
+        )
+
+        await self._assistant.listen_stream(
+            call=self._stub.StreamOracleList,
             request=request,
             callback=callback,
             on_end_callback=on_end_callback,
