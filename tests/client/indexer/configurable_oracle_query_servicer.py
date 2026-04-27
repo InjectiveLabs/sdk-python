@@ -35,8 +35,6 @@ class ConfigurableOracleQueryServicer(exchange_oracle_grpc.InjectiveOracleRPCSer
         for event in self.stream_prices_by_markets_responses:
             yield event
 
-    async def StreamOracleList(
-        self, request: exchange_oracle_pb.StreamOracleListRequest, context=None, metadata=None
-    ):
+    async def StreamOracleList(self, request: exchange_oracle_pb.StreamOracleListRequest, context=None, metadata=None):
         for event in self.stream_oracle_list_responses:
             yield event
