@@ -33,5 +33,17 @@ class ChainGrpcAuctionApi:
 
         return response
 
+    async def fetch_vouchers(self, denom: str) -> Dict[str, Any]:
+        request = auction_query_pb.QueryVouchersRequest(denom=denom)
+        response = await self._execute_call(call=self._stub.Vouchers, request=request)
+
+        return response
+
+    async def fetch_voucher(self, denom: str, address: str) -> Dict[str, Any]:
+        request = auction_query_pb.QueryVoucherRequest(denom=denom, address=address)
+        response = await self._execute_call(call=self._stub.Voucher, request=request)
+
+        return response
+
     async def _execute_call(self, call: Callable, request) -> Dict[str, Any]:
         return await self._assistant.execute_call(call=call, request=request)

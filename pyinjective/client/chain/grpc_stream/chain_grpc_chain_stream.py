@@ -1,3 +1,4 @@
+import warnings
 from typing import Callable, Optional
 
 from grpc.aio import Channel
@@ -33,6 +34,11 @@ class ChainGrpcChainStream:
         positions_filter: Optional[chain_stream_pb.PositionsFilter] = None,
         oracle_price_filter: Optional[chain_stream_pb.OraclePriceFilter] = None,
     ):
+        warnings.warn(
+            "stream is deprecated. Use stream_v2 instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         request = chain_stream_pb.StreamRequest(
             bank_balances_filter=bank_balances_filter,
             subaccount_deposits_filter=subaccount_deposits_filter,

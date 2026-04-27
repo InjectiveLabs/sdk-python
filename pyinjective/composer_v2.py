@@ -112,7 +112,7 @@ GRPC_MESSAGE_TYPE_TO_CLASS_MAP = {
     "/injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrders":
         injective_exchange_tx_pb.MsgBatchCreateSpotLimitOrders,
     "/injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrders":
-        injective_exchange_tx_pb.MsgBatchCreateDerivativeLimitOrders,  # noqa: 121
+        injective_exchange_tx_pb.MsgBatchCreateDerivativeLimitOrders,
     "/injective.exchange.v1beta1.MsgBatchUpdateOrders":
         injective_exchange_tx_pb.MsgBatchUpdateOrders,
     "/injective.exchange.v1beta1.MsgDeposit":
@@ -464,6 +464,12 @@ class Composer:
             sender=sender,
             round=round,
             bid_amount=self.coin(amount=int(be_amount), denom=INJ_DENOM),
+        )
+
+    def msg_auction_claim_voucher(self, sender: str, denom: str) -> injective_auction_tx_pb.MsgClaimVoucher:
+        return injective_auction_tx_pb.MsgClaimVoucher(
+            sender=sender,
+            denom=denom,
         )
 
     # endregion
@@ -1283,6 +1289,12 @@ class Composer:
             sender=sender,
             market_id=market_id,
             amount=self.coin(amount=int(chain_amount), denom=share_denom),
+        )
+
+    def msg_insurance_claim_voucher(self, sender: str, denom: str) -> injective_insurance_tx_pb.MsgClaimVoucher:
+        return injective_insurance_tx_pb.MsgClaimVoucher(
+            sender=sender,
+            denom=denom,
         )
 
     # endregion

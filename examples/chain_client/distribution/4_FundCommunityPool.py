@@ -5,7 +5,8 @@ from decimal import Decimal
 
 import dotenv
 
-from pyinjective import AsyncClient, PrivateKey
+from pyinjective import PrivateKey
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.core.broadcaster import MsgBroadcasterWithPk
 from pyinjective.core.network import Network
 

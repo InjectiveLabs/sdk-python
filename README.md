@@ -72,45 +72,21 @@ poetry run pytest -v
 
 ---
 
-## Choose Exchange V1 or Exchange V2 queries
+## Async client (exchange V2)
 
-The Injective Python SDK provides two different clients for interacting with the exchange:
+The Injective Python SDK exposes `AsyncClient` from the `async_client_v2` module:
 
-1. **Exchange V1 Client** (`async_client` module):
-   - Use this client if you need to interact with the original Injective Exchange API
-   - Import using: `from pyinjective.async_client import AsyncClient`
-   - Suitable for applications that need to maintain compatibility with the original exchange interface
-   - Example:
-   ```python
-   from pyinjective.async_client import AsyncClient
-   from pyinjective.network import Network
+- Import using: `from pyinjective.async_client_v2 import AsyncClient`
+- Example:
+```python
+from pyinjective.async_client_v2 import AsyncClient
+from pyinjective.network import Network
 
-   async def main():
-       # Initialize client with mainnet
-       client = AsyncClient(network=Network.mainnet())
-       # Or use testnet
-       # client = AsyncClient(network=Network.testnet())
-       # Use V1 exchange queries here
-   ```
-
-2. **Exchange V2 Client** (`async_client_v2` module):
-   - Use this client for the latest exchange features and improvements
-   - Import using: `from pyinjective.async_client_v2 import AsyncClient`
-   - Recommended for new applications and when you need access to the latest exchange features
-   - Example:
-   ```python
-   from pyinjective.async_client_v2 import AsyncClient
-   from pyinjective.network import Network
-
-   async def main():
-       # Initialize client with mainnet
-       client = AsyncClient(network=Network.mainnet())
-       # Or use testnet
-       # client = AsyncClient(network=Network.testnet())
-       # Use V2 exchange queries here
-   ```
-
-Both clients provide similar interfaces but with different underlying implementations. Choose V2 for new projects unless you have specific requirements for V1 compatibility.
+async def main():
+    client = AsyncClient(network=Network.mainnet())
+    # Or use testnet
+    # client = AsyncClient(network=Network.testnet())
+```
 
 > **Market Format Differences**:
 > - V1 AsyncClient: Markets are initialized with values in chain format (raw blockchain values)

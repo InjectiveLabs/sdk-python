@@ -23,13 +23,14 @@ async def main() -> None:
     # select network: local, testnet, mainnet
     network = Network.testnet()
     client = IndexerClient(network)
-    market = (await client.all_derivative_markets())[
-        "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
-    ]
+    market_response = await client.fetch_derivative_market(
+        market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
+    )
+    market = market_response["market"]
 
-    base_symbol = market.oracle_base
-    quote_symbol = market.oracle_quote
-    oracle_type = market.oracle_type.lower()
+    base_symbol = market["oracleBase"]
+    quote_symbol = market["oracleQuote"]
+    oracle_type = market["oracleType"].lower()
 
     task = asyncio.get_event_loop().create_task(
         client.listen_oracle_prices_updates(

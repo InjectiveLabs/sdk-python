@@ -12,6 +12,9 @@ class ConfigurableAuctionQueryServicer(auction_query_grpc.QueryServicer):
         self.auction_params = deque()
         self.module_states = deque()
         self.current_baskets = deque()
+        self.vouchers_responses = deque()
+        self.voucher_responses = deque()
+        self.last_auction_results = deque()
 
     async def AuctionParams(self, request: auction_query_pb.QueryAuctionParamsRequest, context=None, metadata=None):
         return self.auction_params.pop()
@@ -23,3 +26,14 @@ class ConfigurableAuctionQueryServicer(auction_query_grpc.QueryServicer):
         self, request: auction_query_pb.QueryCurrentAuctionBasketRequest, context=None, metadata=None
     ):
         return self.current_baskets.pop()
+
+    async def LastAuctionResult(
+        self, request: auction_query_pb.QueryLastAuctionResultRequest, context=None, metadata=None
+    ):
+        return self.last_auction_results.pop()
+
+    async def Vouchers(self, request: auction_query_pb.QueryVouchersRequest, context=None, metadata=None):
+        return self.vouchers_responses.pop()
+
+    async def Voucher(self, request: auction_query_pb.QueryVoucherRequest, context=None, metadata=None):
+        return self.voucher_responses.pop()

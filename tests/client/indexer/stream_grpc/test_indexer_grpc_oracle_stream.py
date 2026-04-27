@@ -97,6 +97,55 @@ class TestIndexerGrpcOracleStream:
         assert first_update == expected_update
         assert end_event.is_set()
 
+    @pytest.mark.asyncio
+    async def test_stream_oracle_list(
+        self,
+        oracle_servicer,
+    ):
+        symbol = "TIA"
+        oracle_type = "provider"
+        price = "1.23"
+        timestamp = 1672218001897
+
+        oracle_servicer.stream_oracle_list_responses.append(
+            exchange_oracle_pb.StreamOracleListResponse(
+                symbol=symbol,
+                oracle_type=oracle_type,
+                price=price,
+                timestamp=timestamp,
+            )
+        )
+
+        api = self._api_instance(servicer=oracle_servicer)
+
+        updates = asyncio.Queue()
+        end_event = asyncio.Event()
+
+        callback = lambda update: updates.put_nowait(update)
+        error_callback = lambda exception: pytest.fail(str(exception))
+        end_callback = lambda: end_event.set()
+
+        asyncio.get_event_loop().create_task(
+            api.stream_oracle_list(
+                callback=callback,
+                on_end_callback=end_callback,
+                on_status_callback=error_callback,
+                oracle_type=oracle_type,
+                symbols=[symbol],
+            )
+        )
+        expected_update = {
+            "symbol": symbol,
+            "oracleType": oracle_type,
+            "price": price,
+            "timestamp": str(timestamp),
+        }
+
+        first_update = await asyncio.wait_for(updates.get(), timeout=1)
+
+        assert first_update == expected_update
+        assert end_event.is_set()
+
     def _api_instance(self, servicer):
         network = Network.devnet()
         channel = grpc.aio.insecure_channel(network.grpc_endpoint)

@@ -1,5 +1,4 @@
 from typing import Any, Callable, Dict, List, Optional
-from warnings import warn
 
 from pyinjective.client.indexer.grpc.indexer_grpc_account_api import IndexerGrpcAccountApi
 from pyinjective.client.indexer.grpc.indexer_grpc_auction_api import IndexerGrpcAuctionApi
@@ -525,30 +524,6 @@ class IndexerClient:
             pagination=pagination,
         )
 
-    async def listen_derivative_positions_updates(
-        self,
-        callback: Callable,
-        on_end_callback: Optional[Callable] = None,
-        on_status_callback: Optional[Callable] = None,
-        market_ids: Optional[List[str]] = None,
-        subaccount_ids: Optional[List[str]] = None,
-    ):
-        """
-        This method is deprecated and will be removed soon. Please use `listen_derivative_positions_v2_updates` instead.
-        """
-        warn(
-            "This method is deprecated. Use listen_derivative_positions_v2_updates instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        await self.derivative_stream_api.stream_positions(
-            callback=callback,
-            on_end_callback=on_end_callback,
-            on_status_callback=on_status_callback,
-            market_ids=market_ids,
-            subaccount_ids=subaccount_ids,
-        )
-
     async def listen_derivative_positions_v2_updates(
         self,
         callback: Callable,
@@ -686,6 +661,36 @@ class IndexerClient:
             base_symbol=base_symbol,
             quote_symbol=quote_symbol,
             oracle_type=oracle_type,
+        )
+
+    async def listen_oracle_list_updates(
+        self,
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+        oracle_type: Optional[str] = None,
+        symbols: Optional[List[str]] = None,
+    ):
+        await self.oracle_stream_api.stream_oracle_list(
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
+            oracle_type=oracle_type,
+            symbols=symbols,
+        )
+
+    async def listen_oracle_prices_by_markets_updates(
+        self,
+        market_ids: List[str],
+        callback: Callable,
+        on_end_callback: Optional[Callable] = None,
+        on_status_callback: Optional[Callable] = None,
+    ):
+        await self.oracle_stream_api.stream_oracle_prices_by_markets(
+            market_ids=market_ids,
+            callback=callback,
+            on_end_callback=on_end_callback,
+            on_status_callback=on_status_callback,
         )
 
     # endregion

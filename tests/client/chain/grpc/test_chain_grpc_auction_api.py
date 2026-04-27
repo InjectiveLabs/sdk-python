@@ -9,6 +9,7 @@ from pyinjective.proto.injective.auction.v1beta1 import (
     genesis_pb2 as genesis_pb,
     query_pb2 as auction_query_pb,
 )
+from pyinjective.proto.injective.common.vouchers.v1 import vouchers_pb2 as vouchers_pb
 from tests.client.chain.grpc.configurable_auction_query_servicer import ConfigurableAuctionQueryServicer
 
 
@@ -66,12 +67,17 @@ class TestChainGrpcAuctionApi:
             amount=coin,
             round=3,
         )
+        voucher = vouchers_pb.AddressVoucher(
+            address="inj1pvt70tt7epjudnurkqlxu62flfgy46j2ytj7j5",
+            voucher=coin,
+        )
         state = genesis_pb.GenesisState(
             params=params,
             auction_round=50,
             highest_bid=highest_bid,
             auction_ending_timestamp=1687504387,
             last_auction_result=last_auction_result,
+            vouchers=[voucher],
         )
         auction_servicer.module_states.append(auction_query_pb.QueryModuleStateResponse(state=state))
 
@@ -103,6 +109,15 @@ class TestChainGrpcAuctionApi:
                     },
                     "round": str(last_auction_result.round),
                 },
+                "vouchers": [
+                    {
+                        "address": voucher.address,
+                        "voucher": {
+                            "denom": voucher.voucher.denom,
+                            "amount": voucher.voucher.amount,
+                        },
+                    }
+                ],
             }
         }
 
@@ -119,10 +134,16 @@ class TestChainGrpcAuctionApi:
             inj_basket_max_cap="100000",
             bidders_whitelist=["inj1pvt70tt7epjudnurkqlxu62flfgy46j2ytj7j5"],
         )
+        coin = coin_pb.Coin(denom="inj", amount="988987297011197594664")
+        voucher = vouchers_pb.AddressVoucher(
+            address="inj1pvt70tt7epjudnurkqlxu62flfgy46j2ytj7j5",
+            voucher=coin,
+        )
         state = genesis_pb.GenesisState(
             params=params,
             auction_round=50,
             auction_ending_timestamp=1687504387,
+            vouchers=[voucher],
         )
         auction_servicer.module_states.append(auction_query_pb.QueryModuleStateResponse(state=state))
 
@@ -139,6 +160,15 @@ class TestChainGrpcAuctionApi:
                     "injBasketMaxCap": str(params.inj_basket_max_cap),
                     "biddersWhitelist": params.bidders_whitelist,
                 },
+                "vouchers": [
+                    {
+                        "address": voucher.address,
+                        "voucher": {
+                            "denom": voucher.voucher.denom,
+                            "amount": voucher.voucher.amount,
+                        },
+                    }
+                ],
             }
         }
 
@@ -189,6 +219,57 @@ class TestChainGrpcAuctionApi:
         }
 
         assert expected_basket == current_basket
+
+    @pytest.mark.asyncio
+    async def test_fetch_vouchers(
+        self,
+        auction_servicer,
+    ):
+        voucher = vouchers_pb.AddressVoucher(
+            address="inj1ady3s7whq30l4fx8sj3x6muv5mx4dfdlcpv8n7",
+            voucher=coin_pb.Coin(denom="inj", amount="1000000000"),
+        )
+        auction_servicer.vouchers_responses.append(auction_query_pb.QueryVouchersResponse(vouchers=[voucher]))
+
+        api = self._api_instance(servicer=auction_servicer)
+
+        all_vouchers = await api.fetch_vouchers(denom="inj")
+        expected_vouchers = {
+            "vouchers": [
+                {
+                    "address": voucher.address,
+                    "voucher": {
+                        "denom": voucher.voucher.denom,
+                        "amount": voucher.voucher.amount,
+                    },
+                }
+            ],
+        }
+
+        assert all_vouchers == expected_vouchers
+
+    @pytest.mark.asyncio
+    async def test_fetch_voucher(
+        self,
+        auction_servicer,
+    ):
+        voucher = coin_pb.Coin(denom="inj", amount="1000000000")
+        auction_servicer.voucher_responses.append(auction_query_pb.QueryVoucherResponse(voucher=voucher))
+
+        api = self._api_instance(servicer=auction_servicer)
+
+        fetched_voucher = await api.fetch_voucher(
+            denom="inj",
+            address="inj1ady3s7whq30l4fx8sj3x6muv5mx4dfdlcpv8n7",
+        )
+        expected_voucher = {
+            "voucher": {
+                "denom": voucher.denom,
+                "amount": voucher.amount,
+            },
+        }
+
+        assert fetched_voucher == expected_voucher
 
     def _api_instance(self, servicer):
         network = Network.devnet()

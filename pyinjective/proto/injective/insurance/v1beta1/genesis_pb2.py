@@ -13,10 +13,11 @@ _sym_db = _symbol_database.Default()
 
 
 from pyinjective.proto.injective.insurance.v1beta1 import insurance_pb2 as injective_dot_insurance_dot_v1beta1_dot_insurance__pb2
+from pyinjective.proto.injective.common.vouchers.v1 import vouchers_pb2 as injective_dot_common_dot_vouchers_dot_v1_dot_vouchers__pb2
 from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n)injective/insurance/v1beta1/genesis.proto\x12\x1binjective.insurance.v1beta1\x1a+injective/insurance/v1beta1/insurance.proto\x1a\x14gogoproto/gogo.proto\"\x82\x03\n\x0cGenesisState\x12\x41\n\x06params\x18\x01 \x01(\x0b\x32#.injective.insurance.v1beta1.ParamsB\x04\xc8\xde\x1f\x00R\x06params\x12Y\n\x0finsurance_funds\x18\x02 \x03(\x0b\x32*.injective.insurance.v1beta1.InsuranceFundB\x04\xc8\xde\x1f\x00R\x0einsuranceFunds\x12\x66\n\x13redemption_schedule\x18\x03 \x03(\x0b\x32/.injective.insurance.v1beta1.RedemptionScheduleB\x04\xc8\xde\x1f\x00R\x12redemptionSchedule\x12-\n\x13next_share_denom_id\x18\x04 \x01(\x04R\x10nextShareDenomId\x12=\n\x1bnext_redemption_schedule_id\x18\x05 \x01(\x04R\x18nextRedemptionScheduleIdB\x8e\x02\n\x1f\x63om.injective.insurance.v1beta1B\x0cGenesisProtoP\x01ZOgithub.com/InjectiveLabs/injective-core/injective-chain/modules/insurance/types\xa2\x02\x03IIX\xaa\x02\x1bInjective.Insurance.V1beta1\xca\x02\x1bInjective\\Insurance\\V1beta1\xe2\x02\'Injective\\Insurance\\V1beta1\\GPBMetadata\xea\x02\x1dInjective::Insurance::V1beta1b\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n)injective/insurance/v1beta1/genesis.proto\x12\x1binjective.insurance.v1beta1\x1a+injective/insurance/v1beta1/insurance.proto\x1a+injective/common/vouchers/v1/vouchers.proto\x1a\x14gogoproto/gogo.proto\"\x9b\x05\n\x0cGenesisState\x12\x41\n\x06params\x18\x01 \x01(\x0b\x32#.injective.insurance.v1beta1.ParamsB\x04\xc8\xde\x1f\x00R\x06params\x12Y\n\x0finsurance_funds\x18\x02 \x03(\x0b\x32*.injective.insurance.v1beta1.InsuranceFundB\x04\xc8\xde\x1f\x00R\x0einsuranceFunds\x12\x66\n\x13redemption_schedule\x18\x03 \x03(\x0b\x32/.injective.insurance.v1beta1.RedemptionScheduleB\x04\xc8\xde\x1f\x00R\x12redemptionSchedule\x12-\n\x13next_share_denom_id\x18\x04 \x01(\x04R\x10nextShareDenomId\x12=\n\x1bnext_redemption_schedule_id\x18\x05 \x01(\x04R\x18nextRedemptionScheduleId\x12{\n\x1b\x66\x61iled_redemption_schedules\x18\x06 \x03(\x0b\x32\x35.injective.insurance.v1beta1.FailedRedemptionScheduleB\x04\xc8\xde\x1f\x00R\x19\x66\x61iledRedemptionSchedules\x12J\n\"next_failed_redemption_schedule_id\x18\x07 \x01(\x04R\x1enextFailedRedemptionScheduleId\x12N\n\x08vouchers\x18\x08 \x03(\x0b\x32,.injective.common.vouchers.v1.AddressVoucherB\x04\xc8\xde\x1f\x00R\x08vouchersB\x8e\x02\n\x1f\x63om.injective.insurance.v1beta1B\x0cGenesisProtoP\x01ZOgithub.com/InjectiveLabs/injective-core/injective-chain/modules/insurance/types\xa2\x02\x03IIX\xaa\x02\x1bInjective.Insurance.V1beta1\xca\x02\x1bInjective\\Insurance\\V1beta1\xe2\x02\'Injective\\Insurance\\V1beta1\\GPBMetadata\xea\x02\x1dInjective::Insurance::V1beta1b\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -30,6 +31,10 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_GENESISSTATE'].fields_by_name['insurance_funds']._serialized_options = b'\310\336\037\000'
   _globals['_GENESISSTATE'].fields_by_name['redemption_schedule']._loaded_options = None
   _globals['_GENESISSTATE'].fields_by_name['redemption_schedule']._serialized_options = b'\310\336\037\000'
-  _globals['_GENESISSTATE']._serialized_start=142
-  _globals['_GENESISSTATE']._serialized_end=528
+  _globals['_GENESISSTATE'].fields_by_name['failed_redemption_schedules']._loaded_options = None
+  _globals['_GENESISSTATE'].fields_by_name['failed_redemption_schedules']._serialized_options = b'\310\336\037\000'
+  _globals['_GENESISSTATE'].fields_by_name['vouchers']._loaded_options = None
+  _globals['_GENESISSTATE'].fields_by_name['vouchers']._serialized_options = b'\310\336\037\000'
+  _globals['_GENESISSTATE']._serialized_start=187
+  _globals['_GENESISSTATE']._serialized_end=854
 # @@protoc_insertion_point(module_scope)
