@@ -22,13 +22,11 @@ def stream_closed_processor():
 async def main() -> None:
     network = Network.testnet()
     client = IndexerClient(network)
-    market = (await client.all_derivative_markets())[
-        "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
-    ]
+    market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
 
     task = asyncio.get_event_loop().create_task(
         client.listen_oracle_prices_by_markets_updates(
-            market_ids=[market.id],
+            market_ids=[market_id],
             callback=price_event_processor,
             on_end_callback=stream_closed_processor,
             on_status_callback=stream_error_processor,
