@@ -89,7 +89,11 @@ class ExpiringCookieAssistant(CookieAssistant):
             expiration_data: Optional[str] = cookie_map.get(self._expiration_time_keys_sequence[-1], None)
             if expiration_data is not None:
                 expiration_time = datetime.datetime.strptime(expiration_data, self._time_format)
-                is_expired = datetime.datetime.utcnow() >= expiration_time
+                if expiration_time.tzinfo is None:
+                    expiration_time = expiration_time.replace(tzinfo=datetime.timezone.utc)
+                is_expired = datetime.datetime.now(datetime.timezone.utc) >= expiration_time.astimezone(
+                    datetime.timezone.utc
+                )
 
         return is_expired
 

@@ -31,18 +31,12 @@ class TestBroadcastAddressInOfacList(unittest.TestCase):
 
     def test_broadcast_address_in_ofac_list(self):
         network = Network.local()
-        client = AsyncClient(
-            network=Network.local(),
-        )
-        composer = Mock(spec=Composer)
-
         account_config = StandardAccountBroadcasterConfig(private_key=self.private_key_banned.to_hex())
 
         with pytest.raises(Exception):
             _ = MsgBroadcasterWithPk(
                 network=network,
                 account_config=account_config,
-                client=client,
-                composer=composer,
+                client=None,
                 fee_calculator=Mock(),
             )
