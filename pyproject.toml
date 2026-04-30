@@ -21,7 +21,7 @@ include = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.10,<3.13"
+python = ">=3.10,<3.15"
 aiohttp = "^3.9.4" # Version dependency due to https://github.com/InjectiveLabs/sdk-python/security/dependabot/18
 bech32 = "*"
 bip32 = "*"
