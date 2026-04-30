@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.14.1] - 2026-04-29
+### Changed
+- Update Python version limitation to ">=3.10,<3.15" to support Pythong v1.14
+
 ## [1.14.0] - 2026-04-27
 ### Changed
 - Updated all compiled protos for compatibility with Injective core v1.19.0 and Indexer v1.19.0
