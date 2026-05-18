@@ -14,7 +14,7 @@ The following tools must be installed before running any maintenance commands.
 | `git` | Repository operations | `brew install git` |
 | `make` | Task runner | bundled with Xcode CLT |
 | `poetry` | Python packaging | [python-poetry.org/docs](https://python-poetry.org/docs/#installation) |
-| Python 3.9+ | Runtime | `brew install python` |
+| Python 3.10+ | Runtime | `brew install python` |
 
 > **macOS only**: The `fix-generated-proto-imports` step inside `make gen` uses the BSD `sed -i ""` syntax. On Linux, `sed -i ""` must be replaced with `sed -i`. All maintainers are expected to run proto generation on macOS or adapt the command in the `Makefile` accordingly.
 
