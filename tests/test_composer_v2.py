@@ -8,8 +8,10 @@ from pyinjective.composer_v2 import Composer
 from pyinjective.constant import INJ_DECIMALS
 from pyinjective.core.network import Network
 from pyinjective.core.token import Token
-from pyinjective.proto.injective.exchange.v2 import order_pb2 as injective_order_v2_pb
-from pyinjective.proto.injective.exchange.v2 import proposal_pb2 as injective_proposal_v2_pb
+from pyinjective.proto.injective.exchange.v2 import (
+    order_pb2 as injective_order_v2_pb,
+    proposal_pb2 as injective_proposal_v2_pb,
+)
 from pyinjective.proto.injective.oracle.v1beta1 import oracle_pb2 as injective_oracle_pb
 from pyinjective.proto.injective.permissions.v1beta1 import permissions_pb2 as permissions_pb
 
@@ -28,12 +30,14 @@ class TestComposer:
         return composer
 
     def test_permissions_action_enum_mirrors_proto(self):
-        # IntFlag excludes zero-valued members from iteration (zero means "no flags set"),
-        # so we compare only the non-zero proto keys.
-        proto_non_zero_keys = [n for n in permissions_pb.Action.keys() if permissions_pb.Action.Value(n) != 0]
-        assert [m.name for m in Composer.PERMISSIONS_ACTION] == proto_non_zero_keys
-        for name in proto_non_zero_keys:
+        proto_keys = list(permissions_pb.Action.keys())
+        # Bracket access works for all members including zero-valued ones across all Python versions.
+        for name in proto_keys:
             assert Composer.PERMISSIONS_ACTION[name].value == permissions_pb.Action.Value(name)
+        # IntFlag iteration excludes zero-valued members in Python >=3.11 but includes them in
+        # Python <=3.10, so we filter by value on both sides to get a version-independent comparison.
+        proto_non_zero_names = [n for n in proto_keys if permissions_pb.Action.Value(n) != 0]
+        assert [m.name for m in Composer.PERMISSIONS_ACTION if m.value != 0] == proto_non_zero_names
 
     def test_order_type_enum_mirrors_proto(self):
         proto_keys = list(injective_order_v2_pb.OrderType.keys())
@@ -51,7 +55,9 @@ class TestComposer:
         proto_keys = list(injective_proposal_v2_pb.CrossMarginEligibility.keys())
         assert [m.name for m in Composer.CROSS_MARGIN_ELIGIBILITY] == proto_keys
         for name in proto_keys:
-            assert Composer.CROSS_MARGIN_ELIGIBILITY[name].value == injective_proposal_v2_pb.CrossMarginEligibility.Value(name)
+            assert Composer.CROSS_MARGIN_ELIGIBILITY[
+                name
+            ].value == injective_proposal_v2_pb.CrossMarginEligibility.Value(name)
 
     def test_order_type_enum_accepted_for_order_type_param(self, basic_composer):
         market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"

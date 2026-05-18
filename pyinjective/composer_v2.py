@@ -1122,9 +1122,7 @@ class Composer:
         sender: str,
         liquidations: List[injective_exchange_tx_v2_pb.LiquidatePositionData],
     ) -> injective_exchange_tx_v2_pb.MsgBatchLiquidatePositions:
-        return injective_exchange_tx_v2_pb.MsgBatchLiquidatePositions(
-            sender=sender, liquidations=liquidations
-        )
+        return injective_exchange_tx_v2_pb.MsgBatchLiquidatePositions(sender=sender, liquidations=liquidations)
 
     def msg_emergency_settle_market(
         self,
