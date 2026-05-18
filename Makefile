@@ -26,7 +26,7 @@ clean-all:
 	$(call clean_repos)
 
 clone-injective-indexer:
-	git clone https://github.com/InjectiveLabs/injective-indexer.git -b v1.19.0 --depth 1 --single-branch
+	git clone https://github.com/InjectiveLabs/injective-indexer.git -b v1.19.41 --depth 1 --single-branch
 
 clone-all: clone-injective-indexer
 
@@ -35,7 +35,10 @@ copy-proto:
 	mkdir -p proto/exchange
 	find ./injective-indexer/api/gen/grpc -type f -name "*.proto" -exec cp {} ./proto/exchange/ \;
 
+gen-ofac:
+	poetry run python pyinjective/ofac.py
+
 tests:
 	poetry run pytest -v
 
-.PHONY: all gen gen-client copy-proto tests
+.PHONY: all gen gen-client copy-proto gen-ofac tests

@@ -55,10 +55,12 @@ async def main() -> None:
         taker_fee_rate=Decimal("0.001"),
         initial_margin_ratio=Decimal("0.33"),
         maintenance_margin_ratio=Decimal("0.095"),
+        reduce_margin_ratio=Decimal("3"),
         min_price_tick_size=Decimal("0.001"),
         min_quantity_tick_size=Decimal("0.01"),
         min_notional=Decimal("1"),
         open_notional_cap=composer.uncapped_open_notional_cap(),
+        cross_margin_eligible=False,
     )
 
     # broadcast the transaction

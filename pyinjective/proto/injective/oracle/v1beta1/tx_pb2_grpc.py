@@ -45,6 +45,16 @@ class MsgStub(object):
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayChainlinkPrices.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayChainlinkPricesResponse.FromString,
                 _registered_method=True)
+        self.RelayPythProPrices = channel.unary_unary(
+                '/injective.oracle.v1beta1.Msg/RelayPythProPrices',
+                request_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPythProPrices.SerializeToString,
+                response_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPythProPricesResponse.FromString,
+                _registered_method=True)
+        self.RelaySedaFastPrices = channel.unary_unary(
+                '/injective.oracle.v1beta1.Msg/RelaySedaFastPrices',
+                request_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelaySedaFastPrices.SerializeToString,
+                response_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelaySedaFastPricesResponse.FromString,
+                _registered_method=True)
         self.UpdateParams = channel.unary_unary(
                 '/injective.oracle.v1beta1.Msg/UpdateParams',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgUpdateParams.SerializeToString,
@@ -103,6 +113,24 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def RelayPythProPrices(self, request, context):
+        """RelayPythProPrices defines a method for relaying price updates from the
+        Pyth Pro (Lazer) service, verified via the PythLazer EVM contract.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def RelaySedaFastPrices(self, request, context):
+        """RelaySedaFastPrices defines a method for relaying price updates from the
+        SEDA Fast WebSocket stream. Each update carries the raw JSON envelope
+        received from SEDA Fast; the chain verifies the secp256k1 signature and
+        decodes the price on-chain.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def UpdateParams(self, request, context):
         """UpdateParams enables updating oracle module's params via governance
         """
@@ -142,6 +170,16 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.RelayChainlinkPrices,
                     request_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayChainlinkPrices.FromString,
                     response_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayChainlinkPricesResponse.SerializeToString,
+            ),
+            'RelayPythProPrices': grpc.unary_unary_rpc_method_handler(
+                    servicer.RelayPythProPrices,
+                    request_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPythProPrices.FromString,
+                    response_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPythProPricesResponse.SerializeToString,
+            ),
+            'RelaySedaFastPrices': grpc.unary_unary_rpc_method_handler(
+                    servicer.RelaySedaFastPrices,
+                    request_deserializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelaySedaFastPrices.FromString,
+                    response_serializer=injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelaySedaFastPricesResponse.SerializeToString,
             ),
             'UpdateParams': grpc.unary_unary_rpc_method_handler(
                     servicer.UpdateParams,
@@ -312,6 +350,60 @@ class Msg(object):
             '/injective.oracle.v1beta1.Msg/RelayChainlinkPrices',
             injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayChainlinkPrices.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayChainlinkPricesResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def RelayPythProPrices(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Msg/RelayPythProPrices',
+            injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPythProPrices.SerializeToString,
+            injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelayPythProPricesResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def RelaySedaFastPrices(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Msg/RelaySedaFastPrices',
+            injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelaySedaFastPrices.SerializeToString,
+            injective_dot_oracle_dot_v1beta1_dot_tx__pb2.MsgRelaySedaFastPricesResponse.FromString,
             options,
             channel_credentials,
             insecure,

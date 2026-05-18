@@ -53,6 +53,7 @@ async def main() -> None:
         new_maintenance_margin_ratio=Decimal("0.085"),
         new_reduce_margin_ratio=Decimal("3.5"),
         new_open_notional_cap=composer.uncapped_open_notional_cap(),
+        cross_margin_eligibility=composer.CROSS_MARGIN_ELIGIBILITY.CM_ELIGIBILITY_INELIGIBLE,
     )
 
     # broadcast the transaction

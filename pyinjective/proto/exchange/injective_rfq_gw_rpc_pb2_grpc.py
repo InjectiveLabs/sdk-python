@@ -15,16 +15,40 @@ class InjectiveRfqGwRPCStub(object):
         Args:
             channel: A grpc.Channel.
         """
+        self.PrepareEip712AutoSign = channel.unary_unary(
+                '/injective_rfq_gw_rpc.InjectiveRfqGwRPC/PrepareEip712AutoSign',
+                request_serializer=exchange_dot_injective__rfq__gw__rpc__pb2.PrepareEip712AutoSignRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__rfq__gw__rpc__pb2.PrepareEip712AutoSignResponse.FromString,
+                _registered_method=True)
         self.PrepareAutoSign = channel.unary_unary(
                 '/injective_rfq_gw_rpc.InjectiveRfqGwRPC/PrepareAutoSign',
                 request_serializer=exchange_dot_injective__rfq__gw__rpc__pb2.PrepareAutoSignRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__rfq__gw__rpc__pb2.PrepareAutoSignResponse.FromString,
+                _registered_method=True)
+        self.PrepareEip712 = channel.unary_unary(
+                '/injective_rfq_gw_rpc.InjectiveRfqGwRPC/PrepareEip712',
+                request_serializer=exchange_dot_injective__rfq__gw__rpc__pb2.PrepareEip712Request.SerializeToString,
+                response_deserializer=exchange_dot_injective__rfq__gw__rpc__pb2.PrepareEip712Response.FromString,
+                _registered_method=True)
+        self.Prepare = channel.unary_unary(
+                '/injective_rfq_gw_rpc.InjectiveRfqGwRPC/Prepare',
+                request_serializer=exchange_dot_injective__rfq__gw__rpc__pb2.PrepareRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__rfq__gw__rpc__pb2.PrepareResponse.FromString,
                 _registered_method=True)
 
 
 class InjectiveRfqGwRPCServicer(object):
     """InjectiveRfqGwRPC defines gRPC API of the RFQ Gw service.
     """
+
+    def PrepareEip712AutoSign(self, request, context):
+        """Full RFQ cycle for EVM autosign wallets: create request, wait for quotes,
+        prepare fee-delegated EIP712 typed data with MsgExec wrapper signable by the
+        ephemeral autosign EVM key
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def PrepareAutoSign(self, request, context):
         """Full RFQ cycle for autosign wallets: create request, wait for quotes,
@@ -34,13 +58,44 @@ class InjectiveRfqGwRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def PrepareEip712(self, request, context):
+        """Full RFQ cycle with EIP712 output: create request, wait for quotes, prepare
+        fee-delegated EIP712 typed data for eth_signTypedData_v4
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Prepare(self, request, context):
+        """Full RFQ cycle: create request, wait for quotes, prepare fee-delegated
+        accept tx
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_InjectiveRfqGwRPCServicer_to_server(servicer, server):
     rpc_method_handlers = {
+            'PrepareEip712AutoSign': grpc.unary_unary_rpc_method_handler(
+                    servicer.PrepareEip712AutoSign,
+                    request_deserializer=exchange_dot_injective__rfq__gw__rpc__pb2.PrepareEip712AutoSignRequest.FromString,
+                    response_serializer=exchange_dot_injective__rfq__gw__rpc__pb2.PrepareEip712AutoSignResponse.SerializeToString,
+            ),
             'PrepareAutoSign': grpc.unary_unary_rpc_method_handler(
                     servicer.PrepareAutoSign,
                     request_deserializer=exchange_dot_injective__rfq__gw__rpc__pb2.PrepareAutoSignRequest.FromString,
                     response_serializer=exchange_dot_injective__rfq__gw__rpc__pb2.PrepareAutoSignResponse.SerializeToString,
+            ),
+            'PrepareEip712': grpc.unary_unary_rpc_method_handler(
+                    servicer.PrepareEip712,
+                    request_deserializer=exchange_dot_injective__rfq__gw__rpc__pb2.PrepareEip712Request.FromString,
+                    response_serializer=exchange_dot_injective__rfq__gw__rpc__pb2.PrepareEip712Response.SerializeToString,
+            ),
+            'Prepare': grpc.unary_unary_rpc_method_handler(
+                    servicer.Prepare,
+                    request_deserializer=exchange_dot_injective__rfq__gw__rpc__pb2.PrepareRequest.FromString,
+                    response_serializer=exchange_dot_injective__rfq__gw__rpc__pb2.PrepareResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -53,6 +108,33 @@ def add_InjectiveRfqGwRPCServicer_to_server(servicer, server):
 class InjectiveRfqGwRPC(object):
     """InjectiveRfqGwRPC defines gRPC API of the RFQ Gw service.
     """
+
+    @staticmethod
+    def PrepareEip712AutoSign(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_rfq_gw_rpc.InjectiveRfqGwRPC/PrepareEip712AutoSign',
+            exchange_dot_injective__rfq__gw__rpc__pb2.PrepareEip712AutoSignRequest.SerializeToString,
+            exchange_dot_injective__rfq__gw__rpc__pb2.PrepareEip712AutoSignResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def PrepareAutoSign(request,
@@ -71,6 +153,60 @@ class InjectiveRfqGwRPC(object):
             '/injective_rfq_gw_rpc.InjectiveRfqGwRPC/PrepareAutoSign',
             exchange_dot_injective__rfq__gw__rpc__pb2.PrepareAutoSignRequest.SerializeToString,
             exchange_dot_injective__rfq__gw__rpc__pb2.PrepareAutoSignResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def PrepareEip712(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_rfq_gw_rpc.InjectiveRfqGwRPC/PrepareEip712',
+            exchange_dot_injective__rfq__gw__rpc__pb2.PrepareEip712Request.SerializeToString,
+            exchange_dot_injective__rfq__gw__rpc__pb2.PrepareEip712Response.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Prepare(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_rfq_gw_rpc.InjectiveRfqGwRPC/Prepare',
+            exchange_dot_injective__rfq__gw__rpc__pb2.PrepareRequest.SerializeToString,
+            exchange_dot_injective__rfq__gw__rpc__pb2.PrepareResponse.FromString,
             options,
             channel_credentials,
             insecure,

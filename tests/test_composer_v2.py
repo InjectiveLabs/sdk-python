@@ -8,6 +8,9 @@ from pyinjective.composer_v2 import Composer
 from pyinjective.constant import INJ_DECIMALS
 from pyinjective.core.network import Network
 from pyinjective.core.token import Token
+from pyinjective.proto.injective.exchange.v2 import order_pb2 as injective_order_v2_pb
+from pyinjective.proto.injective.exchange.v2 import proposal_pb2 as injective_proposal_v2_pb
+from pyinjective.proto.injective.oracle.v1beta1 import oracle_pb2 as injective_oracle_pb
 from pyinjective.proto.injective.permissions.v1beta1 import permissions_pb2 as permissions_pb
 
 
@@ -23,6 +26,49 @@ class TestComposer:
         )
 
         return composer
+
+    def test_permissions_action_enum_mirrors_proto(self):
+        # IntFlag excludes zero-valued members from iteration (zero means "no flags set"),
+        # so we compare only the non-zero proto keys.
+        proto_non_zero_keys = [n for n in permissions_pb.Action.keys() if permissions_pb.Action.Value(n) != 0]
+        assert [m.name for m in Composer.PERMISSIONS_ACTION] == proto_non_zero_keys
+        for name in proto_non_zero_keys:
+            assert Composer.PERMISSIONS_ACTION[name].value == permissions_pb.Action.Value(name)
+
+    def test_order_type_enum_mirrors_proto(self):
+        proto_keys = list(injective_order_v2_pb.OrderType.keys())
+        assert [m.name for m in Composer.ORDER_TYPE] == proto_keys
+        for name in proto_keys:
+            assert Composer.ORDER_TYPE[name].value == injective_order_v2_pb.OrderType.Value(name)
+
+    def test_oracle_type_enum_mirrors_proto(self):
+        proto_keys = list(injective_oracle_pb.OracleType.keys())
+        assert [m.name for m in Composer.ORACLE_TYPE] == proto_keys
+        for name in proto_keys:
+            assert Composer.ORACLE_TYPE[name].value == injective_oracle_pb.OracleType.Value(name)
+
+    def test_cross_margin_eligibility_enum_mirrors_proto(self):
+        proto_keys = list(injective_proposal_v2_pb.CrossMarginEligibility.keys())
+        assert [m.name for m in Composer.CROSS_MARGIN_ELIGIBILITY] == proto_keys
+        for name in proto_keys:
+            assert Composer.CROSS_MARGIN_ELIGIBILITY[name].value == injective_proposal_v2_pb.CrossMarginEligibility.Value(name)
+
+    def test_order_type_enum_accepted_for_order_type_param(self, basic_composer):
+        market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
+        subaccount_id = "0x893f2abf8034627e50cbc63923120b1122503ce0000000000000000000000001"
+
+        order = basic_composer.derivative_order(
+            market_id=market_id,
+            subaccount_id=subaccount_id,
+            fee_recipient="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
+            price=Decimal("36.1"),
+            quantity=Decimal("100"),
+            margin=Decimal("36.1") * Decimal("100"),
+            order_type=Composer.ORDER_TYPE.BUY,
+        )
+
+        dict_order = json_format.MessageToDict(message=order, always_print_fields_with_no_presence=True)
+        assert dict_order["orderType"] == "BUY"
 
     def test_msg_create_denom(self, basic_composer: Composer):
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
@@ -336,6 +382,7 @@ class TestComposer:
         reduce_margin_ratio = Decimal("3")
         cap_value = Decimal("1000")
         open_notional_cap = basic_composer.open_notional_cap(value=cap_value)
+        cross_margin_eligible = True
 
         expected_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=min_price_tick_size)
         expected_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=min_quantity_tick_size)
@@ -366,6 +413,7 @@ class TestComposer:
             min_quantity_tick_size=min_quantity_tick_size,
             min_notional=min_notional,
             open_notional_cap=open_notional_cap,
+            cross_margin_eligible=cross_margin_eligible,
         )
 
         expected_message = {
@@ -389,6 +437,7 @@ class TestComposer:
                     "value": f"{expected_open_notional_cap_value.normalize():f}",
                 },
             },
+            "crossMarginEligible": cross_margin_eligible,
         }
         dict_message = json_format.MessageToDict(
             message=message,
@@ -415,6 +464,7 @@ class TestComposer:
         min_notional = Decimal("2")
         cap_value = Decimal("1000")
         open_notional_cap = basic_composer.open_notional_cap(value=cap_value)
+        cross_margin_eligible = True
 
         expected_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=min_price_tick_size)
         expected_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=min_quantity_tick_size)
@@ -446,6 +496,7 @@ class TestComposer:
             min_quantity_tick_size=min_quantity_tick_size,
             min_notional=min_notional,
             open_notional_cap=open_notional_cap,
+            cross_margin_eligible=cross_margin_eligible,
         )
 
         expected_message = {
@@ -470,6 +521,7 @@ class TestComposer:
                     "value": f"{expected_open_notional_cap_value.normalize():f}",
                 },
             },
+            "crossMarginEligible": cross_margin_eligible,
         }
         dict_message = json_format.MessageToDict(
             message=message,
@@ -1451,6 +1503,70 @@ class TestComposer:
         )
         assert dict_message == expected_message
 
+    def test_msg_batch_liquidate_positions(self, basic_composer):
+        market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
+        sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
+        subaccount_id = "0x893f2abf8034627e50cbc63923120b1122503ce0000000000000000000000001"
+        second_subaccount_id = "0x156df4d5bc8e7dd9191433e54bd6a11eeb390921000000000000000000000000"
+
+        order = basic_composer.derivative_order(
+            market_id=market_id,
+            subaccount_id=subaccount_id,
+            fee_recipient="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
+            price=Decimal("36.1"),
+            quantity=Decimal("100"),
+            margin=Decimal("36.1") * Decimal("100"),
+            order_type="BUY",
+        )
+
+        liquidation_with_order = basic_composer.liquidate_position_data(
+            subaccount_id=subaccount_id,
+            market_id=market_id,
+            order=order,
+        )
+        liquidation_without_order = basic_composer.liquidate_position_data(
+            subaccount_id=second_subaccount_id,
+            market_id=market_id,
+        )
+
+        message = basic_composer.msg_batch_liquidate_positions(
+            sender=sender,
+            liquidations=[liquidation_with_order, liquidation_without_order],
+        )
+
+        expected_message = {
+            "sender": sender,
+            "liquidations": [
+                {
+                    "subaccountId": subaccount_id,
+                    "marketId": market_id,
+                    "order": {
+                        "marketId": market_id,
+                        "orderInfo": {
+                            "subaccountId": subaccount_id,
+                            "feeRecipient": "inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
+                            "price": "36100000000000000000",
+                            "quantity": "100000000000000000000",
+                            "cid": "",
+                        },
+                        "orderType": "BUY",
+                        "margin": "3610000000000000000000",
+                        "triggerPrice": "0",
+                        "expirationBlock": "0",
+                    },
+                },
+                {
+                    "subaccountId": second_subaccount_id,
+                    "marketId": market_id,
+                },
+            ],
+        }
+        dict_message = json_format.MessageToDict(
+            message=message,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
     def test_msg_emergency_settle_market(self, basic_composer):
         market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
 
@@ -1632,6 +1748,7 @@ class TestComposer:
         initial_margin_ratio = Decimal("0.05")
         maintenance_margin_ratio = Decimal("0.009")
         reduce_margin_ration = Decimal("3")
+        cross_margin_eligibility = Composer.CROSS_MARGIN_ELIGIBILITY.CM_ELIGIBILITY_ELIGIBLE
 
         expected_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=min_price_tick_size)
         expected_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=min_quantity_tick_size)
@@ -1656,6 +1773,7 @@ class TestComposer:
             new_maintenance_margin_ratio=maintenance_margin_ratio,
             new_reduce_margin_ratio=reduce_margin_ration,
             new_open_notional_cap=open_notional_cap,
+            cross_margin_eligibility=cross_margin_eligibility,
         )
 
         expected_message = {
@@ -1673,6 +1791,7 @@ class TestComposer:
                     "value": f"{expected_open_notional_cap_value.normalize():f}",
                 },
             },
+            "crossMarginEligibility": cross_margin_eligibility.name,
         }
         dict_message = json_format.MessageToDict(
             message=message,
