@@ -140,6 +140,11 @@ class MsgStub(object):
                 request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgLiquidatePosition.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgLiquidatePositionResponse.FromString,
                 _registered_method=True)
+        self.BatchLiquidatePositions = channel.unary_unary(
+                '/injective.exchange.v2.Msg/BatchLiquidatePositions',
+                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchLiquidatePositions.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchLiquidatePositionsResponse.FromString,
+                _registered_method=True)
         self.EmergencySettleMarket = channel.unary_unary(
                 '/injective.exchange.v2.Msg/EmergencySettleMarket',
                 request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgEmergencySettleMarket.SerializeToString,
@@ -284,6 +289,16 @@ class MsgStub(object):
                 '/injective.exchange.v2.Msg/ActivatePostOnlyMode',
                 request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgActivatePostOnlyMode.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgActivatePostOnlyModeResponse.FromString,
+                _registered_method=True)
+        self.LiquidateCrossMarginPool = channel.unary_unary(
+                '/injective.exchange.v2.Msg/LiquidateCrossMarginPool',
+                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgLiquidateCrossMarginPool.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgLiquidateCrossMarginPoolResponse.FromString,
+                _registered_method=True)
+        self.UpdateSubaccountRiskProfile = channel.unary_unary(
+                '/injective.exchange.v2.Msg/UpdateSubaccountRiskProfile',
+                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgUpdateSubaccountRiskProfile.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgUpdateSubaccountRiskProfileResponse.FromString,
                 _registered_method=True)
 
 
@@ -485,6 +500,14 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def BatchLiquidatePositions(self, request, context):
+        """BatchLiquidatePositions defines a method for liquidating multiple positions
+        in a best-effort manner
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def EmergencySettleMarket(self, request, context):
         """EmergencySettleMarket defines a method for emergency settling a market
         """
@@ -672,6 +695,23 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def LiquidateCrossMarginPool(self, request, context):
+        """LiquidateCrossMarginPool atomically closes all positions in a cross-margin
+        pool, netting surplus from profitable positions against deficits before
+        touching the insurance fund.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateSubaccountRiskProfile(self, request, context):
+        """UpdateSubaccountRiskProfile allows a user (subject to eligibility & safety
+        gates) to set the subaccount's risk profile (e.g. opt into cross-margin).
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -799,6 +839,11 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.LiquidatePosition,
                     request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgLiquidatePosition.FromString,
                     response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgLiquidatePositionResponse.SerializeToString,
+            ),
+            'BatchLiquidatePositions': grpc.unary_unary_rpc_method_handler(
+                    servicer.BatchLiquidatePositions,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchLiquidatePositions.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchLiquidatePositionsResponse.SerializeToString,
             ),
             'EmergencySettleMarket': grpc.unary_unary_rpc_method_handler(
                     servicer.EmergencySettleMarket,
@@ -944,6 +989,16 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.ActivatePostOnlyMode,
                     request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgActivatePostOnlyMode.FromString,
                     response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgActivatePostOnlyModeResponse.SerializeToString,
+            ),
+            'LiquidateCrossMarginPool': grpc.unary_unary_rpc_method_handler(
+                    servicer.LiquidateCrossMarginPool,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgLiquidateCrossMarginPool.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgLiquidateCrossMarginPoolResponse.SerializeToString,
+            ),
+            'UpdateSubaccountRiskProfile': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateSubaccountRiskProfile,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgUpdateSubaccountRiskProfile.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgUpdateSubaccountRiskProfileResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -1622,6 +1677,33 @@ class Msg(object):
             '/injective.exchange.v2.Msg/LiquidatePosition',
             injective_dot_exchange_dot_v2_dot_tx__pb2.MsgLiquidatePosition.SerializeToString,
             injective_dot_exchange_dot_v2_dot_tx__pb2.MsgLiquidatePositionResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def BatchLiquidatePositions(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Msg/BatchLiquidatePositions',
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchLiquidatePositions.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchLiquidatePositionsResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -2405,6 +2487,60 @@ class Msg(object):
             '/injective.exchange.v2.Msg/ActivatePostOnlyMode',
             injective_dot_exchange_dot_v2_dot_tx__pb2.MsgActivatePostOnlyMode.SerializeToString,
             injective_dot_exchange_dot_v2_dot_tx__pb2.MsgActivatePostOnlyModeResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def LiquidateCrossMarginPool(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Msg/LiquidateCrossMarginPool',
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgLiquidateCrossMarginPool.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgLiquidateCrossMarginPoolResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateSubaccountRiskProfile(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Msg/UpdateSubaccountRiskProfile',
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgUpdateSubaccountRiskProfile.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgUpdateSubaccountRiskProfileResponse.FromString,
             options,
             channel_credentials,
             insecure,

@@ -50,6 +50,16 @@ class QueryStub(object):
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythPriceStatesRequest.SerializeToString,
                 response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythPriceStatesResponse.FromString,
                 _registered_method=True)
+        self.PythProPriceStates = channel.unary_unary(
+                '/injective.oracle.v1beta1.Query/PythProPriceStates',
+                request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythProPriceStatesRequest.SerializeToString,
+                response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythProPriceStatesResponse.FromString,
+                _registered_method=True)
+        self.SedaFastPriceStates = channel.unary_unary(
+                '/injective.oracle.v1beta1.Query/SedaFastPriceStates',
+                request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QuerySedaFastPriceStatesRequest.SerializeToString,
+                response_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QuerySedaFastPriceStatesResponse.FromString,
+                _registered_method=True)
         self.StorkPriceStates = channel.unary_unary(
                 '/injective.oracle.v1beta1.Query/StorkPriceStates',
                 request_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryStorkPriceStatesRequest.SerializeToString,
@@ -155,6 +165,20 @@ class QueryServicer(object):
 
     def PythPriceStates(self, request, context):
         """Retrieves the state for all pyth price feeds
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def PythProPriceStates(self, request, context):
+        """Retrieves the state for all pyth pro price feeds
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SedaFastPriceStates(self, request, context):
+        """Retrieves the state for all SEDA Fast price feeds
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -270,6 +294,16 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.PythPriceStates,
                     request_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythPriceStatesRequest.FromString,
                     response_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythPriceStatesResponse.SerializeToString,
+            ),
+            'PythProPriceStates': grpc.unary_unary_rpc_method_handler(
+                    servicer.PythProPriceStates,
+                    request_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythProPriceStatesRequest.FromString,
+                    response_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythProPriceStatesResponse.SerializeToString,
+            ),
+            'SedaFastPriceStates': grpc.unary_unary_rpc_method_handler(
+                    servicer.SedaFastPriceStates,
+                    request_deserializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QuerySedaFastPriceStatesRequest.FromString,
+                    response_serializer=injective_dot_oracle_dot_v1beta1_dot_query__pb2.QuerySedaFastPriceStatesResponse.SerializeToString,
             ),
             'StorkPriceStates': grpc.unary_unary_rpc_method_handler(
                     servicer.StorkPriceStates,
@@ -517,6 +551,60 @@ class Query(object):
             '/injective.oracle.v1beta1.Query/PythPriceStates',
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythPriceStatesRequest.SerializeToString,
             injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythPriceStatesResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def PythProPriceStates(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Query/PythProPriceStates',
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythProPriceStatesRequest.SerializeToString,
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QueryPythProPriceStatesResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def SedaFastPriceStates(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.oracle.v1beta1.Query/SedaFastPriceStates',
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QuerySedaFastPriceStatesRequest.SerializeToString,
+            injective_dot_oracle_dot_v1beta1_dot_query__pb2.QuerySedaFastPriceStatesResponse.FromString,
             options,
             channel_credentials,
             insecure,

@@ -180,6 +180,16 @@ class QueryStub(object):
                 request_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QuerySubaccountTradeNonceRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QuerySubaccountTradeNonceResponse.FromString,
                 _registered_method=True)
+        self.SubaccountRiskProfile = channel.unary_unary(
+                '/injective.exchange.v2.Query/SubaccountRiskProfile',
+                request_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QuerySubaccountRiskProfileRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QuerySubaccountRiskProfileResponse.FromString,
+                _registered_method=True)
+        self.CrossMarginPoolSnapshot = channel.unary_unary(
+                '/injective.exchange.v2.Query/CrossMarginPoolSnapshot',
+                request_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryCrossMarginPoolSnapshotRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryCrossMarginPoolSnapshotResponse.FromString,
+                _registered_method=True)
         self.ExchangeModuleState = channel.unary_unary(
                 '/injective.exchange.v2.Query/ExchangeModuleState',
                 request_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryModuleStateRequest.SerializeToString,
@@ -588,6 +598,22 @@ class QueryServicer(object):
 
     def SubaccountTradeNonce(self, request, context):
         """Retrieves a subaccount's trade nonce
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SubaccountRiskProfile(self, request, context):
+        """Retrieves a subaccount's risk profile
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CrossMarginPoolSnapshot(self, request, context):
+        """Retrieves a subaccount's cross-margin pool snapshot for a given quote
+        denom. Returns current equity, order lock requirement, margin requirements,
+        and other risk metrics needed to understand cross-margin health.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -1006,6 +1032,16 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.SubaccountTradeNonce,
                     request_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QuerySubaccountTradeNonceRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QuerySubaccountTradeNonceResponse.SerializeToString,
+            ),
+            'SubaccountRiskProfile': grpc.unary_unary_rpc_method_handler(
+                    servicer.SubaccountRiskProfile,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QuerySubaccountRiskProfileRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QuerySubaccountRiskProfileResponse.SerializeToString,
+            ),
+            'CrossMarginPoolSnapshot': grpc.unary_unary_rpc_method_handler(
+                    servicer.CrossMarginPoolSnapshot,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryCrossMarginPoolSnapshotRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryCrossMarginPoolSnapshotResponse.SerializeToString,
             ),
             'ExchangeModuleState': grpc.unary_unary_rpc_method_handler(
                     servicer.ExchangeModuleState,
@@ -2075,6 +2111,60 @@ class Query(object):
             '/injective.exchange.v2.Query/SubaccountTradeNonce',
             injective_dot_exchange_dot_v2_dot_query__pb2.QuerySubaccountTradeNonceRequest.SerializeToString,
             injective_dot_exchange_dot_v2_dot_query__pb2.QuerySubaccountTradeNonceResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def SubaccountRiskProfile(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Query/SubaccountRiskProfile',
+            injective_dot_exchange_dot_v2_dot_query__pb2.QuerySubaccountRiskProfileRequest.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_query__pb2.QuerySubaccountRiskProfileResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def CrossMarginPoolSnapshot(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Query/CrossMarginPoolSnapshot',
+            injective_dot_exchange_dot_v2_dot_query__pb2.QueryCrossMarginPoolSnapshotRequest.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_query__pb2.QueryCrossMarginPoolSnapshotResponse.FromString,
             options,
             channel_credentials,
             insecure,

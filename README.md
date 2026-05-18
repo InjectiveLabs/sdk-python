@@ -70,6 +70,8 @@ Upgrade `pip` to the latest version, if you see these warnings:
 poetry run pytest -v
 ```
 
+> **Maintainers:** see [MAINTAINERS.md](MAINTAINERS.md) for how to regenerate proto bindings, refresh `pyinjective/ofac.json`, and cut a new release.
+
 ---
 
 ## Async client (exchange V2)

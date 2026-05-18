@@ -1289,6 +1289,7 @@ class TestChainGrpcExchangeV2Api:
             quote_decimals=6,
             open_notional_cap=open_notional_cap,
             has_disabled_minimal_protocol_fee=False,
+            cross_margin_eligible=False,
         )
         market_info = market_pb.PerpetualMarketInfo(
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
@@ -1359,6 +1360,7 @@ class TestChainGrpcExchangeV2Api:
                             "uncapped": {},
                         },
                         "hasDisabledMinimalProtocolFee": market.has_disabled_minimal_protocol_fee,
+                        "crossMarginEligible": market.cross_margin_eligible,
                     },
                     "perpetualInfo": {
                         "marketInfo": {
@@ -1414,6 +1416,7 @@ class TestChainGrpcExchangeV2Api:
             admin_permissions=1,
             quote_decimals=6,
             has_disabled_minimal_protocol_fee=False,
+            cross_margin_eligible=False,
         )
         market_info = market_pb.PerpetualMarketInfo(
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
@@ -1479,6 +1482,7 @@ class TestChainGrpcExchangeV2Api:
                     "adminPermissions": market.admin_permissions,
                     "quoteDecimals": market.quote_decimals,
                     "hasDisabledMinimalProtocolFee": market.has_disabled_minimal_protocol_fee,
+                    "crossMarginEligible": market.cross_margin_eligible,
                 },
                 "perpetualInfo": {
                     "marketInfo": {
@@ -1690,7 +1694,10 @@ class TestChainGrpcExchangeV2Api:
             cumulative_funding_entry="4000000",
         )
         exchange_servicer.subaccount_position_in_market_responses.append(
-            exchange_query_pb.QuerySubaccountPositionInMarketResponse(state=position)
+            exchange_query_pb.QuerySubaccountPositionInMarketResponse(
+                state=position,
+                risk_mode=exchange_pb.RiskMode.RISK_MODE_ISOLATED,
+            )
         )
 
         api = self._api_instance(servicer=exchange_servicer)
@@ -1707,6 +1714,7 @@ class TestChainGrpcExchangeV2Api:
                 "margin": position.margin,
                 "cumulativeFundingEntry": position.cumulative_funding_entry,
             },
+            "riskMode": exchange_pb.RiskMode.Name(exchange_pb.RiskMode.RISK_MODE_ISOLATED),
         }
 
         assert position_response == expected_position
@@ -1726,7 +1734,10 @@ class TestChainGrpcExchangeV2Api:
             effective_margin="2000000000000000000000000000000000",
         )
         exchange_servicer.subaccount_effective_position_in_market_responses.append(
-            exchange_query_pb.QuerySubaccountEffectivePositionInMarketResponse(state=effective_position)
+            exchange_query_pb.QuerySubaccountEffectivePositionInMarketResponse(
+                state=effective_position,
+                risk_mode=exchange_pb.RiskMode.RISK_MODE_ISOLATED,
+            )
         )
 
         api = self._api_instance(servicer=exchange_servicer)
@@ -1742,6 +1753,7 @@ class TestChainGrpcExchangeV2Api:
                 "entryPrice": effective_position.entry_price,
                 "effectiveMargin": effective_position.effective_margin,
             },
+            "riskMode": exchange_pb.RiskMode.Name(exchange_pb.RiskMode.RISK_MODE_ISOLATED),
         }
 
         assert position_response == expected_position

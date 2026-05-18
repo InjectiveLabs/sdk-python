@@ -473,6 +473,7 @@ class TestChainGrpcChainStream:
             fee_recipient_address="inj1clw20s2uxeyxtam6f7m84vgae92s9eh7vygagt",
             cid="cid1",
             trade_id=f"{block_height}_1",
+            is_liquidation=False,
         )
         spot_order_info = order_v2_pb.OrderInfo(
             subaccount_id="0x5e249f0e8cb406f41de16e1bd6f6b55e7bc75add000000000000000000000004",
@@ -689,6 +690,7 @@ class TestChainGrpcChainStream:
                     "feeRecipientAddress": derivative_trade.fee_recipient_address,
                     "cid": derivative_trade.cid,
                     "tradeId": derivative_trade.trade_id,
+                    "isLiquidation": derivative_trade.is_liquidation,
                 }
             ],
             "spotOrders": [
