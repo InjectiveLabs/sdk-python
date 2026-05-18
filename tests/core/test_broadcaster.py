@@ -7,8 +7,6 @@ import pytest
 
 import pyinjective.ofac as ofac
 from pyinjective import PrivateKey
-from pyinjective.async_client_v2 import AsyncClient
-from pyinjective.composer_v2 import Composer
 from pyinjective.core.broadcaster import MsgBroadcasterWithPk, StandardAccountBroadcasterConfig
 from pyinjective.core.network import Network
 
@@ -31,18 +29,12 @@ class TestBroadcastAddressInOfacList(unittest.TestCase):
 
     def test_broadcast_address_in_ofac_list(self):
         network = Network.local()
-        client = AsyncClient(
-            network=Network.local(),
-        )
-        composer = Mock(spec=Composer)
-
         account_config = StandardAccountBroadcasterConfig(private_key=self.private_key_banned.to_hex())
 
         with pytest.raises(Exception):
             _ = MsgBroadcasterWithPk(
                 network=network,
                 account_config=account_config,
-                client=client,
-                composer=composer,
+                client=None,
                 fee_calculator=Mock(),
             )
