@@ -26,7 +26,7 @@ clean-all:
 	$(call clean_repos)
 
 clone-injective-indexer:
-	git clone https://github.com/InjectiveLabs/injective-indexer.git -b v1.19.41 --depth 1 --single-branch
+	git clone https://github.com/InjectiveLabs/injective-indexer.git -b v1.20.2 --depth 1 --single-branch
 
 clone-all: clone-injective-indexer
 

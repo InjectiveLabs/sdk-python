@@ -50,6 +50,11 @@ class EventProviderAPIStub(object):
                 request_serializer=exchange_dot_event__provider__api__pb2.GetABCIBlockEventsAtHeightRequest.SerializeToString,
                 response_deserializer=exchange_dot_event__provider__api__pb2.GetABCIBlockEventsAtHeightResponse.FromString,
                 _registered_method=True)
+        self.StreamABCIEvents = channel.unary_stream(
+                '/event_provider_api.EventProviderAPI/StreamABCIEvents',
+                request_serializer=exchange_dot_event__provider__api__pb2.StreamABCIEventsRequest.SerializeToString,
+                response_deserializer=exchange_dot_event__provider__api__pb2.StreamABCIEventsResponse.FromString,
+                _registered_method=True)
 
 
 class EventProviderAPIServicer(object):
@@ -105,6 +110,13 @@ class EventProviderAPIServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def StreamABCIEvents(self, request, context):
+        """Stream raw block events for selected height
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_EventProviderAPIServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -142,6 +154,11 @@ def add_EventProviderAPIServicer_to_server(servicer, server):
                     servicer.GetABCIBlockEventsAtHeight,
                     request_deserializer=exchange_dot_event__provider__api__pb2.GetABCIBlockEventsAtHeightRequest.FromString,
                     response_serializer=exchange_dot_event__provider__api__pb2.GetABCIBlockEventsAtHeightResponse.SerializeToString,
+            ),
+            'StreamABCIEvents': grpc.unary_stream_rpc_method_handler(
+                    servicer.StreamABCIEvents,
+                    request_deserializer=exchange_dot_event__provider__api__pb2.StreamABCIEventsRequest.FromString,
+                    response_serializer=exchange_dot_event__provider__api__pb2.StreamABCIEventsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -334,6 +351,33 @@ class EventProviderAPI(object):
             '/event_provider_api.EventProviderAPI/GetABCIBlockEventsAtHeight',
             exchange_dot_event__provider__api__pb2.GetABCIBlockEventsAtHeightRequest.SerializeToString,
             exchange_dot_event__provider__api__pb2.GetABCIBlockEventsAtHeightResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def StreamABCIEvents(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(
+            request,
+            target,
+            '/event_provider_api.EventProviderAPI/StreamABCIEvents',
+            exchange_dot_event__provider__api__pb2.StreamABCIEventsRequest.SerializeToString,
+            exchange_dot_event__provider__api__pb2.StreamABCIEventsResponse.FromString,
             options,
             channel_credentials,
             insecure,
