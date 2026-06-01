@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file.
 - Exposed `OrderType`, `OracleType`, and `CrossMarginEligibility` proto enums as `IntEnum` class attributes on the v2 `Composer` (`Composer.ORDER_TYPE`, `Composer.ORACLE_TYPE`, `Composer.CROSS_MARGIN_ELIGIBILITY`) for IDE discoverability and type safety. The `order_type` and `oracle_type` parameters in composer methods now accept either the string name or an integer / enum value (backward-compatible); `cross_margin_eligibility` (newly introduced this release) accepts only the `Composer.CROSS_MARGIN_ELIGIBILITY` enum.
 
 ### Changed
-- Updated all compiled protos for compatibility with Injective core v1.20.0 and Indexer v1.19.41
+- Updated all compiled protos for compatibility with Injective core v1.20.0 and Indexer v1.20.2
 
 ## [1.14.1] - 2026-04-29
 ### Changed
