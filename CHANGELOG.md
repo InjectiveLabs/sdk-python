@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [v1.15.0]
+## [v1.15.0] 2026-06-02
 ### Added
 - Added support in v2 Composer for the new exchange module MsgBatchLiquidatePositions message, including the `liquidate_position_data` and `msg_batch_liquidate_positions` composer helpers and a corresponding example script
 - Exposed `OrderType`, `OracleType`, and `CrossMarginEligibility` proto enums as `IntEnum` class attributes on the v2 `Composer` (`Composer.ORDER_TYPE`, `Composer.ORACLE_TYPE`, `Composer.CROSS_MARGIN_ELIGIBILITY`) for IDE discoverability and type safety. The `order_type` and `oracle_type` parameters in composer methods now accept either the string name or an integer / enum value (backward-compatible); `cross_margin_eligibility` (newly introduced this release) accepts only the `Composer.CROSS_MARGIN_ELIGIBILITY` enum.
