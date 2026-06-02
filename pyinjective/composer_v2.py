@@ -1,8 +1,8 @@
 import json
 from decimal import Decimal
-from enum import IntFlag
+from enum import IntEnum, IntFlag
 from time import time
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 
 from google.protobuf import any_pb2, json_format, timestamp_pb2
 
@@ -30,6 +30,7 @@ from pyinjective.proto.injective.exchange.v2 import (
     exchange_pb2 as injective_exchange_v2_pb,
     market_pb2 as injective_market_v2_pb,
     order_pb2 as injective_order_v2_pb,
+    proposal_pb2 as injective_proposal_v2_pb,
     tx_pb2 as injective_exchange_tx_v2_pb,
 )
 from pyinjective.proto.injective.insurance.v1beta1 import tx_pb2 as injective_insurance_tx_pb
@@ -78,6 +79,8 @@ REQUEST_TO_RESPONSE_TYPE_MAP = {
         injective_exchange_tx_v2_pb.MsgSubaccountTransferResponse,
     "MsgLiquidatePosition":
         injective_exchange_tx_v2_pb.MsgLiquidatePositionResponse,
+    "MsgBatchLiquidatePositions":
+        injective_exchange_tx_v2_pb.MsgBatchLiquidatePositionsResponse,
     "MsgIncreasePositionMargin":
         injective_exchange_tx_v2_pb.MsgIncreasePositionMarginResponse,
     "MsgCreateBinaryOptionsLimitOrder":
@@ -179,6 +182,8 @@ GRPC_MESSAGE_TYPE_TO_CLASS_MAP = {
         injective_exchange_tx_v2_pb.MsgSubaccountTransfer,
     "/injective.exchange.v2.MsgLiquidatePosition":
         injective_exchange_tx_v2_pb.MsgLiquidatePosition,
+    "/injective.exchange.v2.MsgBatchLiquidatePositions":
+        injective_exchange_tx_v2_pb.MsgBatchLiquidatePositions,
     "/injective.exchange.v2.MsgIncreasePositionMargin":
         injective_exchange_tx_v2_pb.MsgIncreasePositionMargin,
     "/injective.exchange.v2.MsgCreateBinaryOptionsLimitOrder":
@@ -280,6 +285,8 @@ GRPC_RESPONSE_TYPE_TO_CLASS_MAP = {
         injective_exchange_tx_v2_pb.MsgSubaccountTransferResponse,
     "/injective.exchange.v2.MsgLiquidatePositionResponse":
         injective_exchange_tx_v2_pb.MsgLiquidatePositionResponse,
+    "/injective.exchange.v2.MsgBatchLiquidatePositionsResponse":
+        injective_exchange_tx_v2_pb.MsgBatchLiquidatePositionsResponse,
     "/injective.exchange.v2.MsgIncreasePositionMarginResponse":
         injective_exchange_tx_v2_pb.MsgIncreasePositionMarginResponse,
     "/injective.exchange.v2.MsgCreateBinaryOptionsLimitOrderResponse":
@@ -305,6 +312,33 @@ class Composer:
             for permission_name in injective_permissions_pb.Action.keys()
         ],
     )
+    ORDER_TYPE = IntEnum(
+        "ORDER_TYPE",
+        [(name, injective_order_v2_pb.OrderType.Value(name)) for name in injective_order_v2_pb.OrderType.keys()],
+    )
+    ORACLE_TYPE = IntEnum(
+        "ORACLE_TYPE",
+        [(name, injective_oracle_pb.OracleType.Value(name)) for name in injective_oracle_pb.OracleType.keys()],
+    )
+    CROSS_MARGIN_ELIGIBILITY = IntEnum(
+        "CROSS_MARGIN_ELIGIBILITY",
+        [
+            (name, injective_proposal_v2_pb.CrossMarginEligibility.Value(name))
+            for name in injective_proposal_v2_pb.CrossMarginEligibility.keys()
+        ],
+    )
+
+    @staticmethod
+    def _resolve_order_type(value: Union[str, int]) -> int:
+        if isinstance(value, str):
+            return injective_order_v2_pb.OrderType.Value(value)
+        return int(value)
+
+    @staticmethod
+    def _resolve_oracle_type(value: Union[str, int]) -> int:
+        if isinstance(value, str):
+            return injective_oracle_pb.OracleType.Value(value)
+        return int(value)
 
     def __init__(self, network: str):
         """Composer is used to create the requests to send to the nodes using the Client
@@ -364,14 +398,14 @@ class Composer:
         fee_recipient: str,
         price: Decimal,
         quantity: Decimal,
-        order_type: str,
+        order_type: Union[str, int],
         cid: Optional[str] = None,
         trigger_price: Optional[Decimal] = None,
         expiration_block: Optional[int] = None,
     ) -> injective_order_v2_pb.SpotOrder:
         trigger_price = trigger_price or Decimal(0)
         expiration_block = expiration_block or 0
-        chain_order_type = injective_order_v2_pb.OrderType.Value(order_type)
+        chain_order_type = self._resolve_order_type(order_type)
         chain_quantity = f"{Token.convert_value_to_extended_decimal_format(value=quantity).normalize():f}"
         chain_price = f"{Token.convert_value_to_extended_decimal_format(value=price).normalize():f}"
         chain_trigger_price = f"{Token.convert_value_to_extended_decimal_format(value=trigger_price).normalize():f}"
@@ -592,7 +626,7 @@ class Composer:
         oracle_base: str,
         oracle_quote: str,
         oracle_scale_factor: int,
-        oracle_type: str,
+        oracle_type: Union[str, int],
         maker_fee_rate: Decimal,
         taker_fee_rate: Decimal,
         initial_margin_ratio: Decimal,
@@ -602,6 +636,7 @@ class Composer:
         min_quantity_tick_size: Decimal,
         min_notional: Decimal,
         open_notional_cap: Optional[injective_market_v2_pb.OpenNotionalCap] = None,
+        cross_margin_eligible: bool = False,
     ) -> injective_exchange_tx_v2_pb.MsgInstantPerpetualMarketLaunch:
         chain_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=min_price_tick_size)
         chain_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=min_quantity_tick_size)
@@ -619,7 +654,7 @@ class Composer:
             oracle_base=oracle_base,
             oracle_quote=oracle_quote,
             oracle_scale_factor=oracle_scale_factor,
-            oracle_type=injective_oracle_pb.OracleType.Value(oracle_type),
+            oracle_type=self._resolve_oracle_type(oracle_type),
             maker_fee_rate=f"{chain_maker_fee_rate.normalize():f}",
             taker_fee_rate=f"{chain_taker_fee_rate.normalize():f}",
             initial_margin_ratio=f"{chain_initial_margin_ratio.normalize():f}",
@@ -629,6 +664,7 @@ class Composer:
             min_quantity_tick_size=f"{chain_min_quantity_tick_size.normalize():f}",
             min_notional=f"{chain_min_notional.normalize():f}",
             open_notional_cap=open_notional_cap,
+            cross_margin_eligible=cross_margin_eligible,
         )
 
     def msg_instant_expiry_futures_market_launch_v2(
@@ -639,7 +675,7 @@ class Composer:
         oracle_base: str,
         oracle_quote: str,
         oracle_scale_factor: int,
-        oracle_type: str,
+        oracle_type: Union[str, int],
         expiry: int,
         maker_fee_rate: Decimal,
         taker_fee_rate: Decimal,
@@ -650,6 +686,7 @@ class Composer:
         min_quantity_tick_size: Decimal,
         min_notional: Decimal,
         open_notional_cap: Optional[injective_market_v2_pb.OpenNotionalCap] = None,
+        cross_margin_eligible: bool = False,
     ) -> injective_exchange_tx_v2_pb.MsgInstantExpiryFuturesMarketLaunch:
         chain_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=min_price_tick_size)
         chain_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=min_quantity_tick_size)
@@ -667,7 +704,7 @@ class Composer:
             oracle_base=oracle_base,
             oracle_quote=oracle_quote,
             oracle_scale_factor=oracle_scale_factor,
-            oracle_type=injective_oracle_pb.OracleType.Value(oracle_type),
+            oracle_type=self._resolve_oracle_type(oracle_type),
             expiry=expiry,
             maker_fee_rate=f"{chain_maker_fee_rate.normalize():f}",
             taker_fee_rate=f"{chain_taker_fee_rate.normalize():f}",
@@ -678,6 +715,7 @@ class Composer:
             min_quantity_tick_size=f"{chain_min_quantity_tick_size.normalize():f}",
             min_notional=f"{chain_min_notional.normalize():f}",
             open_notional_cap=open_notional_cap,
+            cross_margin_eligible=cross_margin_eligible,
         )
 
     def msg_create_spot_limit_order(
@@ -906,7 +944,7 @@ class Composer:
         ticker: str,
         oracle_symbol: str,
         oracle_provider: str,
-        oracle_type: str,
+        oracle_type: Union[str, int],
         oracle_scale_factor: int,
         maker_fee_rate: Decimal,
         taker_fee_rate: Decimal,
@@ -930,7 +968,7 @@ class Composer:
             ticker=ticker,
             oracle_symbol=oracle_symbol,
             oracle_provider=oracle_provider,
-            oracle_type=injective_oracle_pb.OracleType.Value(oracle_type),
+            oracle_type=self._resolve_oracle_type(oracle_type),
             oracle_scale_factor=oracle_scale_factor,
             maker_fee_rate=f"{chain_maker_fee_rate.normalize():f}",
             taker_fee_rate=f"{chain_taker_fee_rate.normalize():f}",
@@ -1069,6 +1107,23 @@ class Composer:
             sender=sender, subaccount_id=subaccount_id, market_id=market_id, order=order
         )
 
+    def liquidate_position_data(
+        self,
+        subaccount_id: str,
+        market_id: str,
+        order: Optional[injective_order_v2_pb.DerivativeOrder] = None,
+    ) -> injective_exchange_tx_v2_pb.LiquidatePositionData:
+        return injective_exchange_tx_v2_pb.LiquidatePositionData(
+            subaccount_id=subaccount_id, market_id=market_id, order=order
+        )
+
+    def msg_batch_liquidate_positions(
+        self,
+        sender: str,
+        liquidations: List[injective_exchange_tx_v2_pb.LiquidatePositionData],
+    ) -> injective_exchange_tx_v2_pb.MsgBatchLiquidatePositions:
+        return injective_exchange_tx_v2_pb.MsgBatchLiquidatePositions(sender=sender, liquidations=liquidations)
+
     def msg_emergency_settle_market(
         self,
         sender: str,
@@ -1173,6 +1228,7 @@ class Composer:
         new_maintenance_margin_ratio: Decimal,
         new_reduce_margin_ratio: Decimal,
         new_open_notional_cap: Optional[injective_market_v2_pb.OpenNotionalCap] = None,
+        cross_margin_eligibility: CROSS_MARGIN_ELIGIBILITY = CROSS_MARGIN_ELIGIBILITY.CM_ELIGIBILITY_INELIGIBLE,
     ) -> injective_exchange_tx_v2_pb.MsgUpdateDerivativeMarket:
         chain_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=new_min_price_tick_size)
         chain_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=new_min_quantity_tick_size)
@@ -1194,6 +1250,7 @@ class Composer:
             new_maintenance_margin_ratio=f"{chain_maintenance_margin_ratio.normalize():f}",
             new_reduce_margin_ratio=f"{chain_reduce_margin_ratio.normalize():f}",
             new_open_notional_cap=new_open_notional_cap,
+            cross_margin_eligibility=cross_margin_eligibility,
         )
 
     def msg_authorize_stake_grants(
@@ -1244,7 +1301,7 @@ class Composer:
         quote_denom: str,
         oracle_base: str,
         oracle_quote: str,
-        oracle_type: str,
+        oracle_type: Union[str, int],
         expiry: int,
         initial_deposit: int,
     ) -> injective_insurance_tx_pb.MsgCreateInsuranceFund:
@@ -1256,7 +1313,7 @@ class Composer:
             quote_denom=quote_denom,
             oracle_base=oracle_base,
             oracle_quote=oracle_quote,
-            oracle_type=injective_oracle_pb.OracleType.Value(oracle_type),
+            oracle_type=self._resolve_oracle_type(oracle_type),
             expiry=expiry,
             initial_deposit=deposit,
         )
@@ -1902,7 +1959,7 @@ class Composer:
         price: Decimal,
         quantity: Decimal,
         margin: Decimal,
-        order_type: str,
+        order_type: Union[str, int],
         cid: Optional[str] = None,
         trigger_price: Optional[Decimal] = None,
         expiration_block: Optional[int] = None,
@@ -1914,7 +1971,7 @@ class Composer:
         chain_price = f"{Token.convert_value_to_extended_decimal_format(value=price).normalize():f}"
         chain_margin = f"{Token.convert_value_to_extended_decimal_format(value=margin).normalize():f}"
         chain_trigger_price = f"{Token.convert_value_to_extended_decimal_format(value=trigger_price).normalize():f}"
-        chain_order_type = injective_order_v2_pb.OrderType.Value(order_type)
+        chain_order_type = self._resolve_order_type(order_type)
 
         return injective_order_v2_pb.DerivativeOrder(
             market_id=market_id,

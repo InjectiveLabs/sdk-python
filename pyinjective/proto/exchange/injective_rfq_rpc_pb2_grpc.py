@@ -15,20 +15,10 @@ class InjectiveRfqRPCStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.Request = channel.unary_unary(
-                '/injective_rfq_rpc.InjectiveRfqRPC/Request',
-                request_serializer=exchange_dot_injective__rfq__rpc__pb2.RequestRequest.SerializeToString,
-                response_deserializer=exchange_dot_injective__rfq__rpc__pb2.RequestResponse.FromString,
-                _registered_method=True)
         self.StreamRequest = channel.unary_stream(
                 '/injective_rfq_rpc.InjectiveRfqRPC/StreamRequest',
                 request_serializer=exchange_dot_injective__rfq__rpc__pb2.StreamRequestRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__rfq__rpc__pb2.StreamRequestResponse.FromString,
-                _registered_method=True)
-        self.Quote = channel.unary_unary(
-                '/injective_rfq_rpc.InjectiveRfqRPC/Quote',
-                request_serializer=exchange_dot_injective__rfq__rpc__pb2.QuoteRequest.SerializeToString,
-                response_deserializer=exchange_dot_injective__rfq__rpc__pb2.QuoteResponse.FromString,
                 _registered_method=True)
         self.StreamQuote = channel.unary_stream(
                 '/injective_rfq_rpc.InjectiveRfqRPC/StreamQuote',
@@ -71,22 +61,8 @@ class InjectiveRfqRPCServicer(object):
     """InjectiveRfqRPC defines gRPC API of the RFQ (Request for Quote) API.
     """
 
-    def Request(self, request, context):
-        """Create RFQ request
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def StreamRequest(self, request, context):
         """Stream RFQ requests
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def Quote(self, request, context):
-        """Create RFQ quote
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -144,20 +120,10 @@ class InjectiveRfqRPCServicer(object):
 
 def add_InjectiveRfqRPCServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'Request': grpc.unary_unary_rpc_method_handler(
-                    servicer.Request,
-                    request_deserializer=exchange_dot_injective__rfq__rpc__pb2.RequestRequest.FromString,
-                    response_serializer=exchange_dot_injective__rfq__rpc__pb2.RequestResponse.SerializeToString,
-            ),
             'StreamRequest': grpc.unary_stream_rpc_method_handler(
                     servicer.StreamRequest,
                     request_deserializer=exchange_dot_injective__rfq__rpc__pb2.StreamRequestRequest.FromString,
                     response_serializer=exchange_dot_injective__rfq__rpc__pb2.StreamRequestResponse.SerializeToString,
-            ),
-            'Quote': grpc.unary_unary_rpc_method_handler(
-                    servicer.Quote,
-                    request_deserializer=exchange_dot_injective__rfq__rpc__pb2.QuoteRequest.FromString,
-                    response_serializer=exchange_dot_injective__rfq__rpc__pb2.QuoteResponse.SerializeToString,
             ),
             'StreamQuote': grpc.unary_stream_rpc_method_handler(
                     servicer.StreamQuote,
@@ -207,33 +173,6 @@ class InjectiveRfqRPC(object):
     """
 
     @staticmethod
-    def Request(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective_rfq_rpc.InjectiveRfqRPC/Request',
-            exchange_dot_injective__rfq__rpc__pb2.RequestRequest.SerializeToString,
-            exchange_dot_injective__rfq__rpc__pb2.RequestResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
     def StreamRequest(request,
             target,
             options=(),
@@ -250,33 +189,6 @@ class InjectiveRfqRPC(object):
             '/injective_rfq_rpc.InjectiveRfqRPC/StreamRequest',
             exchange_dot_injective__rfq__rpc__pb2.StreamRequestRequest.SerializeToString,
             exchange_dot_injective__rfq__rpc__pb2.StreamRequestResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def Quote(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective_rfq_rpc.InjectiveRfqRPC/Quote',
-            exchange_dot_injective__rfq__rpc__pb2.QuoteRequest.SerializeToString,
-            exchange_dot_injective__rfq__rpc__pb2.QuoteResponse.FromString,
             options,
             channel_credentials,
             insecure,

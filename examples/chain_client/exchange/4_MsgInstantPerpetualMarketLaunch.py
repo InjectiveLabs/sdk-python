@@ -59,6 +59,7 @@ async def main() -> None:
         min_quantity_tick_size=Decimal("0.01"),
         min_notional=Decimal("1"),
         open_notional_cap=composer.uncapped_open_notional_cap(),
+        cross_margin_eligible=False,
     )
 
     # broadcast the transaction
