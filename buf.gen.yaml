@@ -16,11 +16,11 @@ inputs:
   - git_repo: https://github.com/InjectiveLabs/wasmd
     tag: v0.53.3-inj.3
   - git_repo: https://github.com/InjectiveLabs/cometbft
-    tag: v1.0.1-inj.7
+    tag: v1.0.1-inj.v1.19.0-rollback
   - git_repo: https://github.com/InjectiveLabs/cosmos-sdk
-    tag: v0.50.14-inj.9
+    tag: v0.50.14-inj.10
   - git_repo: https://github.com/InjectiveLabs/injective-core
-    tag: v1.20.0-alpha.3
+    tag: v1.20.0
     subdir: proto
   # - git_repo: https://github.com/InjectiveLabs/injective-core
   #   branch: c-655/add_chainlink_data_streams_oracle

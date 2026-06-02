@@ -604,6 +604,7 @@ class TestIndexerGrpcDerivativeApi:
                     "executionType": order.execution_type,
                     "txHash": order.tx_hash,
                     "cid": order.cid,
+                    "accountAddress": order.account_address,
                 },
             ],
             "paging": {
@@ -1110,6 +1111,7 @@ class TestIndexerGrpcDerivativeApi:
                     "executionType": order.execution_type,
                     "txHash": order.tx_hash,
                     "cid": order.cid,
+                    "accountAddress": order.account_address,
                 },
             ],
             "paging": {

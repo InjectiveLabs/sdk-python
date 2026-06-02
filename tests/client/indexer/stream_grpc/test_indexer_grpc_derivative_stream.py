@@ -489,6 +489,7 @@ class TestIndexerGrpcDerivativeStream:
                 "executionType": order.execution_type,
                 "txHash": order.tx_hash,
                 "cid": order.cid,
+                "accountAddress": order.account_address,
             },
             "operationType": operation_type,
             "timestamp": str(timestamp),
@@ -874,6 +875,7 @@ class TestIndexerGrpcDerivativeStream:
                 "upnl": position.upnl,
             },
             "timestamp": str(timestamp),
+            "operationType": "",
         }
 
         first_update = await asyncio.wait_for(positions.get(), timeout=1)
