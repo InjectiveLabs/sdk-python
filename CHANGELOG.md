@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.16.0] 2026-06-29
+### Added
+- Peggy Rate Limit types are extended to take in an oracle_type field to denote the oracle used to fetch a price along with the token_id
+- Added an RPC endpoint for funding payments in derivatives
+
 ## [v1.15.0] 2026-06-02
 ### Added
 - Added support in v2 Composer for the new exchange module MsgBatchLiquidatePositions message, including the `liquidate_position_data` and `msg_batch_liquidate_positions` composer helpers and a corresponding example script
