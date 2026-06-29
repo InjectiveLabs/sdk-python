@@ -50,6 +50,11 @@ class InjectiveExchangeRPCStub(object):
                 request_serializer=exchange_dot_injective__exchange__rpc__pb2.GetFeePayerRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__exchange__rpc__pb2.GetFeePayerResponse.FromString,
                 _registered_method=True)
+        self.PrepareFeeGrant = channel.unary_unary(
+                '/injective_exchange_rpc.InjectiveExchangeRPC/PrepareFeeGrant',
+                request_serializer=exchange_dot_injective__exchange__rpc__pb2.PrepareFeeGrantRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__exchange__rpc__pb2.PrepareFeeGrantResponse.FromString,
+                _registered_method=True)
 
 
 class InjectiveExchangeRPCServicer(object):
@@ -105,6 +110,13 @@ class InjectiveExchangeRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def PrepareFeeGrant(self, request, context):
+        """PrepareFeeGrant creates or refreshes a feegrant for a grantee address
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_InjectiveExchangeRPCServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -142,6 +154,11 @@ def add_InjectiveExchangeRPCServicer_to_server(servicer, server):
                     servicer.GetFeePayer,
                     request_deserializer=exchange_dot_injective__exchange__rpc__pb2.GetFeePayerRequest.FromString,
                     response_serializer=exchange_dot_injective__exchange__rpc__pb2.GetFeePayerResponse.SerializeToString,
+            ),
+            'PrepareFeeGrant': grpc.unary_unary_rpc_method_handler(
+                    servicer.PrepareFeeGrant,
+                    request_deserializer=exchange_dot_injective__exchange__rpc__pb2.PrepareFeeGrantRequest.FromString,
+                    response_serializer=exchange_dot_injective__exchange__rpc__pb2.PrepareFeeGrantResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -334,6 +351,33 @@ class InjectiveExchangeRPC(object):
             '/injective_exchange_rpc.InjectiveExchangeRPC/GetFeePayer',
             exchange_dot_injective__exchange__rpc__pb2.GetFeePayerRequest.SerializeToString,
             exchange_dot_injective__exchange__rpc__pb2.GetFeePayerResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def PrepareFeeGrant(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_exchange_rpc.InjectiveExchangeRPC/PrepareFeeGrant',
+            exchange_dot_injective__exchange__rpc__pb2.PrepareFeeGrantRequest.SerializeToString,
+            exchange_dot_injective__exchange__rpc__pb2.PrepareFeeGrantResponse.FromString,
             options,
             channel_credentials,
             insecure,

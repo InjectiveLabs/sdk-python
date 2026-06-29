@@ -55,6 +55,11 @@ class InjectiveTCDerivativesRPCStub(object):
                 request_serializer=exchange_dot_injective__tc__derivatives__rpc__pb2.StreamPositionsRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__tc__derivatives__rpc__pb2.StreamPositionsResponse.FromString,
                 _registered_method=True)
+        self.FundingPayments = channel.unary_unary(
+                '/injective_tc_derivatives_rpc.InjectiveTCDerivativesRPC/FundingPayments',
+                request_serializer=exchange_dot_injective__tc__derivatives__rpc__pb2.FundingPaymentsRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__tc__derivatives__rpc__pb2.FundingPaymentsResponse.FromString,
+                _registered_method=True)
 
 
 class InjectiveTCDerivativesRPCServicer(object):
@@ -118,6 +123,13 @@ class InjectiveTCDerivativesRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def FundingPayments(self, request, context):
+        """FundingPayments lists funding payments, optionally filtered by market.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_InjectiveTCDerivativesRPCServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -160,6 +172,11 @@ def add_InjectiveTCDerivativesRPCServicer_to_server(servicer, server):
                     servicer.StreamPositions,
                     request_deserializer=exchange_dot_injective__tc__derivatives__rpc__pb2.StreamPositionsRequest.FromString,
                     response_serializer=exchange_dot_injective__tc__derivatives__rpc__pb2.StreamPositionsResponse.SerializeToString,
+            ),
+            'FundingPayments': grpc.unary_unary_rpc_method_handler(
+                    servicer.FundingPayments,
+                    request_deserializer=exchange_dot_injective__tc__derivatives__rpc__pb2.FundingPaymentsRequest.FromString,
+                    response_serializer=exchange_dot_injective__tc__derivatives__rpc__pb2.FundingPaymentsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -379,6 +396,33 @@ class InjectiveTCDerivativesRPC(object):
             '/injective_tc_derivatives_rpc.InjectiveTCDerivativesRPC/StreamPositions',
             exchange_dot_injective__tc__derivatives__rpc__pb2.StreamPositionsRequest.SerializeToString,
             exchange_dot_injective__tc__derivatives__rpc__pb2.StreamPositionsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def FundingPayments(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_tc_derivatives_rpc.InjectiveTCDerivativesRPC/FundingPayments',
+            exchange_dot_injective__tc__derivatives__rpc__pb2.FundingPaymentsRequest.SerializeToString,
+            exchange_dot_injective__tc__derivatives__rpc__pb2.FundingPaymentsResponse.FromString,
             options,
             channel_credentials,
             insecure,
