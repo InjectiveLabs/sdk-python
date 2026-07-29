@@ -262,6 +262,7 @@ class TestChainGrpcChainStream:
                     "feeRecipientAddress": spot_trade.fee_recipient_address,
                     "cid": spot_trade.cid,
                     "tradeId": spot_trade.trade_id,
+                    "notional": spot_trade.notional,
                 },
             ],
             "derivativeTrades": [
@@ -670,6 +671,7 @@ class TestChainGrpcChainStream:
                     "feeRecipientAddress": spot_trade.fee_recipient_address,
                     "cid": spot_trade.cid,
                     "tradeId": spot_trade.trade_id,
+                    "notional": spot_trade.notional,
                 },
             ],
             "derivativeTrades": [
