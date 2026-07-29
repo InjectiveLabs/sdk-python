@@ -15,6 +15,11 @@ class InjectiveTCDerivativesRPCStub(object):
         Args:
             channel: A grpc.Channel.
         """
+        self.Markets = channel.unary_unary(
+                '/injective_tc_derivatives_rpc.InjectiveTCDerivativesRPC/Markets',
+                request_serializer=exchange_dot_injective__tc__derivatives__rpc__pb2.MarketsRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__tc__derivatives__rpc__pb2.MarketsResponse.FromString,
+                _registered_method=True)
         self.OrdersHistory = channel.unary_unary(
                 '/injective_tc_derivatives_rpc.InjectiveTCDerivativesRPC/OrdersHistory',
                 request_serializer=exchange_dot_injective__tc__derivatives__rpc__pb2.OrdersHistoryRequest.SerializeToString,
@@ -65,6 +70,13 @@ class InjectiveTCDerivativesRPCStub(object):
 class InjectiveTCDerivativesRPCServicer(object):
     """InjectiveTCDerivativesRPC defines gRPC API of the TC Derivatives API.
     """
+
+    def Markets(self, request, context):
+        """Markets gets a list of TC derivative markets
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def OrdersHistory(self, request, context):
         """Get TC order history combining settlement requests with on-chain order data
@@ -133,6 +145,11 @@ class InjectiveTCDerivativesRPCServicer(object):
 
 def add_InjectiveTCDerivativesRPCServicer_to_server(servicer, server):
     rpc_method_handlers = {
+            'Markets': grpc.unary_unary_rpc_method_handler(
+                    servicer.Markets,
+                    request_deserializer=exchange_dot_injective__tc__derivatives__rpc__pb2.MarketsRequest.FromString,
+                    response_serializer=exchange_dot_injective__tc__derivatives__rpc__pb2.MarketsResponse.SerializeToString,
+            ),
             'OrdersHistory': grpc.unary_unary_rpc_method_handler(
                     servicer.OrdersHistory,
                     request_deserializer=exchange_dot_injective__tc__derivatives__rpc__pb2.OrdersHistoryRequest.FromString,
@@ -189,6 +206,33 @@ def add_InjectiveTCDerivativesRPCServicer_to_server(servicer, server):
 class InjectiveTCDerivativesRPC(object):
     """InjectiveTCDerivativesRPC defines gRPC API of the TC Derivatives API.
     """
+
+    @staticmethod
+    def Markets(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_tc_derivatives_rpc.InjectiveTCDerivativesRPC/Markets',
+            exchange_dot_injective__tc__derivatives__rpc__pb2.MarketsRequest.SerializeToString,
+            exchange_dot_injective__tc__derivatives__rpc__pb2.MarketsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def OrdersHistory(request,

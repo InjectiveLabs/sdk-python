@@ -765,6 +765,10 @@ class TestIndexerGrpcDerivativeApi:
                     "cumulativeFundingEntry": position.cumulative_funding_entry,
                     "effectiveCumulativeFundingEntry": position.effective_cumulative_funding_entry,
                     "upnl": position.upnl,
+                    "initialLeverage": position.initial_leverage,
+                    "initialMargin": position.initial_margin,
+                    "initialEntryPrice": position.initial_entry_price,
+                    "initialQuantity": position.initial_quantity,
                 },
             ],
             "paging": {

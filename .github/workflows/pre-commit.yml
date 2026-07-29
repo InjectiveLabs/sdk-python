@@ -15,13 +15,13 @@ jobs:
         with:
           python-version: '>=3.9 <3.12'
       - name: Install poetry
-        run: python -m pip install poetry
+        run: python -m pip install "poetry>=2.4,<3"
       - name: Cache the virtualenv
         id: cache-venv
         uses: actions/cache@v4
         with:
           path: ./.venv
-          key: ${{ runner.os }}-venv-${{ hashFiles('**/poetry.lock') }}
+          key: ${{ runner.os }}-venv-${{ hashFiles('**/poetry.lock', '**/pyproject.toml', '**/poetry.toml') }}
 
       - name: Install dependencies
         if: steps.cache-venv.outputs.cache-hit != 'true'
