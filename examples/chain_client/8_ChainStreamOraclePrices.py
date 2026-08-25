@@ -1,4 +1,5 @@
 import asyncio
+from contextlib import suppress
 from typing import Any, Dict
 
 from grpc import RpcError
@@ -51,8 +52,13 @@ async def main() -> None:
         )
     )
 
-    await asyncio.sleep(delay=60)
-    task.cancel()
+    try:
+        await asyncio.sleep(delay=60)
+    finally:
+        task.cancel()
+        with suppress(asyncio.CancelledError):
+            await task
+        await client.close_chain_stream_channel()
 
 
 if __name__ == "__main__":
