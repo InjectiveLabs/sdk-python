@@ -22,7 +22,9 @@ class ConfigurableChainStreamV2QueryServicer(chain_stream_v2_grpc.StreamServicer
     def __init__(self):
         super().__init__()
         self.stream_responses = deque()
+        self.stream_requests = deque()
 
     async def StreamV2(self, request: chain_stream_v2_pb.StreamRequest, context=None, metadata=None):
+        self.stream_requests.append(request)
         for event in self.stream_responses:
             yield event

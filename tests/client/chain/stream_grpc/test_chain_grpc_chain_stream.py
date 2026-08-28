@@ -9,7 +9,11 @@ from pyinjective.composer_v2 import Composer as ComposerV2
 from pyinjective.core.network import DisabledCookieAssistant, Network
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as coin_pb
 from pyinjective.proto.injective.exchange.v1beta1 import exchange_pb2 as exchange_pb
-from pyinjective.proto.injective.exchange.v2 import exchange_pb2 as exchange_v2_pb, order_pb2 as order_v2_pb
+from pyinjective.proto.injective.exchange.v2 import (
+    exchange_pb2 as exchange_v2_pb,
+    market_pb2 as market_v2_pb,
+    order_pb2 as order_v2_pb,
+)
 from pyinjective.proto.injective.stream.v1beta1 import query_pb2 as chain_stream_pb
 from pyinjective.proto.injective.stream.v2 import query_pb2 as chain_stream_v2_pb
 from tests.client.chain.stream_grpc.configurable_chain_stream_query_servicer import (
@@ -818,6 +822,7 @@ class TestChainGrpcChainStream:
                     "errorDescription": conditional_order_trigger_failure_update.error_description,
                 },
             ],
+            "marketFundingUpdates": [],
         }
 
         asyncio.get_event_loop().create_task(
@@ -843,6 +848,67 @@ class TestChainGrpcChainStream:
         first_update = await asyncio.wait_for(events.get(), timeout=1)
 
         assert first_update == expected_update
+        assert end_event.is_set()
+
+    @pytest.mark.asyncio
+    async def test_stream_v2_market_funding_updates(
+        self,
+        chain_stream_servicer,
+        chain_stream_v2_servicer,
+    ):
+        market_id = "0x790aee464fbbd02cf4476444554c71d1225f7edfe15e6dc7f874c455fd883d31"
+        funding = market_v2_pb.PerpetualMarketFunding(
+            cumulative_funding="0.00125",
+            cumulative_price="123.45",
+            last_timestamp=1708099200,
+        )
+        market_funding_update = chain_stream_v2_pb.MarketFundingUpdate(
+            market_id=market_id,
+            funding=funding,
+            is_hourly_funding=True,
+            funding_rate="0.000125",
+            mark_price="25.42",
+        )
+        chain_stream_v2_servicer.stream_responses.append(
+            chain_stream_v2_pb.StreamResponse(
+                block_height=19114391,
+                block_time=1701457189786,
+                market_funding_updates=[market_funding_update],
+            )
+        )
+
+        api = self._api_instance(servicer=chain_stream_servicer, servicer_v2=chain_stream_v2_servicer)
+        events = asyncio.Queue()
+        end_event = asyncio.Event()
+        market_funding_filter = chain_stream_v2_pb.MarketFundingFilter(market_ids=[market_id])
+
+        asyncio.get_event_loop().create_task(
+            api.stream_v2(
+                callback=lambda update: events.put_nowait(update),
+                on_end_callback=lambda: end_event.set(),
+                on_status_callback=lambda exception: pytest.fail(str(exception)),
+                market_funding_filter=market_funding_filter,
+            )
+        )
+
+        first_update = await asyncio.wait_for(events.get(), timeout=1)
+
+        assert first_update["blockHeight"] == "19114391"
+        assert first_update["blockTime"] == "1701457189786"
+        assert first_update["marketFundingUpdates"] == [
+            {
+                "marketId": market_id,
+                "funding": {
+                    "cumulativeFunding": funding.cumulative_funding,
+                    "cumulativePrice": funding.cumulative_price,
+                    "lastTimestamp": str(funding.last_timestamp),
+                },
+                "isHourlyFunding": True,
+                "fundingRate": market_funding_update.funding_rate,
+                "markPrice": market_funding_update.mark_price,
+            }
+        ]
+        assert chain_stream_v2_servicer.stream_requests.popleft().market_funding_filter == market_funding_filter
         assert end_event.is_set()
 
     def _api_instance(self, servicer, servicer_v2):
