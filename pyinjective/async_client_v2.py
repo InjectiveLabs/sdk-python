@@ -963,6 +963,7 @@ class AsyncClient:
         conditional_order_trigger_failures_filter: Optional[
             chain_stream_v2_query.ConditionalOrderTriggerFailuresFilter
         ] = None,
+        market_funding_filter: Optional[chain_stream_v2_query.MarketFundingFilter] = None,
     ):
         return await self.chain_stream_api.stream_v2(
             callback=callback,
@@ -980,6 +981,7 @@ class AsyncClient:
             oracle_price_filter=oracle_price_filter,
             order_failures_filter=order_failures_filter,
             conditional_order_trigger_failures_filter=conditional_order_trigger_failures_filter,
+            market_funding_filter=market_funding_filter,
         )
 
     # region IBC Transfer module
@@ -1457,9 +1459,11 @@ class AsyncClient:
                     Decimal(market_info["minQuantityTickSize"])
                 ),
                 min_notional=Token.convert_value_from_extended_decimal_format(Decimal(market_info["minNotional"])),
-                settlement_price=None
-                if market_info["settlementPrice"] == ""
-                else Token.convert_value_from_extended_decimal_format(Decimal(market_info["settlementPrice"])),
+                settlement_price=(
+                    None
+                    if market_info["settlementPrice"] == ""
+                    else Token.convert_value_from_extended_decimal_format(Decimal(market_info["settlementPrice"]))
+                ),
             )
 
             binary_option_markets[market.id] = market

@@ -1670,6 +1670,13 @@ class Composer:
             subaccount_ids=subaccount_ids, market_ids=market_ids
         )
 
+    def chain_stream_market_funding_filter(
+        self,
+        market_ids: Optional[List[str]] = None,
+    ) -> chain_stream_v2_query.MarketFundingFilter:
+        market_ids = market_ids or ["*"]
+        return chain_stream_v2_query.MarketFundingFilter(market_ids=market_ids)
+
     # endregion
 
     # ------------------------------------------------

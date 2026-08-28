@@ -2771,3 +2771,34 @@ class TestComposer:
             always_print_fields_with_no_presence=True,
         )
         assert dict_message == expected_message
+
+    def test_chain_stream_market_funding_filter(self, basic_composer):
+        market_ids = [
+            "0x0ee7ca44147bab6ec81ac293b5fe7915488e612af59964b2d663d6008d861dee",
+            "0x790aee464fbbd02cf4476444554c71d1225f7edfe15e6dc7f874c455fd883d31",
+        ]
+
+        filter_result = basic_composer.chain_stream_market_funding_filter(market_ids=market_ids)
+
+        expected_message = {
+            "marketIds": market_ids,
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=filter_result,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
+
+    def test_chain_stream_market_funding_filter_default(self, basic_composer):
+        filter_result = basic_composer.chain_stream_market_funding_filter()
+
+        expected_message = {
+            "marketIds": ["*"],
+        }
+
+        dict_message = json_format.MessageToDict(
+            message=filter_result,
+            always_print_fields_with_no_presence=True,
+        )
+        assert dict_message == expected_message
