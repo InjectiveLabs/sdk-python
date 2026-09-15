@@ -14,13 +14,13 @@ inputs:
   - git_repo: https://github.com/InjectiveLabs/ibc-go
     tag: v8.7.0-inj.4
   - git_repo: https://github.com/InjectiveLabs/wasmd
-    tag: v0.53.3-inj.3
+    tag: v0.54.10-inj.2
   - git_repo: https://github.com/InjectiveLabs/cometbft
     tag: v1.0.1-inj.9
   - git_repo: https://github.com/InjectiveLabs/cosmos-sdk
-    tag: v0.50.14-inj.11
+    tag: v0.50.15-inj.1
   - git_repo: https://github.com/InjectiveLabs/injective-core
-    tag: v1.20.3
+    tag: v1.20.4-beta
     subdir: proto
   # - git_repo: https://github.com/InjectiveLabs/injective-core
   #   branch: c-655/add_chainlink_data_streams_oracle

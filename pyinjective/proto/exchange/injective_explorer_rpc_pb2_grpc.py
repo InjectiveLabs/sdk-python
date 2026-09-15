@@ -130,6 +130,11 @@ class InjectiveExplorerRPCStub(object):
                 request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetBankTransfersRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetBankTransfersResponse.FromString,
                 _registered_method=True)
+        self.GetBankTransfersV2 = channel.unary_unary(
+                '/injective_explorer_rpc.InjectiveExplorerRPC/GetBankTransfersV2',
+                request_serializer=exchange_dot_injective__explorer__rpc__pb2.GetBankTransfersV2Request.SerializeToString,
+                response_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetBankTransfersV2Response.FromString,
+                _registered_method=True)
         self.StreamTxs = channel.unary_stream(
                 '/injective_explorer_rpc.InjectiveExplorerRPC/StreamTxs',
                 request_serializer=exchange_dot_injective__explorer__rpc__pb2.StreamTxsRequest.SerializeToString,
@@ -320,6 +325,13 @@ class InjectiveExplorerRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetBankTransfersV2(self, request, context):
+        """GetBankTransfersV2 returns bank transfers using cursor pagination.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def StreamTxs(self, request, context):
         """StreamTxs returns transactions based upon the request params
         """
@@ -458,6 +470,11 @@ def add_InjectiveExplorerRPCServicer_to_server(servicer, server):
                     servicer.GetBankTransfers,
                     request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetBankTransfersRequest.FromString,
                     response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetBankTransfersResponse.SerializeToString,
+            ),
+            'GetBankTransfersV2': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetBankTransfersV2,
+                    request_deserializer=exchange_dot_injective__explorer__rpc__pb2.GetBankTransfersV2Request.FromString,
+                    response_serializer=exchange_dot_injective__explorer__rpc__pb2.GetBankTransfersV2Response.SerializeToString,
             ),
             'StreamTxs': grpc.unary_stream_rpc_method_handler(
                     servicer.StreamTxs,
@@ -1097,6 +1114,33 @@ class InjectiveExplorerRPC(object):
             '/injective_explorer_rpc.InjectiveExplorerRPC/GetBankTransfers',
             exchange_dot_injective__explorer__rpc__pb2.GetBankTransfersRequest.SerializeToString,
             exchange_dot_injective__explorer__rpc__pb2.GetBankTransfersResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetBankTransfersV2(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_explorer_rpc.InjectiveExplorerRPC/GetBankTransfersV2',
+            exchange_dot_injective__explorer__rpc__pb2.GetBankTransfersV2Request.SerializeToString,
+            exchange_dot_injective__explorer__rpc__pb2.GetBankTransfersV2Response.FromString,
             options,
             channel_credentials,
             insecure,
