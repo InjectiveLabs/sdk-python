@@ -163,6 +163,7 @@ class TestChainGrpcPermissionsApi:
                         }
                     ],
                     "evmHook": namespace.evm_hook,
+                    "evmPostHook": namespace.evm_post_hook,
                 }
             ]
         }
@@ -254,6 +255,7 @@ class TestChainGrpcPermissionsApi:
                     }
                 ],
                 "evmHook": namespace.evm_hook,
+                "evmPostHook": namespace.evm_post_hook,
             }
         }
 
@@ -601,6 +603,7 @@ class TestChainGrpcPermissionsApi:
                             }
                         ],
                         "evmHook": namespace.evm_hook,
+                        "evmPostHook": namespace.evm_post_hook,
                     }
                 ],
                 "vouchers": [
