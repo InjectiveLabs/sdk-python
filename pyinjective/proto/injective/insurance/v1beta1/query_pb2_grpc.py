@@ -60,6 +60,26 @@ class QueryStub(object):
                 request_serializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryVoucherRequest.SerializeToString,
                 response_deserializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryVoucherResponse.FromString,
                 _registered_method=True)
+        self.ConsolidatedInsurancePools = channel.unary_unary(
+                '/injective.insurance.v1beta1.Query/ConsolidatedInsurancePools',
+                request_serializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryConsolidatedInsurancePoolsRequest.SerializeToString,
+                response_deserializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryConsolidatedInsurancePoolsResponse.FromString,
+                _registered_method=True)
+        self.ConsolidatedInsurancePolicy = channel.unary_unary(
+                '/injective.insurance.v1beta1.Query/ConsolidatedInsurancePolicy',
+                request_serializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryConsolidatedInsurancePolicyRequest.SerializeToString,
+                response_deserializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryConsolidatedInsurancePolicyResponse.FromString,
+                _registered_method=True)
+        self.ConsolidatedInsurancePolicies = channel.unary_unary(
+                '/injective.insurance.v1beta1.Query/ConsolidatedInsurancePolicies',
+                request_serializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryConsolidatedInsurancePoliciesRequest.SerializeToString,
+                response_deserializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryConsolidatedInsurancePoliciesResponse.FromString,
+                _registered_method=True)
+        self.ConsolidatedRedemptions = channel.unary_unary(
+                '/injective.insurance.v1beta1.Query/ConsolidatedRedemptions',
+                request_serializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryConsolidatedRedemptionsRequest.SerializeToString,
+                response_deserializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryConsolidatedRedemptionsResponse.FromString,
+                _registered_method=True)
 
 
 class QueryServicer(object):
@@ -130,6 +150,34 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ConsolidatedInsurancePools(self, request, context):
+        """ConsolidatedInsurancePools returns all pools or one exact-denom pool.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ConsolidatedInsurancePolicy(self, request, context):
+        """ConsolidatedInsurancePolicy returns the pool policy for a market.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ConsolidatedInsurancePolicies(self, request, context):
+        """ConsolidatedInsurancePolicies returns policies, optionally by pool.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ConsolidatedRedemptions(self, request, context):
+        """ConsolidatedRedemptions returns pending schedules, optionally by sender.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_QueryServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -177,6 +225,26 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.Voucher,
                     request_deserializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryVoucherRequest.FromString,
                     response_serializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryVoucherResponse.SerializeToString,
+            ),
+            'ConsolidatedInsurancePools': grpc.unary_unary_rpc_method_handler(
+                    servicer.ConsolidatedInsurancePools,
+                    request_deserializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryConsolidatedInsurancePoolsRequest.FromString,
+                    response_serializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryConsolidatedInsurancePoolsResponse.SerializeToString,
+            ),
+            'ConsolidatedInsurancePolicy': grpc.unary_unary_rpc_method_handler(
+                    servicer.ConsolidatedInsurancePolicy,
+                    request_deserializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryConsolidatedInsurancePolicyRequest.FromString,
+                    response_serializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryConsolidatedInsurancePolicyResponse.SerializeToString,
+            ),
+            'ConsolidatedInsurancePolicies': grpc.unary_unary_rpc_method_handler(
+                    servicer.ConsolidatedInsurancePolicies,
+                    request_deserializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryConsolidatedInsurancePoliciesRequest.FromString,
+                    response_serializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryConsolidatedInsurancePoliciesResponse.SerializeToString,
+            ),
+            'ConsolidatedRedemptions': grpc.unary_unary_rpc_method_handler(
+                    servicer.ConsolidatedRedemptions,
+                    request_deserializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryConsolidatedRedemptionsRequest.FromString,
+                    response_serializer=injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryConsolidatedRedemptionsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -423,6 +491,114 @@ class Query(object):
             '/injective.insurance.v1beta1.Query/Voucher',
             injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryVoucherRequest.SerializeToString,
             injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryVoucherResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ConsolidatedInsurancePools(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.insurance.v1beta1.Query/ConsolidatedInsurancePools',
+            injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryConsolidatedInsurancePoolsRequest.SerializeToString,
+            injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryConsolidatedInsurancePoolsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ConsolidatedInsurancePolicy(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.insurance.v1beta1.Query/ConsolidatedInsurancePolicy',
+            injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryConsolidatedInsurancePolicyRequest.SerializeToString,
+            injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryConsolidatedInsurancePolicyResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ConsolidatedInsurancePolicies(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.insurance.v1beta1.Query/ConsolidatedInsurancePolicies',
+            injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryConsolidatedInsurancePoliciesRequest.SerializeToString,
+            injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryConsolidatedInsurancePoliciesResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ConsolidatedRedemptions(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.insurance.v1beta1.Query/ConsolidatedRedemptions',
+            injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryConsolidatedRedemptionsRequest.SerializeToString,
+            injective_dot_insurance_dot_v1beta1_dot_query__pb2.QueryConsolidatedRedemptionsResponse.FromString,
             options,
             channel_credentials,
             insecure,

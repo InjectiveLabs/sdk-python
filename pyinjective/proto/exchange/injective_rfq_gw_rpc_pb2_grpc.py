@@ -35,6 +35,16 @@ class InjectiveRfqGwRPCStub(object):
                 request_serializer=exchange_dot_injective__rfq__gw__rpc__pb2.PrepareRequest.SerializeToString,
                 response_deserializer=exchange_dot_injective__rfq__gw__rpc__pb2.PrepareResponse.FromString,
                 _registered_method=True)
+        self.CreateSignedRfqSettlement = channel.unary_unary(
+                '/injective_rfq_gw_rpc.InjectiveRfqGwRPC/CreateSignedRfqSettlement',
+                request_serializer=exchange_dot_injective__rfq__gw__rpc__pb2.CreateSignedRfqSettlementRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__rfq__gw__rpc__pb2.CreateSignedRfqSettlementResponse.FromString,
+                _registered_method=True)
+        self.GetSettlement = channel.unary_unary(
+                '/injective_rfq_gw_rpc.InjectiveRfqGwRPC/GetSettlement',
+                request_serializer=exchange_dot_injective__rfq__gw__rpc__pb2.GetSettlementRequest.SerializeToString,
+                response_deserializer=exchange_dot_injective__rfq__gw__rpc__pb2.GetSettlementResponse.FromString,
+                _registered_method=True)
 
 
 class InjectiveRfqGwRPCServicer(object):
@@ -74,6 +84,23 @@ class InjectiveRfqGwRPCServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def CreateSignedRfqSettlement(self, request, context):
+        """Submit a pre-signed EIP-712 RFQ settlement request: verify the taker
+        signature, collect maker quotes, dispatch execution to the signed RFQ
+        executor, and wait for the tx hash within a fixed deadline
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetSettlement(self, request, context):
+        """Resolve the indexed settlement, or the in-flight signed RFQ execution state,
+        for a given client id
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_InjectiveRfqGwRPCServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -96,6 +123,16 @@ def add_InjectiveRfqGwRPCServicer_to_server(servicer, server):
                     servicer.Prepare,
                     request_deserializer=exchange_dot_injective__rfq__gw__rpc__pb2.PrepareRequest.FromString,
                     response_serializer=exchange_dot_injective__rfq__gw__rpc__pb2.PrepareResponse.SerializeToString,
+            ),
+            'CreateSignedRfqSettlement': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateSignedRfqSettlement,
+                    request_deserializer=exchange_dot_injective__rfq__gw__rpc__pb2.CreateSignedRfqSettlementRequest.FromString,
+                    response_serializer=exchange_dot_injective__rfq__gw__rpc__pb2.CreateSignedRfqSettlementResponse.SerializeToString,
+            ),
+            'GetSettlement': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetSettlement,
+                    request_deserializer=exchange_dot_injective__rfq__gw__rpc__pb2.GetSettlementRequest.FromString,
+                    response_serializer=exchange_dot_injective__rfq__gw__rpc__pb2.GetSettlementResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -207,6 +244,60 @@ class InjectiveRfqGwRPC(object):
             '/injective_rfq_gw_rpc.InjectiveRfqGwRPC/Prepare',
             exchange_dot_injective__rfq__gw__rpc__pb2.PrepareRequest.SerializeToString,
             exchange_dot_injective__rfq__gw__rpc__pb2.PrepareResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def CreateSignedRfqSettlement(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_rfq_gw_rpc.InjectiveRfqGwRPC/CreateSignedRfqSettlement',
+            exchange_dot_injective__rfq__gw__rpc__pb2.CreateSignedRfqSettlementRequest.SerializeToString,
+            exchange_dot_injective__rfq__gw__rpc__pb2.CreateSignedRfqSettlementResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetSettlement(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective_rfq_gw_rpc.InjectiveRfqGwRPC/GetSettlement',
+            exchange_dot_injective__rfq__gw__rpc__pb2.GetSettlementRequest.SerializeToString,
+            exchange_dot_injective__rfq__gw__rpc__pb2.GetSettlementResponse.FromString,
             options,
             channel_credentials,
             insecure,

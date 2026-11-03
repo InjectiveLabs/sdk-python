@@ -17,7 +17,7 @@ from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_do
 from pyinjective.proto.injective.insurance.v1beta1 import insurance_pb2 as injective_dot_insurance_dot_v1beta1_dot_insurance__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n(injective/insurance/v1beta1/events.proto\x12\x1binjective.insurance.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a+injective/insurance/v1beta1/insurance.proto\"Z\n\x18\x45ventInsuranceFundUpdate\x12>\n\x04\x66und\x18\x01 \x01(\x0b\x32*.injective.insurance.v1beta1.InsuranceFundR\x04\x66und\"e\n\x16\x45ventRequestRedemption\x12K\n\x08schedule\x18\x01 \x01(\x0b\x32/.injective.insurance.v1beta1.RedemptionScheduleR\x08schedule\"\xa8\x01\n\x17\x45ventWithdrawRedemption\x12K\n\x08schedule\x18\x01 \x01(\x0b\x32/.injective.insurance.v1beta1.RedemptionScheduleR\x08schedule\x12@\n\x0bredeem_coin\x18\x02 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00R\nredeemCoin\"\x8f\x01\n\x1d\x45ventWithdrawRedemptionFailed\x12K\n\x08schedule\x18\x01 \x01(\x0b\x32/.injective.insurance.v1beta1.RedemptionScheduleR\x08schedule\x12!\n\x0cwithdraw_err\x18\x02 \x01(\tR\x0bwithdrawErr\"\xc3\x01\n\x0f\x45ventUnderwrite\x12 \n\x0bunderwriter\x18\x01 \x01(\tR\x0bunderwriter\x12\x1a\n\x08marketId\x18\x02 \x01(\tR\x08marketId\x12\x39\n\x07\x64\x65posit\x18\x03 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00R\x07\x64\x65posit\x12\x37\n\x06shares\x18\x04 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00R\x06shares\"\x9b\x01\n\x16\x45ventInsuranceWithdraw\x12\x1b\n\tmarket_id\x18\x01 \x01(\tR\x08marketId\x12#\n\rmarket_ticker\x18\x02 \x01(\tR\x0cmarketTicker\x12?\n\nwithdrawal\x18\x03 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00R\nwithdrawal\"\x8b\x01\n\x0f\x45ventSetVoucher\x12\x12\n\x04\x61\x64\x64r\x18\x01 \x01(\tR\x04\x61\x64\x64r\x12\x64\n\x07voucher\x18\x02 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB/\xc8\xde\x1f\x00\xda\xde\x1f\'github.com/cosmos/cosmos-sdk/types.CoinR\x07voucherB\x8d\x02\n\x1f\x63om.injective.insurance.v1beta1B\x0b\x45ventsProtoP\x01ZOgithub.com/InjectiveLabs/injective-core/injective-chain/modules/insurance/types\xa2\x02\x03IIX\xaa\x02\x1bInjective.Insurance.V1beta1\xca\x02\x1bInjective\\Insurance\\V1beta1\xe2\x02\'Injective\\Insurance\\V1beta1\\GPBMetadata\xea\x02\x1dInjective::Insurance::V1beta1b\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n(injective/insurance/v1beta1/events.proto\x12\x1binjective.insurance.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a+injective/insurance/v1beta1/insurance.proto\"Z\n\x18\x45ventInsuranceFundUpdate\x12>\n\x04\x66und\x18\x01 \x01(\x0b\x32*.injective.insurance.v1beta1.InsuranceFundR\x04\x66und\"e\n\x16\x45ventRequestRedemption\x12K\n\x08schedule\x18\x01 \x01(\x0b\x32/.injective.insurance.v1beta1.RedemptionScheduleR\x08schedule\"\xa8\x01\n\x17\x45ventWithdrawRedemption\x12K\n\x08schedule\x18\x01 \x01(\x0b\x32/.injective.insurance.v1beta1.RedemptionScheduleR\x08schedule\x12@\n\x0bredeem_coin\x18\x02 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00R\nredeemCoin\"\x8f\x01\n\x1d\x45ventWithdrawRedemptionFailed\x12K\n\x08schedule\x18\x01 \x01(\x0b\x32/.injective.insurance.v1beta1.RedemptionScheduleR\x08schedule\x12!\n\x0cwithdraw_err\x18\x02 \x01(\tR\x0bwithdrawErr\"\xc3\x01\n\x0f\x45ventUnderwrite\x12 \n\x0bunderwriter\x18\x01 \x01(\tR\x0bunderwriter\x12\x1a\n\x08marketId\x18\x02 \x01(\tR\x08marketId\x12\x39\n\x07\x64\x65posit\x18\x03 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00R\x07\x64\x65posit\x12\x37\n\x06shares\x18\x04 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00R\x06shares\"\x9b\x01\n\x16\x45ventInsuranceWithdraw\x12\x1b\n\tmarket_id\x18\x01 \x01(\tR\x08marketId\x12#\n\rmarket_ticker\x18\x02 \x01(\tR\x0cmarketTicker\x12?\n\nwithdrawal\x18\x03 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00R\nwithdrawal\"\x8b\x01\n\x0f\x45ventSetVoucher\x12\x12\n\x04\x61\x64\x64r\x18\x01 \x01(\tR\x04\x61\x64\x64r\x12\x64\n\x07voucher\x18\x02 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB/\xc8\xde\x1f\x00\xda\xde\x1f\'github.com/cosmos/cosmos-sdk/types.CoinR\x07voucher\"y\n%EventConsolidatedInsurancePoolCreated\x12P\n\x04pool\x18\x01 \x01(\x0b\x32\x36.injective.insurance.v1beta1.ConsolidatedInsurancePoolB\x04\xc8\xde\x1f\x00R\x04pool\"i\n*EventConsolidatedInsurancePoolPauseChanged\x12#\n\rdeposit_denom\x18\x01 \x01(\tR\x0c\x64\x65positDenom\x12\x16\n\x06paused\x18\x02 \x01(\x08R\x06paused\"\x82\x01\n(EventConsolidatedInsuranceMarketEnrolled\x12V\n\x06policy\x18\x01 \x01(\x0b\x32\x38.injective.insurance.v1beta1.ConsolidatedInsurancePolicyB\x04\xc8\xde\x1f\x00R\x06policy\"\x81\x01\n\'EventConsolidatedInsurancePolicyUpdated\x12V\n\x06policy\x18\x01 \x01(\x0b\x32\x38.injective.insurance.v1beta1.ConsolidatedInsurancePolicyB\x04\xc8\xde\x1f\x00R\x06policy\"\xbc\x01\n$EventConsolidatedInsuranceUnderwrite\x12 \n\x0bunderwriter\x18\x01 \x01(\tR\x0bunderwriter\x12\x39\n\x07\x64\x65posit\x18\x02 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00R\x07\x64\x65posit\x12\x37\n\x06shares\x18\x03 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00R\x06shares\"\x8e\x01\n-EventConsolidatedInsuranceRedemptionRequested\x12]\n\x08schedule\x18\x01 \x01(\x0b\x32;.injective.insurance.v1beta1.ConsolidatedRedemptionScheduleB\x04\xc8\xde\x1f\x00R\x08schedule\"\xf0\x01\n-EventConsolidatedInsuranceRedemptionProcessed\x12]\n\x08schedule\x18\x01 \x01(\x0b\x32;.injective.insurance.v1beta1.ConsolidatedRedemptionScheduleB\x04\xc8\xde\x1f\x00R\x08schedule\x12\x37\n\x06payout\x18\x02 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00R\x06payout\x12\'\n\x0fvoucher_created\x18\x03 \x01(\x08R\x0evoucherCreated\"\xab\x01\n)EventConsolidatedInsuranceRedemptionRetry\x12]\n\x08schedule\x18\x01 \x01(\x0b\x32;.injective.insurance.v1beta1.ConsolidatedRedemptionScheduleB\x04\xc8\xde\x1f\x00R\x08schedule\x12\x1f\n\x0bretry_error\x18\x02 \x01(\tR\nretryError\"\xc0\x04\n(EventConsolidatedInsuranceBalanceChanged\x12\x1b\n\tmarket_id\x18\x01 \x01(\tR\x08marketId\x12\x1d\n\npool_denom\x18\x02 \x01(\tR\tpoolDenom\x12\x37\n\x06\x61mount\x18\x03 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00R\x06\x61mount\x12\x17\n\x07is_draw\x18\x04 \x01(\x08R\x06isDraw\x12J\n\x10requested_amount\x18\x05 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00R\x0frequestedAmount\x12@\n\x0bpaid_amount\x18\x06 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00R\npaidAmount\x12\x44\n\runpaid_amount\x18\x07 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00R\x0cunpaidAmount\x12U\n\x16remaining_pool_balance\x18\x08 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00R\x14remainingPoolBalance\x12[\n\x19remaining_market_capacity\x18\t \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00R\x17remainingMarketCapacity\"\xc9\x01\n\'EventConsolidatedReservationReallocated\x12\x1b\n\tmarket_id\x18\x01 \x01(\tR\x08marketId\x12#\n\rsubaccount_id\x18\x02 \x01(\tR\x0csubaccountId\x12\x1f\n\x0bquote_denom\x18\x03 \x01(\tR\nquoteDenom\x12;\n\x06\x61mount\x18\x04 \x01(\tB#\xc8\xde\x1f\x00\xda\xde\x1f\x1b\x63osmossdk.io/math.LegacyDecR\x06\x61mountB\x8d\x02\n\x1f\x63om.injective.insurance.v1beta1B\x0b\x45ventsProtoP\x01ZOgithub.com/InjectiveLabs/injective-core/injective-chain/modules/insurance/types\xa2\x02\x03IIX\xaa\x02\x1bInjective.Insurance.V1beta1\xca\x02\x1bInjective\\Insurance\\V1beta1\xe2\x02\'Injective\\Insurance\\V1beta1\\GPBMetadata\xea\x02\x1dInjective::Insurance::V1beta1b\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -35,6 +35,38 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_EVENTINSURANCEWITHDRAW'].fields_by_name['withdrawal']._serialized_options = b'\310\336\037\000'
   _globals['_EVENTSETVOUCHER'].fields_by_name['voucher']._loaded_options = None
   _globals['_EVENTSETVOUCHER'].fields_by_name['voucher']._serialized_options = b'\310\336\037\000\332\336\037\'github.com/cosmos/cosmos-sdk/types.Coin'
+  _globals['_EVENTCONSOLIDATEDINSURANCEPOOLCREATED'].fields_by_name['pool']._loaded_options = None
+  _globals['_EVENTCONSOLIDATEDINSURANCEPOOLCREATED'].fields_by_name['pool']._serialized_options = b'\310\336\037\000'
+  _globals['_EVENTCONSOLIDATEDINSURANCEMARKETENROLLED'].fields_by_name['policy']._loaded_options = None
+  _globals['_EVENTCONSOLIDATEDINSURANCEMARKETENROLLED'].fields_by_name['policy']._serialized_options = b'\310\336\037\000'
+  _globals['_EVENTCONSOLIDATEDINSURANCEPOLICYUPDATED'].fields_by_name['policy']._loaded_options = None
+  _globals['_EVENTCONSOLIDATEDINSURANCEPOLICYUPDATED'].fields_by_name['policy']._serialized_options = b'\310\336\037\000'
+  _globals['_EVENTCONSOLIDATEDINSURANCEUNDERWRITE'].fields_by_name['deposit']._loaded_options = None
+  _globals['_EVENTCONSOLIDATEDINSURANCEUNDERWRITE'].fields_by_name['deposit']._serialized_options = b'\310\336\037\000'
+  _globals['_EVENTCONSOLIDATEDINSURANCEUNDERWRITE'].fields_by_name['shares']._loaded_options = None
+  _globals['_EVENTCONSOLIDATEDINSURANCEUNDERWRITE'].fields_by_name['shares']._serialized_options = b'\310\336\037\000'
+  _globals['_EVENTCONSOLIDATEDINSURANCEREDEMPTIONREQUESTED'].fields_by_name['schedule']._loaded_options = None
+  _globals['_EVENTCONSOLIDATEDINSURANCEREDEMPTIONREQUESTED'].fields_by_name['schedule']._serialized_options = b'\310\336\037\000'
+  _globals['_EVENTCONSOLIDATEDINSURANCEREDEMPTIONPROCESSED'].fields_by_name['schedule']._loaded_options = None
+  _globals['_EVENTCONSOLIDATEDINSURANCEREDEMPTIONPROCESSED'].fields_by_name['schedule']._serialized_options = b'\310\336\037\000'
+  _globals['_EVENTCONSOLIDATEDINSURANCEREDEMPTIONPROCESSED'].fields_by_name['payout']._loaded_options = None
+  _globals['_EVENTCONSOLIDATEDINSURANCEREDEMPTIONPROCESSED'].fields_by_name['payout']._serialized_options = b'\310\336\037\000'
+  _globals['_EVENTCONSOLIDATEDINSURANCEREDEMPTIONRETRY'].fields_by_name['schedule']._loaded_options = None
+  _globals['_EVENTCONSOLIDATEDINSURANCEREDEMPTIONRETRY'].fields_by_name['schedule']._serialized_options = b'\310\336\037\000'
+  _globals['_EVENTCONSOLIDATEDINSURANCEBALANCECHANGED'].fields_by_name['amount']._loaded_options = None
+  _globals['_EVENTCONSOLIDATEDINSURANCEBALANCECHANGED'].fields_by_name['amount']._serialized_options = b'\310\336\037\000'
+  _globals['_EVENTCONSOLIDATEDINSURANCEBALANCECHANGED'].fields_by_name['requested_amount']._loaded_options = None
+  _globals['_EVENTCONSOLIDATEDINSURANCEBALANCECHANGED'].fields_by_name['requested_amount']._serialized_options = b'\310\336\037\000'
+  _globals['_EVENTCONSOLIDATEDINSURANCEBALANCECHANGED'].fields_by_name['paid_amount']._loaded_options = None
+  _globals['_EVENTCONSOLIDATEDINSURANCEBALANCECHANGED'].fields_by_name['paid_amount']._serialized_options = b'\310\336\037\000'
+  _globals['_EVENTCONSOLIDATEDINSURANCEBALANCECHANGED'].fields_by_name['unpaid_amount']._loaded_options = None
+  _globals['_EVENTCONSOLIDATEDINSURANCEBALANCECHANGED'].fields_by_name['unpaid_amount']._serialized_options = b'\310\336\037\000'
+  _globals['_EVENTCONSOLIDATEDINSURANCEBALANCECHANGED'].fields_by_name['remaining_pool_balance']._loaded_options = None
+  _globals['_EVENTCONSOLIDATEDINSURANCEBALANCECHANGED'].fields_by_name['remaining_pool_balance']._serialized_options = b'\310\336\037\000'
+  _globals['_EVENTCONSOLIDATEDINSURANCEBALANCECHANGED'].fields_by_name['remaining_market_capacity']._loaded_options = None
+  _globals['_EVENTCONSOLIDATEDINSURANCEBALANCECHANGED'].fields_by_name['remaining_market_capacity']._serialized_options = b'\310\336\037\000'
+  _globals['_EVENTCONSOLIDATEDRESERVATIONREALLOCATED'].fields_by_name['amount']._loaded_options = None
+  _globals['_EVENTCONSOLIDATEDRESERVATIONREALLOCATED'].fields_by_name['amount']._serialized_options = b'\310\336\037\000\332\336\037\033cosmossdk.io/math.LegacyDec'
   _globals['_EVENTINSURANCEFUNDUPDATE']._serialized_start=172
   _globals['_EVENTINSURANCEFUNDUPDATE']._serialized_end=262
   _globals['_EVENTREQUESTREDEMPTION']._serialized_start=264
@@ -49,4 +81,24 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_EVENTINSURANCEWITHDRAW']._serialized_end=1038
   _globals['_EVENTSETVOUCHER']._serialized_start=1041
   _globals['_EVENTSETVOUCHER']._serialized_end=1180
+  _globals['_EVENTCONSOLIDATEDINSURANCEPOOLCREATED']._serialized_start=1182
+  _globals['_EVENTCONSOLIDATEDINSURANCEPOOLCREATED']._serialized_end=1303
+  _globals['_EVENTCONSOLIDATEDINSURANCEPOOLPAUSECHANGED']._serialized_start=1305
+  _globals['_EVENTCONSOLIDATEDINSURANCEPOOLPAUSECHANGED']._serialized_end=1410
+  _globals['_EVENTCONSOLIDATEDINSURANCEMARKETENROLLED']._serialized_start=1413
+  _globals['_EVENTCONSOLIDATEDINSURANCEMARKETENROLLED']._serialized_end=1543
+  _globals['_EVENTCONSOLIDATEDINSURANCEPOLICYUPDATED']._serialized_start=1546
+  _globals['_EVENTCONSOLIDATEDINSURANCEPOLICYUPDATED']._serialized_end=1675
+  _globals['_EVENTCONSOLIDATEDINSURANCEUNDERWRITE']._serialized_start=1678
+  _globals['_EVENTCONSOLIDATEDINSURANCEUNDERWRITE']._serialized_end=1866
+  _globals['_EVENTCONSOLIDATEDINSURANCEREDEMPTIONREQUESTED']._serialized_start=1869
+  _globals['_EVENTCONSOLIDATEDINSURANCEREDEMPTIONREQUESTED']._serialized_end=2011
+  _globals['_EVENTCONSOLIDATEDINSURANCEREDEMPTIONPROCESSED']._serialized_start=2014
+  _globals['_EVENTCONSOLIDATEDINSURANCEREDEMPTIONPROCESSED']._serialized_end=2254
+  _globals['_EVENTCONSOLIDATEDINSURANCEREDEMPTIONRETRY']._serialized_start=2257
+  _globals['_EVENTCONSOLIDATEDINSURANCEREDEMPTIONRETRY']._serialized_end=2428
+  _globals['_EVENTCONSOLIDATEDINSURANCEBALANCECHANGED']._serialized_start=2431
+  _globals['_EVENTCONSOLIDATEDINSURANCEBALANCECHANGED']._serialized_end=3007
+  _globals['_EVENTCONSOLIDATEDRESERVATIONREALLOCATED']._serialized_start=3010
+  _globals['_EVENTCONSOLIDATEDRESERVATIONREALLOCATED']._serialized_end=3211
 # @@protoc_insertion_point(module_scope)

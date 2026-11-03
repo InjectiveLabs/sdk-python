@@ -12,13 +12,12 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from pyinjective.proto.google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
 from pyinjective.proto.injective.wasmx.v1 import wasmx_pb2 as injective_dot_wasmx_dot_v1_dot_wasmx__pb2
 from pyinjective.proto.injective.wasmx.v1 import genesis_pb2 as injective_dot_wasmx_dot_v1_dot_genesis__pb2
 from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1einjective/wasmx/v1/query.proto\x12\x12injective.wasmx.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x1einjective/wasmx/v1/wasmx.proto\x1a injective/wasmx/v1/genesis.proto\x1a\x14gogoproto/gogo.proto\"\x19\n\x17QueryWasmxParamsRequest\"T\n\x18QueryWasmxParamsResponse\x12\x38\n\x06params\x18\x01 \x01(\x0b\x32\x1a.injective.wasmx.v1.ParamsB\x04\xc8\xde\x1f\x00R\x06params\"\x19\n\x17QueryModuleStateRequest\"R\n\x18QueryModuleStateResponse\x12\x36\n\x05state\x18\x01 \x01(\x0b\x32 .injective.wasmx.v1.GenesisStateR\x05state\"Q\n$QueryContractRegistrationInfoRequest\x12)\n\x10\x63ontract_address\x18\x01 \x01(\tR\x0f\x63ontractAddress\"k\n%QueryContractRegistrationInfoResponse\x12\x42\n\x08\x63ontract\x18\x01 \x01(\x0b\x32&.injective.wasmx.v1.RegisteredContractR\x08\x63ontract2\x84\x04\n\x05Query\x12\x8c\x01\n\x0bWasmxParams\x12+.injective.wasmx.v1.QueryWasmxParamsRequest\x1a,.injective.wasmx.v1.QueryWasmxParamsResponse\"\"\x82\xd3\xe4\x93\x02\x1c\x12\x1a/injective/wasmx/v1/params\x12\xd1\x01\n\x18\x43ontractRegistrationInfo\x12\x38.injective.wasmx.v1.QueryContractRegistrationInfoRequest\x1a\x39.injective.wasmx.v1.QueryContractRegistrationInfoResponse\"@\x82\xd3\xe4\x93\x02:\x12\x38/injective/wasmx/v1/registration_info/{contract_address}\x12\x97\x01\n\x10WasmxModuleState\x12+.injective.wasmx.v1.QueryModuleStateRequest\x1a,.injective.wasmx.v1.QueryModuleStateResponse\"(\x82\xd3\xe4\x93\x02\"\x12 /injective/wasmx/v1/module_stateB\xdb\x01\n\x16\x63om.injective.wasmx.v1B\nQueryProtoP\x01ZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/wasmx/types\xa2\x02\x03IWX\xaa\x02\x12Injective.Wasmx.V1\xca\x02\x12Injective\\Wasmx\\V1\xe2\x02\x1eInjective\\Wasmx\\V1\\GPBMetadata\xea\x02\x14Injective::Wasmx::V1b\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1einjective/wasmx/v1/query.proto\x12\x12injective.wasmx.v1\x1a\x1einjective/wasmx/v1/wasmx.proto\x1a injective/wasmx/v1/genesis.proto\x1a\x14gogoproto/gogo.proto\"\x1d\n\x17QueryWasmxParamsRequest:\x02\x18\x01\"X\n\x18QueryWasmxParamsResponse\x12\x38\n\x06params\x18\x01 \x01(\x0b\x32\x1a.injective.wasmx.v1.ParamsB\x04\xc8\xde\x1f\x00R\x06params:\x02\x18\x01\"\x1d\n\x17QueryModuleStateRequest:\x02\x18\x01\"V\n\x18QueryModuleStateResponse\x12\x36\n\x05state\x18\x01 \x01(\x0b\x32 .injective.wasmx.v1.GenesisStateR\x05state:\x02\x18\x01\"U\n$QueryContractRegistrationInfoRequest\x12)\n\x10\x63ontract_address\x18\x01 \x01(\tR\x0f\x63ontractAddress:\x02\x18\x01\"o\n%QueryContractRegistrationInfoResponse\x12\x42\n\x08\x63ontract\x18\x01 \x01(\x0b\x32&.injective.wasmx.v1.RegisteredContractR\x08\x63ontract:\x02\x18\x01\x42\xdb\x01\n\x16\x63om.injective.wasmx.v1B\nQueryProtoP\x01ZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/wasmx/types\xa2\x02\x03IWX\xaa\x02\x12Injective.Wasmx.V1\xca\x02\x12Injective\\Wasmx\\V1\xe2\x02\x1eInjective\\Wasmx\\V1\\GPBMetadata\xea\x02\x14Injective::Wasmx::V1b\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -26,26 +25,30 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'injective.wasmx.v1.query_pb
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'\n\026com.injective.wasmx.v1B\nQueryProtoP\001ZKgithub.com/InjectiveLabs/injective-core/injective-chain/modules/wasmx/types\242\002\003IWX\252\002\022Injective.Wasmx.V1\312\002\022Injective\\Wasmx\\V1\342\002\036Injective\\Wasmx\\V1\\GPBMetadata\352\002\024Injective::Wasmx::V1'
+  _globals['_QUERYWASMXPARAMSREQUEST']._loaded_options = None
+  _globals['_QUERYWASMXPARAMSREQUEST']._serialized_options = b'\030\001'
   _globals['_QUERYWASMXPARAMSRESPONSE'].fields_by_name['params']._loaded_options = None
   _globals['_QUERYWASMXPARAMSRESPONSE'].fields_by_name['params']._serialized_options = b'\310\336\037\000'
-  _globals['_QUERY'].methods_by_name['WasmxParams']._loaded_options = None
-  _globals['_QUERY'].methods_by_name['WasmxParams']._serialized_options = b'\202\323\344\223\002\034\022\032/injective/wasmx/v1/params'
-  _globals['_QUERY'].methods_by_name['ContractRegistrationInfo']._loaded_options = None
-  _globals['_QUERY'].methods_by_name['ContractRegistrationInfo']._serialized_options = b'\202\323\344\223\002:\0228/injective/wasmx/v1/registration_info/{contract_address}'
-  _globals['_QUERY'].methods_by_name['WasmxModuleState']._loaded_options = None
-  _globals['_QUERY'].methods_by_name['WasmxModuleState']._serialized_options = b'\202\323\344\223\002\"\022 /injective/wasmx/v1/module_state'
-  _globals['_QUERYWASMXPARAMSREQUEST']._serialized_start=172
-  _globals['_QUERYWASMXPARAMSREQUEST']._serialized_end=197
-  _globals['_QUERYWASMXPARAMSRESPONSE']._serialized_start=199
-  _globals['_QUERYWASMXPARAMSRESPONSE']._serialized_end=283
-  _globals['_QUERYMODULESTATEREQUEST']._serialized_start=285
-  _globals['_QUERYMODULESTATEREQUEST']._serialized_end=310
-  _globals['_QUERYMODULESTATERESPONSE']._serialized_start=312
-  _globals['_QUERYMODULESTATERESPONSE']._serialized_end=394
-  _globals['_QUERYCONTRACTREGISTRATIONINFOREQUEST']._serialized_start=396
-  _globals['_QUERYCONTRACTREGISTRATIONINFOREQUEST']._serialized_end=477
-  _globals['_QUERYCONTRACTREGISTRATIONINFORESPONSE']._serialized_start=479
-  _globals['_QUERYCONTRACTREGISTRATIONINFORESPONSE']._serialized_end=586
-  _globals['_QUERY']._serialized_start=589
-  _globals['_QUERY']._serialized_end=1105
+  _globals['_QUERYWASMXPARAMSRESPONSE']._loaded_options = None
+  _globals['_QUERYWASMXPARAMSRESPONSE']._serialized_options = b'\030\001'
+  _globals['_QUERYMODULESTATEREQUEST']._loaded_options = None
+  _globals['_QUERYMODULESTATEREQUEST']._serialized_options = b'\030\001'
+  _globals['_QUERYMODULESTATERESPONSE']._loaded_options = None
+  _globals['_QUERYMODULESTATERESPONSE']._serialized_options = b'\030\001'
+  _globals['_QUERYCONTRACTREGISTRATIONINFOREQUEST']._loaded_options = None
+  _globals['_QUERYCONTRACTREGISTRATIONINFOREQUEST']._serialized_options = b'\030\001'
+  _globals['_QUERYCONTRACTREGISTRATIONINFORESPONSE']._loaded_options = None
+  _globals['_QUERYCONTRACTREGISTRATIONINFORESPONSE']._serialized_options = b'\030\001'
+  _globals['_QUERYWASMXPARAMSREQUEST']._serialized_start=142
+  _globals['_QUERYWASMXPARAMSREQUEST']._serialized_end=171
+  _globals['_QUERYWASMXPARAMSRESPONSE']._serialized_start=173
+  _globals['_QUERYWASMXPARAMSRESPONSE']._serialized_end=261
+  _globals['_QUERYMODULESTATEREQUEST']._serialized_start=263
+  _globals['_QUERYMODULESTATEREQUEST']._serialized_end=292
+  _globals['_QUERYMODULESTATERESPONSE']._serialized_start=294
+  _globals['_QUERYMODULESTATERESPONSE']._serialized_end=380
+  _globals['_QUERYCONTRACTREGISTRATIONINFOREQUEST']._serialized_start=382
+  _globals['_QUERYCONTRACTREGISTRATIONINFOREQUEST']._serialized_end=467
+  _globals['_QUERYCONTRACTREGISTRATIONINFORESPONSE']._serialized_start=469
+  _globals['_QUERYCONTRACTREGISTRATIONINFORESPONSE']._serialized_end=580
 # @@protoc_insertion_point(module_scope)

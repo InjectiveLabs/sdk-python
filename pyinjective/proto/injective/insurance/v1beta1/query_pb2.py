@@ -17,10 +17,11 @@ from pyinjective.proto.injective.insurance.v1beta1 import insurance_pb2 as injec
 from pyinjective.proto.injective.common.vouchers.v1 import vouchers_pb2 as injective_dot_common_dot_vouchers_dot_v1_dot_vouchers__pb2
 from pyinjective.proto.gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_dot_v1beta1_dot_coin__pb2
+from pyinjective.proto.cosmos.base.query.v1beta1 import pagination_pb2 as cosmos_dot_base_dot_query_dot_v1beta1_dot_pagination__pb2
 from pyinjective.proto.injective.insurance.v1beta1 import genesis_pb2 as injective_dot_insurance_dot_v1beta1_dot_genesis__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\'injective/insurance/v1beta1/query.proto\x12\x1binjective.insurance.v1beta1\x1a\x1cgoogle/api/annotations.proto\x1a+injective/insurance/v1beta1/insurance.proto\x1a+injective/common/vouchers/v1/vouchers.proto\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a)injective/insurance/v1beta1/genesis.proto\"\x1d\n\x1bQueryInsuranceParamsRequest\"a\n\x1cQueryInsuranceParamsResponse\x12\x41\n\x06params\x18\x01 \x01(\x0b\x32#.injective.insurance.v1beta1.ParamsB\x04\xc8\xde\x1f\x00R\x06params\"8\n\x19QueryInsuranceFundRequest\x12\x1b\n\tmarket_id\x18\x01 \x01(\tR\x08marketId\"\\\n\x1aQueryInsuranceFundResponse\x12>\n\x04\x66und\x18\x01 \x01(\x0b\x32*.injective.insurance.v1beta1.InsuranceFundR\x04\x66und\"\x1c\n\x1aQueryInsuranceFundsRequest\"e\n\x1bQueryInsuranceFundsResponse\x12\x46\n\x05\x66unds\x18\x01 \x03(\x0b\x32*.injective.insurance.v1beta1.InsuranceFundB\x04\xc8\xde\x1f\x00R\x05\x66unds\"X\n QueryEstimatedRedemptionsRequest\x12\x1a\n\x08marketId\x18\x01 \x01(\tR\x08marketId\x12\x18\n\x07\x61\x64\x64ress\x18\x02 \x01(\tR\x07\x61\x64\x64ress\"\\\n!QueryEstimatedRedemptionsResponse\x12\x37\n\x06\x61mount\x18\x01 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00R\x06\x61mount\"V\n\x1eQueryPendingRedemptionsRequest\x12\x1a\n\x08marketId\x18\x01 \x01(\tR\x08marketId\x12\x18\n\x07\x61\x64\x64ress\x18\x02 \x01(\tR\x07\x61\x64\x64ress\"Z\n\x1fQueryPendingRedemptionsResponse\x12\x37\n\x06\x61mount\x18\x01 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00R\x06\x61mount\"\x19\n\x17QueryModuleStateRequest\"[\n\x18QueryModuleStateResponse\x12?\n\x05state\x18\x01 \x01(\x0b\x32).injective.insurance.v1beta1.GenesisStateR\x05state\"\x1f\n\x1dQueryFailedRedemptionsRequest\"{\n\x1eQueryFailedRedemptionsResponse\x12Y\n\tschedules\x18\x01 \x03(\x0b\x32\x35.injective.insurance.v1beta1.FailedRedemptionScheduleB\x04\xc8\xde\x1f\x00R\tschedules\",\n\x14QueryVouchersRequest\x12\x14\n\x05\x64\x65nom\x18\x01 \x01(\tR\x05\x64\x65nom\"g\n\x15QueryVouchersResponse\x12N\n\x08vouchers\x18\x01 \x03(\x0b\x32,.injective.common.vouchers.v1.AddressVoucherB\x04\xc8\xde\x1f\x00R\x08vouchers\"E\n\x13QueryVoucherRequest\x12\x14\n\x05\x64\x65nom\x18\x01 \x01(\tR\x05\x64\x65nom\x12\x18\n\x07\x61\x64\x64ress\x18\x02 \x01(\tR\x07\x61\x64\x64ress\"|\n\x14QueryVoucherResponse\x12\x64\n\x07voucher\x18\x01 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB/\xc8\xde\x1f\x00\xda\xde\x1f\'github.com/cosmos/cosmos-sdk/types.CoinR\x07voucher2\xa0\r\n\x05Query\x12\xb3\x01\n\x0fInsuranceParams\x12\x38.injective.insurance.v1beta1.QueryInsuranceParamsRequest\x1a\x39.injective.insurance.v1beta1.QueryInsuranceParamsResponse\"+\x82\xd3\xe4\x93\x02%\x12#/injective/insurance/v1beta1/params\x12\xc1\x01\n\rInsuranceFund\x12\x36.injective.insurance.v1beta1.QueryInsuranceFundRequest\x1a\x37.injective.insurance.v1beta1.QueryInsuranceFundResponse\"?\x82\xd3\xe4\x93\x02\x39\x12\x37/injective/insurance/v1beta1/insurance_fund/{market_id}\x12\xb9\x01\n\x0eInsuranceFunds\x12\x37.injective.insurance.v1beta1.QueryInsuranceFundsRequest\x1a\x38.injective.insurance.v1beta1.QueryInsuranceFundsResponse\"4\x82\xd3\xe4\x93\x02.\x12,/injective/insurance/v1beta1/insurance_funds\x12\xd1\x01\n\x14\x45stimatedRedemptions\x12=.injective.insurance.v1beta1.QueryEstimatedRedemptionsRequest\x1a>.injective.insurance.v1beta1.QueryEstimatedRedemptionsResponse\":\x82\xd3\xe4\x93\x02\x34\x12\x32/injective/insurance/v1beta1/estimated_redemptions\x12\xc9\x01\n\x12PendingRedemptions\x12;.injective.insurance.v1beta1.QueryPendingRedemptionsRequest\x1a<.injective.insurance.v1beta1.QueryPendingRedemptionsResponse\"8\x82\xd3\xe4\x93\x02\x32\x12\x30/injective/insurance/v1beta1/pending_redemptions\x12\xb6\x01\n\x14InsuranceModuleState\x12\x34.injective.insurance.v1beta1.QueryModuleStateRequest\x1a\x35.injective.insurance.v1beta1.QueryModuleStateResponse\"1\x82\xd3\xe4\x93\x02+\x12)/injective/insurance/v1beta1/module_state\x12\xc5\x01\n\x11\x46\x61iledRedemptions\x12:.injective.insurance.v1beta1.QueryFailedRedemptionsRequest\x1a;.injective.insurance.v1beta1.QueryFailedRedemptionsResponse\"7\x82\xd3\xe4\x93\x02\x31\x12//injective/insurance/v1beta1/failed_redemptions\x12\xa0\x01\n\x08Vouchers\x12\x31.injective.insurance.v1beta1.QueryVouchersRequest\x1a\x32.injective.insurance.v1beta1.QueryVouchersResponse\"-\x82\xd3\xe4\x93\x02\'\x12%/injective/insurance/v1beta1/vouchers\x12\x9c\x01\n\x07Voucher\x12\x30.injective.insurance.v1beta1.QueryVoucherRequest\x1a\x31.injective.insurance.v1beta1.QueryVoucherResponse\",\x82\xd3\xe4\x93\x02&\x12$/injective/insurance/v1beta1/voucherB\x8c\x02\n\x1f\x63om.injective.insurance.v1beta1B\nQueryProtoP\x01ZOgithub.com/InjectiveLabs/injective-core/injective-chain/modules/insurance/types\xa2\x02\x03IIX\xaa\x02\x1bInjective.Insurance.V1beta1\xca\x02\x1bInjective\\Insurance\\V1beta1\xe2\x02\'Injective\\Insurance\\V1beta1\\GPBMetadata\xea\x02\x1dInjective::Insurance::V1beta1b\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\'injective/insurance/v1beta1/query.proto\x12\x1binjective.insurance.v1beta1\x1a\x1cgoogle/api/annotations.proto\x1a+injective/insurance/v1beta1/insurance.proto\x1a+injective/common/vouchers/v1/vouchers.proto\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a*cosmos/base/query/v1beta1/pagination.proto\x1a)injective/insurance/v1beta1/genesis.proto\"\x1d\n\x1bQueryInsuranceParamsRequest\"a\n\x1cQueryInsuranceParamsResponse\x12\x41\n\x06params\x18\x01 \x01(\x0b\x32#.injective.insurance.v1beta1.ParamsB\x04\xc8\xde\x1f\x00R\x06params\"8\n\x19QueryInsuranceFundRequest\x12\x1b\n\tmarket_id\x18\x01 \x01(\tR\x08marketId\"\\\n\x1aQueryInsuranceFundResponse\x12>\n\x04\x66und\x18\x01 \x01(\x0b\x32*.injective.insurance.v1beta1.InsuranceFundR\x04\x66und\"\x1c\n\x1aQueryInsuranceFundsRequest\"e\n\x1bQueryInsuranceFundsResponse\x12\x46\n\x05\x66unds\x18\x01 \x03(\x0b\x32*.injective.insurance.v1beta1.InsuranceFundB\x04\xc8\xde\x1f\x00R\x05\x66unds\"X\n QueryEstimatedRedemptionsRequest\x12\x1a\n\x08marketId\x18\x01 \x01(\tR\x08marketId\x12\x18\n\x07\x61\x64\x64ress\x18\x02 \x01(\tR\x07\x61\x64\x64ress\"\\\n!QueryEstimatedRedemptionsResponse\x12\x37\n\x06\x61mount\x18\x01 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00R\x06\x61mount\"V\n\x1eQueryPendingRedemptionsRequest\x12\x1a\n\x08marketId\x18\x01 \x01(\tR\x08marketId\x12\x18\n\x07\x61\x64\x64ress\x18\x02 \x01(\tR\x07\x61\x64\x64ress\"Z\n\x1fQueryPendingRedemptionsResponse\x12\x37\n\x06\x61mount\x18\x01 \x03(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00R\x06\x61mount\"\x19\n\x17QueryModuleStateRequest\"[\n\x18QueryModuleStateResponse\x12?\n\x05state\x18\x01 \x01(\x0b\x32).injective.insurance.v1beta1.GenesisStateR\x05state\"\x1f\n\x1dQueryFailedRedemptionsRequest\"{\n\x1eQueryFailedRedemptionsResponse\x12Y\n\tschedules\x18\x01 \x03(\x0b\x32\x35.injective.insurance.v1beta1.FailedRedemptionScheduleB\x04\xc8\xde\x1f\x00R\tschedules\",\n\x14QueryVouchersRequest\x12\x14\n\x05\x64\x65nom\x18\x01 \x01(\tR\x05\x64\x65nom\"g\n\x15QueryVouchersResponse\x12N\n\x08vouchers\x18\x01 \x03(\x0b\x32,.injective.common.vouchers.v1.AddressVoucherB\x04\xc8\xde\x1f\x00R\x08vouchers\"E\n\x13QueryVoucherRequest\x12\x14\n\x05\x64\x65nom\x18\x01 \x01(\tR\x05\x64\x65nom\x12\x18\n\x07\x61\x64\x64ress\x18\x02 \x01(\tR\x07\x61\x64\x64ress\"|\n\x14QueryVoucherResponse\x12\x64\n\x07voucher\x18\x01 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB/\xc8\xde\x1f\x00\xda\xde\x1f\'github.com/cosmos/cosmos-sdk/types.CoinR\x07voucher\"M\n&QueryConsolidatedInsurancePoolsRequest\x12#\n\rdeposit_denom\x18\x01 \x01(\tR\x0c\x64\x65positDenom\"}\n\'QueryConsolidatedInsurancePoolsResponse\x12R\n\x05pools\x18\x01 \x03(\x0b\x32\x36.injective.insurance.v1beta1.ConsolidatedInsurancePoolB\x04\xc8\xde\x1f\x00R\x05pools\"F\n\'QueryConsolidatedInsurancePolicyRequest\x12\x1b\n\tmarket_id\x18\x01 \x01(\tR\x08marketId\"|\n(QueryConsolidatedInsurancePolicyResponse\x12P\n\x06policy\x18\x01 \x01(\x0b\x32\x38.injective.insurance.v1beta1.ConsolidatedInsurancePolicyR\x06policy\"\x92\x01\n)QueryConsolidatedInsurancePoliciesRequest\x12\x1d\n\npool_denom\x18\x01 \x01(\tR\tpoolDenom\x12\x46\n\npagination\x18\x02 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequestR\npagination\"\xd1\x01\n*QueryConsolidatedInsurancePoliciesResponse\x12Z\n\x08policies\x18\x01 \x03(\x0b\x32\x38.injective.insurance.v1beta1.ConsolidatedInsurancePolicyB\x04\xc8\xde\x1f\x00R\x08policies\x12G\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponseR\npagination\"\x89\x01\n#QueryConsolidatedRedemptionsRequest\x12\x1a\n\x08redeemer\x18\x01 \x01(\tR\x08redeemer\x12\x46\n\npagination\x18\x02 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequestR\npagination\"\xd0\x01\n$QueryConsolidatedRedemptionsResponse\x12_\n\tschedules\x18\x01 \x03(\x0b\x32;.injective.insurance.v1beta1.ConsolidatedRedemptionScheduleB\x04\xc8\xde\x1f\x00R\tschedules\x12G\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponseR\npagination2\xc5\x14\n\x05Query\x12\xb3\x01\n\x0fInsuranceParams\x12\x38.injective.insurance.v1beta1.QueryInsuranceParamsRequest\x1a\x39.injective.insurance.v1beta1.QueryInsuranceParamsResponse\"+\x82\xd3\xe4\x93\x02%\x12#/injective/insurance/v1beta1/params\x12\xc1\x01\n\rInsuranceFund\x12\x36.injective.insurance.v1beta1.QueryInsuranceFundRequest\x1a\x37.injective.insurance.v1beta1.QueryInsuranceFundResponse\"?\x82\xd3\xe4\x93\x02\x39\x12\x37/injective/insurance/v1beta1/insurance_fund/{market_id}\x12\xb9\x01\n\x0eInsuranceFunds\x12\x37.injective.insurance.v1beta1.QueryInsuranceFundsRequest\x1a\x38.injective.insurance.v1beta1.QueryInsuranceFundsResponse\"4\x82\xd3\xe4\x93\x02.\x12,/injective/insurance/v1beta1/insurance_funds\x12\xd1\x01\n\x14\x45stimatedRedemptions\x12=.injective.insurance.v1beta1.QueryEstimatedRedemptionsRequest\x1a>.injective.insurance.v1beta1.QueryEstimatedRedemptionsResponse\":\x82\xd3\xe4\x93\x02\x34\x12\x32/injective/insurance/v1beta1/estimated_redemptions\x12\xc9\x01\n\x12PendingRedemptions\x12;.injective.insurance.v1beta1.QueryPendingRedemptionsRequest\x1a<.injective.insurance.v1beta1.QueryPendingRedemptionsResponse\"8\x82\xd3\xe4\x93\x02\x32\x12\x30/injective/insurance/v1beta1/pending_redemptions\x12\xb6\x01\n\x14InsuranceModuleState\x12\x34.injective.insurance.v1beta1.QueryModuleStateRequest\x1a\x35.injective.insurance.v1beta1.QueryModuleStateResponse\"1\x82\xd3\xe4\x93\x02+\x12)/injective/insurance/v1beta1/module_state\x12\xc5\x01\n\x11\x46\x61iledRedemptions\x12:.injective.insurance.v1beta1.QueryFailedRedemptionsRequest\x1a;.injective.insurance.v1beta1.QueryFailedRedemptionsResponse\"7\x82\xd3\xe4\x93\x02\x31\x12//injective/insurance/v1beta1/failed_redemptions\x12\xa0\x01\n\x08Vouchers\x12\x31.injective.insurance.v1beta1.QueryVouchersRequest\x1a\x32.injective.insurance.v1beta1.QueryVouchersResponse\"-\x82\xd3\xe4\x93\x02\'\x12%/injective/insurance/v1beta1/vouchers\x12\x9c\x01\n\x07Voucher\x12\x30.injective.insurance.v1beta1.QueryVoucherRequest\x1a\x31.injective.insurance.v1beta1.QueryVoucherResponse\",\x82\xd3\xe4\x93\x02&\x12$/injective/insurance/v1beta1/voucher\x12\xe0\x01\n\x1a\x43onsolidatedInsurancePools\x12\x43.injective.insurance.v1beta1.QueryConsolidatedInsurancePoolsRequest\x1a\x44.injective.insurance.v1beta1.QueryConsolidatedInsurancePoolsResponse\"7\x82\xd3\xe4\x93\x02\x31\x12//injective/insurance/v1beta1/consolidated_pools\x12\xf0\x01\n\x1b\x43onsolidatedInsurancePolicy\x12\x44.injective.insurance.v1beta1.QueryConsolidatedInsurancePolicyRequest\x1a\x45.injective.insurance.v1beta1.QueryConsolidatedInsurancePolicyResponse\"D\x82\xd3\xe4\x93\x02>\x12</injective/insurance/v1beta1/consolidated_policy/{market_id}\x12\xec\x01\n\x1d\x43onsolidatedInsurancePolicies\x12\x46.injective.insurance.v1beta1.QueryConsolidatedInsurancePoliciesRequest\x1aG.injective.insurance.v1beta1.QueryConsolidatedInsurancePoliciesResponse\":\x82\xd3\xe4\x93\x02\x34\x12\x32/injective/insurance/v1beta1/consolidated_policies\x12\xdd\x01\n\x17\x43onsolidatedRedemptions\x12@.injective.insurance.v1beta1.QueryConsolidatedRedemptionsRequest\x1a\x41.injective.insurance.v1beta1.QueryConsolidatedRedemptionsResponse\"=\x82\xd3\xe4\x93\x02\x37\x12\x35/injective/insurance/v1beta1/consolidated_redemptionsB\x8c\x02\n\x1f\x63om.injective.insurance.v1beta1B\nQueryProtoP\x01ZOgithub.com/InjectiveLabs/injective-core/injective-chain/modules/insurance/types\xa2\x02\x03IIX\xaa\x02\x1bInjective.Insurance.V1beta1\xca\x02\x1bInjective\\Insurance\\V1beta1\xe2\x02\'Injective\\Insurance\\V1beta1\\GPBMetadata\xea\x02\x1dInjective::Insurance::V1beta1b\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -42,6 +43,12 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_QUERYVOUCHERSRESPONSE'].fields_by_name['vouchers']._serialized_options = b'\310\336\037\000'
   _globals['_QUERYVOUCHERRESPONSE'].fields_by_name['voucher']._loaded_options = None
   _globals['_QUERYVOUCHERRESPONSE'].fields_by_name['voucher']._serialized_options = b'\310\336\037\000\332\336\037\'github.com/cosmos/cosmos-sdk/types.Coin'
+  _globals['_QUERYCONSOLIDATEDINSURANCEPOOLSRESPONSE'].fields_by_name['pools']._loaded_options = None
+  _globals['_QUERYCONSOLIDATEDINSURANCEPOOLSRESPONSE'].fields_by_name['pools']._serialized_options = b'\310\336\037\000'
+  _globals['_QUERYCONSOLIDATEDINSURANCEPOLICIESRESPONSE'].fields_by_name['policies']._loaded_options = None
+  _globals['_QUERYCONSOLIDATEDINSURANCEPOLICIESRESPONSE'].fields_by_name['policies']._serialized_options = b'\310\336\037\000'
+  _globals['_QUERYCONSOLIDATEDREDEMPTIONSRESPONSE'].fields_by_name['schedules']._loaded_options = None
+  _globals['_QUERYCONSOLIDATEDREDEMPTIONSRESPONSE'].fields_by_name['schedules']._serialized_options = b'\310\336\037\000'
   _globals['_QUERY'].methods_by_name['InsuranceParams']._loaded_options = None
   _globals['_QUERY'].methods_by_name['InsuranceParams']._serialized_options = b'\202\323\344\223\002%\022#/injective/insurance/v1beta1/params'
   _globals['_QUERY'].methods_by_name['InsuranceFund']._loaded_options = None
@@ -60,42 +67,66 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_QUERY'].methods_by_name['Vouchers']._serialized_options = b'\202\323\344\223\002\'\022%/injective/insurance/v1beta1/vouchers'
   _globals['_QUERY'].methods_by_name['Voucher']._loaded_options = None
   _globals['_QUERY'].methods_by_name['Voucher']._serialized_options = b'\202\323\344\223\002&\022$/injective/insurance/v1beta1/voucher'
-  _globals['_QUERYINSURANCEPARAMSREQUEST']._serialized_start=289
-  _globals['_QUERYINSURANCEPARAMSREQUEST']._serialized_end=318
-  _globals['_QUERYINSURANCEPARAMSRESPONSE']._serialized_start=320
-  _globals['_QUERYINSURANCEPARAMSRESPONSE']._serialized_end=417
-  _globals['_QUERYINSURANCEFUNDREQUEST']._serialized_start=419
-  _globals['_QUERYINSURANCEFUNDREQUEST']._serialized_end=475
-  _globals['_QUERYINSURANCEFUNDRESPONSE']._serialized_start=477
-  _globals['_QUERYINSURANCEFUNDRESPONSE']._serialized_end=569
-  _globals['_QUERYINSURANCEFUNDSREQUEST']._serialized_start=571
-  _globals['_QUERYINSURANCEFUNDSREQUEST']._serialized_end=599
-  _globals['_QUERYINSURANCEFUNDSRESPONSE']._serialized_start=601
-  _globals['_QUERYINSURANCEFUNDSRESPONSE']._serialized_end=702
-  _globals['_QUERYESTIMATEDREDEMPTIONSREQUEST']._serialized_start=704
-  _globals['_QUERYESTIMATEDREDEMPTIONSREQUEST']._serialized_end=792
-  _globals['_QUERYESTIMATEDREDEMPTIONSRESPONSE']._serialized_start=794
-  _globals['_QUERYESTIMATEDREDEMPTIONSRESPONSE']._serialized_end=886
-  _globals['_QUERYPENDINGREDEMPTIONSREQUEST']._serialized_start=888
-  _globals['_QUERYPENDINGREDEMPTIONSREQUEST']._serialized_end=974
-  _globals['_QUERYPENDINGREDEMPTIONSRESPONSE']._serialized_start=976
-  _globals['_QUERYPENDINGREDEMPTIONSRESPONSE']._serialized_end=1066
-  _globals['_QUERYMODULESTATEREQUEST']._serialized_start=1068
-  _globals['_QUERYMODULESTATEREQUEST']._serialized_end=1093
-  _globals['_QUERYMODULESTATERESPONSE']._serialized_start=1095
-  _globals['_QUERYMODULESTATERESPONSE']._serialized_end=1186
-  _globals['_QUERYFAILEDREDEMPTIONSREQUEST']._serialized_start=1188
-  _globals['_QUERYFAILEDREDEMPTIONSREQUEST']._serialized_end=1219
-  _globals['_QUERYFAILEDREDEMPTIONSRESPONSE']._serialized_start=1221
-  _globals['_QUERYFAILEDREDEMPTIONSRESPONSE']._serialized_end=1344
-  _globals['_QUERYVOUCHERSREQUEST']._serialized_start=1346
-  _globals['_QUERYVOUCHERSREQUEST']._serialized_end=1390
-  _globals['_QUERYVOUCHERSRESPONSE']._serialized_start=1392
-  _globals['_QUERYVOUCHERSRESPONSE']._serialized_end=1495
-  _globals['_QUERYVOUCHERREQUEST']._serialized_start=1497
-  _globals['_QUERYVOUCHERREQUEST']._serialized_end=1566
-  _globals['_QUERYVOUCHERRESPONSE']._serialized_start=1568
-  _globals['_QUERYVOUCHERRESPONSE']._serialized_end=1692
-  _globals['_QUERY']._serialized_start=1695
-  _globals['_QUERY']._serialized_end=3391
+  _globals['_QUERY'].methods_by_name['ConsolidatedInsurancePools']._loaded_options = None
+  _globals['_QUERY'].methods_by_name['ConsolidatedInsurancePools']._serialized_options = b'\202\323\344\223\0021\022//injective/insurance/v1beta1/consolidated_pools'
+  _globals['_QUERY'].methods_by_name['ConsolidatedInsurancePolicy']._loaded_options = None
+  _globals['_QUERY'].methods_by_name['ConsolidatedInsurancePolicy']._serialized_options = b'\202\323\344\223\002>\022</injective/insurance/v1beta1/consolidated_policy/{market_id}'
+  _globals['_QUERY'].methods_by_name['ConsolidatedInsurancePolicies']._loaded_options = None
+  _globals['_QUERY'].methods_by_name['ConsolidatedInsurancePolicies']._serialized_options = b'\202\323\344\223\0024\0222/injective/insurance/v1beta1/consolidated_policies'
+  _globals['_QUERY'].methods_by_name['ConsolidatedRedemptions']._loaded_options = None
+  _globals['_QUERY'].methods_by_name['ConsolidatedRedemptions']._serialized_options = b'\202\323\344\223\0027\0225/injective/insurance/v1beta1/consolidated_redemptions'
+  _globals['_QUERYINSURANCEPARAMSREQUEST']._serialized_start=333
+  _globals['_QUERYINSURANCEPARAMSREQUEST']._serialized_end=362
+  _globals['_QUERYINSURANCEPARAMSRESPONSE']._serialized_start=364
+  _globals['_QUERYINSURANCEPARAMSRESPONSE']._serialized_end=461
+  _globals['_QUERYINSURANCEFUNDREQUEST']._serialized_start=463
+  _globals['_QUERYINSURANCEFUNDREQUEST']._serialized_end=519
+  _globals['_QUERYINSURANCEFUNDRESPONSE']._serialized_start=521
+  _globals['_QUERYINSURANCEFUNDRESPONSE']._serialized_end=613
+  _globals['_QUERYINSURANCEFUNDSREQUEST']._serialized_start=615
+  _globals['_QUERYINSURANCEFUNDSREQUEST']._serialized_end=643
+  _globals['_QUERYINSURANCEFUNDSRESPONSE']._serialized_start=645
+  _globals['_QUERYINSURANCEFUNDSRESPONSE']._serialized_end=746
+  _globals['_QUERYESTIMATEDREDEMPTIONSREQUEST']._serialized_start=748
+  _globals['_QUERYESTIMATEDREDEMPTIONSREQUEST']._serialized_end=836
+  _globals['_QUERYESTIMATEDREDEMPTIONSRESPONSE']._serialized_start=838
+  _globals['_QUERYESTIMATEDREDEMPTIONSRESPONSE']._serialized_end=930
+  _globals['_QUERYPENDINGREDEMPTIONSREQUEST']._serialized_start=932
+  _globals['_QUERYPENDINGREDEMPTIONSREQUEST']._serialized_end=1018
+  _globals['_QUERYPENDINGREDEMPTIONSRESPONSE']._serialized_start=1020
+  _globals['_QUERYPENDINGREDEMPTIONSRESPONSE']._serialized_end=1110
+  _globals['_QUERYMODULESTATEREQUEST']._serialized_start=1112
+  _globals['_QUERYMODULESTATEREQUEST']._serialized_end=1137
+  _globals['_QUERYMODULESTATERESPONSE']._serialized_start=1139
+  _globals['_QUERYMODULESTATERESPONSE']._serialized_end=1230
+  _globals['_QUERYFAILEDREDEMPTIONSREQUEST']._serialized_start=1232
+  _globals['_QUERYFAILEDREDEMPTIONSREQUEST']._serialized_end=1263
+  _globals['_QUERYFAILEDREDEMPTIONSRESPONSE']._serialized_start=1265
+  _globals['_QUERYFAILEDREDEMPTIONSRESPONSE']._serialized_end=1388
+  _globals['_QUERYVOUCHERSREQUEST']._serialized_start=1390
+  _globals['_QUERYVOUCHERSREQUEST']._serialized_end=1434
+  _globals['_QUERYVOUCHERSRESPONSE']._serialized_start=1436
+  _globals['_QUERYVOUCHERSRESPONSE']._serialized_end=1539
+  _globals['_QUERYVOUCHERREQUEST']._serialized_start=1541
+  _globals['_QUERYVOUCHERREQUEST']._serialized_end=1610
+  _globals['_QUERYVOUCHERRESPONSE']._serialized_start=1612
+  _globals['_QUERYVOUCHERRESPONSE']._serialized_end=1736
+  _globals['_QUERYCONSOLIDATEDINSURANCEPOOLSREQUEST']._serialized_start=1738
+  _globals['_QUERYCONSOLIDATEDINSURANCEPOOLSREQUEST']._serialized_end=1815
+  _globals['_QUERYCONSOLIDATEDINSURANCEPOOLSRESPONSE']._serialized_start=1817
+  _globals['_QUERYCONSOLIDATEDINSURANCEPOOLSRESPONSE']._serialized_end=1942
+  _globals['_QUERYCONSOLIDATEDINSURANCEPOLICYREQUEST']._serialized_start=1944
+  _globals['_QUERYCONSOLIDATEDINSURANCEPOLICYREQUEST']._serialized_end=2014
+  _globals['_QUERYCONSOLIDATEDINSURANCEPOLICYRESPONSE']._serialized_start=2016
+  _globals['_QUERYCONSOLIDATEDINSURANCEPOLICYRESPONSE']._serialized_end=2140
+  _globals['_QUERYCONSOLIDATEDINSURANCEPOLICIESREQUEST']._serialized_start=2143
+  _globals['_QUERYCONSOLIDATEDINSURANCEPOLICIESREQUEST']._serialized_end=2289
+  _globals['_QUERYCONSOLIDATEDINSURANCEPOLICIESRESPONSE']._serialized_start=2292
+  _globals['_QUERYCONSOLIDATEDINSURANCEPOLICIESRESPONSE']._serialized_end=2501
+  _globals['_QUERYCONSOLIDATEDREDEMPTIONSREQUEST']._serialized_start=2504
+  _globals['_QUERYCONSOLIDATEDREDEMPTIONSREQUEST']._serialized_end=2641
+  _globals['_QUERYCONSOLIDATEDREDEMPTIONSRESPONSE']._serialized_start=2644
+  _globals['_QUERYCONSOLIDATEDREDEMPTIONSRESPONSE']._serialized_end=2852
+  _globals['_QUERY']._serialized_start=2855
+  _globals['_QUERY']._serialized_end=5484
 # @@protoc_insertion_point(module_scope)

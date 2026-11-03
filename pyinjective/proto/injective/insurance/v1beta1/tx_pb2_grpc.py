@@ -40,6 +40,31 @@ class MsgStub(object):
                 request_serializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgClaimVoucher.SerializeToString,
                 response_deserializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgClaimVoucherResponse.FromString,
                 _registered_method=True)
+        self.CreateConsolidatedInsurancePool = channel.unary_unary(
+                '/injective.insurance.v1beta1.Msg/CreateConsolidatedInsurancePool',
+                request_serializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgCreateConsolidatedInsurancePool.SerializeToString,
+                response_deserializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgCreateConsolidatedInsurancePoolResponse.FromString,
+                _registered_method=True)
+        self.SetConsolidatedInsurancePoolPause = channel.unary_unary(
+                '/injective.insurance.v1beta1.Msg/SetConsolidatedInsurancePoolPause',
+                request_serializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgSetConsolidatedInsurancePoolPause.SerializeToString,
+                response_deserializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgSetConsolidatedInsurancePoolPauseResponse.FromString,
+                _registered_method=True)
+        self.UpdateConsolidatedInsurancePolicy = channel.unary_unary(
+                '/injective.insurance.v1beta1.Msg/UpdateConsolidatedInsurancePolicy',
+                request_serializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUpdateConsolidatedInsurancePolicy.SerializeToString,
+                response_deserializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUpdateConsolidatedInsurancePolicyResponse.FromString,
+                _registered_method=True)
+        self.UnderwriteConsolidatedInsurancePool = channel.unary_unary(
+                '/injective.insurance.v1beta1.Msg/UnderwriteConsolidatedInsurancePool',
+                request_serializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUnderwriteConsolidatedInsurancePool.SerializeToString,
+                response_deserializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUnderwriteConsolidatedInsurancePoolResponse.FromString,
+                _registered_method=True)
+        self.RequestConsolidatedRedemption = channel.unary_unary(
+                '/injective.insurance.v1beta1.Msg/RequestConsolidatedRedemption',
+                request_serializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgRequestConsolidatedRedemption.SerializeToString,
+                response_deserializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgRequestConsolidatedRedemptionResponse.FromString,
+                _registered_method=True)
 
 
 class MsgServicer(object):
@@ -82,6 +107,45 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def CreateConsolidatedInsurancePool(self, request, context):
+        """CreateConsolidatedInsurancePool creates an empty quote-denominated pool.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SetConsolidatedInsurancePoolPause(self, request, context):
+        """SetConsolidatedInsurancePoolPause controls the insurance-payout pause. It
+        disables fresh draws, underwriting, and market enrollment; it does not
+        halt enrolled markets, credits, or automatic redemptions. Set paused=false
+        to resume payouts.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateConsolidatedInsurancePolicy(self, request, context):
+        """UpdateConsolidatedInsurancePolicy changes one enrolled market's draw cap.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UnderwriteConsolidatedInsurancePool(self, request, context):
+        """UnderwriteConsolidatedInsurancePool deposits quote and immediately mints
+        pool shares.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def RequestConsolidatedRedemption(self, request, context):
+        """RequestConsolidatedRedemption escrows shares for automatic redemption.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_MsgServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -109,6 +173,31 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.ClaimVoucher,
                     request_deserializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgClaimVoucher.FromString,
                     response_serializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgClaimVoucherResponse.SerializeToString,
+            ),
+            'CreateConsolidatedInsurancePool': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateConsolidatedInsurancePool,
+                    request_deserializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgCreateConsolidatedInsurancePool.FromString,
+                    response_serializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgCreateConsolidatedInsurancePoolResponse.SerializeToString,
+            ),
+            'SetConsolidatedInsurancePoolPause': grpc.unary_unary_rpc_method_handler(
+                    servicer.SetConsolidatedInsurancePoolPause,
+                    request_deserializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgSetConsolidatedInsurancePoolPause.FromString,
+                    response_serializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgSetConsolidatedInsurancePoolPauseResponse.SerializeToString,
+            ),
+            'UpdateConsolidatedInsurancePolicy': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateConsolidatedInsurancePolicy,
+                    request_deserializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUpdateConsolidatedInsurancePolicy.FromString,
+                    response_serializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUpdateConsolidatedInsurancePolicyResponse.SerializeToString,
+            ),
+            'UnderwriteConsolidatedInsurancePool': grpc.unary_unary_rpc_method_handler(
+                    servicer.UnderwriteConsolidatedInsurancePool,
+                    request_deserializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUnderwriteConsolidatedInsurancePool.FromString,
+                    response_serializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUnderwriteConsolidatedInsurancePoolResponse.SerializeToString,
+            ),
+            'RequestConsolidatedRedemption': grpc.unary_unary_rpc_method_handler(
+                    servicer.RequestConsolidatedRedemption,
+                    request_deserializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgRequestConsolidatedRedemption.FromString,
+                    response_serializer=injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgRequestConsolidatedRedemptionResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -247,6 +336,141 @@ class Msg(object):
             '/injective.insurance.v1beta1.Msg/ClaimVoucher',
             injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgClaimVoucher.SerializeToString,
             injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgClaimVoucherResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def CreateConsolidatedInsurancePool(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.insurance.v1beta1.Msg/CreateConsolidatedInsurancePool',
+            injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgCreateConsolidatedInsurancePool.SerializeToString,
+            injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgCreateConsolidatedInsurancePoolResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def SetConsolidatedInsurancePoolPause(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.insurance.v1beta1.Msg/SetConsolidatedInsurancePoolPause',
+            injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgSetConsolidatedInsurancePoolPause.SerializeToString,
+            injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgSetConsolidatedInsurancePoolPauseResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateConsolidatedInsurancePolicy(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.insurance.v1beta1.Msg/UpdateConsolidatedInsurancePolicy',
+            injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUpdateConsolidatedInsurancePolicy.SerializeToString,
+            injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUpdateConsolidatedInsurancePolicyResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UnderwriteConsolidatedInsurancePool(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.insurance.v1beta1.Msg/UnderwriteConsolidatedInsurancePool',
+            injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUnderwriteConsolidatedInsurancePool.SerializeToString,
+            injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgUnderwriteConsolidatedInsurancePoolResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def RequestConsolidatedRedemption(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.insurance.v1beta1.Msg/RequestConsolidatedRedemption',
+            injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgRequestConsolidatedRedemption.SerializeToString,
+            injective_dot_insurance_dot_v1beta1_dot_tx__pb2.MsgRequestConsolidatedRedemptionResponse.FromString,
             options,
             channel_credentials,
             insecure,

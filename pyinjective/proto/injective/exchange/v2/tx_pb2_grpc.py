@@ -100,31 +100,6 @@ class MsgStub(object):
                 request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchCancelDerivativeOrders.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchCancelDerivativeOrdersResponse.FromString,
                 _registered_method=True)
-        self.InstantBinaryOptionsMarketLaunch = channel.unary_unary(
-                '/injective.exchange.v2.Msg/InstantBinaryOptionsMarketLaunch',
-                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgInstantBinaryOptionsMarketLaunch.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgInstantBinaryOptionsMarketLaunchResponse.FromString,
-                _registered_method=True)
-        self.CreateBinaryOptionsLimitOrder = channel.unary_unary(
-                '/injective.exchange.v2.Msg/CreateBinaryOptionsLimitOrder',
-                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgCreateBinaryOptionsLimitOrder.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgCreateBinaryOptionsLimitOrderResponse.FromString,
-                _registered_method=True)
-        self.CreateBinaryOptionsMarketOrder = channel.unary_unary(
-                '/injective.exchange.v2.Msg/CreateBinaryOptionsMarketOrder',
-                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgCreateBinaryOptionsMarketOrder.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgCreateBinaryOptionsMarketOrderResponse.FromString,
-                _registered_method=True)
-        self.CancelBinaryOptionsOrder = channel.unary_unary(
-                '/injective.exchange.v2.Msg/CancelBinaryOptionsOrder',
-                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgCancelBinaryOptionsOrder.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgCancelBinaryOptionsOrderResponse.FromString,
-                _registered_method=True)
-        self.BatchCancelBinaryOptionsOrders = channel.unary_unary(
-                '/injective.exchange.v2.Msg/BatchCancelBinaryOptionsOrders',
-                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchCancelBinaryOptionsOrders.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchCancelBinaryOptionsOrdersResponse.FromString,
-                _registered_method=True)
         self.SubaccountTransfer = channel.unary_unary(
                 '/injective.exchange.v2.Msg/SubaccountTransfer',
                 request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgSubaccountTransfer.SerializeToString,
@@ -164,16 +139,6 @@ class MsgStub(object):
                 '/injective.exchange.v2.Msg/DecreasePositionMargin',
                 request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgDecreasePositionMargin.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgDecreasePositionMarginResponse.FromString,
-                _registered_method=True)
-        self.RewardsOptOut = channel.unary_unary(
-                '/injective.exchange.v2.Msg/RewardsOptOut',
-                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgRewardsOptOut.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgRewardsOptOutResponse.FromString,
-                _registered_method=True)
-        self.AdminUpdateBinaryOptionsMarket = channel.unary_unary(
-                '/injective.exchange.v2.Msg/AdminUpdateBinaryOptionsMarket',
-                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgAdminUpdateBinaryOptionsMarket.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgAdminUpdateBinaryOptionsMarketResponse.FromString,
                 _registered_method=True)
         self.UpdateParams = channel.unary_unary(
                 '/injective.exchange.v2.Msg/UpdateParams',
@@ -225,11 +190,6 @@ class MsgStub(object):
                 request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgExpiryFuturesMarketLaunch.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgExpiryFuturesMarketLaunchResponse.FromString,
                 _registered_method=True)
-        self.LaunchBinaryOptionsMarket = channel.unary_unary(
-                '/injective.exchange.v2.Msg/LaunchBinaryOptionsMarket',
-                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBinaryOptionsMarketLaunch.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBinaryOptionsMarketLaunchResponse.FromString,
-                _registered_method=True)
         self.BatchSpendCommunityPool = channel.unary_unary(
                 '/injective.exchange.v2.Msg/BatchSpendCommunityPool',
                 request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchCommunityPoolSpend.SerializeToString,
@@ -245,35 +205,15 @@ class MsgStub(object):
                 request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgDerivativeMarketParamUpdate.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgDerivativeMarketParamUpdateResponse.FromString,
                 _registered_method=True)
-        self.BinaryOptionsMarketParamUpdate = channel.unary_unary(
-                '/injective.exchange.v2.Msg/BinaryOptionsMarketParamUpdate',
-                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBinaryOptionsMarketParamUpdate.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBinaryOptionsMarketParamUpdateResponse.FromString,
-                _registered_method=True)
         self.ForceSettleMarket = channel.unary_unary(
                 '/injective.exchange.v2.Msg/ForceSettleMarket',
                 request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgMarketForcedSettlement.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgMarketForcedSettlementResponse.FromString,
                 _registered_method=True)
-        self.LaunchTradingRewardCampaign = channel.unary_unary(
-                '/injective.exchange.v2.Msg/LaunchTradingRewardCampaign',
-                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardCampaignLaunch.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardCampaignLaunchResponse.FromString,
-                _registered_method=True)
         self.EnableExchange = channel.unary_unary(
                 '/injective.exchange.v2.Msg/EnableExchange',
                 request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgExchangeEnable.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgExchangeEnableResponse.FromString,
-                _registered_method=True)
-        self.UpdateTradingRewardCampaign = channel.unary_unary(
-                '/injective.exchange.v2.Msg/UpdateTradingRewardCampaign',
-                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardCampaignUpdate.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardCampaignUpdateResponse.FromString,
-                _registered_method=True)
-        self.UpdateTradingRewardPendingPoints = channel.unary_unary(
-                '/injective.exchange.v2.Msg/UpdateTradingRewardPendingPoints',
-                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardPendingPointsUpdate.SerializeToString,
-                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardPendingPointsUpdateResponse.FromString,
                 _registered_method=True)
         self.UpdateFeeDiscount = channel.unary_unary(
                 '/injective.exchange.v2.Msg/UpdateFeeDiscount',
@@ -309,6 +249,11 @@ class MsgStub(object):
                 '/injective.exchange.v2.Msg/UpdateSubaccountRiskProfile',
                 request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgUpdateSubaccountRiskProfile.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgUpdateSubaccountRiskProfileResponse.FromString,
+                _registered_method=True)
+        self.UpdateSubaccountMarketRiskMode = channel.unary_unary(
+                '/injective.exchange.v2.Msg/UpdateSubaccountMarketRiskMode',
+                request_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgUpdateSubaccountMarketRiskMode.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgUpdateSubaccountMarketRiskModeResponse.FromString,
                 _registered_method=True)
 
 
@@ -449,46 +394,6 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def InstantBinaryOptionsMarketLaunch(self, request, context):
-        """InstantBinaryOptionsMarketLaunch defines method for creating a binary
-        options market by paying listing fee without governance
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def CreateBinaryOptionsLimitOrder(self, request, context):
-        """CreateBinaryOptionsLimitOrder defines a method for creating a new binary
-        options limit order.
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def CreateBinaryOptionsMarketOrder(self, request, context):
-        """CreateBinaryOptionsMarketOrder defines a method for creating a new binary
-        options market order.
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def CancelBinaryOptionsOrder(self, request, context):
-        """MsgCancelBinaryOptionsOrder defines a method for cancelling a binary
-        options order.
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def BatchCancelBinaryOptionsOrders(self, request, context):
-        """BatchCancelBinaryOptionsOrders defines a method for cancelling a batch of
-        binary options limit orders.
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def SubaccountTransfer(self, request, context):
         """SubaccountTransfer defines a method for transfer between subaccounts
         """
@@ -546,23 +451,10 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def RewardsOptOut(self, request, context):
-        """RewardsOptOut defines a method for opting out of rewards
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def AdminUpdateBinaryOptionsMarket(self, request, context):
-        """AdminUpdateBinaryOptionsMarket defines method for updating a binary options
-        market by admin
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def UpdateParams(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """RewardsOptOut defines a method for opting out of rewards
+
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -624,12 +516,6 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def LaunchBinaryOptionsMarket(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def BatchSpendCommunityPool(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -648,37 +534,13 @@ class MsgServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def BinaryOptionsMarketParamUpdate(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def ForceSettleMarket(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def LaunchTradingRewardCampaign(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def EnableExchange(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def UpdateTradingRewardCampaign(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def UpdateTradingRewardPendingPoints(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -730,6 +592,16 @@ class MsgServicer(object):
     def UpdateSubaccountRiskProfile(self, request, context):
         """UpdateSubaccountRiskProfile allows a user (subject to eligibility & safety
         gates) to set the subaccount's risk profile (e.g. opt into cross-margin).
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateSubaccountMarketRiskMode(self, request, context):
+        """UpdateSubaccountMarketRiskMode pins one derivative market's margin mode
+        for a subaccount (or unpins it back to the profile default), converting
+        resting order margin representation atomically. Requires a flat position
+        in that market.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -823,31 +695,6 @@ def add_MsgServicer_to_server(servicer, server):
                     request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchCancelDerivativeOrders.FromString,
                     response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchCancelDerivativeOrdersResponse.SerializeToString,
             ),
-            'InstantBinaryOptionsMarketLaunch': grpc.unary_unary_rpc_method_handler(
-                    servicer.InstantBinaryOptionsMarketLaunch,
-                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgInstantBinaryOptionsMarketLaunch.FromString,
-                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgInstantBinaryOptionsMarketLaunchResponse.SerializeToString,
-            ),
-            'CreateBinaryOptionsLimitOrder': grpc.unary_unary_rpc_method_handler(
-                    servicer.CreateBinaryOptionsLimitOrder,
-                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgCreateBinaryOptionsLimitOrder.FromString,
-                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgCreateBinaryOptionsLimitOrderResponse.SerializeToString,
-            ),
-            'CreateBinaryOptionsMarketOrder': grpc.unary_unary_rpc_method_handler(
-                    servicer.CreateBinaryOptionsMarketOrder,
-                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgCreateBinaryOptionsMarketOrder.FromString,
-                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgCreateBinaryOptionsMarketOrderResponse.SerializeToString,
-            ),
-            'CancelBinaryOptionsOrder': grpc.unary_unary_rpc_method_handler(
-                    servicer.CancelBinaryOptionsOrder,
-                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgCancelBinaryOptionsOrder.FromString,
-                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgCancelBinaryOptionsOrderResponse.SerializeToString,
-            ),
-            'BatchCancelBinaryOptionsOrders': grpc.unary_unary_rpc_method_handler(
-                    servicer.BatchCancelBinaryOptionsOrders,
-                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchCancelBinaryOptionsOrders.FromString,
-                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchCancelBinaryOptionsOrdersResponse.SerializeToString,
-            ),
             'SubaccountTransfer': grpc.unary_unary_rpc_method_handler(
                     servicer.SubaccountTransfer,
                     request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgSubaccountTransfer.FromString,
@@ -887,16 +734,6 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.DecreasePositionMargin,
                     request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgDecreasePositionMargin.FromString,
                     response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgDecreasePositionMarginResponse.SerializeToString,
-            ),
-            'RewardsOptOut': grpc.unary_unary_rpc_method_handler(
-                    servicer.RewardsOptOut,
-                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgRewardsOptOut.FromString,
-                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgRewardsOptOutResponse.SerializeToString,
-            ),
-            'AdminUpdateBinaryOptionsMarket': grpc.unary_unary_rpc_method_handler(
-                    servicer.AdminUpdateBinaryOptionsMarket,
-                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgAdminUpdateBinaryOptionsMarket.FromString,
-                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgAdminUpdateBinaryOptionsMarketResponse.SerializeToString,
             ),
             'UpdateParams': grpc.unary_unary_rpc_method_handler(
                     servicer.UpdateParams,
@@ -948,11 +785,6 @@ def add_MsgServicer_to_server(servicer, server):
                     request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgExpiryFuturesMarketLaunch.FromString,
                     response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgExpiryFuturesMarketLaunchResponse.SerializeToString,
             ),
-            'LaunchBinaryOptionsMarket': grpc.unary_unary_rpc_method_handler(
-                    servicer.LaunchBinaryOptionsMarket,
-                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBinaryOptionsMarketLaunch.FromString,
-                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBinaryOptionsMarketLaunchResponse.SerializeToString,
-            ),
             'BatchSpendCommunityPool': grpc.unary_unary_rpc_method_handler(
                     servicer.BatchSpendCommunityPool,
                     request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchCommunityPoolSpend.FromString,
@@ -968,35 +800,15 @@ def add_MsgServicer_to_server(servicer, server):
                     request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgDerivativeMarketParamUpdate.FromString,
                     response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgDerivativeMarketParamUpdateResponse.SerializeToString,
             ),
-            'BinaryOptionsMarketParamUpdate': grpc.unary_unary_rpc_method_handler(
-                    servicer.BinaryOptionsMarketParamUpdate,
-                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBinaryOptionsMarketParamUpdate.FromString,
-                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBinaryOptionsMarketParamUpdateResponse.SerializeToString,
-            ),
             'ForceSettleMarket': grpc.unary_unary_rpc_method_handler(
                     servicer.ForceSettleMarket,
                     request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgMarketForcedSettlement.FromString,
                     response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgMarketForcedSettlementResponse.SerializeToString,
             ),
-            'LaunchTradingRewardCampaign': grpc.unary_unary_rpc_method_handler(
-                    servicer.LaunchTradingRewardCampaign,
-                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardCampaignLaunch.FromString,
-                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardCampaignLaunchResponse.SerializeToString,
-            ),
             'EnableExchange': grpc.unary_unary_rpc_method_handler(
                     servicer.EnableExchange,
                     request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgExchangeEnable.FromString,
                     response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgExchangeEnableResponse.SerializeToString,
-            ),
-            'UpdateTradingRewardCampaign': grpc.unary_unary_rpc_method_handler(
-                    servicer.UpdateTradingRewardCampaign,
-                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardCampaignUpdate.FromString,
-                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardCampaignUpdateResponse.SerializeToString,
-            ),
-            'UpdateTradingRewardPendingPoints': grpc.unary_unary_rpc_method_handler(
-                    servicer.UpdateTradingRewardPendingPoints,
-                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardPendingPointsUpdate.FromString,
-                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardPendingPointsUpdateResponse.SerializeToString,
             ),
             'UpdateFeeDiscount': grpc.unary_unary_rpc_method_handler(
                     servicer.UpdateFeeDiscount,
@@ -1032,6 +844,11 @@ def add_MsgServicer_to_server(servicer, server):
                     servicer.UpdateSubaccountRiskProfile,
                     request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgUpdateSubaccountRiskProfile.FromString,
                     response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgUpdateSubaccountRiskProfileResponse.SerializeToString,
+            ),
+            'UpdateSubaccountMarketRiskMode': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateSubaccountMarketRiskMode,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgUpdateSubaccountMarketRiskMode.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_tx__pb2.MsgUpdateSubaccountMarketRiskModeResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -1505,141 +1322,6 @@ class Msg(object):
             _registered_method=True)
 
     @staticmethod
-    def InstantBinaryOptionsMarketLaunch(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective.exchange.v2.Msg/InstantBinaryOptionsMarketLaunch',
-            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgInstantBinaryOptionsMarketLaunch.SerializeToString,
-            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgInstantBinaryOptionsMarketLaunchResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def CreateBinaryOptionsLimitOrder(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective.exchange.v2.Msg/CreateBinaryOptionsLimitOrder',
-            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgCreateBinaryOptionsLimitOrder.SerializeToString,
-            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgCreateBinaryOptionsLimitOrderResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def CreateBinaryOptionsMarketOrder(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective.exchange.v2.Msg/CreateBinaryOptionsMarketOrder',
-            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgCreateBinaryOptionsMarketOrder.SerializeToString,
-            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgCreateBinaryOptionsMarketOrderResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def CancelBinaryOptionsOrder(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective.exchange.v2.Msg/CancelBinaryOptionsOrder',
-            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgCancelBinaryOptionsOrder.SerializeToString,
-            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgCancelBinaryOptionsOrderResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def BatchCancelBinaryOptionsOrders(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective.exchange.v2.Msg/BatchCancelBinaryOptionsOrders',
-            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchCancelBinaryOptionsOrders.SerializeToString,
-            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBatchCancelBinaryOptionsOrdersResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
     def SubaccountTransfer(request,
             target,
             options=(),
@@ -1845,60 +1527,6 @@ class Msg(object):
             '/injective.exchange.v2.Msg/DecreasePositionMargin',
             injective_dot_exchange_dot_v2_dot_tx__pb2.MsgDecreasePositionMargin.SerializeToString,
             injective_dot_exchange_dot_v2_dot_tx__pb2.MsgDecreasePositionMarginResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def RewardsOptOut(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective.exchange.v2.Msg/RewardsOptOut',
-            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgRewardsOptOut.SerializeToString,
-            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgRewardsOptOutResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def AdminUpdateBinaryOptionsMarket(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective.exchange.v2.Msg/AdminUpdateBinaryOptionsMarket',
-            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgAdminUpdateBinaryOptionsMarket.SerializeToString,
-            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgAdminUpdateBinaryOptionsMarketResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -2180,33 +1808,6 @@ class Msg(object):
             _registered_method=True)
 
     @staticmethod
-    def LaunchBinaryOptionsMarket(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective.exchange.v2.Msg/LaunchBinaryOptionsMarket',
-            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBinaryOptionsMarketLaunch.SerializeToString,
-            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBinaryOptionsMarketLaunchResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
     def BatchSpendCommunityPool(request,
             target,
             options=(),
@@ -2288,33 +1889,6 @@ class Msg(object):
             _registered_method=True)
 
     @staticmethod
-    def BinaryOptionsMarketParamUpdate(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective.exchange.v2.Msg/BinaryOptionsMarketParamUpdate',
-            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBinaryOptionsMarketParamUpdate.SerializeToString,
-            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgBinaryOptionsMarketParamUpdateResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
     def ForceSettleMarket(request,
             target,
             options=(),
@@ -2342,33 +1916,6 @@ class Msg(object):
             _registered_method=True)
 
     @staticmethod
-    def LaunchTradingRewardCampaign(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective.exchange.v2.Msg/LaunchTradingRewardCampaign',
-            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardCampaignLaunch.SerializeToString,
-            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardCampaignLaunchResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
     def EnableExchange(request,
             target,
             options=(),
@@ -2385,60 +1932,6 @@ class Msg(object):
             '/injective.exchange.v2.Msg/EnableExchange',
             injective_dot_exchange_dot_v2_dot_tx__pb2.MsgExchangeEnable.SerializeToString,
             injective_dot_exchange_dot_v2_dot_tx__pb2.MsgExchangeEnableResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def UpdateTradingRewardCampaign(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective.exchange.v2.Msg/UpdateTradingRewardCampaign',
-            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardCampaignUpdate.SerializeToString,
-            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardCampaignUpdateResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def UpdateTradingRewardPendingPoints(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/injective.exchange.v2.Msg/UpdateTradingRewardPendingPoints',
-            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardPendingPointsUpdate.SerializeToString,
-            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgTradingRewardPendingPointsUpdateResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -2628,6 +2121,33 @@ class Msg(object):
             '/injective.exchange.v2.Msg/UpdateSubaccountRiskProfile',
             injective_dot_exchange_dot_v2_dot_tx__pb2.MsgUpdateSubaccountRiskProfile.SerializeToString,
             injective_dot_exchange_dot_v2_dot_tx__pb2.MsgUpdateSubaccountRiskProfileResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateSubaccountMarketRiskMode(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Msg/UpdateSubaccountMarketRiskMode',
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgUpdateSubaccountMarketRiskMode.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_tx__pb2.MsgUpdateSubaccountMarketRiskModeResponse.FromString,
             options,
             channel_credentials,
             insecure,
