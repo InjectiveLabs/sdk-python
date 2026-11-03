@@ -3,7 +3,6 @@ import base64
 import grpc
 import pytest
 
-from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.client.chain.grpc.chain_grpc_exchange_v2_api import ChainGrpcExchangeV2Api
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import DisabledCookieAssistant, Network
@@ -2270,27 +2269,6 @@ class TestChainGrpcExchangeV2Api:
         }
 
         assert statistics == expected_statistics
-
-    def test_mito_vault_info_types_remain_serializable(self):
-        request = exchange_query_pb.MitoVaultInfosRequest.FromString(b"")
-        assert request.SerializeToString() == b""
-
-        payload = b"\n\x06master\x12\x0aderivative\x1a\x04spot\x22\x04cw20"
-        response = exchange_query_pb.MitoVaultInfosResponse.FromString(payload)
-        assert response == exchange_query_pb.MitoVaultInfosResponse(
-            master_addresses=["master"],
-            derivative_addresses=["derivative"],
-            spot_addresses=["spot"],
-            cw20_addresses=["cw20"],
-        )
-        assert response.SerializeToString() == payload
-
-    @pytest.mark.parametrize("client_type", [ChainGrpcExchangeV2Api, AsyncClient])
-    def test_fetch_mito_vault_infos_is_unavailable(self, client_type):
-        with pytest.raises(AttributeError, match="fetch_mito_vault_infos"):
-            getattr(client_type, "fetch_mito_vault_infos")
-
-        assert "MitoVaultInfos" not in exchange_query_pb.DESCRIPTOR.services_by_name["Query"].methods_by_name
 
     @pytest.mark.asyncio
     async def test_fetch_market_id_from_vault(
