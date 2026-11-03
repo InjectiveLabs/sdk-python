@@ -499,12 +499,6 @@ class ChainGrpcExchangeV2Api:
 
         return response
 
-    async def fetch_mito_vault_infos(self) -> Dict[str, Any]:
-        request = exchange_query_pb.MitoVaultInfosRequest()
-        response = await self._execute_call(call=self._stub.MitoVaultInfos, request=request)
-
-        return response
-
     async def fetch_market_id_from_vault(self, vault_address: str) -> Dict[str, Any]:
         request = exchange_query_pb.QueryMarketIDFromVaultRequest(vault_address=vault_address)
         response = await self._execute_call(call=self._stub.QueryMarketIDFromVault, request=request)

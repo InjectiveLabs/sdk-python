@@ -720,6 +720,7 @@ class TestIndexerGrpcDerivativeApi:
             cumulative_funding_entry="20000.123456789",
             effective_cumulative_funding_entry="30000.123456789",
             upnl="10.123456789",
+            cumulative_margin="561065.540974",
         )
 
         paging = exchange_derivative_pb.Paging(total=5, to=5, count_by_subaccount=10, next=["next1", "next2"])
@@ -769,6 +770,7 @@ class TestIndexerGrpcDerivativeApi:
                     "initialMargin": position.initial_margin,
                     "initialEntryPrice": position.initial_entry_price,
                     "initialQuantity": position.initial_quantity,
+                    "cumulativeMargin": position.cumulative_margin,
                 },
             ],
             "paging": {

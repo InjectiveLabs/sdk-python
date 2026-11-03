@@ -167,6 +167,11 @@ class TestChainGrpcInsuranceApi:
                 "failedRedemptionSchedules": [],
                 "nextFailedRedemptionScheduleId": "0",
                 "vouchers": [],
+                "consolidatedInsurancePools": [],
+                "consolidatedInsurancePolicies": [],
+                "consolidatedRedemptionSchedules": [],
+                "nextConsolidatedRedemptionScheduleId": "0",
+                "consolidatedReservationCursor": "",
             }
         }
 

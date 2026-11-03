@@ -36,6 +36,7 @@ class TestChainGrpcPermissionsApi:
             contract_hook_max_gas=1000000,
             deprecated_enforced_restrictions_contracts=["inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr"],
             enforced_restrictions_evm_contracts=[enforced_restrictions_evm_contract],
+            owner_blacklist_query_max_gas=500000,
         )
         permissions_servicer.permissions_params.append(permissions_query_pb.QueryParamsResponse(params=params))
 
@@ -45,6 +46,7 @@ class TestChainGrpcPermissionsApi:
         expected_params = {
             "params": {
                 "contractHookMaxGas": str(params.contract_hook_max_gas),
+                "ownerBlacklistQueryMaxGas": str(params.owner_blacklist_query_max_gas),
                 "deprecatedEnforcedRestrictionsContracts": params.deprecated_enforced_restrictions_contracts,
                 "enforcedRestrictionsEvmContracts": [
                     {
@@ -496,6 +498,7 @@ class TestChainGrpcPermissionsApi:
             contract_hook_max_gas=1000000,
             deprecated_enforced_restrictions_contracts=["inj1knhahceyp57j5x7xh69p7utegnnnfgxavmahjr"],
             enforced_restrictions_evm_contracts=[enforced_restrictions_evm_contract],
+            owner_blacklist_query_max_gas=500000,
         )
         role_permission = permissions_pb.Role(
             name="role1",
@@ -553,6 +556,7 @@ class TestChainGrpcPermissionsApi:
             "state": {
                 "params": {
                     "contractHookMaxGas": str(params.contract_hook_max_gas),
+                    "ownerBlacklistQueryMaxGas": str(params.owner_blacklist_query_max_gas),
                     "deprecatedEnforcedRestrictionsContracts": params.deprecated_enforced_restrictions_contracts,
                     "enforcedRestrictionsEvmContracts": [
                         {

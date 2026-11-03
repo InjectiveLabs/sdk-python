@@ -473,9 +473,6 @@ class AsyncClient:
     async def fetch_fee_discount_tier_statistics(self) -> Dict[str, Any]:
         return await self.chain_exchange_v2_api.fetch_fee_discount_tier_statistics()
 
-    async def fetch_mito_vault_infos(self) -> Dict[str, Any]:
-        return await self.chain_exchange_v2_api.fetch_mito_vault_infos()
-
     async def fetch_market_id_from_vault(self, vault_address: str) -> Dict[str, Any]:
         return await self.chain_exchange_v2_api.fetch_market_id_from_vault(vault_address=vault_address)
 

@@ -825,6 +825,7 @@ class TestIndexerGrpcDerivativeStream:
             cumulative_funding_entry="20000.123456789",
             effective_cumulative_funding_entry="30000.123456789",
             upnl="10.123456789",
+            cumulative_margin="561065.540974",
         )
 
         derivative_servicer.stream_positions_v2_responses.append(
@@ -877,6 +878,7 @@ class TestIndexerGrpcDerivativeStream:
                 "initialMargin": position.initial_margin,
                 "initialEntryPrice": position.initial_entry_price,
                 "initialQuantity": position.initial_quantity,
+                "cumulativeMargin": position.cumulative_margin,
             },
             "timestamp": str(timestamp),
             "operationType": "",

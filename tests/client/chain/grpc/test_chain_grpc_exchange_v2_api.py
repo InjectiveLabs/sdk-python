@@ -3,6 +3,7 @@ import base64
 import grpc
 import pytest
 
+from pyinjective.async_client_v2 import AsyncClient
 from pyinjective.client.chain.grpc.chain_grpc_exchange_v2_api import ChainGrpcExchangeV2Api
 from pyinjective.client.model.pagination import PaginationOption
 from pyinjective.core.network import DisabledCookieAssistant, Network
@@ -72,6 +73,7 @@ class TestChainGrpcExchangeV2Api:
             deprecated_enforced_restrictions_contracts=[],
             white_knight_liquidators=white_knight_liquidators,
             white_knight_liquidator_reward_share_rate="0.050000000000000000",
+            min_expiry_futures_market_duration_seconds=3600,
         )
         exchange_servicer.exchange_params.append(exchange_query_pb.QueryExchangeParamsResponse(params=params))
 
@@ -130,6 +132,7 @@ class TestChainGrpcExchangeV2Api:
                 "deprecatedEnforcedRestrictionsContracts": params.deprecated_enforced_restrictions_contracts,
                 "whiteKnightLiquidators": params.white_knight_liquidators,
                 "whiteKnightLiquidatorRewardShareRate": params.white_knight_liquidator_reward_share_rate,
+                "minExpiryFuturesMarketDurationSeconds": str(params.min_expiry_futures_market_duration_seconds),
             }
         }
 
@@ -1290,6 +1293,7 @@ class TestChainGrpcExchangeV2Api:
             open_notional_cap=open_notional_cap,
             has_disabled_minimal_protocol_fee=False,
             cross_margin_eligible=False,
+            synthetic_trade_fee_rate="1000000000000000",
         )
         market_info = market_pb.PerpetualMarketInfo(
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
@@ -1297,11 +1301,15 @@ class TestChainGrpcExchangeV2Api:
             hourly_interest_rate="4166660000000",
             next_funding_timestamp=1708099200,
             funding_interval=3600,
+            funding_impact_notional="1000000000000000000000",
         )
         funding_info = market_pb.PerpetualMarketFunding(
             cumulative_funding="-107853477278881692857461",
             cumulative_price="0",
             last_timestamp=1708099200,
+            period_start=1708095600,
+            last_premium="100000000000000",
+            last_sample_timestamp=1708099140,
         )
         perpetual_info = exchange_query_pb.PerpetualMarketState(
             market_info=market_info,
@@ -1361,6 +1369,7 @@ class TestChainGrpcExchangeV2Api:
                         },
                         "hasDisabledMinimalProtocolFee": market.has_disabled_minimal_protocol_fee,
                         "crossMarginEligible": market.cross_margin_eligible,
+                        "syntheticTradeFeeRate": market.synthetic_trade_fee_rate,
                     },
                     "perpetualInfo": {
                         "marketInfo": {
@@ -1369,11 +1378,15 @@ class TestChainGrpcExchangeV2Api:
                             "hourlyInterestRate": market_info.hourly_interest_rate,
                             "nextFundingTimestamp": str(market_info.next_funding_timestamp),
                             "fundingInterval": str(market_info.funding_interval),
+                            "fundingImpactNotional": market_info.funding_impact_notional,
                         },
                         "fundingInfo": {
                             "cumulativeFunding": funding_info.cumulative_funding,
                             "cumulativePrice": funding_info.cumulative_price,
                             "lastTimestamp": str(funding_info.last_timestamp),
+                            "periodStart": str(funding_info.period_start),
+                            "lastPremium": funding_info.last_premium,
+                            "lastSampleTimestamp": str(funding_info.last_sample_timestamp),
                         },
                     },
                     "markPrice": full_market.mark_price,
@@ -1417,6 +1430,7 @@ class TestChainGrpcExchangeV2Api:
             quote_decimals=6,
             has_disabled_minimal_protocol_fee=False,
             cross_margin_eligible=False,
+            synthetic_trade_fee_rate="1000000000000000",
         )
         market_info = market_pb.PerpetualMarketInfo(
             market_id="0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6",
@@ -1424,11 +1438,15 @@ class TestChainGrpcExchangeV2Api:
             hourly_interest_rate="4166660000000",
             next_funding_timestamp=1708099200,
             funding_interval=3600,
+            funding_impact_notional="1000000000000000000000",
         )
         funding_info = market_pb.PerpetualMarketFunding(
             cumulative_funding="-107853477278881692857461",
             cumulative_price="0",
             last_timestamp=1708099200,
+            period_start=1708095600,
+            last_premium="100000000000000",
+            last_sample_timestamp=1708099140,
         )
         perpetual_info = exchange_query_pb.PerpetualMarketState(
             market_info=market_info,
@@ -1483,6 +1501,7 @@ class TestChainGrpcExchangeV2Api:
                     "quoteDecimals": market.quote_decimals,
                     "hasDisabledMinimalProtocolFee": market.has_disabled_minimal_protocol_fee,
                     "crossMarginEligible": market.cross_margin_eligible,
+                    "syntheticTradeFeeRate": market.synthetic_trade_fee_rate,
                 },
                 "perpetualInfo": {
                     "marketInfo": {
@@ -1491,11 +1510,15 @@ class TestChainGrpcExchangeV2Api:
                         "hourlyInterestRate": market_info.hourly_interest_rate,
                         "nextFundingTimestamp": str(market_info.next_funding_timestamp),
                         "fundingInterval": str(market_info.funding_interval),
+                        "fundingImpactNotional": market_info.funding_impact_notional,
                     },
                     "fundingInfo": {
                         "cumulativeFunding": funding_info.cumulative_funding,
                         "cumulativePrice": funding_info.cumulative_price,
                         "lastTimestamp": str(funding_info.last_timestamp),
+                        "periodStart": str(funding_info.period_start),
+                        "lastPremium": funding_info.last_premium,
+                        "lastSampleTimestamp": str(funding_info.last_sample_timestamp),
                     },
                 },
                 "markPrice": full_market.mark_price,
@@ -1769,6 +1792,7 @@ class TestChainGrpcExchangeV2Api:
             hourly_interest_rate="4166660000000",
             next_funding_timestamp=1708099200,
             funding_interval=3600,
+            funding_impact_notional="1000000000000000000000",
         )
         exchange_servicer.perpetual_market_info_responses.append(
             exchange_query_pb.QueryPerpetualMarketInfoResponse(info=perpetual_market_info)
@@ -1784,6 +1808,7 @@ class TestChainGrpcExchangeV2Api:
                 "hourlyInterestRate": perpetual_market_info.hourly_interest_rate,
                 "nextFundingTimestamp": str(perpetual_market_info.next_funding_timestamp),
                 "fundingInterval": str(perpetual_market_info.funding_interval),
+                "fundingImpactNotional": perpetual_market_info.funding_impact_notional,
             }
         }
 
@@ -1837,6 +1862,9 @@ class TestChainGrpcExchangeV2Api:
             cumulative_funding="-107853477278881692857461",
             cumulative_price="0",
             last_timestamp=1708099200,
+            period_start=1708095600,
+            last_premium="100000000000000",
+            last_sample_timestamp=1708099140,
         )
         exchange_servicer.perpetual_market_funding_responses.append(
             exchange_query_pb.QueryPerpetualMarketFundingResponse(state=perpetual_market_funding)
@@ -1852,6 +1880,9 @@ class TestChainGrpcExchangeV2Api:
                 "cumulativeFunding": perpetual_market_funding.cumulative_funding,
                 "cumulativePrice": perpetual_market_funding.cumulative_price,
                 "lastTimestamp": str(perpetual_market_funding.last_timestamp),
+                "periodStart": str(perpetual_market_funding.period_start),
+                "lastPremium": perpetual_market_funding.last_premium,
+                "lastSampleTimestamp": str(perpetual_market_funding.last_sample_timestamp),
             }
         }
 
@@ -2240,34 +2271,26 @@ class TestChainGrpcExchangeV2Api:
 
         assert statistics == expected_statistics
 
-    @pytest.mark.asyncio
-    async def test_fetch_mito_vault_infos(
-        self,
-        exchange_servicer,
-    ):
-        master_address = "inj1zlh5sqevkfphtwnu9cul8p89vseme2eqt0snn9"
-        derivative_address = "inj1zlh5"
-        spot_address = "inj1zlh6"
-        cw20_address = "inj1zlh7"
-        response = exchange_query_pb.MitoVaultInfosResponse(
-            master_addresses=[master_address],
-            derivative_addresses=[derivative_address],
-            spot_addresses=[spot_address],
-            cw20_addresses=[cw20_address],
+    def test_mito_vault_info_types_remain_serializable(self):
+        request = exchange_query_pb.MitoVaultInfosRequest.FromString(b"")
+        assert request.SerializeToString() == b""
+
+        payload = b"\n\x06master\x12\x0aderivative\x1a\x04spot\x22\x04cw20"
+        response = exchange_query_pb.MitoVaultInfosResponse.FromString(payload)
+        assert response == exchange_query_pb.MitoVaultInfosResponse(
+            master_addresses=["master"],
+            derivative_addresses=["derivative"],
+            spot_addresses=["spot"],
+            cw20_addresses=["cw20"],
         )
-        exchange_servicer.mito_vault_infos_responses.append(response)
+        assert response.SerializeToString() == payload
 
-        api = self._api_instance(servicer=exchange_servicer)
+    @pytest.mark.parametrize("client_type", [ChainGrpcExchangeV2Api, AsyncClient])
+    def test_fetch_mito_vault_infos_is_unavailable(self, client_type):
+        with pytest.raises(AttributeError, match="fetch_mito_vault_infos"):
+            getattr(client_type, "fetch_mito_vault_infos")
 
-        mito_vaults = await api.fetch_mito_vault_infos()
-        expected_mito_vaults = {
-            "masterAddresses": [master_address],
-            "derivativeAddresses": [derivative_address],
-            "spotAddresses": [spot_address],
-            "cw20Addresses": [cw20_address],
-        }
-
-        assert mito_vaults == expected_mito_vaults
+        assert "MitoVaultInfos" not in exchange_query_pb.DESCRIPTOR.services_by_name["Query"].methods_by_name
 
     @pytest.mark.asyncio
     async def test_fetch_market_id_from_vault(

@@ -444,6 +444,7 @@ class TestComposer:
                 },
             },
             "crossMarginEligible": cross_margin_eligible,
+            "syntheticTradeFeeRate": "",
         }
         dict_message = json_format.MessageToDict(
             message=message,
@@ -528,6 +529,7 @@ class TestComposer:
                 },
             },
             "crossMarginEligible": cross_margin_eligible,
+            "syntheticTradeFeeRate": "",
         }
         dict_message = json_format.MessageToDict(
             message=message,

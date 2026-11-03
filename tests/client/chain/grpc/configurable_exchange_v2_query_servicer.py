@@ -57,7 +57,6 @@ class ConfigurableExchangeV2QueryServicer(exchange_query_grpc.QueryServicer):
         self.balance_mismatches_responses = deque()
         self.balance_with_balance_holds_responses = deque()
         self.fee_discount_tier_statistics_responses = deque()
-        self.mito_vault_infos_responses = deque()
         self.market_id_from_vault_responses = deque()
         self.historical_trade_records_responses = deque()
         self.is_opted_out_of_rewards_responses = deque()
@@ -306,9 +305,6 @@ class ConfigurableExchangeV2QueryServicer(exchange_query_grpc.QueryServicer):
         self, request: exchange_query_pb.QueryFeeDiscountTierStatisticsRequest, context=None, metadata=None
     ):
         return self.fee_discount_tier_statistics_responses.pop()
-
-    async def MitoVaultInfos(self, request: exchange_query_pb.MitoVaultInfosRequest, context=None, metadata=None):
-        return self.mito_vault_infos_responses.pop()
 
     async def QueryMarketIDFromVault(
         self, request: exchange_query_pb.QueryMarketIDFromVaultRequest, context=None, metadata=None
