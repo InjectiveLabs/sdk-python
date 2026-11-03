@@ -125,6 +125,16 @@ class QueryStub(object):
                 request_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryTraderSpotOrdersRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryTraderSpotOrdersResponse.FromString,
                 _registered_method=True)
+        self.SpotSwapOutput = channel.unary_unary(
+                '/injective.exchange.v2.Query/SpotSwapOutput',
+                request_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QuerySpotSwapOutputRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QuerySpotSwapOutputResponse.FromString,
+                _registered_method=True)
+        self.SpotSwapInput = channel.unary_unary(
+                '/injective.exchange.v2.Query/SpotSwapInput',
+                request_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QuerySpotSwapInputRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QuerySpotSwapInputResponse.FromString,
+                _registered_method=True)
         self.SpotMidPriceAndTOB = channel.unary_unary(
                 '/injective.exchange.v2.Query/SpotMidPriceAndTOB',
                 request_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QuerySpotMidPriceAndTOBRequest.SerializeToString,
@@ -525,9 +535,23 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def SpotMidPriceAndTOB(self, request, context):
+    def SpotSwapOutput(self, request, context):
         """Retrieves a spot market's mid-price
+        Projects the output of a spot swap for an exact input amount
         """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SpotSwapInput(self, request, context):
+        """Projects the input required for a spot swap to yield an exact output amount
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SpotMidPriceAndTOB(self, request, context):
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -977,6 +1001,16 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.TraderSpotTransientOrders,
                     request_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryTraderSpotOrdersRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryTraderSpotOrdersResponse.SerializeToString,
+            ),
+            'SpotSwapOutput': grpc.unary_unary_rpc_method_handler(
+                    servicer.SpotSwapOutput,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QuerySpotSwapOutputRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QuerySpotSwapOutputResponse.SerializeToString,
+            ),
+            'SpotSwapInput': grpc.unary_unary_rpc_method_handler(
+                    servicer.SpotSwapInput,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QuerySpotSwapInputRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QuerySpotSwapInputResponse.SerializeToString,
             ),
             'SpotMidPriceAndTOB': grpc.unary_unary_rpc_method_handler(
                     servicer.SpotMidPriceAndTOB,
@@ -1814,6 +1848,60 @@ class Query(object):
             '/injective.exchange.v2.Query/TraderSpotTransientOrders',
             injective_dot_exchange_dot_v2_dot_query__pb2.QueryTraderSpotOrdersRequest.SerializeToString,
             injective_dot_exchange_dot_v2_dot_query__pb2.QueryTraderSpotOrdersResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def SpotSwapOutput(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Query/SpotSwapOutput',
+            injective_dot_exchange_dot_v2_dot_query__pb2.QuerySpotSwapOutputRequest.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_query__pb2.QuerySpotSwapOutputResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def SpotSwapInput(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Query/SpotSwapInput',
+            injective_dot_exchange_dot_v2_dot_query__pb2.QuerySpotSwapInputRequest.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_query__pb2.QuerySpotSwapInputResponse.FromString,
             options,
             channel_credentials,
             insecure,

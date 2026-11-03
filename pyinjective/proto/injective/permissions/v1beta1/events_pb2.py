@@ -17,7 +17,7 @@ from pyinjective.proto.cosmos.base.v1beta1 import coin_pb2 as cosmos_dot_base_do
 from pyinjective.proto.cosmos.bank.v1beta1 import bank_pb2 as cosmos_dot_bank_dot_v1beta1_dot_bank__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n*injective/permissions/v1beta1/events.proto\x12\x1dinjective.permissions.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a\x1e\x63osmos/bank/v1beta1/bank.proto\"`\n\x0f\x45ventSetVoucher\x12\x12\n\x04\x61\x64\x64r\x18\x01 \x01(\tR\x04\x61\x64\x64r\x12\x39\n\x07voucher\x18\x02 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00R\x07voucherB\x99\x02\n!com.injective.permissions.v1beta1B\x0b\x45ventsProtoP\x01ZQgithub.com/InjectiveLabs/injective-core/injective-chain/modules/permissions/types\xa2\x02\x03IPX\xaa\x02\x1dInjective.Permissions.V1beta1\xca\x02\x1dInjective\\Permissions\\V1beta1\xe2\x02)Injective\\Permissions\\V1beta1\\GPBMetadata\xea\x02\x1fInjective::Permissions::V1beta1b\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n*injective/permissions/v1beta1/events.proto\x12\x1dinjective.permissions.v1beta1\x1a\x14gogoproto/gogo.proto\x1a\x1e\x63osmos/base/v1beta1/coin.proto\x1a\x1e\x63osmos/bank/v1beta1/bank.proto\"`\n\x0f\x45ventSetVoucher\x12\x12\n\x04\x61\x64\x64r\x18\x01 \x01(\tR\x04\x61\x64\x64r\x12\x39\n\x07voucher\x18\x02 \x01(\x0b\x32\x19.cosmos.base.v1beta1.CoinB\x04\xc8\xde\x1f\x00R\x07voucher\"\x84\x01\n\x11\x45ventPostHookLogs\x12*\n\x11post_hook_address\x18\x01 \x01(\tR\x0fpostHookAddress\x12\x43\n\x04logs\x18\x02 \x03(\x0b\x32/.injective.permissions.v1beta1.EventPostHookLogR\x04logs\">\n\x10\x45ventPostHookLog\x12\x16\n\x06topics\x18\x01 \x03(\tR\x06topics\x12\x12\n\x04\x64\x61ta\x18\x02 \x01(\x0cR\x04\x64\x61taB\x99\x02\n!com.injective.permissions.v1beta1B\x0b\x45ventsProtoP\x01ZQgithub.com/InjectiveLabs/injective-core/injective-chain/modules/permissions/types\xa2\x02\x03IPX\xaa\x02\x1dInjective.Permissions.V1beta1\xca\x02\x1dInjective\\Permissions\\V1beta1\xe2\x02)Injective\\Permissions\\V1beta1\\GPBMetadata\xea\x02\x1fInjective::Permissions::V1beta1b\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -29,4 +29,8 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_EVENTSETVOUCHER'].fields_by_name['voucher']._serialized_options = b'\310\336\037\000'
   _globals['_EVENTSETVOUCHER']._serialized_start=163
   _globals['_EVENTSETVOUCHER']._serialized_end=259
+  _globals['_EVENTPOSTHOOKLOGS']._serialized_start=262
+  _globals['_EVENTPOSTHOOKLOGS']._serialized_end=394
+  _globals['_EVENTPOSTHOOKLOG']._serialized_start=396
+  _globals['_EVENTPOSTHOOKLOG']._serialized_end=458
 # @@protoc_insertion_point(module_scope)

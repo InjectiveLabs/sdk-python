@@ -56,7 +56,8 @@ class TestIndexerGrpcInsuranceApi:
                     "oracleType": insurance_fund.oracle_type,
                     "expiry": str(insurance_fund.expiry),
                 }
-            ]
+            ],
+            "next": [],
         }
 
         assert result_insurance_list == expected_insurance_list

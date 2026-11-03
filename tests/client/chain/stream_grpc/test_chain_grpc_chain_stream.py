@@ -633,6 +633,7 @@ class TestChainGrpcChainStream:
             "blockHeight": str(block_height),
             "blockTime": str(block_time),
             "gasPrice": gas_price,
+            "marketFundingUpdates": [],
             "bankBalances": [
                 {
                     "account": bank_balance.account,

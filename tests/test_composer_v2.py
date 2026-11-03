@@ -2026,6 +2026,7 @@ class TestComposer:
                     },
                 ],
                 "evmHook": evm_hook,
+                "evmPostHook": "",
             },
         }
 
