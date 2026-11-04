@@ -406,9 +406,9 @@ class Composer:
         trigger_price = trigger_price or Decimal(0)
         expiration_block = expiration_block or 0
         chain_order_type = self._resolve_order_type(order_type)
-        chain_quantity = f"{Token.convert_value_to_extended_decimal_format(value=quantity).normalize():f}"
-        chain_price = f"{Token.convert_value_to_extended_decimal_format(value=price).normalize():f}"
-        chain_trigger_price = f"{Token.convert_value_to_extended_decimal_format(value=trigger_price).normalize():f}"
+        chain_quantity = str(int(Token.convert_value_to_extended_decimal_format(value=quantity)))
+        chain_price = str(int(Token.convert_value_to_extended_decimal_format(value=price)))
+        chain_trigger_price = str(int(Token.convert_value_to_extended_decimal_format(value=trigger_price)))
 
         return injective_order_v2_pb.SpotOrder(
             market_id=market_id,
@@ -599,12 +599,12 @@ class Composer:
         quote_decimals: int,
     ) -> injective_exchange_tx_v2_pb.MsgInstantSpotMarketLaunch:
         chain_min_price_tick_size = (
-            f"{Token.convert_value_to_extended_decimal_format(value=min_price_tick_size).normalize():f}"
+            str(int(Token.convert_value_to_extended_decimal_format(value=min_price_tick_size)))
         )
         chain_min_quantity_tick_size = (
-            f"{Token.convert_value_to_extended_decimal_format(value=min_quantity_tick_size).normalize():f}"
+            str(int(Token.convert_value_to_extended_decimal_format(value=min_quantity_tick_size)))
         )
-        chain_min_notional = f"{Token.convert_value_to_extended_decimal_format(value=min_notional).normalize():f}"
+        chain_min_notional = str(int(Token.convert_value_to_extended_decimal_format(value=min_notional)))
 
         return injective_exchange_tx_v2_pb.MsgInstantSpotMarketLaunch(
             sender=sender,
@@ -655,14 +655,14 @@ class Composer:
             oracle_quote=oracle_quote,
             oracle_scale_factor=oracle_scale_factor,
             oracle_type=self._resolve_oracle_type(oracle_type),
-            maker_fee_rate=f"{chain_maker_fee_rate.normalize():f}",
-            taker_fee_rate=f"{chain_taker_fee_rate.normalize():f}",
-            initial_margin_ratio=f"{chain_initial_margin_ratio.normalize():f}",
-            maintenance_margin_ratio=f"{chain_maintenance_margin_ratio.normalize():f}",
-            reduce_margin_ratio=f"{chain_reduce_margin_ratio.normalize():f}",
-            min_price_tick_size=f"{chain_min_price_tick_size.normalize():f}",
-            min_quantity_tick_size=f"{chain_min_quantity_tick_size.normalize():f}",
-            min_notional=f"{chain_min_notional.normalize():f}",
+            maker_fee_rate=str(int(chain_maker_fee_rate)),
+            taker_fee_rate=str(int(chain_taker_fee_rate)),
+            initial_margin_ratio=str(int(chain_initial_margin_ratio)),
+            maintenance_margin_ratio=str(int(chain_maintenance_margin_ratio)),
+            reduce_margin_ratio=str(int(chain_reduce_margin_ratio)),
+            min_price_tick_size=str(int(chain_min_price_tick_size)),
+            min_quantity_tick_size=str(int(chain_min_quantity_tick_size)),
+            min_notional=str(int(chain_min_notional)),
             open_notional_cap=open_notional_cap,
             cross_margin_eligible=cross_margin_eligible,
         )
@@ -706,14 +706,14 @@ class Composer:
             oracle_scale_factor=oracle_scale_factor,
             oracle_type=self._resolve_oracle_type(oracle_type),
             expiry=expiry,
-            maker_fee_rate=f"{chain_maker_fee_rate.normalize():f}",
-            taker_fee_rate=f"{chain_taker_fee_rate.normalize():f}",
-            initial_margin_ratio=f"{chain_initial_margin_ratio.normalize():f}",
-            maintenance_margin_ratio=f"{chain_maintenance_margin_ratio.normalize():f}",
-            reduce_margin_ratio=f"{chain_reduce_margin_ratio.normalize():f}",
-            min_price_tick_size=f"{chain_min_price_tick_size.normalize():f}",
-            min_quantity_tick_size=f"{chain_min_quantity_tick_size.normalize():f}",
-            min_notional=f"{chain_min_notional.normalize():f}",
+            maker_fee_rate=str(int(chain_maker_fee_rate)),
+            taker_fee_rate=str(int(chain_taker_fee_rate)),
+            initial_margin_ratio=str(int(chain_initial_margin_ratio)),
+            maintenance_margin_ratio=str(int(chain_maintenance_margin_ratio)),
+            reduce_margin_ratio=str(int(chain_reduce_margin_ratio)),
+            min_price_tick_size=str(int(chain_min_price_tick_size)),
+            min_quantity_tick_size=str(int(chain_min_quantity_tick_size)),
+            min_notional=str(int(chain_min_notional)),
             open_notional_cap=open_notional_cap,
             cross_margin_eligible=cross_margin_eligible,
         )
@@ -970,15 +970,15 @@ class Composer:
             oracle_provider=oracle_provider,
             oracle_type=self._resolve_oracle_type(oracle_type),
             oracle_scale_factor=oracle_scale_factor,
-            maker_fee_rate=f"{chain_maker_fee_rate.normalize():f}",
-            taker_fee_rate=f"{chain_taker_fee_rate.normalize():f}",
+            maker_fee_rate=str(int(chain_maker_fee_rate)),
+            taker_fee_rate=str(int(chain_taker_fee_rate)),
             expiration_timestamp=expiration_timestamp,
             settlement_timestamp=settlement_timestamp,
             admin=admin,
             quote_denom=quote_denom,
-            min_price_tick_size=f"{chain_min_price_tick_size.normalize():f}",
-            min_quantity_tick_size=f"{chain_min_quantity_tick_size.normalize():f}",
-            min_notional=f"{chain_min_notional.normalize():f}",
+            min_price_tick_size=str(int(chain_min_price_tick_size)),
+            min_quantity_tick_size=str(int(chain_min_quantity_tick_size)),
+            min_notional=str(int(chain_min_notional)),
             open_notional_cap=open_notional_cap,
         )
 
@@ -1173,7 +1173,7 @@ class Composer:
 
         if settlement_price is not None:
             chain_settlement_price = Token.convert_value_to_extended_decimal_format(value=settlement_price)
-            message.settlement_price = f"{chain_settlement_price.normalize():f}"
+            message.settlement_price = str(int(chain_settlement_price))
 
         return message
 
@@ -1191,7 +1191,7 @@ class Composer:
             source_subaccount_id=source_subaccount_id,
             destination_subaccount_id=destination_subaccount_id,
             market_id=market_id,
-            amount=f"{margin_to_remove.normalize():f}",
+            amount=str(int(margin_to_remove)),
         )
 
     def msg_update_spot_market(
@@ -1211,9 +1211,9 @@ class Composer:
             admin=admin,
             market_id=market_id,
             new_ticker=new_ticker,
-            new_min_price_tick_size=f"{chain_min_price_tick_size.normalize():f}",
-            new_min_quantity_tick_size=f"{chain_min_quantity_tick_size.normalize():f}",
-            new_min_notional=f"{chain_min_notional.normalize():f}",
+            new_min_price_tick_size=str(int(chain_min_price_tick_size)),
+            new_min_quantity_tick_size=str(int(chain_min_quantity_tick_size)),
+            new_min_notional=str(int(chain_min_notional)),
         )
 
     def msg_update_derivative_market(
@@ -1243,12 +1243,12 @@ class Composer:
             admin=admin,
             market_id=market_id,
             new_ticker=new_ticker,
-            new_min_price_tick_size=f"{chain_min_price_tick_size.normalize():f}",
-            new_min_quantity_tick_size=f"{chain_min_quantity_tick_size.normalize():f}",
-            new_min_notional=f"{chain_min_notional.normalize():f}",
-            new_initial_margin_ratio=f"{chain_initial_margin_ratio.normalize():f}",
-            new_maintenance_margin_ratio=f"{chain_maintenance_margin_ratio.normalize():f}",
-            new_reduce_margin_ratio=f"{chain_reduce_margin_ratio.normalize():f}",
+            new_min_price_tick_size=str(int(chain_min_price_tick_size)),
+            new_min_quantity_tick_size=str(int(chain_min_quantity_tick_size)),
+            new_min_notional=str(int(chain_min_notional)),
+            new_initial_margin_ratio=str(int(chain_initial_margin_ratio)),
+            new_maintenance_margin_ratio=str(int(chain_maintenance_margin_ratio)),
+            new_reduce_margin_ratio=str(int(chain_reduce_margin_ratio)),
             new_open_notional_cap=new_open_notional_cap,
             cross_margin_eligibility=cross_margin_eligibility,
         )
@@ -1284,7 +1284,7 @@ class Composer:
         chain_value = Token.convert_value_to_extended_decimal_format(value=value)
         return injective_market_v2_pb.OpenNotionalCap(
             capped=injective_market_v2_pb.OpenNotionalCapCapped(
-                value=f"{chain_value.normalize():f}",
+                value=str(int(chain_value)),
             ),
         )
 
@@ -1364,7 +1364,7 @@ class Composer:
 
         for price in prices:
             scale_price = Decimal(price * pow(10, 18))
-            price_to_bytes = bytes(str(scale_price), "utf-8")
+            price_to_bytes = bytes(str(int(scale_price)), "utf-8")
             oracle_prices.append(price_to_bytes)
 
         return injective_oracle_tx_pb.MsgRelayProviderPrices(
@@ -1967,10 +1967,10 @@ class Composer:
         trigger_price = trigger_price or Decimal(0)
         expiration_height = expiration_block or 0
 
-        chain_quantity = f"{Token.convert_value_to_extended_decimal_format(value=quantity).normalize():f}"
-        chain_price = f"{Token.convert_value_to_extended_decimal_format(value=price).normalize():f}"
-        chain_margin = f"{Token.convert_value_to_extended_decimal_format(value=margin).normalize():f}"
-        chain_trigger_price = f"{Token.convert_value_to_extended_decimal_format(value=trigger_price).normalize():f}"
+        chain_quantity = str(int(Token.convert_value_to_extended_decimal_format(value=quantity)))
+        chain_price = str(int(Token.convert_value_to_extended_decimal_format(value=price)))
+        chain_margin = str(int(Token.convert_value_to_extended_decimal_format(value=margin)))
+        chain_trigger_price = str(int(Token.convert_value_to_extended_decimal_format(value=trigger_price)))
         chain_order_type = self._resolve_order_type(order_type)
 
         return injective_order_v2_pb.DerivativeOrder(
