@@ -340,6 +340,11 @@ class QueryStub(object):
                 request_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryOpenInterestRequest.SerializeToString,
                 response_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryOpenInterestResponse.FromString,
                 _registered_method=True)
+        self.OutflowGuardState = channel.unary_unary(
+                '/injective.exchange.v2.Query/OutflowGuardState',
+                request_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryOutflowGuardStateRequest.SerializeToString,
+                response_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryOutflowGuardStateResponse.FromString,
+                _registered_method=True)
 
 
 class QueryServicer(object):
@@ -820,6 +825,13 @@ class QueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def OutflowGuardState(self, request, context):
+        """Retrieves the outflow guard's state for the current block
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_QueryServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -1147,6 +1159,11 @@ def add_QueryServicer_to_server(servicer, server):
                     servicer.OpenInterest,
                     request_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryOpenInterestRequest.FromString,
                     response_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryOpenInterestResponse.SerializeToString,
+            ),
+            'OutflowGuardState': grpc.unary_unary_rpc_method_handler(
+                    servicer.OutflowGuardState,
+                    request_deserializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryOutflowGuardStateRequest.FromString,
+                    response_serializer=injective_dot_exchange_dot_v2_dot_query__pb2.QueryOutflowGuardStateResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -2905,6 +2922,33 @@ class Query(object):
             '/injective.exchange.v2.Query/OpenInterest',
             injective_dot_exchange_dot_v2_dot_query__pb2.QueryOpenInterestRequest.SerializeToString,
             injective_dot_exchange_dot_v2_dot_query__pb2.QueryOpenInterestResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def OutflowGuardState(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/injective.exchange.v2.Query/OutflowGuardState',
+            injective_dot_exchange_dot_v2_dot_query__pb2.QueryOutflowGuardStateRequest.SerializeToString,
+            injective_dot_exchange_dot_v2_dot_query__pb2.QueryOutflowGuardStateResponse.FromString,
             options,
             channel_credentials,
             insecure,

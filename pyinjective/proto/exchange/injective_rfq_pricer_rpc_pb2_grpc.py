@@ -34,14 +34,20 @@ class InjectiveRfqPricerRPCServicer(object):
     """
 
     def PricingStream(self, request, context):
-        """Stream RFQ pricing snapshots: one message per subscribed market per tick
+        """Stream RFQ pricing snapshots: one message per subscribed market per tick. A
+        snapshot expires a server-configured TTL after its ts and is never sent once
+        expired. Within a second of a market's last sent snapshot expiring, the
+        stream sends one withdrawal for it with the current ts, the last mark price
+        and empty tiers, meaning no current pricing. A newer snapshot restores the
+        market
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetPricing(self, request, context):
-        """Get the latest RFQ pricing snapshot of a market
+        """Get the latest RFQ pricing snapshot of a market; not_found when the market
+        has no unexpired snapshot
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
