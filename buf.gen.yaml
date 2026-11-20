@@ -20,7 +20,7 @@ inputs:
   - git_repo: https://github.com/InjectiveLabs/cosmos-sdk-archived
     tag: v0.50.14-inj.12
   - git_repo: https://github.com/InjectiveLabs/injective-core
-    tag: v1.21.0-beta.2
+    tag: v1.21.0
     subdir: proto
   # - git_repo: https://github.com/InjectiveLabs/injective-core
   #   branch: c-655/add_chainlink_data_streams_oracle
