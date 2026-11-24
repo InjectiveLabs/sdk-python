@@ -1,3 +1,4 @@
+import base64
 import json
 from decimal import Decimal
 
@@ -11,6 +12,7 @@ from pyinjective.core.token import Token
 from pyinjective.proto.injective.exchange.v2 import (
     order_pb2 as injective_order_v2_pb,
     proposal_pb2 as injective_proposal_v2_pb,
+    tx_pb2 as injective_exchange_tx_v2_pb,
 )
 from pyinjective.proto.injective.oracle.v1beta1 import oracle_pb2 as injective_oracle_pb
 from pyinjective.proto.injective.permissions.v1beta1 import permissions_pb2 as permissions_pb
@@ -821,10 +823,90 @@ class TestComposer:
         )
         assert dict_message == expected_message
 
+    @pytest.mark.parametrize(
+        "argument, value",
+        [
+            ("binary_options_orders_to_cancel", [injective_exchange_tx_v2_pb.OrderData(market_id="0x123")]),
+            ("binary_options_market_ids_to_cancel_all", ["0x123"]),
+            ("binary_options_orders_to_create", [injective_order_v2_pb.DerivativeOrder(market_id="0x123")]),
+            ("binary_options_market_orders_to_create", [injective_order_v2_pb.DerivativeOrder(market_id="0x123")]),
+        ],
+    )
+    def test_msg_batch_update_orders_rejects_binary_options(self, basic_composer, argument, value):
+        with pytest.raises(NotImplementedError, match="Binary options.*retired"):
+            basic_composer.msg_batch_update_orders(
+                sender="inj1test",
+                spot_orders_to_create=[injective_order_v2_pb.SpotOrder(market_id="0x456")],
+                derivative_orders_to_create=[injective_order_v2_pb.DerivativeOrder(market_id="0x789")],
+                **{argument: value},
+            )
+
+    @pytest.mark.parametrize("empty_value", [None, []])
+    def test_msg_batch_update_orders_accepts_empty_binary_options_fields(self, basic_composer, empty_value):
+        message = basic_composer.msg_batch_update_orders(
+            sender="inj1test",
+            binary_options_orders_to_cancel=empty_value,
+            binary_options_market_ids_to_cancel_all=empty_value,
+            binary_options_orders_to_create=empty_value,
+            binary_options_market_orders_to_create=empty_value,
+        )
+
+        assert message.sender == "inj1test"
+        assert not message.binary_options_orders_to_cancel
+        assert not message.binary_options_market_ids_to_cancel_all
+        assert not message.binary_options_orders_to_create
+        assert not message.binary_options_market_orders_to_create
+
+    def test_binary_options_order_is_retired(self, basic_composer):
+        with pytest.raises(NotImplementedError, match="Binary options.*retired"):
+            basic_composer.binary_options_order(
+                market_id="0x123",
+                subaccount_id="0x456",
+                fee_recipient="inj1test",
+                price=Decimal("0.5"),
+                quantity=Decimal("10"),
+                margin=Decimal("5"),
+                order_type="BUY",
+            )
+
+    def test_msg_cancel_binary_options_order_is_retired(self, basic_composer):
+        with pytest.raises(NotImplementedError, match="MsgCancelBinaryOptionsOrder.*retired"):
+            basic_composer.msg_cancel_binary_options_order(
+                market_id="0x123",
+                sender="inj1test",
+                subaccount_id="0x456",
+                is_buy=True,
+                is_market_order=False,
+                is_conditional=False,
+            )
+
+    def test_msg_relay_price_feed_price_is_retired(self, basic_composer):
+        with pytest.raises(NotImplementedError, match="MsgRelayPriceFeedPrice.*retired"):
+            basic_composer.msg_relay_price_feed_price(
+                sender="inj1test", base=["BTC"], quote=["USDT"], price=["1000000000000000000"]
+            )
+
+    @pytest.mark.parametrize(
+        "message_type",
+        [
+            "/injective.exchange.v1beta1.MsgCancelBinaryOptionsOrder",
+            "/injective.exchange.v2.MsgCancelBinaryOptionsOrder",
+            "/injective.oracle.v1beta1.MsgRelayPriceFeedPrice",
+        ],
+    )
+    def test_unpack_historical_retired_message(self, basic_composer, message_type):
+        messages = [{"type": message_type, "value": {"sender": "inj1test"}}]
+        transaction_data = {"messages": base64.b64encode(json.dumps(messages).encode()).decode()}
+
+        unpacked = basic_composer.unpack_transaction_messages(transaction_data)
+
+        assert len(unpacked) == 1
+        assert unpacked[0]["type"] == message_type
+        assert unpacked[0]["value"]["sender"] == "inj1test"
+
     def test_msg_batch_update_orders(self, basic_composer):
         spot_market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
         derivative_market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
-        binary_options_market_id = "0x00617e128fdc0c0423dd18a1ff454511af14c4db6bdd98005a99cdf8fdbf74e9"
 
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
         subaccount_id = "0x5e249f0e8cb406f41de16e1bd6f6b55e7bc75add000000000000000000000000"
@@ -839,11 +921,6 @@ class TestComposer:
             subaccount_id=subaccount_id,
             order_hash="0x222daa22f60fe9f075ed0ca583459e121c23e64431c3fbffdedda04598ede0d2",
         )
-        binary_options_order_to_cancel = basic_composer.order_data_without_mask(
-            market_id=binary_options_market_id,
-            subaccount_id=subaccount_id,
-            order_hash="0x7ee76255d7ca763c56b0eab9828fca89fdd3739645501c8a80f58b62b4f76da5",
-        )
         spot_order_to_create = basic_composer.spot_order(
             market_id=spot_market_id,
             subaccount_id=subaccount_id,
@@ -856,15 +933,6 @@ class TestComposer:
         )
         derivative_order_to_create = basic_composer.derivative_order(
             market_id=derivative_market_id,
-            subaccount_id=subaccount_id,
-            fee_recipient="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
-            price=Decimal("36.1"),
-            quantity=Decimal("100"),
-            margin=Decimal("36.1") * Decimal("100"),
-            order_type="BUY",
-        )
-        binary_options_order_to_create = basic_composer.binary_options_order(
-            market_id=binary_options_market_id,
             subaccount_id=subaccount_id,
             fee_recipient="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q3r",
             price=Decimal("36.1"),
@@ -890,15 +958,6 @@ class TestComposer:
             margin=Decimal("38") * Decimal("1"),
             order_type="BUY",
         )
-        binary_options_market_order_to_create = basic_composer.binary_options_order(
-            market_id=binary_options_market_id,
-            subaccount_id=subaccount_id,
-            fee_recipient="inj1hkhdaj2a2clmq5jq6mspsggqs32vynpk228q6r",
-            price=Decimal("39"),
-            quantity=Decimal("1"),
-            margin=Decimal("39") * Decimal("1"),
-            order_type="BUY",
-        )
 
         message = basic_composer.msg_batch_update_orders(
             sender=sender,
@@ -909,12 +968,8 @@ class TestComposer:
             derivative_orders_to_cancel=[derivative_order_to_cancel],
             spot_orders_to_create=[spot_order_to_create],
             derivative_orders_to_create=[derivative_order_to_create],
-            binary_options_orders_to_cancel=[binary_options_order_to_cancel],
-            binary_options_market_ids_to_cancel_all=[binary_options_market_id],
-            binary_options_orders_to_create=[binary_options_order_to_create],
             spot_market_orders_to_create=[spot_market_order_to_create],
             derivative_market_orders_to_create=[derivative_market_order_to_create],
-            binary_options_market_orders_to_create=[binary_options_market_order_to_create],
         )
 
         expected_message = {
@@ -934,17 +989,9 @@ class TestComposer:
             "derivativeOrdersToCreate": [
                 json_format.MessageToDict(message=derivative_order_to_create, always_print_fields_with_no_presence=True)
             ],
-            "binaryOptionsOrdersToCancel": [
-                json_format.MessageToDict(
-                    message=binary_options_order_to_cancel, always_print_fields_with_no_presence=True
-                )
-            ],
-            "binaryOptionsMarketIdsToCancelAll": [binary_options_market_id],
-            "binaryOptionsOrdersToCreate": [
-                json_format.MessageToDict(
-                    message=binary_options_order_to_create, always_print_fields_with_no_presence=True
-                )
-            ],
+            "binaryOptionsOrdersToCancel": [],
+            "binaryOptionsMarketIdsToCancelAll": [],
+            "binaryOptionsOrdersToCreate": [],
             "spotMarketOrdersToCreate": [
                 json_format.MessageToDict(
                     message=spot_market_order_to_create, always_print_fields_with_no_presence=True
@@ -955,11 +1002,7 @@ class TestComposer:
                     message=derivative_market_order_to_create, always_print_fields_with_no_presence=True
                 )
             ],
-            "binaryOptionsMarketOrdersToCreate": [
-                json_format.MessageToDict(
-                    message=binary_options_market_order_to_create, always_print_fields_with_no_presence=True
-                )
-            ],
+            "binaryOptionsMarketOrdersToCreate": [],
         }
         dict_message = json_format.MessageToDict(
             message=message,
@@ -1218,57 +1261,25 @@ class TestComposer:
         cap_value = Decimal("1000")
         open_notional_cap = basic_composer.open_notional_cap(value=cap_value)
 
-        message = basic_composer.msg_instant_binary_options_market_launch(
-            sender=sender,
-            ticker=ticker,
-            oracle_symbol=oracle_symbol,
-            oracle_provider=oracle_provider,
-            oracle_type=oracle_type,
-            oracle_scale_factor=oracle_scale_factor,
-            maker_fee_rate=maker_fee_rate,
-            taker_fee_rate=taker_fee_rate,
-            expiration_timestamp=expiration_timestamp,
-            settlement_timestamp=settlement_timestamp,
-            admin=admin,
-            quote_denom=quote_denom,
-            min_price_tick_size=min_price_tick_size,
-            min_quantity_tick_size=min_quantity_tick_size,
-            min_notional=min_notional,
-            open_notional_cap=open_notional_cap,
-        )
-
-        chain_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=min_price_tick_size)
-        chain_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=min_quantity_tick_size)
-        chain_min_notional = Token.convert_value_to_extended_decimal_format(value=min_notional)
-        expected_open_notional_cap_value = Token.convert_value_to_extended_decimal_format(value=cap_value)
-
-        expected_message = {
-            "sender": sender,
-            "ticker": ticker,
-            "oracleSymbol": oracle_symbol,
-            "oracleProvider": oracle_provider,
-            "oracleType": oracle_type,
-            "oracleScaleFactor": oracle_scale_factor,
-            "makerFeeRate": f"{Token.convert_value_to_extended_decimal_format(value=maker_fee_rate).normalize():f}",
-            "takerFeeRate": f"{Token.convert_value_to_extended_decimal_format(value=taker_fee_rate).normalize():f}",
-            "expirationTimestamp": str(expiration_timestamp),
-            "settlementTimestamp": str(settlement_timestamp),
-            "admin": admin,
-            "quoteDenom": quote_denom,
-            "minPriceTickSize": f"{chain_min_price_tick_size.normalize():f}",
-            "minQuantityTickSize": f"{chain_min_quantity_tick_size.normalize():f}",
-            "minNotional": f"{chain_min_notional.normalize():f}",
-            "openNotionalCap": {
-                "capped": {
-                    "value": f"{expected_open_notional_cap_value.normalize():f}",
-                },
-            },
-        }
-        dict_message = json_format.MessageToDict(
-            message=message,
-            always_print_fields_with_no_presence=True,
-        )
-        assert dict_message == expected_message
+        with pytest.raises(NotImplementedError, match="MsgInstantBinaryOptionsMarketLaunch.*retired"):
+            basic_composer.msg_instant_binary_options_market_launch(
+                sender=sender,
+                ticker=ticker,
+                oracle_symbol=oracle_symbol,
+                oracle_provider=oracle_provider,
+                oracle_type=oracle_type,
+                oracle_scale_factor=oracle_scale_factor,
+                maker_fee_rate=maker_fee_rate,
+                taker_fee_rate=taker_fee_rate,
+                expiration_timestamp=expiration_timestamp,
+                settlement_timestamp=settlement_timestamp,
+                admin=admin,
+                quote_denom=quote_denom,
+                min_price_tick_size=min_price_tick_size,
+                min_quantity_tick_size=min_quantity_tick_size,
+                min_notional=min_notional,
+                open_notional_cap=open_notional_cap,
+            )
 
     def test_msg_create_binary_options_limit_order(self, basic_composer):
         market_id = "0x767e1542fbc111e88901e223e625a4a8eb6d630c96884bbde672e8bc874075bb"
@@ -1284,47 +1295,20 @@ class TestComposer:
         trigger_price = Decimal("43.5")
         expiration_block = 123456789
 
-        message = basic_composer.msg_create_binary_options_limit_order(
-            market_id=market_id,
-            sender=sender,
-            subaccount_id=subaccount_id,
-            fee_recipient=fee_recipient,
-            price=price,
-            quantity=quantity,
-            margin=margin,
-            order_type=order_type,
-            cid=cid,
-            trigger_price=trigger_price,
-            expiration_block=expiration_block,
-        )
-
-        expected_price = Token.convert_value_to_extended_decimal_format(value=price)
-        expected_quantity = Token.convert_value_to_extended_decimal_format(value=quantity)
-        expected_margin = Token.convert_value_to_extended_decimal_format(value=margin)
-        expected_trigger_price = Token.convert_value_to_extended_decimal_format(value=trigger_price)
-
-        expected_message = {
-            "sender": sender,
-            "order": {
-                "marketId": market_id,
-                "orderInfo": {
-                    "subaccountId": subaccount_id,
-                    "feeRecipient": fee_recipient,
-                    "price": f"{expected_price.normalize():f}",
-                    "quantity": f"{expected_quantity.normalize():f}",
-                    "cid": cid,
-                },
-                "margin": f"{expected_margin.normalize():f}",
-                "orderType": order_type,
-                "triggerPrice": f"{expected_trigger_price.normalize():f}",
-                "expirationBlock": str(expiration_block),
-            },
-        }
-        dict_message = json_format.MessageToDict(
-            message=message,
-            always_print_fields_with_no_presence=True,
-        )
-        assert dict_message == expected_message
+        with pytest.raises(NotImplementedError, match="MsgCreateBinaryOptionsLimitOrder.*retired"):
+            basic_composer.msg_create_binary_options_limit_order(
+                market_id=market_id,
+                sender=sender,
+                subaccount_id=subaccount_id,
+                fee_recipient=fee_recipient,
+                price=price,
+                quantity=quantity,
+                margin=margin,
+                order_type=order_type,
+                cid=cid,
+                trigger_price=trigger_price,
+                expiration_block=expiration_block,
+            )
 
     def test_msg_create_binary_options_market_order(self, basic_composer):
         market_id = "0x767e1542fbc111e88901e223e625a4a8eb6d630c96884bbde672e8bc874075bb"
@@ -1339,41 +1323,19 @@ class TestComposer:
         cid = "test_cid"
         trigger_price = Decimal("43.5")
 
-        message = basic_composer.msg_create_binary_options_market_order(
-            market_id=market_id,
-            sender=sender,
-            subaccount_id=subaccount_id,
-            fee_recipient=fee_recipient,
-            price=price,
-            quantity=quantity,
-            margin=margin,
-            order_type=order_type,
-            cid=cid,
-            trigger_price=trigger_price,
-        )
-
-        expected_message = {
-            "sender": sender,
-            "order": {
-                "marketId": market_id,
-                "orderInfo": {
-                    "subaccountId": subaccount_id,
-                    "feeRecipient": fee_recipient,
-                    "price": f"{Token.convert_value_to_extended_decimal_format(value=price).normalize():f}",
-                    "quantity": f"{Token.convert_value_to_extended_decimal_format(value=quantity).normalize():f}",
-                    "cid": cid,
-                },
-                "margin": f"{Token.convert_value_to_extended_decimal_format(value=margin).normalize():f}",
-                "orderType": order_type,
-                "triggerPrice": f"{Token.convert_value_to_extended_decimal_format(value=trigger_price).normalize():f}",
-                "expirationBlock": "0",
-            },
-        }
-        dict_message = json_format.MessageToDict(
-            message=message,
-            always_print_fields_with_no_presence=True,
-        )
-        assert dict_message == expected_message
+        with pytest.raises(NotImplementedError, match="MsgCreateBinaryOptionsMarketOrder.*retired"):
+            basic_composer.msg_create_binary_options_market_order(
+                market_id=market_id,
+                sender=sender,
+                subaccount_id=subaccount_id,
+                fee_recipient=fee_recipient,
+                price=price,
+                quantity=quantity,
+                margin=margin,
+                order_type=order_type,
+                cid=cid,
+                trigger_price=trigger_price,
+            )
 
     def test_msg_cancel_derivative_order(self, basic_composer):
         market_id = "0x767e1542fbc111e88901e223e625a4a8eb6d630c96884bbde672e8bc874075bb"
@@ -1663,18 +1625,10 @@ class TestComposer:
     def test_msg_rewards_opt_out(self, basic_composer):
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
 
-        message = basic_composer.msg_rewards_opt_out(
-            sender=sender,
-        )
-
-        expected_message = {
-            "sender": sender,
-        }
-        dict_message = json_format.MessageToDict(
-            message=message,
-            always_print_fields_with_no_presence=True,
-        )
-        assert dict_message == expected_message
+        with pytest.raises(NotImplementedError, match="MsgRewardsOptOut.*retired"):
+            basic_composer.msg_rewards_opt_out(
+                sender=sender,
+            )
 
     def test_msg_admin_update_binary_options_market(self, basic_composer):
         market_id = "0x767e1542fbc111e88901e223e625a4a8eb6d630c96884bbde672e8bc874075bb"
@@ -1685,30 +1639,15 @@ class TestComposer:
         expiration_timestamp = 1630000000
         settlement_timestamp = 1660000000
 
-        expected_settlement_price = Token.convert_value_to_extended_decimal_format(value=settlement_price)
-
-        message = basic_composer.msg_admin_update_binary_options_market(
-            sender=sender,
-            market_id=market_id,
-            status=status,
-            settlement_price=settlement_price,
-            expiration_timestamp=expiration_timestamp,
-            settlement_timestamp=settlement_timestamp,
-        )
-
-        expected_message = {
-            "sender": sender,
-            "marketId": market_id,
-            "settlementPrice": f"{expected_settlement_price.normalize():f}",
-            "expirationTimestamp": str(expiration_timestamp),
-            "settlementTimestamp": str(settlement_timestamp),
-            "status": status,
-        }
-        dict_message = json_format.MessageToDict(
-            message=message,
-            always_print_fields_with_no_presence=True,
-        )
-        assert dict_message == expected_message
+        with pytest.raises(NotImplementedError, match="MsgAdminUpdateBinaryOptionsMarket.*retired"):
+            basic_composer.msg_admin_update_binary_options_market(
+                sender=sender,
+                market_id=market_id,
+                status=status,
+                settlement_price=settlement_price,
+                expiration_timestamp=expiration_timestamp,
+                settlement_timestamp=settlement_timestamp,
+            )
 
     def test_msg_update_spot_market(self, basic_composer):
         market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"

@@ -238,11 +238,11 @@ class TestGasLimitEstimator:
 
         assert (expected_order_gas_limit * 2) == estimator.gas_limit()
 
-    def test_estimation_for_batch_update_orders_to_create_binary_orders(self, usdt_token):
+    def test_estimation_for_legacy_batch_update_orders_to_create_binary_orders(self, usdt_token):
         market_id = "0x230dcce315364ff6360097838701b14713e2f4007d704df20ed3d81d09eec957"
         composer = Composer(network="testnet")
         orders = [
-            composer.binary_options_order(
+            composer.derivative_order(
                 market_id=market_id,
                 subaccount_id="subaccount_id",
                 fee_recipient="fee_recipient",
@@ -251,7 +251,7 @@ class TestGasLimitEstimator:
                 margin=Decimal(3),
                 order_type="BUY",
             ),
-            composer.binary_options_order(
+            composer.derivative_order(
                 market_id=market_id,
                 subaccount_id="subaccount_id",
                 fee_recipient="fee_recipient",
@@ -261,7 +261,7 @@ class TestGasLimitEstimator:
                 order_type="SELL",
             ),
         ]
-        message = composer.msg_batch_update_orders(
+        message = injective_exchange_tx_pb.MsgBatchUpdateOrders(
             sender="senders",
             derivative_orders_to_create=[],
             spot_orders_to_create=[],
@@ -341,7 +341,7 @@ class TestGasLimitEstimator:
 
         assert (expected_order_gas_limit * 3) == estimator.gas_limit()
 
-    def test_estimation_for_batch_update_orders_to_cancel_binary_orders(self):
+    def test_estimation_for_legacy_batch_update_orders_to_cancel_binary_orders(self):
         market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
         composer = Composer(network="testnet")
         orders = [
@@ -361,7 +361,7 @@ class TestGasLimitEstimator:
                 order_hash="0x7ee76255d7ca763c56b0eab9828fca89fdd3739645501c8a80f58b62b4f76da5",
             ),
         ]
-        message = composer.msg_batch_update_orders(
+        message = injective_exchange_tx_pb.MsgBatchUpdateOrders(
             sender="senders",
             derivative_orders_to_create=[],
             spot_orders_to_create=[],
@@ -418,11 +418,10 @@ class TestGasLimitEstimator:
 
         assert expected_gas_limit == estimator.gas_limit()
 
-    def test_estimation_for_batch_update_orders_to_cancel_all_for_binary_options_market(self):
+    def test_estimation_for_legacy_batch_update_orders_to_cancel_all_for_binary_options_market(self):
         market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
-        composer = Composer(network="testnet")
 
-        message = composer.msg_batch_update_orders(
+        message = injective_exchange_tx_pb.MsgBatchUpdateOrders(
             sender="senders",
             subaccount_id="subaccount_id",
             binary_options_market_ids_to_cancel_all=[market_id],
@@ -662,19 +661,21 @@ class TestGasLimitEstimator:
 
         assert expected_gas_cost == estimator.gas_limit()
 
-    def test_estimation_for_create_binary_options_limit_order(self, basic_composer, first_match_bet_market):
+    def test_estimation_for_legacy_create_binary_options_limit_order(self, basic_composer, first_match_bet_market):
         composer = basic_composer
         market_id = first_match_bet_market.id
 
-        message = composer.msg_create_binary_options_limit_order(
-            market_id=market_id,
+        message = injective_exchange_tx_pb.MsgCreateBinaryOptionsLimitOrder(
             sender="senders",
-            subaccount_id="subaccount_id",
-            fee_recipient="fee_recipient",
-            price=Decimal("0.5"),
-            quantity=Decimal("10"),
-            margin=Decimal("0.5") * Decimal("10"),
-            order_type="BUY",
+            order=composer.derivative_order(
+                market_id=market_id,
+                subaccount_id="subaccount_id",
+                fee_recipient="fee_recipient",
+                price=Decimal("0.5"),
+                quantity=Decimal("10"),
+                margin=Decimal("0.5") * Decimal("10"),
+                order_type="BUY",
+            ),
         )
         estimator = GasHeuristicsGasLimitEstimator.for_message(message=message)
 
@@ -682,15 +683,17 @@ class TestGasLimitEstimator:
 
         assert expected_gas_cost == estimator.gas_limit()
 
-        po_order_message = composer.msg_create_binary_options_limit_order(
-            market_id=market_id,
+        po_order_message = injective_exchange_tx_pb.MsgCreateBinaryOptionsLimitOrder(
             sender="senders",
-            subaccount_id="subaccount_id",
-            fee_recipient="fee_recipient",
-            price=Decimal("0.5"),
-            quantity=Decimal("10"),
-            margin=Decimal("0.5") * Decimal("10"),
-            order_type="BUY_PO",
+            order=composer.derivative_order(
+                market_id=market_id,
+                subaccount_id="subaccount_id",
+                fee_recipient="fee_recipient",
+                price=Decimal("0.5"),
+                quantity=Decimal("10"),
+                margin=Decimal("0.5") * Decimal("10"),
+                order_type="BUY_PO",
+            ),
         )
         estimator = GasHeuristicsGasLimitEstimator.for_message(message=po_order_message)
 
@@ -698,20 +701,22 @@ class TestGasLimitEstimator:
 
         assert expected_gas_cost == estimator.gas_limit()
 
-    def test_estimation_for_create_gtb_binary_options_limit_order(self, basic_composer, first_match_bet_market):
+    def test_estimation_for_legacy_create_gtb_binary_options_limit_order(self, basic_composer, first_match_bet_market):
         composer = basic_composer
         market_id = first_match_bet_market.id
 
-        message = composer.msg_create_binary_options_limit_order(
-            market_id=market_id,
+        message = injective_exchange_tx_pb.MsgCreateBinaryOptionsLimitOrder(
             sender="senders",
-            subaccount_id="subaccount_id",
-            fee_recipient="fee_recipient",
-            price=Decimal("0.5"),
-            quantity=Decimal("10"),
-            margin=Decimal("0.5") * Decimal("10"),
-            order_type="BUY",
-            expiration_block=1234567,
+            order=composer.derivative_order(
+                market_id=market_id,
+                subaccount_id="subaccount_id",
+                fee_recipient="fee_recipient",
+                price=Decimal("0.5"),
+                quantity=Decimal("10"),
+                margin=Decimal("0.5") * Decimal("10"),
+                order_type="BUY",
+                expiration_block=1234567,
+            ),
         )
         estimator = GasHeuristicsGasLimitEstimator.for_message(message=message)
 
@@ -721,16 +726,18 @@ class TestGasLimitEstimator:
 
         assert expected_gas_cost == estimator.gas_limit()
 
-        po_order_message = composer.msg_create_binary_options_limit_order(
-            market_id=market_id,
+        po_order_message = injective_exchange_tx_pb.MsgCreateBinaryOptionsLimitOrder(
             sender="senders",
-            subaccount_id="subaccount_id",
-            fee_recipient="fee_recipient",
-            price=Decimal("0.5"),
-            quantity=Decimal("10"),
-            margin=Decimal("0.5") * Decimal("10"),
-            order_type="BUY_PO",
-            expiration_block=1234567,
+            order=composer.derivative_order(
+                market_id=market_id,
+                subaccount_id="subaccount_id",
+                fee_recipient="fee_recipient",
+                price=Decimal("0.5"),
+                quantity=Decimal("10"),
+                margin=Decimal("0.5") * Decimal("10"),
+                order_type="BUY_PO",
+                expiration_block=1234567,
+            ),
         )
         estimator = GasHeuristicsGasLimitEstimator.for_message(message=po_order_message)
 
@@ -740,19 +747,21 @@ class TestGasLimitEstimator:
 
         assert expected_gas_cost == estimator.gas_limit()
 
-    def test_estimation_for_create_binary_options_market_order(self, basic_composer, first_match_bet_market):
+    def test_estimation_for_legacy_create_binary_options_market_order(self, basic_composer, first_match_bet_market):
         composer = basic_composer
         market_id = first_match_bet_market.id
 
-        message = composer.msg_create_binary_options_market_order(
-            market_id=market_id,
+        message = injective_exchange_tx_pb.MsgCreateBinaryOptionsMarketOrder(
             sender="senders",
-            subaccount_id="subaccount_id",
-            fee_recipient="fee_recipient",
-            price=Decimal("0.5"),
-            quantity=Decimal("10"),
-            margin=Decimal("0.5") * Decimal("10"),
-            order_type="BUY",
+            order=composer.derivative_order(
+                market_id=market_id,
+                subaccount_id="subaccount_id",
+                fee_recipient="fee_recipient",
+                price=Decimal("0.5"),
+                quantity=Decimal("10"),
+                margin=Decimal("0.5") * Decimal("10"),
+                order_type="BUY",
+            ),
         )
         estimator = GasHeuristicsGasLimitEstimator.for_message(message=message)
 
@@ -760,18 +769,16 @@ class TestGasLimitEstimator:
 
         assert expected_gas_cost == estimator.gas_limit()
 
-    def test_estimation_for_cancel_binary_options_order(self, basic_composer, first_match_bet_market):
+    def test_estimation_for_legacy_cancel_binary_options_order(self, basic_composer, first_match_bet_market):
         composer = basic_composer
         market_id = first_match_bet_market.id
 
-        message = composer.msg_cancel_binary_options_order(
+        message = injective_exchange_tx_pb.MsgCancelBinaryOptionsOrder(
             market_id=market_id,
             sender="senders",
             subaccount_id="subaccount_id",
-            is_buy=True,
-            is_market_order=False,
-            is_conditional=False,
             cid="cid",
+            order_mask=composer._order_mask(is_buy=True, is_market_order=False, is_conditional=False),
         )
         estimator = GasHeuristicsGasLimitEstimator.for_message(message=message)
 

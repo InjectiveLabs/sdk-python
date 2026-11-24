@@ -265,12 +265,12 @@ class TestGasLimitEstimatorForV2ExchangeMessages:
 
         assert (expected_order_gas_limit * 2) + expected_message_gas_limit == estimator.gas_limit()
 
-    def test_estimation_for_batch_update_orders_to_create_binary_orders(self, usdt_token):
+    def test_estimation_for_legacy_batch_update_orders_to_create_binary_orders(self, usdt_token):
         market_id = "0x230dcce315364ff6360097838701b14713e2f4007d704df20ed3d81d09eec957"
         composer = ComposerV2(network="testnet")
 
         orders = [
-            composer.binary_options_order(
+            composer.derivative_order(
                 market_id=market_id,
                 subaccount_id="subaccount_id",
                 fee_recipient="fee_recipient",
@@ -279,7 +279,7 @@ class TestGasLimitEstimatorForV2ExchangeMessages:
                 margin=Decimal(3),
                 order_type="BUY",
             ),
-            composer.binary_options_order(
+            composer.derivative_order(
                 market_id=market_id,
                 subaccount_id="subaccount_id",
                 fee_recipient="fee_recipient",
@@ -289,7 +289,7 @@ class TestGasLimitEstimatorForV2ExchangeMessages:
                 order_type="SELL",
             ),
         ]
-        message = composer.msg_batch_update_orders(
+        message = injective_exchange_tx_pb.MsgBatchUpdateOrders(
             sender="senders",
             derivative_orders_to_create=[],
             spot_orders_to_create=[],
@@ -372,7 +372,7 @@ class TestGasLimitEstimatorForV2ExchangeMessages:
 
         assert (expected_order_gas_limit * 3) + expected_message_gas_limit == estimator.gas_limit()
 
-    def test_estimation_for_batch_update_orders_to_cancel_binary_orders(self):
+    def test_estimation_for_legacy_batch_update_orders_to_cancel_binary_orders(self):
         market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
         composer = ComposerV2(network="testnet")
         orders = [
@@ -392,7 +392,7 @@ class TestGasLimitEstimatorForV2ExchangeMessages:
                 order_hash="0x7ee76255d7ca763c56b0eab9828fca89fdd3739645501c8a80f58b62b4f76da5",
             ),
         ]
-        message = composer.msg_batch_update_orders(
+        message = injective_exchange_tx_pb.MsgBatchUpdateOrders(
             sender="senders",
             derivative_orders_to_create=[],
             spot_orders_to_create=[],
@@ -447,11 +447,10 @@ class TestGasLimitEstimatorForV2ExchangeMessages:
 
         assert expected_gas_limit + expected_message_gas_limit == estimator.gas_limit()
 
-    def test_estimation_for_batch_update_orders_to_cancel_all_for_binary_options_market(self):
+    def test_estimation_for_legacy_batch_update_orders_to_cancel_all_for_binary_options_market(self):
         market_id = "0x0611780ba69656949525013d947713300f56c37b6175e02f26bffa495c3208fe"
-        composer = ComposerV2(network="testnet")
 
-        message = composer.msg_batch_update_orders(
+        message = injective_exchange_tx_pb.MsgBatchUpdateOrders(
             sender="senders",
             subaccount_id="subaccount_id",
             binary_options_market_ids_to_cancel_all=[market_id],

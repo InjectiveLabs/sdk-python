@@ -473,18 +473,8 @@ class Composer:
         trigger_price: Optional[Decimal] = None,
         expiration_block: Optional[int] = None,
     ) -> injective_order_v2_pb.DerivativeOrder:
-        return self._basic_derivative_order(
-            market_id=market_id,
-            subaccount_id=subaccount_id,
-            fee_recipient=fee_recipient,
-            price=price,
-            quantity=quantity,
-            margin=margin,
-            order_type=order_type,
-            cid=cid,
-            trigger_price=trigger_price,
-            expiration_block=expiration_block,
-        )
+        """This operation is retired and no longer supported by the chain."""
+        raise NotImplementedError("Binary options orders are retired and can no longer be composed.")
 
     def create_grant_authorization(self, grantee: str, amount: Decimal) -> injective_exchange_v2_pb.GrantAuthorization:
         chain_formatted_amount = int(amount * Decimal(f"1e{INJ_DECIMALS}"))
@@ -815,6 +805,16 @@ class Composer:
         derivative_market_orders_to_create: Optional[List[injective_order_v2_pb.DerivativeOrder]] = None,
         binary_options_market_orders_to_create: Optional[List[injective_order_v2_pb.DerivativeOrder]] = None,
     ) -> injective_exchange_tx_v2_pb.MsgBatchUpdateOrders:
+        if any(
+            (
+                binary_options_orders_to_cancel,
+                binary_options_market_ids_to_cancel_all,
+                binary_options_orders_to_create,
+                binary_options_market_orders_to_create,
+            )
+        ):
+            raise NotImplementedError("Binary options orders are retired and can no longer be composed.")
+
         return injective_exchange_tx_v2_pb.MsgBatchUpdateOrders(
             sender=sender,
             subaccount_id=subaccount_id,
@@ -824,12 +824,8 @@ class Composer:
             derivative_orders_to_cancel=derivative_orders_to_cancel,
             spot_orders_to_create=spot_orders_to_create,
             derivative_orders_to_create=derivative_orders_to_create,
-            binary_options_orders_to_cancel=binary_options_orders_to_cancel,
-            binary_options_market_ids_to_cancel_all=binary_options_market_ids_to_cancel_all,
-            binary_options_orders_to_create=binary_options_orders_to_create,
             spot_market_orders_to_create=spot_market_orders_to_create,
             derivative_market_orders_to_create=derivative_market_orders_to_create,
-            binary_options_market_orders_to_create=binary_options_market_orders_to_create,
         )
 
     def msg_privileged_execute_contract(
@@ -957,30 +953,8 @@ class Composer:
         min_notional: Decimal,
         open_notional_cap: Optional[injective_market_v2_pb.OpenNotionalCap] = None,
     ) -> injective_exchange_tx_v2_pb.MsgInstantBinaryOptionsMarketLaunch:
-        chain_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=min_price_tick_size)
-        chain_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=min_quantity_tick_size)
-        chain_maker_fee_rate = Token.convert_value_to_extended_decimal_format(value=maker_fee_rate)
-        chain_taker_fee_rate = Token.convert_value_to_extended_decimal_format(value=taker_fee_rate)
-        chain_min_notional = Token.convert_value_to_extended_decimal_format(value=min_notional)
-
-        return injective_exchange_tx_v2_pb.MsgInstantBinaryOptionsMarketLaunch(
-            sender=sender,
-            ticker=ticker,
-            oracle_symbol=oracle_symbol,
-            oracle_provider=oracle_provider,
-            oracle_type=self._resolve_oracle_type(oracle_type),
-            oracle_scale_factor=oracle_scale_factor,
-            maker_fee_rate=f"{chain_maker_fee_rate.normalize():f}",
-            taker_fee_rate=f"{chain_taker_fee_rate.normalize():f}",
-            expiration_timestamp=expiration_timestamp,
-            settlement_timestamp=settlement_timestamp,
-            admin=admin,
-            quote_denom=quote_denom,
-            min_price_tick_size=f"{chain_min_price_tick_size.normalize():f}",
-            min_quantity_tick_size=f"{chain_min_quantity_tick_size.normalize():f}",
-            min_notional=f"{chain_min_notional.normalize():f}",
-            open_notional_cap=open_notional_cap,
-        )
+        """This operation is retired and no longer supported by the chain."""
+        raise NotImplementedError("MsgInstantBinaryOptionsMarketLaunch is retired and can no longer be composed.")
 
     def msg_create_binary_options_limit_order(
         self,
@@ -996,21 +970,8 @@ class Composer:
         trigger_price: Optional[Decimal] = None,
         expiration_block: Optional[int] = None,
     ) -> injective_exchange_tx_v2_pb.MsgCreateDerivativeLimitOrder:
-        return injective_exchange_tx_v2_pb.MsgCreateDerivativeLimitOrder(
-            sender=sender,
-            order=self.binary_options_order(
-                market_id=market_id,
-                subaccount_id=subaccount_id,
-                fee_recipient=fee_recipient,
-                price=price,
-                quantity=quantity,
-                margin=margin,
-                order_type=order_type,
-                cid=cid,
-                trigger_price=trigger_price,
-                expiration_block=expiration_block,
-            ),
-        )
+        """This operation is retired and no longer supported by the chain."""
+        raise NotImplementedError("MsgCreateBinaryOptionsLimitOrder is retired and can no longer be composed.")
 
     def msg_create_binary_options_market_order(
         self,
@@ -1025,20 +986,8 @@ class Composer:
         cid: Optional[str] = None,
         trigger_price: Optional[Decimal] = None,
     ) -> injective_exchange_tx_v2_pb.MsgCreateBinaryOptionsMarketOrder:
-        return injective_exchange_tx_v2_pb.MsgCreateBinaryOptionsMarketOrder(
-            sender=sender,
-            order=self.binary_options_order(
-                market_id=market_id,
-                subaccount_id=subaccount_id,
-                fee_recipient=fee_recipient,
-                price=price,
-                quantity=quantity,
-                margin=margin,
-                order_type=order_type,
-                cid=cid,
-                trigger_price=trigger_price,
-            ),
-        )
+        """This operation is retired and no longer supported by the chain."""
+        raise NotImplementedError("MsgCreateBinaryOptionsMarketOrder is retired and can no longer be composed.")
 
     def msg_cancel_binary_options_order(
         self,
@@ -1051,16 +1000,8 @@ class Composer:
         order_hash: Optional[str] = None,
         cid: Optional[str] = None,
     ) -> injective_exchange_tx_v2_pb.MsgCancelBinaryOptionsOrder:
-        order_mask = self._order_mask(is_conditional=is_conditional, is_buy=is_buy, is_market_order=is_market_order)
-
-        return injective_exchange_tx_v2_pb.MsgCancelBinaryOptionsOrder(
-            sender=sender,
-            market_id=market_id,
-            subaccount_id=subaccount_id,
-            order_hash=order_hash,
-            order_mask=order_mask,
-            cid=cid,
-        )
+        """This operation is retired and no longer supported by the chain."""
+        raise NotImplementedError("MsgCancelBinaryOptionsOrder is retired and can no longer be composed.")
 
     def msg_subaccount_transfer(
         self,
@@ -1152,7 +1093,8 @@ class Composer:
         )
 
     def msg_rewards_opt_out(self, sender: str) -> injective_exchange_tx_v2_pb.MsgRewardsOptOut:
-        return injective_exchange_tx_v2_pb.MsgRewardsOptOut(sender=sender)
+        """This operation is retired and no longer supported by the chain."""
+        raise NotImplementedError("MsgRewardsOptOut is retired and can no longer be composed.")
 
     def msg_admin_update_binary_options_market(
         self,
@@ -1163,19 +1105,8 @@ class Composer:
         expiration_timestamp: Optional[int] = None,
         settlement_timestamp: Optional[int] = None,
     ) -> injective_exchange_tx_v2_pb.MsgAdminUpdateBinaryOptionsMarket:
-        message = injective_exchange_tx_v2_pb.MsgAdminUpdateBinaryOptionsMarket(
-            sender=sender,
-            market_id=market_id,
-            expiration_timestamp=expiration_timestamp,
-            settlement_timestamp=settlement_timestamp,
-            status=status,
-        )
-
-        if settlement_price is not None:
-            chain_settlement_price = Token.convert_value_to_extended_decimal_format(value=settlement_price)
-            message.settlement_price = f"{chain_settlement_price.normalize():f}"
-
-        return message
+        """This operation is retired and no longer supported by the chain."""
+        raise NotImplementedError("MsgAdminUpdateBinaryOptionsMarket is retired and can no longer be composed.")
 
     def msg_decrease_position_margin(
         self,
@@ -1374,7 +1305,8 @@ class Composer:
     def msg_relay_price_feed_price(
         self, sender: list, base: list, quote: list, price: list
     ) -> injective_oracle_tx_pb.MsgRelayPriceFeedPrice:
-        return injective_oracle_tx_pb.MsgRelayPriceFeedPrice(sender=sender, base=base, quote=quote, price=price)
+        """This operation is retired and no longer supported by the chain."""
+        raise NotImplementedError("MsgRelayPriceFeedPrice is retired and can no longer be composed.")
 
     # endregion
 
