@@ -84,6 +84,7 @@ class AsyncClient:
         self._initialize_timeout_height_sync_task()
 
         self._tokens_and_markets_initialization_lock = asyncio.Lock()
+        self._tokens_and_markets_initialized = False
         self._tokens_by_denom = dict()
         self._tokens_by_symbol = dict()
         self._spot_markets: Optional[Dict[str, SpotMarket]] = None
@@ -184,9 +185,9 @@ class AsyncClient:
         self._cancel_timeout_height_sync_task()
 
     async def all_tokens(self) -> Dict[str, Token]:
-        if self._tokens_by_symbol is None:
+        if not self._tokens_and_markets_initialized:
             async with self._tokens_and_markets_initialization_lock:
-                if self._tokens_by_symbol is None:
+                if not self._tokens_and_markets_initialized:
                     await self._initialize_tokens_and_markets()
         return deepcopy(self._tokens_by_symbol)
 
@@ -1454,9 +1455,11 @@ class AsyncClient:
                     Decimal(market_info["minQuantityTickSize"])
                 ),
                 min_notional=Token.convert_value_from_extended_decimal_format(Decimal(market_info["minNotional"])),
-                settlement_price=None
-                if market_info["settlementPrice"] == ""
-                else Token.convert_value_from_extended_decimal_format(Decimal(market_info["settlementPrice"])),
+                settlement_price=(
+                    None
+                    if market_info["settlementPrice"] == ""
+                    else Token.convert_value_from_extended_decimal_format(Decimal(market_info["settlementPrice"]))
+                ),
             )
 
             binary_option_markets[market.id] = market
@@ -1464,6 +1467,7 @@ class AsyncClient:
         self._spot_markets = spot_markets
         self._derivative_markets = derivative_markets
         self._binary_option_markets = binary_option_markets
+        self._tokens_and_markets_initialized = True
 
     def _token_representation(
         self,

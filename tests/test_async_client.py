@@ -1,3 +1,4 @@
+import asyncio
 import logging
 
 import pytest
@@ -176,8 +177,6 @@ class TestAsyncClient:
         client.chain_exchange_v2_api._stub = exchange_servicer
         client.tendermint_api._stub = tendermint_servicer
 
-        await client._initialize_tokens_and_markets()
-
         all_tokens = await client.all_tokens()
         assert 5 == len(all_tokens)
         inj_symbol, usdt_symbol = inj_usdt_spot_market_meta.ticker.split("/")
@@ -206,6 +205,43 @@ class TestAsyncClient:
         assert any(
             (first_match_bet_market_meta.market_id == market.id for market in all_binary_option_markets.values())
         )
+
+    @pytest.mark.asyncio
+    @pytest.mark.parametrize(
+        "tokens_list",
+        [
+            pytest.param([], id="empty"),
+            pytest.param(
+                [{"name": "Injective", "symbol": "INJ", "denom": "inj", "decimals": 18, "logo": ""}],
+                id="populated",
+            ),
+        ],
+    )
+    async def test_all_tokens_initializes_once(self, tokens_list, exchange_servicer, tendermint_servicer, aioresponses):
+        test_network = Network.local()
+        aioresponses.get(test_network.official_tokens_list_url, payload=tokens_list)
+        exchange_servicer.spot_markets_responses.append(exchange_query_pb.QuerySpotMarketsResponse(markets=[]))
+        exchange_servicer.derivative_markets_responses.append(
+            exchange_query_pb.QueryDerivativeMarketsResponse(markets=[])
+        )
+        exchange_servicer.binary_options_markets_responses.append(
+            exchange_query_pb.QueryBinaryMarketsResponse(markets=[])
+        )
+        client = AsyncClient(network=test_network)
+        client.chain_exchange_v2_api._stub = exchange_servicer
+        client.tendermint_api._stub = tendermint_servicer
+
+        try:
+            first_tokens, second_tokens = await asyncio.gather(client.all_tokens(), client.all_tokens())
+
+            expected_symbols = {token["symbol"] for token in tokens_list}
+            assert set(first_tokens) == expected_symbols
+            assert first_tokens == second_tokens
+            first_tokens.clear()
+            assert set(await client.all_tokens()) == expected_symbols
+            aioresponses.assert_called_once_with(test_network.official_tokens_list_url)
+        finally:
+            await client.close_chain_channel()
 
     @pytest.mark.asyncio
     @pytest.mark.parametrize("market_loader", ["all_spot_markets", "all_derivative_markets"])
@@ -384,9 +420,9 @@ class TestAsyncClient:
         client.chain_exchange_v2_api._stub = exchange_servicer
         client.tendermint_api._stub = tendermint_servicer
 
-        await client._initialize_tokens_and_markets()
         await client.initialize_tokens_from_chain_denoms()
 
         all_tokens = await client.all_tokens()
         assert 1 == len(all_tokens)
         assert smart_denom_metadata.symbol in all_tokens
+        aioresponses.assert_called_once_with(test_network.official_tokens_list_url)
