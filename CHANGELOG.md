@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+### Fixed
+- Allow spot and derivative market initialization when the binary options RPC is absent from the v2 exchange query service.
+- Raise descriptive `NotImplementedError` exceptions for removed v2 trading reward, reward opt-out, market volatility, and historical trade record RPCs.
+
 ## [v1.16.0] 2026-06-29
 ### Added
 - Peggy Rate Limit types are extended to take in an oracle_type field to denote the oracle used to fetch a price along with the token_id

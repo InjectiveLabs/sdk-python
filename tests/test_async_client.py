@@ -208,6 +208,75 @@ class TestAsyncClient:
         )
 
     @pytest.mark.asyncio
+    @pytest.mark.parametrize("market_loader", ["all_spot_markets", "all_derivative_markets"])
+    async def test_load_markets_without_binary_options_rpc(
+        self,
+        market_loader,
+        exchange_servicer,
+        tendermint_servicer,
+        inj_usdt_spot_market_meta,
+        btc_usdt_perp_market_meta,
+        aioresponses,
+        monkeypatch,
+    ):
+        test_network = Network.local()
+        aioresponses.get(test_network.official_tokens_list_url, payload=[])
+        exchange_servicer.spot_markets_responses.append(
+            exchange_query_pb.QuerySpotMarketsResponse(markets=[inj_usdt_spot_market_meta])
+        )
+        exchange_servicer.derivative_markets_responses.append(
+            exchange_query_pb.QueryDerivativeMarketsResponse(markets=[btc_usdt_perp_market_meta])
+        )
+
+        client = AsyncClient(network=test_network)
+        # Keep the generated stub, which no longer exposes BinaryOptionsMarkets.
+        monkeypatch.setattr(client.chain_exchange_v2_api._stub, "SpotMarkets", exchange_servicer.SpotMarkets)
+        monkeypatch.setattr(
+            client.chain_exchange_v2_api._stub, "DerivativeMarkets", exchange_servicer.DerivativeMarkets
+        )
+        client.tendermint_api._stub = tendermint_servicer
+
+        try:
+            markets = await getattr(client, market_loader)()
+
+            assert len(markets) == 1
+            assert inj_usdt_spot_market_meta.market_id in await client.all_spot_markets()
+            assert btc_usdt_perp_market_meta.market.market_id in await client.all_derivative_markets()
+            assert await client.all_binary_option_markets() == {}
+        finally:
+            await client.close_chain_channel()
+
+    @pytest.mark.asyncio
+    @pytest.mark.parametrize("client_layer", ["async_client", "exchange_api"])
+    @pytest.mark.parametrize(
+        "method_name, arguments, rpc_name",
+        [
+            ("fetch_trade_reward_campaign", {}, "TradeRewardCampaign"),
+            ("fetch_trade_reward_points", {}, "TradeRewardPoints"),
+            ("fetch_pending_trade_reward_points", {}, "PendingTradeRewardPoints"),
+            ("fetch_is_opted_out_of_rewards", {"account": "inj1test"}, "IsOptedOutOfRewards"),
+            ("fetch_opted_out_of_rewards_accounts", {}, "OptedOutOfRewardsAccounts"),
+            ("fetch_market_volatility", {"market_id": "0x123"}, "MarketVolatility"),
+            ("fetch_historical_trade_records", {"market_id": "0x123"}, "HistoricalTradeRecords"),
+        ],
+    )
+    async def test_removed_exchange_queries_report_unsupported_rpc(
+        self, client_layer, method_name, arguments, rpc_name, tendermint_servicer
+    ):
+        client = AsyncClient(network=Network.local())
+        client.tendermint_api._stub = tendermint_servicer
+        query_client = client if client_layer == "async_client" else client.chain_exchange_v2_api
+
+        try:
+            with pytest.raises(
+                NotImplementedError,
+                match=f"The {rpc_name} RPC is no longer supported by the v2 exchange query service",
+            ):
+                await getattr(query_client, method_name)(**arguments)
+        finally:
+            await client.close_chain_channel()
+
+    @pytest.mark.asyncio
     async def test_tokens_and_markets_initialization_read_tokens_from_official_list(
         self,
         exchange_servicer,

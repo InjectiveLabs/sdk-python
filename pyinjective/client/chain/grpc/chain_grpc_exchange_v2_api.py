@@ -439,11 +439,12 @@ class ChainGrpcExchangeV2Api:
         accounts: Optional[List[str]] = None,
         pending_pool_timestamp: Optional[int] = None,
     ) -> Dict[str, Any]:
+        query = self._get_query_method("TradeRewardPoints")
         request = exchange_query_pb.QueryTradeRewardPointsRequest(
             accounts=accounts,
             pending_pool_timestamp=pending_pool_timestamp,
         )
-        response = await self._execute_call(call=self._stub.TradeRewardPoints, request=request)
+        response = await self._execute_call(call=query, request=request)
 
         return response
 
@@ -452,17 +453,19 @@ class ChainGrpcExchangeV2Api:
         accounts: Optional[List[str]] = None,
         pending_pool_timestamp: Optional[int] = None,
     ) -> Dict[str, Any]:
+        query = self._get_query_method("PendingTradeRewardPoints")
         request = exchange_query_pb.QueryTradeRewardPointsRequest(
             accounts=accounts,
             pending_pool_timestamp=pending_pool_timestamp,
         )
-        response = await self._execute_call(call=self._stub.PendingTradeRewardPoints, request=request)
+        response = await self._execute_call(call=query, request=request)
 
         return response
 
     async def fetch_trade_reward_campaign(self) -> Dict[str, Any]:
+        query = self._get_query_method("TradeRewardCampaign")
         request = exchange_query_pb.QueryTradeRewardCampaignRequest()
-        response = await self._execute_call(call=self._stub.TradeRewardCampaign, request=request)
+        response = await self._execute_call(call=query, request=request)
 
         return response
 
@@ -506,20 +509,23 @@ class ChainGrpcExchangeV2Api:
         return response
 
     async def fetch_historical_trade_records(self, market_id: str) -> Dict[str, Any]:
+        query = self._get_query_method("HistoricalTradeRecords")
         request = exchange_query_pb.QueryHistoricalTradeRecordsRequest(market_id=market_id)
-        response = await self._execute_call(call=self._stub.HistoricalTradeRecords, request=request)
+        response = await self._execute_call(call=query, request=request)
 
         return response
 
     async def fetch_is_opted_out_of_rewards(self, account: str) -> Dict[str, Any]:
+        query = self._get_query_method("IsOptedOutOfRewards")
         request = exchange_query_pb.QueryIsOptedOutOfRewardsRequest(account=account)
-        response = await self._execute_call(call=self._stub.IsOptedOutOfRewards, request=request)
+        response = await self._execute_call(call=query, request=request)
 
         return response
 
     async def fetch_opted_out_of_rewards_accounts(self) -> Dict[str, Any]:
+        query = self._get_query_method("OptedOutOfRewardsAccounts")
         request = exchange_query_pb.QueryOptedOutOfRewardsAccountsRequest()
-        response = await self._execute_call(call=self._stub.OptedOutOfRewardsAccounts, request=request)
+        response = await self._execute_call(call=query, request=request)
 
         return response
 
@@ -531,6 +537,7 @@ class ChainGrpcExchangeV2Api:
         include_raw_history: Optional[bool] = None,
         include_metadata: Optional[bool] = None,
     ) -> Dict[str, Any]:
+        query = self._get_query_method("MarketVolatility")
         trade_history_options = exchange_query_pb.TradeHistoryOptions()
         if trade_grouping_sec is not None:
             trade_history_options.trade_grouping_sec = trade_grouping_sec
@@ -543,13 +550,18 @@ class ChainGrpcExchangeV2Api:
         request = exchange_query_pb.QueryMarketVolatilityRequest(
             market_id=market_id, trade_history_options=trade_history_options
         )
-        response = await self._execute_call(call=self._stub.MarketVolatility, request=request)
+        response = await self._execute_call(call=query, request=request)
 
         return response
 
     async def fetch_binary_options_markets(self, status: Optional[str] = None) -> Dict[str, Any]:
+        # The binary options RPC was removed from the v2 query service.
+        query = getattr(self._stub, "BinaryOptionsMarkets", None)
+        if query is None:
+            return {"markets": []}
+
         request = exchange_query_pb.QueryBinaryMarketsRequest(status=status)
-        response = await self._execute_call(call=self._stub.BinaryOptionsMarkets, request=request)
+        response = await self._execute_call(call=query, request=request)
 
         return response
 
@@ -652,6 +664,12 @@ class ChainGrpcExchangeV2Api:
         response = await self._execute_call(call=self._stub.OpenInterest, request=request)
 
         return response
+
+    def _get_query_method(self, name: str) -> Callable:
+        query = getattr(self._stub, name, None)
+        if query is None:
+            raise NotImplementedError(f"The {name} RPC is no longer supported by the v2 exchange query service.")
+        return query
 
     async def _execute_call(self, call: Callable, request) -> Dict[str, Any]:
         return await self._assistant.execute_call(call=call, request=request)
