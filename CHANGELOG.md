@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 - Allow spot and derivative market initialization when the binary options RPC is absent from the v2 exchange query service.
 - Raise descriptive `NotImplementedError` exceptions for removed v2 trading reward, reward opt-out, market volatility, and historical trade record RPCs.
 - Reject retired binary options, rewards opt-out, and price-feed relay operations in Composer, including binary options fields in batch order updates.
+- Preserve existing cross-margin eligibility when `msg_update_derivative_market` omits the optional eligibility argument.
 
 ## [v1.16.0] 2026-06-29
 ### Added

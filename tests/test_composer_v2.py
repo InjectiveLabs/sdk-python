@@ -1684,7 +1684,12 @@ class TestComposer:
         )
         assert dict_message == expected_message
 
-    def test_msg_update_derivative_market(self, basic_composer):
+    @pytest.mark.parametrize(
+        "cross_margin_eligibility",
+        [None, *Composer.CROSS_MARGIN_ELIGIBILITY],
+        ids=["omitted", "unspecified", "eligible", "ineligible"],
+    )
+    def test_msg_update_derivative_market(self, basic_composer, cross_margin_eligibility):
         market_id = "0x17ef48032cb24375ba7c2e39f384e56433bcab20cbee9a7357e4cba2eb00abe6"
 
         sender = "inj1apmvarl2xyv6kecx2ukkeymddw3we4zkygjyc0"
@@ -1695,7 +1700,11 @@ class TestComposer:
         initial_margin_ratio = Decimal("0.05")
         maintenance_margin_ratio = Decimal("0.009")
         reduce_margin_ration = Decimal("3")
-        cross_margin_eligibility = Composer.CROSS_MARGIN_ELIGIBILITY.CM_ELIGIBILITY_ELIGIBLE
+        eligibility_options = {}
+        expected_eligibility = Composer.CROSS_MARGIN_ELIGIBILITY.CM_ELIGIBILITY_UNSPECIFIED
+        if cross_margin_eligibility is not None:
+            eligibility_options["cross_margin_eligibility"] = cross_margin_eligibility
+            expected_eligibility = cross_margin_eligibility
 
         expected_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=min_price_tick_size)
         expected_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=min_quantity_tick_size)
@@ -1720,7 +1729,7 @@ class TestComposer:
             new_maintenance_margin_ratio=maintenance_margin_ratio,
             new_reduce_margin_ratio=reduce_margin_ration,
             new_open_notional_cap=open_notional_cap,
-            cross_margin_eligibility=cross_margin_eligibility,
+            **eligibility_options,
         )
 
         expected_message = {
@@ -1738,7 +1747,7 @@ class TestComposer:
                     "value": f"{expected_open_notional_cap_value.normalize():f}",
                 },
             },
-            "crossMarginEligibility": cross_margin_eligibility.name,
+            "crossMarginEligibility": expected_eligibility.name,
         }
         dict_message = json_format.MessageToDict(
             message=message,

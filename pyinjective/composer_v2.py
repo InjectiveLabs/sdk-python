@@ -1159,8 +1159,9 @@ class Composer:
         new_maintenance_margin_ratio: Decimal,
         new_reduce_margin_ratio: Decimal,
         new_open_notional_cap: Optional[injective_market_v2_pb.OpenNotionalCap] = None,
-        cross_margin_eligibility: CROSS_MARGIN_ELIGIBILITY = CROSS_MARGIN_ELIGIBILITY.CM_ELIGIBILITY_INELIGIBLE,
+        cross_margin_eligibility: CROSS_MARGIN_ELIGIBILITY = CROSS_MARGIN_ELIGIBILITY.CM_ELIGIBILITY_UNSPECIFIED,
     ) -> injective_exchange_tx_v2_pb.MsgUpdateDerivativeMarket:
+        """Preserve cross-margin eligibility unless an explicit update is supplied."""
         chain_min_price_tick_size = Token.convert_value_to_extended_decimal_format(value=new_min_price_tick_size)
         chain_min_quantity_tick_size = Token.convert_value_to_extended_decimal_format(value=new_min_quantity_tick_size)
         chain_min_notional = Token.convert_value_to_extended_decimal_format(value=new_min_notional)
