@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - Preserve existing cross-margin eligibility when `msg_update_derivative_market` omits the optional eligibility argument.
 - Initialize tokens and markets on the first `all_tokens()` call and cache the result even when no tokens are returned.
 - Derive transaction message and response decoding registrations from protobuf definitions, including supported messages previously missing from the decoder maps.
+- Support `BUY_ATOMIC` and `SELL_ATOMIC` in spot and derivative order hashing by deriving the order type encoding from the protobuf enum.
 
 ## [v1.16.0] 2026-06-29
 ### Added

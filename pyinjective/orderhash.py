@@ -7,6 +7,7 @@ from eth_pydantic_types import abi
 from hexbytes import HexBytes
 
 from pyinjective.core.token import Token
+from pyinjective.proto.injective.exchange.v2 import order_pb2 as exchange_order_pb
 
 
 class OrderInfo(EIP712Type):
@@ -49,8 +50,8 @@ class DerivativeOrder(EIP712Message):
     Salt: abi.string
 
 
-# domain_separator = EIP712_domain.hash_struct()
-order_type_dict = {0: "\x00", 1: "\x01", 2: "\x02", 3: "\x03", 4: "\x04", 5: "\x05", 6: "\x06", 7: "\x07", 8: "\x08"}
+# Match the chain's Go string(OrderType) conversion for every protobuf enum value.
+order_type_dict = {value: chr(value) for value in exchange_order_pb.OrderType.values()}
 
 
 class OrderHashResponse:
