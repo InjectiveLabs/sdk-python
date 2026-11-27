@@ -346,6 +346,51 @@ class TestAsyncClient:
             assert token_info["symbol"] in all_tokens
 
     @pytest.mark.asyncio
+    async def test_all_tokens_initializes_tokens_and_markets(
+        self,
+        exchange_servicer,
+        tendermint_servicer,
+        aioresponses,
+    ):
+        test_network = Network.local()
+        tokens_list = [
+            {
+                "address": "inj",
+                "isNative": True,
+                "tokenVerification": "verified",
+                "decimals": 18,
+                "symbol": "INJ",
+                "name": "Injective",
+                "logo": "https://imagedelivery.net/lPzngbR8EltRfBOi_WYaXw/18984c0b-3e61-431d-241d-dfbb60b57600/public",
+                "coinGeckoId": "injective-protocol",
+                "denom": "inj",
+                "tokenType": "native",
+                "externalLogo": "injective-v3.png",
+            },
+        ]
+        aioresponses.get(test_network.official_tokens_list_url, payload=tokens_list)
+
+        exchange_servicer.spot_markets_responses.append(exchange_query_pb.QuerySpotMarketsResponse(markets=[]))
+        exchange_servicer.derivative_markets_responses.append(
+            exchange_query_pb.QueryDerivativeMarketsResponse(markets=[])
+        )
+        exchange_servicer.binary_options_markets_responses.append(
+            exchange_query_pb.QueryBinaryMarketsResponse(markets=[])
+        )
+
+        client = AsyncClient(
+            network=test_network,
+        )
+
+        client.chain_exchange_v2_api._stub = exchange_servicer
+        client.tendermint_api._stub = tendermint_servicer
+
+        all_tokens = await client.all_tokens()
+
+        assert 1 == len(all_tokens)
+        assert "inj" == all_tokens["INJ"].denom
+
+    @pytest.mark.asyncio
     async def test_initialize_tokens_from_chain_denoms(
         self,
         bank_servicer,

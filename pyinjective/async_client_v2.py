@@ -184,9 +184,10 @@ class AsyncClient:
         self._cancel_timeout_height_sync_task()
 
     async def all_tokens(self) -> Dict[str, Token]:
-        if self._tokens_by_symbol is None:
+        # the token dicts start empty, so the markets are the marker for a completed initialization
+        if self._spot_markets is None:
             async with self._tokens_and_markets_initialization_lock:
-                if self._tokens_by_symbol is None:
+                if self._spot_markets is None:
                     await self._initialize_tokens_and_markets()
         return deepcopy(self._tokens_by_symbol)
 
