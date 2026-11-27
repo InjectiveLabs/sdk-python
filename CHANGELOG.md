@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - Allow spot and derivative market initialization when the binary options RPC is absent from the v2 exchange query service.
 - Raise descriptive `NotImplementedError` exceptions for removed v2 trading reward, reward opt-out, market volatility, and historical trade record RPCs.
+- Load tokens and markets on the first `AsyncClient.all_tokens` call. A fresh client returned an empty dict and `initialize_tokens_from_chain_denoms` skipped the official tokens list.
 
 ## [v1.16.0] 2026-06-29
 ### Added
