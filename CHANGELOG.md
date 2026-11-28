@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - Allow spot and derivative market initialization when the binary options RPC is absent from the v2 exchange query service.
 - Raise descriptive `NotImplementedError` exceptions for removed v2 trading reward, reward opt-out, market volatility, and historical trade record RPCs.
+- Allow `fetch_contract_txs_v2` to be called without pagination or with only some of the pagination values. It raised `TypeError` unless `start_time`, `end_time` and `limit` were all set.
 
 ## [v1.16.0] 2026-06-29
 ### Added

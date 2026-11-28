@@ -83,9 +83,11 @@ class IndexerGrpcExplorerApi:
         )
         if height is not None:
             request.height = height
-        if pagination is not None:
+        if pagination.start_time is not None:
             setattr(request, "from", pagination.start_time)
+        if pagination.end_time is not None:
             request.to = pagination.end_time
+        if pagination.limit is not None:
             request.per_page = pagination.limit
         if status is not None:
             request.status = status

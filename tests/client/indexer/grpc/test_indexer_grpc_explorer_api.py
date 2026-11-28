@@ -454,6 +454,35 @@ class TestIndexerGrpcExplorerApi:
         assert result_contract_txs == expected_contract_txs
 
     @pytest.mark.asyncio
+    async def test_fetch_contract_txs_v2_without_pagination_values(
+        self,
+        explorer_servicer,
+    ):
+        response_paging = exchange_explorer_pb.Cursor(
+            next=["next-page"],
+        )
+
+        for _ in range(2):
+            explorer_servicer.contract_txs_v2_responses.append(
+                exchange_explorer_pb.GetContractTxsV2Response(
+                    paging=response_paging,
+                )
+            )
+
+        api = self._api_instance(servicer=explorer_servicer)
+
+        result_without_pagination = await api.fetch_contract_txs_v2(
+            address="inj1phd706jqzd9wznkk5hgsfkrc8jqxv0kmlj0kex",
+        )
+        result_with_limit_only = await api.fetch_contract_txs_v2(
+            address="inj1phd706jqzd9wznkk5hgsfkrc8jqxv0kmlj0kex",
+            pagination=PaginationOption(limit=10),
+        )
+
+        assert result_without_pagination["paging"] == {"next": ["next-page"]}
+        assert result_with_limit_only["paging"] == {"next": ["next-page"]}
+
+    @pytest.mark.asyncio
     async def test_fetch_blocks(
         self,
         explorer_servicer,
